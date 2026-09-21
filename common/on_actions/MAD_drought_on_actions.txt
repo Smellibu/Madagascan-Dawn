@@ -1,0 +1,27 @@
+# common/on_actions/MAD_drought_on_actions.txt
+# Game-start initialisation plus the daily one-year containment qualification.
+on_actions = {
+	on_startup = {
+		effect = {
+			if = {
+				limit = { country_exists = MAD }
+				MAD = {
+					if = {
+						limit = { NOT = { has_country_flag = MAD_DROUGHT_STARTED } }
+						MAD_drought_init = yes
+						country_event = { id = mad_drought.2 days = 30 }
+					}
+					clamp_variable = { var = MAD_drought_prevention_count min = 0 max = 7 }
+				}
+			}
+		}
+	}
+	on_daily = {
+		effect = {
+			if = {
+				limit = { country_exists = MAD }
+				MAD = { MAD_drought_containment_daily_tick = yes }
+			}
+		}
+	}
+}

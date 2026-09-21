@@ -1,0 +1,22 @@
+# ================================================================
+# FILE: common/decisions/categories/MAD_categories.txt
+# ================================================================
+MAD_AMBATOVY_FORMING = {
+}
+MAD_AIR_STATE_CONTROL_MISSIONS = {
+}
+MAD_madarail_category = {
+}
+MAD_daewoo_category = {
+}
+
+# Drought and Famine: one panel containing the embedded severity map,
+# countrywide preventative programmes, and four-state relief decisions.
+MAD_drought_category = {
+	icon = generic_political_discourse
+	priority = 99
+	allowed = { tag = MAD }
+	visible = { tag = MAD }
+	visible_when_empty = yes
+	scripted_gui = MAD_drought_map_gui
+}

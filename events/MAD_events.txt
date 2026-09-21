@@ -1,0 +1,993 @@
+### ==============================================================
+### EVENT — fires once MAD_AMBATOVY_TOTAL hits 100 (JV formed)
+### Hook this into whichever effect field runs on successful
+### early ACTIVATION, not TIMEOUT_EFFECT.
+### ==============================================================
+add_namespace = mad_ambatovy
+
+### ==============================================================
+### EVENT — fired from MAD_AMBATOVY_MISSION's remove_effect
+### ==============================================================
+
+country_event = {
+	id = mad_ambatovy.1
+	title = mad_ambatovy.1.t
+	desc = mad_ambatovy.1.d
+	picture = GFX_report_event_mining_default # swap for whatever MD actually uses
+
+	is_triggered_only = yes
+
+	option = {
+		name = mad_ambatovy.1.a # "Let Sherritt step in"
+		set_country_flag = MAD_ambatovy_operator_sherritt
+		log = "[GetDateText]: [This.GetName]: mad_ambatovy.1 - Sherritt steps in"
+		add_power_balance_value = {
+			id = MAD_economy_ownership_bop
+			value = -0.075
+			tooltip_side = MAD_private_ownership
+		}
+		
+		custom_effect_tooltip = {
+			localization_key = modifies_dynamic_modifier_tt
+			MODIFIER = MAD_economy_modifier
+		}
+		add_to_variable = { MAD_economy_receiving_investment_duration_modifier = -0.10 tooltip = receiving_investment_duration_modifier_tt }
+
+		
+	}
+
+	option = {
+		name = mad_ambatovy.1.b # "Pay to buy out Dynatec's position"
+		
+
+
+		set_temp_variable = { treasury_change = -17.00 } # placeholder magnitude, tune to taste
+		modify_treasury_effect = yes
+		add_to_variable = { var = MAD_AMBATOVY_CORP value = -40 }
+		add_to_variable = { var = MAD_AMBATOVY_STATE_FUNDS value = 40 }
+		set_country_flag = MAD_ambatovy_state_bought_dynatec
+		add_power_balance_value = {
+			id = MAD_economy_ownership_bop
+			value = 0.075
+			tooltip_side = MAD_public_ownership
+		}
+			custom_effect_tooltip = {
+				localization_key = modifies_dynamic_modifier_tt
+				MODIFIER = MAD_economy_modifier
+			}
+		add_to_variable = { MAD_economy_foreign_influence_modifier = -0.10 tooltip = foreign_influence_modifier_tt }
+		add_to_variable = { MAD_economy_infrastructure_tax_gain_multiplier_modifier = 0.05 tooltip = infrastructure_tax_gain_multiplier_modifier_tt }
+
+		log = "[GetDateText]: [This.GetName]: mad_ambatovy.1 - state buys out Dynatec"
+	}
+}
+add_namespace = MAD_LUFTHANSA_OFFER
+country_event = {
+	id = MAD_LUFTHANSA_OFFER.1
+	title = MAD_LUFTHANSA_OFFER.1.t
+	desc = MAD_LUFTHANSA_OFFER.1.d
+	picture = GFX_paris_convention
+	is_triggered_only = yes
+ 
+	option = { # Accept the offer
+		name = MAD_LUFTHANSA_OFFER.a
+		set_temp_variable = { treasury_change = -5 }
+		modify_treasury_effect = yes
+ 
+		set_temp_variable = { int_investment_change = 7.5 }
+		modify_international_investment_effect = yes
+ 
+		MAD = {
+			set_country_flag = MAD_GERMANS_ACCEPTED_LUFTHANSA
+			country_event = { id = MAD_LUFTHANSA_OFFER.2 hours = 1 }
+		}
+		ai_chance = { base = 10 }
+	}
+	option = { # Decline the offer
+		name = MAD_LUFTHANSA_OFFER.b
+ 
+		MAD = {
+			set_country_flag = MAD_GERMANS_REJECTED_LUFTHANSA
+			country_event = { id = MAD_LUFTHANSA_OFFER.3 hours = 1 }
+		}
+		ai_chance = { base = 10 }
+	}
+}
+ 
+country_event = { # Fires on MAD — accept branch
+	id = MAD_LUFTHANSA_OFFER.2
+	title = MAD_LUFTHANSA_OFFER.2.t
+	desc = MAD_LUFTHANSA_OFFER.2.d
+	picture = GFX_paris_convention
+	is_triggered_only = yes
+ 
+	option = {
+		name = MAD_LUFTHANSA_OFFER_ACCEPT.a
+ 
+		custom_effect_tooltip = {
+			localization_key = modifies_dynamic_modifier_tt
+			MODIFIER = MAD_economy_modifier
+		}
+		add_to_variable = { MAD_economy_infrastructure_cost_multiplier_modifier = -0.02 tooltip = infrastructure_cost_multiplier_modifier_tt }
+		add_to_variable = { MAD_economy_receiving_investment_cost_modifier = -0.05 tooltip = receiving_investment_cost_modifier_tt }
+		add_to_variable = { MAD_economy_offices_productivity = 0.02 tooltip = offices_productivity_tt }
+ 
+		ai_chance = { base = 1 }
+	}
+}
+ 
+country_event = { # Fires on MAD — decline branch
+	id = MAD_LUFTHANSA_OFFER.3
+	title = MAD_LUFTHANSA_OFFER.3.t
+	desc = MAD_LUFTHANSA_OFFER.3.d
+	picture = GFX_paris_convention
+	is_triggered_only = yes
+ 
+	option = {
+		name = MAD_LUFTHANSA_OFFER_DECLINE.a
+		ai_chance = { base = 1 }
+	}
+}	
+
+####TELMAEVENTS#####
+add_namespace = mad_telma
+
+country_event = {
+	id = mad_telma.1
+	title = mad_telma.1.t
+ 
+	desc = {
+		text = mad_telma.1.d_axian
+		trigger = { has_country_flag = MAD_TELMA_AXIAN_OWNED }
+	}
+	desc = {
+		text = mad_telma.1.d_state
+		trigger = { has_country_flag = MAD_TELMA_STATE_OWNED }
+	}
+ 
+	picture = GFX_report_event_economy_default
+ 
+	is_triggered_only = yes
+ 
+	option = {
+		name = mad_telma.1.a # "Allow the new entrant"
+		swap_ideas = {
+		remove_idea = MAD_FIBRE_MONOPOLY
+		add_idea = MAD_FIBRE_MONOPOLY_WEAKENED
+		}
+		set_country_flag = MAD_mobile_competition_resolved
+		add_stability = 0.02
+		log = "[GetDateText]: [This.GetName]: mad_telma.1 - competitor allowed"
+	}
+	option = {
+		name = mad_telma.1.b # "Block the new entrant"
+		swap_ideas = {
+		remove_idea = MAD_FIBRE_MONOPOLY
+		add_idea = MAD_FIBRE_MONOPOLY_PROTECTED_EARLY
+		}
+		newline = yes
+			set_temp_variable = { temp_opinion = 15 }
+			change_international_bankers_opinion = yes
+		newline = yes
+			set_temp_variable = { temp_opinion = -5 }
+			change_small_medium_business_owners_opinion = yes
+		set_country_flag = MAD_mobile_competition_resolved
+		increase_corruption = yes
+		add_political_power = 25
+		random_owned_controlled_state = {
+			
+			add_building_construction = {
+						type = internet_station
+						level = 1
+						instant_build = yes
+			}
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+						type = offices
+						level = 1
+						instant_build = yes
+			}
+		}
+		log = "[GetDateText]: [This.GetName]: mad_telma.1 - competitor blocked"
+	}
+}
+
+add_namespace = mad_madarail
+
+########################################################################
+# mad_madarail.1  - terms of nationalisation (fired by MAD_MADARAIL_STATE_TAKEOVER)
+########################################################################
+
+country_event = {
+	id = mad_madarail.1
+	title = mad_madarail.1.t
+	desc = mad_madarail.1.d
+	is_triggered_only = yes
+
+	# Option A: seize the network for nothing - cheap, messy, minor buffs
+	option = {
+		name = mad_madarail.1.a
+		log = "[GetDateText]: [This.GetName]: mad_madarail.1.a executed - seized Madarail without compensation"
+		add_ideas = MAD_MADARAIL_OPERATOR_STATE_AUSTERE
+		add_stability = -0.02
+		add_power_balance_value = {
+			id = MAD_economy_ownership_bop
+			value = 0.075
+			tooltip_side = MAD_public_ownership
+		}
+		custom_effect_tooltip = {
+			localization_key = modifies_dynamic_modifier_tt
+			MODIFIER = MAD_economy_modifier
+		}
+		add_to_variable = { MAD_economy_infrastructure_tax_gain_multiplier_modifier = -0.05 tooltip = infrastructure_tax_gain_multiplier_modifier_tt }
+	}
+
+	# Option B: pay off the concession's debts and take it over properly - costs treasury, bigger buffs, free infrastructure
+	option = {
+		name = mad_madarail.1.b
+		log = "[GetDateText]: [This.GetName]: mad_madarail.1.b executed - paid off Madarail's debts before taking over"
+		add_ideas = MAD_MADARAIL_OPERATOR_STATE_FUNDED
+		add_stability = 0.02
+		add_power_balance_value = {
+			id = MAD_economy_ownership_bop
+			value = 0.075
+			tooltip_side = MAD_public_ownership
+		}
+		custom_effect_tooltip = {
+			localization_key = modifies_dynamic_modifier_tt
+			MODIFIER = MAD_economy_modifier
+		}
+		add_to_variable = { MAD_economy_infrastructure_tax_gain_multiplier_modifier = 0.05 tooltip = infrastructure_tax_gain_multiplier_modifier_tt }
+		# clearing the concession's debts
+		set_temp_variable = { treasury_change = -15.00 }
+		modify_treasury_effect = yes
+		# free infrastructure investment as part of the recapitalisation
+		487 = {
+			add_building_construction = {
+				type = infrastructure
+				level = 1
+				instant_build = yes
+			}
+		}
+	}
+}
+
+########################################################################
+# INVESTOR CYCLE
+#
+#   .2  hidden   start (fired by MAD_MADARAIL_OWNERSHIP_CHURN)
+#   .3  popup    "The Bidders" - the player picks which remaining suitor takes the concession
+#   .4  hidden   mission timeout: the suitor leaves; next bidders event, or forced exit after the third
+#   .7  popup    STAY  (player completes the mission with confidence >= 75)
+#   .8  popup    DESIST (fired by the "Let the Investors Walk" decision)
+#   .9  popup    DESIST, forced (third suitor ran out its 150 days)
+########################################################################
+
+country_event = {
+	id = mad_madarail.2
+	title = mad_madarail.2.t
+	hidden = yes
+	is_triggered_only = yes
+
+	immediate = {
+		log = "[GetDateText]: [This.GetName]: mad_madarail.2 - Madarail investor cycle starts"
+		set_variable = { MAD_madarail_stage = 0 }
+		set_variable = { MAD_madarail_confidence = 0 }
+		country_event = { id = mad_madarail.3 }
+	}
+}
+
+# Pick a suitor. Each can be chosen once; on the third rotation only one is left.
+country_event = {
+	id = mad_madarail.3
+	title = mad_madarail.3.t
+	desc = mad_madarail.3.d
+	is_triggered_only = yes
+
+	option = {
+		name = mad_madarail.3.a
+		trigger = { NOT = { has_country_flag = MAD_MADARAIL_COMAZAR_USED } }
+		log = "[GetDateText]: [This.GetName]: mad_madarail.3.a executed - Comazar seated"
+		MAD_madarail_seat_comazar = yes
+		ai_chance = { base = 3 }
+	}
+	option = {
+		name = mad_madarail.3.b
+		trigger = { NOT = { has_country_flag = MAD_MADARAIL_VECTURIS_USED } }
+		log = "[GetDateText]: [This.GetName]: mad_madarail.3.b executed - Vecturis seated"
+		MAD_madarail_seat_vecturis = yes
+		ai_chance = { base = 2 }
+	}
+	option = {
+		name = mad_madarail.3.c
+		trigger = { NOT = { has_country_flag = MAD_MADARAIL_HOLDING_USED } }
+		log = "[GetDateText]: [This.GetName]: mad_madarail.3.c executed - Holding consortium seated"
+		MAD_madarail_seat_holding = yes
+		ai_chance = { base = 1 }
+	}
+}
+
+# mission timeout: the suitor leaves without a commitment
+country_event = {
+	id = mad_madarail.4
+	hidden = yes
+	is_triggered_only = yes
+
+	immediate = {
+		if = {
+			limit = { NOT = { has_country_flag = MAD_MADARAIL_OUTCOME_DECIDED } }
+			if = {
+				limit = { check_variable = { MAD_madarail_stage < 3 } }
+				log = "[GetDateText]: [This.GetName]: mad_madarail.4 - the suitor leaves without committing, new bidders"
+				MAD_madarail_clear_operators = yes
+				MAD_madarail_clear_concessions = yes
+				country_event = { id = mad_madarail.3 }
+			}
+			else = {
+				log = "[GetDateText]: [This.GetName]: mad_madarail.4 - the third suitor ran out of time, investors desist"
+				country_event = { id = mad_madarail.9 }
+			}
+		}
+	}
+}
+
+# STAY - the player completed the mission with enough confidence
+country_event = {
+	id = mad_madarail.7
+	title = mad_madarail.7.t
+	desc = mad_madarail.7.d
+	is_triggered_only = yes
+
+	option = {
+		name = mad_madarail.7.a
+		log = "[GetDateText]: [This.GetName]: mad_madarail.7.a executed - Madarail investors stay"
+		MAD_madarail_apply_stay_outcome = yes
+	}
+}
+
+# DESIST - the government let them go
+country_event = {
+	id = mad_madarail.8
+	title = mad_madarail.8.t
+	desc = mad_madarail.8.d
+	is_triggered_only = yes
+
+	option = {
+		name = mad_madarail.8.a
+		log = "[GetDateText]: [This.GetName]: mad_madarail.8.a executed - Madarail investors desist by decision"
+		MAD_madarail_apply_desist_outcome = yes
+	}
+}
+
+# DESIST - forced, all three suitors have come and gone
+country_event = {
+	id = mad_madarail.9
+	title = mad_madarail.9.t
+	desc = mad_madarail.9.d
+	is_triggered_only = yes
+
+	option = {
+		name = mad_madarail.9.a
+		log = "[GetDateText]: [This.GetName]: mad_madarail.9.a executed - Madarail investors desist, forced"
+		MAD_madarail_apply_desist_outcome = yes
+	}
+}
+
+########################################################################
+# RAILWAY COMPLETION POPUPS (fired when a decision's one-year build ends)
+#   .20 Antsirabe - Fianarantsoa    .21 Fianarantsoa - Toliara    .22 Antananarivo - Mahajanga
+#   .23 Fianarantsoa - Ambovombe    .24 Antsiranana northern line
+########################################################################
+
+country_event = {
+	id = mad_madarail.20
+	title = mad_madarail.20.t
+	desc = mad_madarail.20.d
+	is_triggered_only = yes
+
+	option = {
+		name = mad_madarail.20.a
+	}
+}
+
+country_event = {
+	id = mad_madarail.21
+	title = mad_madarail.21.t
+	desc = mad_madarail.21.d
+	is_triggered_only = yes
+
+	option = {
+		name = mad_madarail.21.a
+	}
+}
+
+country_event = {
+	id = mad_madarail.22
+	title = mad_madarail.22.t
+	desc = mad_madarail.22.d
+	is_triggered_only = yes
+
+	option = {
+		name = mad_madarail.22.a
+	}
+}
+
+country_event = {
+	id = mad_madarail.23
+	title = mad_madarail.23.t
+	desc = mad_madarail.23.d
+	is_triggered_only = yes
+
+	option = {
+		name = mad_madarail.23.a
+	}
+}
+
+country_event = {
+	id = mad_madarail.24
+	title = mad_madarail.24.t
+	desc = mad_madarail.24.d
+	is_triggered_only = yes
+
+	option = {
+		name = mad_madarail.24.a
+	}
+}
+
+# events/MAD_daewoo_events.txt
+add_namespace = mad_daewoo
+
+# Fired by MAD_DAIWOO_FALLOUT: the lease becomes public
+country_event = {
+	id = mad_daewoo.1
+	title = mad_daewoo.1.t
+	desc = mad_daewoo.1.d
+	picture = GFX_report_event_economy_default
+	is_triggered_only = yes
+
+	option = {
+		name = mad_daewoo.1.a
+		log = "[GetDateText]: [Root.GetName]: mad_daewoo.1 - the Daewoo lease is exposed"
+	}
+}
+
+# The lease is signed off: it has been made to work
+country_event = {
+	id = mad_daewoo.2
+	title = mad_daewoo.2.t
+	desc = mad_daewoo.2.d
+	picture = GFX_report_event_economy_default
+	is_triggered_only = yes
+
+	option = {
+		name = mad_daewoo.2.a
+		log = "[GetDateText]: [Root.GetName]: mad_daewoo.2 - Daewoo lease managed well"
+		set_country_flag = MAD_DAEWOO_OUTCOME_WELL
+	}
+}
+
+# The deadline passed and the lease is still a bad deal: it collapses and the government falls.
+# The settlement (10 billion for the deal plus 5 billion, and -5% stability) is paid by the focus MAD_DEAL_KEPT_FAILED.
+country_event = {
+	id = mad_daewoo.3
+	title = mad_daewoo.3.t
+	desc = mad_daewoo.3.d
+	picture = GFX_report_event_economy_default
+	is_triggered_only = yes
+
+	option = {
+		name = mad_daewoo.3.a
+		log = "[GetDateText]: [Root.GetName]: mad_daewoo.3 - the Daewoo lease collapses, the government falls"
+		set_country_flag = MAD_DAEWOO_OUTCOME_FAILED
+		# the lease is over: cash crops stop feeding the drought, farms need more hands again
+		MAD_daewoo_end_lease = yes
+		# worse than a cancelled deal: investors stay away for three years
+		add_timed_idea = { idea = MAD_DAEWOO_CANCELLED days = 1095 }
+		# the government changes: the ruling ideology is punished, then the country goes to the polls
+		MAD_daewoo_punish_incumbent = yes
+		MAD_daewoo_hold_election = yes
+	}
+}
+
+########################################################################
+# events/MAD_drought_events.txt
+########################################################################
+
+# events/MAD_drought_events.txt
+add_namespace = mad_drought
+
+# .1 init (fired on startup), .2 monthly tick (re-fires itself every 30 days), .10/.11 random shocks,
+# .12-.19 scheduled drought/food-crisis events, .20 drought over, .21 exodus (fail state), .22 contained (win state)
+
+country_event = {
+	id = mad_drought.1
+	title = mad_drought.1.t
+	hidden = yes
+	is_triggered_only = yes
+
+	immediate = {
+		log = "[GetDateText]: [Root.GetName]: mad_drought.1 - the drought panel starts"
+		MAD_drought_init = yes
+		country_event = { id = mad_drought.2 days = 30 }
+	}
+
+	option = {
+		name = mad_drought.1.a
+	}
+}
+
+country_event = {
+	id = mad_drought.2
+	title = mad_drought.2.t
+	hidden = yes
+	is_triggered_only = yes
+
+	immediate = {
+		MAD_drought_monthly_tick = yes
+		if = {
+			limit = { MAD_drought_exists = yes }
+			country_event = { id = mad_drought.2 days = 30 }
+		}
+	}
+
+	option = {
+		name = mad_drought.2.a
+	}
+}
+
+country_event = {
+	id = mad_drought.10
+	title = mad_drought.10.t
+	desc = mad_drought.10.d
+	picture = GFX_report_event_economy_default
+	is_triggered_only = yes
+
+	option = {
+		name = mad_drought.10.a
+		log = "[GetDateText]: [Root.GetName]: mad_drought.10"
+		custom_effect_tooltip = mad_drought.10_tt
+		hidden_effect = {
+			set_temp_variable = { MAD_dr_shock_base = 6 }
+			MAD_drought_south_shock = yes
+		}
+		add_stability = -0.01
+	}
+}
+
+country_event = {
+	id = mad_drought.11
+	title = mad_drought.11.t
+	desc = mad_drought.11.d
+	picture = GFX_report_event_economy_default
+	is_triggered_only = yes
+
+	option = {
+		name = mad_drought.11.a
+		log = "[GetDateText]: [Root.GetName]: mad_drought.11"
+		custom_effect_tooltip = mad_drought.11_tt
+		hidden_effect = {
+			set_temp_variable = { MAD_dr_change = 3 }
+			MAD_drought_apply_change = yes
+		}
+		add_stability = -0.01
+	}
+}
+
+country_event = {
+	id = mad_drought.12
+	title = mad_drought.12.t
+	desc = mad_drought.12.d
+	picture = GFX_report_event_economy_default
+	is_triggered_only = yes
+
+	option = {
+		name = mad_drought.12.a
+		log = "[GetDateText]: [Root.GetName]: mad_drought.12 - locust plague"
+		custom_effect_tooltip = mad_drought.12_tt
+		hidden_effect = {
+			# a swarm does not respect state borders: it crosses the whole island, worst in the Grand Sud.
+			# Every CNA flag you hold cuts it down before it lands.
+			set_temp_variable = { MAD_dr_swarm_base = 9 }
+			if = {
+				limit = { has_country_flag = MAD_DROUGHT_LOCUST_WATCH }
+				set_temp_variable = { MAD_dr_swarm_base = 5 }
+			}
+			MAD_drought_locust_swarm = yes
+		}
+	}
+}
+
+country_event = {
+	id = mad_drought.13
+	title = mad_drought.13.t
+	desc = mad_drought.13.d
+	picture = GFX_report_event_economy_default
+	is_triggered_only = yes
+	trigger = { MAD_historical_drought_should_fire = yes }
+
+	option = {
+		name = mad_drought.13.a
+		log = "[GetDateText]: [Root.GetName]: mad_drought.13 - 2015-16 El Nino drought"
+		custom_effect_tooltip = mad_drought.13_tt
+		hidden_effect = {
+			if = {
+				limit = { has_country_flag = MAD_DROUGHT_EARLY_WARNING }
+				268 = {
+					set_temp_variable = { MAD_dr_state_change = 8 }
+					MAD_drought_state_apply_change = yes
+					set_temp_variable = { MAD_dr_state_famine = 10 }
+					MAD_drought_state_apply_famine = yes
+				}
+			}
+			else = {
+				268 = {
+					set_temp_variable = { MAD_dr_state_change = 13 }
+					MAD_drought_state_apply_change = yes
+					set_temp_variable = { MAD_dr_state_famine = 13 }
+					MAD_drought_state_apply_famine = yes
+				}
+			}
+		}
+		add_to_variable = { MAD_drought_shock_pressure = 0.40 }
+		add_to_variable = { MAD_drought_depop = 1 }
+		set_variable = { MAD_drought_migration_amount = 40 }
+		set_variable = { MAD_drought_migration_force = 1 }
+		MAD_drought_migrate_worst_to_best = yes
+		MAD_drought_recalc_national = yes
+	}
+}
+
+country_event = {
+	id = mad_drought.14
+	title = mad_drought.14.t
+	desc = mad_drought.14.d
+	picture = GFX_report_event_economy_default
+	is_triggered_only = yes
+	trigger = { MAD_historical_drought_should_fire = yes }
+
+	option = {
+		name = mad_drought.14.a
+		log = "[GetDateText]: [Root.GetName]: mad_drought.14 - 2020-21 kere crisis"
+		custom_effect_tooltip = mad_drought.14_tt
+		hidden_effect = {
+			if = {
+				limit = { has_country_flag = MAD_DROUGHT_EARLY_WARNING }
+				268 = {
+					set_temp_variable = { MAD_dr_state_change = 10 }
+					MAD_drought_state_apply_change = yes
+					set_temp_variable = { MAD_dr_state_famine = 16 }
+					MAD_drought_state_apply_famine = yes
+				}
+			}
+			else = {
+				268 = {
+					set_temp_variable = { MAD_dr_state_change = 18 }
+					MAD_drought_state_apply_change = yes
+					set_temp_variable = { MAD_dr_state_famine = 22 }
+					MAD_drought_state_apply_famine = yes
+				}
+			}
+		}
+		add_to_variable = { MAD_drought_shock_pressure = 0.45 }
+		add_to_variable = { MAD_drought_depop = 1 }
+		set_variable = { MAD_drought_migration_amount = 60 }
+		set_variable = { MAD_drought_migration_force = 1 }
+		MAD_drought_migrate_worst_to_best = yes
+		add_stability = -0.03
+		MAD_drought_recalc_national = yes
+	}
+}
+
+########################################################################
+# HISTORICAL SOUTHERN DROUGHTS — 2000 to 2010
+# The provided map abstraction uses Toliara (state 268) as the Grand Sud.
+# Severity shocks there feed the existing state drought tier system, which in turn lowers local output/manpower.
+########################################################################
+
+country_event = {
+	id = mad_drought.15
+	title = mad_drought.15.t
+	desc = mad_drought.15.d
+	picture = GFX_report_event_economy_default
+	is_triggered_only = yes
+	trigger = { MAD_historical_drought_should_fire = yes }
+
+	option = {
+		name = mad_drought.15.a
+		log = "[GetDateText]: [Root.GetName]: mad_drought.15 - southern drought 2000"
+		custom_effect_tooltip = mad_drought.15_tt
+		hidden_effect = {
+			268 = {
+				set_temp_variable = { MAD_dr_state_change = 16 }
+				MAD_drought_state_apply_change = yes
+				set_temp_variable = { MAD_dr_state_famine = 14 }
+				MAD_drought_state_apply_famine = yes
+			}
+		}
+		add_to_variable = { MAD_drought_shock_pressure = 0.35 }
+		add_to_variable = { MAD_drought_depop = 1 }
+		set_variable = { MAD_drought_migration_amount = 20 }
+		set_variable = { MAD_drought_migration_force = 1 }
+		MAD_drought_migrate_worst_to_best = yes
+		add_stability = -0.01
+		MAD_drought_recalc_national = yes
+	}
+}
+
+country_event = {
+	id = mad_drought.16
+	title = mad_drought.16.t
+	desc = mad_drought.16.d
+	picture = GFX_report_event_economy_default
+	is_triggered_only = yes
+	trigger = { MAD_historical_drought_should_fire = yes }
+
+	option = {
+		name = mad_drought.16.a
+		log = "[GetDateText]: [Root.GetName]: mad_drought.16 - southern drought 2003"
+		custom_effect_tooltip = mad_drought.16_tt
+		hidden_effect = {
+			268 = {
+				set_temp_variable = { MAD_dr_state_change = 15 }
+				MAD_drought_state_apply_change = yes
+				set_temp_variable = { MAD_dr_state_famine = 15 }
+				MAD_drought_state_apply_famine = yes
+			}
+		}
+		add_to_variable = { MAD_drought_shock_pressure = 0.35 }
+		add_to_variable = { MAD_drought_depop = 1 }
+		set_variable = { MAD_drought_migration_amount = 30 }
+		set_variable = { MAD_drought_migration_force = 1 }
+		MAD_drought_migrate_worst_to_best = yes
+		add_stability = -0.02
+		MAD_drought_recalc_national = yes
+	}
+}
+
+country_event = {
+	id = mad_drought.17
+	title = mad_drought.17.t
+	desc = mad_drought.17.d
+	picture = GFX_report_event_economy_default
+	is_triggered_only = yes
+	trigger = { MAD_historical_drought_should_fire = yes }
+
+	option = {
+		name = mad_drought.17.a
+		log = "[GetDateText]: [Root.GetName]: mad_drought.17 - 2004-05 southern food crisis"
+		custom_effect_tooltip = mad_drought.17_tt
+		hidden_effect = {
+			268 = {
+				set_temp_variable = { MAD_dr_state_change = 10 }
+				MAD_drought_state_apply_change = yes
+				set_temp_variable = { MAD_dr_state_famine = 11 }
+				MAD_drought_state_apply_famine = yes
+			}
+		}
+		add_to_variable = { MAD_drought_shock_pressure = 0.25 }
+		add_to_variable = { MAD_drought_depop = 1 }
+		set_variable = { MAD_drought_migration_amount = 20 }
+		set_variable = { MAD_drought_migration_force = 1 }
+		MAD_drought_migrate_worst_to_best = yes
+		add_stability = -0.01
+		MAD_drought_recalc_national = yes
+	}
+}
+
+country_event = {
+	id = mad_drought.18
+	title = mad_drought.18.t
+	desc = mad_drought.18.d
+	picture = GFX_report_event_economy_default
+	is_triggered_only = yes
+	trigger = { MAD_historical_drought_should_fire = yes }
+
+	option = {
+		name = mad_drought.18.a
+		log = "[GetDateText]: [Root.GetName]: mad_drought.18 - southern drought 2009"
+		custom_effect_tooltip = mad_drought.18_tt
+		hidden_effect = {
+			268 = {
+				set_temp_variable = { MAD_dr_state_change = 17 }
+				MAD_drought_state_apply_change = yes
+				set_temp_variable = { MAD_dr_state_famine = 15 }
+				MAD_drought_state_apply_famine = yes
+			}
+		}
+		add_to_variable = { MAD_drought_shock_pressure = 0.40 }
+		add_to_variable = { MAD_drought_depop = 1 }
+		set_variable = { MAD_drought_migration_amount = 40 }
+		set_variable = { MAD_drought_migration_force = 1 }
+		MAD_drought_migrate_worst_to_best = yes
+		add_stability = -0.02
+		MAD_drought_recalc_national = yes
+	}
+}
+
+country_event = {
+	id = mad_drought.19
+	title = mad_drought.19.t
+	desc = mad_drought.19.d
+	picture = GFX_report_event_economy_default
+	is_triggered_only = yes
+	trigger = { MAD_historical_drought_should_fire = yes }
+
+	option = {
+		name = mad_drought.19.a
+		log = "[GetDateText]: [Root.GetName]: mad_drought.19 - southern drought 2010"
+		custom_effect_tooltip = mad_drought.19_tt
+		hidden_effect = {
+			268 = {
+				set_temp_variable = { MAD_dr_state_change = 18 }
+				MAD_drought_state_apply_change = yes
+				set_temp_variable = { MAD_dr_state_famine = 18 }
+				MAD_drought_state_apply_famine = yes
+			}
+		}
+		add_to_variable = { MAD_drought_shock_pressure = 0.35 }
+		add_to_variable = { MAD_drought_depop = 1 }
+		set_variable = { MAD_drought_migration_amount = 50 }
+		set_variable = { MAD_drought_migration_force = 1 }
+		MAD_drought_migrate_worst_to_best = yes
+		add_stability = -0.02
+		MAD_drought_recalc_national = yes
+	}
+}
+
+country_event = {
+	id = mad_drought.20
+	title = mad_drought.20.t
+	desc = mad_drought.20.d
+	picture = GFX_report_event_economy_default
+	is_triggered_only = yes
+
+	option = {
+		name = mad_drought.20.a
+		log = "[GetDateText]: [Root.GetName]: mad_drought.20"
+		add_stability = 0.03
+		add_political_power = 50
+	}
+}
+
+country_event = {
+	id = mad_drought.21
+	title = mad_drought.21.t
+	desc = mad_drought.21.d
+	picture = GFX_report_event_economy_default
+	is_triggered_only = yes
+
+	option = {
+		name = mad_drought.21.a
+		log = "[GetDateText]: [Root.GetName]: mad_drought.21"
+		add_stability = -0.02
+	}
+}
+
+country_event = {
+	id = mad_drought.22
+	title = mad_drought.22.t
+	desc = mad_drought.22.d
+	picture = GFX_report_event_economy_default
+	is_triggered_only = yes
+
+	option = {
+		name = mad_drought.22.a
+		log = "[GetDateText]: [Root.GetName]: mad_drought.22"
+		add_stability = 0.01
+	}
+}
+########################################################################
+# THE DROUGHT MAP - events that hit STATES, not the country
+########################################################################
+# .30 the rains fail in one region   .31 a cyclone (rain, but the wrong kind)   .32 a state tips into famine
+# .33 the wells run dry in one state
+#
+# These are what make the map move unevenly: a countrywide number would never show you that Androy is finished
+# while Analamanga is fine.
+
+# The rains fail somewhere. Picks the driest state that is not already at the top of the scale.
+country_event = {
+	id = mad_drought.30
+	title = mad_drought.30.t
+	desc = mad_drought.30.d
+	picture = GFX_report_event_economy_default
+	is_triggered_only = yes
+
+	option = {
+		name = mad_drought.30.a
+		log = "[GetDateText]: [Root.GetName]: mad_drought.30 - the rains fail in one region"
+		custom_effect_tooltip = mad_drought.30_tt
+		hidden_effect = {
+			random_owned_state = {
+				limit = { check_variable = { MAD_state_drought < 85 } }
+				set_temp_variable = { MAD_dr_state_change = 9 }
+				MAD_drought_state_apply_change = yes
+				set_temp_variable = { MAD_dr_state_famine = 5 }
+				MAD_drought_state_apply_famine = yes
+			}
+			MAD_drought_recalc_national = yes
+			add_to_variable = { MAD_drought_shock_pressure = 0.25 }
+		}
+	}
+}
+
+# A cyclone. Water, but it arrives all at once, takes the topsoil with it and drowns the seed.
+# Coastal states only - and it is worse where the drought had already cracked the ground open.
+country_event = {
+	id = mad_drought.31
+	title = mad_drought.31.t
+	desc = mad_drought.31.d
+	picture = GFX_report_event_economy_default
+	is_triggered_only = yes
+
+	option = {
+		name = mad_drought.31.a
+		log = "[GetDateText]: [Root.GetName]: mad_drought.31 - cyclone"
+		custom_effect_tooltip = mad_drought.31_tt
+		hidden_effect = {
+			random_owned_state = {
+				limit = { is_coastal = yes }
+				set_temp_variable = { MAD_dr_state_change = 7 }
+				MAD_drought_state_apply_change = yes
+				set_temp_variable = { MAD_dr_state_famine = 10 }
+				MAD_drought_state_apply_famine = yes
+				damage_building = {
+					type = infrastructure
+					damage = 1
+				}
+			}
+			MAD_drought_recalc_national = yes
+		}
+		add_stability = -0.01
+	}
+}
+
+# Somewhere has stopped being hungry and started starving.
+country_event = {
+	id = mad_drought.32
+	title = mad_drought.32.t
+	desc = mad_drought.32.d
+	picture = GFX_report_event_economy_default
+	is_triggered_only = yes
+
+	option = {
+		name = mad_drought.32.a
+		log = "[GetDateText]: [Root.GetName]: mad_drought.32 - famine in one state"
+		custom_effect_tooltip = mad_drought.32_tt
+		hidden_effect = {
+			random_owned_state = {
+				limit = { check_variable = { MAD_state_drought > 54.99 } }
+				set_temp_variable = { MAD_dr_state_famine = 18 }
+				MAD_drought_state_apply_famine = yes
+			}
+		}
+		add_stability = -0.02
+		add_war_support = -0.01
+	}
+}
+
+# The water table drops below the hand pumps. Wells stop being an answer here.
+country_event = {
+	id = mad_drought.33
+	title = mad_drought.33.t
+	desc = mad_drought.33.d
+	picture = GFX_report_event_economy_default
+	is_triggered_only = yes
+
+	option = {
+		name = mad_drought.33.a
+		log = "[GetDateText]: [Root.GetName]: mad_drought.33 - the wells run dry"
+		custom_effect_tooltip = mad_drought.33_tt
+		hidden_effect = {
+			random_owned_state = {
+				limit = { has_state_flag = MAD_STATE_WELLS }
+				clr_state_flag = MAD_STATE_WELLS
+				set_temp_variable = { MAD_dr_state_change = 8 }
+				MAD_drought_state_apply_change = yes
+				add_to_variable = { MAD_state_drought_exposure = 0.15 }
+				clamp_variable = { var = MAD_state_drought_exposure min = 0.4 max = 2 }
+			}
+			MAD_drought_recalc_national = yes
+		}
+	}
+}

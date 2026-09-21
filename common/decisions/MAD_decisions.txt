@@ -1,0 +1,1694 @@
+MAD_AMBATOVY_FORMING = {
+
+MAD_INVITE_KOREANS = {
+		on_map_mode = map_and_decisions_view
+		cost = 100
+		fire_only_once = yes
+		days_remove = 30
+		visible = {
+			has_completed_focus = MAD_AMBATOVY_JV_FORMED
+			NOT = { has_country_flag = MAD_ambatovy_mission_done }
+		}
+		available = {
+			NOT = { has_decision = MAD_INVITE_JAPANESE }
+			NOT = { has_decision = MAD_INVITE_DYNATEC }
+			NOT = { has_decision = MAD_STATE_INVESTMENT }
+		}
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_INVITE_KOREANS started"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_INVITE_KOREANS complete"
+			custom_effect_tooltip = { localization_key = MAD_ambatovy_corp_plus30_tt }
+			add_to_variable = { var = MAD_AMBATOVY_CORP value = 30 }
+			custom_effect_tooltip = { localization_key = MAD_ambatovy_total_plus30_tt }
+			add_to_variable = { var = MAD_AMBATOVY_TOTAL value = 30 }
+			}
+		ai_will_do = {
+			base = 0
+		}
+	}
+
+	MAD_INVITE_JAPANESE = {
+		on_map_mode = map_and_decisions_view
+		cost = 100
+		fire_only_once = yes
+		days_remove = 30
+		visible = {
+			has_completed_focus = MAD_AMBATOVY_JV_FORMED
+			NOT = { has_country_flag = MAD_ambatovy_mission_done }
+		}
+		available = {
+			NOT = { has_decision = MAD_INVITE_KOREANS }
+			NOT = { has_decision = MAD_INVITE_DYNATEC }
+			NOT = { has_decision = MAD_STATE_INVESTMENT }
+		}
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_INVITE_JAPANESE started"
+		}
+		remove_effect = {
+				log = "[GetDateText]: [Root.GetName]: Decision MAD_INVITE_JAPANESE complete"
+				custom_effect_tooltip = { localization_key = MAD_ambatovy_corp_plus30_tt }
+				add_to_variable = { var = MAD_AMBATOVY_CORP value = 30 }
+				custom_effect_tooltip = { localization_key = MAD_ambatovy_total_plus30_tt }
+				add_to_variable = { var = MAD_AMBATOVY_TOTAL value = 30 }
+			}
+		ai_will_do = {
+			base = 0
+		}
+	}
+
+	MAD_INVITE_DYNATEC = {
+		on_map_mode = map_and_decisions_view
+		cost = 100
+		fire_only_once = yes
+		days_remove = 60
+		visible = {
+			has_completed_focus = MAD_AMBATOVY_JV_FORMED
+			NOT = { has_country_flag = MAD_ambatovy_mission_done }
+		}
+		available = {
+			NOT = { has_decision = MAD_INVITE_KOREANS }
+			NOT = { has_decision = MAD_INVITE_JAPANESE }
+			NOT = { has_decision = MAD_STATE_INVESTMENT }
+			NOT = { check_variable = { MAD_AMBATOVY_TOTAL > 60 } }
+		}
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_INVITE_DYNATEC started"
+			set_country_flag = MAD_dynatec_invited
+		}
+		remove_effect = {
+				log = "[GetDateText]: [Root.GetName]: Decision MAD_INVITE_DYNATEC complete"
+				custom_effect_tooltip = { localization_key = MAD_ambatovy_corp_plus40_tt }
+				add_to_variable = { var = MAD_AMBATOVY_CORP value = 40 }
+				custom_effect_tooltip = { localization_key = MAD_ambatovy_total_plus40_tt }
+				add_to_variable = { var = MAD_AMBATOVY_TOTAL value = 40 }
+			}
+		ai_will_do = {
+			base = 0
+		}
+	}
+
+	MAD_STATE_INVESTMENT = {
+		on_map_mode = map_and_decisions_view
+		cost = 250
+		fire_only_once = yes
+		days_remove = 30
+		visible = {
+			has_completed_focus = MAD_AMBATOVY_JV_FORMED
+			NOT = { has_country_flag = MAD_ambatovy_mission_done }
+		}
+		custom_cost_trigger = { check_variable = { treasury > 7.499 } }
+		custom_cost_text = cost_7_5
+		available = {
+			NOT = { has_decision = MAD_INVITE_KOREANS }
+			NOT = { has_decision = MAD_INVITE_JAPANESE }
+			NOT = { has_decision = MAD_INVITE_DYNATEC }
+		}
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_STATE_INVESTMENT started"
+			set_temp_variable = { treasury_change = -7.5 }
+			modify_treasury_effect = yes
+		}
+		remove_effect = {
+				log = "[GetDateText]: [Root.GetName]: Decision MAD_STATE_INVESTMENT complete"
+				custom_effect_tooltip = { localization_key = MAD_ambatovy_state_plus30_tt }
+				add_to_variable = { var = MAD_AMBATOVY_STATE_FUNDS value = 30 }
+				custom_effect_tooltip = { localization_key = MAD_ambatovy_total_plus30_tt }
+				add_to_variable = { var = MAD_AMBATOVY_TOTAL value = 30 }
+			}
+		ai_will_do = {
+			base = 0
+		}
+	}
+
+	MAD_AMBATOVY_MISSION = {
+		fire_only_once = yes
+		on_map_mode = map_and_decisions_view
+		days_mission_timeout = 730
+		activation = {
+			has_completed_focus = MAD_AMBATOVY_JV_FORMED
+		}
+		available = {
+			OR = {
+				check_variable = { MAD_AMBATOVY_TOTAL > 99 }
+				check_variable = { MAD_AMBATOVY_STATE_FUNDS > 99 }
+			}
+		}
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_AMBATOVY_MISSION complete"
+			set_country_flag = MAD_ambatovy_mission_done
+			if = {
+				limit = {
+					has_country_flag = MAD_dynatec_invited	
+				}
+				country_event = { id = mad_ambatovy.1 }
+			}
+		}
+		timeout_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_AMBATOVY_MISSION failed (timed out)"
+			set_country_flag = MAD_ambatovy_mission_failed
+		}
+		ai_will_do = {
+			base = 0
+		}
+	}
+	MAD_BUILD_MINE = {
+    on_map_mode = map_and_decisions_view
+    cost = 100
+    fire_only_once = yes
+    days_remove = 730
+    visible = {
+        has_completed_focus = MAD_AMBATOVY_OPERATIONAL
+    }
+    available = {
+        NOT = { has_country_flag = MAD_ambatovy_mine_built }
+    }
+    complete_effect = {
+        log = "[GetDateText]: [Root.GetName]: Decision MAD_BUILD_MINE started"
+    }
+    remove_effect = {
+        log = "[GetDateText]: [Root.GetName]: Decision MAD_BUILD_MINE complete"
+        267 = {
+            add_resource = {
+                type = tungsten
+                amount = 35
+            }
+        }
+        set_country_flag = MAD_ambatovy_mine_built
+    }
+    ai_will_do = {
+        base = 0
+    }
+	}
+		MAD_SELL_MINE = {
+		on_map_mode = map_and_decisions_view
+		cost = 150
+		fire_only_once = yes
+		days_remove = 30
+		visible = {
+			has_country_flag = MAD_ambatovy_mine_built
+			OR = {
+				has_idea = MAD_AMBATOVY_PARTIAL_STATE
+				has_idea = MAD_AMBATOVY_FULL_STATE
+			}
+		}
+		available = {
+			OR = {
+				has_idea = MAD_AMBATOVY_PARTIAL_STATE
+				has_idea = MAD_AMBATOVY_FULL_STATE
+			}
+		}
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_SELL_MINE started"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_SELL_MINE complete"
+			if = {
+				limit = {
+					has_idea = MAD_AMBATOVY_FULL_STATE
+				}
+				set_temp_variable = { treasury_change = 9 }
+				modify_treasury_effect = yes
+				remove_ideas = MAD_AMBATOVY_FULL_STATE
+			}
+			else_if = {
+				limit = {
+					has_idea = MAD_AMBATOVY_PARTIAL_STATE
+				}
+				set_temp_variable = { treasury_change = 4 }
+				modify_treasury_effect = yes
+				remove_ideas = MAD_AMBATOVY_PARTIAL_STATE
+			}
+			add_ideas = MAD_AMBATOVY_PRIVATE
+			add_power_balance_value = {
+				id = MAD_economy_ownership_bop
+				value = -0.15
+				tooltip_side = MAD_private_ownership
+			}
+			267 = {
+            add_resource = {
+                type = tungsten
+                amount = -5
+            }
+        }
+		}
+		ai_will_do = {
+			base = 0
+		}
+	}
+
+		
+}
+MAD_AIR_STATE_CONTROL_MISSIONS = {
+ 
+	MAD_AIR_STATE_CONTROL_MISSION = {
+		fire_only_once = yes
+		on_map_mode = map_and_decisions_view
+		days_mission_timeout = 1095 # 3 years
+		visible = {
+		has_completed_focus = MAD_AIR_STATE_CONTROL
+		}
+		activation = {
+			has_completed_focus = MAD_AIR_STATE_CONTROL
+		}
+ 
+		available = {
+			267 = {
+				air_base > 5
+				industrial_complex > 4
+				offices > 1
+				infrastructure > 1
+			}
+		}
+ 
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_AIR_STATE_CONTROL_MISSION complete"
+			set_country_flag = MAD_AIR_SUCCESSFUL_STATE_CONTROL
+		}
+		timeout_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_AIR_STATE_CONTROL_MISSION failed (timed out)"
+			set_country_flag = MAD_GERMANS_REJECTED_LUFTHANSA
+		}
+ 
+		ai_will_do = {
+			base = 0
+		}
+	}
+}
+# common/decisions/MAD_madarail_decisions.txt
+#
+# Everything sits inside the category block (that is the HOI4 format - the category id is the outer block;
+# the previous "country_decisions = {}" / "decisions_category = {}" wrappers are not valid HOI4 syntax).
+
+MAD_madarail_category = {
+
+	########################################################################
+	# INVESTOR CYCLE
+	########################################################################
+
+	# A mission: started when a suitor is seated (see MAD_madarail_seat_*).
+	#  - the suitor's concession decisions below raise MAD_madarail_confidence
+	#  - with confidence >= 75 the player can complete the mission by hand -> STAY (concessions granted so far are kept)
+	#  - if the 150 days run out, event mad_madarail.4 sends the suitor away; the player picks the next bidder
+	#  - after the third suitor's 150 days, mad_madarail.4 forces the investors out -> DESIST
+	MAD_MADARAIL_INVESTOR_TENURE = {
+		icon = generic_political_discourse
+		days_mission_timeout = 150
+		selectable_mission = yes
+		# never auto-activate: without an activation trigger a mission starts with the game.
+		# It is started only by activate_mission (MAD_madarail_seat_*), which bypasses this.
+		activation = { always = no }
+
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_MADARAIL_CONFIDENCE_MET_tt
+				check_variable = { MAD_madarail_confidence > 74.99 }
+			}
+		}
+
+		complete_effect = {
+			log = "[GetDateText]: [This.GetName]: Mission MAD_MADARAIL_INVESTOR_TENURE completed - investors commit"
+			country_event = { id = mad_madarail.7 }
+		}
+
+		timeout_effect = {
+			log = "[GetDateText]: [This.GetName]: Mission MAD_MADARAIL_INVESTOR_TENURE timed out"
+			country_event = { id = mad_madarail.4 }
+		}
+	}
+
+	# The player's way out: let the investors go now instead of waiting for the clock.
+	MAD_MADARAIL_LET_INVESTORS_WALK = {
+		icon = generic_political_discourse
+
+		allowed = { tag = MAD }
+		visible = {
+			has_active_mission = MAD_MADARAIL_INVESTOR_TENURE
+		}
+
+		cost = 50
+		fire_only_once = yes
+
+		complete_effect = {
+			log = "[GetDateText]: [This.GetName]: Decision MAD_MADARAIL_LET_INVESTORS_WALK"
+			country_event = { id = mad_madarail.8 }
+		}
+
+		ai_will_do = {
+			base = 0
+		}
+	}
+
+	########################################################################
+	# CONCESSIONS - three per suitor (slot 1/2/3), only visible while that suitor is seated.
+	# Each one is an OFFER: it raises confidence now (and costs any political power now), but the treasury cost,
+	# ownership shift and the stat effects only happen if the investors commit (MAD_madarail_enact_concessions).
+	# The category description tracks confidence and the offers via the flags MAD_MADARAIL_OFFER_1/2/3.
+	########################################################################
+
+	# --- Comazar (starts at 10 confidence: needs all three concessions to reach 75) ---
+	MAD_MADARAIL_CONCEDE_COMAZAR_STOCK = {
+		icon = generic_political_discourse
+
+		allowed = { tag = MAD }
+		visible = {
+			has_active_mission = MAD_MADARAIL_INVESTOR_TENURE
+			has_country_flag = MAD_MADARAIL_SEATED_COMAZAR
+		}
+		fire_only_once = yes
+		days_remove = 25
+
+		complete_effect = {
+			log = "[GetDateText]: [This.GetName]: Decision MAD_MADARAIL_CONCEDE_COMAZAR_STOCK - negotiations open, 25 days to conclude"
+		}
+
+		remove_effect = {
+			# only an OFFER: the treasury cost, ownership shift and stat effects are applied by MAD_madarail_enact_concessions if the investors commit
+			set_country_flag = MAD_MADARAIL_OFFER_1
+			add_to_variable = { MAD_madarail_confidence = 25 }
+			clamp_variable = { var = MAD_madarail_confidence min = 0 max = 100 }
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	MAD_MADARAIL_CONCEDE_COMAZAR_AUTONOMY = {
+		icon = generic_political_discourse
+
+		allowed = { tag = MAD }
+		visible = {
+			has_active_mission = MAD_MADARAIL_INVESTOR_TENURE
+			has_country_flag = MAD_MADARAIL_SEATED_COMAZAR
+		}
+
+		cost = 125
+		fire_only_once = yes
+		days_remove = 25
+
+		complete_effect = {
+			log = "[GetDateText]: [This.GetName]: Decision MAD_MADARAIL_CONCEDE_COMAZAR_AUTONOMY - negotiations open, 25 days to conclude"
+		}
+
+		remove_effect = {
+			# only an OFFER: the treasury cost, ownership shift and stat effects are applied by MAD_madarail_enact_concessions if the investors commit
+			set_country_flag = MAD_MADARAIL_OFFER_2
+			add_to_variable = { MAD_madarail_confidence = 30 }
+			clamp_variable = { var = MAD_madarail_confidence min = 0 max = 100 }
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	MAD_MADARAIL_CONCEDE_COMAZAR_FREIGHT = {
+		icon = generic_political_discourse
+
+		allowed = { tag = MAD }
+		visible = {
+			has_active_mission = MAD_MADARAIL_INVESTOR_TENURE
+			has_country_flag = MAD_MADARAIL_SEATED_COMAZAR
+		}
+		fire_only_once = yes
+		days_remove = 25
+
+		complete_effect = {
+			log = "[GetDateText]: [This.GetName]: Decision MAD_MADARAIL_CONCEDE_COMAZAR_FREIGHT - negotiations open, 25 days to conclude"
+		}
+
+		remove_effect = {
+			# only an OFFER: the treasury cost, ownership shift and stat effects are applied by MAD_madarail_enact_concessions if the investors commit
+			set_country_flag = MAD_MADARAIL_OFFER_3
+			add_to_variable = { MAD_madarail_confidence = 25 }
+			clamp_variable = { var = MAD_madarail_confidence min = 0 max = 100 }
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	# --- Vecturis (starts at 30: any two concessions reach 75) ---
+	MAD_MADARAIL_CONCEDE_VECTURIS_RETURNS = {
+		icon = generic_political_discourse
+
+		allowed = { tag = MAD }
+		visible = {
+			has_active_mission = MAD_MADARAIL_INVESTOR_TENURE
+			has_country_flag = MAD_MADARAIL_SEATED_VECTURIS
+		}
+		fire_only_once = yes
+		days_remove = 25
+
+		complete_effect = {
+			log = "[GetDateText]: [This.GetName]: Decision MAD_MADARAIL_CONCEDE_VECTURIS_RETURNS - negotiations open, 25 days to conclude"
+		}
+
+		remove_effect = {
+			# only an OFFER: the treasury cost, ownership shift and stat effects are applied by MAD_madarail_enact_concessions if the investors commit
+			set_country_flag = MAD_MADARAIL_OFFER_1
+			add_to_variable = { MAD_madarail_confidence = 30 }
+			clamp_variable = { var = MAD_madarail_confidence min = 0 max = 100 }
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	MAD_MADARAIL_CONCEDE_VECTURIS_ASSETS = {
+		icon = generic_political_discourse
+
+		allowed = { tag = MAD }
+		visible = {
+			has_active_mission = MAD_MADARAIL_INVESTOR_TENURE
+			has_country_flag = MAD_MADARAIL_SEATED_VECTURIS
+		}
+		fire_only_once = yes
+		days_remove = 25
+
+		complete_effect = {
+			log = "[GetDateText]: [This.GetName]: Decision MAD_MADARAIL_CONCEDE_VECTURIS_ASSETS - negotiations open, 25 days to conclude"
+		}
+
+		remove_effect = {
+			# only an OFFER: the treasury cost, ownership shift and stat effects are applied by MAD_madarail_enact_concessions if the investors commit
+			set_country_flag = MAD_MADARAIL_OFFER_2
+			add_to_variable = { MAD_madarail_confidence = 25 }
+			clamp_variable = { var = MAD_madarail_confidence min = 0 max = 100 }
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	MAD_MADARAIL_CONCEDE_VECTURIS_TARIFFS = {
+		icon = generic_political_discourse
+
+		allowed = { tag = MAD }
+		visible = {
+			has_active_mission = MAD_MADARAIL_INVESTOR_TENURE
+			has_country_flag = MAD_MADARAIL_SEATED_VECTURIS
+		}
+		fire_only_once = yes
+		days_remove = 25
+
+		complete_effect = {
+			log = "[GetDateText]: [This.GetName]: Decision MAD_MADARAIL_CONCEDE_VECTURIS_TARIFFS - negotiations open, 25 days to conclude"
+		}
+
+		remove_effect = {
+			# only an OFFER: the treasury cost, ownership shift and stat effects are applied by MAD_madarail_enact_concessions if the investors commit
+			set_country_flag = MAD_MADARAIL_OFFER_3
+			add_to_variable = { MAD_madarail_confidence = 25 }
+			clamp_variable = { var = MAD_madarail_confidence min = 0 max = 100 }
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	# --- Holding consortium (starts at 45: the political-cover concession alone reaches 75) ---
+	MAD_MADARAIL_CONCEDE_HOLDING_COVER = {
+		icon = generic_political_discourse
+
+		allowed = { tag = MAD }
+		visible = {
+			has_active_mission = MAD_MADARAIL_INVESTOR_TENURE
+			has_country_flag = MAD_MADARAIL_SEATED_HOLDING
+		}
+
+		cost = 125
+		fire_only_once = yes
+		days_remove = 25
+
+		complete_effect = {
+			log = "[GetDateText]: [This.GetName]: Decision MAD_MADARAIL_CONCEDE_HOLDING_COVER - negotiations open, 25 days to conclude"
+		}
+
+		remove_effect = {
+			# only an OFFER: the treasury cost, ownership shift and stat effects are applied by MAD_madarail_enact_concessions if the investors commit
+			set_country_flag = MAD_MADARAIL_OFFER_1
+			add_to_variable = { MAD_madarail_confidence = 30 }
+			clamp_variable = { var = MAD_madarail_confidence min = 0 max = 100 }
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	MAD_MADARAIL_CONCEDE_HOLDING_HOLIDAY = {
+		icon = generic_political_discourse
+
+		allowed = { tag = MAD }
+		visible = {
+			has_active_mission = MAD_MADARAIL_INVESTOR_TENURE
+			has_country_flag = MAD_MADARAIL_SEATED_HOLDING
+		}
+		fire_only_once = yes
+		days_remove = 25
+
+		complete_effect = {
+			log = "[GetDateText]: [This.GetName]: Decision MAD_MADARAIL_CONCEDE_HOLDING_HOLIDAY - negotiations open, 25 days to conclude"
+		}
+
+		remove_effect = {
+			# only an OFFER: the treasury cost, ownership shift and stat effects are applied by MAD_madarail_enact_concessions if the investors commit
+			set_country_flag = MAD_MADARAIL_OFFER_2
+			add_to_variable = { MAD_madarail_confidence = 25 }
+			clamp_variable = { var = MAD_madarail_confidence min = 0 max = 100 }
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	MAD_MADARAIL_CONCEDE_HOLDING_LOANS = {
+		icon = generic_political_discourse
+
+		allowed = { tag = MAD }
+		visible = {
+			has_active_mission = MAD_MADARAIL_INVESTOR_TENURE
+			has_country_flag = MAD_MADARAIL_SEATED_HOLDING
+		}
+		fire_only_once = yes
+		days_remove = 25
+
+		complete_effect = {
+			log = "[GetDateText]: [This.GetName]: Decision MAD_MADARAIL_CONCEDE_HOLDING_LOANS - negotiations open, 25 days to conclude"
+		}
+
+		remove_effect = {
+			# only an OFFER: the treasury cost, ownership shift and stat effects are applied by MAD_madarail_enact_concessions if the investors commit
+			set_country_flag = MAD_MADARAIL_OFFER_3
+			add_to_variable = { MAD_madarail_confidence = 25 }
+			clamp_variable = { var = MAD_madarail_confidence min = 0 max = 100 }
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	########################################################################
+	# RAILWAYS - 15 billion each, one year to build, +80 productivity in the state served.
+	# Everything happens right here in remove_effect (when the year is up): the railway, the state's
+	# productivity, then the popup event mad_madarail.20-24.
+	# States: 267 Antananarivo, 268 Toliara, 266 Mahajanga, 487 Toamasina.
+	# Unlocked by MAD_extension_fce (flag MAD_FCE_EXTENSION_UNLOCKED) and MAD_RAIL_NATIONAL_NETWORK (MAD_RAIL_NETWORK_UNLOCKED).
+	########################################################################
+
+	MAD_MADARAIL_BUILD_FCE_EXTENSION = {
+		icon = generic_construction
+
+		allowed = { tag = MAD }
+		visible = {
+			has_country_flag = MAD_FCE_EXTENSION_UNLOCKED
+			NOT = { has_country_flag = MAD_RAIL_FCE_EXTENSION_BUILT }
+		}
+		custom_cost_trigger = { check_variable = { treasury > 14.999 } }
+		custom_cost_text = MAD_madarail_cost_15bn_tt
+
+		fire_only_once = yes
+		days_remove = 365
+
+		# pay now, the line opens in a year
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_MADARAIL_BUILD_FCE_EXTENSION - construction begins"
+			set_temp_variable = { treasury_change = -15.00 }
+			modify_treasury_effect = yes
+		}
+
+		# one year later: the railway is built and the state gains 80 productivity
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_MADARAIL_BUILD_FCE_EXTENSION - line completed"
+			build_railway = {
+				level = 2
+				path = { 681 576 566 }
+			}
+			custom_effect_tooltip = {
+				localization_key = modifies_dynamic_modifier_tt
+				MODIFIER = MAD_economy_modifier
+			}
+			add_to_variable = { MAD_economy_production_speed_rail_way_factor = 0.05 tooltip = production_speed_rail_way_factor_tt }
+			add_to_variable = { MAD_economy_supply_node_range = 0.05 tooltip = supply_node_range_tt }
+			267 = {
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+				set_temp_variable = { temp_productivity_change = 80 }
+				state_flat_productivity_change_effect = yes
+			}
+			set_country_flag = MAD_RAIL_FCE_EXTENSION_BUILT
+			country_event = { id = mad_madarail.20 }
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	MAD_MADARAIL_BUILD_TOLIARA_LINE = {
+		icon = generic_construction
+
+		allowed = { tag = MAD }
+		visible = {
+			has_country_flag = MAD_RAIL_NETWORK_UNLOCKED
+			NOT = { has_country_flag = MAD_RAIL_TOLIARA_BUILT }
+		}
+		custom_cost_trigger = { check_variable = { treasury > 14.999 } }
+		custom_cost_text = MAD_madarail_cost_15bn_tt
+
+		fire_only_once = yes
+		days_remove = 365
+
+		# pay now, the line opens in a year
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_MADARAIL_BUILD_TOLIARA_LINE - construction begins"
+			set_temp_variable = { treasury_change = -15.00 }
+			modify_treasury_effect = yes
+		}
+
+		# one year later: the railway is built and the state gains 80 productivity
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_MADARAIL_BUILD_TOLIARA_LINE - line completed"
+			# Fianarantsoa -> Toliara, along the RN7
+			build_railway = {
+				level = 2
+				path = { 566 12956 }
+			}
+			268 = {
+				set_temp_variable = { temp_productivity_change = 80 }
+				state_flat_productivity_change_effect = yes
+			}
+			set_country_flag = MAD_RAIL_TOLIARA_BUILT
+			country_event = { id = mad_madarail.21 }
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	MAD_MADARAIL_BUILD_MAHAJANGA_LINE = {
+		icon = generic_construction
+
+		allowed = { tag = MAD }
+		visible = {
+			has_country_flag = MAD_RAIL_NETWORK_UNLOCKED
+			NOT = { has_country_flag = MAD_RAIL_MAHAJANGA_BUILT }
+		}
+		custom_cost_trigger = { check_variable = { treasury > 14.999 } }
+		custom_cost_text = MAD_madarail_cost_15bn_tt
+
+		fire_only_once = yes
+		days_remove = 365
+
+		# pay now, the line opens in a year
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_MADARAIL_BUILD_MAHAJANGA_LINE - construction begins"
+			set_temp_variable = { treasury_change = -15.00 }
+			modify_treasury_effect = yes
+		}
+
+		# one year later: the railway is built and the state gains 80 productivity
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_MADARAIL_BUILD_MAHAJANGA_LINE - line completed"
+			# Antananarivo -> Mahajanga, along the RN4
+			build_railway = {
+				level = 2
+				path = { 11015 8188 }
+			}
+			266 = {
+				set_temp_variable = { temp_productivity_change = 80 }
+				state_flat_productivity_change_effect = yes
+			}
+			set_country_flag = MAD_RAIL_MAHAJANGA_BUILT
+			country_event = { id = mad_madarail.22 }
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	MAD_MADARAIL_BUILD_AMBOVOMBE_LINE = {
+		icon = generic_construction
+
+		allowed = { tag = MAD }
+		visible = {
+			has_country_flag = MAD_RAIL_NETWORK_UNLOCKED
+			NOT = { has_country_flag = MAD_RAIL_AMBOVOMBE_BUILT }
+		}
+		custom_cost_trigger = { check_variable = { treasury > 14.999 } }
+		custom_cost_text = MAD_madarail_cost_15bn_tt
+
+		fire_only_once = yes
+		days_remove = 365
+
+		# pay now, the line opens in a year
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_MADARAIL_BUILD_AMBOVOMBE_LINE - construction begins"
+			set_temp_variable = { treasury_change = -15.00 }
+			modify_treasury_effect = yes
+		}
+
+		# one year later: the railway is built and the state gains 80 productivity
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_MADARAIL_BUILD_AMBOVOMBE_LINE - line completed"
+			# Fianarantsoa -> Ambovombe, via Ihosy
+			build_railway = {
+				level = 2
+				path = { 566 2200 }
+			}
+			268 = {
+				set_temp_variable = { temp_productivity_change = 80 }
+				state_flat_productivity_change_effect = yes
+			}
+			set_country_flag = MAD_RAIL_AMBOVOMBE_BUILT
+			country_event = { id = mad_madarail.23 }
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	MAD_MADARAIL_BUILD_ANTSIRANANA_LINE = {
+		icon = generic_construction
+
+		allowed = { tag = MAD }
+		visible = {
+			has_country_flag = MAD_RAIL_NETWORK_UNLOCKED
+			NOT = { has_country_flag = MAD_RAIL_ANTSIRANANA_BUILT }
+		}
+		custom_cost_trigger = { check_variable = { treasury > 14.999 } }
+		custom_cost_text = MAD_madarail_cost_15bn_tt
+
+		fire_only_once = yes
+		days_remove = 365
+
+		# pay now, the line opens in a year
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_MADARAIL_BUILD_ANTSIRANANA_LINE - construction begins"
+			set_temp_variable = { treasury_change = -15.00 }
+			modify_treasury_effect = yes
+		}
+
+		# one year later: the railway is built and the state gains 80 productivity
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_MADARAIL_BUILD_ANTSIRANANA_LINE - line completed"
+			# Antsiranana -> Mahajanga (meets the network at the Mahajanga line), along the RN6
+			build_railway = {
+				level = 2
+				path = { 5222 8188 }
+			}
+			266 = {
+				set_temp_variable = { temp_productivity_change = 80 }
+				state_flat_productivity_change_effect = yes
+			}
+			set_country_flag = MAD_RAIL_ANTSIRANANA_BUILT
+			country_event = { id = mad_madarail.24 }
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+	
+	
+}
+
+# common/decisions/MAD_daewoo_decisions.txt
+#
+# The Daewoo lease review. Started by MAD_DEAL_KEPT (activate_mission). Each qualifier adds to MAD_daewoo_viability
+# (0-100, starts at 10) and re-tiers the lease (MAD_daewoo_update_tier). Several are gated by other parts of the
+# tree, so how the rest of the game has gone decides how fixable the deal is.
+#   viability >= 60  ->  the player can sign off the project (MANAGED_WELL unlocks)
+#   deadline reached below 60 -> MANAGED_POORLY unlocks
+
+MAD_daewoo_category = {
+
+
+	MAD_DAEWOO_REVIEW = {
+		icon = generic_political_discourse
+		days_mission_timeout = 730
+		selectable_mission = yes
+		# never auto-activate: it is started by the MAD_DEAL_KEPT focus
+		activation = { always = no }
+		visible = {
+		has_country_flag = MAD_DAEWOO_KEPT
+		}
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_DAEWOO_VIABILITY_60_tt
+				check_variable = { MAD_daewoo_viability > 59.99 }
+			}
+		}
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Mission MAD_DAEWOO_REVIEW signed off"
+			country_event = { id = mad_daewoo.2 }
+		}
+
+		timeout_effect = {
+			log = "[GetDateText]: [Root.GetName]: Mission MAD_DAEWOO_REVIEW timed out"
+			if = {
+				limit = { check_variable = { MAD_daewoo_viability > 59.99 } }
+				country_event = { id = mad_daewoo.2 }
+			}
+			else = {
+				country_event = { id = mad_daewoo.3 }
+			}
+		}
+	}
+
+	########################################################################
+	# QUALIFIERS
+	########################################################################
+
+	MAD_DAEWOO_RENEGOTIATE = {
+		icon = generic_political_discourse
+
+		allowed = { tag = MAD }
+		visible = {
+			has_active_mission = MAD_DAEWOO_REVIEW
+		}
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_DAEWOO_KOREAN_PURCHASES_tt
+				has_completed_focus = MAD_KOREAN_PURCHASES
+			}
+		}
+
+		cost = 50
+		fire_only_once = yes
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAEWOO_RENEGOTIATE"
+			add_to_variable = { MAD_daewoo_viability = 20 }
+			clamp_variable = { var = MAD_daewoo_viability min = 0 max = 100 }
+			MAD_daewoo_update_tier = yes
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	MAD_DAEWOO_LAND_TITLES = {
+		icon = generic_political_discourse
+
+		allowed = { tag = MAD }
+		visible = {
+			has_active_mission = MAD_DAEWOO_REVIEW
+		}
+
+		cost = 25
+		fire_only_once = yes
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAEWOO_LAND_TITLES"
+			add_to_variable = { MAD_daewoo_viability = 15 }
+			clamp_variable = { var = MAD_daewoo_viability min = 0 max = 100 }
+			set_temp_variable = { temp_opinion = 10 }
+			change_landowners_opinion = yes
+			MAD_daewoo_update_tier = yes
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	MAD_DAEWOO_PUBLISH_CONTRACT = {
+		icon = generic_political_discourse
+
+		allowed = { tag = MAD }
+		visible = {
+			has_active_mission = MAD_DAEWOO_REVIEW
+		}
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_DAEWOO_BIANCO_INDEPENDENT_tt
+				has_completed_focus = MAD_BIANCO_INDEPENDENT
+			}
+		}
+
+		cost = 25
+		fire_only_once = yes
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAEWOO_PUBLISH_CONTRACT"
+			add_to_variable = { MAD_daewoo_viability = 20 }
+			clamp_variable = { var = MAD_daewoo_viability min = 0 max = 100 }
+			add_stability = 0.02
+			set_country_flag = MAD_DAEWOO_CONTRACT_PUBLISHED
+			MAD_daewoo_update_tier = yes
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	MAD_DAEWOO_CLASSIFIED_ADDENDUM = {
+		icon = generic_political_discourse
+
+		allowed = { tag = MAD }
+		visible = {
+			has_active_mission = MAD_DAEWOO_REVIEW
+		}
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_DAEWOO_ADDENDUM_tt
+				has_completed_focus = MAD_BIANCO_POLITICIZED
+				NOT = { has_country_flag = MAD_DAEWOO_CONTRACT_PUBLISHED }
+			}
+		}
+		fire_only_once = yes
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAEWOO_CLASSIFIED_ADDENDUM"
+			add_to_variable = { MAD_daewoo_viability = -10 }
+			clamp_variable = { var = MAD_daewoo_viability min = 0 max = 100 }
+			add_political_power = 40
+			increase_corruption = yes
+			MAD_daewoo_update_tier = yes
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	MAD_DAEWOO_OUTGROWERS = {
+		icon = generic_political_discourse
+
+		allowed = { tag = MAD }
+		visible = {
+			has_active_mission = MAD_DAEWOO_REVIEW
+		}
+
+		cost = 25
+		fire_only_once = yes
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAEWOO_OUTGROWERS"
+			add_to_variable = { MAD_daewoo_viability = 15 }
+			clamp_variable = { var = MAD_daewoo_viability min = 0 max = 100 }
+			set_temp_variable = { treasury_change = -2.00 }
+			modify_treasury_effect = yes
+			set_country_flag = MAD_DAEWOO_FOOD_QUOTA
+			MAD_daewoo_update_tier = yes
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	MAD_DAEWOO_LOGISTICS = {
+		icon = generic_political_discourse
+
+		allowed = { tag = MAD }
+		visible = {
+			has_active_mission = MAD_DAEWOO_REVIEW
+		}
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_DAEWOO_RAIL_tt
+				OR = {
+					has_country_flag = MAD_RAIL_MAHAJANGA_BUILT
+					has_country_flag = MAD_RAIL_TOLIARA_BUILT
+				}
+			}
+		}
+
+		cost = 25
+		fire_only_once = yes
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAEWOO_LOGISTICS"
+			add_to_variable = { MAD_daewoo_viability = 15 }
+			clamp_variable = { var = MAD_daewoo_viability min = 0 max = 100 }
+			set_temp_variable = { treasury_change = -2.00 }
+			modify_treasury_effect = yes
+			MAD_daewoo_update_tier = yes
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	MAD_DAEWOO_LOCAL_PROCESSING = {
+		icon = generic_political_discourse
+
+		allowed = { tag = MAD }
+		visible = {
+			has_active_mission = MAD_DAEWOO_REVIEW
+		}
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_DAEWOO_VANILLA_SECTOR_tt
+				has_completed_focus = MAD_vanilla_export_sector
+			}
+		}
+
+		cost = 25
+		fire_only_once = yes
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAEWOO_LOCAL_PROCESSING"
+			add_to_variable = { MAD_daewoo_viability = 10 }
+			clamp_variable = { var = MAD_daewoo_viability min = 0 max = 100 }
+			MAD_daewoo_update_tier = yes
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+}
+
+########################################################################
+# common/decisions/MAD_drought_decisions.txt (category defined in common/decisions/categories/MAD_drought_categories.txt)
+########################################################################
+
+# common/decisions/MAD_drought_decisions.txt
+#
+# The drought and famine panel (see common/scripted_effects/MAD_drought_scripted_effects.txt for how the number moves).
+#   REACTIVE decisions     - open from the first day. They only push the number down for a while: the pressure keeps coming.
+#   PREVENTATIVE decisions - each is unlocked by a focus in the Drought And Famine branch, can be done once, and takes a
+#                            permanent slice off the monthly pressure. 7 exist; 5 done + severity <= 30 contains the drought.
+#   RESETTLE / FINAL PUSH  - late decisions.
+# "cost" is political power; treasury (billions) is charged in the effect, the same way the Daewoo decisions do it.
+
+MAD_drought_category = {
+
+	########################################################################
+	# STATE-TARGETED RELIEF
+	# One definition per programme; the targets below create exactly one entry
+	# for each of the four Madagascar states. There is deliberately no on_map_mode here,
+	# so the decisions do not place giant map icons; highlight_states provides border hover.
+	########################################################################
+
+	MAD_DROUGHT_EMERGENCY_WATER = {
+		icon = GFX_decision_com_rebel_highest
+		on_map_mode = decision_view_only
+		allowed = { tag = MAD }
+		state_target = yes
+		targets = { 266 267 268 487 } # Mahajanga, Antananarivo, Toliara, Toamasina
+		target_root_trigger = {
+			MAD_drought_exists = yes
+			has_completed_focus = MAD_Drought_and_famine
+		}
+		target_trigger = {
+			FROM = {
+				custom_trigger_tooltip = {
+					tooltip = MAD_DROUGHT_STATE_NO_WATER_RELIEF_tt
+					check_variable = { MAD_state_relief_months < 0.001 }
+				}
+			}
+		}
+		highlight_states = { highlight_state_targets = { state = FROM } }
+
+		visible = {
+			MAD_drought_exists = yes
+			has_completed_focus = MAD_Drought_and_famine
+		}
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_DROUGHT_FOCUS_REQ_tt
+				has_completed_focus = MAD_Drought_and_famine
+			}
+			custom_trigger_tooltip = {
+				tooltip = MAD_DROUGHT_NO_TRUCKS_tt
+				MAD_drought_water_programme_available = yes
+			}
+		}
+		cost = 55
+		days_remove = 30
+		fire_only_once = no
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_DROUGHT_EMERGENCY_WATER started"
+			set_country_flag = MAD_DROUGHT_WATER_TRUCK_ACTIVE
+			set_temp_variable = { treasury_change = -0.50 }
+			modify_treasury_effect = yes
+		}
+
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_DROUGHT_EMERGENCY_WATER complete"
+			FROM = { set_variable = { MAD_state_relief_months = 6 } }
+			clr_country_flag = MAD_DROUGHT_WATER_TRUCK_ACTIVE
+		}
+
+		ai_will_do = { base = 4 modifier = { factor = 3 FROM = { check_variable = { MAD_state_drought > 49.99 } } } }
+	}
+
+	MAD_DROUGHT_FOOD_AID_APPEAL = {
+		icon = GFX_decision_com_rebel_highest
+		on_map_mode = decision_view_only
+		allowed = { tag = MAD }
+		state_target = yes
+		targets = { 266 267 268 487 } # Mahajanga, Antananarivo, Toliara, Toamasina
+		target_root_trigger = {
+			MAD_drought_exists = yes
+			has_completed_focus = MAD_Drought_and_famine
+		}
+		highlight_states = { highlight_state_targets = { state = FROM } }
+
+		visible = {
+			MAD_drought_exists = yes
+			has_completed_focus = MAD_Drought_and_famine
+		}
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_DROUGHT_FOCUS_REQ_tt
+				has_completed_focus = MAD_Drought_and_famine
+			}
+			custom_trigger_tooltip = {
+				tooltip = MAD_DROUGHT_NO_FOOD_tt
+				MAD_drought_food_programme_available = yes
+			}
+		}
+		cost = 70
+		days_remove = 60
+		fire_only_once = no
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_DROUGHT_FOOD_AID_APPEAL started"
+			set_country_flag = MAD_DROUGHT_FOOD_AID_ACTIVE
+			set_temp_variable = { treasury_change = -0.50 }
+			modify_treasury_effect = yes
+		}
+
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_DROUGHT_FOOD_AID_APPEAL complete"
+			FROM = {
+				set_temp_variable = { MAD_dr_state_change = -8 }
+				MAD_drought_state_apply_change = yes
+				set_temp_variable = { MAD_dr_state_famine = -20 }
+				MAD_drought_state_apply_famine = yes
+			}
+			MAD_drought_recalc_national = yes
+			clr_country_flag = MAD_DROUGHT_FOOD_AID_ACTIVE
+		}
+
+		ai_will_do = { base = 4 modifier = { factor = 3 FROM = { check_variable = { MAD_state_famine > 39.99 } } } }
+	}
+
+	########################################################################
+	# LOCAL RELIEF - repeatable, per state, buys that state time only
+	########################################################################
+
+	# Tankers on the RN7 and the RN10. Moves that one state's number, nothing else.
+	# Mvola cash straight to the household. Needs the mobile-money focus; the best famine tool you have.
+	MAD_DROUGHT_LOCAL_CASH_FOR_WORK = {
+		icon = {
+			key = GFX_decision_com_rebel_highest
+			trigger = { FROM = { check_variable = { MAD_state_drought > 74.99 } } }
+		}
+		icon = {
+			key = GFX_decision_com_rebel_high
+			trigger = { FROM = { check_variable = { MAD_state_drought > 54.99 } } }
+		}
+		icon = {
+			key = GFX_decision_com_rebel_medium
+			trigger = { FROM = { check_variable = { MAD_state_drought > 34.99 } } }
+		}
+		icon = {
+			key = GFX_decision_com_rebel_moderat
+			trigger = { FROM = { check_variable = { MAD_state_drought > 14.99 } } }
+		}
+		icon = GFX_decision_com_rebel_weak
+		allowed = { tag = MAD }
+		state_target = yes
+		targets = { 266 267 268 487 }					# Mahajanga, Antananarivo, Toliara, Toamasina
+		target_root_trigger = {
+			MAD_drought_exists = yes
+			has_completed_focus = MAD_MVOLA_CASH_TRANSFERS
+		}
+		target_trigger = { FROM = { check_variable = { MAD_state_famine > 9.99 } } }
+		highlight_states = { highlight_state_targets = { state = FROM } }
+
+		visible = {
+			MAD_drought_exists = yes
+			has_completed_focus = MAD_MVOLA_CASH_TRANSFERS
+		}
+		cost = 20
+		days_re_enable = 90
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_DROUGHT_LOCAL_CASH_FOR_WORK"
+			set_temp_variable = { treasury_change = -0.60 }
+			modify_treasury_effect = yes
+			FROM = {
+				set_temp_variable = { MAD_dr_state_famine = -18 }
+				MAD_drought_state_apply_famine = yes
+			}
+			add_stability = 0.01
+		}
+
+		ai_will_do = { base = 6 }
+	}
+
+	########################################################################
+	# LOCAL, BUT IT LASTS - each of these can be done once per state
+	########################################################################
+
+	# Drought-tolerant seed for this state's planting season. Needs the focus that unlocks the national programme.
+	MAD_DROUGHT_LOCAL_SEED_DISTRIBUTION = {
+		icon = {
+			key = GFX_decision_com_rebel_highest
+			trigger = { FROM = { check_variable = { MAD_state_drought > 74.99 } } }
+		}
+		icon = {
+			key = GFX_decision_com_rebel_high
+			trigger = { FROM = { check_variable = { MAD_state_drought > 54.99 } } }
+		}
+		icon = {
+			key = GFX_decision_com_rebel_medium
+			trigger = { FROM = { check_variable = { MAD_state_drought > 34.99 } } }
+		}
+		icon = {
+			key = GFX_decision_com_rebel_moderat
+			trigger = { FROM = { check_variable = { MAD_state_drought > 14.99 } } }
+		}
+		icon = GFX_decision_com_rebel_weak
+		allowed = { tag = MAD }
+		state_target = yes
+		targets = { 266 267 268 487 }					# Mahajanga, Antananarivo, Toliara, Toamasina
+		target_root_trigger = {
+			MAD_drought_exists = yes
+			has_completed_focus = MAD_Promote_drought_tolerant_crops
+		}
+		highlight_states = { highlight_state_targets = { state = FROM } }
+
+		visible = {
+			MAD_drought_exists = yes
+			has_completed_focus = MAD_Promote_drought_tolerant_crops
+		}
+		cost = 25
+		fire_only_once = yes
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_DROUGHT_LOCAL_SEED_DISTRIBUTION"
+			set_temp_variable = { treasury_change = -0.40 }
+			modify_treasury_effect = yes
+			FROM = {
+				set_temp_variable = { MAD_dr_state_change = -5 }
+				MAD_drought_state_apply_change = yes
+				set_temp_variable = { MAD_dr_state_famine = -6 }
+				MAD_drought_state_apply_famine = yes
+				# this state's fields cope a little better from now on
+				subtract_from_variable = { MAD_state_drought_exposure = 0.05 }
+				clamp_variable = { var = MAD_state_drought_exposure min = 0.4 max = 2 }
+			}
+			MAD_drought_recalc_national = yes
+		}
+
+		ai_will_do = { base = 8 }
+	}
+
+	# Boreholes and a solar pump for this state. Needs the Grand Sud programme. Permanently softens the drought here
+	# and halves how fast hunger builds, because the water is local and does not have to be driven in.
+	MAD_DROUGHT_LOCAL_WELLS = {
+		icon = {
+			key = GFX_decision_com_rebel_highest
+			trigger = { FROM = { check_variable = { MAD_state_drought > 74.99 } } }
+		}
+		icon = {
+			key = GFX_decision_com_rebel_high
+			trigger = { FROM = { check_variable = { MAD_state_drought > 54.99 } } }
+		}
+		icon = {
+			key = GFX_decision_com_rebel_medium
+			trigger = { FROM = { check_variable = { MAD_state_drought > 34.99 } } }
+		}
+		icon = {
+			key = GFX_decision_com_rebel_moderat
+			trigger = { FROM = { check_variable = { MAD_state_drought > 14.99 } } }
+		}
+		icon = GFX_decision_com_rebel_weak
+		allowed = { tag = MAD }
+		state_target = yes
+		targets = { 266 267 268 487 }					# Mahajanga, Antananarivo, Toliara, Toamasina
+		target_root_trigger = {
+			MAD_drought_exists = yes
+			has_completed_focus = MAD_Grand_Sud_program
+		}
+		target_trigger = { FROM = { NOT = { has_state_flag = MAD_STATE_WELLS } } }
+		highlight_states = { highlight_state_targets = { state = FROM } }
+
+		visible = {
+			MAD_drought_exists = yes
+			has_completed_focus = MAD_Grand_Sud_program
+		}
+		cost = 40
+		days_remove = 90
+		fire_only_once = yes
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_DROUGHT_LOCAL_WELLS"
+			set_temp_variable = { treasury_change = -1.25 }
+			modify_treasury_effect = yes
+			custom_effect_tooltip = MAD_drought_local_wells_tt
+		}
+
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Remove MAD_DROUGHT_LOCAL_WELLS"
+			FROM = {
+				set_state_flag = MAD_STATE_WELLS
+				set_temp_variable = { MAD_dr_state_change = -10 }
+				MAD_drought_state_apply_change = yes
+				subtract_from_variable = { MAD_state_drought_exposure = 0.15 }
+				clamp_variable = { var = MAD_state_drought_exposure min = 0.4 max = 2 }
+			}
+			MAD_drought_recalc_national = yes
+		}
+
+		ai_will_do = {
+			base = 10
+			modifier = { factor = 2 FROM = { has_state_flag = MAD_GRAND_SUD_STATE } }
+		}
+	}
+
+	# Aerial and ground spraying of this state. Needs the biopesticide focus, so it does not wreck the farmland.
+	MAD_DROUGHT_LOCAL_LOCUST_SPRAY = {
+		icon = {
+			key = GFX_decision_com_rebel_highest
+			trigger = { FROM = { check_variable = { MAD_state_drought > 74.99 } } }
+		}
+		icon = {
+			key = GFX_decision_com_rebel_high
+			trigger = { FROM = { check_variable = { MAD_state_drought > 54.99 } } }
+		}
+		icon = {
+			key = GFX_decision_com_rebel_medium
+			trigger = { FROM = { check_variable = { MAD_state_drought > 34.99 } } }
+		}
+		icon = {
+			key = GFX_decision_com_rebel_moderat
+			trigger = { FROM = { check_variable = { MAD_state_drought > 14.99 } } }
+		}
+		icon = GFX_decision_com_rebel_weak
+		allowed = { tag = MAD }
+		state_target = yes
+		targets = { 266 267 268 487 }					# Mahajanga, Antananarivo, Toliara, Toamasina
+		target_root_trigger = {
+			MAD_drought_exists = yes
+			has_country_flag = MAD_CNA_RAPID_RESPONSE
+		}
+		highlight_states = { highlight_state_targets = { state = FROM } }
+
+		visible = {
+			MAD_drought_exists = yes
+			has_country_flag = MAD_CNA_RAPID_RESPONSE
+		}
+		cost = 30
+		days_re_enable = 180
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_DROUGHT_LOCAL_LOCUST_SPRAY"
+			set_temp_variable = { treasury_change = -0.80 }
+			modify_treasury_effect = yes
+			FROM = {
+				set_temp_variable = { MAD_dr_state_change = -7 }
+				MAD_drought_state_apply_change = yes
+				set_temp_variable = { MAD_dr_state_famine = -8 }
+				MAD_drought_state_apply_famine = yes
+			}
+			# biopesticide does not poison what it lands on, so the fields keep working
+			if = {
+				limit = { has_country_flag = MAD_CNA_BIOPESTICIDES }
+				custom_effect_tooltip = MAD_drought_spray_clean_tt
+			}
+			else = {
+				custom_effect_tooltip = MAD_drought_spray_dirty_tt
+				add_stability = -0.01
+			}
+			MAD_drought_recalc_national = yes
+		}
+
+		ai_will_do = { base = 7 }
+	}
+
+	########################################################################
+	# REACTIVE - available from the start, temporary
+	########################################################################
+
+	# stronger relief once the Mvola mobile-money cash transfers exist
+	########################################################################
+	# PREVENTATIVE - unlocked by the focuses, one-off, permanent
+	########################################################################
+
+	MAD_DROUGHT_SEED = {
+		icon = generic_political_discourse
+		allowed = { tag = MAD }
+		visible = {
+			MAD_drought_exists = yes
+			has_completed_focus = MAD_Promote_drought_tolerant_crops
+		}
+		cost = 60
+		fire_only_once = yes
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_DROUGHT_SEED"
+			set_temp_variable = { treasury_change = -2.00 }
+			modify_treasury_effect = yes
+			custom_effect_tooltip = MAD_drought_prevention_tt
+			set_temp_variable = { MAD_dr_prevent_amount = 0.30 }
+			MAD_drought_add_prevention = yes
+		}
+
+		ai_will_do = { base = 1 }
+	}
+
+	MAD_DROUGHT_EARLY_WARNING = {
+		icon = generic_political_discourse
+		allowed = { tag = MAD }
+		visible = {
+			MAD_drought_exists = yes
+			has_completed_focus = MAD_anticipating_faming_strategy
+		}
+		cost = 60
+		fire_only_once = yes
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_DROUGHT_EARLY_WARNING"
+			set_temp_variable = { treasury_change = -1.50 }
+			modify_treasury_effect = yes
+			custom_effect_tooltip = MAD_drought_prevention_tt
+			custom_effect_tooltip = MAD_drought_early_warning_tt
+			set_country_flag = MAD_DROUGHT_EARLY_WARNING
+			set_temp_variable = { MAD_dr_prevent_amount = 0.20 }
+			MAD_drought_add_prevention = yes
+		}
+
+		ai_will_do = { base = 1 }
+	}
+
+	MAD_DROUGHT_BOREHOLES = {
+		icon = generic_political_discourse
+		allowed = { tag = MAD }
+		visible = {
+			MAD_drought_exists = yes
+			has_completed_focus = MAD_Grand_Sud_program
+		}
+		cost = 75
+		fire_only_once = yes
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_DROUGHT_BOREHOLES"
+			set_temp_variable = { treasury_change = -4.00 }
+			modify_treasury_effect = yes
+			custom_effect_tooltip = MAD_drought_prevention_tt
+			set_temp_variable = { MAD_dr_prevent_amount = 0.40 }
+			MAD_drought_add_prevention = yes
+		}
+
+		ai_will_do = { base = 1 }
+	}
+
+	# needs a way to get things to the south-east: the Toliara or Ambovombe railway
+	MAD_DROUGHT_SUD_EST = {
+		icon = generic_political_discourse
+		allowed = { tag = MAD }
+		visible = {
+			MAD_drought_exists = yes
+			has_completed_focus = MAD_Grand_sud_est_program
+		}
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_DROUGHT_SOUTH_RAIL_tt
+				OR = { has_country_flag = MAD_RAIL_TOLIARA_BUILT has_country_flag = MAD_RAIL_AMBOVOMBE_BUILT }
+			}
+		}
+		cost = 75
+		fire_only_once = yes
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_DROUGHT_SUD_EST"
+			set_temp_variable = { treasury_change = -4.00 }
+			modify_treasury_effect = yes
+			custom_effect_tooltip = MAD_drought_prevention_tt
+			set_temp_variable = { MAD_dr_prevent_amount = 0.35 }
+			MAD_drought_add_prevention = yes
+		}
+
+		ai_will_do = { base = 1 }
+	}
+
+	MAD_DROUGHT_CLIMATE_ADAPTATION = {
+		icon = generic_political_discourse
+		allowed = { tag = MAD }
+		visible = {
+			MAD_drought_exists = yes
+			has_completed_focus = MAD_Fighting_climate_change
+		}
+		cost = 90
+		fire_only_once = yes
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_DROUGHT_CLIMATE_ADAPTATION"
+			set_temp_variable = { treasury_change = -5.00 }
+			modify_treasury_effect = yes
+			custom_effect_tooltip = MAD_drought_prevention_tt
+			set_temp_variable = { MAD_dr_prevent_amount = 0.35 }
+			MAD_drought_add_prevention = yes
+		}
+
+		ai_will_do = { base = 1 }
+	}
+
+	MAD_DROUGHT_GRAIN_RESERVE = {
+		icon = generic_political_discourse
+		allowed = { tag = MAD }
+		visible = {
+			MAD_drought_exists = yes
+			has_completed_focus = MAD_school_feeding_problems
+		}
+		cost = 60
+		fire_only_once = yes
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_DROUGHT_GRAIN_RESERVE"
+			set_temp_variable = { treasury_change = -2.50 }
+			modify_treasury_effect = yes
+			custom_effect_tooltip = MAD_drought_prevention_tt
+			add_stability = 0.01
+			set_temp_variable = { MAD_dr_prevent_amount = 0.25 }
+			MAD_drought_add_prevention = yes
+		}
+
+		ai_will_do = { base = 1 }
+	}
+
+	MAD_DROUGHT_LOCUST_WATCH = {
+		icon = generic_political_discourse
+		allowed = { tag = MAD }
+		visible = {
+			MAD_drought_exists = yes
+			has_completed_focus = MAD_map_infestations
+		}
+		cost = 50
+		fire_only_once = yes
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_DROUGHT_LOCUST_WATCH"
+			set_temp_variable = { treasury_change = -1.50 }
+			modify_treasury_effect = yes
+			custom_effect_tooltip = MAD_drought_prevention_tt
+			custom_effect_tooltip = MAD_drought_locust_watch_tt
+			set_country_flag = MAD_DROUGHT_LOCUST_WATCH
+			set_temp_variable = { MAD_dr_prevent_amount = 0.15 }
+			MAD_drought_add_prevention = yes
+		}
+
+		ai_will_do = { base = 1 }
+	}
+
+	########################################################################
+	# LATE DECISIONS
+	########################################################################
+
+	# Bring back the people who left for the cities and abroad - only once the worst is behind you.
+	MAD_DROUGHT_RESETTLE = {
+		icon = generic_political_discourse
+		allowed = { tag = MAD }
+		visible = {
+			check_variable = { MAD_drought_displaced > 0 }
+		}
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_DROUGHT_PREVENTION_4_tt
+				check_variable = { MAD_drought_prevention_count > 3.99 }
+			}
+			custom_trigger_tooltip = {
+				tooltip = MAD_DROUGHT_SEVERITY_BELOW_35_tt
+				check_variable = { MAD_drought_severity < 35 }
+			}
+		}
+		cost = 50
+		days_re_enable = 365
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_DROUGHT_RESETTLE"
+			set_temp_variable = { treasury_change = -3.00 }
+			modify_treasury_effect = yes
+			MAD_drought_resettle = yes
+		}
+
+		ai_will_do = { base = 1 }
+	}
+
+	# After Winning The Fight the drought recedes fast on its own; this finishes it.
+	MAD_DROUGHT_FINAL_PUSH = {
+		icon = generic_political_discourse
+		allowed = { tag = MAD }
+		visible = {
+			MAD_drought_exists = yes
+			has_country_flag = MAD_DROUGHT_WON
+		}
+		cost = 40
+		fire_only_once = yes
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_DROUGHT_FINAL_PUSH"
+			set_temp_variable = { treasury_change = -2.00 }
+			modify_treasury_effect = yes
+			set_temp_variable = { MAD_dr_change = -25 }
+			MAD_drought_apply_change = yes
+		}
+
+		ai_will_do = { base = 1 }
+	}
+}
+########################################################################
+# THE LOCAL MEASURES - state-targeted, same category as the countrywide ones
+########################################################################
+#
+# The split the branch is built around:
+#   SMALL, IMMEDIATE, LOCAL  -> state_target = yes: water, food, seed, spraying, cash for work, wells.
+#   BIG, SLOW, PREVENTATIVE  -> countrywide, once each, permanent.
+#
+# targets = { 266 267 268 487 } is a static list on purpose. A runtime-built target_array depends on the startup
+# event having already run when the decision database is read, which is fragile; the four state IDs never change.
+# The drought state report is the readout and all usable water/food decisions can also be viewed on the map.
+# The category map-area control handles camera positioning rather than trying to build a second GUI map.
+# The tiered icon = { key = ... trigger = { FROM = { ... } } } blocks are what actually DRAW the severity on the
+# map: each state shows the icon for its own MAD_state_drought, exactly like the Indian naxalite map.
+
+

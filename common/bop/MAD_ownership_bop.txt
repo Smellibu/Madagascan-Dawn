@@ -1,0 +1,269 @@
+# ================================================================
+# FILE: common/bop/MAD_ownership_bop.txt
+# Rudimentary public/private ownership balance of power for Madagascar.
+# Left side  = MAD_private_ownership  (privatised, foreign/private capital)
+# Right side = MAD_public_ownership   (state-owned, nationalised)
+# ================================================================
+
+MAD_economy_ownership_bop = {
+	initial_value = 0		# starts perfectly mixed
+	left_side = MAD_private_ownership
+	right_side = MAD_public_ownership	
+
+	# Stays visible regardless of which side is active - rewards NOT
+	# lurching to an extreme. Mixed-economy stability bonus.
+	range = {
+		id = MAD_mixed_economy_range
+		min = -0.10
+		max = 0.10
+		modifier = {
+			stability_factor = 0.03
+		}
+	}
+
+	side = {
+		id = MAD_private_ownership
+		icon = GFX_idea_generic_free_market_reforms	# placeholder, swap for a real sprite
+
+				range = {
+			id = MAD_privatised_range
+			min = -1
+			max = -0.70
+			modifier = {
+				# --- efficiency / private-capital stats: positive here ---
+				productivity_growth_modifier = 0.10
+				production_factory_max_efficiency_factor = 0.05
+				research_speed_factor = 0.10
+				return_on_investment_modifier = 0.03
+				trade_opinion_factor = 0.10
+				production_speed_infrastructure_factor = 0.03
+				production_speed_offices_factor = 0.15
+ 
+				# --- cost/friction stats: cheaper & faster under private capital ---
+				receiving_investment_cost_modifier = -0.25
+				receiving_investment_duration_modifier = -0.25
+				civilian_industry_tax_modifier = -0.08
+				office_park_income_tax_modifier = -0.08
+				civ_facs_worker_requirement_modifier = -0.08
+ 
+				# --- state-mobilisation stats: worse under private control ---
+				production_speed_industrial_complex_factor = -0.15
+				production_speed_industrial_infrastructure_factor = -0.15
+				internal_investments_money_cost_modifier = 0.15
+				local_resources_tungsten_factor = -0.15
+				infrastructure_tax_gain_multiplier_modifier = -0.15
+ 
+				# --- welfare / demographics: worse under pure private extreme ---
+				monthly_population = -0.08
+ 
+				# stability penalty for full privatisation only - the public
+				# side is left neutral rather than symmetric (see below)
+				stability_factor = -0.03
+			}
+		}
+		range = {
+			id = MAD_mostly_privatised_range
+			min = -0.70
+			max = -0.40
+			modifier = {
+				# ~60% of full-privatisation strength
+				productivity_growth_modifier = 0.06
+				production_factory_max_efficiency_factor = 0.03
+				research_speed_factor = 0.06
+				return_on_investment_modifier = 0.02
+				trade_opinion_factor = 0.06
+				production_speed_infrastructure_factor = 0.02
+				production_speed_offices_factor = 0.09
+ 
+				receiving_investment_cost_modifier = -0.15
+				receiving_investment_duration_modifier = -0.15
+				civilian_industry_tax_modifier = -0.05
+				office_park_income_tax_modifier = -0.05
+				civ_facs_worker_requirement_modifier = -0.05
+ 
+				production_speed_industrial_complex_factor = -0.09
+				production_speed_industrial_infrastructure_factor = -0.09
+				internal_investments_money_cost_modifier = 0.09
+				local_resources_tungsten_factor = -0.09
+				infrastructure_tax_gain_multiplier_modifier = -0.09
+ 
+				monthly_population = -0.05
+			}
+		}
+		range = {
+			id = MAD_partially_privatised_range
+			min = -0.4
+			max = -0.1
+			modifier = {
+				# ~25% of full-privatisation strength
+				productivity_growth_modifier = 0.03
+				production_factory_max_efficiency_factor = 0.01
+				research_speed_factor = 0.03
+				return_on_investment_modifier = 0.01
+				trade_opinion_factor = 0.03
+				production_speed_infrastructure_factor = 0.01
+				production_speed_offices_factor = 0.04
+ 
+				receiving_investment_cost_modifier = -0.06
+				receiving_investment_duration_modifier = -0.06
+				civilian_industry_tax_modifier = -0.02
+				office_park_income_tax_modifier = -0.02
+				civ_facs_worker_requirement_modifier = -0.02
+ 
+				production_speed_industrial_complex_factor = -0.04
+				production_speed_industrial_infrastructure_factor = -0.04
+				internal_investments_money_cost_modifier = 0.04
+				local_resources_tungsten_factor = -0.04
+				infrastructure_tax_gain_multiplier_modifier = -0.04
+ 
+				monthly_population = -0.02
+			}
+		}
+	}
+ 
+	side = {
+		id = MAD_public_ownership
+		icon = GFX_idea_generic_socialist_reforms	# placeholder, swap for a real sprite
+ 
+		range = {
+			id = MAD_partially_nationalised_range
+			min = 0.1
+			max = 0.4
+			modifier = {
+				# ~25% of full-nationalisation strength — mirror of MAD_partially_privatised_range
+				productivity_growth_modifier = -0.03
+				production_factory_max_efficiency_factor = -0.01
+				research_speed_factor = -0.03
+				return_on_investment_modifier = -0.01
+				trade_opinion_factor = -0.03
+				production_speed_infrastructure_factor = -0.01
+				production_speed_offices_factor = -0.04
+ 
+				receiving_investment_cost_modifier = 0.06
+				receiving_investment_duration_modifier = 0.06
+				civilian_industry_tax_modifier = 0.02
+				office_park_income_tax_modifier = 0.02
+				civ_facs_worker_requirement_modifier = 0.02
+ 
+				production_speed_industrial_complex_factor = 0.04
+				production_speed_industrial_infrastructure_factor = 0.04
+				internal_investments_money_cost_modifier = -0.04
+				local_resources_tungsten_factor = 0.04
+				infrastructure_tax_gain_multiplier_modifier = 0.04
+ 
+				monthly_population = 0.02
+			}
+		}
+		range = {
+			id = MAD_mostly_nationalised_range
+			min = 0.4
+			max = 0.7
+			modifier = {
+				# ~60% of full-nationalisation strength — mirror of MAD_mostly_privatised_range
+				productivity_growth_modifier = -0.06
+				production_factory_max_efficiency_factor = -0.03
+				research_speed_factor = -0.06
+				return_on_investment_modifier = -0.02
+				trade_opinion_factor = -0.06
+				production_speed_infrastructure_factor = -0.02
+				production_speed_offices_factor = -0.09
+ 
+				receiving_investment_cost_modifier = 0.15
+				receiving_investment_duration_modifier = 0.15
+				civilian_industry_tax_modifier = 0.05
+				office_park_income_tax_modifier = 0.05
+				civ_facs_worker_requirement_modifier = 0.05
+ 
+				production_speed_industrial_complex_factor = 0.09
+				production_speed_industrial_infrastructure_factor = 0.09
+				internal_investments_money_cost_modifier = -0.09
+				local_resources_tungsten_factor = 0.09
+				infrastructure_tax_gain_multiplier_modifier = 0.09
+ 
+				monthly_population = 0.05
+			}
+		}
+		range = {
+			id = MAD_nationalised_range
+			min = 0.7
+			max = 1
+			modifier = {
+				# full mirror of MAD_privatised_range, opposite sign, same magnitude
+				productivity_growth_modifier = -0.10
+				production_factory_max_efficiency_factor = -0.05
+				research_speed_factor = -0.10
+				return_on_investment_modifier = -0.03
+				trade_opinion_factor = -0.10
+				production_speed_infrastructure_factor = -0.03
+				production_speed_offices_factor = -0.15
+ 
+				receiving_investment_cost_modifier = 0.25
+				receiving_investment_duration_modifier = 0.25
+				civilian_industry_tax_modifier = 0.08
+				office_park_income_tax_modifier = 0.08
+				civ_facs_worker_requirement_modifier = 0.08
+ 
+				production_speed_industrial_complex_factor = 0.15
+				production_speed_industrial_infrastructure_factor = 0.15
+				internal_investments_money_cost_modifier = -0.15
+				local_resources_tungsten_factor = 0.15
+				infrastructure_tax_gain_multiplier_modifier = 0.15
+ 
+				monthly_population = 0.08
+ 
+				# no stability_factor here on purpose — mirrors your note that the
+				# full-privatisation stability hit isn't symmetric with the public side
+			}
+		}
+	}
+
+		
+		
+	}
+
+# ================================================================
+# NOTES / NEXT STEPS
+# ================================================================
+#
+# 1. Initialise this for MAD somewhere early - e.g. in history/countries/
+#    or in the MAD_natural_resource_extraction focus's completion_reward:
+#        set_power_balance = { id = MAD_economy_ownership_bop }
+#
+# 2. Hook it into your EXISTING mechanically-definitive ownership beats
+#    with add_power_balance_value. IMPORTANT: several of these focuses
+#    (Telma Axian/Renationalize, Work With Germans, State Control
+#    Succeeds, Ambatovy Operational) ALSO currently call add_to_variable
+#    directly on MAD_economy_modifier for the same ownership shift - that's
+#    the double-counting you flagged. When you wire in add_power_balance_value
+#    below, strip those existing ownership-tied add_to_variable calls from
+#    the same completion_reward at the same time, so the BoP is the only
+#    thing driving MAD_economy_modifier's ownership-linked stats.
+#    Suggested starting magnitudes:
+#
+#    Telma:
+#      MAD_TELMA_SOLD_TO_CONSORTIUM  -> value = -0.10
+#      MAD_TELMA_AXIAN_CONSOLIDATES  -> value = -0.15
+#      MAD_TELMA_RENATIONALIZE       -> value =  0.30
+#
+#    Air Madagascar:
+#      MAD_WORK_WITH_GERMANS (-> MAD_PRIVATE_AIRLINE)  -> value = -0.20
+#      MAD_STATE_CONTROL_SUCCEEDS (-> MAD_STATE_AIRLINE) -> value =  0.20
+#
+#    Ambatovy (scale with the JV split rather than a flat push):
+#      MAD_AMBATOVY_OPERATIONAL (private branch)      -> value = -0.15
+#      MAD_AMBATOVY_OPERATIONAL (partial-state branch) -> value =  0.05
+#      MAD_AMBATOVY_OPERATIONAL (full-state branch)    -> value =  0.20
+#      MAD_SELL_MINE (re-privatised)                   -> value = -0.10
+#      mad_ambatovy.1 option a (Sherritt stays private) -> value = -0.05
+#      mad_ambatovy.1 option b (state buys out Dynatec) -> value =  0.15
+#
+# 3. The "mechanically empty" forks (Jirama, Madarail, GPM/fuel - see the
+#    audit) still have nothing to hook add_power_balance_value into - no
+#    action needed right now though, since per your note these are WIP
+#    and you'll build them straight against the BoP (not the dynamic
+#    modifier) when you get to them.
+#
+# 4. Fix the MAD_dynatec_invited / MAD_DYNATEC flag-name mismatch in
+#    MAD_events.txt line 37 before relying on the Dynatec buyout path above -
+#    right now that event option can never be selected.
+# ================================================================
