@@ -1315,49 +1315,59 @@ MAD_drought_recalc_national = {
 # description can render exact per-state values without relying on FROM scope.
 MAD_drought_sync_display = {
 	# Compute the frame while still in STATE scope, then write it to the country variable.
-	# The previous version entered ROOT = { ... } before testing MAD_state_drought, which
-	# moved the trigger into COUNTRY scope where that variable does not exist. Every frame
-	# therefore stayed at 0 (green) even when the panel showed non-zero state severity.
+
 	266 = {
 		set_variable = { ROOT.MAD_drought_266_display = MAD_state_drought }
 		set_variable = { ROOT.MAD_famine_266_display = MAD_state_famine }
-		set_temp_variable = { MAD_map_frame = 0 }
-		if = { limit = { check_variable = { MAD_state_drought > 14.99 } } set_temp_variable = { MAD_map_frame = 1 } }
-		if = { limit = { check_variable = { MAD_state_drought > 34.99 } } set_temp_variable = { MAD_map_frame = 2 } }
-		if = { limit = { check_variable = { MAD_state_drought > 54.99 } } set_temp_variable = { MAD_map_frame = 3 } }
-		if = { limit = { check_variable = { MAD_state_drought > 74.99 } } set_temp_variable = { MAD_map_frame = 4 } }
+
+		set_temp_variable = { MAD_map_frame = 1 }
+		if = { limit = { check_variable = { MAD_state_drought > 14.99 } } set_temp_variable = { MAD_map_frame = 2 } }
+		if = { limit = { check_variable = { MAD_state_drought > 34.99 } } set_temp_variable = { MAD_map_frame = 3 } }
+		if = { limit = { check_variable = { MAD_state_drought > 54.99 } } set_temp_variable = { MAD_map_frame = 4 } }
+		if = { limit = { check_variable = { MAD_state_drought > 74.99 } } set_temp_variable = { MAD_map_frame = 5 } }
+
 		set_variable = { ROOT.MAD_drought_266_map_frame = MAD_map_frame }
 	}
+
 	267 = {
 		set_variable = { ROOT.MAD_drought_267_display = MAD_state_drought }
 		set_variable = { ROOT.MAD_famine_267_display = MAD_state_famine }
-		set_temp_variable = { MAD_map_frame = 0 }
-		if = { limit = { check_variable = { MAD_state_drought > 14.99 } } set_temp_variable = { MAD_map_frame = 1 } }
-		if = { limit = { check_variable = { MAD_state_drought > 34.99 } } set_temp_variable = { MAD_map_frame = 2 } }
-		if = { limit = { check_variable = { MAD_state_drought > 54.99 } } set_temp_variable = { MAD_map_frame = 3 } }
-		if = { limit = { check_variable = { MAD_state_drought > 74.99 } } set_temp_variable = { MAD_map_frame = 4 } }
+
+		set_temp_variable = { MAD_map_frame = 1 }
+		if = { limit = { check_variable = { MAD_state_drought > 14.99 } } set_temp_variable = { MAD_map_frame = 2 } }
+		if = { limit = { check_variable = { MAD_state_drought > 34.99 } } set_temp_variable = { MAD_map_frame = 3 } }
+		if = { limit = { check_variable = { MAD_state_drought > 54.99 } } set_temp_variable = { MAD_map_frame = 4 } }
+		if = { limit = { check_variable = { MAD_state_drought > 74.99 } } set_temp_variable = { MAD_map_frame = 5 } }
+
 		set_variable = { ROOT.MAD_drought_267_map_frame = MAD_map_frame }
 	}
+
 	268 = {
 		set_variable = { ROOT.MAD_drought_268_display = MAD_state_drought }
 		set_variable = { ROOT.MAD_famine_268_display = MAD_state_famine }
-		set_temp_variable = { MAD_map_frame = 0 }
-		if = { limit = { check_variable = { MAD_state_drought > 14.99 } } set_temp_variable = { MAD_map_frame = 1 } }
-		if = { limit = { check_variable = { MAD_state_drought > 34.99 } } set_temp_variable = { MAD_map_frame = 2 } }
-		if = { limit = { check_variable = { MAD_state_drought > 54.99 } } set_temp_variable = { MAD_map_frame = 3 } }
-		if = { limit = { check_variable = { MAD_state_drought > 74.99 } } set_temp_variable = { MAD_map_frame = 4 } }
+
+		set_temp_variable = { MAD_map_frame = 1 }
+		if = { limit = { check_variable = { MAD_state_drought > 14.99 } } set_temp_variable = { MAD_map_frame = 2 } }
+		if = { limit = { check_variable = { MAD_state_drought > 34.99 } } set_temp_variable = { MAD_map_frame = 3 } }
+		if = { limit = { check_variable = { MAD_state_drought > 54.99 } } set_temp_variable = { MAD_map_frame = 4 } }
+		if = { limit = { check_variable = { MAD_state_drought > 74.99 } } set_temp_variable = { MAD_map_frame = 5 } }
+
 		set_variable = { ROOT.MAD_drought_268_map_frame = MAD_map_frame }
 	}
+
 	487 = {
 		set_variable = { ROOT.MAD_drought_487_display = MAD_state_drought }
 		set_variable = { ROOT.MAD_famine_487_display = MAD_state_famine }
-		set_temp_variable = { MAD_map_frame = 0 }
-		if = { limit = { check_variable = { MAD_state_drought > 14.99 } } set_temp_variable = { MAD_map_frame = 1 } }
-		if = { limit = { check_variable = { MAD_state_drought > 34.99 } } set_temp_variable = { MAD_map_frame = 2 } }
-		if = { limit = { check_variable = { MAD_state_drought > 54.99 } } set_temp_variable = { MAD_map_frame = 3 } }
-		if = { limit = { check_variable = { MAD_state_drought > 74.99 } } set_temp_variable = { MAD_map_frame = 4 } }
+
+		set_temp_variable = { MAD_map_frame = 1 }
+		if = { limit = { check_variable = { MAD_state_drought > 14.99 } } set_temp_variable = { MAD_map_frame = 2 } }
+		if = { limit = { check_variable = { MAD_state_drought > 34.99 } } set_temp_variable = { MAD_map_frame = 3 } }
+		if = { limit = { check_variable = { MAD_state_drought > 54.99 } } set_temp_variable = { MAD_map_frame = 4 } }
+		if = { limit = { check_variable = { MAD_state_drought > 74.99 } } set_temp_variable = { MAD_map_frame = 5 } }
+
 		set_variable = { ROOT.MAD_drought_487_map_frame = MAD_map_frame }
 	}
+
 	add_to_variable = { MAD_drought_display_refresh = 1 }
 }
 
