@@ -99,7 +99,7 @@ focus_tree = {
 		prerequisite = { focus = MAD_natural_resource_extraction }
 		search_filters = { FOCUS_FILTER_ECONOMY }
 		available = {
-			date > 2004.1.1
+			has_completed_focus = MAD_ACCEPT_FOREIGN_OWNERSHIP
 		}
 
 		completion_reward = {
@@ -707,7 +707,7 @@ focus_tree = {
 		prerequisite = { focus = MAD_Telma }
 		search_filters = { FOCUS_FILTER_ECONOMY }
 		available = {
-			date > 2004.1.1
+			has_completed_focus = MAD_ACCEPT_FOREIGN_OWNERSHIP
 		}
 
 		completion_reward = {
@@ -744,7 +744,7 @@ focus_tree = {
 		prerequisite = { focus = MAD_Madarail }
 		search_filters = { FOCUS_FILTER_ECONOMY }
 		available = {
-			date > 2002.10.1
+			has_completed_focus = MAD_ACCEPT_FOREIGN_OWNERSHIP
 		}
 
 		completion_reward = {
@@ -1323,7 +1323,6 @@ focus_tree = {
 		prerequisite = { focus = MAD_RNCFM_PRIVATIZE }
 		search_filters = { FOCUS_FILTER_ECONOMY }
 		available = {
-			date > 2008.1.1
 		}
 
 		completion_reward = {
@@ -1461,7 +1460,6 @@ focus_tree = {
 		mutually_exclusive = { focus = MAD_CONTINUE_WITH_LUFTHANSA }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
-			date > 2008.01.01
 				267 = {
 				air_base > 2
 				}
