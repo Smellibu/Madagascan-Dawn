@@ -1,0 +1,97 @@
+# common/scripted_triggers/MAD_madarail_scripted_triggers.txt
+#
+# Referenced by the five 15-billion railway-build decisions in MAD_decisions.txt
+# (MAD_MADARAIL_BUILD_FCE_EXTENSION / TOLIARA / MAHAJANGA / AMBOVOMBE / ANTSIRANANA).
+# Mirrors the existing convention used for MAD_STATE_INVESTMENT's custom_cost_trigger
+# (check_variable = { treasury > 7.499 } for a 7.5bn cost) - here for the 15bn lines.
+
+MAD_madarail_can_afford_line = {
+	check_variable = { treasury > 14.99 }
+}
+
+########################################################################
+# common/scripted_triggers/MAD_drought_scripted_triggers.txt
+########################################################################
+
+# common/scripted_triggers/MAD_drought_scripted_triggers.txt
+#
+# Drought / famine panel and the Daewoo outcomes. The two that lean on how Millennium Dawn names things
+# (corruption, popularity) are each written once here, so if a name is wrong this is the only place to change.
+
+# The drought exists from game start until its severity has been brought down to 0 (see MAD_drought_finish).
+MAD_drought_exists = {
+	check_variable = { MAD_drought_severity > 0 }
+	NOT = { has_country_flag = MAD_DROUGHT_OVER }
+}
+
+# Hang this on any "further agricultural" focus that should wait until the drought is over,
+# on either path (won: severity ran down to 0; failed: the decisions carried on until it hit 0).
+MAD_drought_resolved = {
+	has_country_flag = MAD_DROUGHT_OVER
+}
+
+# A region counts as food-secure only when it is below the dry-spell threshold
+# and its local hunger meter is also low. This lets historical drought events
+# stop applying to a region the player has genuinely stabilised, without
+# suppressing the historical shocks at game start when Toliara is still dry.
+# State scope: use on a specific state such as 268 (Toliara).
+MAD_state_food_secure = {
+	check_variable = { MAD_state_drought < 15.01 }
+	check_variable = { MAD_state_famine < 15.01 }
+}
+
+# Country scope. Historical drought events should only fire while the drought
+# system is active AND the Grand Sud/target region is not food-secure.
+MAD_historical_drought_should_fire = {
+	MAD_drought_exists = yes
+	NOT = {
+		268 = { MAD_state_food_secure = yes }
+	}
+}
+
+# "Corruption 4 or below" = the four cleanest corruption levels (MD ideas corruption_level_01 .. 04, 01 = cleanest).
+# ASSUMPTION: level 01 is the lowest corruption and the ladder continues 02, 03, 04, ... If yours runs the other way, edit here.
+MAD_corruption_at_most_4 = {
+	OR = {
+		has_idea = corruption_level_01
+		has_idea = corruption_level_02
+		has_idea = corruption_level_03
+		has_idea = corruption_level_04
+	}
+}
+
+# "Government popularity below 50%": the ruling party's popularity in MD's party array (values are fractions, 0.45 = 45%).
+MAD_government_popularity_below_half = {
+	check_variable = { party_pop_array^ruling_party < 0.5 }
+}
+
+# Country-scope decision prerequisites used so the relief decisions show a clean custom tooltip.
+MAD_drought_water_programme_available = {
+	NOT = { has_country_flag = MAD_DROUGHT_WATER_TRUCK_ACTIVE }
+}
+
+MAD_drought_food_programme_available = {
+	NOT = { has_country_flag = MAD_DROUGHT_FOOD_AID_ACTIVE }
+}
+
+########################################################################
+# THE DROUGHT MAP
+########################################################################
+
+# State scope. "This state is in real trouble" - used by the AI weights and the map decisions.
+MAD_state_drought_severe = {
+	check_variable = { MAD_state_drought > 54.99 }
+}
+
+# State scope. The Grand Sud: set by MAD_drought_state_init, so the state IDs live in ONE place.
+MAD_state_is_grand_sud = {
+	has_state_flag = MAD_GRAND_SUD_STATE
+}
+
+# Country scope. Hang this on anything that should wait until the whole island is under control,
+# not just the national average - a single state still at kere levels blocks it.
+MAD_no_state_in_kere = {
+	NOT = {
+		any_owned_state = { check_variable = { MAD_state_drought > 74.99 } }
+	}
+}

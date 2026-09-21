@@ -1,0 +1,461 @@
+# common/scripted_localisation/MAD_madarail_scripted_loc.txt
+# Feeds the description of the Madarail decision category (MAD_madarail_category_desc).
+
+defined_text = {
+	name = MAD_GetMadarailStatus
+	text = {
+		trigger = { has_country_flag = MAD_MADARAIL_DESIST_UNLOCKED }
+		localization_key = MAD_madarail_status_left
+	}
+	text = {
+		trigger = { has_country_flag = MAD_MADARAIL_STAY_UNLOCKED }
+		localization_key = MAD_madarail_status_stay
+	}
+	text = {
+		trigger = { has_active_mission = MAD_MADARAIL_INVESTOR_TENURE }
+		localization_key = MAD_madarail_status_active
+	}
+	text = {
+		trigger = { has_country_flag = MAD_MADARAIL_HOLDING }
+		localization_key = MAD_madarail_status_waiting
+	}
+	text = {
+		localization_key = MAD_madarail_blank
+	}
+}
+
+defined_text = {
+	name = MAD_GetMadarailSuitorLine
+	text = {
+		trigger = { has_country_flag = MAD_MADARAIL_SEATED_COMAZAR }
+		localization_key = MAD_madarail_suitor_COMAZAR
+	}
+	text = {
+		trigger = { has_country_flag = MAD_MADARAIL_SEATED_VECTURIS }
+		localization_key = MAD_madarail_suitor_VECTURIS
+	}
+	text = {
+		trigger = { has_country_flag = MAD_MADARAIL_SEATED_HOLDING }
+		localization_key = MAD_madarail_suitor_HOLDING
+	}
+	text = {
+		localization_key = MAD_madarail_blank
+	}
+}
+
+defined_text = {
+	name = MAD_GetMadarailConfidenceLine
+	text = {
+		trigger = { has_active_mission = MAD_MADARAIL_INVESTOR_TENURE }
+		localization_key = MAD_madarail_confidence_line
+	}
+	text = {
+		localization_key = MAD_madarail_blank
+	}
+}
+
+defined_text = {
+	name = MAD_GetMadarailDemandLine1
+	text = {
+		trigger = {
+			has_country_flag = MAD_MADARAIL_SEATED_COMAZAR
+			has_country_flag = MAD_MADARAIL_OFFER_1
+			has_country_flag = MAD_MADARAIL_STAY_UNLOCKED
+		}
+		localization_key = MAD_dem_COMAZAR_1_inforce
+	}
+	text = {
+		trigger = {
+			has_country_flag = MAD_MADARAIL_SEATED_COMAZAR
+			has_country_flag = MAD_MADARAIL_OFFER_1
+		}
+		localization_key = MAD_dem_COMAZAR_1_offered
+	}
+	text = {
+		trigger = { has_country_flag = MAD_MADARAIL_SEATED_COMAZAR }
+		localization_key = MAD_dem_COMAZAR_1_open
+	}
+	text = {
+		trigger = {
+			has_country_flag = MAD_MADARAIL_SEATED_VECTURIS
+			has_country_flag = MAD_MADARAIL_OFFER_1
+			has_country_flag = MAD_MADARAIL_STAY_UNLOCKED
+		}
+		localization_key = MAD_dem_VECTURIS_1_inforce
+	}
+	text = {
+		trigger = {
+			has_country_flag = MAD_MADARAIL_SEATED_VECTURIS
+			has_country_flag = MAD_MADARAIL_OFFER_1
+		}
+		localization_key = MAD_dem_VECTURIS_1_offered
+	}
+	text = {
+		trigger = { has_country_flag = MAD_MADARAIL_SEATED_VECTURIS }
+		localization_key = MAD_dem_VECTURIS_1_open
+	}
+	text = {
+		trigger = {
+			has_country_flag = MAD_MADARAIL_SEATED_HOLDING
+			has_country_flag = MAD_MADARAIL_OFFER_1
+			has_country_flag = MAD_MADARAIL_STAY_UNLOCKED
+		}
+		localization_key = MAD_dem_HOLDING_1_inforce
+	}
+	text = {
+		trigger = {
+			has_country_flag = MAD_MADARAIL_SEATED_HOLDING
+			has_country_flag = MAD_MADARAIL_OFFER_1
+		}
+		localization_key = MAD_dem_HOLDING_1_offered
+	}
+	text = {
+		trigger = { has_country_flag = MAD_MADARAIL_SEATED_HOLDING }
+		localization_key = MAD_dem_HOLDING_1_open
+	}
+	text = {
+		localization_key = MAD_madarail_blank
+	}
+}
+
+defined_text = {
+	name = MAD_GetMadarailDemandLine2
+	text = {
+		trigger = {
+			has_country_flag = MAD_MADARAIL_SEATED_COMAZAR
+			has_country_flag = MAD_MADARAIL_OFFER_2
+			has_country_flag = MAD_MADARAIL_STAY_UNLOCKED
+		}
+		localization_key = MAD_dem_COMAZAR_2_inforce
+	}
+	text = {
+		trigger = {
+			has_country_flag = MAD_MADARAIL_SEATED_COMAZAR
+			has_country_flag = MAD_MADARAIL_OFFER_2
+		}
+		localization_key = MAD_dem_COMAZAR_2_offered
+	}
+	text = {
+		trigger = { has_country_flag = MAD_MADARAIL_SEATED_COMAZAR }
+		localization_key = MAD_dem_COMAZAR_2_open
+	}
+	text = {
+		trigger = {
+			has_country_flag = MAD_MADARAIL_SEATED_VECTURIS
+			has_country_flag = MAD_MADARAIL_OFFER_2
+			has_country_flag = MAD_MADARAIL_STAY_UNLOCKED
+		}
+		localization_key = MAD_dem_VECTURIS_2_inforce
+	}
+	text = {
+		trigger = {
+			has_country_flag = MAD_MADARAIL_SEATED_VECTURIS
+			has_country_flag = MAD_MADARAIL_OFFER_2
+		}
+		localization_key = MAD_dem_VECTURIS_2_offered
+	}
+	text = {
+		trigger = { has_country_flag = MAD_MADARAIL_SEATED_VECTURIS }
+		localization_key = MAD_dem_VECTURIS_2_open
+	}
+	text = {
+		trigger = {
+			has_country_flag = MAD_MADARAIL_SEATED_HOLDING
+			has_country_flag = MAD_MADARAIL_OFFER_2
+			has_country_flag = MAD_MADARAIL_STAY_UNLOCKED
+		}
+		localization_key = MAD_dem_HOLDING_2_inforce
+	}
+	text = {
+		trigger = {
+			has_country_flag = MAD_MADARAIL_SEATED_HOLDING
+			has_country_flag = MAD_MADARAIL_OFFER_2
+		}
+		localization_key = MAD_dem_HOLDING_2_offered
+	}
+	text = {
+		trigger = { has_country_flag = MAD_MADARAIL_SEATED_HOLDING }
+		localization_key = MAD_dem_HOLDING_2_open
+	}
+	text = {
+		localization_key = MAD_madarail_blank
+	}
+}
+
+defined_text = {
+	name = MAD_GetMadarailDemandLine3
+	text = {
+		trigger = {
+			has_country_flag = MAD_MADARAIL_SEATED_COMAZAR
+			has_country_flag = MAD_MADARAIL_OFFER_3
+			has_country_flag = MAD_MADARAIL_STAY_UNLOCKED
+		}
+		localization_key = MAD_dem_COMAZAR_3_inforce
+	}
+	text = {
+		trigger = {
+			has_country_flag = MAD_MADARAIL_SEATED_COMAZAR
+			has_country_flag = MAD_MADARAIL_OFFER_3
+		}
+		localization_key = MAD_dem_COMAZAR_3_offered
+	}
+	text = {
+		trigger = { has_country_flag = MAD_MADARAIL_SEATED_COMAZAR }
+		localization_key = MAD_dem_COMAZAR_3_open
+	}
+	text = {
+		trigger = {
+			has_country_flag = MAD_MADARAIL_SEATED_VECTURIS
+			has_country_flag = MAD_MADARAIL_OFFER_3
+			has_country_flag = MAD_MADARAIL_STAY_UNLOCKED
+		}
+		localization_key = MAD_dem_VECTURIS_3_inforce
+	}
+	text = {
+		trigger = {
+			has_country_flag = MAD_MADARAIL_SEATED_VECTURIS
+			has_country_flag = MAD_MADARAIL_OFFER_3
+		}
+		localization_key = MAD_dem_VECTURIS_3_offered
+	}
+	text = {
+		trigger = { has_country_flag = MAD_MADARAIL_SEATED_VECTURIS }
+		localization_key = MAD_dem_VECTURIS_3_open
+	}
+	text = {
+		trigger = {
+			has_country_flag = MAD_MADARAIL_SEATED_HOLDING
+			has_country_flag = MAD_MADARAIL_OFFER_3
+			has_country_flag = MAD_MADARAIL_STAY_UNLOCKED
+		}
+		localization_key = MAD_dem_HOLDING_3_inforce
+	}
+	text = {
+		trigger = {
+			has_country_flag = MAD_MADARAIL_SEATED_HOLDING
+			has_country_flag = MAD_MADARAIL_OFFER_3
+		}
+		localization_key = MAD_dem_HOLDING_3_offered
+	}
+	text = {
+		trigger = { has_country_flag = MAD_MADARAIL_SEATED_HOLDING }
+		localization_key = MAD_dem_HOLDING_3_open
+	}
+	text = {
+		localization_key = MAD_madarail_blank
+	}
+}
+
+# common/scripted_localisation/MAD_daewoo_scripted_loc.txt
+# [MAD_GetDaewooTier] - names the current terms of the lease in the Daewoo category description
+
+defined_text = {
+	name = MAD_GetDaewooTier
+	text = {
+		trigger = { has_idea = MAD_DAEWOO_LEASE_TOXIC }
+		localization_key = MAD_daewoo_tier_toxic
+	}
+	text = {
+		trigger = { has_idea = MAD_DAEWOO_LEASE_TROUBLED }
+		localization_key = MAD_daewoo_tier_troubled
+	}
+	text = {
+		trigger = { has_idea = MAD_DAEWOO_LEASE_SOUND }
+		localization_key = MAD_daewoo_tier_sound
+	}
+	text = {
+		localization_key = MAD_daewoo_tier_none
+	}
+}
+
+########################################################################
+# common/scripted_localisation/MAD_drought_scripted_loc.txt
+########################################################################
+
+# common/scripted_localisation/MAD_drought_scripted_loc.txt
+# Feeds the description of the drought and famine decision panel (MAD_drought_category_desc).
+
+defined_text = {
+	name = MAD_GetDroughtPhase
+	text = {
+		trigger = { has_country_flag = MAD_DROUGHT_WON }
+		localization_key = MAD_drought_phase_won
+	}
+	text = {
+		trigger = { has_country_flag = MAD_DROUGHT_LOST }
+		localization_key = MAD_drought_phase_lost
+	}
+	text = {
+		trigger = { has_country_flag = MAD_DROUGHT_FAILED_STATE }
+		localization_key = MAD_drought_phase_failed
+	}
+	text = {
+		trigger = { has_country_flag = MAD_DROUGHT_CONTAINED_STATE }
+		localization_key = MAD_drought_phase_contained
+	}
+	text = {
+		localization_key = MAD_drought_phase_open
+	}
+}
+
+defined_text = {
+	name = MAD_GetDroughtTier
+	text = {
+		trigger = { has_idea = MAD_DROUGHT_TIER_4 }
+		localization_key = MAD_drought_tier_4_txt
+	}
+	text = {
+		trigger = { has_idea = MAD_DROUGHT_TIER_3 }
+		localization_key = MAD_drought_tier_3_txt
+	}
+	text = {
+		trigger = { has_idea = MAD_DROUGHT_TIER_2 }
+		localization_key = MAD_drought_tier_2_txt
+	}
+	text = {
+		trigger = { has_idea = MAD_DROUGHT_TIER_1 }
+		localization_key = MAD_drought_tier_1_txt
+	}
+	text = {
+		localization_key = MAD_madarail_blank
+	}
+}
+
+defined_text = {
+	name = MAD_GetDroughtTrend
+	text = {
+		trigger = { check_variable = { MAD_drought_last_delta > 0.05 } }
+		localization_key = MAD_drought_trend_worse
+	}
+	text = {
+		trigger = { check_variable = { MAD_drought_last_delta < -0.05 } }
+		localization_key = MAD_drought_trend_better
+	}
+	text = {
+		localization_key = MAD_drought_trend_steady
+	}
+}
+
+defined_text = {
+	name = MAD_GetDroughtRelief
+	text = {
+		trigger = { check_variable = { MAD_drought_relief_months > 0 } }
+		localization_key = MAD_drought_relief_line
+	}
+	text = {
+		localization_key = MAD_madarail_blank
+	}
+}
+
+defined_text = {
+	name = MAD_GetDroughtExodus
+	text = {
+		trigger = { check_variable = { MAD_drought_depop > 0 } }
+		localization_key = MAD_drought_exodus_line
+	}
+	text = {
+		localization_key = MAD_madarail_blank
+	}
+}
+
+defined_text = {
+	name = MAD_GetDroughtDisplaced
+	text = {
+		trigger = { check_variable = { MAD_drought_displaced > 0 } }
+		localization_key = MAD_drought_displaced_line
+	}
+	text = {
+		localization_key = MAD_madarail_blank
+	}
+}
+########################################################################
+# THE DROUGHT MAP - per-state readouts
+# These are called from state scope (FROM in a state-targeted decision), so they read that state's own numbers.
+########################################################################
+
+# The word for how bad it is in THIS state, used in the map decision tooltips.
+defined_text = {
+	name = MAD_GetStateDroughtTier
+	text = {
+		trigger = { check_variable = { MAD_state_drought > 74.99 } }
+		localization_key = MAD_state_drought_tier_4
+	}
+	text = {
+		trigger = { check_variable = { MAD_state_drought > 54.99 } }
+		localization_key = MAD_state_drought_tier_3
+	}
+	text = {
+		trigger = { check_variable = { MAD_state_drought > 34.99 } }
+		localization_key = MAD_state_drought_tier_2
+	}
+	text = {
+		trigger = { check_variable = { MAD_state_drought > 14.99 } }
+		localization_key = MAD_state_drought_tier_1
+	}
+	text = {
+		localization_key = MAD_state_drought_tier_0
+	}
+}
+
+defined_text = {
+	name = MAD_GetStateFamineTier
+	text = {
+		trigger = { check_variable = { MAD_state_famine > 69.99 } }
+		localization_key = MAD_state_famine_tier_3
+	}
+	text = {
+		trigger = { check_variable = { MAD_state_famine > 39.99 } }
+		localization_key = MAD_state_famine_tier_2
+	}
+	text = {
+		trigger = { check_variable = { MAD_state_famine > 14.99 } }
+		localization_key = MAD_state_famine_tier_1
+	}
+	text = {
+		localization_key = MAD_state_famine_tier_0
+	}
+}
+
+# Why this state is worse or better off than the rest of the island.
+defined_text = {
+	name = MAD_GetStateExposureLine
+	text = {
+		trigger = { has_state_flag = MAD_STATE_EMPTIED }
+		localization_key = MAD_state_exposure_emptied
+	}
+	text = {
+		trigger = { has_state_flag = MAD_GRAND_SUD_STATE }
+		localization_key = MAD_state_exposure_south
+	}
+	text = {
+		trigger = { has_state_flag = MAD_STATE_WELLS }
+		localization_key = MAD_state_exposure_wells
+	}
+	text = {
+		localization_key = MAD_state_exposure_normal
+	}
+}
+
+# Which way the CNA went, for the drought panel description.
+defined_text = {
+	name = MAD_GetCNAPath
+	text = {
+		trigger = { has_country_flag = MAD_CNA_PERMANENT }
+		localization_key = MAD_cna_path_permanent
+	}
+	text = {
+		trigger = { has_country_flag = MAD_CNA_HARVEST_PROGRAMME }
+		localization_key = MAD_cna_path_harvest
+	}
+	text = {
+		trigger = { has_country_flag = MAD_CNA_SURVEY_PROGRAMME }
+		localization_key = MAD_cna_path_survey
+	}
+	text = {
+		trigger = { has_country_flag = MAD_CNA_FOUNDED }
+		localization_key = MAD_cna_path_founded
+	}
+	text = {
+		localization_key = MAD_madarail_blank
+	}
+}

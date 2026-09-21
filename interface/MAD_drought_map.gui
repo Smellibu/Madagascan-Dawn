@@ -1,0 +1,49 @@
+guiTypes = {
+	containerWindowType = {
+		name = "MAD_drought_map_container"
+		position = { x = 0 y = 0 }
+		size = { width = 280 height = 325 }
+		orientation = upper_left
+
+		instantTextboxType = {
+			name = "MAD_drought_map_description"
+			position = { x = 8 y = 4 }
+			textureFile = ""
+			font = "hoi_16mbs"
+			borderSize = { x = 0 y = 0 }
+			text = "MAD_drought_map_gui_text"
+			maxWidth = 264
+			maxHeight = 68
+			format = left
+			multiline = yes
+			vertical_alignment = top
+			alwaystransparent = yes
+		}
+
+		iconType = {
+			name = "MAD_drought_map_base"
+			position = { x = 0 y = 72 }
+			spriteType = "GFX_MAD_DROUGHT_MAP_BASE"
+		}
+		iconType = {
+			name = "MAD_drought_state_266"
+			position = { x = 0 y = 72 }
+			spriteType = "GFX_MAD_DROUGHT_STATE_266"
+		}
+		iconType = {
+			name = "MAD_drought_state_267"
+			position = { x = 0 y = 72 }
+			spriteType = "GFX_MAD_DROUGHT_STATE_267"
+		}
+		iconType = {
+			name = "MAD_drought_state_268"
+			position = { x = 0 y = 72 }
+			spriteType = "GFX_MAD_DROUGHT_STATE_268"
+		}
+		iconType = {
+			name = "MAD_drought_state_487"
+			position = { x = 0 y = 72 }
+			spriteType = "GFX_MAD_DROUGHT_STATE_487"
+		}
+	}
+}

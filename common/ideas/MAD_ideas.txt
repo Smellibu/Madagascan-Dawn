@@ -1,0 +1,615 @@
+# ============================================================
+# FILE: common/ideas/MAD_POP_GROWTH.txt
+# ============================================================
+
+ideas = {
+	country = {
+		MAD_POP_GROWTH = {
+			name = "Rising Madagascan population"
+			picture = GFX_idea
+			allowed_civil_war = { always = yes }
+			cost = 0
+			removal_cost = -1
+			allowed = {
+				original_tag = MAD
+			}
+			modifier = {
+			monthly_population = 0.25
+			education_cost_multiplier_modifier = 0.15
+			}
+			ai_will_do = { factor = 1 }
+		}
+		MAD_FIBRE_MONOPOLY = {
+			name = "TelMa consortium network monopoly"
+			picture = GFX_idea
+			allowed_civil_war = { always = yes }
+			cost = 0
+			removal_cost = -1
+			allowed = {
+				original_tag = MAD
+			}
+			modifier = {
+			stability_factor = -0.10
+			political_power_gain = -0.10
+			corruption_cost_factor = 3
+			productivity_growth_modifier = -0.10
+			research_speed_factor = -0.05
+			}
+			ai_will_do = { factor = 1 }
+		}
+		MAD_FIBRE_MONOPOLY_WEAKENED = {
+		name = "A Rival Gets a Foothold"
+		picture = GFX_idea
+		allowed_civil_war = { always = yes }
+		cost = 0
+		removal_cost = -1
+		allowed = { original_tag = MAD }
+		modifier = {
+			stability_factor = -0.05
+			political_power_gain = -0.05
+			corruption_cost_factor = 1
+			productivity_growth_modifier = -0.05
+			research_speed_factor = -0.02
+		}
+		ai_will_do = { factor = 1 }
+		}
+ 
+		MAD_FIBRE_MONOPOLY_PROTECTED_EARLY = {
+			name = "The Incumbent Holds the Line"
+			picture = GFX_idea
+			allowed_civil_war = { always = yes }
+			cost = 0
+			removal_cost = -1
+			allowed = { original_tag = MAD }
+			modifier = {
+				stability_factor = -0.15
+				political_power_gain = -0.09
+				corruption_cost_factor = 2
+				productivity_growth_modifier = -0.09
+				research_speed_factor = -0.04
+			}
+			ai_will_do = { factor = 1 }
+		}
+ 
+		MAD_FIBRE_MONOPOLY_ENTRENCHED = {
+			name = "Entrenched Network Monopoly"
+			picture = GFX_idea
+			allowed_civil_war = { always = yes }
+			cost = 0
+			removal_cost = -1
+			allowed = { original_tag = MAD }
+			modifier = {
+				stability_factor = -0.10
+				political_power_gain = -0.08
+				corruption_cost_factor = 2
+				productivity_growth_modifier = -0.25
+				research_speed_factor = -0.05
+			}
+			ai_will_do = { factor = 1 }
+		}
+ 
+		MAD_NETWORK_COMPETITION = {
+			name = "Open Network Competition"
+			picture = GFX_idea
+			allowed_civil_war = { always = yes }
+			cost = 0
+			removal_cost = -1
+			allowed = { original_tag = MAD }
+			modifier = {
+				stability_factor = 0.05
+				political_power_gain = 0.03
+				productivity_growth_modifier = 0.25
+				research_speed_factor = 0.03
+			}
+			ai_will_do = { factor = 1 }
+		}
+		MAD_FIBRE_MONOPOLY_LEGACY = {
+			name = "Institutionalised Network Monopoly"
+			picture = GFX_idea
+			allowed_civil_war = { always = yes }
+			cost = 0
+			removal_cost = -1
+			allowed = { original_tag = MAD }
+			modifier = {
+				stability_factor = -0.05
+				political_power_gain = -0.08
+				corruption_cost_factor = 1.5
+				productivity_growth_modifier = -0.10
+			}
+			ai_will_do = { factor = 1 }
+		}
+
+		MAD_STATE_SIGINT_ACCESS = {
+			name = "Domestic Signals Access"
+			picture = GFX_idea
+			allowed_civil_war = { always = yes }
+			cost = 0
+			removal_cost = -1
+			allowed = { original_tag = MAD }
+			modifier = {
+				recon_factor = 0.08 # CONFIRM real modifier key
+			}
+			ai_will_do = { factor = 1 }
+		}
+		 
+		MAD_MARITIME_DOMAIN_AWARENESS = {
+			name = "Maritime Domain Awareness"
+			picture = GFX_idea
+			allowed_civil_war = { always = yes }
+			cost = 0
+			removal_cost = -1
+			allowed = { original_tag = MAD }
+			modifier = {
+				recon_factor = 0.08
+				army_morale_factor = 0.05
+			}
+			ai_will_do = { factor = 1 }
+		}
+		 
+		MAD_NATIONAL_C2_BACKBONE_IDEA = {
+			name = "National C2 Backbone"
+			picture = GFX_idea
+			allowed_civil_war = { always = yes }
+			cost = 0
+			removal_cost = -1
+			allowed = { original_tag = MAD }
+			modifier = {
+				recon_factor = 0.08	
+				army_morale_factor = 0.12
+				army_org_factor = 0.08
+			}
+			ai_will_do = { factor = 1 }
+		}
+
+
+		MAD_FAILING_AIRLINE = {
+			name = "Struggling state airline"
+			picture = GFX_idea
+			allowed_civil_war = { always = yes }
+			cost = 0
+			removal_cost = -1
+			allowed = {
+				original_tag = MAD
+			}
+			modifier = {
+			stability_factor = -0.10
+			consumer_goods_expected_value = 0.03
+			political_power_gain = -0.10
+			productivity_growth_modifier = -0.25
+
+			}
+			ai_will_do = { factor = 1 }
+		}
+		MAD_STATE_AIRLINE = {
+			name = "Successful State airline"
+			picture = GFX_idea
+			allowed_civil_war = { always = yes }
+			cost = 0
+			removal_cost = -1
+			allowed = {
+				original_tag = MAD
+			}
+			modifier = {
+			stability_factor = 0.05
+			consumer_goods_expected_value = -0.02
+			political_power_gain = 0.10
+			productivity_growth_modifier = 0.15
+
+			}
+			ai_will_do = { factor = 1 }
+		}
+		MAD_PRIVATE_AIRLINE = {
+			name = "Lufthansa group - Madagascan Airlines"
+			picture = GFX_idea
+			allowed_civil_war = { always = yes }
+			cost = 0
+			removal_cost = -1
+			allowed = {
+				original_tag = MAD
+			}
+			modifier = {
+			stability_factor = 0.05
+			productivity_growth_modifier = 0.15
+			foreign_influence_defense_modifier = 0.10
+			receiving_investment_cost_modifier = -0.05
+
+
+			}
+			ai_will_do = { factor = 1 }
+		}
+		MAD_AMBATOVY_PRIVATE = {
+			name = "Ambatovy - Private control"
+			picture = GFX_idea
+			allowed_civil_war = { always = yes }
+			cost = 0
+			removal_cost = -1
+			allowed = {
+				original_tag = MAD
+			}
+			modifier = {
+			local_resources_tungsten_factor = 0.05
+			corporate_tax_income_multiplier_modifier = 0.03
+			resource_export_multiplier_modifier = 0.05
+			resource_sector_workers_modifier = 0.02
+			}
+			ai_will_do = { factor = 1 }
+		}
+		MAD_AMBATOVY_Partial_State = {
+			name = "Ambatovy - Partial State control"
+			picture = GFX_idea
+			allowed_civil_war = { always = yes }
+			cost = 0
+			removal_cost = -1
+			allowed = {
+				original_tag = MAD
+			}
+			modifier = {
+			local_resources_tungsten_factor = 0.10
+			corporate_tax_income_multiplier_modifier = 0.02
+			resource_export_multiplier_modifier = 0.05
+			resource_sector_workers_modifier = 0.04
+			}
+			ai_will_do = { factor = 1 }
+		}
+		MAD_AMBATOVY_Full_State = {
+			name = "Ambatovy - Majority State control"
+			picture = GFX_idea
+			allowed_civil_war = { always = yes }
+			cost = 0
+			removal_cost = -1
+			allowed = {
+				original_tag = MAD
+			}
+			modifier = {
+			local_resources_tungsten_factor = 0.15
+			corporate_tax_income_multiplier_modifier = 0.01
+			resource_sector_workers_modifier = 0.06
+			resource_export_multiplier_modifier = 0.05
+			}
+			ai_will_do = { factor = 1 }
+		}
+		
+		
+				# ------------------------------------------------------------------
+		# State-era operators: granted by event mad_madarail.1 (fired from MAD_MADARAIL_STATE_TAKEOVER).
+		# AUSTERE = nationalised for nothing, run on a shoestring.  FUNDED = debts paid off, properly recapitalised.
+		# Rail output is now a regular idea modifier (shows on the idea itself).
+		# The MD economy modifiers (tax, welfare) still go through MAD_economy_modifier.
+		# ------------------------------------------------------------------
+ 
+		MAD_MADARAIL_OPERATOR_STATE_AUSTERE = {
+			picture = GFX_idea_generic
+			allowed = { tag = MAD }
+			removal_cost = -1
+ 
+			modifier = {
+				production_speed_rail_way_factor = 0.1
+			}
+ 
+			on_add = {
+				custom_effect_tooltip = {
+					localization_key = modifies_dynamic_modifier_tt
+					MODIFIER = MAD_economy_modifier
+				}
+				add_to_variable = { MAD_economy_infrastructure_tax_gain_multiplier_modifier = 0.05 tooltip = infrastructure_tax_gain_multiplier_modifier_tt }
+			}
+			on_remove = {
+				custom_effect_tooltip = {
+					localization_key = modifies_dynamic_modifier_tt
+					MODIFIER = MAD_economy_modifier
+				}
+				add_to_variable = { MAD_economy_infrastructure_tax_gain_multiplier_modifier = -0.05 tooltip = infrastructure_tax_gain_multiplier_modifier_tt }
+			}
+		}
+ 
+		MAD_MADARAIL_OPERATOR_STATE_FUNDED = {
+			picture = GFX_idea_generic
+			allowed = { tag = MAD }
+			removal_cost = -1
+ 
+			modifier = {
+				production_speed_rail_way_factor = 0.18
+				production_speed_rail_terminal_factor = 0.05
+			}
+ 
+			on_add = {
+				custom_effect_tooltip = {
+					localization_key = modifies_dynamic_modifier_tt
+					MODIFIER = MAD_economy_modifier
+				}
+				add_to_variable = { MAD_economy_infrastructure_tax_gain_multiplier_modifier = 0.1 tooltip = infrastructure_tax_gain_multiplier_modifier_tt }
+				add_to_variable = { MAD_economy_expected_welfare_modifier = 0.03 tooltip = expected_welfare_modifier_tt }
+			}
+			on_remove = {
+				custom_effect_tooltip = {
+					localization_key = modifies_dynamic_modifier_tt
+					MODIFIER = MAD_economy_modifier
+				}
+				add_to_variable = { MAD_economy_infrastructure_tax_gain_multiplier_modifier = -0.1 tooltip = infrastructure_tax_gain_multiplier_modifier_tt }
+				add_to_variable = { MAD_economy_expected_welfare_modifier = -0.03 tooltip = expected_welfare_modifier_tt }
+			}
+		}
+ 
+		# ------------------------------------------------------------------
+		# The investors' exit. Added the moment the investors desist (player decision or the third suitor running out of time).
+		# State takeover swaps it for AFTERMATH; MAD_RAIL_FCE_REHAB removes that.
+		# ------------------------------------------------------------------
+ 
+		MAD_MADARAIL_INVESTOR_EXODUS = {
+			picture = GFX_idea_generic
+			allowed = { tag = MAD }
+			removal_cost = -1
+ 
+			modifier = {
+				stability_factor = -0.08
+				political_power_factor = -0.1
+				production_speed_rail_way_factor = -0.15
+				production_speed_rail_terminal_factor = -0.1
+			}
+ 
+			on_add = {
+				custom_effect_tooltip = {
+					localization_key = modifies_dynamic_modifier_tt
+					MODIFIER = MAD_economy_modifier
+				}
+				add_to_variable = { MAD_economy_infrastructure_tax_gain_multiplier_modifier = -0.08 tooltip = infrastructure_tax_gain_multiplier_modifier_tt }
+				add_to_variable = { MAD_economy_receiving_investment_cost_modifier = 0.06 tooltip = receiving_investment_cost_modifier_tt }
+			}
+			on_remove = {
+				custom_effect_tooltip = {
+					localization_key = modifies_dynamic_modifier_tt
+					MODIFIER = MAD_economy_modifier
+				}
+				add_to_variable = { MAD_economy_infrastructure_tax_gain_multiplier_modifier = 0.08 tooltip = infrastructure_tax_gain_multiplier_modifier_tt }
+				add_to_variable = { MAD_economy_receiving_investment_cost_modifier = -0.06 tooltip = receiving_investment_cost_modifier_tt }
+			}
+		}
+ 
+		MAD_MADARAIL_EXODUS_AFTERMATH = {
+			picture = GFX_idea_generic
+			allowed = { tag = MAD }
+			removal_cost = -1
+ 
+			modifier = {
+				production_speed_rail_way_factor = -0.05
+			}
+ 
+			on_add = {
+				custom_effect_tooltip = {
+					localization_key = modifies_dynamic_modifier_tt
+					MODIFIER = MAD_economy_modifier
+				}
+				add_to_variable = { MAD_economy_infrastructure_tax_gain_multiplier_modifier = -0.03 tooltip = infrastructure_tax_gain_multiplier_modifier_tt }
+				add_to_variable = { MAD_economy_receiving_investment_cost_modifier = 0.02 tooltip = receiving_investment_cost_modifier_tt }
+			}
+			on_remove = {
+				custom_effect_tooltip = {
+					localization_key = modifies_dynamic_modifier_tt
+					MODIFIER = MAD_economy_modifier
+				}
+				add_to_variable = { MAD_economy_infrastructure_tax_gain_multiplier_modifier = 0.03 tooltip = infrastructure_tax_gain_multiplier_modifier_tt }
+				add_to_variable = { MAD_economy_receiving_investment_cost_modifier = -0.02 tooltip = receiving_investment_cost_modifier_tt }
+			}
+		}
+				# ------------------------------------------------------------------
+		# The Daewoo lease while it is KEPT. The tier follows MAD_daewoo_viability (see MAD_daewoo_update_tier):
+		#   < 30 TOXIC    30-59 TROUBLED    60+ SOUND
+		# The qualifier decisions raise viability, which walks the deal from TOXIC (massive corruption) to SOUND.
+		# ------------------------------------------------------------------
+ 
+		MAD_DAEWOO_LEASE_TOXIC = {
+			picture = GFX_idea_generic
+			allowed = { tag = MAD }
+			removal_cost = -1
+ 
+			modifier = {
+				corruption_cost_factor = 0.3
+				stability_factor = -0.06
+				foreign_influence_defense_modifier = -0.2
+				tax_gain_multiplier_modifier = -0.05
+			}
+		}
+ 
+		MAD_DAEWOO_LEASE_TROUBLED = {
+			picture = GFX_idea_generic
+			allowed = { tag = MAD }
+			removal_cost = -1
+ 
+			modifier = {
+				corruption_cost_factor = 0.15
+				stability_factor = -0.03
+				foreign_influence_defense_modifier = -0.12
+				tax_gain_multiplier_modifier = -0.02
+			}
+		}
+ 
+		MAD_DAEWOO_LEASE_SOUND = {
+			picture = GFX_idea_generic
+			allowed = { tag = MAD }
+			removal_cost = -1
+ 
+			modifier = {
+				corruption_cost_factor = 0.04
+				foreign_influence_defense_modifier = -0.06
+			}
+ 
+			on_add = {
+				custom_effect_tooltip = {
+					localization_key = modifies_dynamic_modifier_tt
+					MODIFIER = MAD_agriculture_modifier
+				}
+				add_to_variable = { MAD_agri_productivity = 0.04 tooltip = agricolture_productivity_modifier_tt }
+				add_to_variable = { MAD_agri_worker_req = -0.02 tooltip = agriculture_district_worker_requirement_modifier_tt }
+				add_to_variable = { MAD_agri_income_tax = 0.05 tooltip = agriculture_district_income_tax_modifier_tt }
+				force_update_dynamic_modifier = yes
+			}
+			on_remove = {
+				custom_effect_tooltip = {
+					localization_key = modifies_dynamic_modifier_tt
+					MODIFIER = MAD_agriculture_modifier
+				}
+				add_to_variable = { MAD_agri_productivity = -0.04 tooltip = agricolture_productivity_modifier_tt }
+				add_to_variable = { MAD_agri_worker_req = 0.02 tooltip = agriculture_district_worker_requirement_modifier_tt }
+				add_to_variable = { MAD_agri_income_tax = -0.05 tooltip = agriculture_district_income_tax_modifier_tt }
+				force_update_dynamic_modifier = yes
+			}
+		}
+ 
+		# Timed scar if the lease is cancelled: investors think twice about Madagascar for a couple of years.
+		MAD_DAEWOO_CANCELLED = {
+			picture = GFX_idea_generic
+			allowed = { tag = MAD }
+			removal_cost = -1
+ 
+			modifier = {
+				receiving_investment_cost_modifier = 0.04
+			}
+		}
+
+
+		# ------------------------------------------------------------------
+		# Drought and famine panel (common/ideas/MAD_drought_ideas.txt)
+		# ------------------------------------------------------------------
+
+		MAD_DROUGHT_TIER_1 = {
+			picture = GFX_idea_generic
+			allowed = { tag = MAD }
+			removal_cost = -1
+
+			modifier = {
+				agricolture_productivity_modifier = -0.03
+				stability_factor = -0.01
+			}
+		}
+
+		MAD_DROUGHT_TIER_2 = {
+			picture = GFX_idea_generic
+			allowed = { tag = MAD }
+			removal_cost = -1
+
+			modifier = {
+				agricolture_productivity_modifier = -0.08
+				agriculture_district_income_tax_modifier = -0.05
+				stability_factor = -0.03
+				monthly_population = -0.05
+			}
+		}
+
+		MAD_DROUGHT_TIER_3 = {
+			picture = GFX_idea_generic
+			allowed = { tag = MAD }
+			removal_cost = -1
+
+			modifier = {
+				agricolture_productivity_modifier = -0.15
+				agriculture_district_income_tax_modifier = -0.1
+				stability_factor = -0.06
+				political_power_factor = -0.05
+				monthly_population = -0.15
+			}
+		}
+
+		MAD_DROUGHT_TIER_4 = {
+			picture = GFX_idea_generic
+			allowed = { tag = MAD }
+			removal_cost = -1
+
+			modifier = {
+				agricolture_productivity_modifier = -0.25
+				agriculture_district_income_tax_modifier = -0.15
+				stability_factor = -0.1
+				political_power_factor = -0.1
+				monthly_population = -0.3
+				productivity_growth_modifier = -0.1
+			}
+		}
+
+		MAD_DROUGHT_EVACUATIONS = {
+			picture = GFX_idea_generic
+			allowed = { tag = MAD }
+			removal_cost = -1
+
+			modifier = {
+				monthly_population = -0.4
+				stability_factor = -0.02
+			}
+		}
+
+		MAD_DROUGHT_RESETTLED = {
+			picture = GFX_idea_generic
+			allowed = { tag = MAD }
+			removal_cost = -1
+
+			modifier = {
+				monthly_population = 0.3
+				stability_factor = 0.02
+			}
+		}
+
+		MAD_AGRI_FLOURISHING = {
+			picture = GFX_idea_generic
+			allowed = { tag = MAD }
+			removal_cost = -1
+
+			modifier = {
+				agricolture_productivity_modifier = 0.03
+				agriculture_district_income_tax_modifier = 0.03
+				stability_factor = 0.02
+			}
+		}
+
+		MAD_FARMER_FUNDING = {
+			picture = GFX_idea_generic
+			allowed = { tag = MAD }
+			removal_cost = -1
+
+			modifier = {
+				stability_factor = 0.05
+				monthly_population = 0.2
+				agriculture_district_income_tax_modifier = 0.05
+			}
+		}
+
+
+		# ============================================================
+		# THE CNA AND CROP DEATH
+		# ============================================================
+
+		# Founded by the MAD_CNA focus. A standing anti-locust service.
+		MAD_CNA_AGENCY = {
+			name = "Centre National Antiacridien"
+			picture = GFX_idea
+			allowed_civil_war = { always = yes }
+			cost = 0
+			removal_cost = -1
+			allowed = {
+				original_tag = MAD
+			}
+			modifier = {
+				stability_factor = 0.02
+			}
+			ai_will_do = { factor = 1 }
+		}
+
+		# Left behind by the MAD_crop_death focus. The population effects themselves are state modifiers
+		# (MAD_STATE_DEPOPULATED / MAD_STATE_REFUGEE_INFLUX); this is the national scar.
+		MAD_CROP_DEATH_GENERATION = {
+			name = "The Lost Generation"
+			picture = GFX_idea
+			allowed_civil_war = { always = yes }
+			cost = 0
+			removal_cost = -1
+			allowed = {
+				original_tag = MAD
+			}
+			modifier = {
+				monthly_population = -0.15
+				stability_factor = -0.05
+				agricolture_productivity_modifier = -0.05
+				expected_welfare_modifier = 0.05
+			}
+			ai_will_do = { factor = 1 }
+		}
+	}
+	
+}

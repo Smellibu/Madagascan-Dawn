@@ -1,0 +1,1712 @@
+# common/scripted_effects/MAD_madarail_scripted_effects.txt
+
+########################################################################
+# INVESTOR CYCLE
+#
+# Three suitors (Comazar, Vecturis, Holding), each seated once for 150 days. The player picks who comes
+# next (event mad_madarail.3). The seated suitor's own concession decisions (MAD_MADARAIL_CONCEDE_*) raise
+# MAD_madarail_confidence and are remembered as offers (flags MAD_MADARAIL_OFFER_1/2/3). If the investors commit,
+# MAD_madarail_enact_concessions builds the company's dynamic modifier from the operator's base terms + the offers.
+# Confidence >= 75 lets the player commit (STAY) by completing the mission MAD_MADARAIL_INVESTOR_TENURE.
+########################################################################
+
+# Who is seated is tracked with flags (no ideas). The flag stays set after the investors commit, so the category
+# text keeps showing the operator; it is cleared when a suitor leaves or the investors desist.
+MAD_madarail_clear_operators = {
+	clr_country_flag = MAD_MADARAIL_SEATED_COMAZAR
+	clr_country_flag = MAD_MADARAIL_SEATED_VECTURIS
+	clr_country_flag = MAD_MADARAIL_SEATED_HOLDING
+}
+
+MAD_madarail_clear_concessions = {
+	clr_country_flag = MAD_MADARAIL_OFFER_1
+	clr_country_flag = MAD_MADARAIL_OFFER_2
+	clr_country_flag = MAD_MADARAIL_OFFER_3
+}
+
+# Concessions are only OFFERS until the investors commit. This is where they become real, all in one go:
+# the seated company's dynamic modifier is created from the operator's base terms plus one slice per offered
+# concession (so which investor it is, and what was conceded, decide the quality), and the one-off costs are paid
+# (treasury / ownership / stability). Before this runs nothing lasting exists, and a suitor who leaves without
+# committing leaves nothing behind. Slots 1/2/3 match the MAD_MADARAIL_CONCEDE_* decisions.
+# Variables: MAD_<company>_<modifier>, read by the dynamic modifiers in common/dynamic_modifiers.
+MAD_madarail_enact_concessions = {
+	if = {
+		limit = { has_country_flag = MAD_MADARAIL_SEATED_COMAZAR }
+		hidden_effect = { add_dynamic_modifier = { modifier = MAD_MADARAIL_COMAZAR_modifier } }
+		custom_effect_tooltip = {
+			localization_key = modifies_dynamic_modifier_tt
+			MODIFIER = MAD_MADARAIL_COMAZAR_modifier
+		}
+		# the operator's own terms
+		add_to_variable = { MAD_comazar_production_speed_rail_way_factor = 0.04 tooltip = production_speed_rail_way_factor_tt }
+		add_to_variable = { MAD_comazar_production_speed_rail_terminal_factor = 0.02 tooltip = production_speed_rail_terminal_factor_tt }
+		if = {
+			limit = { has_country_flag = MAD_MADARAIL_OFFER_1 }
+			add_to_variable = { MAD_comazar_production_speed_rail_way_factor = 0.04 tooltip = production_speed_rail_way_factor_tt }
+			add_to_variable = { MAD_comazar_production_speed_rail_terminal_factor = 0.03 tooltip = production_speed_rail_terminal_factor_tt }
+			add_to_variable = { MAD_comazar_internal_investments_money_cost_modifier = 0.02 tooltip = internal_investments_money_cost_modifier_tt }
+			set_temp_variable = { treasury_change = -5.00 }
+			modify_treasury_effect = yes
+		}
+		if = {
+			limit = { has_country_flag = MAD_MADARAIL_OFFER_2 }
+			add_to_variable = { MAD_comazar_production_speed_rail_way_factor = 0.05 tooltip = production_speed_rail_way_factor_tt }
+			add_to_variable = { MAD_comazar_infrastructure_tax_gain_multiplier_modifier = -0.02 tooltip = infrastructure_tax_gain_multiplier_modifier_tt }
+			add_power_balance_value = {
+				id = MAD_economy_ownership_bop
+				value = -0.03
+				tooltip_side = MAD_private_ownership
+			}
+		}
+		if = {
+			limit = { has_country_flag = MAD_MADARAIL_OFFER_3 }
+			add_to_variable = { MAD_comazar_infrastructure_tax_gain_multiplier_modifier = -0.05 tooltip = infrastructure_tax_gain_multiplier_modifier_tt }
+			add_to_variable = { MAD_comazar_internal_investments_money_cost_modifier = 0.05 tooltip = internal_investments_money_cost_modifier_tt }
+			add_to_variable = { MAD_comazar_productivity_growth_modifier = 0.15 tooltip = productivity_growth_modifier_tt }
+			add_to_variable = { MAD_comazar_total_workforce_modifier = 0.01 tooltip = total_workforce_modifier_tt }
+		}
+		hidden_effect = { force_update_dynamic_modifier = yes }
+	}
+	if = {
+		limit = { has_country_flag = MAD_MADARAIL_SEATED_VECTURIS }
+		hidden_effect = { add_dynamic_modifier = { modifier = MAD_MADARAIL_VECTURIS_modifier } }
+		custom_effect_tooltip = {
+			localization_key = modifies_dynamic_modifier_tt
+			MODIFIER = MAD_MADARAIL_VECTURIS_modifier
+		}
+		# the operator's own terms
+		add_to_variable = { MAD_vecturis_production_speed_rail_way_factor = 0.02 tooltip = production_speed_rail_way_factor_tt }
+		add_to_variable = { MAD_vecturis_receiving_investment_cost_modifier = -0.02 tooltip = receiving_investment_cost_modifier_tt }
+		if = {
+			limit = { has_country_flag = MAD_MADARAIL_OFFER_1 }
+			add_to_variable = { MAD_vecturis_receiving_investment_cost_modifier = -0.05 tooltip = receiving_investment_cost_modifier_tt }
+			add_to_variable = { MAD_vecturis_infrastructure_tax_gain_multiplier_modifier = -0.03 tooltip = infrastructure_tax_gain_multiplier_modifier_tt }
+			set_temp_variable = { treasury_change = -2.00 }
+			modify_treasury_effect = yes
+		}
+		if = {
+			limit = { has_country_flag = MAD_MADARAIL_OFFER_2 }
+			add_to_variable = { MAD_vecturis_infrastructure_tax_gain_multiplier_modifier = 0.05 tooltip = infrastructure_tax_gain_multiplier_modifier_tt }
+			add_to_variable = { MAD_vecturis_production_speed_rail_way_factor = -0.05 tooltip = production_speed_rail_way_factor_tt }
+			add_power_balance_value = {
+				id = MAD_economy_ownership_bop
+				value = -0.02
+				tooltip_side = MAD_private_ownership
+			}
+		}
+		if = {
+			limit = { has_country_flag = MAD_MADARAIL_OFFER_3 }
+			add_to_variable = { MAD_vecturis_infrastructure_tax_gain_multiplier_modifier = 0.05 tooltip = infrastructure_tax_gain_multiplier_modifier_tt }
+			add_to_variable = { MAD_vecturis_production_speed_rail_terminal_factor = 0.02 tooltip = production_speed_rail_terminal_factor_tt }
+			add_to_variable = { MAD_vecturis_productivity_growth_modifier = -0.3 tooltip = productivity_growth_modifier_tt }
+			add_stability = -0.02
+		}
+		hidden_effect = { force_update_dynamic_modifier = yes }
+	}
+	if = {
+		limit = { has_country_flag = MAD_MADARAIL_SEATED_HOLDING }
+		hidden_effect = { add_dynamic_modifier = { modifier = MAD_MADARAIL_HOLDING_modifier } }
+		custom_effect_tooltip = {
+			localization_key = modifies_dynamic_modifier_tt
+			MODIFIER = MAD_MADARAIL_HOLDING_modifier
+		}
+		# the operator's own terms
+		add_to_variable = { MAD_holding_production_speed_rail_way_factor = 0.01 tooltip = production_speed_rail_way_factor_tt }
+		add_to_variable = { MAD_holding_infrastructure_tax_gain_multiplier_modifier = 0.01 tooltip = infrastructure_tax_gain_multiplier_modifier_tt }
+		if = {
+			limit = { has_country_flag = MAD_MADARAIL_OFFER_1 }
+			add_to_variable = { MAD_holding_production_speed_rail_way_factor = 0.02 tooltip = production_speed_rail_way_factor_tt }
+			add_to_variable = { MAD_holding_production_speed_rail_terminal_factor = 0.02 tooltip = production_speed_rail_terminal_factor_tt }
+			add_power_balance_value = {
+				id = MAD_economy_ownership_bop
+				value = -0.03
+				tooltip_side = MAD_private_ownership
+			}
+			add_stability = -0.02
+		}
+		if = {
+			limit = { has_country_flag = MAD_MADARAIL_OFFER_2 }
+			add_to_variable = { MAD_holding_production_speed_rail_terminal_factor = 0.04 tooltip = production_speed_rail_terminal_factor_tt }
+			add_to_variable = { MAD_holding_infrastructure_tax_gain_multiplier_modifier = -0.10 tooltip = infrastructure_tax_gain_multiplier_modifier_tt }
+			add_to_variable = { MAD_holding_corporate_tax_income_multiplier_modifier = -0.04 tooltip = corporate_tax_income_multiplier_modifier_tt }
+		}
+		if = {
+			limit = { has_country_flag = MAD_MADARAIL_OFFER_3 }
+			add_to_variable = { MAD_holding_production_speed_rail_way_factor = 0.03 tooltip = production_speed_rail_way_factor_tt }
+			add_to_variable = { MAD_holding_production_speed_rail_terminal_factor = 0.02 tooltip = production_speed_rail_terminal_factor_tt }
+			set_temp_variable = { treasury_change = -2.50 }
+			modify_treasury_effect = yes
+		}
+		hidden_effect = { force_update_dynamic_modifier = yes }
+	}
+}
+
+# Seats a suitor: the previous one (and its concessions) leaves, confidence resets to the newcomer's starting
+# level, the 150-day mission starts. Comazar is the hardest to win over, the Holding consortium the easiest.
+MAD_madarail_seat_comazar = {
+	MAD_madarail_clear_operators = yes
+	MAD_madarail_clear_concessions = yes
+	set_country_flag = MAD_MADARAIL_COMAZAR_USED
+	set_country_flag = MAD_MADARAIL_SEATED_COMAZAR
+	set_variable = { MAD_madarail_confidence = 10 }
+	add_to_variable = { MAD_madarail_stage = 1 }
+	activate_mission = MAD_MADARAIL_INVESTOR_TENURE
+}
+
+MAD_madarail_seat_vecturis = {
+	MAD_madarail_clear_operators = yes
+	MAD_madarail_clear_concessions = yes
+	set_country_flag = MAD_MADARAIL_VECTURIS_USED
+	set_country_flag = MAD_MADARAIL_SEATED_VECTURIS
+	set_variable = { MAD_madarail_confidence = 30 }
+	add_to_variable = { MAD_madarail_stage = 1 }
+	activate_mission = MAD_MADARAIL_INVESTOR_TENURE
+}
+
+MAD_madarail_seat_holding = {
+	MAD_madarail_clear_operators = yes
+	MAD_madarail_clear_concessions = yes
+	set_country_flag = MAD_MADARAIL_HOLDING_USED
+	set_country_flag = MAD_MADARAIL_SEATED_HOLDING
+	set_variable = { MAD_madarail_confidence = 45 }
+	add_to_variable = { MAD_madarail_stage = 1 }
+	activate_mission = MAD_MADARAIL_INVESTOR_TENURE
+}
+
+# Outcome 1: the investors commit. The suitor in place stays and every concession OFFERED now takes effect; STAY focus unlocks.
+MAD_madarail_apply_stay_outcome = {
+	MAD_madarail_enact_concessions = yes
+	set_country_flag = MAD_MADARAIL_OUTCOME_DECIDED
+	set_country_flag = MAD_MADARAIL_STAY_UNLOCKED
+	custom_effect_tooltip = MAD_madarail_stay_unlocked_tt
+}
+
+# Outcome 2: the investors leave (by the player's choice or because the third suitor ran out of time).
+# Dire penalties start now; the Madarail state-ownership branch of the tree is what removes them.
+MAD_madarail_apply_desist_outcome = {
+	set_country_flag = MAD_MADARAIL_OUTCOME_DECIDED
+	set_country_flag = MAD_MADARAIL_DESIST_UNLOCKED
+	MAD_madarail_clear_operators = yes
+	MAD_madarail_clear_concessions = yes
+	if = {
+		limit = { has_active_mission = MAD_MADARAIL_INVESTOR_TENURE }
+		remove_mission = MAD_MADARAIL_INVESTOR_TENURE
+	}
+	add_ideas = MAD_MADARAIL_INVESTOR_EXODUS
+	custom_effect_tooltip = MAD_madarail_desist_unlocked_tt
+}
+
+########################################################################
+# RAILWAY DECISIONS (run when the one-year build finishes)
+########################################################################
+
+# State scope:  <state id> = { MAD_madarail_state_productivity_boost = yes }
+# ASSUMPTION: MD stores per-state productivity in the state variable "productivity_state_var".
+# If that's not how you add state productivity, this is the ONLY line to change.
+MAD_madarail_state_productivity_boost = {
+	add_to_variable = { productivity_state_var = 80 }
+}
+
+# Antsirabe - Fianarantsoa ("AF" line). Province path and state 267 are the ones already used in the focus tree.
+MAD_madarail_finish_fce_extension = {
+	custom_effect_tooltip = {
+		localization_key = modifies_dynamic_modifier_tt
+		MODIFIER = MAD_economy_modifier
+	}
+	add_to_variable = { MAD_economy_production_speed_rail_way_factor = 0.05 tooltip = production_speed_rail_way_factor_tt }
+	add_to_variable = { MAD_economy_supply_node_range = 0.05 tooltip = supply_node_range_tt }
+	build_railway = {
+		level = 2
+		path = { 681 576 566 }
+	}
+	267 = {
+		add_building_construction = {
+			type = infrastructure
+			level = 1
+			instant_build = yes
+		}
+		MAD_madarail_state_productivity_boost = yes
+	}
+}
+
+########################################################################
+# FILL IN BEFORE USE - four lines, each needs a province path and a state ID.
+# (Province IDs for build_railway = the provinces the track runs through, in order; state ID = the state
+# named in each comment. I don't have MD's map data, so these are yours to fill. Until they are, each
+# decision still charges 15 billion and finishes, but builds nothing - it only writes a warning to the log.)
+########################################################################
+
+# TOLIARA - "Fianarantsoa - Toliara": Fianarantsoa (566) -> Ihosy -> Sakaraha -> Toliara, following the RN7 corridor.
+MAD_madarail_finish_toliara_line = {
+	log = "[GetDateText]: [This.GetName]: MAD_madarail_finish_toliara_line has no province path / state ID yet"
+	# build_railway = {
+	#	level = 2
+	#	path = { 566 <provinces along RN7> <Toliara province> }
+	# }
+	# <TOLIARA STATE ID> = { MAD_madarail_state_productivity_boost = yes }
+}
+
+# MAHAJANGA - "Antananarivo - Mahajanga": Antananarivo (11015) -> Maevatanana -> Ambondromamy -> Mahajanga, following the RN4.
+MAD_madarail_finish_mahajanga_line = {
+	log = "[GetDateText]: [This.GetName]: MAD_madarail_finish_mahajanga_line has no province path / state ID yet"
+	# build_railway = {
+	#	level = 2
+	#	path = { 11015 <provinces along RN4> <Mahajanga province> }
+	# }
+	# <MAHAJANGA STATE ID> = { MAD_madarail_state_productivity_boost = yes }
+}
+
+# AMBOVOMBE - "Fianarantsoa - Ambovombe": Fianarantsoa (566) -> Ihosy -> south into Androy -> Ambovombe.
+MAD_madarail_finish_ambovombe_line = {
+	log = "[GetDateText]: [This.GetName]: MAD_madarail_finish_ambovombe_line has no province path / state ID yet"
+	# build_railway = {
+	#	level = 2
+	#	path = { 566 <provinces to Ihosy> <provinces south to Ambovombe> }
+	# }
+	# <AMBOVOMBE STATE ID> = { MAD_madarail_state_productivity_boost = yes }
+}
+
+# ANTSIRANANA - "Northern Railway": Antsiranana -> Ambilobe -> Ambanja -> Antsohihy -> joins the network at Mahajanga's line, following the RN6.
+MAD_madarail_finish_antsiranana_line = {
+	log = "[GetDateText]: [This.GetName]: MAD_madarail_finish_antsiranana_line has no province path / state ID yet"
+	# build_railway = {
+	#	level = 2
+	#	path = { <Antsiranana province> <provinces along RN6> <a province already on the network> }
+	# }
+	# <ANTSIRANANA STATE ID> = { MAD_madarail_state_productivity_boost = yes }
+}
+
+# common/scripted_effects/MAD_daewoo_scripted_effects.txt
+
+# Puts the right lease tier on the country for the current MAD_daewoo_viability:
+#   < 30  TOXIC      30 - 59.99  TROUBLED      60+  SOUND
+# Only swaps when the tier actually changes.
+MAD_daewoo_update_tier = {
+	if = {
+		limit = {
+			check_variable = { MAD_daewoo_viability < 30 }
+			NOT = { has_idea = MAD_DAEWOO_LEASE_TOXIC }
+		}
+		MAD_daewoo_clear_tiers = yes
+		add_ideas = MAD_DAEWOO_LEASE_TOXIC
+	}
+	if = {
+		limit = {
+			check_variable = { MAD_daewoo_viability > 29.99 }
+			check_variable = { MAD_daewoo_viability < 60 }
+			NOT = { has_idea = MAD_DAEWOO_LEASE_TROUBLED }
+		}
+		MAD_daewoo_clear_tiers = yes
+		add_ideas = MAD_DAEWOO_LEASE_TROUBLED
+	}
+	if = {
+		limit = {
+			check_variable = { MAD_daewoo_viability > 59.99 }
+			NOT = { has_idea = MAD_DAEWOO_LEASE_SOUND }
+		}
+		MAD_daewoo_clear_tiers = yes
+		add_ideas = MAD_DAEWOO_LEASE_SOUND
+	}
+}
+
+MAD_daewoo_clear_tiers = {
+	if = { limit = { has_idea = MAD_DAEWOO_LEASE_TOXIC } remove_ideas = MAD_DAEWOO_LEASE_TOXIC }
+	if = { limit = { has_idea = MAD_DAEWOO_LEASE_TROUBLED } remove_ideas = MAD_DAEWOO_LEASE_TROUBLED }
+	if = { limit = { has_idea = MAD_DAEWOO_LEASE_SOUND } remove_ideas = MAD_DAEWOO_LEASE_SOUND }
+}
+
+########################################################################
+# common/scripted_effects/MAD_daewoo_outcome_scripted_effects.txt
+########################################################################
+
+# common/scripted_effects/MAD_daewoo_outcome_scripted_effects.txt
+#
+# Shared effects for the Daewoo outcomes: cancelled (MAD_DEAL_BROKEN), collapsed (event mad_daewoo.3 + focus MAD_DEAL_KEPT_FAILED)
+# and signed off (MAD_DEAL_KEPT_MANAGED_WELL). Uses MAD_daewoo_clear_tiers from MAD_madarail_scripted_effects.txt.
+
+# The concession is gone, whichever way it went: its cash crops stop feeding the drought and every agricultural
+# complex needs more hands again.
+MAD_daewoo_break_effects = {
+	set_variable = { MAD_drought_daewoo_pressure = 0 }
+	custom_effect_tooltip = MAD_daewoo_broken_agri_tt
+	custom_effect_tooltip = {
+		localization_key = modifies_dynamic_modifier_tt
+		MODIFIER = MAD_agriculture_modifier
+	}
+	add_to_variable = { MAD_agri_worker_req = 0.03 tooltip = agriculture_district_worker_requirement_modifier_tt }
+	force_update_dynamic_modifier = yes
+}
+
+# The lease ends: the tier idea goes (the Sound tier hands its farmland bonuses back in its on_remove) and the break effects run.
+MAD_daewoo_end_lease = {
+	MAD_daewoo_clear_tiers = yes
+	MAD_daewoo_break_effects = yes
+}
+
+# An election (MD's own hold_elections), then whoever leads the election array takes power.
+# ASSUMPTION: change_ruling_party_effect reads the temp variables rul_party_temp (new ruling party index) and
+# disable_elections (0 = elections stay on), as MD's civil war and election events use it. If your MD installs the
+# election winner some other way, this is the ONE effect to change.
+MAD_daewoo_hold_election = {
+	# The whole thing is hidden: walking the party array generates a wall of - One of 6 options will happen,
+	# 25% chance of Nothing happens - lines in the decision tooltip. One clean sentence instead.
+	custom_effect_tooltip = MAD_daewoo_election_held_tt
+	hidden_effect = {
+		hold_elections = yes
+		set_temp_variable = { MAD_el_best = 0 }
+		set_temp_variable = { MAD_el_best_pop = -1 }
+		for_loop_effect = {
+			end = party_pop_elect_array^num
+			value = v
+			if = {
+				limit = { check_variable = { party_pop_elect_array^v > MAD_el_best_pop } }
+				set_temp_variable = { MAD_el_best_pop = party_pop_elect_array^v }
+				set_temp_variable = { MAD_el_best = v }
+			}
+		}
+		if = {
+			limit = { NOT = { check_variable = { MAD_el_best = ruling_party } } }
+			set_temp_variable = { rul_party_temp = MAD_el_best }
+			set_temp_variable = { disable_elections = 0 }
+			set_variable = { ruling_party = MAD_el_best }
+			change_ruling_party_effect = yes
+		}
+	}
+}
+
+# Cancelled deal: an election, but only if the government is under 50%.
+MAD_daewoo_election_if_unpopular = {
+	custom_effect_tooltip = MAD_daewoo_election_tt
+	if = {
+		limit = { MAD_government_popularity_below_half = yes }
+		MAD_daewoo_hold_election = yes
+	}
+}
+
+# Moves the RULING party's popularity by the temp variable MAD_pun_amount (a fraction: -0.20 = -20 percentage
+# points, +0.05 = +5). Set MAD_pun_amount right before calling this (HOI4 scripted effects take no parameters,
+# unlike Stellaris/Vic3/CK3 - this temp-variable is the correct HOI4 substitute).
+# The other parties gain or lose the opposite amount in proportion to their own support, so the total stays at 100%.
+# The change is clamped so the ruling party cannot go below 0 or take more than the others hold.
+# Applies to whichever party rules at that moment (after an election that may be a different party).
+MAD_daewoo_shift_ruling_popularity = {
+	hidden_effect = {
+	set_party_index_to_ruling_party = yes
+	set_temp_variable = { MAD_pun_ruling = party_index }
+	set_temp_variable = { MAD_pun_old = party_pop_array^MAD_pun_ruling }
+	set_temp_variable = { MAD_pun_delta = MAD_pun_amount }
+	set_temp_variable = { MAD_pun_others = 1 }
+	subtract_from_temp_variable = { MAD_pun_others = MAD_pun_old }
+	if = {
+		limit = { check_variable = { MAD_pun_delta < 0 } }
+		set_temp_variable = { MAD_pun_floor = MAD_pun_old }
+		multiply_temp_variable = { MAD_pun_floor = -1 }
+		if = {
+			limit = { check_variable = { MAD_pun_delta < MAD_pun_floor } }
+			set_temp_variable = { MAD_pun_delta = MAD_pun_floor }
+		}
+	}
+	else_if = {
+		limit = { check_variable = { MAD_pun_delta > MAD_pun_others } }
+		set_temp_variable = { MAD_pun_delta = MAD_pun_others }
+	}
+	if = {
+		limit = { check_variable = { MAD_pun_others > 0.001 } }
+		for_loop_effect = {
+			end = party_pop_array^num
+			value = v
+			if = {
+				limit = {
+					NOT = { check_variable = { v = MAD_pun_ruling } }
+					check_variable = { party_pop_array^v > 0 }
+				}
+				set_temp_variable = { MAD_pun_gain = party_pop_array^v }
+				multiply_temp_variable = { MAD_pun_gain = MAD_pun_delta }
+				divide_temp_variable = { MAD_pun_gain = MAD_pun_others }
+				subtract_from_variable = { party_pop_array^v = MAD_pun_gain }
+			}
+		}
+		add_to_variable = { party_pop_array^MAD_pun_ruling = MAD_pun_delta }
+	}
+	}
+}
+
+# The deal is found out (MAD_DAIWOO_FALLOUT): the ruling party takes the blame, -20%.
+MAD_daewoo_pop_exposed = {
+	custom_effect_tooltip = MAD_daewoo_pop_exposed_tt
+	set_temp_variable = { MAD_pun_amount = -0.20 }
+	MAD_daewoo_shift_ruling_popularity = yes
+}
+# Deal cancelled straight away: +5% back.
+MAD_daewoo_pop_broken = {
+	custom_effect_tooltip = MAD_daewoo_pop_broken_tt
+	set_temp_variable = { MAD_pun_amount = 0.05 }
+	MAD_daewoo_shift_ruling_popularity = yes
+}
+# Deal made to work: +15% back.
+MAD_daewoo_pop_success = {
+	custom_effect_tooltip = MAD_daewoo_pop_success_tt
+	set_temp_variable = { MAD_pun_amount = 0.15 }
+	MAD_daewoo_shift_ruling_popularity = yes
+}
+# Deal collapses: -15% more, before the election is held.
+MAD_daewoo_punish_incumbent = {
+	custom_effect_tooltip = MAD_daewoo_pop_collapse_tt
+	set_temp_variable = { MAD_pun_amount = -0.15 }
+	MAD_daewoo_shift_ruling_popularity = yes
+}
+
+# --- the drought hooks -------------------------------------------------------------------------------------------
+# Korean cash crops feed the drought, but only while the drought exists. The monthly tick adds MAD_drought_daewoo_pressure
+# to the severity every month (halved once the outgrower decision, flag MAD_DAEWOO_FOOD_QUOTA, is taken) and the whole
+# term switches off the moment the drought is over.
+
+MAD_daewoo_drought_kept = {
+	if = {
+		limit = { MAD_drought_exists = yes }
+		custom_effect_tooltip = MAD_daewoo_drought_kept_tt
+		add_to_variable = { MAD_drought_daewoo_pressure = 0.20 }
+		set_temp_variable = { MAD_dr_change = 4 }
+		MAD_drought_apply_change = yes
+	}
+}
+
+# The success grows more cash crops on the extra estate, so it feeds the drought number harder.
+MAD_daewoo_drought_well = {
+	if = {
+		limit = { MAD_drought_exists = yes }
+		custom_effect_tooltip = MAD_daewoo_drought_well_tt
+		add_to_variable = { MAD_drought_daewoo_pressure = 0.15 }
+		set_temp_variable = { MAD_dr_change = 4 }
+		MAD_drought_apply_change = yes
+	}
+}
+
+
+########################################################################
+# common/scripted_effects/MAD_drought_scripted_effects.txt
+########################################################################
+
+# common/scripted_effects/MAD_drought_scripted_effects.txt
+#
+# THE DROUGHT AND FAMINE PANEL
+#
+# One stat: MAD_drought_severity (0-100). It exists from game start (event mad_drought.1) and is moved once a month by
+# MAD_drought_monthly_tick (event mad_drought.2 re-fires itself every 30 days until the drought is over).
+#
+# Every month:   severity += base pressure (creeps up every year)
+#                          + Grand Sud term  (0.30, cut by up to 45% by infrastructure in the Toliara state, never to 0)
+#                          + West term       (0.15, same rule, scored on state 266)
+#                          + Daewoo cash crops (only while the drought exists; halved by the outgrower decision)
+#                          + lingering shocks (historical droughts, failed rains; decays 20% a month)
+#                          - preventative measures (permanent; each preventative decision adds to the total)
+#                          - a recovery bonus once 5+ measures are in place
+#                          - 2.5 more once Winning The Fight is done
+#   Emergency water supply cuts a POSITIVE monthly rise to 30% for 6 months, then a +4 rebound.
+#
+# Phases:
+#   MAD_DROUGHT_CONTAINED_STATE  set automatically: 5+ preventative measures and severity <= 30   -> Winning The Fight opens
+#   MAD_DROUGHT_FAILED_STATE     set automatically: exodus meter (months at severity 60+, net) reaches 12 -> Losing The Fight opens
+#   MAD_DROUGHT_WON / _LOST      set by those two focuses
+#   MAD_DROUGHT_OVER             severity reached 0 -> MAD_drought_resolved unlocks the further agricultural focuses
+# Until the drought is contained or has failed, severity cannot be pushed below 5 (relief cannot end it early).
+
+MAD_drought_init = {
+	set_country_flag = MAD_DROUGHT_STARTED
+	set_variable = { MAD_drought_severity = 15 }
+	set_variable = { MAD_drought_base_pressure = 0.35 }
+	set_variable = { MAD_drought_prevention_total = 0 }
+	set_variable = { MAD_drought_prevention_count = 0 }
+	set_variable = { MAD_drought_daewoo_pressure = 0 }
+	set_variable = { MAD_drought_shock_pressure = 0 }
+	set_variable = { MAD_drought_relief_months = 0 }
+	set_variable = { MAD_drought_depop = 0 }
+	set_variable = { MAD_drought_displaced = 0 }
+	set_variable = { MAD_drought_severe_states = 0 }
+	# Migration is stored in thousands for the UI; the transfer effect multiplies by 1000 for state population.
+	set_variable = { MAD_drought_migration_amount = 0 }
+	set_variable = { MAD_drought_migration_force = 0 }
+	set_variable = { MAD_drought_months = 0 }
+	set_variable = { MAD_drought_calendar_months = 0 }
+	set_variable = { MAD_agri_war_support = 0 }
+	add_dynamic_modifier = { modifier = MAD_agriculture_modifier }
+	set_variable = { MAD_drought_containment_days = 0 }
+	set_variable = { MAD_drought_display_refresh = 0 }
+	set_variable = { MAD_drought_266_display = 0 }
+	set_variable = { MAD_famine_266_display = 0 }
+	set_variable = { MAD_drought_267_display = 0 }
+	set_variable = { MAD_famine_267_display = 0 }
+	set_variable = { MAD_drought_268_display = 0 }
+	set_variable = { MAD_famine_268_display = 0 }
+	set_variable = { MAD_drought_487_display = 0 }
+	set_variable = { MAD_famine_487_display = 0 }
+	set_variable = { MAD_drought_266_map_frame = 0 }
+	set_variable = { MAD_drought_267_map_frame = 0 }
+	set_variable = { MAD_drought_268_map_frame = 0 }
+	set_variable = { MAD_drought_487_map_frame = 0 }
+	set_variable = { MAD_drought_last_delta = 0 }
+	set_variable = { MAD_drought_infra_south = 0 }
+	set_variable = { MAD_drought_infra_west = 0 }
+	set_variable = { MAD_drought_cna_pressure_reduction = 0 }
+	set_variable = { MAD_dr_change_v = 0 }
+	set_variable = { MAD_dr_sum = 0 }
+	set_variable = { MAD_dr_count = 0 }
+	MAD_drought_state_init = yes
+	MAD_drought_update_tier = yes
+	MAD_drought_recalc_national = yes
+}
+
+########################################################################
+# CHANGING THE NUMBER
+########################################################################
+
+# Expects the temp variable MAD_dr_change (positive = worse, negative = better).
+#
+# COUNTRYWIDE change. Since the per-state map went in, the STATES hold the real numbers and the national
+# MAD_drought_severity is their average - so a countrywide change is pushed into every state (scaled by that
+# state's exposure: the Grand Sud feels everything harder) and then the national number is recomputed.
+# Every existing national decision, event and focus that sets MAD_dr_change keeps working unchanged.
+MAD_drought_apply_change = {
+	# temp variables do not survive a scope change, so hand it over on a real country variable
+	set_variable = { MAD_dr_change_v = MAD_dr_change }
+
+	# The drought model covers exactly four Madagascar states. Do not apply the drought
+	# system to unrelated owned territory: the panel average must equal these four states.
+	266 = {
+		set_temp_variable = { MAD_dr_st = ROOT.MAD_dr_change_v }
+		multiply_temp_variable = { MAD_dr_st = MAD_state_drought_exposure }
+		if = {
+			limit = {
+				check_variable = { MAD_state_relief_months > 0 }
+				check_variable = { MAD_dr_st > 0 }
+			}
+			multiply_temp_variable = { MAD_dr_st = 0.3 }
+		}
+		add_to_variable = { MAD_state_drought = MAD_dr_st }
+		MAD_drought_state_clamp = yes
+	}
+	267 = {
+		set_temp_variable = { MAD_dr_st = ROOT.MAD_dr_change_v }
+		multiply_temp_variable = { MAD_dr_st = MAD_state_drought_exposure }
+		if = {
+			limit = {
+				check_variable = { MAD_state_relief_months > 0 }
+				check_variable = { MAD_dr_st > 0 }
+			}
+			multiply_temp_variable = { MAD_dr_st = 0.3 }
+		}
+		add_to_variable = { MAD_state_drought = MAD_dr_st }
+		MAD_drought_state_clamp = yes
+	}
+	268 = {
+		set_temp_variable = { MAD_dr_st = ROOT.MAD_dr_change_v }
+		multiply_temp_variable = { MAD_dr_st = MAD_state_drought_exposure }
+		if = {
+			limit = {
+				check_variable = { MAD_state_relief_months > 0 }
+				check_variable = { MAD_dr_st > 0 }
+			}
+			multiply_temp_variable = { MAD_dr_st = 0.3 }
+		}
+		add_to_variable = { MAD_state_drought = MAD_dr_st }
+		MAD_drought_state_clamp = yes
+	}
+	487 = {
+		set_temp_variable = { MAD_dr_st = ROOT.MAD_dr_change_v }
+		multiply_temp_variable = { MAD_dr_st = MAD_state_drought_exposure }
+		if = {
+			limit = {
+				check_variable = { MAD_state_relief_months > 0 }
+				check_variable = { MAD_dr_st > 0 }
+			}
+			multiply_temp_variable = { MAD_dr_st = 0.3 }
+		}
+		add_to_variable = { MAD_state_drought = MAD_dr_st }
+		MAD_drought_state_clamp = yes
+	}
+	MAD_drought_recalc_national = yes
+	MAD_drought_states_update_tiers = yes
+}
+# LOCAL change to one state only. Scope into the state and set the temp variable MAD_dr_state_change first:
+#   FROM = { set_temp_variable = { MAD_dr_state_change = -6 } MAD_drought_state_apply_change = yes }
+# State scope.
+MAD_drought_state_apply_change = {
+	add_to_variable = { MAD_state_drought = MAD_dr_state_change }
+	MAD_drought_state_clamp = yes
+	MAD_drought_state_update_tier = yes
+}
+
+# LOCAL famine change, state scope. Set MAD_dr_state_famine first (negative = fed, positive = hungrier).
+MAD_drought_state_apply_famine = {
+	add_to_variable = { MAD_state_famine = MAD_dr_state_famine }
+	clamp_variable = { var = MAD_state_famine min = 0 max = 100 }
+	MAD_drought_state_update_tier = yes
+}
+
+MAD_drought_clamp = {
+	clamp_variable = { var = MAD_drought_severity min = 0 max = 100 }
+	# the drought cannot be talked away early: below 5 only once it is contained, lost or won
+	if = {
+		limit = {
+			NOT = { has_country_flag = MAD_DROUGHT_CONTAINED_STATE }
+			NOT = { has_country_flag = MAD_DROUGHT_FAILED_STATE }
+			NOT = { has_country_flag = MAD_DROUGHT_WON }
+		}
+		clamp_variable = { var = MAD_drought_severity min = 5 max = 100 }
+	}
+}
+
+# One preventative decision done: the temp variable MAD_dr_prevent_amount comes off the monthly pressure for good,
+# and the number drops a little at once. Set MAD_dr_prevent_amount right before calling this (see note above on why
+# HOI4 scripted effects use a temp variable here instead of a parameter).
+MAD_drought_add_prevention = {
+	# Only the seven formal drought decisions count toward the 5/7 containment gate. CNA measures have
+	# their own continuing pressure-reduction pool so they cannot produce 10/7 again.
+	if = {
+		limit = { check_variable = { MAD_drought_prevention_count < 7 } }
+		add_to_variable = { MAD_drought_prevention_total = MAD_dr_prevent_amount }
+		add_to_variable = { MAD_drought_prevention_count = 1 }
+		set_temp_variable = { MAD_dr_change = -3 }
+		MAD_drought_apply_change = yes
+
+	}
+}
+
+########################################################################
+# TIERS (the modifiers you actually feel)
+########################################################################
+
+MAD_drought_clear_tiers = {
+	if = { limit = { has_idea = MAD_DROUGHT_TIER_1 } remove_ideas = MAD_DROUGHT_TIER_1 }
+	if = { limit = { has_idea = MAD_DROUGHT_TIER_2 } remove_ideas = MAD_DROUGHT_TIER_2 }
+	if = { limit = { has_idea = MAD_DROUGHT_TIER_3 } remove_ideas = MAD_DROUGHT_TIER_3 }
+	if = { limit = { has_idea = MAD_DROUGHT_TIER_4 } remove_ideas = MAD_DROUGHT_TIER_4 }
+}
+
+#   1-29  recurring dry spells     30-54 drought in the south     55-74 famine conditions     75+ kere (catastrophic famine)
+MAD_drought_update_tier = {
+	if = {
+		limit = { check_variable = { MAD_drought_severity < 0.001 } }
+		MAD_drought_clear_tiers = yes
+	}
+	else_if = {
+		limit = {
+			check_variable = { MAD_drought_severity < 30 }
+			NOT = { has_idea = MAD_DROUGHT_TIER_1 }
+		}
+		MAD_drought_clear_tiers = yes
+		add_ideas = MAD_DROUGHT_TIER_1
+	}
+	else_if = {
+		limit = {
+			check_variable = { MAD_drought_severity > 29.99 }
+			check_variable = { MAD_drought_severity < 55 }
+			NOT = { has_idea = MAD_DROUGHT_TIER_2 }
+		}
+		MAD_drought_clear_tiers = yes
+		add_ideas = MAD_DROUGHT_TIER_2
+	}
+	else_if = {
+		limit = {
+			check_variable = { MAD_drought_severity > 54.99 }
+			check_variable = { MAD_drought_severity < 75 }
+			NOT = { has_idea = MAD_DROUGHT_TIER_3 }
+		}
+		MAD_drought_clear_tiers = yes
+		add_ideas = MAD_DROUGHT_TIER_3
+	}
+	else_if = {
+		limit = {
+			check_variable = { MAD_drought_severity > 74.99 }
+			NOT = { has_idea = MAD_DROUGHT_TIER_4 }
+		}
+		MAD_drought_clear_tiers = yes
+		add_ideas = MAD_DROUGHT_TIER_4
+	}
+}
+
+########################################################################
+# INFRASTRUCTURE (why the Grand Sud suffers less with roads - but is never spared)
+########################################################################
+
+# Scores infrastructure (0-3) in the Toliara state (268, the Grand Sud) into MAD_drought_infra_south.
+# HOI4 triggers can't take parameters either, so this is written out directly rather than as one generic
+# "$VAR$/$STATE$" effect (that syntax is Stellaris/Vic3/CK3-only and is not valid HOI4 script).
+# State-scope infrastructure trigger: infrastructure 3 = score 1, 4 = score 2, 5 = score 3.
+MAD_drought_score_south = {
+	set_variable = { MAD_drought_infra_south = 0 }
+	if = { limit = { 268 = { infrastructure > 2 } } add_to_variable = { MAD_drought_infra_south = 1 } }
+	if = { limit = { 268 = { infrastructure > 3 } } add_to_variable = { MAD_drought_infra_south = 1 } }
+	if = { limit = { 268 = { infrastructure > 4 } } add_to_variable = { MAD_drought_infra_south = 1 } }
+}
+
+# Same scoring for Mahajanga (266) into MAD_drought_infra_west - the north-western term of the monthly pressure.
+MAD_drought_score_west = {
+	set_variable = { MAD_drought_infra_west = 0 }
+	if = { limit = { 266 = { infrastructure > 2 } } add_to_variable = { MAD_drought_infra_west = 1 } }
+	if = { limit = { 266 = { infrastructure > 3 } } add_to_variable = { MAD_drought_infra_west = 1 } }
+	if = { limit = { 266 = { infrastructure > 4 } } add_to_variable = { MAD_drought_infra_west = 1 } }
+}
+
+MAD_drought_read_infrastructure = {
+	MAD_drought_score_south = yes
+	MAD_drought_score_west = yes
+}
+
+# Adds 0.30 x (1 - 0.15 x south infrastructure score) to the monthly pressure: always positive, whatever the roads are like.
+MAD_drought_add_south_term = {
+	set_temp_variable = { MAD_dr_term = MAD_drought_infra_south }
+	multiply_temp_variable = { MAD_dr_term = -0.15 }
+	add_to_temp_variable = { MAD_dr_term = 1 }
+	multiply_temp_variable = { MAD_dr_term = 0.30 }
+	add_to_temp_variable = { MAD_dr_delta = MAD_dr_term }
+}
+
+# Same for the west, weighted 0.15.
+MAD_drought_add_west_term = {
+	set_temp_variable = { MAD_dr_term = MAD_drought_infra_west }
+	multiply_temp_variable = { MAD_dr_term = -0.15 }
+	add_to_temp_variable = { MAD_dr_term = 1 }
+	multiply_temp_variable = { MAD_dr_term = 0.15 }
+	add_to_temp_variable = { MAD_dr_delta = MAD_dr_term }
+}
+
+# A drought that hits the Grand Sud: the temp variable MAD_dr_shock_base sets its severity, cut by infrastructure in
+# the Toliara state (never to 0), and it lingers. Set MAD_dr_shock_base right before calling this.
+MAD_drought_south_shock = {
+	MAD_drought_read_infrastructure = yes
+	set_temp_variable = { MAD_dr_change = MAD_drought_infra_south }
+	multiply_temp_variable = { MAD_dr_change = -0.15 }
+	add_to_temp_variable = { MAD_dr_change = 1 }
+	multiply_temp_variable = { MAD_dr_change = MAD_dr_shock_base }
+	MAD_drought_apply_change = yes
+	add_to_variable = { MAD_drought_shock_pressure = 0.4 }
+}
+
+########################################################################
+# INTERNAL DROUGHT MIGRATION
+########################################################################
+# Finds the most drought-stricken of the four modeled Madagascar states and moves a fixed
+# number of people into the least-affected one. Historical shocks set MAD_drought_migration_force = 1,
+# while normal monthly migration only happens when the drought gap is large enough.
+#
+# MAD_drought_migration_amount is in THOUSANDS for the panel/readout.
+# add_manpower is used in state scope because it changes the state's total population.
+# A negative state add_manpower also adds directly to recruitable manpower in HOI4, so the
+# country-level correction below removes that side-effect from the national manpower pool.
+
+MAD_drought_migrate_worst_to_best = {
+	# Snapshot the four modeled state severities into country variables.
+	266 = { set_variable = { ROOT.MAD_mig_d_266 = MAD_state_drought } }
+	267 = { set_variable = { ROOT.MAD_mig_d_267 = MAD_state_drought } }
+	268 = { set_variable = { ROOT.MAD_mig_d_268 = MAD_state_drought } }
+	487 = { set_variable = { ROOT.MAD_mig_d_487 = MAD_state_drought } }
+
+	set_variable = { MAD_mig_found = 0 }
+
+	# Most affected = highest drought severity. Ties are resolved deterministically by state-id order.
+	if = {
+		limit = {
+			NOT = { check_variable = { MAD_mig_d_266 < MAD_mig_d_267 } }
+			NOT = { check_variable = { MAD_mig_d_266 < MAD_mig_d_268 } }
+			NOT = { check_variable = { MAD_mig_d_266 < MAD_mig_d_487 } }
+		}
+		266 = { save_event_target_as = MAD_drought_migration_source }
+		if = {
+			limit = {
+				check_variable = { MAD_mig_d_267 < MAD_mig_d_268 }
+				check_variable = { MAD_mig_d_267 < MAD_mig_d_487 }
+			}
+			267 = { save_event_target_as = MAD_drought_migration_destination }
+		}
+		else_if = {
+			limit = { check_variable = { MAD_mig_d_268 < MAD_mig_d_487 } }
+			268 = { save_event_target_as = MAD_drought_migration_destination }
+		}
+		else = {
+			487 = { save_event_target_as = MAD_drought_migration_destination }
+		}
+		set_variable = { MAD_mig_found = 1 }
+	}
+	else_if = {
+		limit = {
+			NOT = { check_variable = { MAD_mig_d_267 < MAD_mig_d_266 } }
+			NOT = { check_variable = { MAD_mig_d_267 < MAD_mig_d_268 } }
+			NOT = { check_variable = { MAD_mig_d_267 < MAD_mig_d_487 } }
+		}
+		267 = { save_event_target_as = MAD_drought_migration_source }
+		if = {
+			limit = {
+				check_variable = { MAD_mig_d_266 < MAD_mig_d_268 }
+				check_variable = { MAD_mig_d_266 < MAD_mig_d_487 }
+			}
+			266 = { save_event_target_as = MAD_drought_migration_destination }
+		}
+		else_if = {
+			limit = { check_variable = { MAD_mig_d_268 < MAD_mig_d_487 } }
+			268 = { save_event_target_as = MAD_drought_migration_destination }
+		}
+		else = {
+			487 = { save_event_target_as = MAD_drought_migration_destination }
+		}
+		set_variable = { MAD_mig_found = 1 }
+	}
+	else_if = {
+		limit = {
+			NOT = { check_variable = { MAD_mig_d_268 < MAD_mig_d_266 } }
+			NOT = { check_variable = { MAD_mig_d_268 < MAD_mig_d_267 } }
+			NOT = { check_variable = { MAD_mig_d_268 < MAD_mig_d_487 } }
+		}
+		268 = { save_event_target_as = MAD_drought_migration_source }
+		if = {
+			limit = {
+				check_variable = { MAD_mig_d_266 < MAD_mig_d_267 }
+				check_variable = { MAD_mig_d_266 < MAD_mig_d_487 }
+			}
+			266 = { save_event_target_as = MAD_drought_migration_destination }
+		}
+		else_if = {
+			limit = { check_variable = { MAD_mig_d_267 < MAD_mig_d_487 } }
+			267 = { save_event_target_as = MAD_drought_migration_destination }
+		}
+		else = {
+			487 = { save_event_target_as = MAD_drought_migration_destination }
+		}
+		set_variable = { MAD_mig_found = 1 }
+	}
+	else = {
+		487 = { save_event_target_as = MAD_drought_migration_source }
+		if = {
+			limit = {
+				check_variable = { MAD_mig_d_266 < MAD_mig_d_267 }
+				check_variable = { MAD_mig_d_266 < MAD_mig_d_268 }
+			}
+			266 = { save_event_target_as = MAD_drought_migration_destination }
+		}
+		else_if = {
+			limit = { check_variable = { MAD_mig_d_267 < MAD_mig_d_268 } }
+			267 = { save_event_target_as = MAD_drought_migration_destination }
+		}
+		else = {
+			268 = { save_event_target_as = MAD_drought_migration_destination }
+		}
+		set_variable = { MAD_mig_found = 1 }
+	}
+
+	if = {
+		limit = {
+			check_variable = { MAD_mig_found > 0.5 }
+			check_variable = { MAD_drought_migration_amount > 0.001 }
+		}
+		# Read the selected states' current drought values before deciding whether monthly migration is large enough.
+		event_target:MAD_drought_migration_source = {
+			set_variable = { ROOT.MAD_mig_source_drought = MAD_state_drought }
+		}
+		event_target:MAD_drought_migration_destination = {
+			set_variable = { ROOT.MAD_mig_destination_drought = MAD_state_drought }
+		}
+		set_temp_variable = { MAD_mig_gap = MAD_mig_source_drought }
+		subtract_from_temp_variable = { MAD_mig_gap = MAD_mig_destination_drought }
+
+		if = {
+			limit = {
+				OR = {
+					check_variable = { MAD_drought_migration_force > 0.5 }
+					AND = {
+						check_variable = { MAD_drought_severe_states > 0.5 }
+						check_variable = { MAD_mig_gap > 9.99 }
+					}
+				}
+			}
+			# Amount is stored in thousands for the UI; state population effects use people.
+			set_temp_variable = { MAD_mig_people = MAD_drought_migration_amount }
+			multiply_temp_variable = { MAD_mig_people = 1000 }
+			set_temp_variable = { MAD_mig_negative_people = MAD_mig_people }
+			multiply_temp_variable = { MAD_mig_negative_people = -1 }
+
+			event_target:MAD_drought_migration_source = {
+				add_manpower = var:MAD_mig_negative_people
+			}
+			event_target:MAD_drought_migration_destination = {
+				add_manpower = var:MAD_mig_people
+			}
+
+			# Negative state add_manpower has a direct recruitable-manpower side effect; undo it nationally.
+			add_manpower = var:MAD_mig_negative_people
+			add_to_variable = { MAD_drought_displaced = MAD_drought_migration_amount }
+		}
+	}
+
+	set_variable = { MAD_drought_migration_amount = 0 }
+	set_variable = { MAD_drought_migration_force = 0 }
+}
+
+########################################################################
+# THE MONTHLY TICK
+########################################################################
+
+MAD_drought_monthly_tick = {
+	if = {
+		limit = { MAD_drought_exists = yes }
+
+		# the climate creeps: every twelve months the base pressure rises (until it is won)
+		add_to_variable = { MAD_drought_months = 1 }
+		add_to_variable = { MAD_drought_calendar_months = 1 }
+		if = {
+			limit = { check_variable = { MAD_drought_months > 11.99 } }
+			set_variable = { MAD_drought_months = 0 }
+			if = {
+				limit = {
+					check_variable = { MAD_drought_base_pressure < 0.65 }
+					NOT = { has_country_flag = MAD_DROUGHT_WON }
+				}
+				add_to_variable = { MAD_drought_base_pressure = 0.03 }
+			}
+		}
+
+		# history and chance
+		MAD_drought_scheduled_events = yes
+
+		# gross pressure this month
+		set_temp_variable = { MAD_dr_delta = MAD_drought_base_pressure }
+		MAD_drought_read_infrastructure = yes
+		MAD_drought_add_south_term = yes
+		MAD_drought_add_west_term = yes
+
+		# Daewoo's cash crops - only while the drought exists (this whole block is inside that check)
+		if = {
+			limit = { check_variable = { MAD_drought_daewoo_pressure > 0 } }
+			set_temp_variable = { MAD_dr_term = MAD_drought_daewoo_pressure }
+			if = {
+				limit = { has_country_flag = MAD_DAEWOO_FOOD_QUOTA }
+				multiply_temp_variable = { MAD_dr_term = 0.5 }
+			}
+			add_to_temp_variable = { MAD_dr_delta = MAD_dr_term }
+		}
+
+		# lingering shocks
+		add_to_temp_variable = { MAD_dr_delta = MAD_drought_shock_pressure }
+		multiply_variable = { MAD_drought_shock_pressure = 0.8 }
+
+		# what has been built to prevent it
+		subtract_from_temp_variable = { MAD_dr_delta = MAD_drought_prevention_total }
+		subtract_from_temp_variable = { MAD_dr_delta = MAD_drought_cna_pressure_reduction }
+		# Migration guard for older saves where CNA work had been incorrectly counted as 10/7 formal measures.
+		clamp_variable = { var = MAD_drought_prevention_count min = 0 max = 7 }
+		if = {
+			limit = { check_variable = { MAD_drought_prevention_count > 4.99 } }
+			set_temp_variable = { MAD_dr_term = MAD_drought_prevention_count }
+			subtract_from_temp_variable = { MAD_dr_term = 4 }
+			multiply_temp_variable = { MAD_dr_term = 0.2 }
+			subtract_from_temp_variable = { MAD_dr_delta = MAD_dr_term }
+		}
+		if = {
+			limit = { has_country_flag = MAD_DROUGHT_WON }
+			subtract_from_temp_variable = { MAD_dr_delta = 2.5 }
+		}
+
+		# apply it - through the states, which then set the national average
+		set_variable = { MAD_drought_last_delta = MAD_dr_delta }
+		set_temp_variable = { MAD_dr_change = MAD_dr_delta }
+		MAD_drought_apply_change = yes
+		# each state then drifts a little on its own and its famine meter follows its drought
+		MAD_drought_state_monthly = yes
+
+		# People leave the states that are actually in severe drought, not just because the national average is high.
+		# The severe-state counter drives the exodus/failure logic; actual people are moved below.
+		set_variable = { MAD_drought_severe_states = 0 }
+		266 = { if = { limit = { check_variable = { MAD_state_drought > 59.99 } } ROOT = { add_to_variable = { MAD_drought_severe_states = 1 } } } }
+		267 = { if = { limit = { check_variable = { MAD_state_drought > 59.99 } } ROOT = { add_to_variable = { MAD_drought_severe_states = 1 } } } }
+		268 = { if = { limit = { check_variable = { MAD_state_drought > 59.99 } } ROOT = { add_to_variable = { MAD_drought_severe_states = 1 } } } }
+		487 = { if = { limit = { check_variable = { MAD_state_drought > 59.99 } } ROOT = { add_to_variable = { MAD_drought_severe_states = 1 } } } }
+		if = {
+			limit = { check_variable = { MAD_drought_severe_states > 0.5 } }
+			add_to_variable = { MAD_drought_depop = 1 }
+			if = {
+				limit = { NOT = { has_idea = MAD_DROUGHT_EVACUATIONS } }
+				add_ideas = MAD_DROUGHT_EVACUATIONS
+			}
+
+			# 6,000 people per severe state-month, moved from the worst-hit modeled state to the least-affected one.
+			set_variable = { MAD_drought_migration_amount = 6 }
+			set_variable = { MAD_drought_migration_force = 0 }
+			MAD_drought_migrate_worst_to_best = yes
+		}
+		else_if = {
+			limit = {
+				check_variable = { MAD_drought_severe_states < 0.5 }
+				check_variable = { MAD_drought_depop > 0 }
+			}
+			subtract_from_variable = { MAD_drought_depop = 1 }
+		}
+		if = {
+			limit = {
+				check_variable = { MAD_drought_severe_states < 0.5 }
+				check_variable = { MAD_drought_depop < 0.5 }
+				has_idea = MAD_DROUGHT_EVACUATIONS
+			}
+			remove_ideas = MAD_DROUGHT_EVACUATIONS
+		}
+
+		MAD_drought_update_tier = yes
+		# failed? (a year of exodus, net)
+		if = {
+			limit = {
+				NOT = { has_country_flag = MAD_DROUGHT_FAILED_STATE }
+				NOT = { has_country_flag = MAD_DROUGHT_CONTAINED_STATE }
+				check_variable = { MAD_drought_depop > 11.99 }
+			}
+			set_country_flag = MAD_DROUGHT_FAILED_STATE
+			country_event = { id = mad_drought.21 }
+		}
+		# over?
+		if = {
+			limit = { check_variable = { MAD_drought_severity < 0.001 } }
+			MAD_drought_finish = yes
+		}
+	}
+}
+
+MAD_drought_finish = {
+	set_country_flag = MAD_DROUGHT_OVER
+	set_variable = { MAD_drought_severity = 0 }
+	set_variable = { MAD_drought_relief_months = 0 }
+	MAD_drought_clear_tiers = yes
+	# the map goes green too
+	266 = { set_variable = { MAD_state_drought = 0 } set_variable = { MAD_state_famine = 0 } set_variable = { MAD_state_drought_tier = 0 } set_variable = { MAD_state_relief_months = 0 } MAD_drought_state_clear_tiers = yes if = { limit = { has_dynamic_modifier = { modifier = MAD_STATE_FAMINE } } remove_dynamic_modifier = { modifier = MAD_STATE_FAMINE } } }
+	267 = { set_variable = { MAD_state_drought = 0 } set_variable = { MAD_state_famine = 0 } set_variable = { MAD_state_drought_tier = 0 } set_variable = { MAD_state_relief_months = 0 } MAD_drought_state_clear_tiers = yes if = { limit = { has_dynamic_modifier = { modifier = MAD_STATE_FAMINE } } remove_dynamic_modifier = { modifier = MAD_STATE_FAMINE } } }
+	268 = { set_variable = { MAD_state_drought = 0 } set_variable = { MAD_state_famine = 0 } set_variable = { MAD_state_drought_tier = 0 } set_variable = { MAD_state_relief_months = 0 } MAD_drought_state_clear_tiers = yes if = { limit = { has_dynamic_modifier = { modifier = MAD_STATE_FAMINE } } remove_dynamic_modifier = { modifier = MAD_STATE_FAMINE } } }
+	487 = { set_variable = { MAD_state_drought = 0 } set_variable = { MAD_state_famine = 0 } set_variable = { MAD_state_drought_tier = 0 } set_variable = { MAD_state_relief_months = 0 } MAD_drought_state_clear_tiers = yes if = { limit = { has_dynamic_modifier = { modifier = MAD_STATE_FAMINE } } remove_dynamic_modifier = { modifier = MAD_STATE_FAMINE } } }
+	if = {
+		limit = { has_idea = MAD_DROUGHT_EVACUATIONS }
+		remove_ideas = MAD_DROUGHT_EVACUATIONS
+	}
+	MAD_drought_sync_display = yes
+	country_event = { id = mad_drought.20 }
+}
+
+# Historical droughts (dates are when the real ones hit) and a little chance every month.
+MAD_drought_scheduled_events = {
+	# The monthly counter starts at 0 in the 1 Jan 2000 initialisation and advances once per drought month.
+	# Using a counter here avoids the invalid root-scope `date` trigger seen in the test log.
+	if = {
+		limit = { check_variable = { MAD_drought_calendar_months > 3.99 } NOT = { has_country_flag = MAD_DROUGHT_EVENT_2000 } }
+		set_country_flag = MAD_DROUGHT_EVENT_2000
+		if = { limit = { MAD_historical_drought_should_fire = yes } country_event = { id = mad_drought.15 } }
+	}
+	if = {
+		limit = { check_variable = { MAD_drought_calendar_months > 39.99 } NOT = { has_country_flag = MAD_DROUGHT_EVENT_2003 } }
+		set_country_flag = MAD_DROUGHT_EVENT_2003
+		if = { limit = { MAD_historical_drought_should_fire = yes } country_event = { id = mad_drought.16 } }
+	}
+	if = {
+		limit = { check_variable = { MAD_drought_calendar_months > 55.99 } NOT = { has_country_flag = MAD_DROUGHT_EVENT_2005 } }
+		set_country_flag = MAD_DROUGHT_EVENT_2005
+		if = { limit = { MAD_historical_drought_should_fire = yes } country_event = { id = mad_drought.17 } }
+	}
+	if = {
+		limit = { check_variable = { MAD_drought_calendar_months > 111.99 } NOT = { has_country_flag = MAD_DROUGHT_EVENT_2009 } }
+		set_country_flag = MAD_DROUGHT_EVENT_2009
+		if = { limit = { MAD_historical_drought_should_fire = yes } country_event = { id = mad_drought.18 } }
+	}
+	if = {
+		limit = { check_variable = { MAD_drought_calendar_months > 125.99 } NOT = { has_country_flag = MAD_DROUGHT_EVENT_2010 } }
+		set_country_flag = MAD_DROUGHT_EVENT_2010
+		if = { limit = { MAD_historical_drought_should_fire = yes } country_event = { id = mad_drought.19 } }
+	}
+	if = {
+		limit = { check_variable = { MAD_drought_calendar_months > 146.99 } NOT = { has_country_flag = MAD_DROUGHT_EVENT_LOCUSTS } }
+		set_country_flag = MAD_DROUGHT_EVENT_LOCUSTS
+		country_event = { id = mad_drought.12 }
+	}
+	if = {
+		limit = { check_variable = { MAD_drought_calendar_months > 188.99 } NOT = { has_country_flag = MAD_DROUGHT_EVENT_ELNINO } }
+		set_country_flag = MAD_DROUGHT_EVENT_ELNINO
+		if = { limit = { MAD_historical_drought_should_fire = yes } country_event = { id = mad_drought.13 } }
+	}
+	if = {
+		limit = { check_variable = { MAD_drought_calendar_months > 244.99 } NOT = { has_country_flag = MAD_DROUGHT_EVENT_KERE } }
+		set_country_flag = MAD_DROUGHT_EVENT_KERE
+		if = { limit = { MAD_historical_drought_should_fire = yes } country_event = { id = mad_drought.14 } }
+	}
+
+	random_list = {
+		84 = { }
+		4 = { country_event = { id = mad_drought.10 } }
+		2 = {
+			if = {
+				limit = { check_variable = { MAD_drought_severity > 25 } }
+				country_event = { id = mad_drought.11 }
+			}
+		}
+		# --- the regional ones: these are what make the map uneven ---
+		4 = { country_event = { id = mad_drought.30 } }
+		3 = {
+			# a cyclone only matters if there is a coast to hit and something on it to lose
+			if = {
+				limit = { any_owned_state = { is_coastal = yes } }
+				country_event = { id = mad_drought.31 }
+			}
+		}
+		2 = {
+			if = {
+				limit = { any_owned_state = { check_variable = { MAD_state_drought > 54.99 } } }
+				country_event = { id = mad_drought.32 }
+			}
+		}
+		1 = {
+			if = {
+				limit = { any_owned_state = { has_state_flag = MAD_STATE_WELLS } }
+				country_event = { id = mad_drought.33 }
+			}
+		}
+	}
+}
+
+########################################################################
+# RESETTLEMENT
+########################################################################
+
+MAD_drought_resettle = {
+	set_variable = { MAD_drought_displaced = 0 }
+	set_variable = { MAD_drought_severe_states = 0 }
+	set_variable = { MAD_drought_migration_amount = 0 }
+	set_variable = { MAD_drought_migration_force = 0 }
+	set_variable = { MAD_drought_depop = 0 }
+	if = {
+		limit = { has_idea = MAD_DROUGHT_EVACUATIONS }
+		remove_ideas = MAD_DROUGHT_EVACUATIONS
+	}
+	add_timed_idea = { idea = MAD_DROUGHT_RESETTLED days = 730 }
+}
+########################################################################
+# THE DROUGHT MAP - one drought number and one famine number per STATE
+########################################################################
+#
+# The national MAD_drought_severity you already had is now the AVERAGE of the states, so nothing above changes:
+# national decisions, events and focuses still set MAD_dr_change and still work. What is new:
+#
+#   MAD_state_drought           0-100, per state. The map decisions show it and colour the state.
+#   MAD_state_famine            0-100, per state. Follows the drought with a lag; fed by food, not by water.
+#   MAD_state_drought_exposure  how hard a countrywide shock lands here. 1.35 in the Grand Sud, 0.85 elsewhere.
+#   MAD_drought_states          array of the states, used as target_array by the map decisions.
+#
+# ===================== THE ONLY PLACE YOU NEED TO EDIT FOR STATE IDs =====================
+# MAD_drought_state_init below marks two groups of states by flag. Everything else reads the flags, so you never
+# have to hunt state IDs through the rest of the mod:
+#
+#   MAD_GRAND_SUD_STATE  - the drought south. Exposure 1.35 and starts 10 points worse. Currently: 268 (Toliara).
+#   MAD_REFUGE_STATE     - where people go when the south empties: 267 (Antananarivo) and 487 (Toamasina).
+#
+# The four Madagascar states, taken from the railway comment in MAD_decisions.txt:
+#   267 Antananarivo   268 Toliara   266 Mahajanga   487 Toamasina
+# =========================================================================================
+
+MAD_drought_state_init = {
+	clear_array = MAD_drought_states
+
+	# ONLY these four states belong to the drought model/readout.
+	# The national average is calculated from the same four states.
+	266 = {
+		set_variable = { MAD_state_drought = ROOT.MAD_drought_severity }
+		set_variable = { MAD_state_famine = 0 }
+		set_variable = { MAD_state_drought_exposure = 1.05 }
+		set_variable = { MAD_state_drought_tier = 0 }
+		set_variable = { MAD_state_relief_months = 0 }
+		clr_state_flag = MAD_GRAND_SUD_STATE
+		clr_state_flag = MAD_REFUGE_STATE
+		add_to_array = { array = ROOT.MAD_drought_states value = THIS }
+		add_to_variable = { MAD_state_drought = 4 }
+	}
+	267 = {
+		set_variable = { MAD_state_drought = ROOT.MAD_drought_severity }
+		set_variable = { MAD_state_famine = 0 }
+		set_variable = { MAD_state_drought_exposure = 0.85 }
+		set_variable = { MAD_state_drought_tier = 0 }
+		set_variable = { MAD_state_relief_months = 0 }
+		clr_state_flag = MAD_GRAND_SUD_STATE
+		set_state_flag = MAD_REFUGE_STATE
+		add_to_array = { array = ROOT.MAD_drought_states value = THIS }
+	}
+	268 = {
+		set_variable = { MAD_state_drought = ROOT.MAD_drought_severity }
+		set_variable = { MAD_state_famine = 0 }
+		set_variable = { MAD_state_drought_exposure = 1.35 }
+		set_variable = { MAD_state_drought_tier = 0 }
+		set_variable = { MAD_state_relief_months = 0 }
+		set_state_flag = MAD_GRAND_SUD_STATE
+		clr_state_flag = MAD_REFUGE_STATE
+		add_to_array = { array = ROOT.MAD_drought_states value = THIS }
+		add_to_variable = { MAD_state_drought = 10 }
+	}
+	487 = {
+		set_variable = { MAD_state_drought = ROOT.MAD_drought_severity }
+		set_variable = { MAD_state_famine = 0 }
+		set_variable = { MAD_state_drought_exposure = 0.85 }
+		set_variable = { MAD_state_drought_tier = 0 }
+		set_variable = { MAD_state_relief_months = 0 }
+		clr_state_flag = MAD_GRAND_SUD_STATE
+		set_state_flag = MAD_REFUGE_STATE
+		add_to_array = { array = ROOT.MAD_drought_states value = THIS }
+	}
+
+	266 = { MAD_drought_state_clamp = yes }
+	267 = { MAD_drought_state_clamp = yes }
+	268 = { MAD_drought_state_clamp = yes }
+	487 = { MAD_drought_state_clamp = yes }
+	MAD_drought_states_update_tiers = yes
+	MAD_drought_recalc_national = yes
+}
+# State scope. Same floor rule as the national number: it cannot be talked away before the drought is decided.
+MAD_drought_state_clamp = {
+	clamp_variable = { var = MAD_state_drought min = 0 max = 100 }
+	if = {
+		limit = {
+			owner = {
+				NOT = { has_country_flag = MAD_DROUGHT_CONTAINED_STATE }
+				NOT = { has_country_flag = MAD_DROUGHT_FAILED_STATE }
+				NOT = { has_country_flag = MAD_DROUGHT_WON }
+			}
+		}
+		clamp_variable = { var = MAD_state_drought min = 5 max = 100 }
+	}
+}
+
+# The national number is the average of the states, so anything you do in one state moves it a little.
+MAD_drought_recalc_national = {
+	set_variable = { MAD_dr_sum = 0 }
+	set_variable = { MAD_dr_count = 0 }
+
+	# Exactly four modeled states. This is the source of truth for the national average.
+	266 = {
+		add_to_variable = { ROOT.MAD_dr_sum = MAD_state_drought }
+		ROOT = { add_to_variable = { MAD_dr_count = 1 } }
+	}
+	267 = {
+		add_to_variable = { ROOT.MAD_dr_sum = MAD_state_drought }
+		ROOT = { add_to_variable = { MAD_dr_count = 1 } }
+	}
+	268 = {
+		add_to_variable = { ROOT.MAD_dr_sum = MAD_state_drought }
+		ROOT = { add_to_variable = { MAD_dr_count = 1 } }
+	}
+	487 = {
+		add_to_variable = { ROOT.MAD_dr_sum = MAD_state_drought }
+		ROOT = { add_to_variable = { MAD_dr_count = 1 } }
+	}
+	if = {
+		limit = { check_variable = { MAD_dr_count > 3.5 } }
+		set_variable = { MAD_drought_severity = MAD_dr_sum }
+		divide_variable = { MAD_drought_severity = MAD_dr_count }
+	}
+
+	set_variable = { MAD_drought_relief_months = 0 }
+	266 = { if = { limit = { check_variable = { MAD_state_relief_months > 0 } } ROOT = { add_to_variable = { MAD_drought_relief_months = 1 } } } }
+	267 = { if = { limit = { check_variable = { MAD_state_relief_months > 0 } } ROOT = { add_to_variable = { MAD_drought_relief_months = 1 } } } }
+	268 = { if = { limit = { check_variable = { MAD_state_relief_months > 0 } } ROOT = { add_to_variable = { MAD_drought_relief_months = 1 } } } }
+	487 = { if = { limit = { check_variable = { MAD_state_relief_months > 0 } } ROOT = { add_to_variable = { MAD_drought_relief_months = 1 } } } }
+
+	MAD_drought_clamp = yes
+	MAD_drought_update_tier = yes
+	MAD_drought_sync_display = yes
+}
+# Mirror the four state meters into country variables so the decision-category scripted GUI and the category
+# description can render exact per-state values without relying on FROM scope.
+MAD_drought_sync_display = {
+	# Compute the frame while still in STATE scope, then write it to the country variable.
+	# The previous version entered ROOT = { ... } before testing MAD_state_drought, which
+	# moved the trigger into COUNTRY scope where that variable does not exist. Every frame
+	# therefore stayed at 0 (green) even when the panel showed non-zero state severity.
+	266 = {
+		set_variable = { ROOT.MAD_drought_266_display = MAD_state_drought }
+		set_variable = { ROOT.MAD_famine_266_display = MAD_state_famine }
+		set_temp_variable = { MAD_map_frame = 0 }
+		if = { limit = { check_variable = { MAD_state_drought > 14.99 } } set_temp_variable = { MAD_map_frame = 1 } }
+		if = { limit = { check_variable = { MAD_state_drought > 34.99 } } set_temp_variable = { MAD_map_frame = 2 } }
+		if = { limit = { check_variable = { MAD_state_drought > 54.99 } } set_temp_variable = { MAD_map_frame = 3 } }
+		if = { limit = { check_variable = { MAD_state_drought > 74.99 } } set_temp_variable = { MAD_map_frame = 4 } }
+		set_variable = { ROOT.MAD_drought_266_map_frame = MAD_map_frame }
+	}
+	267 = {
+		set_variable = { ROOT.MAD_drought_267_display = MAD_state_drought }
+		set_variable = { ROOT.MAD_famine_267_display = MAD_state_famine }
+		set_temp_variable = { MAD_map_frame = 0 }
+		if = { limit = { check_variable = { MAD_state_drought > 14.99 } } set_temp_variable = { MAD_map_frame = 1 } }
+		if = { limit = { check_variable = { MAD_state_drought > 34.99 } } set_temp_variable = { MAD_map_frame = 2 } }
+		if = { limit = { check_variable = { MAD_state_drought > 54.99 } } set_temp_variable = { MAD_map_frame = 3 } }
+		if = { limit = { check_variable = { MAD_state_drought > 74.99 } } set_temp_variable = { MAD_map_frame = 4 } }
+		set_variable = { ROOT.MAD_drought_267_map_frame = MAD_map_frame }
+	}
+	268 = {
+		set_variable = { ROOT.MAD_drought_268_display = MAD_state_drought }
+		set_variable = { ROOT.MAD_famine_268_display = MAD_state_famine }
+		set_temp_variable = { MAD_map_frame = 0 }
+		if = { limit = { check_variable = { MAD_state_drought > 14.99 } } set_temp_variable = { MAD_map_frame = 1 } }
+		if = { limit = { check_variable = { MAD_state_drought > 34.99 } } set_temp_variable = { MAD_map_frame = 2 } }
+		if = { limit = { check_variable = { MAD_state_drought > 54.99 } } set_temp_variable = { MAD_map_frame = 3 } }
+		if = { limit = { check_variable = { MAD_state_drought > 74.99 } } set_temp_variable = { MAD_map_frame = 4 } }
+		set_variable = { ROOT.MAD_drought_268_map_frame = MAD_map_frame }
+	}
+	487 = {
+		set_variable = { ROOT.MAD_drought_487_display = MAD_state_drought }
+		set_variable = { ROOT.MAD_famine_487_display = MAD_state_famine }
+		set_temp_variable = { MAD_map_frame = 0 }
+		if = { limit = { check_variable = { MAD_state_drought > 14.99 } } set_temp_variable = { MAD_map_frame = 1 } }
+		if = { limit = { check_variable = { MAD_state_drought > 34.99 } } set_temp_variable = { MAD_map_frame = 2 } }
+		if = { limit = { check_variable = { MAD_state_drought > 54.99 } } set_temp_variable = { MAD_map_frame = 3 } }
+		if = { limit = { check_variable = { MAD_state_drought > 74.99 } } set_temp_variable = { MAD_map_frame = 4 } }
+		set_variable = { ROOT.MAD_drought_487_map_frame = MAD_map_frame }
+	}
+	add_to_variable = { MAD_drought_display_refresh = 1 }
+}
+
+# A full consecutive-year containment qualification. The daily tick resets the counter to zero as soon as any
+# requirement fails, so every one of the 365 days must remain valid. Once completed the flag/event is one-shot for
+# that containment cycle; later deterioration clears the flag and allows another 365-day qualification.
+MAD_drought_containment_daily_tick = {
+	# A successful containment is not permanent: if the drought later breaks the containment conditions,
+	# clear the cycle flag and make the player qualify for another full consecutive year.
+	if = {
+		limit = {
+			has_country_flag = MAD_DROUGHT_CONTAINED_STATE
+			NOT = { has_country_flag = MAD_DROUGHT_WON }
+			NOT = { has_country_flag = MAD_DROUGHT_OVER }
+			OR = {
+				check_variable = { MAD_drought_prevention_count < 5 }
+				check_variable = { MAD_drought_severity > 30.01 }
+			}
+		}
+		clr_country_flag = MAD_DROUGHT_CONTAINED_STATE
+		set_variable = { MAD_drought_containment_days = 0 }
+	}
+
+	if = {
+		limit = {
+			MAD_drought_exists = yes
+			NOT = { has_country_flag = MAD_DROUGHT_CONTAINED_STATE }
+			check_variable = { MAD_drought_prevention_count > 4.99 }
+			check_variable = { MAD_drought_severity < 30.01 }
+		}
+		add_to_variable = { MAD_drought_containment_days = 1 }
+		if = {
+			limit = { check_variable = { MAD_drought_containment_days > 364.99 } }
+			set_country_flag = MAD_DROUGHT_CONTAINED_STATE
+			country_event = { id = mad_drought.22 }
+		}
+	}
+	else = {
+		if = {
+			limit = { check_variable = { MAD_drought_containment_days > 0.001 } }
+			set_variable = { MAD_drought_containment_days = 0 }
+		}
+	}
+
+	# Keep the four stored map-frame variables synchronized daily as well as on monthly recalculation.
+	# This makes existing saves update the mini-map immediately after the next daily tick instead of
+	# waiting for the next 30-day drought tick.
+	if = {
+		limit = { MAD_drought_exists = yes }
+		MAD_drought_sync_display = yes
+	}
+}
+
+########################################################################
+# PER-STATE TIERS (what you see when you hover the state on the map)
+########################################################################
+# Tier 0 none / 1 dry / 2 drought / 3 famine / 4 kere. The famine meter adds its own modifier on top.
+# Only touched when the tier actually changes, so this is cheap to run every month.
+
+MAD_drought_state_clear_tiers = {
+	if = { limit = { has_dynamic_modifier = { modifier = MAD_STATE_DROUGHT_1 } } remove_dynamic_modifier = { modifier = MAD_STATE_DROUGHT_1 } }
+	if = { limit = { has_dynamic_modifier = { modifier = MAD_STATE_DROUGHT_2 } } remove_dynamic_modifier = { modifier = MAD_STATE_DROUGHT_2 } }
+	if = { limit = { has_dynamic_modifier = { modifier = MAD_STATE_DROUGHT_3 } } remove_dynamic_modifier = { modifier = MAD_STATE_DROUGHT_3 } }
+	if = { limit = { has_dynamic_modifier = { modifier = MAD_STATE_DROUGHT_4 } } remove_dynamic_modifier = { modifier = MAD_STATE_DROUGHT_4 } }
+}
+
+# State scope.
+MAD_drought_state_update_tier = {
+	set_temp_variable = { MAD_st_tier = 0 }
+	if = { limit = { check_variable = { MAD_state_drought > 14.99 } } set_temp_variable = { MAD_st_tier = 1 } }
+	if = { limit = { check_variable = { MAD_state_drought > 34.99 } } set_temp_variable = { MAD_st_tier = 2 } }
+	if = { limit = { check_variable = { MAD_state_drought > 54.99 } } set_temp_variable = { MAD_st_tier = 3 } }
+	if = { limit = { check_variable = { MAD_state_drought > 74.99 } } set_temp_variable = { MAD_st_tier = 4 } }
+
+	if = {
+		limit = { NOT = { check_variable = { MAD_state_drought_tier = MAD_st_tier } } }
+		set_variable = { MAD_state_drought_tier = MAD_st_tier }
+		MAD_drought_state_clear_tiers = yes
+		if = { limit = { check_variable = { MAD_st_tier = 1 } } add_dynamic_modifier = { modifier = MAD_STATE_DROUGHT_1 } }
+		if = { limit = { check_variable = { MAD_st_tier = 2 } } add_dynamic_modifier = { modifier = MAD_STATE_DROUGHT_2 } }
+		if = { limit = { check_variable = { MAD_st_tier = 3 } } add_dynamic_modifier = { modifier = MAD_STATE_DROUGHT_3 } }
+		if = { limit = { check_variable = { MAD_st_tier = 4 } } add_dynamic_modifier = { modifier = MAD_STATE_DROUGHT_4 } }
+	}
+
+	# the famine layer: hunger, not thirst. Comes and goes on its own meter.
+	if = {
+		limit = {
+			check_variable = { MAD_state_famine > 39.99 }
+			NOT = { has_dynamic_modifier = { modifier = MAD_STATE_FAMINE } }
+		}
+		add_dynamic_modifier = { modifier = MAD_STATE_FAMINE }
+	}
+	if = {
+		limit = {
+			check_variable = { MAD_state_famine < 40 }
+			has_dynamic_modifier = { modifier = MAD_STATE_FAMINE }
+		}
+		remove_dynamic_modifier = { modifier = MAD_STATE_FAMINE }
+	}
+}
+
+MAD_drought_states_update_tiers = {
+	266 = { MAD_drought_state_update_tier = yes }
+	267 = { MAD_drought_state_update_tier = yes }
+	268 = { MAD_drought_state_update_tier = yes }
+	487 = { MAD_drought_state_update_tier = yes }
+}
+
+########################################################################
+# THE PER-STATE MONTHLY STEP (called from MAD_drought_monthly_tick)
+########################################################################
+# Famine follows the drought with a lag: above 45 people start going hungry, below 45 they recover.
+# A state that has had wells sunk (MAD_STATE_WELLS) recovers faster; one cut off from the network suffers more.
+
+MAD_drought_state_monthly_one = {
+	if = {
+		limit = { check_variable = { MAD_state_relief_months > 0 } }
+		subtract_from_variable = { MAD_state_relief_months = 1 }
+		if = {
+			limit = { check_variable = { MAD_state_relief_months < 0.001 } }
+			add_to_variable = { MAD_state_drought = 4 }
+			MAD_drought_state_clamp = yes
+		}
+	}
+	set_temp_variable = { MAD_fam_t = MAD_state_drought }
+	subtract_from_temp_variable = { MAD_fam_t = 45 }
+	multiply_temp_variable = { MAD_fam_t = 0.12 }
+	if = {
+		limit = { has_state_flag = MAD_STATE_WELLS }
+		multiply_temp_variable = { MAD_fam_t = 0.6 }
+	}
+	add_to_variable = { MAD_state_famine = MAD_fam_t }
+	clamp_variable = { var = MAD_state_famine min = 0 max = 100 }
+	MAD_drought_state_update_tier = yes
+}
+
+MAD_drought_state_monthly = {
+	# Only the four modeled states get the local famine/water monthly step.
+	266 = { MAD_drought_state_monthly_one = yes }
+	267 = { MAD_drought_state_monthly_one = yes }
+	268 = { MAD_drought_state_monthly_one = yes }
+	487 = { MAD_drought_state_monthly_one = yes }
+}
+########################################################################
+# CROP DEATH - the south empties and most of it turns up in the two big cities
+########################################################################
+# "Reduce the population of the south by 20%, and only 80% of that number reappears in Antananarivo and Toamasina."
+# The missing fifth is the people who did not survive the journey or the year.
+#
+# HOW THE POPULATION MOVE IS DONE: HOI4 has no safe, mod-portable effect for "set this state's population to X",
+# so it is done with state modifiers - MAD_STATE_DEPOPULATED takes 20% off the southern states' manpower, building
+# slots and output, and MAD_STATE_REFUGEE_INFLUX puts 16% (= 80% of 20%) onto Antananarivo and Toamasina, with the
+# slums that come with it. If your Millennium Dawn build does expose a direct population effect, this scripted
+# effect is the ONE place to swap it in.
+
+MAD_crop_death_effects = {
+	custom_effect_tooltip = MAD_crop_death_south_tt
+	every_owned_state = {
+		limit = { has_state_flag = MAD_GRAND_SUD_STATE }
+		if = {
+			limit = { has_dynamic_modifier = { modifier = MAD_STATE_DEPOPULATED } }
+			remove_dynamic_modifier = { modifier = MAD_STATE_DEPOPULATED }
+		}
+		add_dynamic_modifier = { modifier = MAD_STATE_DEPOPULATED }
+		set_state_flag = MAD_STATE_EMPTIED
+	}
+
+	custom_effect_tooltip = MAD_crop_death_cities_tt
+	every_owned_state = {
+		limit = { has_state_flag = MAD_REFUGE_STATE }
+		if = {
+			limit = { has_dynamic_modifier = { modifier = MAD_STATE_REFUGEE_INFLUX } }
+			remove_dynamic_modifier = { modifier = MAD_STATE_REFUGEE_INFLUX }
+		}
+		add_dynamic_modifier = { modifier = MAD_STATE_REFUGEE_INFLUX }
+	}
+
+	custom_effect_tooltip = MAD_crop_death_lost_tt
+	add_stability = -0.05
+	add_war_support = -0.03
+	set_variable = { MAD_drought_displaced = 0 }
+	set_variable = { MAD_drought_severe_states = 0 }
+	add_ideas = MAD_CROP_DEATH_GENERATION
+}
+
+########################################################################
+# THE CNA AND THE LOCUSTS
+########################################################################
+# Centre National Antiacridien - Madagascar's real anti-locust agency, refounded after the 1997-2000 plague.
+# The branch is: CNA -> (Continue The Path | Become The Locust) -> Map Infestations / Biopesticides ->
+# Locust Invasion Response / Preventative Measures. Everything here needs Agricultural Reforms first, because it
+# all runs on the agriculture modifier that focus creates.
+
+MAD_cna_establish = {
+	set_country_flag = MAD_CNA_FOUNDED
+	add_ideas = MAD_CNA_AGENCY
+	set_temp_variable = { treasury_change = -1.50 }
+	modify_treasury_effect = yes
+	custom_effect_tooltip = {
+		localization_key = modifies_dynamic_modifier_tt
+		MODIFIER = MAD_agriculture_modifier
+	}
+	add_to_variable = { MAD_agri_productivity = 0.05 tooltip = agricolture_productivity_modifier_tt }
+	force_update_dynamic_modifier = yes
+	# A standing survey service reduces ongoing drought pressure, but is not one of the seven formal measures.
+	add_to_variable = { MAD_drought_cna_pressure_reduction = 0.10 }
+	set_temp_variable = { MAD_dr_change = -2 }
+	MAD_drought_apply_change = yes
+}
+
+# CONTINUE THE PATH - keep the FAO/CNA survey-and-spray programme running as it was designed.
+# Slow, unglamorous, and it works: every locust event lands softer from here on.
+MAD_cna_continue_the_path = {
+	set_country_flag = MAD_CNA_SURVEY_PROGRAMME
+	set_temp_variable = { treasury_change = -1.00 }
+	modify_treasury_effect = yes
+	custom_effect_tooltip = {
+		localization_key = modifies_dynamic_modifier_tt
+		MODIFIER = MAD_agriculture_modifier
+	}
+	add_to_variable = { MAD_agri_worker_req = -0.01 tooltip = agriculture_district_worker_requirement_modifier_tt }
+	add_to_variable = { MAD_agri_productivity = 0.02 tooltip = agricolture_productivity_modifier_tt }
+	force_update_dynamic_modifier = yes
+	add_stability = 0.02
+}
+
+# BECOME THE LOCUST - if you cannot beat the swarm, harvest it. Locust flour is a real Malagasy famine food and a
+# real export; it feeds the south off the thing that was eating it, but it makes the agency dependent on the plague.
+MAD_cna_become_the_locust = {
+	set_country_flag = MAD_CNA_HARVEST_PROGRAMME
+	set_temp_variable = { treasury_change = -0.50 }
+	modify_treasury_effect = yes
+	custom_effect_tooltip = {
+		localization_key = modifies_dynamic_modifier_tt
+		MODIFIER = MAD_agriculture_modifier
+	}
+	add_to_variable = { MAD_agri_income_tax = 0.03 tooltip = agriculture_district_income_tax_modifier_tt }
+	add_to_variable = { MAD_agri_productivity = 0.01 tooltip = agricolture_productivity_modifier_tt }
+	force_update_dynamic_modifier = yes
+	# Protein in the worst-hit state(s) right now.
+	every_owned_state = {
+		limit = { has_state_flag = MAD_GRAND_SUD_STATE }
+		set_temp_variable = { MAD_dr_state_famine = -12 }
+		MAD_drought_state_apply_famine = yes
+	}
+	add_war_support = 0.02
+}
+
+# MAP INFESTATIONS - the survey grid. Already unlocked the Locust Monitoring Network decision; now it also makes
+# every locust event cheaper because you see the swarm forming.
+MAD_cna_map_infestations = {
+	custom_effect_tooltip = MAD_drought_unlock_locust_tt
+	set_country_flag = MAD_DROUGHT_LOCUST_WATCH
+	custom_effect_tooltip = {
+		localization_key = modifies_dynamic_modifier_tt
+		MODIFIER = MAD_agriculture_modifier
+	}
+	add_to_variable = { MAD_agri_productivity = 0.01 tooltip = agricolture_productivity_modifier_tt }
+	force_update_dynamic_modifier = yes
+}
+
+# BIOPESTICIDES - Metarhizium acridum instead of fenitrothion. Slower to kill, but it does not poison the zebu,
+# the bees or the rice paddies, so the farmland keeps working.
+MAD_cna_biopesticides = {
+	set_country_flag = MAD_CNA_BIOPESTICIDES
+	set_temp_variable = { treasury_change = -2.00 }
+	modify_treasury_effect = yes
+	custom_effect_tooltip = {
+		localization_key = modifies_dynamic_modifier_tt
+		MODIFIER = MAD_agriculture_modifier
+	}
+	add_to_variable = { MAD_agri_productivity = 0.03 tooltip = agricolture_productivity_modifier_tt }
+	add_to_variable = { MAD_agri_worker_req = -0.01 tooltip = agriculture_district_worker_requirement_modifier_tt }
+	force_update_dynamic_modifier = yes
+	add_to_variable = { MAD_drought_cna_pressure_reduction = 0.20 }
+	set_temp_variable = { MAD_dr_change = -2 }
+	MAD_drought_apply_change = yes
+}
+
+# LOCUST INVASION RESPONSE - the standing emergency plan: aircraft on contract, stockpiled product, trained teams.
+# Unlocks the per-state spraying decision.
+MAD_cna_invasion_response = {
+	custom_effect_tooltip = MAD_cna_invasion_response_tt
+	set_country_flag = MAD_CNA_RAPID_RESPONSE
+	set_temp_variable = { treasury_change = -2.50 }
+	modify_treasury_effect = yes
+	add_political_power = 25
+	add_to_variable = { MAD_drought_cna_pressure_reduction = 0.25 }
+	set_temp_variable = { MAD_dr_change = -2 }
+	MAD_drought_apply_change = yes
+}
+
+# PREVENTATIVE MEASURES - the whole thing made permanent: the CNA is funded out of the budget rather than by appeal.
+MAD_cna_preventative_measures = {
+	set_country_flag = MAD_CNA_PERMANENT
+	set_temp_variable = { treasury_change = -3.00 }
+	modify_treasury_effect = yes
+	custom_effect_tooltip = {
+		localization_key = modifies_dynamic_modifier_tt
+		MODIFIER = MAD_agriculture_modifier
+	}
+	add_to_variable = { MAD_agri_productivity = 0.02 tooltip = agricolture_productivity_modifier_tt }
+	add_to_variable = { MAD_agri_worker_req = -0.02 tooltip = agriculture_district_worker_requirement_modifier_tt }
+	force_update_dynamic_modifier = yes
+	add_to_variable = { MAD_drought_cna_pressure_reduction = 0.30 }
+	set_temp_variable = { MAD_dr_change = -2 }
+	MAD_drought_apply_change = yes
+	add_stability = 0.02
+}
+
+########################################################################
+# A LOCUST SWARM ON THE MAP (used by the locust events)
+########################################################################
+# Set MAD_dr_swarm_base first. The swarm lands on the Grand Sud hardest and on everyone else lightly, and the CNA
+# flags cut it down: survey programme -25%, biopesticides -25%, rapid response -30%.
+
+MAD_drought_locust_swarm = {
+	set_variable = { MAD_dr_swarm_v = MAD_dr_swarm_base }
+	if = { limit = { has_country_flag = MAD_CNA_SURVEY_PROGRAMME } multiply_variable = { MAD_dr_swarm_v = 0.75 } }
+	if = { limit = { has_country_flag = MAD_CNA_BIOPESTICIDES } multiply_variable = { MAD_dr_swarm_v = 0.75 } }
+	if = { limit = { has_country_flag = MAD_CNA_RAPID_RESPONSE } multiply_variable = { MAD_dr_swarm_v = 0.70 } }
+	266 = {
+		set_temp_variable = { MAD_dr_state_change = ROOT.MAD_dr_swarm_v }
+		multiply_temp_variable = { MAD_dr_state_change = MAD_state_drought_exposure }
+		MAD_drought_state_apply_change = yes
+		set_temp_variable = { MAD_dr_state_famine = ROOT.MAD_dr_swarm_v }
+		MAD_drought_state_apply_famine = yes
+	}
+	267 = {
+		set_temp_variable = { MAD_dr_state_change = ROOT.MAD_dr_swarm_v }
+		multiply_temp_variable = { MAD_dr_state_change = MAD_state_drought_exposure }
+		MAD_drought_state_apply_change = yes
+		set_temp_variable = { MAD_dr_state_famine = ROOT.MAD_dr_swarm_v }
+		MAD_drought_state_apply_famine = yes
+	}
+	268 = {
+		set_temp_variable = { MAD_dr_state_change = ROOT.MAD_dr_swarm_v }
+		multiply_temp_variable = { MAD_dr_state_change = MAD_state_drought_exposure }
+		MAD_drought_state_apply_change = yes
+		set_temp_variable = { MAD_dr_state_famine = ROOT.MAD_dr_swarm_v }
+		MAD_drought_state_apply_famine = yes
+	}
+	487 = {
+		set_temp_variable = { MAD_dr_state_change = ROOT.MAD_dr_swarm_v }
+		multiply_temp_variable = { MAD_dr_state_change = MAD_state_drought_exposure }
+		MAD_drought_state_apply_change = yes
+		set_temp_variable = { MAD_dr_state_famine = ROOT.MAD_dr_swarm_v }
+		MAD_drought_state_apply_famine = yes
+	}
+	add_to_variable = { MAD_drought_shock_pressure = 0.4 }
+	MAD_drought_recalc_national = yes
+}

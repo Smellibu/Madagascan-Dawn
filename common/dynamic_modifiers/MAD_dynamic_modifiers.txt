@@ -1,0 +1,209 @@
+MAD_economy_modifier = {
+	icon = GFX_idea_democracy
+ 
+	productivity_growth_modifier = MAD_economy_productivity_growth_modifier
+	production_factory_max_efficiency_factor = MAD_economy_production_factory_max_efficiency_factor
+	civilian_factories_productivity = MAD_economy_civilian_factories_productivity
+	agriculture_district_income_tax_modifier = MAD_economy_agriculture_district_income_tax_modifier
+	agricolture_productivity_modifier = MAD_economy_agricolture_productivity_modifier
+	agriculture_district_worker_requirement_modifier = MAD_economy_agriculture_district_worker_requirement_modifier
+	office_park_income_tax_modifier = MAD_economy_office_park_income_tax_modifier
+	foreign_influence_modifier = MAD_economy_foreign_influence_modifier
+	production_speed_industrial_complex_factor = MAD_economy_production_speed_industrial_complex_factor
+	production_speed_offices_factor = MAD_economy_production_speed_offices_factor
+	production_speed_energy_infrastructure_factor = MAD_economy_production_speed_energy_infrastructure_factor
+	production_speed_industrial_infrastructure_factor = MAD_economy_production_speed_industrial_infrastructure_factor
+	local_resources_steel_factor = MAD_economy_local_resources_steel_factor
+	local_resources_oil_factor = MAD_economy_local_resources_oil_factor
+	local_resources_tungsten_factor = MAD_economy_local_resources_tungsten_factor
+	production_speed_infrastructure_factor = MAD_economy_production_speed_infrastructure_factor
+	production_speed_rail_way_factor = MAD_economy_production_speed_rail_way_factor
+	supply_node_range = MAD_economy_supply_node_range
+	production_speed_microchip_plant_factor = MAD_economy_production_speed_microchip_plant_factor
+	microchip_plant_productivity_modifier = MAD_economy_microchip_plant_productivity_modifier
+	local_resources_microchips_factor = MAD_economy_local_resources_microchips_factor
+	microchip_export_multiplier_modifier = MAD_economy_microchip_export_multiplier_modifier
+	research_speed_factor = MAD_economy_research_speed_factor
+	offices_productivity = MAD_economy_offices_productivity
+	trade_opinion_factor = MAD_economy_trade_opinion_factor
+	return_on_investment_modifier = MAD_economy_return_on_investment_modifier
+	receiving_investment_cost_modifier = MAD_economy_receiving_investment_cost_modifier
+	receiving_investment_duration_modifier = MAD_economy_receiving_investment_duration_modifier
+	international_market_income_modifier = MAD_economy_international_market_income_modifier
+	internal_investments_money_cost_modifier = MAD_economy_internal_investments_money_cost_modifier
+	consumer_goods_factor = MAD_economy_consumer_goods_factor
+	civ_facs_worker_requirement_modifier = MAD_economy_civ_facs_worker_requirement_modifier
+	civilian_industry_tax_modifier = MAD_economy_civilian_industry_tax_modifier
+	production_speed_rail_terminal_factor = MAD_economy_production_speed_rail_terminal_factor
+	infrastructure_tax_gain_multiplier_modifier = MAD_economy_infrastructure_tax_gain_multiplier_modifier 
+	infrastructure_cost_multiplier_modifier = MAD_economy_infrastructure_cost_multiplier_modifier 
+ 
+	# --- folded in from MAD_privatisation (keys not already covered above) ---
+	stability_factor = MAD_economy_stability_factor
+	monthly_population = MAD_economy_monthly_population
+	expected_welfare_modifier = MAD_economy_expected_welfare_modifier
+}
+ 
+MAD_power_modifier = {
+    icon = GFX_idea_democracy
+ 
+    energy_use_modifier_civs = MAD_power_energy_use_modifier_civs
+    energy_use_modifier_mils = MAD_power_energy_use_modifier_mils
+    energy_use_modifier_agriculture_district = MAD_power_energy_use_modifier_agriculture_district
+    energy_gain_multiplier = MAD_power_energy_gain_multiplier
+ 
+    renewable_energy_gain_multiplier = MAD_power_renewable_energy_gain_multiplier
+    pop_energy_use_multiplier = MAD_power_pop_energy_use_multiplier
+    production_speed_renewable_energy_infra_factor = MAD_power_production_speed_renewable_energy_infra_factor
+    renewable_infra_cost_multiplier_modifier = MAD_power_renewable_infra_cost_multiplier_modifier
+ 
+    nuclear_energy_generation_modifier = MAD_power_nuclear_energy_generation_modifier
+    production_speed_nuclear_reactor_factor = MAD_power_production_speed_nuclear_reactor_factor
+    nuclear_fuel_consumption_modifier = MAD_power_nuclear_fuel_consumption_modifier
+    nuclear_reactor_fuel_production_factor = MAD_power_nuclear_reactor_fuel_production_factor 
+    nuclear_infra_cost_multiplier_modifier = MAD_power_nuclear_infra_cost_multiplier_modifier
+	
+    fossil_pp_energy_generation_modifier = MAD_power_fossil_pp_energy_generation_modifier
+    production_speed_fossil_powerplant_factor = MAD_power_production_speed_fossil_powerplant_factor
+    fossil_pp_fuel_consumption_modifier = MAD_power_fossil_pp_fuel_consumption_modifier
+}
+# ============================================================
+# MADARAIL - one dynamic modifier per private operator.
+# NOT active while a suitor is only being courted. MAD_madarail_enact_concessions (run when the investors commit)
+# adds the seated company's modifier and fills its variables: the operator's base terms + every concession offered.
+# So the result depends on which investor it is and which concessions were made.
+# Only one suitor can commit, so only one of these ever exists.
+# Put these in the same file as MAD_economy_modifier, or a new file in common/dynamic_modifiers/.
+# Add an icon = GFX_... line to each if you want one on the country modifier list.
+# ============================================================
+
+MAD_MADARAIL_COMAZAR_modifier = {
+	icon = GFX_idea_democracy
+	enable = { always = yes }
+
+	production_speed_rail_way_factor = MAD_comazar_production_speed_rail_way_factor
+	production_speed_rail_terminal_factor = MAD_comazar_production_speed_rail_terminal_factor
+	infrastructure_tax_gain_multiplier_modifier = MAD_comazar_infrastructure_tax_gain_multiplier_modifier
+	internal_investments_money_cost_modifier = MAD_comazar_internal_investments_money_cost_modifier
+	productivity_growth_modifier = MAD_comazar_productivity_growth_modifier
+	total_workforce_modifier = MAD_comazar_total_workforce_modifier
+}
+
+MAD_MADARAIL_VECTURIS_modifier = {
+	icon = GFX_idea_democracy
+	enable = { always = yes }
+
+	production_speed_rail_way_factor = MAD_vecturis_production_speed_rail_way_factor
+	production_speed_rail_terminal_factor = MAD_vecturis_production_speed_rail_terminal_factor
+	infrastructure_tax_gain_multiplier_modifier = MAD_vecturis_infrastructure_tax_gain_multiplier_modifier
+	receiving_investment_cost_modifier = MAD_vecturis_receiving_investment_cost_modifier
+	productivity_growth_modifier = MAD_vecturis_productivity_growth_modifier
+}
+
+MAD_MADARAIL_HOLDING_modifier = {
+	icon = GFX_idea_democracy
+	enable = { always = yes }
+
+	production_speed_rail_way_factor = MAD_holding_production_speed_rail_way_factor
+	production_speed_rail_terminal_factor = MAD_holding_production_speed_rail_terminal_factor
+	infrastructure_tax_gain_multiplier_modifier = MAD_holding_infrastructure_tax_gain_multiplier_modifier
+	corporate_tax_income_multiplier_modifier = MAD_holding_corporate_tax_income_multiplier_modifier
+}
+
+# common/dynamic_modifiers/MAD_agriculture_dynamic_modifiers.txt
+# Madagascar's agricultural output. Added by MAD_Agricultural_reforms; every later agricultural focus/decision/idea
+# just moves the MAD_agri_* variables and calls force_update_dynamic_modifier.
+#
+# Budget (the famine and vanilla sections feed this too, so keep the totals modest):
+#   MAD_agri_worker_req    -> agriculture worker requirement; the valuable one. Target ceiling around -0.10 in total
+#   MAD_agri_productivity  -> agricultural productivity.       Target ceiling around +0.10
+#   MAD_agri_income_tax    -> agriculture district tax income.  Target ceiling around +0.10
+
+MAD_agriculture_modifier = {
+	icon = GFX_idea_generic
+
+	agriculture_district_worker_requirement_modifier = MAD_agri_worker_req
+	agricolture_productivity_modifier = MAD_agri_productivity
+	agriculture_district_income_tax_modifier = MAD_agri_income_tax
+	war_support_factor = MAD_agri_war_support
+}
+# ============================================================
+# THE DROUGHT MAP - state-scope dynamic modifiers
+# common/dynamic_modifiers/ (same file is fine)
+#
+# One per severity tier, added and removed by MAD_drought_state_update_tier as a state's MAD_state_drought moves.
+# These are what you feel when you hover a state on the drought map, and why letting the south go is expensive.
+# Deliberately built out of plain vanilla STATE modifiers so they work whatever else Millennium Dawn changes.
+# ============================================================
+
+# 15-34: the rains are late. Annoying, not yet dangerous.
+MAD_STATE_DROUGHT_1 = {
+	icon = GFX_idea_generic_agrarian_society
+
+	local_building_slots_factor = -0.05
+	state_production_speed_buildings_factor = -0.05
+}
+
+# 35-54: drought. Fields are failing and people start moving.
+MAD_STATE_DROUGHT_2 = {
+	icon = GFX_idea_generic_agrarian_society
+
+	local_building_slots_factor = -0.10
+	state_production_speed_buildings_factor = -0.10
+	local_manpower = -0.05
+	local_supplies = -0.10
+}
+
+# 55-74: famine conditions.
+MAD_STATE_DROUGHT_3 = {
+	icon = GFX_idea_generic_agrarian_society
+
+	local_building_slots_factor = -0.20
+	state_production_speed_buildings_factor = -0.20
+	local_manpower = -0.12
+	local_supplies = -0.20
+	compliance_growth = -0.05
+}
+
+# 75+: kere. The catastrophic famine the Grand Sud is actually named for.
+MAD_STATE_DROUGHT_4 = {
+	icon = GFX_idea_generic_agrarian_society
+
+	local_building_slots_factor = -0.35
+	state_production_speed_buildings_factor = -0.30
+	local_manpower = -0.25
+	local_supplies = -0.30
+	compliance_growth = -0.10
+}
+
+# The hunger layer, on top of whichever drought tier the state is in. Added at famine 40+, removed below it.
+# Water and food are not the same problem: this one is cleared by convoys and cash, not by wells.
+MAD_STATE_FAMINE = {
+	icon = GFX_idea_generic_army_problems
+
+	local_manpower = -0.15
+	local_supplies = -0.15
+	state_production_speed_buildings_factor = -0.10
+}
+
+# --- CROP DEATH: the permanent ones ---
+
+# A fifth of the south is gone and is not coming back.
+MAD_STATE_DEPOPULATED = {
+	icon = GFX_idea_generic_army_problems
+
+	local_manpower = -0.20
+	local_building_slots_factor = -0.20
+	state_production_speed_buildings_factor = -0.15
+	local_supplies = -0.10
+}
+
+# 80% of them reached Antananarivo or Toamasina. More hands, and the slums that come with them.
+MAD_STATE_REFUGEE_INFLUX = {
+	icon = GFX_idea_generic_manpower
+
+	local_manpower = 0.16
+	local_building_slots_factor = 0.10
+	state_production_speed_buildings_factor = -0.05
+	compliance_growth = -0.05
+}

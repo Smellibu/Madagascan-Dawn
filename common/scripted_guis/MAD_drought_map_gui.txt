@@ -1,0 +1,26 @@
+# common/scripted_guis/MAD_drought_map_gui.txt
+# Dynamic mini-map shown inside the Drought and Famine decision category.
+# The four overlay sprites each read a country-level frame variable (0..4),
+# so the colours update whenever the per-state drought values change.
+scripted_gui = {
+	MAD_drought_map_gui = {
+		context_type = decision_category
+		window_name = "MAD_drought_map_container"
+		visible = { always = yes }
+		dirty = MAD_drought_display_refresh
+		properties = {
+			MAD_drought_state_266 = {
+				frame = MAD_drought_266_map_frame
+			}
+			MAD_drought_state_267 = {
+				frame = MAD_drought_267_map_frame
+			}
+			MAD_drought_state_268 = {
+				frame = MAD_drought_268_map_frame
+			}
+			MAD_drought_state_487 = {
+				frame = MAD_drought_487_map_frame
+			}
+		}
+	}
+}
