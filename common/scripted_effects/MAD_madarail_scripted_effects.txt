@@ -328,8 +328,25 @@ MAD_daewoo_clear_tiers = {
 # The concession is gone, whichever way it went: its cash crops stop feeding the drought and every agricultural
 # complex needs more hands again.
 MAD_daewoo_break_effects = {
+	if = {
+		limit = { has_country_flag = MAD_DAEWOO_KOREAN_AGRI_SECTOR }
+		hidden_effect = {
+			add_to_variable = { MAD_agri_productivity = -0.02 }
+			add_to_variable = { MAD_agri_income_tax = -0.02 }
+			force_update_dynamic_modifier = yes
+			268 = {
+				if = {
+					limit = { agriculture_district > 0 }
+					remove_building = {
+						type = agriculture_district
+						level = 1
+					}
+				}
+			}
+			clr_country_flag = MAD_DAEWOO_KOREAN_AGRI_SECTOR
+		}
+	}
 	set_variable = { MAD_drought_daewoo_pressure = 0 }
-	custom_effect_tooltip = MAD_daewoo_broken_agri_tt
 	custom_effect_tooltip = {
 		localization_key = modifies_dynamic_modifier_tt
 		MODIFIER = MAD_agriculture_modifier
@@ -344,118 +361,79 @@ MAD_daewoo_end_lease = {
 	MAD_daewoo_break_effects = yes
 }
 
-# An election (MD's own hold_elections), then whoever leads the election array takes power.
-# ASSUMPTION: change_ruling_party_effect reads the temp variables rul_party_temp (new ruling party index) and
-# disable_elections (0 = elections stay on), as MD's civil war and election events use it. If your MD installs the
-# election winner some other way, this is the ONE effect to change.
-MAD_daewoo_hold_election = {
-	# The whole thing is hidden: walking the party array generates a wall of - One of 6 options will happen,
-	# 25% chance of Nothing happens - lines in the decision tooltip. One clean sentence instead.
-	custom_effect_tooltip = MAD_daewoo_election_held_tt
-	hidden_effect = {
-		hold_elections = yes
-		set_temp_variable = { MAD_el_best = 0 }
-		set_temp_variable = { MAD_el_best_pop = -1 }
-		for_loop_effect = {
-			end = party_pop_elect_array^num
-			value = v
-			if = {
-				limit = { check_variable = { party_pop_elect_array^v > MAD_el_best_pop } }
-				set_temp_variable = { MAD_el_best_pop = party_pop_elect_array^v }
-				set_temp_variable = { MAD_el_best = v }
-			}
+
+########################################################################
+# DAEWOO ELECTION DISPATCHER
+# The MD election campaign is deliberately queued from the daily tick rather than from a focus reward.
+# This keeps MD4_election_campaign.0 out of the focus tooltip/effect evaluation path.
+########################################################################
+
+MAD_daewoo_election_daily_tick = {
+	# Deal Broken: only call the election campaign when the government is below 50%.
+	if = {
+		limit = {
+			has_country_flag = MAD_DAEWOO_ELECTION_PENDING_BROKEN
 		}
+		clr_country_flag = MAD_DAEWOO_ELECTION_PENDING_BROKEN
 		if = {
-			limit = { NOT = { check_variable = { MAD_el_best = ruling_party } } }
-			set_temp_variable = { rul_party_temp = MAD_el_best }
-			set_temp_variable = { disable_elections = 0 }
-			set_variable = { ruling_party = MAD_el_best }
-			change_ruling_party_effect = yes
+			limit = { MAD_government_popularity_below_half = yes }
+			set_politics = { elections_allowed = yes }
+			hidden_effect = { country_event = { id = MD4_election_campaign.0 days = 0 } }
 		}
+	}
+
+	# Deal Collapses: always start the full Millennium Dawn election campaign.
+	if = {
+		limit = {
+			has_country_flag = MAD_DAEWOO_ELECTION_PENDING_COLLAPSE
+		}
+		clr_country_flag = MAD_DAEWOO_ELECTION_PENDING_COLLAPSE
+		set_politics = { elections_allowed = yes }
+		hidden_effect = { country_event = { id = MD4_election_campaign.0 days = 0 } }
 	}
 }
 
-# Cancelled deal: an election, but only if the government is under 50%.
-MAD_daewoo_election_if_unpopular = {
-	custom_effect_tooltip = MAD_daewoo_election_tt
+########################################################################
+# FORCED OUTCOME FOCUSES
+# These branches are consequences of the systems, not player choices.
+# Complete them automatically as soon as their actual outcome conditions exist.
+########################################################################
+
+MAD_autocomplete_forced_outcome_foci = {
+	# The drought has definitively failed: force the losing branch.
 	if = {
-		limit = { MAD_government_popularity_below_half = yes }
-		MAD_daewoo_hold_election = yes
+		limit = {
+			has_completed_focus = MAD_Fighting_climate_change
+			has_country_flag = MAD_DROUGHT_FAILED_STATE
+			NOT = { has_country_flag = MAD_DROUGHT_WON }
+			NOT = { has_completed_focus = MAD_losing_the_fight }
+			NOT = { has_completed_focus = MAD_Winning_the_fight }
+		}
+		complete_national_focus = MAD_losing_the_fight
+	}
+
+	# The drought is fully resolved after the losing branch: force Crop Death.
+	if = {
+		limit = {
+			has_completed_focus = MAD_losing_the_fight
+			MAD_drought_resolved = yes
+			NOT = { has_completed_focus = MAD_crop_death }
+		}
+		complete_national_focus = MAD_crop_death
+	}
+
+	# The Daewoo lease has collapsed after being kept: force Deal Collapses.
+	if = {
+		limit = {
+			has_completed_focus = MAD_DEAL_KEPT
+			has_country_flag = MAD_DAEWOO_OUTCOME_FAILED
+			NOT = { has_completed_focus = MAD_DEAL_KEPT_FAILED }
+			NOT = { has_completed_focus = MAD_DEAL_KEPT_MANAGED_WELL }
+		}
+		complete_national_focus = MAD_DEAL_KEPT_FAILED
 	}
 }
 
-# Moves the RULING party's popularity by the temp variable MAD_pun_amount (a fraction: -0.20 = -20 percentage
-# points, +0.05 = +5). Set MAD_pun_amount right before calling this (HOI4 scripted effects take no parameters,
-# unlike Stellaris/Vic3/CK3 - this temp-variable is the correct HOI4 substitute).
-# The other parties gain or lose the opposite amount in proportion to their own support, so the total stays at 100%.
-# The change is clamped so the ruling party cannot go below 0 or take more than the others hold.
-# Applies to whichever party rules at that moment (after an election that may be a different party).
-MAD_daewoo_shift_ruling_popularity = {
-	hidden_effect = {
-	set_party_index_to_ruling_party = yes
-	set_temp_variable = { MAD_pun_ruling = party_index }
-	set_temp_variable = { MAD_pun_old = party_pop_array^MAD_pun_ruling }
-	set_temp_variable = { MAD_pun_delta = MAD_pun_amount }
-	set_temp_variable = { MAD_pun_others = 1 }
-	subtract_from_temp_variable = { MAD_pun_others = MAD_pun_old }
-	if = {
-		limit = { check_variable = { MAD_pun_delta < 0 } }
-		set_temp_variable = { MAD_pun_floor = MAD_pun_old }
-		multiply_temp_variable = { MAD_pun_floor = -1 }
-		if = {
-			limit = { check_variable = { MAD_pun_delta < MAD_pun_floor } }
-			set_temp_variable = { MAD_pun_delta = MAD_pun_floor }
-		}
-	}
-	else_if = {
-		limit = { check_variable = { MAD_pun_delta > MAD_pun_others } }
-		set_temp_variable = { MAD_pun_delta = MAD_pun_others }
-	}
-	if = {
-		limit = { check_variable = { MAD_pun_others > 0.001 } }
-		for_loop_effect = {
-			end = party_pop_array^num
-			value = v
-			if = {
-				limit = {
-					NOT = { check_variable = { v = MAD_pun_ruling } }
-					check_variable = { party_pop_array^v > 0 }
-				}
-				set_temp_variable = { MAD_pun_gain = party_pop_array^v }
-				multiply_temp_variable = { MAD_pun_gain = MAD_pun_delta }
-				divide_temp_variable = { MAD_pun_gain = MAD_pun_others }
-				subtract_from_variable = { party_pop_array^v = MAD_pun_gain }
-			}
-		}
-		add_to_variable = { party_pop_array^MAD_pun_ruling = MAD_pun_delta }
-	}
-	}
-}
-
-# The deal is found out (MAD_DAIWOO_FALLOUT): the ruling party takes the blame, -20%.
-MAD_daewoo_pop_exposed = {
-	custom_effect_tooltip = MAD_daewoo_pop_exposed_tt
-	set_temp_variable = { MAD_pun_amount = -0.20 }
-	MAD_daewoo_shift_ruling_popularity = yes
-}
-# Deal cancelled straight away: +5% back.
-MAD_daewoo_pop_broken = {
-	custom_effect_tooltip = MAD_daewoo_pop_broken_tt
-	set_temp_variable = { MAD_pun_amount = 0.05 }
-	MAD_daewoo_shift_ruling_popularity = yes
-}
-# Deal made to work: +15% back.
-MAD_daewoo_pop_success = {
-	custom_effect_tooltip = MAD_daewoo_pop_success_tt
-	set_temp_variable = { MAD_pun_amount = 0.15 }
-	MAD_daewoo_shift_ruling_popularity = yes
-}
-# Deal collapses: -15% more, before the election is held.
-MAD_daewoo_punish_incumbent = {
-	custom_effect_tooltip = MAD_daewoo_pop_collapse_tt
-	set_temp_variable = { MAD_pun_amount = -0.15 }
-	MAD_daewoo_shift_ruling_popularity = yes
-}
 
 # --- the drought hooks -------------------------------------------------------------------------------------------
 # Korean cash crops feed the drought, but only while the drought exists. The monthly tick adds MAD_drought_daewoo_pressure

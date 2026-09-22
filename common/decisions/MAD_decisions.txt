@@ -614,7 +614,7 @@ MAD_madarail_category = {
 			NOT = { has_country_flag = MAD_RAIL_FCE_EXTENSION_BUILT }
 		}
 		custom_cost_trigger = { check_variable = { treasury > 14.999 } }
-		custom_cost_text = MAD_madarail_cost_15bn_tt
+		custom_cost_text = cost_15_0
 
 		fire_only_once = yes
 		days_remove = 365
@@ -666,7 +666,7 @@ MAD_madarail_category = {
 			NOT = { has_country_flag = MAD_RAIL_TOLIARA_BUILT }
 		}
 		custom_cost_trigger = { check_variable = { treasury > 14.999 } }
-		custom_cost_text = MAD_madarail_cost_15bn_tt
+		custom_cost_text = cost_15_0
 
 		fire_only_once = yes
 		days_remove = 365
@@ -708,7 +708,7 @@ MAD_madarail_category = {
 			NOT = { has_country_flag = MAD_RAIL_MAHAJANGA_BUILT }
 		}
 		custom_cost_trigger = { check_variable = { treasury > 14.999 } }
-		custom_cost_text = MAD_madarail_cost_15bn_tt
+		custom_cost_text = cost_15_0
 
 		fire_only_once = yes
 		days_remove = 365
@@ -750,7 +750,7 @@ MAD_madarail_category = {
 			NOT = { has_country_flag = MAD_RAIL_AMBOVOMBE_BUILT }
 		}
 		custom_cost_trigger = { check_variable = { treasury > 14.999 } }
-		custom_cost_text = MAD_madarail_cost_15bn_tt
+		custom_cost_text = cost_15_0
 
 		fire_only_once = yes
 		days_remove = 365
@@ -792,7 +792,7 @@ MAD_madarail_category = {
 			NOT = { has_country_flag = MAD_RAIL_ANTSIRANANA_BUILT }
 		}
 		custom_cost_trigger = { check_variable = { treasury > 14.999 } }
-		custom_cost_text = MAD_madarail_cost_15bn_tt
+		custom_cost_text = cost_15_0
 
 		fire_only_once = yes
 		days_remove = 365
@@ -1001,6 +1001,9 @@ MAD_daewoo_category = {
 
 		cost = 25
 		fire_only_once = yes
+		custom_cost_trigger = { check_variable = { treasury > 1.999 } }
+		custom_cost_text = cost_2_0
+
 
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAEWOO_OUTGROWERS"
@@ -1036,6 +1039,9 @@ MAD_daewoo_category = {
 
 		cost = 25
 		fire_only_once = yes
+		custom_cost_trigger = { check_variable = { treasury > 1.999 } }
+		custom_cost_text = cost_2_0
+
 
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAEWOO_LOGISTICS"
@@ -1140,6 +1146,9 @@ MAD_drought_category = {
 		cost = 55
 		days_remove = 30
 		fire_only_once = no
+		custom_cost_trigger = { check_variable = { treasury > 0.499 } }
+		custom_cost_text = cost_0_5
+
 
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_DROUGHT_EMERGENCY_WATER started"
@@ -1186,6 +1195,9 @@ MAD_drought_category = {
 		cost = 70
 		days_remove = 60
 		fire_only_once = no
+		custom_cost_trigger = { check_variable = { treasury > 0.499 } }
+		custom_cost_text = cost_0_5
+
 
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_DROUGHT_FOOD_AID_APPEAL started"
@@ -1249,6 +1261,9 @@ MAD_drought_category = {
 		}
 		cost = 20
 		days_re_enable = 90
+		custom_cost_trigger = { check_variable = { treasury > 0.599 } }
+		custom_cost_text = cost_0_6
+
 
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_DROUGHT_LOCAL_CASH_FOR_WORK"
@@ -1302,6 +1317,9 @@ MAD_drought_category = {
 		}
 		cost = 25
 		fire_only_once = yes
+		custom_cost_trigger = { check_variable = { treasury > 0.399 } }
+		custom_cost_text = cost_0_4
+
 
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_DROUGHT_LOCAL_SEED_DISTRIBUTION"
@@ -1359,6 +1377,9 @@ MAD_drought_category = {
 		cost = 40
 		days_remove = 90
 		fire_only_once = yes
+		custom_cost_trigger = { check_variable = { treasury > 1.249 } }
+		custom_cost_text = cost_1_25
+
 
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_DROUGHT_LOCAL_WELLS"
@@ -1419,6 +1440,9 @@ MAD_drought_category = {
 		}
 		cost = 30
 		days_re_enable = 180
+		custom_cost_trigger = { check_variable = { treasury > 0.799 } }
+		custom_cost_text = cost_0_8
+
 
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_DROUGHT_LOCAL_LOCUST_SPRAY"
@@ -1463,6 +1487,9 @@ MAD_drought_category = {
 		}
 		cost = 60
 		fire_only_once = yes
+		custom_cost_trigger = { check_variable = { treasury > 1.999 } }
+		custom_cost_text = cost_2_0
+
 
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_DROUGHT_SEED"
@@ -1485,6 +1512,9 @@ MAD_drought_category = {
 		}
 		cost = 60
 		fire_only_once = yes
+		custom_cost_trigger = { check_variable = { treasury > 1.499 } }
+		custom_cost_text = cost_1_5
+
 
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_DROUGHT_EARLY_WARNING"
@@ -1509,6 +1539,9 @@ MAD_drought_category = {
 		}
 		cost = 75
 		fire_only_once = yes
+		custom_cost_trigger = { check_variable = { treasury > 3.999 } }
+		custom_cost_text = cost_4_0
+
 
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_DROUGHT_BOREHOLES"
@@ -1538,6 +1571,9 @@ MAD_drought_category = {
 		}
 		cost = 75
 		fire_only_once = yes
+		custom_cost_trigger = { check_variable = { treasury > 3.999 } }
+		custom_cost_text = cost_4_0
+
 
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_DROUGHT_SUD_EST"
@@ -1560,6 +1596,9 @@ MAD_drought_category = {
 		}
 		cost = 90
 		fire_only_once = yes
+		custom_cost_trigger = { check_variable = { treasury > 4.999 } }
+		custom_cost_text = cost_5_0
+
 
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_DROUGHT_CLIMATE_ADAPTATION"
@@ -1582,6 +1621,9 @@ MAD_drought_category = {
 		}
 		cost = 60
 		fire_only_once = yes
+		custom_cost_trigger = { check_variable = { treasury > 2.499 } }
+		custom_cost_text = cost_2_5
+
 
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_DROUGHT_GRAIN_RESERVE"
@@ -1605,6 +1647,9 @@ MAD_drought_category = {
 		}
 		cost = 50
 		fire_only_once = yes
+		custom_cost_trigger = { check_variable = { treasury > 1.499 } }
+		custom_cost_text = cost_1_5
+
 
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_DROUGHT_LOCUST_WATCH"
@@ -1643,6 +1688,9 @@ MAD_drought_category = {
 		}
 		cost = 50
 		days_re_enable = 365
+		custom_cost_trigger = { check_variable = { treasury > 2.999 } }
+		custom_cost_text = cost_3_0
+
 
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_DROUGHT_RESETTLE"
@@ -1664,6 +1712,9 @@ MAD_drought_category = {
 		}
 		cost = 40
 		fire_only_once = yes
+		custom_cost_trigger = { check_variable = { treasury > 1.999 } }
+		custom_cost_text = cost_2_0
+
 
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_DROUGHT_FINAL_PUSH"

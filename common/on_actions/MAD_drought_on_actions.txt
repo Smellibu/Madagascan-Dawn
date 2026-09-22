@@ -20,7 +20,11 @@ on_actions = {
 		effect = {
 			if = {
 				limit = { country_exists = MAD }
-				MAD = { MAD_drought_containment_daily_tick = yes }
+				MAD = {
+					MAD_drought_containment_daily_tick = yes
+					MAD_autocomplete_forced_outcome_foci = yes
+					MAD_daewoo_election_daily_tick = yes
+				}
 			}
 		}
 	}
