@@ -5,7 +5,7 @@ focus_tree = {
 		factor = 0
 		modifier = {
 			add = 10
-			tag = MAD
+			original_tag = MAD
 		}
 	}
 
@@ -13,6 +13,8 @@ focus_tree = {
 
 	default = no
 	reset_on_civilwar = no
+	# Search-crash diagnostic note: the African Union shared focus is loaded into this tree.
+	# A temporary test copy can comment this line out to isolate shared-focus/UI dependencies.
 	shared_focus = AFRICAN_UNION_shared_focus
 	focus = {
 		id = MAD_natural_resource_extraction
@@ -60,7 +62,7 @@ focus_tree = {
 		x = 19
 		y = 19
 		cost = 5
-		search_filters = { FOCUS_FILTER_INTERNAL_FACTION FOCUS_FILTER_STABILITY }
+		search_filters = { FOCUS_FILTER_STABILITY }
 
 		completion_reward = {
 			log = "[GetDateText]: [This.GetName]: Focus MAD_counter_the_dahalo"
@@ -1652,7 +1654,7 @@ focus_tree = {
 		cost = 5
 		prerequisite = { focus = MAD_the_2001_election }
 		mutually_exclusive = { focus = MAD_the_court_rules }
-		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_INTERNAL_FACTION }
+		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
 			date > 2002.4.1
 		}
@@ -4635,6 +4637,13 @@ focus_tree = {
 			add_political_power = 25
 			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.10 tooltip = productivity_growth_modifier_tt }
 			add_to_variable = { MAD_economy_return_on_investment_modifier = 0.05 tooltip = return_on_investment_modifier_tt }
+
+			# The volatile export policy becomes an actual gameplay loop:
+			# the first market shock arrives after seven months, then repeats roughly every fifteen months.
+			# Each shock asks the player to react rather than simply receiving a passive RNG modifier.
+			set_variable = { MAD_vanilla_shock_state = 0 }
+			set_country_flag = MAD_VANILLA_VOLATILE_MARKET
+			country_event = { id = mad_vanilla.1 days = 210 }
 		}
 
 		ai_will_do = {
@@ -5143,7 +5152,7 @@ focus_tree = {
 		cost = 5
 		prerequisite = { focus = MAD_BIANCO_INVESTIGATIONS }
 		mutually_exclusive = { focus = MAD_BIANCO_INDEPENDENT }
-		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_INTERNAL_FACTION }
+		search_filters = { FOCUS_FILTER_POLITICAL }
 
 		completion_reward = {
 			log = "[GetDateText]: [This.GetName]: Focus MAD_BIANCO_POLITICIZED"

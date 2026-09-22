@@ -1199,3 +1199,158 @@ country_event = {
 		add_stability = 0.01
 	}
 }
+
+
+########################################################################
+# VANILLA EXPORT MARKET CYCLE
+#
+# Started by MAD_VANILLA_BOOM_BUST_CYCLE.
+# One event handles both the boom and bust states. The player gets a small
+# response decision at each shock, so the branch plays as:
+#
+#   export policy -> market shock -> player response -> next shock
+#
+# MAD_vanilla_shock_state:
+#    0   = no previous temporary shock
+#   11   = boom / reinvest
+#   12   = boom / bank profits
+#  -11   = bust / support growers
+#  -12   = bust / let market correct
+########################################################################
+
+add_namespace = mad_vanilla
+
+country_event = {
+	id = mad_vanilla.1
+	title = mad_vanilla.1.t
+	desc = {
+		text = mad_vanilla.1.d_boom
+		trigger = { has_country_flag = MAD_VANILLA_PRICE_BOOM }
+	}
+	desc = {
+		text = mad_vanilla.1.d_bust
+		trigger = { has_country_flag = MAD_VANILLA_PRICE_BUST }
+	}
+	picture = GFX_report_event_economy_default
+	is_triggered_only = yes
+	trigger = { has_country_flag = MAD_VANILLA_VOLATILE_MARKET }
+
+	immediate = {
+		log = "[GetDateText]: [Root.GetName]: mad_vanilla.1 - vanilla market shock"
+
+		# Remove the previous temporary market shock before applying the next one.
+		# Stability and political-power changes from the previous response are
+		# deliberately one-off and are not reversed.
+		if = {
+			limit = { check_variable = { MAD_vanilla_shock_state = 11 } }
+			add_to_variable = { MAD_economy_international_market_income_modifier = -0.10 tooltip = international_market_income_modifier_tt }
+			add_to_variable = { MAD_economy_return_on_investment_modifier = -0.04 tooltip = return_on_investment_modifier_tt }
+		}
+		else_if = {
+			limit = { check_variable = { MAD_vanilla_shock_state = 12 } }
+			add_to_variable = { MAD_economy_international_market_income_modifier = -0.06 tooltip = international_market_income_modifier_tt }
+			add_to_variable = { MAD_economy_return_on_investment_modifier = -0.02 tooltip = return_on_investment_modifier_tt }
+			add_to_variable = { MAD_economy_expected_welfare_modifier = -0.25 tooltip = expected_welfare_modifier_tt }
+		}
+		else_if = {
+			limit = { check_variable = { MAD_vanilla_shock_state = -11 } }
+			add_to_variable = { MAD_economy_international_market_income_modifier = 0.04 tooltip = international_market_income_modifier_tt }
+			add_to_variable = { MAD_economy_return_on_investment_modifier = 0.01 tooltip = return_on_investment_modifier_tt }
+			add_to_variable = { MAD_economy_expected_welfare_modifier = 0.10 tooltip = expected_welfare_modifier_tt }
+		}
+		else_if = {
+			limit = { check_variable = { MAD_vanilla_shock_state = -12 } }
+			add_to_variable = { MAD_economy_international_market_income_modifier = 0.08 tooltip = international_market_income_modifier_tt }
+			add_to_variable = { MAD_economy_return_on_investment_modifier = 0.03 tooltip = return_on_investment_modifier_tt }
+			add_to_variable = { MAD_economy_expected_welfare_modifier = 0.25 tooltip = expected_welfare_modifier_tt }
+		}
+
+		clr_country_flag = MAD_VANILLA_PRICE_BOOM
+		clr_country_flag = MAD_VANILLA_PRICE_BUST
+
+		# Roughly a 55/45 boom-bust split. The event is intentionally compact;
+		# the player-facing interaction happens in the options below.
+		random_list = {
+			55 = {
+				set_country_flag = MAD_VANILLA_PRICE_BOOM
+				set_variable = { MAD_vanilla_shock_state = 1 }
+			}
+			45 = {
+				set_country_flag = MAD_VANILLA_PRICE_BUST
+				set_variable = { MAD_vanilla_shock_state = -1 }
+			}
+		}
+
+		# The exact response options overwrite 1/-1 with 11/12/-11/-12,
+		# preserving which temporary package must be reversed next cycle.
+		force_update_dynamic_modifier = yes
+	}
+
+	option = {
+		name = mad_vanilla.1.a
+		trigger = { has_country_flag = MAD_VANILLA_PRICE_BOOM }
+		log = "[GetDateText]: [Root.GetName]: mad_vanilla.1.a - reinvest in the vanilla boom"
+
+		custom_effect_tooltip = mad_vanilla.1.reinvest_tt
+		add_to_variable = { MAD_economy_international_market_income_modifier = 0.10 tooltip = international_market_income_modifier_tt }
+		add_to_variable = { MAD_economy_return_on_investment_modifier = 0.04 tooltip = return_on_investment_modifier_tt }
+		add_stability = 0.02
+		add_political_power = 10
+		set_variable = { MAD_vanilla_shock_state = 11 }
+		force_update_dynamic_modifier = yes
+		country_event = { id = mad_vanilla.1 days = 450 }
+	}
+
+	option = {
+		name = mad_vanilla.1.b
+		trigger = { has_country_flag = MAD_VANILLA_PRICE_BOOM }
+		log = "[GetDateText]: [Root.GetName]: mad_vanilla.1.b - bank the vanilla profits"
+
+		custom_effect_tooltip = mad_vanilla.1.bank_tt
+		add_to_variable = { MAD_economy_international_market_income_modifier = 0.06 tooltip = international_market_income_modifier_tt }
+		add_to_variable = { MAD_economy_return_on_investment_modifier = 0.02 tooltip = return_on_investment_modifier_tt }
+		add_to_variable = { MAD_economy_expected_welfare_modifier = 0.25 tooltip = expected_welfare_modifier_tt }
+		add_stability = 0.04
+		set_temp_variable = { treasury_change = 1.00 }
+		modify_treasury_effect = yes
+		set_variable = { MAD_vanilla_shock_state = 12 }
+		force_update_dynamic_modifier = yes
+		country_event = { id = mad_vanilla.1 days = 450 }
+	}
+
+	option = {
+		name = mad_vanilla.1.c
+		trigger = {
+			has_country_flag = MAD_VANILLA_PRICE_BUST
+			check_variable = { treasury > 1.999 }
+		}
+		log = "[GetDateText]: [Root.GetName]: mad_vanilla.1.c - support vanilla growers"
+
+		custom_effect_tooltip = mad_vanilla.1.support_tt
+		add_to_variable = { MAD_economy_international_market_income_modifier = -0.04 tooltip = international_market_income_modifier_tt }
+		add_to_variable = { MAD_economy_return_on_investment_modifier = -0.01 tooltip = return_on_investment_modifier_tt }
+		add_to_variable = { MAD_economy_expected_welfare_modifier = -0.10 tooltip = expected_welfare_modifier_tt }
+		add_stability = 0.01
+		set_temp_variable = { treasury_change = -2.00 }
+		modify_treasury_effect = yes
+		set_variable = { MAD_vanilla_shock_state = -11 }
+		force_update_dynamic_modifier = yes
+		country_event = { id = mad_vanilla.1 days = 450 }
+	}
+
+	option = {
+		name = mad_vanilla.1.d
+		trigger = { has_country_flag = MAD_VANILLA_PRICE_BUST }
+		log = "[GetDateText]: [Root.GetName]: mad_vanilla.1.d - let the vanilla market correct itself"
+
+		custom_effect_tooltip = mad_vanilla.1.correct_tt
+		add_to_variable = { MAD_economy_international_market_income_modifier = -0.08 tooltip = international_market_income_modifier_tt }
+		add_to_variable = { MAD_economy_return_on_investment_modifier = -0.03 tooltip = return_on_investment_modifier_tt }
+		add_to_variable = { MAD_economy_expected_welfare_modifier = -0.25 tooltip = expected_welfare_modifier_tt }
+		add_stability = -0.03
+		add_political_power = -25
+		set_variable = { MAD_vanilla_shock_state = -12 }
+		force_update_dynamic_modifier = yes
+		country_event = { id = mad_vanilla.1 days = 450 }
+	}
+}
