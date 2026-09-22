@@ -5,21 +5,21 @@ focus_tree = {
 		factor = 0
 		modifier = {
 			add = 10
-			original_tag = MAD
+			tag = MAD
 		}
 	}
 
-	continuous_focus_position = { x = 0 y = 2500 }
+	shared_focus = AFRICAN_UNION_shared_focus
+
+	continuous_focus_position = { x = 134 y = 27 }
 
 	default = no
 	reset_on_civilwar = no
-	# Search-crash diagnostic note: the African Union shared focus is loaded into this tree.
-	# A temporary test copy can comment this line out to isolate shared-focus/UI dependencies.
-	shared_focus = AFRICAN_UNION_shared_focus
+
 	focus = {
 		id = MAD_natural_resource_extraction
 		icon = GFX_goal_generic_political_pressure
-		x = 47
+		x = 96
 		y = 0
 		cost = 5
 		search_filters = { FOCUS_FILTER_POLITICAL }
@@ -36,7 +36,7 @@ focus_tree = {
 	focus = {
 		id = MAD_COMPANIES
 		icon = GFX_goal_generic_political_pressure
-		x = 73
+		x = 42
 		y = 0
 		cost = 5
 		search_filters = { FOCUS_FILTER_POLITICAL }
@@ -59,10 +59,10 @@ focus_tree = {
 	focus = {
 		id = MAD_counter_the_dahalo
 		icon = GFX_goal_generic_urban_warfare
-		x = 19
-		y = 19
+		x = 16
+		y = 22
 		cost = 5
-		search_filters = { FOCUS_FILTER_STABILITY }
+		search_filters = { FOCUS_FILTER_INTERNAL_FACTION FOCUS_FILTER_STABILITY }
 
 		completion_reward = {
 			log = "[GetDateText]: [This.GetName]: Focus MAD_counter_the_dahalo"
@@ -77,8 +77,8 @@ focus_tree = {
 	focus = {
 		id = MAD_lost_decade
 		icon = GFX_goal_generic_political_pressure
-		x = 35
-		y = 1
+		x = 134
+		y = 0
 		cost = 2
 		search_filters = { FOCUS_FILTER_POLITICAL }
 
@@ -94,7 +94,7 @@ focus_tree = {
 	focus = {
 		id = MAD_AMBATOVY_JV_FORMED
 		icon = GFX_goal_generic_political_pressure
-		x = -6
+		x = 16
 		y = 2
 		relative_position_id = MAD_natural_resource_extraction
 		cost = 5
@@ -121,7 +121,7 @@ focus_tree = {
 	focus = {
 		id = MAD_NATURE_PRESERVATION
 		icon = GFX_goal_generic_political_pressure
-		x = -2
+		x = 2
 		y = 2
 		relative_position_id = MAD_natural_resource_extraction
 		cost = 5
@@ -140,7 +140,7 @@ focus_tree = {
 	focus = {
 		id = MAD_iem_roadmap
 		icon = GFX_goal_generic_production
-		x = 2
+		x = -2
 		y = 2
 		relative_position_id = MAD_natural_resource_extraction
 		cost = 5
@@ -163,7 +163,7 @@ focus_tree = {
 	focus = {
 		id = MAD_QMM_CONSTRUCTION
 		icon = GFX_goal_generic_political_pressure
-		x = 11
+		x = -20
 		y = 2
 		relative_position_id = MAD_natural_resource_extraction
 		cost = 5
@@ -204,10 +204,11 @@ focus_tree = {
 			base = 1
 		}
 	}
+
 	focus = {
 		id = MAD_Toliara_rare_earths
 		icon = GFX_goal_generic_political_pressure
-		x = 15
+		x = 10
 		y = 2
 		relative_position_id = MAD_natural_resource_extraction
 		cost = 5
@@ -251,10 +252,11 @@ focus_tree = {
 			base = 1
 		}
 	}
+
 	focus = {
 		id = MAD_Bemolanga_oil_sands_project
 		icon = GFX_goal_generic_political_pressure
-		x = 17
+		x = -8
 		y = 2
 		relative_position_id = MAD_natural_resource_extraction
 		cost = 5
@@ -290,10 +292,11 @@ focus_tree = {
 			base = 1
 		}
 	}
+
 	focus = {
 		id = MAD_Telma
 		icon = GFX_goal_generic_political_pressure
-		x = -5
+		x = 0
 		y = 2
 		relative_position_id = MAD_COMPANIES
 		cost = 5
@@ -314,7 +317,7 @@ focus_tree = {
 	focus = {
 		id = MAD_Madarail
 		icon = GFX_goal_generic_political_pressure
-		x = 1
+		x = 7
 		y = 2
 		relative_position_id = MAD_COMPANIES
 		cost = 5
@@ -339,7 +342,7 @@ focus_tree = {
 	focus = {
 		id = MAD_GPM
 		icon = GFX_goal_generic_political_pressure
-		x = 5
+		x = 10
 		y = 2
 		relative_position_id = MAD_COMPANIES
 		cost = 5
@@ -358,7 +361,7 @@ focus_tree = {
 	focus = {
 		id = MAD_JIRAMA
 		icon = GFX_goal_generic_political_pressure
-		x = 18
+		x = 19
 		y = 2
 		relative_position_id = MAD_COMPANIES
 		cost = 5
@@ -377,7 +380,7 @@ focus_tree = {
 	focus = {
 		id = MAD_AIR
 		icon = GFX_goal_generic_political_pressure
-		x = 29
+		x = -9
 		y = 2
 		relative_position_id = MAD_COMPANIES
 		cost = 2
@@ -408,8 +411,8 @@ focus_tree = {
 	focus = {
 		id = MAD_aremas_republic
 		icon = GFX_goal_generic_national_unity
-		x = 117
-		y = 1
+		x = 30
+		y = 22
 		cost = 5
 		search_filters = { FOCUS_FILTER_POLITICAL }
 
@@ -426,8 +429,8 @@ focus_tree = {
 	focus = {
 		id = MAD_2009_Transitional
 		icon = GFX_goal_generic_political_pressure
-		x = -10
-		y = 3
+		x = 40
+		y = 22
 		cost = 5
 		search_filters = { FOCUS_FILTER_POLITICAL }
 
@@ -444,7 +447,7 @@ focus_tree = {
 		id = MAD_formalize_dina_courts
 		icon = GFX_goal_generic_national_unity
 		x = 0
-		y = 1
+		y = 2
 		relative_position_id = MAD_counter_the_dahalo
 		cost = 5
 		prerequisite = { focus = MAD_counter_the_dahalo }
@@ -492,8 +495,8 @@ focus_tree = {
 	focus = {
 		id = MAD_PROTECTED_AREAS_EXPANSION
 		icon = GFX_goal_generic_political_pressure
-		x = -2
-		y = 1
+		x = 2
+		y = 2
 		relative_position_id = MAD_NATURE_PRESERVATION
 		cost = 5
 		prerequisite = { focus = MAD_NATURE_PRESERVATION }
@@ -514,8 +517,8 @@ focus_tree = {
 	focus = {
 		id = MAD_Drought_and_famine
 		icon = GFX_goal_generic_political_pressure
-		x = 2
-		y = 1
+		x = -4
+		y = 2
 		relative_position_id = MAD_NATURE_PRESERVATION
 		cost = 5
 		prerequisite = { focus = MAD_NATURE_PRESERVATION }
@@ -541,8 +544,8 @@ focus_tree = {
 	focus = {
 		id = MAD_Rosewood
 		icon = GFX_goal_generic_political_pressure
-		x = 8
-		y = 1
+		x = 0
+		y = 2
 		relative_position_id = MAD_NATURE_PRESERVATION
 		cost = 5
 		prerequisite = { focus = MAD_NATURE_PRESERVATION }
@@ -560,8 +563,8 @@ focus_tree = {
 	focus = {
 		id = MAD_ilmenite_mine
 		icon = GFX_goal_generic_political_pressure
-		x = -2
-		y = 1
+		x = -1
+		y = 2
 		relative_position_id = MAD_QMM_CONSTRUCTION
 		cost = 5
 		prerequisite = { focus = MAD_QMM_CONSTRUCTION }
@@ -603,11 +606,12 @@ focus_tree = {
 			base = 1
 		}
 	}
+
 	focus = {
 		id = MAD_Fort_Dauphin_Taolagnaro
 		icon = GFX_goal_generic_political_pressure
-		x = 2
-		y = 1
+		x = 1
+		y = 2
 		relative_position_id = MAD_QMM_CONSTRUCTION
 		cost = 5
 		prerequisite = { focus = MAD_QMM_CONSTRUCTION }
@@ -642,11 +646,12 @@ focus_tree = {
 			base = 1
 		}
 	}
+
 	focus = {
 		id = MAD_The_Capital
 		icon = GFX_goal_generic_political_pressure
-		x = -21
-		y = 3
+		x = -8
+		y = 2
 		relative_position_id = MAD_lost_decade
 		cost = 5
 		prerequisite = { focus = MAD_lost_decade }
@@ -673,8 +678,8 @@ focus_tree = {
 	focus = {
 		id = MAD_TOAMASINA
 		icon = GFX_goal_generic_political_pressure
-		x = -17
-		y = 3
+		x = -2
+		y = 2
 		relative_position_id = MAD_lost_decade
 		cost = 5
 		prerequisite = { focus = MAD_lost_decade }
@@ -714,8 +719,8 @@ focus_tree = {
 	focus = {
 		id = MAD_Agricultural_reforms
 		icon = GFX_goal_generic_political_pressure
-		x = -7
-		y = 3
+		x = 6
+		y = 2
 		relative_position_id = MAD_lost_decade
 		cost = 5
 		prerequisite = { focus = MAD_lost_decade }
@@ -751,8 +756,9 @@ focus_tree = {
 	focus = {
 		id = MAD_AMBATOVY_OPERATIONAL
 		icon = GFX_goal_generic_construct_infrastructure
-		x = 41
-		y = 4
+		x = 2
+		y = 2
+		relative_position_id = MAD_AMBATOVY_JV_FORMED
 		cost = 5
 		prerequisite = { focus = MAD_AMBATOVY_JV_FORMED }
 		search_filters = { FOCUS_FILTER_POLITICAL }
@@ -804,7 +810,7 @@ focus_tree = {
 	focus = {
 		id = MAD_EHOALA_PORT
 		icon = GFX_goal_generic_political_pressure
-		x = 0
+		x = -3
 		y = 2
 		relative_position_id = MAD_QMM_CONSTRUCTION
 		cost = 5
@@ -850,10 +856,11 @@ focus_tree = {
 			base = 1
 		}
 	}
+
 	focus = {
 		id = MAD_Tsimiroro_heavy_oil_field
 		icon = GFX_goal_generic_political_pressure
-		x = 0
+		x = -4
 		y = 2
 		relative_position_id = MAD_Bemolanga_oil_sands_project
 		cost = 5
@@ -886,11 +893,12 @@ focus_tree = {
 			base = 1
 		}
 	}
+
 	focus = {
 		id = MAD_QMM_MONAZITE_PROCESSING
 		icon = GFX_goal_generic_political_pressure
 		x = 0
-		y = 1
+		y = 2
 		relative_position_id = MAD_ilmenite_mine
 		cost = 5
 		prerequisite = { focus = MAD_ilmenite_mine }
@@ -938,8 +946,8 @@ focus_tree = {
 	focus = {
 		id = MAD_TOLIARA_RANOBE_SURVEY
 		icon = GFX_goal_generic_political_pressure
-		x = -2
-		y = 1
+		x = 4
+		y = 2
 		relative_position_id = MAD_Toliara_rare_earths
 		cost = 5
 		prerequisite = { focus = MAD_Toliara_rare_earths }
@@ -963,8 +971,8 @@ focus_tree = {
 	focus = {
 		id = MAD_TOLIARA_MONAZITE_PROCESSING
 		icon = GFX_goal_generic_political_pressure
-		x = 2
-		y = 1
+		x = -2
+		y = 2
 		relative_position_id = MAD_Toliara_rare_earths
 		cost = 5
 		prerequisite = { focus = MAD_Toliara_rare_earths }
@@ -1009,8 +1017,8 @@ focus_tree = {
 	focus = {
 		id = MAD_BEMOLANGA_BITUMEN_APPRAISAL
 		icon = GFX_goal_generic_political_pressure
-		x = -2
-		y = 1
+		x = 2
+		y = 2
 		relative_position_id = MAD_Bemolanga_oil_sands_project
 		cost = 5
 		prerequisite = { focus = MAD_Bemolanga_oil_sands_project }
@@ -1036,8 +1044,8 @@ focus_tree = {
 	focus = {
 		id = MAD_BEMOLANGA_PILOT_EXTRACTION
 		icon = GFX_goal_generic_political_pressure
-		x = 2
-		y = 1
+		x = 0
+		y = 2
 		relative_position_id = MAD_Bemolanga_oil_sands_project
 		cost = 5
 		prerequisite = { focus = MAD_Bemolanga_oil_sands_project }
@@ -1080,7 +1088,7 @@ focus_tree = {
 	focus = {
 		id = MAD_BEMOLANGA_CONVENTIONAL_EXPLORATION
 		icon = GFX_goal_generic_political_pressure
-		x = -2
+		x = -8
 		y = 2
 		relative_position_id = MAD_Bemolanga_oil_sands_project
 		cost = 5
@@ -1106,8 +1114,8 @@ focus_tree = {
 	focus = {
 		id = MAD_BEMOLANGA_HEAVY_OIL_PILOT
 		icon = GFX_goal_generic_political_pressure
-		x = -1
-		y = 1
+		x = 2
+		y = 2
 		relative_position_id = MAD_Tsimiroro_heavy_oil_field
 		cost = 5
 		prerequisite = { focus = MAD_Tsimiroro_heavy_oil_field }
@@ -1143,8 +1151,8 @@ focus_tree = {
 	focus = {
 		id = MAD_BEMOLANGA_ROADS
 		icon = GFX_goal_generic_construct_infrastructure
-		x = 1
-		y = 1
+		x = -2
+		y = 2
 		relative_position_id = MAD_Tsimiroro_heavy_oil_field
 		cost = 5
 		prerequisite = { focus = MAD_Tsimiroro_heavy_oil_field }
@@ -1213,7 +1221,7 @@ focus_tree = {
 		id = MAD_RNCFM_PRIVATIZE
 		icon = GFX_goal_generic_political_pressure
 		x = 0
-		y = 1
+		y = 2
 		relative_position_id = MAD_Madarail
 		cost = 5
 		prerequisite = { focus = MAD_Madarail }
@@ -1262,7 +1270,7 @@ focus_tree = {
 	focus = {
 		id = MAD_FUEL_LIBERALIZATION
 		icon = GFX_goal_generic_political_pressure
-		x = 0
+		x = 4
 		y = 2
 		relative_position_id = MAD_GPM
 		cost = 1
@@ -1282,8 +1290,8 @@ focus_tree = {
 	focus = {
 		id = MAD_HYDROLECT_FUEL_PP
 		icon = GFX_goal_generic_political_pressure
-		x = -3
-		y = 2
+		x = 1
+		y = 3
 		relative_position_id = MAD_JIRAMA
 		cost = 5
 		prerequisite = { focus = MAD_JIRAMA }
@@ -1301,8 +1309,8 @@ focus_tree = {
 	focus = {
 		id = MAD_RURAL_ENERGY
 		icon = GFX_goal_generic_political_pressure
-		x = 5
-		y = 2
+		x = 9
+		y = 3
 		relative_position_id = MAD_JIRAMA
 		cost = 5
 		prerequisite = { focus = MAD_JIRAMA }
@@ -1320,7 +1328,7 @@ focus_tree = {
 	focus = {
 		id = MAD_LUFTHANSA
 		icon = GFX_goal_generic_political_pressure
-		x = 0
+		x = -2
 		y = 2
 		relative_position_id = MAD_AIR
 		cost = 5
@@ -1390,7 +1398,7 @@ focus_tree = {
 		id = MAD_ZEBU_CERTIFICATES
 		icon = GFX_goal_generic_political_pressure
 		x = 0
-		y = 1
+		y = 2
 		relative_position_id = MAD_formalize_dina_courts
 		cost = 5
 		prerequisite = { focus = MAD_formalize_dina_courts }
@@ -1408,8 +1416,9 @@ focus_tree = {
 	focus = {
 		id = MAD_Japanese_bypass
 		icon = GFX_goal_generic_political_pressure
-		x = 12
-		y = 5
+		x = -4
+		y = 2
+		relative_position_id = MAD_The_Capital
 		cost = 5
 		prerequisite = { focus = MAD_The_Capital }
 		search_filters = { FOCUS_FILTER_POLITICAL }
@@ -1450,8 +1459,9 @@ focus_tree = {
 	focus = {
 		id = MAD_Rocade_ring_road
 		icon = GFX_goal_generic_political_pressure
-		x = 16
-		y = 5
+		x = 0
+		y = 2
+		relative_position_id = MAD_The_Capital
 		cost = 5
 		prerequisite = { focus = MAD_The_Capital }
 		search_filters = { FOCUS_FILTER_POLITICAL }
@@ -1479,7 +1489,7 @@ focus_tree = {
 	focus = {
 		id = MAD_Promote_drought_tolerant_crops
 		icon = GFX_goal_generic_political_pressure
-		x = -2
+		x = -4
 		y = 2
 		relative_position_id = MAD_Drought_and_famine
 		cost = 5
@@ -1511,7 +1521,7 @@ focus_tree = {
 	focus = {
 		id = MAD_school_feeding_problems
 		icon = GFX_goal_generic_political_pressure
-		x = 0
+		x = 4
 		y = 2
 		relative_position_id = MAD_Drought_and_famine
 		cost = 5
@@ -1538,7 +1548,7 @@ focus_tree = {
 	focus = {
 		id = MAD_CNA
 		icon = GFX_goal_generic_political_pressure
-		x = 4
+		x = 0
 		y = 2
 		relative_position_id = MAD_Drought_and_famine
 		cost = 8
@@ -1577,8 +1587,8 @@ focus_tree = {
 	focus = {
 		id = MAD_Toliara_Deep_Sea_port
 		icon = GFX_goal_generic_political_pressure
-		x = 0
-		y = 3
+		x = 2
+		y = 2
 		relative_position_id = MAD_Toliara_rare_earths
 		cost = 5
 		prerequisite = { focus = MAD_Toliara_rare_earths }
@@ -1620,6 +1630,7 @@ focus_tree = {
 			base = 1
 		}
 	}
+
 	focus = {
 		id = MAD_the_court_rules
 		icon = GFX_goal_generic_law
@@ -1648,13 +1659,13 @@ focus_tree = {
 	focus = {
 		id = MAD_ratsiraka_digs_in
 		icon = GFX_goal_generic_military_march
-		x = 3
+		x = 2
 		y = 2
 		relative_position_id = MAD_the_2001_election
 		cost = 5
 		prerequisite = { focus = MAD_the_2001_election }
 		mutually_exclusive = { focus = MAD_the_court_rules }
-		search_filters = { FOCUS_FILTER_POLITICAL }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_INTERNAL_FACTION }
 		available = {
 			date > 2002.4.1
 		}
@@ -1672,8 +1683,9 @@ focus_tree = {
 	focus = {
 		id = MAD_ICTSI_CONCESSION
 		icon = GFX_goal_generic_political_pressure
-		x = 17
-		y = 6
+		x = -4
+		y = 2
+		relative_position_id = MAD_TOAMASINA
 		cost = 5
 		prerequisite = { focus = MAD_TOAMASINA }
 		search_filters = { FOCUS_FILTER_ECONOMY }
@@ -1705,7 +1717,7 @@ focus_tree = {
 	focus = {
 		id = MAD_vanilla_export_sector
 		icon = GFX_goal_generic_political_pressure
-		x = -5
+		x = 10
 		y = 2
 		relative_position_id = MAD_Agricultural_reforms
 		cost = 5
@@ -1730,7 +1742,7 @@ focus_tree = {
 	focus = {
 		id = MAD_DAEWOO_DEAL
 		icon = GFX_goal_generic_political_pressure
-		x = 3
+		x = 0
 		y = 2
 		relative_position_id = MAD_Agricultural_reforms
 		cost = 5
@@ -1783,7 +1795,7 @@ focus_tree = {
 		id = MAD_POVERTY_PAPER
 		icon = GFX_goal_generic_political_pressure
 		x = 0
-		y = 3
+		y = 2
 		relative_position_id = MAD_NATURELLE
 		cost = 5
 		prerequisite = { focus = MAD_NATURELLE }
@@ -1850,7 +1862,7 @@ focus_tree = {
 		id = MAD_ECOTOURISM_INVESTMENT
 		icon = GFX_goal_generic_political_pressure
 		x = 0
-		y = 3
+		y = 2
 		relative_position_id = MAD_PROTECTED_AREAS_EXPANSION
 		cost = 5
 		prerequisite = { focus = MAD_PROTECTED_AREAS_EXPANSION }
@@ -1891,8 +1903,8 @@ focus_tree = {
 	focus = {
 		id = MAD_MADARAIL_OWNERSHIP_CHURN
 		icon = GFX_goal_generic_political_pressure
-		x = 0
-		y = 1
+		x = 1
+		y = 2
 		relative_position_id = MAD_RNCFM_PRIVATIZE
 		cost = 5
 		prerequisite = { focus = MAD_RNCFM_PRIVATIZE }
@@ -1952,7 +1964,7 @@ focus_tree = {
 	focus = {
 		id = MAD_JIRAMA_PRIVATIZATION_FORK
 		icon = GFX_goal_generic_trade
-		x = 4
+		x = 5
 		y = 2
 		relative_position_id = MAD_HYDROLECT_FUEL_PP
 		cost = 5
@@ -1995,7 +2007,7 @@ focus_tree = {
 	focus = {
 		id = MAD_CONTINUE_WITH_LUFTHANSA
 		icon = GFX_goal_generic_political_pressure
-		x = -1
+		x = -3
 		y = 2
 		relative_position_id = MAD_LUFTHANSA
 		cost = 5
@@ -2025,7 +2037,7 @@ focus_tree = {
 	focus = {
 		id = MAD_AIR_STATE_CONTROL
 		icon = GFX_goal_generic_political_pressure
-		x = 1
+		x = 3
 		y = 2
 		relative_position_id = MAD_LUFTHANSA
 		cost = 5
@@ -2065,7 +2077,7 @@ focus_tree = {
 		id = MAD_STUB_2009_crisis
 		icon = GFX_goal_generic_demonstration
 		x = 2
-		y = 1
+		y = 2
 		relative_position_id = MAD_the_court_rules
 		cost = 5
 		prerequisite = { focus = MAD_the_court_rules focus = MAD_ratsiraka_digs_in }
@@ -2087,8 +2099,8 @@ focus_tree = {
 	focus = {
 		id = MAD_enter_Remenabila
 		icon = GFX_goal_generic_political_pressure
-		x = 14
-		y = 20
+		x = 10
+		y = 28
 		cost = 5
 		search_filters = { FOCUS_FILTER_POLITICAL }
 
@@ -2104,8 +2116,8 @@ focus_tree = {
 	focus = {
 		id = MAD_FIGHTING_CERTIFICATE_FRAUD
 		icon = GFX_goal_generic_political_pressure
-		x = -2
-		y = 1
+		x = -4
+		y = 2
 		relative_position_id = MAD_ZEBU_CERTIFICATES
 		cost = 5
 		prerequisite = { focus = MAD_ZEBU_CERTIFICATES }
@@ -2124,7 +2136,7 @@ focus_tree = {
 		id = MAD_dahalo_military_ops
 		icon = GFX_goal_generic_political_pressure
 		x = 0
-		y = 1
+		y = 2
 		relative_position_id = MAD_ZEBU_CERTIFICATES
 		cost = 5
 		prerequisite = { focus = MAD_ZEBU_CERTIFICATES }
@@ -2142,8 +2154,8 @@ focus_tree = {
 	focus = {
 		id = MAD_IOM_poverty_measures
 		icon = GFX_goal_generic_political_pressure
-		x = 2
-		y = 1
+		x = 4
+		y = 2
 		relative_position_id = MAD_ZEBU_CERTIFICATES
 		cost = 5
 		prerequisite = { focus = MAD_ZEBU_CERTIFICATES }
@@ -2241,8 +2253,8 @@ focus_tree = {
 	focus = {
 		id = MAD_Continue_the_path
 		icon = GFX_goal_generic_political_pressure
-		x = -2
-		y = 1
+		x = 4
+		y = 2
 		relative_position_id = MAD_CNA
 		cost = 5
 		prerequisite = { focus = MAD_CNA }
@@ -2272,8 +2284,8 @@ focus_tree = {
 	focus = {
 		id = MAD_become_the_locust
 		icon = GFX_goal_generic_political_pressure
-		x = 2
-		y = 1
+		x = 0
+		y = 2
 		relative_position_id = MAD_CNA
 		cost = 5
 		prerequisite = { focus = MAD_CNA }
@@ -2326,8 +2338,8 @@ focus_tree = {
 	focus = {
 		id = MAD_Mandroseza_PLANT
 		icon = GFX_goal_generic_political_pressure
-		x = -3
-		y = 3
+		x = 0
+		y = 2
 		relative_position_id = MAD_HYDROLECT_FUEL_PP
 		cost = 5
 		prerequisite = { focus = MAD_HYDROLECT_FUEL_PP }
@@ -2346,7 +2358,7 @@ focus_tree = {
 		id = MAD_STUB_2025_crisis
 		icon = GFX_goal_generic_demonstration
 		x = 0
-		y = 1
+		y = 2
 		relative_position_id = MAD_STUB_2009_crisis
 		cost = 5
 		prerequisite = { focus = MAD_STUB_2009_crisis }
@@ -2368,7 +2380,7 @@ focus_tree = {
 	focus = {
 		id = MAD_TOAMASINA_JICA_EXPANSION
 		icon = GFX_goal_generic_political_pressure
-		x = 1
+		x = 0
 		y = 2
 		relative_position_id = MAD_ICTSI_CONCESSION
 		cost = 5
@@ -2418,7 +2430,7 @@ focus_tree = {
 	focus = {
 		id = MAD_vanilla_quality_control
 		icon = GFX_goal_generic_political_pressure
-		x = -2
+		x = 2
 		y = 2
 		relative_position_id = MAD_vanilla_export_sector
 		cost = 5
@@ -2445,7 +2457,7 @@ focus_tree = {
 	focus = {
 		id = MAD_vanilla_quantity
 		icon = GFX_goal_generic_political_pressure
-		x = 2
+		x = 0
 		y = 2
 		relative_position_id = MAD_vanilla_export_sector
 		cost = 5
@@ -2498,7 +2510,7 @@ focus_tree = {
 	focus = {
 		id = MAD_CUT_CORPORATE_TAX
 		icon = GFX_goal_generic_political_pressure
-		x = 0
+		x = -2
 		y = 2
 		relative_position_id = MAD_POVERTY_PAPER
 		cost = 5
@@ -2525,8 +2537,8 @@ focus_tree = {
 	focus = {
 		id = MAD_mining_code_reform
 		icon = GFX_goal_generic_trade
-		x = 43
-		y = 8
+		x = 48
+		y = 22
 		cost = 5
 		search_filters = { FOCUS_FILTER_ECONOMY FOCUS_FILTER_INDUSTRY }
 		available = {
@@ -2565,8 +2577,8 @@ focus_tree = {
 	focus = {
 		id = MAD_MADARAIL_INVESTORS_STAY
 		icon = GFX_goal_generic_production
-		x = -2
-		y = 1
+		x = 2
+		y = 2
 		relative_position_id = MAD_MADARAIL_OWNERSHIP_CHURN
 		cost = 5
 		prerequisite = { focus = MAD_MADARAIL_OWNERSHIP_CHURN }
@@ -2616,7 +2628,7 @@ focus_tree = {
 		id = MAD_MADARAIL_TERMINAL_EXPANSION
 		icon = GFX_goal_generic_production
 		x = 0
-		y = 1
+		y = 2
 		relative_position_id = MAD_MADARAIL_INVESTORS_STAY
 		cost = 5
 		prerequisite = { focus = MAD_MADARAIL_INVESTORS_STAY }
@@ -2662,8 +2674,8 @@ focus_tree = {
 	focus = {
 		id = MAD_MADARAIL_INVESTORS_DESIST
 		icon = GFX_goal_generic_national_unity
-		x = 2
-		y = 1
+		x = -2
+		y = 2
 		relative_position_id = MAD_MADARAIL_OWNERSHIP_CHURN
 		cost = 5
 		prerequisite = { focus = MAD_MADARAIL_OWNERSHIP_CHURN }
@@ -2721,7 +2733,7 @@ focus_tree = {
 	focus = {
 		id = MAD_JIRAMA_CORPORATIZE
 		icon = GFX_goal_generic_production
-		x = -2
+		x = -1
 		y = 2
 		relative_position_id = MAD_JIRAMA_PRIVATIZATION_FORK
 		cost = 5
@@ -2745,7 +2757,7 @@ focus_tree = {
 	focus = {
 		id = MAD_JIRAMA_STAY_PUBLIC
 		icon = GFX_goal_generic_national_unity
-		x = 2
+		x = 1
 		y = 2
 		relative_position_id = MAD_JIRAMA_PRIVATIZATION_FORK
 		cost = 5
@@ -2790,7 +2802,7 @@ focus_tree = {
 	focus = {
 		id = MAD_WORK_WITH_GERMANS
 		icon = GFX_goal_generic_political_pressure
-		x = -1
+		x = 0
 		y = 2
 		relative_position_id = MAD_CONTINUE_WITH_LUFTHANSA
 		cost = 5
@@ -2843,7 +2855,7 @@ focus_tree = {
 	focus = {
 		id = MAD_SELL_TO_AUSTRAL
 		icon = GFX_goal_generic_political_pressure
-		x = 1
+		x = 3
 		y = 2
 		relative_position_id = MAD_CONTINUE_WITH_LUFTHANSA
 		cost = 5
@@ -2871,7 +2883,7 @@ focus_tree = {
 	focus = {
 		id = MAD_STATE_CONTROL_SUCCEEDS
 		icon = GFX_goal_generic_political_pressure
-		x = 1
+		x = 0
 		y = 2
 		relative_position_id = MAD_AIR_STATE_CONTROL
 		cost = 5
@@ -2906,7 +2918,7 @@ focus_tree = {
 	focus = {
 		id = MAD_Hunt_for_red_with_a_swagger
 		icon = GFX_goal_generic_political_pressure
-		x = -6
+		x = 0
 		y = 2
 		relative_position_id = MAD_enter_Remenabila
 		cost = 5
@@ -2925,7 +2937,7 @@ focus_tree = {
 	focus = {
 		id = MAD_PERMIT_ARMS
 		icon = GFX_goal_generic_political_pressure
-		x = -2
+		x = -4
 		y = 2
 		relative_position_id = MAD_enter_Remenabila
 		cost = 5
@@ -2945,8 +2957,8 @@ focus_tree = {
 	focus = {
 		id = MAD_ARREST_ARMS
 		icon = GFX_goal_generic_political_pressure
-		x = -3
-		y = 0
+		x = 0
+		y = 2
 		relative_position_id = MAD_FIGHTING_CERTIFICATE_FRAUD
 		cost = 5
 		prerequisite = { focus = MAD_FIGHTING_CERTIFICATE_FRAUD }
@@ -2985,8 +2997,8 @@ focus_tree = {
 	focus = {
 		id = MAD_END_PERMIT_FREEZE
 		icon = GFX_goal_generic_political_pressure
-		x = -2
-		y = 1
+		x = 0
+		y = 2
 		relative_position_id = MAD_mining_code_reform
 		cost = 5
 		prerequisite = { focus = MAD_mining_code_reform }
@@ -3125,7 +3137,7 @@ focus_tree = {
 	focus = {
 		id = MAD_Sahofika_DAM
 		icon = GFX_goal_generic_political_pressure
-		x = -2
+		x = 2
 		y = 2
 		relative_position_id = MAD_Mandroseza_PLANT
 		cost = 5
@@ -3144,7 +3156,7 @@ focus_tree = {
 	focus = {
 		id = MAD_DECIM
 		icon = GFX_goal_generic_political_pressure
-		x = 0
+		x = -3
 		y = 2
 		relative_position_id = MAD_Mandroseza_PLANT
 		cost = 5
@@ -3163,7 +3175,7 @@ focus_tree = {
 	focus = {
 		id = MAD_LEAD_PROJECT
 		icon = GFX_goal_generic_political_pressure
-		x = 3
+		x = 0
 		y = 2
 		relative_position_id = MAD_Mandroseza_PLANT
 		cost = 5
@@ -3183,7 +3195,7 @@ focus_tree = {
 		id = MAD_AR1_HIGHWAY
 		icon = GFX_goal_generic_political_pressure
 		x = -2
-		y = 1
+		y = 2
 		relative_position_id = MAD_TOAMASINA_JICA_EXPANSION
 		cost = 5
 		prerequisite = { focus = MAD_TOAMASINA_JICA_EXPANSION }
@@ -3224,7 +3236,7 @@ focus_tree = {
 	focus = {
 		id = MAD_set_prices
 		icon = GFX_goal_generic_political_pressure
-		x = -4
+		x = 2
 		y = 2
 		relative_position_id = MAD_vanilla_quantity
 		cost = 5
@@ -3278,7 +3290,7 @@ focus_tree = {
 	focus = {
 		id = MAD_DEAL_KEPT
 		icon = GFX_goal_generic_political_pressure
-		x = -2
+		x = 2
 		y = 2
 		relative_position_id = MAD_DAEWOO_FALLOUT
 		cost = 5
@@ -3336,7 +3348,7 @@ focus_tree = {
 	focus = {
 		id = MAD_DEAL_BROKEN
 		icon = GFX_goal_generic_political_pressure
-		x = 1
+		x = 0
 		y = 2
 		relative_position_id = MAD_DAEWOO_FALLOUT
 		cost = 5
@@ -3381,7 +3393,6 @@ focus_tree = {
 				limit = { MAD_government_popularity_below_half = yes }
 				set_country_flag = MAD_DAEWOO_ELECTION_PENDING_BROKEN
 			}
-
 		}
 
 		ai_will_do = {
@@ -3421,7 +3432,7 @@ focus_tree = {
 		id = MAD_TOURISM_INCOME_BOOST
 		icon = GFX_goal_generic_production
 		x = 0
-		y = 4
+		y = 2
 		relative_position_id = MAD_ECOTOURISM_INVESTMENT
 		cost = 5
 		prerequisite = { focus = MAD_ECOTOURISM_INVESTMENT }
@@ -3441,8 +3452,9 @@ focus_tree = {
 	focus = {
 		id = MAD_TELMA_AXIAN_CONSOLIDATES
 		icon = GFX_goal_generic_political_pressure
-		x = 66
-		y = 5
+		x = 2
+		y = 2
+		relative_position_id = MAD_TELMA_SOLD_TO_CONSORTIUM
 		cost = 5
 		prerequisite = { focus = MAD_TELMA_SOLD_TO_CONSORTIUM }
 		mutually_exclusive = { focus = MAD_TELMA_RENATIONALIZE }
@@ -3477,8 +3489,8 @@ focus_tree = {
 	focus = {
 		id = MAD_PRIVATE_TELECOM_RESEARCH
 		icon = GFX_goal_generic_science
-		x = 0
-		y = 1
+		x = 2
+		y = 2
 		relative_position_id = MAD_TELMA_AXIAN_CONSOLIDATES
 		cost = 5
 		prerequisite = { focus = MAD_TELMA_AXIAN_CONSOLIDATES }
@@ -3508,8 +3520,9 @@ focus_tree = {
 	focus = {
 		id = MAD_TELMA_RENATIONALIZE
 		icon = GFX_goal_generic_political_pressure
-		x = 70
-		y = 5
+		x = -2
+		y = 2
+		relative_position_id = MAD_TELMA_SOLD_TO_CONSORTIUM
 		cost = 5
 		prerequisite = { focus = MAD_TELMA_SOLD_TO_CONSORTIUM }
 		mutually_exclusive = { focus = MAD_TELMA_AXIAN_CONSOLIDATES }
@@ -3551,7 +3564,7 @@ focus_tree = {
 		id = MAD_MADARAIL_STATE_TAKEOVER
 		icon = GFX_goal_generic_political_pressure
 		x = 0
-		y = 1
+		y = 2
 		relative_position_id = MAD_MADARAIL_INVESTORS_DESIST
 		cost = 5
 		prerequisite = { focus = MAD_MADARAIL_INVESTORS_DESIST }
@@ -3722,7 +3735,7 @@ focus_tree = {
 	focus = {
 		id = MAD_army_traverse_mountains
 		icon = GFX_goal_generic_political_pressure
-		x = 0
+		x = 2
 		y = 2
 		relative_position_id = MAD_Hunt_for_red_with_a_swagger
 		cost = 5
@@ -3741,8 +3754,8 @@ focus_tree = {
 	focus = {
 		id = MAD_BANDIT_ARMY
 		icon = GFX_goal_generic_political_pressure
-		x = -2
-		y = 3
+		x = 0
+		y = 2
 		relative_position_id = MAD_PERMIT_ARMS
 		cost = 5
 		prerequisite = { focus = MAD_PERMIT_ARMS }
@@ -3784,7 +3797,7 @@ focus_tree = {
 	focus = {
 		id = MAD_Grand_sud_est_program
 		icon = GFX_goal_generic_political_pressure
-		x = 0
+		x = -2
 		y = 2
 		relative_position_id = MAD_Grand_Sud_program
 		cost = 5
@@ -3887,8 +3900,8 @@ focus_tree = {
 	focus = {
 		id = MAD_MADARAIL_NETWORK_EXPANSION
 		icon = GFX_goal_generic_political_pressure
-		x = 2
-		y = 1
+		x = -2
+		y = 2
 		relative_position_id = MAD_MADARAIL_TERMINAL_EXPANSION
 		cost = 5
 		prerequisite = { focus = MAD_MADARAIL_TERMINAL_EXPANSION focus = MAD_MADARAIL_STATE_TAKEOVER }
@@ -3952,8 +3965,8 @@ focus_tree = {
 	focus = {
 		id = MAD_ADDED_SOLAR
 		icon = GFX_goal_generic_political_pressure
-		x = 0
-		y = 2
+		x = 2
+		y = 3
 		relative_position_id = MAD_DECIM
 		cost = 5
 		prerequisite = { focus = MAD_DECIM }
@@ -3994,7 +4007,7 @@ focus_tree = {
 	focus = {
 		id = MAD_extend_ar1
 		icon = GFX_goal_generic_political_pressure
-		x = -1
+		x = -4
 		y = 2
 		relative_position_id = MAD_AR1_HIGHWAY
 		cost = 5
@@ -4025,7 +4038,7 @@ focus_tree = {
 	focus = {
 		id = MAD_MIAMI_WATERFRONT
 		icon = GFX_goal_generic_political_pressure
-		x = 1
+		x = 0
 		y = 2
 		relative_position_id = MAD_AR1_HIGHWAY
 		cost = 5
@@ -4114,11 +4127,10 @@ focus_tree = {
 		}
 	}
 
-	# Auto-completed by MAD_autocomplete_forced_outcome_foci when the Daewoo deal collapses.
 	focus = {
 		id = MAD_DEAL_KEPT_FAILED
 		icon = GFX_goal_generic_demonstration
-		x = 1
+		x = 0
 		y = 2
 		relative_position_id = MAD_DEAL_KEPT
 		cost = 5
@@ -4134,11 +4146,11 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[This.GetName]: Focus MAD_DEAL_KEPT_FAILED"
-
+			
 			set_temp_variable = { treasury_change = -15.00 }
 			modify_treasury_effect = yes
 			add_stability = -0.05
-
+			
 			set_party_index_to_ruling_party = yes
 			set_temp_variable = { party_popularity_increase = -0.15 }
 			set_temp_variable = { temp_outlook_increase = -0.075 }
@@ -4154,7 +4166,7 @@ focus_tree = {
 	focus = {
 		id = MAD_DEAL_KEPT_MANAGED_WELL
 		icon = GFX_goal_generic_national_unity
-		x = -1
+		x = 4
 		y = 2
 		relative_position_id = MAD_DEAL_KEPT
 		cost = 5
@@ -4217,15 +4229,11 @@ focus_tree = {
 	focus = {
 		id = MAD_FUND_THE_FARMERS
 		icon = GFX_goal_generic_production
-		x = 3
+		x = 0
 		y = 4
-		relative_position_id = MAD_DEAL_KEPT
+		relative_position_id = MAD_DEAL_BROKEN
 		cost = 5
-		prerequisite = {
-			focus = MAD_DEAL_BROKEN
-			focus = MAD_DEAL_KEPT_FAILED
-		}
-
+		prerequisite = { focus = MAD_DEAL_BROKEN focus = MAD_DEAL_KEPT_FAILED }
 		search_filters = { FOCUS_FILTER_ECONOMY FOCUS_FILTER_STABILITY }
 		available = {
 			custom_trigger_tooltip = {
@@ -4249,7 +4257,7 @@ focus_tree = {
 	focus = {
 		id = MAD_KOREAN_PURCHASES
 		icon = GFX_goal_generic_political_pressure
-		x = -2
+		x = 2
 		y = 2
 		relative_position_id = MAD_ACCEPT_FOREIGN_OWNERSHIP
 		cost = 5
@@ -4264,6 +4272,7 @@ focus_tree = {
 			custom_effect_tooltip = MAD_KOREAN_PURCHASES_OFFER_tt
 			KOR = { country_event = { id = mad_foreign_investment.1 days = 1 } }
 		}
+
 		ai_will_do = {
 			base = 1
 		}
@@ -4272,7 +4281,7 @@ focus_tree = {
 	focus = {
 		id = MAD_USA_PURCHASES
 		icon = GFX_goal_generic_political_pressure
-		x = 0
+		x = -6
 		y = 2
 		relative_position_id = MAD_ACCEPT_FOREIGN_OWNERSHIP
 		cost = 5
@@ -4287,6 +4296,7 @@ focus_tree = {
 			custom_effect_tooltip = MAD_USA_PURCHASES_OFFER_tt
 			USA = { country_event = { id = mad_foreign_investment.11 days = 1 } }
 		}
+
 		ai_will_do = {
 			base = 1
 		}
@@ -4295,7 +4305,7 @@ focus_tree = {
 	focus = {
 		id = MAD_GERMANY_PURCHASES
 		icon = GFX_goal_generic_political_pressure
-		x = 2
+		x = -2
 		y = 2
 		relative_position_id = MAD_ACCEPT_FOREIGN_OWNERSHIP
 		cost = 5
@@ -4310,6 +4320,7 @@ focus_tree = {
 			custom_effect_tooltip = MAD_GERMANY_PURCHASES_OFFER_tt
 			GER = { country_event = { id = mad_foreign_investment.21 days = 1 } }
 		}
+
 		ai_will_do = {
 			base = 1
 		}
@@ -4319,7 +4330,7 @@ focus_tree = {
 		id = MAD_RAIL_FCE_REHAB
 		icon = GFX_goal_generic_political_pressure
 		x = 0
-		y = 1
+		y = 2
 		relative_position_id = MAD_MADARAIL_NETWORK_EXPANSION
 		cost = 5
 		prerequisite = { focus = MAD_MADARAIL_NETWORK_EXPANSION }
@@ -4449,7 +4460,7 @@ focus_tree = {
 		id = MAD_AIR_EXPANSION
 		icon = GFX_goal_generic_political_pressure
 		x = 0
-		y = 2
+		y = 3
 		relative_position_id = MAD_AIRLINE_MILITARY_LINKS
 		cost = 5
 		prerequisite = { focus = MAD_AIRLINE_MILITARY_LINKS }
@@ -4487,7 +4498,7 @@ focus_tree = {
 		id = MAD_MARCH_OF_THE_COWBOYS
 		icon = GFX_goal_generic_political_pressure
 		x = 0
-		y = 1
+		y = 2
 		relative_position_id = MAD_BANDIT_ARMY
 		cost = 5
 		prerequisite = { focus = MAD_BANDIT_ARMY }
@@ -4531,8 +4542,8 @@ focus_tree = {
 	focus = {
 		id = MAD_export_ideas
 		icon = GFX_goal_generic_political_pressure
-		x = 51
-		y = 13
+		x = 56
+		y = 22
 		cost = 5
 		search_filters = { FOCUS_FILTER_POLITICAL }
 
@@ -4637,13 +4648,6 @@ focus_tree = {
 			add_political_power = 25
 			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.10 tooltip = productivity_growth_modifier_tt }
 			add_to_variable = { MAD_economy_return_on_investment_modifier = 0.05 tooltip = return_on_investment_modifier_tt }
-
-			# The volatile export policy becomes an actual gameplay loop:
-			# the first market shock arrives after seven months, then repeats roughly every fifteen months.
-			# Each shock asks the player to react rather than simply receiving a passive RNG modifier.
-			set_variable = { MAD_vanilla_shock_state = 0 }
-			set_country_flag = MAD_VANILLA_VOLATILE_MARKET
-			country_event = { id = mad_vanilla.1 days = 210 }
 		}
 
 		ai_will_do = {
@@ -4655,7 +4659,7 @@ focus_tree = {
 		id = MAD_Winning_the_fight
 		icon = GFX_goal_generic_political_pressure
 		x = -2
-		y = 1
+		y = 2
 		relative_position_id = MAD_Fighting_climate_change
 		cost = 5
 		prerequisite = { focus = MAD_Fighting_climate_change }
@@ -4681,12 +4685,11 @@ focus_tree = {
 		}
 	}
 
-	# Auto-completed by MAD_autocomplete_forced_outcome_foci when the failure condition is reached.
 	focus = {
 		id = MAD_losing_the_fight
 		icon = GFX_goal_generic_political_pressure
-		x = 2
-		y = 1
+		x = 0
+		y = 2
 		relative_position_id = MAD_Fighting_climate_change
 		cost = 5
 		prerequisite = { focus = MAD_Fighting_climate_change }
@@ -4715,7 +4718,7 @@ focus_tree = {
 		id = MAD_extension_fce
 		icon = GFX_goal_generic_political_pressure
 		x = 0
-		y = 1
+		y = 2
 		relative_position_id = MAD_RAIL_FCE_REHAB
 		cost = 5
 		prerequisite = { focus = MAD_RAIL_FCE_REHAB }
@@ -4739,7 +4742,7 @@ focus_tree = {
 		id = MAD_RAIL_NATIONAL_NETWORK
 		icon = GFX_goal_generic_political_pressure
 		x = 0
-		y = 1
+		y = 2
 		relative_position_id = MAD_extension_fce
 		cost = 5
 		prerequisite = { focus = MAD_extension_fce }
@@ -4761,7 +4764,7 @@ focus_tree = {
 		id = MAD_JIRAMA_RECOVERY_FAILS
 		icon = GFX_goal_generic_demonstration
 		x = -2
-		y = 2
+		y = 1
 		relative_position_id = MAD_IMF_REVIEW_2025
 		cost = 5
 		prerequisite = { focus = MAD_IMF_REVIEW_2025 }
@@ -4785,7 +4788,7 @@ focus_tree = {
 		id = MAD_JIRAMA_RECOVERY_SUCCEEDS
 		icon = GFX_goal_generic_production
 		x = 2
-		y = 2
+		y = 1
 		relative_position_id = MAD_IMF_REVIEW_2025
 		cost = 5
 		prerequisite = { focus = MAD_IMF_REVIEW_2025 }
@@ -4810,7 +4813,7 @@ focus_tree = {
 		id = MAD_GERMAN_FLEET_MODERNIZED
 		icon = GFX_goal_generic_political_pressure
 		x = 0
-		y = 2
+		y = 6
 		relative_position_id = MAD_GERMAN_PLANES
 		cost = 5
 		prerequisite = { focus = MAD_GERMAN_PLANES }
@@ -4852,7 +4855,7 @@ focus_tree = {
 		id = MAD_AIR_REGIONAL_HUB
 		icon = GFX_goal_generic_political_pressure
 		x = 0
-		y = 2
+		y = 5
 		relative_position_id = MAD_AIR_EXPANSION
 		cost = 5
 		prerequisite = { focus = MAD_AIR_EXPANSION }
@@ -4872,7 +4875,7 @@ focus_tree = {
 		id = MAD_Dead_with_a_swagger
 		icon = GFX_goal_generic_political_pressure
 		x = 0
-		y = 1
+		y = 2
 		relative_position_id = MAD_capture_spiritual_advisor
 		cost = 5
 		prerequisite = { focus = MAD_capture_spiritual_advisor }
@@ -4891,7 +4894,7 @@ focus_tree = {
 		id = MAD_cowthief_in_chief
 		icon = GFX_goal_generic_political_pressure
 		x = 0
-		y = 1
+		y = 2
 		relative_position_id = MAD_MARCH_OF_THE_COWBOYS
 		cost = 5
 		prerequisite = { focus = MAD_MARCH_OF_THE_COWBOYS }
@@ -4928,8 +4931,8 @@ focus_tree = {
 	focus = {
 		id = MAD_BIANCO
 		icon = GFX_goal_generic_political_pressure
-		x = 0
-		y = 4
+		x = 4
+		y = 2
 		relative_position_id = MAD_USA_PURCHASES
 		cost = 5
 		prerequisite = { focus = MAD_USA_PURCHASES }
@@ -4990,7 +4993,6 @@ focus_tree = {
 		}
 	}
 
-	# Auto-completed by MAD_autocomplete_forced_outcome_foci once the drought is fully resolved after the losing branch.
 	focus = {
 		id = MAD_crop_death
 		icon = GFX_goal_generic_political_pressure
@@ -5152,7 +5154,7 @@ focus_tree = {
 		cost = 5
 		prerequisite = { focus = MAD_BIANCO_INVESTIGATIONS }
 		mutually_exclusive = { focus = MAD_BIANCO_INDEPENDENT }
-		search_filters = { FOCUS_FILTER_POLITICAL }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_INTERNAL_FACTION }
 
 		completion_reward = {
 			log = "[GetDateText]: [This.GetName]: Focus MAD_BIANCO_POLITICIZED"
@@ -5177,8 +5179,8 @@ focus_tree = {
 	focus = {
 		id = MAD_Ivato_terminal_runway_upgrade
 		icon = GFX_goal_generic_political_pressure
-		x = 2
-		y = 6
+		x = 4
+		y = 2
 		relative_position_id = MAD_GERMAN_FLEET_MODERNIZED
 		cost = 5
 		prerequisite = { focus = MAD_GERMAN_FLEET_MODERNIZED focus = MAD_AIR_BRAND_RESTORED focus = MAD_AIR_REGIONAL_HUB }
@@ -5196,8 +5198,9 @@ focus_tree = {
 	focus = {
 		id = MAD_SPAT
 		icon = GFX_goal_generic_political_pressure
-		x = 19
-		y = 6
+		x = 0
+		y = 2
+		relative_position_id = MAD_TOAMASINA
 		cost = 5
 		prerequisite = { focus = MAD_TOAMASINA }
 		search_filters = { FOCUS_FILTER_POLITICAL }
@@ -5223,8 +5226,9 @@ focus_tree = {
 	focus = {
 		id = MAD_airforce_prod
 		icon = GFX_goal_generic_political_pressure
-		x = 108
-		y = 13
+		x = 2
+		y = 2
+		relative_position_id = MAD_AIRLINE_MILITARY_LINKS
 		cost = 5
 		prerequisite = { focus = MAD_AIRLINE_MILITARY_LINKS }
 		search_filters = { FOCUS_FILTER_POLITICAL }
@@ -5241,8 +5245,9 @@ focus_tree = {
 	focus = {
 		id = MAD_german_assisted_airforce
 		icon = GFX_goal_generic_political_pressure
-		x = 106
-		y = 13
+		x = -2
+		y = 1
+		relative_position_id = MAD_GERMAN_PLANES
 		cost = 5
 		prerequisite = { focus = MAD_GERMAN_PLANES }
 		search_filters = { FOCUS_FILTER_POLITICAL }
@@ -5259,8 +5264,9 @@ focus_tree = {
 	focus = {
 		id = MAD_TELMA_HUNT_REMENABILA_SUPPORT
 		icon = GFX_goal_generic_political_pressure
-		x = 6
-		y = 24
+		x = 0
+		y = 2
+		relative_position_id = MAD_Hunt_for_red_with_a_swagger
 		cost = 5
 		prerequisite = { focus = MAD_Hunt_for_red_with_a_swagger }
 		search_filters = { FOCUS_FILTER_POLITICAL }
@@ -5281,8 +5287,9 @@ focus_tree = {
 	focus = {
 		id = MAD_TELECOM_LAW_2005
 		icon = GFX_goal_generic_political_pressure
-		x = 64
-		y = 6
+		x = -3
+		y = 2
+		relative_position_id = MAD_TELMA_AXIAN_CONSOLIDATES
 		cost = 5
 		prerequisite = { focus = MAD_TELMA_AXIAN_CONSOLIDATES focus = MAD_TELMA_RENATIONALIZE }
 		search_filters = { FOCUS_FILTER_ECONOMY }
@@ -5314,8 +5321,9 @@ focus_tree = {
 	focus = {
 		id = MAD_TELMA_FIBER_MONOPOLY_PERSISTS
 		icon = GFX_goal_generic_political_pressure
-		x = 68
-		y = 7
+		x = -1
+		y = 2
+		relative_position_id = MAD_TELMA_AXIAN_CONSOLIDATES
 		cost = 5
 		prerequisite = { focus = MAD_TELMA_AXIAN_CONSOLIDATES focus = MAD_TELMA_RENATIONALIZE }
 		search_filters = { FOCUS_FILTER_ECONOMY }
@@ -5345,8 +5353,9 @@ focus_tree = {
 	focus = {
 		id = MAD_BREAK_TELMA_MONOPOLY
 		icon = GFX_goal_generic_political_pressure
-		x = 66
-		y = 8
+		x = 3
+		y = 2
+		relative_position_id = MAD_TELMA_FIBER_MONOPOLY_PERSISTS
 		cost = 5
 		prerequisite = { focus = MAD_TELMA_FIBER_MONOPOLY_PERSISTS }
 		mutually_exclusive = { focus = MAD_PROTECT_NATIONAL_CHAMPION }
@@ -5399,8 +5408,9 @@ focus_tree = {
 	focus = {
 		id = MAD_PROTECT_NATIONAL_CHAMPION
 		icon = GFX_goal_generic_political_pressure
-		x = 70
-		y = 8
+		x = -1
+		y = 2
+		relative_position_id = MAD_TELMA_FIBER_MONOPOLY_PERSISTS
 		cost = 5
 		prerequisite = { focus = MAD_TELMA_FIBER_MONOPOLY_PERSISTS }
 		mutually_exclusive = { focus = MAD_BREAK_TELMA_MONOPOLY }
@@ -5462,8 +5472,9 @@ focus_tree = {
 	focus = {
 		id = MAD_DIGITAL_MADAGASCAR
 		icon = GFX_goal_generic_political_pressure
-		x = 68
-		y = 9
+		x = 0
+		y = 2
+		relative_position_id = MAD_BREAK_TELMA_MONOPOLY
 		cost = 5
 		prerequisite = { focus = MAD_BREAK_TELMA_MONOPOLY focus = MAD_PROTECT_NATIONAL_CHAMPION }
 		search_filters = { FOCUS_FILTER_ECONOMY FOCUS_FILTER_INDUSTRY }
@@ -5523,8 +5534,9 @@ focus_tree = {
 	focus = {
 		id = MAD_TELMA_SIGINT_SHARING
 		icon = GFX_goal_generic_political_pressure
-		x = 71
-		y = 7
+		x = -2
+		y = 2
+		relative_position_id = MAD_TELMA_RENATIONALIZE
 		cost = 5
 		prerequisite = { focus = MAD_TELMA_RENATIONALIZE }
 		search_filters = { FOCUS_FILTER_POLITICAL }
@@ -5551,8 +5563,9 @@ focus_tree = {
 	focus = {
 		id = MAD_TELMA_MARITIME_DOMAIN_NETWORK
 		icon = GFX_goal_generic_political_pressure
-		x = 71
-		y = 9
+		x = 0
+		y = 4
+		relative_position_id = MAD_TELMA_SIGINT_SHARING
 		cost = 5
 		prerequisite = { focus = MAD_TELMA_SIGINT_SHARING }
 		prerequisite = { focus = MAD_PROTECT_NATIONAL_CHAMPION }
@@ -5582,8 +5595,9 @@ focus_tree = {
 	focus = {
 		id = MAD_TELMA_NATIONAL_C2_BACKBONE
 		icon = GFX_goal_generic_political_pressure
-		x = 71
-		y = 10
+		x = 0
+		y = 2
+		relative_position_id = MAD_TELMA_MARITIME_DOMAIN_NETWORK
 		cost = 5
 		prerequisite = { focus = MAD_TELMA_MARITIME_DOMAIN_NETWORK }
 		prerequisite = { focus = MAD_DIGITAL_MADAGASCAR }
@@ -5618,8 +5632,9 @@ focus_tree = {
 	focus = {
 		id = MAD_TELMA_LEGACY
 		icon = GFX_goal_generic_political_pressure
-		x = 68
-		y = 11
+		x = 0
+		y = 2
+		relative_position_id = MAD_DIGITAL_MADAGASCAR
 		cost = 5
 		prerequisite = { focus = MAD_DIGITAL_MADAGASCAR }
 		search_filters = { FOCUS_FILTER_ECONOMY }
@@ -5666,8 +5681,9 @@ focus_tree = {
 	focus = {
 		id = MAD_RURAL_SMART_METER_CONNECTION
 		icon = GFX_goal_generic_political_pressure
-		x = 86
-		y = 10
+		x = 0
+		y = 2
+		relative_position_id = MAD_DECIM
 		cost = 5
 		prerequisite = { focus = MAD_DECIM }
 		search_filters = { FOCUS_FILTER_ECONOMY }
@@ -5696,8 +5712,9 @@ focus_tree = {
 	focus = {
 		id = MAD_MVOLA_CASH_TRANSFERS
 		icon = GFX_goal_generic_political_pressure
-		x = 47
-		y = 10
+		x = 0
+		y = 2
+		relative_position_id = MAD_Grand_Sud_program
 		cost = 5
 		prerequisite = { focus = MAD_Grand_Sud_program }
 		search_filters = { FOCUS_FILTER_ECONOMY FOCUS_FILTER_STABILITY }
@@ -5719,7 +5736,7 @@ focus_tree = {
 		id = MAD_remenabila_takes_command
 		icon = GFX_goal_generic_political_pressure
 		x = 0
-		y = 1
+		y = 2
 		relative_position_id = MAD_cowthief_in_chief
 		cost = 5
 		prerequisite = { focus = MAD_cowthief_in_chief }
@@ -5732,11 +5749,9 @@ focus_tree = {
 			
 			
 			set_temp_variable = { rul_party_temp = 22 }
+			set_temp_variable = { disable_elections = 1 }
 			change_ruling_party_effect = yes
 			
-			set_politics = {
-				elections_allowed = no
-			}
 			
 			add_stability = -0.05
 		}
@@ -5749,8 +5764,8 @@ focus_tree = {
 	focus = {
 		id = MAD_remenabila_gather_the_dahalo
 		icon = GFX_goal_generic_political_pressure
-		x = 0
-		y = 1
+		x = -2
+		y = 2
 		relative_position_id = MAD_remenabila_takes_command
 		cost = 5
 		prerequisite = { focus = MAD_remenabila_takes_command }
@@ -5771,7 +5786,7 @@ focus_tree = {
 		id = MAD_remenabila_cattle_must_be_counted
 		icon = GFX_goal_generic_political_pressure
 		x = 2
-		y = 1
+		y = 2
 		relative_position_id = MAD_remenabila_takes_command
 		cost = 5
 		prerequisite = { focus = MAD_remenabila_takes_command }
