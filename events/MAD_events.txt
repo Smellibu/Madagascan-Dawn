@@ -437,7 +437,7 @@ country_event = {
 # events/MAD_daewoo_events.txt
 add_namespace = mad_daewoo
 
-# Fired by MAD_DAIWOO_FALLOUT: the lease becomes public
+# Fired by MAD_DAEWOO_FALLOUT: the lease becomes public
 country_event = {
 	id = mad_daewoo.1
 	title = mad_daewoo.1.t
@@ -483,9 +483,13 @@ country_event = {
 		MAD_daewoo_end_lease = yes
 		# worse than a cancelled deal: investors stay away for three years
 		add_timed_idea = { idea = MAD_DAEWOO_CANCELLED days = 1095 }
-		# the government changes: the ruling ideology is punished, then the country goes to the polls
-		MAD_daewoo_punish_incumbent = yes
-		MAD_daewoo_hold_election = yes
+		# the ruling party is punished, then the full Millennium Dawn election campaign begins
+		set_temp_variable = { party_index = 2 }
+		set_temp_variable = { party_popularity_increase = -0.15 }
+		set_temp_variable = { temp_outlook_increase = -0.075 }
+		change_relative_party_popularity = yes
+		set_politics = { elections_allowed = yes }
+		hidden_effect = { country_event = { id = MD4_election_campaign.0 days = 1 } }
 	}
 }
 
@@ -989,5 +993,209 @@ country_event = {
 			}
 			MAD_drought_recalc_national = yes
 		}
+	}
+}
+
+
+########################################################################
+# FOREIGN INVESTMENT PURCHASE OFFERS
+########################################################################
+# The foreign buyer pays 75% of the proposed investment from its own treasury.
+# Madagascar receives the full investment value only after the buyer accepts.
+
+add_namespace = mad_foreign_investment
+
+country_event = {
+	id = mad_foreign_investment.1
+	title = mad_foreign_investment.1.t
+	desc = mad_foreign_investment.1.d
+	picture = GFX_report_event_economy_default
+	is_triggered_only = yes
+
+	option = {
+		name = mad_foreign_investment.1.a
+		trigger = {
+			check_variable = { treasury > 7.499 }
+			has_opinion = { target = MAD value > 79 }
+		}
+		ai_chance = { base = 80 }
+		set_temp_variable = { treasury_change = -7.50 }
+		modify_treasury_effect = yes
+		MAD = { country_event = { id = mad_foreign_investment.2 days = 1 } }
+	}
+	option = {
+		name = mad_foreign_investment.1.b
+		ai_chance = { base = 20 }
+		MAD = { country_event = { id = mad_foreign_investment.3 days = 1 } }
+	}
+}
+
+country_event = {
+	id = mad_foreign_investment.2
+	title = mad_foreign_investment.2.t
+	desc = mad_foreign_investment.2.d
+	picture = GFX_report_event_economy_default
+	is_triggered_only = yes
+
+	option = {
+		name = mad_foreign_investment.2.a
+		KOR = {
+			set_temp_variable = { int_investment_change = 10 }
+			modify_international_investment_effect = yes
+		}
+		set_temp_variable = { percent_change = 10 }
+		set_temp_variable = { tag_index = KOR }
+		set_temp_variable = { influence_target = MAD }
+		change_influence_percentage = yes
+		custom_effect_tooltip = {
+			localization_key = modifies_dynamic_modifier_tt
+			MODIFIER = MAD_economy_modifier
+		}
+		add_to_variable = { MAD_economy_production_speed_industrial_complex_factor = 0.03 tooltip = production_speed_industrial_complex_factor_tt }
+		add_to_variable = { MAD_economy_agricolture_productivity_modifier = 0.02 tooltip = agricolture_productivity_modifier_tt }
+		set_temp_variable = { temp_opinion = -5 }
+		change_landowners_opinion = yes
+	}
+}
+
+country_event = {
+	id = mad_foreign_investment.3
+	title = mad_foreign_investment.3.t
+	desc = mad_foreign_investment.3.d
+	picture = GFX_report_event_economy_default
+	is_triggered_only = yes
+
+	option = {
+		name = mad_foreign_investment.3.a
+		add_stability = 0.01
+	}
+}
+
+country_event = {
+	id = mad_foreign_investment.11
+	title = mad_foreign_investment.11.t
+	desc = mad_foreign_investment.11.d
+	picture = GFX_report_event_economy_default
+	is_triggered_only = yes
+
+	option = {
+		name = mad_foreign_investment.11.a
+		trigger = {
+			check_variable = { treasury > 7.499 }
+			has_opinion = { target = MAD value > 79 }
+		}
+		ai_chance = { base = 80 }
+		set_temp_variable = { treasury_change = -7.50 }
+		modify_treasury_effect = yes
+		MAD = { country_event = { id = mad_foreign_investment.12 days = 1 } }
+	}
+	option = {
+		name = mad_foreign_investment.11.b
+		ai_chance = { base = 20 }
+		MAD = { country_event = { id = mad_foreign_investment.13 days = 1 } }
+	}
+}
+
+country_event = {
+	id = mad_foreign_investment.12
+	title = mad_foreign_investment.12.t
+	desc = mad_foreign_investment.12.d
+	picture = GFX_report_event_economy_default
+	is_triggered_only = yes
+
+	option = {
+		name = mad_foreign_investment.12.a
+		USA = {
+			set_temp_variable = { int_investment_change = 10 }
+			modify_international_investment_effect = yes
+		}
+		set_temp_variable = { percent_change = 5 }
+		set_temp_variable = { tag_index = USA }
+		set_temp_variable = { influence_target = MAD }
+		change_influence_percentage = yes
+		custom_effect_tooltip = {
+			localization_key = modifies_dynamic_modifier_tt
+			MODIFIER = MAD_economy_modifier
+		}
+		add_to_variable = { MAD_economy_research_speed_factor = 0.03 tooltip = research_speed_factor_tt }
+		add_to_variable = { MAD_economy_offices_productivity = 0.03 tooltip = offices_productivity_tt }
+		add_to_variable = { MAD_economy_trade_opinion_factor = 0.02 tooltip = trade_opinion_factor_tt }
+	}
+}
+
+country_event = {
+	id = mad_foreign_investment.13
+	title = mad_foreign_investment.13.t
+	desc = mad_foreign_investment.13.d
+	picture = GFX_report_event_economy_default
+	is_triggered_only = yes
+
+	option = {
+		name = mad_foreign_investment.13.a
+		add_stability = 0.01
+	}
+}
+
+country_event = {
+	id = mad_foreign_investment.21
+	title = mad_foreign_investment.21.t
+	desc = mad_foreign_investment.21.d
+	picture = GFX_report_event_economy_default
+	is_triggered_only = yes
+
+	option = {
+		name = mad_foreign_investment.21.a
+		trigger = {
+			check_variable = { treasury > 7.499 }
+			has_opinion = { target = MAD value > 79 }
+		}
+		ai_chance = { base = 80 }
+		set_temp_variable = { treasury_change = -7.50 }
+		modify_treasury_effect = yes
+		MAD = { country_event = { id = mad_foreign_investment.22 days = 1 } }
+	}
+	option = {
+		name = mad_foreign_investment.21.b
+		ai_chance = { base = 20 }
+		MAD = { country_event = { id = mad_foreign_investment.23 days = 1 } }
+	}
+}
+
+country_event = {
+	id = mad_foreign_investment.22
+	title = mad_foreign_investment.22.t
+	desc = mad_foreign_investment.22.d
+	picture = GFX_report_event_economy_default
+	is_triggered_only = yes
+
+	option = {
+		name = mad_foreign_investment.22.a
+		GER = {
+			set_temp_variable = { int_investment_change = 10 }
+			modify_international_investment_effect = yes
+		}
+		set_temp_variable = { percent_change = 10 }
+		set_temp_variable = { tag_index = GER }
+		set_temp_variable = { influence_target = MAD }
+		change_influence_percentage = yes
+		custom_effect_tooltip = {
+			localization_key = modifies_dynamic_modifier_tt
+			MODIFIER = MAD_economy_modifier
+		}
+		add_to_variable = { MAD_economy_production_speed_industrial_complex_factor = 0.03 tooltip = production_speed_industrial_complex_factor_tt }
+		add_to_variable = { MAD_economy_receiving_investment_cost_modifier = -0.03 tooltip = receiving_investment_cost_modifier_tt }
+	}
+}
+
+country_event = {
+	id = mad_foreign_investment.23
+	title = mad_foreign_investment.23.t
+	desc = mad_foreign_investment.23.d
+	picture = GFX_report_event_economy_default
+	is_triggered_only = yes
+
+	option = {
+		name = mad_foreign_investment.23.a
+		add_stability = 0.01
 	}
 }

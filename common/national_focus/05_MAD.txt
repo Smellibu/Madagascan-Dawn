@@ -57,8 +57,8 @@ focus_tree = {
 	focus = {
 		id = MAD_counter_the_dahalo
 		icon = GFX_goal_generic_urban_warfare
-		x = 11
-		y = 1
+		x = 19
+		y = 19
 		cost = 5
 		search_filters = { FOCUS_FILTER_INTERNAL_FACTION FOCUS_FILTER_STABILITY }
 
@@ -104,9 +104,8 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [This.GetName]: Focus MAD_AMBATOVY_JV_FORMED"
-											
-											
-											add_political_power = 50
+			custom_effect_tooltip = MAD_AMBATOVY_DECISIONS_UNLOCK_tt
+			add_political_power = 50
 			set_variable = { MAD_AMBATOVY_TOTAL = 0 }
 			set_variable = { MAD_AMBATOVY_STATE_FUNDS = 0 }
 			set_variable = { MAD_AMBATOVY_CORP = 0 }
@@ -174,17 +173,35 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [This.GetName]: Focus MAD_QMM_CONSTRUCTION"
-											
-											
-											
-											add_political_power = 50
+			268 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+			set_temp_variable = { treasury_change = -10.00 }
+			modify_treasury_effect = yes
+			add_power_balance_value = {
+				id = MAD_economy_ownership_bop
+				value = -0.075
+				tooltip_side = MAD_private_ownership
+			}
+			custom_effect_tooltip = {
+				localization_key = modifies_dynamic_modifier_tt
+				MODIFIER = MAD_economy_modifier
+			}
+			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.05 tooltip = productivity_growth_modifier_tt }
+			add_to_variable = { MAD_economy_return_on_investment_modifier = 0.03 tooltip = return_on_investment_modifier_tt }
+			set_temp_variable = { corp_change = 2 }
+			modify_corporate_tax_rate_effect = yes
 		}
 
 		ai_will_do = {
 			base = 1
 		}
 	}
-
 	focus = {
 		id = MAD_Toliara_rare_earths
 		icon = GFX_goal_generic_political_pressure
@@ -200,13 +217,38 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_Toliara_rare_earths"
+			268 = {
+				add_resource = {
+					type = tungsten
+					amount = 6
+				}
+				add_resource = {
+					type = chromium
+					amount = 4
+				}
+				add_extra_state_shared_building_slots = 1
+				set_temp_variable = { treasury_change = -4.00 }
+						modify_treasury_effect = yes
+			}
+			add_power_balance_value = {
+				id = MAD_economy_ownership_bop
+				value = -0.075
+				tooltip_side = MAD_private_ownership
+			}
+			custom_effect_tooltip = {
+				localization_key = modifies_dynamic_modifier_tt
+				MODIFIER = MAD_economy_modifier
+			}
+			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.05 tooltip = productivity_growth_modifier_tt }
+			add_to_variable = { MAD_economy_local_resources_tungsten_factor = 0.10 tooltip = local_resources_tungsten_factor_tt }
+			add_to_variable = { MAD_economy_research_speed_factor = 0.03 tooltip = research_speed_factor_tt }
+			add_to_variable = { MAD_economy_receiving_investment_cost_modifier = -0.05 tooltip = receiving_investment_cost_modifier_tt }
 		}
 
 		ai_will_do = {
 			base = 1
 		}
 	}
-
 	focus = {
 		id = MAD_Bemolanga_oil_sands_project
 		icon = GFX_goal_generic_political_pressure
@@ -219,13 +261,33 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_Bemolanga_oil_sands_project"
+			266 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+			set_temp_variable = { treasury_change = -12.00 }
+						modify_treasury_effect = yes
+			add_power_balance_value = {
+				id = MAD_economy_ownership_bop
+				value = -0.075
+				tooltip_side = MAD_private_ownership
+			}
+			custom_effect_tooltip = {
+				localization_key = modifies_dynamic_modifier_tt
+				MODIFIER = MAD_economy_modifier
+			}
+			add_to_variable = { MAD_economy_research_speed_factor = 0.03 tooltip = research_speed_factor_tt }
+			add_to_variable = { MAD_economy_receiving_investment_cost_modifier = -0.03 tooltip = receiving_investment_cost_modifier_tt }
 		}
 
 		ai_will_do = {
 			base = 1
 		}
 	}
-
 	focus = {
 		id = MAD_Telma
 		icon = GFX_goal_generic_political_pressure
@@ -344,8 +406,8 @@ focus_tree = {
 	focus = {
 		id = MAD_aremas_republic
 		icon = GFX_goal_generic_national_unity
-		x = 110
-		y = 2
+		x = 117
+		y = 1
 		cost = 5
 		search_filters = { FOCUS_FILTER_POLITICAL }
 
@@ -362,7 +424,7 @@ focus_tree = {
 	focus = {
 		id = MAD_2009_Transitional
 		icon = GFX_goal_generic_political_pressure
-		x = 0
+		x = -10
 		y = 3
 		cost = 5
 		search_filters = { FOCUS_FILTER_POLITICAL }
@@ -380,7 +442,7 @@ focus_tree = {
 		id = MAD_formalize_dina_courts
 		icon = GFX_goal_generic_national_unity
 		x = 0
-		y = 2
+		y = 1
 		relative_position_id = MAD_counter_the_dahalo
 		cost = 5
 		prerequisite = { focus = MAD_counter_the_dahalo }
@@ -411,6 +473,13 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_NATURELLE"
+			custom_effect_tooltip = {
+				localization_key = modifies_dynamic_modifier_tt
+				MODIFIER = MAD_economy_modifier
+			}
+			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.2 tooltip = productivity_growth_modifier_tt }
+			add_to_variable = { MAD_economy_expected_welfare_modifier = 0.5 tooltip = expected_welfare_modifier_tt }
+			add_stability = 0.02
 		}
 
 		ai_will_do = {
@@ -451,8 +520,6 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_POLITICAL }
 
 		completion_reward = {
-			# safety net: if the on_startup event never fired (load order, another mod's on_actions), the whole
-			# panel would sit at 0/100 forever. Start it here instead.
 			hidden_effect = {
 				if = {
 					limit = { NOT = { has_country_flag = MAD_DROUGHT_STARTED } }
@@ -500,13 +567,40 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_ilmenite_mine"
+			268 = {
+				add_resource = {
+					type = tungsten
+					amount = 6
+				}
+				add_resource = {
+					type = chromium
+					amount = 2
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+				set_temp_variable = { treasury_change = -12.00 }
+						modify_treasury_effect = yes
+			}
+			add_power_balance_value = {
+				id = MAD_economy_ownership_bop
+				value = -0.0375
+				tooltip_side = MAD_private_ownership
+			}
+			custom_effect_tooltip = {
+				localization_key = modifies_dynamic_modifier_tt
+				MODIFIER = MAD_economy_modifier
+			}
+			add_to_variable = { MAD_economy_local_resources_tungsten_factor = 0.10 tooltip = local_resources_tungsten_factor_tt }
 		}
 
 		ai_will_do = {
 			base = 1
 		}
 	}
-
 	focus = {
 		id = MAD_Fort_Dauphin_Taolagnaro
 		icon = GFX_goal_generic_political_pressure
@@ -519,25 +613,54 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_Fort_Dauphin_Taolagnaro"
+			268 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = offices
+					level = 1
+					instant_build = yes
+				}
+			}
+			custom_effect_tooltip = {
+				localization_key = modifies_dynamic_modifier_tt
+				MODIFIER = MAD_economy_modifier
+			}
+			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.05 tooltip = productivity_growth_modifier_tt }
+			add_to_variable = { MAD_economy_offices_productivity = 0.03 tooltip = offices_productivity_tt }
+			add_to_variable = { MAD_economy_civ_facs_worker_requirement_modifier = -0.03 tooltip = civ_facs_worker_requirement_modifier_tt }
+			add_stability = 0.02
 		}
 
 		ai_will_do = {
 			base = 1
 		}
 	}
-
 	focus = {
 		id = MAD_The_Capital
 		icon = GFX_goal_generic_political_pressure
-		x = -17
+		x = -21
 		y = 3
 		relative_position_id = MAD_lost_decade
 		cost = 5
 		prerequisite = { focus = MAD_lost_decade }
 		search_filters = { FOCUS_FILTER_POLITICAL }
+		available = {
+			gdp_total_greater_than_150 = yes
+		}
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_The_Capital"
+					
+			
+			267 = {
+				one_state_infrastructure = yes
+				one_state_office_construction = yes
+			}
 		}
 
 		ai_will_do = {
@@ -548,7 +671,7 @@ focus_tree = {
 	focus = {
 		id = MAD_TOAMASINA
 		icon = GFX_goal_generic_political_pressure
-		x = -14
+		x = -17
 		y = 3
 		relative_position_id = MAD_lost_decade
 		cost = 5
@@ -556,11 +679,29 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_POLITICAL }
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus MAD_TOASMINA"
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_TOAMASINA"
+						
+			
+						set_temp_variable = { treasury_change = -2.00 }
+						modify_treasury_effect = yes
+						487 = {
+							add_building_construction = {
+								type = naval_base
+								level = 1
+								instant_build = yes
+							}
+							one_state_infrastructure = yes
+						}
+						custom_effect_tooltip = {
+							localization_key = modifies_dynamic_modifier_tt
+							MODIFIER = MAD_economy_modifier
+						}
+						add_to_variable = { MAD_economy_international_market_income_modifier = 0.05 tooltip = international_market_income_modifier_tt }
+						add_to_variable = { MAD_economy_receiving_investment_duration_modifier = -0.05 tooltip = receiving_investment_duration_modifier_tt }
 			add_equipment_to_stockpile = {
-				type = convoy_1
-				amount = 20
-			}
+							type = convoy_1
+							amount = 20
+						}
 		}
 
 		ai_will_do = {
@@ -580,7 +721,7 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_Agricultural_reforms"
-			# agriculture gets its own dynamic modifier; later agricultural focuses / decisions / ideas feed the same variables
+			
 			add_dynamic_modifier = { modifier = MAD_agriculture_modifier }
 			custom_effect_tooltip = {
 				localization_key = modifies_dynamic_modifier_tt
@@ -589,7 +730,7 @@ focus_tree = {
 			add_to_variable = { MAD_agri_worker_req = -0.03 tooltip = agriculture_district_worker_requirement_modifier_tt }
 			add_to_variable = { MAD_agri_productivity = 0.03 tooltip = agricolture_productivity_modifier_tt }
 			force_update_dynamic_modifier = yes
-			# new farmland in the Alaotra rice basin
+			
 			487 = {
 				add_extra_state_shared_building_slots = 1
 				add_building_construction = {
@@ -614,7 +755,10 @@ focus_tree = {
 		prerequisite = { focus = MAD_AMBATOVY_JV_FORMED }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
-			has_country_flag = MAD_ambatovy_mission_done
+			custom_trigger_tooltip = {
+				tooltip = MAD_ambatovy_mission_done_tt
+				has_country_flag = MAD_ambatovy_mission_done
+			}
 		}
 
 		completion_reward = {
@@ -670,14 +814,40 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [This.GetName]: Focus MAD_EHOALA_PORT"
-											add_political_power = 25
+			268 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = naval_base
+					level = 2
+					instant_build = yes
+					province = 545
+				}
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+				set_temp_variable = { treasury_change = -4.50 }
+						modify_treasury_effect = yes
+			}
+			add_equipment_to_stockpile = {
+				type = convoy_1
+				amount = 20
+			}
+			custom_effect_tooltip = {
+				localization_key = modifies_dynamic_modifier_tt
+				MODIFIER = MAD_economy_modifier
+			}
+			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.05 tooltip = productivity_growth_modifier_tt }
+			add_to_variable = { MAD_economy_international_market_income_modifier = 0.05 tooltip = international_market_income_modifier_tt }
+			add_to_variable = { MAD_economy_receiving_investment_cost_modifier = -0.05 tooltip = receiving_investment_cost_modifier_tt }
+			add_to_variable = { MAD_economy_receiving_investment_duration_modifier = -0.05 tooltip = receiving_investment_duration_modifier_tt }
 		}
 
 		ai_will_do = {
 			base = 1
 		}
 	}
-
 	focus = {
 		id = MAD_Tsimiroro_heavy_oil_field
 		icon = GFX_goal_generic_political_pressure
@@ -690,6 +860,311 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_Tsimiroro_heavy_oil_field"
+			266 = {
+				add_resource = {
+					type = oil
+					amount = 10
+				}
+			}
+			set_temp_variable = { treasury_change = -7.50 }
+						modify_treasury_effect = yes
+			add_power_balance_value = {
+				id = MAD_economy_ownership_bop
+				value = -0.0375
+				tooltip_side = MAD_private_ownership
+			}
+			custom_effect_tooltip = {
+				localization_key = modifies_dynamic_modifier_tt
+				MODIFIER = MAD_economy_modifier
+			}
+			add_to_variable = { MAD_economy_local_resources_oil_factor = 0.15 tooltip = local_resources_oil_factor_tt }
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+	focus = {
+		id = MAD_QMM_MONAZITE_PROCESSING
+		icon = GFX_goal_generic_political_pressure
+		x = 0
+		y = 1
+		relative_position_id = MAD_ilmenite_mine
+		cost = 5
+		prerequisite = { focus = MAD_ilmenite_mine }
+		search_filters = { FOCUS_FILTER_ECONOMY }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_QMM_MONAZITE_PROCESSING"
+			268 = {
+				add_resource = {
+					type = tungsten
+					amount = 2
+				}
+				add_resource = {
+					type = chromium
+					amount = 2
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+				
+			}
+			set_temp_variable = { treasury_change = -14.00 }
+				modify_treasury_effect = yes
+			add_power_balance_value = {
+				id = MAD_economy_ownership_bop
+				value = -0.0375
+				tooltip_side = MAD_private_ownership
+			}
+			custom_effect_tooltip = {
+				localization_key = modifies_dynamic_modifier_tt
+				MODIFIER = MAD_economy_modifier
+			}
+			add_to_variable = { MAD_economy_local_resources_tungsten_factor = 0.10 tooltip = local_resources_tungsten_factor_tt }
+			add_to_variable = { MAD_economy_research_speed_factor = 0.05 tooltip = research_speed_factor_tt }
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_TOLIARA_RANOBE_SURVEY
+		icon = GFX_goal_generic_political_pressure
+		x = -2
+		y = 1
+		relative_position_id = MAD_Toliara_rare_earths
+		cost = 5
+		prerequisite = { focus = MAD_Toliara_rare_earths }
+		search_filters = { FOCUS_FILTER_ECONOMY }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_TOLIARA_RANOBE_SURVEY"
+			custom_effect_tooltip = {
+				localization_key = modifies_dynamic_modifier_tt
+				MODIFIER = MAD_economy_modifier
+			}
+			add_to_variable = { MAD_economy_local_resources_tungsten_factor = 0.05 tooltip = local_resources_tungsten_factor_tt }
+			add_to_variable = { MAD_economy_research_speed_factor = 0.04 tooltip = research_speed_factor_tt }
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_TOLIARA_MONAZITE_PROCESSING
+		icon = GFX_goal_generic_political_pressure
+		x = 2
+		y = 1
+		relative_position_id = MAD_Toliara_rare_earths
+		cost = 5
+		prerequisite = { focus = MAD_Toliara_rare_earths }
+		search_filters = { FOCUS_FILTER_ECONOMY }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_TOLIARA_MONAZITE_PROCESSING"
+			268 = {
+				add_resource = {
+					type = tungsten
+					amount = 3
+				}
+				add_resource = {
+					type = chromium
+					amount = 3
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+			add_power_balance_value = {
+				id = MAD_economy_ownership_bop
+				value = -0.0375
+				tooltip_side = MAD_private_ownership
+			}
+			custom_effect_tooltip = {
+				localization_key = modifies_dynamic_modifier_tt
+				MODIFIER = MAD_economy_modifier
+			}
+			add_to_variable = { MAD_economy_local_resources_tungsten_factor = 0.10 tooltip = local_resources_tungsten_factor_tt }
+			add_to_variable = { MAD_economy_research_speed_factor = 0.05 tooltip = research_speed_factor_tt }
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_BEMOLANGA_BITUMEN_APPRAISAL
+		icon = GFX_goal_generic_political_pressure
+		x = -2
+		y = 1
+		relative_position_id = MAD_Bemolanga_oil_sands_project
+		cost = 5
+		prerequisite = { focus = MAD_Bemolanga_oil_sands_project }
+		search_filters = { FOCUS_FILTER_ECONOMY }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_BEMOLANGA_BITUMEN_APPRAISAL"
+			custom_effect_tooltip = {
+				localization_key = modifies_dynamic_modifier_tt
+				MODIFIER = MAD_economy_modifier
+			}
+			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.05 tooltip = productivity_growth_modifier_tt }
+			add_to_variable = { MAD_economy_local_resources_oil_factor = 0.10 tooltip = local_resources_oil_factor_tt }
+			add_to_variable = { MAD_economy_research_speed_factor = 0.05 tooltip = research_speed_factor_tt }
+			add_to_variable = { MAD_economy_receiving_investment_cost_modifier = -0.05 tooltip = receiving_investment_cost_modifier_tt }
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_BEMOLANGA_PILOT_EXTRACTION
+		icon = GFX_goal_generic_political_pressure
+		x = 2
+		y = 1
+		relative_position_id = MAD_Bemolanga_oil_sands_project
+		cost = 5
+		prerequisite = { focus = MAD_Bemolanga_oil_sands_project }
+		search_filters = { FOCUS_FILTER_ECONOMY }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_BEMOLANGA_PILOT_EXTRACTION"
+			266 = {
+				add_resource = {
+					type = oil
+					amount = 8
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+				set_temp_variable = { treasury_change = -9.00 }
+						modify_treasury_effect = yes
+			}
+			add_power_balance_value = {
+				id = MAD_economy_ownership_bop
+				value = -0.0375
+				tooltip_side = MAD_private_ownership
+			}
+			custom_effect_tooltip = {
+				localization_key = modifies_dynamic_modifier_tt
+				MODIFIER = MAD_economy_modifier
+			}
+			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.03 tooltip = productivity_growth_modifier_tt }
+			add_to_variable = { MAD_economy_local_resources_oil_factor = 0.10 tooltip = local_resources_oil_factor_tt }
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_BEMOLANGA_CONVENTIONAL_EXPLORATION
+		icon = GFX_goal_generic_political_pressure
+		x = -2
+		y = 2
+		relative_position_id = MAD_Bemolanga_oil_sands_project
+		cost = 5
+		prerequisite = { focus = MAD_Bemolanga_oil_sands_project }
+		search_filters = { FOCUS_FILTER_ECONOMY }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_BEMOLANGA_CONVENTIONAL_EXPLORATION"
+			custom_effect_tooltip = {
+				localization_key = modifies_dynamic_modifier_tt
+				MODIFIER = MAD_economy_modifier
+			}
+			add_to_variable = { MAD_economy_research_speed_factor = 0.05 tooltip = research_speed_factor_tt }
+			add_to_variable = { MAD_economy_local_resources_oil_factor = 0.10 tooltip = local_resources_oil_factor_tt }
+			add_to_variable = { MAD_economy_receiving_investment_cost_modifier = -0.05 tooltip = receiving_investment_cost_modifier_tt }
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_BEMOLANGA_HEAVY_OIL_PILOT
+		icon = GFX_goal_generic_political_pressure
+		x = -1
+		y = 1
+		relative_position_id = MAD_Tsimiroro_heavy_oil_field
+		cost = 5
+		prerequisite = { focus = MAD_Tsimiroro_heavy_oil_field }
+		search_filters = { FOCUS_FILTER_ECONOMY }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_BEMOLANGA_HEAVY_OIL_PILOT"
+			266 = {
+				add_resource = {
+					type = oil
+					amount = 6
+				}
+			}
+			set_temp_variable = { treasury_change = -4.00 }
+						modify_treasury_effect = yes
+			add_power_balance_value = {
+				id = MAD_economy_ownership_bop
+				value = -0.0375
+				tooltip_side = MAD_private_ownership
+			}
+			custom_effect_tooltip = {
+				localization_key = modifies_dynamic_modifier_tt
+				MODIFIER = MAD_economy_modifier
+			}
+			add_to_variable = { MAD_economy_local_resources_oil_factor = 0.10 tooltip = local_resources_oil_factor_tt }
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_BEMOLANGA_ROADS
+		icon = GFX_goal_generic_construct_infrastructure
+		x = 1
+		y = 1
+		relative_position_id = MAD_Tsimiroro_heavy_oil_field
+		cost = 5
+		prerequisite = { focus = MAD_Tsimiroro_heavy_oil_field }
+		search_filters = { FOCUS_FILTER_ECONOMY }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_BEMOLANGA_ROADS"
+			266 = {
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+			set_temp_variable = { treasury_change = -3.50 }
+						modify_treasury_effect = yes
+			custom_effect_tooltip = {
+				localization_key = modifies_dynamic_modifier_tt
+				MODIFIER = MAD_economy_modifier
+			}
+			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.05 tooltip = productivity_growth_modifier_tt }
+			add_to_variable = { MAD_economy_supply_node_range = 0.03 tooltip = supply_node_range_tt }
 		}
 
 		ai_will_do = {
@@ -725,8 +1200,6 @@ focus_tree = {
 			}
 			add_to_variable = { MAD_economy_civ_facs_worker_requirement_modifier = -0.04 tooltip = civ_facs_worker_requirement_modifier_tt }
 			add_to_variable = { MAD_economy_stability_factor = -0.04 tooltip = stability_factor_tt}
-			
-			
 		}
 
 		ai_will_do = {
@@ -749,7 +1222,7 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [This.GetName]: Focus MAD_RNCFM_PRIVATIZE"
-			# 2003: RNCFM concession awarded to the Madarail consortium (Comazar-led) - rail passes to private operation
+			
 			set_country_flag = MAD_MADARAIL_PRIVATE
 			add_power_balance_value = {
 				id = MAD_economy_ownership_bop
@@ -762,7 +1235,7 @@ focus_tree = {
 			}
 			add_to_variable = { MAD_economy_receiving_investment_cost_modifier = -0.05 tooltip = receiving_investment_cost_modifier_tt }
 			add_to_variable = { MAD_economy_production_speed_rail_way_factor = 0.10 tooltip = production_speed_rail_way_factor_tt }
-			# concessionaire rehab of the Toamasina - Moramanga - Antananarivo trunk
+			
 			build_railway = {
 				level = 1
 				path = { 615 874 11015 }
@@ -915,7 +1388,7 @@ focus_tree = {
 		id = MAD_ZEBU_CERTIFICATES
 		icon = GFX_goal_generic_political_pressure
 		x = 0
-		y = 2
+		y = 1
 		relative_position_id = MAD_formalize_dina_courts
 		cost = 5
 		prerequisite = { focus = MAD_formalize_dina_courts }
@@ -933,7 +1406,7 @@ focus_tree = {
 	focus = {
 		id = MAD_Japanese_bypass
 		icon = GFX_goal_generic_political_pressure
-		x = 17
+		x = 12
 		y = 5
 		cost = 5
 		prerequisite = { focus = MAD_The_Capital }
@@ -941,6 +1414,30 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_Japanese_bypass"
+					
+			
+			JAP = {
+				set_temp_variable = { treasury_change = -2.00 }
+				modify_treasury_effect = yes
+				set_temp_variable = { int_investment_change = 10 }
+				modify_international_investment_effect = yes
+			}
+			set_temp_variable = { percent_change = 10 }
+			set_temp_variable = { tag_index = JAP }
+			set_temp_variable = { influence_target = MAD }
+			change_influence_percentage = yes
+			267 = {
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+			custom_effect_tooltip = {
+				localization_key = modifies_dynamic_modifier_tt
+				MODIFIER = MAD_economy_modifier
+			}
+			add_to_variable = { MAD_economy_production_speed_infrastructure_factor = 0.03 tooltip = production_speed_infrastructure_factor_tt }
 		}
 
 		ai_will_do = {
@@ -951,7 +1448,7 @@ focus_tree = {
 	focus = {
 		id = MAD_Rocade_ring_road
 		icon = GFX_goal_generic_political_pressure
-		x = 19
+		x = 16
 		y = 5
 		cost = 5
 		prerequisite = { focus = MAD_The_Capital }
@@ -959,6 +1456,17 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_Rocade_ring_road"
+					
+			
+			267 = {
+				one_state_infrastructure = yes
+			}
+			custom_effect_tooltip = {
+				localization_key = modifies_dynamic_modifier_tt
+				MODIFIER = MAD_economy_modifier
+			}
+			add_to_variable = { MAD_economy_infrastructure_cost_multiplier_modifier = -0.03 tooltip = infrastructure_cost_multiplier_modifier_tt }
+			add_to_variable = { MAD_economy_supply_node_range = 0.03 tooltip = supply_node_range_tt }
 		}
 
 		ai_will_do = {
@@ -975,9 +1483,6 @@ focus_tree = {
 		cost = 5
 		prerequisite = { focus = MAD_Drought_and_famine }
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ECONOMY }
-
-		# cassava, sorghum and short-cycle rice need the extension service the reforms created - a requirement,
-		# not a prerequisite, so the tree stays readable
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_AGRI_REFORMS_DONE_tt
@@ -1037,9 +1542,6 @@ focus_tree = {
 		cost = 8
 		prerequisite = { focus = MAD_Drought_and_famine }
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ECONOMY }
-
-		# the locust branch runs on the agriculture modifier, so the reforms have to exist first - but as a
-		# requirement, not a prerequisite, so it does not drag another arrow across the tree
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_AGRI_REFORMS_DONE_tt
@@ -1082,18 +1584,45 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_Toliara_Deep_Sea_port"
+			268 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = naval_base
+					level = 2
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+				
+			}
+			set_temp_variable = { treasury_change = -4.50 }
+						modify_treasury_effect = yes
+			add_equipment_to_stockpile = {
+				type = convoy_1
+				amount = 20
+			}
+			custom_effect_tooltip = {
+				localization_key = modifies_dynamic_modifier_tt
+				MODIFIER = MAD_economy_modifier
+			}
+			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.05 tooltip = productivity_growth_modifier_tt }
+			add_to_variable = { MAD_economy_local_resources_tungsten_factor = 0.05 tooltip = local_resources_tungsten_factor_tt }
+			add_to_variable = { MAD_economy_international_market_income_modifier = 0.05 tooltip = international_market_income_modifier_tt }
+			add_to_variable = { MAD_economy_receiving_investment_duration_modifier = -0.05 tooltip = receiving_investment_duration_modifier_tt }
 		}
 
 		ai_will_do = {
 			base = 1
 		}
 	}
-
 	focus = {
 		id = MAD_the_court_rules
 		icon = GFX_goal_generic_law
 		x = -2
-		y = 1
+		y = 2
 		relative_position_id = MAD_the_2001_election
 		cost = 5
 		prerequisite = { focus = MAD_the_2001_election }
@@ -1117,8 +1646,8 @@ focus_tree = {
 	focus = {
 		id = MAD_ratsiraka_digs_in
 		icon = GFX_goal_generic_military_march
-		x = 2
-		y = 1
+		x = 3
+		y = 2
 		relative_position_id = MAD_the_2001_election
 		cost = 5
 		prerequisite = { focus = MAD_the_2001_election }
@@ -1141,7 +1670,7 @@ focus_tree = {
 	focus = {
 		id = MAD_ICTSI_CONCESSION
 		icon = GFX_goal_generic_political_pressure
-		x = 21
+		x = 17
 		y = 6
 		cost = 5
 		prerequisite = { focus = MAD_TOAMASINA }
@@ -1174,7 +1703,7 @@ focus_tree = {
 	focus = {
 		id = MAD_vanilla_export_sector
 		icon = GFX_goal_generic_political_pressure
-		x = -3
+		x = -5
 		y = 2
 		relative_position_id = MAD_Agricultural_reforms
 		cost = 5
@@ -1183,6 +1712,12 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_vanilla_export_sector"
+			custom_effect_tooltip = {
+				localization_key = modifies_dynamic_modifier_tt
+				MODIFIER = MAD_economy_modifier
+			}
+			add_to_variable = { MAD_economy_international_market_income_modifier = 0.03 tooltip = international_market_income_modifier_tt }
+			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.02 tooltip = productivity_growth_modifier_tt }
 		}
 
 		ai_will_do = {
@@ -1191,9 +1726,9 @@ focus_tree = {
 	}
 
 	focus = {
-		id = MAD_DAIWOO_DEAL
+		id = MAD_DAEWOO_DEAL
 		icon = GFX_goal_generic_political_pressure
-		x = 5
+		x = 3
 		y = 2
 		relative_position_id = MAD_Agricultural_reforms
 		cost = 5
@@ -1204,9 +1739,37 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus MAD_DAIWOO_DEAL"
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_DAEWOO_DEAL"
 			set_country_flag = MAD_DAEWOO_SIGNED
+			KOR = {
+				set_temp_variable = { int_investment_change = 5 }
+				modify_international_investment_effect = yes
+				set_temp_variable = { treasury_change = -2.00 }
+				modify_treasury_effect = yes
+			}
+			set_temp_variable = { percent_change = 5 }
+			set_temp_variable = { tag_index = KOR }
+			set_temp_variable = { influence_target = MAD }
+			change_influence_percentage = yes
 			custom_effect_tooltip = MAD_daewoo_deal_tt
+			268 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = agriculture_district
+					level = 1
+					instant_build = yes
+				}
+			}
+			custom_effect_tooltip = {
+				localization_key = modifies_dynamic_modifier_tt
+				MODIFIER = MAD_agriculture_modifier
+			}
+			add_to_variable = { MAD_agri_productivity = 0.02 tooltip = agricolture_productivity_modifier_tt }
+			add_to_variable = { MAD_agri_income_tax = 0.02 tooltip = agriculture_district_income_tax_modifier_tt }
+			hidden_effect = {
+				set_country_flag = MAD_DAEWOO_KOREAN_AGRI_SECTOR
+				force_update_dynamic_modifier = yes
+			}
 		}
 
 		ai_will_do = {
@@ -1226,6 +1789,13 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POVERTY_PAPER"
+			add_stability = 0.02
+			custom_effect_tooltip = {
+				localization_key = modifies_dynamic_modifier_tt
+				MODIFIER = MAD_economy_modifier
+			}
+			add_to_variable = { MAD_economy_expected_welfare_modifier = 0.5 tooltip = expected_welfare_modifier_tt }
+			add_to_variable = { MAD_economy_production_speed_infrastructure_factor = 0.03 tooltip = production_speed_infrastructure_factor_tt }
 		}
 
 		ai_will_do = {
@@ -1247,11 +1817,14 @@ focus_tree = {
 			OR = { has_idea = MAD_AMBATOVY_Partial_State
 					has_idea = MAD_AMBATOVY_Full_State
 				}
-			has_country_flag = MAD_ambatovy_mine_built
+			custom_trigger_tooltip = {
+				tooltip = MAD_ambatovy_mine_built_tt
+				has_country_flag = MAD_ambatovy_mine_built
+			}
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [This.GetName]: Focus MAD_AMBATOVY_COVID_SUSPENSION"
+			log = "[GetDateText]: [This.GetName]: Focus MAD_AMBATOVY_EXPANSION"
 					custom_effect_tooltip = {
 										localization_key = modifies_dynamic_modifier_tt
 										MODIFIER = MAD_economy_modifier
@@ -1322,14 +1895,12 @@ focus_tree = {
 		cost = 5
 		prerequisite = { focus = MAD_RNCFM_PRIVATIZE }
 		search_filters = { FOCUS_FILTER_ECONOMY }
-		available = {
-		}
 
 		completion_reward = {
 			log = "[GetDateText]: [This.GetName]: Focus MAD_MADARAIL_OWNERSHIP_CHURN"
-			# 2008-2011: Vecturis buys into the concession, then the Madarail Holding consortium forms - ownership churns between private investors, majority stays private
+			
 			set_country_flag = MAD_MADARAIL_HOLDING
-			# starts the 150-day operator rotation (mission MAD_MADARAIL_INVESTOR_TENURE) - see MAD_madarail_events.txt
+			
 			country_event = { id = mad_madarail.2 }
 			custom_effect_tooltip = {
 				localization_key = modifies_dynamic_modifier_tt
@@ -1460,12 +2031,12 @@ focus_tree = {
 		mutually_exclusive = { focus = MAD_CONTINUE_WITH_LUFTHANSA }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
-				267 = {
-				air_base > 2
-				}
-				487 = {
-				air_base > 2
-				}
+			267 = {
+			air_base > 2
+			}
+			487 = {
+			air_base > 2
+			}
 		}
 
 		completion_reward = {
@@ -1514,8 +2085,8 @@ focus_tree = {
 	focus = {
 		id = MAD_enter_Remenabila
 		icon = GFX_goal_generic_political_pressure
-		x = 6
-		y = 7
+		x = 14
+		y = 20
 		cost = 5
 		search_filters = { FOCUS_FILTER_POLITICAL }
 
@@ -1532,7 +2103,7 @@ focus_tree = {
 		id = MAD_FIGHTING_CERTIFICATE_FRAUD
 		icon = GFX_goal_generic_political_pressure
 		x = -2
-		y = 2
+		y = 1
 		relative_position_id = MAD_ZEBU_CERTIFICATES
 		cost = 5
 		prerequisite = { focus = MAD_ZEBU_CERTIFICATES }
@@ -1551,7 +2122,7 @@ focus_tree = {
 		id = MAD_dahalo_military_ops
 		icon = GFX_goal_generic_political_pressure
 		x = 0
-		y = 2
+		y = 1
 		relative_position_id = MAD_ZEBU_CERTIFICATES
 		cost = 5
 		prerequisite = { focus = MAD_ZEBU_CERTIFICATES }
@@ -1570,7 +2141,7 @@ focus_tree = {
 		id = MAD_IOM_poverty_measures
 		icon = GFX_goal_generic_political_pressure
 		x = 2
-		y = 2
+		y = 1
 		relative_position_id = MAD_ZEBU_CERTIFICATES
 		cost = 5
 		prerequisite = { focus = MAD_ZEBU_CERTIFICATES }
@@ -1588,7 +2159,7 @@ focus_tree = {
 	focus = {
 		id = MAD_Ivato_second_runway
 		icon = GFX_goal_generic_political_pressure
-		x = -1
+		x = -4
 		y = 2
 		relative_position_id = MAD_Rocade_ring_road
 		cost = 5
@@ -1600,6 +2171,37 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_Ivato_second_runway"
+			set_temp_variable = { treasury_change = -6.75 }
+			modify_treasury_effect = yes
+			random_owned_state = {
+				limit = { air_base < 1 }
+				add_building_construction = {
+					type = air_base
+					level = 1
+					instant_build = yes
+				}
+			}
+			random_owned_state = {
+				limit = { air_base < 1 }
+				add_building_construction = {
+					type = air_base
+					level = 1
+					instant_build = yes
+				}
+			}
+			random_owned_state = {
+				add_building_construction = {
+					type = radar_station
+					level = 1
+					instant_build = yes
+				}
+			}
+			custom_effect_tooltip = {
+				localization_key = modifies_dynamic_modifier_tt
+				MODIFIER = MAD_economy_modifier
+			}
+			add_to_variable = { MAD_economy_corporate_tax_income_multiplier_modifier = 0.05 tooltip = corporate_tax_income_multiplier_modifier_tt }
+			add_to_variable = { MAD_economy_infrastructure_tax_gain_multiplier_modifier = 0.05 tooltip = infrastructure_tax_gain_multiplier_modifier_tt }
 		}
 
 		ai_will_do = {
@@ -1764,7 +2366,7 @@ focus_tree = {
 	focus = {
 		id = MAD_TOAMASINA_JICA_EXPANSION
 		icon = GFX_goal_generic_political_pressure
-		x = 0
+		x = 1
 		y = 2
 		relative_position_id = MAD_ICTSI_CONCESSION
 		cost = 5
@@ -1774,7 +2376,36 @@ focus_tree = {
 		completion_reward = {
 			log = "[GetDateText]: [This.GetName]: Focus MAD_TOAMASINA_JICA_EXPANSION"
 											
-											add_political_power = 25
+											
+			
+			JAP = {
+				set_temp_variable = { treasury_change = -5.00 }
+				modify_treasury_effect = yes
+				set_temp_variable = { int_investment_change = 10 }
+				modify_international_investment_effect = yes
+			}
+			set_temp_variable = { percent_change = 5 }
+			set_temp_variable = { tag_index = JAP }
+			set_temp_variable = { influence_target = MAD }
+			change_influence_percentage = yes
+			487 = {
+				add_building_construction = {
+					type = naval_base
+					level = 1
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+			custom_effect_tooltip = {
+				localization_key = modifies_dynamic_modifier_tt
+				MODIFIER = MAD_economy_modifier
+			}
+			add_to_variable = { MAD_economy_production_speed_rail_terminal_factor = 0.05 tooltip = production_speed_rail_terminal_factor_tt }
+			add_to_variable = { MAD_economy_infrastructure_cost_multiplier_modifier = -0.03 tooltip = infrastructure_cost_multiplier_modifier_tt }
 		}
 
 		ai_will_do = {
@@ -1795,6 +2426,13 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_vanilla_quality_control"
+			custom_effect_tooltip = {
+				localization_key = modifies_dynamic_modifier_tt
+				MODIFIER = MAD_economy_modifier
+			}
+			add_to_variable = { MAD_economy_trade_opinion_factor = 0.05 tooltip = trade_opinion_factor_tt }
+			add_to_variable = { MAD_economy_return_on_investment_modifier = 0.02 tooltip = return_on_investment_modifier_tt }
+			add_to_variable = { MAD_economy_productivity_growth_modifier = -0.02 tooltip = productivity_growth_modifier_tt }
 		}
 
 		ai_will_do = {
@@ -1815,6 +2453,12 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_vanilla_quantity"
+			custom_effect_tooltip = {
+				localization_key = modifies_dynamic_modifier_tt
+				MODIFIER = MAD_economy_modifier
+			}
+			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.05 tooltip = productivity_growth_modifier_tt }
+			add_to_variable = { MAD_economy_trade_opinion_factor = -0.02 tooltip = trade_opinion_factor_tt }
 		}
 
 		ai_will_do = {
@@ -1823,21 +2467,24 @@ focus_tree = {
 	}
 
 	focus = {
-		id = MAD_DAIWOO_FALLOUT
+		id = MAD_DAEWOO_FALLOUT
 		icon = GFX_goal_generic_political_pressure
 		x = 0
 		y = 2
-		relative_position_id = MAD_DAIWOO_DEAL
+		relative_position_id = MAD_DAEWOO_DEAL
 		cost = 5
-		prerequisite = { focus = MAD_DAIWOO_DEAL }
+		prerequisite = { focus = MAD_DAEWOO_DEAL }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus MAD_DAIWOO_FALLOUT"
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_DAEWOO_FALLOUT"
 			add_stability = -0.05
 			add_political_power = -25
-			# the deal is found out: the ruling party takes the blame
-			MAD_daewoo_pop_exposed = yes
+			
+			set_temp_variable = { party_index = 2 }
+			set_temp_variable = { party_popularity_increase = -0.20 }
+			set_temp_variable = { temp_outlook_increase = -0.10 }
+			change_relative_party_popularity = yes
 			country_event = { id = mad_daewoo.1 }
 		}
 
@@ -1858,6 +2505,14 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_CUT_CORPORATE_TAX"
+			set_temp_variable = { corp_change = -5 }
+			modify_corporate_tax_rate_effect = yes
+			custom_effect_tooltip = {
+				localization_key = modifies_dynamic_modifier_tt
+				MODIFIER = MAD_economy_modifier
+			}
+			add_to_variable = { MAD_economy_receiving_investment_cost_modifier = -0.05 tooltip = receiving_investment_cost_modifier_tt }
+			add_to_variable = { MAD_economy_return_on_investment_modifier = 0.02 tooltip = return_on_investment_modifier_tt }
 		}
 
 		ai_will_do = {
@@ -1924,7 +2579,7 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [This.GetName]: Focus MAD_MADARAIL_INVESTORS_STAY"
-			# consortium recommits to the concession and reinvests rather than exiting
+			
 			set_country_flag = MAD_MADARAIL_INVESTORS_STAYED
 			add_stability = 0.03
 			add_power_balance_value = {
@@ -1967,7 +2622,7 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [This.GetName]: Focus MAD_MADARAIL_TERMINAL_EXPANSION"
-			# the consortium, secure in its concession, builds out yards and terminals - on its terms
+			
 			add_power_balance_value = {
 				id = MAD_economy_ownership_bop
 				value = -0.0375
@@ -2021,7 +2676,7 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [This.GetName]: Focus MAD_MADARAIL_INVESTORS_DESIST"
-			# 2022 onwards: the consortium scales back, deferring maintenance and new investment ahead of exit
+			
 			set_country_flag = MAD_MADARAIL_INVESTORS_DESISTED
 			add_political_power = -10
 			add_power_balance_value = {
@@ -2029,7 +2684,6 @@ focus_tree = {
 				value = 0.0375
 				tooltip_side = MAD_public_ownership
 			}
-			# the penalties of the exit are the idea MAD_MADARAIL_INVESTOR_EXODUS, applied when the investors left
 		}
 
 		ai_will_do = {
@@ -2142,7 +2796,10 @@ focus_tree = {
 		mutually_exclusive = { focus = MAD_SELL_TO_AUSTRAL }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
-			has_country_flag = MAD_GERMANS_ACCEPTED_LUFTHANSA
+			custom_trigger_tooltip = {
+				tooltip = MAD_GERMANS_ACCEPTED_LUFTHANSA_tt
+				has_country_flag = MAD_GERMANS_ACCEPTED_LUFTHANSA
+			}
 		}
 
 		completion_reward = {
@@ -2158,8 +2815,7 @@ focus_tree = {
 			}
 			add_tech_bonus = {
 				name = MAD_WORK_WITH_GERMANS
-				category = CAT_h_air
-				category = CAT_heli
+				category = CAT_heavy_aircraft
 				uses = 4
 				bonus = 0.25
 				}
@@ -2195,7 +2851,10 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
 			date > 2017.01.01
-						has_country_flag = MAD_GERMANS_REJECTED_LUFTHANSA
+			custom_trigger_tooltip = {
+				tooltip = MAD_GERMANS_REJECTED_LUFTHANSA_tt
+				has_country_flag = MAD_GERMANS_REJECTED_LUFTHANSA
+			}
 		}
 
 		completion_reward = {
@@ -2218,7 +2877,10 @@ focus_tree = {
 		mutually_exclusive = { focus = MAD_SELL_TO_AUSTRAL }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
-									has_country_flag = MAD_AIR_SUCCESSFUL_STATE_CONTROL
+			custom_trigger_tooltip = {
+				tooltip = MAD_AIR_SUCCESSFUL_STATE_CONTROL_tt
+				has_country_flag = MAD_AIR_SUCCESSFUL_STATE_CONTROL
+			}
 		}
 
 		completion_reward = {
@@ -2242,7 +2904,7 @@ focus_tree = {
 	focus = {
 		id = MAD_Hunt_for_red_with_a_swagger
 		icon = GFX_goal_generic_political_pressure
-		x = -3
+		x = -6
 		y = 2
 		relative_position_id = MAD_enter_Remenabila
 		cost = 5
@@ -2261,7 +2923,7 @@ focus_tree = {
 	focus = {
 		id = MAD_PERMIT_ARMS
 		icon = GFX_goal_generic_political_pressure
-		x = 0
+		x = -2
 		y = 2
 		relative_position_id = MAD_enter_Remenabila
 		cost = 5
@@ -2281,8 +2943,8 @@ focus_tree = {
 	focus = {
 		id = MAD_ARREST_ARMS
 		icon = GFX_goal_generic_political_pressure
-		x = 0
-		y = 2
+		x = -3
+		y = 0
 		relative_position_id = MAD_FIGHTING_CERTIFICATE_FRAUD
 		cost = 5
 		prerequisite = { focus = MAD_FIGHTING_CERTIFICATE_FRAUD }
@@ -2409,8 +3071,6 @@ focus_tree = {
 		cost = 8
 		prerequisite = { focus = MAD_become_the_locust }
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ECONOMY }
-
-		# you cannot design a product for a pest you have not measured
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_DROUGHT_BELOW_65_tt
@@ -2520,8 +3180,8 @@ focus_tree = {
 	focus = {
 		id = MAD_AR1_HIGHWAY
 		icon = GFX_goal_generic_political_pressure
-		x = 0
-		y = 2
+		x = -2
+		y = 1
 		relative_position_id = MAD_TOAMASINA_JICA_EXPANSION
 		cost = 5
 		prerequisite = { focus = MAD_TOAMASINA_JICA_EXPANSION }
@@ -2535,7 +3195,23 @@ focus_tree = {
 			log = "[GetDateText]: [This.GetName]: Focus MAD_AR1_HIGHWAY"
 											
 											
-											add_political_power = 50
+											
+			
+			267 = {
+				set_temp_variable = { temp_productivity_change = 50 }
+				state_flat_productivity_change_effect = yes
+			}
+			487 = {
+				set_temp_variable = { temp_productivity_change = 50 }
+				state_flat_productivity_change_effect = yes
+			}
+			custom_effect_tooltip = {
+				localization_key = modifies_dynamic_modifier_tt
+				MODIFIER = MAD_economy_modifier
+			}
+			add_to_variable = { MAD_economy_supply_node_range = 0.05 tooltip = supply_node_range_tt }
+			add_to_variable = { MAD_economy_production_speed_infrastructure_factor = 0.05 tooltip = production_speed_infrastructure_factor_tt }
+			add_to_variable = { MAD_economy_international_market_income_modifier = 0.03 tooltip = international_market_income_modifier_tt }
 		}
 
 		ai_will_do = {
@@ -2556,6 +3232,13 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_set_prices"
+			custom_effect_tooltip = {
+				localization_key = modifies_dynamic_modifier_tt
+				MODIFIER = MAD_economy_modifier
+			}
+			add_stability = 0.02
+			add_to_variable = { MAD_economy_expected_welfare_modifier = 0.5 tooltip = expected_welfare_modifier_tt }
+			add_to_variable = { MAD_economy_agricolture_productivity_modifier = -0.02 tooltip = agricolture_productivity_modifier_tt }
 		}
 
 		ai_will_do = {
@@ -2576,6 +3259,13 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_self_regulate_vanilla"
+			custom_effect_tooltip = {
+				localization_key = modifies_dynamic_modifier_tt
+				MODIFIER = MAD_economy_modifier
+			}
+			add_stability = -0.02
+			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.05 tooltip = productivity_growth_modifier_tt }
+			add_to_variable = { MAD_economy_trade_opinion_factor = 0.03 tooltip = trade_opinion_factor_tt }
 		}
 
 		ai_will_do = {
@@ -2588,16 +3278,16 @@ focus_tree = {
 		icon = GFX_goal_generic_political_pressure
 		x = -2
 		y = 2
-		relative_position_id = MAD_DAIWOO_FALLOUT
+		relative_position_id = MAD_DAEWOO_FALLOUT
 		cost = 5
-		prerequisite = { focus = MAD_DAIWOO_FALLOUT }
+		prerequisite = { focus = MAD_DAEWOO_FALLOUT }
 		mutually_exclusive = { focus = MAD_DEAL_BROKEN }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_DEAL_KEPT"
 			set_country_flag = MAD_DAEWOO_KEPT
-			# --- the lease: two Daewoo agricultural complexes (west and northwest) ---
+			
 			268 = {
 				add_extra_state_shared_building_slots = 1
 				add_building_construction = {
@@ -2614,23 +3304,23 @@ focus_tree = {
 					instant_build = yes
 				}
 			}
-			# --- Korea's price ---
-			# ASSUMPTION: this is the same pattern as the Lufthansa event - the investor (here KOR) gains the international investment
+			
+			
 			KOR = {
 				set_temp_variable = { int_investment_change = 10 }
 				modify_international_investment_effect = yes
 			}
-			# (Korean influence over Madagascar comes with the SUCCESS outcome - see MAD_DEAL_KEPT_MANAGED_WELL)
-			# --- the home front turns on the government ---
+			
+			
 			set_temp_variable = { temp_opinion = -25 }
 			change_small_medium_business_owners_opinion = yes
-			# ASSUMPTION: effect name follows the change_<faction>_opinion pattern
+			
 			set_temp_variable = { temp_opinion = -25 }
 			change_landowners_opinion = yes
 			increase_corruption = yes
-			# the land now grows cash crops for Daewoo: worse drought, but only while the drought exists (the outgrower decision halves it)
+			
 			MAD_daewoo_drought_kept = yes
-			# --- the deal starts out toxic; the review mission and its qualifier decisions can fix it ---
+			
 			set_variable = { MAD_daewoo_viability = 10 }
 			MAD_daewoo_update_tier = yes
 			activate_mission = MAD_DAEWOO_REVIEW
@@ -2644,11 +3334,11 @@ focus_tree = {
 	focus = {
 		id = MAD_DEAL_BROKEN
 		icon = GFX_goal_generic_political_pressure
-		x = 2
+		x = 1
 		y = 2
-		relative_position_id = MAD_DAIWOO_FALLOUT
+		relative_position_id = MAD_DAEWOO_FALLOUT
 		cost = 5
-		prerequisite = { focus = MAD_DAIWOO_FALLOUT }
+		prerequisite = { focus = MAD_DAEWOO_FALLOUT }
 		mutually_exclusive = { focus = MAD_DEAL_KEPT }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 
@@ -2657,17 +3347,39 @@ focus_tree = {
 			set_country_flag = MAD_DAEWOO_BROKEN
 			add_stability = 0.04
 			add_political_power = 50
-			# the landowners are relieved
+			
 			set_temp_variable = { temp_opinion = 10 }
 			change_landowners_opinion = yes
-			# foreign investors think twice for a couple of years
+			
 			add_timed_idea = { idea = MAD_DAEWOO_CANCELLED days = 730 }
-			# the estates are worked by hand again and cash crops stop feeding the drought
-			MAD_daewoo_break_effects = yes
-			# cancelling straight away wins a little of the support back
-			MAD_daewoo_pop_broken = yes
-			# an election, if the government is below 50% popularity
-			MAD_daewoo_election_if_unpopular = yes
+			
+			268 = {
+				if = {
+					limit = { agriculture_district > 0 }
+					remove_building = {
+						type = agriculture_district
+						level = 1
+					}
+				}
+			}
+			custom_effect_tooltip = {
+				localization_key = modifies_dynamic_modifier_tt
+				MODIFIER = MAD_agriculture_modifier
+			}
+			add_to_variable = { MAD_agri_productivity = -0.02 tooltip = agricolture_productivity_modifier_tt }
+			add_to_variable = { MAD_agri_income_tax = -0.02 tooltip = agriculture_district_income_tax_modifier_tt }
+			hidden_effect = { clr_country_flag = MAD_DAEWOO_KOREAN_AGRI_SECTOR }
+			set_variable = { MAD_drought_daewoo_pressure = 0 }
+			add_to_variable = { MAD_agri_worker_req = 0.03 tooltip = agriculture_district_worker_requirement_modifier_tt }
+			set_party_index_to_ruling_party = yes
+			set_temp_variable = { party_popularity_increase = -0.05 }
+			set_temp_variable = { temp_outlook_increase = -0.025 }
+			change_relative_party_popularity = yes
+			if = {
+				limit = { MAD_government_popularity_below_half = yes }
+				set_country_flag = MAD_DAEWOO_ELECTION_PENDING_BROKEN
+			}
+
 		}
 
 		ai_will_do = {
@@ -2687,6 +3399,15 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_ACCEPT_FOREIGN_OWNERSHIP"
+					
+			
+			custom_effect_tooltip = {
+				localization_key = modifies_dynamic_modifier_tt
+				MODIFIER = MAD_economy_modifier
+			}
+			add_to_variable = { MAD_economy_receiving_investment_cost_modifier = -0.05 tooltip = receiving_investment_cost_modifier_tt }
+			add_to_variable = { MAD_economy_receiving_investment_duration_modifier = -0.05 tooltip = receiving_investment_duration_modifier_tt }
+			add_to_variable = { MAD_economy_foreign_influence_modifier = 0.05 tooltip = foreign_influence_modifier_tt }
 		}
 
 		ai_will_do = {
@@ -2744,7 +3465,6 @@ focus_tree = {
 			add_to_variable = { MAD_economy_infrastructure_tax_gain_multiplier_modifier = -0.05 tooltip = infrastructure_tax_gain_multiplier_modifier_tt }
 			 
 			one_office_construction = yes
-			 
 		}
 
 		ai_will_do = {
@@ -2764,7 +3484,7 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [This.GetName]: Focus MAD_PRIVATE_TELECOM_RESEARCH"
-			# Axian-led Telma invests in an R&D arm of its own, feeding both the wider economy and civilian tech
+			
 			custom_effect_tooltip = {
 				localization_key = modifies_dynamic_modifier_tt
 				MODIFIER = MAD_economy_modifier
@@ -2837,9 +3557,9 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [This.GetName]: Focus MAD_MADARAIL_STATE_TAKEOVER"
-			# the state moves to resume direct control of the network; terms of the takeover are settled below
+			
 			set_country_flag = MAD_MADARAIL_STATE_OWNED
-			# the worst of the exodus eases once the state is back in charge; MAD_RAIL_FCE_REHAB clears the rest
+			
 			if = {
 				limit = { has_idea = MAD_MADARAIL_INVESTOR_EXODUS }
 				remove_ideas = MAD_MADARAIL_INVESTOR_EXODUS
@@ -2847,7 +3567,7 @@ focus_tree = {
 			}
 			add_stability = 0.02
 			MAD_madarail_clear_operators = yes
-			# reopening the Antananarivo - Antsirabe line under state ownership
+			
 			build_railway = {
 				level = 2
 				path = { 681 11015 }
@@ -3019,8 +3739,8 @@ focus_tree = {
 	focus = {
 		id = MAD_BANDIT_ARMY
 		icon = GFX_goal_generic_political_pressure
-		x = 0
-		y = 2
+		x = -2
+		y = 3
 		relative_position_id = MAD_PERMIT_ARMS
 		cost = 5
 		prerequisite = { focus = MAD_PERMIT_ARMS }
@@ -3041,7 +3761,7 @@ focus_tree = {
 	}
 
 	focus = {
-		id = MAD_Coup_d'arret
+		id = MAD_Coup_d_arret
 		icon = GFX_goal_generic_political_pressure
 		x = 0
 		y = 2
@@ -3051,7 +3771,7 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_POLITICAL }
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus MAD_Coup_d'arret"
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_Coup_d_arret"
 		}
 
 		ai_will_do = {
@@ -3068,8 +3788,6 @@ focus_tree = {
 		cost = 5
 		prerequisite = { focus = MAD_Grand_Sud_program }
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ECONOMY }
-
-		# the south-east comes second: you only widen the programme once the Grand Sud is no longer in free fall
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_DROUGHT_BELOW_70_tt
@@ -3134,8 +3852,6 @@ focus_tree = {
 		cost = 10
 		prerequisite = { focus = MAD_biopesticides }
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ECONOMY }
-
-		# a permanent agency is something you fund when the emergency is under control, not during it
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_DROUGHT_BELOW_50_tt
@@ -3178,7 +3894,7 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [This.GetName]: Focus MAD_MADARAIL_NETWORK_EXPANSION"
-			# the network is expanded on the strength of either a renewed concession or state ownership
+			
 			add_political_power = 25
 			custom_effect_tooltip = {
 				localization_key = modifies_dynamic_modifier_tt
@@ -3187,7 +3903,7 @@ focus_tree = {
 			add_to_variable = { MAD_economy_production_speed_rail_terminal_factor = 0.10 tooltip = production_speed_rail_terminal_factor_tt }
 			add_to_variable = { MAD_economy_production_speed_rail_way_factor = 0.05 tooltip = production_speed_rail_way_factor_tt }
 			add_to_variable = { MAD_economy_international_market_income_modifier = 0.03 tooltip = international_market_income_modifier_tt }
-			# upgrading the Toamasina - Moramanga - Antananarivo trunk and a new branch to Lac Alaotra
+			
 			build_railway = {
 				level = 3
 				path = { 615 874 11015 }
@@ -3276,7 +3992,7 @@ focus_tree = {
 	focus = {
 		id = MAD_extend_ar1
 		icon = GFX_goal_generic_political_pressure
-		x = -2
+		x = -1
 		y = 2
 		relative_position_id = MAD_AR1_HIGHWAY
 		cost = 5
@@ -3285,6 +4001,18 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_extend_ar1"
+					
+			
+			267 = {
+				set_temp_variable = { temp_productivity_change = 50 }
+				state_flat_productivity_change_effect = yes
+			}
+			custom_effect_tooltip = {
+				localization_key = modifies_dynamic_modifier_tt
+				MODIFIER = MAD_economy_modifier
+			}
+			add_to_variable = { MAD_economy_supply_node_range = 0.02 tooltip = supply_node_range_tt }
+			add_to_variable = { MAD_economy_production_speed_infrastructure_factor = 0.02 tooltip = production_speed_infrastructure_factor_tt }
 		}
 
 		ai_will_do = {
@@ -3295,7 +4023,7 @@ focus_tree = {
 	focus = {
 		id = MAD_MIAMI_WATERFRONT
 		icon = GFX_goal_generic_political_pressure
-		x = 0
+		x = 1
 		y = 2
 		relative_position_id = MAD_AR1_HIGHWAY
 		cost = 5
@@ -3307,7 +4035,18 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [This.GetName]: Focus MAD_MIAMI_WATERFRONT"
-											add_stability = 0.03
+														
+			
+						487 = {
+							one_state_office_construction = yes
+						}
+						custom_effect_tooltip = {
+							localization_key = modifies_dynamic_modifier_tt
+							MODIFIER = MAD_economy_modifier
+						}
+						add_to_variable = { MAD_economy_offices_productivity = 0.03 tooltip = offices_productivity_tt }
+						add_to_variable = { MAD_economy_expected_welfare_modifier = 0.5 tooltip = expected_welfare_modifier_tt }
+			add_stability = 0.03
 		}
 
 		ai_will_do = {
@@ -3327,6 +4066,14 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_CNV_CVM"
+			add_political_power = -25
+			custom_effect_tooltip = {
+				localization_key = modifies_dynamic_modifier_tt
+				MODIFIER = MAD_economy_modifier
+			}
+			add_to_variable = { MAD_economy_trade_opinion_factor = 0.05 tooltip = trade_opinion_factor_tt }
+			add_to_variable = { MAD_economy_offices_productivity = 0.03 tooltip = offices_productivity_tt }
+			add_to_variable = { MAD_economy_receiving_investment_cost_modifier = 0.03 tooltip = receiving_investment_cost_modifier_tt }
 		}
 
 		ai_will_do = {
@@ -3346,6 +4093,18 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_liberalise_market"
+			custom_effect_tooltip = {
+				localization_key = modifies_dynamic_modifier_tt
+				MODIFIER = MAD_economy_modifier
+			}
+			add_power_balance_value = {
+				id = MAD_economy_ownership_bop
+				value = -0.0375
+				tooltip_side = MAD_private_ownership
+			}
+			add_to_variable = { MAD_economy_receiving_investment_cost_modifier = -0.05 tooltip = receiving_investment_cost_modifier_tt }
+			add_to_variable = { MAD_economy_return_on_investment_modifier = 0.02 tooltip = return_on_investment_modifier_tt }
+			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.05 tooltip = productivity_growth_modifier_tt }
 		}
 
 		ai_will_do = {
@@ -3353,10 +4112,11 @@ focus_tree = {
 		}
 	}
 
+	# Auto-completed by MAD_autocomplete_forced_outcome_foci when the Daewoo deal collapses.
 	focus = {
 		id = MAD_DEAL_KEPT_FAILED
 		icon = GFX_goal_generic_demonstration
-		x = -2
+		x = 1
 		y = 2
 		relative_position_id = MAD_DEAL_KEPT
 		cost = 5
@@ -3371,11 +4131,17 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [This.GetName]: Focus MAD_DEAL_KEPT_FAILED"
-			# the settlement: the price of the deal (10 billion) plus 5 billion in penalty clauses
+			log = "[This.GetName]: Focus MAD_DEAL_KEPT_FAILED"
+
 			set_temp_variable = { treasury_change = -15.00 }
 			modify_treasury_effect = yes
 			add_stability = -0.05
+
+			set_party_index_to_ruling_party = yes
+			set_temp_variable = { party_popularity_increase = -0.15 }
+			set_temp_variable = { temp_outlook_increase = -0.075 }
+			change_relative_party_popularity = yes
+			set_country_flag = MAD_DAEWOO_ELECTION_PENDING_COLLAPSE
 		}
 
 		ai_will_do = {
@@ -3386,7 +4152,7 @@ focus_tree = {
 	focus = {
 		id = MAD_DEAL_KEPT_MANAGED_WELL
 		icon = GFX_goal_generic_national_unity
-		x = 2
+		x = -1
 		y = 2
 		relative_position_id = MAD_DEAL_KEPT
 		cost = 5
@@ -3404,7 +4170,7 @@ focus_tree = {
 			log = "[GetDateText]: [This.GetName]: Focus MAD_DEAL_KEPT_MANAGED_WELL"
 			add_stability = -0.03
 			add_political_power = 25
-			# --- Korea's reward: huge influence over Madagascar, and an economy that is easier to influence ---
+			
 			set_temp_variable = { percent_change = 20 }
 			set_temp_variable = { tag_index = KOR }
 			set_temp_variable = { influence_target = MAD }
@@ -3414,8 +4180,8 @@ focus_tree = {
 				MODIFIER = MAD_economy_modifier
 			}
 			add_to_variable = { MAD_economy_foreign_influence_modifier = 0.10 tooltip = foreign_influence_modifier_tt }
-			# --- another agricultural complex on the western estates ---
-			# ASSUMPTION: 268 is the western concession state, the same guess as in MAD_DEAL_KEPT
+			
+			
 			268 = {
 				add_extra_state_shared_building_slots = 1
 				add_building_construction = {
@@ -3424,7 +4190,7 @@ focus_tree = {
 					instant_build = yes
 				}
 			}
-			# --- working farmland: fewer hands needed, more tax ---
+			
 			custom_effect_tooltip = {
 				localization_key = modifies_dynamic_modifier_tt
 				MODIFIER = MAD_agriculture_modifier
@@ -3432,25 +4198,32 @@ focus_tree = {
 			add_to_variable = { MAD_agri_worker_req = -0.03 tooltip = agriculture_district_worker_requirement_modifier_tt }
 			add_to_variable = { MAD_agri_income_tax = 0.05 tooltip = agriculture_district_income_tax_modifier_tt }
 			force_update_dynamic_modifier = yes
-			# --- more cash crops: the drought number grows, only while the drought exists ---
+			
 			MAD_daewoo_drought_well = yes
-			# the ruling party wins back what the scandal cost it
-			MAD_daewoo_pop_success = yes
+			
+			set_temp_variable = { party_index = 2 }
+			set_temp_variable = { party_popularity_increase = 0.15 }
+			set_temp_variable = { temp_outlook_increase = 0.075 }
+			change_relative_party_popularity = yes
 		}
 
 		ai_will_do = {
 			base = 1
 		}
 	}
+
 	focus = {
 		id = MAD_FUND_THE_FARMERS
 		icon = GFX_goal_generic_production
-		x = 0
+		x = 3
 		y = 4
 		relative_position_id = MAD_DEAL_KEPT
 		cost = 5
-		prerequisite = { focus = MAD_DEAL_BROKEN }
-		prerequisite = { focus = MAD_DEAL_KEPT_FAILED }
+		prerequisite = {
+			focus = MAD_DEAL_BROKEN
+			focus = MAD_DEAL_KEPT_FAILED
+		}
+
 		search_filters = { FOCUS_FILTER_ECONOMY FOCUS_FILTER_STABILITY }
 		available = {
 			custom_trigger_tooltip = {
@@ -3471,7 +4244,6 @@ focus_tree = {
 		}
 	}
 
-
 	focus = {
 		id = MAD_KOREAN_PURCHASES
 		icon = GFX_goal_generic_political_pressure
@@ -3481,11 +4253,15 @@ focus_tree = {
 		cost = 5
 		prerequisite = { focus = MAD_ACCEPT_FOREIGN_OWNERSHIP }
 		search_filters = { FOCUS_FILTER_POLITICAL }
+		available = {
+			KOR = { has_opinion = { target = MAD value > 79 } }
+		}
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_KOREAN_PURCHASES"
+			custom_effect_tooltip = MAD_KOREAN_PURCHASES_OFFER_tt
+			KOR = { country_event = { id = mad_foreign_investment.1 days = 1 } }
 		}
-
 		ai_will_do = {
 			base = 1
 		}
@@ -3500,11 +4276,15 @@ focus_tree = {
 		cost = 5
 		prerequisite = { focus = MAD_ACCEPT_FOREIGN_OWNERSHIP }
 		search_filters = { FOCUS_FILTER_POLITICAL }
+		available = {
+			USA = { has_opinion = { target = MAD value > 79 } }
+		}
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_USA_PURCHASES"
+			custom_effect_tooltip = MAD_USA_PURCHASES_OFFER_tt
+			USA = { country_event = { id = mad_foreign_investment.11 days = 1 } }
 		}
-
 		ai_will_do = {
 			base = 1
 		}
@@ -3519,11 +4299,15 @@ focus_tree = {
 		cost = 5
 		prerequisite = { focus = MAD_ACCEPT_FOREIGN_OWNERSHIP }
 		search_filters = { FOCUS_FILTER_POLITICAL }
+		available = {
+			GER = { has_opinion = { target = MAD value > 79 } }
+		}
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_GERMANY_PURCHASES"
+			custom_effect_tooltip = MAD_GERMANY_PURCHASES_OFFER_tt
+			GER = { country_event = { id = mad_foreign_investment.21 days = 1 } }
 		}
-
 		ai_will_do = {
 			base = 1
 		}
@@ -3541,14 +4325,14 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [This.GetName]: Focus MAD_RAIL_FCE_REHAB"
-			# state-led, donor-backed rehabilitation of the Fianarantsoa - Cote Est (FCE) line
+			
 			add_stability = 0.02
 			custom_effect_tooltip = {
 				localization_key = modifies_dynamic_modifier_tt
 				MODIFIER = MAD_economy_modifier
 			}
 			add_to_variable = { MAD_economy_production_speed_rail_way_factor = 0.05 tooltip = production_speed_rail_way_factor_tt }
-			add_to_variable = { MAD_economy_expected_welfare_modifier = 0.03 tooltip = expected_welfare_modifier_tt }
+			add_to_variable = { MAD_economy_expected_welfare_modifier = 0.5 tooltip = expected_welfare_modifier_tt }
 			build_railway = {
 				level = 2
 				path = { 566 10993 }
@@ -3562,7 +4346,7 @@ focus_tree = {
 			}
 			set_temp_variable = { treasury_change = -8.52 }
 			modify_treasury_effect = yes
-			# full rehabilitation finally clears the legacy of the investors' exodus (only exists on the desist path)
+			
 			if = {
 				limit = { has_idea = MAD_MADARAIL_EXODUS_AFTERMATH }
 				remove_ideas = MAD_MADARAIL_EXODUS_AFTERMATH
@@ -3701,7 +4485,7 @@ focus_tree = {
 		id = MAD_MARCH_OF_THE_COWBOYS
 		icon = GFX_goal_generic_political_pressure
 		x = 0
-		y = 2
+		y = 1
 		relative_position_id = MAD_BANDIT_ARMY
 		cost = 5
 		prerequisite = { focus = MAD_BANDIT_ARMY }
@@ -3725,8 +4509,6 @@ focus_tree = {
 		cost = 5
 		prerequisite = { focus = MAD_Grand_sud_est_program }
 		search_filters = { FOCUS_FILTER_POLITICAL }
-
-		# a climate-adaptation plan is something you write with a programme already running, not from nothing
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_DROUGHT_PREVENTION_3_tt
@@ -3819,9 +4601,13 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [This.GetName]: Focus MAD_VANILLA_PRICE_STABILITY"
-											
-											
-											add_stability = 0.05
+			custom_effect_tooltip = {
+				localization_key = modifies_dynamic_modifier_tt
+				MODIFIER = MAD_economy_modifier
+			}
+			add_stability = 0.03
+			add_to_variable = { MAD_economy_expected_welfare_modifier = 0.5 tooltip = expected_welfare_modifier_tt }
+			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.03 tooltip = productivity_growth_modifier_tt }
 		}
 
 		ai_will_do = {
@@ -3841,11 +4627,14 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [This.GetName]: Focus MAD_VANILLA_BOOM_BUST_CYCLE"
-											
-											
-											
-											add_stability = -0.05
-											add_political_power = 25
+			custom_effect_tooltip = {
+				localization_key = modifies_dynamic_modifier_tt
+				MODIFIER = MAD_economy_modifier
+			}
+			add_stability = -0.05
+			add_political_power = 25
+			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.10 tooltip = productivity_growth_modifier_tt }
+			add_to_variable = { MAD_economy_return_on_investment_modifier = 0.05 tooltip = return_on_investment_modifier_tt }
 		}
 
 		ai_will_do = {
@@ -3863,7 +4652,6 @@ focus_tree = {
 		prerequisite = { focus = MAD_Fighting_climate_change }
 		mutually_exclusive = { focus = MAD_losing_the_fight }
 		search_filters = { FOCUS_FILTER_POLITICAL }
-
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_DROUGHT_CONTAINED_tt
@@ -3884,6 +4672,7 @@ focus_tree = {
 		}
 	}
 
+	# Auto-completed by MAD_autocomplete_forced_outcome_foci when the failure condition is reached.
 	focus = {
 		id = MAD_losing_the_fight
 		icon = GFX_goal_generic_political_pressure
@@ -3894,7 +4683,6 @@ focus_tree = {
 		prerequisite = { focus = MAD_Fighting_climate_change }
 		mutually_exclusive = { focus = MAD_Winning_the_fight }
 		search_filters = { FOCUS_FILTER_POLITICAL }
-
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_DROUGHT_FAILED_tt
@@ -3926,14 +4714,10 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_extension_fce"
-			# the Antsirabe - Fianarantsoa link is now approved; the line itself is built by decision
-			# MAD_MADARAIL_BUILD_FCE_EXTENSION (15 billion, one year, +80 productivity in state 267)
+			
+			
 			set_country_flag = MAD_FCE_EXTENSION_UNLOCKED
-			add_power_balance_value = {
-				id = MAD_economy_ownership_bop
-				value = 0.0375
-				tooltip_side = MAD_public_ownership
-			}
+					
 			custom_effect_tooltip = MAD_FCE_EXTENSION_DECISION_tt
 		}
 
@@ -4079,7 +4863,7 @@ focus_tree = {
 		id = MAD_Dead_with_a_swagger
 		icon = GFX_goal_generic_political_pressure
 		x = 0
-		y = 2
+		y = 1
 		relative_position_id = MAD_capture_spiritual_advisor
 		cost = 5
 		prerequisite = { focus = MAD_capture_spiritual_advisor }
@@ -4098,7 +4882,7 @@ focus_tree = {
 		id = MAD_cowthief_in_chief
 		icon = GFX_goal_generic_political_pressure
 		x = 0
-		y = 2
+		y = 1
 		relative_position_id = MAD_MARCH_OF_THE_COWBOYS
 		cost = 5
 		prerequisite = { focus = MAD_MARCH_OF_THE_COWBOYS }
@@ -4146,6 +4930,15 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_BIANCO"
+					
+			
+			add_stability = 0.05
+			add_political_power = 50
+			custom_effect_tooltip = {
+				localization_key = modifies_dynamic_modifier_tt
+				MODIFIER = MAD_economy_modifier
+			}
+			add_to_variable = { MAD_economy_expected_welfare_modifier = 0.5 tooltip = expected_welfare_modifier_tt }
 		}
 
 		ai_will_do = {
@@ -4162,7 +4955,6 @@ focus_tree = {
 		cost = 5
 		prerequisite = { focus = MAD_Winning_the_fight }
 		search_filters = { FOCUS_FILTER_POLITICAL }
-
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_DROUGHT_OVER_tt
@@ -4172,7 +4964,16 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_Thriving_south"
-			add_ideas = MAD_AGRI_FLOURISHING
+			custom_effect_tooltip = {
+				localization_key = modifies_dynamic_modifier_tt
+				MODIFIER = MAD_agriculture_modifier
+			}
+			add_to_variable = { MAD_agri_productivity = 0.03 tooltip = agricolture_productivity_modifier_tt }
+			add_to_variable = { MAD_agri_income_tax = 0.03 tooltip = agriculture_district_income_tax_modifier_tt }
+			add_to_variable = { MAD_agri_stability = 0.02 tooltip = stability_factor_tt }
+			add_to_variable = { MAD_agri_monthly_population = 0.05 tooltip = monthly_population_tt }
+			add_to_variable = { MAD_agri_construction_speed = 0.10 tooltip = production_speed_agriculture_district_factor_tt }
+			force_update_dynamic_modifier = yes
 		}
 
 		ai_will_do = {
@@ -4180,6 +4981,7 @@ focus_tree = {
 		}
 	}
 
+	# Auto-completed by MAD_autocomplete_forced_outcome_foci once the drought is fully resolved after the losing branch.
 	focus = {
 		id = MAD_crop_death
 		icon = GFX_goal_generic_political_pressure
@@ -4189,7 +4991,6 @@ focus_tree = {
 		cost = 5
 		prerequisite = { focus = MAD_losing_the_fight }
 		search_filters = { FOCUS_FILTER_POLITICAL }
-
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_DROUGHT_OVER_tt
@@ -4199,7 +5000,7 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_crop_death"
-			# a fifth of the south is gone; four fifths of them reach Antananarivo and Toamasina
+			
 			MAD_crop_death_effects = yes
 		}
 
@@ -4262,7 +5063,14 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [This.GetName]: Focus MAD_BIANCO_INVESTIGATIONS"
-											add_political_power = 25
+														
+			
+						add_stability = 0.03
+						set_temp_variable = { temp_opinion = -5 }
+						change_landowners_opinion = yes
+						set_temp_variable = { temp_opinion = -5 }
+						change_small_medium_business_owners_opinion = yes
+			add_political_power = 75
 		}
 
 		ai_will_do = {
@@ -4309,10 +5117,16 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [This.GetName]: Focus MAD_BIANCO_INDEPENDENT"
-											
-											
-											add_stability = 0.08
-											add_political_power = -25
+			custom_effect_tooltip = {
+				localization_key = modifies_dynamic_modifier_tt
+				MODIFIER = MAD_economy_modifier
+			}
+			add_to_variable = { MAD_economy_receiving_investment_cost_modifier = -0.05 tooltip = receiving_investment_cost_modifier_tt }
+			add_to_variable = { MAD_economy_return_on_investment_modifier = 0.02 tooltip = return_on_investment_modifier_tt }
+			add_to_variable = { MAD_economy_foreign_influence_modifier = -0.02 tooltip = foreign_influence_modifier_tt }
+			decrease_corruption = yes
+			add_stability = 0.08
+			add_political_power = -25
 		}
 
 		ai_will_do = {
@@ -4333,10 +5147,17 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [This.GetName]: Focus MAD_BIANCO_POLITICIZED"
-											
-											
-											add_political_power = 50
-											add_stability = -0.05
+			increase_corruption = yes
+			custom_effect_tooltip = {
+				localization_key = modifies_dynamic_modifier_tt
+				MODIFIER = MAD_economy_modifier
+			}
+			add_to_variable = { MAD_economy_receiving_investment_cost_modifier = -0.05 tooltip = receiving_investment_cost_modifier_tt }
+			add_to_variable = { MAD_economy_foreign_influence_modifier = -0.05 tooltip = foreign_influence_modifier_tt }
+			set_temp_variable = { corp_change = 4 }
+			modify_corporate_tax_rate_effect = yes
+			add_political_power = 50
+			add_stability = 0.05
 		}
 
 		ai_will_do = {
@@ -4366,7 +5187,7 @@ focus_tree = {
 	focus = {
 		id = MAD_SPAT
 		icon = GFX_goal_generic_political_pressure
-		x = 23
+		x = 19
 		y = 6
 		cost = 5
 		prerequisite = { focus = MAD_TOAMASINA }
@@ -4380,7 +5201,7 @@ focus_tree = {
 				localization_key = modifies_dynamic_modifier_tt
 				MODIFIER = MAD_economy_modifier
 			}
-			add_to_variable = { MAD_economy_infrastructure_tax_gain_multiplier_modifier = 0.4 tooltip = infrastructure_tax_gain_multiplier_modifier_tt }
+			add_to_variable = { MAD_economy_infrastructure_tax_gain_multiplier_modifier = 0.04 tooltip = infrastructure_tax_gain_multiplier_modifier_tt }
 			add_to_variable = { MAD_economy_civ_facs_worker_requirement_modifier  = 0.02 tooltip = civ_facs_worker_requirement_modifier_tt }
 			add_to_variable = { MAD_economy_infrastructure_cost_multiplier_modifier  = 0.02 tooltip = infrastructure_cost_multiplier_modifier_tt }
 		}
@@ -4429,8 +5250,8 @@ focus_tree = {
 	focus = {
 		id = MAD_TELMA_HUNT_REMENABILA_SUPPORT
 		icon = GFX_goal_generic_political_pressure
-		x = 1
-		y = 11
+		x = 6
+		y = 24
 		cost = 5
 		prerequisite = { focus = MAD_Hunt_for_red_with_a_swagger }
 		search_filters = { FOCUS_FILTER_POLITICAL }
@@ -4454,7 +5275,7 @@ focus_tree = {
 		x = 64
 		y = 6
 		cost = 5
-		prerequisite = { focus = MAD_TELMA_AXIAN_CONSOLIDATES focus = MAD_TELMA_RENATIONALIZE }		
+		prerequisite = { focus = MAD_TELMA_AXIAN_CONSOLIDATES focus = MAD_TELMA_RENATIONALIZE }
 		search_filters = { FOCUS_FILTER_ECONOMY }
 		available = {
 			date > 2005.1.1
@@ -4490,7 +5311,10 @@ focus_tree = {
 		prerequisite = { focus = MAD_TELMA_AXIAN_CONSOLIDATES focus = MAD_TELMA_RENATIONALIZE }
 		search_filters = { FOCUS_FILTER_ECONOMY }
 		available = {
-			has_country_flag = MAD_mobile_competition_resolved
+			custom_trigger_tooltip = {
+				tooltip = MAD_mobile_competition_resolved_tt
+				has_country_flag = MAD_mobile_competition_resolved
+			}
 		}
 
 		completion_reward = {
@@ -4518,8 +5342,6 @@ focus_tree = {
 		prerequisite = { focus = MAD_TELMA_FIBER_MONOPOLY_PERSISTS }
 		mutually_exclusive = { focus = MAD_PROTECT_NATIONAL_CHAMPION }
 		search_filters = { FOCUS_FILTER_ECONOMY }
-		available = {
-		}
 
 		completion_reward = {
 			log = "[GetDateText]: [This.GetName]: Focus MAD_BREAK_TELMA_MONOPOLY"
@@ -4574,8 +5396,6 @@ focus_tree = {
 		prerequisite = { focus = MAD_TELMA_FIBER_MONOPOLY_PERSISTS }
 		mutually_exclusive = { focus = MAD_BREAK_TELMA_MONOPOLY }
 		search_filters = { FOCUS_FILTER_ECONOMY }
-		available = {
-		}
 
 		completion_reward = {
 			log = "[GetDateText]: [This.GetName]: Focus MAD_PROTECT_NATIONAL_CHAMPION"
@@ -4615,19 +5435,17 @@ focus_tree = {
 			add_to_variable = { MAD_economy_civilian_industry_tax_modifier = 0.05 tooltip = civilian_industry_tax_modifier_tt }
 			add_to_variable = { MAD_economy_trade_opinion_factor = -0.05 tooltip = trade_opinion_factor_tt }
 			add_to_variable = { MAD_economy_civilian_factories_productivity = -0.02 tooltip = civilian_factories_productivity_tt }
-			 
-			
 		}
 
 		ai_will_do = {
 			base = 1
 			modifier = {
-				factor = 0
-				has_active_mission = bankruptcy_incoming_collapse
+			factor = 0
+			has_active_mission = bankruptcy_incoming_collapse
 			}
 			modifier = {
-				factor = 0
-				can_staff_an_offices = no
+			factor = 0
+			can_staff_an_offices = no
 			}
 		}
 	}
@@ -4638,7 +5456,7 @@ focus_tree = {
 		x = 68
 		y = 9
 		cost = 5
-		prerequisite = { focus = MAD_BREAK_TELMA_MONOPOLY focus = MAD_PROTECT_NATIONAL_CHAMPION}
+		prerequisite = { focus = MAD_BREAK_TELMA_MONOPOLY focus = MAD_PROTECT_NATIONAL_CHAMPION }
 		search_filters = { FOCUS_FILTER_ECONOMY FOCUS_FILTER_INDUSTRY }
 
 		completion_reward = {
@@ -4654,13 +5472,13 @@ focus_tree = {
 				add_to_variable = { MAD_economy_productivity_growth_modifier = 0.35 tooltip = productivity_growth_modifier_tt }
 				add_tech_bonus = {
 					name = MAD_DIGITAL_MADAGASCAR
-					category = CAT_computing_tech
+					category = CAT_computing
 					uses = 2
 					bonus = 0.25
 				}
 				add_tech_bonus = {
 					name = MAD_DIGITAL_MADAGASCAR
-					category = CAT_internet_tech
+					category = CAT_information_technology
 					uses = 2
 					bonus = 0.25
 				}
@@ -4679,12 +5497,12 @@ focus_tree = {
 			if = {
 				limit = { any_owned_state = { is_controlled_by = ROOT infrastructure < 5 } }
 				one_random_infrastructure = yes
-
+			
 			} 
 			if = {
 				limit = { any_owned_state = { is_controlled_by = ROOT infrastructure < 5 } }
 				one_random_infrastructure = yes
-
+			
 			}
 		}
 
@@ -4708,7 +5526,7 @@ focus_tree = {
 			 
 			add_tech_bonus = {
 				name = MAD_TELMA_SIGINT_SHARING
-				category = CAT_cnc 
+				category = CAT_command_and_control_equipment
 				uses = 2
 				bonus = 0.10
 			}
@@ -4770,7 +5588,7 @@ focus_tree = {
 			 }
 			add_tech_bonus = {
 				name = MAD_TELMA_NATIONAL_C2_BACKBONE
-				category = CAT_internet_tech
+				category = CAT_mobile_networks
 				uses = 2
 				bonus = 0.50
 			}
@@ -4799,7 +5617,7 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [This.GetName]: Focus MAD_TELMA_LEGACY"
-
+			
 			if = {
 				limit = { has_idea = MAD_NETWORK_COMPETITION }
 				custom_effect_tooltip = {
@@ -4822,14 +5640,13 @@ focus_tree = {
 				add_to_variable = { MAD_economy_production_speed_infrastructure_factor = 0.10 tooltip = production_speed_infrastructure_factor_tt }
 				add_to_variable = { MAD_economy_offices_productivity = 0.05 tooltip = offices_productivity_tt }
 			}
-
+			
 			add_tech_bonus = {
 				name = MAD_TELMA_LEGACY
-				category = CAT_ai
-				bonus = 0.25
+				category = CAT_robotics
+				bonus = 0.5
 				uses = 2
 			}
-			
 		}
 
 		ai_will_do = {
@@ -4886,6 +5703,152 @@ focus_tree = {
 
 		ai_will_do = {
 			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_remenabila_takes_command
+		icon = GFX_goal_generic_political_pressure
+		x = 0
+		y = 1
+		relative_position_id = MAD_cowthief_in_chief
+		cost = 5
+		prerequisite = { focus = MAD_cowthief_in_chief }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_remenabila_takes_command"
+			
+			set_country_flag = MAD_REMENABILA_IN_POWER
+			
+			
+			set_temp_variable = { rul_party_temp = 22 }
+			change_ruling_party_effect = yes
+			
+			set_politics = {
+				elections_allowed = no
+			}
+			
+			add_stability = -0.05
+		}
+
+		ai_will_do = {
+			base = 0
+		}
+	}
+
+	focus = {
+		id = MAD_remenabila_gather_the_dahalo
+		icon = GFX_goal_generic_political_pressure
+		x = 0
+		y = 1
+		relative_position_id = MAD_remenabila_takes_command
+		cost = 5
+		prerequisite = { focus = MAD_remenabila_takes_command }
+		search_filters = { FOCUS_FILTER_MILITARY }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_remenabila_gather_the_dahalo"
+			add_manpower = 5000
+			add_war_support = 0.03
+		}
+
+		ai_will_do = {
+			base = 0
+		}
+	}
+
+	focus = {
+		id = MAD_remenabila_cattle_must_be_counted
+		icon = GFX_goal_generic_political_pressure
+		x = 2
+		y = 1
+		relative_position_id = MAD_remenabila_takes_command
+		cost = 5
+		prerequisite = { focus = MAD_remenabila_takes_command }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_remenabila_cattle_must_be_counted"
+			add_political_power = 75
+			add_stability = -0.03
+		}
+
+		ai_will_do = {
+			base = 0
+		}
+	}
+
+	focus = {
+		id = MAD_remenabila_steal_the_cow
+		icon = GFX_goal_generic_political_pressure
+		x = 2
+		y = 2
+		relative_position_id = MAD_remenabila_gather_the_dahalo
+		cost = 5
+		prerequisite = { focus = MAD_remenabila_gather_the_dahalo focus = MAD_remenabila_cattle_must_be_counted }
+		search_filters = { FOCUS_FILTER_WAR_SUPPORT }
+		available = {
+			country_exists = MRT
+			NOT = { has_war_with = MRT }
+		}
+		will_lead_to_war_with = MRT
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_remenabila_steal_the_cow"
+			
+			create_wargoal = {
+				type = annex_everything
+				target = MRT
+				expire = 0
+			}
+		}
+
+		ai_will_do = {
+			base = 0
+		}
+	}
+
+	focus = {
+		id = MAD_remenabila_more_cows_more_men
+		icon = GFX_goal_generic_political_pressure
+		x = 0
+		y = 2
+		relative_position_id = MAD_remenabila_steal_the_cow
+		cost = 5
+		prerequisite = { focus = MAD_remenabila_steal_the_cow }
+		search_filters = { FOCUS_FILTER_MILITARY }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_remenabila_more_cows_more_men"
+			add_manpower = 5000
+			add_war_support = 0.05
+		}
+
+		ai_will_do = {
+			base = 0
+		}
+	}
+
+	focus = {
+		id = MAD_remenabila_rule_by_the_herd
+		icon = GFX_goal_generic_political_pressure
+		x = 0
+		y = 2
+		relative_position_id = MAD_remenabila_more_cows_more_men
+		cost = 5
+		prerequisite = { focus = MAD_remenabila_more_cows_more_men }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_remenabila_rule_by_the_herd"
+			add_political_power = 50
+			add_stability = 0.05
+			set_country_flag = MAD_REMENABILA_REGIME_CONSOLIDATED
+		}
+
+		ai_will_do = {
+			base = 0
 		}
 	}
 

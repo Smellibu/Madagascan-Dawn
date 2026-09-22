@@ -27,7 +27,10 @@ MAD_drought_exists = {
 # Hang this on any "further agricultural" focus that should wait until the drought is over,
 # on either path (won: severity ran down to 0; failed: the decisions carried on until it hit 0).
 MAD_drought_resolved = {
-	has_country_flag = MAD_DROUGHT_OVER
+	OR = {
+		has_country_flag = MAD_DROUGHT_OVER
+		check_variable = { MAD_drought_severity < 0.001 }
+	}
 }
 
 # A region counts as food-secure only when it is below the dry-spell threshold
