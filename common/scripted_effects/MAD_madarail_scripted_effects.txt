@@ -1699,3 +1699,57 @@ MAD_drought_locust_swarm = {
 	add_to_variable = { MAD_drought_shock_pressure = 0.4 }
 	MAD_drought_recalc_national = yes
 }
+# MADAGASCAR JIRAMA RECOVERY - SCRIPTED EFFECTS ONLY
+# Place in common/scripted_effects/
+
+########################################################################
+# STARTER EFFECT
+# Called by the six generation-project UNLOCK focuses.
+# The first unlock starts one 1095-day mission; later unlocks do nothing.
+########################################################################
+
+MAD_JIRAMA_START_GENERATION_RECOVERY = {
+	if = {
+		limit = {
+			NOT = { has_country_flag = MAD_JIRAMA_GENERATION_RECOVERY_STARTED }
+			NOT = { has_completed_focus = MAD_JIRAMA_RECOVERY_FAILS }
+			NOT = { has_completed_focus = MAD_JIRAMA_RECOVERY_SUCCEEDS }
+		}
+
+		set_country_flag = MAD_JIRAMA_GENERATION_RECOVERY_STARTED
+		activate_mission = MAD_JIRAMA_GENERATION_RECOVERY_MISSION
+	}
+}
+
+########################################################################
+# DAILY AUTO-RESOLUTION
+# Call this once per day for Madagascar from an existing on_daily MAD block.
+########################################################################
+
+MAD_JIRAMA_GENERATION_RECOVERY_DAILY = {
+
+	# SUCCESS: both performance requirements are met before the three-year timer expires.
+	if = {
+		limit = {
+			has_active_mission = MAD_JIRAMA_GENERATION_RECOVERY_MISSION
+			NOT = { has_country_flag = MAD_JIRAMA_GENERATION_RECOVERY_EXPIRED }
+			NOT = { has_completed_focus = MAD_JIRAMA_RECOVERY_SUCCEEDS }
+			NOT = { has_completed_focus = MAD_JIRAMA_RECOVERY_FAILS }
+			MAD_JIRAMA_RECOVERY_REQUIREMENTS_MET = yes
+		}
+
+		remove_mission = MAD_JIRAMA_GENERATION_RECOVERY_MISSION
+		complete_national_focus = MAD_JIRAMA_RECOVERY_SUCCEEDS
+	}
+
+	# FAILURE: the three-year mission has expired without a successful recovery.
+	if = {
+		limit = {
+			has_country_flag = MAD_JIRAMA_GENERATION_RECOVERY_EXPIRED
+			NOT = { has_completed_focus = MAD_JIRAMA_RECOVERY_SUCCEEDS }
+			NOT = { has_completed_focus = MAD_JIRAMA_RECOVERY_FAILS }
+		}
+
+		complete_national_focus = MAD_JIRAMA_RECOVERY_FAILS
+	}
+}

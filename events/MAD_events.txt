@@ -1,12 +1,12 @@
 ### ==============================================================
-### EVENT — fires once MAD_AMBATOVY_TOTAL hits 100 (JV formed)
+### EVENT - fires once MAD_AMBATOVY_TOTAL hits 100 (JV formed)
 ### Hook this into whichever effect field runs on successful
 ### early ACTIVATION, not TIMEOUT_EFFECT.
 ### ==============================================================
 add_namespace = mad_ambatovy
 
 ### ==============================================================
-### EVENT — fired from MAD_AMBATOVY_MISSION's remove_effect
+### EVENT - fired from MAD_AMBATOVY_MISSION's remove_effect
 ### ==============================================================
 
 country_event = {
@@ -94,7 +94,7 @@ country_event = {
 	}
 }
  
-country_event = { # Fires on MAD — accept branch
+country_event = { # Fires on MAD - accept branch
 	id = MAD_LUFTHANSA_OFFER.2
 	title = MAD_LUFTHANSA_OFFER.2.t
 	desc = MAD_LUFTHANSA_OFFER.2.d
@@ -116,7 +116,7 @@ country_event = { # Fires on MAD — accept branch
 	}
 }
  
-country_event = { # Fires on MAD — decline branch
+country_event = { # Fires on MAD - decline branch
 	id = MAD_LUFTHANSA_OFFER.3
 	title = MAD_LUFTHANSA_OFFER.3.t
 	desc = MAD_LUFTHANSA_OFFER.3.d
@@ -682,7 +682,7 @@ country_event = {
 }
 
 ########################################################################
-# HISTORICAL SOUTHERN DROUGHTS — 2000 to 2010
+# HISTORICAL SOUTHERN DROUGHTS - 2000 to 2010
 # The provided map abstraction uses Toliara (state 268) as the Grand Sud.
 # Severity shocks there feed the existing state drought tier system, which in turn lowers local output/manpower.
 ########################################################################
@@ -1409,5 +1409,77 @@ country_event = {
 		set_variable = { MAD_vanilla_shock_state = -12 }
 		force_update_dynamic_modifier = yes
 		country_event = { id = mad_vanilla.1 days = 450 }
+	}
+}
+
+#- add to MAD_events.txt
+# ============================================================================
+add_namespace = mad_jirama
+
+country_event = {
+	id = mad_jirama.1
+	title = mad_jirama.1.t
+	desc = mad_jirama.1.d
+	picture = GFX_report_event_economy_default
+	is_triggered_only = yes
+
+	option = {
+		name = mad_jirama.1.a
+		log = "[GetDateText]: [Root.GetName]: mad_jirama.1.a - cost-reflective tariffs"
+		set_country_flag = MAD_JIRAMA_TARIFF_DISCIPLINE
+		custom_effect_tooltip = { localization_key = modifies_dynamic_modifier_tt MODIFIER = MAD_power_modifier }
+		add_to_variable = { MAD_power_pop_energy_use_multiplier = -0.03 tooltip = pop_energy_use_multiplier_tt }
+		add_to_variable = { MAD_power_energy_use_modifier_civs = -0.01 tooltip = energy_use_modifier_civs_tt }
+		add_to_variable = { MAD_power_fossil_pp_fuel_consumption_modifier = -0.02 tooltip = fossil_pp_fuel_consumption_modifier_tt }
+		custom_effect_tooltip = { localization_key = modifies_dynamic_modifier_tt MODIFIER = MAD_economy_modifier }
+		add_to_variable = { MAD_economy_population_tax_income_multiplier_modifier = 0.03 tooltip = population_tax_income_multiplier_modifier_tt }
+		add_stability = -0.03
+		set_temp_variable = { temp_opinion = 10 }
+		change_international_bankers_opinion = yes
+		set_temp_variable = { temp_opinion = -10 }
+		change_small_medium_business_owners_opinion = yes
+		set_temp_variable = { temp_opinion = -2 }
+		change_landowners_opinion = yes
+		ai_chance = { factor = 1 }
+	}
+
+	option = {
+		name = mad_jirama.1.b
+		log = "[GetDateText]: [Root.GetName]: mad_jirama.1.b - state recapitalisation"
+		set_country_flag = MAD_JIRAMA_STATE_BACKSTOP
+		set_temp_variable = { treasury_change = { value = gdp_total multiply = -0.013 } }
+		modify_treasury_effect = yes
+		custom_effect_tooltip = { localization_key = modifies_dynamic_modifier_tt MODIFIER = MAD_power_modifier }
+		add_to_variable = { MAD_power_energy_gain_multiplier = 0.03 tooltip = energy_gain_multiplier_tt }
+		add_to_variable = { MAD_power_renewable_energy_gain_multiplier = 0.02 tooltip = renewable_energy_gain_multiplier_tt }
+		custom_effect_tooltip = { localization_key = modifies_dynamic_modifier_tt MODIFIER = MAD_economy_modifier }
+		add_to_variable = { MAD_economy_internal_investments_money_cost_modifier = -0.05 tooltip = internal_investments_money_cost_modifier_tt }
+		add_stability = 0.02
+		set_temp_variable = { temp_opinion = -5 }
+		change_international_bankers_opinion = yes
+		set_temp_variable = { temp_opinion = 5 }
+		change_small_medium_business_owners_opinion = yes
+		set_temp_variable = { temp_opinion = 5 }
+		change_landowners_opinion = yes
+		ai_chance = { factor = 1 }
+	}
+
+	option = {
+		name = mad_jirama.1.c
+		log = "[GetDateText]: [Root.GetName]: mad_jirama.1.c - competitive private contracts"
+		set_country_flag = MAD_JIRAMA_PRIVATE_CONTRACTS
+		custom_effect_tooltip = { localization_key = modifies_dynamic_modifier_tt MODIFIER = MAD_power_modifier }
+		add_to_variable = { MAD_power_production_speed_renewable_energy_infra_factor = 0.05 tooltip = production_speed_renewable_energy_infra_factor_tt }
+		add_to_variable = { MAD_power_renewable_infra_cost_multiplier_modifier = -0.03 tooltip = renewable_infra_cost_multiplier_modifier_tt }
+		custom_effect_tooltip = { localization_key = modifies_dynamic_modifier_tt MODIFIER = MAD_economy_modifier }
+		add_to_variable = { MAD_economy_receiving_investment_cost_modifier = -0.05 tooltip = receiving_investment_cost_modifier_tt }
+		add_to_variable = { MAD_economy_receiving_investment_duration_modifier = -0.03 tooltip = receiving_investment_duration_modifier_tt }
+		add_to_variable = { MAD_economy_foreign_influence_modifier = 0.05 tooltip = foreign_influence_modifier_tt }
+		add_stability = -0.01
+		set_temp_variable = { temp_opinion = 8 }
+		change_international_bankers_opinion = yes
+		set_temp_variable = { temp_opinion = 8 }
+		change_small_medium_business_owners_opinion = yes
+		ai_chance = { factor = 1 }
 	}
 }

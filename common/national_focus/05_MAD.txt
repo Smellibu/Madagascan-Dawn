@@ -358,26 +358,512 @@ focus_tree = {
 			add_to_variable = { MAD_economy_infrastructure_tax_gain_multiplier_modifier = 0.05 tooltip = infrastructure_tax_gain_multiplier_modifier_tt }
 			custom_effect_tooltip = { localization_key = modifies_dynamic_modifier_tt MODIFIER = MAD_power_modifier }
 			add_to_variable = { MAD_power_non_electric_fuel_consumption_modifier = -0.03 tooltip = non_electric_fuel_consumption_modifier_tt }
-
+			
 			add_political_power = 25
 			set_country_flag = MAD_GPM_MARKET_FRAMEWORK_STARTED
 		}
 
-		ai_will_do = { base = 1 }
-
+		ai_will_do = {
+			base = 1
+		}
 	}
+
 	focus = {
 		id = MAD_JIRAMA
-		icon = GFX_goal_generic_political_pressure
-		x = 19
+		icon = electricity
+		x = 21
 		y = 2
 		relative_position_id = MAD_COMPANIES
 		cost = 5
 		prerequisite = { focus = MAD_COMPANIES }
-		search_filters = { FOCUS_FILTER_POLITICAL }
+		search_filters = { FOCUS_FILTER_ECONOMY FOCUS_FILTER_EXPENDITURE }
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_JIRAMA"
+			set_country_flag = MAD_JIRAMA_PROGRAM_STARTED
+			custom_effect_tooltip = { localization_key = modifies_dynamic_modifier_tt MODIFIER = MAD_power_modifier }
+			add_to_variable = { MAD_power_energy_gain_multiplier = 0.02 tooltip = energy_gain_multiplier_tt }
+			add_to_variable = { MAD_economy_production_speed_energy_infrastructure_factor = 0.03 tooltip = production_speed_energy_infrastructure_factor_tt }
+			add_political_power = 25
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_JIRAMA_MAINTENANCE
+		icon = powerplant
+		x = 1
+		y = 1
+		relative_position_id = MAD_JIRAMA
+		cost = 5
+		prerequisite = { focus = MAD_JIRAMA }
+		search_filters = { FOCUS_FILTER_ECONOMY FOCUS_FILTER_EXPENDITURE }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_JIRAMA_MAINTENANCE"
+			custom_effect_tooltip = { localization_key = modifies_dynamic_modifier_tt MODIFIER = MAD_power_modifier }
+			add_to_variable = { MAD_power_energy_gain_multiplier = 0.03 tooltip = energy_gain_multiplier_tt }
+			add_to_variable = { MAD_power_fossil_pp_fuel_consumption_modifier = -0.03 tooltip = fossil_pp_fuel_consumption_modifier_tt }
+			custom_effect_tooltip = { localization_key = modifies_dynamic_modifier_tt MODIFIER = MAD_economy_modifier }
+			add_to_variable = { MAD_economy_production_speed_energy_infrastructure_factor = 0.04 tooltip = production_speed_energy_infrastructure_factor_tt }
+			set_temp_variable = { treasury_change = -0.50 }
+			modify_treasury_effect = yes
+			add_stability = 0.01
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_JIRAMA_BILL_COLLECTION
+		icon = generic_bank
+		x = 8
+		y = 1
+		relative_position_id = MAD_JIRAMA
+		cost = 5
+		prerequisite = { focus = MAD_JIRAMA }
+		search_filters = { FOCUS_FILTER_ECONOMY }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_JIRAMA_BILL_COLLECTION"
+			custom_effect_tooltip = { localization_key = modifies_dynamic_modifier_tt MODIFIER = MAD_power_modifier }
+			add_to_variable = { MAD_power_energy_use_modifier_civs = -0.03 tooltip = energy_use_modifier_civs_tt }
+			add_to_variable = { MAD_power_pop_energy_use_multiplier = -0.01 tooltip = pop_energy_use_multiplier_tt }
+			custom_effect_tooltip = { localization_key = modifies_dynamic_modifier_tt MODIFIER = MAD_economy_modifier }
+			add_to_variable = { MAD_economy_population_tax_income_multiplier_modifier = 0.03 tooltip = population_tax_income_multiplier_modifier_tt }
+			if = { limit = { has_idea = international_bankers } set_temp_variable = { temp_opinion = 8 } change_international_bankers_opinion = yes }
+			if = { limit = { has_idea = small_medium_business_owners } set_temp_variable = { temp_opinion = -5 } change_small_medium_business_owners_opinion = yes }
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_JIRAMA_GRID_REINFORCEMENT
+		icon = infrastructure
+		x = 5
+		y = 1
+		relative_position_id = MAD_JIRAMA_MAINTENANCE
+		cost = 5
+		prerequisite = { focus = MAD_JIRAMA_MAINTENANCE focus = MAD_JIRAMA_BILL_COLLECTION }
+		search_filters = { FOCUS_FILTER_ECONOMY FOCUS_FILTER_EXPENDITURE }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_JIRAMA_GRID_REINFORCEMENT"
+			set_country_flag = MAD_JIRAMA_GRID_PROJECT_UNLOCKED
+			unlock_decision_category_tooltip = MAD_JIRAMA_PROJECTS
+			custom_effect_tooltip = { localization_key = modifies_dynamic_modifier_tt MODIFIER = MAD_power_modifier }
+			add_to_variable = { MAD_power_energy_gain_multiplier = 0.02 tooltip = energy_gain_multiplier_tt }
+			add_to_variable = { MAD_power_energy_use_modifier_mils = -0.01 tooltip = energy_use_modifier_mils_tt }
+			custom_effect_tooltip = { localization_key = modifies_dynamic_modifier_tt MODIFIER = MAD_economy_modifier }
+			add_to_variable = { MAD_economy_production_speed_energy_infrastructure_factor = 0.05 tooltip = production_speed_energy_infrastructure_factor_tt }
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_RURAL_ENERGY
+		icon = electricity
+		x = 0
+		y = 2
+		relative_position_id = MAD_JIRAMA_BILL_COLLECTION
+		cost = 5
+		prerequisite = { focus = MAD_JIRAMA_BILL_COLLECTION }
+		search_filters = { FOCUS_FILTER_ECONOMY }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_RURAL_ENERGY"
+			set_country_flag = MAD_JIRAMA_RURAL_PROJECT_UNLOCKED
+			unlock_decision_category_tooltip = MAD_JIRAMA_PROJECTS
+			custom_effect_tooltip = { localization_key = modifies_dynamic_modifier_tt MODIFIER = MAD_power_modifier }
+			add_to_variable = { MAD_power_energy_use_modifier_agriculture_district = -0.04 tooltip = energy_use_modifier_agriculture_district_tt }
+			add_to_variable = { MAD_power_pop_energy_use_multiplier = -0.02 tooltip = pop_energy_use_multiplier_tt }
+			add_to_variable = { MAD_power_renewable_energy_gain_multiplier = 0.02 tooltip = renewable_energy_gain_multiplier_tt }
+			if = { limit = { has_idea = landowners } set_temp_variable = { temp_opinion = 5 } change_landowners_opinion = yes }
+			if = { limit = { has_idea = small_medium_business_owners } set_temp_variable = { temp_opinion = 3 } change_small_medium_business_owners_opinion = yes }
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_HYDROLECT_FUEL_PP
+		icon = powerplant
+		x = 0
+		y = 1
+		relative_position_id = MAD_JIRAMA_MAINTENANCE
+		cost = 5
+		prerequisite = { focus = MAD_JIRAMA_MAINTENANCE }
+		search_filters = { FOCUS_FILTER_ECONOMY }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_HYDROLECT_FUEL_PP"
+			custom_effect_tooltip = { localization_key = modifies_dynamic_modifier_tt MODIFIER = MAD_power_modifier }
+			add_to_variable = { MAD_power_renewable_energy_gain_multiplier = 0.04 tooltip = renewable_energy_gain_multiplier_tt }
+			add_to_variable = { MAD_power_fossil_pp_fuel_consumption_modifier = -0.04 tooltip = fossil_pp_fuel_consumption_modifier_tt }
+			add_to_variable = { MAD_power_production_speed_renewable_energy_infra_factor = 0.03 tooltip = production_speed_renewable_energy_infra_factor_tt }
+			custom_effect_tooltip = { localization_key = modifies_dynamic_modifier_tt MODIFIER = MAD_economy_modifier }
+			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.10 tooltip = productivity_growth_modifier_tt }
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_JIRAMA_ANDEKALEKA
+		icon = powerplant
+		x = 3
+		y = 1
+		relative_position_id = MAD_HYDROLECT_FUEL_PP
+		cost = 5
+		prerequisite = { focus = MAD_HYDROLECT_FUEL_PP focus = MAD_JIRAMA_GRID_REINFORCEMENT }
+		search_filters = { FOCUS_FILTER_ECONOMY FOCUS_FILTER_EXPENDITURE }
+		available = {
+			
+				has_completed_focus = MAD_ACCEPT_FOREIGN_OWNERSHIP
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_JIRAMA_ANDEKALEKA"
+			set_country_flag = MAD_JIRAMA_ANDEKALEKA_PROJECT_UNLOCKED
+			unlock_decision_category_tooltip = MAD_JIRAMA_PROJECTS
+			custom_effect_tooltip = { localization_key = modifies_dynamic_modifier_tt MODIFIER = MAD_power_modifier }
+			add_to_variable = { MAD_power_energy_gain_multiplier = 0.015 tooltip = energy_gain_multiplier_tt }
+			add_to_variable = { MAD_power_renewable_energy_gain_multiplier = 0.02 tooltip = renewable_energy_gain_multiplier_tt }
+			add_to_variable = { MAD_power_production_speed_renewable_energy_infra_factor = 0.03 tooltip = production_speed_renewable_energy_infra_factor_tt }
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_JIRAMA_VOLOBE_AMONT
+		icon = powerplant
+		x = 3
+		y = 3
+		relative_position_id = MAD_JIRAMA_ANDEKALEKA
+		cost = 5
+		prerequisite = { focus = MAD_JIRAMA_GRID_REINFORCEMENT }
+		search_filters = { FOCUS_FILTER_ECONOMY FOCUS_FILTER_EXPENDITURE }
+		available = {
+			date > 2023.1.1
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_JIRAMA_VOLOBE_AMONT"
+			set_country_flag = MAD_JIRAMA_VOLOBE_FINANCE_READY
+			custom_effect_tooltip = { localization_key = modifies_dynamic_modifier_tt MODIFIER = MAD_power_modifier }
+			add_to_variable = { MAD_power_renewable_energy_gain_multiplier = 0.02 tooltip = renewable_energy_gain_multiplier_tt }
+			custom_effect_tooltip = { localization_key = modifies_dynamic_modifier_tt MODIFIER = MAD_economy_modifier }
+			add_to_variable = { MAD_economy_receiving_investment_cost_modifier = -0.04 tooltip = receiving_investment_cost_modifier_tt }
+			add_to_variable = { MAD_economy_receiving_investment_duration_modifier = -0.03 tooltip = receiving_investment_duration_modifier_tt }
+			add_to_variable = { MAD_economy_foreign_influence_modifier = 0.03 tooltip = foreign_influence_modifier_tt }
+			if = { limit = { has_idea = international_bankers } set_temp_variable = { temp_opinion = 5 } change_international_bankers_opinion = yes }
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_JIRAMA_PRIVATIZATION_FORK
+		icon = generic_bank
+		x = -4
+		y = 3
+		relative_position_id = MAD_JIRAMA_GRID_REINFORCEMENT
+		cost = 5
+		prerequisite = { focus = MAD_JIRAMA_GRID_REINFORCEMENT focus = MAD_HYDROLECT_FUEL_PP }
+		search_filters = { FOCUS_FILTER_ECONOMY }
+		available = {
+			267 = { infrastructure > 3
+					fossil_powerplant > 2
+				}
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_JIRAMA_PRIVATIZATION_FORK"
+			set_country_flag = MAD_JIRAMA_OWNERSHIP_DEBATE
+			custom_effect_tooltip = { localization_key = modifies_dynamic_modifier_tt MODIFIER = MAD_power_modifier }
+			add_to_variable = { MAD_power_energy_gain_multiplier = 0.01 tooltip = energy_gain_multiplier_tt }
+			custom_effect_tooltip = { localization_key = modifies_dynamic_modifier_tt MODIFIER = MAD_economy_modifier }
+			add_to_variable = { MAD_economy_receiving_investment_duration_modifier = -0.03 tooltip = receiving_investment_duration_modifier_tt }
+			add_political_power = 25
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_JIRAMA_CORPORATIZE
+		icon = generic_bank
+		x = -1
+		y = 3
+		relative_position_id = MAD_JIRAMA_PRIVATIZATION_FORK
+		cost = 5
+		prerequisite = { focus = MAD_JIRAMA_PRIVATIZATION_FORK }
+		mutually_exclusive = { focus = MAD_JIRAMA_STAY_PUBLIC }
+		search_filters = { FOCUS_FILTER_ECONOMY }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_JIRAMA_CORPORATIZE"
+			set_country_flag = MAD_JIRAMA_PRIVATE_MODEL
+			add_power_balance_value = { id = MAD_economy_ownership_bop value = -0.075 tooltip_side = MAD_private_ownership }
+			custom_effect_tooltip = { localization_key = modifies_dynamic_modifier_tt MODIFIER = MAD_power_modifier }
+			add_to_variable = { MAD_power_energy_gain_multiplier = 0.03 tooltip = energy_gain_multiplier_tt }
+			add_to_variable = { MAD_power_renewable_energy_gain_multiplier = 0.03 tooltip = renewable_energy_gain_multiplier_tt }
+			custom_effect_tooltip = { localization_key = modifies_dynamic_modifier_tt MODIFIER = MAD_economy_modifier }
+			add_to_variable = { MAD_economy_receiving_investment_cost_modifier = -0.05 tooltip = receiving_investment_cost_modifier_tt }
+			add_to_variable = { MAD_economy_receiving_investment_duration_modifier = -0.03 tooltip = receiving_investment_duration_modifier_tt }
+			add_to_variable = { MAD_economy_foreign_influence_modifier = 0.05 tooltip = foreign_influence_modifier_tt }
+			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.02 tooltip = productivity_growth_modifier_tt }
+			add_stability = -0.03
+			if = { limit = { has_idea = international_bankers } set_temp_variable = { temp_opinion = 10 } change_international_bankers_opinion = yes }
+			if = { limit = { has_idea = small_medium_business_owners } set_temp_variable = { temp_opinion = 6 } change_small_medium_business_owners_opinion = yes }
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_JIRAMA_STAY_PUBLIC
+		icon = national_unity
+		x = 1
+		y = 3
+		relative_position_id = MAD_JIRAMA_PRIVATIZATION_FORK
+		cost = 5
+		prerequisite = { focus = MAD_JIRAMA_PRIVATIZATION_FORK }
+		mutually_exclusive = { focus = MAD_JIRAMA_CORPORATIZE }
+		search_filters = { FOCUS_FILTER_ECONOMY FOCUS_FILTER_STABILITY }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_JIRAMA_STAY_PUBLIC"
+			set_country_flag = MAD_JIRAMA_PUBLIC_MODEL
+			add_power_balance_value = { id = MAD_economy_ownership_bop value = 0.075 tooltip_side = MAD_public_ownership }
+			custom_effect_tooltip = { localization_key = modifies_dynamic_modifier_tt MODIFIER = MAD_power_modifier }
+			add_to_variable = { MAD_power_energy_gain_multiplier = 0.04 tooltip = energy_gain_multiplier_tt }
+			add_to_variable = { MAD_power_renewable_energy_gain_multiplier = 0.03 tooltip = renewable_energy_gain_multiplier_tt }
+			add_to_variable = { MAD_power_renewable_infra_cost_multiplier_modifier = -0.05 tooltip = renewable_infra_cost_multiplier_modifier_tt }
+			custom_effect_tooltip = { localization_key = modifies_dynamic_modifier_tt MODIFIER = MAD_economy_modifier }
+			add_to_variable = { MAD_economy_internal_investments_money_cost_modifier = -0.05 tooltip = internal_investments_money_cost_modifier_tt }
+			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.02 tooltip = productivity_growth_modifier_tt }
+			add_stability = 0.02
+			if = { limit = { has_idea = international_bankers } set_temp_variable = { temp_opinion = -5 } change_international_bankers_opinion = yes }
+			if = { limit = { has_idea = landowners } set_temp_variable = { temp_opinion = 4 } change_landowners_opinion = yes }
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_JIRAMA_IMF_PLAN
+		icon = generic_bank
+		x = 3
+		y = 1
+		relative_position_id = MAD_JIRAMA_PRIVATIZATION_FORK
+		cost = 5
+		prerequisite = { focus = MAD_JIRAMA_PRIVATIZATION_FORK }
+		search_filters = { FOCUS_FILTER_ECONOMY FOCUS_FILTER_STABILITY }
+		available = {
+				has_completed_focus = MAD_BIANCO
+			
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_JIRAMA_IMF_PLAN"
+			set_country_flag = MAD_JIRAMA_RECOVERY_FRAMEWORK
+			custom_effect_tooltip = { localization_key = modifies_dynamic_modifier_tt MODIFIER = MAD_power_modifier }
+			add_to_variable = { MAD_power_energy_gain_multiplier = 0.02 tooltip = energy_gain_multiplier_tt }
+			add_to_variable = { MAD_power_energy_use_modifier_civs = -0.01 tooltip = energy_use_modifier_civs_tt }
+			custom_effect_tooltip = { localization_key = modifies_dynamic_modifier_tt MODIFIER = MAD_economy_modifier }
+			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.02 tooltip = productivity_growth_modifier_tt }
+			add_to_variable = { MAD_economy_receiving_investment_cost_modifier = -0.03 tooltip = receiving_investment_cost_modifier_tt }
+			add_to_variable = { MAD_economy_internal_investments_money_cost_modifier = -0.02 tooltip = internal_investments_money_cost_modifier_tt }
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_IMF_REVIEW_2025
+		icon = generic_bank
+		x = 0
+		y = 2
+		relative_position_id = MAD_JIRAMA_IMF_PLAN
+		cost = 5
+		prerequisite = { focus = MAD_JIRAMA_IMF_PLAN }
+		search_filters = { FOCUS_FILTER_ECONOMY FOCUS_FILTER_STABILITY }
+		available = {
+			date > 2025.7.1
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_IMF_REVIEW_2025"
+			set_country_flag = MAD_JIRAMA_RECOVERY_PLAN_READY
+			add_political_power = 50
+			add_stability = 0.01
+			hidden_effect = { country_event = { id = mad_jirama.1 days = 1 } }
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_JIRAMA_RECOVERY_FAILS
+		icon = GFX_goal_generic_demonstration
+		x = -3
+		y = 2
+		relative_position_id = MAD_IMF_REVIEW_2025
+		cost = 5
+		prerequisite = { focus = MAD_IMF_REVIEW_2025 }
+		mutually_exclusive = { focus = MAD_JIRAMA_RECOVERY_SUCCEEDS }
+		search_filters = { FOCUS_FILTER_ECONOMY FOCUS_FILTER_STABILITY FOCUS_FILTER_EXPENDITURE }
+		available = {
+			has_country_flag = MAD_JIRAMA_GENERATION_RECOVERY_EXPIRED
+			NOT = { has_completed_focus = MAD_JIRAMA_RECOVERY_SUCCEEDS }
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_JIRAMA_RECOVERY_FAILS"
+				set_country_flag = MAD_JIRAMA_AUSTERITY_MODEL
+				custom_effect_tooltip = { localization_key = modifies_dynamic_modifier_tt MODIFIER = MAD_power_modifier }
+				add_to_variable = { MAD_power_energy_gain_multiplier = 0.02 tooltip = energy_gain_multiplier_tt }
+				add_to_variable = { MAD_power_energy_use_modifier_civs = -0.02 tooltip = energy_use_modifier_civs_tt }
+				add_to_variable = { MAD_power_fossil_pp_fuel_consumption_modifier = -0.05 tooltip = fossil_pp_fuel_consumption_modifier_tt }
+				custom_effect_tooltip = { localization_key = modifies_dynamic_modifier_tt MODIFIER = MAD_economy_modifier }
+				add_to_variable = { MAD_economy_internal_investments_money_cost_modifier = -0.05 tooltip = internal_investments_money_cost_modifier_tt }
+				add_to_variable = { MAD_economy_receiving_investment_duration_modifier = -0.03 tooltip = receiving_investment_duration_modifier_tt }
+				set_temp_variable = { treasury_change = 0.75 }
+				modify_treasury_effect = yes
+				if = { limit = { has_country_flag = MAD_JIRAMA_TARIFF_DISCIPLINE } add_to_variable = { MAD_power_pop_energy_use_multiplier = -0.01 tooltip = pop_energy_use_multiplier_tt } add_to_variable = { MAD_economy_population_tax_income_multiplier_modifier = 0.02 tooltip = population_tax_income_multiplier_modifier_tt } }
+			if = { limit = { has_country_flag = MAD_JIRAMA_STATE_BACKSTOP } add_to_variable = { MAD_economy_internal_investments_money_cost_modifier = -0.02 tooltip = internal_investments_money_cost_modifier_tt } }
+			if = { limit = { has_country_flag = MAD_JIRAMA_PRIVATE_CONTRACTS } add_to_variable = { MAD_economy_receiving_investment_cost_modifier = -0.03 tooltip = receiving_investment_cost_modifier_tt } }
+			add_stability = -0.05
+			if = { limit = { has_idea = international_bankers } set_temp_variable = { temp_opinion = 5 } change_international_bankers_opinion = yes }
+			if = { limit = { has_idea = small_medium_business_owners } set_temp_variable = { temp_opinion = -5 } change_small_medium_business_owners_opinion = yes }
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_JIRAMA_RECOVERY_SUCCEEDS
+		icon = GFX_goal_generic_production
+		x = 0
+		y = 2
+		relative_position_id = MAD_IMF_REVIEW_2025
+		cost = 5
+		prerequisite = { focus = MAD_IMF_REVIEW_2025 }
+		mutually_exclusive = { focus = MAD_JIRAMA_RECOVERY_FAILS }
+		search_filters = { FOCUS_FILTER_ECONOMY FOCUS_FILTER_STABILITY FOCUS_FILTER_INDUSTRY }
+		available = {
+			has_active_mission = MAD_JIRAMA_GENERATION_RECOVERY_MISSION
+			NOT = { has_country_flag = MAD_JIRAMA_GENERATION_RECOVERY_EXPIRED }
+			MAD_JIRAMA_RECOVERY_REQUIREMENTS_MET = yes
+		}
+
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_JIRAMA_RECOVERY_SUCCEEDS"
+				set_country_flag = MAD_JIRAMA_INVESTMENT_MODEL
+				custom_effect_tooltip = { localization_key = modifies_dynamic_modifier_tt MODIFIER = MAD_power_modifier }
+				add_to_variable = { MAD_power_energy_gain_multiplier = 0.04 tooltip = energy_gain_multiplier_tt }
+				add_to_variable = { MAD_power_renewable_energy_gain_multiplier = 0.03 tooltip = renewable_energy_gain_multiplier_tt }
+				add_to_variable = { MAD_power_production_speed_renewable_energy_infra_factor = 0.04 tooltip = production_speed_renewable_energy_infra_factor_tt }
+				custom_effect_tooltip = { localization_key = modifies_dynamic_modifier_tt MODIFIER = MAD_economy_modifier }
+				add_to_variable = { MAD_economy_productivity_growth_modifier = 0.03 tooltip = productivity_growth_modifier_tt }
+				add_to_variable = { MAD_economy_return_on_investment_modifier = 0.02 tooltip = return_on_investment_modifier_tt }
+				if = { limit = { has_country_flag = MAD_JIRAMA_TARIFF_DISCIPLINE } add_to_variable = { MAD_economy_population_tax_income_multiplier_modifier = 0.02 tooltip = population_tax_income_multiplier_modifier_tt } }
+			if = { limit = { has_country_flag = MAD_JIRAMA_STATE_BACKSTOP } add_to_variable = { MAD_power_energy_gain_multiplier = 0.01 tooltip = energy_gain_multiplier_tt } }
+			if = { limit = { has_country_flag = MAD_JIRAMA_PRIVATE_CONTRACTS } add_to_variable = { MAD_economy_receiving_investment_cost_modifier = -0.04 tooltip = receiving_investment_cost_modifier_tt } }
+			add_stability = 0.03
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_ELECTRICITY_FOR_ALL
+		icon = GFX_goal_generic_production
+		x = -5
+		y = -1
+		relative_position_id = MAD_JIRAMA_RECOVERY_SUCCEEDS
+		cost = 5
+		prerequisite = { focus = MAD_IMF_REVIEW_2025 }
+		search_filters = { FOCUS_FILTER_ECONOMY FOCUS_FILTER_STABILITY FOCUS_FILTER_INDUSTRY }
+		available = {
+			OR = {
+				has_completed_focus = MAD_JIRAMA_RECOVERY_FAILS
+				has_completed_focus = MAD_JIRAMA_RECOVERY_SUCCEEDS
+			}
+			OR = {
+				has_country_flag = MAD_JIRAMA_RURAL_GRID_BUILT
+				has_country_flag = MAD_LEAD_ACCESS_BUILT
+				has_country_flag = MAD_JIRAMA_SMART_GRID_BUILT
+			}
+			OR = {
+				has_country_flag = MAD_JIRAMA_MANDROSEZA_BUILT
+				has_country_flag = MAD_JIRAMA_ANDEKALEKA_BUILT
+				has_country_flag = MAD_JIRAMA_SAHOFIKA_BUILT
+				has_country_flag = MAD_JIRAMA_VOLOBE_BUILT
+				has_country_flag = MAD_JIRAMA_DECIM_SOLAR_BUILT
+				has_country_flag = MAD_JIRAMA_OFFSHORE_WIND_BUILT
+			}
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [This.GetName]: Focus MAD_ELECTRICITY_FOR_ALL"
+			custom_effect_tooltip = { localization_key = modifies_dynamic_modifier_tt MODIFIER = MAD_power_modifier }
+			add_to_variable = { MAD_power_energy_gain_multiplier = 0.06 tooltip = energy_gain_multiplier_tt }
+			add_to_variable = { MAD_power_renewable_energy_gain_multiplier = 0.05 tooltip = renewable_energy_gain_multiplier_tt }
+			add_to_variable = { MAD_power_pop_energy_use_multiplier = -0.03 tooltip = pop_energy_use_multiplier_tt }
+			add_to_variable = { MAD_power_energy_use_modifier_agriculture_district = -0.02 tooltip = energy_use_modifier_agriculture_district_tt }
+			custom_effect_tooltip = { localization_key = modifies_dynamic_modifier_tt MODIFIER = MAD_economy_modifier }
+			add_to_variable = { MAD_economy_production_speed_energy_infrastructure_factor = 0.05 tooltip = production_speed_energy_infrastructure_factor_tt }
+			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.03 tooltip = productivity_growth_modifier_tt }
+			add_to_variable = { MAD_economy_expected_welfare_modifier = 0.50 tooltip = expected_welfare_modifier_tt }
+			if = {
+				limit = { has_country_flag = MAD_JIRAMA_PUBLIC_MODEL }
+				add_to_variable = { MAD_economy_internal_investments_money_cost_modifier = -0.05 tooltip = internal_investments_money_cost_modifier_tt }
+				add_power_balance_value = { id = MAD_economy_ownership_bop value = 0.0375 tooltip_side = MAD_public_ownership }
+			}
+			if = {
+				limit = { has_country_flag = MAD_JIRAMA_PRIVATE_MODEL }
+				add_to_variable = { MAD_economy_receiving_investment_cost_modifier = -0.04 tooltip = receiving_investment_cost_modifier_tt }
+				add_power_balance_value = { id = MAD_economy_ownership_bop value = -0.0375 tooltip_side = MAD_private_ownership }
+			}
+			add_stability = 0.03
+			add_political_power = 75
 		}
 
 		ai_will_do = {
@@ -1278,19 +1764,19 @@ focus_tree = {
 	focus = {
 		id = MAD_FUEL_LIBERALIZATION
 		icon = GFX_goal_generic_trade
-		x = 2
+		x = 0
 		y = 2
 		relative_position_id = MAD_GPM
 		cost = 5
 		prerequisite = { focus = MAD_GPM_CARTEL_FORMS }
 		search_filters = { FOCUS_FILTER_ECONOMY }
 		available = {
-				487 = {
-					is_controlled_by = ROOT
-					infrastructure > 2
-					industrial_complex > 1
-				}
+			487 = {
+				is_controlled_by = ROOT
+				infrastructure > 2
+				industrial_complex > 1
 			}
+		}
 
 		completion_reward = {
 			log = "[GetDateText]: [This.GetName]: Focus MAD_FUEL_LIBERALIZATION"
@@ -1300,42 +1786,6 @@ focus_tree = {
 			add_to_variable = { MAD_economy_international_market_income_modifier = 0.05 tooltip = international_market_income_modifier_tt }
 			add_political_power = 25
 			set_country_flag = MAD_GPM_DOWNSTREAM_LIBERALIZED
-		}
-
-		ai_will_do = { base = 1 }
-
-	}
-	focus = {
-		id = MAD_HYDROLECT_FUEL_PP
-		icon = GFX_goal_generic_political_pressure
-		x = 1
-		y = 3
-		relative_position_id = MAD_JIRAMA
-		cost = 5
-		prerequisite = { focus = MAD_JIRAMA }
-		search_filters = { FOCUS_FILTER_POLITICAL }
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus MAD_HYDROLECT_FUEL_PP"
-		}
-
-		ai_will_do = {
-			base = 1
-		}
-	}
-
-	focus = {
-		id = MAD_RURAL_ENERGY
-		icon = GFX_goal_generic_political_pressure
-		x = 9
-		y = 3
-		relative_position_id = MAD_JIRAMA
-		cost = 5
-		prerequisite = { focus = MAD_JIRAMA }
-		search_filters = { FOCUS_FILTER_POLITICAL }
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus MAD_RURAL_ENERGY"
 		}
 
 		ai_will_do = {
@@ -1965,13 +2415,12 @@ focus_tree = {
 		prerequisite = { focus = MAD_GPM }
 		search_filters = { FOCUS_FILTER_ECONOMY }
 		available = {
-				487 = {
-					is_controlled_by = MAD
-					infrastructure > 1
-					industrial_complex > 0
-				}
-			
+			487 = {
+				is_controlled_by = MAD
+				infrastructure > 1
+				industrial_complex > 0
 			}
+		}
 
 		completion_reward = {
 			log = "[GetDateText]: [This.GetName]: Focus MAD_GPM_CARTEL_FORMS"
@@ -1982,28 +2431,6 @@ focus_tree = {
 			set_country_flag = MAD_GPM_FORMED
 		}
 
-		ai_will_do = { base = 1 }
-
-	}
-	focus = {
-		id = MAD_JIRAMA_PRIVATIZATION_FORK
-		icon = GFX_goal_generic_trade
-		x = 5
-		y = 2
-		relative_position_id = MAD_HYDROLECT_FUEL_PP
-		cost = 5
-		prerequisite = { focus = MAD_HYDROLECT_FUEL_PP }
-		prerequisite = { focus = MAD_RURAL_ENERGY }
-		search_filters = { FOCUS_FILTER_ECONOMY }
-		available = {
-			date > 2017.1.1
-		}
-
-		completion_reward = {
-			log = "[GetDateText]: [This.GetName]: Focus MAD_JIRAMA_PRIVATIZATION_FORK"
-											add_political_power = 50
-		}
-
 		ai_will_do = {
 			base = 1
 		}
@@ -2011,16 +2438,35 @@ focus_tree = {
 
 	focus = {
 		id = MAD_PAGOSE
-		icon = GFX_goal_generic_political_pressure
+		icon = generic_bank
 		x = 0
-		y = 2
+		y = 1
 		relative_position_id = MAD_RURAL_ENERGY
 		cost = 5
 		prerequisite = { focus = MAD_RURAL_ENERGY }
-		search_filters = { FOCUS_FILTER_POLITICAL }
+		search_filters = { FOCUS_FILTER_ECONOMY }
+		available = {
+			has_country_flag = MAD_JIRAMA_RURAL_GRID_BUILT
+		}
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_PAGOSE"
+			set_country_flag = MAD_PAGOSE_PROGRAM
+					custom_effect_tooltip = {
+						localization_key = modifies_dynamic_modifier_tt
+						MODIFIER = MAD_power_modifier
+					}
+			add_to_variable = { MAD_power_energy_use_modifier_civs = -0.02 tooltip = energy_use_modifier_civs_tt }
+			add_to_variable = { MAD_power_fossil_pp_fuel_consumption_modifier = -0.02 tooltip = fossil_pp_fuel_consumption_modifier_tt }
+					custom_effect_tooltip = {
+						localization_key = modifies_dynamic_modifier_tt
+						MODIFIER = MAD_economy_modifier
+					}
+			add_to_variable = { MAD_economy_production_speed_energy_infrastructure_factor = 0.06 tooltip = production_speed_energy_infrastructure_factor_tt }
+			add_to_variable = { MAD_economy_infrastructure_tax_gain_multiplier_modifier = 0.03 tooltip = infrastructure_tax_gain_multiplier_modifier_tt }
+			add_stability = 0.01
+			if = { limit = { has_idea = international_bankers } set_temp_variable = { temp_opinion = 3 } change_international_bankers_opinion = yes }
+			if = { limit = { has_idea = small_medium_business_owners } set_temp_variable = { temp_opinion = 4 } change_small_medium_business_owners_opinion = yes }
 		}
 
 		ai_will_do = {
@@ -2361,16 +2807,28 @@ focus_tree = {
 
 	focus = {
 		id = MAD_Mandroseza_PLANT
-		icon = GFX_goal_generic_political_pressure
-		x = 0
-		y = 2
+		icon = powerplant
+		x = -4
+		y = 1
 		relative_position_id = MAD_HYDROLECT_FUEL_PP
 		cost = 5
 		prerequisite = { focus = MAD_HYDROLECT_FUEL_PP }
-		search_filters = { FOCUS_FILTER_POLITICAL }
+		search_filters = { FOCUS_FILTER_ECONOMY FOCUS_FILTER_EXPENDITURE }
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_Mandroseza_PLANT"
+			set_country_flag = MAD_JIRAMA_MANDROSEZA_PROJECT_UNLOCKED
+			unlock_decision_category_tooltip = MAD_JIRAMA_PROJECTS
+					custom_effect_tooltip = {
+						localization_key = modifies_dynamic_modifier_tt
+						MODIFIER = MAD_power_modifier
+					}
+			MAD_JIRAMA_START_GENERATION_RECOVERY = yes
+			add_to_variable = { MAD_power_energy_gain_multiplier = 0.02 tooltip = energy_gain_multiplier_tt }
+			add_to_variable = { MAD_power_production_speed_fossil_powerplant_factor = 0.03 tooltip = production_speed_fossil_powerplant_factor_tt }
+			add_to_variable = { MAD_power_fossil_pp_fuel_consumption_modifier = -0.02 tooltip = fossil_pp_fuel_consumption_modifier_tt }
+			add_stability = 0.03
+			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.10 tooltip = productivity_growth_modifier_tt }
 		}
 
 		ai_will_do = {
@@ -2711,67 +3169,39 @@ focus_tree = {
 	}
 
 	focus = {
-		id = MAD_JIRAMA_CORPORATIZE
-		icon = GFX_goal_generic_production
-		x = -1
-		y = 2
-		relative_position_id = MAD_JIRAMA_PRIVATIZATION_FORK
-		cost = 5
-		prerequisite = { focus = MAD_JIRAMA_PRIVATIZATION_FORK }
-		mutually_exclusive = { focus = MAD_JIRAMA_STAY_PUBLIC }
-		search_filters = { FOCUS_FILTER_ECONOMY }
-
-		completion_reward = {
-			log = "[GetDateText]: [This.GetName]: Focus MAD_JIRAMA_CORPORATIZE"
-											
-											
-											add_political_power = -25
-											add_stability = -0.03
-		}
-
-		ai_will_do = {
-			base = 1
-		}
-	}
-
-	focus = {
-		id = MAD_JIRAMA_STAY_PUBLIC
-		icon = GFX_goal_generic_national_unity
-		x = 1
-		y = 2
-		relative_position_id = MAD_JIRAMA_PRIVATIZATION_FORK
-		cost = 5
-		prerequisite = { focus = MAD_JIRAMA_PRIVATIZATION_FORK }
-		mutually_exclusive = { focus = MAD_JIRAMA_CORPORATIZE }
-		search_filters = { FOCUS_FILTER_ECONOMY FOCUS_FILTER_STABILITY }
-
-		completion_reward = {
-			log = "[GetDateText]: [This.GetName]: Focus MAD_JIRAMA_STAY_PUBLIC"
-											
-											add_political_power = 25
-		}
-
-		ai_will_do = {
-			base = 1
-		}
-	}
-
-	focus = {
 		id = MAD_EGOSIP_LOAN
-		icon = GFX_goal_generic_political_pressure
+		icon = generic_bank
 		x = 0
-		y = 2
+		y = 1
 		relative_position_id = MAD_PAGOSE
 		cost = 5
 		prerequisite = { focus = MAD_PAGOSE }
 		search_filters = { FOCUS_FILTER_ECONOMY }
 		available = {
-			date > 2018.6.1
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [This.GetName]: Focus MAD_EGOSIP_LOAN"
-											add_political_power = 25
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_EGOSIP_LOAN"
+			set_country_flag = MAD_EGOSIP_FINANCING
+			set_temp_variable = { treasury_change = 15.00 }
+			modify_treasury_effect = yes
+			set_temp_variable = { debt_change = 10.00 }
+			modify_debt_effect = yes
+					custom_effect_tooltip = {
+						localization_key = modifies_dynamic_modifier_tt
+						MODIFIER = MAD_economy_modifier
+					}
+			add_to_variable = { MAD_economy_receiving_investment_duration_modifier = -0.05 tooltip = receiving_investment_duration_modifier_tt }
+			add_to_variable = { MAD_economy_internal_investments_money_cost_modifier = -0.05 tooltip = internal_investments_money_cost_modifier_tt }
+			add_to_variable = { MAD_economy_return_on_investment_modifier = -0.01 tooltip = return_on_investment_modifier_tt }
+					custom_effect_tooltip = {
+						localization_key = modifies_dynamic_modifier_tt
+						MODIFIER = MAD_power_modifier
+					}
+			add_to_variable = { MAD_power_energy_gain_multiplier = 0.01 tooltip = energy_gain_multiplier_tt }
+			add_to_variable = { MAD_power_production_speed_fossil_powerplant_factor = 0.03 tooltip = production_speed_fossil_powerplant_factor_tt }
+			if = { limit = { has_idea = international_bankers } set_temp_variable = { temp_opinion = 6 } change_international_bankers_opinion = yes }
+			if = { limit = { has_idea = small_medium_business_owners } set_temp_variable = { temp_opinion = 2 } change_small_medium_business_owners_opinion = yes }
 		}
 
 		ai_will_do = {
@@ -3116,16 +3546,38 @@ focus_tree = {
 
 	focus = {
 		id = MAD_Sahofika_DAM
-		icon = GFX_goal_generic_political_pressure
-		x = 2
+		icon = powerplant
+		x = 3
 		y = 2
 		relative_position_id = MAD_Mandroseza_PLANT
 		cost = 5
 		prerequisite = { focus = MAD_Mandroseza_PLANT }
-		search_filters = { FOCUS_FILTER_POLITICAL }
+		search_filters = { FOCUS_FILTER_ECONOMY FOCUS_FILTER_EXPENDITURE }
+		available = {
+				has_country_flag = MAD_JIRAMA_MANDROSEZA_BUILT
+		}
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_Sahofika_DAM"
+			set_country_flag = MAD_JIRAMA_SAHOFIKA_PROJECT_UNLOCKED
+			unlock_decision_category_tooltip = MAD_JIRAMA_PROJECTS
+					custom_effect_tooltip = {
+						localization_key = modifies_dynamic_modifier_tt
+						MODIFIER = MAD_power_modifier
+					}
+			add_to_variable = { MAD_power_renewable_energy_gain_multiplier = 0.02 tooltip = renewable_energy_gain_multiplier_tt }
+					custom_effect_tooltip = {
+						localization_key = modifies_dynamic_modifier_tt
+						MODIFIER = MAD_economy_modifier
+					}
+			add_to_variable = { MAD_economy_receiving_investment_cost_modifier = -0.04 tooltip = receiving_investment_cost_modifier_tt }
+			add_to_variable = { MAD_economy_foreign_influence_modifier = 0.03 tooltip = foreign_influence_modifier_tt }
+			if = { limit = { has_idea = international_bankers } set_temp_variable = { temp_opinion = 5 } change_international_bankers_opinion = yes }
+			if = { limit = { has_idea = landowners } set_temp_variable = { temp_opinion = -2 } change_landowners_opinion = yes }
+			add_to_variable = { MAD_economy_production_speed_energy_infrastructure_factor = 0.03 tooltip = production_speed_energy_infrastructure_factor_tt }
+			
+			MAD_JIRAMA_START_GENERATION_RECOVERY = yes
+
 		}
 
 		ai_will_do = {
@@ -3135,16 +3587,34 @@ focus_tree = {
 
 	focus = {
 		id = MAD_DECIM
-		icon = GFX_goal_generic_political_pressure
-		x = -3
+		icon = electricity
+		x = -2
 		y = 2
 		relative_position_id = MAD_Mandroseza_PLANT
 		cost = 5
 		prerequisite = { focus = MAD_Mandroseza_PLANT }
-		search_filters = { FOCUS_FILTER_POLITICAL }
+		search_filters = { FOCUS_FILTER_ECONOMY }
+		available = {
+				has_country_flag = MAD_JIRAMA_MANDROSEZA_BUILT
+		}
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_DECIM"
+			set_country_flag = MAD_DECIM_PROGRAM
+			unlock_decision_category_tooltip = MAD_JIRAMA_PROJECTS
+					custom_effect_tooltip = {
+						localization_key = modifies_dynamic_modifier_tt
+						MODIFIER = MAD_power_modifier
+					}
+			add_to_variable = { MAD_power_renewable_energy_gain_multiplier = 0.03 tooltip = renewable_energy_gain_multiplier_tt }
+			add_to_variable = { MAD_power_pop_energy_use_multiplier = -0.01 tooltip = pop_energy_use_multiplier_tt }
+			add_to_variable = { MAD_power_production_speed_renewable_energy_infra_factor = 0.04 tooltip = production_speed_renewable_energy_infra_factor_tt }
+			add_stability = 0.01
+			add_tech_bonus = { name = MAD_DECIM_RENEWABLES bonus = 0.35 uses = 1 category = CAT_renewable }
+			
+			MAD_JIRAMA_START_GENERATION_RECOVERY = yes
+
+
 		}
 
 		ai_will_do = {
@@ -3154,16 +3624,35 @@ focus_tree = {
 
 	focus = {
 		id = MAD_LEAD_PROJECT
-		icon = GFX_goal_generic_political_pressure
-		x = 0
+		icon = electricity
+		x = 1
 		y = 2
 		relative_position_id = MAD_Mandroseza_PLANT
 		cost = 5
 		prerequisite = { focus = MAD_Mandroseza_PLANT }
-		search_filters = { FOCUS_FILTER_POLITICAL }
+		search_filters = { FOCUS_FILTER_ECONOMY }
+		available = {
+				has_country_flag = MAD_JIRAMA_MANDROSEZA_BUILT
+		}
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_LEAD_PROJECT"
+			set_country_flag = MAD_LEAD_PROJECT_UNLOCKED
+			unlock_decision_category_tooltip = MAD_JIRAMA_PROJECTS
+					custom_effect_tooltip = {
+						localization_key = modifies_dynamic_modifier_tt
+						MODIFIER = MAD_power_modifier
+					}
+			add_to_variable = { MAD_power_pop_energy_use_multiplier = -0.02 tooltip = pop_energy_use_multiplier_tt }
+			add_to_variable = { MAD_power_energy_use_modifier_agriculture_district = -0.02 tooltip = energy_use_modifier_agriculture_district_tt }
+					custom_effect_tooltip = {
+						localization_key = modifies_dynamic_modifier_tt
+						MODIFIER = MAD_economy_modifier
+					}
+			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.02 tooltip = productivity_growth_modifier_tt }
+			if = { limit = { has_idea = landowners } set_temp_variable = { temp_opinion = 3 } change_landowners_opinion = yes }
+			if = { limit = { has_idea = small_medium_business_owners } set_temp_variable = { temp_opinion = 4 } change_small_medium_business_owners_opinion = yes }
+			add_to_variable = { MAD_economy_expected_welfare_modifier = 0.10 tooltip = expected_welfare_modifier_tt }
 		}
 
 		ai_will_do = {
@@ -3261,7 +3750,6 @@ focus_tree = {
 			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.05 tooltip = productivity_growth_modifier_tt }
 			add_to_variable = { MAD_economy_trade_opinion_factor = 0.03 tooltip = trade_opinion_factor_tt }
 			add_to_variable = { MAD_economy_population_tax_income_multiplier_modifier = 0.05 tooltip = population_tax_income_multiplier_modifier_tt }
-
 		}
 
 		ai_will_do = {
@@ -3587,25 +4075,6 @@ focus_tree = {
 	}
 
 	focus = {
-		id = MAD_JIRAMA_IMF_PLAN
-		icon = GFX_goal_generic_political_pressure
-		x = 0
-		y = 2
-		relative_position_id = MAD_JIRAMA_STAY_PUBLIC
-		cost = 5
-		prerequisite = { focus = MAD_JIRAMA_STAY_PUBLIC }
-		search_filters = { FOCUS_FILTER_POLITICAL }
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus MAD_JIRAMA_IMF_PLAN"
-		}
-
-		ai_will_do = {
-			base = 1
-		}
-	}
-
-	focus = {
 		id = MAD_GERMAN_AIR_INVESTMENT
 		icon = GFX_goal_generic_political_pressure
 		x = 0
@@ -3875,16 +4344,32 @@ focus_tree = {
 
 	focus = {
 		id = MAD_Volobe_Amont_DAM
-		icon = GFX_goal_generic_political_pressure
+		icon = powerplant
 		x = 0
-		y = 2
-		relative_position_id = MAD_Sahofika_DAM
+		y = 3
+		relative_position_id = MAD_JIRAMA_VOLOBE_AMONT
 		cost = 5
-		prerequisite = { focus = MAD_Sahofika_DAM }
-		search_filters = { FOCUS_FILTER_POLITICAL }
+		prerequisite = { focus = MAD_JIRAMA_VOLOBE_AMONT }
+		search_filters = { FOCUS_FILTER_ECONOMY FOCUS_FILTER_EXPENDITURE }
+		available = {
+			date > 2023.1.1
+		}
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_Volobe_Amont_DAM"
+			set_country_flag = MAD_JIRAMA_VOLOBE_PROJECT_UNLOCKED
+			unlock_decision_category_tooltip = MAD_JIRAMA_PROJECTS
+			custom_effect_tooltip = { localization_key = modifies_dynamic_modifier_tt MODIFIER = MAD_power_modifier }
+			add_to_variable = { MAD_power_energy_gain_multiplier = 0.02 tooltip = energy_gain_multiplier_tt }
+			add_to_variable = { MAD_power_renewable_energy_gain_multiplier = 0.02 tooltip = renewable_energy_gain_multiplier_tt }
+			custom_effect_tooltip = { localization_key = modifies_dynamic_modifier_tt MODIFIER = MAD_economy_modifier }
+			add_to_variable = { MAD_economy_foreign_influence_modifier = 0.02 tooltip = foreign_influence_modifier_tt }
+			FRA = { add_opinion_modifier = { target = MAD modifier = large_commercial_relations } }
+			if = { limit = { has_country_flag = MAD_JIRAMA_PRIVATE_MODEL } add_power_balance_value = { id = MAD_economy_ownership_bop value = -0.0375 tooltip_side = MAD_private_ownership } }
+			if = { limit = { has_country_flag = MAD_JIRAMA_PUBLIC_MODEL } add_power_balance_value = { id = MAD_economy_ownership_bop value = 0.01875 tooltip_side = MAD_public_ownership } }
+			
+			MAD_JIRAMA_START_GENERATION_RECOVERY = yes
+
 		}
 
 		ai_will_do = {
@@ -3894,16 +4379,29 @@ focus_tree = {
 
 	focus = {
 		id = MAD_ADDED_SOLAR
-		icon = GFX_goal_generic_political_pressure
-		x = 2
-		y = 3
+		icon = electricity
+		x = 0
+		y = 2
 		relative_position_id = MAD_DECIM
 		cost = 5
 		prerequisite = { focus = MAD_DECIM }
-		search_filters = { FOCUS_FILTER_POLITICAL }
+		search_filters = { FOCUS_FILTER_ECONOMY }
+		available = {
+			date > 2023.1.1
+		}
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_ADDED_SOLAR"
+			set_country_flag = MAD_DECIM_SOLAR_PROJECT_UNLOCKED
+			unlock_decision_category_tooltip = MAD_JIRAMA_PROJECTS
+					custom_effect_tooltip = {
+						localization_key = modifies_dynamic_modifier_tt
+						MODIFIER = MAD_power_modifier
+					}
+			add_to_variable = { MAD_power_renewable_energy_gain_multiplier = 0.02 tooltip = renewable_energy_gain_multiplier_tt }
+			add_to_variable = { MAD_power_production_speed_renewable_energy_infra_factor = 0.03 tooltip = production_speed_renewable_energy_infra_factor_tt }
+			MAD_JIRAMA_START_GENERATION_RECOVERY = yes
+
 		}
 
 		ai_will_do = {
@@ -3913,20 +4411,25 @@ focus_tree = {
 
 	focus = {
 		id = MAD_LEAD_EXPANSION
-		icon = GFX_goal_generic_political_pressure
-		x = 0
+		icon = electricity
+		x = 1
 		y = 2
 		relative_position_id = MAD_LEAD_PROJECT
 		cost = 5
 		prerequisite = { focus = MAD_LEAD_PROJECT }
 		search_filters = { FOCUS_FILTER_ECONOMY }
-		available = {
-			date > 2019.1.1
-		}
 
 		completion_reward = {
-			log = "[GetDateText]: [This.GetName]: Focus MAD_LEAD_EXPANSION"
-											add_stability = 0.02
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_LEAD_EXPANSION"
+					custom_effect_tooltip = {
+						localization_key = modifies_dynamic_modifier_tt
+						MODIFIER = MAD_economy_modifier
+					}
+			add_to_variable = { MAD_economy_expected_welfare_modifier = 0.25 tooltip = expected_welfare_modifier_tt }
+			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.03 tooltip = productivity_growth_modifier_tt }
+			add_to_variable = { MAD_economy_population_tax_income_multiplier_modifier = 0.02 tooltip = population_tax_income_multiplier_modifier_tt }
+			add_stability = 0.02
+			add_to_variable = { MAD_power_renewable_energy_gain_multiplier = 0.01 tooltip = renewable_energy_gain_multiplier_tt }
 		}
 
 		ai_will_do = {
@@ -4304,7 +4807,7 @@ focus_tree = {
 	focus = {
 		id = MAD_GPM_TERMINAL_2009
 		icon = GFX_goal_generic_construct_infrastructure
-		x = 2
+		x = 1
 		y = 1
 		relative_position_id = MAD_GPM_CARTEL_FORMS
 		cost = 5
@@ -4312,13 +4815,12 @@ focus_tree = {
 		prerequisite = { focus = MAD_FUEL_LIBERALIZATION }
 		search_filters = { FOCUS_FILTER_ECONOMY }
 		available = {
-				487 = {
-					is_controlled_by = ROOT
-					naval_base > 0
-					infrastructure > 2
-				}
+			487 = {
+				is_controlled_by = ROOT
+				naval_base > 0
+				infrastructure > 2
 			}
-
+		}
 
 		completion_reward = {
 			log = "[GetDateText]: [This.GetName]: Focus MAD_GPM_TERMINAL_2009"
@@ -4338,14 +4840,16 @@ focus_tree = {
 			modify_treasury_effect = yes
 		}
 
-		ai_will_do = { base = 1 }
-
+		ai_will_do = {
+			base = 1
+		}
 	}
+
 	focus = {
 		id = MAD_RUBIS_BUYS_GALANA
 		icon = GFX_goal_generic_trade
 		x = -2
-		y = 2
+		y = 1
 		relative_position_id = MAD_GPM_TERMINAL_2009
 		cost = 5
 		prerequisite = { focus = MAD_GPM_TERMINAL_2009 }
@@ -4364,14 +4868,16 @@ focus_tree = {
 			add_political_power = 25
 		}
 
-		ai_will_do = { base = 1 }
-
+		ai_will_do = {
+			base = 1
+		}
 	}
+
 	focus = {
 		id = MAD_BREAK_GPM_CARTEL
 		icon = GFX_goal_generic_national_unity
-		x = 2
-		y = 2
+		x = 1
+		y = 1
 		relative_position_id = MAD_GPM_TERMINAL_2009
 		cost = 5
 		prerequisite = { focus = MAD_GPM_TERMINAL_2009 }
@@ -4390,9 +4896,11 @@ focus_tree = {
 			add_political_power = 25
 		}
 
-		ai_will_do = { base = 1 }
-
+		ai_will_do = {
+			base = 1
+		}
 	}
+
 	focus = {
 		id = MAD_GPM_CARTEL_CONTINUES
 		icon = GFX_goal_generic_trade
@@ -4415,9 +4923,11 @@ focus_tree = {
 			add_political_power = 25
 		}
 
-		ai_will_do = { base = 1 }
-
+		ai_will_do = {
+			base = 1
+		}
 	}
+
 	focus = {
 		id = MAD_STATE_FUEL_IMPORTS
 		icon = GFX_goal_generic_production
@@ -4448,9 +4958,11 @@ focus_tree = {
 			modify_treasury_effect = yes
 		}
 
-		ai_will_do = { base = 1 }
-
+		ai_will_do = {
+			base = 1
+		}
 	}
+
 	focus = {
 		id = MAD_GPM_NATIONAL_FUEL_RESERVE
 		icon = GFX_goal_generic_construct_infrastructure
@@ -4461,12 +4973,12 @@ focus_tree = {
 		prerequisite = { focus = MAD_GPM_CARTEL_CONTINUES focus = MAD_STATE_FUEL_IMPORTS }
 		search_filters = { FOCUS_FILTER_ECONOMY FOCUS_FILTER_EXPENDITURE }
 		available = {
-				487 = {
-					is_controlled_by = ROOT
-					fuel_silo > 1
-					supply_node > 0
-				}
+			487 = {
+				is_controlled_by = ROOT
+				fuel_silo > 1
+				supply_node > 0
 			}
+		}
 
 		completion_reward = {
 			log = "[GetDateText]: [This.GetName]: Focus MAD_GPM_NATIONAL_FUEL_RESERVE"
@@ -4483,13 +4995,15 @@ focus_tree = {
 			}
 		}
 
-		ai_will_do = { base = 1 }
-
+		ai_will_do = {
+			base = 1
+		}
 	}
+
 	focus = {
 		id = MAD_GPM_BUY_WHILE_CHEAP
 		icon = GFX_goal_generic_trade
-		x = 1
+		x = 2
 		y = 2
 		relative_position_id = MAD_GPM_NATIONAL_FUEL_RESERVE
 		cost = 5
@@ -4512,13 +5026,15 @@ focus_tree = {
 			else_if = { limit = { has_country_flag = MAD_GPM_STATE_MODEL } add_power_balance_value = { id = MAD_economy_ownership_bop value = 0.01875 tooltip_side = MAD_public_ownership } }
 		}
 
-		ai_will_do = { base = 1 }
-
+		ai_will_do = {
+			base = 1
+		}
 	}
+
 	focus = {
 		id = MAD_GPM_PREPARE_OIL_SHOCK
 		icon = GFX_goal_generic_construct_infrastructure
-		x = -3
+		x = -2
 		y = 2
 		relative_position_id = MAD_GPM_NATIONAL_FUEL_RESERVE
 		cost = 5
@@ -4538,9 +5054,11 @@ focus_tree = {
 			add_stability = 0.03
 		}
 
-		ai_will_do = { base = 1 }
-
+		ai_will_do = {
+			base = 1
+		}
 	}
+
 	focus = {
 		id = MAD_GPM_OIL_SHOCK_RESPONSE
 		icon = GFX_goal_generic_production
@@ -4563,16 +5081,18 @@ focus_tree = {
 			
 			custom_effect_tooltip = { localization_key = modifies_dynamic_modifier_tt MODIFIER = MAD_power_modifier }						
 			add_to_variable = { MAD_power_fuel_gain_factor = 0.25 tooltip = fuel_gain_factor_tt }
-			add_stability = 0.02		
+			add_stability = 0.02
 		}
 
-		ai_will_do = { base = 1 }
-
+		ai_will_do = {
+			base = 1
+		}
 	}
+
 	focus = {
 		id = MAD_GPM_REFERENCE_PRICE_2019
 		icon = GFX_goal_generic_trade
-		x = -1
+		x = 0
 		y = 2
 		relative_position_id = MAD_GPM_NATIONAL_FUEL_RESERVE
 		cost = 5
@@ -4589,9 +5109,11 @@ focus_tree = {
 			add_stability = 0.02
 		}
 
-		ai_will_do = { base = 1 }
-
+		ai_will_do = {
+			base = 1
+		}
 	}
+
 	focus = {
 		id = MAD_GPM_AUTOMATIC_PRICING_2025
 		icon = GFX_goal_generic_trade
@@ -4608,7 +5130,7 @@ focus_tree = {
 			custom_effect_tooltip = { localization_key = modifies_dynamic_modifier_tt MODIFIER = MAD_economy_modifier }
 			add_to_variable = { MAD_economy_trade_opinion_factor = 0.05 tooltip = trade_opinion_factor_tt }
 			add_to_variable = { MAD_economy_non_electric_fuel_consumption_modifier = -0.05 tooltip = non_electric_fuel_consumption_modifier_tt }
-
+			
 			add_stability = 0.02
 			if = {
 				limit = { has_country_flag = MAD_GPM_PRIVATE_MODEL }
@@ -4621,27 +5143,6 @@ focus_tree = {
 				add_to_variable = { MAD_economy_internal_investments_money_cost_modifier = -0.10 tooltip = internal_investments_money_cost_modifier_tt }
 				add_to_variable = { MAD_economy_infrastructure_tax_gain_multiplier_modifier = 0.05 tooltip = infrastructure_tax_gain_multiplier_modifier_tt }
 			}
-		}
-
-		ai_will_do = { base = 1 }
-
-	}
-	focus = {
-		id = MAD_IMF_REVIEW_2025
-		icon = GFX_goal_generic_political_pressure
-		x = 0
-		y = 2
-		relative_position_id = MAD_JIRAMA_IMF_PLAN
-		cost = 5
-		prerequisite = { focus = MAD_JIRAMA_IMF_PLAN }
-		search_filters = { FOCUS_FILTER_ECONOMY }
-		available = {
-			date > 2025.7.1
-		}
-
-		completion_reward = {
-			log = "[GetDateText]: [This.GetName]: Focus MAD_IMF_REVIEW_2025"
-											add_political_power = 25
 		}
 
 		ai_will_do = {
@@ -4790,7 +5291,7 @@ focus_tree = {
 
 	focus = {
 		id = MAD_EDF_JOINS_VOLOBE
-		icon = GFX_goal_generic_political_pressure
+		icon = powerplant
 		x = 0
 		y = 2
 		relative_position_id = MAD_Volobe_Amont_DAM
@@ -4802,8 +5303,20 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [This.GetName]: Focus MAD_EDF_JOINS_VOLOBE"
-											add_political_power = 25
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_EDF_JOINS_VOLOBE"
+			FRA = { add_opinion_modifier = { target = MAD modifier = large_commercial_relations } }
+					custom_effect_tooltip = {
+						localization_key = modifies_dynamic_modifier_tt
+						MODIFIER = MAD_power_modifier
+					}
+			add_to_variable = { MAD_power_renewable_energy_gain_multiplier = 0.02 tooltip = renewable_energy_gain_multiplier_tt }
+					custom_effect_tooltip = {
+						localization_key = modifies_dynamic_modifier_tt
+						MODIFIER = MAD_economy_modifier
+					}
+			add_to_variable = { MAD_economy_receiving_investment_duration_modifier = -0.03 tooltip = receiving_investment_duration_modifier_tt }
+			add_to_variable = { MAD_economy_foreign_influence_modifier = 0.03 tooltip = foreign_influence_modifier_tt }
+			set_country_flag = MAD_EDF_ENGINEERING_UNLOCKED
 		}
 
 		ai_will_do = {
@@ -4813,20 +5326,35 @@ focus_tree = {
 
 	focus = {
 		id = MAD_DECIM_SMART_GRID
-		icon = GFX_goal_generic_political_pressure
-		x = 0
-		y = 2
-		relative_position_id = MAD_ADDED_SOLAR
+		icon = electricity
+		x = 2
+		y = 1
+		relative_position_id = MAD_DECIM
 		cost = 5
-		prerequisite = { focus = MAD_ADDED_SOLAR }
-		search_filters = { FOCUS_FILTER_ECONOMY }
+		prerequisite = { focus = MAD_DECIM }
+		search_filters = { FOCUS_FILTER_ECONOMY FOCUS_FILTER_INDUSTRY }
 		available = {
 			date > 2023.1.1
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [This.GetName]: Focus MAD_DECIM_SMART_GRID"
-											add_stability = 0.02
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_DECIM_SMART_GRID"
+			set_country_flag = MAD_DECIM_SMART_GRID_PROJECT_UNLOCKED
+			unlock_decision_category_tooltip = MAD_JIRAMA_PROJECTS
+					custom_effect_tooltip = {
+						localization_key = modifies_dynamic_modifier_tt
+						MODIFIER = MAD_power_modifier
+					}
+			add_to_variable = { MAD_power_energy_use_modifier_civs = -0.02 tooltip = energy_use_modifier_civs_tt }
+			add_to_variable = { MAD_power_pop_energy_use_multiplier = -0.01 tooltip = pop_energy_use_multiplier_tt }
+					custom_effect_tooltip = {
+						localization_key = modifies_dynamic_modifier_tt
+						MODIFIER = MAD_economy_modifier
+					}
+			add_to_variable = { MAD_economy_production_speed_energy_infrastructure_factor = 0.05 tooltip = production_speed_energy_infrastructure_factor_tt }
+			add_to_variable = { MAD_economy_infrastructure_tax_gain_multiplier_modifier = 0.02 tooltip = infrastructure_tax_gain_multiplier_modifier_tt }
+			add_stability = 0.02
+			if = { limit = { has_idea = small_medium_business_owners } set_temp_variable = { temp_opinion = 4 } change_small_medium_business_owners_opinion = yes }
 		}
 
 		ai_will_do = {
@@ -4992,55 +5520,6 @@ focus_tree = {
 	}
 
 	focus = {
-		id = MAD_JIRAMA_RECOVERY_FAILS
-		icon = GFX_goal_generic_demonstration
-		x = -2
-		y = 1
-		relative_position_id = MAD_IMF_REVIEW_2025
-		cost = 5
-		prerequisite = { focus = MAD_IMF_REVIEW_2025 }
-		mutually_exclusive = { focus = MAD_JIRAMA_RECOVERY_SUCCEEDS }
-		search_filters = { FOCUS_FILTER_ECONOMY FOCUS_FILTER_STABILITY }
-		available = {
-			date > 2025.9.1
-		}
-
-		completion_reward = {
-			log = "[GetDateText]: [This.GetName]: Focus MAD_JIRAMA_RECOVERY_FAILS"
-											add_stability = -0.15
-		}
-
-		ai_will_do = {
-			base = 1
-		}
-	}
-
-	focus = {
-		id = MAD_JIRAMA_RECOVERY_SUCCEEDS
-		icon = GFX_goal_generic_production
-		x = 2
-		y = 1
-		relative_position_id = MAD_IMF_REVIEW_2025
-		cost = 5
-		prerequisite = { focus = MAD_IMF_REVIEW_2025 }
-		mutually_exclusive = { focus = MAD_JIRAMA_RECOVERY_FAILS }
-		search_filters = { FOCUS_FILTER_ECONOMY FOCUS_FILTER_STABILITY }
-		available = {
-			date > 2025.9.1
-		}
-
-		completion_reward = {
-			log = "[GetDateText]: [This.GetName]: Focus MAD_JIRAMA_RECOVERY_SUCCEEDS"
-											add_stability = 0.15
-											add_political_power = 50
-		}
-
-		ai_will_do = {
-			base = 1
-		}
-	}
-
-	focus = {
 		id = MAD_GERMAN_FLEET_MODERNIZED
 		icon = GFX_goal_generic_political_pressure
 		x = 0
@@ -5142,16 +5621,32 @@ focus_tree = {
 
 	focus = {
 		id = MAD_offshore_wind
-		icon = GFX_goal_generic_political_pressure
-		x = 0
-		y = 2
+		icon = electricity
+		x = 1
+		y = 3
 		relative_position_id = MAD_DECIM_SMART_GRID
 		cost = 5
 		prerequisite = { focus = MAD_DECIM_SMART_GRID }
-		search_filters = { FOCUS_FILTER_POLITICAL }
+		search_filters = { FOCUS_FILTER_ECONOMY FOCUS_FILTER_INDUSTRY }
+		available = {
+			date > 2028.1.1
+		}
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_offshore_wind"
+			set_country_flag = MAD_JIRAMA_OFFSHORE_WIND_UNLOCKED
+			unlock_decision_category_tooltip = MAD_JIRAMA_PROJECTS
+					custom_effect_tooltip = {
+						localization_key = modifies_dynamic_modifier_tt
+						MODIFIER = MAD_power_modifier
+					}
+			add_to_variable = { MAD_power_renewable_energy_gain_multiplier = 0.02 tooltip = renewable_energy_gain_multiplier_tt }
+			add_to_variable = { MAD_power_production_speed_renewable_energy_infra_factor = 0.03 tooltip = production_speed_renewable_energy_infra_factor_tt }
+			add_to_variable = { MAD_power_renewable_infra_cost_multiplier_modifier = -0.03 tooltip = renewable_infra_cost_multiplier_modifier_tt }
+			add_stability = -0.01
+			
+			MAD_JIRAMA_START_GENERATION_RECOVERY = yes
+
 		}
 
 		ai_will_do = {
@@ -5244,29 +5739,6 @@ focus_tree = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_crop_death"
 			
 			MAD_crop_death_effects = yes
-		}
-
-		ai_will_do = {
-			base = 1
-		}
-	}
-
-	focus = {
-		id = MAD_ELECTRICITY_FOR_ALL
-		icon = GFX_goal_generic_production
-		x = 0
-		y = 2
-		relative_position_id = MAD_JIRAMA_RECOVERY_SUCCEEDS
-		cost = 5
-		prerequisite = { focus = MAD_JIRAMA_RECOVERY_SUCCEEDS }
-		search_filters = { FOCUS_FILTER_ECONOMY FOCUS_FILTER_STABILITY FOCUS_FILTER_INDUSTRY }
-
-		completion_reward = {
-			log = "[GetDateText]: [This.GetName]: Focus MAD_ELECTRICITY_FOR_ALL"
-											
-											
-											add_stability = 0.1
-											add_political_power = 100
 		}
 
 		ai_will_do = {
@@ -5911,28 +6383,35 @@ focus_tree = {
 
 	focus = {
 		id = MAD_RURAL_SMART_METER_CONNECTION
-		icon = GFX_goal_generic_political_pressure
-		x = 0
-		y = 2
-		relative_position_id = MAD_DECIM
+		icon = electricity
+		x = -1
+		y = 3
+		relative_position_id = MAD_DECIM_SMART_GRID
 		cost = 5
-		prerequisite = { focus = MAD_DECIM }
+		prerequisite = { focus = MAD_DECIM_SMART_GRID }
 		search_filters = { FOCUS_FILTER_ECONOMY }
 		available = {
 			has_completed_focus = MAD_DIGITAL_MADAGASCAR
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [This.GetName]: Focus MAD_RURAL_SMART_METER_CONNECTION"
-			custom_effect_tooltip = {
-				localization_key = modifies_dynamic_modifier_tt
-				MODIFIER = MAD_economy_modifier
-			}
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_RURAL_SMART_METER_CONNECTION"
+					custom_effect_tooltip = {
+						localization_key = modifies_dynamic_modifier_tt
+						MODIFIER = MAD_economy_modifier
+					}
 			add_to_variable = { MAD_economy_production_speed_energy_infrastructure_factor = 0.05 tooltip = production_speed_energy_infrastructure_factor_tt }
 			add_to_variable = { MAD_economy_infrastructure_tax_gain_multiplier_modifier = 0.03 tooltip = infrastructure_tax_gain_multiplier_modifier_tt }
-			 
-			one_random_network_infrastructure = yes
+					custom_effect_tooltip = {
+						localization_key = modifies_dynamic_modifier_tt
+						MODIFIER = MAD_power_modifier
+					}
+			add_to_variable = { MAD_power_pop_energy_use_multiplier = -0.02 tooltip = pop_energy_use_multiplier_tt }
+			add_to_variable = { MAD_power_energy_use_modifier_civs = -0.01 tooltip = energy_use_modifier_civs_tt }
 			add_stability = 0.02
+			if = { limit = { has_idea = small_medium_business_owners } set_temp_variable = { temp_opinion = 5 } change_small_medium_business_owners_opinion = yes }
+			set_country_flag = MAD_JIRAMA_SMART_METER_PROJECT_UNLOCKED
+			unlock_decision_category_tooltip = MAD_JIRAMA_PROJECTS
 		}
 
 		ai_will_do = {

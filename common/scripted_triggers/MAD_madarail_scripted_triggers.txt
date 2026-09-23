@@ -98,3 +98,65 @@ MAD_no_state_in_kere = {
 		any_owned_state = { check_variable = { MAD_state_drought > 74.99 } }
 	}
 }
+# MADAGASCAR JIRAMA RECOVERY - SCRIPTED TRIGGERS ONLY
+# Place in common/scripted_triggers/
+#
+# No recovery score/counter is stored. The six existing project-built flags are
+# evaluated directly, and the three-year mission supplies the timer.
+
+########################################################################
+# AT LEAST TWO GENERATION PROJECTS HAVE BEEN COMPLETED
+########################################################################
+
+MAD_JIRAMA_HAS_TWO_GENERATION_PROJECTS = {
+	OR = {
+		AND = { has_country_flag = MAD_JIRAMA_MANDROSEZA_BUILT has_country_flag = MAD_JIRAMA_ANDEKALEKA_BUILT }
+		AND = { has_country_flag = MAD_JIRAMA_MANDROSEZA_BUILT has_country_flag = MAD_JIRAMA_SAHOFIKA_BUILT }
+		AND = { has_country_flag = MAD_JIRAMA_MANDROSEZA_BUILT has_country_flag = MAD_JIRAMA_VOLOBE_BUILT }
+		AND = { has_country_flag = MAD_JIRAMA_MANDROSEZA_BUILT has_country_flag = MAD_JIRAMA_DECIM_SOLAR_BUILT }
+		AND = { has_country_flag = MAD_JIRAMA_MANDROSEZA_BUILT has_country_flag = MAD_JIRAMA_OFFSHORE_WIND_BUILT }
+		AND = { has_country_flag = MAD_JIRAMA_ANDEKALEKA_BUILT has_country_flag = MAD_JIRAMA_SAHOFIKA_BUILT }
+		AND = { has_country_flag = MAD_JIRAMA_ANDEKALEKA_BUILT has_country_flag = MAD_JIRAMA_VOLOBE_BUILT }
+		AND = { has_country_flag = MAD_JIRAMA_ANDEKALEKA_BUILT has_country_flag = MAD_JIRAMA_DECIM_SOLAR_BUILT }
+		AND = { has_country_flag = MAD_JIRAMA_ANDEKALEKA_BUILT has_country_flag = MAD_JIRAMA_OFFSHORE_WIND_BUILT }
+		AND = { has_country_flag = MAD_JIRAMA_SAHOFIKA_BUILT has_country_flag = MAD_JIRAMA_VOLOBE_BUILT }
+		AND = { has_country_flag = MAD_JIRAMA_SAHOFIKA_BUILT has_country_flag = MAD_JIRAMA_DECIM_SOLAR_BUILT }
+		AND = { has_country_flag = MAD_JIRAMA_SAHOFIKA_BUILT has_country_flag = MAD_JIRAMA_OFFSHORE_WIND_BUILT }
+		AND = { has_country_flag = MAD_JIRAMA_VOLOBE_BUILT has_country_flag = MAD_JIRAMA_DECIM_SOLAR_BUILT }
+		AND = { has_country_flag = MAD_JIRAMA_VOLOBE_BUILT has_country_flag = MAD_JIRAMA_OFFSHORE_WIND_BUILT }
+		AND = { has_country_flag = MAD_JIRAMA_DECIM_SOLAR_BUILT has_country_flag = MAD_JIRAMA_OFFSHORE_WIND_BUILT }
+	}
+}
+
+########################################################################
+# LIVE GENERATION >= 120% OF LIVE ELECTRICITY CONSUMPTION
+########################################################################
+#
+# This is intentionally isolated as one adapter trigger.
+# MD's public modding documentation exposes the energy system's generation/use
+# concepts and the current MAD focus tree does not expose the engine-level total
+# generation/consumption variable names. The only two names to bind to the fork's
+# actual live country totals are the RHS values below.
+#
+# Expected inputs:
+#   energy_gain = Madagascar's current total electricity generation
+#   energy_use  = Madagascar's current total electricity consumption
+#
+# If your fork's energy script exposes those two totals under different variable
+# names, change ONLY the two RHS names here. Do not change the recovery logic.
+
+MAD_JIRAMA_GENERATION_AT_LEAST_120_PERCENT = {
+	set_temp_variable = { MAD_JIRAMA_generation_total = energy_gain }
+	set_temp_variable = { MAD_JIRAMA_consumption_total = energy_use }
+	multiply_temp_variable = { MAD_JIRAMA_consumption_total = 1.20 }
+	check_variable = { MAD_JIRAMA_generation_total > MAD_JIRAMA_consumption_total }
+}
+
+########################################################################
+# COMBINED SUCCESS REQUIREMENT
+########################################################################
+
+MAD_JIRAMA_RECOVERY_REQUIREMENTS_MET = {
+	MAD_JIRAMA_HAS_TWO_GENERATION_PROJECTS = yes
+	MAD_JIRAMA_GENERATION_AT_LEAST_120_PERCENT = yes
+}
