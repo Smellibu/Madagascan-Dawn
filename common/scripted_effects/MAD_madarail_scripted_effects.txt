@@ -49,6 +49,14 @@ MAD_madarail_enact_concessions = {
 			set_temp_variable = { treasury_change = -5.00 }
 			modify_treasury_effect = yes
 		}
+		
+		if = {
+			limit = { has_country_flag = MAD_MADARAIL_OFFER_3 }
+			add_to_variable = { MAD_comazar_infrastructure_tax_gain_multiplier_modifier = -0.05 tooltip = infrastructure_tax_gain_multiplier_modifier_tt }
+			add_to_variable = { MAD_comazar_internal_investments_money_cost_modifier = 0.05 tooltip = internal_investments_money_cost_modifier_tt }
+			add_to_variable = { MAD_comazar_productivity_growth_modifier = 0.15 tooltip = productivity_growth_modifier_tt }
+			add_to_variable = { MAD_comazar_total_workforce_modifier = 0.01 tooltip = total_workforce_modifier_tt }
+		}
 		if = {
 			limit = { has_country_flag = MAD_MADARAIL_OFFER_2 }
 			add_to_variable = { MAD_comazar_production_speed_rail_way_factor = 0.05 tooltip = production_speed_rail_way_factor_tt }
@@ -58,13 +66,6 @@ MAD_madarail_enact_concessions = {
 				value = -0.03
 				tooltip_side = MAD_private_ownership
 			}
-		}
-		if = {
-			limit = { has_country_flag = MAD_MADARAIL_OFFER_3 }
-			add_to_variable = { MAD_comazar_infrastructure_tax_gain_multiplier_modifier = -0.05 tooltip = infrastructure_tax_gain_multiplier_modifier_tt }
-			add_to_variable = { MAD_comazar_internal_investments_money_cost_modifier = 0.05 tooltip = internal_investments_money_cost_modifier_tt }
-			add_to_variable = { MAD_comazar_productivity_growth_modifier = 0.15 tooltip = productivity_growth_modifier_tt }
-			add_to_variable = { MAD_comazar_total_workforce_modifier = 0.01 tooltip = total_workforce_modifier_tt }
 		}
 		hidden_effect = { force_update_dynamic_modifier = yes }
 	}

@@ -310,7 +310,6 @@ country_event = {
 # mission timeout: the suitor leaves without a commitment
 country_event = {
 	id = mad_madarail.4
-	hidden = yes
 	is_triggered_only = yes
 
 	immediate = {
@@ -1200,6 +1199,64 @@ country_event = {
 	}
 }
 
+
+########################################################################
+# QMM LAGOON POLLUTION SCANDAL
+#
+# Fired by MAD_QMM_LAGOON_POLLUTION_SCANDAL. Both outcomes permanently
+# resolve the scandal and unlock the Bemolanga and Toliara resource branches.
+########################################################################
+
+add_namespace = mad_qmm
+
+country_event = {
+	id = mad_qmm.1
+	title = mad_qmm.1.t
+	desc = mad_qmm.1.d
+	picture = GFX_report_event_economy_default
+	is_triggered_only = yes
+
+	option = {
+		name = mad_qmm.1.a
+		log = "[GetDateText]: [Root.GetName]: mad_qmm.1.a - QMM scandal covered up"
+
+		if = {
+			limit = { has_idea = international_bankers }
+			set_temp_variable = { temp_opinion = 5 }
+			change_international_bankers_opinion = yes
+		}
+		increase_corruption = yes
+		set_temp_variable = { corp_change = 5 }
+		modify_corporate_tax_rate_effect = yes
+		add_stability = -0.05
+		add_power_balance_value = {
+			id = MAD_economy_ownership_bop
+			value = -0.075
+			tooltip_side = MAD_private_ownership
+		}
+		add_ideas = MAD_QMM_LAGOON_COVER_UP
+		set_country_flag = MAD_QMM_LAGOON_COVERED_UP
+		set_country_flag = MAD_QMM_LAGOON_SCANDAL_RESOLVED
+	}
+
+	option = {
+		name = mad_qmm.1.b
+		log = "[GetDateText]: [Root.GetName]: mad_qmm.1.b - QMM scandal investigated and cleaned up"
+
+		decrease_corruption = yes
+		set_temp_variable = { corp_change = -5 }
+		modify_corporate_tax_rate_effect = yes
+		add_stability = 0.05
+		add_power_balance_value = {
+			id = MAD_economy_ownership_bop
+			value = 0.075
+			tooltip_side = MAD_public_ownership
+		}
+		add_ideas = MAD_QMM_LAGOON_CLEANUP
+		set_country_flag = MAD_QMM_LAGOON_CLEANED_UP
+		set_country_flag = MAD_QMM_LAGOON_SCANDAL_RESOLVED
+	}
+}
 
 ########################################################################
 # VANILLA EXPORT MARKET CYCLE

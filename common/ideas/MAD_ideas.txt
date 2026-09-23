@@ -113,7 +113,7 @@ ideas = {
 			modifier = {
 				stability_factor = -0.05
 				political_power_gain = -0.08
-				corruption_cost_factor = 1.5
+				corruption_cost_factor = 0.2
 				productivity_growth_modifier = -0.10
 			}
 			ai_will_do = { factor = 1 }
@@ -610,6 +610,56 @@ ideas = {
 			}
 			ai_will_do = { factor = 1 }
 		}
+		MAD_QMM_LAGOON_COVER_UP = {
+			name = MAD_QMM_LAGOON_COVER_UP
+			picture = GFX_idea_generic
+			allowed_civil_war = { always = yes }
+			cost = 0
+			removal_cost = -1
+			allowed = { original_tag = MAD }
+			modifier = {
+				corruption_cost_factor = 0.10
+			}
+		}
+
+		MAD_QMM_LAGOON_CLEANUP = {
+			name = MAD_QMM_LAGOON_CLEANUP
+			picture = GFX_idea_generic
+			allowed_civil_war = { always = yes }
+			cost = 0
+			removal_cost = -1
+			allowed = { original_tag = MAD }
+			modifier = {
+				corruption_cost_factor = -0.10
+			}
+		}
+		MAD_GPM_ORGANISED_FUEL_MARKET = {
+            picture = generic_fuel
+            allowed = { original_tag = MAD }
+            modifier = {
+                non_electric_fuel_consumption_modifier = -0.03
+            }
+        }
+
+        # Used only while oil prices are elevated.  The rationing policy is
+        # intentionally powerful but socially/economically painful.
+        MAD_GPM_CIVILIAN_FUEL_EFFICIENCY = {
+            picture = generic_fuel
+            allowed = { original_tag = MAD }
+            modifier = {
+                non_electric_fuel_consumption_modifier = -0.05
+            }
+        }
+
+        MAD_GPM_EMERGENCY_FUEL_RATIONING = {
+            picture = generic_fuel
+            allowed = { original_tag = MAD }
+            modifier = {
+                non_electric_fuel_consumption_modifier = -0.10
+                consumer_goods_factor = 0.05
+            }
+        }
+
 	}
 	
 }

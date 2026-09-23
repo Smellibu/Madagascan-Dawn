@@ -37,9 +37,9 @@ MAD_economy_modifier = {
 	production_speed_rail_terminal_factor = MAD_economy_production_speed_rail_terminal_factor
 	infrastructure_tax_gain_multiplier_modifier = MAD_economy_infrastructure_tax_gain_multiplier_modifier 
 	corporate_tax_income_multiplier_modifier = MAD_economy_corporate_tax_income_multiplier_modifier
-	infrastructure_cost_multiplier_modifier = MAD_economy_infrastructure_cost_multiplier_modifier 
+	infrastructure_cost_multiplier_modifier = MAD_economy_infrastructure_cost_multiplier_modifier
+	population_tax_income_multiplier_modifier = MAD_economy_population_tax_income_multiplier_modifier
  
-	# --- folded in from MAD_privatisation (keys not already covered above) ---
 	stability_factor = MAD_economy_stability_factor
 	monthly_population = MAD_economy_monthly_population
 	expected_welfare_modifier = MAD_economy_expected_welfare_modifier
@@ -67,6 +67,11 @@ MAD_power_modifier = {
     fossil_pp_energy_generation_modifier = MAD_power_fossil_pp_energy_generation_modifier
     production_speed_fossil_powerplant_factor = MAD_power_production_speed_fossil_powerplant_factor
     fossil_pp_fuel_consumption_modifier = MAD_power_fossil_pp_fuel_consumption_modifier
+	
+	max_fuel_factor = MAD_power_max_fuel_factor
+	non_electric_fuel_consumption_modifier = MAD_power_non_electric_fuel_consumption_modifier
+	fuel_gain_factor = MAD_power_fuel_gain_factor
+
 }
 # ============================================================
 # MADARAIL - one dynamic modifier per private operator.
