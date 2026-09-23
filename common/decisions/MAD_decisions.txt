@@ -1848,7 +1848,7 @@ MAD_JIRAMA_PROJECTS = {
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_JIRAMA_BUILD_MANDROSEZA - project complete"
 			267 = { add_extra_state_shared_building_slots = 1 add_building_construction = { type = fossil_powerplant level = 2 instant_build = yes } }
-			set_country_flag = 	
+			set_country_flag = MAD_JIRAMA_MANDROSEZA_BUILT
 			custom_effect_tooltip = { localization_key = modifies_dynamic_modifier_tt MODIFIER = MAD_power_modifier }
 			add_to_variable = { MAD_power_energy_gain_multiplier = 0.02 tooltip = energy_gain_multiplier_tt }
 			add_to_variable = { MAD_power_fossil_pp_fuel_consumption_modifier = -0.02 tooltip = fossil_pp_fuel_consumption_modifier_tt }
@@ -1882,14 +1882,18 @@ MAD_JIRAMA_PROJECTS = {
 
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_JIRAMA_BUILD_ANDEKALEKA - project complete"
-			487 = { 		set_variable = { hydroelectric_energy_production_var = 2.5 } }
+			487 = { set_variable = { hydroelectric_energy_production_var = 2.5 } 
+			add_dynamic_modifier = {
+			modifier = hydroelectric_infrastructure_in_state
+				}
+			}
 			set_country_flag = MAD_JIRAMA_ANDEKALEKA_BUILT
 			custom_effect_tooltip = { localization_key = modifies_dynamic_modifier_tt MODIFIER = MAD_power_modifier }
 			add_to_variable = { MAD_power_energy_gain_multiplier = 0.05 tooltip = energy_gain_multiplier_tt }
 			add_to_variable = { MAD_power_renewable_energy_gain_multiplier = 0.02 tooltip = renewable_energy_gain_multiplier_tt }
 			add_to_variable = { MAD_power_production_speed_renewable_energy_infra_factor = 0.02 tooltip = production_speed_renewable_energy_infra_factor_tt }
 			custom_effect_tooltip = { localization_key = modifies_dynamic_modifier_tt MODIFIER = MAD_economy_modifier }
-			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.01 tooltip = productivity_growth_modifier_tt }
+			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.10 tooltip = productivity_growth_modifier_tt }
 		}
 
 		ai_will_do = { base = 0 }
@@ -1919,7 +1923,11 @@ MAD_JIRAMA_PROJECTS = {
 
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_JIRAMA_BUILD_SAHOFIKA - project complete"
-			267 = { set_variable = { hydroelectric_energy_production_var = 2.5 } }
+			267 = { set_variable = { hydroelectric_energy_production_var = 2.5 } 
+			add_dynamic_modifier = {
+			modifier = hydroelectric_infrastructure_in_state
+				}
+			}
 			set_country_flag = MAD_JIRAMA_SAHOFIKA_BUILT
 			custom_effect_tooltip = { localization_key = modifies_dynamic_modifier_tt MODIFIER = MAD_power_modifier }
 			add_to_variable = { MAD_power_energy_gain_multiplier = 0.06 tooltip = energy_gain_multiplier_tt }
@@ -1958,7 +1966,11 @@ MAD_JIRAMA_PROJECTS = {
 
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_JIRAMA_BUILD_VOLOBE - project complete"
-			487 = { set_variable = { hydroelectric_energy_production_var = 2.5 }}
+			487 = { set_variable = { hydroelectric_energy_production_var = 2.5 }
+			add_dynamic_modifier = {
+			modifier = hydroelectric_infrastructure_in_state
+				}
+			}
 			remove_country_flag = MAD_JIRAMA_VOLOBE_BUILDING
 			set_country_flag = MAD_JIRAMA_VOLOBE_BUILT
 			custom_effect_tooltip = { localization_key = modifies_dynamic_modifier_tt MODIFIER = MAD_power_modifier }

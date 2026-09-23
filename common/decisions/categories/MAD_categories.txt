@@ -16,7 +16,10 @@ MAD_drought_category = {
 	icon = generic_political_discourse
 	priority = 99
 	allowed = { tag = MAD }
-	visible = { tag = MAD }
+	visible = { tag = MAD
+		NOT = { has_completed_focus = MAD_Thriving_south
+		}
+	}
 	visible_when_empty = yes
 	scripted_gui = MAD_drought_map_gui
 }

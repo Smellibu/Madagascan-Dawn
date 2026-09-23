@@ -135,7 +135,7 @@ focus_tree = {
 		ai_will_do = {
 			base = 1
 		}
-	}``
+	}
 
 	focus = {
 		id = MAD_QMM_CONSTRUCTION
@@ -2176,7 +2176,7 @@ focus_tree = {
 				localization_key = modifies_dynamic_modifier_tt
 				MODIFIER = MAD_economy_modifier
 			}
-			add_to_variable = { MAD_economy_international_market_income_modifier = 0.03 tooltip = international_market_income_modifier_tt }
+			add_to_variable = { MAD_economy_foreign_influence_modifier = 0.03 tooltip = foreign_influence_modifier_tt }
 			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.02 tooltip = productivity_growth_modifier_tt }
 		}
 
@@ -2955,7 +2955,7 @@ focus_tree = {
 			add_stability = -0.05
 			add_political_power = -25
 			
-			set_temp_variable = { party_index = 2 }
+			set_party_index_to_ruling_party = yes
 			set_temp_variable = { party_popularity_increase = -0.20 }
 			set_temp_variable = { temp_outlook_increase = -0.10 }
 			change_relative_party_popularity = yes
@@ -3250,9 +3250,8 @@ focus_tree = {
 		prerequisite = { focus = MAD_CONTINUE_WITH_LUFTHANSA focus = MAD_AIR_STATE_CONTROL }
 		mutually_exclusive = { focus = MAD_STATE_CONTROL_SUCCEEDS }
 		mutually_exclusive = { focus = MAD_WORK_WITH_GERMANS }
-		search_filters = { FOCUS_FILTER_POLITICAL }
+		search_filters = { FOCUS_FILTER_ECONOMY FOCUS_FILTER_AIRCRAFT }
 		available = {
-			date > 2017.01.01
 			custom_trigger_tooltip = {
 				tooltip = MAD_GERMANS_REJECTED_LUFTHANSA_tt
 				has_country_flag = MAD_GERMANS_REJECTED_LUFTHANSA
@@ -3261,6 +3260,24 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_SELL_TO_AUSTRAL"
+			swap_ideas = {
+				remove_idea = MAD_FAILING_AIRLINE
+				add_idea = MAD_AUSTRAL_AIRLINE
+			}
+			add_power_balance_value = {
+				id = MAD_economy_ownership_bop
+				value = -0.075
+				tooltip_side = MAD_private_ownership
+			}
+			set_temp_variable = { treasury_change = 6.00 }
+			modify_treasury_effect = yes
+			custom_effect_tooltip = {
+				localization_key = modifies_dynamic_modifier_tt
+				MODIFIER = MAD_economy_modifier
+			}
+			add_to_variable = { MAD_economy_receiving_investment_cost_modifier = -0.03 tooltip = receiving_investment_cost_modifier_tt }
+			add_to_variable = { MAD_economy_receiving_investment_duration_modifier = -0.03 tooltip = receiving_investment_duration_modifier_tt }
+			set_country_flag = MAD_AUSTRAL_SALE_COMPLETED
 		}
 
 		ai_will_do = {
@@ -3672,7 +3689,7 @@ focus_tree = {
 			}
 			add_to_variable = { MAD_economy_supply_node_range = 0.05 tooltip = supply_node_range_tt }
 			add_to_variable = { MAD_economy_production_speed_infrastructure_factor = 0.05 tooltip = production_speed_infrastructure_factor_tt }
-			add_to_variable = { MAD_economy_international_market_income_modifier = 0.03 tooltip = international_market_income_modifier_tt }
+			add_to_variable = { MAD_economy_foreign_influence_modifier = 0.03 tooltip = foreign_influence_modifier_tt }
 		}
 
 		ai_will_do = {
@@ -4060,10 +4077,48 @@ focus_tree = {
 		relative_position_id = MAD_WORK_WITH_GERMANS
 		cost = 5
 		prerequisite = { focus = MAD_WORK_WITH_GERMANS }
-		search_filters = { FOCUS_FILTER_POLITICAL }
+		search_filters = { FOCUS_FILTER_ECONOMY FOCUS_FILTER_AIRCRAFT }
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_GERMAN_AIR_INVESTMENT"
+			if = {
+				limit = {
+					NOT = { has_dynamic_modifier = { modifier = MAD_airforce_modifier } }
+				}
+				add_dynamic_modifier = { modifier = MAD_airforce_modifier }
+			}
+			custom_effect_tooltip = {
+				localization_key = modifies_dynamic_modifier_tt
+				MODIFIER = MAD_airforce_modifier
+			}
+			add_to_variable = { MAD_air_mission_efficiency = 0.05 tooltip = air_mission_efficiency_tt }
+			add_to_variable = { MAD_air_range_factor = 0.05 tooltip = air_range_factor_tt }
+			add_tech_bonus = {
+				name = MAD_GERMAN_AIR_INVESTMENT
+				category = CAT_air_eqp
+				uses = 2
+				bonus = 0.25
+			}
+			267 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = air_facility
+					level = 1
+					instant_build = yes
+				}
+			}
+			GER = {
+				set_temp_variable = { treasury_change = -10.00 }
+				modify_treasury_effect = yes
+				set_temp_variable = { int_investment_change = 12 }
+				modify_international_investment_effect = yes
+			}
+			force_update_dynamic_modifier = yes
 		}
 
 		ai_will_do = {
@@ -4079,10 +4134,36 @@ focus_tree = {
 		relative_position_id = MAD_SELL_TO_AUSTRAL
 		cost = 5
 		prerequisite = { focus = MAD_SELL_TO_AUSTRAL }
-		search_filters = { FOCUS_FILTER_POLITICAL }
+		search_filters = { FOCUS_FILTER_ECONOMY FOCUS_FILTER_AIRCRAFT }
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_Austral_offer"
+			custom_effect_tooltip = {
+				localization_key = modifies_dynamic_modifier_tt
+				MODIFIER = MAD_economy_modifier
+			}
+			add_to_variable = { MAD_economy_foreign_influence_modifier = 0.03 tooltip = foreign_influence_modifier_tt }
+			add_to_variable = { MAD_economy_receiving_investment_cost_modifier = -0.03 tooltip = receiving_investment_cost_modifier_tt }
+			add_to_variable = { MAD_economy_receiving_investment_duration_modifier = -0.05 tooltip = receiving_investment_duration_modifier_tt }
+			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.03 tooltip = productivity_growth_modifier_tt }
+			267 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = air_base
+					level = 1
+					instant_build = yes
+				}
+			}
+			487 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = air_base
+					level = 1
+					instant_build = yes
+				}
+			}
+			set_temp_variable = { treasury_change = -3.50 }
+			modify_treasury_effect = yes
 		}
 
 		ai_will_do = {
@@ -4098,10 +4179,31 @@ focus_tree = {
 		relative_position_id = MAD_STATE_CONTROL_SUCCEEDS
 		cost = 5
 		prerequisite = { focus = MAD_STATE_CONTROL_SUCCEEDS }
-		search_filters = { FOCUS_FILTER_POLITICAL }
+		search_filters = { FOCUS_FILTER_MILITARY_LAWS FOCUS_FILTER_AIRCRAFT }
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_AIRLINE_MILITARY_LINKS"
+			if = {
+				limit = {
+					NOT = { has_dynamic_modifier = { modifier = MAD_airforce_modifier } }
+				}
+				add_dynamic_modifier = { modifier = MAD_airforce_modifier }
+			}
+			custom_effect_tooltip = {
+				localization_key = modifies_dynamic_modifier_tt
+				MODIFIER = MAD_airforce_modifier
+			}
+			add_to_variable = { MAD_air_mission_efficiency = 0.05 tooltip = air_mission_efficiency_tt }
+			add_to_variable = { MAD_air_mission_xp_gain_factor = 0.05 tooltip = air_mission_xp_gain_factor_tt }
+			add_to_variable = { MAD_air_range_factor = 0.05 tooltip = air_range_factor_tt }
+			add_tech_bonus = {
+				name = MAD_AIRLINE_MILITARY_LINKS
+				category = CAT_air_eqp
+				uses = 2
+				bonus = 0.20
+			}
+			add_air_experience = 10
+			force_update_dynamic_modifier = yes
 		}
 
 		ai_will_do = {
@@ -4294,7 +4396,7 @@ focus_tree = {
 			}
 			add_to_variable = { MAD_economy_production_speed_rail_terminal_factor = 0.10 tooltip = production_speed_rail_terminal_factor_tt }
 			add_to_variable = { MAD_economy_production_speed_rail_way_factor = 0.05 tooltip = production_speed_rail_way_factor_tt }
-			add_to_variable = { MAD_economy_international_market_income_modifier = 0.03 tooltip = international_market_income_modifier_tt }
+			add_to_variable = { MAD_economy_foreign_influence_modifier = 0.03 tooltip = foreign_influence_modifier_tt }
 			
 			build_railway = {
 				level = 3
@@ -4469,8 +4571,7 @@ focus_tree = {
 							localization_key = modifies_dynamic_modifier_tt
 							MODIFIER = MAD_economy_modifier
 						}
-						add_to_variable = { MAD_economy_offices_productivity = 0.03 tooltip = offices_productivity_tt }
-						add_to_variable = { MAD_economy_expected_welfare_modifier = 0.5 tooltip = expected_welfare_modifier_tt }
+						add_to_variable = { MAD_economy_offices_productivity = 0.05 tooltip = offices_productivity_tt }
 			add_stability = 0.03
 		}
 
@@ -4625,8 +4726,8 @@ focus_tree = {
 			
 			MAD_daewoo_drought_well = yes
 			
-			set_temp_variable = { party_index = 2 }
-			set_temp_variable = { party_popularity_increase = 0.15 }
+			set_party_index_to_ruling_party = yes
+			set_temp_variable = { party_popularity_increase = 0.10 }
 			set_temp_variable = { temp_outlook_increase = 0.075 }
 			change_relative_party_popularity = yes
 		}
@@ -4802,7 +4903,7 @@ focus_tree = {
 		completion_reward = {
 			log = "[GetDateText]: [This.GetName]: Focus MAD_GPM_TERMINAL_2009"
 			set_country_flag = MAD_GPM_TAMATAVE_TERMINAL
-			487 = {
+			random_owned_state = {
 				add_extra_state_shared_building_slots = 1
 				add_building_construction = { type = infrastructure level = 1 instant_build = yes }
 				add_building_construction = { type = industrial_complex level = 1 instant_build = yes }
@@ -4927,7 +5028,7 @@ focus_tree = {
 			add_to_variable = { MAD_power_max_fuel_factor = 0.10 tooltip = max_fuel_factor_tt }
 			
 			add_stability = 0.02
-			487 = {
+			random_owned_state = {
 				add_building_construction = { type = infrastructure level = 1 instant_build = yes }
 				add_building_construction = { type = fuel_silo level = 1 instant_build = yes }
 			}
@@ -5135,11 +5236,24 @@ focus_tree = {
 		relative_position_id = MAD_GERMAN_AIR_INVESTMENT
 		cost = 5
 		prerequisite = { focus = MAD_GERMAN_AIR_INVESTMENT }
-		search_filters = { FOCUS_FILTER_POLITICAL }
+		search_filters = { FOCUS_FILTER_MILITARY_LAWS FOCUS_FILTER_AIRCRAFT }
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_GERMAN_PLANES"
-			add_equipment_to_stockpile = { type = large_plane_air_transport_airframe amount = 30 producer = GER }
+			add_equipment_to_stockpile = { type = large_plane_air_transport_airframe amount = 30 producer = GER variant_name = "Transall C-160" }
+			set_temp_variable = { treasury_change = -1.00 }
+			modify_treasury_effect = yes
+			GER = { set_temp_variable = { treasury_change = 1.00 }
+			modify_treasury_effect = yes}
+
+			add_tech_bonus = {
+				name = MAD_GERMAN_PLANES
+				category = CAT_air_eqp
+				uses = 2
+				bonus = 0.25
+			}
+			add_to_variable = { MAD_air_mission_xp_gain_factor = 0.05 tooltip = air_mission_xp_gain_factor_tt }
+			add_air_experience = 10
 		}
 
 		ai_will_do = {
@@ -5155,10 +5269,19 @@ focus_tree = {
 		relative_position_id = MAD_Austral_offer
 		cost = 5
 		prerequisite = { focus = MAD_Austral_offer }
-		search_filters = { FOCUS_FILTER_POLITICAL }
+		search_filters = { FOCUS_FILTER_ECONOMY FOCUS_FILTER_AIRCRAFT }
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_Austral_deal_falls_through"
+			if = {
+				limit = { has_idea = MAD_AUSTRAL_AIRLINE }
+				remove_ideas = MAD_AUSTRAL_AIRLINE
+			}
+			add_timed_idea = {
+				idea = MAD_AUSTRAL_DEAL_FAILED
+				days = 730
+			}
+			set_country_flag = MAD_AUSTRAL_DEAL_FAILED
 		}
 
 		ai_will_do = {
@@ -5174,10 +5297,30 @@ focus_tree = {
 		relative_position_id = MAD_AIRLINE_MILITARY_LINKS
 		cost = 5
 		prerequisite = { focus = MAD_AIRLINE_MILITARY_LINKS }
-		search_filters = { FOCUS_FILTER_POLITICAL }
+		search_filters = { FOCUS_FILTER_ECONOMY FOCUS_FILTER_AIRCRAFT }
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_AIR_EXPANSION"
+			266 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = { type = air_base level = 1 instant_build = yes }
+			}
+			268 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = { type = air_base level = 1 instant_build = yes }
+			}
+			487 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = { type = air_base level = 1 instant_build = yes }
+			}
+			custom_effect_tooltip = {
+				localization_key = modifies_dynamic_modifier_tt
+				MODIFIER = MAD_airforce_modifier
+			}
+			add_to_variable = { MAD_air_range_factor = 0.05 tooltip = air_range_factor_tt }
+			set_temp_variable = { treasury_change = -9.00 }
+			modify_treasury_effect = yes
+			force_update_dynamic_modifier = yes
 		}
 
 		ai_will_do = {
@@ -5510,11 +5653,40 @@ focus_tree = {
 		relative_position_id = MAD_GERMAN_PLANES
 		cost = 5
 		prerequisite = { focus = MAD_GERMAN_PLANES }
-		search_filters = { FOCUS_FILTER_ECONOMY }
+		search_filters = { FOCUS_FILTER_ECONOMY FOCUS_FILTER_AIRCRAFT }
 
 		completion_reward = {
-			log = "[GetDateText]: [This.GetName]: Focus MAD_GERMAN_FLEET_MODERNIZED"
-											add_political_power = 25
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_GERMAN_FLEET_MODERNIZED"
+			if = {
+				limit = {
+					NOT = { has_dynamic_modifier = { modifier = MAD_airforce_modifier } }
+				}
+				add_dynamic_modifier = { modifier = MAD_airforce_modifier }
+			}
+			custom_effect_tooltip = {
+				localization_key = modifies_dynamic_modifier_tt
+				MODIFIER = MAD_airforce_modifier
+			}
+			add_to_variable = { MAD_air_mission_efficiency = 0.05 tooltip = air_mission_efficiency_tt }
+			add_to_variable = { MAD_air_attack_factor = 0.05 tooltip = air_attack_factor_tt }
+			add_to_variable = { MAD_air_mission_xp_gain_factor = 0.05 tooltip = air_mission_xp_gain_factor_tt }
+			
+			add_equipment_to_stockpile = { type = medium_plane_airframe amount = 20 producer = GER variant_name = "Typhoon Tranche 1"}
+			set_temp_variable = { treasury_change = -2.00 }
+			modify_treasury_effect = yes
+			GER = { set_temp_variable = { treasury_change = -2.00 }
+			modify_treasury_effect = yes}
+			267 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = air_base
+					level = 1
+					instant_build = yes
+				}
+			}
+			set_temp_variable = { treasury_change = -4.00 }
+			modify_treasury_effect = yes
+			force_update_dynamic_modifier = yes
 		}
 
 		ai_will_do = {
@@ -5530,13 +5702,28 @@ focus_tree = {
 		relative_position_id = MAD_Austral_deal_falls_through
 		cost = 5
 		prerequisite = { focus = MAD_Austral_deal_falls_through }
-		search_filters = { FOCUS_FILTER_POLITICAL }
+		search_filters = { FOCUS_FILTER_ECONOMY FOCUS_FILTER_AIRCRAFT }
 		available = {
-			date > 2021.01.01
+			NOT = { has_idea = MAD_AUSTRAL_DEAL_FAILED }
 		}
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MADAGASCAR_AIRLINES"
+			add_ideas = MADAGASCAR_AIRLINES_RELAUNCHED
+			267 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = { type = air_base level = 1 instant_build = yes }
+			}
+			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.03 tooltip = productivity_growth_modifier_tt }
+			add_to_variable = { MAD_economy_receiving_investment_cost_modifier = -0.02 tooltip = receiving_investment_cost_modifier_tt }
+			add_tech_bonus = {
+				name = MADAGASCAR_AIRLINES
+				category = CAT_air_eqp
+				uses = 1
+				bonus = 0.25
+			}
+			set_temp_variable = { treasury_change = -5.00 }
+			modify_treasury_effect = yes
 		}
 
 		ai_will_do = {
@@ -5552,11 +5739,28 @@ focus_tree = {
 		relative_position_id = MAD_AIR_EXPANSION
 		cost = 5
 		prerequisite = { focus = MAD_AIR_EXPANSION }
-		search_filters = { FOCUS_FILTER_ECONOMY FOCUS_FILTER_INDUSTRY }
+		search_filters = { FOCUS_FILTER_ECONOMY FOCUS_FILTER_INDUSTRY FOCUS_FILTER_AIRCRAFT }
 
 		completion_reward = {
-			log = "[GetDateText]: [This.GetName]: Focus MAD_AIR_REGIONAL_HUB"
-											add_political_power = 50
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_AIR_REGIONAL_HUB"
+			267 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = { type = air_base level = 2 instant_build = yes }
+			}
+			487 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = { type = air_base level = 1 instant_build = yes }
+			}
+			custom_effect_tooltip = {
+				localization_key = modifies_dynamic_modifier_tt
+				MODIFIER = MAD_economy_modifier
+			}
+			add_to_variable = { MAD_economy_foreign_influence_modifier = 0.03 tooltip = foreign_influence_modifier_tt }
+			add_to_variable = { MAD_economy_receiving_investment_cost_modifier = -0.03 tooltip = receiving_investment_cost_modifier_tt }
+			add_to_variable = { MAD_economy_receiving_investment_duration_modifier = -0.05 tooltip = receiving_investment_duration_modifier_tt }
+			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.03 tooltip = productivity_growth_modifier_tt }
+			set_temp_variable = { treasury_change = -12.00 }
+			modify_treasury_effect = yes
 		}
 
 		ai_will_do = {
@@ -5737,10 +5941,15 @@ focus_tree = {
 		relative_position_id = MADAGASCAR_AIRLINES
 		cost = 5
 		prerequisite = { focus = MADAGASCAR_AIRLINES }
-		search_filters = { FOCUS_FILTER_POLITICAL }
+		search_filters = { FOCUS_FILTER_ECONOMY FOCUS_FILTER_AIRCRAFT }
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_OLD_RELIABLE"
+			swap_ideas = {
+				remove_idea = MADAGASCAR_AIRLINES_RELAUNCHED
+				add_idea = MAD_MADAGASCAR_AIRLINE_RELIABLE
+			}
+			add_air_experience = 10
 		}
 
 		ai_will_do = {
@@ -5783,17 +5992,28 @@ focus_tree = {
 		relative_position_id = MAD_OLD_RELIABLE
 		cost = 5
 		prerequisite = { focus = MAD_OLD_RELIABLE }
-		search_filters = { FOCUS_FILTER_ECONOMY FOCUS_FILTER_POLITICAL }
+		search_filters = { FOCUS_FILTER_ECONOMY FOCUS_FILTER_AIRCRAFT }
 		available = {
-			date > 2026.10.1
+			267 = {
+					check_variable = {
+					productivity_state_var > 699.99
+							}
+					}
 		}
-
+	
 		completion_reward = {
-			log = "[GetDateText]: [This.GetName]: Focus MAD_AIR_BRAND_RESTORED"
-											
-											
-											add_stability = 0.03
-											add_political_power = 25
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_AIR_BRAND_RESTORED"
+			swap_ideas = {
+				remove_idea = MAD_MADAGASCAR_AIRLINE_RELIABLE
+				add_idea = MAD_MADAGASCAR_AIRLINE_BRAND
+			}
+			custom_effect_tooltip = {
+				localization_key = modifies_dynamic_modifier_tt
+				MODIFIER = MAD_economy_modifier
+			}
+			add_to_variable = { MAD_economy_foreign_influence_modifier = 0.03 tooltip = foreign_influence_modifier_tt }
+			add_to_variable = { MAD_economy_receiving_investment_cost_modifier = -0.02 tooltip = receiving_investment_cost_modifier_tt }
+			add_stability = 0.03
 		}
 
 		ai_will_do = {
@@ -5870,10 +6090,32 @@ focus_tree = {
 		relative_position_id = MAD_GERMAN_FLEET_MODERNIZED
 		cost = 5
 		prerequisite = { focus = MAD_GERMAN_FLEET_MODERNIZED focus = MAD_AIR_BRAND_RESTORED focus = MAD_AIR_REGIONAL_HUB }
-		search_filters = { FOCUS_FILTER_POLITICAL }
+		search_filters = { FOCUS_FILTER_ECONOMY FOCUS_FILTER_INDUSTRY FOCUS_FILTER_AIRCRAFT }
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_Ivato_terminal_runway_upgrade"
+			267 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = { type = air_base level = 2 instant_build = yes }
+				add_building_construction = { type = infrastructure level = 1 instant_build = yes }
+			}
+			if = {
+				limit = {
+					NOT = { has_dynamic_modifier = { modifier = MAD_airforce_modifier } }
+				}
+				add_dynamic_modifier = { modifier = MAD_airforce_modifier }
+			}
+			custom_effect_tooltip = {
+				localization_key = modifies_dynamic_modifier_tt
+				MODIFIER = MAD_airforce_modifier
+			}
+			add_to_variable = { MAD_air_mission_efficiency = 0.10 tooltip = air_mission_efficiency_tt }
+			add_to_variable = { MAD_air_range_factor = 0.10 tooltip = air_range_factor_tt }
+			add_to_variable = { MAD_air_mission_xp_gain_factor = 0.05 tooltip = air_mission_xp_gain_factor_tt }
+			set_country_flag = MAD_IVATO_TERMINAL_RUNWAY_UPGRADED
+			set_temp_variable = { treasury_change = -15.00 }
+			modify_treasury_effect = yes
+			force_update_dynamic_modifier = yes
 		}
 
 		ai_will_do = {
@@ -5917,10 +6159,40 @@ focus_tree = {
 		relative_position_id = MAD_AIRLINE_MILITARY_LINKS
 		cost = 5
 		prerequisite = { focus = MAD_AIRLINE_MILITARY_LINKS }
-		search_filters = { FOCUS_FILTER_POLITICAL }
+		search_filters = { FOCUS_FILTER_MILITARY_LAWS FOCUS_FILTER_INDUSTRY FOCUS_FILTER_AIRCRAFT }
 
 		completion_reward = {
-
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_airforce_prod"
+			if = {
+				limit = {
+					NOT = { has_dynamic_modifier = { modifier = MAD_airforce_modifier } }
+				}
+				add_dynamic_modifier = { modifier = MAD_airforce_modifier }
+			}
+			custom_effect_tooltip = {
+				localization_key = modifies_dynamic_modifier_tt
+				MODIFIER = MAD_airforce_modifier
+			}
+			add_to_variable = { MAD_air_attack_factor = 0.05 tooltip = air_attack_factor_tt }
+			add_to_variable = { MAD_air_mission_efficiency = 0.05 tooltip = air_mission_efficiency_tt }
+			add_to_variable = { MAD_air_mission_xp_gain_factor = 0.05 tooltip = air_mission_xp_gain_factor_tt }
+			add_tech_bonus = {
+				name = MAD_airforce_prod
+				category = CAT_air_eqp
+				uses = 2
+				bonus = 0.25
+			}
+			267 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = { type = arms_factory level = 1 instant_build = yes }
+			}
+			add_breakthrough_points = {
+				specialization = specialization_air
+				value = 1
+			}
+			set_temp_variable = { treasury_change = -8.50 }
+			modify_treasury_effect = yes
+			force_update_dynamic_modifier = yes
 		}
 
 		ai_will_do = {
@@ -5936,10 +6208,50 @@ focus_tree = {
 		relative_position_id = MAD_GERMAN_PLANES
 		cost = 5
 		prerequisite = { focus = MAD_GERMAN_PLANES }
-		search_filters = { FOCUS_FILTER_POLITICAL }
+		search_filters = { FOCUS_FILTER_MILITARY_LAWS FOCUS_FILTER_AIRCRAFT }
 
 		completion_reward = {
-
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_german_assisted_airforce"
+			if = {
+				limit = {
+					NOT = { has_dynamic_modifier = { modifier = MAD_airforce_modifier } }
+				}
+				add_dynamic_modifier = { modifier = MAD_airforce_modifier }
+			}
+			custom_effect_tooltip = {
+				localization_key = modifies_dynamic_modifier_tt
+				MODIFIER = MAD_airforce_modifier
+			}
+			add_to_variable = { MAD_air_detection = 0.05 tooltip = air_detection_tt }
+			add_to_variable = { MAD_air_attack_factor = 0.05 tooltip = air_attack_factor_tt }
+			add_to_variable = { MAD_air_mission_efficiency = 0.05 tooltip = air_mission_efficiency_tt }
+			add_to_variable = { MAD_air_mission_xp_gain_factor = 0.05 tooltip = air_mission_xp_gain_factor_tt }
+			add_tech_bonus = {
+				name = MAD_german_assisted_airforce
+				category = CAT_fighter
+				uses = 2
+				bonus = 0.25
+			}
+			267 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = air_facility
+					level = 1
+					instant_build = yes
+				}
+			}
+			add_breakthrough_points = {
+				specialization = specialization_air
+				value = 1
+			}
+			set_temp_variable = { treasury_change = -3.75 }
+			modify_treasury_effect = yes
+			GER = { set_temp_variable = { treasury_change = -3.75 }
+			modify_treasury_effect = yes
+			set_temp_variable = { int_investment_change = 3.75 }
+			modify_international_investment_effect = yes
+			}
+			force_update_dynamic_modifier = yes
 		}
 
 		ai_will_do = {
@@ -6201,7 +6513,7 @@ focus_tree = {
 				one_office_construction = yes
 			}
 			if = {
-				limit = { any_owned_state = { is_controlled_by = ROOT infrastructure < 5 } }
+				limit = { any_owned_state = { is_controlled_by = ROOT infrastru	
 				one_random_infrastructure = yes
 			
 			} 

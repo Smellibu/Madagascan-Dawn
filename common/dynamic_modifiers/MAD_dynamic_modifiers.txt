@@ -213,3 +213,14 @@ MAD_STATE_REFUGEE_INFLUX = {
 	state_production_speed_buildings_factor = -0.05
 	compliance_growth = -0.05
 }
+
+MAD_airforce_modifier = {
+	icon = GFX_idea_democracy
+	enable = { always = yes }
+
+	air_detection = MAD_air_detection
+	air_mission_efficiency = MAD_air_mission_efficiency
+	air_attack_factor = MAD_air_attack_factor
+	air_range_factor = MAD_air_range_factor
+	air_mission_xp_gain_factor = MAD_air_mission_xp_gain_factor
+}
