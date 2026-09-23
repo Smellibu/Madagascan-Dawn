@@ -135,30 +135,7 @@ focus_tree = {
 		ai_will_do = {
 			base = 1
 		}
-	}
-
-	focus = {
-		id = MAD_iem_roadmap
-		icon = GFX_goal_generic_production
-		x = -2
-		y = 2
-		relative_position_id = MAD_natural_resource_extraction
-		cost = 5
-		prerequisite = { focus = MAD_natural_resource_extraction }
-		search_filters = { FOCUS_FILTER_ECONOMY }
-		available = {
-			date > 2017.1.1
-		}
-
-		completion_reward = {
-			log = "[GetDateText]: [This.GetName]: Focus MAD_iem_roadmap"
-															add_political_power = 25
-		}
-
-		ai_will_do = {
-			base = 1
-		}
-	}
+	}``
 
 	focus = {
 		id = MAD_QMM_CONSTRUCTION
@@ -409,9 +386,9 @@ focus_tree = {
 			add_to_variable = { MAD_power_fossil_pp_fuel_consumption_modifier = -0.03 tooltip = fossil_pp_fuel_consumption_modifier_tt }
 			custom_effect_tooltip = { localization_key = modifies_dynamic_modifier_tt MODIFIER = MAD_economy_modifier }
 			add_to_variable = { MAD_economy_production_speed_energy_infrastructure_factor = 0.04 tooltip = production_speed_energy_infrastructure_factor_tt }
-			set_temp_variable = { treasury_change = -0.50 }
+			set_temp_variable = { treasury_change = -1.50 }
 			modify_treasury_effect = yes
-			add_stability = 0.01
+			add_stability = 0.03
 		}
 
 		ai_will_do = {
@@ -562,12 +539,14 @@ focus_tree = {
 		prerequisite = { focus = MAD_JIRAMA_GRID_REINFORCEMENT }
 		search_filters = { FOCUS_FILTER_ECONOMY FOCUS_FILTER_EXPENDITURE }
 		available = {
-			date > 2023.1.1
+			has_country_flag = MAD_JIRAMA_ANDEKALEKA_BUILT
 		}
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_JIRAMA_VOLOBE_AMONT"
 			set_country_flag = MAD_JIRAMA_VOLOBE_FINANCE_READY
+			set_temp_variable = { treasury_change = -6.500 }
+			modify_treasury_effect = yes
 			custom_effect_tooltip = { localization_key = modifies_dynamic_modifier_tt MODIFIER = MAD_power_modifier }
 			add_to_variable = { MAD_power_renewable_energy_gain_multiplier = 0.02 tooltip = renewable_energy_gain_multiplier_tt }
 			custom_effect_tooltip = { localization_key = modifies_dynamic_modifier_tt MODIFIER = MAD_economy_modifier }
@@ -601,10 +580,10 @@ focus_tree = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_JIRAMA_PRIVATIZATION_FORK"
 			set_country_flag = MAD_JIRAMA_OWNERSHIP_DEBATE
 			custom_effect_tooltip = { localization_key = modifies_dynamic_modifier_tt MODIFIER = MAD_power_modifier }
-			add_to_variable = { MAD_power_energy_gain_multiplier = 0.01 tooltip = energy_gain_multiplier_tt }
+			add_to_variable = { MAD_power_energy_gain_multiplier = 0.02 tooltip = energy_gain_multiplier_tt }
 			custom_effect_tooltip = { localization_key = modifies_dynamic_modifier_tt MODIFIER = MAD_economy_modifier }
 			add_to_variable = { MAD_economy_receiving_investment_duration_modifier = -0.03 tooltip = receiving_investment_duration_modifier_tt }
-			add_political_power = 25
+			add_political_power = 100
 		}
 
 		ai_will_do = {
@@ -718,7 +697,6 @@ focus_tree = {
 		prerequisite = { focus = MAD_JIRAMA_IMF_PLAN }
 		search_filters = { FOCUS_FILTER_ECONOMY FOCUS_FILTER_STABILITY }
 		available = {
-			date > 2025.7.1
 		}
 
 		completion_reward = {
@@ -2464,7 +2442,7 @@ focus_tree = {
 					}
 			add_to_variable = { MAD_economy_production_speed_energy_infrastructure_factor = 0.06 tooltip = production_speed_energy_infrastructure_factor_tt }
 			add_to_variable = { MAD_economy_infrastructure_tax_gain_multiplier_modifier = 0.03 tooltip = infrastructure_tax_gain_multiplier_modifier_tt }
-			add_stability = 0.01
+			add_stability = 0.02
 			if = { limit = { has_idea = international_bankers } set_temp_variable = { temp_opinion = 3 } change_international_bankers_opinion = yes }
 			if = { limit = { has_idea = small_medium_business_owners } set_temp_variable = { temp_opinion = 4 } change_small_medium_business_owners_opinion = yes }
 		}
@@ -3198,7 +3176,7 @@ focus_tree = {
 						localization_key = modifies_dynamic_modifier_tt
 						MODIFIER = MAD_power_modifier
 					}
-			add_to_variable = { MAD_power_energy_gain_multiplier = 0.01 tooltip = energy_gain_multiplier_tt }
+			add_to_variable = { MAD_power_energy_gain_multiplier = 0.02 tooltip = energy_gain_multiplier_tt }
 			add_to_variable = { MAD_power_production_speed_fossil_powerplant_factor = 0.03 tooltip = production_speed_fossil_powerplant_factor_tt }
 			if = { limit = { has_idea = international_bankers } set_temp_variable = { temp_opinion = 6 } change_international_bankers_opinion = yes }
 			if = { limit = { has_idea = small_medium_business_owners } set_temp_variable = { temp_opinion = 2 } change_small_medium_business_owners_opinion = yes }
@@ -3607,8 +3585,8 @@ focus_tree = {
 						MODIFIER = MAD_power_modifier
 					}
 			add_to_variable = { MAD_power_renewable_energy_gain_multiplier = 0.03 tooltip = renewable_energy_gain_multiplier_tt }
-			add_to_variable = { MAD_power_pop_energy_use_multiplier = -0.01 tooltip = pop_energy_use_multiplier_tt }
-			add_to_variable = { MAD_power_production_speed_renewable_energy_infra_factor = 0.04 tooltip = production_speed_renewable_energy_infra_factor_tt }
+			add_to_variable = { MAD_power_pop_energy_use_multiplier = -0.02 tooltip = pop_energy_use_multiplier_tt }
+			add_to_variable = { MAD_power_production_speed_renewable_energy_infra_factor = 0.05 tooltip = production_speed_renewable_energy_infra_factor_tt }
 			add_stability = 0.01
 			add_tech_bonus = { name = MAD_DECIM_RENEWABLES bonus = 0.35 uses = 1 category = CAT_renewable }
 			
@@ -3649,10 +3627,10 @@ focus_tree = {
 						localization_key = modifies_dynamic_modifier_tt
 						MODIFIER = MAD_economy_modifier
 					}
-			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.02 tooltip = productivity_growth_modifier_tt }
+			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.10 tooltip = productivity_growth_modifier_tt }
 			if = { limit = { has_idea = landowners } set_temp_variable = { temp_opinion = 3 } change_landowners_opinion = yes }
 			if = { limit = { has_idea = small_medium_business_owners } set_temp_variable = { temp_opinion = 4 } change_small_medium_business_owners_opinion = yes }
-			add_to_variable = { MAD_economy_expected_welfare_modifier = 0.10 tooltip = expected_welfare_modifier_tt }
+			add_to_variable = { MAD_economy_infrastructure_cost_multiplier_modifier = 0.10 tooltip = infrastructure_cost_multiplier_modifier_tt }
 		}
 
 		ai_will_do = {
@@ -3671,7 +3649,7 @@ focus_tree = {
 		prerequisite = { focus = MAD_Rocade_ring_road }
 		search_filters = { FOCUS_FILTER_ECONOMY FOCUS_FILTER_INDUSTRY }
 		available = {
-			date > 2022.12.1
+			gdp_total_greater_than_1000 = yes
 		}
 
 		completion_reward = {
@@ -4352,7 +4330,6 @@ focus_tree = {
 		prerequisite = { focus = MAD_JIRAMA_VOLOBE_AMONT }
 		search_filters = { FOCUS_FILTER_ECONOMY FOCUS_FILTER_EXPENDITURE }
 		available = {
-			date > 2023.1.1
 		}
 
 		completion_reward = {
@@ -4387,7 +4364,7 @@ focus_tree = {
 		prerequisite = { focus = MAD_DECIM }
 		search_filters = { FOCUS_FILTER_ECONOMY }
 		available = {
-			date > 2023.1.1
+			has_completed_focus = MAD_Fighting_climate_change
 		}
 
 		completion_reward = {
@@ -4425,11 +4402,11 @@ focus_tree = {
 						localization_key = modifies_dynamic_modifier_tt
 						MODIFIER = MAD_economy_modifier
 					}
-			add_to_variable = { MAD_economy_expected_welfare_modifier = 0.25 tooltip = expected_welfare_modifier_tt }
-			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.03 tooltip = productivity_growth_modifier_tt }
-			add_to_variable = { MAD_economy_population_tax_income_multiplier_modifier = 0.02 tooltip = population_tax_income_multiplier_modifier_tt }
+			add_to_variable = { MAD_economy_expected_welfare_modifier = 0.5 tooltip = expected_welfare_modifier_tt }
+			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.10 tooltip = productivity_growth_modifier_tt }
+			add_to_variable = { MAD_economy_population_tax_income_multiplier_modifier = 0.05 tooltip = population_tax_income_multiplier_modifier_tt }
 			add_stability = 0.02
-			add_to_variable = { MAD_power_renewable_energy_gain_multiplier = 0.01 tooltip = renewable_energy_gain_multiplier_tt }
+			add_to_variable = { MAD_power_renewable_energy_gain_multiplier = 0.05 tooltip = renewable_energy_gain_multiplier_tt }
 		}
 
 		ai_will_do = {
@@ -5299,12 +5276,18 @@ focus_tree = {
 		prerequisite = { focus = MAD_Volobe_Amont_DAM }
 		search_filters = { FOCUS_FILTER_ECONOMY }
 		available = {
-			date > 2025.1.1
+			if = { has_country_flag = MAD_JIRAMA_VOLOBE_BUILDING
+			}
+			else = { has_country_flag = MAD_JIRAMA_VOLOBE_BUILT
+			}
 		}
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_EDF_JOINS_VOLOBE"
 			FRA = { add_opinion_modifier = { target = MAD modifier = large_commercial_relations } }
+			set_temp_variable = { percent_change = 5 }
+			set_temp_variable = { tag_index = FRA }
+			set_temp_variable = { influence_target = MAD }
 					custom_effect_tooltip = {
 						localization_key = modifies_dynamic_modifier_tt
 						MODIFIER = MAD_power_modifier
@@ -5315,7 +5298,7 @@ focus_tree = {
 						MODIFIER = MAD_economy_modifier
 					}
 			add_to_variable = { MAD_economy_receiving_investment_duration_modifier = -0.03 tooltip = receiving_investment_duration_modifier_tt }
-			add_to_variable = { MAD_economy_foreign_influence_modifier = 0.03 tooltip = foreign_influence_modifier_tt }
+			add_to_variable = { MAD_economy_foreign_influence_modifier = -0.05 tooltip = foreign_influence_modifier_tt }
 			set_country_flag = MAD_EDF_ENGINEERING_UNLOCKED
 		}
 
@@ -5334,7 +5317,7 @@ focus_tree = {
 		prerequisite = { focus = MAD_DECIM }
 		search_filters = { FOCUS_FILTER_ECONOMY FOCUS_FILTER_INDUSTRY }
 		available = {
-			date > 2023.1.1
+			
 		}
 
 		completion_reward = {
@@ -5629,7 +5612,7 @@ focus_tree = {
 		prerequisite = { focus = MAD_DECIM_SMART_GRID }
 		search_filters = { FOCUS_FILTER_ECONOMY FOCUS_FILTER_INDUSTRY }
 		available = {
-			date > 2028.1.1
+			has_country_flag = MAD_JIRAMA_DECIM_SOLAR_BUILT
 		}
 
 		completion_reward = {
@@ -6392,6 +6375,7 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_ECONOMY }
 		available = {
 			has_completed_focus = MAD_DIGITAL_MADAGASCAR
+			has_country_flag = MAD_LEAD_ACCESS_BUILT
 		}
 
 		completion_reward = {

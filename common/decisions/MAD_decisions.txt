@@ -1865,8 +1865,8 @@ MAD_JIRAMA_PROJECTS = {
 			has_country_flag = MAD_JIRAMA_ANDEKALEKA_PROJECT_UNLOCKED
 			NOT = { has_country_flag = MAD_JIRAMA_ANDEKALEKA_BUILT }
 		}
-		custom_cost_trigger = { check_variable = { treasury > 0.999 } }
-		custom_cost_text = MAD_JIRAMA_COST_ANDEKALEKA
+		custom_cost_trigger = { check_variable = { treasury > 12.999 } }
+		custom_cost_text = cost_13_0
 		fire_only_once = yes
 		days_remove = 730
 
@@ -1876,13 +1876,13 @@ MAD_JIRAMA_PROJECTS = {
 
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_JIRAMA_BUILD_ANDEKALEKA - construction begins"
-			set_temp_variable = { treasury_change = -1.000 }
+			set_temp_variable = { treasury_change = -13.000 }
 			modify_treasury_effect = yes
 		}
 
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_JIRAMA_BUILD_ANDEKALEKA - project complete"
-			267 = { add_extra_state_shared_building_slots = 1 add_building_construction = { type = energy_infrastructure level = 1 instant_build = yes } }
+			487 = { 		set_variable = { hydroelectric_energy_production_var = 2.5 } }
 			set_country_flag = MAD_JIRAMA_ANDEKALEKA_BUILT
 			custom_effect_tooltip = { localization_key = modifies_dynamic_modifier_tt MODIFIER = MAD_power_modifier }
 			add_to_variable = { MAD_power_energy_gain_multiplier = 0.05 tooltip = energy_gain_multiplier_tt }
@@ -1902,10 +1902,10 @@ MAD_JIRAMA_PROJECTS = {
 			has_country_flag = MAD_JIRAMA_SAHOFIKA_PROJECT_UNLOCKED
 			NOT = { has_country_flag = MAD_JIRAMA_SAHOFIKA_BUILT }
 		}
-		custom_cost_trigger = { check_variable = { treasury > 3.999 } }
-		custom_cost_text = cost_4_0
+		custom_cost_trigger = { check_variable = { treasury > 12.999 } }
+		custom_cost_text = cost_13_0
 		fire_only_once = yes
-		days_remove = 1825
+		days_remove = 730
 
 		available = {
 			267 = { is_owned_and_controlled_by = ROOT }
@@ -1913,13 +1913,13 @@ MAD_JIRAMA_PROJECTS = {
 
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_JIRAMA_BUILD_SAHOFIKA - construction begins"
-			set_temp_variable = { treasury_change = -4.000 }
+			set_temp_variable = { treasury_change = -13.000 }
 			modify_treasury_effect = yes
 		}
 
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_JIRAMA_BUILD_SAHOFIKA - project complete"
-			267 = { add_extra_state_shared_building_slots = 1 add_building_construction = { type = energy_infrastructure level = 2 instant_build = yes } }
+			267 = { set_variable = { hydroelectric_energy_production_var = 2.5 } }
 			set_country_flag = MAD_JIRAMA_SAHOFIKA_BUILT
 			custom_effect_tooltip = { localization_key = modifies_dynamic_modifier_tt MODIFIER = MAD_power_modifier }
 			add_to_variable = { MAD_power_energy_gain_multiplier = 0.06 tooltip = energy_gain_multiplier_tt }
@@ -1940,8 +1940,8 @@ MAD_JIRAMA_PROJECTS = {
 			has_country_flag = MAD_JIRAMA_VOLOBE_PROJECT_UNLOCKED
 			NOT = { has_country_flag = MAD_JIRAMA_VOLOBE_BUILT }
 		}
-		custom_cost_trigger = { check_variable = { treasury > 3.999 } }
-		custom_cost_text = cost_4_0
+		custom_cost_trigger = { check_variable = { treasury > 6.499 } }
+		custom_cost_text = cost_6_5
 		fire_only_once = yes
 		days_remove = 1460
 
@@ -1951,13 +1951,15 @@ MAD_JIRAMA_PROJECTS = {
 
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_JIRAMA_BUILD_VOLOBE - construction begins"
-			set_temp_variable = { treasury_change = -4.000 }
+			set_temp_variable = { treasury_change = -6.500 }
 			modify_treasury_effect = yes
+			set_country_flag = MAD_JIRAMA_VOLOBE_BUILDING
 		}
 
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_JIRAMA_BUILD_VOLOBE - project complete"
-			487 = { add_extra_state_shared_building_slots = 1 add_building_construction = { type = energy_infrastructure level = 2 instant_build = yes } }
+			487 = { set_variable = { hydroelectric_energy_production_var = 2.5 }}
+			remove_country_flag = MAD_JIRAMA_VOLOBE_BUILDING
 			set_country_flag = MAD_JIRAMA_VOLOBE_BUILT
 			custom_effect_tooltip = { localization_key = modifies_dynamic_modifier_tt MODIFIER = MAD_power_modifier }
 			add_to_variable = { MAD_power_energy_gain_multiplier = 0.05 tooltip = energy_gain_multiplier_tt }
@@ -1978,8 +1980,8 @@ MAD_JIRAMA_PROJECTS = {
 			has_country_flag = MAD_LEAD_PROJECT_UNLOCKED
 			NOT = { has_country_flag = MAD_LEAD_ACCESS_BUILT }
 		}
-		custom_cost_trigger = { check_variable = { treasury > 0.999 } }
-		custom_cost_text = cost_1_0
+		custom_cost_trigger = { check_variable = { treasury > 14.999 } }
+		custom_cost_text = cost_15_0
 		fire_only_once = yes
 		days_remove = 730
 
@@ -1990,15 +1992,15 @@ MAD_JIRAMA_PROJECTS = {
 
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_JIRAMA_BUILD_LEAD_ACCESS - construction begins"
-			set_temp_variable = { treasury_change = -1.000 }
+			set_temp_variable = { treasury_change = -15	.000 }
 			modify_treasury_effect = yes
 		}
 
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_JIRAMA_BUILD_LEAD_ACCESS - project complete"
 			267 = { add_building_construction = { type = energy_infrastructure level = 1 instant_build = yes } }
-			268 = { add_building_construction = { type = energy_infrastructure level = 1 instant_build = yes } }
-			one_random_network_infrastructure = yes
+			268 = { add_building_construction = { type = renewable_energy_infra level = 1 instant_build = yes } }
+			
 			set_country_flag = MAD_LEAD_ACCESS_BUILT
 			custom_effect_tooltip = { localization_key = modifies_dynamic_modifier_tt MODIFIER = MAD_power_modifier }
 			add_to_variable = { MAD_power_pop_energy_use_multiplier = -0.02 tooltip = pop_energy_use_multiplier_tt }
@@ -2018,8 +2020,8 @@ MAD_JIRAMA_PROJECTS = {
 			has_country_flag = MAD_DECIM_SOLAR_PROJECT_UNLOCKED
 			NOT = { has_country_flag = MAD_JIRAMA_DECIM_SOLAR_BUILT }
 		}
-		custom_cost_trigger = { check_variable = { treasury > 0.999 } }
-		custom_cost_text = cost_1_0
+		custom_cost_trigger = { check_variable = { treasury > 16.999 } }
+		custom_cost_text = cost_17_0
 		fire_only_once = yes
 		days_remove = 730
 
@@ -2030,7 +2032,7 @@ MAD_JIRAMA_PROJECTS = {
 
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_JIRAMA_BUILD_DECIM_SOLAR - construction begins"
-			set_temp_variable = { treasury_change = -1.000 }
+			set_temp_variable = { treasury_change = -17.000 }
 			modify_treasury_effect = yes
 		}
 
@@ -2055,25 +2057,53 @@ MAD_JIRAMA_PROJECTS = {
 			has_country_flag = MAD_DECIM_SMART_GRID_PROJECT_UNLOCKED
 			NOT = { has_country_flag = MAD_JIRAMA_SMART_GRID_BUILT }
 		}
-		custom_cost_trigger = { check_variable = { treasury > 1.999 } }
-		custom_cost_text = cost_2_0
+		custom_cost_trigger = { check_variable = { treasury > 6.499 } }
+		custom_cost_text = cost_6_5
 		fire_only_once = yes
 		days_remove = 365
 
 		available = {
-			267 = { is_owned_and_controlled_by = ROOT }
-			487 = { is_owned_and_controlled_by = ROOT }
+			OR = {
+				267 = {
+					is_owned_and_controlled_by = ROOT
+					free_building_slots = {
+						building = internet_station
+						size > 0
+						include_locked = no
+					}
+					free_building_slots = {
+						building = infrastructure
+						size > 0
+						include_locked = no
+					}
+				}
+
+				487 = {
+					is_owned_and_controlled_by = ROOT
+					free_building_slots = {
+						building = internet_station
+						size > 0
+						include_locked = no
+					}
+					free_building_slots = {
+						building = infrastructure
+						size > 0
+						include_locked = no
+					}
+				}
+			}
 		}
 
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_JIRAMA_BUILD_SMART_GRID - construction begins"
-			set_temp_variable = { treasury_change = -2.000 }
-			modify_treasury_effect = yes
+			
 		}
 
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_JIRAMA_BUILD_SMART_GRID - project complete"
+			one_random_infrastructure = yes
 			one_random_network_infrastructure = yes
+
 			set_country_flag = MAD_JIRAMA_SMART_GRID_BUILT
 			custom_effect_tooltip = { localization_key = modifies_dynamic_modifier_tt MODIFIER = MAD_power_modifier }
 			add_to_variable = { MAD_power_energy_use_modifier_civs = -0.02 tooltip = energy_use_modifier_civs_tt }
@@ -2093,10 +2123,10 @@ MAD_JIRAMA_PROJECTS = {
 			has_country_flag = MAD_JIRAMA_OFFSHORE_WIND_UNLOCKED
 			NOT = { has_country_flag = MAD_JIRAMA_OFFSHORE_WIND_BUILT }
 		}
-		custom_cost_trigger = { check_variable = { treasury > 1.999 } }
-		custom_cost_text = cost_2_0
+		custom_cost_trigger = { check_variable = { treasury > 16.999 } }
+		custom_cost_text = cost_17_0
 		fire_only_once = yes
-		days_remove = 1095
+		days_remove = 730
 
 		available = {
 			487 = { is_owned_and_controlled_by = ROOT }
@@ -2104,13 +2134,13 @@ MAD_JIRAMA_PROJECTS = {
 
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_JIRAMA_BUILD_OFFSHORE_WIND - construction begins"
-			set_temp_variable = { treasury_change = -2.000 }
+			set_temp_variable = { treasury_change = -17.000 }
 			modify_treasury_effect = yes
 		}
 
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_JIRAMA_BUILD_OFFSHORE_WIND - project complete"
-			two_random_renewable_energy_infra = yes
+			487 = {add_building_construction = { type = renewable_energy_infra level = 2 instant_build = yes }}
 			set_country_flag = MAD_JIRAMA_OFFSHORE_WIND_BUILT
 			custom_effect_tooltip = { localization_key = modifies_dynamic_modifier_tt MODIFIER = MAD_power_modifier }
 			add_to_variable = { MAD_power_renewable_energy_gain_multiplier = 0.04 tooltip = renewable_energy_gain_multiplier_tt }
@@ -2134,24 +2164,32 @@ MAD_JIRAMA_PROJECTS = {
 			has_country_flag = MAD_JIRAMA_SMART_METER_PROJECT_UNLOCKED
 			NOT = { has_country_flag = MAD_JIRAMA_SMART_METERS_BUILT }
 		}
-		custom_cost_trigger = { check_variable = { treasury > 0.499 } }
-		custom_cost_text = cost_0_5
+		custom_cost_trigger = { check_variable = { treasury > 2.999 } }
+		custom_cost_text = cost_3_0
 		fire_only_once = yes
 		days_remove = 365
 		available = { 268 = { is_owned_and_controlled_by = ROOT } }
 
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_JIRAMA_BUILD_SMART_METERS - rollout begins"
-			set_temp_variable = { treasury_change = -0.500 }
-			modify_treasury_effect = yes
+			
 		}
 
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_JIRAMA_BUILD_SMART_METERS - rollout complete"
+			if = {268 = {free_building_slots = {
+						building = internet_station
+						size > 0
+						include_locked = no
+					}
 			268 = {
 				add_extra_state_shared_building_slots = 1
-				add_building_construction = { type = energy_infrastructure level = 1 instant_build = yes }
+				add_building_construction = { type = internet_station level = 1 instant_build = yes }
 			}
+			set_temp_variable = { treasury_change = -3.000 }
+			modify_treasury_effect = yes
+			}
+		
 			set_country_flag = MAD_JIRAMA_SMART_METERS_BUILT
 			custom_effect_tooltip = { localization_key = modifies_dynamic_modifier_tt MODIFIER = MAD_power_modifier }
 			add_to_variable = { MAD_power_energy_use_modifier_civs = -0.02 tooltip = energy_use_modifier_civs_tt }
@@ -2173,13 +2211,13 @@ MAD_JIRAMA_PROJECTS = {
 			has_country_flag = MAD_EDF_ENGINEERING_UNLOCKED
 			NOT = { has_country_flag = MAD_EDF_ENGINEERING_COMPLETE }
 		}
-		custom_cost_trigger = { check_variable = { treasury > 0.499 } }
-		custom_cost_text = cost_0_5
+		custom_cost_trigger = { check_variable = { treasury > 4.999 } }
+		custom_cost_text = cost_5_0
 		fire_only_once = yes
 		days_remove = 365
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_JIRAMA_BUILD_EDF_ENGINEERING - contract signed"
-			set_temp_variable = { treasury_change = -0.500 }
+			set_temp_variable = { treasury_change = -5.000 }
 			modify_treasury_effect = yes
 		}
 		remove_effect = {
