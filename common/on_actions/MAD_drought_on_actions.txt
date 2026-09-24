@@ -25,6 +25,31 @@ on_actions = {
 					MAD_drought_containment_daily_tick = yes
 					MAD_autocomplete_forced_outcome_foci = yes
 					MAD_daewoo_election_daily_tick = yes
+					MAD_JIRAMA_GENERATION_RECOVERY_DAILY = yes
+				}
+			}
+		}
+	}
+	on_monthly = {
+		effect = {
+			if = {
+				limit = { country_exists = MAD }
+				MAD = {
+					if = {
+						limit = {
+							NOT = { has_country_flag = MAD_DAHALO_DEFEATED }
+							NOT = { has_country_flag = MAD_REMENABILA_IN_POWER }
+							NOT = { has_country_flag = MAD_REMENABILA_KILLED }
+							NOT = { has_country_flag = MAD_DAHALO_SECURITY_ENDING }
+							NOT = { has_country_flag = MAD_DAHALO_ACCOMMODATION_ENDING }
+							NOT = { has_country_flag = MAD_DAHALO_CIVIL_WAR_STARTED }
+							NOT = { has_country_flag = MAD_DAHALO_CIVIL_WAR_PENDING }
+							NOT = { has_civil_war = yes }
+						}
+						add_to_variable = { MAD_dahalo_threat = 2 }
+						clamp_variable = { var = MAD_dahalo_threat min = 0 max = 100 }
+						MAD_dahalo_update_modifier = yes
+					}
 				}
 			}
 		}

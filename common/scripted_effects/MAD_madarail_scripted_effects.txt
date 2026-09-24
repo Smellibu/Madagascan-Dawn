@@ -2010,9 +2010,11 @@ MAD_dahalo_random_event_tick = {
 		limit = {
 			NOT = { has_country_flag = MAD_DAHALO_DEFEATED }
 			NOT = { has_country_flag = MAD_REMENABILA_IN_POWER }
-			NOT = { has_country_flag = MAD_REMENABILA_KILLED }
 			NOT = { has_civil_war = yes }
 			NOT = { has_country_flag = MAD_DAHALO_CIVIL_WAR_PENDING }
+			NOT = { has_country_flag = MAD_REMENABILA_KILLED }
+			NOT = { has_country_flag = MAD_DAHALO_SECURITY_ENDING }
+			NOT = { has_country_flag = MAD_DAHALO_ACCOMMODATION_ENDING }
 		}
 		set_variable = { MAD_dahalo_event_cooldown = 180 }
 
@@ -2107,7 +2109,25 @@ MAD_dahalo_random_event_tick = {
 }
 
 MAD_dahalo_daily_tick = {
-	# Open revolt is checked first so a maxed armed route cannot be interrupted by an incidental event.
+	# The insecurity network slowly rebuilds itself after suppression: +2 threat per month (30-day equivalent).
+	# Random incidents are additional shocks and remain possible until the system reaches a terminal ending.
+	if = {
+		limit = {
+			NOT = { has_country_flag = MAD_DAHALO_DEFEATED }
+			NOT = { has_country_flag = MAD_REMENABILA_IN_POWER }
+			NOT = { has_country_flag = MAD_REMENABILA_KILLED }
+			NOT = { has_country_flag = MAD_DAHALO_SECURITY_ENDING }
+			NOT = { has_country_flag = MAD_DAHALO_ACCOMMODATION_ENDING }
+			NOT = { has_country_flag = MAD_DAHALO_CIVIL_WAR_STARTED }
+			NOT = { has_country_flag = MAD_DAHALO_CIVIL_WAR_PENDING }
+			NOT = { has_civil_war = yes }
+		}
+		add_to_variable = { MAD_dahalo_threat = 0.0666667 }
+		clamp_variable = { var = MAD_dahalo_threat min = 0 max = 100 }
+		MAD_dahalo_update_modifier = yes
+	}
+
+	# Open revolt is checked after the passive pressure tick so the meter cannot be artificially held at 0.
 	if = {
 		limit = {
 			has_completed_focus = MAD_PERMIT_ARMS

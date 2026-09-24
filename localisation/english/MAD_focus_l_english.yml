@@ -397,6 +397,13 @@
  MAD_partially_nationalised_range: "Partially nationalised"
  MAD_mostly_nationalised_range: "Majority nationalised"
  MAD_nationalised_range: "Fully nationalised"
+
+ # --- MAD ownership tooltip sides ---
+ MAD_public_ownership: "Public ownership"
+ MAD_private_ownership: "Private ownership"
+
+ # --- MAD electricity dynamic modifier ---
+ MAD_power_modifier: "Electricity"
  
  ######mad telma event######
  mad_telma.1.t: "Pass the Telecommunications Reform Law"
@@ -1048,6 +1055,8 @@
  MAD_JIRAMA_RECOVERY_FAILS_desc: "Use hard cost control, fuel savings and cheaper internal investment to keep JIRAMA functioning. The utility improves, but household and business pain makes the politics uglier."
  MAD_JIRAMA_RECOVERY_SUCCEEDS: "Fund the Expansion"
  MAD_JIRAMA_RECOVERY_SUCCEEDS_desc: "With generation and network projects already underway, commit to investment-led expansion. The stronger system now supports faster productivity and renewable growth."
+ MAD_JIRAMA_TWO_GENERATION_PROJECTS_tt: "At least two generation projects have been completed"
+ MAD_JIRAMA_GENERATION_120_PERCENT_tt: "Electricity generation is at least 120% of electricity consumption"
  MAD_ELECTRICITY_FOR_ALL: "Light the Whole Island"
  MAD_ELECTRICITY_FOR_ALL_desc: "Make reliable electricity a national development objective. The final package lowers energy burdens, raises productivity and turns the earlier generation and access investments into an economy-wide advantage."
 
@@ -1178,14 +1187,14 @@
  MAD_DAHALO_SEVERITY_MINIMAL: "§GMinimal§!"
  MAD_DAHALO_SEVERITY_DORMANT: "§GSuppressed§!"
 
- MAD_DAHALO_RURAL_PATROLS: "Rural Anti-Dahalo Patrols"
- MAD_DAHALO_RURAL_PATROLS_desc: "Keep mobile forces moving through vulnerable rural districts. The programme is repeatable, but every round costs money and political attention."
+ MAD_DAHALO_RURAL_PATROLS: "Gendarmerie Cattle Patrols"
+ MAD_DAHALO_RURAL_PATROLS_desc: "Run a 45-day gendarmerie patrol operation along southern cattle routes, disrupting raiding parties and keeping livestock markets accessible. The patrol can be repeated."
  MAD_DAHALO_HERD_REGISTRY: "National Herd Registry"
  MAD_DAHALO_HERD_REGISTRY_desc: "Tie cattle movements to the new certificate system, making stolen herds harder to move through legitimate markets."
  MAD_DAHALO_CERTIFICATE_CRACKDOWN: "Crack Down on Certificate Fraud"
  MAD_DAHALO_CERTIFICATE_CRACKDOWN_desc: "Investigate forged ownership papers and the officials, traders and intermediaries who make cattle theft profitable."
- MAD_DAHALO_MILITARY_SWEEP: "Southern Mobile Sweep"
- MAD_DAHALO_MILITARY_SWEEP_desc: "Use the army for a concentrated rural security operation. The sweep can be repeated, but it is expensive and disruptive."
+ MAD_DAHALO_MILITARY_SWEEP: "Southern Anti-Dahalo Sweep"
+ MAD_DAHALO_MILITARY_SWEEP_desc: "Commit army units to a 45-day sweep across the southern cattle corridors, hunting established Dahalo bands beyond the main roads. The operation can be repeated but is costly."
  MAD_DAHALO_TANDROKA_TRACKERS: "Organise the Trackers"
  MAD_DAHALO_TANDROKA_TRACKERS_desc: "Build a permanent network of guides and trackers able to follow Dahalo bands beyond the roads and into difficult terrain."
  MAD_DAHALO_ARMS_CRACKDOWN: "Seize Illegal Arms"
@@ -1218,6 +1227,26 @@
  MAD_COUP_D_ARRET_UNLOCK_TT: "Unlocks the Coup d'Arrêt operation decision."
  MAD_DAHALO_STATUS_TT: "Dahalo threat: §Y[?MAD_dahalo_threat|0]/100§!\nHigher threat reduces agricultural productivity and tax income, raises agricultural labour requirements, makes foreign investment slower and more expensive, lowers stability and increases expected internal-security spending. At 40+ threat, physical drought and famine relief deliveries to the Grand Sud become increasingly vulnerable to theft; higher threat makes each delivery less effective."
  MAD_DAHALO_THREAT_CHANGE_TT: "Dahalo threat changes by the amount shown."
+ MAD_DAHALO_THREAT_MINUS_25_TT: "Dahalo threat changes by §Y-25§!."
+ MAD_DAHALO_THREAT_MINUS_18_TT: "Dahalo threat changes by §Y-18§!."
+ MAD_DAHALO_THREAT_MINUS_15_TT: "Dahalo threat changes by §Y-15§!."
+ MAD_DAHALO_THREAT_MINUS_12_TT: "Dahalo threat changes by §Y-12§!."
+ MAD_DAHALO_THREAT_MINUS_10_TT: "Dahalo threat changes by §Y-10§!."
+ MAD_DAHALO_THREAT_MINUS_8_TT: "Dahalo threat changes by §Y-8§!."
+ MAD_DAHALO_THREAT_MINUS_7_TT: "Dahalo threat changes by §Y-7§!."
+ MAD_DAHALO_THREAT_MINUS_6_TT: "Dahalo threat changes by §Y-6§!."
+ MAD_DAHALO_THREAT_MINUS_5_TT: "Dahalo threat changes by §Y-5§!."
+ MAD_DAHALO_THREAT_MINUS_4_TT: "Dahalo threat changes by §Y-4§!."
+ MAD_DAHALO_THREAT_MINUS_3_TT: "Dahalo threat changes by §Y-3§!."
+ MAD_DAHALO_THREAT_MINUS_2_TT: "Dahalo threat changes by §Y-2§!."
+ MAD_DAHALO_THREAT_PLUS_2_TT: "Dahalo threat changes by §Y+2§!."
+ MAD_DAHALO_THREAT_PLUS_3_TT: "Dahalo threat changes by §Y+3§!."
+ MAD_DAHALO_THREAT_PLUS_4_TT: "Dahalo threat changes by §Y+4§!."
+ MAD_DAHALO_THREAT_PLUS_5_TT: "Dahalo threat changes by §Y+5§!."
+ MAD_DAHALO_THREAT_PLUS_7_TT: "Dahalo threat changes by §Y+7§!."
+ MAD_DAHALO_THREAT_PLUS_8_TT: "Dahalo threat changes by §Y+8§!."
+ MAD_DAHALO_THREAT_PLUS_10_TT: "Dahalo threat changes by §Y+10§!."
+ MAD_DAHALO_THREAT_SET_0_TT: "Dahalo threat is set to §Y0§!."
  MAD_DAHALO_HERD_REGISTRY_UNLOCK_TT: "Unlocks the National Herd Registry decision."
  MAD_DAHALO_CERTIFICATE_CRACKDOWN_UNLOCK_TT: "Unlocks the Crack Down on Certificate Fraud decision."
  MAD_DAHALO_MILITARY_SWEEP_UNLOCK_TT: "Unlocks the Southern Mobile Sweep decision."
@@ -1286,3 +1315,7 @@
  MAD_DAHALO_NEGOTIATE_HERDMASTER_CORRIDORS: "Negotiate Herdmaster Corridors"
  MAD_DAHALO_NEGOTIATE_HERDMASTER_CORRIDORS_desc: "Use the cattle networks to move relief through the south. It is faster and reaches people who distrust the state, but it concedes influence to the Dahalo and makes the insecurity harder to suppress."
 
+
+
+ # --- Drought map GUI ---
+ MAD_drought_map_gui_text: "Regional drought severity"

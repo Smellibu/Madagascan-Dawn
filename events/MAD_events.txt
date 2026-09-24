@@ -1483,3 +1483,344 @@ country_event = {
 		ai_chance = { factor = 1 }
 	}
 }
+
+########################################################################
+# DAHALO EVENTS - merged from MAD_dahalo_events_rng_dahalo_tooltips_fixed.txt
+########################################################################
+
+# common/events/MAD_dahalo_events.txt
+# Escalation events for the permanent Dahalo system.
+
+add_namespace = mad_dahalo
+
+# Maximum Dahalo strength after the Permit Arms route: open revolt in the Grand Sud.
+country_event = {
+	id = mad_dahalo.1
+	title = mad_dahalo.1.t
+	desc = mad_dahalo.1.d
+	picture = GFX_report_event_economy_default
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = mad_dahalo.1.a
+		hidden_effect = {
+			MAD_dahalo_prepare_for_civil_war = yes
+			start_civil_war = {
+				ideology = neutrality
+				ruling_party = neutrality
+				size = 0.55
+				army_ratio = 0.65
+				navy_ratio = 0
+				air_ratio = 0
+				capital = 268
+				states = { 268 }
+
+				# Effects inside start_civil_war are scoped to the breakaway country.
+				set_party_name = {
+					ideology = neutrality
+					long_name = MAD_DAHALO_REBEL_GOVERNMENT
+					name = MAD_DAHALO_REBEL_GOVERNMENT
+				}
+				set_politics = {
+					ruling_party = neutrality
+					elections_allowed = no
+				}
+				create_country_leader = {
+					name = "Dahalo Military Council"
+					desc = MAD_DAHALO_REBEL_LEADER_DESC
+					expire = "2099.1.1"
+					ideology = despotism
+					traits = { }
+				}
+				set_country_flag = MAD_DAHALO_REBEL_GOVERNMENT
+			}
+		}
+	}}
+
+# Direct confirmation of the Remenabila takeover.
+country_event = {
+	id = mad_dahalo.2
+	title = mad_dahalo.2.t
+	desc = mad_dahalo.2.d
+	picture = GFX_report_event_economy_default
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = mad_dahalo.2.a
+	}
+}
+
+
+########################################################################
+# RANDOM DAHALO INCIDENTS
+########################################################################
+
+country_event = {
+	id = mad_dahalo.10
+	title = mad_dahalo.10.t
+	desc = mad_dahalo.10.d
+	picture = GFX_report_event_economy_default
+	is_triggered_only = yes
+
+	option = {
+		name = mad_dahalo.10.a
+		log = "[GetDateText]: [Root.GetName]: mad_dahalo.10.a - emergency restocking"
+		268 = {
+			add_to_variable = { MAD_state_famine = 5 }
+			clamp_variable = { var = MAD_state_famine min = 0 max = 100 }
+			MAD_drought_state_update_tier = yes
+		}
+		set_temp_variable = { treasury_change = -1.00 }
+		modify_treasury_effect = yes
+		add_to_variable = { MAD_dahalo_threat = 5 tooltip = MAD_DAHALO_THREAT_PLUS_5_TT }
+		if = {
+			limit = { check_variable = { MAD_agri_productivity > -0.039 } }
+			add_to_variable = { MAD_agri_productivity = -0.01 tooltip = agricolture_productivity_modifier_tt }
+		}
+		if = {
+			limit = { check_variable = { MAD_agri_income_tax > -0.029 } }
+			add_to_variable = { MAD_agri_income_tax = -0.01 tooltip = agriculture_district_income_tax_modifier_tt }
+		}
+		add_stability = -0.02
+		force_update_dynamic_modifier = yes
+		MAD_dahalo_update_modifier = yes
+	}
+	option = {
+		name = mad_dahalo.10.b
+		log = "[GetDateText]: [Root.GetName]: mad_dahalo.10.b - accept the loss"
+		268 = {
+			add_to_variable = { MAD_state_famine = 10 }
+			clamp_variable = { var = MAD_state_famine min = 0 max = 100 }
+			MAD_drought_state_update_tier = yes
+		}
+		add_to_variable = { MAD_dahalo_threat = 8 tooltip = MAD_DAHALO_THREAT_PLUS_8_TT }
+		if = {
+			limit = { check_variable = { MAD_agri_productivity > -0.039 } }
+			add_to_variable = { MAD_agri_productivity = -0.01 tooltip = agricolture_productivity_modifier_tt }
+		}
+		if = {
+			limit = { check_variable = { MAD_agri_income_tax > -0.029 } }
+			add_to_variable = { MAD_agri_income_tax = -0.01 tooltip = agriculture_district_income_tax_modifier_tt }
+		}
+		add_stability = -0.03
+		MAD_dahalo_update_modifier = yes
+		force_update_dynamic_modifier = yes
+	}
+}
+
+country_event = {
+	id = mad_dahalo.11
+	title = mad_dahalo.11.t
+	desc = mad_dahalo.11.d
+	picture = GFX_report_event_economy_default
+	is_triggered_only = yes
+
+	option = {
+		name = mad_dahalo.11.a
+		log = "[GetDateText]: [Root.GetName]: mad_dahalo.11.a - escort the convoys"
+		set_temp_variable = { treasury_change = -0.75 }
+		modify_treasury_effect = yes
+		add_to_variable = { MAD_dahalo_threat = 4 tooltip = MAD_DAHALO_THREAT_PLUS_4_TT }
+		add_to_variable = { MAD_economy_receiving_investment_duration_modifier = 0.01 tooltip = receiving_investment_duration_modifier_tt }
+		add_to_variable = { MAD_economy_international_market_income_modifier = -0.01 tooltip = international_market_income_modifier_tt }
+		add_stability = -0.01
+		MAD_dahalo_update_modifier = yes
+	}
+	option = {
+		name = mad_dahalo.11.b
+		log = "[GetDateText]: [Root.GetName]: mad_dahalo.11.b - the roads must stay open"
+		add_to_variable = { MAD_dahalo_threat = 7 tooltip = MAD_DAHALO_THREAT_PLUS_7_TT }
+		add_to_variable = { MAD_economy_receiving_investment_duration_modifier = 0.03 tooltip = receiving_investment_duration_modifier_tt }
+		add_to_variable = { MAD_economy_international_market_income_modifier = -0.02 tooltip = international_market_income_modifier_tt }
+		add_stability = -0.02
+		MAD_dahalo_update_modifier = yes
+	}
+}
+
+country_event = {
+	id = mad_dahalo.12
+	title = mad_dahalo.12.t
+	desc = mad_dahalo.12.d
+	picture = GFX_report_event_economy_default
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = mad_dahalo.12.a
+		log = "[GetDateText]: [Root.GetName]: mad_dahalo.12.a - recognise village defence groups"
+		set_country_flag = MAD_DAHALO_LOCAL_DEFENCE_RESOLVED
+		set_temp_variable = { treasury_change = -0.75 }
+		modify_treasury_effect = yes
+		add_to_variable = { MAD_dahalo_threat = -6 tooltip = MAD_DAHALO_THREAT_MINUS_6_TT }
+		add_to_variable = { MAD_economy_expected_police_modifier = -0.5 tooltip = expected_police_modifier_tt }
+		add_power_balance_value = { id = MAD_economy_ownership_bop value = -0.01875 tooltip_side = MAD_private_ownership }
+		add_stability = 0.01
+		MAD_dahalo_update_modifier = yes
+	}
+	option = {
+		name = mad_dahalo.12.b
+		log = "[GetDateText]: [Root.GetName]: mad_dahalo.12.b - integrate the guards into the gendarmerie"
+		set_country_flag = MAD_DAHALO_LOCAL_DEFENCE_RESOLVED
+		set_temp_variable = { treasury_change = -0.50 }
+		modify_treasury_effect = yes
+		add_to_variable = { MAD_dahalo_threat = -4 tooltip = MAD_DAHALO_THREAT_MINUS_4_TT }
+		add_to_variable = { MAD_economy_expected_police_modifier = 0.5 tooltip = expected_police_modifier_tt }
+		add_power_balance_value = { id = MAD_economy_ownership_bop value = 0.01875 tooltip_side = MAD_public_ownership }
+		add_stability = 0.005
+		MAD_dahalo_update_modifier = yes
+	}
+	option = {
+		name = mad_dahalo.12.c
+		log = "[GetDateText]: [Root.GetName]: mad_dahalo.12.c - disarm the local groups"
+		set_country_flag = MAD_DAHALO_LOCAL_DEFENCE_RESOLVED
+		add_to_variable = { MAD_dahalo_threat = 3 tooltip = MAD_DAHALO_THREAT_PLUS_3_TT }
+		add_stability = 0.01
+		MAD_dahalo_update_modifier = yes
+	}
+}
+
+country_event = {
+	id = mad_dahalo.13
+	title = mad_dahalo.13.t
+	desc = mad_dahalo.13.d
+	picture = GFX_report_event_economy_default
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = mad_dahalo.13.a
+		log = "[GetDateText]: [Root.GetName]: mad_dahalo.13.a - hire private security"
+		set_country_flag = MAD_DAHALO_PRIVATE_SECURITY_RESOLVED
+		set_temp_variable = { treasury_change = -2.00 }
+		modify_treasury_effect = yes
+		add_to_variable = { MAD_dahalo_threat = -8 tooltip = MAD_DAHALO_THREAT_MINUS_8_TT }
+		add_to_variable = { MAD_economy_expected_police_modifier = -0.5 tooltip = expected_police_modifier_tt }
+		add_power_balance_value = { id = MAD_economy_ownership_bop value = -0.01875 tooltip_side = MAD_private_ownership }
+		add_to_variable = { MAD_economy_receiving_investment_duration_modifier = -0.01 tooltip = receiving_investment_duration_modifier_tt }
+		add_stability = -0.005
+		MAD_dahalo_update_modifier = yes
+	}
+	option = {
+		name = mad_dahalo.13.b
+		log = "[GetDateText]: [Root.GetName]: mad_dahalo.13.b - expand the gendarmerie"
+		set_country_flag = MAD_DAHALO_PRIVATE_SECURITY_RESOLVED
+		set_temp_variable = { treasury_change = -1.00 }
+		modify_treasury_effect = yes
+		add_to_variable = { MAD_dahalo_threat = -6 tooltip = MAD_DAHALO_THREAT_MINUS_6_TT }
+		add_to_variable = { MAD_economy_expected_police_modifier = 0.5 tooltip = expected_police_modifier_tt }
+		add_power_balance_value = { id = MAD_economy_ownership_bop value = 0.01875 tooltip_side = MAD_public_ownership }
+		add_stability = 0.005
+		MAD_dahalo_update_modifier = yes
+	}
+	option = {
+		name = mad_dahalo.13.c
+		log = "[GetDateText]: [Root.GetName]: mad_dahalo.13.c - refuse the arrangement"
+		set_country_flag = MAD_DAHALO_PRIVATE_SECURITY_RESOLVED
+		add_to_variable = { MAD_dahalo_threat = 2 tooltip = MAD_DAHALO_THREAT_PLUS_2_TT }
+		add_to_variable = { MAD_economy_receiving_investment_duration_modifier = 0.01 tooltip = receiving_investment_duration_modifier_tt }
+	}
+}
+
+country_event = {
+	id = mad_dahalo.14
+	title = mad_dahalo.14.t
+	desc = mad_dahalo.14.d
+	picture = GFX_report_event_economy_default
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = mad_dahalo.14.a
+		log = "[GetDateText]: [Root.GetName]: mad_dahalo.14.a - pay for private site security"
+		set_country_flag = MAD_DAHALO_PROJECT_SECURITY_RESOLVED
+		set_temp_variable = { treasury_change = -2.00 }
+		modify_treasury_effect = yes
+		add_to_variable = { MAD_dahalo_threat = -5 tooltip = MAD_DAHALO_THREAT_MINUS_5_TT }
+		add_to_variable = { MAD_economy_receiving_investment_cost_modifier = -0.02 tooltip = receiving_investment_cost_modifier_tt }
+		add_to_variable = { MAD_economy_receiving_investment_duration_modifier = -0.03 tooltip = receiving_investment_duration_modifier_tt }
+		add_to_variable = { MAD_economy_expected_police_modifier = -0.5 tooltip = expected_police_modifier_tt }
+		add_power_balance_value = { id = MAD_economy_ownership_bop value = -0.01875 tooltip_side = MAD_private_ownership }
+		MAD_dahalo_update_modifier = yes
+	}
+	option = {
+		name = mad_dahalo.14.b
+		log = "[GetDateText]: [Root.GetName]: mad_dahalo.14.b - send the security forces"
+		set_country_flag = MAD_DAHALO_PROJECT_SECURITY_RESOLVED
+		set_temp_variable = { treasury_change = -1.50 }
+		modify_treasury_effect = yes
+		add_to_variable = { MAD_dahalo_threat = -5 tooltip = MAD_DAHALO_THREAT_MINUS_5_TT }
+		add_to_variable = { MAD_economy_receiving_investment_cost_modifier = -0.01 tooltip = receiving_investment_cost_modifier_tt }
+		add_to_variable = { MAD_economy_receiving_investment_duration_modifier = -0.02 tooltip = receiving_investment_duration_modifier_tt }
+		add_to_variable = { MAD_economy_expected_police_modifier = 0.5 tooltip = expected_police_modifier_tt }
+		add_power_balance_value = { id = MAD_economy_ownership_bop value = 0.01875 tooltip_side = MAD_public_ownership }
+		army_experience = 2
+		MAD_dahalo_update_modifier = yes
+	}
+	option = {
+		name = mad_dahalo.14.c
+		log = "[GetDateText]: [Root.GetName]: mad_dahalo.14.c - accept the risk"
+		set_country_flag = MAD_DAHALO_PROJECT_SECURITY_RESOLVED
+		add_to_variable = { MAD_dahalo_threat = 3 tooltip = MAD_DAHALO_THREAT_PLUS_3_TT }
+		add_to_variable = { MAD_economy_receiving_investment_cost_modifier = 0.03 tooltip = receiving_investment_cost_modifier_tt }
+		add_to_variable = { MAD_economy_receiving_investment_duration_modifier = 0.04 tooltip = receiving_investment_duration_modifier_tt }
+		add_to_variable = { MAD_economy_international_market_income_modifier = -0.01 tooltip = international_market_income_modifier_tt }
+		add_stability = -0.02
+		MAD_dahalo_update_modifier = yes
+	}
+}
+
+country_event = {
+	id = mad_dahalo.15
+	title = mad_dahalo.15.t
+	desc = mad_dahalo.15.d
+	picture = GFX_report_event_economy_default
+	is_triggered_only = yes
+
+	option = {
+		name = mad_dahalo.15.a
+		log = "[GetDateText]: [Root.GetName]: mad_dahalo.15.a - recover and keep moving"
+		if = {
+			limit = { has_completed_focus = MAD_Tandroka }
+			add_to_variable = { MAD_dahalo_threat = 4 tooltip = MAD_DAHALO_THREAT_PLUS_4_TT }
+			army_experience = -1
+			add_stability = -0.005
+		}
+		else = {
+			add_to_variable = { MAD_dahalo_threat = 7 tooltip = MAD_DAHALO_THREAT_PLUS_7_TT }
+			army_experience = -3
+			add_war_support = -0.01
+			add_stability = -0.02
+		}
+		MAD_dahalo_update_modifier = yes
+	}
+}
+
+country_event = {
+	id = mad_dahalo.16
+	title = mad_dahalo.16.t
+	desc = mad_dahalo.16.d
+	picture = GFX_report_event_economy_default
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = mad_dahalo.16.a
+		log = "[GetDateText]: [Root.GetName]: mad_dahalo.16.a - act on the lead"
+		set_country_flag = MAD_DAHALO_REMENABILA_LEAD_RESOLVED
+		set_country_flag = MAD_REMENABILA_LOCATED
+		add_to_variable = { MAD_dahalo_threat = -8 tooltip = MAD_DAHALO_THREAT_MINUS_8_TT }
+		army_experience = 5
+		add_stability = 0.01
+		MAD_dahalo_update_modifier = yes
+	}
+	option = {
+		name = mad_dahalo.16.b
+		log = "[GetDateText]: [Root.GetName]: mad_dahalo.16.b - keep the source under watch"
+		set_country_flag = MAD_DAHALO_REMENABILA_LEAD_RESOLVED
+		add_to_variable = { MAD_dahalo_threat = -2 tooltip = MAD_DAHALO_THREAT_MINUS_2_TT }
+		add_stability = 0.005
+		MAD_dahalo_update_modifier = yes
+	}
+}

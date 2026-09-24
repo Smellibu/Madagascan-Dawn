@@ -2277,12 +2277,7 @@ MAD_dahalo_category = {
 	# The category stays on-screen until one of the two terminal Dahalo focuses is finished:
 	#   MAD_Dead_with_a_swagger  -> security ending
 	#   MAD_cowthief_in_chief     -> accommodation ending
-	visible = {
-		NOT = { has_country_flag = MAD_DAHALO_DEFEATED }
-		NOT = { has_country_flag = MAD_DAHALO_SECURITY_ENDING }
-		NOT = { has_country_flag = MAD_DAHALO_ACCOMMODATION_ENDING }
-		NOT = { has_country_flag = MAD_REMENABILA_IN_POWER }
-	}
+	
 
 	MAD_DAHALO_RURAL_PATROLS = {
 		icon = generic_political_discourse
@@ -2294,6 +2289,7 @@ MAD_dahalo_category = {
 			check_variable = { MAD_dahalo_threat > 0 }
 		}
 		cost = 35
+		days_remove = 45
 		days_re_enable = 180
 		custom_cost_trigger = { check_variable = { treasury > 0.499 } }
 		custom_cost_text = cost_0_5
@@ -2302,7 +2298,7 @@ MAD_dahalo_category = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAHALO_RURAL_PATROLS"
 			set_temp_variable = { treasury_change = -0.50 }
 			modify_treasury_effect = yes
-			add_to_variable = { MAD_dahalo_threat = -7 }
+			add_to_variable = { MAD_dahalo_threat = -6 tooltip = MAD_DAHALO_THREAT_MINUS_6_TT }
 			add_stability = 0.005
 			MAD_dahalo_update_modifier = yes
 		}
@@ -2329,7 +2325,7 @@ MAD_dahalo_category = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAHALO_HERD_REGISTRY"
 			set_temp_variable = { treasury_change = -1.25 }
 			modify_treasury_effect = yes
-			add_to_variable = { MAD_dahalo_threat = -10 }
+			add_to_variable = { MAD_dahalo_threat = -10 tooltip = MAD_DAHALO_THREAT_MINUS_10_TT }
 			add_stability = 0.01
 			MAD_dahalo_update_modifier = yes
 		}
@@ -2356,7 +2352,7 @@ MAD_dahalo_category = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAHALO_CERTIFICATE_CRACKDOWN"
 			set_temp_variable = { treasury_change = -1.50 }
 			modify_treasury_effect = yes
-			add_to_variable = { MAD_dahalo_threat = -12 }
+			add_to_variable = { MAD_dahalo_threat = -12 tooltip = MAD_DAHALO_THREAT_MINUS_12_TT }
 			add_stability = 0.015
 			MAD_dahalo_update_modifier = yes
 		}
@@ -2375,6 +2371,7 @@ MAD_dahalo_category = {
 			check_variable = { MAD_dahalo_threat > 0 }
 		}
 		cost = 60
+		days_remove = 45
 		days_re_enable = 270
 		custom_cost_trigger = { check_variable = { treasury > 1.499 } }
 		custom_cost_text = cost_1_5
@@ -2383,8 +2380,8 @@ MAD_dahalo_category = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAHALO_MILITARY_SWEEP"
 			set_temp_variable = { treasury_change = -1.50 }
 			modify_treasury_effect = yes
-			add_to_variable = { MAD_dahalo_threat = -15 }
-			add_army_experience = 5
+			add_to_variable = { MAD_dahalo_threat = -12 tooltip = MAD_DAHALO_THREAT_MINUS_12_TT }
+			army_experience = 5
 			add_war_support = 0.01
 			add_stability = -0.01
 			MAD_dahalo_update_modifier = yes
@@ -2412,7 +2409,7 @@ MAD_dahalo_category = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAHALO_TANDROKA_TRACKERS"
 			set_temp_variable = { treasury_change = -2.00 }
 			modify_treasury_effect = yes
-			add_to_variable = { MAD_dahalo_threat = -15 }
+			add_to_variable = { MAD_dahalo_threat = -15 tooltip = MAD_DAHALO_THREAT_MINUS_15_TT }
 			add_stability = 0.015
 			MAD_dahalo_update_modifier = yes
 		}
@@ -2439,7 +2436,7 @@ MAD_dahalo_category = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAHALO_ARMS_CRACKDOWN"
 			set_temp_variable = { treasury_change = -1.25 }
 			modify_treasury_effect = yes
-			add_to_variable = { MAD_dahalo_threat = -10 }
+			add_to_variable = { MAD_dahalo_threat = -10 tooltip = MAD_DAHALO_THREAT_MINUS_10_TT }
 			add_stability = 0.01
 			MAD_dahalo_update_modifier = yes
 		}
@@ -2472,9 +2469,9 @@ MAD_dahalo_category = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAHALO_RINGLEADER_FIRST"
 			set_temp_variable = { treasury_change = -2.00 }
 			modify_treasury_effect = yes
-			add_to_variable = { MAD_dahalo_threat = -12 }
+			add_to_variable = { MAD_dahalo_threat = -12 tooltip = MAD_DAHALO_THREAT_MINUS_12_TT }
 			add_to_variable = { MAD_dahalo_ringleader_sweeps = 1 }
-			add_army_experience = 5
+			army_experience = 5
 			add_stability = -0.005
 			MAD_dahalo_update_modifier = yes
 		}
@@ -2501,9 +2498,9 @@ MAD_dahalo_category = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAHALO_RINGLEADER_SECOND"
 			set_temp_variable = { treasury_change = -2.50 }
 			modify_treasury_effect = yes
-			add_to_variable = { MAD_dahalo_threat = -15 }
+			add_to_variable = { MAD_dahalo_threat = -15 tooltip = MAD_DAHALO_THREAT_MINUS_15_TT }
 			add_to_variable = { MAD_dahalo_ringleader_sweeps = 1 }
-			add_army_experience = 7
+			army_experience = 7
 			add_stability = 0.005
 			MAD_dahalo_update_modifier = yes
 		}
@@ -2530,9 +2527,9 @@ MAD_dahalo_category = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAHALO_RINGLEADER_FINAL"
 			set_temp_variable = { treasury_change = -3.00 }
 			modify_treasury_effect = yes
-			add_to_variable = { MAD_dahalo_threat = -18 }
+			add_to_variable = { MAD_dahalo_threat = -18 tooltip = MAD_DAHALO_THREAT_MINUS_18_TT }
 			add_to_variable = { MAD_dahalo_ringleader_sweeps = 1 }
-			add_army_experience = 10
+			army_experience = 10
 			add_stability = 0.015
 			MAD_dahalo_update_modifier = yes
 		}
@@ -2565,7 +2562,7 @@ MAD_dahalo_category = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAHALO_SECURE_SOUTHERN_CATTLE_ROADS"
 			set_temp_variable = { treasury_change = -2.00 }
 			modify_treasury_effect = yes
-			set_variable = { MAD_dahalo_threat = 0 }
+			set_variable = { MAD_dahalo_threat = 0 tooltip = MAD_DAHALO_THREAT_SET_0_TT }
 			add_stability = 0.03
 			MAD_dahalo_update_modifier = yes
 		}
@@ -2605,8 +2602,8 @@ MAD_dahalo_category = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAHALO_COUP_D_ARRET complete"
 			clr_country_flag = MAD_DAHALO_COUP_D_ARRET_ACTIVE
 			set_country_flag = MAD_DAHALO_COUP_D_ARRET_COMPLETE
-			add_to_variable = { MAD_dahalo_threat = -25 tooltip = MAD_DAHALO_THREAT_CHANGE_TT }
-			add_army_experience = 10
+			add_to_variable = { MAD_dahalo_threat = -25 tooltip = MAD_DAHALO_THREAT_MINUS_25_TT }
+			army_experience = 10
 			add_war_support = 0.02
 			MAD_dahalo_update_modifier = yes
 		}
@@ -2647,7 +2644,7 @@ MAD_dahalo_category = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_REMENABILA_LOCATE complete"
 			clr_country_flag = MAD_REMENABILA_LOCATE_ACTIVE
 			set_country_flag = MAD_REMENABILA_LOCATED
-			add_to_variable = { MAD_dahalo_threat = -5 }
+			add_to_variable = { MAD_dahalo_threat = -5 tooltip = MAD_DAHALO_THREAT_MINUS_5_TT }
 			add_stability = 0.01
 			MAD_dahalo_update_modifier = yes
 		}
@@ -2683,8 +2680,8 @@ MAD_dahalo_category = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_REMENABILA_MOUNTAIN_PURSUIT complete"
 			clr_country_flag = MAD_REMENABILA_PURSUIT_ACTIVE
 			set_country_flag = MAD_REMENABILA_PURSUIT_COMPLETE
-			add_to_variable = { MAD_dahalo_threat = -10 }
-			add_army_experience = 10
+			add_to_variable = { MAD_dahalo_threat = -10 tooltip = MAD_DAHALO_THREAT_MINUS_10_TT }
+			army_experience = 10
 			MAD_dahalo_update_modifier = yes
 		}
 		ai_will_do = { base = 1 }
@@ -2719,7 +2716,7 @@ MAD_dahalo_category = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_REMENABILA_CAPTURE_SPIRITUAL_ADVISER complete"
 			clr_country_flag = MAD_REMENABILA_ADVISER_HUNT_ACTIVE
 			set_country_flag = MAD_REMENABILA_ADVISER_CAPTURED
-			add_to_variable = { MAD_dahalo_threat = -12 }
+			add_to_variable = { MAD_dahalo_threat = -12 tooltip = MAD_DAHALO_THREAT_MINUS_12_TT }
 			add_stability = 0.02
 			MAD_dahalo_update_modifier = yes
 		}
@@ -2761,7 +2758,7 @@ MAD_dahalo_category = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_REMENABILA_FINAL_HUNT complete"
 			clr_country_flag = MAD_REMENABILA_FINAL_HUNT_ACTIVE
 			set_country_flag = MAD_REMENABILA_KILLED
-			add_to_variable = { MAD_dahalo_threat = -25 }
+			add_to_variable = { MAD_dahalo_threat = -25 tooltip = MAD_DAHALO_THREAT_MINUS_25_TT }
 			add_stability = 0.04
 			add_political_power = 50
 			MAD_dahalo_update_modifier = yes
@@ -2814,7 +2811,7 @@ MAD_dahalo_category = {
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAHALO_ESCORT_RELIEF_CONVOYS complete"
 			clr_country_flag = MAD_DAHALO_ESCORT_RELIEF_ACTIVE
-			add_to_variable = { MAD_dahalo_threat = -3 tooltip = MAD_DAHALO_THREAT_CHANGE_TT }
+			add_to_variable = { MAD_dahalo_threat = -3 tooltip = MAD_DAHALO_THREAT_MINUS_3_TT }
 			MAD_dahalo_update_modifier = yes
 		}
 		ai_will_do = { base = 0 }
@@ -2851,7 +2848,7 @@ MAD_dahalo_category = {
 				MAD_drought_state_apply_famine = yes
 				add_to_variable = { MAD_state_relief_months = 3 }
 			}
-			add_to_variable = { MAD_dahalo_threat = 8 tooltip = MAD_DAHALO_THREAT_CHANGE_TT }
+			add_to_variable = { MAD_dahalo_threat = 8 tooltip = MAD_DAHALO_THREAT_PLUS_8_TT }
 			add_stability = -0.01
 			MAD_dahalo_update_modifier = yes
 		}
@@ -2884,7 +2881,7 @@ MAD_dahalo_category = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAHALO_ARM_THE_BANDS"
 			set_temp_variable = { treasury_change = -0.50 }
 			modify_treasury_effect = yes
-			add_to_variable = { MAD_dahalo_threat = 10 }
+			add_to_variable = { MAD_dahalo_threat = 10 tooltip = MAD_DAHALO_THREAT_PLUS_10_TT }
 			add_manpower = 3000
 			add_war_support = 0.03
 			add_stability = -0.02
@@ -2913,7 +2910,7 @@ MAD_dahalo_category = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAHALO_CATTLE_LEVY"
 			set_temp_variable = { treasury_change = 0.75 }
 			modify_treasury_effect = yes
-			add_to_variable = { MAD_dahalo_threat = 8 }
+			add_to_variable = { MAD_dahalo_threat = 8 tooltip = MAD_DAHALO_THREAT_PLUS_8_TT }
 			add_manpower = 1000
 			add_stability = -0.01
 			MAD_dahalo_update_modifier = yes

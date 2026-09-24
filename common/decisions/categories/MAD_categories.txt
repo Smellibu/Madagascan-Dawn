@@ -14,8 +14,17 @@ MAD_GPM_FUEL_MARKET = {
 MAD_JIRAMA_PROJECTS = {
 }
 MAD_dahalo_category = {
+	allowed = { tag = MAD }
 	priority = 99
-}	
+	visible = {
+		NOT = { has_country_flag = MAD_DAHALO_DEFEATED }
+		NOT = { has_country_flag = MAD_DAHALO_SECURITY_ENDING }
+		NOT = { has_country_flag = MAD_DAHALO_ACCOMMODATION_ENDING }
+		NOT = { has_country_flag = MAD_REMENABILA_IN_POWER }
+	}
+
+	visible_when_empty = yes
+}
 # Drought and Famine: one panel containing the embedded severity map,
 # countrywide preventative programmes, and four-state relief decisions.
 MAD_drought_category = {

@@ -34,7 +34,7 @@ focus_tree = {
 			add_to_variable = { MAD_economy_local_resources_steel_factor = 0.05 tooltip = local_resources_steel_factor_tt }
 			add_to_variable = { MAD_economy_local_resources_oil_factor = 0.05 tooltip = local_resources_oil_factor_tt }
 			add_to_variable = { MAD_economy_local_resources_tungsten_factor = 0.05 tooltip = local_resources_tungsten_factor_tt }
-			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.03 tooltip = productivity_growth_modifier_tt }
+			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.1 tooltip = productivity_growth_modifier_tt }
 			add_to_variable = { MAD_economy_receiving_investment_cost_modifier = -0.03 tooltip = receiving_investment_cost_modifier_tt }
 		}
 
@@ -77,8 +77,8 @@ focus_tree = {
 		completion_reward = {
 			log = "[GetDateText]: [This.GetName]: Focus MAD_counter_the_dahalo"
 			custom_effect_tooltip = MAD_DAHALO_STATUS_TT
-			add_to_variable = { MAD_dahalo_threat = -12 tooltip = MAD_DAHALO_THREAT_CHANGE_TT }
-			add_army_experience = 5
+			add_to_variable = { MAD_dahalo_threat = -12 tooltip = MAD_DAHALO_THREAT_MINUS_12_TT }
+			army_experience = 5
 			MAD_dahalo_update_modifier = yes
 		}
 
@@ -784,7 +784,16 @@ focus_tree = {
 		available = {
 			has_active_mission = MAD_JIRAMA_GENERATION_RECOVERY_MISSION
 			NOT = { has_country_flag = MAD_JIRAMA_GENERATION_RECOVERY_EXPIRED }
-			MAD_JIRAMA_RECOVERY_REQUIREMENTS_MET = yes
+
+			custom_trigger_tooltip = {
+				tooltip = MAD_JIRAMA_TWO_GENERATION_PROJECTS_tt
+				MAD_JIRAMA_HAS_TWO_GENERATION_PROJECTS = yes
+			}
+
+			custom_trigger_tooltip = {
+				tooltip = MAD_JIRAMA_GENERATION_120_PERCENT_tt
+				MAD_JIRAMA_GENERATION_AT_LEAST_120_PERCENT = yes
+			}
 		}
 
 		completion_reward = {
@@ -948,7 +957,7 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [This.GetName]: Focus MAD_formalize_dina_courts"
-			add_to_variable = { MAD_dahalo_threat = -6 tooltip = MAD_DAHALO_THREAT_CHANGE_TT }
+			add_to_variable = { MAD_dahalo_threat = -6 tooltip = MAD_DAHALO_THREAT_MINUS_6_TT }
 			custom_effect_tooltip = {
 				localization_key = modifies_dynamic_modifier_tt
 				MODIFIER = MAD_economy_modifier
@@ -1838,7 +1847,8 @@ focus_tree = {
 						set_temp_variable = { tag_index = GER }
 						set_temp_variable = { influence_target = MAD }
 						change_influence_percentage = yes
-						set_temp_variable = { debt_change = { value = debt multiply = -0.10 } }
+						set_temp_variable = { debt_change = debt }
+						multiply_temp_variable = { debt_change = -0.10 }
 						modify_debt_effect = yes
 		}
 
@@ -1902,7 +1912,7 @@ focus_tree = {
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_ZEBU_CERTIFICATES"
 			custom_effect_tooltip = MAD_DAHALO_HERD_REGISTRY_UNLOCK_TT
-			add_to_variable = { MAD_dahalo_threat = -5 tooltip = MAD_DAHALO_THREAT_CHANGE_TT }
+			add_to_variable = { MAD_dahalo_threat = -5 tooltip = MAD_DAHALO_THREAT_MINUS_5_TT }
 			custom_effect_tooltip = {
 				localization_key = modifies_dynamic_modifier_tt
 				MODIFIER = MAD_agriculture_modifier
@@ -2235,7 +2245,7 @@ focus_tree = {
 				MODIFIER = MAD_economy_modifier
 			}
 			add_to_variable = { MAD_economy_foreign_influence_modifier = 0.03 tooltip = foreign_influence_modifier_tt }
-			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.02 tooltip = productivity_growth_modifier_tt }
+			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.05 tooltip = productivity_growth_modifier_tt }
 		}
 
 		ai_will_do = {
@@ -2639,8 +2649,8 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_enter_Remenabila"
-			add_to_variable = { MAD_dahalo_threat = -4 tooltip = MAD_DAHALO_THREAT_CHANGE_TT }
-			add_army_experience = 5
+			add_to_variable = { MAD_dahalo_threat = -4 tooltip = MAD_DAHALO_THREAT_MINUS_4_TT }
+			army_experience = 5
 			MAD_dahalo_update_modifier = yes
 		}
 
@@ -2662,7 +2672,7 @@ focus_tree = {
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_FIGHTING_CERTIFICATE_FRAUD"
 			custom_effect_tooltip = MAD_DAHALO_CERTIFICATE_CRACKDOWN_UNLOCK_TT
-			add_to_variable = { MAD_dahalo_threat = -8 tooltip = MAD_DAHALO_THREAT_CHANGE_TT }
+			add_to_variable = { MAD_dahalo_threat = -8 tooltip = MAD_DAHALO_THREAT_MINUS_8_TT }
 			custom_effect_tooltip = {
 				localization_key = modifies_dynamic_modifier_tt
 				MODIFIER = MAD_economy_modifier
@@ -2690,8 +2700,8 @@ focus_tree = {
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_dahalo_military_ops"
 			custom_effect_tooltip = MAD_DAHALO_MILITARY_SWEEP_UNLOCK_TT
-			add_to_variable = { MAD_dahalo_threat = -12 tooltip = MAD_DAHALO_THREAT_CHANGE_TT }
-			add_army_experience = 5
+			add_to_variable = { MAD_dahalo_threat = -12 tooltip = MAD_DAHALO_THREAT_MINUS_12_TT }
+			army_experience = 5
 			add_war_support = 0.01
 			MAD_dahalo_update_modifier = yes
 		}
@@ -3045,7 +3055,7 @@ focus_tree = {
 			}
 			add_to_variable = { MAD_economy_trade_opinion_factor = 0.05 tooltip = trade_opinion_factor_tt }
 			add_to_variable = { MAD_economy_return_on_investment_modifier = 0.02 tooltip = return_on_investment_modifier_tt }
-			add_to_variable = { MAD_economy_productivity_growth_modifier = -0.02 tooltip = productivity_growth_modifier_tt }
+			add_to_variable = { MAD_economy_productivity_growth_modifier = -0.05 tooltip = productivity_growth_modifier_tt }
 		}
 
 		ai_will_do = {
@@ -3354,7 +3364,7 @@ focus_tree = {
 			}
 			add_tech_bonus = {
 				name = MAD_WORK_WITH_GERMANS
-				category = CAT_heavy_aircraft
+				category = CAT_h_air
 				uses = 4
 				bonus = 0.25
 				}
@@ -3476,8 +3486,8 @@ focus_tree = {
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_Hunt_for_red_with_a_swagger"
 			custom_effect_tooltip = MAD_REMENABILA_LOCATE_UNLOCK_TT
-			add_to_variable = { MAD_dahalo_threat = -5 tooltip = MAD_DAHALO_THREAT_CHANGE_TT }
-			add_army_experience = 5
+			add_to_variable = { MAD_dahalo_threat = -5 tooltip = MAD_DAHALO_THREAT_MINUS_5_TT }
+			army_experience = 5
 			MAD_dahalo_update_modifier = yes
 		}
 
@@ -3499,7 +3509,7 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_PERMIT_ARMS"
-			add_to_variable = { MAD_dahalo_threat = 10 tooltip = MAD_DAHALO_THREAT_CHANGE_TT }
+			add_to_variable = { MAD_dahalo_threat = 10 tooltip = MAD_DAHALO_THREAT_PLUS_10_TT }
 			add_manpower = 2500
 			add_war_support = 0.02
 			add_stability = -0.02
@@ -3526,8 +3536,8 @@ focus_tree = {
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_ARREST_ARMS"
 			custom_effect_tooltip = MAD_DAHALO_ARMS_CRACKDOWN_UNLOCK_TT
-			add_to_variable = { MAD_dahalo_threat = -8 tooltip = MAD_DAHALO_THREAT_CHANGE_TT }
-			add_army_experience = 5
+			add_to_variable = { MAD_dahalo_threat = -8 tooltip = MAD_DAHALO_THREAT_MINUS_8_TT }
+			army_experience = 5
 			MAD_dahalo_update_modifier = yes
 		}
 
@@ -3549,8 +3559,8 @@ focus_tree = {
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_Tandroka"
 			custom_effect_tooltip = MAD_DAHALO_TANDROKA_TRACKERS_UNLOCK_TT
-			add_to_variable = { MAD_dahalo_threat = -8 tooltip = MAD_DAHALO_THREAT_CHANGE_TT }
-			add_army_experience = 7
+			add_to_variable = { MAD_dahalo_threat = -8 tooltip = MAD_DAHALO_THREAT_MINUS_8_TT }
+			army_experience = 7
 			MAD_dahalo_update_modifier = yes
 		}
 
@@ -3862,7 +3872,7 @@ focus_tree = {
 		prerequisite = { focus = MAD_Rocade_ring_road }
 		search_filters = { FOCUS_FILTER_ECONOMY FOCUS_FILTER_INDUSTRY }
 		available = {
-			gdp_total_greater_than_1000 = yes
+			check_variable = { gdp_total > 1000 }
 		}
 
 		completion_reward = {
@@ -4407,7 +4417,7 @@ focus_tree = {
 				uses = 2
 				bonus = 0.20
 			}
-			add_air_experience = 10
+			air_experience = 10
 			force_update_dynamic_modifier = yes
 		}
 
@@ -4434,10 +4444,10 @@ focus_tree = {
 			custom_effect_tooltip = MAD_REMENABILA_MOUNTAIN_PURSUIT_UNLOCK_TT
 			add_to_variable = {
 				MAD_dahalo_threat = -5
-				tooltip = MAD_DAHALO_THREAT_CHANGE_TT
+				tooltip = MAD_DAHALO_THREAT_MINUS_5_TT
 			}
 			
-			add_army_experience = 10
+			army_experience = 10
 			MAD_dahalo_update_modifier = yes
 		}
 
@@ -4463,10 +4473,10 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_BANDIT_ARMY"
-			add_to_variable = { MAD_dahalo_threat = 10 tooltip = MAD_DAHALO_THREAT_CHANGE_TT }
+			add_to_variable = { MAD_dahalo_threat = 10 tooltip = MAD_DAHALO_THREAT_PLUS_10_TT }
 			add_manpower = 3000
 			add_war_support = 0.03
-			add_army_experience = 5
+			army_experience = 5
 			add_stability = -0.02
 			MAD_dahalo_update_modifier = yes
 		}
@@ -4492,8 +4502,8 @@ focus_tree = {
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_Coup_d_arret"
 			custom_effect_tooltip = MAD_COUP_D_ARRET_UNLOCK_TT
-			add_to_variable = { MAD_dahalo_threat = -5 tooltip = MAD_DAHALO_THREAT_CHANGE_TT }
-			add_army_experience = 5
+			add_to_variable = { MAD_dahalo_threat = -5 tooltip = MAD_DAHALO_THREAT_MINUS_5_TT }
+			army_experience = 5
 			add_war_support = 0.01
 			MAD_dahalo_update_modifier = yes
 		}
@@ -5487,7 +5497,7 @@ focus_tree = {
 				bonus = 0.25
 			}
 			add_to_variable = { MAD_air_mission_xp_gain_factor = 0.05 tooltip = air_mission_xp_gain_factor_tt }
-			add_air_experience = 10
+			air_experience = 10
 			custom_effect_tooltip = { localization_key = modifies_dynamic_modifier_tt MODIFIER = MAD_economy_modifier }
 			add_to_variable = { MAD_economy_production_factory_max_efficiency_factor = 0.03 tooltip = production_factory_max_efficiency_factor_tt }
 		}
@@ -5577,8 +5587,8 @@ focus_tree = {
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_capture_spiritual_advisor"
 			custom_effect_tooltip = MAD_REMENABILA_CAPTURE_SPIRITUAL_ADVISER_UNLOCK_TT
-			add_to_variable = { MAD_dahalo_threat = -5 tooltip = MAD_DAHALO_THREAT_CHANGE_TT }
-			add_army_experience = 5
+			add_to_variable = { MAD_dahalo_threat = -5 tooltip = MAD_DAHALO_THREAT_MINUS_5_TT }
+			army_experience = 5
 			MAD_dahalo_update_modifier = yes
 		}
 
@@ -5599,7 +5609,7 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_MARCH_OF_THE_COWBOYS"
-			add_to_variable = { MAD_dahalo_threat = 8 tooltip = MAD_DAHALO_THREAT_CHANGE_TT }
+			add_to_variable = { MAD_dahalo_threat = 8 tooltip = MAD_DAHALO_THREAT_PLUS_8_TT }
 			add_to_variable = { MAD_agri_income_tax = -0.01 tooltip = agriculture_district_income_tax_modifier_tt }
 			add_war_support = 0.02
 			add_stability = -0.015
@@ -6032,7 +6042,7 @@ focus_tree = {
 			set_country_flag = MAD_DAHALO_DEFEATED
 			set_variable = { MAD_dahalo_threat = 0 }
 			MAD_dahalo_update_modifier = yes
-			add_army_experience = 5
+			army_experience = 5
 		}
 
 		ai_will_do = {
@@ -6053,7 +6063,7 @@ focus_tree = {
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_cowthief_in_chief"
 			set_country_flag = MAD_DAHALO_ACCOMMODATION_ENDING
-			add_to_variable = { MAD_dahalo_threat = 10 tooltip = MAD_DAHALO_THREAT_CHANGE_TT }
+			add_to_variable = { MAD_dahalo_threat = 10 tooltip = MAD_DAHALO_THREAT_PLUS_10_TT }
 			set_temp_variable = { treasury_change = 1.00 }
 			modify_treasury_effect = yes
 			add_war_support = 0.03
@@ -6208,7 +6218,7 @@ focus_tree = {
 				remove_idea = MADAGASCAR_AIRLINES_RELAUNCHED
 				add_idea = MAD_MADAGASCAR_AIRLINE_RELIABLE
 			}
-			add_air_experience = 10
+			air_experience = 10
 		}
 
 		ai_will_do = {
@@ -6536,8 +6546,8 @@ focus_tree = {
 			set_country_flag = MAD_TELMA_REMENABILA
 			
 			add_political_power = 25
-			add_army_experience = 5
-			add_to_variable = { MAD_dahalo_threat = -5 tooltip = MAD_DAHALO_THREAT_CHANGE_TT }
+			army_experience = 5
+			add_to_variable = { MAD_dahalo_threat = -5 tooltip = MAD_DAHALO_THREAT_MINUS_5_TT }
 			MAD_dahalo_update_modifier = yes
 		}
 
@@ -6750,7 +6760,7 @@ focus_tree = {
 			 
 			add_tech_bonus = {
 				name = MAD_TELMA_SIGINT_SHARING
-				category = CAT_command_and_control_equipment
+				category = CAT_cnc
 				uses = 2
 				bonus = 0.10
 			}
@@ -6820,7 +6830,7 @@ focus_tree = {
 			 }
 			add_tech_bonus = {
 				name = MAD_TELMA_NATIONAL_C2_BACKBONE
-				category = CAT_mobile_networks
+				category = CAT_internet_tech
 				uses = 2
 				bonus = 0.50
 			}
@@ -6861,13 +6871,13 @@ focus_tree = {
 				add_to_variable = { MAD_economy_productivity_growth_modifier = 0.35 tooltip = productivity_growth_modifier_tt }
 				add_tech_bonus = {
 					name = MAD_DIGITAL_MADAGASCAR
-					category = CAT_computing
+					category = CAT_computing_tech
 					uses = 2
 					bonus = 0.25
 				}
 				add_tech_bonus = {
 					name = MAD_DIGITAL_MADAGASCAR
-					category = CAT_information_technology
+					category = CAT_internet_tech
 					uses = 2
 					bonus = 0.25
 				}
