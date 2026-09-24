@@ -1753,3 +1753,382 @@ MAD_JIRAMA_GENERATION_RECOVERY_DAILY = {
 		complete_national_focus = MAD_JIRAMA_RECOVERY_FAILS
 	}
 }
+# common/scripted_effects/MAD_dahalo_scripted_effects.txt
+#
+# The Dahalo system is a permanent pressure mechanic, not a temporary chain of generic bonuses.
+# MAD_dahalo_threat runs from 100 (severe insecurity) to 0 (security restored).
+# Decisions and relevant focuses move that number; this effect translates the current tier into
+# the actual economic/law consequences.
+
+MAD_dahalo_init = {
+	if = {
+		limit = {
+			tag = MAD
+			NOT = { has_country_flag = MAD_DAHALO_INITIALISED }
+		}
+		set_country_flag = MAD_DAHALO_INITIALISED
+		set_variable = { MAD_dahalo_threat = 100 }
+		set_variable = { MAD_dahalo_ringleader_sweeps = 0 }
+		set_variable = { MAD_dahalo_event_cooldown = 180 }
+		if = {
+			limit = { NOT = { has_dynamic_modifier = { modifier = MAD_dahalo_modifier } } }
+			add_dynamic_modifier = { modifier = MAD_dahalo_modifier }
+		}
+		MAD_dahalo_update_modifier = yes
+	}
+}
+
+MAD_dahalo_update_modifier = {
+	if = {
+		limit = { NOT = { has_dynamic_modifier = { modifier = MAD_dahalo_modifier } } }
+		add_dynamic_modifier = { modifier = MAD_dahalo_modifier }
+	}
+
+	clamp_variable = { var = MAD_dahalo_threat min = 0 max = 100 }
+
+	# Remenabila's takeover changes the nature of the problem completely: the Dahalo are no longer
+	# an armed group outside the state, so the insecurity modifier is removed and the separate regime
+	# effects on his focuses take over.
+	if = {
+		limit = { has_country_flag = MAD_REMENABILA_IN_POWER }
+		set_variable = { MAD_dahalo_agri_productivity = 0 }
+		set_variable = { MAD_dahalo_agri_income_tax = 0 }
+		set_variable = { MAD_dahalo_agri_worker_req = 0 }
+		set_variable = { MAD_dahalo_productivity_growth = 0 }
+		set_variable = { MAD_dahalo_receiving_investment_cost = 0 }
+		set_variable = { MAD_dahalo_receiving_investment_duration = 0 }
+		set_variable = { MAD_dahalo_stability = 0 }
+		set_variable = { MAD_dahalo_expected_police = 0 }
+		set_variable = { MAD_dahalo_civilian_tax = 0 }
+		set_variable = { MAD_dahalo_infrastructure_tax = 0 }
+		if = {
+			limit = { has_dynamic_modifier = { modifier = MAD_dahalo_modifier } }
+			remove_dynamic_modifier = { modifier = MAD_dahalo_modifier }
+		}
+	}
+	else_if = {
+		limit = { check_variable = { MAD_dahalo_threat > 79.99 } }
+		set_variable = { MAD_dahalo_agri_productivity = -0.08 }
+		set_variable = { MAD_dahalo_agri_income_tax = -0.08 }
+		set_variable = { MAD_dahalo_agri_worker_req = 0.05 }
+		set_variable = { MAD_dahalo_productivity_growth = -0.04 }
+		set_variable = { MAD_dahalo_receiving_investment_cost = 0.08 }
+		set_variable = { MAD_dahalo_receiving_investment_duration = 0.08 }
+		set_variable = { MAD_dahalo_stability = -0.06 }
+		set_variable = { MAD_dahalo_expected_police = 1.0 }
+		set_variable = { MAD_dahalo_civilian_tax = -0.02 }
+		set_variable = { MAD_dahalo_infrastructure_tax = -0.04 }
+	}
+	else_if = {
+		limit = { check_variable = { MAD_dahalo_threat > 59.99 } }
+		set_variable = { MAD_dahalo_agri_productivity = -0.06 }
+		set_variable = { MAD_dahalo_agri_income_tax = -0.06 }
+		set_variable = { MAD_dahalo_agri_worker_req = 0.04 }
+		set_variable = { MAD_dahalo_productivity_growth = -0.03 }
+		set_variable = { MAD_dahalo_receiving_investment_cost = 0.06 }
+		set_variable = { MAD_dahalo_receiving_investment_duration = 0.06 }
+		set_variable = { MAD_dahalo_stability = -0.05 }
+		set_variable = { MAD_dahalo_expected_police = 1.0 }
+		set_variable = { MAD_dahalo_civilian_tax = -0.015 }
+		set_variable = { MAD_dahalo_infrastructure_tax = -0.03 }
+	}
+	else_if = {
+		limit = { check_variable = { MAD_dahalo_threat > 39.99 } }
+		set_variable = { MAD_dahalo_agri_productivity = -0.04 }
+		set_variable = { MAD_dahalo_agri_income_tax = -0.04 }
+		set_variable = { MAD_dahalo_agri_worker_req = 0.03 }
+		set_variable = { MAD_dahalo_productivity_growth = -0.02 }
+		set_variable = { MAD_dahalo_receiving_investment_cost = 0.04 }
+		set_variable = { MAD_dahalo_receiving_investment_duration = 0.04 }
+		set_variable = { MAD_dahalo_stability = -0.03 }
+		set_variable = { MAD_dahalo_expected_police = 0.5 }
+		set_variable = { MAD_dahalo_civilian_tax = -0.01 }
+		set_variable = { MAD_dahalo_infrastructure_tax = -0.02 }
+	}
+	else_if = {
+		limit = { check_variable = { MAD_dahalo_threat > 19.99 } }
+		set_variable = { MAD_dahalo_agri_productivity = -0.02 }
+		set_variable = { MAD_dahalo_agri_income_tax = -0.02 }
+		set_variable = { MAD_dahalo_agri_worker_req = 0.02 }
+		set_variable = { MAD_dahalo_productivity_growth = -0.01 }
+		set_variable = { MAD_dahalo_receiving_investment_cost = 0.02 }
+		set_variable = { MAD_dahalo_receiving_investment_duration = 0.02 }
+		set_variable = { MAD_dahalo_stability = -0.015 }
+		set_variable = { MAD_dahalo_expected_police = 0.5 }
+		set_variable = { MAD_dahalo_civilian_tax = 0 }
+		set_variable = { MAD_dahalo_infrastructure_tax = -0.01 }
+	}
+	else_if = {
+		limit = { check_variable = { MAD_dahalo_threat > 0 } }
+		set_variable = { MAD_dahalo_agri_productivity = -0.01 }
+		set_variable = { MAD_dahalo_agri_income_tax = -0.01 }
+		set_variable = { MAD_dahalo_agri_worker_req = 0.01 }
+		set_variable = { MAD_dahalo_productivity_growth = 0 }
+		set_variable = { MAD_dahalo_receiving_investment_cost = 0.01 }
+		set_variable = { MAD_dahalo_receiving_investment_duration = 0.01 }
+		set_variable = { MAD_dahalo_stability = -0.01 }
+		set_variable = { MAD_dahalo_expected_police = 0.5 }
+		set_variable = { MAD_dahalo_civilian_tax = 0 }
+		set_variable = { MAD_dahalo_infrastructure_tax = 0 }
+	}
+	else = {
+		set_variable = { MAD_dahalo_agri_productivity = 0 }
+		set_variable = { MAD_dahalo_agri_income_tax = 0 }
+		set_variable = { MAD_dahalo_agri_worker_req = 0 }
+		set_variable = { MAD_dahalo_productivity_growth = 0 }
+		set_variable = { MAD_dahalo_receiving_investment_cost = 0 }
+		set_variable = { MAD_dahalo_receiving_investment_duration = 0 }
+		set_variable = { MAD_dahalo_stability = 0 }
+		set_variable = { MAD_dahalo_expected_police = 0 }
+		set_variable = { MAD_dahalo_civilian_tax = 0 }
+		set_variable = { MAD_dahalo_infrastructure_tax = 0 }
+		# Reaching 0 threat is NOT the same as finishing the Dahalo storyline.
+		# The terminal focus sets MAD_DAHALO_DEFEATED; this keeps the permanent panel and
+		# the Remenabila hunt usable even if ordinary security work temporarily reaches 0.
+		if = {
+			limit = { has_dynamic_modifier = { modifier = MAD_dahalo_modifier } }
+			remove_dynamic_modifier = { modifier = MAD_dahalo_modifier }
+		}
+	}
+
+	if = {
+		limit = {
+			NOT = { has_country_flag = MAD_DAHALO_DEFEATED }
+			NOT = { has_country_flag = MAD_REMENABILA_IN_POWER }
+		}
+		force_update_dynamic_modifier = yes
+	}
+}
+
+MAD_dahalo_switch_to_remenabila = {
+	set_variable = { MAD_dahalo_threat = 0 }
+	MAD_dahalo_update_modifier = yes
+}
+
+
+MAD_dahalo_southern_supply_interference = {
+	# This is deliberately limited to the Grand Sud and to physical relief/supply operations.
+	# Cash transfers and locally-built wells are not penalised here: the problem is getting
+	# water, food, seed and pest-control supplies safely into the countryside.
+	#
+	# Escort Relief Convoys temporarily flips the interception penalty off. This makes the
+	# decision an actual countermeasure rather than a second generic threat-reduction button.
+	if = {
+		limit = {
+			has_state_flag = MAD_GRAND_SUD_STATE
+			NOT = { has_country_flag = MAD_DAHALO_DEFEATED }
+			NOT = { has_country_flag = MAD_REMENABILA_IN_POWER }
+			check_variable = { ROOT.MAD_dahalo_threat > 39.99 }
+		}
+
+		set_temp_variable = { MAD_dahalo_south_relief_factor = 0.80 }
+		set_temp_variable = { MAD_dahalo_south_supply_leak = 1 }
+
+		if = {
+			limit = { has_country_flag = MAD_DAHALO_ESCORT_RELIEF_ACTIVE }
+			set_temp_variable = { MAD_dahalo_south_relief_factor = 1.00 }
+			set_temp_variable = { MAD_dahalo_south_supply_leak = 0 }
+		}
+		else_if = {
+			limit = { check_variable = { ROOT.MAD_dahalo_threat > 79.99 } }
+			set_temp_variable = { MAD_dahalo_south_relief_factor = 0.50 }
+			set_temp_variable = { MAD_dahalo_south_supply_leak = 3 }
+		}
+		else_if = {
+			limit = { check_variable = { ROOT.MAD_dahalo_threat > 59.99 } }
+			set_temp_variable = { MAD_dahalo_south_relief_factor = 0.65 }
+			set_temp_variable = { MAD_dahalo_south_supply_leak = 2 }
+		}
+
+		if = {
+			limit = { check_variable = { MAD_dr_state_change < -0.001 } }
+			multiply_temp_variable = { MAD_dr_state_change = MAD_dahalo_south_relief_factor }
+		}
+		if = {
+			limit = { check_variable = { MAD_dr_state_famine < -0.001 } }
+			multiply_temp_variable = { MAD_dr_state_famine = MAD_dahalo_south_relief_factor }
+			add_to_variable = { MAD_state_famine = MAD_dahalo_south_supply_leak }
+			clamp_variable = { var = MAD_state_famine min = 0 max = 100 }
+		}
+	}
+}
+
+MAD_dahalo_southern_water_relief_interference = {
+	# Emergency water tankers lose part of their effective six-month relief window when
+	# Dahalo bands are strong enough to divert or seize deliveries. An active escort
+	# operation restores the full delivery window.
+	if = {
+		limit = {
+			has_state_flag = MAD_GRAND_SUD_STATE
+			NOT = { has_country_flag = MAD_DAHALO_DEFEATED }
+			NOT = { has_country_flag = MAD_REMENABILA_IN_POWER }
+			check_variable = { ROOT.MAD_dahalo_threat > 39.99 }
+		}
+
+		set_temp_variable = { MAD_dahalo_water_relief_months = 5 }
+		if = {
+			limit = { has_country_flag = MAD_DAHALO_ESCORT_RELIEF_ACTIVE }
+			set_temp_variable = { MAD_dahalo_water_relief_months = 6 }
+		}
+		else_if = {
+			limit = { check_variable = { ROOT.MAD_dahalo_threat > 79.99 } }
+			set_temp_variable = { MAD_dahalo_water_relief_months = 3 }
+		}
+		else_if = {
+			limit = { check_variable = { ROOT.MAD_dahalo_threat > 59.99 } }
+			set_temp_variable = { MAD_dahalo_water_relief_months = 4 }
+		}
+		add_to_variable = { MAD_state_relief_months = MAD_dahalo_water_relief_months }
+	}
+	else = {
+		add_to_variable = { MAD_state_relief_months = 6 }
+	}
+}
+
+########################################################################
+# DAHALO MAX-STRENGTH / CIVIL WAR CHECK
+########################################################################
+# Permit Arms is the accommodation route that can deliberately return the armed movement
+# to maximum strength. Once the capped threat value is reached, the movement revolts openly
+# in Toliara / the Grand Sud instead of remaining an ordinary insecurity penalty.
+
+########################################################################
+# RANDOM DAHALO INCIDENTS
+########################################################################
+# The incidents are deliberately infrequent and mostly one-shot. The repeatable ones represent
+# the continuing insecurity of the cattle economy; the one-shot incidents create different long-term
+# playthroughs by opening policy choices around local defence, private security and foreign investment.
+
+MAD_dahalo_random_event_tick = {
+	if = {
+		limit = {
+			check_variable = { MAD_dahalo_event_cooldown > 0.001 }
+		}
+		subtract_from_variable = { MAD_dahalo_event_cooldown = 1 }
+	}
+	else_if = {
+		limit = {
+			NOT = { has_country_flag = MAD_DAHALO_DEFEATED }
+			NOT = { has_country_flag = MAD_REMENABILA_IN_POWER }
+			NOT = { has_country_flag = MAD_REMENABILA_KILLED }
+			NOT = { has_civil_war = yes }
+			NOT = { has_country_flag = MAD_DAHALO_CIVIL_WAR_PENDING }
+		}
+		set_variable = { MAD_dahalo_event_cooldown = 180 }
+
+		# Insecurity itself now worsens the famine in the Grand Sud, even if the player
+		# does not click a relief decision. This is the background pressure that makes
+		# high Dahalo threat strategically dangerous rather than merely inconvenient.
+		if = {
+			limit = {
+				has_completed_focus = MAD_Drought_and_famine
+			}
+			268 = {
+				if = {
+					limit = { has_state_flag = MAD_GRAND_SUD_STATE }
+					if = {
+						limit = { check_variable = { ROOT.MAD_dahalo_threat > 79.99 } }
+						add_to_variable = { MAD_state_famine = 3 }
+					}
+					else_if = {
+						limit = { check_variable = { ROOT.MAD_dahalo_threat > 59.99 } }
+						add_to_variable = { MAD_state_famine = 2 }
+					}
+					else_if = {
+						limit = { check_variable = { ROOT.MAD_dahalo_threat > 39.99 } }
+						add_to_variable = { MAD_state_famine = 1 }
+					}
+					clamp_variable = { var = MAD_state_famine min = 0 max = 100 }
+					MAD_drought_state_update_tier = yes
+				}
+			}
+		}
+		random_list = {
+			55 = { }
+			17 = { country_event = { id = mad_dahalo.10 } }
+			10 = { country_event = { id = mad_dahalo.11 } }
+			8 = {
+				if = {
+					limit = {
+						has_completed_focus = MAD_dahalo_military_ops
+						check_variable = { MAD_dahalo_threat > 59.99 }
+					}
+					country_event = { id = mad_dahalo.15 }
+				}
+			}
+			4 = {
+				if = {
+					limit = {
+						NOT = { has_country_flag = MAD_DAHALO_LOCAL_DEFENCE_RESOLVED }
+						check_variable = { MAD_dahalo_threat > 34.99 }
+					}
+					country_event = { id = mad_dahalo.12 }
+				}
+			}
+			4 = {
+				if = {
+					limit = {
+						date > 2003.1.1
+						NOT = { has_country_flag = MAD_DAHALO_PRIVATE_SECURITY_RESOLVED }
+						check_variable = { MAD_dahalo_threat > 44.99 }
+					}
+					country_event = { id = mad_dahalo.13 }
+				}
+			}
+			2 = {
+				if = {
+					limit = {
+						date > 2003.1.1
+						NOT = { has_country_flag = MAD_DAHALO_PROJECT_SECURITY_RESOLVED }
+						check_variable = { MAD_dahalo_threat > 59.99 }
+						has_completed_focus = MAD_ACCEPT_FOREIGN_OWNERSHIP
+						OR = {
+							has_completed_focus = MAD_QMM_CONSTRUCTION
+							has_completed_focus = MAD_Toliara_rare_earths
+						}
+					}
+					country_event = { id = mad_dahalo.14 }
+				}
+			}
+			3 = {
+				if = {
+					limit = {
+						has_completed_focus = MAD_Hunt_for_red_with_a_swagger
+						NOT = { has_country_flag = MAD_REMENABILA_LOCATED }
+						NOT = { has_country_flag = MAD_REMENABILA_KILLED }
+						NOT = { has_country_flag = MAD_DAHALO_REMENABILA_LEAD_RESOLVED }
+						check_variable = { MAD_dahalo_threat > 29.99 }
+					}
+					country_event = { id = mad_dahalo.16 }
+				}
+			}
+		}
+	}
+}
+
+MAD_dahalo_daily_tick = {
+	# Open revolt is checked first so a maxed armed route cannot be interrupted by an incidental event.
+	if = {
+		limit = {
+			has_completed_focus = MAD_PERMIT_ARMS
+			NOT = { has_country_flag = MAD_DAHALO_CIVIL_WAR_STARTED }
+			NOT = { has_country_flag = MAD_DAHALO_CIVIL_WAR_PENDING }
+			NOT = { has_country_flag = MAD_REMENABILA_IN_POWER }
+			NOT = { has_country_flag = MAD_REMENABILA_KILLED }
+			NOT = { has_civil_war = yes }
+			check_variable = { MAD_dahalo_threat > 99.99 }
+		}
+		set_country_flag = MAD_DAHALO_CIVIL_WAR_PENDING
+		country_event = { id = mad_dahalo.1 }
+	}
+	MAD_dahalo_random_event_tick = yes
+}
+
+MAD_dahalo_prepare_for_civil_war = {
+	set_country_flag = MAD_DAHALO_CIVIL_WAR_STARTED
+	clr_country_flag = MAD_DAHALO_CIVIL_WAR_PENDING
+	# Once this is an open civil war, stop applying the pre-war insecurity meter on top of it.
+	set_variable = { MAD_dahalo_threat = 0 }
+	MAD_dahalo_update_modifier = yes
+}
+

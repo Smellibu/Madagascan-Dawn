@@ -459,3 +459,55 @@ defined_text = {
 		localization_key = MAD_madarail_blank
 	}
 }
+# Dahalo threat severity display
+#
+# Thresholds match MAD_dahalo_update_modifier:
+#   80+ Severe
+#   60-79 High
+#   40-59 Moderate
+#   20-39 Low
+#   1-19 Minimal
+#   0 Dormant (temporary suppression; the problem can return)
+
+defined_text = {
+	name = GetMAD_DahaloSeverity
+
+	text = {
+		trigger = {
+			check_variable = { MAD_dahalo_threat > 79.99 }
+		}
+		localization_key = MAD_DAHALO_SEVERITY_SEVERE
+	}
+
+	text = {
+		trigger = {
+			check_variable = { MAD_dahalo_threat > 59.99 }
+		}
+		localization_key = MAD_DAHALO_SEVERITY_HIGH
+	}
+
+	text = {
+		trigger = {
+			check_variable = { MAD_dahalo_threat > 39.99 }
+		}
+		localization_key = MAD_DAHALO_SEVERITY_MODERATE
+	}
+
+	text = {
+		trigger = {
+			check_variable = { MAD_dahalo_threat > 19.99 }
+		}
+		localization_key = MAD_DAHALO_SEVERITY_LOW
+	}
+
+	text = {
+		trigger = {
+			check_variable = { MAD_dahalo_threat > 0 }
+		}
+		localization_key = MAD_DAHALO_SEVERITY_MINIMAL
+	}
+
+	text = {
+		localization_key = MAD_DAHALO_SEVERITY_DORMANT
+	}
+}

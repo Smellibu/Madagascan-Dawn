@@ -742,7 +742,27 @@ ideas = {
 			}
 			ai_will_do = { factor = 1 }
 		}
+		
+		MAD_DAHALO_DEFEATED = {
+			picture = GFX_idea_generic_political_pressure
 
+			modifier = {
+				expected_police_modifier = 0.5
+				resistance_target = -0.15
+				agriculture_district_income_tax_modifier = 0.03
+				agriculture_district_productivity = 0.05
+				stability_factor = 0.05
+			}
+		}
+		MAD_MOUNTAIN_WARFARE_TRAINING = {
+			picture = GFX_idea_generic_army_reform
+
+			modifier = {
+				army_speed_factor = 0.03
+				army_fuel_consumption_factor = -0.05
+				supply_consumption = -0.03
+			}
+		}
 		
 
 	}

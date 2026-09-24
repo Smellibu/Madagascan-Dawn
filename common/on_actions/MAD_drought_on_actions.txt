@@ -6,6 +6,7 @@ on_actions = {
 			if = {
 				limit = { country_exists = MAD }
 				MAD = {
+					MAD_dahalo_init = yes
 					if = {
 						limit = { NOT = { has_country_flag = MAD_DROUGHT_STARTED } }
 						MAD_drought_init = yes

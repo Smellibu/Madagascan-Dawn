@@ -1159,7 +1159,10 @@ MAD_drought_category = {
 
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_DROUGHT_EMERGENCY_WATER complete"
-			FROM = { set_variable = { MAD_state_relief_months = 6 } }
+			FROM = {
+				set_temp_variable = { MAD_dahalo_water_relief_months = 6 }
+				MAD_dahalo_southern_water_relief_interference = yes
+			}
 			clr_country_flag = MAD_DROUGHT_WATER_TRUCK_ACTIVE
 		}
 
@@ -1210,8 +1213,9 @@ MAD_drought_category = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_DROUGHT_FOOD_AID_APPEAL complete"
 			FROM = {
 				set_temp_variable = { MAD_dr_state_change = -8 }
-				MAD_drought_state_apply_change = yes
 				set_temp_variable = { MAD_dr_state_famine = -20 }
+				MAD_dahalo_southern_supply_interference = yes
+				MAD_drought_state_apply_change = yes
 				MAD_drought_state_apply_famine = yes
 			}
 			MAD_drought_recalc_national = yes
@@ -1327,8 +1331,9 @@ MAD_drought_category = {
 			modify_treasury_effect = yes
 			FROM = {
 				set_temp_variable = { MAD_dr_state_change = -5 }
-				MAD_drought_state_apply_change = yes
 				set_temp_variable = { MAD_dr_state_famine = -6 }
+				MAD_dahalo_southern_supply_interference = yes
+				MAD_drought_state_apply_change = yes
 				MAD_drought_state_apply_famine = yes
 				# this state's fields cope a little better from now on
 				subtract_from_variable = { MAD_state_drought_exposure = 0.05 }
@@ -1450,8 +1455,9 @@ MAD_drought_category = {
 			modify_treasury_effect = yes
 			FROM = {
 				set_temp_variable = { MAD_dr_state_change = -7 }
-				MAD_drought_state_apply_change = yes
 				set_temp_variable = { MAD_dr_state_famine = -8 }
+				MAD_dahalo_southern_supply_interference = yes
+				MAD_drought_state_apply_change = yes
 				MAD_drought_state_apply_famine = yes
 			}
 			# biopesticide does not poison what it lands on, so the fields keep working
@@ -1971,7 +1977,7 @@ MAD_JIRAMA_PROJECTS = {
 			modifier = hydroelectric_infrastructure_in_state
 				}
 			}
-			remove_country_flag = MAD_JIRAMA_VOLOBE_BUILDING
+			clr_country_flag = MAD_JIRAMA_VOLOBE_BUILDING
 			set_country_flag = MAD_JIRAMA_VOLOBE_BUILT
 			custom_effect_tooltip = { localization_key = modifies_dynamic_modifier_tt MODIFIER = MAD_power_modifier }
 			add_to_variable = { MAD_power_energy_gain_multiplier = 0.05 tooltip = energy_gain_multiplier_tt }
@@ -2004,7 +2010,7 @@ MAD_JIRAMA_PROJECTS = {
 
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_JIRAMA_BUILD_LEAD_ACCESS - construction begins"
-			set_temp_variable = { treasury_change = -15	.000 }
+			set_temp_variable = { treasury_change = -15.000 }
 			modify_treasury_effect = yes
 		}
 
@@ -2189,19 +2195,23 @@ MAD_JIRAMA_PROJECTS = {
 
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_JIRAMA_BUILD_SMART_METERS - rollout complete"
-			if = {268 = {free_building_slots = {
-						building = internet_station
-						size > 0
-						include_locked = no
+			if = {
+				limit = {
+					268 = {
+						free_building_slots = {
+							building = internet_station
+							size > 0
+							include_locked = no
+						}
 					}
-			268 = {
-				add_extra_state_shared_building_slots = 1
-				add_building_construction = { type = internet_station level = 1 instant_build = yes }
+				}
+				268 = {
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = { type = internet_station level = 1 instant_build = yes }
+				}
+				set_temp_variable = { treasury_change = -3.000 }
+				modify_treasury_effect = yes
 			}
-			set_temp_variable = { treasury_change = -3.000 }
-			modify_treasury_effect = yes
-			}
-		
 			set_country_flag = MAD_JIRAMA_SMART_METERS_BUILT
 			custom_effect_tooltip = { localization_key = modifies_dynamic_modifier_tt MODIFIER = MAD_power_modifier }
 			add_to_variable = { MAD_power_energy_use_modifier_civs = -0.02 tooltip = energy_use_modifier_civs_tt }
@@ -2246,3 +2256,669 @@ MAD_JIRAMA_PROJECTS = {
 	}
 
 }
+# common/decisions/MAD_dahalo_decisions.txt
+#
+# Permanent Dahalo panel. It is visible from game start and remains until one of the two
+# terminal Dahalo focuses closes it. Focuses selectively unlock stronger tools.
+#
+# Security route:
+#   Rural Patrols -> Herd Registry -> Certificate Crackdown -> Military Operations -> Tandroka Trackers
+#   -> Arms Crackdown -> Ringleader Sweeps -> Secure the Southern Cattle Roads
+#
+# Remenabila hunt:
+#   Locate Remenabila -> Pursue Through the Mountains -> Capture His Spiritual Adviser -> Final Hunt
+#
+# Accommodation route:
+#   Arm the Local Bands -> Cattle Levies
+
+MAD_dahalo_category = {
+
+	# This is intentionally not tied to MAD_dahalo_threat = 0.
+	# The category stays on-screen until one of the two terminal Dahalo focuses is finished:
+	#   MAD_Dead_with_a_swagger  -> security ending
+	#   MAD_cowthief_in_chief     -> accommodation ending
+	visible = {
+		NOT = { has_country_flag = MAD_DAHALO_DEFEATED }
+		NOT = { has_country_flag = MAD_DAHALO_SECURITY_ENDING }
+		NOT = { has_country_flag = MAD_DAHALO_ACCOMMODATION_ENDING }
+		NOT = { has_country_flag = MAD_REMENABILA_IN_POWER }
+	}
+
+	MAD_DAHALO_RURAL_PATROLS = {
+		icon = generic_political_discourse
+		allowed = { tag = MAD }
+		visible = {
+			check_variable = { MAD_dahalo_threat > 0 }
+		}
+		available = {
+			check_variable = { MAD_dahalo_threat > 0 }
+		}
+		cost = 35
+		days_re_enable = 180
+		custom_cost_trigger = { check_variable = { treasury > 0.499 } }
+		custom_cost_text = cost_0_5
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAHALO_RURAL_PATROLS"
+			set_temp_variable = { treasury_change = -0.50 }
+			modify_treasury_effect = yes
+			add_to_variable = { MAD_dahalo_threat = -7 }
+			add_stability = 0.005
+			MAD_dahalo_update_modifier = yes
+		}
+		ai_will_do = { base = 4 }
+	}
+
+	MAD_DAHALO_HERD_REGISTRY = {
+		icon = generic_political_discourse
+		allowed = { tag = MAD }
+		visible = {
+			has_completed_focus = MAD_ZEBU_CERTIFICATES
+			check_variable = { MAD_dahalo_threat > 0 }
+		}
+		available = {
+			has_completed_focus = MAD_ZEBU_CERTIFICATES
+			check_variable = { MAD_dahalo_threat > 0 }
+		}
+		cost = 60
+		fire_only_once = yes
+		custom_cost_trigger = { check_variable = { treasury > 1.249 } }
+		custom_cost_text = cost_1_25
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAHALO_HERD_REGISTRY"
+			set_temp_variable = { treasury_change = -1.25 }
+			modify_treasury_effect = yes
+			add_to_variable = { MAD_dahalo_threat = -10 }
+			add_stability = 0.01
+			MAD_dahalo_update_modifier = yes
+		}
+		ai_will_do = { base = 3 }
+	}
+
+	MAD_DAHALO_CERTIFICATE_CRACKDOWN = {
+		icon = GFX_decision_com_rebel_highest
+		allowed = { tag = MAD }
+		visible = {
+			has_completed_focus = MAD_FIGHTING_CERTIFICATE_FRAUD
+			check_variable = { MAD_dahalo_threat > 0 }
+		}
+		available = {
+			has_completed_focus = MAD_FIGHTING_CERTIFICATE_FRAUD
+			check_variable = { MAD_dahalo_threat > 0 }
+		}
+		cost = 75
+		fire_only_once = yes
+		custom_cost_trigger = { check_variable = { treasury > 1.499 } }
+		custom_cost_text = cost_1_5
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAHALO_CERTIFICATE_CRACKDOWN"
+			set_temp_variable = { treasury_change = -1.50 }
+			modify_treasury_effect = yes
+			add_to_variable = { MAD_dahalo_threat = -12 }
+			add_stability = 0.015
+			MAD_dahalo_update_modifier = yes
+		}
+		ai_will_do = { base = 2 }
+	}
+
+	MAD_DAHALO_MILITARY_SWEEP = {
+		icon = GFX_decision_com_rebel_highest
+		allowed = { tag = MAD }
+		visible = {
+			has_completed_focus = MAD_dahalo_military_ops
+			check_variable = { MAD_dahalo_threat > 0 }
+		}
+		available = {
+			has_completed_focus = MAD_dahalo_military_ops
+			check_variable = { MAD_dahalo_threat > 0 }
+		}
+		cost = 60
+		days_re_enable = 270
+		custom_cost_trigger = { check_variable = { treasury > 1.499 } }
+		custom_cost_text = cost_1_5
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAHALO_MILITARY_SWEEP"
+			set_temp_variable = { treasury_change = -1.50 }
+			modify_treasury_effect = yes
+			add_to_variable = { MAD_dahalo_threat = -15 }
+			add_army_experience = 5
+			add_war_support = 0.01
+			add_stability = -0.01
+			MAD_dahalo_update_modifier = yes
+		}
+		ai_will_do = { base = 2 }
+	}
+
+	MAD_DAHALO_TANDROKA_TRACKERS = {
+		icon = generic_political_discourse
+		allowed = { tag = MAD }
+		visible = {
+			has_completed_focus = MAD_Tandroka
+			check_variable = { MAD_dahalo_threat > 0 }
+		}
+		available = {
+			has_completed_focus = MAD_Tandroka
+			check_variable = { MAD_dahalo_threat > 0 }
+		}
+		cost = 80
+		fire_only_once = yes
+		custom_cost_trigger = { check_variable = { treasury > 1.999 } }
+		custom_cost_text = cost_2_0
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAHALO_TANDROKA_TRACKERS"
+			set_temp_variable = { treasury_change = -2.00 }
+			modify_treasury_effect = yes
+			add_to_variable = { MAD_dahalo_threat = -15 }
+			add_stability = 0.015
+			MAD_dahalo_update_modifier = yes
+		}
+		ai_will_do = { base = 1 }
+	}
+
+	MAD_DAHALO_ARMS_CRACKDOWN = {
+		icon = GFX_decision_com_rebel_highest
+		allowed = { tag = MAD }
+		visible = {
+			has_completed_focus = MAD_ARREST_ARMS
+			check_variable = { MAD_dahalo_threat > 0 }
+		}
+		available = {
+			has_completed_focus = MAD_ARREST_ARMS
+			check_variable = { MAD_dahalo_threat > 0 }
+		}
+		cost = 70
+		fire_only_once = yes
+		custom_cost_trigger = { check_variable = { treasury > 1.249 } }
+		custom_cost_text = cost_1_25
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAHALO_ARMS_CRACKDOWN"
+			set_temp_variable = { treasury_change = -1.25 }
+			modify_treasury_effect = yes
+			add_to_variable = { MAD_dahalo_threat = -10 }
+			add_stability = 0.01
+			MAD_dahalo_update_modifier = yes
+		}
+		ai_will_do = { base = 1 }
+	}
+
+	MAD_DAHALO_RINGLEADER_FIRST = {
+		icon = GFX_decision_com_rebel_highest
+		allowed = { tag = MAD }
+		visible = {
+			OR = {
+				has_completed_focus = MAD_Tandroka
+				has_completed_focus = MAD_ARREST_ARMS
+			}
+			check_variable = { MAD_dahalo_threat > 0 }
+		}
+		available = {
+			OR = {
+				has_completed_focus = MAD_Tandroka
+				has_completed_focus = MAD_ARREST_ARMS
+			}
+			check_variable = { MAD_dahalo_threat > 0 }
+		}
+		cost = 100
+		fire_only_once = yes
+		custom_cost_trigger = { check_variable = { treasury > 1.999 } }
+		custom_cost_text = cost_2_0
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAHALO_RINGLEADER_FIRST"
+			set_temp_variable = { treasury_change = -2.00 }
+			modify_treasury_effect = yes
+			add_to_variable = { MAD_dahalo_threat = -12 }
+			add_to_variable = { MAD_dahalo_ringleader_sweeps = 1 }
+			add_army_experience = 5
+			add_stability = -0.005
+			MAD_dahalo_update_modifier = yes
+		}
+		ai_will_do = { base = 1 }
+	}
+
+	MAD_DAHALO_RINGLEADER_SECOND = {
+		icon = GFX_decision_com_rebel_highest
+		allowed = { tag = MAD }
+		visible = {
+			check_variable = { MAD_dahalo_ringleader_sweeps > 0.99 }
+			check_variable = { MAD_dahalo_threat > 0 }
+		}
+		available = {
+			check_variable = { MAD_dahalo_ringleader_sweeps > 0.99 }
+			check_variable = { MAD_dahalo_threat > 0 }
+		}
+		cost = 120
+		fire_only_once = yes
+		custom_cost_trigger = { check_variable = { treasury > 2.499 } }
+		custom_cost_text = cost_2_5
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAHALO_RINGLEADER_SECOND"
+			set_temp_variable = { treasury_change = -2.50 }
+			modify_treasury_effect = yes
+			add_to_variable = { MAD_dahalo_threat = -15 }
+			add_to_variable = { MAD_dahalo_ringleader_sweeps = 1 }
+			add_army_experience = 7
+			add_stability = 0.005
+			MAD_dahalo_update_modifier = yes
+		}
+		ai_will_do = { base = 1 }
+	}
+
+	MAD_DAHALO_RINGLEADER_FINAL = {
+		icon = GFX_decision_com_rebel_highest
+		allowed = { tag = MAD }
+		visible = {
+			check_variable = { MAD_dahalo_ringleader_sweeps > 1.99 }
+			check_variable = { MAD_dahalo_threat > 0 }
+		}
+		available = {
+			check_variable = { MAD_dahalo_ringleader_sweeps > 1.99 }
+			check_variable = { MAD_dahalo_threat > 0 }
+		}
+		cost = 140
+		fire_only_once = yes
+		custom_cost_trigger = { check_variable = { treasury > 2.999 } }
+		custom_cost_text = cost_3_0
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAHALO_RINGLEADER_FINAL"
+			set_temp_variable = { treasury_change = -3.00 }
+			modify_treasury_effect = yes
+			add_to_variable = { MAD_dahalo_threat = -18 }
+			add_to_variable = { MAD_dahalo_ringleader_sweeps = 1 }
+			add_army_experience = 10
+			add_stability = 0.015
+			MAD_dahalo_update_modifier = yes
+		}
+		ai_will_do = { base = 1 }
+	}
+
+	MAD_DAHALO_SECURE_SOUTHERN_CATTLE_ROADS = {
+		icon = GFX_decision_com_rebel_highest
+		allowed = { tag = MAD }
+		visible = {
+			check_variable = { MAD_dahalo_threat < 10.01 }
+			OR = {
+				check_variable = { MAD_dahalo_ringleader_sweeps > 2.99 }
+				has_country_flag = MAD_REMENABILA_KILLED
+			}
+		}
+		available = {
+			check_variable = { MAD_dahalo_threat < 10.01 }
+			OR = {
+				check_variable = { MAD_dahalo_ringleader_sweeps > 2.99 }
+				has_country_flag = MAD_REMENABILA_KILLED
+			}
+		}
+		cost = 100
+		fire_only_once = yes
+		custom_cost_trigger = { check_variable = { treasury > 1.999 } }
+		custom_cost_text = cost_2_0
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAHALO_SECURE_SOUTHERN_CATTLE_ROADS"
+			set_temp_variable = { treasury_change = -2.00 }
+			modify_treasury_effect = yes
+			set_variable = { MAD_dahalo_threat = 0 }
+			add_stability = 0.03
+			MAD_dahalo_update_modifier = yes
+		}
+		ai_will_do = { base = 1 }
+	}
+
+	########################################################################
+	# 2014 COUP D'ARRET - national gendarmerie operation in the southwest
+	########################################################################
+
+	MAD_DAHALO_COUP_D_ARRET = {
+		icon = GFX_decision_com_rebel_highest
+		allowed = { tag = MAD }
+		visible = {
+			has_completed_focus = MAD_Coup_d_arret
+			NOT = { has_country_flag = MAD_DAHALO_COUP_D_ARRET_COMPLETE }
+			check_variable = { MAD_dahalo_threat > 19.99 }
+		}
+		available = {
+			date > 2014.5.20
+			NOT = { has_country_flag = MAD_DAHALO_COUP_D_ARRET_ACTIVE }
+			check_variable = { MAD_dahalo_threat > 19.99 }
+		}
+		cost = 100
+		fire_only_once = yes
+		days_remove = 180
+		custom_cost_trigger = { check_variable = { treasury > 2.999 } }
+		custom_cost_text = cost_3_0
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAHALO_COUP_D_ARRET started"
+			set_temp_variable = { treasury_change = -3.00 }
+			modify_treasury_effect = yes
+			set_country_flag = MAD_DAHALO_COUP_D_ARRET_ACTIVE
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAHALO_COUP_D_ARRET complete"
+			clr_country_flag = MAD_DAHALO_COUP_D_ARRET_ACTIVE
+			set_country_flag = MAD_DAHALO_COUP_D_ARRET_COMPLETE
+			add_to_variable = { MAD_dahalo_threat = -25 tooltip = MAD_DAHALO_THREAT_CHANGE_TT }
+			add_army_experience = 10
+			add_war_support = 0.02
+			MAD_dahalo_update_modifier = yes
+		}
+		ai_will_do = { base = 1 }
+	}
+
+	########################################################################
+	# REMENABILA HUNT - each hunting focus unlocks one more operational step
+	########################################################################
+
+	MAD_REMENABILA_LOCATE = {
+		icon = GFX_decision_com_rebel_highest
+		allowed = { tag = MAD }
+		visible = {
+			has_completed_focus = MAD_Hunt_for_red_with_a_swagger
+			NOT = { has_country_flag = MAD_REMENABILA_IN_POWER }
+			NOT = { has_country_flag = MAD_REMENABILA_LOCATED }
+			NOT = { has_country_flag = MAD_DAHALO_DEFEATED }
+		}
+		available = {
+			has_completed_focus = MAD_Hunt_for_red_with_a_swagger
+			NOT = { has_country_flag = MAD_REMENABILA_LOCATE_ACTIVE }
+			NOT = { has_country_flag = MAD_REMENABILA_LOCATED }
+		}
+		cost = 50
+		fire_only_once = yes
+		days_remove = 90
+		custom_cost_trigger = { check_variable = { treasury > 0.749 } }
+		custom_cost_text = cost_0_75
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_REMENABILA_LOCATE started"
+			set_temp_variable = { treasury_change = -0.75 }
+			modify_treasury_effect = yes
+			set_country_flag = MAD_REMENABILA_LOCATE_ACTIVE
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_REMENABILA_LOCATE complete"
+			clr_country_flag = MAD_REMENABILA_LOCATE_ACTIVE
+			set_country_flag = MAD_REMENABILA_LOCATED
+			add_to_variable = { MAD_dahalo_threat = -5 }
+			add_stability = 0.01
+			MAD_dahalo_update_modifier = yes
+		}
+		ai_will_do = { base = 1 }
+	}
+
+	MAD_REMENABILA_MOUNTAIN_PURSUIT = {
+		icon = GFX_decision_com_rebel_highest
+		allowed = { tag = MAD }
+		visible = {
+			has_completed_focus = MAD_army_traverse_mountains
+			has_country_flag = MAD_REMENABILA_LOCATED
+			NOT = { has_country_flag = MAD_REMENABILA_PURSUIT_COMPLETE }
+			NOT = { has_country_flag = MAD_DAHALO_DEFEATED }
+		}
+		available = {
+			NOT = { has_country_flag = MAD_REMENABILA_PURSUIT_ACTIVE }
+			NOT = { has_country_flag = MAD_REMENABILA_PURSUIT_COMPLETE }
+		}
+		cost = 65
+		fire_only_once = yes
+		days_remove = 120
+		custom_cost_trigger = { check_variable = { treasury > 0.999 } }
+		custom_cost_text = cost_1_0
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_REMENABILA_MOUNTAIN_PURSUIT started"
+			set_temp_variable = { treasury_change = -1.00 }
+			modify_treasury_effect = yes
+			set_country_flag = MAD_REMENABILA_PURSUIT_ACTIVE
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_REMENABILA_MOUNTAIN_PURSUIT complete"
+			clr_country_flag = MAD_REMENABILA_PURSUIT_ACTIVE
+			set_country_flag = MAD_REMENABILA_PURSUIT_COMPLETE
+			add_to_variable = { MAD_dahalo_threat = -10 }
+			add_army_experience = 10
+			MAD_dahalo_update_modifier = yes
+		}
+		ai_will_do = { base = 1 }
+	}
+
+	MAD_REMENABILA_CAPTURE_SPIRITUAL_ADVISER = {
+		icon = GFX_decision_com_rebel_highest
+		allowed = { tag = MAD }
+		visible = {
+			has_completed_focus = MAD_capture_spiritual_advisor
+			has_country_flag = MAD_REMENABILA_PURSUIT_COMPLETE
+			NOT = { has_country_flag = MAD_REMENABILA_ADVISER_CAPTURED }
+			NOT = { has_country_flag = MAD_DAHALO_DEFEATED }
+		}
+		available = {
+			NOT = { has_country_flag = MAD_REMENABILA_ADVISER_HUNT_ACTIVE }
+			NOT = { has_country_flag = MAD_REMENABILA_ADVISER_CAPTURED }
+		}
+		cost = 80
+		fire_only_once = yes
+		days_remove = 180
+		custom_cost_trigger = { check_variable = { treasury > 1.499 } }
+		custom_cost_text = cost_1_5
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_REMENABILA_CAPTURE_SPIRITUAL_ADVISER started"
+			set_temp_variable = { treasury_change = -1.50 }
+			modify_treasury_effect = yes
+			set_country_flag = MAD_REMENABILA_ADVISER_HUNT_ACTIVE
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_REMENABILA_CAPTURE_SPIRITUAL_ADVISER complete"
+			clr_country_flag = MAD_REMENABILA_ADVISER_HUNT_ACTIVE
+			set_country_flag = MAD_REMENABILA_ADVISER_CAPTURED
+			add_to_variable = { MAD_dahalo_threat = -12 }
+			add_stability = 0.02
+			MAD_dahalo_update_modifier = yes
+		}
+		ai_will_do = { base = 1 }
+	}
+
+	MAD_REMENABILA_FINAL_HUNT = {
+		icon = GFX_decision_com_rebel_highest
+		allowed = { tag = MAD }
+		visible = {
+			# Final Hunt is deliberately completed BEFORE Dead with a Swagger.
+			# That focus is the terminal focus and closes this category.
+			has_completed_focus = MAD_capture_spiritual_advisor
+			has_country_flag = MAD_REMENABILA_ADVISER_CAPTURED
+			NOT = { has_country_flag = MAD_REMENABILA_KILLED }
+			NOT = { has_country_flag = MAD_REMENABILA_IN_POWER }
+			NOT = { has_country_flag = MAD_DAHALO_SECURITY_ENDING }
+			NOT = { has_country_flag = MAD_DAHALO_ACCOMMODATION_ENDING }
+		}
+		available = {
+			has_completed_focus = MAD_capture_spiritual_advisor
+			has_country_flag = MAD_REMENABILA_ADVISER_CAPTURED
+			NOT = { has_country_flag = MAD_REMENABILA_FINAL_HUNT_ACTIVE }
+			NOT = { has_country_flag = MAD_REMENABILA_KILLED }
+		}
+		cost = 150
+		fire_only_once = yes
+		days_remove = 365
+		custom_cost_trigger = { check_variable = { treasury > 3.999 } }
+		custom_cost_text = cost_4_0
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_REMENABILA_FINAL_HUNT started"
+			set_temp_variable = { treasury_change = -4.00 }
+			modify_treasury_effect = yes
+			set_country_flag = MAD_REMENABILA_FINAL_HUNT_ACTIVE
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_REMENABILA_FINAL_HUNT complete"
+			clr_country_flag = MAD_REMENABILA_FINAL_HUNT_ACTIVE
+			set_country_flag = MAD_REMENABILA_KILLED
+			add_to_variable = { MAD_dahalo_threat = -25 }
+			add_stability = 0.04
+			add_political_power = 50
+			MAD_dahalo_update_modifier = yes
+		}
+		ai_will_do = { base = 0 }
+	}
+
+	########################################################################
+	# DAHALO / FAMINE INTERACTION
+	########################################################################
+	# Two different answers to the same southern problem:
+	#   Escort Relief Convoys        = state spends money/security to make relief arrive
+	#   Negotiate Herdmaster Corridors = use Dahalo cattle networks to feed the south, conceding threat
+	########################################################################
+
+	MAD_DAHALO_ESCORT_RELIEF_CONVOYS = {
+		icon = GFX_decision_com_rebel_highest
+		allowed = { tag = MAD }
+		visible = {
+			has_completed_focus = MAD_Drought_and_famine
+			check_variable = { MAD_dahalo_threat > 39.99 }
+			268 = { check_variable = { MAD_state_famine > 24.99 } }
+			NOT = { has_country_flag = MAD_DAHALO_ESCORT_RELIEF_ACTIVE }
+		}
+		available = {
+			has_completed_focus = MAD_Drought_and_famine
+			check_variable = { MAD_dahalo_threat > 39.99 }
+			268 = { check_variable = { MAD_state_famine > 24.99 } }
+			NOT = { has_country_flag = MAD_DAHALO_ESCORT_RELIEF_ACTIVE }
+		}
+		cost = 45
+		days_remove = 60
+		days_re_enable = 180
+		custom_cost_trigger = { check_variable = { treasury > 1.249 } }
+		custom_cost_text = cost_1_25
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAHALO_ESCORT_RELIEF_CONVOYS started"
+			set_temp_variable = { treasury_change = -1.25 }
+			modify_treasury_effect = yes
+			set_country_flag = MAD_DAHALO_ESCORT_RELIEF_ACTIVE
+			268 = {
+				# Guarded deliveries get through immediately, before the next normal relief action.
+				set_temp_variable = { MAD_dr_state_famine = -6 }
+				MAD_drought_state_apply_famine = yes
+				add_to_variable = { MAD_state_relief_months = 2 }
+			}
+			add_stability = 0.01
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAHALO_ESCORT_RELIEF_CONVOYS complete"
+			clr_country_flag = MAD_DAHALO_ESCORT_RELIEF_ACTIVE
+			add_to_variable = { MAD_dahalo_threat = -3 tooltip = MAD_DAHALO_THREAT_CHANGE_TT }
+			MAD_dahalo_update_modifier = yes
+		}
+		ai_will_do = { base = 0 }
+	}
+
+	MAD_DAHALO_NEGOTIATE_HERDMASTER_CORRIDORS = {
+		icon = generic_political_discourse
+		allowed = { tag = MAD }
+		visible = {
+			has_completed_focus = MAD_PERMIT_ARMS
+			NOT = { has_completed_focus = MAD_Hunt_for_red_with_a_swagger }
+			check_variable = { MAD_dahalo_threat > 59.99 }
+			268 = { check_variable = { MAD_state_famine > 24.99 } }
+		}
+		available = {
+			has_completed_focus = MAD_PERMIT_ARMS
+			NOT = { has_completed_focus = MAD_Hunt_for_red_with_a_swagger }
+			check_variable = { MAD_dahalo_threat > 59.99 }
+			268 = { check_variable = { MAD_state_famine > 24.99 } }
+		}
+		cost = 35
+		days_re_enable = 180
+		custom_cost_trigger = { check_variable = { treasury > 0.749 } }
+		custom_cost_text = cost_0_75
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAHALO_NEGOTIATE_HERDMASTER_CORRIDORS"
+			set_temp_variable = { treasury_change = -0.75 }
+			modify_treasury_effect = yes
+			268 = {
+				# Cattle networks get food through faster than the formal state route,
+				# but the government is conceding power to the armed local hierarchy.
+				set_temp_variable = { MAD_dr_state_famine = -15 }
+				MAD_drought_state_apply_famine = yes
+				add_to_variable = { MAD_state_relief_months = 3 }
+			}
+			add_to_variable = { MAD_dahalo_threat = 8 tooltip = MAD_DAHALO_THREAT_CHANGE_TT }
+			add_stability = -0.01
+			MAD_dahalo_update_modifier = yes
+		}
+		ai_will_do = { base = 0 }
+	}
+
+	########################################################################
+	# ACCOMMODATION / DAHALO SUPPORT
+	########################################################################
+
+	MAD_DAHALO_ARM_THE_BANDS = {
+		icon = GFX_decision_com_rebel_highest
+		allowed = { tag = MAD }
+		visible = {
+			has_completed_focus = MAD_PERMIT_ARMS
+			NOT = { has_completed_focus = MAD_Hunt_for_red_with_a_swagger }
+			NOT = { has_country_flag = MAD_DAHALO_DEFEATED }
+		}
+		available = {
+			has_completed_focus = MAD_PERMIT_ARMS
+			NOT = { has_completed_focus = MAD_Hunt_for_red_with_a_swagger }
+			check_variable = { MAD_dahalo_threat < 100 }
+		}
+		cost = 40
+		days_re_enable = 365
+		custom_cost_trigger = { check_variable = { treasury > 0.499 } }
+		custom_cost_text = cost_0_5
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAHALO_ARM_THE_BANDS"
+			set_temp_variable = { treasury_change = -0.50 }
+			modify_treasury_effect = yes
+			add_to_variable = { MAD_dahalo_threat = 10 }
+			add_manpower = 3000
+			add_war_support = 0.03
+			add_stability = -0.02
+			MAD_dahalo_update_modifier = yes
+		}
+		ai_will_do = { base = 0 }
+	}
+
+	MAD_DAHALO_CATTLE_LEVY = {
+		icon = generic_political_discourse
+		allowed = { tag = MAD }
+		visible = {
+			has_completed_focus = MAD_MARCH_OF_THE_COWBOYS
+			NOT = { has_completed_focus = MAD_Hunt_for_red_with_a_swagger }
+			NOT = { has_country_flag = MAD_DAHALO_DEFEATED }
+		}
+		available = {
+			has_completed_focus = MAD_MARCH_OF_THE_COWBOYS
+			NOT = { has_completed_focus = MAD_Hunt_for_red_with_a_swagger }
+			check_variable = { MAD_dahalo_threat < 100 }
+		}
+		cost = 40
+		days_re_enable = 365
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAHALO_CATTLE_LEVY"
+			set_temp_variable = { treasury_change = 0.75 }
+			modify_treasury_effect = yes
+			add_to_variable = { MAD_dahalo_threat = 8 }
+			add_manpower = 1000
+			add_stability = -0.01
+			MAD_dahalo_update_modifier = yes
+		}
+		ai_will_do = { base = 0 }
+	}
+}
+	
