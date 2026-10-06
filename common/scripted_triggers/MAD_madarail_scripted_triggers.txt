@@ -160,3 +160,82 @@ MAD_JIRAMA_RECOVERY_REQUIREMENTS_MET = {
 	MAD_JIRAMA_HAS_TWO_GENERATION_PROJECTS = yes
 	MAD_JIRAMA_GENERATION_AT_LEAST_120_PERCENT = yes
 }
+MAD_ROY_IN_POWER = {
+		check_variable = { ruling_party = 23 }
+	}
+	MAD_TAMIMA_IN_POWER = {
+		check_variable = { ruling_party = 15 }
+	}
+	MAD_MIL_IN_POWER = {
+		check_variable = { ruling_party = 22 }
+	}
+	MAD_AREMA_IN_POWER = {
+		check_variable = { ruling_party = 5 }
+	}
+	MAD_TIM_IN_POWER = {
+		check_variable = { ruling_party = 2 }
+	}
+	MAD_TGV_IN_POWER = {
+		check_variable = { ruling_party = 20 }
+	}
+	MAD_HVM_IN_POWER = {
+		check_variable = { ruling_party = 1 }
+	}
+
+	# The only valid sources for mad_political.2.
+	MAD_DAEWOO_POLITICAL_FAILURE = {
+		OR = {
+			has_country_flag = MAD_DAEWOO_BROKEN
+			has_country_flag = MAD_DAEWOO_OUTCOME_FAILED
+			has_country_flag = MAD_DAEWOO_REVIEW_FAILED
+		}
+	}
+
+	MAD_HVM_FISANDRATANA_FULL_TRIGGER = {
+		AND = {
+			has_completed_focus = MAD_JIRAMA_RECOVERY_SUCCEEDS
+			has_completed_focus = MAD_Agricultural_reforms
+			has_completed_focus = MAD_mining_code_reform
+			has_completed_focus = MAD_BIANCO_INDEPENDENT
+			has_completed_focus = MAD_TOAMASINA_JICA_EXPANSION
+		}
+	}
+
+	MAD_HVM_FISANDRATANA_PARTIAL_TRIGGER = {
+		AND = {
+			NOT = { MAD_HVM_FISANDRATANA_FULL_TRIGGER = yes }
+			OR = {
+				AND = {
+					has_completed_focus = MAD_JIRAMA_RECOVERY_SUCCEEDS
+					has_completed_focus = MAD_Agricultural_reforms
+					has_completed_focus = MAD_mining_code_reform
+				}
+				AND = {
+					has_completed_focus = MAD_JIRAMA_RECOVERY_SUCCEEDS
+					has_completed_focus = MAD_BIANCO_INDEPENDENT
+					has_completed_focus = MAD_TOAMASINA_JICA_EXPANSION
+				}
+				AND = {
+					has_completed_focus = MAD_Agricultural_reforms
+					has_completed_focus = MAD_mining_code_reform
+					has_completed_focus = MAD_BIANCO_INDEPENDENT
+				}
+			}
+		}
+	}
+
+	MAD_HVM_PROJECT_REVIEW_READY = {
+		AND = {
+			MAD_HVM_IN_POWER = yes
+			has_completed_focus = MAD_POL_HVM_PROJECT_REVIEW
+			NOT = { has_country_flag = MAD_HVM_PROJECT_REVIEW_DECIDED }
+			NOT = { has_country_flag = MAD_HVM_PROJECT_REVIEW_CANCELLED }
+		}
+	}
+
+	MAD_TGV_VELIRANO_ACTIVE = {
+		AND = {
+			MAD_TGV_IN_POWER = yes
+			has_completed_focus = MAD_POL_TGV_THIRTEEN_VELIRANO
+		}
+	}

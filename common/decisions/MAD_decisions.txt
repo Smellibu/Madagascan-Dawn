@@ -181,62 +181,9 @@ MAD_INVITE_KOREANS = {
         base = 0
     }
 	}
-		MAD_SELL_MINE = {
-		on_map_mode = map_and_decisions_view
-		cost = 150
-		fire_only_once = yes
-		days_remove = 30
-		visible = {
-			has_country_flag = MAD_ambatovy_mine_built
-			OR = {
-				has_idea = MAD_AMBATOVY_PARTIAL_STATE
-				has_idea = MAD_AMBATOVY_FULL_STATE
-			}
-		}
-		available = {
-			OR = {
-				has_idea = MAD_AMBATOVY_PARTIAL_STATE
-				has_idea = MAD_AMBATOVY_FULL_STATE
-			}
-		}
-		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision MAD_SELL_MINE started"
-		}
-		remove_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision MAD_SELL_MINE complete"
-			if = {
-				limit = {
-					has_idea = MAD_AMBATOVY_FULL_STATE
-				}
-				set_temp_variable = { treasury_change = 9 }
-				modify_treasury_effect = yes
-				remove_ideas = MAD_AMBATOVY_FULL_STATE
-			}
-			else_if = {
-				limit = {
-					has_idea = MAD_AMBATOVY_PARTIAL_STATE
-				}
-				set_temp_variable = { treasury_change = 4 }
-				modify_treasury_effect = yes
-				remove_ideas = MAD_AMBATOVY_PARTIAL_STATE
-			}
-			add_ideas = MAD_AMBATOVY_PRIVATE
-			add_power_balance_value = {
-				id = MAD_economy_ownership_bop
-				value = -0.15
-				tooltip_side = MAD_private_ownership
-			}
-			267 = {
-            add_resource = {
-                type = tungsten
-                amount = -5
-            }
-        }
-		}
-		ai_will_do = {
-			base = 0
-		}
-	}
+		# MAD_SELL_MINE was moved into MAD_OWNERSHIP_BOP so the ownership reversal is shown in the BOP view.
+
+
 
 		
 }
@@ -839,14 +786,16 @@ MAD_madarail_category = {
 MAD_daewoo_category = {
 
 
+
 	MAD_DAEWOO_REVIEW = {
 		icon = generic_political_discourse
 		days_mission_timeout = 730
 		selectable_mission = yes
-		# never auto-activate: it is started by the MAD_DEAL_KEPT focus
 		activation = { always = no }
 		visible = {
-		has_country_flag = MAD_DAEWOO_KEPT
+			has_country_flag = MAD_DAEWOO_KEPT
+			NOT = { has_country_flag = MAD_DAEWOO_OUTCOME_FAILED }
+			NOT = { has_country_flag = MAD_DAEWOO_REVIEW_FAILED }
 		}
 		available = {
 			custom_trigger_tooltip = {
@@ -867,10 +816,12 @@ MAD_daewoo_category = {
 				country_event = { id = mad_daewoo.2 }
 			}
 			else = {
+				set_country_flag = MAD_DAEWOO_REVIEW_FAILED
 				country_event = { id = mad_daewoo.3 }
 			}
 		}
 	}
+
 
 	########################################################################
 	# QUALIFIERS
@@ -1115,58 +1066,90 @@ MAD_drought_category = {
 		allowed = { tag = MAD }
 		state_target = yes
 		targets = { 266 267 268 487 } # Mahajanga, Antananarivo, Toliara, Toamasina
+
 		target_root_trigger = {
 			MAD_drought_exists = yes
 			has_completed_focus = MAD_Drought_and_famine
 		}
+
 		target_trigger = {
 			FROM = {
-				custom_trigger_tooltip = {
+				custom_effect_tooltip = {
 					tooltip = MAD_DROUGHT_STATE_NO_WATER_RELIEF_tt
 					check_variable = { MAD_state_relief_months < 0.001 }
 				}
 			}
 		}
-		highlight_states = { highlight_state_targets = { state = FROM } }
+
+		highlight_states = {
+			highlight_state_targets = {
+				state = FROM
+			}
+		}
 
 		visible = {
 			MAD_drought_exists = yes
 			has_completed_focus = MAD_Drought_and_famine
 		}
+
 		available = {
-			custom_trigger_tooltip = {
+			custom_effect_tooltip = {
 				tooltip = MAD_DROUGHT_FOCUS_REQ_tt
 				has_completed_focus = MAD_Drought_and_famine
 			}
-			custom_trigger_tooltip = {
-				tooltip = MAD_DROUGHT_NO_TRUCKS_tt
-				MAD_drought_water_programme_available = yes
+
+			NOT = {
+				has_country_flag = MAD_DROUGHT_WATER_DECISION_ACTIVE
 			}
 		}
+
 		cost = 55
 		days_remove = 30
 		fire_only_once = no
-		custom_cost_trigger = { check_variable = { treasury > 0.499 } }
+		custom_cost_trigger = {
+			check_variable = {
+				treasury > 0.499
+			}
+		}
 		custom_cost_text = cost_0_5
-
 
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_DROUGHT_EMERGENCY_WATER started"
+
+			set_country_flag = MAD_DROUGHT_WATER_DECISION_ACTIVE
 			set_country_flag = MAD_DROUGHT_WATER_TRUCK_ACTIVE
-			set_temp_variable = { treasury_change = -0.50 }
+
+			set_temp_variable = {
+				treasury_change = -0.50
+			}
 			modify_treasury_effect = yes
 		}
 
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_DROUGHT_EMERGENCY_WATER complete"
+
 			FROM = {
-				set_temp_variable = { MAD_dahalo_water_relief_months = 6 }
+				set_temp_variable = {
+					MAD_dahalo_water_relief_months = 6
+				}
 				MAD_dahalo_southern_water_relief_interference = yes
 			}
+
 			clr_country_flag = MAD_DROUGHT_WATER_TRUCK_ACTIVE
+			clr_country_flag = MAD_DROUGHT_WATER_DECISION_ACTIVE
 		}
 
-		ai_will_do = { base = 4 modifier = { factor = 3 FROM = { check_variable = { MAD_state_drought > 49.99 } } } }
+		ai_will_do = {
+			base = 4
+			modifier = {
+				factor = 3
+				FROM = {
+					check_variable = {
+						MAD_state_drought > 49.99
+					}
+				}
+			}
+		}
 	}
 
 	MAD_DROUGHT_FOOD_AID_APPEAL = {
@@ -2290,13 +2273,13 @@ MAD_dahalo_category = {
 		}
 		cost = 35
 		days_remove = 45
-		days_re_enable = 180
-		custom_cost_trigger = { check_variable = { treasury > 0.499 } }
-		custom_cost_text = cost_0_5
+		days_re_enable = 0
+		custom_cost_trigger = { check_variable = { treasury > 0.199 } }
+		custom_cost_text = cost_0_2
 
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAHALO_RURAL_PATROLS"
-			set_temp_variable = { treasury_change = -0.50 }
+			set_temp_variable = { treasury_change = -0.20 }
 			modify_treasury_effect = yes
 			add_to_variable = { MAD_dahalo_threat = -6 tooltip = MAD_DAHALO_THREAT_MINUS_6_TT }
 			add_stability = 0.005
@@ -2918,4 +2901,765 @@ MAD_dahalo_category = {
 		ai_will_do = { base = 0 }
 	}
 }
+
+MAD_OWNERSHIP_BOP = {
+
+	MAD_SELL_TELMA_PRIVATE = {
+		icon = generic_ownership
+		cost = 50
+		fire_only_once = yes
+		days_remove = 1
+		visible = {
+			has_country_flag = MAD_TELMA_STATE_OWNED
+			NOT = { has_country_flag = MAD_TELMA_PRIVATISED_AFTER_STATE }
+		}
+		available = {
+			has_country_flag = MAD_TELMA_STATE_OWNED
+			NOT = { has_country_flag = MAD_TELMA_PRIVATISED_AFTER_STATE }
+		}
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_SELL_TELMA_PRIVATE"
+			clr_country_flag = MAD_TELMA_STATE_OWNED
+			set_country_flag = MAD_TELMA_PRIVATISED_AFTER_STATE
+			set_country_flag = MAD_TELMA_AXIAN_OWNED
+			add_ideas = MAD_FIBRE_MONOPOLY
+
+			# Remove the direct state-model bonuses/penalties first.
+			add_to_variable = { MAD_economy_infrastructure_tax_gain_multiplier_modifier = -0.10 tooltip = infrastructure_tax_gain_multiplier_modifier_tt }
+			add_to_variable = { MAD_economy_civilian_industry_tax_modifier = -0.05 tooltip = civilian_industry_tax_modifier_tt }
+			add_to_variable = { MAD_economy_foreign_influence_modifier = -0.10 tooltip = foreign_influence_modifier_tt }
+			add_to_variable = { MAD_economy_internal_investments_money_cost_modifier = 0.10 tooltip = internal_investments_money_cost_modifier_tt }
+			add_to_variable = { MAD_economy_receiving_investment_cost_modifier = -0.10 tooltip = receiving_investment_cost_modifier_tt }
+			add_stability = 0.02
+
+			# 75% of the original private TelMa route.
+			add_to_variable = { MAD_economy_civ_facs_worker_requirement_modifier = -0.03 tooltip = civ_facs_worker_requirement_modifier_tt }
+			add_to_variable = { MAD_economy_stability_factor = -0.03 tooltip = stability_factor_tt }
+			add_to_variable = { MAD_economy_civilian_factories_productivity = 0.0225 tooltip = civilian_factories_productivity_tt }
+			add_to_variable = { MAD_economy_civilian_industry_tax_modifier = 0.0375 tooltip = civilian_industry_tax_modifier_tt }
+			add_to_variable = { MAD_economy_production_speed_offices_factor = 0.0375 tooltip = production_speed_offices_factor_tt }
+			add_political_power = 19
+			add_power_balance_value = {
+				id = MAD_economy_ownership_bop
+				value = -0.20625
+				tooltip_side = MAD_private_ownership
+			}
+		}
+		ai_will_do = { base = 0 }
+	}
+
+	MAD_SELL_AIRLINE_PRIVATE = {
+		icon = generic_air
+		cost = 50
+		fire_only_once = yes
+		days_remove = 1
+		visible = {
+			has_idea = MAD_STATE_AIRLINE
+			NOT = { has_country_flag = MAD_AIR_PRIVATISED_AFTER_STATE }
+		}
+		available = {
+			has_idea = MAD_STATE_AIRLINE
+			NOT = { has_country_flag = MAD_AIR_PRIVATISED_AFTER_STATE }
+		}
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_SELL_AIRLINE_PRIVATE"
+			remove_ideas = MAD_STATE_AIRLINE
+			add_ideas = MAD_PRIVATE_AIRLINE
+			set_country_flag = MAD_AIR_PRIVATISED_AFTER_STATE
+			set_temp_variable = { treasury_change = 6.00 }
+			modify_treasury_effect = yes
+			add_tech_bonus = {
+				name = MAD_SELL_AIRLINE_PRIVATE
+				category = CAT_h_air
+				uses = 3
+				bonus = 0.25
+			}
+			add_to_variable = { MAD_economy_production_factory_max_efficiency_factor = 0.0375 tooltip = production_factory_max_efficiency_factor_tt }
+			add_power_balance_value = {
+				id = MAD_economy_ownership_bop
+				value = -0.13125
+				tooltip_side = MAD_private_ownership
+			}
+		}
+		ai_will_do = { base = 0 }
+	}
+
+	MAD_SELL_JIRAMA_PRIVATE = {
+		icon = generic_bank
+		cost = 50
+		fire_only_once = yes
+		days_remove = 1
+		visible = {
+			has_country_flag = MAD_JIRAMA_PUBLIC_MODEL
+			NOT = { has_country_flag = MAD_JIRAMA_PRIVATISED_AFTER_STATE }
+		}
+		available = {
+			has_country_flag = MAD_JIRAMA_PUBLIC_MODEL
+			NOT = { has_country_flag = MAD_JIRAMA_PRIVATISED_AFTER_STATE }
+		}
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_SELL_JIRAMA_PRIVATE"
+
+			# Remove the public model's direct ownership effects.
+			add_to_variable = { MAD_power_energy_gain_multiplier = -0.04 tooltip = energy_gain_multiplier_tt }
+			add_to_variable = { MAD_power_renewable_energy_gain_multiplier = -0.03 tooltip = renewable_energy_gain_multiplier_tt }
+			add_to_variable = { MAD_power_renewable_infra_cost_multiplier_modifier = 0.05 tooltip = renewable_infra_cost_multiplier_modifier_tt }
+			add_to_variable = { MAD_economy_internal_investments_money_cost_modifier = 0.05 tooltip = internal_investments_money_cost_modifier_tt }
+			add_to_variable = { MAD_economy_productivity_growth_modifier = -0.02 tooltip = productivity_growth_modifier_tt }
+			add_stability = -0.02
+			add_to_variable = { MAD_economy_return_on_investment_modifier = -0.03 tooltip = return_on_investment_modifier_tt }
+			add_to_variable = { MAD_economy_foreign_influence_modifier = -0.05 tooltip = foreign_influence_modifier_tt }
+
+			# If later public-model BOP adjustments have already fired, remove them too.
+			if = {
+				limit = { has_completed_focus = MAD_ELECTRICITY_FOR_ALL }
+				add_to_variable = { MAD_economy_internal_investments_money_cost_modifier = 0.05 tooltip = internal_investments_money_cost_modifier_tt }
+				add_power_balance_value = {
+					id = MAD_economy_ownership_bop
+					value = -0.0375
+					tooltip_side = MAD_private_ownership
+				}
+			}
+			if = {
+				limit = { has_completed_focus = MAD_Volobe_Amont_DAM }
+				add_to_variable = { MAD_economy_foreign_influence_modifier = -0.02 tooltip = foreign_influence_modifier_tt }
+				add_power_balance_value = {
+					id = MAD_economy_ownership_bop
+					value = -0.01875
+					tooltip_side = MAD_private_ownership
+				}
+			}
+
+			# 75% of the original private JIRAMA route's direct benefits.
+			set_country_flag = MAD_JIRAMA_PRIVATISED_AFTER_STATE
+			clr_country_flag = MAD_JIRAMA_PUBLIC_MODEL
+			set_country_flag = MAD_JIRAMA_PRIVATE_MODEL
+			set_temp_variable = { treasury_change = 9.00 }
+			modify_treasury_effect = yes
+			add_to_variable = { MAD_power_energy_gain_multiplier = 0.0225 tooltip = energy_gain_multiplier_tt }
+			add_to_variable = { MAD_power_renewable_energy_gain_multiplier = 0.0225 tooltip = renewable_energy_gain_multiplier_tt }
+			add_to_variable = { MAD_economy_receiving_investment_cost_modifier = -0.0375 tooltip = receiving_investment_cost_modifier_tt }
+			add_to_variable = { MAD_economy_receiving_investment_duration_modifier = -0.0225 tooltip = receiving_investment_duration_modifier_tt }
+			add_to_variable = { MAD_economy_foreign_influence_modifier = -0.0375 tooltip = foreign_influence_modifier_tt }
+			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.015 tooltip = productivity_growth_modifier_tt }
+			add_stability = -0.0225
+
+			add_power_balance_value = {
+				id = MAD_economy_ownership_bop
+				value = -0.13125
+				tooltip_side = MAD_private_ownership
+			}
+		}
+		ai_will_do = { base = 0 }
+	}
+
+	MAD_SELL_MADARAIL_PRIVATE = {
+		icon = generic_railway
+		cost = 50
+		fire_only_once = yes
+		days_remove = 1
+		visible = {
+			OR = {
+				has_idea = MAD_MADARAIL_OPERATOR_STATE_AUSTERE
+				has_idea = MAD_MADARAIL_OPERATOR_STATE_FUNDED
+			}
+			NOT = { has_country_flag = MAD_MADARAIL_PRIVATISED_AFTER_STATE }
+		}
+		available = {
+			OR = {
+				has_idea = MAD_MADARAIL_OPERATOR_STATE_AUSTERE
+				has_idea = MAD_MADARAIL_OPERATOR_STATE_FUNDED
+			}
+			NOT = { has_country_flag = MAD_MADARAIL_PRIVATISED_AFTER_STATE }
+		}
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_SELL_MADARAIL_PRIVATE"
+			if = {
+				limit = { has_idea = MAD_MADARAIL_OPERATOR_STATE_AUSTERE }
+				add_stability = 0.02
+			}
+			if = {
+				limit = { has_idea = MAD_MADARAIL_OPERATOR_STATE_FUNDED }
+				add_stability = -0.02
+			}
+			remove_ideas = MAD_MADARAIL_OPERATOR_STATE_AUSTERE
+			remove_ideas = MAD_MADARAIL_OPERATOR_STATE_FUNDED
+			clr_country_flag = MAD_MADARAIL_STATE_OWNED
+			set_country_flag = MAD_MADARAIL_PRIVATE
+			set_country_flag = MAD_MADARAIL_PRIVATISED_AFTER_STATE
+
+			# Reverse the state operator's direct economy/stability effect.
+
+			set_temp_variable = { treasury_change = 6.35 }
+			modify_treasury_effect = yes
+			add_to_variable = { MAD_economy_receiving_investment_cost_modifier = -0.0375 tooltip = receiving_investment_cost_modifier_tt }
+			add_to_variable = { MAD_economy_production_speed_rail_way_factor = 0.075 tooltip = production_speed_rail_way_factor_tt }
+			add_political_power = 19
+
+			add_power_balance_value = {
+				id = MAD_economy_ownership_bop
+				value = -0.13125
+				tooltip_side = MAD_private_ownership
+			}
+		}
+		ai_will_do = { base = 0 }
+	}
+
+	MAD_SELL_GPM_PRIVATE = {
+		icon = generic_fuel
+		cost = 50
+		fire_only_once = yes
+		days_remove = 1
+		visible = {
+			has_country_flag = MAD_GPM_STATE_MODEL
+			NOT = { has_country_flag = MAD_GPM_PRIVATISED_AFTER_STATE }
+		}
+		available = {
+			has_country_flag = MAD_GPM_STATE_MODEL
+			NOT = { has_country_flag = MAD_GPM_PRIVATISED_AFTER_STATE }
+		}
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_SELL_GPM_PRIVATE"
+			clr_country_flag = MAD_GPM_STATE_MODEL
+			clr_country_flag = MAD_GPM_STATE_IMPORTS
+			set_country_flag = MAD_GPM_PRIVATE_MODEL
+			set_country_flag = MAD_GPM_PRIVATE_DISTRIBUTION
+			set_country_flag = MAD_GPM_PRIVATISED_AFTER_STATE
+
+			# Remove the direct state-control bonuses first.
+			add_to_variable = { MAD_economy_internal_investments_money_cost_modifier = 0.10 tooltip = internal_investments_money_cost_modifier_tt }
+			add_to_variable = { MAD_economy_infrastructure_tax_gain_multiplier_modifier = -0.05 tooltip = infrastructure_tax_gain_multiplier_modifier_tt }
+			add_to_variable = { MAD_economy_foreign_influence_modifier = -0.05 tooltip = foreign_influence_modifier_tt }
+			add_stability = -0.02
+			add_to_variable = { MAD_economy_return_on_investment_modifier = -0.02 tooltip = return_on_investment_modifier_tt }
+
+			if = {
+				limit = { has_completed_focus = MAD_STATE_FUEL_IMPORTS }
+				add_to_variable = { MAD_economy_internal_investments_money_cost_modifier = 0.05 tooltip = internal_investments_money_cost_modifier_tt }
+				add_power_balance_value = {
+					id = MAD_economy_ownership_bop
+					value = -0.0375
+					tooltip_side = MAD_private_ownership
+				}
+			}
+			if = {
+				limit = { has_completed_focus = MAD_GPM_BUY_WHILE_CHEAP }
+				# The state branch adds +0.01875 here; reverse that contribution.
+				add_power_balance_value = {
+					id = MAD_economy_ownership_bop
+					value = -0.01875
+					tooltip_side = MAD_private_ownership
+				}
+			}
+
+			# 75% of the original Rubis/Galana private route.
+			add_to_variable = { MAD_economy_receiving_investment_cost_modifier = -0.0375 tooltip = receiving_investment_cost_modifier_tt }
+			add_to_variable = { MAD_economy_receiving_investment_duration_modifier = -0.0375 tooltip = receiving_investment_duration_modifier_tt }
+			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.075 tooltip = productivity_growth_modifier_tt }
+			add_to_variable = { MAD_economy_trade_opinion_factor = 0.0375 tooltip = trade_opinion_factor_tt }
+			add_political_power = 19
+
+			add_power_balance_value = {
+				id = MAD_economy_ownership_bop
+				value = -0.13125
+				tooltip_side = MAD_private_ownership
+			}
+		}
+		ai_will_do = { base = 0 }
+	}
+
+	MAD_SELL_AMBATOVY_PRIVATE = {
+		icon = generic_mining
+		cost = 50
+		fire_only_once = yes
+		days_remove = 1
+		visible = {
+			OR = {
+				has_idea = MAD_AMBATOVY_PARTIAL_STATE
+				has_idea = MAD_AMBATOVY_FULL_STATE
+			}
+			NOT = { has_country_flag = MAD_AMBATOVY_PRIVATISED_AFTER_STATE }
+		}
+		available = {
+			OR = {
+				has_idea = MAD_AMBATOVY_PARTIAL_STATE
+				has_idea = MAD_AMBATOVY_FULL_STATE
+			}
+			NOT = { has_country_flag = MAD_AMBATOVY_PRIVATISED_AFTER_STATE }
+		}
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_SELL_AMBATOVY_PRIVATE"
+
+			if = {
+				limit = { has_idea = MAD_AMBATOVY_FULL_STATE }
+				remove_ideas = MAD_AMBATOVY_FULL_STATE
+				add_power_balance_value = {
+					id = MAD_economy_ownership_bop
+					value = -0.075
+					tooltip_side = MAD_private_ownership
+				}
+			}
+			else_if = {
+				limit = { has_idea = MAD_AMBATOVY_PARTIAL_STATE }
+				remove_ideas = MAD_AMBATOVY_PARTIAL_STATE
+				add_power_balance_value = {
+					id = MAD_economy_ownership_bop
+					value = -0.0375
+					tooltip_side = MAD_private_ownership
+				}
+			}
+			if = {
+				limit = { has_country_flag = MAD_ambatovy_state_bought_dynatec }
+				add_power_balance_value = {
+					id = MAD_economy_ownership_bop
+					value = -0.075
+					tooltip_side = MAD_private_ownership
+				}
+			}
+
+			add_ideas = MAD_AMBATOVY_PRIVATE
+			set_country_flag = MAD_AMBATOVY_PRIVATISED_AFTER_STATE
+
+			# 75% of the original private operational route.
+			add_power_balance_value = {
+				id = MAD_economy_ownership_bop
+				value = -0.05625
+				tooltip_side = MAD_private_ownership
+			}
+		}
+		ai_will_do = { base = 0 }
+	}
+}
+
+# ---------------------------------------------------------------------------
+# Royal political decisions
+# Closed automatically when neither royal party holds government.
+# ---------------------------------------------------------------------------
+MAD_royal_political_category = {
 	
+
+	MAD_ROYAL_CONSULT_THE_HOUSES = {
+		icon = GFX_decision_generic_political_reform
+		cost = 50
+		days_remove = 90
+		allowed = { MAD_TAMIMA_IN_POWER = yes }
+		visible = { MAD_TAMIMA_IN_POWER = yes }
+		available = { MAD_TAMIMA_IN_POWER = yes }
+		
+		complete_effect = {
+			add_political_power = 25
+		}
+		ai_will_do = { base = 2 }
+	}	
+
+	MAD_ROYAL_ASSERT_THE_CROWN = {
+		icon = GFX_decision_generic_political_reform
+		cost = 50
+		days_remove = 90
+		allowed = { MAD_ROY_IN_POWER = yes }
+		visible = { MAD_ROY_IN_POWER = yes }
+		available = { MAD_ROY_IN_POWER = yes }
+		complete_effect = {
+			add_political_power = 50
+			set_temp_variable = { party_index = 23 }
+			set_temp_variable = { party_popularity_increase = 0.02 }
+			set_temp_variable = { temp_outlook_increase = 0.02 }
+			change_relative_party_popularity = yes
+			add_stability = -0.01
+			recalculate_party = yes
+		}
+		ai_will_do = { base = 1 }
+	}
+}
+
+# ---------------------------------------------------------------------------
+# Military refoundation decisions
+# Closed automatically when the military is no longer the ruling party.
+# ---------------------------------------------------------------------------
+MAD_military_refoundation_category = {
+	allowed = {
+		MAD_MIL_IN_POWER = yes
+	}
+	visible = {
+		MAD_MIL_IN_POWER = yes
+	}
+	priority = 1
+	visible_when_empty = no
+
+	MAD_MILITARY_OFFICER_CONFERENCE = {
+		icon = GFX_decision_generic_political_reform
+		cost = 50
+		days_remove = 120
+		allowed = { MAD_MIL_IN_POWER = yes }
+		visible = { MAD_MIL_IN_POWER = yes }
+		available = {
+			MAD_MIL_IN_POWER = yes
+			NOT = { has_country_flag = MAD_MIL_OFFICER_CONFERENCE_HELD }
+		}
+		complete_effect = {
+			set_country_flag = MAD_MIL_OFFICER_CONFERENCE_HELD
+			army_experience = 20
+			add_political_power = 25
+		}
+		ai_will_do = { base = 1 }
+	}
+
+	MAD_MILITARY_CIVILIAN_OVERSIGHT = {
+		icon = GFX_decision_generic_political_reform
+		cost = 75
+		days_remove = 180
+		allowed = { MAD_MIL_IN_POWER = yes }
+		visible = { MAD_MIL_IN_POWER = yes }
+		available = {
+			MAD_MIL_IN_POWER = yes
+			has_country_flag = MAD_MIL_REFOUNDATION_GUARDIAN
+			NOT = { has_country_flag = MAD_MIL_CIVILIAN_OVERSIGHT_DONE }
+		}
+		complete_effect = {
+			set_country_flag = MAD_MIL_CIVILIAN_OVERSIGHT_DONE
+			set_temp_variable = { party_index = 2 }
+			set_temp_variable = { party_popularity_increase = 0.02 }
+			set_temp_variable = { temp_outlook_increase = 0.02 }
+			change_relative_party_popularity = yes
+			decrease_corruption = yes
+			add_political_power = 25
+			recalculate_party = yes
+		}
+		ai_will_do = { base = 2 }
+	}
+
+	MAD_MILITARY_SUPPORT_GENDARMERIE = {
+		icon = GFX_decision_generic_police
+		cost = 50
+		days_remove = 120
+		allowed = { MAD_MIL_IN_POWER = yes }
+		visible = { MAD_MIL_IN_POWER = yes }
+		available = {
+			MAD_MIL_IN_POWER = yes
+			has_country_flag = MAD_MILITARY_SECURITY_PARTNER
+			NOT = { has_country_flag = MAD_MIL_GENDARMERIE_DECISION_DONE }
+		}
+		complete_effect = {
+			set_country_flag = MAD_MIL_GENDARMERIE_DECISION_DONE
+			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.05 tooltip = productivity_growth_modifier_tt }
+			add_political_power = 15
+		}
+		ai_will_do = { base = 2 }
+	}
+}
+# ---------------------------------------------------------------------------
+# TGV – Thirteen Velirano
+# Stage 1: promises. Stage 2: funded delivery.
+# The entire category disappears when TGV loses government; cleanup also
+# cancels all unfinished promises and removes delivery ideas.
+# ---------------------------------------------------------------------------
+MAD_TGV_VELIRANO_CATEGORY = {
+	icon = generic_political_discourse
+	allowed = {
+		MAD_TGV_IN_POWER = yes
+	}
+	visible = {
+		MAD_TGV_VELIRANO_ACTIVE = yes
+		MAD_TGV_IN_POWER = yes
+	}
+	priority = 2
+	visible_when_empty = no
+
+	MAD_TGV_PROMISE_WATER = {
+		icon = GFX_decision_generic_construction
+		cost = 20
+		fire_only_once = yes
+		allowed = { MAD_TGV_IN_POWER = yes }
+		visible = {
+			MAD_TGV_IN_POWER = yes
+			NOT = { has_country_flag = MAD_TGV_PROMISED_WATER }
+			NOT = { has_country_flag = MAD_TGV_DELIVERED_WATER }
+		}
+		available = { MAD_TGV_IN_POWER = yes }
+		complete_effect = {
+			set_country_flag = MAD_TGV_PROMISED_WATER
+			set_country_flag = MAD_TGV_PROMISES_OPEN
+			set_temp_variable = { party_index = 20 }
+			set_temp_variable = { party_popularity_increase = 0.01 }
+			set_temp_variable = { temp_outlook_increase = 0.01 }
+			change_relative_party_popularity = yes
+		}
+		ai_will_do = { base = 2 }
+	}
+
+	MAD_TGV_PROMISE_INFRASTRUCTURE = {
+		icon = GFX_decision_generic_construction
+		cost = 20
+		fire_only_once = yes
+		allowed = { MAD_TGV_IN_POWER = yes }
+		visible = { MAD_TGV_IN_POWER = yes NOT = { has_country_flag = MAD_TGV_PROMISED_INFRASTRUCTURE } NOT = { has_country_flag = MAD_TGV_DELIVERED_INFRASTRUCTURE } }
+		available = { MAD_TGV_IN_POWER = yes }
+		complete_effect = {
+			set_country_flag = MAD_TGV_PROMISED_INFRASTRUCTURE
+			set_country_flag = MAD_TGV_PROMISES_OPEN
+			set_temp_variable = { party_index = 20 }
+			set_temp_variable = { party_popularity_increase = 0.01 }
+			set_temp_variable = { temp_outlook_increase = 0.01 }
+			change_relative_party_popularity = yes
+		}
+		ai_will_do = { base = 2 }
+	}
+
+	MAD_TGV_PROMISE_DIGITAL = {
+		icon = GFX_decision_generic_construction
+		cost = 20
+		fire_only_once = yes
+		allowed = { MAD_TGV_IN_POWER = yes }
+		visible = { MAD_TGV_IN_POWER = yes NOT = { has_country_flag = MAD_TGV_PROMISED_DIGITAL } NOT = { has_country_flag = MAD_TGV_DELIVERED_DIGITAL } }
+		available = { MAD_TGV_IN_POWER = yes }
+		complete_effect = {
+			set_country_flag = MAD_TGV_PROMISED_DIGITAL
+			set_country_flag = MAD_TGV_PROMISES_OPEN
+			set_temp_variable = { party_index = 20 }
+			set_temp_variable = { party_popularity_increase = 0.01 }
+			set_temp_variable = { temp_outlook_increase = 0.01 }
+			change_relative_party_popularity = yes
+		}
+		ai_will_do = { base = 1 }
+	}
+
+	MAD_TGV_PROMISE_JOBS = {
+		icon = GFX_decision_generic_construction
+		cost = 20
+		fire_only_once = yes
+		allowed = { MAD_TGV_IN_POWER = yes }
+		visible = { MAD_TGV_IN_POWER = yes NOT = { has_country_flag = MAD_TGV_PROMISED_JOBS } NOT = { has_country_flag = MAD_TGV_DELIVERED_JOBS } }
+		available = { MAD_TGV_IN_POWER = yes }
+		complete_effect = {
+			set_country_flag = MAD_TGV_PROMISED_JOBS
+			set_country_flag = MAD_TGV_PROMISES_OPEN
+			set_temp_variable = { party_index = 20 }
+			set_temp_variable = { party_popularity_increase = 0.01 }
+			set_temp_variable = { temp_outlook_increase = 0.01 }
+			change_relative_party_popularity = yes
+		}
+		ai_will_do = { base = 1 }
+	}
+
+	MAD_TGV_PROMISE_FOOD = {
+		icon = GFX_decision_generic_construction
+		cost = 20
+		fire_only_once = yes
+		allowed = { MAD_TGV_IN_POWER = yes }
+		visible = { MAD_TGV_IN_POWER = yes NOT = { has_country_flag = MAD_TGV_PROMISED_FOOD } NOT = { has_country_flag = MAD_TGV_DELIVERED_FOOD } }
+		available = { MAD_TGV_IN_POWER = yes }
+		complete_effect = {
+			set_country_flag = MAD_TGV_PROMISED_FOOD
+			set_country_flag = MAD_TGV_PROMISES_OPEN
+			set_temp_variable = { party_index = 20 }
+			set_temp_variable = { party_popularity_increase = 0.01 }
+			set_temp_variable = { temp_outlook_increase = 0.01 }
+			change_relative_party_popularity = yes
+		}
+		ai_will_do = { base = 2 }
+	}
+
+	MAD_TGV_DELIVER_WATER = {
+		icon = GFX_decision_generic_construction
+		cost = 50
+		fire_only_once = yes
+		custom_cost_trigger = { check_variable = { treasury > 2.499 } }
+		custom_cost_text = cost_2_5
+		allowed = { MAD_TGV_IN_POWER = yes }
+		visible = { MAD_TGV_IN_POWER = yes has_country_flag = MAD_TGV_PROMISED_WATER has_completed_focus = MAD_POL_TGV_WATER_PROGRAMME NOT = { has_country_flag = MAD_TGV_DELIVERED_WATER } }
+		available = { MAD_TGV_IN_POWER = yes has_country_flag = MAD_TGV_PROMISED_WATER has_completed_focus = MAD_POL_TGV_WATER_PROGRAMME }
+		complete_effect = {
+			set_temp_variable = { treasury_change = -2.5 }
+			modify_treasury_effect = yes
+			set_country_flag = MAD_TGV_DELIVERED_WATER
+			clr_country_flag = MAD_TGV_PROMISED_WATER
+			add_ideas = MAD_TGV_DELIVERY_WATER
+			add_political_power = 15
+			set_temp_variable = { party_index = 20 }
+			set_temp_variable = { party_popularity_increase = 0.01 }
+			set_temp_variable = { temp_outlook_increase = 0.01 }
+			change_relative_party_popularity = yes
+		}
+		ai_will_do = { base = 2 }
+	}
+
+	MAD_TGV_DELIVER_INFRASTRUCTURE = {
+		icon = GFX_decision_generic_construction
+		cost = 50
+		fire_only_once = yes
+		custom_cost_trigger = { check_variable = { treasury > 3.999 } }
+		custom_cost_text = cost_4_0
+		allowed = { MAD_TGV_IN_POWER = yes }
+		visible = { MAD_TGV_IN_POWER = yes has_country_flag = MAD_TGV_PROMISED_INFRASTRUCTURE has_completed_focus = MAD_POL_TGV_INFRASTRUCTURE_FIRST has_completed_focus = MAD_POL_TGV_PROJECT_FINANCE NOT = { has_country_flag = MAD_TGV_DELIVERED_INFRASTRUCTURE } }
+		available = { MAD_TGV_IN_POWER = yes has_country_flag = MAD_TGV_PROMISED_INFRASTRUCTURE has_completed_focus = MAD_POL_TGV_INFRASTRUCTURE_FIRST has_completed_focus = MAD_POL_TGV_PROJECT_FINANCE }
+		complete_effect = {
+			set_temp_variable = { treasury_change = -4.0 }
+			modify_treasury_effect = yes
+			set_country_flag = MAD_TGV_DELIVERED_INFRASTRUCTURE
+			clr_country_flag = MAD_TGV_PROMISED_INFRASTRUCTURE
+			add_ideas = MAD_TGV_DELIVERY_INFRASTRUCTURE
+			add_political_power = 15
+			set_temp_variable = { party_index = 20 }
+			set_temp_variable = { party_popularity_increase = 0.01 }
+			set_temp_variable = { temp_outlook_increase = 0.01 }
+			change_relative_party_popularity = yes
+		}
+		ai_will_do = { base = 2 }
+	}
+
+	MAD_TGV_DELIVER_DIGITAL = {
+		icon = GFX_decision_generic_construction
+		cost = 50
+		fire_only_once = yes
+		custom_cost_trigger = { check_variable = { treasury > 1.499 } }
+		custom_cost_text = cost_1_5
+		allowed = { MAD_TGV_IN_POWER = yes }
+		visible = { MAD_TGV_IN_POWER = yes has_country_flag = MAD_TGV_PROMISED_DIGITAL has_completed_focus = MAD_POL_TGV_DIGITAL_MADAGASCAR NOT = { has_country_flag = MAD_TGV_DELIVERED_DIGITAL } }
+		available = { MAD_TGV_IN_POWER = yes has_country_flag = MAD_TGV_PROMISED_DIGITAL has_completed_focus = MAD_POL_TGV_DIGITAL_MADAGASCAR }
+		complete_effect = {
+			set_temp_variable = { treasury_change = -1.5 }
+			modify_treasury_effect = yes
+			set_country_flag = MAD_TGV_DELIVERED_DIGITAL
+			clr_country_flag = MAD_TGV_PROMISED_DIGITAL
+			add_ideas = MAD_TGV_DELIVERY_DIGITAL
+			add_political_power = 15
+			set_temp_variable = { party_index = 20 }
+			set_temp_variable = { party_popularity_increase = 0.01 }
+			set_temp_variable = { temp_outlook_increase = 0.01 }
+			change_relative_party_popularity = yes
+		}
+		ai_will_do = { base = 1 }
+	}
+
+	MAD_TGV_DELIVER_JOBS = {
+		icon = GFX_decision_generic_construction
+		cost = 50
+		fire_only_once = yes
+		custom_cost_trigger = { check_variable = { treasury > 1.499 } }
+		custom_cost_text = cost_1_5
+		allowed = { MAD_TGV_IN_POWER = yes }
+		visible = { MAD_TGV_IN_POWER = yes has_country_flag = MAD_TGV_PROMISED_JOBS has_completed_focus = MAD_POL_TGV_YOUTH_INDUSTRIALISATION NOT = { has_country_flag = MAD_TGV_DELIVERED_JOBS } }
+		available = { MAD_TGV_IN_POWER = yes has_country_flag = MAD_TGV_PROMISED_JOBS has_completed_focus = MAD_POL_TGV_YOUTH_INDUSTRIALISATION }
+		complete_effect = {
+			set_temp_variable = { treasury_change = -1.5 }
+			modify_treasury_effect = yes
+			set_country_flag = MAD_TGV_DELIVERED_JOBS
+			clr_country_flag = MAD_TGV_PROMISED_JOBS
+			add_ideas = MAD_TGV_DELIVERY_JOBS
+			add_political_power = 15
+			set_temp_variable = { party_index = 20 }
+			set_temp_variable = { party_popularity_increase = 0.01 }
+			set_temp_variable = { temp_outlook_increase = 0.01 }
+			change_relative_party_popularity = yes
+		}
+		ai_will_do = { base = 1 }
+	}
+
+	MAD_TGV_DELIVER_FOOD = {
+		icon = GFX_decision_generic_construction
+		cost = 50
+		fire_only_once = yes
+		custom_cost_trigger = { check_variable = { treasury > 1.999 } }
+		custom_cost_text = cost_2_0
+		allowed = { MAD_TGV_IN_POWER = yes }
+		visible = { MAD_TGV_IN_POWER = yes has_country_flag = MAD_TGV_PROMISED_FOOD has_completed_focus = MAD_POL_TGV_FOOD_SOVEREIGNTY NOT = { has_country_flag = MAD_TGV_DELIVERED_FOOD } }
+		available = { MAD_TGV_IN_POWER = yes has_country_flag = MAD_TGV_PROMISED_FOOD has_completed_focus = MAD_POL_TGV_FOOD_SOVEREIGNTY }
+		complete_effect = {
+			set_temp_variable = { treasury_change = -2.0 }
+			modify_treasury_effect = yes
+			set_country_flag = MAD_TGV_DELIVERED_FOOD
+			clr_country_flag = MAD_TGV_PROMISED_FOOD
+			add_ideas = MAD_TGV_DELIVERY_FOOD
+			add_political_power = 15
+			set_temp_variable = { party_index = 20 }
+			set_temp_variable = { party_popularity_increase = 0.01 }
+			set_temp_variable = { temp_outlook_increase = 0.01 }
+			change_relative_party_popularity = yes
+		}
+		ai_will_do = { base = 2 }
+	}
+}
+
+# ---------------------------------------------------------------------------
+# HVM – Project Review
+# ---------------------------------------------------------------------------
+MAD_HVM_PROJECT_REVIEW_CATEGORY = {
+	icon = generic_political_discourse
+	allowed = { 
+	MAD_HVM_IN_POWER = yes 
+	}
+	visible = { MAD_HVM_PROJECT_REVIEW_READY = yes }
+	priority = 2
+	visible_when_empty = no
+
+	MAD_HVM_REVIEW_COMPLETE_PORTFOLIO = {
+		icon = GFX_decision_generic_construction
+		cost = 75
+		fire_only_once = yes
+		custom_cost_trigger = { check_variable = { treasury > 2.999 } }
+		custom_cost_text = cost_3_0
+		allowed = { MAD_HVM_IN_POWER = yes }
+		visible = { MAD_HVM_PROJECT_REVIEW_READY = yes }
+		available = { MAD_HVM_PROJECT_REVIEW_READY = yes has_completed_focus = MAD_POL_HVM_PPP_FRAMEWORK has_completed_focus = MAD_POL_HVM_ENERGY_FOR_GROWTH has_completed_focus = MAD_POL_HVM_AGRICULTURE }
+		complete_effect = {
+			set_temp_variable = { treasury_change = -3.0 }
+			modify_treasury_effect = yes
+			decrease_corruption = yes
+			add_ideas = MAD_HVM_PROJECT_COMPLETION
+			set_country_flag = MAD_HVM_PROJECT_REVIEW_DECIDED
+			add_political_power = 25
+			set_temp_variable = { party_index = 1 }
+			set_temp_variable = { party_popularity_increase = 0.02 }
+			set_temp_variable = { temp_outlook_increase = 0.02 }
+			change_relative_party_popularity = yes
+			recalculate_party = yes
+		}
+		ai_will_do = { base = 3 }
+	}
+
+	MAD_HVM_REVIEW_RENEGOTIATE = {
+		icon = GFX_decision_generic_political_reform
+		cost = 50
+		fire_only_once = yes
+		custom_cost_trigger = { check_variable = { treasury > 0.999 } }
+		custom_cost_text = cost_1_0
+		allowed = { MAD_HVM_IN_POWER = yes }
+		visible = { MAD_HVM_PROJECT_REVIEW_READY = yes }
+		available = { MAD_HVM_PROJECT_REVIEW_READY = yes OR = { has_completed_focus = MAD_POL_HVM_PPP_FRAMEWORK has_completed_focus = MAD_POL_HVM_ENERGY_FOR_GROWTH has_completed_focus = MAD_POL_HVM_AGRICULTURE } }
+		complete_effect = {
+			set_temp_variable = { treasury_change = -1.0 }
+			modify_treasury_effect = yes
+			add_ideas = MAD_HVM_PROJECT_RENEGOTIATED
+			decrease_corruption = yes
+			set_country_flag = MAD_HVM_PROJECT_REVIEW_DECIDED
+			add_political_power = 20
+			set_temp_variable = { party_index = 1 }
+			set_temp_variable = { party_popularity_increase = 0.01 }
+			set_temp_variable = { temp_outlook_increase = 0.01 }
+			change_relative_party_popularity = yes
+			recalculate_party = yes
+		}
+		ai_will_do = { base = 2 }
+	}
+
+	MAD_HVM_REVIEW_PRUNE = {
+		icon = GFX_decision_generic_political_reform
+		cost = 25
+		fire_only_once = yes
+		allowed = { MAD_HVM_IN_POWER = yes }
+		visible = { MAD_HVM_PROJECT_REVIEW_READY = yes }
+		available = { MAD_HVM_PROJECT_REVIEW_READY = yes }
+		complete_effect = {
+			add_ideas = MAD_HVM_PROJECT_PRUNING
+			decrease_corruption = yes
+			set_country_flag = MAD_HVM_PROJECT_REVIEW_DECIDED
+			add_political_power = 10
+			set_temp_variable = { party_index = 1 }
+			set_temp_variable = { party_popularity_increase = 0.01 }
+			set_temp_variable = { temp_outlook_increase = 0.01 }
+			change_relative_party_popularity = yes
+			recalculate_party = yes
+		}
+		ai_will_do = { base = 1 }
+	}
+}

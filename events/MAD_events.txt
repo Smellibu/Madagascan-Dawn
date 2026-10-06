@@ -469,28 +469,22 @@ country_event = {
 # The settlement (10 billion for the deal plus 5 billion, and -5% stability) is paid by the focus MAD_DEAL_KEPT_FAILED.
 country_event = {
 	id = mad_daewoo.3
-	title = mad_daewoo.3.t
-	desc = mad_daewoo.3.d
-	picture = GFX_report_event_economy_default
+	hidden = yes
 	is_triggered_only = yes
+	fire_only_once = yes
+	trigger = {
+		has_country_flag = MAD_DAEWOO_REVIEW_FAILED
+	}
 
-	option = {
-		name = mad_daewoo.3.a
-		log = "[GetDateText]: [Root.GetName]: mad_daewoo.3 - the Daewoo lease collapses, the government falls"
+	immediate = {
 		set_country_flag = MAD_DAEWOO_OUTCOME_FAILED
-		# the lease is over: cash crops stop feeding the drought, farms need more hands again
 		MAD_daewoo_end_lease = yes
-		# worse than a cancelled deal: investors stay away for three years
 		add_timed_idea = { idea = MAD_DAEWOO_CANCELLED days = 1095 }
-		# the ruling party is punished, then the full Millennium Dawn election campaign begins
-		set_temp_variable = { party_index = 2 }
-		set_temp_variable = { party_popularity_increase = -0.15 }
-		set_temp_variable = { temp_outlook_increase = -0.075 }
-		change_relative_party_popularity = yes
-		set_politics = { elections_allowed = yes }
-		hidden_effect = { country_event = { id = MD4_election_campaign.0 days = 1 } }
+		country_event = { id = mad_political.2 days = 1 }
 	}
 }
+
+
 
 ########################################################################
 # events/MAD_drought_events.txt
@@ -1822,5 +1816,518 @@ country_event = {
 		add_to_variable = { MAD_dahalo_threat = -2 tooltip = MAD_DAHALO_THREAT_MINUS_2_TT }
 		add_stability = 0.005
 		MAD_dahalo_update_modifier = yes
+	}
+}
+
+add_namespace = mad_political
+
+# ---------------------------------------------------------------------------
+# 1. Royal Crown Question
+# Triggered only by MAD_POL_ROY_CROWN_QUESTION.
+# ---------------------------------------------------------------------------
+country_event = {
+	id = mad_political.1
+	title = mad_political.1.t
+	desc = mad_political.1.d
+	picture = GFX_report_event_generic_political
+	is_triggered_only = yes
+	fire_only_once = yes
+	trigger = {
+		has_country_flag = MAD_ROYAL_CROWN_QUESTION_PENDING
+	}
+
+	immediate = {
+		clr_country_flag = MAD_ROYAL_CROWN_QUESTION_PENDING
+	}
+
+	option = {
+		name = mad_political.1.a
+		set_country_flag = MAD_RABARIOELINA_ABSOLUTE
+		clr_country_flag = MAD_TAMIMA_COUNCIL
+		set_temp_variable = { party_index = 23 }
+		set_temp_variable = { party_popularity_increase = 0.05 }
+		set_temp_variable = { temp_outlook_increase = 0.05 }
+		change_relative_party_popularity = yes
+		add_political_power = 25
+		add_stability = -0.01
+		recalculate_party = yes
+	}
+
+	option = {
+		name = mad_political.1.b
+		set_country_flag = MAD_TAMIMA_COUNCIL
+		clr_country_flag = MAD_RABARIOELINA_ABSOLUTE
+		set_temp_variable = { party_index = 15 }
+		set_temp_variable = { party_popularity_increase = 0.05 }
+		set_temp_variable = { temp_outlook_increase = 0.05 }
+		change_relative_party_popularity = yes
+		add_political_power = 25
+		add_stability = 0.02
+		recalculate_party = yes
+	}
+}
+
+# ---------------------------------------------------------------------------
+# 2. Daewoo political fallout
+# The Daewoo Logistics land deal became a wider political grievance in late
+# 2008/early 2009. Cancellation itself does not cause a generic election:
+# the player decides how the resulting legitimacy crisis is handled.
+# ---------------------------------------------------------------------------
+country_event = {
+	id = mad_political.2
+	title = mad_political.2.t
+	desc = mad_political.2.d
+	picture = GFX_report_event_generic_political
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	trigger = {
+		OR = {
+			has_country_flag = MAD_DAEWOO_BROKEN
+			has_country_flag = MAD_DAEWOO_REVIEW_FAILED
+			has_country_flag = MAD_DAEWOO_OUTCOME_FAILED
+		}
+		NOT = { has_country_flag = MAD_DAEWOO_POLITICAL_FALLOUT_DONE }
+	}
+
+	immediate = {
+		set_country_flag = MAD_DAEWOO_POLITICAL_FALLOUT_DONE
+	}
+
+	# ============================================================
+	# A — Keep the civilian government / turn cancellation into
+	#     a sovereignty victory
+	# ============================================================
+	option = {
+		name = mad_political.2.a
+		set_country_flag = MAD_DAEWOO_PUBLIC_REJECTION
+		decrease_corruption = yes
+
+		# The incumbent government is damaged by the scandal,
+		# while the opposition benefits.
+		set_party_index_to_ruling_party = yes
+		set_temp_variable = { party_popularity_increase = -0.15 }
+		set_temp_variable = { temp_outlook_increase = -0.025 }
+		change_relative_party_popularity = yes
+
+		set_temp_variable = { party_index = 20 }
+		set_temp_variable = { party_popularity_increase = 0.06 }
+		set_temp_variable = { temp_outlook_increase = 0.06 }
+		change_relative_party_popularity = yes
+
+
+		recalculate_party = yes
+	}
+
+	# ============================================================
+	# B — Military takeover
+	# ============================================================
+	option = {
+		name = mad_political.2.b
+
+		set_country_flag = MAD_DAEWOO_ARMY_TRANSITION
+		set_country_flag = MAD_TGV_2009_CRISIS_PRECEDENT
+
+		add_stability = -0.05
+
+		# Military party takes power.
+		set_temp_variable = { rul_party_temp = 22 }
+		change_ruling_party_effect = yes
+		set_politics = {
+			ruling_party = nationalist
+			elections_allowed = no
+		}
+		set_party_index_to_ruling_party = yes
+		set_temp_variable = { party_popularity_increase = -0.15 }
+		change_relative_party_popularity = yes
+
+		set_temp_variable = { party_index = 20 }
+		set_temp_variable = { party_popularity_increase = 0.05 }
+		change_relative_party_popularity = yes
+
+		set_temp_variable = { party_index = 22 }
+		set_temp_variable = { party_popularity_increase = 0.15 }
+		change_relative_party_popularity = yes
+
+		add_timed_idea = {
+			idea = MAD_2009_INTERNATIONAL_ISOLATION
+			days = 1460
+		}
+
+		recalculate_party = yes
+	}
+
+	# ============================================================
+	# C — TGV-led transitional government
+	# ============================================================
+	option = {
+		name = mad_political.2.c
+		set_country_flag = MAD_DAEWOO_TGV_INTERIM_GOVERNMENT
+
+		add_stability = -0.06
+		increase_corruption = yes
+
+		# TGV becomes the actual ruling MD party.
+		set_temp_variable = { rul_party_temp = 20 }
+		change_ruling_party_effect = yes
+		set_politics = {
+			ruling_party = nationalist
+			elections_allowed = yes
+		}
+
+		set_party_index_to_ruling_party = yes
+		set_temp_variable = { party_popularity_increase = -0.15 }
+		set_temp_variable = { temp_outlook_increase = -0.15 }
+		change_relative_party_popularity = yes
+
+		# TGV gets the political benefit.
+		set_temp_variable = { party_index = 20 }
+		set_temp_variable = { party_popularity_increase = 0.15 }
+		set_temp_variable = { temp_outlook_increase = 0.15 }
+		change_relative_party_popularity = yes
+
+		# Military gains some influence from having forced the crisis,
+		# but less than under direct military rule.
+		set_temp_variable = { party_index = 22 }
+		set_temp_variable = { party_popularity_increase = 0.05 }
+		change_relative_party_popularity = yes
+
+
+		add_timed_idea = {
+			idea = MAD_2009_INTERNATIONAL_ISOLATION
+			days = 1095
+		}
+
+		recalculate_party = yes
+	}
+}
+
+# ---------------------------------------------------------------------------
+# 3. Military refoundation Refoundation
+# ---------------------------------------------------------------------------
+country_event = {
+	id = mad_political.3
+	title = mad_political.3.t
+	desc = mad_political.3.d
+	picture = GFX_report_event_generic_political
+	is_triggered_only = yes
+	fire_only_once = yes
+	trigger = {
+		has_country_flag = MAD_MIL_REFOUNDATION_PENDING
+	}
+
+	immediate = {
+		clr_country_flag = MAD_MIL_REFOUNDATION_PENDING
+	}
+
+	option = {
+		name = mad_political.3.a # Professionalise
+		set_country_flag = MAD_MIL_REFOUNDATION_PROFESSIONAL
+		remove_ideas = MAD_POL_MILITARY_GUARDIAN
+		remove_ideas = MAD_POL_MILITARY_GOVERNMENT
+		add_ideas = MAD_MIL_PROFESSIONAL_COMMAND
+		set_politics = { elections_allowed = yes }
+		decrease_corruption = yes
+		add_political_power = 35
+		set_temp_variable = { party_index = 22 }
+		set_temp_variable = { party_popularity_increase = 0.04 }
+		set_temp_variable = { temp_outlook_increase = 0.04 }
+		change_relative_party_popularity = yes
+		recalculate_party = yes
+	}
+
+	option = {
+		name = mad_political.3.b # Constitutional guardian
+		set_country_flag = MAD_MIL_REFOUNDATION_GUARDIAN
+		remove_ideas = MAD_MIL_PROFESSIONAL_COMMAND
+		remove_ideas = MAD_POL_MILITARY_GOVERNMENT
+		add_ideas = MAD_POL_MILITARY_GUARDIAN
+		set_politics = { elections_allowed = yes }
+		add_political_power = 25
+
+		set_temp_variable = { party_index = 22 }
+		set_temp_variable = { party_popularity_increase = 0.04 }
+		change_relative_party_popularity = yes
+		set_temp_variable = { party_index = 2 }
+		set_temp_variable = { party_popularity_increase = 0.03 }
+		change_relative_party_popularity = yes
+		recalculate_party = yes
+	}
+
+	option = {
+		name = mad_political.3.c # Final arbiter
+		set_country_flag = MAD_MIL_REFOUNDATION_ARBITER
+		remove_ideas = MAD_MIL_PROFESSIONAL_COMMAND
+		remove_ideas = MAD_POL_MILITARY_GUARDIAN
+		add_ideas = MAD_POL_MILITARY_GOVERNMENT
+		add_political_power = 25
+
+		set_temp_variable = { party_index = 22 }
+		set_temp_variable = { party_popularity_increase = 0.07 }
+		set_temp_variable = { temp_outlook_increase = 0.07 }
+		change_relative_party_popularity = yes
+		set_temp_variable = { party_index = 2 }
+		set_temp_variable = { party_popularity_increase = -0.03 }
+		change_relative_party_popularity = yes
+		recalculate_party = yes
+	}
+}
+
+# ---------------------------------------------------------------------------
+# 4. AREMA Congress
+# ---------------------------------------------------------------------------
+#country_event = {
+#	id = mad_political.4
+#	title = mad_political.4.t
+#	desc = mad_political.4.d
+#	picture = GFX_report_event_generic_political
+#	is_triggered_only = yes
+#	fire_only_once = yes
+#	trigger = {
+#		has_country_flag = MAD_AREMA_CONGRESS_PENDING
+#	}
+#
+#	immediate = {
+#		clr_country_flag = MAD_AREMA_CONGRESS_PENDING
+#	}
+#
+#	option = {
+#		name = mad_political.4.a
+#	}
+#}
+
+# ---------------------------------------------------------------------------
+# 5. TIM reconciliation
+# ---------------------------------------------------------------------------
+country_event = {
+	id = mad_political.5
+	title = mad_political.5.t
+	desc = mad_political.5.d
+	picture = GFX_report_event_generic_political
+	is_triggered_only = yes
+	fire_only_once = yes
+	trigger = {
+		has_country_flag = MAD_TIM_RECONCILIATION_PENDING
+	}
+
+	immediate = {
+		clr_country_flag = MAD_TIM_RECONCILIATION_PENDING
+	}
+
+	option = {
+		name = mad_political.5.a
+		remove_ideas = MAD_TIM_RECONCILIATION_COMPACT
+		remove_ideas = MAD_TIM_RECONCILIATION_CONDITIONAL
+		remove_ideas = MAD_TIM_JUSTICE_AND_ACCOUNTABILITY
+		add_ideas = MAD_TIM_RECONCILIATION_COMPACT
+		set_country_flag = MAD_TIM_RECONCILIATION_INCLUSIVE
+		add_political_power = 35
+
+		set_temp_variable = { party_index = 2 }
+		set_temp_variable = { party_popularity_increase = 0.04 }
+		set_temp_variable = { temp_outlook_increase = 0.04 }
+		change_relative_party_popularity = yes
+		set_temp_variable = { party_index = 1 }
+		set_temp_variable = { party_popularity_increase = 0.02 }
+		change_relative_party_popularity = yes
+		recalculate_party = yes
+	}
+
+	option = {
+		name = mad_political.5.b
+		remove_ideas = MAD_TIM_RECONCILIATION_COMPACT
+		remove_ideas = MAD_TIM_RECONCILIATION_CONDITIONAL
+		remove_ideas = MAD_TIM_JUSTICE_AND_ACCOUNTABILITY
+		add_ideas = MAD_TIM_RECONCILIATION_CONDITIONAL
+		set_country_flag = MAD_TIM_RECONCILIATION_CONDITIONAL
+		add_political_power = 25
+		set_temp_variable = { party_index = 2 }
+		set_temp_variable = { party_popularity_increase = 0.05 }
+		set_temp_variable = { temp_outlook_increase = 0.05 }
+		change_relative_party_popularity = yes
+		recalculate_party = yes
+	}
+
+	option = {
+		name = mad_political.5.c
+		remove_ideas = MAD_TIM_RECONCILIATION_COMPACT
+		remove_ideas = MAD_TIM_RECONCILIATION_CONDITIONAL
+		remove_ideas = MAD_TIM_JUSTICE_AND_ACCOUNTABILITY
+		add_ideas = MAD_TIM_JUSTICE_AND_ACCOUNTABILITY
+		set_country_flag = MAD_TIM_RECONCILIATION_ACCOUNTABILITY
+		decrease_corruption = yes
+		add_political_power = 20
+		set_temp_variable = { party_index = 2 }
+		set_temp_variable = { party_popularity_increase = 0.04 }
+		set_temp_variable = { temp_outlook_increase = 0.04 }
+		change_relative_party_popularity = yes
+		recalculate_party = yes
+	}
+}
+
+# ---------------------------------------------------------------------------
+# 6. The Tiko Question
+# ---------------------------------------------------------------------------
+country_event = {
+	id = mad_political.6
+	title = mad_political.6.t
+	desc = mad_political.6.d
+	picture = GFX_report_event_generic_political
+	is_triggered_only = yes
+	fire_only_once = yes
+	trigger = {
+		has_country_flag = MAD_TIM_TIKO_PENDING
+	}
+
+	immediate = {
+		clr_country_flag = MAD_TIM_TIKO_PENDING
+	}
+
+	option = {
+		name = mad_political.6.a
+		remove_ideas = MAD_TIM_TIKO_FIREWALL
+		remove_ideas = MAD_TIM_TIKO_NATIONAL_CHAMPION
+		remove_ideas = MAD_TIM_TIKO_MIXED
+		add_ideas = MAD_TIM_TIKO_FIREWALL
+		set_country_flag = MAD_TIM_TIKO_FIREWALL
+		add_power_balance_value = {
+			id = MAD_economy_ownership_bop
+			value = -0.05
+			tooltip_side = MAD_private_ownership
+		}
+		decrease_corruption = yes
+		set_temp_variable = { temp_opinion = 5 }
+		change_small_medium_business_owners_opinion = yes
+		set_temp_variable = { party_index = 2 }
+		set_temp_variable = { party_popularity_increase = 0.04 }
+		set_temp_variable = { temp_outlook_increase = 0.04 }
+		change_relative_party_popularity = yes
+		recalculate_party = yes
+	}
+
+	option = {
+		name = mad_political.6.b
+		remove_ideas = MAD_TIM_TIKO_FIREWALL
+		remove_ideas = MAD_TIM_TIKO_NATIONAL_CHAMPION
+		remove_ideas = MAD_TIM_TIKO_MIXED
+		add_ideas = MAD_TIM_TIKO_NATIONAL_CHAMPION
+		set_country_flag = MAD_TIM_TIKO_NATIONAL_CHAMPION
+		add_power_balance_value = {
+			id = MAD_economy_ownership_bop
+			value = -0.10
+			tooltip_side = MAD_private_ownership
+		}
+		set_temp_variable = { temp_opinion = 8 }
+		change_small_medium_business_owners_opinion = yes
+		set_temp_variable = { temp_opinion = -5 }
+		change_international_bankers_opinion = yes
+		set_temp_variable = { party_index = 2 }
+		set_temp_variable = { party_popularity_increase = 0.04 }
+		set_temp_variable = { temp_outlook_increase = 0.04 }
+		change_relative_party_popularity = yes
+		recalculate_party = yes
+	}
+
+	option = {
+		name = mad_political.6.c
+		remove_ideas = MAD_TIM_TIKO_FIREWALL
+		remove_ideas = MAD_TIM_TIKO_NATIONAL_CHAMPION
+		remove_ideas = MAD_TIM_TIKO_MIXED
+		add_ideas = MAD_TIM_TIKO_MIXED
+		set_country_flag = MAD_TIM_TIKO_MIXED
+		add_power_balance_value = {
+			id = MAD_economy_ownership_bop
+			value = -0.03
+			tooltip_side = MAD_private_ownership
+		}
+		set_temp_variable = { temp_opinion = 3 }
+		change_small_medium_business_owners_opinion = yes
+		add_political_power = 25
+		set_temp_variable = { party_index = 2 }
+		set_temp_variable = { party_popularity_increase = 0.04 }
+		set_temp_variable = { temp_outlook_increase = 0.04 }
+		change_relative_party_popularity = yes
+		recalculate_party = yes
+	}
+}
+
+# ---------------------------------------------------------------------------
+# 7. TGV's 2009 legacy
+# ---------------------------------------------------------------------------
+country_event = {
+	id = mad_political.7
+	title = mad_political.7.t
+	desc = mad_political.7.d
+	picture = GFX_report_event_generic_political
+	is_triggered_only = yes
+	fire_only_once = yes
+	trigger = {
+		has_country_flag = MAD_TGV_2009_LEGACY_PENDING
+	}
+
+	immediate = {
+		clr_country_flag = MAD_TGV_2009_LEGACY_PENDING
+	}
+
+	option = {
+		name = mad_political.7.a
+		remove_ideas = MAD_TGV_ELECTORAL_LEGITIMACY
+		remove_ideas = MAD_TGV_REVOLUTIONARY_LEGACY
+		remove_ideas = MAD_TGV_EMERGENCY_MANDATE
+		add_ideas = MAD_TGV_REVOLUTIONARY_LEGACY
+		set_country_flag = MAD_TGV_REVOLUTIONARY
+		add_political_power = 35
+		set_temp_variable = { party_index = 20 }
+		set_temp_variable = { party_popularity_increase = 0.05 }
+		set_temp_variable = { temp_outlook_increase = 0.05 }
+		change_relative_party_popularity = yes
+		recalculate_party = yes
+	}
+
+	option = {
+		name = mad_political.7.b
+		remove_ideas = MAD_TGV_ELECTORAL_LEGITIMACY
+		remove_ideas = MAD_TGV_REVOLUTIONARY_LEGACY
+		remove_ideas = MAD_TGV_EMERGENCY_MANDATE
+		add_ideas = MAD_TGV_ELECTORAL_LEGITIMACY
+		set_country_flag = MAD_TGV_ELECTORAL
+		add_political_power = 50
+
+		set_temp_variable = { party_index = 20 }
+		set_temp_variable = { party_popularity_increase = 0.03 }
+		change_relative_party_popularity = yes
+		set_temp_variable = { party_index = 2 }
+		set_temp_variable = { party_popularity_increase = 0.03 }
+		change_relative_party_popularity = yes
+		recalculate_party = yes
+	}
+
+	option = {
+		name = mad_political.7.c
+		remove_ideas = MAD_TGV_ELECTORAL_LEGITIMACY
+		remove_ideas = MAD_TGV_REVOLUTIONARY_LEGACY
+		remove_ideas = MAD_TGV_EMERGENCY_MANDATE
+		add_ideas = MAD_TGV_EMERGENCY_MANDATE
+		set_country_flag = MAD_TGV_EMERGENCY
+		add_political_power = 25
+		add_stability = -0.02
+
+		set_temp_variable = { party_index = 20 }
+		set_temp_variable = { party_popularity_increase = 0.06 }
+		set_temp_variable = { temp_outlook_increase = 0.06 }
+		change_relative_party_popularity = yes
+		recalculate_party = yes
+	}
+}
+
+# ---------------------------------------------------------------------------
+# 90. Silent party-policy cleanup
+# ---------------------------------------------------------------------------
+country_event = {
+	id = mad_political.90
+	is_triggered_only = yes
+
+	immediate = {
+		MAD_clear_party_political_ideas = yes
 	}
 }

@@ -46,7 +46,7 @@ on_actions = {
 							NOT = { has_country_flag = MAD_DAHALO_CIVIL_WAR_PENDING }
 							NOT = { has_civil_war = yes }
 						}
-						add_to_variable = { MAD_dahalo_threat = 2 }
+						add_to_variable = { MAD_dahalo_threat = 0.02 }
 						clamp_variable = { var = MAD_dahalo_threat min = 0 max = 100 }
 						MAD_dahalo_update_modifier = yes
 					}
@@ -54,4 +54,13 @@ on_actions = {
 			}
 		}
 	}
+	on_ruling_party_change = {
+		effect = {
+			if = {
+				limit = { original_tag = MAD }
+				country_event = { id = mad_political.90 hours = 2 }
+			}
+		}
+	}
+
 }

@@ -38,3 +38,37 @@ MAD_drought_category = {
 	visible_when_empty = yes
 	scripted_gui = MAD_drought_map_gui
 }
+
+MAD_OWNERSHIP_BOP = {
+	icon = generic_bank
+	priority = 50
+	visible_when_empty = no
+	allowed = {
+		tag = MAD
+	}
+	visible = {
+		has_power_balance = { id = MAD_economy_ownership_bop }
+	}
+}
+MAD_military_refoundation_category = {
+}
+MAD_royal_political_category = {
+		allowed = {
+				OR = {
+					MAD_ROY_IN_POWER = yes
+					MAD_TAMIMA_IN_POWER = yes
+				}
+			}
+			visible = {
+				OR = {
+					MAD_ROY_IN_POWER = yes
+					MAD_TAMIMA_IN_POWER = yes
+				}
+			}
+			priority = 1
+			visible_when_empty = no
+}
+MAD_HVM_PROJECT_REVIEW_CATEGORY = {
+}
+MAD_TGV_VELIRANO_CATEGORY = {
+}

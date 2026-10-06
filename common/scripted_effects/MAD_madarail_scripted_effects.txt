@@ -1717,7 +1717,6 @@ MAD_JIRAMA_START_GENERATION_RECOVERY = {
 		}
 
 		set_country_flag = MAD_JIRAMA_GENERATION_RECOVERY_STARTED
-		activate_mission = MAD_JIRAMA_GENERATION_RECOVERY_MISSION
 	}
 }
 
@@ -1731,14 +1730,10 @@ MAD_JIRAMA_GENERATION_RECOVERY_DAILY = {
 	# SUCCESS: both performance requirements are met before the three-year timer expires.
 	if = {
 		limit = {
-			has_active_mission = MAD_JIRAMA_GENERATION_RECOVERY_MISSION
-			NOT = { has_country_flag = MAD_JIRAMA_GENERATION_RECOVERY_EXPIRED }
 			NOT = { has_completed_focus = MAD_JIRAMA_RECOVERY_SUCCEEDS }
 			NOT = { has_completed_focus = MAD_JIRAMA_RECOVERY_FAILS }
 			MAD_JIRAMA_RECOVERY_REQUIREMENTS_MET = yes
 		}
-
-		remove_mission = MAD_JIRAMA_GENERATION_RECOVERY_MISSION
 		complete_national_focus = MAD_JIRAMA_RECOVERY_SUCCEEDS
 	}
 
@@ -1916,8 +1911,16 @@ MAD_dahalo_southern_supply_interference = {
 	if = {
 		limit = {
 			has_state_flag = MAD_GRAND_SUD_STATE
-			NOT = { has_country_flag = MAD_DAHALO_DEFEATED }
-			NOT = { has_country_flag = MAD_REMENABILA_IN_POWER }
+			NOT = {
+				ROOT = {
+					has_country_flag = MAD_DAHALO_DEFEATED
+				}
+			}
+			NOT = {
+				ROOT = {
+					has_country_flag = MAD_REMENABILA_IN_POWER
+				}
+			}
 			check_variable = { ROOT.MAD_dahalo_threat > 39.99 }
 		}
 
@@ -1925,7 +1928,11 @@ MAD_dahalo_southern_supply_interference = {
 		set_temp_variable = { MAD_dahalo_south_supply_leak = 1 }
 
 		if = {
-			limit = { has_country_flag = MAD_DAHALO_ESCORT_RELIEF_ACTIVE }
+			limit = {
+				ROOT = {
+					has_country_flag = MAD_DAHALO_ESCORT_RELIEF_ACTIVE
+				}
+			}
 			set_temp_variable = { MAD_dahalo_south_relief_factor = 1.00 }
 			set_temp_variable = { MAD_dahalo_south_supply_leak = 0 }
 		}
@@ -2151,4 +2158,157 @@ MAD_dahalo_prepare_for_civil_war = {
 	set_variable = { MAD_dahalo_threat = 0 }
 	MAD_dahalo_update_modifier = yes
 }
+
+
+MAD_cancel_TGV_velirano_commitments = {
+		clr_country_flag = MAD_TGV_PROMISED_WATER
+		clr_country_flag = MAD_TGV_PROMISED_INFRASTRUCTURE
+		clr_country_flag = MAD_TGV_PROMISED_DIGITAL
+		clr_country_flag = MAD_TGV_PROMISED_JOBS
+		clr_country_flag = MAD_TGV_PROMISED_FOOD
+		clr_country_flag = MAD_TGV_DELIVERED_WATER
+		clr_country_flag = MAD_TGV_DELIVERED_INFRASTRUCTURE
+		clr_country_flag = MAD_TGV_DELIVERED_DIGITAL
+		clr_country_flag = MAD_TGV_DELIVERED_JOBS
+		clr_country_flag = MAD_TGV_DELIVERED_FOOD
+		clr_country_flag = MAD_TGV_PROMISES_OPEN
+	}
+
+	MAD_cancel_HVM_project_review = {
+		if = {
+			limit = {
+				has_country_flag = MAD_HVM_PROJECT_REVIEWED
+				NOT = { has_country_flag = MAD_HVM_PROJECT_REVIEW_DECIDED }
+			}
+			set_country_flag = MAD_HVM_PROJECT_REVIEW_CANCELLED
+		}
+	}
+
+	# Called by mad_political.90 from on_ruling_party_change.
+	# Party programme ideas disappear when that party leaves government.
+	MAD_clear_party_political_ideas = {
+
+		if = {
+			limit = { NOT = { OR = { MAD_ROY_IN_POWER = yes MAD_TAMIMA_IN_POWER = yes } } }
+			remove_ideas = MAD_POL_ROYAL_CONSTITUTION
+			remove_ideas = MAD_POL_ROYAL_GOVERNMENT
+			remove_ideas = MAD_POL_TAMIMA_COUNCIL
+			remove_ideas = MAD_POL_CHRISTOCRATIC_STATE
+			remove_ideas = MAD_POL_CUSTOMARY_ADMINISTRATION
+			remove_ideas = MAD_POL_TRADITIONAL_CONSTITUTION
+			remove_ideas = MAD_POL_ROYAL_CONSOLIDATION
+			remove_ideas = MAD_POL_TAMIMA_GOVERNANCE
+			clr_country_flag = MAD_ROYAL_ABSOLUTE_GOVERNMENT
+			clr_country_flag = MAD_TAMIMA_REGIME_CONSOLIDATED
+			clr_country_flag = MAD_RABARIOELINA_ABSOLUTE
+			clr_country_flag = MAD_TAMIMA_COUNCIL
+			clr_country_flag = MAD_ROYAL_CROWN_QUESTION_PENDING
+		}
+
+		if = {
+			limit = { NOT = { MAD_MIL_IN_POWER = yes } }
+			remove_ideas = MAD_POL_MILITARY_MANDATE
+			remove_ideas = MAD_POL_MILITARY_GUARDIAN
+			remove_ideas = MAD_POL_MILITARY_GOVERNMENT
+			remove_ideas = MAD_POL_MARITIME_SECURITY
+			remove_ideas = MAD_MIL_PROFESSIONAL_COMMAND
+			clr_country_flag = MAD_MILITARY_RULE_PATH
+			clr_country_flag = MAD_MILITARY_CIVILIAN_GUARDIAN
+			clr_country_flag = MAD_MILITARY_SECURITY_PARTNER
+			clr_country_flag = MAD_MIL_REFOUNDATION_PROFESSIONAL
+			clr_country_flag = MAD_MIL_REFOUNDATION_GUARDIAN
+			clr_country_flag = MAD_MIL_REFOUNDATION_ARBITER
+			clr_country_flag = MAD_MIL_REFOUNDATION_PENDING
+			clr_country_flag = MAD_MIL_OFFICER_CONFERENCE_HELD
+			clr_country_flag = MAD_MIL_CIVILIAN_OVERSIGHT_DONE
+			clr_country_flag = MAD_MIL_GENDARMERIE_DECISION_DONE
+		}
+
+		if = {
+			limit = { NOT = { MAD_AREMA_IN_POWER = yes } }
+			remove_ideas = MAD_POL_AREMA_PROGRAMME
+			remove_ideas = MAD_POL_AREMA_STATE_SOCIALISM
+			remove_ideas = MAD_POL_AREMA_MODERN_SOCIALISM
+			remove_ideas = MAD_AREMA_OLD_GUARD
+			remove_ideas = MAD_AREMA_RENEWAL
+			remove_ideas = MAD_AREMA_RECONCILIATION
+			remove_ideas = MAD_AREMA_REBUILDING
+			remove_ideas = MAD_AREMA_OLD_GUARD_REFORMED
+			remove_ideas = MAD_AREMA_RENEWAL_MODERNISED
+			remove_ideas = MAD_AREMA_RECONCILIATION_INSTITUTIONALISED
+			remove_ideas = MAD_AREMA_NON_ALIGNMENT
+			remove_ideas = MAD_AREMA_SECOND_SOCIALISM
+			remove_ideas = MAD_AREMA_SOCIAL_CONTRACT
+			clr_country_flag = MAD_AREMA_STATE_MODEL
+			clr_country_flag = MAD_AREMA_PUBLIC_ENTERPRISES
+			clr_country_flag = MAD_AREMA_CONGRESS_PENDING
+		}
+
+		if = {
+			limit = { NOT = { MAD_TIM_IN_POWER = yes } }
+			remove_ideas = MAD_POL_TIM_LIBERAL_PROGRAMME
+			remove_ideas = MAD_POL_TIM_INSTITUTIONAL_LIBERALISM
+			remove_ideas = MAD_POL_TIM_NATIONAL_CHAMPION_PROGRAMME
+			remove_ideas = MAD_TIM_RECONCILIATION_COMPACT
+			remove_ideas = MAD_TIM_RECONCILIATION_CONDITIONAL
+			remove_ideas = MAD_TIM_JUSTICE_AND_ACCOUNTABILITY
+			remove_ideas = MAD_TIM_TIKO_FIREWALL
+			remove_ideas = MAD_TIM_TIKO_NATIONAL_CHAMPION
+			remove_ideas = MAD_TIM_TIKO_MIXED
+			remove_ideas = MAD_TIM_REPUBLICAN_INSTITUTIONS
+			clr_country_flag = MAD_TIM_RECONCILIATION_INCLUSIVE
+			clr_country_flag = MAD_TIM_RECONCILIATION_CONDITIONAL
+			clr_country_flag = MAD_TIM_RECONCILIATION_ACCOUNTABILITY
+			clr_country_flag = MAD_TIM_TIKO_FIREWALL
+			clr_country_flag = MAD_TIM_TIKO_NATIONAL_CHAMPION
+			clr_country_flag = MAD_TIM_TIKO_MIXED
+			clr_country_flag = MAD_TIM_INSTITUTIONAL_MODEL
+			clr_country_flag = MAD_TIM_NATIONAL_CHAMPION_MODEL
+			clr_country_flag = MAD_TIM_COMPETITION_MODEL
+			clr_country_flag = MAD_TIM_RECONCILIATION_PENDING
+			clr_country_flag = MAD_TIM_TIKO_PENDING
+		}
+
+		if = {
+			limit = { NOT = { MAD_TGV_IN_POWER = yes } }
+			remove_ideas = MAD_POL_TGV_PEM
+			remove_ideas = MAD_POL_TGV_INSTITUTIONAL_EMERGENCE
+			remove_ideas = MAD_POL_TGV_PRESIDENTIALISM
+			remove_ideas = MAD_TGV_ELECTORAL_LEGITIMACY
+			remove_ideas = MAD_TGV_REVOLUTIONARY_LEGACY
+			remove_ideas = MAD_TGV_EMERGENCY_MANDATE
+			remove_ideas = MAD_TGV_DELIVERY_WATER
+			remove_ideas = MAD_TGV_DELIVERY_INFRASTRUCTURE
+			remove_ideas = MAD_TGV_DELIVERY_DIGITAL
+			remove_ideas = MAD_TGV_DELIVERY_JOBS
+			remove_ideas = MAD_TGV_DELIVERY_FOOD
+			clr_country_flag = MAD_TGV_REVOLUTIONARY
+			clr_country_flag = MAD_TGV_ELECTORAL
+			clr_country_flag = MAD_TGV_EMERGENCY
+			clr_country_flag = MAD_TGV_MOVEMENT_ACTIVE
+			clr_country_flag = MAD_TGV_2009_LEGACY_PENDING
+			MAD_cancel_TGV_velirano_commitments = yes
+		}
+
+		if = {
+			limit = { NOT = { MAD_HVM_IN_POWER = yes } }
+			remove_ideas = MAD_POL_HVM_TECHNOCRATIC_STATE
+			remove_ideas = MAD_HVM_PROJECT_COMPLETION
+			remove_ideas = MAD_HVM_PROJECT_RENEGOTIATED
+			remove_ideas = MAD_HVM_PROJECT_PRUNING
+			remove_ideas = MAD_HVM_FISANDRATANA_FULL
+			remove_ideas = MAD_HVM_FISANDRATANA_PARTIAL
+			remove_ideas = MAD_HVM_FISANDRATANA_PLANNING
+			remove_ideas = MAD_HVM_REPUBLICAN_STABILISATION
+			remove_ideas = MAD_HVM_RULE_OF_LAW_PROGRAMME
+			MAD_cancel_HVM_project_review = yes
+			clr_country_flag = MAD_HVM_PROJECT_REVIEWED
+			clr_country_flag = MAD_HVM_PROJECT_REVIEW_DECIDED
+			clr_country_flag = MAD_HVM_PROJECT_REVIEW_CANCELLED
+			clr_country_flag = MAD_HVM_FISANDRATANA_FULL
+			clr_country_flag = MAD_HVM_FISANDRATANA_PARTIAL
+			clr_country_flag = MAD_HVM_FISANDRATANA_PLANNING_ONLY
+		}
+	}
+
 

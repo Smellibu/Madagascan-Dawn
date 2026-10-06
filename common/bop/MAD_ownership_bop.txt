@@ -4,11 +4,11 @@
 # Left side  = MAD_private_ownership  (privatised, foreign/private capital)
 # Right side = MAD_public_ownership   (state-owned, nationalised)
 # ================================================================
-
 MAD_economy_ownership_bop = {
 	initial_value = 0		# starts perfectly mixed
 	left_side = MAD_private_ownership
 	right_side = MAD_public_ownership	
+	decision_category = MAD_OWNERSHIP_BOP
 
 	# Stays visible regardless of which side is active - rewards NOT
 	# lurching to an extreme. Mixed-economy stability bonus.
@@ -220,50 +220,3 @@ MAD_economy_ownership_bop = {
 		
 		
 	}
-
-# ================================================================
-# NOTES / NEXT STEPS
-# ================================================================
-#
-# 1. Initialise this for MAD somewhere early - e.g. in history/countries/
-#    or in the MAD_natural_resource_extraction focus's completion_reward:
-#        set_power_balance = { id = MAD_economy_ownership_bop }
-#
-# 2. Hook it into your EXISTING mechanically-definitive ownership beats
-#    with add_power_balance_value. IMPORTANT: several of these focuses
-#    (Telma Axian/Renationalize, Work With Germans, State Control
-#    Succeeds, Ambatovy Operational) ALSO currently call add_to_variable
-#    directly on MAD_economy_modifier for the same ownership shift - that's
-#    the double-counting you flagged. When you wire in add_power_balance_value
-#    below, strip those existing ownership-tied add_to_variable calls from
-#    the same completion_reward at the same time, so the BoP is the only
-#    thing driving MAD_economy_modifier's ownership-linked stats.
-#    Suggested starting magnitudes:
-#
-#    Telma:
-#      MAD_TELMA_SOLD_TO_CONSORTIUM  -> value = -0.10
-#      MAD_TELMA_AXIAN_CONSOLIDATES  -> value = -0.15
-#      MAD_TELMA_RENATIONALIZE       -> value =  0.30
-#
-#    Air Madagascar:
-#      MAD_WORK_WITH_GERMANS (-> MAD_PRIVATE_AIRLINE)  -> value = -0.20
-#      MAD_STATE_CONTROL_SUCCEEDS (-> MAD_STATE_AIRLINE) -> value =  0.20
-#
-#    Ambatovy (scale with the JV split rather than a flat push):
-#      MAD_AMBATOVY_OPERATIONAL (private branch)      -> value = -0.15
-#      MAD_AMBATOVY_OPERATIONAL (partial-state branch) -> value =  0.05
-#      MAD_AMBATOVY_OPERATIONAL (full-state branch)    -> value =  0.20
-#      MAD_SELL_MINE (re-privatised)                   -> value = -0.10
-#      mad_ambatovy.1 option a (Sherritt stays private) -> value = -0.05
-#      mad_ambatovy.1 option b (state buys out Dynatec) -> value =  0.15
-#
-# 3. The "mechanically empty" forks (Jirama, Madarail, GPM/fuel - see the
-#    audit) still have nothing to hook add_power_balance_value into - no
-#    action needed right now though, since per your note these are WIP
-#    and you'll build them straight against the BoP (not the dynamic
-#    modifier) when you get to them.
-#
-# 4. Fix the MAD_dynatec_invited / MAD_DYNATEC flag-name mismatch in
-#    MAD_events.txt line 37 before relying on the Dynatec buyout path above -
-#    right now that event option can never be selected.
-# ================================================================
