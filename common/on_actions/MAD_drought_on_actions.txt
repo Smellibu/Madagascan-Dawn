@@ -7,7 +7,7 @@ on_actions = {
 				limit = { country_exists = MAD }
 				MAD = {
 					MAD_dahalo_init = yes
-					add_ideas = MAD_ARMY_INHERITED_BURDEN
+					if = { limit = { NOT = { has_idea = MAD_ARMY_INHERITED_BURDEN } NOT = { has_country_flag = MAD_ARMY_BURDEN_REMOVED } } add_ideas = MAD_ARMY_INHERITED_BURDEN }
 					set_country_flag = MAD_MIL_PARTY_LEADER_CAPSAT
 					if = {
 						limit = { NOT = { has_country_flag = MAD_DROUGHT_STARTED } }

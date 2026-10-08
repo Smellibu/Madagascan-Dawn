@@ -240,3 +240,58 @@ MAD_dahalo_modifier = {
 	civilian_industry_tax_modifier = MAD_dahalo_civilian_tax
 	infrastructure_tax_gain_multiplier_modifier = MAD_dahalo_infrastructure_tax
 }
+
+
+# ============================================================================
+# MADAGASCAR ARMY — COMMAND SYSTEM DYNAMIC MODIFIER
+# ============================================================================
+# Location in mod:
+#   common/dynamic_modifiers/MAD_army_command_dynamic_modifier.txt
+#
+# Purpose:
+#   Converts the Army command-branch variables into actual live modifiers.
+#   The modifier is attached by MAD_military_command.1 when the institutional
+#   command settlement is made. It then updates as Army branch focuses change
+#   the MAD_ARMY_CMD_* variables.
+#
+# The values are variable-driven and therefore intentionally do not rely on
+# static national-spirit modifiers for the branch-level changes.
+# ============================================================================
+
+MAD_ARMY_COMMAND_SYSTEM = {
+	icon = GFX_idea_unknown
+
+	enable = {
+		always = yes
+	}
+
+	remove_trigger = {
+		always = no
+	}
+
+	command_power_gain_mult = MAD_ARMY_CMD_COMMAND_POWER_GAIN_MULT
+	terrain_penalty_reduction = MAD_ARMY_CMD_TERRAIN_PENALTY_REDUCTION
+	army_attack_factor = MAD_ARMY_CMD_ARMY_ATTACK_FACTOR
+	army_org_factor = MAD_ARMY_CMD_ARMY_ORG_FACTOR
+	training_time_factor = MAD_ARMY_CMD_TRAINING_TIME_FACTOR
+	foreign_influence_defense_modifier = MAD_ARMY_CMD_FOREIGN_INFLUENCE_DEFENSE_MODIFIER
+
+	army_intel_factor = MAD_ARMY_CMD_ARMY_INTEL_FACTOR
+	army_intel_to_others = MAD_ARMY_CMD_ARMY_INTEL_TO_OTHERS
+	required_garrison_factor = MAD_ARMY_CMD_REQUIRED_GARRISON_FACTOR
+	land_reinforce_rate = MAD_ARMY_CMD_LAND_REINFORCE_RATE
+	root_out_resistance_effectiveness_factor = MAD_ARMY_CMD_ROOT_OUT_RESISTANCE_EFFECTIVENESS_FACTOR
+
+	special_forces_cap_flat = MAD_ARMY_CMD_SPECIAL_FORCES_CAP_FLAT
+	army_core_defence_factor = MAD_ARMY_CMD_ARMY_CORE_DEFENCE_FACTOR
+	experience_gain_army_factor = MAD_ARMY_CMD_EXPERIENCE_GAIN_ARMY_FACTOR
+	personnel_cost_multiplier_modifier = MAD_ARMY_CMD_PERSONNEL_COST_MULTIPLIER_MODIFIER
+	military_spending_cost_factor = MAD_ARMY_CMD_MILITARY_SPENDING_COST_FACTOR
+	research_speed_factor = MAD_ARMY_CMD_RESEARCH_SPEED_FACTOR
+
+	military_leader_cost_factor = MAD_ARMY_CMD_MILITARY_LEADER_COST_FACTOR
+	equipment_cost_multiplier_modifier = MAD_ARMY_CMD_EQUIPMENT_COST_MULTIPLIER_MODIFIER
+	production_speed_arms_factory_factor = MAD_ARMY_CMD_PRODUCTION_SPEED_ARMS_FACTORY_FACTOR
+	supply_consumption_factor = MAD_ARMY_CMD_SUPPLY_CONSUMPTION_FACTOR
+	planning_speed = MAD_ARMY_CMD_PLANNING_SPEED
+}

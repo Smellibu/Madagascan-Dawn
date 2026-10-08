@@ -2801,16 +2801,37 @@ country_event = {
 	option = {
 		name = MAD_military_command.1.a
 		trigger = {
-			OR = {
-				has_country_flag = MAD_ARMY_COMMAND_CAPSAT
-				AND = {
-					NOT = { has_country_flag = MAD_ARMY_COMMAND_DECIDED }
-					NOT = { has_country_flag = MAD_TGV_COMMAND_FORCE_GENERAL_STAFF }
-				}
-				has_country_flag = MAD_TGV_COMMAND_FORCE_CAPSAT
-			}
+			NOT = { has_country_flag = MAD_TGV_COMMAND_FORCE_GENERAL_STAFF }
+			NOT = { has_country_flag = MAD_ARMY_COMMAND_GENERAL_STAFF }
 		}
 		log = "[GetDateText]: [Root.GetName]: Command settlement - CAPSAT leadership"
+		custom_effect_tooltip = MAD_ARMY_COMMAND_SYSTEM_ACTIVATED_TT
+		hidden_effect = {
+			set_variable = { MAD_ARMY_CMD_COMMAND_POWER_GAIN_MULT = 0 }
+			set_variable = { MAD_ARMY_CMD_TERRAIN_PENALTY_REDUCTION = 0 }
+			set_variable = { MAD_ARMY_CMD_ARMY_ATTACK_FACTOR = 0 }
+			set_variable = { MAD_ARMY_CMD_ARMY_ORG_FACTOR = 0 }
+			set_variable = { MAD_ARMY_CMD_TRAINING_TIME_FACTOR = 0 }
+			set_variable = { MAD_ARMY_CMD_FOREIGN_INFLUENCE_DEFENSE_MODIFIER = 0 }
+			set_variable = { MAD_ARMY_CMD_ARMY_INTEL_FACTOR = 0 }
+			set_variable = { MAD_ARMY_CMD_ARMY_INTEL_TO_OTHERS = 0 }
+			set_variable = { MAD_ARMY_CMD_REQUIRED_GARRISON_FACTOR = 0 }
+			set_variable = { MAD_ARMY_CMD_LAND_REINFORCE_RATE = 0 }
+			set_variable = { MAD_ARMY_CMD_ROOT_OUT_RESISTANCE_EFFECTIVENESS_FACTOR = 0 }
+			set_variable = { MAD_ARMY_CMD_SPECIAL_FORCES_CAP_FLAT = 0 }
+			set_variable = { MAD_ARMY_CMD_ARMY_CORE_DEFENCE_FACTOR = 0 }
+			set_variable = { MAD_ARMY_CMD_EXPERIENCE_GAIN_ARMY_FACTOR = 0 }
+			set_variable = { MAD_ARMY_CMD_PERSONNEL_COST_MULTIPLIER_MODIFIER = 0 }
+			set_variable = { MAD_ARMY_CMD_MILITARY_SPENDING_COST_FACTOR = 0 }
+			set_variable = { MAD_ARMY_CMD_RESEARCH_SPEED_FACTOR = 0 }
+			set_variable = { MAD_ARMY_CMD_MILITARY_LEADER_COST_FACTOR = 0 }
+			set_variable = { MAD_ARMY_CMD_EQUIPMENT_COST_MULTIPLIER_MODIFIER = 0 }
+			set_variable = { MAD_ARMY_CMD_PRODUCTION_SPEED_ARMS_FACTORY_FACTOR = 0 }
+			set_variable = { MAD_ARMY_CMD_SUPPLY_CONSUMPTION_FACTOR = 0 }
+			set_variable = { MAD_ARMY_CMD_PLANNING_SPEED = 0 }
+			add_dynamic_modifier = { modifier = MAD_ARMY_COMMAND_SYSTEM }
+			force_update_dynamic_modifier = yes
+		}
 		set_country_flag = MAD_ARMY_COMMAND_DECIDED
 		set_country_flag = MAD_ARMY_COMMAND_CAPSAT
 		clr_country_flag = MAD_ARMY_COMMAND_GENERAL_STAFF
@@ -2820,41 +2841,75 @@ country_event = {
 		clr_country_flag = MAD_MIL_PARTY_LEADER_GENERAL_STAFF
 		if = { limit = { has_idea = MAD_ARMY_GENERAL_STAFF_COMMAND } remove_ideas = MAD_ARMY_GENERAL_STAFF_COMMAND }
 		if = { limit = { NOT = { has_idea = MAD_ARMY_CAPSAT_COMMAND } } add_ideas = MAD_ARMY_CAPSAT_COMMAND }
-		create_country_leader = {
-			name = "Noel Rakotonandrasana"
-			expire = "2050.1.1"
-			ideology = nationalist
-			traits = { }
+		if = {
+			limit = { has_country_flag = MAD_MILITARY_RULE_PATH }
+			hidden_effect = { kill_country_leader = yes }
+			create_country_leader = {
+				name = "Noël Rakotonandrasana"
+				ideology = despotism
+				traits = { military_career }
+				expire = "2099.1.1"
+			}
 		}
 	}
 
 	option = {
 		name = MAD_military_command.1.b
 		trigger = {
-			OR = {
-				has_country_flag = MAD_ARMY_COMMAND_GENERAL_STAFF
-				AND = {
-					NOT = { has_country_flag = MAD_ARMY_COMMAND_DECIDED }
-					NOT = { has_country_flag = MAD_TGV_COMMAND_FORCE_CAPSAT }
-				}
-				has_country_flag = MAD_TGV_COMMAND_FORCE_GENERAL_STAFF
-			}
+			NOT = { has_country_flag = MAD_TGV_COMMAND_FORCE_CAPSAT }
+			NOT = { has_country_flag = MAD_ARMY_COMMAND_CAPSAT }
 		}
 		log = "[GetDateText]: [Root.GetName]: Command settlement - General Staff leadership"
+		custom_effect_tooltip = MAD_ARMY_COMMAND_SYSTEM_ACTIVATED_TT
+		hidden_effect = {
+			set_variable = { MAD_ARMY_CMD_COMMAND_POWER_GAIN_MULT = 0 }
+			set_variable = { MAD_ARMY_CMD_TERRAIN_PENALTY_REDUCTION = 0 }
+			set_variable = { MAD_ARMY_CMD_ARMY_ATTACK_FACTOR = 0 }
+			set_variable = { MAD_ARMY_CMD_ARMY_ORG_FACTOR = 0 }
+			set_variable = { MAD_ARMY_CMD_TRAINING_TIME_FACTOR = 0 }
+			set_variable = { MAD_ARMY_CMD_FOREIGN_INFLUENCE_DEFENSE_MODIFIER = 0 }
+			set_variable = { MAD_ARMY_CMD_ARMY_INTEL_FACTOR = 0 }
+			set_variable = { MAD_ARMY_CMD_ARMY_INTEL_TO_OTHERS = 0 }
+			set_variable = { MAD_ARMY_CMD_REQUIRED_GARRISON_FACTOR = 0 }
+			set_variable = { MAD_ARMY_CMD_LAND_REINFORCE_RATE = 0 }
+			set_variable = { MAD_ARMY_CMD_ROOT_OUT_RESISTANCE_EFFECTIVENESS_FACTOR = 0 }
+			set_variable = { MAD_ARMY_CMD_SPECIAL_FORCES_CAP_FLAT = 0 }
+			set_variable = { MAD_ARMY_CMD_ARMY_CORE_DEFENCE_FACTOR = 0 }
+			set_variable = { MAD_ARMY_CMD_EXPERIENCE_GAIN_ARMY_FACTOR = 0 }
+			set_variable = { MAD_ARMY_CMD_PERSONNEL_COST_MULTIPLIER_MODIFIER = 0 }
+			set_variable = { MAD_ARMY_CMD_MILITARY_SPENDING_COST_FACTOR = 0 }
+			set_variable = { MAD_ARMY_CMD_RESEARCH_SPEED_FACTOR = 0 }
+			set_variable = { MAD_ARMY_CMD_MILITARY_LEADER_COST_FACTOR = 0 }
+			set_variable = { MAD_ARMY_CMD_EQUIPMENT_COST_MULTIPLIER_MODIFIER = 0 }
+			set_variable = { MAD_ARMY_CMD_PRODUCTION_SPEED_ARMS_FACTORY_FACTOR = 0 }
+			set_variable = { MAD_ARMY_CMD_SUPPLY_CONSUMPTION_FACTOR = 0 }
+			set_variable = { MAD_ARMY_CMD_PLANNING_SPEED = 0 }
+			add_dynamic_modifier = { modifier = MAD_ARMY_COMMAND_SYSTEM }
+			force_update_dynamic_modifier = yes
+		}
 		set_country_flag = MAD_ARMY_COMMAND_DECIDED
 		set_country_flag = MAD_ARMY_COMMAND_GENERAL_STAFF
 		clr_country_flag = MAD_ARMY_COMMAND_CAPSAT
 		clr_country_flag = MAD_TGV_COMMAND_FORCE_CAPSAT
-		clr_country_flag = MAD_TGV_COMMAND_FORCE_GENERAL_STAFF
+		if = {
+			limit = { has_country_flag = MAD_TGV_COMMAND_FORCE_GENERAL_STAFF }
+			set_country_flag = MAD_TGV_CAPSAT_REJECTION
+			clr_country_flag = MAD_TGV_COMMAND_FORCE_GENERAL_STAFF
+			country_event = { id = MAD_military_command.5 days = 1825 }
+		}
 		set_country_flag = MAD_MIL_PARTY_LEADER_GENERAL_STAFF
 		clr_country_flag = MAD_MIL_PARTY_LEADER_CAPSAT
 		if = { limit = { has_idea = MAD_ARMY_CAPSAT_COMMAND } remove_ideas = MAD_ARMY_CAPSAT_COMMAND }
 		if = { limit = { NOT = { has_idea = MAD_ARMY_GENERAL_STAFF_COMMAND } } add_ideas = MAD_ARMY_GENERAL_STAFF_COMMAND }
-		create_country_leader = {
-			name = "Edmond Rasolomahandry"
-			expire = "2050.1.1"
-			ideology = nationalist
-			traits = { }
+		if = {
+			limit = { has_country_flag = MAD_MILITARY_RULE_PATH }
+			hidden_effect = { kill_country_leader = yes }
+			create_country_leader = {
+				name = "Edmond Rasolomahandry"
+				ideology = despotism
+				traits = { military_career }
+				expire = "2099.1.1"
+			}
 		}
 	}
 }
@@ -2895,10 +2950,10 @@ country_event = {
 			set_politics = { ruling_party = nationalist elections_allowed = no }
 			set_country_flag = MAD_CAPSAT_REBEL_GOVERNMENT
 		}
+		set_country_flag = MAD_ARMY_COMMAND_DECIDED
 		set_country_flag = MAD_CAPSAT_REVOLT_RESOLVED
 		set_country_flag = MAD_CAPSAT_CRUSHED
 		clr_country_flag = MAD_TGV_CAPSAT_REJECTION
-		clr_country_flag = MAD_TGV_CAPSAT_REVOLT_SCHEDULED
 		set_country_flag = MAD_MIL_PARTY_LEADER_GENERAL_STAFF
 		clr_country_flag = MAD_MIL_PARTY_LEADER_CAPSAT
 		add_stability = -0.08
@@ -2910,22 +2965,18 @@ country_event = {
 		log = "[GetDateText]: [Root.GetName]: Negotiate With CAPSAT"
 		if = { limit = { has_idea = MAD_ARMY_GENERAL_STAFF_COMMAND } remove_ideas = MAD_ARMY_GENERAL_STAFF_COMMAND }
 		if = { limit = { has_idea = MAD_ARMY_CAPSAT_COMMAND } remove_ideas = MAD_ARMY_CAPSAT_COMMAND }
-		add_ideas = MAD_ARMY_CAPSAT_COMMAND
+		swap_ideas = {
+			remove_idea = MAD_ARMY_GENERAL_STAFF_COMMAND
+			add_idea = MAD_ARMY_CAPSAT_COMMAND
+		}
 		add_ideas = MAD_ARMY_CAPSAT_CONCESSIONS
+		set_country_flag = MAD_ARMY_COMMAND_DECIDED
 		set_country_flag = MAD_ARMY_COMMAND_CAPSAT
 		clr_country_flag = MAD_ARMY_COMMAND_GENERAL_STAFF
-		set_country_flag = MAD_ARMY_COMMAND_DECIDED
 		set_country_flag = MAD_MIL_PARTY_LEADER_CAPSAT
 		clr_country_flag = MAD_MIL_PARTY_LEADER_GENERAL_STAFF
 		set_country_flag = MAD_CAPSAT_REVOLT_RESOLVED
 		clr_country_flag = MAD_TGV_CAPSAT_REJECTION
-		clr_country_flag = MAD_TGV_CAPSAT_REVOLT_SCHEDULED
-		create_country_leader = {
-			name = "Noel Rakotonandrasana"
-			expire = "2050.1.1"
-			ideology = nationalist
-			traits = { }
-		}
 		add_stability = -0.04
 		army_experience = 20
 	}
@@ -2933,284 +2984,822 @@ country_event = {
 	option = {
 		name = MAD_military_command.5.c
 		log = "[GetDateText]: [Root.GetName]: Surrender to CAPSAT"
+		set_country_flag = MAD_ARMY_COMMAND_DECIDED
 		set_country_flag = MAD_CAPSAT_REVOLT_RESOLVED
 		clr_country_flag = MAD_TGV_CAPSAT_REJECTION
-		clr_country_flag = MAD_TGV_CAPSAT_REVOLT_SCHEDULED
 		set_country_flag = MAD_MIL_PARTY_LEADER_CAPSAT
 		clr_country_flag = MAD_MIL_PARTY_LEADER_GENERAL_STAFF
+		hidden_effect = { kill_country_leader = yes }
+		create_country_leader = {
+			name = "Noël Rakotonandrasana"
+			ideology = despotism
+			traits = { military_career }
+			expire = "2099.1.1"
+		}
 		set_country_flag = MAD_MILITARY_RULE_PATH
 		set_country_flag = MAD_CAPSAT_MILITARY_TAKEOVER
-		set_country_flag = MAD_ARMY_COMMAND_CAPSAT
-		clr_country_flag = MAD_ARMY_COMMAND_GENERAL_STAFF
-		set_country_flag = MAD_ARMY_COMMAND_DECIDED
 		if = { limit = { has_elections = yes } set_politics = { ruling_party = nationalist elections_allowed = no } }
 		if = { limit = { has_idea = MAD_ARMY_GENERAL_STAFF_COMMAND } remove_ideas = MAD_ARMY_GENERAL_STAFF_COMMAND }
 		if = { limit = { has_idea = MAD_ARMY_CAPSAT_COMMAND } remove_ideas = MAD_ARMY_CAPSAT_COMMAND }
 		add_ideas = MAD_ARMY_CAPSAT_COMMAND
 		add_ideas = MAD_ARMY_CAPSAT_CONCESSIONS
-		create_country_leader = {
-			name = "Noel Rakotonandrasana"
-			expire = "2050.1.1"
-			ideology = nationalist
-			traits = { }
-		}
 		add_stability = -0.12
 		add_war_support = 0.05
 	}
 }
 
+
 # --- historical service rifle choice ---
 country_event = {
-	id = MAD_military_procurement.1
-	title = MAD_military_procurement.1.t
-	desc = MAD_military_procurement.1.d
-	picture = GFX_report_event_economy_default
-	is_triggered_only = yes
-	option = {
-		name = MAD_military_procurement.1.a
-		trigger = { country_exists = ZAF }
-		set_temp_variable = { treasury_change = -2.5 }
-		modify_treasury_effect = yes
-		add_equipment_to_stockpile = { type = infantry_weapons_4 amount = 3000 producer = ZAF }
-		set_temp_variable = { percent_change = 4 }
-		set_temp_variable = { tag_index = ZAF }
-		set_temp_variable = { influence_target = MAD }
-		change_influence_percentage = yes
-		ZAF = { set_temp_variable = { treasury_change = 2.5 } modify_treasury_effect = yes add_opinion_modifier = { target = MAD modifier = large_commercial_relations } }
-		add_opinion_modifier = { target = ZAF modifier = large_commercial_relations }
-		army_experience = 15
-	}
-	option = {
-		name = MAD_military_procurement.1.b
-		trigger = { country_exists = BEL }
-		set_temp_variable = { treasury_change = -2.0 }
-		modify_treasury_effect = yes
-		add_equipment_to_stockpile = { type = infantry_weapons_4 amount = 2500 producer = BEL }
-		set_temp_variable = { percent_change = 3 }
-		set_temp_variable = { tag_index = BEL }
-		set_temp_variable = { influence_target = MAD }
-		change_influence_percentage = yes
-		BEL = { set_temp_variable = { treasury_change = 2.0 } modify_treasury_effect = yes add_opinion_modifier = { target = MAD modifier = large_commercial_relations } }
-		add_opinion_modifier = { target = BEL modifier = large_commercial_relations }
-		army_experience = 10
-	}
+    id = MAD_military_procurement.1
+    title = MAD_military_procurement.1.t
+    desc = MAD_military_procurement.1.d
+    picture = GFX_report_event_economy_default
+    is_triggered_only = yes
+    option = {
+        name = MAD_military_procurement.1.a
+        trigger = { country_exists = ZAF }
+        set_temp_variable = { treasury_change = -2.5 }
+        modify_treasury_effect = yes
+        add_equipment_to_stockpile = { type = infantry_weapons_4 amount = 3000 producer = ZAF variant_name = "South African service-rifle package" }
+        ZAF = {
+            set_temp_variable = { treasury_change = 2.5 }
+            modify_treasury_effect = yes
+            set_temp_variable = { percent_change = 4 }
+            set_temp_variable = { tag_index = THIS.id }
+            set_temp_variable = { influence_target = ROOT.id }
+            change_influence_percentage = yes
+            add_opinion_modifier = { target = ROOT modifier = military_cooperation }
+        }
+        add_opinion_modifier = { target = ZAF modifier = military_cooperation }
+        army_experience = 15
+    }
+    option = {
+        name = MAD_military_procurement.1.b
+        trigger = { country_exists = BEL }
+        set_temp_variable = { treasury_change = -2.0 }
+        modify_treasury_effect = yes
+        add_equipment_to_stockpile = { type = infantry_weapons_4 amount = 2500 producer = BEL variant_name = "Belgian infantry-weapons package" }
+        BEL = {
+            set_temp_variable = { treasury_change = 2.0 }
+            modify_treasury_effect = yes
+            set_temp_variable = { percent_change = 3 }
+            set_temp_variable = { tag_index = THIS.id }
+            set_temp_variable = { influence_target = ROOT.id }
+            change_influence_percentage = yes
+            add_opinion_modifier = { target = ROOT modifier = military_cooperation }
+        }
+        add_opinion_modifier = { target = BEL modifier = military_cooperation }
+        army_experience = 10
+    }
+    option = {
+        name = MAD_military_procurement.1.c
+        trigger = { country_exists = FRA }
+        set_temp_variable = { treasury_change = -2.3 }
+        modify_treasury_effect = yes
+        add_equipment_to_stockpile = { type = infantry_weapons_4 amount = 2800 producer = FRA variant_name = "French service-rifle package" }
+        FRA = {
+            set_temp_variable = { treasury_change = 2.3 }
+            modify_treasury_effect = yes
+            set_temp_variable = { percent_change = 3 }
+            set_temp_variable = { tag_index = THIS.id }
+            set_temp_variable = { influence_target = ROOT.id }
+            change_influence_percentage = yes
+            add_opinion_modifier = { target = ROOT modifier = military_cooperation }
+        }
+        add_opinion_modifier = { target = FRA modifier = military_cooperation }
+        army_experience = 15
+        add_mastery = { amount = 10 folder = land }
+    }
+}
+
+# --- historical motorisation choice ---
+country_event = {
+    id = MAD_military_procurement.2
+    title = MAD_military_procurement.2.t
+    desc = MAD_military_procurement.2.d
+    picture = GFX_report_event_generic_political
+    is_triggered_only = yes
+    option = {
+        name = MAD_military_procurement.2.a
+        trigger = { country_exists = SOV }
+        set_temp_variable = { treasury_change = -2.5 }
+        modify_treasury_effect = yes
+        add_equipment_to_stockpile = { type = util_vehicle_4 amount = 120 producer = SOV variant_name = "GAZ all-terrain utility vehicle fleet" }
+        SOV = {
+            set_temp_variable = { treasury_change = 2.5 }
+            modify_treasury_effect = yes
+            set_temp_variable = { percent_change = 4 }
+            set_temp_variable = { tag_index = THIS.id }
+            set_temp_variable = { influence_target = ROOT.id }
+            change_influence_percentage = yes
+            add_opinion_modifier = { target = ROOT modifier = military_cooperation }
+        }
+        add_opinion_modifier = { target = SOV modifier = military_cooperation }
+        add_mastery = { amount = 15 folder = land }
+        army_experience = 15
+    }
+    option = {
+        name = MAD_military_procurement.2.b
+        trigger = { country_exists = ZAF }
+        set_temp_variable = { treasury_change = -2.2 }
+        modify_treasury_effect = yes
+        add_equipment_to_stockpile = { type = util_vehicle_4 amount = 100 producer = ZAF variant_name = "South African utility fleet" }
+        ZAF = {
+            set_temp_variable = { treasury_change = 2.2 }
+            modify_treasury_effect = yes
+            set_temp_variable = { percent_change = 3 }
+            set_temp_variable = { tag_index = THIS.id }
+            set_temp_variable = { influence_target = ROOT.id }
+            change_influence_percentage = yes
+            add_opinion_modifier = { target = ROOT modifier = military_cooperation }
+        }
+        add_opinion_modifier = { target = ZAF modifier = military_cooperation }
+        add_mastery = { amount = 20 folder = land }
+        army_experience = 15
+    }
+    option = {
+        name = MAD_military_procurement.2.c
+        trigger = { country_exists = FRA }
+        set_temp_variable = { treasury_change = -2.4 }
+        modify_treasury_effect = yes
+        add_equipment_to_stockpile = { type = util_vehicle_4 amount = 110 producer = FRA variant_name = "French utility vehicle fleet" }
+        FRA = {
+            set_temp_variable = { treasury_change = 2.4 }
+            modify_treasury_effect = yes
+            set_temp_variable = { percent_change = 3 }
+            set_temp_variable = { tag_index = THIS.id }
+            set_temp_variable = { influence_target = ROOT.id }
+            change_influence_percentage = yes
+            add_opinion_modifier = { target = ROOT modifier = military_cooperation }
+        }
+        add_opinion_modifier = { target = FRA modifier = military_cooperation }
+        add_mastery = { amount = 15 folder = land }
+        army_experience = 15
+    }
+}
+
+# --- Indian Ocean field exercise ---
+country_event = {
+    id = MAD_military_procurement.3
+    title = MAD_military_procurement.3.t
+    desc = MAD_military_procurement.3.d
+    picture = GFX_report_event_generic_political
+    is_triggered_only = yes
+
+    option = {
+        name = MAD_military_procurement.3.a
+        log = "[GetDateText]: [Root.GetName]: French-led interoperability exercise"
+        add_mastery = { amount = 15 folder = land }
+        add_mastery = { amount = 25 folder = naval }
+        add_mastery = { amount = 25 folder = air }
+        army_experience = 20
+        navy_experience = 20
+        air_experience = 25
+        add_to_variable = { planning_speed = 0.03 }
+        if = {
+            limit = { country_exists = FRA }
+            add_opinion_modifier = { target = FRA modifier = large_commercial_relations }
+            FRA = { add_opinion_modifier = { target = ROOT modifier = large_commercial_relations } }
+        }
+    }
+
+    option = {
+        name = MAD_military_procurement.3.b
+        log = "[GetDateText]: [Root.GetName]: IOC multinational doctrine exercise"
+        add_mastery = { amount = 20 folder = land }
+        add_mastery = { amount = 20 folder = naval }
+        add_mastery = { amount = 20 folder = air }
+        army_experience = 25
+        navy_experience = 20
+        air_experience = 20
+        add_to_variable = { army_org_factor = 0.02 }
+        add_to_variable = { land_reinforce_rate = 0.02 }
+        add_to_variable = { supply_consumption_factor = -0.01 }
+        if = { limit = { country_exists = FRA } add_opinion_modifier = { target = FRA modifier = military_cooperation } FRA = { add_opinion_modifier = { target = ROOT modifier = military_cooperation } } }
+        if = { limit = { country_exists = COM } add_opinion_modifier = { target = COM modifier = military_cooperation } COM = { add_opinion_modifier = { target = ROOT modifier = military_cooperation } } }
+        if = { limit = { country_exists = MUS } add_opinion_modifier = { target = MUS modifier = military_cooperation } MUS = { add_opinion_modifier = { target = ROOT modifier = military_cooperation } } }
+        if = { limit = { country_exists = SEY } add_opinion_modifier = { target = SEY modifier = military_cooperation } SEY = { add_opinion_modifier = { target = ROOT modifier = military_cooperation } } }
+    }
+
+    option = {
+        name = MAD_military_procurement.3.c
+        log = "[GetDateText]: [Root.GetName]: Malagasy field doctrine"
+        add_mastery = { amount = 30 folder = land }
+        add_mastery = { amount = 10 folder = naval }
+        add_mastery = { amount = 10 folder = air }
+        army_experience = 30
+        navy_experience = 10
+        air_experience = 10
+        add_to_variable = { terrain_penalty_reduction = 0.05 }
+        add_to_variable = { army_core_defence_factor = 0.02 }
+        add_to_variable = { planning_speed = 0.02 }
+        add_to_variable = { supply_consumption_factor = -0.03 }
+        add_to_variable = { required_garrison_factor = -0.02 }
+        set_country_flag = MAD_ARMY_DOMESTIC_FIELD_DOCTRINE
+    }
 }
 
 # --- historical protected mobility tender ---
 country_event = {
-	id = MAD_military_procurement.3
-	title = MAD_military_procurement.3.t
-	desc = MAD_military_procurement.3.d
-	picture = GFX_report_event_generic_political
-	is_triggered_only = yes
-	option = {
-		name = MAD_military_procurement.3.a
-		trigger = { country_exists = UAE }
-		set_temp_variable = { treasury_change = -2.5 }
-		modify_treasury_effect = yes
-		add_equipment_to_stockpile = { type = util_vehicle_4 amount = 80 producer = UAE }
-		set_temp_variable = { percent_change = 4 }
-		set_temp_variable = { tag_index = UAE }
-		set_temp_variable = { influence_target = MAD }
-		change_influence_percentage = yes
-		UAE = { set_temp_variable = { treasury_change = 2.5 } modify_treasury_effect = yes add_opinion_modifier = { target = MAD modifier = large_commercial_relations } }
-		add_opinion_modifier = { target = UAE modifier = large_commercial_relations }
-		add_tech_bonus = { name = MAD_military_procurement_3_panthera category = CAT_afv category = CAT_apc uses = 1 bonus = 0.25 }
-	}
-	option = {
-		name = MAD_military_procurement.3.b
-		trigger = { country_exists = ZAF }
-		set_temp_variable = { treasury_change = -2.3 }
-		modify_treasury_effect = yes
-		add_equipment_to_stockpile = { type = util_vehicle_4 amount = 70 producer = ZAF }
-		set_temp_variable = { percent_change = 3 }
-		set_temp_variable = { tag_index = ZAF }
-		set_temp_variable = { influence_target = MAD }
-		change_influence_percentage = yes
-		ZAF = { set_temp_variable = { treasury_change = 2.3 } modify_treasury_effect = yes add_opinion_modifier = { target = MAD modifier = large_commercial_relations } }
-		add_opinion_modifier = { target = ZAF modifier = large_commercial_relations }
-		add_mastery = { amount = 15 folder = land }
-	}
+    id = MAD_military_procurement.5
+    title = MAD_military_procurement.5.t
+    desc = MAD_military_procurement.5.d
+    picture = GFX_report_event_generic_political
+    is_triggered_only = yes
+    option = {
+        name = MAD_military_procurement.5.a
+        trigger = { country_exists = UAE }
+        set_temp_variable = { treasury_change = -2.5 }
+        modify_treasury_effect = yes
+        add_equipment_to_stockpile = { type = util_vehicle_4 amount = 80 producer = UAE variant_name = "Panthera T4" }
+        UAE = {
+            set_temp_variable = { treasury_change = 2.5 }
+            modify_treasury_effect = yes
+            set_temp_variable = { percent_change = 4 }
+            set_temp_variable = { tag_index = THIS.id }
+            set_temp_variable = { influence_target = ROOT.id }
+            change_influence_percentage = yes
+            add_opinion_modifier = { target = ROOT modifier = military_cooperation }
+        }
+        add_opinion_modifier = { target = UAE modifier = military_cooperation }
+        add_tech_bonus = { name = MAD_military_procurement_3_panthera category = CAT_afv category = CAT_apc uses = 1 bonus = 0.25 }
+        army_experience = 15
+    }
+    option = {
+        name = MAD_military_procurement.5.b
+        trigger = { country_exists = ZAF }
+        set_temp_variable = { treasury_change = -2.3 }
+        modify_treasury_effect = yes
+        add_equipment_to_stockpile = { type = util_vehicle_4 amount = 70 producer = ZAF variant_name = "South African protected-mobility fleet" }
+        ZAF = {
+            set_temp_variable = { treasury_change = 2.3 }
+            modify_treasury_effect = yes
+            set_temp_variable = { percent_change = 3 }
+            set_temp_variable = { tag_index = THIS.id }
+            set_temp_variable = { influence_target = ROOT.id }
+            change_influence_percentage = yes
+            add_opinion_modifier = { target = ROOT modifier = military_cooperation }
+        }
+        add_opinion_modifier = { target = ZAF modifier = military_cooperation }
+        add_mastery = { amount = 15 folder = land }
+        army_experience = 15
+    }
+    option = {
+        name = MAD_military_procurement.5.c
+        trigger = { country_exists = TUR }
+        set_temp_variable = { treasury_change = -2.6 }
+        modify_treasury_effect = yes
+        add_equipment_to_stockpile = { type = util_vehicle_4 amount = 80 producer = TUR variant_name = "Turkish protected-mobility fleet" }
+        TUR = {
+            set_temp_variable = { treasury_change = 2.6 }
+            modify_treasury_effect = yes
+            set_temp_variable = { percent_change = 4 }
+            set_temp_variable = { tag_index = THIS.id }
+            set_temp_variable = { influence_target = ROOT.id }
+            change_influence_percentage = yes
+            add_opinion_modifier = { target = ROOT modifier = military_cooperation }
+        }
+        add_opinion_modifier = { target = TUR modifier = military_cooperation }
+        add_mastery = { amount = 20 folder = land }
+        army_experience = 15
+    }
 }
 
-# --- historical air package choice ---
+#
+
+# --- historical air package expansion ---# --- historical air package expansion ---
 country_event = {
-	id = MAD_military_procurement.4
-	title = MAD_military_procurement.4.t
-	desc = MAD_military_procurement.4.d
-	picture = GFX_report_event_economy_default
-	is_triggered_only = yes
-	option = {
-		name = MAD_military_procurement.4.a
-		trigger = { country_exists = ZAF }
-		set_temp_variable = { treasury_change = -3.0 }
-		modify_treasury_effect = yes
-		add_equipment_to_stockpile = { type = transport_helicopter_1 amount = 4 producer = ZAF }
-		set_temp_variable = { percent_change = 4 }
-		set_temp_variable = { tag_index = ZAF }
-		set_temp_variable = { influence_target = MAD }
-		change_influence_percentage = yes
-		ZAF = { set_temp_variable = { treasury_change = 3.0 } modify_treasury_effect = yes add_opinion_modifier = { target = MAD modifier = large_commercial_relations } }
-		add_opinion_modifier = { target = ZAF modifier = large_commercial_relations }
-		add_ideas = MAD_ARMY_HELICOPTER_PRIORITY
-		air_experience = 20
-	}
-	option = {
-		name = MAD_military_procurement.4.b
-		trigger = { country_exists = FRA }
-		set_temp_variable = { treasury_change = -5.0 }
-		modify_treasury_effect = yes
-		add_equipment_to_stockpile = { type = transport_plane5 amount = 1 producer = FRA }
-		set_temp_variable = { percent_change = 5 }
-		set_temp_variable = { tag_index = FRA }
-		set_temp_variable = { influence_target = MAD }
-		change_influence_percentage = yes
-		FRA = { set_temp_variable = { treasury_change = 5.0 } modify_treasury_effect = yes add_opinion_modifier = { target = MAD modifier = large_commercial_relations } }
-		add_opinion_modifier = { target = FRA modifier = large_commercial_relations }
-		air_experience = 25
-	}
-	option = {
-		name = MAD_military_procurement.4.c
-		trigger = { country_exists = ZAF country_exists = FRA }
-		set_temp_variable = { treasury_change = -7.5 }
-		modify_treasury_effect = yes
-		add_equipment_to_stockpile = { type = transport_helicopter_1 amount = 2 producer = ZAF }
-		add_equipment_to_stockpile = { type = transport_plane5 amount = 1 producer = FRA }
-		set_temp_variable = { percent_change = 3 }
-		set_temp_variable = { tag_index = ZAF }
-		set_temp_variable = { influence_target = MAD }
-		change_influence_percentage = yes
-		set_temp_variable = { percent_change = 4 }
-		set_temp_variable = { tag_index = FRA }
-		set_temp_variable = { influence_target = MAD }
-		change_influence_percentage = yes
-		ZAF = { set_temp_variable = { treasury_change = 3.0 } modify_treasury_effect = yes add_opinion_modifier = { target = MAD modifier = large_commercial_relations } }
-		FRA = { set_temp_variable = { treasury_change = 4.5 } modify_treasury_effect = yes add_opinion_modifier = { target = MAD modifier = large_commercial_relations } }
-		add_opinion_modifier = { target = ZAF modifier = large_commercial_relations }
-		add_opinion_modifier = { target = FRA modifier = large_commercial_relations }
-		army_experience = 25
-		air_experience = 30
-	}
+    id = MAD_military_procurement.4
+    title = MAD_military_procurement.4.t
+    desc = MAD_military_procurement.4.d
+    picture = GFX_report_event_generic_political
+    is_triggered_only = yes
+    option = {
+        name = MAD_military_procurement.4.a
+        trigger = { country_exists = ZAF }
+        set_temp_variable = { treasury_change = -3.0 }
+        modify_treasury_effect = yes
+        add_equipment_to_stockpile = { type = transport_helicopter_1 amount = 4 producer = ZAF variant_name = "AS350B2" }
+        ZAF = {
+            set_temp_variable = { treasury_change = 3.0 }
+            modify_treasury_effect = yes
+            set_temp_variable = { percent_change = 4 }
+            set_temp_variable = { tag_index = THIS.id }
+            set_temp_variable = { influence_target = ROOT.id }
+            change_influence_percentage = yes
+            add_opinion_modifier = { target = ROOT modifier = military_cooperation }
+        }
+        add_opinion_modifier = { target = ZAF modifier = military_cooperation }
+        add_ideas = MAD_ARMY_HELICOPTER_PRIORITY
+        add_mastery = { amount = 15 folder = air }
+        air_experience = 25
+        army_experience = 10
+    }
+    option = {
+        name = MAD_military_procurement.4.b
+        trigger = { country_exists = FRA }
+        set_temp_variable = { treasury_change = -10.0 }
+        modify_treasury_effect = yes
+        add_equipment_to_stockpile = { type = transport_plane5 amount = 2 producer = FRA variant_name = "CN-235 transport fleet" }
+        FRA = {
+            set_temp_variable = { treasury_change = 10.0 }
+            modify_treasury_effect = yes
+            set_temp_variable = { percent_change = 8 }
+            set_temp_variable = { tag_index = THIS.id }
+            set_temp_variable = { influence_target = ROOT.id }
+            change_influence_percentage = yes
+            add_opinion_modifier = { target = ROOT modifier = military_cooperation }
+        }
+        add_opinion_modifier = { target = FRA modifier = military_cooperation }
+        add_mastery = { amount = 20 folder = air }
+        air_experience = 30
+    }
+    option = {
+        name = MAD_military_procurement.4.c
+        trigger = { country_exists = ZAF country_exists = FRA }
+        set_temp_variable = { treasury_change = -8.0 }
+        modify_treasury_effect = yes
+        add_equipment_to_stockpile = { type = transport_helicopter_1 amount = 2 producer = ZAF variant_name = "AS350B2" }
+        add_equipment_to_stockpile = { type = transport_plane5 amount = 1 producer = FRA variant_name = "CN-235" }
+        ZAF = {
+            set_temp_variable = { treasury_change = 3.0 }
+            modify_treasury_effect = yes
+            set_temp_variable = { percent_change = 3 }
+            set_temp_variable = { tag_index = THIS.id }
+            set_temp_variable = { influence_target = ROOT.id }
+            change_influence_percentage = yes
+            add_opinion_modifier = { target = ROOT modifier = military_cooperation }
+        }
+        FRA = {
+            set_temp_variable = { treasury_change = 5.0 }
+            modify_treasury_effect = yes
+            set_temp_variable = { percent_change = 5 }
+            set_temp_variable = { tag_index = THIS.id }
+            set_temp_variable = { influence_target = ROOT.id }
+            change_influence_percentage = yes
+            add_opinion_modifier = { target = ROOT modifier = military_cooperation }
+        }
+        add_opinion_modifier = { target = ZAF modifier = military_cooperation }
+        add_opinion_modifier = { target = FRA modifier = military_cooperation }
+        add_ideas = MAD_ARMY_HELICOPTER_PRIORITY
+        add_mastery = { amount = 20 folder = air }
+        army_experience = 20
+        air_experience = 30
+    }
+}
+
+# --- airlift capability: CN-235 purchase versus domestic innovation ---
+country_event = {
+    id = MAD_military_procurement.6
+    title = MAD_military_procurement.6.t
+    desc = MAD_military_procurement.6.d
+    picture = GFX_report_event_generic_political
+    is_triggered_only = yes
+    option = {
+        name = MAD_military_procurement.6.a
+        trigger = { country_exists = FRA }
+        set_temp_variable = { treasury_change = -5.0 }
+        modify_treasury_effect = yes
+        add_equipment_to_stockpile = { type = transport_plane5 amount = 1 producer = FRA variant_name = "CN-235" }
+        FRA = {
+            set_temp_variable = { treasury_change = 5.0 }
+            modify_treasury_effect = yes
+            set_temp_variable = { percent_change = 5 }
+            set_temp_variable = { tag_index = THIS.id }
+            set_temp_variable = { influence_target = ROOT.id }
+            change_influence_percentage = yes
+            add_opinion_modifier = { target = ROOT modifier = military_cooperation }
+        }
+        add_opinion_modifier = { target = FRA modifier = military_cooperation }
+        set_country_flag = MAD_ARMY_AIRLIFT_READY
+        air_experience = 25
+    }
+    option = {
+        name = MAD_military_procurement.6.b
+        add_tech_bonus = { name = MAD_military_procurement_6_innovation category = CAT_air_eqp uses = 2 bonus = 0.40 }
+        add_breakthrough_progress = { specialization = specialization_air value = sp_breakthrough_progress.small }
+        set_country_flag = MAD_ARMY_AIRLIFT_READY
+        air_experience = 20
+        army_experience = 10
+    }
 }
 
 # --- hypothetical protected vehicle assembly ---
 country_event = {
-	id = MAD_military_industry.1
-	title = MAD_military_industry.1.t
-	desc = MAD_military_industry.1.d
-	picture = GFX_report_event_industry_default
-	is_triggered_only = yes
-	option = {
-		name = MAD_military_industry.1.a
-		trigger = { country_exists = ZAF }
-		set_temp_variable = { treasury_change = -12.0 }
-		modify_treasury_effect = yes
-		add_equipment_to_stockpile = { type = util_vehicle_4 amount = 60 producer = ZAF }
-		set_temp_variable = { percent_change = 6 }
-		set_temp_variable = { tag_index = ZAF }
-		set_temp_variable = { influence_target = MAD }
-		change_influence_percentage = yes
-		ZAF = { set_temp_variable = { treasury_change = 12.0 } modify_treasury_effect = yes add_opinion_modifier = { target = MAD modifier = large_commercial_relations } }
-		add_opinion_modifier = { target = ZAF modifier = large_commercial_relations }
-		487 = { add_building_construction = { type = arms_factory level = 1 instant_build = yes } }
-	}
-	option = {
-		name = MAD_military_industry.1.b
-		trigger = { country_exists = TUR }
-		set_temp_variable = { treasury_change = -14.0 }
-		modify_treasury_effect = yes
-		add_equipment_to_stockpile = { type = util_vehicle_4 amount = 75 producer = TUR }
-		set_temp_variable = { percent_change = 6 }
-		set_temp_variable = { tag_index = TUR }
-		set_temp_variable = { influence_target = MAD }
-		change_influence_percentage = yes
-		TUR = { set_temp_variable = { treasury_change = 14.0 } modify_treasury_effect = yes add_opinion_modifier = { target = MAD modifier = large_commercial_relations } }
-		add_opinion_modifier = { target = TUR modifier = large_commercial_relations }
-		487 = { add_building_construction = { type = arms_factory level = 1 instant_build = yes } }
-	}
+    id = MAD_military_industry.1
+    title = MAD_military_industry.1.t
+    desc = MAD_military_industry.1.d
+    picture = GFX_report_event_industry_default
+    is_triggered_only = yes
+    option = {
+        name = MAD_military_industry.1.a
+        trigger = { country_exists = ZAF }
+        set_temp_variable = { treasury_change = -12.0 }
+        modify_treasury_effect = yes
+        add_equipment_to_stockpile = { type = util_vehicle_4 amount = 60 producer = ZAF variant_name = "Malagasy-South African protected vehicle" }
+        ZAF = {
+            set_temp_variable = { treasury_change = 12.0 }
+            modify_treasury_effect = yes
+            set_temp_variable = { percent_change = 6 }
+            set_temp_variable = { tag_index = THIS.id }
+            set_temp_variable = { influence_target = ROOT.id }
+            change_influence_percentage = yes
+            add_opinion_modifier = { target = ROOT modifier = military_cooperation }
+        }
+        add_opinion_modifier = { target = ZAF modifier = military_cooperation }
+        487 = { add_building_construction = { type = arms_factory level = 1 instant_build = yes } }
+        set_temp_variable = { treasury_change = -7.5 }
+        modify_treasury_effect = yes
+    }
+    option = {
+        name = MAD_military_industry.1.b
+        trigger = { country_exists = TUR }
+        set_temp_variable = { treasury_change = -14.0 }
+        modify_treasury_effect = yes
+        add_equipment_to_stockpile = { type = util_vehicle_4 amount = 75 producer = TUR variant_name = "Malagasy-Turkish protected vehicle" }
+        TUR = {
+            set_temp_variable = { treasury_change = 14.0 }
+            modify_treasury_effect = yes
+            set_temp_variable = { percent_change = 6 }
+            set_temp_variable = { tag_index = THIS.id }
+            set_temp_variable = { influence_target = ROOT.id }
+            change_influence_percentage = yes
+            add_opinion_modifier = { target = ROOT modifier = military_cooperation }
+        }
+        add_opinion_modifier = { target = TUR modifier = military_cooperation }
+        487 = { add_building_construction = { type = arms_factory level = 1 instant_build = yes } }
+        set_temp_variable = { treasury_change = -7.5 }
+        modify_treasury_effect = yes
+    }
 }
 
 # --- hypothetical mobile artillery ---
 country_event = {
-	id = MAD_military_industry.2
-	title = MAD_military_industry.2.t
-	desc = MAD_military_industry.2.d
-	picture = GFX_report_event_generic_political
-	is_triggered_only = yes
-	option = {
-		name = MAD_military_industry.2.a
-		trigger = { country_exists = FRA }
-		set_temp_variable = { treasury_change = -10.0 }
-		modify_treasury_effect = yes
-		add_equipment_to_stockpile = { type = artillery_1 amount = 120 producer = FRA }
-		set_temp_variable = { percent_change = 6 }
-		set_temp_variable = { tag_index = FRA }
-		set_temp_variable = { influence_target = MAD }
-		change_influence_percentage = yes
-		FRA = { set_temp_variable = { treasury_change = 10.0 } modify_treasury_effect = yes add_opinion_modifier = { target = MAD modifier = large_commercial_relations } }
-		add_opinion_modifier = { target = FRA modifier = large_commercial_relations }
-		add_mastery = { amount = 25 folder = land }
-	}
-	option = {
-		name = MAD_military_industry.2.b
-		trigger = { country_exists = TUR }
-		set_temp_variable = { treasury_change = -11.0 }
-		modify_treasury_effect = yes
-		add_equipment_to_stockpile = { type = artillery_1 amount = 110 producer = TUR }
-		set_temp_variable = { percent_change = 7 }
-		set_temp_variable = { tag_index = TUR }
-		set_temp_variable = { influence_target = MAD }
-		change_influence_percentage = yes
-		TUR = { set_temp_variable = { treasury_change = 11.0 } modify_treasury_effect = yes add_opinion_modifier = { target = MAD modifier = large_commercial_relations } }
-		add_opinion_modifier = { target = TUR modifier = large_commercial_relations }
-		add_mastery = { amount = 30 folder = land }
-	}
-	option = {
-		name = MAD_military_industry.2.c
-		trigger = { country_exists = RAJ }
-		set_temp_variable = { treasury_change = -9.0 }
-		modify_treasury_effect = yes
-		add_equipment_to_stockpile = { type = artillery_1 amount = 100 producer = RAJ }
-		set_temp_variable = { percent_change = 5 }
-		set_temp_variable = { tag_index = RAJ }
-		set_temp_variable = { influence_target = MAD }
-		change_influence_percentage = yes
-		RAJ = { set_temp_variable = { treasury_change = 9.0 } modify_treasury_effect = yes add_opinion_modifier = { target = MAD modifier = large_commercial_relations } }
-		add_opinion_modifier = { target = RAJ modifier = large_commercial_relations }
-		add_mastery = { amount = 20 folder = land }
-	}
+    id = MAD_military_industry.2
+    title = MAD_military_industry.2.t
+    desc = MAD_military_industry.2.d
+    picture = GFX_report_event_generic_political
+    is_triggered_only = yes
+    option = {
+        name = MAD_military_industry.2.a
+        trigger = { country_exists = FRA }
+        set_temp_variable = { treasury_change = -10.0 }
+        modify_treasury_effect = yes
+        add_equipment_to_stockpile = { type = artillery_1 amount = 120 producer = FRA }
+        FRA = {
+            set_temp_variable = { treasury_change = 10.0 }
+            modify_treasury_effect = yes
+            set_temp_variable = { percent_change = 6 }
+            set_temp_variable = { tag_index = THIS.id }
+            set_temp_variable = { influence_target = ROOT.id }
+            change_influence_percentage = yes
+            add_opinion_modifier = { target = ROOT modifier = military_cooperation }
+        }
+        add_opinion_modifier = { target = FRA modifier = military_cooperation }
+        add_mastery = { amount = 25 folder = land }
+    }
+    option = {
+        name = MAD_military_industry.2.b
+        trigger = { country_exists = TUR }
+        set_temp_variable = { treasury_change = -11.0 }
+        modify_treasury_effect = yes
+        add_equipment_to_stockpile = { type = artillery_1 amount = 110 producer = TUR }
+        TUR = {
+            set_temp_variable = { treasury_change = 11.0 }
+            modify_treasury_effect = yes
+            set_temp_variable = { percent_change = 7 }
+            set_temp_variable = { tag_index = THIS.id }
+            set_temp_variable = { influence_target = ROOT.id }
+            change_influence_percentage = yes
+            add_opinion_modifier = { target = ROOT modifier = military_cooperation }
+        }
+        add_opinion_modifier = { target = TUR modifier = military_cooperation }
+        add_mastery = { amount = 30 folder = land }
+    }
+    option = {
+        name = MAD_military_industry.2.c
+        trigger = { country_exists = RAJ }
+        set_temp_variable = { treasury_change = -9.0 }
+        modify_treasury_effect = yes
+        add_equipment_to_stockpile = { type = artillery_1 amount = 100 producer = RAJ }
+        RAJ = {
+            set_temp_variable = { treasury_change = 9.0 }
+            modify_treasury_effect = yes
+            set_temp_variable = { percent_change = 5 }
+            set_temp_variable = { tag_index = THIS.id }
+            set_temp_variable = { influence_target = ROOT.id }
+            change_influence_percentage = yes
+            add_opinion_modifier = { target = ROOT modifier = military_cooperation }
+        }
+        add_opinion_modifier = { target = RAJ modifier = military_cooperation }
+        add_mastery = { amount = 20 folder = land }
+    }
+}
+
+# --- integrated artillery procurement ---
+country_event = {
+    id = MAD_military_industry.3
+    title = MAD_military_industry.3.t
+    desc = MAD_military_industry.3.d
+    picture = GFX_report_event_generic_political
+    is_triggered_only = yes
+    option = {
+        name = MAD_military_industry.3.a
+        trigger = { country_exists = FRA }
+        set_temp_variable = { treasury_change = -12.0 }
+        modify_treasury_effect = yes
+        add_equipment_to_stockpile = { type = artillery_1 amount = 140 producer = FRA }
+        FRA = {
+            set_temp_variable = { treasury_change = 12.0 }
+            modify_treasury_effect = yes
+            set_temp_variable = { percent_change = 6 }
+            set_temp_variable = { tag_index = THIS.id }
+            set_temp_variable = { influence_target = ROOT.id }
+            change_influence_percentage = yes
+            add_opinion_modifier = { target = ROOT modifier = military_cooperation }
+        }
+        add_opinion_modifier = { target = FRA modifier = military_cooperation }
+        add_tech_bonus = { name = MAD_military_industry_3_france category = CAT_artillery uses = 2 bonus = 0.40 }
+        add_mastery = { amount = 30 folder = land }
+        army_experience = 25
+    }
+    option = {
+        name = MAD_military_industry.3.b
+        trigger = { country_exists = TUR }
+        set_temp_variable = { treasury_change = -13.0 }
+        modify_treasury_effect = yes
+        add_equipment_to_stockpile = { type = artillery_1 amount = 150 producer = TUR }
+        TUR = {
+            set_temp_variable = { treasury_change = 13.0 }
+            modify_treasury_effect = yes
+            set_temp_variable = { percent_change = 7 }
+            set_temp_variable = { tag_index = THIS.id }
+            set_temp_variable = { influence_target = ROOT.id }
+            change_influence_percentage = yes
+            add_opinion_modifier = { target = ROOT modifier = military_cooperation }
+        }
+        add_opinion_modifier = { target = TUR modifier = military_cooperation }
+        add_tech_bonus = { name = MAD_military_industry_3_turkey category = CAT_artillery uses = 2 bonus = 0.40 }
+        add_mastery = { amount = 30 folder = land }
+        army_experience = 25
+    }
+    option = {
+        name = MAD_military_industry.3.c
+        trigger = { country_exists = RAJ }
+        set_temp_variable = { treasury_change = -11.0 }
+        modify_treasury_effect = yes
+        add_equipment_to_stockpile = { type = artillery_1 amount = 130 producer = RAJ }
+        RAJ = {
+            set_temp_variable = { treasury_change = 11.0 }
+            modify_treasury_effect = yes
+            set_temp_variable = { percent_change = 5 }
+            set_temp_variable = { tag_index = THIS.id }
+            set_temp_variable = { influence_target = ROOT.id }
+            change_influence_percentage = yes
+            add_opinion_modifier = { target = ROOT modifier = military_cooperation }
+        }
+        add_opinion_modifier = { target = RAJ modifier = military_cooperation }
+        add_tech_bonus = { name = MAD_military_industry_3_india category = CAT_artillery uses = 2 bonus = 0.40 }
+        add_mastery = { amount = 25 folder = land }
+        army_experience = 20
+    }
 }
 
 # --- final non-monetary doctrine architecture choice ---
 country_event = {
-	id = MAD_military_industry.4
-	title = MAD_military_industry.4.t
-	desc = MAD_military_industry.4.d
-	picture = GFX_report_event_generic_political
-	is_triggered_only = yes
-	option = {
-		name = MAD_military_industry.4.a
-		if = { limit = { country_exists = FRA } add_opinion_modifier = { target = FRA modifier = large_commercial_relations } FRA = { add_opinion_modifier = { target = MAD modifier = large_commercial_relations } } }
-		if = { limit = { country_exists = COM } add_opinion_modifier = { target = COM modifier = large_commercial_relations } COM = { add_opinion_modifier = { target = MAD modifier = large_commercial_relations } } }
-		add_mastery = { amount = 35 folder = land }
-		add_mastery = { amount = 25 folder = air }
-		add_mastery = { amount = 20 folder = naval }
-		add_tech_bonus = { name = MAD_military_industry_4_french category = CAT_cnc category = CAT_internet_tech uses = 3 bonus = 0.50 }
-	}
-	option = {
-		name = MAD_military_industry.4.b
-		if = { limit = { country_exists = COM } add_opinion_modifier = { target = COM modifier = large_commercial_relations } COM = { add_opinion_modifier = { target = MAD modifier = large_commercial_relations } } }
-		if = { limit = { country_exists = SYC } add_opinion_modifier = { target = SYC modifier = large_commercial_relations } SYC = { add_opinion_modifier = { target = MAD modifier = large_commercial_relations } } }
-		add_mastery = { amount = 25 folder = naval }
-		add_mastery = { amount = 25 folder = land }
-		add_mastery = { amount = 15 folder = air }
-		add_tech_bonus = { name = MAD_military_industry_4_regional category = CAT_naval_radar category = CAT_air_eqp uses = 3 bonus = 0.40 }
-	}
-	option = {
-		name = MAD_military_industry.4.c
-		add_mastery = { amount = 40 folder = land }
-		add_mastery = { amount = 20 folder = air }
-		add_mastery = { amount = 20 folder = naval }
-		add_tech_bonus = { name = MAD_military_industry_4_autonomy category = CAT_computing_tech category = CAT_industry uses = 3 bonus = 0.35 }
-	}
+    id = MAD_military_industry.4
+    title = MAD_military_industry.4.t
+    desc = MAD_military_industry.4.d
+    picture = GFX_report_event_generic_political
+    is_triggered_only = yes
+    option = {
+        name = MAD_military_industry.4.a
+        if = { limit = { country_exists = FRA } add_opinion_modifier = { target = FRA modifier = large_commercial_relations } FRA = { add_opinion_modifier = { target = ROOT modifier = large_commercial_relations } } }
+        if = { limit = { country_exists = COM } add_opinion_modifier = { target = COM modifier = large_commercial_relations } COM = { add_opinion_modifier = { target = ROOT modifier = large_commercial_relations } } }
+        add_timed_idea = { idea = MAD_ARMY_FRENCH_INTEROPERABILITY days = 3650 }
+        add_mastery = { amount = 35 folder = land }
+        add_mastery = { amount = 25 folder = air }
+        add_mastery = { amount = 20 folder = naval }
+        add_tech_bonus = { name = MAD_military_industry_4_french category = CAT_cnc category = CAT_internet_tech uses = 3 bonus = 0.50 }
+    }
+    option = {
+        name = MAD_military_industry.4.b
+        if = { limit = { country_exists = COM } add_opinion_modifier = { target = COM modifier = large_commercial_relations } COM = { add_opinion_modifier = { target = ROOT modifier = large_commercial_relations } } }
+        if = { limit = { country_exists = SYC } add_opinion_modifier = { target = SYC modifier = large_commercial_relations } SYC = { add_opinion_modifier = { target = ROOT modifier = large_commercial_relations } } }
+        add_timed_idea = { idea = MAD_ARMY_INDIAN_OCEAN_NETWORK days = 3650 }
+        add_mastery = { amount = 25 folder = naval }
+        add_mastery = { amount = 25 folder = land }
+        add_mastery = { amount = 15 folder = air }
+        add_tech_bonus = { name = MAD_military_industry_4_regional category = CAT_naval_radar category = CAT_air_eqp uses = 3 bonus = 0.40 }
+    }
+    option = {
+        name = MAD_military_industry.4.c
+        add_timed_idea = { idea = MAD_ARMY_STRATEGIC_AUTONOMY days = 3650 }
+        add_mastery = { amount = 40 folder = land }
+        add_mastery = { amount = 20 folder = air }
+        add_mastery = { amount = 20 folder = naval }
+        add_tech_bonus = { name = MAD_military_industry_4_autonomy category = CAT_computing_tech category = CAT_industry uses = 3 bonus = 0.35 }
+    }
+}
+
+# --- main battle tank procurement choice ---
+country_event = {
+    id = MAD_military_industry.5
+    title = MAD_military_industry.5.t
+    desc = MAD_military_industry.5.d
+    picture = GFX_report_event_generic_political
+    is_triggered_only = yes
+    option = {
+        name = MAD_military_industry.5.a
+        trigger = { country_exists = FRA }
+        set_temp_variable = { treasury_change = -25.0 }
+        modify_treasury_effect = yes
+        add_equipment_to_stockpile = { type = medium_tank_chassis_2 amount = 80 producer = FRA }
+        FRA = {
+            set_temp_variable = { treasury_change = 25.0 }
+            modify_treasury_effect = yes
+            set_temp_variable = { percent_change = 8 }
+            set_temp_variable = { tag_index = THIS.id }
+            set_temp_variable = { influence_target = ROOT.id }
+            change_influence_percentage = yes
+            add_opinion_modifier = { target = ROOT modifier = military_cooperation }
+        }
+        add_opinion_modifier = { target = FRA modifier = military_cooperation }
+        add_tech_bonus = { name = MAD_military_industry_5_french category = CAT_mbt uses = 2 bonus = 0.50 }
+        add_mastery = { amount = 30 folder = land }
+        army_experience = 25
+    }
+    option = {
+        name = MAD_military_industry.5.b
+        trigger = { country_exists = TUR }
+        set_temp_variable = { treasury_change = -23.0 }
+        modify_treasury_effect = yes
+        add_equipment_to_stockpile = { type = medium_tank_chassis_2 amount = 70 producer = TUR }
+        TUR = {
+            set_temp_variable = { treasury_change = 23.0 }
+            modify_treasury_effect = yes
+            set_temp_variable = { percent_change = 8 }
+            set_temp_variable = { tag_index = THIS.id }
+            set_temp_variable = { influence_target = ROOT.id }
+            change_influence_percentage = yes
+            add_opinion_modifier = { target = ROOT modifier = military_cooperation }
+        }
+        add_opinion_modifier = { target = TUR modifier = military_cooperation }
+        add_tech_bonus = { name = MAD_military_industry_5_turkish category = CAT_mbt uses = 2 bonus = 0.50 }
+        add_mastery = { amount = 30 folder = land }
+        army_experience = 25
+    }
+    option = {
+        name = MAD_military_industry.5.c
+        trigger = { country_exists = RAJ }
+        set_temp_variable = { treasury_change = -21.0 }
+        modify_treasury_effect = yes
+        add_equipment_to_stockpile = { type = medium_tank_chassis_2 amount = 65 producer = RAJ }
+        RAJ = {
+            set_temp_variable = { treasury_change = 21.0 }
+            modify_treasury_effect = yes
+            set_temp_variable = { percent_change = 7 }
+            set_temp_variable = { tag_index = THIS.id }
+            set_temp_variable = { influence_target = ROOT.id }
+            change_influence_percentage = yes
+            add_opinion_modifier = { target = ROOT modifier = military_cooperation }
+        }
+        add_opinion_modifier = { target = RAJ modifier = military_cooperation }
+        add_tech_bonus = { name = MAD_military_industry_5_indian category = CAT_mbt uses = 2 bonus = 0.50 }
+        add_mastery = { amount = 25 folder = land }
+        army_experience = 20
+    }
+}
+
+# --- mechanised infantry procurement choice ---
+country_event = {
+    id = MAD_military_industry.6
+    title = MAD_military_industry.6.t
+    desc = MAD_military_industry.6.d
+    picture = GFX_report_event_generic_political
+    is_triggered_only = yes
+    option = {
+        name = MAD_military_industry.6.a
+        trigger = { country_exists = FRA }
+        set_temp_variable = { treasury_change = -7.0 }
+        modify_treasury_effect = yes
+        add_equipment_to_stockpile = { type = util_vehicle_4 amount = 160 producer = FRA variant_name = "French mechanised infantry package" }
+        FRA = {
+            set_temp_variable = { treasury_change = 7.0 }
+            modify_treasury_effect = yes
+            set_temp_variable = { percent_change = 5 }
+            set_temp_variable = { tag_index = THIS.id }
+            set_temp_variable = { influence_target = ROOT.id }
+            change_influence_percentage = yes
+            add_opinion_modifier = { target = ROOT modifier = military_cooperation }
+        }
+        add_opinion_modifier = { target = FRA modifier = military_cooperation }
+        add_mastery = { amount = 25 folder = land }
+        army_experience = 25
+    }
+    option = {
+        name = MAD_military_industry.6.b
+        trigger = { country_exists = TUR }
+        set_temp_variable = { treasury_change = -7.3 }
+        modify_treasury_effect = yes
+        add_equipment_to_stockpile = { type = util_vehicle_4 amount = 150 producer = TUR variant_name = "Turkish mechanised infantry package" }
+        TUR = {
+            set_temp_variable = { treasury_change = 7.3 }
+            modify_treasury_effect = yes
+            set_temp_variable = { percent_change = 5 }
+            set_temp_variable = { tag_index = THIS.id }
+            set_temp_variable = { influence_target = ROOT.id }
+            change_influence_percentage = yes
+            add_opinion_modifier = { target = ROOT modifier = military_cooperation }
+        }
+        add_opinion_modifier = { target = TUR modifier = military_cooperation }
+        add_mastery = { amount = 30 folder = land }
+        army_experience = 25
+    }
+    option = {
+        name = MAD_military_industry.6.c
+        trigger = { country_exists = ZAF }
+        set_temp_variable = { treasury_change = -6.6 }
+        modify_treasury_effect = yes
+        add_equipment_to_stockpile = { type = util_vehicle_4 amount = 140 producer = ZAF variant_name = "South African mechanised infantry package" }
+        ZAF = {
+            set_temp_variable = { treasury_change = 6.6 }
+            modify_treasury_effect = yes
+            set_temp_variable = { percent_change = 4 }
+            set_temp_variable = { tag_index = THIS.id }
+            set_temp_variable = { influence_target = ROOT.id }
+            change_influence_percentage = yes
+            add_opinion_modifier = { target = ROOT modifier = military_cooperation }
+        }
+        add_opinion_modifier = { target = ZAF modifier = military_cooperation }
+        add_mastery = { amount = 20 folder = land }
+        army_experience = 20
+    }
+}
+
+# --- medium transport fleet procurement choice ---
+country_event = {
+    id = MAD_military_industry.7
+    title = MAD_military_industry.7.t
+    desc = MAD_military_industry.7.d
+    picture = GFX_report_event_generic_political
+    is_triggered_only = yes
+    option = {
+        name = MAD_military_industry.7.a
+        trigger = { country_exists = ESP }
+        set_temp_variable = { treasury_change = -8.0 }
+        modify_treasury_effect = yes
+        add_equipment_to_stockpile = { type = transport_plane5 amount = 2 producer = ESP variant_name = "C-295M" }
+        ESP = {
+            set_temp_variable = { treasury_change = 8.0 }
+            modify_treasury_effect = yes
+            set_temp_variable = { percent_change = 6 }
+            set_temp_variable = { tag_index = THIS.id }
+            set_temp_variable = { influence_target = ROOT.id }
+            change_influence_percentage = yes
+            add_opinion_modifier = { target = ROOT modifier = military_cooperation }
+        }
+        add_opinion_modifier = { target = ESP modifier = military_cooperation }
+        add_mastery = { amount = 20 folder = air }
+        air_experience = 25
+    }
+    option = {
+        name = MAD_military_industry.7.b
+        trigger = { country_exists = FRA }
+        set_temp_variable = { treasury_change = -10.0 }
+        modify_treasury_effect = yes
+        add_equipment_to_stockpile = { type = transport_plane5 amount = 2 producer = FRA variant_name = "CN-235" }
+        FRA = {
+            set_temp_variable = { treasury_change = 10.0 }
+            modify_treasury_effect = yes
+            set_temp_variable = { percent_change = 8 }
+            set_temp_variable = { tag_index = THIS.id }
+            set_temp_variable = { influence_target = ROOT.id }
+            change_influence_percentage = yes
+            add_opinion_modifier = { target = ROOT modifier = military_cooperation }
+        }
+        add_opinion_modifier = { target = FRA modifier = military_cooperation }
+        add_mastery = { amount = 25 folder = air }
+        air_experience = 30
+    }
+    option = {
+        name = MAD_military_industry.7.c
+        trigger = { country_exists = TUR }
+        set_temp_variable = { treasury_change = -9.0 }
+        modify_treasury_effect = yes
+        add_equipment_to_stockpile = { type = transport_plane5 amount = 2 producer = TUR variant_name = "Turkish tactical airlift package" }
+        TUR = {
+            set_temp_variable = { treasury_change = 9.0 }
+            modify_treasury_effect = yes
+            set_temp_variable = { percent_change = 7 }
+            set_temp_variable = { tag_index = THIS.id }
+            set_temp_variable = { influence_target = ROOT.id }
+            change_influence_percentage = yes
+            add_opinion_modifier = { target = ROOT modifier = military_cooperation }
+        }
+        add_opinion_modifier = { target = TUR modifier = military_cooperation }
+        add_mastery = { amount = 30 folder = air }
+        air_experience = 25
+    }
 }
