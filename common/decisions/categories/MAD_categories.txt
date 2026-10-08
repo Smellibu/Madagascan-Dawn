@@ -51,6 +51,15 @@ MAD_OWNERSHIP_BOP = {
 	}
 }
 MAD_military_refoundation_category = {
+
+	allowed = {
+		MAD_MIL_IN_POWER = yes
+	}
+	visible = {
+		MAD_MIL_IN_POWER = yes
+	}
+	priority = 1
+	visible_when_empty = no
 }
 MAD_royal_political_category = {
 		allowed = {
@@ -69,6 +78,25 @@ MAD_royal_political_category = {
 			visible_when_empty = no
 }
 MAD_HVM_PROJECT_REVIEW_CATEGORY = {
+
+	icon = generic_political_discourse
+	allowed = { 
+	MAD_HVM_IN_POWER = yes 
+	}
+	visible = { MAD_HVM_PROJECT_REVIEW_READY = yes }
+	priority = 2
+	visible_when_empty = no
+
 }
 MAD_TGV_VELIRANO_CATEGORY = {
+	icon = generic_political_discourse
+	allowed = {
+		MAD_TGV_IN_POWER = yes
+	}
+	visible = {
+		MAD_TGV_VELIRANO_ACTIVE = yes
+		MAD_TGV_IN_POWER = yes
+	}
+	priority = 2
+	visible_when_empty = no
 }

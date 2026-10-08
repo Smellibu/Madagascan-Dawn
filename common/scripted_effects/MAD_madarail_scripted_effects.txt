@@ -492,7 +492,6 @@ MAD_daewoo_drought_well = {
 # Until the drought is contained or has failed, severity cannot be pushed below 5 (relief cannot end it early).
 
 MAD_drought_init = {
-	set_country_flag = MAD_DROUGHT_STARTED
 	set_variable = { MAD_drought_severity = 15 }
 	set_variable = { MAD_drought_base_pressure = 0.35 }
 	set_variable = { MAD_drought_prevention_total = 0 }
@@ -2184,7 +2183,7 @@ MAD_cancel_TGV_velirano_commitments = {
 		}
 	}
 
-	# Called by mad_political.90 from on_ruling_party_change.
+	# Called by mad_political.8 from on_ruling_party_change.
 	# Party programme ideas disappear when that party leaves government.
 	MAD_clear_party_political_ideas = {
 

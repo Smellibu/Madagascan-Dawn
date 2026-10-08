@@ -511,3 +511,25 @@ defined_text = {
 		localization_key = MAD_DAHALO_SEVERITY_DORMANT
 	}
 }
+
+########################################################################
+# POLITICAL SECTION TITLE
+# Used by the shared MAD_POL_PARTIES focus. The focus localization should
+# resolve MAD_POL_PARTIES to [MAD_POLITICAL_SECTION] so that the title changes
+# permanently when the TGV branch is revealed.
+########################################################################
+
+defined_text = {
+	name = MAD_POLITICAL_SECTION
+
+	text = {
+		trigger = {
+			has_country_flag = MAD_TGV_BRANCH_UNLOCKED
+		}
+		localization_key = MAD_POLITICAL_SECTION_TGV
+	}
+
+	text = {
+		localization_key = MAD_POLITICAL_SECTION_GENERIC
+	}
+}

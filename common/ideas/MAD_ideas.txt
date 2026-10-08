@@ -795,44 +795,40 @@ ideas = {
                 expected_welfare_modifier = 0.10
             }
         }
-
-        MAD_POL_MILITARY_MANDATE = {
+MAD_POL_MILITARY_GOVERNMENT = {
             picture = GFX_idea_generic_army_reform
             allowed = { original_tag = MAD }
             removal_cost = -1
             modifier = {
-                political_power_gain = 0.05
-                army_morale_factor = 0.05
-            }
-        }
-        MAD_POL_MILITARY_GOVERNMENT = {
-            picture = GFX_idea_generic_army_reform
-            allowed = { original_tag = MAD }
-            removal_cost = -1
-            modifier = {
-                army_org_factor = 0.08
-                army_morale_factor = 0.08
-                political_power_gain = 0.10
+                political_power_factor = 0.05
                 stability_factor = -0.03
+                war_support_factor = 0.02
+                personnel_cost_multiplier_modifier = -0.03
+                military_spending_cost_factor = -0.02
+                expected_mil_modifier = -0.03
+                foreign_influence_defense_modifier = 0.02
             }
         }
-        MAD_POL_MILITARY_GUARDIAN = {
+MAD_POL_MILITARY_GUARDIAN = {
             picture = GFX_idea_generic_army_reform
             allowed = { original_tag = MAD }
             removal_cost = -1
             modifier = {
-                army_morale_factor = 0.05
-                stability_factor = 0.04
-                political_power_gain = 0.03
+                stability_factor = 0.03
+                political_power_factor = 0.02
+                foreign_influence_defense_modifier = 0.03
+                war_support_factor = 0.01
             }
         }
-        MAD_POL_MARITIME_SECURITY = {
+MAD_POL_MARITIME_SECURITY = {
             picture = GFX_idea_generic_army_reform
             allowed = { original_tag = MAD }
             removal_cost = -1
             modifier = {
-                recon_factor = 0.05
-                army_morale_factor = 0.03
+                production_speed_dockyard_factor = 0.05
+                war_support_factor = 0.01
+                foreign_influence_defense_modifier = 0.03
+                experience_gain_navy_factor = 0.02
             }
         }
 		MAD_POL_AREMA_PROGRAMME = {
@@ -841,29 +837,31 @@ ideas = {
 				political_power_gain = 0.05
 				stability_factor = 0.03
 				internal_investments_money_cost_modifier = -0.03
-				receiving_investment_cost_modifier = -0.03
+				receiving_investment_cost_modifier = 0.03
 				communism_drift = 0.03
 			}
 		}
 		MAD_POL_AREMA_STATE_SOCIALISM = {
 			picture = generic_political_discourse
 			modifier = {
-				stability_factor = 0.03
-				productivity_growth_modifier = 0.08
-				internal_investments_money_cost_modifier = -0.04
-				receiving_investment_cost_modifier = 0.04
-				social_cost_multiplier_modifier = -0.02
-				foreign_influence_defense_modifier = 0.03
+				stability_factor = 0.02
+				productivity_growth_modifier = 0.1
+				receiving_investment_cost_modifier = 0.05
+				education_cost_multiplier_modifier = -0.03
+				health_cost_multiplier_modifier = -0.02
 			}
 		}
 		MAD_POL_AREMA_MODERN_SOCIALISM = {
 			picture = generic_political_discourse
 			modifier = {
-				stability_factor = 0.02
-				productivity_growth_modifier = 0.08
-				receiving_investment_cost_modifier = -0.03
-				education_cost_multiplier_modifier = -0.03
-				health_cost_multiplier_modifier = -0.02
+				political_power_gain = 0.05
+				stability_factor = 0.03
+				productivity_growth_modifier = 0.1
+				internal_investments_money_cost_modifier = -0.04
+				receiving_investment_cost_modifier = 0.04
+				social_cost_multiplier_modifier = -0.02
+				foreign_influence_defense_modifier = 0.03
+				communism_drift = 0.05
 			}
 		}
 
@@ -874,6 +872,7 @@ ideas = {
             modifier = {
                 productivity_growth_modifier = 0.10
                 receiving_investment_cost_modifier = -0.03
+                receiving_investment_duration_modifier = -0.03
             }
         }
         MAD_POL_TIM_INSTITUTIONAL_LIBERALISM = {
@@ -894,6 +893,17 @@ ideas = {
                 productivity_growth_modifier = 0.15
                 corporate_tax_income_multiplier_modifier = 0.03
                 corruption_cost_factor = 0.15
+            }
+        }
+        MAD_TIM_2007_CONSTITUTION_TRANSITION = {
+            name = "2007 Constitutional Transition"
+            picture = GFX_idea_generic_political_pressure
+            allowed = { original_tag = MAD }
+            removal_cost = -1
+            modifier = {
+                political_power_gain = -0.03
+                stability_factor = -0.01
+                bureaucracy_cost_multiplier_modifier = 0.05
             }
         }
         MAD_POL_TGV_INSTITUTIONAL_EMERGENCE = {
@@ -921,29 +931,312 @@ ideas = {
             allowed = { original_tag = MAD }
             removal_cost = -1
             modifier = {
-                productivity_growth_modifier = 0.15
-                political_power_gain = 0.05
+				productivity_growth_modifier = 0.15
+				political_power_gain = 0.05
+				investment_duration_modifier = -0.05
             }
         }
-        MAD_POL_HVM_TECHNOCRATIC_STATE = {
+MAD_POL_HVM_TECHNOCRATIC_STATE = {
             picture = GFX_idea_generic_political_pressure
             allowed = { original_tag = MAD }
             removal_cost = -1
             modifier = {
-                stability_factor = 0.04
+                political_power_factor = 0.015
+                stability_factor = 0.06
+                bureaucracy_cost_multiplier_modifier = -0.11
+                police_cost_multiplier_modifier = -0.04
+                interest_rate_multiplier_modifier = -1
                 productivity_growth_modifier = 0.10
                 receiving_investment_cost_modifier = -0.03
             }
         }
-		MAD_MIL_PROFESSIONAL_COMMAND = {
-			picture = generic_political_discourse
-			modifier = {
-				political_power_factor = 0.015
-				stability_factor = 0.01
-				bureaucracy_cost_multiplier_modifier = -0.04
-				army_personnel_cost_multiplier_modifier = -0.03
-			}
-		}
+
+MAD_HVM_ADMINISTRATIVE_STATE = {
+            picture = generic_political_discourse
+            allowed = { original_tag = MAD }
+            removal_cost = -1
+            modifier = {
+                political_power_factor = 0.015
+                bureaucracy_cost_multiplier_modifier = -0.07
+                police_cost_multiplier_modifier = -0.04
+            }
+        }
+MAD_HVM_PUBLIC_FINANCE = {
+            picture = generic_political_discourse
+            allowed = { original_tag = MAD }
+            removal_cost = -1
+            modifier = {
+                political_power_factor = 0.015
+                bureaucracy_cost_multiplier_modifier = -0.11
+                police_cost_multiplier_modifier = -0.04
+                interest_rate_multiplier_modifier = -1
+                stability_factor = 0.02
+            }
+        }
+
+MAD_HVM_INVESTMENT_FRIENDLY = {
+            picture = generic_political_discourse
+            allowed = { original_tag = MAD }
+            removal_cost = -1
+            modifier = {
+                foreign_influence_defense_modifier = 0.03
+                receiving_investment_cost_modifier = -0.08
+                trade_opinion_factor = 0.05
+                improve_relations_maintain_cost_factor = -0.10
+                receiving_investment_duration_modifier = -0.04
+                stability_factor = 0.02
+            }
+        }
+MAD_HVM_HUMAN_CAPITAL = {
+            picture = generic_political_discourse
+            allowed = { original_tag = MAD }
+            removal_cost = -1
+            modifier = {
+                political_power_factor = 0.015
+                bureaucracy_cost_multiplier_modifier = -0.11
+                police_cost_multiplier_modifier = -0.04
+                interest_rate_multiplier_modifier = -1
+                stability_factor = 0.02
+                education_cost_multiplier_modifier = -0.05
+                research_speed_factor = 0.02
+                total_workforce_modifier = 0.02
+            }
+        }
+MAD_HVM_VOCATIONAL_TRAINING = {
+            picture = generic_political_discourse
+            allowed = { original_tag = MAD }
+            removal_cost = -1
+            modifier = {
+                political_power_factor = 0.025
+                bureaucracy_cost_multiplier_modifier = -0.11
+                police_cost_multiplier_modifier = -0.04
+                interest_rate_multiplier_modifier = -1
+                stability_factor = 0.02
+                education_cost_multiplier_modifier = -0.05
+                research_speed_factor = 0.02
+                total_workforce_modifier = 0.03
+                training_time_factor = -0.05
+            }
+        }
+
+MAD_HVM_AGRICULTURE = {
+            picture = generic_political_discourse
+            allowed = { original_tag = MAD }
+            removal_cost = -1
+            modifier = {
+                energy_gain_multiplier = 0.05
+                pop_energy_use_multiplier = -0.02
+                production_speed_renewable_energy_infra_factor = 0.03
+                agricolture_productivity_modifier = 0.04
+                agriculture_district_income_tax_modifier = 0.03
+                agriculture_workers_modifier = 0.02
+            }
+        }
+MAD_HVM_LIGHT_INDUSTRY = {
+            picture = generic_political_discourse
+            allowed = { original_tag = MAD }
+            removal_cost = -1
+            modifier = {
+                energy_gain_multiplier = 0.05
+                pop_energy_use_multiplier = -0.02
+                production_speed_renewable_energy_infra_factor = 0.03
+                agricolture_productivity_modifier = 0.04
+                agriculture_district_income_tax_modifier = 0.03
+                agriculture_workers_modifier = 0.02
+                production_speed_industrial_complex_factor = 0.04
+                production_factory_efficiency_gain_factor = 0.04
+                corporate_tax_income_multiplier_modifier = 0.02
+            }
+        }
+MAD_HVM_PPP_FRAMEWORK = {
+            picture = generic_political_discourse
+            allowed = { original_tag = MAD }
+            removal_cost = -1
+            modifier = {
+                foreign_influence_defense_modifier = 0.03
+                receiving_investment_cost_modifier = -0.08
+                trade_opinion_factor = 0.05
+                improve_relations_maintain_cost_factor = -0.10
+                receiving_investment_duration_modifier = -0.08
+                stability_factor = 0.02
+                projects_cost_modifier = -0.05
+            }
+        }
+MAD_HVM_ENERGY_FOR_GROWTH = {
+            picture = generic_political_discourse
+            allowed = { original_tag = MAD }
+            removal_cost = -1
+            modifier = {
+                energy_gain_multiplier = 0.05
+                pop_energy_use_multiplier = -0.02
+                production_speed_renewable_energy_infra_factor = 0.03
+            }
+        }
+MAD_HVM_NATURAL_CAPITAL = {
+            picture = generic_political_discourse
+            allowed = { original_tag = MAD }
+            removal_cost = -1
+            modifier = {
+                political_power_factor = 0.025
+                bureaucracy_cost_multiplier_modifier = -0.11
+                police_cost_multiplier_modifier = -0.04
+                interest_rate_multiplier_modifier = -1
+                stability_factor = 0.02
+                education_cost_multiplier_modifier = -0.05
+                research_speed_factor = 0.02
+                total_workforce_modifier = 0.03
+                training_time_factor = -0.05
+                gdp_from_resource_sector_modifier = 0.02
+            }
+        }
+MAD_HVM_ELECTORAL_FRAMEWORK = {
+            picture = generic_political_discourse
+            allowed = { original_tag = MAD }
+            removal_cost = -1
+            modifier = {
+                political_power_factor = 0.015
+                stability_factor = 0.02
+                party_popularity_stability_factor = 0.05
+            }
+        }
+
+MAD_HVM_FRANCO_MALAGASY_PARTNERSHIP = {
+            picture = generic_political_discourse
+            allowed = { original_tag = MAD }
+            removal_cost = -1
+            modifier = {
+                foreign_influence_defense_modifier = 0.03
+                receiving_investment_cost_modifier = -0.03
+                trade_opinion_factor = 0.05
+                improve_relations_maintain_cost_factor = -0.10
+            }
+        }
+MAD_MIL_PROFESSIONAL_COMMAND = {
+            picture = generic_political_discourse
+            allowed = { original_tag = MAD }
+            removal_cost = -1
+            modifier = {
+                war_support_factor = 0.01
+                minimum_training_level = 0.05
+                military_leader_cost_factor = -0.05
+                experience_gain_army_factor = 0.02
+                personnel_cost_multiplier_modifier = -0.02
+            }
+        }
+MAD_MIL_PROFESSIONAL_OFFICERS = {
+            picture = generic_political_discourse
+            allowed = { original_tag = MAD }
+            removal_cost = -1
+            modifier = {
+                minimum_training_level = 0.08
+                military_leader_cost_factor = -0.05
+                experience_gain_army_factor = 0.03
+                military_industrial_organization_research_bonus = 0.02
+            }
+        }
+MAD_MIL_SOUTHERN_SECURITY = {
+            picture = generic_political_discourse
+            allowed = { original_tag = MAD }
+            removal_cost = -1
+            modifier = {
+                minimum_training_level = 0.08
+                military_leader_cost_factor = -0.05
+                experience_gain_army_factor = 0.03
+                military_industrial_organization_research_bonus = 0.02
+                root_out_resistance_effectiveness_factor = 0.10
+                required_garrison_factor = -0.05
+                special_forces_cap_flat = 15
+            }
+        }
+MAD_MIL_GENDARMERIE_REFORM = {
+            picture = generic_political_discourse
+            allowed = { original_tag = MAD }
+            removal_cost = -1
+            modifier = {
+                minimum_training_level = 0.08
+                military_leader_cost_factor = -0.05
+                experience_gain_army_factor = 0.03
+                military_industrial_organization_research_bonus = 0.05
+                root_out_resistance_effectiveness_factor = 0.10
+                required_garrison_factor = -0.05
+                special_forces_cap_flat = 15
+                personnel_cost_multiplier_modifier = -0.05
+                military_spending_cost_factor = -0.05
+            }
+        }
+MAD_MIL_ENGINEER_CORPS = {
+            picture = generic_political_discourse
+            allowed = { original_tag = MAD }
+            removal_cost = -1
+            modifier = {
+                minimum_training_level = 0.08
+                military_leader_cost_factor = -0.05
+                experience_gain_army_factor = 0.03
+                military_industrial_organization_research_bonus = 0.10
+                root_out_resistance_effectiveness_factor = 0.10
+                required_garrison_factor = -0.05
+                special_forces_cap_flat = 15
+                personnel_cost_multiplier_modifier = -0.08
+                military_spending_cost_factor = -0.05
+                production_speed_arms_factory_factor = 0.05
+                mil_facs_worker_requirement_modifier = -0.05
+                military_industry_tax_modifier = -0.05
+            }
+        }
+MAD_MIL_UNIFIED_FORCES = {
+            picture = generic_political_discourse
+            allowed = { original_tag = MAD }
+            removal_cost = -1
+            modifier = {
+                war_support_factor = 0.01
+                minimum_training_level = 0.05
+                military_leader_cost_factor = -0.05
+                experience_gain_army_factor = 0.02
+                personnel_cost_multiplier_modifier = -0.02
+                military_factories_productivity = 0.05
+                mil_facs_worker_requirement_modifier = -0.03
+                military_industrial_organization_research_bonus = 0.02
+                army_org_factor = 0.03
+            }
+        }
+MAD_MIL_MULTILATERAL_DOCTRINE = {
+            picture = generic_political_discourse
+            allowed = { original_tag = MAD }
+            removal_cost = -1
+            modifier = {
+                production_speed_dockyard_factor = 0.05
+                war_support_factor = 0.01
+                foreign_influence_defense_modifier = 0.03
+                experience_gain_navy_factor = 0.02
+                experience_gain_factor = 0.02
+                military_industrial_organization_research_bonus = 0.03
+                send_volunteer_size = 1
+            }
+        }
+MAD_MIL_CLEAN_UNIFORM = {
+            picture = generic_political_discourse
+            allowed = { original_tag = MAD }
+            removal_cost = -1
+            modifier = {
+                stability_factor = 0.02
+                corruption_cost_factor = -0.10
+                military_spending_cost_factor = -0.02
+            }
+        }
+MAD_MIL_CIVILIAN_GUARDIANSHIP = {
+            picture = generic_political_discourse
+            allowed = { original_tag = MAD }
+            removal_cost = -1
+            modifier = {
+                stability_factor = 0.03
+                political_power_factor = 0.02
+                foreign_influence_defense_modifier = 0.03
+                war_support_factor = 0.01
+                personnel_cost_multiplier_modifier = -0.03
+                military_spending_cost_factor = -0.03
+                expected_mil_modifier = -0.03
+            }
+        }
 		MAD_AREMA_OLD_GUARD = {
 			picture = generic_political_discourse
 			modifier = {
@@ -997,7 +1290,7 @@ ideas = {
 				social_cost_multiplier_modifier = -0.01
 				receiving_investment_cost_modifier = 0.02
 				foreign_influence_defense_modifier = 0.03
-				productivity_growth_modifier = -0.01
+				productivity_growth_modifier = 0.02
 			}
 		}
 
@@ -1006,10 +1299,11 @@ ideas = {
 			modifier = {
 				political_power_factor = 0.015
 				stability_factor = 0.03
-				productivity_growth_modifier = 0.08
+				productivity_growth_modifier = 0.12
 				education_cost_multiplier_modifier = -0.05
 				health_cost_multiplier_modifier = -0.03
 				social_cost_multiplier_modifier = 0.015
+				receiving_investment_cost_modifier = -0.02
 			}
 		}
 
@@ -1023,16 +1317,19 @@ ideas = {
 				receiving_investment_cost_modifier = -0.04
 				foreign_influence_defense_modifier = -0.01
 				projects_cost_modifier = 0.015
+				receiving_investment_duration_modifier = -0.03
+				productivity_growth_modifier = 0.02
+				infrastructure_tax_gain_multiplier_modifier = 0.03
 			}
 		}
 
 		MAD_AREMA_NON_ALIGNMENT = {
 			picture = generic_political_discourse
 			modifier = {
-				stability_factor = 0.01
-				political_power_factor = 0.01
+				stability_factor = 0.05
+				political_power_factor = 0.05
 				foreign_influence_defense_modifier = 0.05
-				receiving_investment_cost_modifier = 0.02
+				receiving_investment_cost_modifier = 0.05
 			}
 		}
 
@@ -1041,10 +1338,11 @@ ideas = {
 			modifier = {
 				political_power_factor = 0.01
 				stability_factor = 0.02
-				productivity_growth_modifier = 0.08
+				productivity_growth_modifier = 0.16
 				social_cost_multiplier_modifier = -0.03
 				receiving_investment_cost_modifier = 0.02
 				foreign_influence_defense_modifier = 0.03
+				expected_welfare_modifier = 0.15
 			}
 		}
 
@@ -1105,21 +1403,21 @@ ideas = {
 			}
 		}
 
-		MAD_TGV_ELECTORAL_LEGITIMACY = {
-			picture = generic_political_discourse
-			modifier = {
-				political_power_factor = 0.015
-				stability_factor = 0.02
-				bureaucracy_cost_multiplier_modifier = -0.04
-			}
-		}
-
 		MAD_TGV_REVOLUTIONARY_LEGACY = {
 			picture = generic_political_discourse
 			modifier = {
+				party_popularity_stability_factor = 0.05
 				political_power_factor = 0.015
-				stability_factor = -0.01
 				projects_cost_modifier = -0.03
+			}
+		}
+
+		MAD_TGV_ELECTORAL_LEGITIMACY = {
+			picture = generic_political_discourse
+			modifier = {
+				stability_factor = 0.02
+				bureaucracy_cost_multiplier_modifier = -0.04
+				political_power_factor = 0.015
 			}
 		}
 
@@ -1127,8 +1425,8 @@ ideas = {
 			picture = generic_political_discourse
 			modifier = {
 				political_power_factor = 0.02
-				stability_factor = -0.02
-				projects_cost_modifier = -0.05
+				production_speed_buildings_factor = 0.08
+				army_strength_factor = 0.04
 			}
 		}
 
@@ -1200,34 +1498,49 @@ ideas = {
 				bureaucracy_cost_multiplier_modifier = -0.03
 			}
 		}
+MAD_HVM_FISANDRATANA_FULL = {
+            picture = generic_political_discourse
+            allowed = { original_tag = MAD }
+            removal_cost = -1
+            modifier = {
+                political_power_factor = 0.045
+                stability_factor = 0.04
+                bureaucracy_cost_multiplier_modifier = -0.08
+                education_cost_multiplier_modifier = -0.05
+                productivity_growth_modifier = 0.30
+                receiving_investment_cost_modifier = -0.05
+                expected_welfare_modifier = 0.50
+                party_popularity_stability_factor = 0.05
+            }
+        }
+MAD_HVM_FISANDRATANA_PARTIAL = {
+            picture = generic_political_discourse
+            allowed = { original_tag = MAD }
+            removal_cost = -1
+            modifier = {
+                political_power_factor = 0.035
+                stability_factor = 0.02
+                bureaucracy_cost_multiplier_modifier = -0.04
+                education_cost_multiplier_modifier = -0.03
+                productivity_growth_modifier = 0.15
+                expected_welfare_modifier = 0.25
+                party_popularity_stability_factor = 0.05
+            }
+        }
+MAD_HVM_FISANDRATANA_PLANNING = {
+            picture = generic_political_discourse
+            allowed = { original_tag = MAD }
+            removal_cost = -1
+            modifier = {
+                political_power_factor = 0.025
+                stability_factor = 0.02
+                bureaucracy_cost_multiplier_modifier = -0.02
+                productivity_growth_modifier = 0.10
+                projects_cost_modifier = -0.04
+                party_popularity_stability_factor = 0.05
+            }
+        }
 
-		MAD_HVM_FISANDRATANA_FULL = {
-			picture = generic_political_discourse
-			modifier = {
-				political_power_factor = 0.03
-				stability_factor = 0.02
-				bureaucracy_cost_multiplier_modifier = -0.08
-				education_cost_multiplier_modifier = -0.05
-			}
-		}
-
-		MAD_HVM_FISANDRATANA_PARTIAL = {
-			picture = generic_political_discourse
-			modifier = {
-				political_power_factor = 0.02
-				bureaucracy_cost_multiplier_modifier = -0.04
-				education_cost_multiplier_modifier = -0.03
-			}
-		}
-
-		MAD_HVM_FISANDRATANA_PLANNING = {
-			picture = generic_political_discourse
-			modifier = {
-				political_power_factor = 0.01
-				bureaucracy_cost_multiplier_modifier = -0.02
-				projects_cost_modifier = -0.04
-			}
-		}
 
 		MAD_2009_INTERNATIONAL_ISOLATION = {
 			picture = generic_political_discourse
@@ -1259,25 +1572,30 @@ ideas = {
 			}
 		}
 
-		MAD_HVM_REPUBLICAN_STABILISATION = {
-			picture = generic_political_discourse
-			modifier = {
-				political_power_factor = 0.02
-				stability_factor = 0.025
-				bureaucracy_cost_multiplier_modifier = -0.05
-				police_cost_multiplier_modifier = -0.03
-			}
-		}
+	MAD_HVM_REPUBLICAN_STABILISATION = {
+            picture = generic_political_discourse
+            allowed = { original_tag = MAD }
+            removal_cost = -1
+            modifier = {
+                political_power_factor = 0.05
+                stability_factor = 0.05
+                bureaucracy_cost_multiplier_modifier = -0.05
+                police_cost_multiplier_modifier = -0.03
+            }
+        }
 
-		MAD_HVM_RULE_OF_LAW_PROGRAMME = {
-			picture = generic_political_discourse
-			modifier = {
-				stability_factor = 0.02
-				bureaucracy_cost_multiplier_modifier = -0.05
-				police_cost_multiplier_modifier = -0.06
-				foreign_influence_defense_modifier = 0.02
-			}
-		}
+	MAD_HVM_RULE_OF_LAW_PROGRAMME = {
+            picture = generic_political_discourse
+            allowed = { original_tag = MAD }
+            removal_cost = -1
+            modifier = {
+                political_power_factor = 0.05
+                stability_factor = 0.10
+                bureaucracy_cost_multiplier_modifier = -0.10
+                police_cost_multiplier_modifier = -0.08
+                foreign_influence_defense_modifier = 0.03
+            }
+        }
 
 		MAD_TIM_REPUBLICAN_INSTITUTIONS = {
 			picture = generic_political_discourse
@@ -1286,6 +1604,7 @@ ideas = {
 				stability_factor = 0.02
 				bureaucracy_cost_multiplier_modifier = -0.05
 				police_cost_multiplier_modifier = -0.04
+				productivity_growth_modifier = 0.10
 			}
 		}
 
@@ -1293,10 +1612,11 @@ ideas = {
 		MAD_AREMA_SOCIAL_CONTRACT = {
 			picture = generic_political_discourse
 			modifier = {
-				political_power_factor = 0.02
-				stability_factor = 0.02
+				political_power_factor = 0.05
+				stability_factor = 0.05
 				social_cost_multiplier_modifier = -0.05
 				health_cost_multiplier_modifier = -0.03
+				expected_welfare_modifier = 0.20
 			}
 		}
 		MAD_POL_ROYAL_JUSTICE = {
@@ -1310,6 +1630,101 @@ ideas = {
 		}
 
 
+
+		# ---- Madagascar Army: new non-political command/procurement ideas ----
+# ============================================================================
+# MADAGASCAR ARMY IDEAS REQUIRED BY THE REVISED TREE
+# ============================================================================
+
+MAD_ARMY_INHERITED_BURDEN = {
+    allowed_civil_war = { always = yes }
+    picture = generic_political_discourse
+    allowed = { original_tag = MAD }
+    removal_cost = -1
+    modifier = {
+        army_org_factor = -0.03
+        research_speed_factor = -0.02
+        military_spending_cost_factor = 0.08
+        military_factories_productivity = -0.03
+        supply_consumption_factor = 0.04
+    }
+}
+
+MAD_ARMY_CAPSAT_COMMAND = {
+    allowed_civil_war = { always = yes }
+    picture = GFX_idea_generic_army_reform
+    allowed = { original_tag = MAD }
+    removal_cost = -1
+    modifier = {
+        army_org_factor = 0.07
+        experience_gain_army_factor = 0.05
+        military_leader_cost_factor = -0.06
+        root_out_resistance_effectiveness_factor = 0.08
+        special_forces_cap_flat = 10
+        personnel_cost_multiplier_modifier = 0.07
+        military_spending_cost_factor = 0.08
+        research_speed_factor = -0.03
+        foreign_influence_defense_modifier = -0.03
+        army_attack_factor = 0.02
+    }
+}
+
+MAD_ARMY_GENERAL_STAFF_COMMAND = {
+    allowed_civil_war = { always = yes }
+    picture = GFX_idea_generic_army_reform
+    allowed = { original_tag = MAD }
+    removal_cost = -1
+    modifier = {
+        army_org_factor = 0.09
+        experience_gain_army_factor = 0.02
+        military_leader_cost_factor = -0.02
+        research_speed_factor = 0.03
+        military_spending_cost_factor = -0.06
+        personnel_cost_multiplier_modifier = -0.04
+        foreign_influence_defense_modifier = 0.03
+        army_attack_factor = -0.01
+        required_garrison_factor = 0.02
+    }
+}
+
+MAD_ARMY_HELICOPTER_PRIORITY = {
+    allowed_civil_war = { always = yes }
+    picture = generic_political_discourse
+    allowed = { original_tag = MAD }
+    removal_cost = -1
+    modifier = {
+        army_speed_factor = 0.01
+        special_forces_cap_flat = 5
+        experience_gain_army_factor = 0.02
+    }
+}
+
+MAD_ARMY_CAPSAT_CONCESSIONS = {
+    allowed_civil_war = { always = yes }
+    picture = GFX_idea_generic_army_reform
+    allowed = { original_tag = MAD }
+    removal_cost = -1
+    modifier = {
+        army_org_factor = 0.05
+        experience_gain_army_factor = 0.06
+        personnel_cost_multiplier_modifier = 0.12
+        military_spending_cost_factor = 0.12
+        research_speed_factor = -0.05
+        foreign_influence_defense_modifier = -0.05
+        army_attack_factor = 0.03
+    }
+}
+
+MAD_ARMY_DEFENCE_INDUSTRIAL_FRAMEWORK = {
+    allowed_civil_war = { always = yes }
+    picture = GFX_idea_generic_army_reform
+    allowed = { original_tag = MAD }
+    removal_cost = -1
+    modifier = {
+        research_speed_factor = 0.03
+        production_speed_arms_factory_factor = 0.06
+    }
+}
 	}
 	
 }

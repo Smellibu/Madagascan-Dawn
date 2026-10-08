@@ -151,6 +151,34 @@ focus_tree = {
 			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.05 tooltip = productivity_growth_modifier_tt }
 			add_to_variable = { MAD_economy_research_speed_factor = 0.02 tooltip = research_speed_factor_tt }
 			add_to_variable = { MAD_economy_receiving_investment_cost_modifier = -0.02 tooltip = receiving_investment_cost_modifier_tt }
+			if = {
+					limit = { has_idea = strip_mining }
+					swap_ideas = {
+						remove_idea = strip_mining
+						add_idea = economic_motivated_mining
+					}
+				}
+				else_if = {
+					limit = { has_idea = economic_motivated_mining }
+					swap_ideas = {
+						remove_idea = economic_motivated_mining
+						add_idea = balanced_protections
+					}
+				}
+				else_if = {
+					limit = { has_idea = balanced_protections }
+					swap_ideas = {
+						remove_idea = balanced_protections
+						add_idea = partial_environmental_protections
+					}
+				}
+				else_if = {
+					limit = { has_idea = partial_environmental_protections }
+					swap_ideas = {
+						remove_idea = partial_environmental_protections
+						add_idea = full_environmental_protections
+					}
+				}
 		}
 
 		ai_will_do = {
@@ -682,6 +710,22 @@ focus_tree = {
 			if = { limit = { has_idea = landowners } set_temp_variable = { temp_opinion = 4 } change_landowners_opinion = yes }
 			add_to_variable = { MAD_economy_return_on_investment_modifier = 0.03 tooltip = return_on_investment_modifier_tt }
 			add_to_variable = { MAD_economy_foreign_influence_modifier = 0.05 tooltip = foreign_influence_modifier_tt }
+			
+			if = {
+				limit = { has_idea = minimal_maintenance }
+				swap_ideas = {
+					remove_idea = minimal_maintenance
+					add_idea = standard_maintenance
+				}
+			}
+			else_if = {
+				limit = { has_idea = standard_maintenance }
+				swap_ideas = {
+					remove_idea = standard_maintenance
+					add_idea = extensive_maintenance
+				}
+			}
+			
 			add_power_balance_value = { id = MAD_economy_ownership_bop value = 0.075 tooltip_side = MAD_public_ownership }
 		}
 
@@ -735,7 +779,7 @@ focus_tree = {
 			set_country_flag = MAD_JIRAMA_RECOVERY_PLAN_READY
 			add_political_power = 50
 			add_stability = 0.01
-			hidden_effect = { country_event = { id = mad_jirama.1 days = 1 } }
+			country_event = { id = mad_jirama.1 days = 1 }
 		}
 
 		ai_will_do = {
@@ -1034,13 +1078,12 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_POLITICAL }
 
 		completion_reward = {
-			hidden_effect = {
-				if = {
+			if = {
 					limit = { NOT = { has_country_flag = MAD_DROUGHT_STARTED } }
 					MAD_drought_init = yes
 					country_event = { id = mad_drought.2 days = 30 }
 				}
-			}
+			
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_Drought_and_famine"
 			custom_effect_tooltip = MAD_drought_unlock_root_tt
 		}
@@ -2585,13 +2628,12 @@ focus_tree = {
 		mutually_exclusive = { focus = MAD_AIR_STATE_CONTROL }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
-			date < 2008.01.01
-						GER = {
-								has_opinion = {
-									target = MAD
-									value > 79
-								}
-						}
+			GER = {
+					has_opinion = {
+						target = MAD
+						value > 79
+					}
+			}
 		}
 
 		completion_reward = {
@@ -4101,7 +4143,7 @@ focus_tree = {
 			change_influence_percentage = yes
 			
 			hidden_effect = {
-				country_event = { id = mad_political.2 days = 1 }
+				country_event = { id = mad_political.94 days = 1 }
 			}
 		}
 
@@ -4986,7 +5028,7 @@ focus_tree = {
 			change_influence_percentage = yes
 			
 			hidden_effect = {
-				country_event = { id = mad_political.2 days = 1 }
+				country_event = { id = mad_political.94 days = 1 }
 			}
 		}
 
@@ -7957,20 +7999,33 @@ focus_tree = {
 
 		completion_reward = {
 			add_political_power = 75
-			            set_temp_variable = { party_index = 22 }
-			            set_temp_variable = { party_popularity_increase = 0.05 }
-			            set_temp_variable = { temp_outlook_increase = 0.05 }
-			            change_relative_party_popularity = yes
-			            add_ideas = MAD_POL_MILITARY_MANDATE
-			        
-			            recalculate_party = yes
-			            army_experience = 25
-			
 			set_temp_variable = { party_index = 22 }
-			set_temp_variable = { party_popularity_increase = 0.03 }
-			set_temp_variable = { temp_outlook_increase = 0.03 }
+			set_temp_variable = { party_popularity_increase = 0.05 }
+			set_temp_variable = { temp_outlook_increase = 0.05 }
 			change_relative_party_popularity = yes
 			recalculate_party = yes
+			if = {
+				limit = { has_idea = international_bankers }
+				swap_ideas = {
+					remove_idea = international_bankers
+					add_idea = the_military
+				}
+			}
+			else_if = {
+				limit = { has_idea = landowners }
+				swap_ideas = {
+					remove_idea = landowners
+					add_idea = the_military
+				}
+			}
+			else_if = {
+				limit = { has_idea = small_medium_business_owners }
+				swap_ideas = {
+					remove_idea = small_medium_business_owners
+					add_idea = the_military
+				}
+			}
+			army_experience = 25
 		}
 
 		ai_will_do = {
@@ -7995,19 +8050,9 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			custom_effect_tooltip = {
-				localization_key = modifies_dynamic_modifier_tt
-				MODIFIER = MAD_economy_modifier
-			}
-			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.10 tooltip = productivity_growth_modifier_tt }
-			            add_political_power = 50
-			            army_experience = 25
-			        
-			            add_to_variable = { MAD_economy_productivity_growth_modifier = 0.05 tooltip = productivity_growth_modifier_tt }
-			
-			add_stability = 0.02
-			
-			add_political_power = 15
+			add_ideas = MAD_MIL_PROFESSIONAL_COMMAND
+			add_political_power = 50
+			army_experience = 25
 		}
 
 		ai_will_do = {
@@ -8018,6 +8063,33 @@ focus_tree = {
 	focus = {
 		id = MAD_POL_MIL_PROFESSIONAL_OFFICERS
 		icon = GFX_goal_generic_army
+		x = -2
+		y = 3
+		relative_position_id = MAD_POL_MIL_CHAIN_OF_COMMAND
+		cost = 5
+		prerequisite = { focus = MAD_POL_MIL_CHAIN_OF_COMMAND }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_MIL_IN_POWER_tt
+				MAD_MIL_IN_POWER = yes
+			}
+		}
+
+		completion_reward = {
+			add_ideas = MAD_MIL_PROFESSIONAL_OFFICERS
+			army_experience = 25
+			add_political_power = 25
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_POL_MIL_LESSON_2002
+		icon = GFX_goal_generic_demand_territory
 		x = 1
 		y = 3
 		relative_position_id = MAD_POL_MIL_CHAIN_OF_COMMAND
@@ -8032,52 +8104,14 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			army_experience = 25
-			            custom_effect_tooltip = {
-			            	localization_key = modifies_dynamic_modifier_tt
-			            	MODIFIER = MAD_economy_modifier
-			            }
-			            add_to_variable = { MAD_economy_productivity_growth_modifier = 0.10 tooltip = productivity_growth_modifier_tt }
-			            add_to_variable = { MAD_economy_receiving_investment_cost_modifier = -0.02 tooltip = receiving_investment_cost_modifier_tt }
-			
-			decrease_corruption = yes
-			
-			add_stability = 0.02
-			
-			add_political_power = 15
-		}
-
-		ai_will_do = {
-			base = 1
-		}
-	}
-
-	focus = {
-		id = MAD_POL_MIL_LESSON_2002
-		icon = GFX_goal_generic_demand_territory
-		x = 0
-		y = 5
-		relative_position_id = MAD_POL_MIL_CHAIN_OF_COMMAND
-		cost = 5
-		prerequisite = { focus = MAD_POL_MIL_CHAIN_OF_COMMAND }
-		search_filters = { FOCUS_FILTER_POLITICAL }
-		available = {
-			custom_trigger_tooltip = {
-				tooltip = MAD_MIL_IN_POWER_tt
-				MAD_MIL_IN_POWER = yes
-			}
-		}
-
-		completion_reward = {
-			add_political_power = 50 
-			
-			set_temp_variable = { party_index = 2 }
+			add_political_power = 50
+			set_temp_variable = { party_index = 22 }
 			set_temp_variable = { party_popularity_increase = 0.04 }
 			set_temp_variable = { temp_outlook_increase = 0.04 }
 			change_relative_party_popularity = yes
 			recalculate_party = yes
-			
 			add_stability = 0.03
+			army_experience = 50
 		}
 
 		ai_will_do = {
@@ -8088,8 +8122,8 @@ focus_tree = {
 	focus = {
 		id = MAD_POL_MIL_LESSON_2009
 		icon = GFX_goal_generic_coup
-		x = -2
-		y = 0
+		x = 0
+		y = 2
 		relative_position_id = MAD_POL_MIL_LESSON_2002
 		cost = 5
 		prerequisite = { focus = MAD_POL_MIL_LESSON_2002 }
@@ -8103,24 +8137,12 @@ focus_tree = {
 
 		completion_reward = {
 			add_political_power = 75
-			            army_experience = 30
-			            set_temp_variable = { party_index = 22 }
-			            set_temp_variable = { party_popularity_increase = 0.04 }
-			            change_relative_party_popularity = yes
-			            recalculate_party = yes
-			            set_country_flag = MAD_MILITARY_2009_LESSON
-			
-			set_temp_variable = { party_index = 2 }
-			set_temp_variable = { party_popularity_increase = -0.03 }
-			change_relative_party_popularity = yes
-			recalculate_party = yes
-			
-			add_stability = -0.01
-			
+			army_experience = 100
 			set_temp_variable = { party_index = 22 }
-			set_temp_variable = { party_popularity_increase = 0.03 }
+			set_temp_variable = { party_popularity_increase = 0.04 }
 			change_relative_party_popularity = yes
 			recalculate_party = yes
+			set_country_flag = MAD_MILITARY_2009_LESSON
 		}
 
 		ai_will_do = {
@@ -8133,9 +8155,9 @@ focus_tree = {
 		icon = GFX_goal_support_democracy
 		x = -2
 		y = 2
-		relative_position_id = MAD_POL_MIL_LESSON_2002
+		relative_position_id = MAD_POL_MIL_LESSON_2009
 		cost = 5
-		prerequisite = { focus = MAD_POL_MIL_LESSON_2002 focus = MAD_POL_MIL_LESSON_2009 }
+		prerequisite = { focus = MAD_POL_MIL_LESSON_2009 }
 		mutually_exclusive = { focus = MAD_POL_MIL_FINAL_ARBITER }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -8147,22 +8169,21 @@ focus_tree = {
 
 		completion_reward = {
 			set_country_flag = MAD_MILITARY_CIVILIAN_GUARDIAN
-			            set_temp_variable = { party_index = 2 }
-			            set_temp_variable = { party_popularity_increase = 0.10 }
-			            set_temp_variable = { temp_outlook_increase = 0.10 }
-			            change_relative_party_popularity = yes
-						            add_ideas = MAD_POL_MILITARY_GUARDIAN
-			        
-			            recalculate_party = yes
-			            decrease_corruption = yes
 			
-			set_politics = { ruling_party =  nationalist elections_allowed = yes }
-			
-			set_temp_variable = { party_index = 2 }
-			set_temp_variable = { party_popularity_increase = 0.03 }
-			set_temp_variable = { temp_outlook_increase = 0.03 }
+			set_temp_variable = { party_index = 22 }
+			set_temp_variable = { party_popularity_increase = 0.05 }
+			set_temp_variable = { temp_outlook_increase = 0.05 }
 			change_relative_party_popularity = yes
 			recalculate_party = yes
+			add_political_power = 25
+			add_ideas = MAD_POL_MILITARY_GUARDIAN
+				if = {
+					limit = {
+						has_elections = no
+					}
+				
+				set_politics = { ruling_party = nationalist elections_allowed = yes }
+				}
 		}
 
 		ai_will_do = {
@@ -8173,11 +8194,11 @@ focus_tree = {
 	focus = {
 		id = MAD_POL_MIL_FINAL_ARBITER
 		icon = GFX_goal_generic_coup
-		x = 0
+		x = 1
 		y = 2
-		relative_position_id = MAD_POL_MIL_LESSON_2002
+		relative_position_id = MAD_POL_MIL_LESSON_2009
 		cost = 5
-		prerequisite = { focus = MAD_POL_MIL_LESSON_2002 focus = MAD_POL_MIL_LESSON_2009 }
+		prerequisite = { focus = MAD_POL_MIL_LESSON_2009 }
 		mutually_exclusive = { focus = MAD_POL_MIL_PROTECT_BALLOT }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -8189,23 +8210,23 @@ focus_tree = {
 
 		completion_reward = {
 			set_temp_variable = { party_index = 22 }
-			            set_temp_variable = { party_popularity_increase = 0.15 }
-			            change_relative_party_popularity = yes
-			            set_temp_variable = { party_index = 2 }
-			            set_temp_variable = { party_popularity_increase = -0.10 }
-			            change_relative_party_popularity = yes
-			            add_stability = 0.02
-			            add_ideas = MAD_POL_MILITARY_GOVERNMENT
-			            set_country_flag = MAD_MILITARY_RULE_PATH
-			        
-			            recalculate_party = yes
-			            army_experience = 25
-			
-			
-			set_temp_variable = { party_index = 2 }
-			set_temp_variable = { party_popularity_increase = -0.05 }
+			set_temp_variable = { party_popularity_increase = 0.15 }
+			set_temp_variable = { temp_outlook_increase = 0.15 }
 			change_relative_party_popularity = yes
 			recalculate_party = yes
+			
+			add_ideas = MAD_POL_MILITARY_GOVERNMENT
+			set_country_flag = MAD_MILITARY_RULE_PATH
+			
+			army_experience = 25
+			
+				if = {
+					limit = {
+						has_elections = yes
+					}
+				
+				set_politics = { ruling_party = nationalist elections_allowed = no }
+				}
 		}
 
 		ai_will_do = {
@@ -8216,7 +8237,7 @@ focus_tree = {
 	focus = {
 		id = MAD_POL_MIL_CAPSAT_LESSON
 		icon = GFX_goal_generic_council
-		x = 0
+		x = -1
 		y = 2
 		relative_position_id = MAD_POL_MIL_FINAL_ARBITER
 		cost = 5
@@ -8231,15 +8252,15 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			add_political_power = 50
-			            add_stability = 0.02
-			            set_country_flag = MAD_MILITARY_CAPSAT_CONFRONTED
-			        
-			            army_experience = 20
-			            set_temp_variable = { party_index = 22 }
-			            set_temp_variable = { party_popularity_increase = 0.05 }
-			            set_temp_variable = { temp_outlook_increase = 0.05 }
-			            change_relative_party_popularity = yes
+			set_country_flag = MAD_MILITARY_CAPSAT_CONFRONTED
+			army_experience = 20
+			set_temp_variable = { party_index = 22 }
+			set_temp_variable = { party_popularity_increase = 0.05 }
+			set_temp_variable = { temp_outlook_increase = 0.05 }
+			change_relative_party_popularity = yes
+			recalculate_party = yes
+				
+			country_event = { id = MAD_military_command.1 days = 1 }
 		}
 
 		ai_will_do = {
@@ -8250,11 +8271,11 @@ focus_tree = {
 	focus = {
 		id = MAD_POL_MIL_NEVER_DIVIDED
 		icon = GFX_goal_generic_army
-		x = -1
+		x = 2
 		y = 2
-		relative_position_id = MAD_POL_MIL_CAPSAT_LESSON
+		relative_position_id = MAD_POL_MIL_ENGINEERS
 		cost = 5
-		prerequisite = { focus = MAD_POL_MIL_CAPSAT_LESSON }
+		prerequisite = { focus = MAD_POL_MIL_ENGINEERS focus = MAD_POL_MIL_CIVILIAN_GUARDIANSHIP focus = MAD_POL_MIL_CAPSAT_LESSON }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
 			custom_trigger_tooltip = {
@@ -8264,12 +8285,11 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			army_experience = 35 
-			custom_effect_tooltip = {
-				localization_key = modifies_dynamic_modifier_tt
-				MODIFIER = MAD_economy_modifier
+			swap_ideas = {
+				remove_idea = MAD_MIL_PROFESSIONAL_COMMAND
+				add_idea = MAD_MIL_UNIFIED_FORCES
 			}
-			add_to_variable = { MAD_economy_receiving_investment_cost_modifier = -0.02 tooltip = receiving_investment_cost_modifier_tt }
+			army_experience = 35
 		}
 
 		ai_will_do = {
@@ -8282,9 +8302,9 @@ focus_tree = {
 		icon = GFX_goal_generic_forceful_treaty
 		x = 0
 		y = 2
-		relative_position_id = MAD_POL_MIL_NEVER_DIVIDED
+		relative_position_id = MAD_POL_MIL_PROFESSIONAL_OFFICERS
 		cost = 5
-		prerequisite = { focus = MAD_POL_MIL_NEVER_DIVIDED }
+		prerequisite = { focus = MAD_POL_MIL_PROFESSIONAL_OFFICERS }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
 			custom_trigger_tooltip = {
@@ -8295,16 +8315,16 @@ focus_tree = {
 		}
 
 		completion_reward = {
+			swap_ideas = {
+				remove_idea = MAD_MIL_PROFESSIONAL_OFFICERS
+				add_idea = MAD_MIL_SOUTHERN_SECURITY
+			}
 			army_experience = 35
-			            custom_effect_tooltip = {
-			            	localization_key = modifies_dynamic_modifier_tt
-			            	MODIFIER = MAD_economy_modifier
-			            }
-			            add_to_variable = { MAD_economy_productivity_growth_modifier = 0.10 tooltip = productivity_growth_modifier_tt }
-			            set_country_flag = MAD_MILITARY_SECURITY_PARTNER
-			        
-			            if = { limit = { has_country_flag = MAD_DAHALO_DEFEATED } add_to_variable = { MAD_economy_productivity_growth_modifier = 0.10 tooltip = productivity_growth_modifier_tt } }
-					
+			if = {
+				limit = { NOT = { has_country_flag = MAD_DAHALO_DEFEATED } }
+				add_to_variable = { MAD_dahalo_threat = -10 tooltip = MAD_DAHALO_THREAT_MINUS_10_TT }
+			}
+			set_country_flag = MAD_MILITARY_SECURITY_PARTNER
 			set_temp_variable = { party_index = 22 }
 			set_temp_variable = { party_popularity_increase = 0.02 }
 			set_temp_variable = { temp_outlook_increase = 0.02 }
@@ -8320,7 +8340,7 @@ focus_tree = {
 	focus = {
 		id = MAD_POL_MIL_GENDARMERIE_REFORM
 		icon = GFX_goal_generic_police
-		x = 0
+		x = -1
 		y = 2
 		relative_position_id = MAD_POL_MIL_SOUTHERN_SECURITY
 		cost = 5
@@ -8334,18 +8354,20 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			add_stability = 0.03 add_political_power = 50 
-			            set_temp_variable = { party_index = 22 }
-			            set_temp_variable = { party_popularity_increase = 0.03 }
-			            change_relative_party_popularity = yes
-			            recalculate_party = yes
-			
+			swap_ideas = {
+				remove_idea = MAD_MIL_SOUTHERN_SECURITY
+				add_idea = MAD_MIL_GENDARMERIE_REFORM
+			}
+			add_stability = 0.03
+			add_political_power = 50
+			set_temp_variable = { party_index = 22 }
+			set_temp_variable = { party_popularity_increase = 0.03 }
+			change_relative_party_popularity = yes
+			recalculate_party = yes
 			set_temp_variable = { party_index = 2 }
 			set_temp_variable = { party_popularity_increase = 0.02 }
 			change_relative_party_popularity = yes
 			recalculate_party = yes
-			
-			decrease_corruption = yes
 		}
 
 		ai_will_do = {
@@ -8356,7 +8378,7 @@ focus_tree = {
 	focus = {
 		id = MAD_POL_MIL_ENGINEERS
 		icon = GFX_goal_generic_construct_military
-		x = 0
+		x = 1
 		y = 2
 		relative_position_id = MAD_POL_MIL_GENDARMERIE_REFORM
 		cost = 5
@@ -8370,14 +8392,12 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			custom_effect_tooltip = {
-				localization_key = modifies_dynamic_modifier_tt
-				MODIFIER = MAD_economy_modifier
+			swap_ideas = {
+				remove_idea = MAD_MIL_GENDARMERIE_REFORM
+				add_idea = MAD_MIL_ENGINEER_CORPS
 			}
-			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.10 tooltip = productivity_growth_modifier_tt }
-			            add_to_variable = { MAD_economy_infrastructure_tax_gain_multiplier_modifier = 0.05 tooltip = infrastructure_tax_gain_multiplier_modifier_tt }
-			        
-			            army_experience = 15
+			army_experience = 15
+			add_political_power = 15
 		}
 
 		ai_will_do = {
@@ -8390,9 +8410,9 @@ focus_tree = {
 		icon = GFX_goal_generic_navy
 		x = 0
 		y = 2
-		relative_position_id = MAD_POL_MIL_ENGINEERS
+		relative_position_id = MAD_POL_MIL_NEVER_DIVIDED
 		cost = 5
-		prerequisite = { focus = MAD_POL_MIL_ENGINEERS }
+		prerequisite = { focus = MAD_POL_MIL_NEVER_DIVIDED }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
 			custom_trigger_tooltip = {
@@ -8403,16 +8423,9 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			add_ideas = MAD_POL_MARITIME_SECURITY 
-			army_experience = 20 
-			custom_effect_tooltip = {
-				localization_key = modifies_dynamic_modifier_tt
-				MODIFIER = MAD_economy_modifier
-			}
-			add_to_variable = { MAD_economy_receiving_investment_cost_modifier = -0.02 tooltip = receiving_investment_cost_modifier_tt }
-			
+			add_ideas = MAD_POL_MARITIME_SECURITY
+			army_experience = 20
 			add_political_power = 15
-			
 			add_stability = 0.01
 		}
 
@@ -8438,16 +8451,16 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			add_stability = 0.03 add_political_power = 50 
-			            set_temp_variable = { party_index = 22 }
-			            set_temp_variable = { party_popularity_increase = 0.03 }
-			            change_relative_party_popularity = yes
-			            recalculate_party = yes
-			
-			add_stability = 0.02
-			
-			add_political_power = 15
-			
+			swap_ideas = {
+				remove_idea = MAD_POL_MARITIME_SECURITY
+				add_idea = MAD_MIL_MULTILATERAL_DOCTRINE
+			}
+			add_stability = 0.03
+			add_political_power = 50
+			set_temp_variable = { party_index = 22 }
+			set_temp_variable = { party_popularity_increase = 0.03 }
+			change_relative_party_popularity = yes
+			recalculate_party = yes
 			set_temp_variable = { party_index = 2 }
 			set_temp_variable = { party_popularity_increase = 0.02 }
 			change_relative_party_popularity = yes
@@ -8462,7 +8475,7 @@ focus_tree = {
 	focus = {
 		id = MAD_POL_MIL_ASSEMBLIES
 		icon = GFX_goal_generic_council
-		x = 0
+		x = -1
 		y = 2
 		relative_position_id = MAD_POL_MIL_MULTILATERAL_DOCTRINE
 		cost = 5
@@ -8476,11 +8489,9 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			add_political_power = 75 
-			army_experience = 35 
-			decrease_corruption = yes
-			
-			
+			add_political_power = 75
+			army_experience = 35
+			add_stability = 0.02
 			set_temp_variable = { party_index = 2 }
 			set_temp_variable = { party_popularity_increase = 0.03 }
 			set_temp_variable = { temp_outlook_increase = 0.03 }
@@ -8496,11 +8507,11 @@ focus_tree = {
 	focus = {
 		id = MAD_POL_MIL_CLEAN_UNIFORM
 		icon = GFX_goal_generic_police
-		x = 0
+		x = 1
 		y = 2
-		relative_position_id = MAD_POL_MIL_ASSEMBLIES
+		relative_position_id = MAD_POL_MIL_MULTILATERAL_DOCTRINE
 		cost = 5
-		prerequisite = { focus = MAD_POL_MIL_ASSEMBLIES }
+		prerequisite = { focus = MAD_POL_MIL_MULTILATERAL_DOCTRINE }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
 			custom_trigger_tooltip = {
@@ -8510,16 +8521,15 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			decrease_corruption = yes add_stability = 0.03 
-			            add_political_power = 50
-			            set_temp_variable = { party_index = 22 }
-			            set_temp_variable = { party_popularity_increase = 0.03 }
-			            set_temp_variable = { temp_outlook_increase = 0.03 }
-			            change_relative_party_popularity = yes
-			            recalculate_party = yes
-			
-			add_stability = 0.02
-			
+			add_ideas = MAD_MIL_CLEAN_UNIFORM
+			decrease_corruption = yes
+			add_stability = 0.03
+			add_political_power = 50
+			set_temp_variable = { party_index = 22 }
+			set_temp_variable = { party_popularity_increase = 0.03 }
+			set_temp_variable = { temp_outlook_increase = 0.03 }
+			change_relative_party_popularity = yes
+			recalculate_party = yes
 			set_temp_variable = { party_index = 22 }
 			set_temp_variable = { party_popularity_increase = 0.02 }
 			set_temp_variable = { temp_outlook_increase = 0.02 }
@@ -8535,11 +8545,11 @@ focus_tree = {
 	focus = {
 		id = MAD_POL_MIL_REFOUNDATION
 		icon = GFX_goal_generic_revolution
-		x = 0
-		y = 2
+		x = -1
+		y = 1
 		relative_position_id = MAD_POL_MIL_CLEAN_UNIFORM
 		cost = 5
-		prerequisite = { focus = MAD_POL_MIL_CLEAN_UNIFORM }
+		prerequisite = { focus = MAD_POL_MIL_ASSEMBLIES focus = MAD_POL_MIL_CLEAN_UNIFORM }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
 			custom_trigger_tooltip = {
@@ -8551,7 +8561,6 @@ focus_tree = {
 		completion_reward = {
 			set_country_flag = MAD_MIL_REFOUNDATION_PENDING
 			hidden_effect = { country_event = { id = mad_political.3 days = 1 } }
-			
 			add_political_power = 25
 		}
 
@@ -8578,15 +8587,18 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			add_ideas = MAD_POL_MILITARY_GUARDIAN
-			recalculate_party = yes
-			decrease_corruption = yes
+			swap_ideas = {
+			remove_idea = MAD_POL_MILITARY_GUARDIAN
+			add_idea = MAD_MIL_CIVILIAN_GUARDIANSHIP
+			}
 			set_politics = { ruling_party = nationalist elections_allowed = yes }
 			add_political_power = 50
+			add_stability = 0.03
 			set_temp_variable = { party_index = 2 }
 			set_temp_variable = { party_popularity_increase = 0.05 }
 			set_temp_variable = { temp_outlook_increase = 0.05 }
 			change_relative_party_popularity = yes
+			recalculate_party = yes
 		}
 
 		ai_will_do = {
@@ -8641,6 +8653,14 @@ focus_tree = {
 				tooltip = MAD_AREMA_IN_POWER_tt
 				MAD_AREMA_IN_POWER = yes
 			}
+			
+			has_country_leader = {
+				name = "Didier Ratsiraka"
+				ruling_only = yes
+			}
+			
+			date > 2002.3.1
+			NOT = { has_country_flag = MAD_AREMA_OLD_GUARD_LOCKED }
 		}
 
 		completion_reward = {
@@ -8675,6 +8695,7 @@ focus_tree = {
 				tooltip = MAD_AREMA_IN_POWER_tt
 				MAD_AREMA_IN_POWER = yes
 			}
+			date > 2002.3.1
 		}
 
 		completion_reward = {
@@ -8695,8 +8716,6 @@ focus_tree = {
 			set_temp_variable = { temp_outlook_increase = 0.05 }
 			change_relative_party_popularity = yes
 			recalculate_party = yes
-			
-
 		}
 
 		ai_will_do = {
@@ -8720,6 +8739,8 @@ focus_tree = {
 				tooltip = MAD_AREMA_IN_POWER_tt
 				MAD_AREMA_IN_POWER = yes
 			}
+			
+			date > 2002.3.1
 		}
 
 		completion_reward = {
@@ -8743,9 +8764,6 @@ focus_tree = {
 			set_temp_variable = { party_popularity_increase = 0.02 }
 			change_relative_party_popularity = yes
 			recalculate_party = yes
-			
-			
-
 		}
 
 		ai_will_do = {
@@ -8771,18 +8789,22 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			custom_effect_tooltip = {
-				localization_key = modifies_dynamic_modifier_tt
-				MODIFIER = MAD_economy_modifier
-			}
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_AREMA_REVOLUTIONARY_ORGANISATION"
-			add_power_balance_value = { id = MAD_economy_ownership_bop value = 0.05 tooltip_side = MAD_public_ownership }
+			
 			set_country_flag = MAD_AREMA_OLD_GUARD_ORGANISATION
-			add_to_variable = { MAD_economy_internal_investments_money_cost_modifier = -0.02 tooltip = internal_investments_money_cost_modifier_tt }
+			
 			set_temp_variable = { party_index = 5 }
 			set_temp_variable = { party_popularity_increase = 0.04 }
 			set_temp_variable = { temp_outlook_increase = 0.04 }
 			change_relative_party_popularity = yes
+			
+			increase_centralization = yes
+			
+			set_temp_variable = { temp_opinion = -10 }
+			change_landowners_opinion = yes
+			
+			
+			add_power_balance_value = { id = MAD_economy_ownership_bop value = 0.05 tooltip_side = MAD_public_ownership }
 		}
 
 		ai_will_do = {
@@ -8804,13 +8826,8 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			custom_effect_tooltip = {
-				localization_key = modifies_dynamic_modifier_tt
-				MODIFIER = MAD_economy_modifier
-			}
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_AREMA_OLD_GUARD_ADAPT"
 			swap_ideas = { remove_idea = MAD_AREMA_OLD_GUARD add_idea = MAD_AREMA_OLD_GUARD_REFORMED }
-			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.03 tooltip = productivity_growth_modifier_tt }
 			set_country_flag = MAD_AREMA_OLD_GUARD_ADAPTED
 		}
 
@@ -8837,14 +8854,15 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			custom_effect_tooltip = {
-				localization_key = modifies_dynamic_modifier_tt
-				MODIFIER = MAD_economy_modifier
-			}
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_AREMA_RENEWAL_PROGRAMME"
-			add_to_variable = { MAD_economy_expected_welfare_modifier = 0.15 tooltip = expected_welfare_modifier_tt }
-			add_to_variable = { MAD_agri_productivity = 0.02 tooltip = agricolture_productivity_modifier_tt }
+			
+			
 			custom_effect_tooltip = { localization_key = modifies_dynamic_modifier_tt MODIFIER = MAD_agriculture_modifier }
+			add_to_variable = { MAD_agri_productivity = 0.02 tooltip = agricolture_productivity_modifier_tt }
+			
+			increase_education_budget = yes
+			increase_healthcare_budget = yes
+			
 			set_country_flag = MAD_AREMA_RENEWAL_PROGRAMME
 			set_temp_variable = { party_index = 5 }
 			set_temp_variable = { party_popularity_increase = 0.04 }
@@ -8870,14 +8888,8 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			custom_effect_tooltip = {
-				localization_key = modifies_dynamic_modifier_tt
-				MODIFIER = MAD_economy_modifier
-			}
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_AREMA_RENEWAL_MODERNISE"
 			swap_ideas = { remove_idea = MAD_AREMA_RENEWAL add_idea = MAD_AREMA_RENEWAL_MODERNISED }
-			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.04 tooltip = productivity_growth_modifier_tt }
-			add_to_variable = { MAD_economy_receiving_investment_cost_modifier = -0.02 tooltip = receiving_investment_cost_modifier_tt }
 			set_country_flag = MAD_AREMA_RENEWAL_MODERNISED
 		}
 
@@ -8904,18 +8916,20 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			custom_effect_tooltip = {
-				localization_key = modifies_dynamic_modifier_tt
-				MODIFIER = MAD_economy_modifier
-			}
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_AREMA_RECONCILIATION_PACT"
 			add_stability = 0.02
-			add_to_variable = { MAD_economy_receiving_investment_cost_modifier = -0.02 tooltip = receiving_investment_cost_modifier_tt }
 			set_country_flag = MAD_AREMA_RECONCILIATION_PACT
+			
+			increase_exports = yes
+			
+			set_temp_variable = { temp_opinion = 10 }
+			change_international_bankers_opinion = yes
+			
 			set_temp_variable = { party_index = 5 }
 			set_temp_variable = { party_popularity_increase = 0.04 }
 			set_temp_variable = { temp_outlook_increase = 0.04 }
 			change_relative_party_popularity = yes
+			
 			set_temp_variable = { party_index = 2 }
 			set_temp_variable = { party_popularity_increase = 0.03 }
 			change_relative_party_popularity = yes
@@ -8940,15 +8954,8 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			custom_effect_tooltip = {
-				localization_key = modifies_dynamic_modifier_tt
-				MODIFIER = MAD_economy_modifier
-			}
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_AREMA_RECONCILIATION_INSTITUTIONALISE"
 			swap_ideas = { remove_idea = MAD_AREMA_RECONCILIATION add_idea = MAD_AREMA_RECONCILIATION_INSTITUTIONALISED }
-			add_to_variable = { MAD_economy_infrastructure_tax_gain_multiplier_modifier = 0.03 tooltip = infrastructure_tax_gain_multiplier_modifier_tt }
-			add_to_variable = { MAD_economy_receiving_investment_duration_modifier = -0.03 tooltip = receiving_investment_duration_modifier_tt }
-			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.02 tooltip = productivity_growth_modifier_tt }
 			set_country_flag = MAD_AREMA_RECONCILIATION_INSTITUTIONALISED
 		}
 
@@ -9012,20 +9019,25 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_AREMA_REVOLUTIONARY_LEGACY"
+			
+			decrease_exports = yes
+			
+			set_temp_variable = { temp_opinion = -10 }
+			change_international_bankers_opinion = yes
+			
+			set_country_flag = MAD_AREMA_REVOLUTIONARY_LEGACY
+			add_stability = -0.03
+			set_temp_variable = { party_index = 5 }
+			set_temp_variable = { party_popularity_increase = 0.05 }
+			set_temp_variable = { temp_outlook_increase = 0.04 }
+			change_relative_party_popularity = yes
+			
+			
 			add_power_balance_value = {
 				id = MAD_economy_ownership_bop
 				value = 0.05
 				tooltip_side = MAD_public_ownership
 			}
-			custom_effect_tooltip = { localization_key = modifies_dynamic_modifier_tt MODIFIER = MAD_economy_modifier }
-			add_to_variable = { MAD_economy_foreign_influence_modifier = -0.04 tooltip = foreign_influence_modifier_tt }
-			add_to_variable = { MAD_economy_receiving_investment_cost_modifier = 0.02 tooltip = receiving_investment_cost_modifier_tt }
-			set_country_flag = MAD_AREMA_REVOLUTIONARY_LEGACY
-			add_stability = -0.01
-			set_temp_variable = { party_index = 5 }
-			set_temp_variable = { party_popularity_increase = 0.05 }
-			set_temp_variable = { temp_outlook_increase = 0.04 }
-			change_relative_party_popularity = yes
 		}
 
 		ai_will_do = {
@@ -9056,14 +9068,10 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_AREMA_WORKERS_FARMERS"
-			add_to_variable = { MAD_economy_expected_welfare_modifier = 0.25 tooltip = expected_welfare_modifier_tt }
-			add_to_variable = { MAD_agri_productivity = 0.03 tooltip = agricolture_productivity_modifier_tt }
-			add_to_variable = { MAD_agri_income_tax = 0.02 tooltip = agriculture_district_income_tax_modifier_tt }
-			custom_effect_tooltip = {
-				localization_key = modifies_dynamic_modifier_tt
-				MODIFIER = MAD_agriculture_modifier
-			}
-			add_stability = 0.02
+			
+			increase_social_spending = yes
+			one_random_agriculture_district = yes
+			
 			set_temp_variable = { party_index = 5 }
 			set_temp_variable = { party_popularity_increase = 0.03 }
 			set_temp_variable = { temp_outlook_increase = 0.03 }
@@ -9093,19 +9101,24 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_AREMA_STATE_LEADS"
+			
+			one_random_infrastructure = yes
+			increase_economic_growth = yes
+			
+			set_country_flag = MAD_AREMA_STATE_MODEL
+			
+			
+			set_temp_variable = { party_index = 5 }
+			set_temp_variable = { party_popularity_increase = 0.05 }
+			set_temp_variable = { temp_outlook_increase = 0.05 }
+			change_relative_party_popularity = yes
+			
+			
 			add_power_balance_value = {
 				id = MAD_economy_ownership_bop
 				value = 0.10
 				tooltip_side = MAD_public_ownership
 			}
-			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.08 tooltip = productivity_growth_modifier_tt }
-			add_to_variable = { MAD_economy_internal_investments_money_cost_modifier = -0.03 tooltip = internal_investments_money_cost_modifier_tt }
-			set_country_flag = MAD_AREMA_STATE_MODEL
-			add_stability = 0.01
-			set_temp_variable = { party_index = 5 }
-			set_temp_variable = { party_popularity_increase = 0.05 }
-			set_temp_variable = { temp_outlook_increase = 0.05 }
-			change_relative_party_popularity = yes
 		}
 
 		ai_will_do = {
@@ -9132,20 +9145,27 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_AREMA_STRATEGIC_ENTERPRISES"
+			
+			add_ideas = MAD_POL_AREMA_STATE_SOCIALISM 
+						
+			
+						
+			set_temp_variable = { temp_opinion = -15 }
+			change_international_bankers_opinion = yes
+			
+			
+			set_country_flag = MAD_AREMA_PUBLIC_ENTERPRISES
+			
+			set_temp_variable = { party_index = 5 }
+			set_temp_variable = { party_popularity_increase = 0.04 }
+			set_temp_variable = { temp_outlook_increase = 0.04 }
+			change_relative_party_popularity = yes
+			
 			add_power_balance_value = {
 				id = MAD_economy_ownership_bop
 				value = 0.10
 				tooltip_side = MAD_public_ownership
 			}
-			swap_ideas = { remove_idea = MAD_POL_AREMA_PROGRAMME add_idea = MAD_POL_AREMA_STATE_SOCIALISM }
-			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.08 tooltip = productivity_growth_modifier_tt }
-			add_to_variable = { MAD_economy_receiving_investment_cost_modifier = 0.02 tooltip = receiving_investment_cost_modifier_tt }
-			set_country_flag = MAD_AREMA_PUBLIC_ENTERPRISES
-			add_stability = 0.02
-			set_temp_variable = { party_index = 5 }
-			set_temp_variable = { party_popularity_increase = 0.04 }
-			set_temp_variable = { temp_outlook_increase = 0.04 }
-			change_relative_party_popularity = yes
 		}
 
 		ai_will_do = {
@@ -9172,24 +9192,29 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_AREMA_STATE_BANKS"
+			
+			
+			increase_economic_growth = yes
+			
+			set_temp_variable = { temp_opinion = -15 }
+			change_international_bankers_opinion = yes
+						
+			
+			
+			set_country_flag = MAD_AREMA_STATE_BANKING
+			
+			
+			set_temp_variable = { party_index = 5 }
+			set_temp_variable = { party_popularity_increase = 0.03 }
+			set_temp_variable = { temp_outlook_increase = 0.03 }
+			change_relative_party_popularity = yes
+			
+			
 			add_power_balance_value = {
 				id = MAD_economy_ownership_bop
 				value = 0.05
 				tooltip_side = MAD_public_ownership
 			}
-			
-			custom_effect_tooltip = {
-				localization_key = modifies_dynamic_modifier_tt
-				MODIFIER = MAD_economy_modifier
-			}
-			add_to_variable = { MAD_economy_internal_investments_money_cost_modifier = -0.06 tooltip = internal_investments_money_cost_modifier_tt }
-			add_to_variable = { MAD_economy_infrastructure_tax_gain_multiplier_modifier = 0.02 tooltip = infrastructure_tax_gain_multiplier_modifier_tt }
-			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.03 tooltip = productivity_growth_modifier_tt }
-			set_country_flag = MAD_AREMA_STATE_BANKING
-			set_temp_variable = { party_index = 5 }
-			set_temp_variable = { party_popularity_increase = 0.03 }
-			set_temp_variable = { temp_outlook_increase = 0.03 }
-			change_relative_party_popularity = yes
 		}
 
 		ai_will_do = {
@@ -9215,20 +9240,19 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_AREMA_FOKONOLONA"
-
+			
 			custom_effect_tooltip = {
 				localization_key = modifies_dynamic_modifier_tt
 				MODIFIER = MAD_agriculture_modifier
 			}
 			add_to_variable = { MAD_agri_productivity = 0.04 tooltip = agricolture_productivity_modifier_tt }
-			custom_effect_tooltip = {
-				localization_key = modifies_dynamic_modifier_tt
-				MODIFIER = MAD_economy_modifier
-			}			
-			add_to_variable = { MAD_economy_expected_adm_modifier = 0.5 tooltip = expected_adm_modifier_tt }
-			add_to_variable = { MAD_economy_infrastructure_tax_gain_multiplier_modifier = 0.02 tooltip = infrastructure_tax_gain_multiplier_modifier_tt }
 			
-			add_stability = 0.02
+			decrease_centralization = yes
+			one_random_agriculture_district = yes
+			
+			add_stability = 0.03
+			
+			
 			set_temp_variable = { party_index = 5 }
 			set_temp_variable = { party_popularity_increase = 0.03 }
 			change_relative_party_popularity = yes
@@ -9258,19 +9282,22 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_AREMA_FOOD_FIRST"
-			if = { NOT = { has_completed_focus = MAD_Thriving_south has_completed_focus = MAD_crop_death}
-				268 = {
-				custom_effect_tooltip = MAD_DROUGHT_FAMINE_RELIEF_12_tt
-
-				set_temp_variable = { MAD_dr_state_famine = -12 }
-				MAD_drought_state_apply_famine = yes
+			if = {
+				limit = {
+					NOT = { has_completed_focus = MAD_Thriving_south }
+					NOT = { has_completed_focus = MAD_crop_death }
 				}
+				268 = {
+					custom_effect_tooltip = MAD_DROUGHT_FAMINE_RELIEF_12_tt
+			
+					set_temp_variable = { MAD_dr_state_famine = -12 }
+					MAD_drought_state_apply_famine = yes
+					}
 			}
-			custom_effect_tooltip = {
-				localization_key = modifies_dynamic_modifier_tt
-				MODIFIER = MAD_economy_modifier
-			}
-			add_to_variable = { MAD_economy_expected_welfare_modifier 	= 0.20 tooltip = expected_welfare_modifier_tt }
+			
+			decrease_exports = yes
+			increase_social_spending = yes
+			
 			custom_effect_tooltip = {
 				localization_key = modifies_dynamic_modifier_tt
 				MODIFIER = MAD_agriculture_modifier
@@ -9306,18 +9333,26 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_AREMA_INDEPENDENCE"
+			
+			
+			set_temp_variable = { percent_change = 10 }
+			change_domestic_influence_percentage = yes
+			
+			set_temp_variable = { temp_opinion = 5 }
+			change_small_medium_business_owners_opinion = yes
+			
+			set_country_flag = MAD_AREMA_ECONOMIC_INDEPENDENCE
+			
+			set_temp_variable = { party_index = 5 }
+			set_temp_variable = { party_popularity_increase = 0.05 }
+			set_temp_variable = { temp_outlook_increase = 0.05 }
+			change_relative_party_popularity = yes
+			
 			add_power_balance_value = {
 				id = MAD_economy_ownership_bop
 				value = 0.05
 				tooltip_side = MAD_public_ownership
 			}
-			add_to_variable = { MAD_economy_receiving_investment_cost_modifier = 0.03 tooltip = receiving_investment_cost_modifier_tt }
-			add_to_variable = { MAD_economy_internal_investments_money_cost_modifier = -0.03 tooltip = internal_investments_money_cost_modifier_tt }
-			set_country_flag = MAD_AREMA_ECONOMIC_INDEPENDENCE
-			set_temp_variable = { party_index = 5 }
-			set_temp_variable = { party_popularity_increase = 0.05 }
-			set_temp_variable = { temp_outlook_increase = 0.05 }
-			change_relative_party_popularity = yes
 		}
 
 		ai_will_do = {
@@ -9345,10 +9380,35 @@ focus_tree = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_AREMA_INDIAN_OCEAN"
 			add_ideas = MAD_AREMA_NON_ALIGNMENT
 			set_country_flag = MAD_AREMA_NONALIGNED
+			
 			set_temp_variable = { party_index = 5 }
 			set_temp_variable = { party_popularity_increase = 0.05 }
 			set_temp_variable = { temp_outlook_increase = 0.05 }
 			change_relative_party_popularity = yes
+					
+			if = {
+				limit = { has_idea = intervention_regional_interventionism }
+				swap_ideas = {
+					remove_idea = intervention_regional_interventionism
+					add_idea = intervention_limited_interventionism
+				}
+			}
+			
+			else_if = {
+				limit = { has_idea = intervention_global_interventionism }
+				swap_ideas = {
+					remove_idea = intervention_global_interventionism
+					add_idea = intervention_limited_interventionism
+				}
+			}
+			else_if = {
+				
+				limit = { has_idea = intervention_neo_imperialism }
+				swap_ideas = {
+					remove_idea = intervention_neo_imperialism
+					add_idea = intervention_limited_interventionism
+				}
+			}
 		}
 
 		ai_will_do = {
@@ -9379,9 +9439,15 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_AREMA_PROVINCES"
-			add_to_variable = { MAD_economy_infrastructure_tax_gain_multiplier_modifier = 0.05 tooltip = infrastructure_tax_gain_multiplier_modifier_tt }
+			
+			
+			decrease_centralization = yes
+			one_random_infrastructure = yes
+			
 			set_country_flag = MAD_AREMA_PROVINCIAL_MODEL
+			
 			add_stability = 0.02
+			
 			set_temp_variable = { party_index = 5 }
 			set_temp_variable = { party_popularity_increase = 0.05 }
 			set_temp_variable = { temp_outlook_increase = 0.05 }
@@ -9412,23 +9478,22 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_AREMA_MIXED_ECONOMY"
+			
+			
+			swap_ideas = { remove_idea = MAD_POL_AREMA_PROGRAMME add_idea = MAD_POL_AREMA_MODERN_SOCIALISM }
+			set_country_flag = MAD_AREMA_MIXED_MODEL
+			
+			
+			set_temp_variable = { party_index = 5 }
+			set_temp_variable = { party_popularity_increase = 0.04 }
+			set_temp_variable = { temp_outlook_increase = 0.04 }
+			change_relative_party_popularity = yes
+			
 			add_power_balance_value = {
 				id = MAD_economy_ownership_bop
 				value = -0.05
 				tooltip_side = MAD_private_ownership
 			}
-			add_to_variable = { MAD_economy_receiving_investment_cost_modifier = -0.04 tooltip = receiving_investment_cost_modifier_tt }
-			swap_ideas = { remove_idea = MAD_POL_AREMA_PROGRAMME add_idea = MAD_POL_AREMA_MODERN_SOCIALISM }
-			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.05 tooltip = productivity_growth_modifier_tt }
-			set_country_flag = MAD_AREMA_MIXED_MODEL
-			add_stability = 0.01
-			set_temp_variable = { party_index = 5 }
-			set_temp_variable = { party_popularity_increase = 0.04 }
-			set_temp_variable = { temp_outlook_increase = 0.04 }
-			change_relative_party_popularity = yes
-			set_temp_variable = { party_index = 2 }
-			set_temp_variable = { party_popularity_increase = 0.03 }
-			change_relative_party_popularity = yes
 		}
 
 		ai_will_do = {
@@ -9454,10 +9519,17 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_AREMA_STRATEGIC_INVESTMENT"
-			add_to_variable = { MAD_economy_foreign_investment_duration_modifier = -0.05 tooltip = foreign_investment_duration_modifier_tt }
-			add_to_variable = { MAD_economy_receiving_investment_cost_modifier = -0.03 tooltip = receiving_investment_cost_modifier_tt }
-			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.03 tooltip = productivity_growth_modifier_tt }
-			set_temp_variable = { party_index = 2 }
+			
+			
+			one_random_infrastructure = yes
+			
+			set_temp_variable = { temp_opinion = 10 }
+			change_international_bankers_opinion = yes
+			
+			set_temp_variable = { percent_change = 5 }
+			change_domestic_influence_percentage = yes
+			
+			set_temp_variable = { party_index = 5 }
 			set_temp_variable = { party_popularity_increase = 0.04 }
 			change_relative_party_popularity = yes
 		}
@@ -9486,11 +9558,39 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_AREMA_ECO_SOCIAL_REPUBLIC"
-			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.08 tooltip = productivity_growth_modifier_tt }
-			add_to_variable = { MAD_economy_expected_welfare_modifier = 0.20 tooltip = expected_welfare_modifier_tt }
+			
+			if = {
+				limit = { has_idea = strip_mining }
+				swap_ideas = {
+					remove_idea = strip_mining
+					add_idea = economic_motivated_mining
+				}
+			}
+			else_if = {
+				limit = { has_idea = economic_motivated_mining }
+				swap_ideas = {
+					remove_idea = economic_motivated_mining
+					add_idea = balanced_protections
+				}
+			}
+			else_if = {
+				limit = { has_idea = balanced_protections }
+				swap_ideas = {
+					remove_idea = balanced_protections
+					add_idea = partial_environmental_protections
+				}
+			}
+			else_if = {
+				limit = { has_idea = partial_environmental_protections }
+				swap_ideas = {
+					remove_idea = partial_environmental_protections
+					add_idea = full_environmental_protections
+				}
+			}
+			
 			decrease_corruption = yes
-			add_stability = 0.03
-			set_temp_variable = { party_index = 2 }
+			
+			set_temp_variable = { party_index = 5 }
 			set_temp_variable = { party_popularity_increase = 0.05 }
 			change_relative_party_popularity = yes
 		}
@@ -9518,8 +9618,11 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_AREMA_SOCIAL_CONTRACT"
+			
+			newline = yes
+			
 			add_ideas = MAD_AREMA_SOCIAL_CONTRACT
-			add_to_variable = { MAD_economy_expected_welfare_modifier = 0.20 tooltip = expected_welfare_modifier_tt }
+			
 			set_country_flag = MAD_AREMA_SOCIAL_CONTRACT
 			set_temp_variable = { party_index = 5 }
 			set_temp_variable = { party_popularity_increase = 0.05 }
@@ -9555,11 +9658,14 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_AREMA_NATIONAL_DEVELOPMENT_PACT"
-			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.10 tooltip = productivity_growth_modifier_tt }
-			add_to_variable = { MAD_economy_expected_welfare_modifier = 0.25 tooltip = expected_welfare_modifier_tt }
-			add_to_variable = { MAD_economy_internal_investments_money_cost_modifier = -0.05 tooltip = internal_investments_money_cost_modifier_tt }
+			
 			set_country_flag = MAD_AREMA_DEVELOPMENT_PACT
+			
 			add_stability = 0.02
+			
+			increase_economic_growth = yes
+			increase_social_spending = yes
+			
 			set_temp_variable = { party_index = 5 }
 			set_temp_variable = { party_popularity_increase = 0.07 }
 			set_temp_variable = { temp_outlook_increase = 0.07 }
@@ -9598,8 +9704,6 @@ focus_tree = {
 				value = 0.10
 				tooltip_side = MAD_public_ownership
 			}
-			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.08 tooltip = productivity_growth_modifier_tt }
-			add_to_variable = { MAD_economy_expected_welfare_modifier = 0.15 tooltip = expected_welfare_modifier_tt }
 			set_country_flag = MAD_AREMA_CONSOLIDATED
 			set_politics = { ruling_party = communism elections_allowed = yes }
 			add_ideas = MAD_AREMA_SECOND_SOCIALISM
@@ -9631,21 +9735,12 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			add_political_power = 75 set_temp_variable = { party_index = 2 }
+			add_political_power = 75
+			
+			set_temp_variable = { party_index = 2 }
 			set_temp_variable = { party_popularity_increase = 0.10 }
 			set_temp_variable = { temp_outlook_increase = 0.10 }
 			change_relative_party_popularity = yes 
-			            recalculate_party = yes
-			            set_country_flag = MAD_TIM_RETURNED
-			
-			add_political_power = 15
-			
-			add_stability = 0.01
-			
-			set_temp_variable = { party_index = 2 }
-			set_temp_variable = { party_popularity_increase = 0.03 }
-			set_temp_variable = { temp_outlook_increase = 0.03 }
-			change_relative_party_popularity = yes
 			recalculate_party = yes
 		}
 
@@ -9671,16 +9766,13 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			decrease_corruption = yes
 			add_ideas = MAD_POL_TIM_LIBERAL_PROGRAMME
-			custom_effect_tooltip = {
-				localization_key = modifies_dynamic_modifier_tt
-				MODIFIER = MAD_economy_modifier
-			}
-			add_to_variable = { MAD_economy_receiving_investment_duration_modifier = -0.03 tooltip = receiving_investment_duration_modifier_tt }
-			add_political_power = 50
+			
 			set_country_flag = MAD_TIM_TIKO_PENDING
-			hidden_effect = { country_event = { id = mad_political.6 days = 1 } }
+			
+			decrease_corruption = yes
+			
+			country_event = { id = mad_political.6 days = 1 }
 		}
 
 		ai_will_do = {
@@ -9700,37 +9792,31 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
 			custom_trigger_tooltip = {
-				tooltip = MAD_TIM_IN_POWER_tt
-				MAD_TIM_IN_POWER = yes
-			}
+					tooltip = MAD_TIM_IN_POWER_tt
+					MAD_TIM_IN_POWER = yes
+				}
+			has_country_flag = MAD_TIM_TIKO_FIREWALL
 		}
 
 		completion_reward = {
-			add_power_balance_value = { id = MAD_economy_ownership_bop value = -0.025 tooltip_side = MAD_private_ownership }
-			            decrease_corruption = yes
-			            custom_effect_tooltip = {
-			            	localization_key = modifies_dynamic_modifier_tt
-			            	MODIFIER = MAD_economy_modifier
-			            }
-			            add_to_variable = { MAD_economy_receiving_investment_cost_modifier = -0.04 tooltip = receiving_investment_cost_modifier_tt }
-			            set_temp_variable = { party_index = 2 }
-			            set_temp_variable = { party_popularity_increase = 0.05 }
-			            set_temp_variable = { temp_outlook_increase = 0.05 }
-			            change_relative_party_popularity = yes
-			            swap_ideas = { remove_idea = MAD_POL_TIM_LIBERAL_PROGRAMME add_idea = MAD_POL_TIM_INSTITUTIONAL_LIBERALISM }
-			        
-			            set_country_flag = MAD_TIM_INSTITUTIONAL_MODEL
-			            recalculate_party = yes
-			
-			add_political_power = 15
-			
-			add_stability = 0.02
-			
 			set_temp_variable = { party_index = 2 }
-			set_temp_variable = { party_popularity_increase = 0.03 }
-			set_temp_variable = { temp_outlook_increase = 0.03 }
+			set_temp_variable = { party_popularity_increase = 0.05 }
+			set_temp_variable = { temp_outlook_increase = 0.05 }
 			change_relative_party_popularity = yes
-			recalculate_party = yes
+			
+			set_temp_variable = { temp_opinion = 10 }
+			change_small_medium_business_owners_opinion = yes
+			
+			set_temp_variable = { corp_change = -3 }
+			modify_corporate_tax_rate_effect = yes
+			
+			set_country_flag = MAD_TIM_INSTITUTIONAL_MODEL
+			
+			add_power_balance_value = {
+				id = MAD_economy_ownership_bop
+				value = -0.05
+				tooltip_side = MAD_private_ownership
+			}
 		}
 
 		ai_will_do = {
@@ -9756,31 +9842,23 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			add_power_balance_value = { id = MAD_economy_ownership_bop value = -0.05 tooltip_side = MAD_private_ownership }
-			            custom_effect_tooltip = {
-			            	localization_key = modifies_dynamic_modifier_tt
-			            	MODIFIER = MAD_economy_modifier
-			            }
-			            add_to_variable = { MAD_economy_productivity_growth_modifier = 0.15 tooltip = productivity_growth_modifier_tt }
-			            add_to_variable = { MAD_economy_corporate_tax_income_multiplier_modifier = 0.03 tooltip = corporate_tax_income_multiplier_modifier_tt }
-			            swap_ideas = { remove_idea = MAD_POL_TIM_LIBERAL_PROGRAMME add_idea = MAD_POL_TIM_NATIONAL_CHAMPION_PROGRAMME }
-			        
-			            set_country_flag = MAD_TIM_NATIONAL_CHAMPION_MODEL
-			            recalculate_party = yes
+			increase_centralization = yes
+				add_tech_bonus = {
+					name = MAD_POL_TIM_NATIONAL_CHAMPION
+					bonus = 0.4
+					uses = 2
+					category = CAT_Civilian
+				}
 			
-			add_political_power = 15
-			
-			add_stability = 0.01
-			
-			set_temp_variable = { party_index = 2 }
-			set_temp_variable = { party_popularity_increase = 0.03 }
-			change_relative_party_popularity = yes
-			recalculate_party = yes
-			
-			set_temp_variable = { party_index = 20 }
-			set_temp_variable = { party_popularity_increase = 0.02 }
-			change_relative_party_popularity = yes
-			recalculate_party = yes
+				set_temp_variable = { temp_opinion = 5 }
+				change_international_bankers_opinion = yes
+				set_temp_variable = { temp_opinion = 5 }
+				change_landowners_opinion = yes
+				
+				set_country_flag = MAD_TIM_NATIONAL_CHAMPION_MODEL
+				
+				
+				add_power_balance_value = { id = MAD_economy_ownership_bop value = 0.05 tooltip_side = MAD_private_ownership }
 		}
 
 		ai_will_do = {
@@ -9806,16 +9884,8 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			custom_effect_tooltip = {
-				localization_key = modifies_dynamic_modifier_tt
-				MODIFIER = MAD_economy_modifier
-			}
-			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.15 tooltip = productivity_growth_modifier_tt } add_to_variable = { MAD_economy_infrastructure_tax_gain_multiplier_modifier = 0.05 tooltip = infrastructure_tax_gain_multiplier_modifier_tt } 
-			            add_to_variable = { MAD_economy_receiving_investment_duration_modifier = -0.03 tooltip = receiving_investment_duration_modifier_tt }
-			
-			add_stability = 0.02
-			
-			add_political_power = 15
+			one_random_infrastructure = yes
+			increase_economic_growth = yes
 		}
 
 		ai_will_do = {
@@ -9840,16 +9910,11 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			custom_effect_tooltip = {
-				localization_key = modifies_dynamic_modifier_tt
-				MODIFIER = MAD_economy_modifier
-			}
-			add_to_variable = { MAD_economy_receiving_investment_cost_modifier = -0.03 tooltip = receiving_investment_cost_modifier_tt }
-			            decrease_corruption = yes
-			            add_political_power = 50
-			            set_country_flag = MAD_TIM_COMPETITION_MODEL
+			decrease_corruption = yes
+			set_temp_variable = { temp_opinion = 10 }
+			change_small_medium_business_owners_opinion = yes
 			
-			add_political_power = 15
+			set_country_flag = MAD_TIM_COMPETITION_MODEL
 			
 			set_temp_variable = { party_index = 2 }
 			set_temp_variable = { party_popularity_increase = 0.03 }
@@ -9880,16 +9945,18 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			custom_effect_tooltip = {
-				localization_key = modifies_dynamic_modifier_tt
-				MODIFIER = MAD_economy_modifier
-			}
-			add_to_variable = { MAD_economy_corporate_tax_income_multiplier_modifier = 0.04 tooltip = corporate_tax_income_multiplier_modifier_tt }
-			            decrease_corruption = yes
-			            add_stability = 0.02
-			            set_country_flag = MAD_TIM_TAX_CAPACITY
+			increase_centralization = yes
+			add_stability = 0.03
 			
-			add_political_power = 15
+			set_country_flag = MAD_TIM_TAX_CAPACITY
+			
+			
+			set_temp_variable = { corp_change = -5 }
+			modify_corporate_tax_rate_effect = yes
+			
+			
+			set_temp_variable = { temp_opinion = 10 }
+			change_landowners_opinion = yes
 		}
 
 		ai_will_do = {
@@ -9915,23 +9982,18 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			custom_effect_tooltip = {
-				localization_key = modifies_dynamic_modifier_tt
-				MODIFIER = MAD_economy_modifier
-			}
-			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.10 tooltip = productivity_growth_modifier_tt } add_stability = 0.02 
-			            set_country_flag = MAD_TIM_COMPETITION_MODEL
-			            decrease_corruption = yes
+			set_country_flag = MAD_TIM_COMPETITION_MODEL
 			
-			add_political_power = 15
+			decrease_corruption = yes
+			
+			set_temp_variable = { temp_opinion = 5 }
+			change_small_medium_business_owners_opinion = yes
 			
 			set_temp_variable = { party_index = 2 }
 			set_temp_variable = { party_popularity_increase = 0.02 }
 			set_temp_variable = { temp_outlook_increase = 0.02 }
 			change_relative_party_popularity = yes
 			recalculate_party = yes
-			
-			add_stability = 0.01
 		}
 
 		ai_will_do = {
@@ -9957,23 +10019,50 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			add_stability = 0.04 
-				custom_effect_tooltip = {
-				localization_key = modifies_dynamic_modifier_tt
-				MODIFIER = MAD_economy_modifier
-				}
-				add_to_variable = { MAD_economy_infrastructure_tax_gain_multiplier_modifier = 0.05 tooltip = infrastructure_tax_gain_multiplier_modifier_tt } 
-			            add_to_variable = { MAD_economy_expected_welfare_modifier = 0.20 tooltip = expected_welfare_modifier_tt }
+			add_stability = 0.04
 			
-			add_political_power = 15
+			decrease_centralization = yes
+			
+			one_random_industrial_complex = yes
 			
 			set_temp_variable = { party_index = 2 }
 			set_temp_variable = { party_popularity_increase = 0.03 }
 			set_temp_variable = { temp_outlook_increase = 0.03 }
 			change_relative_party_popularity = yes
 			recalculate_party = yes
-			
-			add_stability = 0.02
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_POL_TIM_2007_CONSTITUTION
+		icon = GFX_goal_generic_constitution
+		x = -2
+		y = 1
+		relative_position_id = MAD_POL_TIM_DECENTRALISE
+		cost = 5
+		prerequisite = { focus = MAD_POL_TIM_DECENTRALISE }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_TIM_IN_POWER_tt
+				MAD_TIM_IN_POWER = yes
+			}
+		}
+
+		completion_reward = {
+			increase_centralization = yes
+			set_temp_variable = { threshold_change = -0.03 }
+			modify_election_threshold = yes
+			add_timed_idea = {
+				idea = MAD_TIM_2007_CONSTITUTION_TRANSITION
+				years = 1
+			}
+			add_political_power = 100
+			set_country_flag = MAD_TIM_2007_CONSTITUTION
 		}
 
 		ai_will_do = {
@@ -9999,16 +10088,32 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			custom_effect_tooltip = {
-				localization_key = modifies_dynamic_modifier_tt
-				MODIFIER = MAD_economy_modifier
-			}
-			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.15 tooltip = productivity_growth_modifier_tt } 
-			            add_political_power = 75
-			            add_stability = 0.02
-			            set_country_flag = MAD_TIM_MAP_RESTORED
+			increase_economic_growth = yes
 			
-			add_political_power = 15
+			increase_social_spending = yes
+			increase_education_budget = yes
+			
+			block_social_decrease = yes
+			
+			random_owned_state = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			
+			
+			}
+			set_temp_variable = { treasury_change = -25.00 }
+			modify_treasury_effect = yes
+			add_tech_bonus = {
+				name = MAD_POL_TIM_MAP
+				uses = 3
+				bonus = 0.15
+				category = CAT_construction_tech
+			}
+			set_country_flag = MAD_TIM_MAP_RESTORED
 		}
 
 		ai_will_do = {
@@ -10034,16 +10139,21 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			custom_effect_tooltip = {
-				localization_key = modifies_dynamic_modifier_tt
-				MODIFIER = MAD_economy_modifier
+			one_random_infrastructure = yes
+			random_owned_state = {
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
 			}
-			add_to_variable = { MAD_economy_receiving_investment_duration_modifier = -0.07 tooltip = receiving_investment_duration_modifier_tt }
-			            add_to_variable = { MAD_economy_productivity_growth_modifier = 0.15 tooltip = productivity_growth_modifier_tt }
-			            set_country_flag = MAD_TIM_PROJECT_FINANCE
+			set_temp_variable = { treasury_change = -12.00 }
+			modify_treasury_effect = yes
 			
-			add_political_power = 15
+			set_temp_variable = { temp_opinion = 10 }
+			change_international_bankers_opinion = yes
 			
+			set_country_flag = MAD_TIM_PROJECT_FINANCE
 			set_temp_variable = { party_index = 2 }
 			set_temp_variable = { party_popularity_increase = 0.02 }
 			set_temp_variable = { temp_outlook_increase = 0.02 }
@@ -10060,7 +10170,7 @@ focus_tree = {
 		id = MAD_POL_TIM_GREEN_REVOLUTION
 		icon = GFX_goal_generic_production
 		x = 0
-		y = 2
+		y = 3
 		relative_position_id = MAD_POL_TIM_MAP
 		cost = 5
 		prerequisite = { focus = MAD_POL_TIM_MAP }
@@ -10074,21 +10184,14 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			custom_effect_tooltip = {
-				localization_key = modifies_dynamic_modifier_tt
-				MODIFIER = MAD_economy_modifier
+			add_tech_bonus = {
+				name = MAD_POL_TIM_GREEN_REVOLUTION
+				uses = 3
+				bonus = 0.25
+				category = CAT_renewable
 			}
-			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.15 tooltip = productivity_growth_modifier_tt } 
-				custom_effect_tooltip = {
-				localization_key = modifies_dynamic_modifier_tt
-				MODIFIER = MAD_agriculture_modifier
-				}
-				add_to_variable = { MAD_agri_income_tax = 0.04 tooltip = agriculture_district_income_tax_modifier_tt }
-			            force_update_dynamic_modifier = yes 
-			            add_to_variable = { MAD_agri_productivity = 0.03 tooltip = agricolture_productivity_modifier_tt }
-			            force_update_dynamic_modifier = yes
 			
-			add_stability = 0.01
+			one_random_renewable_energy_infra = yes
 			
 			set_temp_variable = { party_index = 2 }
 			set_temp_variable = { party_popularity_increase = 0.02 }
@@ -10106,7 +10209,7 @@ focus_tree = {
 		id = MAD_POL_TIM_LAND_TITLES
 		icon = GFX_goal_generic_land_reform
 		x = 0
-		y = 2
+		y = 1
 		relative_position_id = MAD_POL_TIM_GREEN_REVOLUTION
 		cost = 5
 		prerequisite = { focus = MAD_POL_TIM_GREEN_REVOLUTION }
@@ -10119,25 +10222,10 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			custom_effect_tooltip = {
-				localization_key = modifies_dynamic_modifier_tt
-				MODIFIER = MAD_economy_modifier
-			}
-			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.10 tooltip = productivity_growth_modifier_tt } add_to_variable = { MAD_economy_expected_welfare_modifier = 0.25 tooltip = expected_welfare_modifier_tt } 
-			            custom_effect_tooltip = {
-			            	localization_key = modifies_dynamic_modifier_tt
-			            	MODIFIER = MAD_agriculture_modifier
-			            }
-			            add_to_variable = { MAD_agri_productivity = 0.02 tooltip = agricolture_productivity_modifier_tt }
-			            force_update_dynamic_modifier = yes
+			one_random_agriculture_district = yes
 			
-			add_stability = 0.02
-			
-			set_temp_variable = { party_index = 2 }
-			set_temp_variable = { party_popularity_increase = 0.02 }
-			set_temp_variable = { temp_outlook_increase = 0.02 }
-			change_relative_party_popularity = yes
-			recalculate_party = yes
+			set_temp_variable = { temp_opinion = -5 }
+			change_landowners_opinion = yes
 		}
 
 		ai_will_do = {
@@ -10159,35 +10247,14 @@ focus_tree = {
 				tooltip = MAD_TIM_IN_POWER_tt
 				MAD_TIM_IN_POWER = yes
 			}
-			OR = { power_balance_value = { id = MAD_economy_ownership_bop value > 0.10 } has_completed_focus = MAD_FUEL_LIBERALIZATION has_completed_focus = MAD_JIRAMA_CORPORATIZE has_completed_focus = MAD_MADARAIL_INVESTORS_STAY has_completed_focus = MAD_ACCEPT_FOREIGN_OWNERSHIP }
+			OR = { power_balance_value = { id = MAD_economy_ownership_bop value < -0.10 } has_completed_focus = MAD_FUEL_LIBERALIZATION has_completed_focus = MAD_JIRAMA_CORPORATIZE has_completed_focus = MAD_MADARAIL_INVESTORS_STAY has_completed_focus = MAD_ACCEPT_FOREIGN_OWNERSHIP }
 		}
 
 		completion_reward = {
-			add_power_balance_value = { id = MAD_economy_ownership_bop value = -0.06 tooltip_side = MAD_private_ownership } 
-				custom_effect_tooltip = {
-				localization_key = modifies_dynamic_modifier_tt
-				MODIFIER = MAD_economy_modifier
-				}
-				add_to_variable = { MAD_economy_receiving_investment_cost_modifier = -0.05 tooltip = receiving_investment_cost_modifier_tt } add_to_variable = { MAD_economy_productivity_growth_modifier = 0.15 tooltip = productivity_growth_modifier_tt } 
-			            set_temp_variable = { party_index = 2 }
-			            set_temp_variable = { party_popularity_increase = 0.05 }
-			            set_temp_variable = { temp_outlook_increase = 0.05 }
-			            change_relative_party_popularity = yes
-			            recalculate_party = yes
-			
-			set_temp_variable = { party_index = 2 }
-			set_temp_variable = { party_popularity_increase = 0.04 }
-			set_temp_variable = { temp_outlook_increase = 0.04 }
-			change_relative_party_popularity = yes
-			recalculate_party = yes
-			
-			set_temp_variable = { party_index = 2 }
-			set_temp_variable = { party_popularity_increase = 0.02 }
-			set_temp_variable = { temp_outlook_increase = 0.02 }
-			change_relative_party_popularity = yes
-			recalculate_party = yes
-			
-			add_political_power = 15
+			add_power_balance_value = { id = MAD_economy_ownership_bop value = -0.06 tooltip_side = MAD_private_ownership }
+			increase_exports = yes
+			set_temp_variable = { temp_opinion = 10 }
+			change_international_bankers_opinion = yes
 		}
 
 		ai_will_do = {
@@ -10213,17 +10280,40 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			custom_effect_tooltip = {
-				localization_key = modifies_dynamic_modifier_tt
-				MODIFIER = MAD_economy_modifier
-			}
-			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.10 tooltip = productivity_growth_modifier_tt } add_stability = 0.03 
-			            add_to_variable = { MAD_economy_expected_welfare_modifier = 0.15 tooltip = expected_welfare_modifier_tt }
+			set_temp_variable = { temp_opinion = -10 }
+			change_international_bankers_opinion = yes
 			
-			add_stability = 0.02
+			if = {
+					limit = { has_idea = strip_mining }
+					swap_ideas = {
+						remove_idea = strip_mining
+						add_idea = economic_motivated_mining
+					}
+				}
+				else_if = {
+					limit = { has_idea = economic_motivated_mining }
+					swap_ideas = {
+						remove_idea = economic_motivated_mining
+						add_idea = balanced_protections
+					}
+				}
+				else_if = {
+					limit = { has_idea = balanced_protections }
+					swap_ideas = {
+						remove_idea = balanced_protections
+						add_idea = partial_environmental_protections
+					}
+				}
+				else_if = {
+					limit = { has_idea = partial_environmental_protections }
+					swap_ideas = {
+						remove_idea = partial_environmental_protections
+						add_idea = full_environmental_protections
+					}
+				}
 			
 			set_temp_variable = { party_index = 2 }
-			set_temp_variable = { party_popularity_increase = 0.02 }
+			set_temp_variable = { party_popularity_increase = 0.05 }
 			set_temp_variable = { temp_outlook_increase = 0.02 }
 			change_relative_party_popularity = yes
 			recalculate_party = yes
@@ -10238,7 +10328,7 @@ focus_tree = {
 		id = MAD_POL_TIM_MAP_REVIEW
 		icon = GFX_goal_generic_plan
 		x = -2
-		y = 1
+		y = 3
 		relative_position_id = MAD_POL_TIM_LAND_TITLES
 		cost = 5
 		prerequisite = { focus = MAD_POL_TIM_LAND_TITLES focus = MAD_POL_TIM_OPEN_ECONOMY }
@@ -10251,16 +10341,18 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			if = { limit = { has_completed_focus = MAD_JIRAMA_RECOVERY_SUCCEEDS has_completed_focus = MAD_Agricultural_reforms } 
-				custom_effect_tooltip = {
-				localization_key = modifies_dynamic_modifier_tt
-				MODIFIER = MAD_economy_modifier
+			if = {
+				limit = { has_completed_focus = MAD_JIRAMA_RECOVERY_SUCCEEDS has_completed_focus = MAD_Agricultural_reforms }
+					set_temp_variable = { temp_opinion = 10 }
+					change_international_bankers_opinion = yes
 				}
-				add_to_variable = { MAD_economy_productivity_growth_modifier = 0.20 tooltip = productivity_growth_modifier_tt } add_to_variable = { MAD_economy_expected_welfare_modifier = 0.30 tooltip = expected_welfare_modifier_tt } else = { add_to_variable = { MAD_economy_productivity_growth_modifier = 0.10 tooltip = productivity_growth_modifier_tt } add_stability = 0.02 } } set_country_flag = MAD_TIM_MAP_REVIEWED
+			else = {
+					set_temp_variable = { temp_opinion = -5 }
+					change_international_bankers_opinion = yes
+				}
+			decrease_corruption = yes
 			
-			add_political_power = 15
-			
-			add_stability = 0.01
+			set_country_flag = MAD_TIM_MAP_REVIEWED
 		}
 
 		ai_will_do = {
@@ -10286,9 +10378,13 @@ focus_tree = {
 
 		completion_reward = {
 			add_political_power = 50
-			decrease_corruption = yes
+			
+			set_temp_variable = { threshold_change = -0.02 }
+			modify_election_threshold = yes
+			
 			set_country_flag = MAD_TIM_RECONCILIATION_PENDING
-			hidden_effect = { country_event = { id = mad_political.5 days = 1 } }
+			
+			country_event = { id = mad_political.5 days = 1 }
 		}
 
 		ai_will_do = {
@@ -10314,12 +10410,9 @@ focus_tree = {
 
 		completion_reward = {
 			add_ideas = MAD_TIM_REPUBLICAN_INSTITUTIONS
+			
 			add_political_power = 50
-			custom_effect_tooltip = {
-				localization_key = modifies_dynamic_modifier_tt
-				MODIFIER = MAD_economy_modifier
-			}
-			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.10 tooltip = productivity_growth_modifier_tt }
+			
 			set_temp_variable = { party_index = 2 }
 			set_temp_variable = { party_popularity_increase = 0.08 }
 			set_temp_variable = { temp_outlook_increase = 0.08 }
@@ -10340,22 +10433,32 @@ focus_tree = {
 		cost = 5
 		prerequisite = { focus = MAD_POL_PARTIES }
 		search_filters = { FOCUS_FILTER_POLITICAL }
+		allow_branch = {
+			has_country_flag = MAD_TGV_BRANCH_UNLOCKED
+		}
 
 		completion_reward = {
-			add_political_power = 75 set_temp_variable = { party_index = 20 }
+			set_temp_variable = { party_index = 20 }
 			set_temp_variable = { party_popularity_increase = 0.10 }
 			set_temp_variable = { temp_outlook_increase = 0.10 }
 			change_relative_party_popularity = yes 
-			            recalculate_party = yes
-			            set_country_flag = MAD_TGV_MOVEMENT_ACTIVE
-			
-			add_political_power = 15
-			
-			set_temp_variable = { party_index = 20 }
-			set_temp_variable = { party_popularity_increase = 0.03 }
-			set_temp_variable = { temp_outlook_increase = 0.03 }
-			change_relative_party_popularity = yes
 			recalculate_party = yes
+			
+			set_country_flag = MAD_TGV_MOVEMENT_ACTIVE
+			
+			
+			increase_education_budget = yes
+			set_temp_variable = { temp_opinion = 10 }
+			change_labour_unions_opinion = yes
+			
+			if = {
+				limit = {
+					has_variable = literacy_rate
+					check_variable = { literacy_rate < 0.899 }
+				}
+				set_temp_variable = { LR_change = 0.05 }
+				update_literacy_rate = yes
+			}
 		}
 
 		ai_will_do = {
@@ -10381,8 +10484,15 @@ focus_tree = {
 
 		completion_reward = {
 			add_political_power = 40
+			
 			set_country_flag = MAD_TGV_2009_LEGACY_PENDING
-			hidden_effect = { country_event = { id = mad_political.7 days = 1 } }
+			
+			country_event = { id = mad_political.7 days = 1 }
+			
+			add_stability = 0.02
+			add_war_support = 0.02
+			set_temp_variable = { temp_opinion = 10 }
+			change_the_military_opinion = yes
 		}
 
 		ai_will_do = {
@@ -10408,20 +10518,14 @@ focus_tree = {
 
 		completion_reward = {
 			add_political_power = 75 
-			            set_temp_variable = { party_index = 20 }
-			            set_temp_variable = { party_popularity_increase = 0.05 }
-			            set_temp_variable = { temp_outlook_increase = 0.05 }
-			            change_relative_party_popularity = yes
-			            recalculate_party = yes
-			            set_country_flag = MAD_TGV_FOURTH_REPUBLIC_CONFIRMED
-			
-			set_politics = { ruling_party = nationalist elections_allowed = yes }
-			
 			set_temp_variable = { party_index = 20 }
-			set_temp_variable = { party_popularity_increase = 0.03 }
-			set_temp_variable = { temp_outlook_increase = 0.03 }
+			set_temp_variable = { party_popularity_increase = 0.05 }
+			set_temp_variable = { temp_outlook_increase = 0.05 }
 			change_relative_party_popularity = yes
 			recalculate_party = yes
+			set_country_flag = MAD_TGV_FOURTH_REPUBLIC_CONFIRMED
+			
+			increase_centralization = yes
 		}
 
 		ai_will_do = {
@@ -10446,15 +10550,31 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			set_temp_variable = { party_index = 2 }
+			if = {
+				limit = { MAD_TGV_IN_POWER = yes }
+				set_country_flag = MAD_HVM_FORMATION_PENDING
+			}
+			set_temp_variable = { party_index = 20 }
 			set_temp_variable = { party_popularity_increase = 0.05 }
 			set_temp_variable = { temp_outlook_increase = 0.05 }
-			change_relative_party_popularity = yes add_stability = 0.03 
+			change_relative_party_popularity = yes
 			            recalculate_party = yes
-			
-			set_politics = { ruling_party = nationalist elections_allowed = yes }
-			
-			add_stability = 0.02
+						
+			if = {
+				limit = {
+					has_elections = no
+				}
+				set_politics = {
+					ruling_party = nationalist
+					elections_allowed = yes
+				}
+			}	
+				if = {
+					limit = { has_country_flag = MAD_HVM_FORMATION_PENDING }
+					country_event = { id = mad_political.97 days = 1 }
+				}
+			set_temp_variable = { percent_change = 5 }
+			change_domestic_influence_percentage = yes
 		}
 
 		ai_will_do = {
@@ -10479,15 +10599,19 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			add_political_power = 100
 			add_ideas = MAD_POL_TGV_PEM
+			
 			set_country_flag = MAD_TGV_VELIRANO_PROGRAMME
+			
 			set_temp_variable = { party_index = 20 }
 			set_temp_variable = { party_popularity_increase = 0.05 }
 			set_temp_variable = { temp_outlook_increase = 0.05 }
 			change_relative_party_popularity = yes
 			recalculate_party = yes
+			
 			unlock_decision_category_tooltip = MAD_TGV_VELIRANO_CATEGORY
+			increase_social_spending = yes
+			decrease_corruption = yes
 		}
 
 		ai_will_do = {
@@ -10514,22 +10638,30 @@ focus_tree = {
 
 		completion_reward = {
 			custom_effect_tooltip = {
-				localization_key = modifies_dynamic_modifier_tt
-				MODIFIER = MAD_economy_modifier
-			}
-			add_to_variable = { MAD_economy_expected_welfare_modifier = 0.30 tooltip = expected_welfare_modifier_tt }
-			            custom_effect_tooltip = {
-			            	localization_key = modifies_dynamic_modifier_tt
-			            	MODIFIER = MAD_agriculture_modifier
+						localization_key = modifies_dynamic_modifier_tt
+						MODIFIER = MAD_agriculture_modifier
 			            }
 			            add_to_variable = { MAD_agri_income_tax = 0.03 tooltip = agriculture_district_income_tax_modifier_tt }
-			            add_stability = 0.03
-			            force_update_dynamic_modifier = yes
+						
 			            set_country_flag = MAD_TGV_WATER_PROGRAMME
-			
-			add_political_power = 15
-			
-			add_stability = 0.02
+				if = {
+				limit = {
+						NOT = { has_completed_focus = MAD_Thriving_south }
+						NOT = { has_completed_focus = MAD_crop_death }
+					}
+					random_owned_state = {
+						custom_effect_tooltip = MAD_DROUGHT_FAMINE_RELIEF_12_tt
+				
+						set_temp_variable = { MAD_dr_state_famine = -12 }
+						MAD_drought_state_apply_famine = yes
+						}
+				}
+				add_tech_bonus = {
+					name = MAD_POL_TGV_WATER_PROGRAMME
+					category = CAT_agriculture_tech
+					uses = 2
+					bonus = 0.15
+				}
 		}
 
 		ai_will_do = {
@@ -10556,18 +10688,18 @@ focus_tree = {
 		completion_reward = {
 			custom_effect_tooltip = {
 				localization_key = modifies_dynamic_modifier_tt
-				MODIFIER = MAD_economy_modifier
-			}
-			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.15 tooltip = productivity_growth_modifier_tt } add_to_variable = { MAD_economy_receiving_investment_cost_modifier = -0.03 tooltip = receiving_investment_cost_modifier_tt } 
-			            add_to_variable = { MAD_economy_expected_welfare_modifier = 0.20 tooltip = expected_welfare_modifier_tt }
-			
-			add_political_power = 15
+				}
 			
 			set_temp_variable = { party_index = 20 }
 			set_temp_variable = { party_popularity_increase = 0.02 }
 			set_temp_variable = { temp_outlook_increase = 0.02 }
 			change_relative_party_popularity = yes
 			recalculate_party = yes
+			
+			decrease_corruption = yes
+			
+			set_temp_variable = { corp_change = -2 }
+			modify_corporate_tax_rate_effect = yes
 		}
 
 		ai_will_do = {
@@ -10589,20 +10721,24 @@ focus_tree = {
 				tooltip = MAD_TGV_IN_POWER_tt
 				MAD_TGV_IN_POWER = yes
 			}
-			OR = { has_completed_focus = MAD_AR1_HIGHWAY has_completed_focus = MAD_TOAMASINA_JICA_EXPANSION has_completed_focus = MAD_MIAMI_WATERFRONT has_completed_focus = MAD_Ivato_terminal_runway_upgrade }
+			has_completed_focus = MAD_Rocade_ring_road
 		}
 
 		completion_reward = {
 			custom_effect_tooltip = {
 				localization_key = modifies_dynamic_modifier_tt
 				MODIFIER = MAD_economy_modifier
+				}
+				add_to_variable = { MAD_economy_infrastructure_cost_multiplier_modifier = -0.05 tooltip = infrastructure_cost_multiplier_modifier_tt }
+			
+			
+			one_random_infrastructure = yes
+			add_tech_bonus = {
+				name = MAD_POL_TGV_INFRASTRUCTURE_FIRST
+				category = CAT_infrastructure
+				uses = 2
+				bonus = 0.15
 			}
-			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.15 tooltip = productivity_growth_modifier_tt } add_to_variable = { MAD_economy_infrastructure_tax_gain_multiplier_modifier = 0.05 tooltip = infrastructure_tax_gain_multiplier_modifier_tt } 
-			            add_to_variable = { MAD_economy_receiving_investment_duration_modifier = -0.03 tooltip = receiving_investment_duration_modifier_tt }
-			
-			add_political_power = 15
-			
-			add_stability = 0.02
 		}
 
 		ai_will_do = {
@@ -10628,22 +10764,25 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			custom_effect_tooltip = {
-				localization_key = modifies_dynamic_modifier_tt
-				MODIFIER = MAD_economy_modifier
-			}
-			add_to_variable = { MAD_economy_receiving_investment_duration_modifier = -0.07 tooltip = receiving_investment_duration_modifier_tt }
-			            add_to_variable = { MAD_economy_productivity_growth_modifier = 0.15 tooltip = productivity_growth_modifier_tt }
-			            add_power_balance_value = { id = MAD_economy_ownership_bop value = -0.04 tooltip_side = MAD_private_ownership }
-			            set_country_flag = MAD_TGV_PROJECT_FINANCE
+			add_power_balance_value = { id = MAD_economy_ownership_bop value = -0.04 tooltip_side = MAD_private_ownership }
+			set_country_flag = MAD_TGV_PROJECT_FINANCE
 			
-			add_political_power = 15
 			
 			set_temp_variable = { party_index = 20 }
 			set_temp_variable = { party_popularity_increase = 0.03 }
 			set_temp_variable = { temp_outlook_increase = 0.03 }
 			change_relative_party_popularity = yes
 			recalculate_party = yes
+			
+			set_temp_variable = { int_investment_change = 5.0 }
+			modify_international_investment_effect = yes
+			set_temp_variable = { treasury_change = -4.00 }
+			modify_treasury_effect = yes
+			
+			set_temp_variable = { temp_opinion = 10 }
+			change_international_bankers_opinion = yes
+			
+			one_random_industrial_complex = yes
 		}
 
 		ai_will_do = {
@@ -10674,15 +10813,19 @@ focus_tree = {
 				localization_key = modifies_dynamic_modifier_tt
 				MODIFIER = MAD_economy_modifier
 				}
-				add_to_variable = { MAD_economy_productivity_growth_modifier = 0.15 tooltip = productivity_growth_modifier_tt } add_stability = 0.04 }
-			            else = { add_to_variable = { MAD_economy_productivity_growth_modifier = 0.05 tooltip = productivity_growth_modifier_tt } add_stability = -0.02 }
+				add_to_variable = { MAD_economy_productivity_growth_modifier = 0.10 tooltip = productivity_growth_modifier_tt } 
+				}
+			    else = { 
+				custom_effect_tooltip = {
+				localization_key = modifies_dynamic_modifier_tt
+				MODIFIER = MAD_economy_modifier
+				}
+					add_to_variable = { MAD_economy_productivity_growth_modifier = 0.05 tooltip = productivity_growth_modifier_tt } 
+					}
 			        
-			            add_political_power = 50
-			            set_country_flag = MAD_TGV_JIRAMA_POLITICAL_RECORD
+			set_country_flag = MAD_TGV_JIRAMA_POLITICAL_RECORD
 			
-			add_political_power = 15
-			
-			add_stability = 0.02
+			one_random_renewable_energy_infra = yes
 		}
 
 		ai_will_do = {
@@ -10707,22 +10850,21 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			add_power_balance_value = { id = MAD_economy_ownership_bop value = -0.08 tooltip_side = MAD_private_ownership } 
-						
-						custom_effect_tooltip = {
-							localization_key = modifies_dynamic_modifier_tt
-							MODIFIER = MAD_economy_modifier
-							}
-							add_to_variable = { MAD_economy_receiving_investment_cost_modifier = -0.05 tooltip = receiving_investment_cost_modifier_tt } 
-						    set_country_flag = MAD_TGV_SEZ_MODEL
+			set_country_flag = MAD_TGV_SEZ_MODEL
 									
-						set_temp_variable = { party_index = 20 }
-			            set_temp_variable = { party_popularity_increase = 0.03 }
-			            set_temp_variable = { temp_outlook_increase = 0.03 }
-			            change_relative_party_popularity = yes
-			            recalculate_party = yes
+			set_temp_variable = { party_index = 20 }
+			set_temp_variable = { party_popularity_increase = 0.03 }
+			set_temp_variable = { temp_outlook_increase = 0.03 }
+			change_relative_party_popularity = yes
+			recalculate_party = yes
 						
-						add_political_power = 15
+			one_random_industrial_complex = yes
+			increase_exports = yes
+			
+			set_temp_variable = { corp_change = -2 }
+			modify_corporate_tax_rate_effect = yes
+			
+			add_power_balance_value = { id = MAD_economy_ownership_bop value = -0.08 tooltip_side = MAD_private_ownership }
 		}
 
 		ai_will_do = {
@@ -10752,16 +10894,19 @@ focus_tree = {
 				localization_key = modifies_dynamic_modifier_tt
 				MODIFIER = MAD_economy_modifier
 			}
-			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.20 tooltip = productivity_growth_modifier_tt } 
-			            add_to_variable = { MAD_economy_corporate_tax_income_multiplier_modifier = 0.02 tooltip = corporate_tax_income_multiplier_modifier_tt }
+			add_to_variable = { MAD_economy_corporate_tax_income_multiplier_modifier = 0.02 tooltip = corporate_tax_income_multiplier_modifier_tt }
 			
-			add_political_power = 15
 			
 			set_temp_variable = { party_index = 20 }
 			set_temp_variable = { party_popularity_increase = 0.03 }
 			set_temp_variable = { temp_outlook_increase = 0.03 }
 			change_relative_party_popularity = yes
 			recalculate_party = yes
+			
+			random_owned_state = {
+				add_extra_state_shared_building_slots = 3
+			}
+			increase_exports = yes
 		}
 
 		ai_will_do = {
@@ -10788,31 +10933,20 @@ focus_tree = {
 
 		completion_reward = {
 			custom_effect_tooltip = {
-				localization_key = modifies_dynamic_modifier_tt
-				MODIFIER = MAD_economy_modifier
-			}
-			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.15 tooltip = productivity_growth_modifier_tt } 
-				custom_effect_tooltip = {
-				localization_key = modifies_dynamic_modifier_tt
-				MODIFIER = MAD_agriculture_modifier
-				}
-				add_to_variable = { MAD_agri_income_tax = 0.05 tooltip = agriculture_district_income_tax_modifier_tt }
-			            force_update_dynamic_modifier = yes 
-			            custom_effect_tooltip = {
 			            	localization_key = modifies_dynamic_modifier_tt
 			            	MODIFIER = MAD_economy_modifier
 			            }
 			            add_to_variable = { MAD_economy_expected_welfare_modifier = 0.20 tooltip = expected_welfare_modifier_tt }
 			
-			add_stability = 0.02
-			
-			add_political_power = 15
 			
 			set_temp_variable = { party_index = 20 }
 			set_temp_variable = { party_popularity_increase = 0.02 }
 			set_temp_variable = { temp_outlook_increase = 0.02 }
 			change_relative_party_popularity = yes
 			recalculate_party = yes
+			
+			one_random_agriculture_district = yes
+			increase_social_spending = yes
 		}
 
 		ai_will_do = {
@@ -10838,20 +10972,22 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			custom_effect_tooltip = {
-				localization_key = modifies_dynamic_modifier_tt
-				MODIFIER = MAD_economy_modifier
-			}
-			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.15 tooltip = productivity_growth_modifier_tt } add_to_variable = { MAD_economy_receiving_investment_duration_modifier = -0.05 tooltip = receiving_investment_duration_modifier_tt } 
-			            set_country_flag = MAD_TGV_DIGITAL_STATE
+			set_country_flag = MAD_TGV_DIGITAL_STATE
 			
-			add_political_power = 15
 			
 			set_temp_variable = { party_index = 20 }
 			set_temp_variable = { party_popularity_increase = 0.03 }
 			set_temp_variable = { temp_outlook_increase = 0.03 }
 			change_relative_party_popularity = yes
 			recalculate_party = yes
+			
+			add_tech_bonus = {
+				name = MAD_POL_TGV_DIGITAL_MADAGASCAR
+				category = CAT_computing_tech
+				uses = 2
+				bonus = 0.25
+			}
+			increase_education_budget = yes
 		}
 
 		ai_will_do = {
@@ -10881,8 +11017,7 @@ focus_tree = {
 							localization_key = modifies_dynamic_modifier_tt
 							MODIFIER = MAD_economy_modifier
 						}
-						add_to_variable = { MAD_economy_productivity_growth_modifier = 0.15 tooltip = productivity_growth_modifier_tt }
-						            add_to_variable = { MAD_economy_expected_welfare_modifier = 0.20 tooltip = expected_welfare_modifier_tt }
+						add_to_variable = { MAD_economy_expected_welfare_modifier = 0.20 tooltip = expected_welfare_modifier_tt }
 									
 						set_temp_variable = { party_index = 20 }
 			            set_temp_variable = { party_popularity_increase = 0.03 }
@@ -10890,7 +11025,11 @@ focus_tree = {
 			            change_relative_party_popularity = yes
 			            recalculate_party = yes
 						
-						add_political_power = 15
+			one_random_industrial_complex = yes
+			increase_education_budget = yes
+			
+			set_temp_variable = { temp_opinion = 10 }
+			change_small_medium_business_owners_opinion = yes
 		}
 
 		ai_will_do = {
@@ -10915,21 +11054,19 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			custom_effect_tooltip = {
-				localization_key = modifies_dynamic_modifier_tt
-				MODIFIER = MAD_economy_modifier
-			}
-			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.20 tooltip = productivity_growth_modifier_tt } add_political_power = 100 
-			            add_to_variable = { MAD_economy_receiving_investment_duration_modifier = -0.05 tooltip = receiving_investment_duration_modifier_tt }
-			            set_country_flag = MAD_TGV_PROJECT_STATE
+			set_country_flag = MAD_TGV_PROJECT_STATE
 			
-			add_political_power = 15
 			
 			set_temp_variable = { party_index = 20 }
 			set_temp_variable = { party_popularity_increase = 0.03 }
 			set_temp_variable = { temp_outlook_increase = 0.03 }
 			change_relative_party_popularity = yes
 			recalculate_party = yes
+			
+			one_state_industrial_complex = yes
+			random_owned_state = {
+				add_extra_state_shared_building_slots = 2
+			}
 		}
 
 		ai_will_do = {
@@ -10952,19 +11089,20 @@ focus_tree = {
 				tooltip = MAD_TGV_IN_POWER_tt
 				MAD_TGV_IN_POWER = yes
 			}
+			NOT = { has_country_flag = MAD_ARMY_COMMAND_CAPSAT }
 		}
 
 		completion_reward = {
+			set_country_flag = MAD_TGV_CAPSAT_REJECTION
+			clr_country_flag = MAD_TGV_CAPSAT_ACCEPTED
+			if = {
+				limit = { NOT = { has_country_flag = MAD_TGV_CAPSAT_REVOLT_SCHEDULED } }
+				set_country_flag = MAD_TGV_CAPSAT_REVOLT_SCHEDULED
+				country_event = { id = MAD_military_command.5 days = 1825 }
+			}
 			decrease_corruption = yes 
-				custom_effect_tooltip = {
-				localization_key = modifies_dynamic_modifier_tt
-				MODIFIER = MAD_economy_modifier
-				}
-				add_to_variable = { MAD_economy_receiving_investment_cost_modifier = -0.03 tooltip = receiving_investment_cost_modifier_tt } swap_ideas = { remove_idea = MAD_POL_TGV_PEM add_idea = MAD_POL_TGV_INSTITUTIONAL_EMERGENCE } 
-			            add_political_power = 50
-			            recalculate_party = yes
+			swap_ideas = { remove_idea = MAD_POL_TGV_PEM add_idea = MAD_POL_TGV_INSTITUTIONAL_EMERGENCE } 
 			
-			set_politics = { ruling_party = nationalist elections_allowed = yes }
 			
 			set_temp_variable = { party_index = 2 }
 			set_temp_variable = { party_popularity_increase = 0.04 }
@@ -10972,7 +11110,14 @@ focus_tree = {
 			change_relative_party_popularity = yes
 			recalculate_party = yes
 			
-			add_political_power = 15
+			set_temp_variable = { temp_opinion = 10 }
+			change_small_medium_business_owners_opinion = yes
+					
+			if = {
+				limit = { NOT = { has_country_flag = MAD_ARMY_COMMAND_DECIDED } }
+				set_country_flag = MAD_TGV_COMMAND_FORCE_GENERAL_STAFF
+				country_event = { id = MAD_military_command.1 hours = 1 }
+			}
 		}
 
 		ai_will_do = {
@@ -10995,26 +11140,31 @@ focus_tree = {
 				tooltip = MAD_TGV_IN_POWER_tt
 				MAD_TGV_IN_POWER = yes
 			}
+			NOT = { has_country_flag = MAD_ARMY_COMMAND_GENERAL_STAFF }
 		}
 
 		completion_reward = {
+			if = {
+				limit = {
+					has_elections = yes
+				}
 			set_politics = { ruling_party = nationalist elections_allowed = no } 
-			set_temp_variable = { party_index = 20 }
-			set_temp_variable = { party_popularity_increase = 0.10 }
-			change_relative_party_popularity = yes add_stability = 0.02 swap_ideas = { remove_idea = MAD_POL_TGV_PEM add_idea = MAD_POL_TGV_PRESIDENTIALISM } 
-			            set_country_flag = MAD_TGV_EXECUTIVE_MODEL
-			            recalculate_party = yes
+			}
+			swap_ideas = { remove_idea = MAD_POL_TGV_PEM add_idea = MAD_POL_TGV_PRESIDENTIALISM } 
+			set_country_flag = MAD_TGV_EXECUTIVE_MODEL
+			set_country_flag = MAD_TGV_CAPSAT_ACCEPTED
+			clr_country_flag = MAD_TGV_CAPSAT_REJECTION
 			
-			add_stability = -0.03
+			increase_centralization = yes
 			
-			add_political_power = 50
-			
-			set_temp_variable = { party_index = 2 }
-			set_temp_variable = { party_popularity_increase = -0.10 }
-			change_relative_party_popularity = yes
-			recalculate_party = yes
-			
-			set_politics = { ruling_party = nationalist elections_allowed = no }
+			set_temp_variable = { percent_change = 6 }
+			change_domestic_influence_percentage = yes
+					
+			if = {
+				limit = { NOT = { has_country_flag = MAD_ARMY_COMMAND_DECIDED } }
+				set_country_flag = MAD_TGV_COMMAND_FORCE_CAPSAT
+				country_event = { id = MAD_military_command.1 hours = 1 }
+			}
 		}
 
 		ai_will_do = {
@@ -11025,23 +11175,24 @@ focus_tree = {
 	focus = {
 		id = MAD_POL_HVM_PARTY_OF_GOVERNMENT
 		icon = GFX_goal_generic_government
-		x = 59
+		x = 61
 		y = 22
 		cost = 5
 		prerequisite = { focus = MAD_POL_PARTIES }
 		search_filters = { FOCUS_FILTER_POLITICAL }
+		allow_branch = {
+			has_country_flag = MAD_HVM_BRANCH_UNLOCKED
+		}
 
 		completion_reward = {
-			add_political_power = 75 set_temp_variable = { party_index = 1 }
+			add_political_power = 75
+			set_temp_variable = { party_index = 1 }
 			set_temp_variable = { party_popularity_increase = 0.10 }
 			set_temp_variable = { temp_outlook_increase = 0.10 }
-			change_relative_party_popularity = yes 
-			            recalculate_party = yes
-			            set_country_flag = MAD_HVM_GOVERNMENT_ESTABLISHED
-			
-			add_political_power = 15
-			
-			add_stability = 0.01
+			change_relative_party_popularity = yes
+			recalculate_party = yes
+			set_country_flag = MAD_HVM_GOVERNMENT_ESTABLISHED
+			add_stability = 0.02
 		}
 
 		ai_will_do = {
@@ -11053,7 +11204,7 @@ focus_tree = {
 		id = MAD_POL_HVM_STABILISE_REPUBLIC
 		icon = GFX_goal_generic_national_unity
 		x = 0
-		y = 2
+		y = 1
 		relative_position_id = MAD_POL_HVM_PARTY_OF_GOVERNMENT
 		cost = 5
 		prerequisite = { focus = MAD_POL_HVM_PARTY_OF_GOVERNMENT }
@@ -11099,8 +11250,10 @@ focus_tree = {
 
 		completion_reward = {
 			decrease_corruption = yes
-			add_ideas = MAD_HVM_RULE_OF_LAW_PROGRAMME
-			add_political_power = 50
+			swap_ideas = {
+				remove_idea = MAD_HVM_REPUBLICAN_STABILISATION
+				add_idea = MAD_HVM_RULE_OF_LAW_PROGRAMME
+			}
 			set_temp_variable = { party_index = 1 }
 			set_temp_variable = { party_popularity_increase = 0.05 }
 			set_temp_variable = { temp_outlook_increase = 0.05 }
@@ -11114,10 +11267,41 @@ focus_tree = {
 	}
 
 	focus = {
+		id = MAD_POL_HVM_FRANCO_MALAGASY_PARTNERSHIP
+		icon = GFX_goal_generic_diplomatic_treaty
+		x = 3
+		y = 1
+		relative_position_id = MAD_POL_HVM_RULE_OF_LAW
+		cost = 5
+		prerequisite = { focus = MAD_POL_HVM_RULE_OF_LAW }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_HVM_IN_POWER_tt
+				MAD_HVM_IN_POWER = yes
+			}
+			FRA = { exists = yes }
+		}
+
+		completion_reward = {
+			add_ideas = MAD_HVM_FRANCO_MALAGASY_PARTNERSHIP
+			set_country_flag = MAD_HVM_FRANCO_MALAGASY_PARTNERSHIP
+			set_temp_variable = { percent_change = 10 }
+			set_temp_variable = { tag_index = FRA }
+			set_temp_variable = { influence_target = MAD }
+			change_influence_percentage = yes
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
 		id = MAD_POL_HVM_DECENTRALISE
 		icon = decentralized_economy
-		x = 0
-		y = 3
+		x = 8
+		y = 1
 		relative_position_id = MAD_POL_HVM_RULE_OF_LAW
 		cost = 5
 		prerequisite = { focus = MAD_POL_HVM_RULE_OF_LAW }
@@ -11130,20 +11314,8 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			custom_effect_tooltip = {
-				localization_key = modifies_dynamic_modifier_tt
-				MODIFIER = MAD_economy_modifier
-			}
-			add_to_variable = { MAD_economy_infrastructure_tax_gain_multiplier_modifier = 0.05 tooltip = infrastructure_tax_gain_multiplier_modifier_tt } add_stability = 0.02 
-			            set_country_flag = MAD_HVM_DECENTRALISATION_MODEL
-			
-			add_political_power = 15
-			
-			set_temp_variable = { party_index = 1 }
-			set_temp_variable = { party_popularity_increase = 0.02 }
-			set_temp_variable = { temp_outlook_increase = 0.02 }
-			change_relative_party_popularity = yes
-			recalculate_party = yes
+			decrease_centralization = yes
+			set_country_flag = MAD_HVM_DECENTRALISATION_MODEL
 		}
 
 		ai_will_do = {
@@ -11154,11 +11326,11 @@ focus_tree = {
 	focus = {
 		id = MAD_POL_HVM_ADMINISTRATIVE_STATE
 		icon = GFX_goal_generic_government
-		x = -1
-		y = 2
+		x = -3
+		y = 1
 		relative_position_id = MAD_POL_HVM_RULE_OF_LAW
 		cost = 5
-		prerequisite = { focus = MAD_POL_HVM_RULE_OF_LAW focus = MAD_POL_HVM_DECENTRALISE }
+		prerequisite = { focus = MAD_POL_HVM_RULE_OF_LAW }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
 			custom_trigger_tooltip = {
@@ -11168,17 +11340,8 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			decrease_corruption = yes
-			            custom_effect_tooltip = {
-			            	localization_key = modifies_dynamic_modifier_tt
-			            	MODIFIER = MAD_economy_modifier
-			            }
-			            add_to_variable = { MAD_economy_infrastructure_tax_gain_multiplier_modifier = 0.05 tooltip = infrastructure_tax_gain_multiplier_modifier_tt }
-			            add_political_power = 75
-			            set_country_flag = MAD_HVM_ADMINISTRATIVE_STATE
-			
-			add_political_power = 15
-			
+			add_ideas = MAD_HVM_ADMINISTRATIVE_STATE
+			set_country_flag = MAD_HVM_ADMINISTRATIVE_STATE
 			set_temp_variable = { party_index = 1 }
 			set_temp_variable = { party_popularity_increase = 0.02 }
 			set_temp_variable = { temp_outlook_increase = 0.02 }
@@ -11194,11 +11357,11 @@ focus_tree = {
 	focus = {
 		id = MAD_POL_HVM_MACRO_STABILITY
 		icon = GFX_goal_generic_economic_reform
-		x = 0
-		y = 2
-		relative_position_id = MAD_POL_HVM_DECENTRALISE
+		x = 5
+		y = 1
+		relative_position_id = MAD_POL_HVM_RULE_OF_LAW
 		cost = 5
-		prerequisite = { focus = MAD_POL_HVM_DECENTRALISE }
+		prerequisite = { focus = MAD_POL_HVM_RULE_OF_LAW }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
 			custom_trigger_tooltip = {
@@ -11208,16 +11371,9 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			custom_effect_tooltip = {
-				localization_key = modifies_dynamic_modifier_tt
-				MODIFIER = MAD_economy_modifier
-			}
-			add_to_variable = { MAD_economy_receiving_investment_cost_modifier = -0.03 tooltip = receiving_investment_cost_modifier_tt } 
-			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.10 tooltip = productivity_growth_modifier_tt } add_ideas = MAD_POL_HVM_TECHNOCRATIC_STATE 
+			add_ideas = MAD_POL_HVM_TECHNOCRATIC_STATE
 			set_country_flag = MAD_HVM_MACRO_FRAMEWORK
-			
 			add_political_power = 15
-			
 			add_stability = 0.02
 		}
 
@@ -11229,11 +11385,11 @@ focus_tree = {
 	focus = {
 		id = MAD_POL_HVM_PUBLIC_FINANCE
 		icon = GFX_goal_generic_economic_reform
-		x = -2
-		y = 1
-		relative_position_id = MAD_POL_HVM_MACRO_STABILITY
+		x = 0
+		y = 2
+		relative_position_id = MAD_POL_HVM_ADMINISTRATIVE_STATE
 		cost = 5
-		prerequisite = { focus = MAD_POL_HVM_MACRO_STABILITY }
+		prerequisite = { focus = MAD_POL_HVM_ADMINISTRATIVE_STATE }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
 			custom_trigger_tooltip = {
@@ -11243,16 +11399,15 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			custom_effect_tooltip = {
-							localization_key = modifies_dynamic_modifier_tt
-							MODIFIER = MAD_economy_modifier
-						}
-						add_to_variable = { MAD_economy_productivity_growth_modifier = 0.10 tooltip = productivity_growth_modifier_tt }
-						            add_to_variable = { MAD_economy_receiving_investment_duration_modifier = -0.04 tooltip = receiving_investment_duration_modifier_tt }
-						            set_country_flag = MAD_HVM_PUBLIC_FINANCE
-			
-			            add_stability = 0.03
-						add_political_power = 15
+			swap_ideas = {
+				remove_idea = MAD_HVM_ADMINISTRATIVE_STATE
+				add_idea = MAD_HVM_PUBLIC_FINANCE
+			}
+			set_temp_variable = { debt_change = -10.00 }
+			modify_debt_effect = yes
+			set_country_flag = MAD_HVM_PUBLIC_FINANCE
+			add_stability = 0.03
+			add_political_power = 25
 		}
 
 		ai_will_do = {
@@ -11265,9 +11420,9 @@ focus_tree = {
 		icon = GFX_goal_generic_trade
 		x = 0
 		y = 2
-		relative_position_id = MAD_POL_HVM_MACRO_STABILITY
+		relative_position_id = MAD_POL_HVM_FRANCO_MALAGASY_PARTNERSHIP
 		cost = 5
-		prerequisite = { focus = MAD_POL_HVM_MACRO_STABILITY }
+		prerequisite = { focus = MAD_POL_HVM_FRANCO_MALAGASY_PARTNERSHIP }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
 			custom_trigger_tooltip = {
@@ -11277,15 +11432,13 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			custom_effect_tooltip = {
-				localization_key = modifies_dynamic_modifier_tt
-				MODIFIER = MAD_economy_modifier
+			swap_ideas = {
+				remove_idea = MAD_HVM_FRANCO_MALAGASY_PARTNERSHIP
+				add_idea = MAD_HVM_INVESTMENT_FRIENDLY
 			}
-			add_to_variable = { MAD_economy_receiving_investment_cost_modifier = -0.05 tooltip = receiving_investment_cost_modifier_tt } add_to_variable = { MAD_economy_receiving_investment_duration_modifier = -0.05 tooltip = receiving_investment_duration_modifier_tt } 
-			            add_to_variable = { MAD_economy_productivity_growth_modifier = 0.10 tooltip = productivity_growth_modifier_tt }
-			
-			add_political_power = 15
-			
+			set_temp_variable = { temp_opinion = 5 }
+			change_international_bankers_opinion = yes
+			add_political_power = 25
 			set_temp_variable = { party_index = 1 }
 			set_temp_variable = { party_popularity_increase = 0.02 }
 			set_temp_variable = { temp_outlook_increase = 0.02 }
@@ -11303,9 +11456,9 @@ focus_tree = {
 		icon = GFX_goal_generic_education
 		x = 0
 		y = 2
-		relative_position_id = MAD_POL_HVM_INVESTMENT_FRIENDLY
+		relative_position_id = MAD_POL_HVM_PUBLIC_FINANCE
 		cost = 5
-		prerequisite = { focus = MAD_POL_HVM_INVESTMENT_FRIENDLY }
+		prerequisite = { focus = MAD_POL_HVM_PUBLIC_FINANCE }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
 			custom_trigger_tooltip = {
@@ -11315,15 +11468,12 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			custom_effect_tooltip = {
-				localization_key = modifies_dynamic_modifier_tt
-				MODIFIER = MAD_economy_modifier
+			swap_ideas = {
+				remove_idea = MAD_HVM_PUBLIC_FINANCE
+				add_idea = MAD_HVM_HUMAN_CAPITAL
 			}
-			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.15 tooltip = productivity_growth_modifier_tt } add_to_variable = { MAD_economy_expected_welfare_modifier = 0.3 tooltip = expected_welfare_modifier_tt } 
-			
 			add_stability = 0.02
-			add_political_power = 15
-			
+			add_political_power = 25
 			set_temp_variable = { party_index = 1 }
 			set_temp_variable = { party_popularity_increase = 0.02 }
 			set_temp_variable = { temp_outlook_increase = 0.02 }
@@ -11353,15 +11503,11 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			custom_effect_tooltip = {
-				localization_key = modifies_dynamic_modifier_tt
-				MODIFIER = MAD_economy_modifier
+			swap_ideas = {
+				remove_idea = MAD_HVM_HUMAN_CAPITAL
+				add_idea = MAD_HVM_VOCATIONAL_TRAINING
 			}
-			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.15 tooltip = productivity_growth_modifier_tt } 
-			            add_to_variable = { MAD_economy_expected_welfare_modifier = 0.20 tooltip = expected_welfare_modifier_tt }
-			
-			add_political_power = 15
-			
+			add_political_power = 25
 			set_temp_variable = { party_index = 1 }
 			set_temp_variable = { party_popularity_increase = 0.02 }
 			set_temp_variable = { temp_outlook_increase = 0.02 }
@@ -11379,9 +11525,9 @@ focus_tree = {
 		icon = GFX_goal_generic_production
 		x = 0
 		y = 2
-		relative_position_id = MAD_POL_HVM_VOCATIONAL_TRAINING
+		relative_position_id = MAD_POL_HVM_ENERGY_FOR_GROWTH
 		cost = 5
-		prerequisite = { focus = MAD_POL_HVM_VOCATIONAL_TRAINING }
+		prerequisite = { focus = MAD_POL_HVM_ENERGY_FOR_GROWTH }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
 			custom_trigger_tooltip = {
@@ -11392,20 +11538,10 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			custom_effect_tooltip = {
-				localization_key = modifies_dynamic_modifier_tt
-				MODIFIER = MAD_economy_modifier
+			swap_ideas = {
+				remove_idea = MAD_HVM_ENERGY_FOR_GROWTH
+				add_idea = MAD_HVM_AGRICULTURE
 			}
-			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.15 tooltip = productivity_growth_modifier_tt } 
-				custom_effect_tooltip = {
-				localization_key = modifies_dynamic_modifier_tt
-				MODIFIER = MAD_agriculture_modifier
-				}
-				add_to_variable = { MAD_agri_income_tax = 0.04 tooltip = agriculture_district_income_tax_modifier_tt }
-			            force_update_dynamic_modifier = yes 
-			            add_to_variable = { MAD_agri_productivity = 0.02 tooltip = agricolture_productivity_modifier_tt }
-			            force_update_dynamic_modifier = yes
-			
 			set_temp_variable = { party_index = 1 }
 			set_temp_variable = { party_popularity_increase = 0.02 }
 			set_temp_variable = { temp_outlook_increase = 0.02 }
@@ -11436,13 +11572,11 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			custom_effect_tooltip = {
-				localization_key = modifies_dynamic_modifier_tt
-				MODIFIER = MAD_economy_modifier
+			swap_ideas = {
+				remove_idea = MAD_HVM_AGRICULTURE
+				add_idea = MAD_HVM_LIGHT_INDUSTRY
 			}
-			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.20 tooltip = productivity_growth_modifier_tt } 
-			            add_to_variable = { MAD_economy_corporate_tax_income_multiplier_modifier = 0.02 tooltip = corporate_tax_income_multiplier_modifier_tt }
-			
+			increase_exports = yes
 			set_temp_variable = { party_index = 1 }
 			set_temp_variable = { party_popularity_increase = 0.02 }
 			set_temp_variable = { temp_outlook_increase = 0.02 }
@@ -11459,10 +11593,10 @@ focus_tree = {
 		id = MAD_POL_HVM_PPP_FRAMEWORK
 		icon = GFX_goal_generic_trade
 		x = 0
-		y = 2
-		relative_position_id = MAD_POL_HVM_LIGHT_INDUSTRY
+		y = 3
+		relative_position_id = MAD_POL_HVM_INVESTMENT_FRIENDLY
 		cost = 5
-		prerequisite = { focus = MAD_POL_HVM_LIGHT_INDUSTRY }
+		prerequisite = { focus = MAD_POL_HVM_INVESTMENT_FRIENDLY }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
 			custom_trigger_tooltip = {
@@ -11473,15 +11607,12 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			custom_effect_tooltip = {
-				localization_key = modifies_dynamic_modifier_tt
-				MODIFIER = MAD_economy_modifier
+			swap_ideas = {
+				remove_idea = MAD_HVM_INVESTMENT_FRIENDLY
+				add_idea = MAD_HVM_PPP_FRAMEWORK
 			}
-			add_to_variable = { MAD_economy_receiving_investment_duration_modifier = -0.05 tooltip = receiving_investment_duration_modifier_tt } add_to_variable = { MAD_economy_productivity_growth_modifier = 0.10 tooltip = productivity_growth_modifier_tt } 
-			            set_country_flag = MAD_HVM_PPP_STATE
-			
-			add_political_power = 15
-			
+			set_country_flag = MAD_HVM_PPP_STATE
+			add_political_power = 25
 			set_temp_variable = { party_index = 1 }
 			set_temp_variable = { party_popularity_increase = 0.02 }
 			set_temp_variable = { temp_outlook_increase = 0.02 }
@@ -11499,9 +11630,9 @@ focus_tree = {
 		icon = GFX_goal_generic_electricity
 		x = 0
 		y = 2
-		relative_position_id = MAD_POL_HVM_PPP_FRAMEWORK
+		relative_position_id = MAD_POL_HVM_RULE_OF_LAW
 		cost = 5
-		prerequisite = { focus = MAD_POL_HVM_PPP_FRAMEWORK }
+		prerequisite = { focus = MAD_POL_HVM_RULE_OF_LAW }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
 			custom_trigger_tooltip = {
@@ -11512,12 +11643,8 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			custom_effect_tooltip = {
-							localization_key = modifies_dynamic_modifier_tt
-							MODIFIER = MAD_economy_modifier
-						}
-						add_to_variable = { MAD_economy_productivity_growth_modifier = 0.20 tooltip = productivity_growth_modifier_tt } 
-			            add_to_variable = { MAD_economy_expected_welfare_modifier = 0.25 tooltip = expected_welfare_modifier_tt }
+			add_ideas = MAD_HVM_ENERGY_FOR_GROWTH
+			set_country_flag = MAD_HVM_ENERGY_POLICY
 		}
 
 		ai_will_do = {
@@ -11530,9 +11657,9 @@ focus_tree = {
 		icon = GFX_goal_generic_sustainability
 		x = 0
 		y = 2
-		relative_position_id = MAD_POL_HVM_ENERGY_FOR_GROWTH
+		relative_position_id = MAD_POL_HVM_VOCATIONAL_TRAINING
 		cost = 5
-		prerequisite = { focus = MAD_POL_HVM_ENERGY_FOR_GROWTH }
+		prerequisite = { focus = MAD_POL_HVM_VOCATIONAL_TRAINING }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
 			custom_trigger_tooltip = {
@@ -11543,13 +11670,12 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			custom_effect_tooltip = {
-				localization_key = modifies_dynamic_modifier_tt
-				MODIFIER = MAD_economy_modifier
+			swap_ideas = {
+				remove_idea = MAD_HVM_VOCATIONAL_TRAINING
+				add_idea = MAD_HVM_NATURAL_CAPITAL
 			}
-			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.10 tooltip = productivity_growth_modifier_tt } add_to_variable = { MAD_economy_expected_welfare_modifier = 0.2 tooltip = expected_welfare_modifier_tt } 
-			            add_to_variable = { MAD_economy_productivity_growth_modifier = 0.10 tooltip = productivity_growth_modifier_tt }
-			
+			add_political_power = 15
+			add_stability = 0.02
 			set_temp_variable = { party_index = 1 }
 			set_temp_variable = { party_popularity_increase = 0.02 }
 			set_temp_variable = { temp_outlook_increase = 0.02 }
@@ -11565,11 +11691,13 @@ focus_tree = {
 	focus = {
 		id = MAD_POL_HVM_ELECTORAL_FRAMEWORK
 		icon = GFX_goal_generic_constitution
-		x = -1
-		y = 1
-		relative_position_id = MAD_POL_HVM_NATURAL_CAPITAL
+		x = 0
+		y = 10
+		relative_position_id = MAD_POL_HVM_RULE_OF_LAW
 		cost = 5
+		prerequisite = { focus = MAD_POL_HVM_PPP_FRAMEWORK }
 		prerequisite = { focus = MAD_POL_HVM_NATURAL_CAPITAL }
+		prerequisite = { focus = MAD_POL_HVM_LIGHT_INDUSTRY }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
 			custom_trigger_tooltip = {
@@ -11579,8 +11707,8 @@ focus_tree = {
 		}
 
 		completion_reward = {
+			add_ideas = MAD_HVM_ELECTORAL_FRAMEWORK
 			set_country_flag = MAD_HVM_ELECTORAL_FRAMEWORK
-			
 			set_temp_variable = { party_index = 1 }
 			set_temp_variable = { party_popularity_increase = 0.04 }
 			set_temp_variable = { temp_outlook_increase = 0.04 }
@@ -11596,11 +11724,11 @@ focus_tree = {
 	focus = {
 		id = MAD_POL_HVM_PROJECT_REVIEW
 		icon = GFX_goal_generic_plan
-		x = 1
-		y = 1
-		relative_position_id = MAD_POL_HVM_NATURAL_CAPITAL
+		x = 0
+		y = 2
+		relative_position_id = MAD_POL_HVM_ELECTORAL_FRAMEWORK
 		cost = 5
-		prerequisite = { focus = MAD_POL_HVM_NATURAL_CAPITAL focus = MAD_POL_HVM_ELECTORAL_FRAMEWORK }
+		prerequisite = { focus = MAD_POL_HVM_ELECTORAL_FRAMEWORK }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
 			custom_trigger_tooltip = {
@@ -11610,7 +11738,6 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_HVM_PROJECT_REVIEW"
 			set_country_flag = MAD_HVM_PROJECT_REVIEWED
 			add_political_power = 35
 			decrease_corruption = yes
@@ -11625,41 +11752,41 @@ focus_tree = {
 	focus = {
 		id = MAD_POL_HVM_FISANDRATANA_2030
 		icon = GFX_goal_generic_plan
-		x = 1
+		x = 0
 		y = 2
-		relative_position_id = MAD_POL_HVM_ELECTORAL_FRAMEWORK
+		relative_position_id = MAD_POL_HVM_PROJECT_REVIEW
 		cost = 5
-		prerequisite = { focus = MAD_POL_HVM_ELECTORAL_FRAMEWORK focus = MAD_POL_HVM_PROJECT_REVIEW }
+		prerequisite = { focus = MAD_POL_HVM_PROJECT_REVIEW }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_HVM_IN_POWER_tt
 				MAD_HVM_IN_POWER = yes
 			}
-			MAD_HVM_IN_POWER = yes
 		}
 
 		completion_reward = {
 			if = {
 				limit = { MAD_HVM_FISANDRATANA_FULL_TRIGGER = yes }
-				custom_effect_tooltip = {
-					localization_key = modifies_dynamic_modifier_tt
-					MODIFIER = MAD_economy_modifier
+				swap_ideas = {
+					remove_idea = MAD_HVM_ELECTORAL_FRAMEWORK
+					add_idea = MAD_HVM_FISANDRATANA_FULL
 				}
-				add_to_variable = { MAD_economy_productivity_growth_modifier = 0.30 tooltip = productivity_growth_modifier_tt }
-				add_to_variable = { MAD_economy_expected_welfare_modifier = 0.50 tooltip = expected_welfare_modifier_tt }
-				add_to_variable = { MAD_economy_receiving_investment_cost_modifier = -0.05 tooltip = receiving_investment_cost_modifier_tt }
 				set_country_flag = MAD_HVM_FISANDRATANA_FULL
 			}
 			else_if = {
 				limit = { MAD_HVM_FISANDRATANA_PARTIAL_TRIGGER = yes }
-				add_to_variable = { MAD_economy_productivity_growth_modifier = 0.15 tooltip = productivity_growth_modifier_tt }
-				add_to_variable = { MAD_economy_expected_welfare_modifier = 0.25 tooltip = expected_welfare_modifier_tt }
+				swap_ideas = {
+					remove_idea = MAD_HVM_ELECTORAL_FRAMEWORK
+					add_idea = MAD_HVM_FISANDRATANA_PARTIAL
+				}
 				set_country_flag = MAD_HVM_FISANDRATANA_PARTIAL
 			}
 			else = {
-				add_political_power = 50
-				add_to_variable = { MAD_economy_productivity_growth_modifier = 0.10 tooltip = productivity_growth_modifier_tt }
+				swap_ideas = {
+					remove_idea = MAD_HVM_ELECTORAL_FRAMEWORK
+					add_idea = MAD_HVM_FISANDRATANA_PLANNING
+				}
 				set_country_flag = MAD_HVM_FISANDRATANA_PLANNING_ONLY
 			}
 			add_political_power = 50
@@ -11680,6 +11807,7 @@ focus_tree = {
 		icon = GFX_goal_generic_political_pressure
 		x = 35
 		y = 20
+		dynamic = yes
 		cost = 5
 		search_filters = { FOCUS_FILTER_POLITICAL }
 
@@ -11750,6 +11878,1311 @@ focus_tree = {
 
 		ai_will_do = {
 			base = 0
+		}
+	}
+
+	focus = {
+		id = MAD_POL_TGV_FRENCH_RAIL
+		icon = GFX_focus_warsaw_main_station
+		x = 2
+		y = 1
+		relative_position_id = MAD_POL_TGV_INFRASTRUCTURE_FIRST
+		cost = 5
+		prerequisite = { focus = MAD_POL_TGV_INFRASTRUCTURE_FIRST }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_TGV_IN_POWER_tt
+				MAD_TGV_IN_POWER = yes
+			}
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_TGV_FRENCH_RAIL"
+			267 = {
+				add_building_construction = {
+					type = rail_terminal
+					level = 1
+					instant_build = yes
+				}
+			}
+			add_tech_bonus = {
+				name = MAD_POL_TGV_FRENCH_RAIL
+				category = CAT_infrastructure
+				uses = 2
+				bonus = 0.15
+			}
+			FRA = { add_opinion_modifier = { target = MAD modifier = large_commercial_relations } }
+			
+			set_temp_variable = { percent_change = 10 }
+			set_temp_variable = { tag_index = FRA }
+			set_temp_variable = { influence_target = MAD }
+			change_influence_percentage = yes
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_ARMY_THE_ARMY_WE_INHERITED
+		icon = GFX_goal_generic_army
+		x = 79
+		y = 20
+		cost = 5
+		search_filters = { FOCUS_FILTER_MILITARY_LAWS }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_ARMY_THE_ARMY_WE_INHERITED"
+			    army_experience = 15
+			    add_mastery = { amount = 10 folder = land }
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_ARMY_PAY_THE_SOLDIER
+		icon = GFX_goal_generic_army
+		x = 79
+		y = 22
+		cost = 5
+		prerequisite = { focus = MAD_ARMY_THE_ARMY_WE_INHERITED }
+		search_filters = { FOCUS_FILTER_MILITARY_LAWS }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_ARMY_PAY_THE_SOLDIER"
+			    add_manpower = 15000
+			    army_experience = 15
+			    add_mastery = { amount = 10 folder = land }
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_ARMY_BUILD_TRAINING_CADRE
+		icon = GFX_goal_generic_army
+		x = 79
+		y = 24
+		cost = 5
+		prerequisite = { focus = MAD_ARMY_PAY_THE_SOLDIER }
+		search_filters = { FOCUS_FILTER_MILITARY_LAWS }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_ARMY_BUILD_TRAINING_CADRE"
+			    army_experience = 25
+			    add_mastery = { amount = 15 folder = land }
+			    add_tech_bonus = {
+			        name = MAD_ARMY_BUILD_TRAINING_CADRE
+			        category = CAT_inf
+			        uses = 1
+			        bonus = 0.25
+			    }
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_ARMY_STANDARDISE_FIELD_READINESS
+		icon = GFX_goal_generic_army
+		x = 79
+		y = 25
+		cost = 5
+		prerequisite = { focus = MAD_ARMY_BUILD_TRAINING_CADRE }
+		search_filters = { FOCUS_FILTER_MILITARY_LAWS }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_ARMY_STANDARDISE_FIELD_READINESS"
+			    army_experience = 30
+			    add_mastery = { amount = 20 folder = land }
+			    add_tech_bonus = {
+			        name = MAD_ARMY_STANDARDISE_FIELD_READINESS
+			        category = CAT_cnc
+			        category = CAT_internet_tech
+			        uses = 1
+			        bonus = 0.25
+			    }
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_ARMY_ISLAND_INFANTRY_DOCTRINE
+		icon = infantry_allies
+		x = 82
+		y = 26
+		cost = 5
+		prerequisite = { focus = MAD_ARMY_STANDARDISE_FIELD_READINESS }
+		search_filters = { FOCUS_FILTER_MILITARY }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_ARMY_ISLAND_INFANTRY_DOCTRINE"
+			    army_experience = 25
+			    add_mastery = { amount = 25 folder = land }
+			    add_tech_bonus = {
+			        name = MAD_ARMY_ISLAND_INFANTRY_DOCTRINE
+			        category = CAT_inf
+			        uses = 2
+			        bonus = 0.40
+			    }
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_ARMY_COMMAND_QUESTION
+		icon = GFX_goal_generic_army
+		x = 82
+		y = 27
+		cost = 5
+		prerequisite = { focus = MAD_ARMY_ISLAND_INFANTRY_DOCTRINE }
+		search_filters = { FOCUS_FILTER_MILITARY_LAWS }
+		bypass = {
+			has_country_flag = MAD_ARMY_COMMAND_DECIDED
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_ARMY_COMMAND_QUESTION"
+			country_event = { id = MAD_military_command.1 days = 1 }
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_ARMY_CAPSAT_LOCAL_INITIATIVE
+		icon = GFX_goal_generic_coup
+		x = 80
+		y = 28
+		cost = 5
+		prerequisite = { focus = MAD_ARMY_COMMAND_QUESTION }
+		search_filters = { FOCUS_FILTER_MILITARY_LAWS }
+		available = {
+			has_country_flag = MAD_ARMY_COMMAND_CAPSAT
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_ARMY_CAPSAT_LOCAL_INITIATIVE"
+			    army_experience = 25
+			    add_mastery = { amount = 20 folder = land }
+			    add_to_variable = { MAD_dahalo_threat = -3 tooltip = MAD_DAHALO_THREAT_MINUS_3_TT }
+			    if = {
+			        limit = { NOT = { has_country_flag = MAD_DAHALO_DEFEATED } }
+			        MAD_dahalo_update_modifier = yes
+			    }
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_ARMY_CAPSAT_INTERNAL_NETWORKS
+		icon = military_sphere
+		x = 80
+		y = 29
+		cost = 5
+		prerequisite = { focus = MAD_ARMY_CAPSAT_LOCAL_INITIATIVE }
+		search_filters = { FOCUS_FILTER_MILITARY_LAWS }
+		available = {
+			has_country_flag = MAD_ARMY_COMMAND_CAPSAT
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_ARMY_CAPSAT_INTERNAL_NETWORKS"
+			    army_experience = 25
+			    add_manpower = 7500
+			    add_mastery = { amount = 20 folder = land }
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_ARMY_CAPSAT_BARRACKS_POLITICS
+		icon = GFX_goal_generic_army
+		x = 80
+		y = 30
+		cost = 5
+		prerequisite = { focus = MAD_ARMY_CAPSAT_INTERNAL_NETWORKS }
+		search_filters = { FOCUS_FILTER_MILITARY_LAWS }
+		available = {
+			has_country_flag = MAD_ARMY_COMMAND_CAPSAT
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_ARMY_CAPSAT_BARRACKS_POLITICS"
+			    army_experience = 30
+			    add_mastery = { amount = 20 folder = land }
+			    set_country_flag = MAD_MIL_PARTY_LEADER_CAPSAT
+			    clr_country_flag = MAD_MIL_PARTY_LEADER_GENERAL_STAFF
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_ARMY_GENERAL_STAFF_PRIMACY
+		icon = GFX_goal_generic_army
+		x = 84
+		y = 28
+		cost = 5
+		prerequisite = { focus = MAD_ARMY_COMMAND_QUESTION }
+		search_filters = { FOCUS_FILTER_MILITARY_LAWS }
+		available = {
+			has_country_flag = MAD_ARMY_COMMAND_GENERAL_STAFF
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_ARMY_GENERAL_STAFF_PRIMACY"
+			    army_experience = 20
+			    add_mastery = { amount = 25 folder = land }
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_ARMY_CENTRALISED_PROCUREMENT
+		icon = military_factory
+		x = 84
+		y = 29
+		cost = 5
+		prerequisite = { focus = MAD_ARMY_GENERAL_STAFF_PRIMACY }
+		search_filters = { FOCUS_FILTER_MILITARY FOCUS_FILTER_INDUSTRY }
+		available = {
+			has_country_flag = MAD_ARMY_COMMAND_GENERAL_STAFF
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_ARMY_CENTRALISED_PROCUREMENT"
+			    army_experience = 20
+			    add_mastery = { amount = 25 folder = land }
+			    add_tech_bonus = {
+			        name = MAD_ARMY_CENTRALISED_PROCUREMENT
+			        category = CAT_cnc
+			        category = CAT_computing_tech
+			        uses = 2
+			        bonus = 0.35
+			    }
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_ARMY_DOCTRINE_ABOVE_FACTION
+		icon = GFX_goal_generic_army
+		x = 84
+		y = 30
+		cost = 5
+		prerequisite = { focus = MAD_ARMY_CENTRALISED_PROCUREMENT }
+		search_filters = { FOCUS_FILTER_MILITARY_LAWS }
+		available = {
+			has_country_flag = MAD_ARMY_COMMAND_GENERAL_STAFF
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_ARMY_DOCTRINE_ABOVE_FACTION"
+			    army_experience = 25
+			    add_mastery = { amount = 20 folder = land }
+				    set_country_flag = MAD_MIL_PARTY_LEADER_GENERAL_STAFF
+			    clr_country_flag = MAD_MIL_PARTY_LEADER_CAPSAT
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_ARMY_REFIT_RIFLE_COMPANIES
+		icon = GFX_goal_generic_army
+		x = 77
+		y = 26
+		cost = 5
+		prerequisite = { focus = MAD_ARMY_STANDARDISE_FIELD_READINESS }
+		search_filters = { FOCUS_FILTER_MILITARY }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_ARMY_REFIT_RIFLE_COMPANIES"
+			    army_experience = 15
+			    add_mastery = { amount = 15 folder = land }
+			    add_tech_bonus = {
+			        name = MAD_ARMY_REFIT_RIFLE_COMPANIES
+			        category = CAT_inf
+			        uses = 2
+			        bonus = 0.35
+			    }
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_ARMY_SERVICE_RIFLE_ACQUISITION
+		icon = small_arms4
+		x = 77
+		y = 28
+		cost = 5
+		prerequisite = { focus = MAD_ARMY_REFIT_RIFLE_COMPANIES }
+		search_filters = { FOCUS_FILTER_MILITARY }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_ARMY_SERVICE_RIFLE_ACQUISITION"
+			    country_event = { id = MAD_military_procurement.1 days = 1 }
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_ARMY_INFANTRY_WEAPONS_RESEARCH
+		icon = GFX_focus_research
+		x = 77
+		y = 30
+		cost = 5
+		prerequisite = { focus = MAD_ARMY_SERVICE_RIFLE_ACQUISITION }
+		search_filters = { FOCUS_FILTER_MILITARY }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_ARMY_INFANTRY_WEAPONS_RESEARCH"
+			    add_tech_bonus = {
+			        name = MAD_ARMY_INFANTRY_WEAPONS_RESEARCH
+			        category = CAT_inf
+			        uses = 3
+			        bonus = 0.50
+			    }
+			    add_mastery = { amount = 25 folder = land }
+			    army_experience = 20
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_ARMY_FIELD_ENGINEERING_STANDARDS
+		icon = construction_engineering
+		x = 75
+		y = 26
+		cost = 5
+		prerequisite = { focus = MAD_ARMY_STANDARDISE_FIELD_READINESS }
+		search_filters = { FOCUS_FILTER_MILITARY FOCUS_FILTER_INDUSTRY }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_ARMY_FIELD_ENGINEERING_STANDARDS"
+			    267 = {
+			        if = {
+			            limit = { infrastructure < 4 }
+			            add_building_construction = { type = infrastructure level = 1 instant_build = yes }
+			        }
+			    }
+			    487 = {
+			        if = {
+			            limit = { infrastructure < 4 }
+			            add_building_construction = { type = infrastructure level = 1 instant_build = yes }
+			        }
+			    }
+			    add_tech_bonus = {
+			        name = MAD_ARMY_FIELD_ENGINEERING_STANDARDS
+			        category = CAT_construction
+			        uses = 2
+			        bonus = 0.35
+			    }
+			    add_mastery = { amount = 25 folder = land }
+			    army_experience = 25
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_ARMY_EYES_ALONG_THE_COAST
+		icon = GFX_focus_army_radar
+		x = 87
+		y = 26
+		cost = 5
+		prerequisite = { focus = MAD_ARMY_STANDARDISE_FIELD_READINESS }
+		search_filters = { FOCUS_FILTER_MILITARY }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_ARMY_EYES_ALONG_THE_COAST"
+			    267 = {
+			        add_extra_state_shared_building_slots = 1
+			        add_building_construction = { type = radar_station level = 1 instant_build = yes }
+			    }
+			    add_tech_bonus = {
+			        name = MAD_ARMY_EYES_ALONG_THE_COAST
+			        category = CAT_naval_radar
+			        uses = 2
+			        bonus = 0.40
+			    }
+			    add_mastery = { amount = 15 folder = naval }
+			    navy_experience = 15
+			    army_experience = 15
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_ARMY_MOTORISE_THE_INFANTRY
+		icon = GFX_goal_generic_army
+		x = 75
+		y = 28
+		cost = 5
+		prerequisite = { focus = MAD_ARMY_FIELD_ENGINEERING_STANDARDS }
+		search_filters = { FOCUS_FILTER_MILITARY }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_ARMY_MOTORISE_THE_INFANTRY"
+			    set_temp_variable = { treasury_change = -2.5 }
+			    modify_treasury_effect = yes
+			    add_equipment_to_stockpile = { type = util_vehicle_4 amount = 120 producer = ZAF }
+			    set_temp_variable = { percent_change = 4 }
+			    set_temp_variable = { tag_index = ZAF }
+			    set_temp_variable = { influence_target = MAD }
+			    change_influence_percentage = yes
+			    ZAF = {
+			        set_temp_variable = { treasury_change = 2.5 }
+			        modify_treasury_effect = yes
+			        add_opinion_modifier = { target = MAD modifier = large_commercial_relations }
+			    }
+			    add_opinion_modifier = { target = ZAF modifier = large_commercial_relations }
+			    add_mastery = { amount = 15 folder = land }
+			    army_experience = 15
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_ARMY_SIGNALS_INTELLIGENCE_SCHOOL
+		icon = GFX_focus_army_radar
+		x = 87
+		y = 28
+		cost = 5
+		prerequisite = { focus = MAD_ARMY_EYES_ALONG_THE_COAST }
+		search_filters = { FOCUS_FILTER_MILITARY }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_ARMY_SIGNALS_INTELLIGENCE_SCHOOL"
+			    add_tech_bonus = {
+			        name = MAD_ARMY_SIGNALS_INTELLIGENCE_SCHOOL
+			        category = CAT_computing_tech
+			        category = CAT_internet_tech
+			        uses = 2
+			        bonus = 0.40
+			    }
+			    add_mastery = { amount = 20 folder = land }
+			    army_experience = 20
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_ARMY_PROTECTED_MOBILITY_TENDER
+		icon = GFX_goal_generic_army
+		x = 75
+		y = 30
+		cost = 5
+		prerequisite = { focus = MAD_ARMY_MOTORISE_THE_INFANTRY }
+		search_filters = { FOCUS_FILTER_MILITARY }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_ARMY_PROTECTED_MOBILITY_TENDER"
+			    country_event = { id = MAD_military_procurement.3 days = 1 }
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_ARMY_REBUILD_THE_HELICOPTER_ARM
+		icon = GFX_focus_air_force
+		x = 90
+		y = 26
+		cost = 5
+		prerequisite = { focus = MAD_ARMY_STANDARDISE_FIELD_READINESS }
+		search_filters = { FOCUS_FILTER_MILITARY FOCUS_FILTER_AIRCRAFT }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_ARMY_REBUILD_THE_HELICOPTER_ARM"
+			    add_tech_bonus = {
+			        name = MAD_ARMY_REBUILD_THE_HELICOPTER_ARM
+			        category = CAT_air_eqp
+			        uses = 2
+			        bonus = 0.40
+			    }
+			    add_mastery = { amount = 20 folder = air }
+			    air_experience = 20
+			    army_experience = 20
+			    if = {
+			        limit = { NOT = { has_country_flag = MAD_DAHALO_DEFEATED } }
+			        add_to_variable = { MAD_dahalo_threat = -8 tooltip = MAD_DAHALO_THREAT_MINUS_8_TT }
+			        MAD_dahalo_update_modifier = yes
+			    }
+			    set_country_flag = MAD_ARMY_HELICOPTER_ARM_READY
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_ARMY_LIFT_AND_SUSTAIN
+		icon = GFX_focus_transport_aircraft
+		x = 90
+		y = 28
+		cost = 5
+		prerequisite = { focus = MAD_ARMY_REBUILD_THE_HELICOPTER_ARM }
+		search_filters = { FOCUS_FILTER_MILITARY FOCUS_FILTER_AIRCRAFT }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_ARMY_LIFT_AND_SUSTAIN"
+			    add_tech_bonus = {
+			        name = MAD_ARMY_LIFT_AND_SUSTAIN
+			        category = CAT_air_eqp
+			        uses = 3
+			        bonus = 0.35
+			    }
+			    add_mastery = { amount = 20 folder = air }
+			    air_experience = 25
+			    army_experience = 20
+			    set_country_flag = MAD_ARMY_AIRLIFT_READY
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_ARMY_INDIAN_OCEAN_EXERCISE
+		icon = GFX_goal_generic_military_march
+		x = 87
+		y = 30
+		cost = 5
+		prerequisite = { focus = MAD_ARMY_SIGNALS_INTELLIGENCE_SCHOOL }
+		search_filters = { FOCUS_FILTER_MILITARY FOCUS_FILTER_AIRCRAFT }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_ARMY_INDIAN_OCEAN_EXERCISE"
+			    add_mastery = { amount = 20 folder = land }
+			    add_mastery = { amount = 20 folder = naval }
+			    add_mastery = { amount = 15 folder = air }
+			    army_experience = 25
+			    navy_experience = 20
+			    air_experience = 15
+			    if = {
+			        limit = { country_exists = FRA }
+			        add_opinion_modifier = { target = FRA modifier = large_commercial_relations }
+			        FRA = { add_opinion_modifier = { target = ROOT modifier = large_commercial_relations } }
+			    }
+			    if = {
+			        limit = { country_exists = COM }
+			        add_opinion_modifier = { target = COM modifier = large_commercial_relations }
+			        COM = { add_opinion_modifier = { target = ROOT modifier = large_commercial_relations } }
+			    }
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_ARMY_ORGANISE_AIR_PACKAGE
+		icon = GFX_focus_transport_aircraft
+		x = 90
+		y = 30
+		cost = 5
+		prerequisite = { focus = MAD_ARMY_LIFT_AND_SUSTAIN }
+		search_filters = { FOCUS_FILTER_MILITARY FOCUS_FILTER_AIRCRAFT }
+		available = {
+			has_country_flag = MAD_ARMY_HELICOPTER_ARM_READY
+			    has_country_flag = MAD_ARMY_AIRLIFT_READY
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_ARMY_ORGANISE_AIR_PACKAGE"
+			    country_event = { id = MAD_military_procurement.4 days = 1 }
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_ARMY_LAND_FORCES_MODERNISATION_PLAN
+		icon = GFX_goal_generic_army
+		x = 82
+		y = 33
+		cost = 5
+		prerequisite = { focus = MAD_ARMY_CAPSAT_BARRACKS_POLITICS }
+		prerequisite = { focus = MAD_ARMY_DOCTRINE_ABOVE_FACTION }
+		prerequisite = { focus = MAD_ARMY_INFANTRY_WEAPONS_RESEARCH }
+		prerequisite = { focus = MAD_ARMY_PROTECTED_MOBILITY_TENDER }
+		prerequisite = { focus = MAD_ARMY_INDIAN_OCEAN_EXERCISE }
+		prerequisite = { focus = MAD_ARMY_ORGANISE_AIR_PACKAGE }
+		search_filters = { FOCUS_FILTER_MILITARY FOCUS_FILTER_EXPENDITURE }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_ARMY_LAND_FORCES_MODERNISATION_PLAN"
+			    remove_ideas = MAD_ARMY_INHERITED_BURDEN
+			    set_country_flag = MAD_HYPOTHETICAL_ARMY_UNLOCKED
+			    army_experience = 30
+			    add_mastery = { amount = 30 folder = land }
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_ARMY_EXPAND_DEFENCE_BUDGET
+		icon = GFX_focus_economic_avia_industry
+		x = 82
+		y = 35
+		cost = 5
+		prerequisite = { focus = MAD_ARMY_LAND_FORCES_MODERNISATION_PLAN }
+		search_filters = { FOCUS_FILTER_MILITARY FOCUS_FILTER_EXPENDITURE }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_ARMY_EXPAND_DEFENCE_BUDGET"
+			    increase_military_spending = yes
+			    army_experience = 10
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_ARMY_DEFENCE_INDUSTRIAL_PLANNING
+		icon = GFX_focus_industry_military
+		x = 82
+		y = 37
+		cost = 5
+		prerequisite = { focus = MAD_ARMY_EXPAND_DEFENCE_BUDGET }
+		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_MILITARY_LAWS }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_ARMY_DEFENCE_INDUSTRIAL_PLANNING"
+			    add_ideas = MAD_ARMY_DEFENCE_INDUSTRIAL_FRAMEWORK
+			    add_mastery = { amount = 20 folder = land }
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_ARMY_IVATO_AEROSPACE_WORKS
+		icon = GFX_goal_generic_construction
+		x = 77
+		y = 38
+		cost = 5
+		prerequisite = { focus = MAD_ARMY_DEFENCE_INDUSTRIAL_PLANNING }
+		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_AIRCRAFT }
+		available = {
+			has_completed_focus = MAD_Ivato_second_runway
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_ARMY_IVATO_AEROSPACE_WORKS"
+				if = {
+					limit = { has_dlc = "Arms Against Tyranny" }
+					mio:MAD_IVATO_AEROSYSTEMS = { add_mio_size = 2 }
+				}
+			    267 = {
+			        add_extra_state_shared_building_slots = 2
+			        add_building_construction = { type = arms_factory level = 1 instant_build = yes }
+			    }
+			    add_tech_bonus = {
+			        name = MAD_ARMY_IVATO_AEROSPACE_WORKS
+			        category = CAT_air_eqp
+			        uses = 2
+			        bonus = 0.40
+			    }
+			    air_experience = 25
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_ARMY_TOAMASINA_DEFENCE_LOGISTICS_HUB
+		icon = GFX_goal_generic_construct_military
+		x = 85
+		y = 38
+		cost = 5
+		prerequisite = { focus = MAD_ARMY_DEFENCE_INDUSTRIAL_PLANNING }
+		search_filters = { FOCUS_FILTER_MILITARY FOCUS_FILTER_INDUSTRY }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_ARMY_TOAMASINA_DEFENCE_LOGISTICS_HUB"
+			    487 = {
+			        add_extra_state_shared_building_slots = 2
+			        add_building_construction = { type = infrastructure level = 1 instant_build = yes }
+			        add_building_construction = { type = arms_factory level = 1 instant_build = yes }
+			        add_building_construction = { type = supply_node level = 1 instant_build = yes }
+			    }
+			    army_experience = 25
+			    add_mastery = { amount = 20 folder = land }
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_ARMY_PROTECTED_VEHICLE_ASSEMBLY
+		icon = GFX_goal_generic_army
+		x = 85
+		y = 40
+		cost = 5
+		prerequisite = { focus = MAD_ARMY_TOAMASINA_DEFENCE_LOGISTICS_HUB }
+		search_filters = { FOCUS_FILTER_MILITARY FOCUS_FILTER_INDUSTRY FOCUS_FILTER_MILITARY }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_ARMY_PROTECTED_VEHICLE_ASSEMBLY"
+				if = {
+					limit = { has_dlc = "Arms Against Tyranny" }
+					mio:MAD_MALAGASY_MOBILITY = { add_mio_size = 2 }
+				}
+			    country_event = { id = MAD_military_industry.1 days = 1 }
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_ARMY_TACTICAL_UAV_PROGRAMME
+		icon = GFX_focus_army_radar
+		x = 80
+		y = 38
+		cost = 5
+		prerequisite = { focus = MAD_ARMY_DEFENCE_INDUSTRIAL_PLANNING }
+		search_filters = { FOCUS_FILTER_MILITARY FOCUS_FILTER_AIRCRAFT FOCUS_FILTER_MILITARY }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_ARMY_TACTICAL_UAV_PROGRAMME"
+			    add_tech_bonus = {
+			        name = MAD_ARMY_TACTICAL_UAV_PROGRAMME
+			        category = CAT_air_eqp
+			        category = CAT_computing_tech
+			        uses = 2
+			        bonus = 0.50
+			    }
+			    267 = {
+			        add_building_construction = { type = radar_station level = 1 instant_build = yes }
+			    }
+			    add_mastery = { amount = 25 folder = land }
+			    air_experience = 20
+			    army_experience = 20
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_ARMY_MECHANISED_INFANTRY_BRIGADE
+		icon = GFX_goal_generic_army
+		x = 74
+		y = 38
+		cost = 5
+		prerequisite = { focus = MAD_ARMY_DEFENCE_INDUSTRIAL_PLANNING }
+		search_filters = { FOCUS_FILTER_MILITARY }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_ARMY_MECHANISED_INFANTRY_BRIGADE"
+			    set_temp_variable = { treasury_change = -7.0 }
+			    modify_treasury_effect = yes
+			    add_equipment_to_stockpile = { type = util_vehicle_4 amount = 160 producer = FRA }
+			    set_temp_variable = { percent_change = 5 }
+			    set_temp_variable = { tag_index = FRA }
+			    set_temp_variable = { influence_target = MAD }
+			    change_influence_percentage = yes
+			    FRA = {
+			        set_temp_variable = { treasury_change = 7.0 }
+			        modify_treasury_effect = yes
+			        add_opinion_modifier = { target = MAD modifier = large_commercial_relations }
+			    }
+			    add_opinion_modifier = { target = FRA modifier = large_commercial_relations }
+			    add_tech_bonus = {
+			        name = MAD_ARMY_MECHANISED_INFANTRY_BRIGADE
+			        category = CAT_afv
+			        category = CAT_apc
+			        uses = 2
+			        bonus = 0.50
+			    }
+			    add_mastery = { amount = 25 folder = land }
+			    army_experience = 25
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_ARMY_MOBILE_ARTILLERY_REGIMENT
+		icon = GFX_goal_generic_army
+		x = 74
+		y = 40
+		cost = 5
+		prerequisite = { focus = MAD_ARMY_MECHANISED_INFANTRY_BRIGADE }
+		search_filters = { FOCUS_FILTER_MILITARY FOCUS_FILTER_INDUSTRY }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_ARMY_MOBILE_ARTILLERY_REGIMENT"
+			    country_event = { id = MAD_military_industry.2 days = 1 }
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_ARMY_ISLAND_AIR_DEFENCE
+		icon = GFX_focus_army_radar
+		x = 80
+		y = 40
+		cost = 5
+		prerequisite = { focus = MAD_ARMY_TACTICAL_UAV_PROGRAMME }
+		search_filters = { FOCUS_FILTER_MILITARY FOCUS_FILTER_AIRCRAFT }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_ARMY_ISLAND_AIR_DEFENCE"
+			    267 = { add_building_construction = { type = anti_air level = 1 instant_build = yes } }
+			    487 = { add_building_construction = { type = anti_air level = 1 instant_build = yes } }
+			    add_tech_bonus = {
+			        name = MAD_ARMY_ISLAND_AIR_DEFENCE
+			        category = CAT_aa
+			        category = CAT_l_aa
+			        uses = 2
+			        bonus = 0.50
+			    }
+			    add_mastery = { amount = 20 folder = land }
+			    army_experience = 15
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_ARMY_HEAVY_LIFT_AVIATION_COMMAND
+		icon = GFX_focus_transport_aircraft
+		x = 80
+		y = 42
+		cost = 5
+		prerequisite = { focus = MAD_ARMY_ISLAND_AIR_DEFENCE }
+		search_filters = { FOCUS_FILTER_AIRCRAFT FOCUS_FILTER_INDUSTRY }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_ARMY_HEAVY_LIFT_AVIATION_COMMAND"
+				if = {
+					limit = { has_dlc = "Arms Against Tyranny" }
+					mio:MAD_MADAGASCAR_AIRLIFT = { add_mio_size = 2 }
+				}
+			    add_tech_bonus = {
+			        name = MAD_ARMY_HEAVY_LIFT_AVIATION_COMMAND
+			        category = CAT_air_eqp
+			        uses = 3
+			        bonus = 0.35
+			    }
+			    add_mastery = { amount = 25 folder = air }
+			    air_experience = 30
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_ARMY_MEDIUM_TRANSPORT_FLEET
+		icon = GFX_focus_transport_aircraft
+		x = 80
+		y = 45
+		cost = 5
+		prerequisite = { focus = MAD_ARMY_HEAVY_LIFT_AVIATION_COMMAND }
+		search_filters = { FOCUS_FILTER_AIRCRAFT }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_ARMY_MEDIUM_TRANSPORT_FLEET"
+			    set_temp_variable = { treasury_change = -8.0 }
+			    modify_treasury_effect = yes
+			    add_equipment_to_stockpile = { type = transport_plane5 amount = 2 producer = ESP }
+			    set_temp_variable = { percent_change = 6 }
+			    set_temp_variable = { tag_index = ESP }
+			    set_temp_variable = { influence_target = MAD }
+			    change_influence_percentage = yes
+			    ESP = {
+			        set_temp_variable = { treasury_change = 8.0 }
+			        modify_treasury_effect = yes
+			        add_opinion_modifier = { target = MAD modifier = large_commercial_relations }
+			    }
+			    add_opinion_modifier = { target = ESP modifier = large_commercial_relations }
+			    add_tech_bonus = {
+			        name = MAD_ARMY_MEDIUM_TRANSPORT_FLEET
+			        category = CAT_air_eqp
+			        uses = 2
+			        bonus = 0.40
+			    }
+			    air_experience = 25
+			    add_mastery = { amount = 20 folder = air }
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_ARMY_AEROSPACE_SUPPLY_CHAIN
+		icon = GFX_focus_industry_military
+		x = 77
+		y = 40
+		cost = 5
+		prerequisite = { focus = MAD_ARMY_IVATO_AEROSPACE_WORKS }
+		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_AIRCRAFT }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_ARMY_AEROSPACE_SUPPLY_CHAIN"
+				if = {
+					limit = { has_dlc = "Arms Against Tyranny" }
+					mio:MAD_AEROSPACE_SUPPLY_CHAIN = { add_mio_size = 2 }
+				}
+			    267 = { add_building_construction = { type = arms_factory level = 1 instant_build = yes } }
+			    add_mastery = { amount = 20 folder = air }
+			    add_tech_bonus = {
+			        name = MAD_ARMY_AEROSPACE_SUPPLY_CHAIN
+			        category = CAT_air_eqp
+			        uses = 2
+			        bonus = 0.40
+			    }
+			    air_experience = 20
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_ARMY_DEFENCE_ELECTRONICS_INDUSTRY
+		icon = GFX_focus_industry_military
+		x = 77
+		y = 42
+		cost = 5
+		prerequisite = { focus = MAD_ARMY_AEROSPACE_SUPPLY_CHAIN }
+		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_MILITARY }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_ARMY_DEFENCE_ELECTRONICS_INDUSTRY"
+				if = {
+					limit = { has_dlc = "Arms Against Tyranny" }
+					mio:MAD_DEFENCE_ELECTRONICS = { add_mio_size = 2 }
+				}
+			    267 = { add_extra_state_shared_building_slots = 1 add_building_construction = { type = arms_factory level = 1 instant_build = yes } }
+			    add_tech_bonus = {
+			        name = MAD_ARMY_DEFENCE_ELECTRONICS_INDUSTRY
+			        category = CAT_computing_tech
+			        category = CAT_internet_tech
+			        uses = 3
+			        bonus = 0.50
+			    }
+			    add_mastery = { amount = 25 folder = land }
+			    army_experience = 20
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_ARMY_SPECIAL_PROJECTS_BUREAU
+		icon = science2
+		x = 77
+		y = 45
+		cost = 5
+		prerequisite = { focus = MAD_ARMY_DEFENCE_ELECTRONICS_INDUSTRY }
+		search_filters = { FOCUS_FILTER_MILITARY FOCUS_FILTER_EXPENDITURE }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_ARMY_SPECIAL_PROJECTS_BUREAU"
+			    
+			    
+			    
+			    add_tech_bonus = {
+			        name = MAD_ARMY_SPECIAL_PROJECTS_BUREAU
+			        category = CAT_computing_tech
+			        category = CAT_internet_tech
+			        uses = 2
+			        bonus = 0.50
+			    }
+			    add_tech_bonus = {
+			        name = MAD_ARMY_SPECIAL_PROJECTS_BUREAU
+			        category = CAT_artillery
+			        uses = 2
+			        bonus = 0.35
+			    }
+			    add_mastery = { amount = 30 folder = land }
+			    army_experience = 30
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_ARMY_INTEGRATED_FIRE_SUPPORT
+		icon = artillery3
+		x = 74
+		y = 42
+		cost = 5
+		prerequisite = { focus = MAD_ARMY_MOBILE_ARTILLERY_REGIMENT }
+		search_filters = { FOCUS_FILTER_MILITARY }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_ARMY_INTEGRATED_FIRE_SUPPORT"
+			    add_tech_bonus = {
+			        name = MAD_ARMY_INTEGRATED_FIRE_SUPPORT
+			        category = CAT_artillery
+			        category = CAT_afv
+			        category = CAT_apc
+			        uses = 2
+			        bonus = 0.40
+			    }
+			    add_mastery = { amount = 30 folder = land }
+			    army_experience = 25
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_ARMY_MAIN_BATTLE_TANK_PROGRAMME
+		icon = GFX_focus_industry_military
+		x = 74
+		y = 44
+		cost = 5
+		prerequisite = { focus = MAD_ARMY_INTEGRATED_FIRE_SUPPORT }
+		search_filters = { FOCUS_FILTER_MILITARY FOCUS_FILTER_INDUSTRY }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_ARMY_MAIN_BATTLE_TANK_PROGRAMME"
+			    if = {
+			        limit = { country_exists = FRA }
+			        set_temp_variable = { treasury_change = -25.0 }
+			        modify_treasury_effect = yes
+			        add_equipment_to_stockpile = { type = medium_tank_chassis_2 amount = 80 producer = FRA }
+			        set_temp_variable = { percent_change = 8 }
+			        set_temp_variable = { tag_index = FRA }
+			        set_temp_variable = { influence_target = MAD }
+			        change_influence_percentage = yes
+			        FRA = {
+			            set_temp_variable = { treasury_change = 25.0 }
+			            modify_treasury_effect = yes
+			            add_opinion_modifier = { target = MAD modifier = large_commercial_relations }
+			        }
+			        add_opinion_modifier = { target = FRA modifier = large_commercial_relations }
+			    }
+			    else_if = {
+			        limit = { country_exists = TUR }
+			        set_temp_variable = { treasury_change = -23.0 }
+			        modify_treasury_effect = yes
+			        add_equipment_to_stockpile = { type = medium_tank_chassis_2 amount = 70 producer = TUR }
+			        set_temp_variable = { percent_change = 8 }
+			        set_temp_variable = { tag_index = TUR }
+			        set_temp_variable = { influence_target = MAD }
+			        change_influence_percentage = yes
+			        TUR = {
+			            set_temp_variable = { treasury_change = 23.0 }
+			            modify_treasury_effect = yes
+			            add_opinion_modifier = { target = MAD modifier = large_commercial_relations }
+			        }
+			        add_opinion_modifier = { target = TUR modifier = large_commercial_relations }
+			    }
+			    add_tech_bonus = {
+			        name = MAD_ARMY_MAIN_BATTLE_TANK_PROGRAMME
+			        category = CAT_mbt
+			        uses = 2
+			        bonus = 0.50
+			    }
+			    add_mastery = { amount = 30 folder = land }
+			    army_experience = 25
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_ARMY_COASTAL_DEFENCE
+		icon = GFX_goal_generic_army
+		x = 74
+		y = 46
+		cost = 5
+		prerequisite = { focus = MAD_ARMY_MAIN_BATTLE_TANK_PROGRAMME }
+		search_filters = { FOCUS_FILTER_MILITARY }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_ARMY_COASTAL_DEFENCE"
+			    267 = { add_building_construction = { type = coastal_bunker level = 2 instant_build = yes } }
+			    487 = { add_building_construction = { type = coastal_bunker level = 2 instant_build = yes } }
+			    add_tech_bonus = {
+			        name = MAD_ARMY_COASTAL_DEFENCE
+			        category = CAT_aa
+			        category = CAT_l_aa
+			        uses = 2
+			        bonus = 0.40
+			    }
+			    add_mastery = { amount = 20 folder = naval }
+			    add_mastery = { amount = 15 folder = land }
+			    navy_experience = 20
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_ARMY_NATIONAL_SUSTAINMENT_NETWORK
+		icon = GFX_goal_generic_construct_military
+		x = 85
+		y = 42
+		cost = 5
+		prerequisite = { focus = MAD_ARMY_PROTECTED_VEHICLE_ASSEMBLY }
+		search_filters = { FOCUS_FILTER_MILITARY FOCUS_FILTER_INDUSTRY }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_ARMY_NATIONAL_SUSTAINMENT_NETWORK"
+			    267 = { add_building_construction = { type = arms_factory level = 1 instant_build = yes } }
+			    487 = { add_building_construction = { type = arms_factory level = 1 instant_build = yes } }
+			    add_mastery = { amount = 30 folder = land }
+			    army_experience = 25
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_ARMY_LONG_RANGE_ISR_AND_FIRES
+		icon = GFX_focus_army_radar
+		x = 85
+		y = 45
+		cost = 5
+		prerequisite = { focus = MAD_ARMY_NATIONAL_SUSTAINMENT_NETWORK }
+		search_filters = { FOCUS_FILTER_MILITARY }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_ARMY_LONG_RANGE_ISR_AND_FIRES"
+			    add_tech_bonus = {
+			        name = MAD_ARMY_LONG_RANGE_ISR_AND_FIRES
+			        category = CAT_naval_radar
+			        category = CAT_computing_tech
+			        uses = 3
+			        bonus = 0.45
+			    }
+			    add_mastery = { amount = 25 folder = land }
+			    add_mastery = { amount = 20 folder = air }
+			    army_experience = 25
+			    air_experience = 20
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_ARMY_INDIAN_OCEAN_DEFENCE_ARCHITECTURE
+		icon = GFX_goal_generic_military_march
+		x = 80
+		y = 48
+		cost = 5
+		prerequisite = { focus = MAD_ARMY_SPECIAL_PROJECTS_BUREAU }
+		prerequisite = { focus = MAD_ARMY_COASTAL_DEFENCE }
+		prerequisite = { focus = MAD_ARMY_MEDIUM_TRANSPORT_FLEET }
+		prerequisite = { focus = MAD_ARMY_LONG_RANGE_ISR_AND_FIRES }
+		search_filters = { FOCUS_FILTER_MILITARY FOCUS_FILTER_AIRCRAFT }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_ARMY_INDIAN_OCEAN_DEFENCE_ARCHITECTURE"
+			    country_event = { id = MAD_military_industry.4 days = 1 }
+		}
+
+		ai_will_do = {
+			base = 1
 		}
 	}
 

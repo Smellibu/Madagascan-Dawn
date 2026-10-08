@@ -444,6 +444,27 @@ country_event = {
 	picture = GFX_report_event_economy_default
 	is_triggered_only = yes
 
+	immediate = {
+		# Daewoo Fallout is already the trigger point for this event.
+		# Schedule Viva directly; no daily polling is needed.
+		if = {
+			limit = {
+				NOT = { MAD_AREMA_IN_POWER = yes }
+						
+				# Viva ban cannot happen under TGV, since Rajoelina leads TGV and owns viva.
+				NOT = { MAD_TGV_IN_POWER = yes }
+				OR = {
+					has_country_flag = MAD_AREMA_BANNED
+					has_country_flag = MAD_RATSIRAKA_RETURN_DENIED
+				}
+				NOT = { has_country_flag = MAD_VIVA_INTERVIEW_PENDING }
+				NOT = { has_country_flag = MAD_VIVA_INTERVIEW_RESOLVED }
+			}
+			set_country_flag = MAD_VIVA_INTERVIEW_PENDING
+			country_event = { id = mad_political.91 days = 5 }
+		}
+	}
+
 	option = {
 		name = mad_daewoo.1.a
 		log = "[GetDateText]: [Root.GetName]: mad_daewoo.1 - the Daewoo lease is exposed"
@@ -480,7 +501,7 @@ country_event = {
 		set_country_flag = MAD_DAEWOO_OUTCOME_FAILED
 		MAD_daewoo_end_lease = yes
 		add_timed_idea = { idea = MAD_DAEWOO_CANCELLED days = 1095 }
-		country_event = { id = mad_political.2 days = 1 }
+		country_event = { id = mad_political.94 days = 1 }
 	}
 }
 
@@ -1874,6 +1895,118 @@ country_event = {
 # the player decides how the resulting legitimacy crisis is handled.
 # ---------------------------------------------------------------------------
 country_event = {
+	id = mad_political.94
+	is_triggered_only = yes
+	fire_only_once = yes
+	hidden = yes
+
+	trigger = {
+		OR = {
+			has_country_flag = MAD_DAEWOO_BROKEN
+			has_country_flag = MAD_DAEWOO_REVIEW_FAILED
+			has_country_flag = MAD_DAEWOO_OUTCOME_FAILED
+		}
+		NOT = { has_country_flag = MAD_DAEWOO_POLITICAL_FALLOUT_DONE }
+	}
+
+	immediate = {
+		if = {
+			limit = { has_elections = yes }
+			country_event = { id = mad_political.2 days = 1 }
+		}
+		else = {
+			country_event = { id = mad_political.93 days = 1 }
+		}
+	}
+}
+
+# ---------------------------------------------------------------------------
+# 2a. Daewoo political fallout under a government without elections
+# ---------------------------------------------------------------------------
+country_event = {
+	id = mad_political.93
+	title = mad_political.93.t
+	desc = mad_political.93.d
+	picture = GFX_report_event_generic_political
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	trigger = {
+		has_elections = no
+		OR = {
+			has_country_flag = MAD_DAEWOO_BROKEN
+			has_country_flag = MAD_DAEWOO_REVIEW_FAILED
+			has_country_flag = MAD_DAEWOO_OUTCOME_FAILED
+		}
+		NOT = { has_country_flag = MAD_DAEWOO_POLITICAL_FALLOUT_DONE }
+	}
+
+	immediate = {
+		set_country_flag = MAD_DAEWOO_POLITICAL_FALLOUT_DONE
+
+		# Find the largest eligible opposition party.
+		# MD's party system stores party support in party_pop_array^index.
+		set_temp_variable = { MAD_DAEWOO_NEXT_PARTY = -1 }
+		set_temp_variable = { MAD_DAEWOO_NEXT_PARTY_POPULARITY = -1 }
+
+		for_loop_effect = {
+			start = 0
+			end = 24
+			compare = less_than
+			value = p
+			if = {
+				limit = {
+					NOT = { check_variable = { ruling_party = p } }
+					set_temp_variable = { party_index = p }
+					NOT = { is_party_banned_trigger = yes }
+					check_variable = { party_pop_array^p > 0 }
+					check_variable = { party_pop_array^p > MAD_DAEWOO_NEXT_PARTY_POPULARITY }
+				}
+				set_temp_variable = { MAD_DAEWOO_NEXT_PARTY = p }
+				set_temp_variable = { MAD_DAEWOO_NEXT_PARTY_POPULARITY = party_pop_array^p }
+			}
+		}
+	}
+
+	option = {
+		name = mad_political.93.a
+		trigger = {
+				NOT = { check_variable = { MAD_DAEWOO_NEXT_PARTY < 0 } }
+			}
+
+		# Reproduce MD's party-specific revolt/civil-war pattern, using the
+		# largest eligible opposition party found above instead of a GUI slot.
+		set_temp_variable = { v = MAD_DAEWOO_NEXT_PARTY }
+		set_temp_variable = { party_index = v }
+		start_civil_war_with_no_leader_change = yes
+
+		random_other_country = {
+			limit = {
+				original_tag = PREV
+				NOT = { TAG = PREV }
+			}
+			civil_war_replication_effect = yes
+		}
+
+		set_variable = { ruling_party = v }
+		set_variable = { party_pop_array^v = 0.7 }
+		startup_politics = yes
+		set_politics = { elections_allowed = no }
+		set_country_flag = MAD_DAEWOO_CIVIL_WAR_CRISIS
+	}
+
+	option = {
+		name = mad_political.93.b
+
+		# Restore elections, then immediately invoke MD's existing election
+		# campaign event rather than sending the player through political.2.
+		set_politics = { elections_allowed = yes }
+		set_country_flag = MAD_DAEWOO_ELECTION_CRISIS
+		country_event = MD4_election_campaign.0
+	}
+}
+
+country_event = {
 	id = mad_political.2
 	title = mad_political.2.t
 	desc = mad_political.2.d
@@ -1882,6 +2015,7 @@ country_event = {
 	fire_only_once = yes
 
 	trigger = {
+		has_elections = yes
 		OR = {
 			has_country_flag = MAD_DAEWOO_BROKEN
 			has_country_flag = MAD_DAEWOO_REVIEW_FAILED
@@ -2185,9 +2319,6 @@ country_event = {
 
 	option = {
 		name = mad_political.6.a
-		remove_ideas = MAD_TIM_TIKO_FIREWALL
-		remove_ideas = MAD_TIM_TIKO_NATIONAL_CHAMPION
-		remove_ideas = MAD_TIM_TIKO_MIXED
 		add_ideas = MAD_TIM_TIKO_FIREWALL
 		set_country_flag = MAD_TIM_TIKO_FIREWALL
 		add_power_balance_value = {
@@ -2207,9 +2338,6 @@ country_event = {
 
 	option = {
 		name = mad_political.6.b
-		remove_ideas = MAD_TIM_TIKO_FIREWALL
-		remove_ideas = MAD_TIM_TIKO_NATIONAL_CHAMPION
-		remove_ideas = MAD_TIM_TIKO_MIXED
 		add_ideas = MAD_TIM_TIKO_NATIONAL_CHAMPION
 		set_country_flag = MAD_TIM_TIKO_NATIONAL_CHAMPION
 		add_power_balance_value = {
@@ -2230,9 +2358,6 @@ country_event = {
 
 	option = {
 		name = mad_political.6.c
-		remove_ideas = MAD_TIM_TIKO_FIREWALL
-		remove_ideas = MAD_TIM_TIKO_NATIONAL_CHAMPION
-		remove_ideas = MAD_TIM_TIKO_MIXED
 		add_ideas = MAD_TIM_TIKO_MIXED
 		set_country_flag = MAD_TIM_TIKO_MIXED
 		add_power_balance_value = {
@@ -2271,12 +2396,8 @@ country_event = {
 
 	option = {
 		name = mad_political.7.a
-		remove_ideas = MAD_TGV_ELECTORAL_LEGITIMACY
-		remove_ideas = MAD_TGV_REVOLUTIONARY_LEGACY
-		remove_ideas = MAD_TGV_EMERGENCY_MANDATE
 		add_ideas = MAD_TGV_REVOLUTIONARY_LEGACY
 		set_country_flag = MAD_TGV_REVOLUTIONARY
-		add_political_power = 35
 		set_temp_variable = { party_index = 20 }
 		set_temp_variable = { party_popularity_increase = 0.05 }
 		set_temp_variable = { temp_outlook_increase = 0.05 }
@@ -2286,33 +2407,26 @@ country_event = {
 
 	option = {
 		name = mad_political.7.b
-		remove_ideas = MAD_TGV_ELECTORAL_LEGITIMACY
-		remove_ideas = MAD_TGV_REVOLUTIONARY_LEGACY
-		remove_ideas = MAD_TGV_EMERGENCY_MANDATE
 		add_ideas = MAD_TGV_ELECTORAL_LEGITIMACY
 		set_country_flag = MAD_TGV_ELECTORAL
-		add_political_power = 50
 
 		set_temp_variable = { party_index = 20 }
 		set_temp_variable = { party_popularity_increase = 0.03 }
 		change_relative_party_popularity = yes
-		set_temp_variable = { party_index = 2 }
-		set_temp_variable = { party_popularity_increase = 0.03 }
-		change_relative_party_popularity = yes
-		recalculate_party = yes
 	}
 
 	option = {
 		name = mad_political.7.c
-		remove_ideas = MAD_TGV_ELECTORAL_LEGITIMACY
-		remove_ideas = MAD_TGV_REVOLUTIONARY_LEGACY
-		remove_ideas = MAD_TGV_EMERGENCY_MANDATE
 		add_ideas = MAD_TGV_EMERGENCY_MANDATE
 		set_country_flag = MAD_TGV_EMERGENCY
-		add_political_power = 25
-		add_stability = -0.02
 
 		set_temp_variable = { party_index = 20 }
+		set_temp_variable = { party_popularity_increase = 0.06 }
+		set_temp_variable = { temp_outlook_increase = 0.06 }
+		change_relative_party_popularity = yes
+		
+
+		set_temp_variable = { party_index = 22 }
 		set_temp_variable = { party_popularity_increase = 0.06 }
 		set_temp_variable = { temp_outlook_increase = 0.06 }
 		change_relative_party_popularity = yes
@@ -2324,10 +2438,779 @@ country_event = {
 # 90. Silent party-policy cleanup
 # ---------------------------------------------------------------------------
 country_event = {
-	id = mad_political.90
+	id = mad_political.8
 	is_triggered_only = yes
 
 	immediate = {
 		MAD_clear_party_political_ideas = yes
+	}
+}
+# post-Daewoo Viva political events.
+# The chain is intentionally separate from the ruling party: any non-AREMA
+# government can inherit the consequences once AREMA has lost power.
+
+country_event = {
+	id = mad_political.90
+	title = mad_political.90.t
+	desc = mad_political.90.d
+	picture = GFX_report_event_election
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	trigger = {
+		original_tag = MAD
+		has_country_flag = MAD_RATSIRAKA_FIRST_LOSS_PENDING
+		NOT = { has_country_flag = MAD_RATSIRAKA_FIRST_LOSS_DONE }
+		NOT = { MAD_AREMA_IN_POWER = yes }
+		NOT = { has_country_flag = MAD_RATSIRAKA_EXILE_RESOLVED }
+	}
+
+	immediate = {
+		clr_country_flag = MAD_RATSIRAKA_FIRST_LOSS_PENDING
+		set_country_flag = MAD_RATSIRAKA_FIRST_LOSS_DONE
+		set_country_flag = MAD_RATSIRAKA_EXILE_RESOLVED
+	}
+
+	option = {
+		name = mad_political.90.a
+		
+		#ban arema
+		set_temp_variable = { party_index = 5 }
+		ban_party_scripted_call = yes
+		set_country_flag = MAD_AREMA_BANNED
+		
+		set_country_flag = MAD_RATSIRAKA_EXILED
+
+		
+	}
+}
+
+country_event = {
+	id = mad_political.91
+	title = mad_political.91.t
+	desc = mad_political.91.d
+	picture = GFX_report_event_radio
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	trigger = {
+		original_tag = MAD
+		NOT = { MAD_AREMA_IN_POWER = yes }
+		
+		
+		has_completed_focus = MAD_DAEWOO_FALLOUT
+		OR = {
+			# Ratsiraka is still in self-selected exile because AREMA remains banned.
+			has_country_flag = MAD_AREMA_BANNED
+			# Or AREMA was unbanned, but the return decision was refused.
+			has_country_flag = MAD_RATSIRAKA_RETURN_DENIED
+		}
+		has_country_flag = MAD_VIVA_INTERVIEW_PENDING
+		NOT = { has_country_flag = MAD_VIVA_INTERVIEW_RESOLVED }
+	}
+
+	immediate = {
+		clr_country_flag = MAD_VIVA_INTERVIEW_PENDING
+		set_country_flag = MAD_VIVA_INTERVIEW_RESOLVED
+
+	}
+
+	option = {
+		name = mad_political.91.a
+		
+		
+		set_party_index_to_ruling_party = yes
+		set_temp_variable = { party_popularity_increase = -0.08 }
+		change_relative_party_popularity = yes
+		
+		
+		if = {
+			limit = { NOT = { has_country_flag = MAD_TGV_FORMED } }
+			# Defer TGV's +10% support until the formation event so the party remains absent
+			# from MD's compact Politics View during the 15-day formation delay.
+			set_country_flag = MAD_TGV_INITIAL_SUPPORT_PENDING
+		}
+		else = {
+			set_temp_variable = { party_index = 20 }
+			set_temp_variable = { party_popularity_increase = 0.10 }
+			set_temp_variable = { temp_outlook_increase = 0.10 }
+			change_relative_party_popularity = yes
+			recalculate_party = yes
+		}
+		
+		add_stability = -0.02
+		add_war_support = -0.02
+		add_political_power = 25
+		set_country_flag = MAD_VIVA_TV_BANNED
+
+		if = {
+			limit = { NOT = { has_country_flag = MAD_TGV_FORMED } }
+			set_country_flag = MAD_TGV_FORMATION_PENDING
+			country_event = { id = mad_political.95 days = 2 }
+		}
+	}
+
+	option = {
+		name = mad_political.91.b
+
+		# If AREMA is still banned, allowing the channel also restores AREMA
+		# through MD's normal individual-party unban system. This happens after
+		# Daewoo Fallout, so the Ratsiraka-return event is deliberately not reopened.
+		if = {
+			limit = { has_country_flag = MAD_AREMA_BANNED }
+			set_temp_variable = { party_index = 5 }
+			unban_party_scripted_call = yes
+			clr_country_flag = MAD_AREMA_BANNED
+		}
+
+		set_temp_variable = { party_index = 5 }
+		set_temp_variable = { party_popularity_increase = 0.20 }
+		change_relative_party_popularity = yes
+		add_stability = 0.01
+		add_political_power = -25
+		clr_country_flag = MAD_VIVA_TV_BANNED
+
+		if = {
+			limit = { NOT = { has_country_flag = MAD_TGV_FORMED } }
+			set_country_flag = MAD_TGV_FORMATION_PENDING
+			country_event = { id = mad_political.95 days = 2 }
+		}
+	}
+}
+
+country_event = {
+	id = mad_political.92
+	title = mad_political.92.t
+	desc = mad_political.92.d
+	picture = GFX_report_event_election
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	trigger = {
+		original_tag = MAD
+		NOT = { MAD_AREMA_IN_POWER = yes }
+		NOT = { has_completed_focus = MAD_DAEWOO_FALLOUT }
+		has_country_flag = MAD_RATSIRAKA_EXILED
+
+		has_country_flag = MAD_RATSIRAKA_RETURN_PENDING
+		NOT = { has_country_flag = MAD_RATSIRAKA_RETURN_RESOLVED }
+	}
+
+	immediate = {
+		clr_country_flag = MAD_AREMA_BANNED
+		clr_country_flag = MAD_RATSIRAKA_RETURN_PENDING
+		set_country_flag = MAD_RATSIRAKA_RETURN_RESOLVED
+	}
+
+	option = {
+		name = mad_political.92.a
+		
+		custom_effect_tooltip = mad_political.92.a_tt
+
+		set_country_flag = MAD_RATSIRAKA_RETURN_ALLOWED
+		clr_country_flag = MAD_RATSIRAKA_RETURN_DENIED
+	}
+
+	option = {
+		name = mad_political.92.b
+		create_country_leader = {
+			name = "Pierre Raharijaona"
+			picture = "Pierre_Raharijaona.dds"
+			expire = "2050.1.1"
+			ideology = anarchist_communism
+			traits = {
+				emerging_anarchist_communism
+			}
+		}
+		set_country_flag = MAD_RATSIRAKA_RETURN_DENIED
+		set_country_flag = MAD_AREMA_OLD_GUARD_LOCKED
+		clr_country_flag = MAD_RATSIRAKA_RETURN_ALLOWED
+
+	}
+}
+
+# ---------------------------------------------------------------------------
+# TGV formation
+# .95 - delayed response after mad_political.91
+# .96 - December 2007 formation event
+# Both use the same MAD_TGV_FORMED latch, so only one formation route can fire.
+# ---------------------------------------------------------------------------
+country_event = {
+	id = mad_political.95
+	title = mad_political.95.t
+	desc = mad_political.95.d
+	picture = GFX_report_event_generic_political
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	trigger = {
+		original_tag = MAD
+		has_country_flag = MAD_TGV_FORMATION_PENDING
+		NOT = { has_country_flag = MAD_TGV_FORMED }
+	}
+
+	immediate = {
+		clr_country_flag = MAD_TGV_FORMATION_PENDING
+		set_country_flag = MAD_TGV_FORMED
+		set_country_flag = MAD_TGV_BRANCH_UNLOCKED
+		set_country_flag = MAD_TGV_MOVEMENT_ACTIVE
+
+		if = {
+			limit = { has_country_flag = MAD_TGV_INITIAL_SUPPORT_PENDING }
+			set_temp_variable = { party_index = 20 }
+			set_temp_variable = { party_popularity_increase = 0.10 }
+			set_temp_variable = { temp_outlook_increase = 0.10 }
+			change_relative_party_popularity = yes
+			recalculate_party = yes
+			clr_country_flag = MAD_TGV_INITIAL_SUPPORT_PENDING
+		}
+
+		# TGV is now the named political movement; replace the country leader.
+
+
+		mark_focus_tree_layout_dirty = yes
+		update_dirty_politicsview_expanded = yes
+	}
+
+	option = {
+		name = mad_political.95.a
+		
+		create_country_leader = {
+			name = "Andry Rajoelina"
+			expire = "2050.1.1"
+			ideology = Nat_Populism
+			traits = {
+				nationalist_Nat_Populism
+				career_politician
+			}
+		}
+	}
+}
+
+country_event = {
+	id = mad_political.96
+	title = mad_political.96.t
+	desc = mad_political.96.d
+	picture = GFX_report_event_generic_political
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	trigger = {
+		original_tag = MAD
+		date > 2007.11.30
+		NOT = { has_country_flag = MAD_TGV_FORMED }
+		NOT = { has_country_flag = MAD_TGV_FORMATION_PENDING }
+	}
+
+	immediate = {
+		set_country_flag = MAD_TGV_FORMED
+		set_country_flag = MAD_TGV_BRANCH_UNLOCKED
+		set_country_flag = MAD_TGV_MOVEMENT_ACTIVE
+
+		# Historical December formation: reveal the named TGV party while preserving party index 20 support.
+		mark_focus_tree_layout_dirty = yes
+		update_dirty_politicsview_expanded = yes
+	}
+
+	option = {
+		name = mad_political.96.a
+		# Andry Rajoelina becomes the country leader as the generic party becomes TGV.
+		create_country_leader = {
+			name = "Andry Rajoelina"
+			expire = "2050.1.1"
+			ideology = Nat_Populism
+			traits = {
+				nationalist_Nat_Populism
+				career_politician
+			}
+		}
+	}
+}
+
+# ---------------------------------------------------------------------------
+# HVM formation
+# Triggered by the TGV "Return Through the Ballot Box" focus while TGV is in power.
+# HVM is kept on its normal MD party index (1 / Conservatism); only its display name,
+# leader and focus branch are revealed here.
+# ---------------------------------------------------------------------------
+country_event = {
+	id = mad_political.97
+	title = mad_political.97.t
+	desc = mad_political.97.d
+	picture = GFX_report_event_generic_political
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	trigger = {
+		original_tag = MAD
+		has_country_flag = MAD_HVM_FORMATION_PENDING
+		NOT = { has_country_flag = MAD_HVM_FORMED }
+	}
+
+	immediate = {
+		clr_country_flag = MAD_HVM_FORMATION_PENDING
+		set_country_flag = MAD_HVM_FORMED
+		set_country_flag = MAD_HVM_BRANCH_UNLOCKED
+		set_country_flag = MAD_HVM_MOVEMENT_ACTIVE
+
+		
+
+		# Reveal the HVM branch and refresh the politics view after the transfer.
+		mark_focus_tree_layout_dirty = yes
+		update_dirty_politicsview_expanded = yes
+	}
+
+	option = {
+		name = mad_political.97.a
+		# Hery becomes the country leader as the generic party becomes HVM.
+		create_country_leader = {
+			name = "Hery Rajaonarimampianina"
+			expire = "2050.1.1"
+			ideology = conservatism
+			traits = {
+				career_politician
+			}
+		}
+		set_temp_variable = { party_index = 20 }
+		set_temp_variable = { party_popularity_increase = -0.05 }
+		set_temp_variable = { temp_outlook_increase = -0.05 }
+		change_relative_party_popularity = yes
+
+		set_temp_variable = { party_index = 1 }
+		set_temp_variable = { party_popularity_increase = 0.05 }
+		set_temp_variable = { temp_outlook_increase = 0.05 }
+		change_relative_party_popularity = yes
+		recalculate_party = yes
+	}
+}
+
+# ============================================================================
+# MADAGASCAR ARMY — command and procurement events
+# ============================================================================
+add_namespace = MAD_military_command
+add_namespace = MAD_military_procurement
+add_namespace = MAD_military_industry
+
+country_event = {
+	id = MAD_military_command.1
+	title = MAD_military_command.1.t
+	desc = MAD_military_command.1.d
+	picture = GFX_report_event_generic_political
+	is_triggered_only = yes
+
+	option = {
+		name = MAD_military_command.1.a
+		trigger = {
+			OR = {
+				has_country_flag = MAD_ARMY_COMMAND_CAPSAT
+				AND = {
+					NOT = { has_country_flag = MAD_ARMY_COMMAND_DECIDED }
+					NOT = { has_country_flag = MAD_TGV_COMMAND_FORCE_GENERAL_STAFF }
+				}
+				has_country_flag = MAD_TGV_COMMAND_FORCE_CAPSAT
+			}
+		}
+		log = "[GetDateText]: [Root.GetName]: Command settlement - CAPSAT leadership"
+		set_country_flag = MAD_ARMY_COMMAND_DECIDED
+		set_country_flag = MAD_ARMY_COMMAND_CAPSAT
+		clr_country_flag = MAD_ARMY_COMMAND_GENERAL_STAFF
+		clr_country_flag = MAD_TGV_COMMAND_FORCE_CAPSAT
+		clr_country_flag = MAD_TGV_COMMAND_FORCE_GENERAL_STAFF
+		set_country_flag = MAD_MIL_PARTY_LEADER_CAPSAT
+		clr_country_flag = MAD_MIL_PARTY_LEADER_GENERAL_STAFF
+		if = { limit = { has_idea = MAD_ARMY_GENERAL_STAFF_COMMAND } remove_ideas = MAD_ARMY_GENERAL_STAFF_COMMAND }
+		if = { limit = { NOT = { has_idea = MAD_ARMY_CAPSAT_COMMAND } } add_ideas = MAD_ARMY_CAPSAT_COMMAND }
+		create_country_leader = {
+			name = "Noel Rakotonandrasana"
+			expire = "2050.1.1"
+			ideology = nationalist
+			traits = { }
+		}
+	}
+
+	option = {
+		name = MAD_military_command.1.b
+		trigger = {
+			OR = {
+				has_country_flag = MAD_ARMY_COMMAND_GENERAL_STAFF
+				AND = {
+					NOT = { has_country_flag = MAD_ARMY_COMMAND_DECIDED }
+					NOT = { has_country_flag = MAD_TGV_COMMAND_FORCE_CAPSAT }
+				}
+				has_country_flag = MAD_TGV_COMMAND_FORCE_GENERAL_STAFF
+			}
+		}
+		log = "[GetDateText]: [Root.GetName]: Command settlement - General Staff leadership"
+		set_country_flag = MAD_ARMY_COMMAND_DECIDED
+		set_country_flag = MAD_ARMY_COMMAND_GENERAL_STAFF
+		clr_country_flag = MAD_ARMY_COMMAND_CAPSAT
+		clr_country_flag = MAD_TGV_COMMAND_FORCE_CAPSAT
+		clr_country_flag = MAD_TGV_COMMAND_FORCE_GENERAL_STAFF
+		set_country_flag = MAD_MIL_PARTY_LEADER_GENERAL_STAFF
+		clr_country_flag = MAD_MIL_PARTY_LEADER_CAPSAT
+		if = { limit = { has_idea = MAD_ARMY_CAPSAT_COMMAND } remove_ideas = MAD_ARMY_CAPSAT_COMMAND }
+		if = { limit = { NOT = { has_idea = MAD_ARMY_GENERAL_STAFF_COMMAND } } add_ideas = MAD_ARMY_GENERAL_STAFF_COMMAND }
+		create_country_leader = {
+			name = "Edmond Rasolomahandry"
+			expire = "2050.1.1"
+			ideology = nationalist
+			traits = { }
+		}
+	}
+}
+
+country_event = {
+	id = MAD_military_command.5
+	title = MAD_military_command.5.t
+	desc = MAD_military_command.5.d
+	picture = GFX_report_event_generic_political
+	is_triggered_only = yes
+
+	trigger = {
+		has_country_flag = MAD_TGV_CAPSAT_REJECTION
+		MAD_TGV_IN_POWER = yes
+		has_country_flag = MAD_ARMY_COMMAND_GENERAL_STAFF
+		NOT = {
+			AND = {
+				has_completed_focus = MAD_ARMY_GENERAL_STAFF_PRIMACY
+				has_completed_focus = MAD_ARMY_CENTRALISED_PROCUREMENT
+				has_completed_focus = MAD_ARMY_DOCTRINE_ABOVE_FACTION
+			}
+		}
+		NOT = { has_country_flag = MAD_CAPSAT_REVOLT_RESOLVED }
+	}
+
+	option = {
+		name = MAD_military_command.5.a
+		log = "[GetDateText]: [Root.GetName]: Crush the Mutiny"
+		start_civil_war = {
+			ideology = nationalist
+			ruling_party = nationalist
+			size = 0.45
+			army_ratio = 0.55
+			navy_ratio = 0
+			air_ratio = 0
+			capital = 267
+			states = { 267 487 }
+			set_politics = { ruling_party = nationalist elections_allowed = no }
+			set_country_flag = MAD_CAPSAT_REBEL_GOVERNMENT
+		}
+		set_country_flag = MAD_CAPSAT_REVOLT_RESOLVED
+		set_country_flag = MAD_CAPSAT_CRUSHED
+		clr_country_flag = MAD_TGV_CAPSAT_REJECTION
+		clr_country_flag = MAD_TGV_CAPSAT_REVOLT_SCHEDULED
+		set_country_flag = MAD_MIL_PARTY_LEADER_GENERAL_STAFF
+		clr_country_flag = MAD_MIL_PARTY_LEADER_CAPSAT
+		add_stability = -0.08
+		army_experience = 35
+	}
+
+	option = {
+		name = MAD_military_command.5.b
+		log = "[GetDateText]: [Root.GetName]: Negotiate With CAPSAT"
+		if = { limit = { has_idea = MAD_ARMY_GENERAL_STAFF_COMMAND } remove_ideas = MAD_ARMY_GENERAL_STAFF_COMMAND }
+		if = { limit = { has_idea = MAD_ARMY_CAPSAT_COMMAND } remove_ideas = MAD_ARMY_CAPSAT_COMMAND }
+		add_ideas = MAD_ARMY_CAPSAT_COMMAND
+		add_ideas = MAD_ARMY_CAPSAT_CONCESSIONS
+		set_country_flag = MAD_ARMY_COMMAND_CAPSAT
+		clr_country_flag = MAD_ARMY_COMMAND_GENERAL_STAFF
+		set_country_flag = MAD_ARMY_COMMAND_DECIDED
+		set_country_flag = MAD_MIL_PARTY_LEADER_CAPSAT
+		clr_country_flag = MAD_MIL_PARTY_LEADER_GENERAL_STAFF
+		set_country_flag = MAD_CAPSAT_REVOLT_RESOLVED
+		clr_country_flag = MAD_TGV_CAPSAT_REJECTION
+		clr_country_flag = MAD_TGV_CAPSAT_REVOLT_SCHEDULED
+		create_country_leader = {
+			name = "Noel Rakotonandrasana"
+			expire = "2050.1.1"
+			ideology = nationalist
+			traits = { }
+		}
+		add_stability = -0.04
+		army_experience = 20
+	}
+
+	option = {
+		name = MAD_military_command.5.c
+		log = "[GetDateText]: [Root.GetName]: Surrender to CAPSAT"
+		set_country_flag = MAD_CAPSAT_REVOLT_RESOLVED
+		clr_country_flag = MAD_TGV_CAPSAT_REJECTION
+		clr_country_flag = MAD_TGV_CAPSAT_REVOLT_SCHEDULED
+		set_country_flag = MAD_MIL_PARTY_LEADER_CAPSAT
+		clr_country_flag = MAD_MIL_PARTY_LEADER_GENERAL_STAFF
+		set_country_flag = MAD_MILITARY_RULE_PATH
+		set_country_flag = MAD_CAPSAT_MILITARY_TAKEOVER
+		set_country_flag = MAD_ARMY_COMMAND_CAPSAT
+		clr_country_flag = MAD_ARMY_COMMAND_GENERAL_STAFF
+		set_country_flag = MAD_ARMY_COMMAND_DECIDED
+		if = { limit = { has_elections = yes } set_politics = { ruling_party = nationalist elections_allowed = no } }
+		if = { limit = { has_idea = MAD_ARMY_GENERAL_STAFF_COMMAND } remove_ideas = MAD_ARMY_GENERAL_STAFF_COMMAND }
+		if = { limit = { has_idea = MAD_ARMY_CAPSAT_COMMAND } remove_ideas = MAD_ARMY_CAPSAT_COMMAND }
+		add_ideas = MAD_ARMY_CAPSAT_COMMAND
+		add_ideas = MAD_ARMY_CAPSAT_CONCESSIONS
+		create_country_leader = {
+			name = "Noel Rakotonandrasana"
+			expire = "2050.1.1"
+			ideology = nationalist
+			traits = { }
+		}
+		add_stability = -0.12
+		add_war_support = 0.05
+	}
+}
+
+# --- historical service rifle choice ---
+country_event = {
+	id = MAD_military_procurement.1
+	title = MAD_military_procurement.1.t
+	desc = MAD_military_procurement.1.d
+	picture = GFX_report_event_economy_default
+	is_triggered_only = yes
+	option = {
+		name = MAD_military_procurement.1.a
+		trigger = { country_exists = ZAF }
+		set_temp_variable = { treasury_change = -2.5 }
+		modify_treasury_effect = yes
+		add_equipment_to_stockpile = { type = infantry_weapons_4 amount = 3000 producer = ZAF }
+		set_temp_variable = { percent_change = 4 }
+		set_temp_variable = { tag_index = ZAF }
+		set_temp_variable = { influence_target = MAD }
+		change_influence_percentage = yes
+		ZAF = { set_temp_variable = { treasury_change = 2.5 } modify_treasury_effect = yes add_opinion_modifier = { target = MAD modifier = large_commercial_relations } }
+		add_opinion_modifier = { target = ZAF modifier = large_commercial_relations }
+		army_experience = 15
+	}
+	option = {
+		name = MAD_military_procurement.1.b
+		trigger = { country_exists = BEL }
+		set_temp_variable = { treasury_change = -2.0 }
+		modify_treasury_effect = yes
+		add_equipment_to_stockpile = { type = infantry_weapons_4 amount = 2500 producer = BEL }
+		set_temp_variable = { percent_change = 3 }
+		set_temp_variable = { tag_index = BEL }
+		set_temp_variable = { influence_target = MAD }
+		change_influence_percentage = yes
+		BEL = { set_temp_variable = { treasury_change = 2.0 } modify_treasury_effect = yes add_opinion_modifier = { target = MAD modifier = large_commercial_relations } }
+		add_opinion_modifier = { target = BEL modifier = large_commercial_relations }
+		army_experience = 10
+	}
+}
+
+# --- historical protected mobility tender ---
+country_event = {
+	id = MAD_military_procurement.3
+	title = MAD_military_procurement.3.t
+	desc = MAD_military_procurement.3.d
+	picture = GFX_report_event_generic_political
+	is_triggered_only = yes
+	option = {
+		name = MAD_military_procurement.3.a
+		trigger = { country_exists = UAE }
+		set_temp_variable = { treasury_change = -2.5 }
+		modify_treasury_effect = yes
+		add_equipment_to_stockpile = { type = util_vehicle_4 amount = 80 producer = UAE }
+		set_temp_variable = { percent_change = 4 }
+		set_temp_variable = { tag_index = UAE }
+		set_temp_variable = { influence_target = MAD }
+		change_influence_percentage = yes
+		UAE = { set_temp_variable = { treasury_change = 2.5 } modify_treasury_effect = yes add_opinion_modifier = { target = MAD modifier = large_commercial_relations } }
+		add_opinion_modifier = { target = UAE modifier = large_commercial_relations }
+		add_tech_bonus = { name = MAD_military_procurement_3_panthera category = CAT_afv category = CAT_apc uses = 1 bonus = 0.25 }
+	}
+	option = {
+		name = MAD_military_procurement.3.b
+		trigger = { country_exists = ZAF }
+		set_temp_variable = { treasury_change = -2.3 }
+		modify_treasury_effect = yes
+		add_equipment_to_stockpile = { type = util_vehicle_4 amount = 70 producer = ZAF }
+		set_temp_variable = { percent_change = 3 }
+		set_temp_variable = { tag_index = ZAF }
+		set_temp_variable = { influence_target = MAD }
+		change_influence_percentage = yes
+		ZAF = { set_temp_variable = { treasury_change = 2.3 } modify_treasury_effect = yes add_opinion_modifier = { target = MAD modifier = large_commercial_relations } }
+		add_opinion_modifier = { target = ZAF modifier = large_commercial_relations }
+		add_mastery = { amount = 15 folder = land }
+	}
+}
+
+# --- historical air package choice ---
+country_event = {
+	id = MAD_military_procurement.4
+	title = MAD_military_procurement.4.t
+	desc = MAD_military_procurement.4.d
+	picture = GFX_report_event_economy_default
+	is_triggered_only = yes
+	option = {
+		name = MAD_military_procurement.4.a
+		trigger = { country_exists = ZAF }
+		set_temp_variable = { treasury_change = -3.0 }
+		modify_treasury_effect = yes
+		add_equipment_to_stockpile = { type = transport_helicopter_1 amount = 4 producer = ZAF }
+		set_temp_variable = { percent_change = 4 }
+		set_temp_variable = { tag_index = ZAF }
+		set_temp_variable = { influence_target = MAD }
+		change_influence_percentage = yes
+		ZAF = { set_temp_variable = { treasury_change = 3.0 } modify_treasury_effect = yes add_opinion_modifier = { target = MAD modifier = large_commercial_relations } }
+		add_opinion_modifier = { target = ZAF modifier = large_commercial_relations }
+		add_ideas = MAD_ARMY_HELICOPTER_PRIORITY
+		air_experience = 20
+	}
+	option = {
+		name = MAD_military_procurement.4.b
+		trigger = { country_exists = FRA }
+		set_temp_variable = { treasury_change = -5.0 }
+		modify_treasury_effect = yes
+		add_equipment_to_stockpile = { type = transport_plane5 amount = 1 producer = FRA }
+		set_temp_variable = { percent_change = 5 }
+		set_temp_variable = { tag_index = FRA }
+		set_temp_variable = { influence_target = MAD }
+		change_influence_percentage = yes
+		FRA = { set_temp_variable = { treasury_change = 5.0 } modify_treasury_effect = yes add_opinion_modifier = { target = MAD modifier = large_commercial_relations } }
+		add_opinion_modifier = { target = FRA modifier = large_commercial_relations }
+		air_experience = 25
+	}
+	option = {
+		name = MAD_military_procurement.4.c
+		trigger = { country_exists = ZAF country_exists = FRA }
+		set_temp_variable = { treasury_change = -7.5 }
+		modify_treasury_effect = yes
+		add_equipment_to_stockpile = { type = transport_helicopter_1 amount = 2 producer = ZAF }
+		add_equipment_to_stockpile = { type = transport_plane5 amount = 1 producer = FRA }
+		set_temp_variable = { percent_change = 3 }
+		set_temp_variable = { tag_index = ZAF }
+		set_temp_variable = { influence_target = MAD }
+		change_influence_percentage = yes
+		set_temp_variable = { percent_change = 4 }
+		set_temp_variable = { tag_index = FRA }
+		set_temp_variable = { influence_target = MAD }
+		change_influence_percentage = yes
+		ZAF = { set_temp_variable = { treasury_change = 3.0 } modify_treasury_effect = yes add_opinion_modifier = { target = MAD modifier = large_commercial_relations } }
+		FRA = { set_temp_variable = { treasury_change = 4.5 } modify_treasury_effect = yes add_opinion_modifier = { target = MAD modifier = large_commercial_relations } }
+		add_opinion_modifier = { target = ZAF modifier = large_commercial_relations }
+		add_opinion_modifier = { target = FRA modifier = large_commercial_relations }
+		army_experience = 25
+		air_experience = 30
+	}
+}
+
+# --- hypothetical protected vehicle assembly ---
+country_event = {
+	id = MAD_military_industry.1
+	title = MAD_military_industry.1.t
+	desc = MAD_military_industry.1.d
+	picture = GFX_report_event_industry_default
+	is_triggered_only = yes
+	option = {
+		name = MAD_military_industry.1.a
+		trigger = { country_exists = ZAF }
+		set_temp_variable = { treasury_change = -12.0 }
+		modify_treasury_effect = yes
+		add_equipment_to_stockpile = { type = util_vehicle_4 amount = 60 producer = ZAF }
+		set_temp_variable = { percent_change = 6 }
+		set_temp_variable = { tag_index = ZAF }
+		set_temp_variable = { influence_target = MAD }
+		change_influence_percentage = yes
+		ZAF = { set_temp_variable = { treasury_change = 12.0 } modify_treasury_effect = yes add_opinion_modifier = { target = MAD modifier = large_commercial_relations } }
+		add_opinion_modifier = { target = ZAF modifier = large_commercial_relations }
+		487 = { add_building_construction = { type = arms_factory level = 1 instant_build = yes } }
+	}
+	option = {
+		name = MAD_military_industry.1.b
+		trigger = { country_exists = TUR }
+		set_temp_variable = { treasury_change = -14.0 }
+		modify_treasury_effect = yes
+		add_equipment_to_stockpile = { type = util_vehicle_4 amount = 75 producer = TUR }
+		set_temp_variable = { percent_change = 6 }
+		set_temp_variable = { tag_index = TUR }
+		set_temp_variable = { influence_target = MAD }
+		change_influence_percentage = yes
+		TUR = { set_temp_variable = { treasury_change = 14.0 } modify_treasury_effect = yes add_opinion_modifier = { target = MAD modifier = large_commercial_relations } }
+		add_opinion_modifier = { target = TUR modifier = large_commercial_relations }
+		487 = { add_building_construction = { type = arms_factory level = 1 instant_build = yes } }
+	}
+}
+
+# --- hypothetical mobile artillery ---
+country_event = {
+	id = MAD_military_industry.2
+	title = MAD_military_industry.2.t
+	desc = MAD_military_industry.2.d
+	picture = GFX_report_event_generic_political
+	is_triggered_only = yes
+	option = {
+		name = MAD_military_industry.2.a
+		trigger = { country_exists = FRA }
+		set_temp_variable = { treasury_change = -10.0 }
+		modify_treasury_effect = yes
+		add_equipment_to_stockpile = { type = artillery_1 amount = 120 producer = FRA }
+		set_temp_variable = { percent_change = 6 }
+		set_temp_variable = { tag_index = FRA }
+		set_temp_variable = { influence_target = MAD }
+		change_influence_percentage = yes
+		FRA = { set_temp_variable = { treasury_change = 10.0 } modify_treasury_effect = yes add_opinion_modifier = { target = MAD modifier = large_commercial_relations } }
+		add_opinion_modifier = { target = FRA modifier = large_commercial_relations }
+		add_mastery = { amount = 25 folder = land }
+	}
+	option = {
+		name = MAD_military_industry.2.b
+		trigger = { country_exists = TUR }
+		set_temp_variable = { treasury_change = -11.0 }
+		modify_treasury_effect = yes
+		add_equipment_to_stockpile = { type = artillery_1 amount = 110 producer = TUR }
+		set_temp_variable = { percent_change = 7 }
+		set_temp_variable = { tag_index = TUR }
+		set_temp_variable = { influence_target = MAD }
+		change_influence_percentage = yes
+		TUR = { set_temp_variable = { treasury_change = 11.0 } modify_treasury_effect = yes add_opinion_modifier = { target = MAD modifier = large_commercial_relations } }
+		add_opinion_modifier = { target = TUR modifier = large_commercial_relations }
+		add_mastery = { amount = 30 folder = land }
+	}
+	option = {
+		name = MAD_military_industry.2.c
+		trigger = { country_exists = RAJ }
+		set_temp_variable = { treasury_change = -9.0 }
+		modify_treasury_effect = yes
+		add_equipment_to_stockpile = { type = artillery_1 amount = 100 producer = RAJ }
+		set_temp_variable = { percent_change = 5 }
+		set_temp_variable = { tag_index = RAJ }
+		set_temp_variable = { influence_target = MAD }
+		change_influence_percentage = yes
+		RAJ = { set_temp_variable = { treasury_change = 9.0 } modify_treasury_effect = yes add_opinion_modifier = { target = MAD modifier = large_commercial_relations } }
+		add_opinion_modifier = { target = RAJ modifier = large_commercial_relations }
+		add_mastery = { amount = 20 folder = land }
+	}
+}
+
+# --- final non-monetary doctrine architecture choice ---
+country_event = {
+	id = MAD_military_industry.4
+	title = MAD_military_industry.4.t
+	desc = MAD_military_industry.4.d
+	picture = GFX_report_event_generic_political
+	is_triggered_only = yes
+	option = {
+		name = MAD_military_industry.4.a
+		if = { limit = { country_exists = FRA } add_opinion_modifier = { target = FRA modifier = large_commercial_relations } FRA = { add_opinion_modifier = { target = MAD modifier = large_commercial_relations } } }
+		if = { limit = { country_exists = COM } add_opinion_modifier = { target = COM modifier = large_commercial_relations } COM = { add_opinion_modifier = { target = MAD modifier = large_commercial_relations } } }
+		add_mastery = { amount = 35 folder = land }
+		add_mastery = { amount = 25 folder = air }
+		add_mastery = { amount = 20 folder = naval }
+		add_tech_bonus = { name = MAD_military_industry_4_french category = CAT_cnc category = CAT_internet_tech uses = 3 bonus = 0.50 }
+	}
+	option = {
+		name = MAD_military_industry.4.b
+		if = { limit = { country_exists = COM } add_opinion_modifier = { target = COM modifier = large_commercial_relations } COM = { add_opinion_modifier = { target = MAD modifier = large_commercial_relations } } }
+		if = { limit = { country_exists = SYC } add_opinion_modifier = { target = SYC modifier = large_commercial_relations } SYC = { add_opinion_modifier = { target = MAD modifier = large_commercial_relations } } }
+		add_mastery = { amount = 25 folder = naval }
+		add_mastery = { amount = 25 folder = land }
+		add_mastery = { amount = 15 folder = air }
+		add_tech_bonus = { name = MAD_military_industry_4_regional category = CAT_naval_radar category = CAT_air_eqp uses = 3 bonus = 0.40 }
+	}
+	option = {
+		name = MAD_military_industry.4.c
+		add_mastery = { amount = 40 folder = land }
+		add_mastery = { amount = 20 folder = air }
+		add_mastery = { amount = 20 folder = naval }
+		add_tech_bonus = { name = MAD_military_industry_4_autonomy category = CAT_computing_tech category = CAT_industry uses = 3 bonus = 0.35 }
 	}
 }

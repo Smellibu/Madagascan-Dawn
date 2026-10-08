@@ -1074,7 +1074,7 @@ MAD_drought_category = {
 
 		target_trigger = {
 			FROM = {
-				custom_effect_tooltip = {
+				custom_trigger_tooltip = {
 					tooltip = MAD_DROUGHT_STATE_NO_WATER_RELIEF_tt
 					check_variable = { MAD_state_relief_months < 0.001 }
 				}
@@ -1093,7 +1093,7 @@ MAD_drought_category = {
 		}
 
 		available = {
-			custom_effect_tooltip = {
+			custom_trigger_tooltip = {
 				tooltip = MAD_DROUGHT_FOCUS_REQ_tt
 				has_completed_focus = MAD_Drought_and_famine
 			}
@@ -3277,14 +3277,6 @@ MAD_royal_political_category = {
 # Closed automatically when the military is no longer the ruling party.
 # ---------------------------------------------------------------------------
 MAD_military_refoundation_category = {
-	allowed = {
-		MAD_MIL_IN_POWER = yes
-	}
-	visible = {
-		MAD_MIL_IN_POWER = yes
-	}
-	priority = 1
-	visible_when_empty = no
 
 	MAD_MILITARY_OFFICER_CONFERENCE = {
 		icon = GFX_decision_generic_political_reform
@@ -3354,16 +3346,7 @@ MAD_military_refoundation_category = {
 # cancels all unfinished promises and removes delivery ideas.
 # ---------------------------------------------------------------------------
 MAD_TGV_VELIRANO_CATEGORY = {
-	icon = generic_political_discourse
-	allowed = {
-		MAD_TGV_IN_POWER = yes
-	}
-	visible = {
-		MAD_TGV_VELIRANO_ACTIVE = yes
-		MAD_TGV_IN_POWER = yes
-	}
-	priority = 2
-	visible_when_empty = no
+
 
 	MAD_TGV_PROMISE_WATER = {
 		icon = GFX_decision_generic_construction
@@ -3584,14 +3567,6 @@ MAD_TGV_VELIRANO_CATEGORY = {
 # HVM – Project Review
 # ---------------------------------------------------------------------------
 MAD_HVM_PROJECT_REVIEW_CATEGORY = {
-	icon = generic_political_discourse
-	allowed = { 
-	MAD_HVM_IN_POWER = yes 
-	}
-	visible = { MAD_HVM_PROJECT_REVIEW_READY = yes }
-	priority = 2
-	visible_when_empty = no
-
 	MAD_HVM_REVIEW_COMPLETE_PORTFOLIO = {
 		icon = GFX_decision_generic_construction
 		cost = 75

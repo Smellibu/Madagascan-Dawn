@@ -7,12 +7,26 @@ on_actions = {
 				limit = { country_exists = MAD }
 				MAD = {
 					MAD_dahalo_init = yes
+					add_ideas = MAD_ARMY_INHERITED_BURDEN
+					set_country_flag = MAD_MIL_PARTY_LEADER_CAPSAT
 					if = {
 						limit = { NOT = { has_country_flag = MAD_DROUGHT_STARTED } }
 						MAD_drought_init = yes
 						country_event = { id = mad_drought.2 days = 30 }
 					}
 					clamp_variable = { var = MAD_drought_prevention_count min = 0 max = 7 }
+
+					# Madagascar's historical start is AREMA under Didier Ratsiraka.
+					# Arm the first-loss chain once; the event itself verifies that
+					# AREMA has actually lost power after the party-change hook settles.
+					if = {
+						limit = {
+							original_tag = MAD
+							NOT = { has_country_flag = MAD_RATSIRAKA_FIRST_LOSS_DONE }
+							NOT = { has_country_flag = MAD_RATSIRAKA_FIRST_LOSS_PENDING }
+						}
+						set_country_flag = MAD_RATSIRAKA_FIRST_LOSS_PENDING
+					}
 				}
 			}
 		}
@@ -26,15 +40,45 @@ on_actions = {
 					MAD_autocomplete_forced_outcome_foci = yes
 					MAD_daewoo_election_daily_tick = yes
 					MAD_JIRAMA_GENERATION_RECOVERY_DAILY = yes
+
+					# MD's original Politics View remains untouched. When the player
+					# manually allows AREMA again, detect that the MD party-ban array
+					# no longer marks party index 5 as banned and open the return event.
+					if = {
+						limit = {
+							original_tag = MAD
+							has_country_flag = MAD_AREMA_BANNED
+							NOT = { has_country_flag = MAD_RATSIRAKA_RETURN_PENDING }
+							NOT = { has_country_flag = MAD_RATSIRAKA_RETURN_RESOLVED }
+							NOT = { check_variable = { party_banned_array^5 = 1 } }
+						}
+						clr_country_flag = MAD_AREMA_BANNED
+						set_country_flag = MAD_RATSIRAKA_RETURN_PENDING
+						country_event = { id = mad_political.92 }
+					}
 				}
 			}
 		}
 	}
-	on_monthly = {
-		effect = {
+		on_monthly = {
+			effect = {
 			if = {
 				limit = { country_exists = MAD }
 				MAD = {
+					# TGV formation/reveal is checked monthly for performance.
+					# If December 2007 arrives first, the historical formation event wins;
+					# if mad_political.91 has already been resolved into the delayed TGV route,
+					# the pending flag prevents a second formation event.
+					if = {
+						limit = {
+							original_tag = MAD
+							date > 2007.11.30
+							NOT = { has_country_flag = MAD_TGV_FORMED }
+							NOT = { has_country_flag = MAD_TGV_FORMATION_PENDING }
+						}
+						country_event = { id = mad_political.96 }
+					}
+
 					if = {
 						limit = {
 							NOT = { has_country_flag = MAD_DAHALO_DEFEATED }
@@ -54,10 +98,17 @@ on_actions = {
 			}
 		}
 	}
+
 	on_ruling_party_change = {
 		effect = {
+			# Schedule the first-loss event after the political state has settled.
+			# The event itself performs the actual AREMA-loss check.
 			if = {
-				limit = { original_tag = MAD }
+				limit = {
+					original_tag = MAD
+					has_country_flag = MAD_RATSIRAKA_FIRST_LOSS_PENDING
+					NOT = { has_country_flag = MAD_RATSIRAKA_FIRST_LOSS_DONE }
+				}
 				country_event = { id = mad_political.90 hours = 2 }
 			}
 		}
