@@ -628,7 +628,7 @@ MAD_madarail_category = {
 		# one year later: the railway is built and the state gains 80 productivity
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_MADARAIL_BUILD_TOLIARA_LINE - line completed"
-			# Fianarantsoa -> Toliara, along the RN7
+			# Fianarantsoa -> Toliara; the endpoints are adjacent
 			build_railway = {
 				level = 2
 				path = { 566 12956 }
@@ -670,10 +670,10 @@ MAD_madarail_category = {
 		# one year later: the railway is built and the state gains 80 productivity
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_MADARAIL_BUILD_MAHAJANGA_LINE - line completed"
-			# Antananarivo -> Mahajanga, along the RN4
+			# Antananarivo -> 844 -> Mahajanga, along the intended RN4 route
 			build_railway = {
 				level = 2
-				path = { 11015 8188 }
+				path = { 11015 844 8188 }
 			}
 			266 = {
 				set_temp_variable = { temp_productivity_change = 80 }
@@ -694,6 +694,7 @@ MAD_madarail_category = {
 		allowed = { tag = MAD }
 		visible = {
 			has_country_flag = MAD_RAIL_NETWORK_UNLOCKED
+			has_country_flag = MAD_RAIL_TOLIARA_BUILT
 			NOT = { has_country_flag = MAD_RAIL_AMBOVOMBE_BUILT }
 		}
 		custom_cost_trigger = { check_variable = { treasury > 14.999 } }
@@ -712,10 +713,10 @@ MAD_madarail_category = {
 		# one year later: the railway is built and the state gains 80 productivity
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_MADARAIL_BUILD_AMBOVOMBE_LINE - line completed"
-			# Fianarantsoa -> Ambovombe, via Ihosy
+			# Toliara -> Ambovombe; requires the Toliara line to be completed first
 			build_railway = {
 				level = 2
-				path = { 566 2200 }
+				path = { 12956 2200 }
 			}
 			268 = {
 				set_temp_variable = { temp_productivity_change = 80 }
@@ -754,10 +755,10 @@ MAD_madarail_category = {
 		# one year later: the railway is built and the state gains 80 productivity
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_MADARAIL_BUILD_ANTSIRANANA_LINE - line completed"
-			# Antsiranana -> Mahajanga (meets the network at the Mahajanga line), along the RN6
+			# Antsiranana -> 884 -> Mahajanga, along the intended RN6 route
 			build_railway = {
 				level = 2
-				path = { 5222 8188 }
+				path = { 5222 884 8188 }
 			}
 			266 = {
 				set_temp_variable = { temp_productivity_change = 80 }
@@ -1658,12 +1659,12 @@ MAD_drought_category = {
 	# LATE DECISIONS
 	########################################################################
 
-	# Bring back the people who left for the cities and abroad - only once the worst is behind you.
+	# Return internally displaced people to their original states in affordable batches.
 	MAD_DROUGHT_RESETTLE = {
 		icon = generic_political_discourse
 		allowed = { tag = MAD }
 		visible = {
-			check_variable = { MAD_drought_displaced > 0 }
+			check_variable = { MAD_drought_displaced_internal > 0.5 }
 		}
 		available = {
 			custom_trigger_tooltip = {
@@ -1676,16 +1677,49 @@ MAD_drought_category = {
 			}
 		}
 		cost = 50
-		days_re_enable = 365
-		custom_cost_trigger = { check_variable = { treasury > 2.999 } }
-		custom_cost_text = cost_3_0
-
+		days_re_enable = 90
+		custom_cost_trigger = { check_variable = { treasury > 0.999 } }
+		custom_cost_text = cost_1_0
 
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_DROUGHT_RESETTLE"
-			set_temp_variable = { treasury_change = -3.00 }
+			set_temp_variable = { treasury_change = -1.00 }
 			modify_treasury_effect = yes
 			MAD_drought_resettle = yes
+		}
+
+		ai_will_do = { base = 1 }
+	}
+
+	# Invite part of the diaspora home. Each call returns 10% of the cumulative living diaspora that originally reached foreign destinations,
+	# allocated back to their original states, with a hard cap of six uses.
+	MAD_DROUGHT_EXPAT_RETURN = {
+		icon = generic_political_discourse
+		allowed = { tag = MAD }
+		visible = {
+			check_variable = { MAD_drought_displaced_abroad > 0.5 }
+			check_variable = { MAD_drought_expat_return_calls < 6 }
+		}
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_DROUGHT_PREVENTION_4_tt
+				check_variable = { MAD_drought_prevention_count > 3.99 }
+			}
+			custom_trigger_tooltip = {
+				tooltip = MAD_DROUGHT_SEVERITY_BELOW_35_tt
+				check_variable = { MAD_drought_severity < 35 }
+			}
+		}
+		cost = 35
+		days_re_enable = 180
+		custom_cost_trigger = { check_variable = { treasury > 1.999 } }
+		custom_cost_text = cost_2_0
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_DROUGHT_EXPAT_RETURN"
+			set_temp_variable = { treasury_change = -2.00 }
+			modify_treasury_effect = yes
+			MAD_drought_return_expats = yes
 		}
 
 		ai_will_do = { base = 1 }
@@ -2282,7 +2316,7 @@ MAD_dahalo_category = {
 			set_temp_variable = { treasury_change = -0.20 }
 			modify_treasury_effect = yes
 			add_to_variable = { MAD_dahalo_threat = -6 tooltip = MAD_DAHALO_THREAT_MINUS_6_TT }
-			add_stability = 0.005
+			add_stability = 0.0025
 			MAD_dahalo_update_modifier = yes
 		}
 		ai_will_do = { base = 4 }
@@ -2985,7 +3019,7 @@ MAD_OWNERSHIP_BOP = {
 	}
 
 	MAD_SELL_JIRAMA_PRIVATE = {
-		icon = generic_bank
+		icon = GFX_decision_generic_political_reform
 		cost = 50
 		fire_only_once = yes
 		days_remove = 1
@@ -3236,41 +3270,373 @@ MAD_OWNERSHIP_BOP = {
 # Closed automatically when neither royal party holds government.
 # ---------------------------------------------------------------------------
 MAD_royal_political_category = {
-	
-
-	MAD_ROYAL_CONSULT_THE_HOUSES = {
-		icon = GFX_decision_generic_political_reform
-		cost = 50
-		days_remove = 90
-		allowed = { MAD_TAMIMA_IN_POWER = yes }
-		visible = { MAD_TAMIMA_IN_POWER = yes }
-		available = { MAD_TAMIMA_IN_POWER = yes }
-		
-		complete_effect = {
-			add_political_power = 25
-		}
-		ai_will_do = { base = 2 }
-	}	
-
 	MAD_ROYAL_ASSERT_THE_CROWN = {
 		icon = GFX_decision_generic_political_reform
 		cost = 50
-		days_remove = 90
+		days_remove = 120
+		fire_only_once = yes
 		allowed = { MAD_ROY_IN_POWER = yes }
-		visible = { MAD_ROY_IN_POWER = yes }
-		available = { MAD_ROY_IN_POWER = yes }
+		visible = {
+			MAD_ROY_IN_POWER = yes
+			has_country_flag = MAD_ROY_UNLOCK_CROWN_AFFAIRS
+		}
+		available = {
+			MAD_ROY_IN_POWER = yes
+			check_variable = { treasury > 0.999 }
+			NOT = { has_country_flag = MAD_ROY_CROWN_ADMINISTRATION_ASSERTED }
+		}
 		complete_effect = {
-			add_political_power = 50
-			set_temp_variable = { party_index = 23 }
-			set_temp_variable = { party_popularity_increase = 0.02 }
-			set_temp_variable = { temp_outlook_increase = 0.02 }
-			change_relative_party_popularity = yes
-			add_stability = -0.01
-			recalculate_party = yes
+			set_temp_variable = { treasury_change = -1.00 }
+			modify_treasury_effect = yes
+			increase_centralization = yes
+			set_temp_variable = { percent_change = 2 }
+			change_domestic_influence_percentage = yes
+			set_country_flag = MAD_ROY_CROWN_ADMINISTRATION_ASSERTED
+		}
+		ai_will_do = { base = 1 }
+	}
+	MAD_ROYAL_BEGIN_MONETARY_REFORM = {
+		icon = GFX_decision_generic_political_reform
+		cost = 75
+		days_remove = 150
+		fire_only_once = yes
+		allowed = { MAD_ROY_IN_POWER = yes }
+		visible = {
+			MAD_ROY_IN_POWER = yes
+			has_country_flag = MAD_ROY_UNLOCK_FINANCIAL_REFORM
+		}
+		available = {
+			MAD_ROY_IN_POWER = yes
+			check_variable = { debt > 0 }
+			NOT = { has_country_flag = MAD_ROY_MONETARY_REFORM_IMPLEMENTED }
+		}
+		complete_effect = {
+			decrease_economic_growth = yes
+
+			set_temp_variable = { debt_change = debt }
+			multiply_temp_variable = { debt_change = -0.15 }
+			modify_debt_effect = yes
+			set_country_flag = MAD_ROY_MONETARY_REFORM_IMPLEMENTED
+		}
+		ai_will_do = { base = 1 }
+	}
+	MAD_ROY_RESTORE_ROVA = {
+		icon = GFX_decision_generic_political_reform
+		cost = 75
+		days_remove = 180
+		fire_only_once = yes
+		allowed = { MAD_ROY_IN_POWER = yes }
+		visible = {
+			MAD_ROY_IN_POWER = yes
+			has_country_flag = MAD_ROY_UNLOCK_HERITAGE
+		}
+		available = {
+			MAD_ROY_IN_POWER = yes
+			check_variable = { treasury > 7.999 }
+			NOT = { has_country_flag = MAD_ROY_ROVA_RESTORED }
+		}
+		complete_effect = {
+			# Ceremonial and archival consecration complements, rather than repeats, the focus's physical public works.
+			set_temp_variable = { treasury_change = -8.00 }
+			modify_treasury_effect = yes
+			267 = {
+				add_building_construction = { type = offices level = 1 instant_build = yes }
+			}
+			add_stability = 0.03
+			set_temp_variable = { percent_change = 5 }
+			change_domestic_influence_percentage = yes
+			set_country_flag = MAD_ROY_ROVA_RESTORED
+		}
+		ai_will_do = { base = 1 }
+	}
+	MAD_ROY_SEND_ROYAL_DELEGATION_TO_ISRAEL = {
+		icon = GFX_decision_generic_political_reform
+		cost = 50
+		days_remove = 180
+		fire_only_once = yes
+		allowed = { MAD_ROY_IN_POWER = yes }
+		visible = {
+			MAD_ROY_IN_POWER = yes
+			has_country_flag = MAD_ROY_UNLOCK_ISRAEL_DIPLOMACY
+		}
+		available = {
+			MAD_ROY_IN_POWER = yes
+			ISR = { exists = yes }
+			NOT = { has_country_flag = MAD_ROY_ISRAEL_DELEGATION_SENT }
+		}
+		complete_effect = {
+			add_opinion_modifier = { target = ISR modifier = has_expressed_loyalty }
+			ISR = { add_opinion_modifier = { target = MAD modifier = has_expressed_loyalty } }
+			set_temp_variable = { percent_change = 5 }
+			set_temp_variable = { influence_target = ISR.id }
+			change_influence_percentage = yes
+			set_country_flag = MAD_ROY_ISRAEL_DELEGATION_SENT
+		}
+		ai_will_do = { base = 1 }
+	}
+	MAD_ROY_PRESENT_ISLAND_DOSSIER = {
+		icon = GFX_decision_generic_political_reform
+		cost = 75
+		days_remove = 180
+		fire_only_once = yes
+		allowed = { MAD_ROY_IN_POWER = yes }
+		visible = {
+			MAD_ROY_IN_POWER = yes
+			has_country_flag = MAD_ROY_UNLOCK_ISLAND_SOVEREIGNTY
+		}
+		available = {
+			MAD_ROY_IN_POWER = yes
+			FRA = { exists = yes }
+			NOT = { has_country_flag = MAD_ROY_ISLAND_DOSSIER_PRESENTED }
+		}
+		complete_effect = {
+			add_opinion_modifier = { target = FRA modifier = major_breach_of_trust }
+			add_named_threat = { threat = 1 name = MAD_ROY_ISLAND_DOSSIER_TENSION }
+			set_country_flag = MAD_ROY_ISLAND_DOSSIER_PRESENTED
+		}
+		ai_will_do = { base = 1 }
+	}
+	MAD_ROY_PREPARE_ISLAND_RECLAMATION = {
+		icon = GFX_decision_generic_political_reform
+		cost = 75
+		days_remove = 180
+		fire_only_once = yes
+		allowed = { MAD_ROY_IN_POWER = yes }
+		visible = {
+			MAD_ROY_IN_POWER = yes
+			has_country_flag = MAD_ROY_UNLOCK_ISLAND_SOVEREIGNTY
+		}
+		available = {
+			MAD_ROY_IN_POWER = yes
+			custom_trigger_tooltip = {
+				tooltip = MAD_ROY_RECLAMATION_REQUIRES_DOSSIER_TT
+				has_country_flag = MAD_ROY_ISLAND_DOSSIER_PRESENTED
+			}
+			NOT = { has_country_flag = MAD_ROY_ISLAND_RECLAMATION_PREPARED }
+		}
+		complete_effect = {
+			add_named_threat = { threat = 2 name = MAD_ROY_ISLAND_RECLAMATION_TENSION }
+			add_war_support = 0.02
+			set_country_flag = MAD_ROY_ISLAND_RECLAMATION_PREPARED
+		}
+		ai_will_do = { base = 1 }
+	}
+	MAD_ROYAL_RECOGNISE_CUSTOMARY_GOVERNANCE = {
+		icon = GFX_decision_generic_political_reform
+		cost = 50
+		days_remove = 150
+		fire_only_once = yes
+		allowed = { MAD_ROY_IN_POWER = yes }
+		visible = {
+			MAD_ROY_IN_POWER = yes
+			has_country_flag = MAD_ROY_UNLOCK_CUSTOMARY_GOVERNANCE
+		}
+		available = {
+			MAD_ROY_IN_POWER = yes
+			check_variable = { treasury > 11.999 }
+			268 = { is_core_of = ROOT offices < 2 }
+			NOT = { has_country_flag = MAD_ROY_CUSTOMARY_GOVERNANCE_IMPLEMENTED }
+		}
+		complete_effect = {
+			if = {
+				limit = { 268 = { is_core_of = ROOT offices < 2 } }
+				268 = {
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = { type = offices level = 1 instant_build = yes }
+				}
+				set_temp_variable = { treasury_change = -12.00 }
+				modify_treasury_effect = yes
+				decrease_corruption = yes
+				set_country_flag = MAD_ROY_CUSTOMARY_GOVERNANCE_IMPLEMENTED
+			}
+		}
+		ai_will_do = { base = 1 }
+	}
+	MAD_TAMIMA_CONSULT_TWELVE_ELDERS = {
+		icon = GFX_decision_generic_political_reform
+		cost = 50
+		days_remove = 120
+		days_re_enable = 180
+		fire_only_once = no
+		allowed = { MAD_TAMIMA_IN_POWER = yes }
+		visible = {
+			MAD_TAMIMA_IN_POWER = yes
+			has_country_flag = MAD_TAMIMA_UNLOCK_HOUSE_AFFAIRS
+		}
+		available = { MAD_TAMIMA_IN_POWER = yes }
+		complete_effect = {
+			# The elders mediate disputes, reinforce public order, and bind the Houses to the council.
+			add_stability = 0.005
+			decrease_corruption = yes
+			set_temp_variable = { percent_change = 2 }
+			change_domestic_influence_percentage = yes
+			if = {
+				limit = { has_idea = landowners }
+				set_temp_variable = { temp_opinion = 2 }
+				change_landowners_opinion = yes
+			}
+		}
+		ai_will_do = { base = 1 }
+	}
+	MAD_TAMIMA_REGIONAL_HOUSE_CONFERENCE = {
+		icon = GFX_decision_generic_political_reform
+		cost = 50
+		days_remove = 120
+		days_re_enable = 365
+		fire_only_once = no
+		allowed = { MAD_TAMIMA_IN_POWER = yes }
+		visible = {
+			MAD_TAMIMA_IN_POWER = yes
+			has_country_flag = MAD_TAMIMA_UNLOCK_HOUSE_AFFAIRS
+		}
+		available = { MAD_TAMIMA_IN_POWER = yes }
+		complete_effect = {
+			add_stability = 0.005
+			if = {
+				limit = { has_idea = landowners }
+				set_temp_variable = { temp_opinion = 2 }
+				change_landowners_opinion = yes
+			}
+		}
+		ai_will_do = { base = 1 }
+	}
+
+	# Voluntary union proposals: the counterpart must already favour Madagascar and Madagascar must have established influence there.
+	MAD_ROY_OFFER_UNION_COMOROS = {
+		icon = GFX_decision_generic_political_reform
+		cost = 100
+		days_remove = 180
+		fire_only_once = yes
+		allowed = { MAD_ROY_IN_POWER = yes }
+		visible = {
+			MAD_ROY_IN_POWER = yes
+			has_country_flag = MAD_ROY_ISLAND_RECLAMATION_PREPARED
+		}
+		available = {
+			COM = { exists = yes has_opinion = { target = MAD value > 99 } influence_higher_35 = yes }
+			NOT = { has_country_flag = MAD_ROY_UNION_COMOROS_OFFER_SENT }
+		}
+		complete_effect = {
+			set_country_flag = MAD_ROY_UNION_COMOROS_OFFER_SENT
+			COM = { country_event = { id = mad_royal.7 days = 1 } }
+		}
+		ai_will_do = { base = 1 }
+	}
+	MAD_ROY_OFFER_UNION_SEYCHELLES = {
+		icon = GFX_decision_generic_political_reform
+		cost = 100
+		days_remove = 180
+		fire_only_once = yes
+		allowed = { MAD_ROY_IN_POWER = yes }
+		visible = {
+			MAD_ROY_IN_POWER = yes
+			has_country_flag = MAD_ROY_ISLAND_RECLAMATION_PREPARED
+		}
+		available = {
+			SEY = { exists = yes has_opinion = { target = MAD value > 99 } influence_higher_35 = yes }
+			NOT = { has_country_flag = MAD_ROY_UNION_SEYCHELLES_OFFER_SENT }
+		}
+		complete_effect = {
+			set_country_flag = MAD_ROY_UNION_SEYCHELLES_OFFER_SENT
+			SEY = { country_event = { id = mad_royal.8 days = 1 } }
+		}
+		ai_will_do = { base = 1 }
+	}
+	MAD_ROY_OFFER_UNION_MAURITIUS = {
+		icon = GFX_decision_generic_political_reform
+		cost = 100
+		days_remove = 180
+		fire_only_once = yes
+		allowed = { MAD_ROY_IN_POWER = yes }
+		visible = {
+			MAD_ROY_IN_POWER = yes
+			has_country_flag = MAD_ROY_ISLAND_RECLAMATION_PREPARED
+		}
+		available = {
+			MRT = { exists = yes has_opinion = { target = MAD value > 99 } influence_higher_35 = yes }
+			NOT = { has_country_flag = MAD_ROY_UNION_MAURITIUS_OFFER_SENT }
+		}
+		complete_effect = {
+			set_country_flag = MAD_ROY_UNION_MAURITIUS_OFFER_SENT
+			MRT = { country_event = { id = mad_royal.9 days = 1 } }
+		}
+		ai_will_do = { base = 1 }
+	}
+	MAD_ROY_DEMAND_REUNION = {
+		icon = GFX_decision_generic_political_reform
+		cost = 100
+		days_remove = 180
+		fire_only_once = yes
+		allowed = { MAD_ROY_IN_POWER = yes }
+		visible = {
+			MAD_ROY_IN_POWER = yes
+			has_country_flag = MAD_ROY_ISLAND_RECLAMATION_PREPARED
+		}
+		available = {
+			FRA = { exists = yes }
+			NOT = { has_country_flag = MAD_ROY_FRANCE_REUNION_DEMANDED }
+		}
+		complete_effect = {
+			set_country_flag = MAD_ROY_FRANCE_REUNION_DEMANDED
+			FRA = { country_event = { id = mad_royal.10 days = 1 } }
+		}
+		ai_will_do = { base = 1 }
+	}
+	MAD_ROY_DEMAND_MAYOTTE = {
+		icon = GFX_decision_generic_political_reform
+		cost = 100
+		days_remove = 180
+		fire_only_once = yes
+		allowed = { MAD_ROY_IN_POWER = yes }
+		visible = {
+			MAD_ROY_IN_POWER = yes
+			has_country_flag = MAD_ROY_ISLAND_RECLAMATION_PREPARED
+		}
+		available = {
+			FRA = { exists = yes }
+			custom_trigger_tooltip = {
+				tooltip = MAD_ROY_MAYOTTE_REQUIRES_COMOROS_CORE_TT
+				OR = {
+					has_country_flag = MAD_ROY_UNION_COMOROS_ACCEPTED
+					COM = {
+						exists = yes
+						all_owned_state = { is_core_of = MAD }
+					}
+				}
+			}
+			NOT = { has_country_flag = MAD_ROY_FRANCE_MAYOTTE_DEMANDED }
+		}
+		complete_effect = {
+			set_country_flag = MAD_ROY_FRANCE_MAYOTTE_DEMANDED
+			FRA = { country_event = { id = mad_royal.11 days = 1 } }
 		}
 		ai_will_do = { base = 1 }
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 # ---------------------------------------------------------------------------
 # Military refoundation decisions

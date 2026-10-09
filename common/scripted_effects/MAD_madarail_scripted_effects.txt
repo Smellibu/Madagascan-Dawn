@@ -401,28 +401,6 @@ MAD_daewoo_election_daily_tick = {
 ########################################################################
 
 MAD_autocomplete_forced_outcome_foci = {
-	# The drought has definitively failed: force the losing branch.
-	if = {
-		limit = {
-			has_completed_focus = MAD_Fighting_climate_change
-			has_country_flag = MAD_DROUGHT_FAILED_STATE
-			NOT = { has_country_flag = MAD_DROUGHT_WON }
-			NOT = { has_completed_focus = MAD_losing_the_fight }
-			NOT = { has_completed_focus = MAD_Winning_the_fight }
-		}
-		complete_national_focus = MAD_losing_the_fight
-	}
-
-	# The drought is fully resolved after the losing branch: force Crop Death.
-	if = {
-		limit = {
-			has_completed_focus = MAD_losing_the_fight
-			MAD_drought_resolved = yes
-			NOT = { has_completed_focus = MAD_crop_death }
-		}
-		complete_national_focus = MAD_crop_death
-	}
-
 	# The Daewoo lease has collapsed after being kept: force Deal Collapses.
 	if = {
 		limit = {
@@ -485,13 +463,13 @@ MAD_daewoo_drought_well = {
 #   Emergency water supply cuts a POSITIVE monthly rise to 30% for 6 months, then a +4 rebound.
 #
 # Phases:
-#   MAD_DROUGHT_CONTAINED_STATE  set automatically: 5+ preventative measures and severity <= 30   -> Winning The Fight opens
-#   MAD_DROUGHT_FAILED_STATE     set automatically: exodus meter (months at severity 60+, net) reaches 12 -> Losing The Fight opens
-#   MAD_DROUGHT_WON / _LOST      set by those two focuses
+#   MAD_DROUGHT_CONTAINED_STATE  set automatically: all 7 preventative measures and severity <= 15 for one full year -> Winning The Fight opens
+#   MAD_DROUGHT_WON              set by Winning The Fight
 #   MAD_DROUGHT_OVER             severity reached 0 -> MAD_drought_resolved unlocks the further agricultural focuses
-# Until the drought is contained or has failed, severity cannot be pushed below 5 (relief cannot end it early).
+# Until containment or victory, severity cannot be pushed below 5; neglect leaves the drought active.
 
 MAD_drought_init = {
+	set_country_flag = MAD_DROUGHT_STARTED
 	set_variable = { MAD_drought_severity = 15 }
 	set_variable = { MAD_drought_base_pressure = 0.35 }
 	set_variable = { MAD_drought_prevention_total = 0 }
@@ -500,11 +478,69 @@ MAD_drought_init = {
 	set_variable = { MAD_drought_shock_pressure = 0 }
 	set_variable = { MAD_drought_relief_months = 0 }
 	set_variable = { MAD_drought_depop = 0 }
+	# Population figures in this subsystem are stored as PEOPLE (not thousands).
 	set_variable = { MAD_drought_displaced = 0 }
-	set_variable = { MAD_drought_severe_states = 0 }
-	# Migration is stored in thousands for the UI; the transfer effect multiplies by 1000 for state population.
-	set_variable = { MAD_drought_migration_amount = 0 }
-	set_variable = { MAD_drought_migration_force = 0 }
+	set_variable = { MAD_drought_displaced_internal = 0 }
+	set_variable = { MAD_drought_displaced_abroad = 0 }
+	set_variable = { MAD_drought_total_departed = 0 }
+	set_variable = { MAD_drought_displacement_deaths = 0 }
+	set_variable = { MAD_drought_abroad_original_survivors = 0 }
+	set_variable = { MAD_drought_expat_return_calls = 0 }
+	set_variable = { MAD_drought_resettle_remaining = 0 }
+	set_variable = { MAD_drought_expat_return_remaining = 0 }
+	set_variable = { MAD_drought_expat_return_target = 0 }
+	set_variable = { MAD_drought_expat_return_start_abroad = 0 }
+	set_variable = { MAD_drought_transfer_gross_people = 0 }
+	set_variable = { MAD_drought_transfer_survivors_people = 0 }
+	set_variable = { MAD_drought_transfer_deaths_people = 0 }
+	set_variable = { MAD_drought_transfer_negative_people = 0 }
+	set_variable = { MAD_drought_return_people_shared = 0 }
+	set_variable = { MAD_drought_return_negative_people_shared = 0 }
+	set_variable = { MAD_drought_transfer_source_id = 0 }
+	set_variable = { MAD_drought_transfer_destination_id = 0 }
+	set_variable = { MAD_drought_transfer_abroad = 0 }
+	set_variable = { MAD_drought_transfer_historical = 0 }
+	set_variable = { MAD_drought_transfer_famine_relief = 0 }
+	set_variable = { MAD_drought_historical_departure_people = 0 }
+	set_variable = { MAD_drought_migration_amount = 0 } # retained at zero for save compatibility
+	set_variable = { MAD_drought_migration_force = 0 } # retained at zero for save compatibility
+	set_variable = { MAD_drought_idp_266_267 = 0 }
+	set_variable = { MAD_drought_idp_266_268 = 0 }
+	set_variable = { MAD_drought_idp_266_487 = 0 }
+	set_variable = { MAD_drought_idp_267_266 = 0 }
+	set_variable = { MAD_drought_idp_267_268 = 0 }
+	set_variable = { MAD_drought_idp_267_487 = 0 }
+	set_variable = { MAD_drought_idp_268_266 = 0 }
+	set_variable = { MAD_drought_idp_268_267 = 0 }
+	set_variable = { MAD_drought_idp_268_487 = 0 }
+	set_variable = { MAD_drought_idp_487_266 = 0 }
+	set_variable = { MAD_drought_idp_487_267 = 0 }
+	set_variable = { MAD_drought_idp_487_268 = 0 }
+	set_variable = { MAD_drought_abroad_from_266 = 0 }
+	set_variable = { MAD_drought_abroad_from_267 = 0 }
+	set_variable = { MAD_drought_abroad_from_268 = 0 }
+	set_variable = { MAD_drought_abroad_from_487 = 0 }
+	# Living emigrants are represented in the population of a randomly selected owned state in each host country.
+	set_variable = { MAD_drought_abroad_in_COM = 0 }
+	set_variable = { MAD_drought_abroad_in_MOZ = 0 }
+	set_variable = { MAD_drought_abroad_in_SAF = 0 }
+	set_variable = { MAD_drought_abroad_in_COM_before = 0 }
+	set_variable = { MAD_drought_abroad_in_MOZ_before = 0 }
+	set_variable = { MAD_drought_abroad_in_SAF_before = 0 }
+	set_variable = { MAD_drought_transfer_abroad_country = 0 }
+	set_variable = { MAD_drought_expat_country_remaining = 0 }
+	set_variable = { MAD_drought_abroad_before_266 = 0 }
+	set_variable = { MAD_drought_abroad_before_267 = 0 }
+	set_variable = { MAD_drought_abroad_before_268 = 0 }
+	set_variable = { MAD_drought_abroad_before_487 = 0 }
+	set_variable = { MAD_drought_mig_d_266 = 0 }
+	set_variable = { MAD_drought_mig_d_267 = 0 }
+	set_variable = { MAD_drought_mig_d_268 = 0 }
+	set_variable = { MAD_drought_mig_d_487 = 0 }
+	set_variable = { MAD_drought_lowest_safe_id = 0 }
+	set_variable = { MAD_drought_lowest_safe_severity = 101 }
+	set_variable = { MAD_drought_lowest_other_id = 0 }
+	set_variable = { MAD_drought_lowest_other_severity = 101 }
 	set_variable = { MAD_drought_months = 0 }
 	set_variable = { MAD_drought_calendar_months = 0 }
 	set_variable = { MAD_agri_war_support = 0 }
@@ -624,11 +660,10 @@ MAD_drought_state_apply_famine = {
 
 MAD_drought_clamp = {
 	clamp_variable = { var = MAD_drought_severity min = 0 max = 100 }
-	# the drought cannot be talked away early: below 5 only once it is contained, lost or won
+	# If it is not contained or won, the drought remains active at a minimum severity of 5.
 	if = {
 		limit = {
 			NOT = { has_country_flag = MAD_DROUGHT_CONTAINED_STATE }
-			NOT = { has_country_flag = MAD_DROUGHT_FAILED_STATE }
 			NOT = { has_country_flag = MAD_DROUGHT_WON }
 		}
 		clamp_variable = { var = MAD_drought_severity min = 5 max = 100 }
@@ -763,161 +798,1097 @@ MAD_drought_south_shock = {
 }
 
 ########################################################################
-# INTERNAL DROUGHT MIGRATION
+# DROUGHT DISPLACEMENT
 ########################################################################
-# Finds the most drought-stricken of the four modeled Madagascar states and moves a fixed
-# number of people into the least-affected one. Historical shocks set MAD_drought_migration_force = 1,
-# while normal monthly migration only happens when the drought gap is large enough.
+# The four modeled states use state_population_k (in thousands) to calculate population-proportional movement.
+# Every six consecutive drought months at 60+ produces a movement equal to six monthly rates:
+#   state drought 60-79: 1/2000 of state population per month
+#   state drought 80+:   1/1000 of state population per month
+# add_manpower in STATE scope changes state population. A negative STATE add_manpower also creates a national
+# recruitable-manpower side effect, so the same negative amount is applied to the country to cancel that side effect.
 #
-# MAD_drought_migration_amount is in THOUSANDS for the panel/readout.
-# add_manpower is used in state scope because it changes the state's total population.
-# A negative state add_manpower also adds directly to recruitable manpower in HOI4, so the
-# country-level correction below removes that side-effect from the national manpower pool.
+# To keep origin-state resettlement coherent, people already tracked as internally displaced are not selected for a
+# second departure from their current host state. The amount is still calculated from total state population, then
+# capped to that state's un-displaced resident population. This avoids counting the same displaced people twice.
+# Counters ending in _idp_ORIGIN_DESTINATION contain living displaced people, in PEOPLE, currently in DESTINATION.
 
-MAD_drought_migrate_worst_to_best = {
-	# Snapshot the four modeled state severities into country variables.
-	266 = { set_variable = { ROOT.MAD_mig_d_266 = MAD_state_drought } }
-	267 = { set_variable = { ROOT.MAD_mig_d_267 = MAD_state_drought } }
-	268 = { set_variable = { ROOT.MAD_mig_d_268 = MAD_state_drought } }
-	487 = { set_variable = { ROOT.MAD_mig_d_487 = MAD_state_drought } }
+MAD_drought_displacement_snapshot = {
+	266 = { set_variable = { ROOT.MAD_drought_mig_d_266 = MAD_state_drought } }
+	267 = { set_variable = { ROOT.MAD_drought_mig_d_267 = MAD_state_drought } }
+	268 = { set_variable = { ROOT.MAD_drought_mig_d_268 = MAD_state_drought } }
+	487 = { set_variable = { ROOT.MAD_drought_mig_d_487 = MAD_state_drought } }
+}
 
-	set_variable = { MAD_mig_found = 0 }
-
-	# Most affected = highest drought severity. Ties are resolved deterministically by state-id order.
+# Called in each modeled state scope after the country has set MAD_drought_transfer_source_id to this state's ID.
+MAD_drought_state_displacement_tick = {
 	if = {
-		limit = {
-			NOT = { check_variable = { MAD_mig_d_266 < MAD_mig_d_267 } }
-			NOT = { check_variable = { MAD_mig_d_266 < MAD_mig_d_268 } }
-			NOT = { check_variable = { MAD_mig_d_266 < MAD_mig_d_487 } }
-		}
-		266 = { save_event_target_as = MAD_drought_migration_source }
+		limit = { check_variable = { MAD_state_drought > 59.99 } }
+		add_to_variable = { MAD_state_displacement_months = 1 }
+
+		# Each month contributes one population-proportional tranche at that month's severity.
+		set_temp_variable = { MAD_disp_monthly_people = state_population_k }
+		multiply_temp_variable = { MAD_disp_monthly_people = 1000 }
 		if = {
-			limit = {
-				check_variable = { MAD_mig_d_267 < MAD_mig_d_268 }
-				check_variable = { MAD_mig_d_267 < MAD_mig_d_487 }
-			}
-			267 = { save_event_target_as = MAD_drought_migration_destination }
-		}
-		else_if = {
-			limit = { check_variable = { MAD_mig_d_268 < MAD_mig_d_487 } }
-			268 = { save_event_target_as = MAD_drought_migration_destination }
+			limit = { check_variable = { MAD_state_drought > 79.99 } }
+			divide_temp_variable = { MAD_disp_monthly_people = 1000 }
 		}
 		else = {
-			487 = { save_event_target_as = MAD_drought_migration_destination }
+			divide_temp_variable = { MAD_disp_monthly_people = 2000 }
 		}
-		set_variable = { MAD_mig_found = 1 }
-	}
-	else_if = {
-		limit = {
-			NOT = { check_variable = { MAD_mig_d_267 < MAD_mig_d_266 } }
-			NOT = { check_variable = { MAD_mig_d_267 < MAD_mig_d_268 } }
-			NOT = { check_variable = { MAD_mig_d_267 < MAD_mig_d_487 } }
-		}
-		267 = { save_event_target_as = MAD_drought_migration_source }
+		round_temp_variable = MAD_disp_monthly_people
+		add_to_variable = { MAD_state_displacement_accumulator = MAD_disp_monthly_people }
+
 		if = {
-			limit = {
-				check_variable = { MAD_mig_d_266 < MAD_mig_d_268 }
-				check_variable = { MAD_mig_d_266 < MAD_mig_d_487 }
+			limit = { check_variable = { MAD_state_displacement_months > 5.99 } }
+			set_variable = { MAD_state_displacement_months = 0 }
+			set_temp_variable = { MAD_disp_gross_people = MAD_state_displacement_accumulator }
+			set_variable = { MAD_state_displacement_accumulator = 0 }
+
+			# Do not re-displace people already recorded as incoming IDPs. They remain attached to their original state.
+			set_temp_variable = { MAD_disp_incoming_people = 0 }
+			if = {
+				limit = { check_variable = { ROOT.MAD_drought_transfer_source_id = 266 } }
+				set_temp_variable = { MAD_disp_incoming_people = ROOT.MAD_drought_idp_267_266 }
+				add_to_temp_variable = { MAD_disp_incoming_people = ROOT.MAD_drought_idp_268_266 }
+				add_to_temp_variable = { MAD_disp_incoming_people = ROOT.MAD_drought_idp_487_266 }
 			}
-			266 = { save_event_target_as = MAD_drought_migration_destination }
-		}
-		else_if = {
-			limit = { check_variable = { MAD_mig_d_268 < MAD_mig_d_487 } }
-			268 = { save_event_target_as = MAD_drought_migration_destination }
-		}
-		else = {
-			487 = { save_event_target_as = MAD_drought_migration_destination }
-		}
-		set_variable = { MAD_mig_found = 1 }
-	}
-	else_if = {
-		limit = {
-			NOT = { check_variable = { MAD_mig_d_268 < MAD_mig_d_266 } }
-			NOT = { check_variable = { MAD_mig_d_268 < MAD_mig_d_267 } }
-			NOT = { check_variable = { MAD_mig_d_268 < MAD_mig_d_487 } }
-		}
-		268 = { save_event_target_as = MAD_drought_migration_source }
-		if = {
-			limit = {
-				check_variable = { MAD_mig_d_266 < MAD_mig_d_267 }
-				check_variable = { MAD_mig_d_266 < MAD_mig_d_487 }
+			else_if = {
+				limit = { check_variable = { ROOT.MAD_drought_transfer_source_id = 267 } }
+				set_temp_variable = { MAD_disp_incoming_people = ROOT.MAD_drought_idp_266_267 }
+				add_to_temp_variable = { MAD_disp_incoming_people = ROOT.MAD_drought_idp_268_267 }
+				add_to_temp_variable = { MAD_disp_incoming_people = ROOT.MAD_drought_idp_487_267 }
 			}
-			266 = { save_event_target_as = MAD_drought_migration_destination }
+			else_if = {
+				limit = { check_variable = { ROOT.MAD_drought_transfer_source_id = 268 } }
+				set_temp_variable = { MAD_disp_incoming_people = ROOT.MAD_drought_idp_266_268 }
+				add_to_temp_variable = { MAD_disp_incoming_people = ROOT.MAD_drought_idp_267_268 }
+				add_to_temp_variable = { MAD_disp_incoming_people = ROOT.MAD_drought_idp_487_268 }
+			}
+			else = {
+				set_temp_variable = { MAD_disp_incoming_people = ROOT.MAD_drought_idp_266_487 }
+				add_to_temp_variable = { MAD_disp_incoming_people = ROOT.MAD_drought_idp_267_487 }
+				add_to_temp_variable = { MAD_disp_incoming_people = ROOT.MAD_drought_idp_268_487 }
+			}
+			set_temp_variable = { MAD_disp_resident_people = state_population_k }
+			multiply_temp_variable = { MAD_disp_resident_people = 1000 }
+			subtract_from_temp_variable = { MAD_disp_resident_people = MAD_disp_incoming_people }
+			clamp_temp_variable = { var = MAD_disp_resident_people min = 0 }
+			if = {
+				limit = { check_variable = { MAD_disp_gross_people > MAD_disp_resident_people } }
+				set_temp_variable = { MAD_disp_gross_people = MAD_disp_resident_people }
+				round_temp_variable = MAD_disp_gross_people
+			}
+
+			if = {
+				limit = { check_variable = { MAD_disp_gross_people > 0.5 } }
+				if = {
+					limit = { check_variable = { ROOT.MAD_drought_transfer_source_id = 266 } }
+					save_event_target_as = MAD_drought_transfer_source_266
+				}
+				else_if = {
+					limit = { check_variable = { ROOT.MAD_drought_transfer_source_id = 267 } }
+					save_event_target_as = MAD_drought_transfer_source_267
+				}
+				else_if = {
+					limit = { check_variable = { ROOT.MAD_drought_transfer_source_id = 268 } }
+					save_event_target_as = MAD_drought_transfer_source_268
+				}
+				else = { save_event_target_as = MAD_drought_transfer_source_487 }
+				set_variable = { ROOT.MAD_drought_transfer_gross_people = MAD_disp_gross_people }
+				set_variable = { ROOT.MAD_drought_transfer_historical = 0 }
+				ROOT = { MAD_drought_execute_displacement = yes }
+			}
 		}
-		else_if = {
-			limit = { check_variable = { MAD_mig_d_267 < MAD_mig_d_487 } }
-			267 = { save_event_target_as = MAD_drought_migration_destination }
-		}
-		else = {
-			487 = { save_event_target_as = MAD_drought_migration_destination }
-		}
-		set_variable = { MAD_mig_found = 1 }
 	}
 	else = {
-		487 = { save_event_target_as = MAD_drought_migration_source }
+		set_variable = { MAD_state_displacement_months = 0 }
+		set_variable = { MAD_state_displacement_accumulator = 0 }
+	}
+}
+
+# Dated historical shocks use their specific modeled departure count rather than the six-month population rate.
+# The earlier record is sparse, so most early episodes use a conservative "thousands"-scale estimate; 2020-21 uses
+# about 3,000 people, documented as displaced during Dec 2020-Mar 2021. Source is the modeled Grand Sud state (268).
+MAD_drought_historical_displacement = {
+	MAD_drought_displacement_snapshot = yes
+	set_variable = { MAD_drought_transfer_source_id = 268 }
+	set_variable = { MAD_drought_transfer_historical = 1 }
+	268 = {
+		save_event_target_as = MAD_drought_transfer_source_hist
+		set_temp_variable = { MAD_disp_gross_people = ROOT.MAD_drought_historical_departure_people }
+		set_temp_variable = { MAD_disp_incoming_people = ROOT.MAD_drought_idp_266_268 }
+		add_to_temp_variable = { MAD_disp_incoming_people = ROOT.MAD_drought_idp_267_268 }
+		add_to_temp_variable = { MAD_disp_incoming_people = ROOT.MAD_drought_idp_487_268 }
+		set_temp_variable = { MAD_disp_resident_people = state_population_k }
+		multiply_temp_variable = { MAD_disp_resident_people = 1000 }
+		subtract_from_temp_variable = { MAD_disp_resident_people = MAD_disp_incoming_people }
+		clamp_temp_variable = { var = MAD_disp_resident_people min = 0 }
 		if = {
-			limit = {
-				check_variable = { MAD_mig_d_266 < MAD_mig_d_267 }
-				check_variable = { MAD_mig_d_266 < MAD_mig_d_268 }
-			}
-			266 = { save_event_target_as = MAD_drought_migration_destination }
+			limit = { check_variable = { MAD_disp_gross_people > MAD_disp_resident_people } }
+			set_temp_variable = { MAD_disp_gross_people = MAD_disp_resident_people }
+			round_temp_variable = MAD_disp_gross_people
+		}
+		set_variable = { ROOT.MAD_drought_transfer_gross_people = MAD_disp_gross_people }
+	}
+	if = {
+		limit = { check_variable = { MAD_drought_transfer_gross_people > 0.5 } }
+		MAD_drought_execute_displacement = yes
+	}
+	set_variable = { MAD_drought_transfer_historical = 0 }
+	set_variable = { MAD_drought_historical_departure_people = 0 }
+}
+
+MAD_drought_execute_displacement = {
+	if = {
+		limit = { check_variable = { MAD_drought_transfer_gross_people > 0.5 } }
+		set_temp_variable = { MAD_disp_survivors_people = MAD_drought_transfer_gross_people }
+		multiply_temp_variable = { MAD_disp_survivors_people = 0.85 }
+		round_temp_variable = MAD_disp_survivors_people
+		set_temp_variable = { MAD_disp_deaths_people = MAD_drought_transfer_gross_people }
+		subtract_from_temp_variable = { MAD_disp_deaths_people = MAD_disp_survivors_people }
+		set_variable = { MAD_drought_transfer_negative_people = MAD_drought_transfer_gross_people }
+		multiply_variable = { MAD_drought_transfer_negative_people = -1 }
+		set_variable = { MAD_drought_transfer_survivors_people = MAD_disp_survivors_people }
+		set_variable = { MAD_drought_transfer_deaths_people = MAD_disp_deaths_people }
+
+		# Track the famine easing slightly because fewer residents remain dependent on local food supplies.
+		set_temp_variable = { MAD_disp_famine_relief = MAD_drought_transfer_gross_people }
+		divide_temp_variable = { MAD_disp_famine_relief = 10000 }
+		clamp_temp_variable = { var = MAD_disp_famine_relief min = 0.25 max = 2 }
+		set_variable = { MAD_drought_transfer_famine_relief = MAD_disp_famine_relief }
+
+		# Find the least-affected eligible destination, excluding the source itself.
+		set_variable = { MAD_drought_lowest_safe_id = 0 }
+		set_variable = { MAD_drought_lowest_safe_severity = 101 }
+		set_variable = { MAD_drought_lowest_other_id = 0 }
+		set_variable = { MAD_drought_lowest_other_severity = 101 }
+		if = {
+			limit = { NOT = { check_variable = { MAD_drought_transfer_source_id = 266 } } }
+			if = { limit = { check_variable = { MAD_drought_mig_d_266 < MAD_drought_lowest_other_severity } } set_variable = { MAD_drought_lowest_other_id = 266 } set_variable = { MAD_drought_lowest_other_severity = MAD_drought_mig_d_266 } }
+			if = { limit = { check_variable = { MAD_drought_mig_d_266 < 60 } check_variable = { MAD_drought_mig_d_266 < MAD_drought_lowest_safe_severity } } set_variable = { MAD_drought_lowest_safe_id = 266 } set_variable = { MAD_drought_lowest_safe_severity = MAD_drought_mig_d_266 } }
+	}
+	if = {
+		limit = { NOT = { check_variable = { MAD_drought_transfer_source_id = 267 } } }
+		if = { limit = { check_variable = { MAD_drought_mig_d_267 < MAD_drought_lowest_other_severity } } set_variable = { MAD_drought_lowest_other_id = 267 } set_variable = { MAD_drought_lowest_other_severity = MAD_drought_mig_d_267 } }
+		if = { limit = { check_variable = { MAD_drought_mig_d_267 < 60 } check_variable = { MAD_drought_mig_d_267 < MAD_drought_lowest_safe_severity } } set_variable = { MAD_drought_lowest_safe_id = 267 } set_variable = { MAD_drought_lowest_safe_severity = MAD_drought_mig_d_267 } }
+	}
+	if = {
+		limit = { NOT = { check_variable = { MAD_drought_transfer_source_id = 268 } } }
+		if = { limit = { check_variable = { MAD_drought_mig_d_268 < MAD_drought_lowest_other_severity } } set_variable = { MAD_drought_lowest_other_id = 268 } set_variable = { MAD_drought_lowest_other_severity = MAD_drought_mig_d_268 } }
+		if = { limit = { check_variable = { MAD_drought_mig_d_268 < 60 } check_variable = { MAD_drought_mig_d_268 < MAD_drought_lowest_safe_severity } } set_variable = { MAD_drought_lowest_safe_id = 268 } set_variable = { MAD_drought_lowest_safe_severity = MAD_drought_mig_d_268 } }
+	}
+	if = {
+		limit = { NOT = { check_variable = { MAD_drought_transfer_source_id = 487 } } }
+		if = { limit = { check_variable = { MAD_drought_mig_d_487 < MAD_drought_lowest_other_severity } } set_variable = { MAD_drought_lowest_other_id = 487 } set_variable = { MAD_drought_lowest_other_severity = MAD_drought_mig_d_487 } }
+		if = { limit = { check_variable = { MAD_drought_mig_d_487 < 60 } check_variable = { MAD_drought_mig_d_487 < MAD_drought_lowest_safe_severity } } set_variable = { MAD_drought_lowest_safe_id = 487 } set_variable = { MAD_drought_lowest_safe_severity = MAD_drought_mig_d_487 } }
+	}
+
+	set_variable = { MAD_drought_transfer_destination_id = 0 }
+	set_variable = { MAD_drought_transfer_abroad = 0 }
+	if = {
+		limit = { check_variable = { MAD_drought_lowest_safe_id > 0 } }
+		set_variable = { MAD_drought_transfer_destination_id = MAD_drought_lowest_safe_id }
+	}
+	else_if = {
+		limit = {
+			check_variable = { MAD_drought_mig_d_266 > 79.99 }
+			check_variable = { MAD_drought_mig_d_267 > 79.99 }
+			check_variable = { MAD_drought_mig_d_268 > 79.99 }
+			check_variable = { MAD_drought_mig_d_487 > 79.99 }
+		}
+		# If every modeled state is at 80+, all displacement goes abroad.
+		set_variable = { MAD_drought_transfer_abroad = 1 }
+	}
+	else = {
+		# If all four states are 60+, the destination is abroad or the least-affected other state at 50/50.
+		random_list = {
+			50 = { set_variable = { MAD_drought_transfer_abroad = 1 } }
+			50 = { set_variable = { MAD_drought_transfer_abroad = 0 } }
+		}
+		if = {
+			limit = { check_variable = { MAD_drought_transfer_abroad < 0.5 } }
+			set_variable = { MAD_drought_transfer_destination_id = MAD_drought_lowest_other_id }
+		}
+	}
+
+	# Remove the gross departure from the source state. A negative state add_manpower also raises recruitable manpower,
+	# so the country-scope negative correction below cancels that side effect. Deaths are the 15% not transferred.
+	if = {
+		limit = { check_variable = { MAD_drought_transfer_historical > 0.5 } }
+		event_target:MAD_drought_transfer_source_hist = {
+			set_temp_variable = { MAD_disp_state_pop_change = ROOT.MAD_drought_transfer_negative_people }
+			add_manpower = var:MAD_disp_state_pop_change
+			set_temp_variable = { MAD_dr_state_famine = ROOT.MAD_drought_transfer_famine_relief }
+			multiply_temp_variable = { MAD_dr_state_famine = -1 }
+			MAD_drought_state_apply_famine = yes
+		}
+	}
+	else_if = {
+		limit = { check_variable = { MAD_drought_transfer_source_id = 266 } }
+		event_target:MAD_drought_transfer_source_266 = {
+			set_temp_variable = { MAD_disp_state_pop_change = ROOT.MAD_drought_transfer_negative_people }
+			add_manpower = var:MAD_disp_state_pop_change
+			set_temp_variable = { MAD_dr_state_famine = ROOT.MAD_drought_transfer_famine_relief }
+			multiply_temp_variable = { MAD_dr_state_famine = -1 }
+			MAD_drought_state_apply_famine = yes
+		}
+	}
+	else_if = {
+		limit = { check_variable = { MAD_drought_transfer_source_id = 267 } }
+		event_target:MAD_drought_transfer_source_267 = {
+			set_temp_variable = { MAD_disp_state_pop_change = ROOT.MAD_drought_transfer_negative_people }
+			add_manpower = var:MAD_disp_state_pop_change
+			set_temp_variable = { MAD_dr_state_famine = ROOT.MAD_drought_transfer_famine_relief }
+			multiply_temp_variable = { MAD_dr_state_famine = -1 }
+			MAD_drought_state_apply_famine = yes
+		}
+	}
+	else_if = {
+		limit = { check_variable = { MAD_drought_transfer_source_id = 268 } }
+		event_target:MAD_drought_transfer_source_268 = {
+			set_temp_variable = { MAD_disp_state_pop_change = ROOT.MAD_drought_transfer_negative_people }
+			add_manpower = var:MAD_disp_state_pop_change
+			set_temp_variable = { MAD_dr_state_famine = ROOT.MAD_drought_transfer_famine_relief }
+			multiply_temp_variable = { MAD_dr_state_famine = -1 }
+			MAD_drought_state_apply_famine = yes
+		}
+	}
+	else = {
+		event_target:MAD_drought_transfer_source_487 = {
+			set_temp_variable = { MAD_disp_state_pop_change = ROOT.MAD_drought_transfer_negative_people }
+			add_manpower = var:MAD_disp_state_pop_change
+			set_temp_variable = { MAD_dr_state_famine = ROOT.MAD_drought_transfer_famine_relief }
+			multiply_temp_variable = { MAD_dr_state_famine = -1 }
+			MAD_drought_state_apply_famine = yes
+		}
+	}
+	add_manpower = var:MAD_drought_transfer_negative_people
+	add_to_variable = { MAD_drought_total_departed = MAD_drought_transfer_gross_people }
+	add_to_variable = { MAD_drought_displacement_deaths = MAD_drought_transfer_deaths_people }
+
+	# Internal destinations receive only the 85% who survive. Save a per-source event target for the popup.
+	if = {
+		limit = { check_variable = { MAD_drought_transfer_abroad < 0.5 } }
+		if = {
+			limit = { check_variable = { MAD_drought_transfer_destination_id = 266 } }
+			if = { limit = { check_variable = { MAD_drought_transfer_historical > 0.5 } } 266 = { save_event_target_as = MAD_drought_transfer_destination_hist } }
+			else_if = { limit = { check_variable = { MAD_drought_transfer_source_id = 266 } } 266 = { save_event_target_as = MAD_drought_transfer_destination_266 } }
+			else_if = { limit = { check_variable = { MAD_drought_transfer_source_id = 267 } } 266 = { save_event_target_as = MAD_drought_transfer_destination_267 } }
+			else_if = { limit = { check_variable = { MAD_drought_transfer_source_id = 268 } } 266 = { save_event_target_as = MAD_drought_transfer_destination_268 } }
+			else = { 266 = { save_event_target_as = MAD_drought_transfer_destination_487 } }
+			266 = { set_temp_variable = { MAD_disp_state_pop_change = ROOT.MAD_drought_transfer_survivors_people } add_manpower = var:MAD_disp_state_pop_change }
 		}
 		else_if = {
-			limit = { check_variable = { MAD_mig_d_267 < MAD_mig_d_268 } }
-			267 = { save_event_target_as = MAD_drought_migration_destination }
+			limit = { check_variable = { MAD_drought_transfer_destination_id = 267 } }
+			if = { limit = { check_variable = { MAD_drought_transfer_historical > 0.5 } } 267 = { save_event_target_as = MAD_drought_transfer_destination_hist } }
+			else_if = { limit = { check_variable = { MAD_drought_transfer_source_id = 266 } } 267 = { save_event_target_as = MAD_drought_transfer_destination_266 } }
+			else_if = { limit = { check_variable = { MAD_drought_transfer_source_id = 267 } } 267 = { save_event_target_as = MAD_drought_transfer_destination_267 } }
+			else_if = { limit = { check_variable = { MAD_drought_transfer_source_id = 268 } } 267 = { save_event_target_as = MAD_drought_transfer_destination_268 } }
+			else = { 267 = { save_event_target_as = MAD_drought_transfer_destination_487 } }
+			267 = { set_temp_variable = { MAD_disp_state_pop_change = ROOT.MAD_drought_transfer_survivors_people } add_manpower = var:MAD_disp_state_pop_change }
+		}
+		else_if = {
+			limit = { check_variable = { MAD_drought_transfer_destination_id = 268 } }
+			if = { limit = { check_variable = { MAD_drought_transfer_historical > 0.5 } } 268 = { save_event_target_as = MAD_drought_transfer_destination_hist } }
+			else_if = { limit = { check_variable = { MAD_drought_transfer_source_id = 266 } } 268 = { save_event_target_as = MAD_drought_transfer_destination_266 } }
+			else_if = { limit = { check_variable = { MAD_drought_transfer_source_id = 267 } } 268 = { save_event_target_as = MAD_drought_transfer_destination_267 } }
+			else_if = { limit = { check_variable = { MAD_drought_transfer_source_id = 268 } } 268 = { save_event_target_as = MAD_drought_transfer_destination_268 } }
+			else = { 268 = { save_event_target_as = MAD_drought_transfer_destination_487 } }
+			268 = { set_temp_variable = { MAD_disp_state_pop_change = ROOT.MAD_drought_transfer_survivors_people } add_manpower = var:MAD_disp_state_pop_change }
 		}
 		else = {
-			268 = { save_event_target_as = MAD_drought_migration_destination }
+			if = { limit = { check_variable = { MAD_drought_transfer_historical > 0.5 } } 487 = { save_event_target_as = MAD_drought_transfer_destination_hist } }
+			else_if = { limit = { check_variable = { MAD_drought_transfer_source_id = 266 } } 487 = { save_event_target_as = MAD_drought_transfer_destination_266 } }
+			else_if = { limit = { check_variable = { MAD_drought_transfer_source_id = 267 } } 487 = { save_event_target_as = MAD_drought_transfer_destination_267 } }
+			else_if = { limit = { check_variable = { MAD_drought_transfer_source_id = 268 } } 487 = { save_event_target_as = MAD_drought_transfer_destination_268 } }
+			else = { 487 = { save_event_target_as = MAD_drought_transfer_destination_487 } }
+			487 = { set_temp_variable = { MAD_disp_state_pop_change = ROOT.MAD_drought_transfer_survivors_people } add_manpower = var:MAD_disp_state_pop_change }
 		}
-		set_variable = { MAD_mig_found = 1 }
+
+		add_to_variable = { MAD_drought_displaced_internal = MAD_drought_transfer_survivors_people }
+		add_to_variable = { MAD_drought_displaced = MAD_drought_transfer_survivors_people }
+		if = {
+			limit = { check_variable = { MAD_drought_transfer_source_id = 266 } }
+			if = { limit = { check_variable = { MAD_drought_transfer_destination_id = 267 } } add_to_variable = { MAD_drought_idp_266_267 = MAD_drought_transfer_survivors_people } }
+			if = { limit = { check_variable = { MAD_drought_transfer_destination_id = 268 } } add_to_variable = { MAD_drought_idp_266_268 = MAD_drought_transfer_survivors_people } }
+			if = { limit = { check_variable = { MAD_drought_transfer_destination_id = 487 } } add_to_variable = { MAD_drought_idp_266_487 = MAD_drought_transfer_survivors_people } }
+		}
+		else_if = {
+			limit = { check_variable = { MAD_drought_transfer_source_id = 267 } }
+			if = { limit = { check_variable = { MAD_drought_transfer_destination_id = 266 } } add_to_variable = { MAD_drought_idp_267_266 = MAD_drought_transfer_survivors_people } }
+			if = { limit = { check_variable = { MAD_drought_transfer_destination_id = 268 } } add_to_variable = { MAD_drought_idp_267_268 = MAD_drought_transfer_survivors_people } }
+			if = { limit = { check_variable = { MAD_drought_transfer_destination_id = 487 } } add_to_variable = { MAD_drought_idp_267_487 = MAD_drought_transfer_survivors_people } }
+		}
+		else_if = {
+			limit = { check_variable = { MAD_drought_transfer_source_id = 268 } }
+			if = { limit = { check_variable = { MAD_drought_transfer_destination_id = 266 } } add_to_variable = { MAD_drought_idp_268_266 = MAD_drought_transfer_survivors_people } }
+			if = { limit = { check_variable = { MAD_drought_transfer_destination_id = 267 } } add_to_variable = { MAD_drought_idp_268_267 = MAD_drought_transfer_survivors_people } }
+			if = { limit = { check_variable = { MAD_drought_transfer_destination_id = 487 } } add_to_variable = { MAD_drought_idp_268_487 = MAD_drought_transfer_survivors_people } }
+		}
+		else = {
+			if = { limit = { check_variable = { MAD_drought_transfer_destination_id = 266 } } add_to_variable = { MAD_drought_idp_487_266 = MAD_drought_transfer_survivors_people } }
+			if = { limit = { check_variable = { MAD_drought_transfer_destination_id = 267 } } add_to_variable = { MAD_drought_idp_487_267 = MAD_drought_transfer_survivors_people } }
+			if = { limit = { check_variable = { MAD_drought_transfer_destination_id = 268 } } add_to_variable = { MAD_drought_idp_487_268 = MAD_drought_transfer_survivors_people } }
+		}
+	}
+	else = {
+		# The living survivors are tracked as expatriates, attributed to the state they originally left.
+		set_variable = { MAD_drought_transfer_destination_id = 0 }
+		add_to_variable = { MAD_drought_displaced_abroad = MAD_drought_transfer_survivors_people }
+		add_to_variable = { MAD_drought_displaced = MAD_drought_transfer_survivors_people }
+		add_to_variable = { MAD_drought_abroad_original_survivors = MAD_drought_transfer_survivors_people }
+		if = { limit = { check_variable = { MAD_drought_transfer_historical > 0.5 } } add_to_variable = { MAD_drought_abroad_from_268 = MAD_drought_transfer_survivors_people } }
+		else_if = { limit = { check_variable = { MAD_drought_transfer_source_id = 266 } } add_to_variable = { MAD_drought_abroad_from_266 = MAD_drought_transfer_survivors_people } }
+		else_if = { limit = { check_variable = { MAD_drought_transfer_source_id = 267 } } add_to_variable = { MAD_drought_abroad_from_267 = MAD_drought_transfer_survivors_people } }
+		else_if = { limit = { check_variable = { MAD_drought_transfer_source_id = 268 } } add_to_variable = { MAD_drought_abroad_from_268 = MAD_drought_transfer_survivors_people } }
+		else = { add_to_variable = { MAD_drought_abroad_from_487 = MAD_drought_transfer_survivors_people } }
+
+		# Select both the host country for the popup and the country whose state population receives the living survivors.
+		set_variable = { MAD_drought_transfer_abroad_country = 0 }
+		if = { limit = { check_variable = { MAD_drought_transfer_historical > 0.5 } }
+			random_list = {
+				34 = { set_variable = { MAD_drought_transfer_abroad_country = 1 } COM = { save_event_target_as = MAD_drought_transfer_destination_hist } }
+				33 = { set_variable = { MAD_drought_transfer_abroad_country = 2 } MOZ = { save_event_target_as = MAD_drought_transfer_destination_hist } }
+				33 = { set_variable = { MAD_drought_transfer_abroad_country = 3 } SAF = { save_event_target_as = MAD_drought_transfer_destination_hist } }
+			}
+		}
+		else_if = { limit = { check_variable = { MAD_drought_transfer_source_id = 266 } }
+			random_list = {
+				34 = { set_variable = { MAD_drought_transfer_abroad_country = 1 } COM = { save_event_target_as = MAD_drought_transfer_destination_266 } }
+				33 = { set_variable = { MAD_drought_transfer_abroad_country = 2 } MOZ = { save_event_target_as = MAD_drought_transfer_destination_266 } }
+				33 = { set_variable = { MAD_drought_transfer_abroad_country = 3 } SAF = { save_event_target_as = MAD_drought_transfer_destination_266 } }
+			}
+		}
+		else_if = { limit = { check_variable = { MAD_drought_transfer_source_id = 267 } }
+			random_list = {
+				34 = { set_variable = { MAD_drought_transfer_abroad_country = 1 } COM = { save_event_target_as = MAD_drought_transfer_destination_267 } }
+				33 = { set_variable = { MAD_drought_transfer_abroad_country = 2 } MOZ = { save_event_target_as = MAD_drought_transfer_destination_267 } }
+				33 = { set_variable = { MAD_drought_transfer_abroad_country = 3 } SAF = { save_event_target_as = MAD_drought_transfer_destination_267 } }
+			}
+		}
+		else_if = { limit = { check_variable = { MAD_drought_transfer_source_id = 268 } }
+			random_list = {
+				34 = { set_variable = { MAD_drought_transfer_abroad_country = 1 } COM = { save_event_target_as = MAD_drought_transfer_destination_268 } }
+				33 = { set_variable = { MAD_drought_transfer_abroad_country = 2 } MOZ = { save_event_target_as = MAD_drought_transfer_destination_268 } }
+				33 = { set_variable = { MAD_drought_transfer_abroad_country = 3 } SAF = { save_event_target_as = MAD_drought_transfer_destination_268 } }
+			}
+		}
+		else = {
+			random_list = {
+				34 = { set_variable = { MAD_drought_transfer_abroad_country = 1 } COM = { save_event_target_as = MAD_drought_transfer_destination_487 } }
+				33 = { set_variable = { MAD_drought_transfer_abroad_country = 2 } MOZ = { save_event_target_as = MAD_drought_transfer_destination_487 } }
+				33 = { set_variable = { MAD_drought_transfer_abroad_country = 3 } SAF = { save_event_target_as = MAD_drought_transfer_destination_487 } }
+			}
+		}
+		# These are real state-population additions in the selected host country, not just a label in the event.
+		if = {
+			limit = { check_variable = { MAD_drought_transfer_abroad_country = 1 } }
+			add_to_variable = { MAD_drought_abroad_in_COM = MAD_drought_transfer_survivors_people }
+			COM = {
+				random_owned_state = { set_temp_variable = { MAD_disp_state_pop_change = ROOT.MAD_drought_transfer_survivors_people } add_manpower = var:MAD_disp_state_pop_change }
+			}
+		}
+		else_if = {
+			limit = { check_variable = { MAD_drought_transfer_abroad_country = 2 } }
+			add_to_variable = { MAD_drought_abroad_in_MOZ = MAD_drought_transfer_survivors_people }
+			MOZ = {
+				random_owned_state = { set_temp_variable = { MAD_disp_state_pop_change = ROOT.MAD_drought_transfer_survivors_people } add_manpower = var:MAD_disp_state_pop_change }
+			}
+		}
+		else_if = {
+			limit = { check_variable = { MAD_drought_transfer_abroad_country = 3 } }
+			add_to_variable = { MAD_drought_abroad_in_SAF = MAD_drought_transfer_survivors_people }
+			SAF = {
+				random_owned_state = { set_temp_variable = { MAD_disp_state_pop_change = ROOT.MAD_drought_transfer_survivors_people } add_manpower = var:MAD_disp_state_pop_change }
+			}
+		}
 	}
 
+	# Queue one popup per actual transfer. Separate slots prevent several transfers in the same six-month tick
+	# from overwriting the numbers or the event targets used by their own messages.
+	if = {
+		limit = { check_variable = { MAD_drought_transfer_historical > 0.5 } }
+		set_variable = { MAD_drought_transfer_gross_hist = MAD_drought_transfer_gross_people }
+		set_variable = { MAD_drought_transfer_survivors_hist = MAD_drought_transfer_survivors_people }
+		set_variable = { MAD_drought_transfer_deaths_hist = MAD_drought_transfer_deaths_people }
+		country_event = { id = mad_drought.27 days = 0 }
+	}
+	else_if = {
+		limit = { check_variable = { MAD_drought_transfer_source_id = 266 } }
+		set_variable = { MAD_drought_transfer_gross_266 = MAD_drought_transfer_gross_people }
+		set_variable = { MAD_drought_transfer_survivors_266 = MAD_drought_transfer_survivors_people }
+		set_variable = { MAD_drought_transfer_deaths_266 = MAD_drought_transfer_deaths_people }
+		country_event = { id = mad_drought.23 days = 0 }
+	}
+	else_if = {
+		limit = { check_variable = { MAD_drought_transfer_source_id = 267 } }
+		set_variable = { MAD_drought_transfer_gross_267 = MAD_drought_transfer_gross_people }
+		set_variable = { MAD_drought_transfer_survivors_267 = MAD_drought_transfer_survivors_people }
+		set_variable = { MAD_drought_transfer_deaths_267 = MAD_drought_transfer_deaths_people }
+		country_event = { id = mad_drought.24 days = 0 }
+	}
+	else_if = {
+		limit = { check_variable = { MAD_drought_transfer_source_id = 268 } }
+		set_variable = { MAD_drought_transfer_gross_268 = MAD_drought_transfer_gross_people }
+		set_variable = { MAD_drought_transfer_survivors_268 = MAD_drought_transfer_survivors_people }
+		set_variable = { MAD_drought_transfer_deaths_268 = MAD_drought_transfer_deaths_people }
+		country_event = { id = mad_drought.25 days = 0 }
+	}
+	else = {
+		set_variable = { MAD_drought_transfer_gross_487 = MAD_drought_transfer_gross_people }
+		set_variable = { MAD_drought_transfer_survivors_487 = MAD_drought_transfer_survivors_people }
+		set_variable = { MAD_drought_transfer_deaths_487 = MAD_drought_transfer_deaths_people }
+		country_event = { id = mad_drought.26 days = 0 }
+	}
+}
+}
+
+MAD_drought_displacement_monthly_tick = {
+	MAD_drought_displacement_snapshot = yes
+	set_variable = { MAD_drought_transfer_historical = 0 }
+	set_variable = { MAD_drought_transfer_source_id = 266 }
+	266 = { MAD_drought_state_displacement_tick = yes }
+	set_variable = { MAD_drought_transfer_source_id = 267 }
+	267 = { MAD_drought_state_displacement_tick = yes }
+	set_variable = { MAD_drought_transfer_source_id = 268 }
+	268 = { MAD_drought_state_displacement_tick = yes }
+	set_variable = { MAD_drought_transfer_source_id = 487 }
+	487 = { MAD_drought_state_displacement_tick = yes }
+}
+
+########################################################################
+# RESETTLEMENT AND RETURN
+########################################################################
+# Internal resettlement reverses tracked state-to-state transfers, up to 20,000 people per use.
+# The expat programme returns 10% of the original living diaspora (those who survived the journey), limited to six calls.
+
+MAD_drought_return_route_266_267 = {
 	if = {
 		limit = {
-			check_variable = { MAD_mig_found > 0.5 }
-			check_variable = { MAD_drought_migration_amount > 0.001 }
+			check_variable = { MAD_drought_resettle_remaining > 0.5 }
+			check_variable = { MAD_drought_idp_266_267 > 0.5 }
 		}
-		# Read the selected states' current drought values before deciding whether monthly migration is large enough.
-		event_target:MAD_drought_migration_source = {
-			set_variable = { ROOT.MAD_mig_source_drought = MAD_state_drought }
-		}
-		event_target:MAD_drought_migration_destination = {
-			set_variable = { ROOT.MAD_mig_destination_drought = MAD_state_drought }
-		}
-		set_temp_variable = { MAD_mig_gap = MAD_mig_source_drought }
-		subtract_from_temp_variable = { MAD_mig_gap = MAD_mig_destination_drought }
-
+		set_temp_variable = { MAD_drought_return_people = MAD_drought_idp_266_267 }
 		if = {
-			limit = {
-				OR = {
-					check_variable = { MAD_drought_migration_force > 0.5 }
-					AND = {
-						check_variable = { MAD_drought_severe_states > 0.5 }
-						check_variable = { MAD_mig_gap > 9.99 }
-					}
-				}
-			}
-			# Amount is stored in thousands for the UI; state population effects use people.
-			set_temp_variable = { MAD_mig_people = MAD_drought_migration_amount }
-			multiply_temp_variable = { MAD_mig_people = 1000 }
-			set_temp_variable = { MAD_mig_negative_people = MAD_mig_people }
-			multiply_temp_variable = { MAD_mig_negative_people = -1 }
-
-			event_target:MAD_drought_migration_source = {
-				add_manpower = var:MAD_mig_negative_people
-			}
-			event_target:MAD_drought_migration_destination = {
-				add_manpower = var:MAD_mig_people
-			}
-
-			# Negative state add_manpower has a direct recruitable-manpower side effect; undo it nationally.
-			add_manpower = var:MAD_mig_negative_people
-			add_to_variable = { MAD_drought_displaced = MAD_drought_migration_amount }
+			limit = { check_variable = { MAD_drought_return_people > MAD_drought_resettle_remaining } }
+			set_temp_variable = { MAD_drought_return_people = MAD_drought_resettle_remaining }
+		}
+		round_temp_variable = MAD_drought_return_people
+		if = {
+			limit = { check_variable = { MAD_drought_return_people > 0.5 } }
+			set_variable = { MAD_drought_return_people_shared = MAD_drought_return_people }
+			set_variable = { MAD_drought_return_negative_people_shared = MAD_drought_return_people_shared }
+			multiply_variable = { MAD_drought_return_negative_people_shared = -1 }
+			266 = { set_temp_variable = { MAD_disp_state_pop_change = ROOT.MAD_drought_return_people_shared } add_manpower = var:MAD_disp_state_pop_change }
+			267 = { set_temp_variable = { MAD_disp_state_pop_change = ROOT.MAD_drought_return_negative_people_shared } add_manpower = var:MAD_disp_state_pop_change }
+			# Cancel the recruitable-manpower side effect of the negative state-scope add_manpower.
+			add_manpower = var:MAD_drought_return_negative_people_shared
+			subtract_from_variable = { MAD_drought_idp_266_267 = MAD_drought_return_people }
+			subtract_from_variable = { MAD_drought_displaced_internal = MAD_drought_return_people }
+			subtract_from_variable = { MAD_drought_displaced = MAD_drought_return_people }
+			subtract_from_variable = { MAD_drought_resettle_remaining = MAD_drought_return_people }
+			clamp_variable = { var = MAD_drought_idp_266_267 min = 0 }
 		}
 	}
+}
 
-	set_variable = { MAD_drought_migration_amount = 0 }
-	set_variable = { MAD_drought_migration_force = 0 }
+MAD_drought_return_route_266_268 = {
+	if = {
+		limit = {
+			check_variable = { MAD_drought_resettle_remaining > 0.5 }
+			check_variable = { MAD_drought_idp_266_268 > 0.5 }
+		}
+		set_temp_variable = { MAD_drought_return_people = MAD_drought_idp_266_268 }
+		if = {
+			limit = { check_variable = { MAD_drought_return_people > MAD_drought_resettle_remaining } }
+			set_temp_variable = { MAD_drought_return_people = MAD_drought_resettle_remaining }
+		}
+		round_temp_variable = MAD_drought_return_people
+		if = {
+			limit = { check_variable = { MAD_drought_return_people > 0.5 } }
+			set_variable = { MAD_drought_return_people_shared = MAD_drought_return_people }
+			set_variable = { MAD_drought_return_negative_people_shared = MAD_drought_return_people_shared }
+			multiply_variable = { MAD_drought_return_negative_people_shared = -1 }
+			266 = { set_temp_variable = { MAD_disp_state_pop_change = ROOT.MAD_drought_return_people_shared } add_manpower = var:MAD_disp_state_pop_change }
+			268 = { set_temp_variable = { MAD_disp_state_pop_change = ROOT.MAD_drought_return_negative_people_shared } add_manpower = var:MAD_disp_state_pop_change }
+			# Cancel the recruitable-manpower side effect of the negative state-scope add_manpower.
+			add_manpower = var:MAD_drought_return_negative_people_shared
+			subtract_from_variable = { MAD_drought_idp_266_268 = MAD_drought_return_people }
+			subtract_from_variable = { MAD_drought_displaced_internal = MAD_drought_return_people }
+			subtract_from_variable = { MAD_drought_displaced = MAD_drought_return_people }
+			subtract_from_variable = { MAD_drought_resettle_remaining = MAD_drought_return_people }
+			clamp_variable = { var = MAD_drought_idp_266_268 min = 0 }
+		}
+	}
+}
+
+MAD_drought_return_route_266_487 = {
+	if = {
+		limit = {
+			check_variable = { MAD_drought_resettle_remaining > 0.5 }
+			check_variable = { MAD_drought_idp_266_487 > 0.5 }
+		}
+		set_temp_variable = { MAD_drought_return_people = MAD_drought_idp_266_487 }
+		if = {
+			limit = { check_variable = { MAD_drought_return_people > MAD_drought_resettle_remaining } }
+			set_temp_variable = { MAD_drought_return_people = MAD_drought_resettle_remaining }
+		}
+		round_temp_variable = MAD_drought_return_people
+		if = {
+			limit = { check_variable = { MAD_drought_return_people > 0.5 } }
+			set_variable = { MAD_drought_return_people_shared = MAD_drought_return_people }
+			set_variable = { MAD_drought_return_negative_people_shared = MAD_drought_return_people_shared }
+			multiply_variable = { MAD_drought_return_negative_people_shared = -1 }
+			266 = { set_temp_variable = { MAD_disp_state_pop_change = ROOT.MAD_drought_return_people_shared } add_manpower = var:MAD_disp_state_pop_change }
+			487 = { set_temp_variable = { MAD_disp_state_pop_change = ROOT.MAD_drought_return_negative_people_shared } add_manpower = var:MAD_disp_state_pop_change }
+			# Cancel the recruitable-manpower side effect of the negative state-scope add_manpower.
+			add_manpower = var:MAD_drought_return_negative_people_shared
+			subtract_from_variable = { MAD_drought_idp_266_487 = MAD_drought_return_people }
+			subtract_from_variable = { MAD_drought_displaced_internal = MAD_drought_return_people }
+			subtract_from_variable = { MAD_drought_displaced = MAD_drought_return_people }
+			subtract_from_variable = { MAD_drought_resettle_remaining = MAD_drought_return_people }
+			clamp_variable = { var = MAD_drought_idp_266_487 min = 0 }
+		}
+	}
+}
+
+MAD_drought_return_route_267_266 = {
+	if = {
+		limit = {
+			check_variable = { MAD_drought_resettle_remaining > 0.5 }
+			check_variable = { MAD_drought_idp_267_266 > 0.5 }
+		}
+		set_temp_variable = { MAD_drought_return_people = MAD_drought_idp_267_266 }
+		if = {
+			limit = { check_variable = { MAD_drought_return_people > MAD_drought_resettle_remaining } }
+			set_temp_variable = { MAD_drought_return_people = MAD_drought_resettle_remaining }
+		}
+		round_temp_variable = MAD_drought_return_people
+		if = {
+			limit = { check_variable = { MAD_drought_return_people > 0.5 } }
+			set_variable = { MAD_drought_return_people_shared = MAD_drought_return_people }
+			set_variable = { MAD_drought_return_negative_people_shared = MAD_drought_return_people_shared }
+			multiply_variable = { MAD_drought_return_negative_people_shared = -1 }
+			267 = { set_temp_variable = { MAD_disp_state_pop_change = ROOT.MAD_drought_return_people_shared } add_manpower = var:MAD_disp_state_pop_change }
+			266 = { set_temp_variable = { MAD_disp_state_pop_change = ROOT.MAD_drought_return_negative_people_shared } add_manpower = var:MAD_disp_state_pop_change }
+			# Cancel the recruitable-manpower side effect of the negative state-scope add_manpower.
+			add_manpower = var:MAD_drought_return_negative_people_shared
+			subtract_from_variable = { MAD_drought_idp_267_266 = MAD_drought_return_people }
+			subtract_from_variable = { MAD_drought_displaced_internal = MAD_drought_return_people }
+			subtract_from_variable = { MAD_drought_displaced = MAD_drought_return_people }
+			subtract_from_variable = { MAD_drought_resettle_remaining = MAD_drought_return_people }
+			clamp_variable = { var = MAD_drought_idp_267_266 min = 0 }
+		}
+	}
+}
+
+MAD_drought_return_route_267_268 = {
+	if = {
+		limit = {
+			check_variable = { MAD_drought_resettle_remaining > 0.5 }
+			check_variable = { MAD_drought_idp_267_268 > 0.5 }
+		}
+		set_temp_variable = { MAD_drought_return_people = MAD_drought_idp_267_268 }
+		if = {
+			limit = { check_variable = { MAD_drought_return_people > MAD_drought_resettle_remaining } }
+			set_temp_variable = { MAD_drought_return_people = MAD_drought_resettle_remaining }
+		}
+		round_temp_variable = MAD_drought_return_people
+		if = {
+			limit = { check_variable = { MAD_drought_return_people > 0.5 } }
+			set_variable = { MAD_drought_return_people_shared = MAD_drought_return_people }
+			set_variable = { MAD_drought_return_negative_people_shared = MAD_drought_return_people_shared }
+			multiply_variable = { MAD_drought_return_negative_people_shared = -1 }
+			267 = { set_temp_variable = { MAD_disp_state_pop_change = ROOT.MAD_drought_return_people_shared } add_manpower = var:MAD_disp_state_pop_change }
+			268 = { set_temp_variable = { MAD_disp_state_pop_change = ROOT.MAD_drought_return_negative_people_shared } add_manpower = var:MAD_disp_state_pop_change }
+			# Cancel the recruitable-manpower side effect of the negative state-scope add_manpower.
+			add_manpower = var:MAD_drought_return_negative_people_shared
+			subtract_from_variable = { MAD_drought_idp_267_268 = MAD_drought_return_people }
+			subtract_from_variable = { MAD_drought_displaced_internal = MAD_drought_return_people }
+			subtract_from_variable = { MAD_drought_displaced = MAD_drought_return_people }
+			subtract_from_variable = { MAD_drought_resettle_remaining = MAD_drought_return_people }
+			clamp_variable = { var = MAD_drought_idp_267_268 min = 0 }
+		}
+	}
+}
+
+MAD_drought_return_route_267_487 = {
+	if = {
+		limit = {
+			check_variable = { MAD_drought_resettle_remaining > 0.5 }
+			check_variable = { MAD_drought_idp_267_487 > 0.5 }
+		}
+		set_temp_variable = { MAD_drought_return_people = MAD_drought_idp_267_487 }
+		if = {
+			limit = { check_variable = { MAD_drought_return_people > MAD_drought_resettle_remaining } }
+			set_temp_variable = { MAD_drought_return_people = MAD_drought_resettle_remaining }
+		}
+		round_temp_variable = MAD_drought_return_people
+		if = {
+			limit = { check_variable = { MAD_drought_return_people > 0.5 } }
+			set_variable = { MAD_drought_return_people_shared = MAD_drought_return_people }
+			set_variable = { MAD_drought_return_negative_people_shared = MAD_drought_return_people_shared }
+			multiply_variable = { MAD_drought_return_negative_people_shared = -1 }
+			267 = { set_temp_variable = { MAD_disp_state_pop_change = ROOT.MAD_drought_return_people_shared } add_manpower = var:MAD_disp_state_pop_change }
+			487 = { set_temp_variable = { MAD_disp_state_pop_change = ROOT.MAD_drought_return_negative_people_shared } add_manpower = var:MAD_disp_state_pop_change }
+			# Cancel the recruitable-manpower side effect of the negative state-scope add_manpower.
+			add_manpower = var:MAD_drought_return_negative_people_shared
+			subtract_from_variable = { MAD_drought_idp_267_487 = MAD_drought_return_people }
+			subtract_from_variable = { MAD_drought_displaced_internal = MAD_drought_return_people }
+			subtract_from_variable = { MAD_drought_displaced = MAD_drought_return_people }
+			subtract_from_variable = { MAD_drought_resettle_remaining = MAD_drought_return_people }
+			clamp_variable = { var = MAD_drought_idp_267_487 min = 0 }
+		}
+	}
+}
+
+MAD_drought_return_route_268_266 = {
+	if = {
+		limit = {
+			check_variable = { MAD_drought_resettle_remaining > 0.5 }
+			check_variable = { MAD_drought_idp_268_266 > 0.5 }
+		}
+		set_temp_variable = { MAD_drought_return_people = MAD_drought_idp_268_266 }
+		if = {
+			limit = { check_variable = { MAD_drought_return_people > MAD_drought_resettle_remaining } }
+			set_temp_variable = { MAD_drought_return_people = MAD_drought_resettle_remaining }
+		}
+		round_temp_variable = MAD_drought_return_people
+		if = {
+			limit = { check_variable = { MAD_drought_return_people > 0.5 } }
+			set_variable = { MAD_drought_return_people_shared = MAD_drought_return_people }
+			set_variable = { MAD_drought_return_negative_people_shared = MAD_drought_return_people_shared }
+			multiply_variable = { MAD_drought_return_negative_people_shared = -1 }
+			268 = { set_temp_variable = { MAD_disp_state_pop_change = ROOT.MAD_drought_return_people_shared } add_manpower = var:MAD_disp_state_pop_change }
+			266 = { set_temp_variable = { MAD_disp_state_pop_change = ROOT.MAD_drought_return_negative_people_shared } add_manpower = var:MAD_disp_state_pop_change }
+			# Cancel the recruitable-manpower side effect of the negative state-scope add_manpower.
+			add_manpower = var:MAD_drought_return_negative_people_shared
+			subtract_from_variable = { MAD_drought_idp_268_266 = MAD_drought_return_people }
+			subtract_from_variable = { MAD_drought_displaced_internal = MAD_drought_return_people }
+			subtract_from_variable = { MAD_drought_displaced = MAD_drought_return_people }
+			subtract_from_variable = { MAD_drought_resettle_remaining = MAD_drought_return_people }
+			clamp_variable = { var = MAD_drought_idp_268_266 min = 0 }
+		}
+	}
+}
+
+MAD_drought_return_route_268_267 = {
+	if = {
+		limit = {
+			check_variable = { MAD_drought_resettle_remaining > 0.5 }
+			check_variable = { MAD_drought_idp_268_267 > 0.5 }
+		}
+		set_temp_variable = { MAD_drought_return_people = MAD_drought_idp_268_267 }
+		if = {
+			limit = { check_variable = { MAD_drought_return_people > MAD_drought_resettle_remaining } }
+			set_temp_variable = { MAD_drought_return_people = MAD_drought_resettle_remaining }
+		}
+		round_temp_variable = MAD_drought_return_people
+		if = {
+			limit = { check_variable = { MAD_drought_return_people > 0.5 } }
+			set_variable = { MAD_drought_return_people_shared = MAD_drought_return_people }
+			set_variable = { MAD_drought_return_negative_people_shared = MAD_drought_return_people_shared }
+			multiply_variable = { MAD_drought_return_negative_people_shared = -1 }
+			268 = { set_temp_variable = { MAD_disp_state_pop_change = ROOT.MAD_drought_return_people_shared } add_manpower = var:MAD_disp_state_pop_change }
+			267 = { set_temp_variable = { MAD_disp_state_pop_change = ROOT.MAD_drought_return_negative_people_shared } add_manpower = var:MAD_disp_state_pop_change }
+			# Cancel the recruitable-manpower side effect of the negative state-scope add_manpower.
+			add_manpower = var:MAD_drought_return_negative_people_shared
+			subtract_from_variable = { MAD_drought_idp_268_267 = MAD_drought_return_people }
+			subtract_from_variable = { MAD_drought_displaced_internal = MAD_drought_return_people }
+			subtract_from_variable = { MAD_drought_displaced = MAD_drought_return_people }
+			subtract_from_variable = { MAD_drought_resettle_remaining = MAD_drought_return_people }
+			clamp_variable = { var = MAD_drought_idp_268_267 min = 0 }
+		}
+	}
+}
+
+MAD_drought_return_route_268_487 = {
+	if = {
+		limit = {
+			check_variable = { MAD_drought_resettle_remaining > 0.5 }
+			check_variable = { MAD_drought_idp_268_487 > 0.5 }
+		}
+		set_temp_variable = { MAD_drought_return_people = MAD_drought_idp_268_487 }
+		if = {
+			limit = { check_variable = { MAD_drought_return_people > MAD_drought_resettle_remaining } }
+			set_temp_variable = { MAD_drought_return_people = MAD_drought_resettle_remaining }
+		}
+		round_temp_variable = MAD_drought_return_people
+		if = {
+			limit = { check_variable = { MAD_drought_return_people > 0.5 } }
+			set_variable = { MAD_drought_return_people_shared = MAD_drought_return_people }
+			set_variable = { MAD_drought_return_negative_people_shared = MAD_drought_return_people_shared }
+			multiply_variable = { MAD_drought_return_negative_people_shared = -1 }
+			268 = { set_temp_variable = { MAD_disp_state_pop_change = ROOT.MAD_drought_return_people_shared } add_manpower = var:MAD_disp_state_pop_change }
+			487 = { set_temp_variable = { MAD_disp_state_pop_change = ROOT.MAD_drought_return_negative_people_shared } add_manpower = var:MAD_disp_state_pop_change }
+			# Cancel the recruitable-manpower side effect of the negative state-scope add_manpower.
+			add_manpower = var:MAD_drought_return_negative_people_shared
+			subtract_from_variable = { MAD_drought_idp_268_487 = MAD_drought_return_people }
+			subtract_from_variable = { MAD_drought_displaced_internal = MAD_drought_return_people }
+			subtract_from_variable = { MAD_drought_displaced = MAD_drought_return_people }
+			subtract_from_variable = { MAD_drought_resettle_remaining = MAD_drought_return_people }
+			clamp_variable = { var = MAD_drought_idp_268_487 min = 0 }
+		}
+	}
+}
+
+MAD_drought_return_route_487_266 = {
+	if = {
+		limit = {
+			check_variable = { MAD_drought_resettle_remaining > 0.5 }
+			check_variable = { MAD_drought_idp_487_266 > 0.5 }
+		}
+		set_temp_variable = { MAD_drought_return_people = MAD_drought_idp_487_266 }
+		if = {
+			limit = { check_variable = { MAD_drought_return_people > MAD_drought_resettle_remaining } }
+			set_temp_variable = { MAD_drought_return_people = MAD_drought_resettle_remaining }
+		}
+		round_temp_variable = MAD_drought_return_people
+		if = {
+			limit = { check_variable = { MAD_drought_return_people > 0.5 } }
+			set_variable = { MAD_drought_return_people_shared = MAD_drought_return_people }
+			set_variable = { MAD_drought_return_negative_people_shared = MAD_drought_return_people_shared }
+			multiply_variable = { MAD_drought_return_negative_people_shared = -1 }
+			487 = { set_temp_variable = { MAD_disp_state_pop_change = ROOT.MAD_drought_return_people_shared } add_manpower = var:MAD_disp_state_pop_change }
+			266 = { set_temp_variable = { MAD_disp_state_pop_change = ROOT.MAD_drought_return_negative_people_shared } add_manpower = var:MAD_disp_state_pop_change }
+			# Cancel the recruitable-manpower side effect of the negative state-scope add_manpower.
+			add_manpower = var:MAD_drought_return_negative_people_shared
+			subtract_from_variable = { MAD_drought_idp_487_266 = MAD_drought_return_people }
+			subtract_from_variable = { MAD_drought_displaced_internal = MAD_drought_return_people }
+			subtract_from_variable = { MAD_drought_displaced = MAD_drought_return_people }
+			subtract_from_variable = { MAD_drought_resettle_remaining = MAD_drought_return_people }
+			clamp_variable = { var = MAD_drought_idp_487_266 min = 0 }
+		}
+	}
+}
+
+MAD_drought_return_route_487_267 = {
+	if = {
+		limit = {
+			check_variable = { MAD_drought_resettle_remaining > 0.5 }
+			check_variable = { MAD_drought_idp_487_267 > 0.5 }
+		}
+		set_temp_variable = { MAD_drought_return_people = MAD_drought_idp_487_267 }
+		if = {
+			limit = { check_variable = { MAD_drought_return_people > MAD_drought_resettle_remaining } }
+			set_temp_variable = { MAD_drought_return_people = MAD_drought_resettle_remaining }
+		}
+		round_temp_variable = MAD_drought_return_people
+		if = {
+			limit = { check_variable = { MAD_drought_return_people > 0.5 } }
+			set_variable = { MAD_drought_return_people_shared = MAD_drought_return_people }
+			set_variable = { MAD_drought_return_negative_people_shared = MAD_drought_return_people_shared }
+			multiply_variable = { MAD_drought_return_negative_people_shared = -1 }
+			487 = { set_temp_variable = { MAD_disp_state_pop_change = ROOT.MAD_drought_return_people_shared } add_manpower = var:MAD_disp_state_pop_change }
+			267 = { set_temp_variable = { MAD_disp_state_pop_change = ROOT.MAD_drought_return_negative_people_shared } add_manpower = var:MAD_disp_state_pop_change }
+			# Cancel the recruitable-manpower side effect of the negative state-scope add_manpower.
+			add_manpower = var:MAD_drought_return_negative_people_shared
+			subtract_from_variable = { MAD_drought_idp_487_267 = MAD_drought_return_people }
+			subtract_from_variable = { MAD_drought_displaced_internal = MAD_drought_return_people }
+			subtract_from_variable = { MAD_drought_displaced = MAD_drought_return_people }
+			subtract_from_variable = { MAD_drought_resettle_remaining = MAD_drought_return_people }
+			clamp_variable = { var = MAD_drought_idp_487_267 min = 0 }
+		}
+	}
+}
+
+MAD_drought_return_route_487_268 = {
+	if = {
+		limit = {
+			check_variable = { MAD_drought_resettle_remaining > 0.5 }
+			check_variable = { MAD_drought_idp_487_268 > 0.5 }
+		}
+		set_temp_variable = { MAD_drought_return_people = MAD_drought_idp_487_268 }
+		if = {
+			limit = { check_variable = { MAD_drought_return_people > MAD_drought_resettle_remaining } }
+			set_temp_variable = { MAD_drought_return_people = MAD_drought_resettle_remaining }
+		}
+		round_temp_variable = MAD_drought_return_people
+		if = {
+			limit = { check_variable = { MAD_drought_return_people > 0.5 } }
+			set_variable = { MAD_drought_return_people_shared = MAD_drought_return_people }
+			set_variable = { MAD_drought_return_negative_people_shared = MAD_drought_return_people_shared }
+			multiply_variable = { MAD_drought_return_negative_people_shared = -1 }
+			487 = { set_temp_variable = { MAD_disp_state_pop_change = ROOT.MAD_drought_return_people_shared } add_manpower = var:MAD_disp_state_pop_change }
+			268 = { set_temp_variable = { MAD_disp_state_pop_change = ROOT.MAD_drought_return_negative_people_shared } add_manpower = var:MAD_disp_state_pop_change }
+			# Cancel the recruitable-manpower side effect of the negative state-scope add_manpower.
+			add_manpower = var:MAD_drought_return_negative_people_shared
+			subtract_from_variable = { MAD_drought_idp_487_268 = MAD_drought_return_people }
+			subtract_from_variable = { MAD_drought_displaced_internal = MAD_drought_return_people }
+			subtract_from_variable = { MAD_drought_displaced = MAD_drought_return_people }
+			subtract_from_variable = { MAD_drought_resettle_remaining = MAD_drought_return_people }
+			clamp_variable = { var = MAD_drought_idp_487_268 min = 0 }
+		}
+	}
+}
+
+MAD_drought_resettle = {
+	set_variable = { MAD_drought_resettle_remaining = 20000 }
+	MAD_drought_return_route_266_267 = yes
+	MAD_drought_return_route_266_268 = yes
+	MAD_drought_return_route_266_487 = yes
+	MAD_drought_return_route_267_266 = yes
+	MAD_drought_return_route_267_268 = yes
+	MAD_drought_return_route_267_487 = yes
+	MAD_drought_return_route_268_266 = yes
+	MAD_drought_return_route_268_267 = yes
+	MAD_drought_return_route_268_487 = yes
+	MAD_drought_return_route_487_266 = yes
+	MAD_drought_return_route_487_267 = yes
+	MAD_drought_return_route_487_268 = yes
+	clamp_variable = { var = MAD_drought_resettle_remaining min = 0 }
+	set_temp_variable = { MAD_drought_people_resettled = 20000 }
+	subtract_from_temp_variable = { MAD_drought_people_resettled = MAD_drought_resettle_remaining }
+	custom_effect_tooltip = MAD_DROUGHT_RESETTLE_EFFECT_TT
+	if = {
+		limit = { check_variable = { MAD_drought_people_resettled > 0.5 } }
+		add_timed_idea = { idea = MAD_DROUGHT_RESETTLED days = 730 }
+	}
+}
+
+MAD_drought_return_expats = {
+	if = {
+		limit = {
+			check_variable = { MAD_drought_expat_return_calls < 6 }
+			check_variable = { MAD_drought_displaced_abroad > 0.5 }
+			check_variable = { MAD_drought_abroad_original_survivors > 0.5 }
+		}
+		add_to_variable = { MAD_drought_expat_return_calls = 1 }
+		set_temp_variable = { MAD_disp_expat_return_target = MAD_drought_abroad_original_survivors }
+		multiply_temp_variable = { MAD_disp_expat_return_target = 0.10 }
+		round_temp_variable = MAD_disp_expat_return_target
+		if = {
+			limit = { check_variable = { MAD_disp_expat_return_target > MAD_drought_displaced_abroad } }
+			set_temp_variable = { MAD_disp_expat_return_target = MAD_drought_displaced_abroad }
+		}
+		set_variable = { MAD_drought_expat_return_target = MAD_disp_expat_return_target }
+		custom_effect_tooltip = MAD_DROUGHT_EXPAT_RETURN_EFFECT_TT
+		set_variable = { MAD_drought_expat_return_remaining = MAD_drought_expat_return_target }
+		set_variable = { MAD_drought_expat_return_start_abroad = MAD_drought_displaced_abroad }
+		set_variable = { MAD_drought_expat_country_remaining = MAD_drought_expat_return_target }
+		set_variable = { MAD_drought_abroad_in_COM_before = MAD_drought_abroad_in_COM }
+		set_variable = { MAD_drought_abroad_in_MOZ_before = MAD_drought_abroad_in_MOZ }
+		set_variable = { MAD_drought_abroad_in_SAF_before = MAD_drought_abroad_in_SAF }
+		MAD_drought_return_expats_from_COM = yes
+		MAD_drought_return_expats_from_MOZ = yes
+		MAD_drought_return_expats_from_SAF = yes
+		set_variable = { MAD_drought_expat_return_remaining = MAD_drought_expat_return_target }
+		set_variable = { MAD_drought_abroad_before_266 = MAD_drought_abroad_from_266 }
+		set_variable = { MAD_drought_abroad_before_267 = MAD_drought_abroad_from_267 }
+		set_variable = { MAD_drought_abroad_before_268 = MAD_drought_abroad_from_268 }
+		set_variable = { MAD_drought_abroad_before_487 = MAD_drought_abroad_from_487 }
+		MAD_drought_return_expats_to_266 = yes
+		MAD_drought_return_expats_to_267 = yes
+		MAD_drought_return_expats_to_268 = yes
+		MAD_drought_return_expats_to_487 = yes
+		clamp_variable = { var = MAD_drought_expat_return_remaining min = 0 }
+		add_timed_idea = { idea = MAD_DROUGHT_RESETTLED days = 730 }
+	}
+}
+MAD_drought_return_expats_from_COM = {
+	if = {
+		limit = { check_variable = { MAD_drought_expat_country_remaining > 0.5 } check_variable = { MAD_drought_abroad_in_COM > 0.5 } }
+		set_temp_variable = { MAD_drought_return_people = MAD_drought_expat_return_target }
+		multiply_temp_variable = { MAD_drought_return_people = MAD_drought_abroad_in_COM_before }
+		divide_temp_variable = { MAD_drought_return_people = MAD_drought_expat_return_start_abroad }
+		round_temp_variable = MAD_drought_return_people
+		if = { limit = { check_variable = { MAD_drought_return_people > MAD_drought_abroad_in_COM } } set_temp_variable = { MAD_drought_return_people = MAD_drought_abroad_in_COM } }
+		if = { limit = { check_variable = { MAD_drought_return_people > MAD_drought_expat_country_remaining } } set_temp_variable = { MAD_drought_return_people = MAD_drought_expat_country_remaining } }
+		if = {
+			limit = { check_variable = { MAD_drought_return_people > 0.5 } }
+			set_variable = { MAD_drought_return_negative_people_shared = MAD_drought_return_people }
+			multiply_variable = { MAD_drought_return_negative_people_shared = -1 }
+			COM = {
+				random_owned_state = {
+					set_temp_variable = { MAD_disp_state_pop_change = ROOT.MAD_drought_return_negative_people_shared }
+					add_manpower = var:MAD_disp_state_pop_change
+				}
+				set_temp_variable = { MAD_disp_country_pop_change = ROOT.MAD_drought_return_negative_people_shared }
+				add_manpower = var:MAD_disp_country_pop_change
+			}
+			subtract_from_variable = { MAD_drought_abroad_in_COM = MAD_drought_return_people }
+			subtract_from_variable = { MAD_drought_expat_country_remaining = MAD_drought_return_people }
+			clamp_variable = { var = MAD_drought_abroad_in_COM min = 0 }
+		}
+	}
+}
+MAD_drought_return_expats_from_MOZ = {
+	if = {
+		limit = { check_variable = { MAD_drought_expat_country_remaining > 0.5 } check_variable = { MAD_drought_abroad_in_MOZ > 0.5 } }
+		set_temp_variable = { MAD_drought_return_people = MAD_drought_expat_return_target }
+		multiply_temp_variable = { MAD_drought_return_people = MAD_drought_abroad_in_MOZ_before }
+		divide_temp_variable = { MAD_drought_return_people = MAD_drought_expat_return_start_abroad }
+		round_temp_variable = MAD_drought_return_people
+		if = { limit = { check_variable = { MAD_drought_return_people > MAD_drought_abroad_in_MOZ } } set_temp_variable = { MAD_drought_return_people = MAD_drought_abroad_in_MOZ } }
+		if = { limit = { check_variable = { MAD_drought_return_people > MAD_drought_expat_country_remaining } } set_temp_variable = { MAD_drought_return_people = MAD_drought_expat_country_remaining } }
+		if = {
+			limit = { check_variable = { MAD_drought_return_people > 0.5 } }
+			set_variable = { MAD_drought_return_negative_people_shared = MAD_drought_return_people }
+			multiply_variable = { MAD_drought_return_negative_people_shared = -1 }
+			MOZ = {
+				random_owned_state = {
+					set_temp_variable = { MAD_disp_state_pop_change = ROOT.MAD_drought_return_negative_people_shared }
+					add_manpower = var:MAD_disp_state_pop_change
+				}
+				set_temp_variable = { MAD_disp_country_pop_change = ROOT.MAD_drought_return_negative_people_shared }
+				add_manpower = var:MAD_disp_country_pop_change
+			}
+			subtract_from_variable = { MAD_drought_abroad_in_MOZ = MAD_drought_return_people }
+			subtract_from_variable = { MAD_drought_expat_country_remaining = MAD_drought_return_people }
+			clamp_variable = { var = MAD_drought_abroad_in_MOZ min = 0 }
+		}
+	}
+}
+MAD_drought_return_expats_from_SAF = {
+	if = {
+		limit = { check_variable = { MAD_drought_expat_country_remaining > 0.5 } check_variable = { MAD_drought_abroad_in_SAF > 0.5 } }
+		set_temp_variable = { MAD_drought_return_people = MAD_drought_expat_country_remaining }
+		if = { limit = { check_variable = { MAD_drought_return_people > MAD_drought_abroad_in_SAF } } set_temp_variable = { MAD_drought_return_people = MAD_drought_abroad_in_SAF } }
+		if = {
+			limit = { check_variable = { MAD_drought_return_people > 0.5 } }
+			set_variable = { MAD_drought_return_negative_people_shared = MAD_drought_return_people }
+			multiply_variable = { MAD_drought_return_negative_people_shared = -1 }
+			SAF = {
+				random_owned_state = {
+					set_temp_variable = { MAD_disp_state_pop_change = ROOT.MAD_drought_return_negative_people_shared }
+					add_manpower = var:MAD_disp_state_pop_change
+				}
+				set_temp_variable = { MAD_disp_country_pop_change = ROOT.MAD_drought_return_negative_people_shared }
+				add_manpower = var:MAD_disp_country_pop_change
+			}
+			subtract_from_variable = { MAD_drought_abroad_in_SAF = MAD_drought_return_people }
+			subtract_from_variable = { MAD_drought_expat_country_remaining = MAD_drought_return_people }
+			clamp_variable = { var = MAD_drought_abroad_in_SAF min = 0 }
+		}
+	}
+}
+
+MAD_drought_return_expats_to_266 = {
+	if = {
+		limit = {
+			check_variable = { MAD_drought_expat_return_remaining > 0.5 }
+			check_variable = { MAD_drought_abroad_from_266 > 0.5 }
+			check_variable = { MAD_drought_expat_return_start_abroad > 0.5 }
+		}
+		set_temp_variable = { MAD_drought_return_people = MAD_drought_expat_return_target }
+		multiply_temp_variable = { MAD_drought_return_people = MAD_drought_abroad_before_266 }
+		divide_temp_variable = { MAD_drought_return_people = MAD_drought_expat_return_start_abroad }
+		round_temp_variable = MAD_drought_return_people
+		if = {
+			limit = { check_variable = { MAD_drought_return_people > MAD_drought_abroad_from_266 } }
+			set_temp_variable = { MAD_drought_return_people = MAD_drought_abroad_from_266 }
+		}
+		if = {
+			limit = { check_variable = { MAD_drought_return_people > MAD_drought_expat_return_remaining } }
+			set_temp_variable = { MAD_drought_return_people = MAD_drought_expat_return_remaining }
+		}
+		if = {
+			limit = { check_variable = { MAD_drought_return_people > 0.5 } }
+			set_variable = { MAD_drought_return_people_shared = MAD_drought_return_people }
+			266 = { set_temp_variable = { MAD_disp_state_pop_change = ROOT.MAD_drought_return_people_shared } add_manpower = var:MAD_disp_state_pop_change }
+			subtract_from_variable = { MAD_drought_abroad_from_266 = MAD_drought_return_people }
+			subtract_from_variable = { MAD_drought_displaced_abroad = MAD_drought_return_people }
+			subtract_from_variable = { MAD_drought_displaced = MAD_drought_return_people }
+			subtract_from_variable = { MAD_drought_expat_return_remaining = MAD_drought_return_people }
+			clamp_variable = { var = MAD_drought_abroad_from_266 min = 0 }
+		}
+	}
+}
+
+MAD_drought_return_expats_to_267 = {
+	if = {
+		limit = {
+			check_variable = { MAD_drought_expat_return_remaining > 0.5 }
+			check_variable = { MAD_drought_abroad_from_267 > 0.5 }
+			check_variable = { MAD_drought_expat_return_start_abroad > 0.5 }
+		}
+		set_temp_variable = { MAD_drought_return_people = MAD_drought_expat_return_target }
+		multiply_temp_variable = { MAD_drought_return_people = MAD_drought_abroad_before_267 }
+		divide_temp_variable = { MAD_drought_return_people = MAD_drought_expat_return_start_abroad }
+		round_temp_variable = MAD_drought_return_people
+		if = {
+			limit = { check_variable = { MAD_drought_return_people > MAD_drought_abroad_from_267 } }
+			set_temp_variable = { MAD_drought_return_people = MAD_drought_abroad_from_267 }
+		}
+		if = {
+			limit = { check_variable = { MAD_drought_return_people > MAD_drought_expat_return_remaining } }
+			set_temp_variable = { MAD_drought_return_people = MAD_drought_expat_return_remaining }
+		}
+		if = {
+			limit = { check_variable = { MAD_drought_return_people > 0.5 } }
+			set_variable = { MAD_drought_return_people_shared = MAD_drought_return_people }
+			267 = { set_temp_variable = { MAD_disp_state_pop_change = ROOT.MAD_drought_return_people_shared } add_manpower = var:MAD_disp_state_pop_change }
+			subtract_from_variable = { MAD_drought_abroad_from_267 = MAD_drought_return_people }
+			subtract_from_variable = { MAD_drought_displaced_abroad = MAD_drought_return_people }
+			subtract_from_variable = { MAD_drought_displaced = MAD_drought_return_people }
+			subtract_from_variable = { MAD_drought_expat_return_remaining = MAD_drought_return_people }
+			clamp_variable = { var = MAD_drought_abroad_from_267 min = 0 }
+		}
+	}
+}
+
+MAD_drought_return_expats_to_268 = {
+	if = {
+		limit = {
+			check_variable = { MAD_drought_expat_return_remaining > 0.5 }
+			check_variable = { MAD_drought_abroad_from_268 > 0.5 }
+			check_variable = { MAD_drought_expat_return_start_abroad > 0.5 }
+		}
+		set_temp_variable = { MAD_drought_return_people = MAD_drought_expat_return_target }
+		multiply_temp_variable = { MAD_drought_return_people = MAD_drought_abroad_before_268 }
+		divide_temp_variable = { MAD_drought_return_people = MAD_drought_expat_return_start_abroad }
+		round_temp_variable = MAD_drought_return_people
+		if = {
+			limit = { check_variable = { MAD_drought_return_people > MAD_drought_abroad_from_268 } }
+			set_temp_variable = { MAD_drought_return_people = MAD_drought_abroad_from_268 }
+		}
+		if = {
+			limit = { check_variable = { MAD_drought_return_people > MAD_drought_expat_return_remaining } }
+			set_temp_variable = { MAD_drought_return_people = MAD_drought_expat_return_remaining }
+		}
+		if = {
+			limit = { check_variable = { MAD_drought_return_people > 0.5 } }
+			set_variable = { MAD_drought_return_people_shared = MAD_drought_return_people }
+			268 = { set_temp_variable = { MAD_disp_state_pop_change = ROOT.MAD_drought_return_people_shared } add_manpower = var:MAD_disp_state_pop_change }
+			subtract_from_variable = { MAD_drought_abroad_from_268 = MAD_drought_return_people }
+			subtract_from_variable = { MAD_drought_displaced_abroad = MAD_drought_return_people }
+			subtract_from_variable = { MAD_drought_displaced = MAD_drought_return_people }
+			subtract_from_variable = { MAD_drought_expat_return_remaining = MAD_drought_return_people }
+			clamp_variable = { var = MAD_drought_abroad_from_268 min = 0 }
+		}
+	}
+}
+
+MAD_drought_return_expats_to_487 = {
+	if = {
+		limit = {
+			check_variable = { MAD_drought_expat_return_remaining > 0.5 }
+			check_variable = { MAD_drought_abroad_from_487 > 0.5 }
+			check_variable = { MAD_drought_expat_return_start_abroad > 0.5 }
+		}
+		set_temp_variable = { MAD_drought_return_people = MAD_drought_expat_return_target }
+		multiply_temp_variable = { MAD_drought_return_people = MAD_drought_abroad_before_487 }
+		divide_temp_variable = { MAD_drought_return_people = MAD_drought_expat_return_start_abroad }
+		round_temp_variable = MAD_drought_return_people
+		if = {
+			limit = { check_variable = { MAD_drought_return_people > MAD_drought_abroad_from_487 } }
+			set_temp_variable = { MAD_drought_return_people = MAD_drought_abroad_from_487 }
+		}
+		if = {
+			limit = { check_variable = { MAD_drought_return_people > MAD_drought_expat_return_remaining } }
+			set_temp_variable = { MAD_drought_return_people = MAD_drought_expat_return_remaining }
+		}
+		if = {
+			limit = { check_variable = { MAD_drought_return_people > 0.5 } }
+			set_variable = { MAD_drought_return_people_shared = MAD_drought_return_people }
+			487 = { set_temp_variable = { MAD_disp_state_pop_change = ROOT.MAD_drought_return_people_shared } add_manpower = var:MAD_disp_state_pop_change }
+			subtract_from_variable = { MAD_drought_abroad_from_487 = MAD_drought_return_people }
+			subtract_from_variable = { MAD_drought_displaced_abroad = MAD_drought_return_people }
+			subtract_from_variable = { MAD_drought_displaced = MAD_drought_return_people }
+			subtract_from_variable = { MAD_drought_expat_return_remaining = MAD_drought_return_people }
+			clamp_variable = { var = MAD_drought_abroad_from_487 min = 0 }
+		}
+	}
 }
 
 ########################################################################
@@ -992,7 +1963,7 @@ MAD_drought_monthly_tick = {
 		MAD_drought_state_monthly = yes
 
 		# People leave the states that are actually in severe drought, not just because the national average is high.
-		# The severe-state counter drives the exodus/failure logic; actual people are moved below.
+		# The severe-state counter keeps the evacuation response active while the drought remains severe; actual people are moved below.
 		set_variable = { MAD_drought_severe_states = 0 }
 		266 = { if = { limit = { check_variable = { MAD_state_drought > 59.99 } } ROOT = { add_to_variable = { MAD_drought_severe_states = 1 } } } }
 		267 = { if = { limit = { check_variable = { MAD_state_drought > 59.99 } } ROOT = { add_to_variable = { MAD_drought_severe_states = 1 } } } }
@@ -1006,10 +1977,6 @@ MAD_drought_monthly_tick = {
 				add_ideas = MAD_DROUGHT_EVACUATIONS
 			}
 
-			# 6,000 people per severe state-month, moved from the worst-hit modeled state to the least-affected one.
-			set_variable = { MAD_drought_migration_amount = 6 }
-			set_variable = { MAD_drought_migration_force = 0 }
-			MAD_drought_migrate_worst_to_best = yes
 		}
 		else_if = {
 			limit = {
@@ -1027,17 +1994,11 @@ MAD_drought_monthly_tick = {
 			remove_ideas = MAD_DROUGHT_EVACUATIONS
 		}
 
+		# One state-specific transfer can occur after each six consecutive months at 60+.
+		# The per-state effect also handles the doubled rate at 80+ and queues one report per transfer.
+		MAD_drought_displacement_monthly_tick = yes
+
 		MAD_drought_update_tier = yes
-		# failed? (a year of exodus, net)
-		if = {
-			limit = {
-				NOT = { has_country_flag = MAD_DROUGHT_FAILED_STATE }
-				NOT = { has_country_flag = MAD_DROUGHT_CONTAINED_STATE }
-				check_variable = { MAD_drought_depop > 11.99 }
-			}
-			set_country_flag = MAD_DROUGHT_FAILED_STATE
-			country_event = { id = mad_drought.21 }
-		}
 		# over?
 		if = {
 			limit = { check_variable = { MAD_drought_severity < 0.001 } }
@@ -1071,27 +2032,27 @@ MAD_drought_scheduled_events = {
 	if = {
 		limit = { check_variable = { MAD_drought_calendar_months > 3.99 } NOT = { has_country_flag = MAD_DROUGHT_EVENT_2000 } }
 		set_country_flag = MAD_DROUGHT_EVENT_2000
-		if = { limit = { MAD_historical_drought_should_fire = yes } country_event = { id = mad_drought.15 } }
+		country_event = { id = mad_drought.15 }
 	}
 	if = {
 		limit = { check_variable = { MAD_drought_calendar_months > 39.99 } NOT = { has_country_flag = MAD_DROUGHT_EVENT_2003 } }
 		set_country_flag = MAD_DROUGHT_EVENT_2003
-		if = { limit = { MAD_historical_drought_should_fire = yes } country_event = { id = mad_drought.16 } }
+		country_event = { id = mad_drought.16 }
 	}
 	if = {
 		limit = { check_variable = { MAD_drought_calendar_months > 55.99 } NOT = { has_country_flag = MAD_DROUGHT_EVENT_2005 } }
 		set_country_flag = MAD_DROUGHT_EVENT_2005
-		if = { limit = { MAD_historical_drought_should_fire = yes } country_event = { id = mad_drought.17 } }
+		country_event = { id = mad_drought.17 }
 	}
 	if = {
 		limit = { check_variable = { MAD_drought_calendar_months > 111.99 } NOT = { has_country_flag = MAD_DROUGHT_EVENT_2009 } }
 		set_country_flag = MAD_DROUGHT_EVENT_2009
-		if = { limit = { MAD_historical_drought_should_fire = yes } country_event = { id = mad_drought.18 } }
+		country_event = { id = mad_drought.18 }
 	}
 	if = {
 		limit = { check_variable = { MAD_drought_calendar_months > 125.99 } NOT = { has_country_flag = MAD_DROUGHT_EVENT_2010 } }
 		set_country_flag = MAD_DROUGHT_EVENT_2010
-		if = { limit = { MAD_historical_drought_should_fire = yes } country_event = { id = mad_drought.19 } }
+		country_event = { id = mad_drought.19 }
 	}
 	if = {
 		limit = { check_variable = { MAD_drought_calendar_months > 146.99 } NOT = { has_country_flag = MAD_DROUGHT_EVENT_LOCUSTS } }
@@ -1101,12 +2062,12 @@ MAD_drought_scheduled_events = {
 	if = {
 		limit = { check_variable = { MAD_drought_calendar_months > 188.99 } NOT = { has_country_flag = MAD_DROUGHT_EVENT_ELNINO } }
 		set_country_flag = MAD_DROUGHT_EVENT_ELNINO
-		if = { limit = { MAD_historical_drought_should_fire = yes } country_event = { id = mad_drought.13 } }
+		country_event = { id = mad_drought.13 }
 	}
 	if = {
 		limit = { check_variable = { MAD_drought_calendar_months > 244.99 } NOT = { has_country_flag = MAD_DROUGHT_EVENT_KERE } }
 		set_country_flag = MAD_DROUGHT_EVENT_KERE
-		if = { limit = { MAD_historical_drought_should_fire = yes } country_event = { id = mad_drought.14 } }
+		country_event = { id = mad_drought.14 }
 	}
 
 	random_list = {
@@ -1146,18 +2107,6 @@ MAD_drought_scheduled_events = {
 # RESETTLEMENT
 ########################################################################
 
-MAD_drought_resettle = {
-	set_variable = { MAD_drought_displaced = 0 }
-	set_variable = { MAD_drought_severe_states = 0 }
-	set_variable = { MAD_drought_migration_amount = 0 }
-	set_variable = { MAD_drought_migration_force = 0 }
-	set_variable = { MAD_drought_depop = 0 }
-	if = {
-		limit = { has_idea = MAD_DROUGHT_EVACUATIONS }
-		remove_ideas = MAD_DROUGHT_EVACUATIONS
-	}
-	add_timed_idea = { idea = MAD_DROUGHT_RESETTLED days = 730 }
-}
 ########################################################################
 # THE DROUGHT MAP - one drought number and one famine number per STATE
 ########################################################################
@@ -1192,6 +2141,8 @@ MAD_drought_state_init = {
 		set_variable = { MAD_state_drought_exposure = 1.05 }
 		set_variable = { MAD_state_drought_tier = 0 }
 		set_variable = { MAD_state_relief_months = 0 }
+		set_variable = { MAD_state_displacement_months = 0 }
+		set_variable = { MAD_state_displacement_accumulator = 0 }
 		clr_state_flag = MAD_GRAND_SUD_STATE
 		clr_state_flag = MAD_REFUGE_STATE
 		add_to_array = { array = ROOT.MAD_drought_states value = THIS }
@@ -1203,6 +2154,8 @@ MAD_drought_state_init = {
 		set_variable = { MAD_state_drought_exposure = 0.85 }
 		set_variable = { MAD_state_drought_tier = 0 }
 		set_variable = { MAD_state_relief_months = 0 }
+		set_variable = { MAD_state_displacement_months = 0 }
+		set_variable = { MAD_state_displacement_accumulator = 0 }
 		clr_state_flag = MAD_GRAND_SUD_STATE
 		set_state_flag = MAD_REFUGE_STATE
 		add_to_array = { array = ROOT.MAD_drought_states value = THIS }
@@ -1213,6 +2166,8 @@ MAD_drought_state_init = {
 		set_variable = { MAD_state_drought_exposure = 1.35 }
 		set_variable = { MAD_state_drought_tier = 0 }
 		set_variable = { MAD_state_relief_months = 0 }
+		set_variable = { MAD_state_displacement_months = 0 }
+		set_variable = { MAD_state_displacement_accumulator = 0 }
 		set_state_flag = MAD_GRAND_SUD_STATE
 		clr_state_flag = MAD_REFUGE_STATE
 		add_to_array = { array = ROOT.MAD_drought_states value = THIS }
@@ -1224,6 +2179,8 @@ MAD_drought_state_init = {
 		set_variable = { MAD_state_drought_exposure = 0.85 }
 		set_variable = { MAD_state_drought_tier = 0 }
 		set_variable = { MAD_state_relief_months = 0 }
+		set_variable = { MAD_state_displacement_months = 0 }
+		set_variable = { MAD_state_displacement_accumulator = 0 }
 		clr_state_flag = MAD_GRAND_SUD_STATE
 		set_state_flag = MAD_REFUGE_STATE
 		add_to_array = { array = ROOT.MAD_drought_states value = THIS }
@@ -1243,8 +2200,7 @@ MAD_drought_state_clamp = {
 		limit = {
 			owner = {
 				NOT = { has_country_flag = MAD_DROUGHT_CONTAINED_STATE }
-				NOT = { has_country_flag = MAD_DROUGHT_FAILED_STATE }
-				NOT = { has_country_flag = MAD_DROUGHT_WON }
+					NOT = { has_country_flag = MAD_DROUGHT_WON }
 			}
 		}
 		clamp_variable = { var = MAD_state_drought min = 5 max = 100 }
@@ -1361,8 +2317,8 @@ MAD_drought_containment_daily_tick = {
 			NOT = { has_country_flag = MAD_DROUGHT_WON }
 			NOT = { has_country_flag = MAD_DROUGHT_OVER }
 			OR = {
-				check_variable = { MAD_drought_prevention_count < 5 }
-				check_variable = { MAD_drought_severity > 30.01 }
+				check_variable = { MAD_drought_prevention_count < 7 }
+				check_variable = { MAD_drought_severity > 15 }
 			}
 		}
 		clr_country_flag = MAD_DROUGHT_CONTAINED_STATE
@@ -1373,8 +2329,8 @@ MAD_drought_containment_daily_tick = {
 		limit = {
 			MAD_drought_exists = yes
 			NOT = { has_country_flag = MAD_DROUGHT_CONTAINED_STATE }
-			check_variable = { MAD_drought_prevention_count > 4.99 }
-			check_variable = { MAD_drought_severity < 30.01 }
+			check_variable = { MAD_drought_prevention_count > 6.99 }
+			check_variable = { MAD_drought_severity < 15.01 }
 		}
 		add_to_variable = { MAD_drought_containment_days = 1 }
 		if = {
@@ -1489,48 +2445,6 @@ MAD_drought_state_monthly = {
 	268 = { MAD_drought_state_monthly_one = yes }
 	487 = { MAD_drought_state_monthly_one = yes }
 }
-########################################################################
-# CROP DEATH - the south empties and most of it turns up in the two big cities
-########################################################################
-# "Reduce the population of the south by 20%, and only 80% of that number reappears in Antananarivo and Toamasina."
-# The missing fifth is the people who did not survive the journey or the year.
-#
-# HOW THE POPULATION MOVE IS DONE: HOI4 has no safe, mod-portable effect for "set this state's population to X",
-# so it is done with state modifiers - MAD_STATE_DEPOPULATED takes 20% off the southern states' manpower, building
-# slots and output, and MAD_STATE_REFUGEE_INFLUX puts 16% (= 80% of 20%) onto Antananarivo and Toamasina, with the
-# slums that come with it. If your Millennium Dawn build does expose a direct population effect, this scripted
-# effect is the ONE place to swap it in.
-
-MAD_crop_death_effects = {
-	custom_effect_tooltip = MAD_crop_death_south_tt
-	every_owned_state = {
-		limit = { has_state_flag = MAD_GRAND_SUD_STATE }
-		if = {
-			limit = { has_dynamic_modifier = { modifier = MAD_STATE_DEPOPULATED } }
-			remove_dynamic_modifier = { modifier = MAD_STATE_DEPOPULATED }
-		}
-		add_dynamic_modifier = { modifier = MAD_STATE_DEPOPULATED }
-		set_state_flag = MAD_STATE_EMPTIED
-	}
-
-	custom_effect_tooltip = MAD_crop_death_cities_tt
-	every_owned_state = {
-		limit = { has_state_flag = MAD_REFUGE_STATE }
-		if = {
-			limit = { has_dynamic_modifier = { modifier = MAD_STATE_REFUGEE_INFLUX } }
-			remove_dynamic_modifier = { modifier = MAD_STATE_REFUGEE_INFLUX }
-		}
-		add_dynamic_modifier = { modifier = MAD_STATE_REFUGEE_INFLUX }
-	}
-
-	custom_effect_tooltip = MAD_crop_death_lost_tt
-	add_stability = -0.05
-	add_war_support = -0.03
-	set_variable = { MAD_drought_displaced = 0 }
-	set_variable = { MAD_drought_severe_states = 0 }
-	add_ideas = MAD_CROP_DEATH_GENERATION
-}
-
 ########################################################################
 # THE CNA AND THE LOCUSTS
 ########################################################################
@@ -1726,9 +2640,22 @@ MAD_JIRAMA_START_GENERATION_RECOVERY = {
 
 MAD_JIRAMA_GENERATION_RECOVERY_DAILY = {
 
-	# SUCCESS: both performance requirements are met before the three-year timer expires.
+	# Expire the one-off mission 1095 days after the first generation-project unlock.
+	# has_country_flag's age check supplies the timer; no separate scheduled event is needed.
 	if = {
 		limit = {
+			has_country_flag = { flag = MAD_JIRAMA_GENERATION_RECOVERY_STARTED days > 1094 }
+			NOT = { has_country_flag = MAD_JIRAMA_GENERATION_RECOVERY_EXPIRED }
+			NOT = { has_completed_focus = MAD_JIRAMA_RECOVERY_SUCCEEDS }
+			NOT = { has_completed_focus = MAD_JIRAMA_RECOVERY_FAILS }
+		}
+		set_country_flag = MAD_JIRAMA_GENERATION_RECOVERY_EXPIRED
+	}
+
+	# SUCCESS: requirements must be met before the three-year timer expires.
+	if = {
+		limit = {
+			NOT = { has_country_flag = MAD_JIRAMA_GENERATION_RECOVERY_EXPIRED }
 			NOT = { has_completed_focus = MAD_JIRAMA_RECOVERY_SUCCEEDS }
 			NOT = { has_completed_focus = MAD_JIRAMA_RECOVERY_FAILS }
 			MAD_JIRAMA_RECOVERY_REQUIREMENTS_MET = yes
@@ -1743,7 +2670,6 @@ MAD_JIRAMA_GENERATION_RECOVERY_DAILY = {
 			NOT = { has_completed_focus = MAD_JIRAMA_RECOVERY_SUCCEEDS }
 			NOT = { has_completed_focus = MAD_JIRAMA_RECOVERY_FAILS }
 		}
-
 		complete_national_focus = MAD_JIRAMA_RECOVERY_FAILS
 	}
 }
@@ -2160,18 +3086,15 @@ MAD_dahalo_prepare_for_civil_war = {
 
 
 MAD_cancel_TGV_velirano_commitments = {
-		clr_country_flag = MAD_TGV_PROMISED_WATER
-		clr_country_flag = MAD_TGV_PROMISED_INFRASTRUCTURE
-		clr_country_flag = MAD_TGV_PROMISED_DIGITAL
-		clr_country_flag = MAD_TGV_PROMISED_JOBS
-		clr_country_flag = MAD_TGV_PROMISED_FOOD
-		clr_country_flag = MAD_TGV_DELIVERED_WATER
-		clr_country_flag = MAD_TGV_DELIVERED_INFRASTRUCTURE
-		clr_country_flag = MAD_TGV_DELIVERED_DIGITAL
-		clr_country_flag = MAD_TGV_DELIVERED_JOBS
-		clr_country_flag = MAD_TGV_DELIVERED_FOOD
-		clr_country_flag = MAD_TGV_PROMISES_OPEN
-	}
+	# Unfulfilled promises are cancelled when TGV leaves office. Completed delivery flags are permanent records:
+	# the ideas are removed by party synchronisation, but the decisions must not become repeatable.
+	clr_country_flag = MAD_TGV_PROMISED_WATER
+	clr_country_flag = MAD_TGV_PROMISED_INFRASTRUCTURE
+	clr_country_flag = MAD_TGV_PROMISED_DIGITAL
+	clr_country_flag = MAD_TGV_PROMISED_JOBS
+	clr_country_flag = MAD_TGV_PROMISED_FOOD
+	clr_country_flag = MAD_TGV_PROMISES_OPEN
+}
 
 	MAD_cancel_HVM_project_review = {
 		if = {
@@ -2185,129 +3108,811 @@ MAD_cancel_TGV_velirano_commitments = {
 
 	# Called by mad_political.8 from on_ruling_party_change.
 	# Party programme ideas disappear when that party leaves government.
-	MAD_clear_party_political_ideas = {
-
+MAD_seed_party_idea_entitlements = {
+	# One-time capture for ideas already active when this system is first installed or loaded.
+	if = {
+		limit = { NOT = { has_country_flag = MAD_PI_IDEA_REGISTRY_INITIALISED } }
 		if = {
-			limit = { NOT = { OR = { MAD_ROY_IN_POWER = yes MAD_TAMIMA_IN_POWER = yes } } }
-			remove_ideas = MAD_POL_ROYAL_CONSTITUTION
-			remove_ideas = MAD_POL_ROYAL_GOVERNMENT
-			remove_ideas = MAD_POL_TAMIMA_COUNCIL
-			remove_ideas = MAD_POL_CHRISTOCRATIC_STATE
-			remove_ideas = MAD_POL_CUSTOMARY_ADMINISTRATION
-			remove_ideas = MAD_POL_TRADITIONAL_CONSTITUTION
-			remove_ideas = MAD_POL_ROYAL_CONSOLIDATION
-			remove_ideas = MAD_POL_TAMIMA_GOVERNANCE
-			clr_country_flag = MAD_ROYAL_ABSOLUTE_GOVERNMENT
-			clr_country_flag = MAD_TAMIMA_REGIME_CONSOLIDATED
-			clr_country_flag = MAD_RABARIOELINA_ABSOLUTE
-			clr_country_flag = MAD_TAMIMA_COUNCIL
-			clr_country_flag = MAD_ROYAL_CROWN_QUESTION_PENDING
+			limit = { has_idea = MAD_POL_ROYAL_CONSTITUTION }
+			set_country_flag = MAD_PI_EARNED_MAD_POL_ROYAL_CONSTITUTION
+			set_country_flag = MAD_PI_ACTIVE_MAD_POL_ROYAL_CONSTITUTION
 		}
-
 		if = {
-			limit = { NOT = { MAD_MIL_IN_POWER = yes } }
-			remove_ideas = MAD_POL_MILITARY_MANDATE
-			remove_ideas = MAD_POL_MILITARY_GUARDIAN
-			remove_ideas = MAD_POL_MILITARY_GOVERNMENT
-			remove_ideas = MAD_POL_MARITIME_SECURITY
-			remove_ideas = MAD_MIL_PROFESSIONAL_COMMAND
-			clr_country_flag = MAD_MILITARY_RULE_PATH
-			clr_country_flag = MAD_MILITARY_CIVILIAN_GUARDIAN
-			clr_country_flag = MAD_MILITARY_SECURITY_PARTNER
-			clr_country_flag = MAD_MIL_REFOUNDATION_PROFESSIONAL
-			clr_country_flag = MAD_MIL_REFOUNDATION_GUARDIAN
-			clr_country_flag = MAD_MIL_REFOUNDATION_ARBITER
-			clr_country_flag = MAD_MIL_REFOUNDATION_PENDING
-			clr_country_flag = MAD_MIL_OFFICER_CONFERENCE_HELD
-			clr_country_flag = MAD_MIL_CIVILIAN_OVERSIGHT_DONE
-			clr_country_flag = MAD_MIL_GENDARMERIE_DECISION_DONE
+			limit = { has_idea = MAD_POL_ROYAL_GOVERNMENT }
+			set_country_flag = MAD_PI_EARNED_MAD_POL_ROYAL_GOVERNMENT
+			set_country_flag = MAD_PI_ACTIVE_MAD_POL_ROYAL_GOVERNMENT
 		}
-
 		if = {
-			limit = { NOT = { MAD_AREMA_IN_POWER = yes } }
-			remove_ideas = MAD_POL_AREMA_PROGRAMME
-			remove_ideas = MAD_POL_AREMA_STATE_SOCIALISM
-			remove_ideas = MAD_POL_AREMA_MODERN_SOCIALISM
-			remove_ideas = MAD_AREMA_OLD_GUARD
-			remove_ideas = MAD_AREMA_RENEWAL
-			remove_ideas = MAD_AREMA_RECONCILIATION
-			remove_ideas = MAD_AREMA_REBUILDING
-			remove_ideas = MAD_AREMA_OLD_GUARD_REFORMED
-			remove_ideas = MAD_AREMA_RENEWAL_MODERNISED
-			remove_ideas = MAD_AREMA_RECONCILIATION_INSTITUTIONALISED
-			remove_ideas = MAD_AREMA_NON_ALIGNMENT
-			remove_ideas = MAD_AREMA_SECOND_SOCIALISM
-			remove_ideas = MAD_AREMA_SOCIAL_CONTRACT
-			clr_country_flag = MAD_AREMA_STATE_MODEL
-			clr_country_flag = MAD_AREMA_PUBLIC_ENTERPRISES
-			clr_country_flag = MAD_AREMA_CONGRESS_PENDING
+			limit = { has_idea = MAD_POL_CHRISTOCRATIC_STATE }
+			set_country_flag = MAD_PI_EARNED_MAD_POL_CHRISTOCRATIC_STATE
+			set_country_flag = MAD_PI_ACTIVE_MAD_POL_CHRISTOCRATIC_STATE
 		}
-
 		if = {
-			limit = { NOT = { MAD_TIM_IN_POWER = yes } }
-			remove_ideas = MAD_POL_TIM_LIBERAL_PROGRAMME
-			remove_ideas = MAD_POL_TIM_INSTITUTIONAL_LIBERALISM
-			remove_ideas = MAD_POL_TIM_NATIONAL_CHAMPION_PROGRAMME
-			remove_ideas = MAD_TIM_RECONCILIATION_COMPACT
-			remove_ideas = MAD_TIM_RECONCILIATION_CONDITIONAL
-			remove_ideas = MAD_TIM_JUSTICE_AND_ACCOUNTABILITY
-			remove_ideas = MAD_TIM_TIKO_FIREWALL
-			remove_ideas = MAD_TIM_TIKO_NATIONAL_CHAMPION
-			remove_ideas = MAD_TIM_TIKO_MIXED
-			remove_ideas = MAD_TIM_REPUBLICAN_INSTITUTIONS
-			clr_country_flag = MAD_TIM_RECONCILIATION_INCLUSIVE
-			clr_country_flag = MAD_TIM_RECONCILIATION_CONDITIONAL
-			clr_country_flag = MAD_TIM_RECONCILIATION_ACCOUNTABILITY
-			clr_country_flag = MAD_TIM_TIKO_FIREWALL
-			clr_country_flag = MAD_TIM_TIKO_NATIONAL_CHAMPION
-			clr_country_flag = MAD_TIM_TIKO_MIXED
-			clr_country_flag = MAD_TIM_INSTITUTIONAL_MODEL
-			clr_country_flag = MAD_TIM_NATIONAL_CHAMPION_MODEL
-			clr_country_flag = MAD_TIM_COMPETITION_MODEL
-			clr_country_flag = MAD_TIM_RECONCILIATION_PENDING
-			clr_country_flag = MAD_TIM_TIKO_PENDING
+			limit = { has_idea = MAD_POL_CUSTOMARY_ADMINISTRATION }
+			set_country_flag = MAD_PI_EARNED_MAD_POL_CUSTOMARY_ADMINISTRATION
+			set_country_flag = MAD_PI_ACTIVE_MAD_POL_CUSTOMARY_ADMINISTRATION
 		}
-
 		if = {
-			limit = { NOT = { MAD_TGV_IN_POWER = yes } }
-			remove_ideas = MAD_POL_TGV_PEM
-			remove_ideas = MAD_POL_TGV_INSTITUTIONAL_EMERGENCE
-			remove_ideas = MAD_POL_TGV_PRESIDENTIALISM
-			remove_ideas = MAD_TGV_ELECTORAL_LEGITIMACY
-			remove_ideas = MAD_TGV_REVOLUTIONARY_LEGACY
-			remove_ideas = MAD_TGV_EMERGENCY_MANDATE
-			remove_ideas = MAD_TGV_DELIVERY_WATER
-			remove_ideas = MAD_TGV_DELIVERY_INFRASTRUCTURE
-			remove_ideas = MAD_TGV_DELIVERY_DIGITAL
-			remove_ideas = MAD_TGV_DELIVERY_JOBS
-			remove_ideas = MAD_TGV_DELIVERY_FOOD
-			clr_country_flag = MAD_TGV_REVOLUTIONARY
-			clr_country_flag = MAD_TGV_ELECTORAL
-			clr_country_flag = MAD_TGV_EMERGENCY
-			clr_country_flag = MAD_TGV_MOVEMENT_ACTIVE
-			clr_country_flag = MAD_TGV_2009_LEGACY_PENDING
-			MAD_cancel_TGV_velirano_commitments = yes
+			limit = { has_idea = MAD_POL_ROYAL_CONSOLIDATION }
+			set_country_flag = MAD_PI_EARNED_MAD_POL_ROYAL_CONSOLIDATION
+			set_country_flag = MAD_PI_ACTIVE_MAD_POL_ROYAL_CONSOLIDATION
 		}
-
 		if = {
-			limit = { NOT = { MAD_HVM_IN_POWER = yes } }
-			remove_ideas = MAD_POL_HVM_TECHNOCRATIC_STATE
-			remove_ideas = MAD_HVM_PROJECT_COMPLETION
-			remove_ideas = MAD_HVM_PROJECT_RENEGOTIATED
-			remove_ideas = MAD_HVM_PROJECT_PRUNING
-			remove_ideas = MAD_HVM_FISANDRATANA_FULL
-			remove_ideas = MAD_HVM_FISANDRATANA_PARTIAL
-			remove_ideas = MAD_HVM_FISANDRATANA_PLANNING
-			remove_ideas = MAD_HVM_REPUBLICAN_STABILISATION
-			remove_ideas = MAD_HVM_RULE_OF_LAW_PROGRAMME
-			MAD_cancel_HVM_project_review = yes
-			clr_country_flag = MAD_HVM_PROJECT_REVIEWED
-			clr_country_flag = MAD_HVM_PROJECT_REVIEW_DECIDED
-			clr_country_flag = MAD_HVM_PROJECT_REVIEW_CANCELLED
-			clr_country_flag = MAD_HVM_FISANDRATANA_FULL
-			clr_country_flag = MAD_HVM_FISANDRATANA_PARTIAL
-			clr_country_flag = MAD_HVM_FISANDRATANA_PLANNING_ONLY
+			limit = { has_idea = MAD_POL_ROYAL_JUSTICE }
+			set_country_flag = MAD_PI_EARNED_MAD_POL_ROYAL_JUSTICE
+			set_country_flag = MAD_PI_ACTIVE_MAD_POL_ROYAL_JUSTICE
 		}
+		if = {
+			limit = { has_idea = MAD_POL_TAMIMA_COUNCIL }
+			set_country_flag = MAD_PI_EARNED_MAD_POL_TAMIMA_COUNCIL
+			set_country_flag = MAD_PI_ACTIVE_MAD_POL_TAMIMA_COUNCIL
+		}
+		if = {
+			limit = { has_idea = MAD_POL_TRADITIONAL_CONSTITUTION }
+			set_country_flag = MAD_PI_EARNED_MAD_POL_TRADITIONAL_CONSTITUTION
+			set_country_flag = MAD_PI_ACTIVE_MAD_POL_TRADITIONAL_CONSTITUTION
+		}
+		if = {
+			limit = { has_idea = MAD_POL_TAMIMA_GOVERNANCE }
+			set_country_flag = MAD_PI_EARNED_MAD_POL_TAMIMA_GOVERNANCE
+			set_country_flag = MAD_PI_ACTIVE_MAD_POL_TAMIMA_GOVERNANCE
+		}
+		if = {
+			limit = { has_idea = MAD_POL_MILITARY_GOVERNMENT }
+			set_country_flag = MAD_PI_EARNED_MAD_POL_MILITARY_GOVERNMENT
+			set_country_flag = MAD_PI_ACTIVE_MAD_POL_MILITARY_GOVERNMENT
+		}
+		if = {
+			limit = { has_idea = MAD_POL_MILITARY_GUARDIAN }
+			set_country_flag = MAD_PI_EARNED_MAD_POL_MILITARY_GUARDIAN
+			set_country_flag = MAD_PI_ACTIVE_MAD_POL_MILITARY_GUARDIAN
+		}
+		if = {
+			limit = { has_idea = MAD_POL_MARITIME_SECURITY }
+			set_country_flag = MAD_PI_EARNED_MAD_POL_MARITIME_SECURITY
+			set_country_flag = MAD_PI_ACTIVE_MAD_POL_MARITIME_SECURITY
+		}
+		if = {
+			limit = { has_idea = MAD_MIL_PROFESSIONAL_COMMAND }
+			set_country_flag = MAD_PI_EARNED_MAD_MIL_PROFESSIONAL_COMMAND
+			set_country_flag = MAD_PI_ACTIVE_MAD_MIL_PROFESSIONAL_COMMAND
+		}
+		if = {
+			limit = { has_idea = MAD_MIL_PROFESSIONAL_OFFICERS }
+			set_country_flag = MAD_PI_EARNED_MAD_MIL_PROFESSIONAL_OFFICERS
+			set_country_flag = MAD_PI_ACTIVE_MAD_MIL_PROFESSIONAL_OFFICERS
+		}
+		if = {
+			limit = { has_idea = MAD_MIL_SOUTHERN_SECURITY }
+			set_country_flag = MAD_PI_EARNED_MAD_MIL_SOUTHERN_SECURITY
+			set_country_flag = MAD_PI_ACTIVE_MAD_MIL_SOUTHERN_SECURITY
+		}
+		if = {
+			limit = { has_idea = MAD_MIL_GENDARMERIE_REFORM }
+			set_country_flag = MAD_PI_EARNED_MAD_MIL_GENDARMERIE_REFORM
+			set_country_flag = MAD_PI_ACTIVE_MAD_MIL_GENDARMERIE_REFORM
+		}
+		if = {
+			limit = { has_idea = MAD_MIL_ENGINEER_CORPS }
+			set_country_flag = MAD_PI_EARNED_MAD_MIL_ENGINEER_CORPS
+			set_country_flag = MAD_PI_ACTIVE_MAD_MIL_ENGINEER_CORPS
+		}
+		if = {
+			limit = { has_idea = MAD_MIL_UNIFIED_FORCES }
+			set_country_flag = MAD_PI_EARNED_MAD_MIL_UNIFIED_FORCES
+			set_country_flag = MAD_PI_ACTIVE_MAD_MIL_UNIFIED_FORCES
+		}
+		if = {
+			limit = { has_idea = MAD_MIL_MULTILATERAL_DOCTRINE }
+			set_country_flag = MAD_PI_EARNED_MAD_MIL_MULTILATERAL_DOCTRINE
+			set_country_flag = MAD_PI_ACTIVE_MAD_MIL_MULTILATERAL_DOCTRINE
+		}
+		if = {
+			limit = { has_idea = MAD_MIL_CLEAN_UNIFORM }
+			set_country_flag = MAD_PI_EARNED_MAD_MIL_CLEAN_UNIFORM
+			set_country_flag = MAD_PI_ACTIVE_MAD_MIL_CLEAN_UNIFORM
+		}
+		if = {
+			limit = { has_idea = MAD_MIL_CIVILIAN_GUARDIANSHIP }
+			set_country_flag = MAD_PI_EARNED_MAD_MIL_CIVILIAN_GUARDIANSHIP
+			set_country_flag = MAD_PI_ACTIVE_MAD_MIL_CIVILIAN_GUARDIANSHIP
+		}
+		if = {
+			limit = { has_idea = MAD_POL_AREMA_PROGRAMME }
+			set_country_flag = MAD_PI_EARNED_MAD_POL_AREMA_PROGRAMME
+			set_country_flag = MAD_PI_ACTIVE_MAD_POL_AREMA_PROGRAMME
+		}
+		if = {
+			limit = { has_idea = MAD_POL_AREMA_STATE_SOCIALISM }
+			set_country_flag = MAD_PI_EARNED_MAD_POL_AREMA_STATE_SOCIALISM
+			set_country_flag = MAD_PI_ACTIVE_MAD_POL_AREMA_STATE_SOCIALISM
+		}
+		if = {
+			limit = { has_idea = MAD_POL_AREMA_MODERN_SOCIALISM }
+			set_country_flag = MAD_PI_EARNED_MAD_POL_AREMA_MODERN_SOCIALISM
+			set_country_flag = MAD_PI_ACTIVE_MAD_POL_AREMA_MODERN_SOCIALISM
+		}
+		if = {
+			limit = { has_idea = MAD_AREMA_OLD_GUARD }
+			set_country_flag = MAD_PI_EARNED_MAD_AREMA_OLD_GUARD
+			set_country_flag = MAD_PI_ACTIVE_MAD_AREMA_OLD_GUARD
+		}
+		if = {
+			limit = { has_idea = MAD_AREMA_RENEWAL }
+			set_country_flag = MAD_PI_EARNED_MAD_AREMA_RENEWAL
+			set_country_flag = MAD_PI_ACTIVE_MAD_AREMA_RENEWAL
+		}
+		if = {
+			limit = { has_idea = MAD_AREMA_RECONCILIATION }
+			set_country_flag = MAD_PI_EARNED_MAD_AREMA_RECONCILIATION
+			set_country_flag = MAD_PI_ACTIVE_MAD_AREMA_RECONCILIATION
+		}
+		if = {
+			limit = { has_idea = MAD_AREMA_REBUILDING }
+			set_country_flag = MAD_PI_EARNED_MAD_AREMA_REBUILDING
+			set_country_flag = MAD_PI_ACTIVE_MAD_AREMA_REBUILDING
+		}
+		if = {
+			limit = { has_idea = MAD_AREMA_OLD_GUARD_REFORMED }
+			set_country_flag = MAD_PI_EARNED_MAD_AREMA_OLD_GUARD_REFORMED
+			set_country_flag = MAD_PI_ACTIVE_MAD_AREMA_OLD_GUARD_REFORMED
+		}
+		if = {
+			limit = { has_idea = MAD_AREMA_RENEWAL_MODERNISED }
+			set_country_flag = MAD_PI_EARNED_MAD_AREMA_RENEWAL_MODERNISED
+			set_country_flag = MAD_PI_ACTIVE_MAD_AREMA_RENEWAL_MODERNISED
+		}
+		if = {
+			limit = { has_idea = MAD_AREMA_RECONCILIATION_INSTITUTIONALISED }
+			set_country_flag = MAD_PI_EARNED_MAD_AREMA_RECONCILIATION_INSTITUTIONALISED
+			set_country_flag = MAD_PI_ACTIVE_MAD_AREMA_RECONCILIATION_INSTITUTIONALISED
+		}
+		if = {
+			limit = { has_idea = MAD_AREMA_NON_ALIGNMENT }
+			set_country_flag = MAD_PI_EARNED_MAD_AREMA_NON_ALIGNMENT
+			set_country_flag = MAD_PI_ACTIVE_MAD_AREMA_NON_ALIGNMENT
+		}
+		if = {
+			limit = { has_idea = MAD_AREMA_SECOND_SOCIALISM }
+			set_country_flag = MAD_PI_EARNED_MAD_AREMA_SECOND_SOCIALISM
+			set_country_flag = MAD_PI_ACTIVE_MAD_AREMA_SECOND_SOCIALISM
+		}
+		if = {
+			limit = { has_idea = MAD_AREMA_SOCIAL_CONTRACT }
+			set_country_flag = MAD_PI_EARNED_MAD_AREMA_SOCIAL_CONTRACT
+			set_country_flag = MAD_PI_ACTIVE_MAD_AREMA_SOCIAL_CONTRACT
+		}
+		if = {
+			limit = { has_idea = MAD_POL_TIM_LIBERAL_PROGRAMME }
+			set_country_flag = MAD_PI_EARNED_MAD_POL_TIM_LIBERAL_PROGRAMME
+			set_country_flag = MAD_PI_ACTIVE_MAD_POL_TIM_LIBERAL_PROGRAMME
+		}
+		if = {
+			limit = { has_idea = MAD_POL_TIM_GREEN_REVOLUTION_IDEA }
+			set_country_flag = MAD_PI_EARNED_MAD_POL_TIM_GREEN_REVOLUTION_IDEA
+			set_country_flag = MAD_PI_ACTIVE_MAD_POL_TIM_GREEN_REVOLUTION_IDEA
+		}
+		if = {
+			limit = { has_idea = MAD_POL_TIM_INSTITUTIONAL_LIBERALISM }
+			set_country_flag = MAD_PI_EARNED_MAD_POL_TIM_INSTITUTIONAL_LIBERALISM
+			set_country_flag = MAD_PI_ACTIVE_MAD_POL_TIM_INSTITUTIONAL_LIBERALISM
+		}
+		if = {
+			limit = { has_idea = MAD_POL_TIM_NATIONAL_CHAMPION_PROGRAMME }
+			set_country_flag = MAD_PI_EARNED_MAD_POL_TIM_NATIONAL_CHAMPION_PROGRAMME
+			set_country_flag = MAD_PI_ACTIVE_MAD_POL_TIM_NATIONAL_CHAMPION_PROGRAMME
+		}
+		if = {
+			limit = { has_idea = MAD_TIM_RECONCILIATION_COMPACT }
+			set_country_flag = MAD_PI_EARNED_MAD_TIM_RECONCILIATION_COMPACT
+			set_country_flag = MAD_PI_ACTIVE_MAD_TIM_RECONCILIATION_COMPACT
+		}
+		if = {
+			limit = { has_idea = MAD_TIM_RECONCILIATION_CONDITIONAL }
+			set_country_flag = MAD_PI_EARNED_MAD_TIM_RECONCILIATION_CONDITIONAL
+			set_country_flag = MAD_PI_ACTIVE_MAD_TIM_RECONCILIATION_CONDITIONAL
+		}
+		if = {
+			limit = { has_idea = MAD_TIM_JUSTICE_AND_ACCOUNTABILITY }
+			set_country_flag = MAD_PI_EARNED_MAD_TIM_JUSTICE_AND_ACCOUNTABILITY
+			set_country_flag = MAD_PI_ACTIVE_MAD_TIM_JUSTICE_AND_ACCOUNTABILITY
+		}
+		if = {
+			limit = { has_idea = MAD_TIM_TIKO_FIREWALL }
+			set_country_flag = MAD_PI_EARNED_MAD_TIM_TIKO_FIREWALL
+			set_country_flag = MAD_PI_ACTIVE_MAD_TIM_TIKO_FIREWALL
+		}
+		if = {
+			limit = { has_idea = MAD_TIM_TIKO_NATIONAL_CHAMPION }
+			set_country_flag = MAD_PI_EARNED_MAD_TIM_TIKO_NATIONAL_CHAMPION
+			set_country_flag = MAD_PI_ACTIVE_MAD_TIM_TIKO_NATIONAL_CHAMPION
+		}
+		if = {
+			limit = { has_idea = MAD_TIM_TIKO_MIXED }
+			set_country_flag = MAD_PI_EARNED_MAD_TIM_TIKO_MIXED
+			set_country_flag = MAD_PI_ACTIVE_MAD_TIM_TIKO_MIXED
+		}
+		if = {
+			limit = { has_idea = MAD_TIM_REPUBLICAN_INSTITUTIONS }
+			set_country_flag = MAD_PI_EARNED_MAD_TIM_REPUBLICAN_INSTITUTIONS
+			set_country_flag = MAD_PI_ACTIVE_MAD_TIM_REPUBLICAN_INSTITUTIONS
+		}
+		if = {
+			limit = { has_idea = MAD_POL_TGV_INSTITUTIONAL_EMERGENCE }
+			set_country_flag = MAD_PI_EARNED_MAD_POL_TGV_INSTITUTIONAL_EMERGENCE
+			set_country_flag = MAD_PI_ACTIVE_MAD_POL_TGV_INSTITUTIONAL_EMERGENCE
+		}
+		if = {
+			limit = { has_idea = MAD_POL_TGV_PRESIDENTIALISM }
+			set_country_flag = MAD_PI_EARNED_MAD_POL_TGV_PRESIDENTIALISM
+			set_country_flag = MAD_PI_ACTIVE_MAD_POL_TGV_PRESIDENTIALISM
+		}
+		if = {
+			limit = { has_idea = MAD_POL_TGV_PEM }
+			set_country_flag = MAD_PI_EARNED_MAD_POL_TGV_PEM
+			set_country_flag = MAD_PI_ACTIVE_MAD_POL_TGV_PEM
+		}
+		if = {
+			limit = { has_idea = MAD_TGV_REVOLUTIONARY_LEGACY }
+			set_country_flag = MAD_PI_EARNED_MAD_TGV_REVOLUTIONARY_LEGACY
+			set_country_flag = MAD_PI_ACTIVE_MAD_TGV_REVOLUTIONARY_LEGACY
+		}
+		if = {
+			limit = { has_idea = MAD_TGV_ELECTORAL_LEGITIMACY }
+			set_country_flag = MAD_PI_EARNED_MAD_TGV_ELECTORAL_LEGITIMACY
+			set_country_flag = MAD_PI_ACTIVE_MAD_TGV_ELECTORAL_LEGITIMACY
+		}
+		if = {
+			limit = { has_idea = MAD_TGV_EMERGENCY_MANDATE }
+			set_country_flag = MAD_PI_EARNED_MAD_TGV_EMERGENCY_MANDATE
+			set_country_flag = MAD_PI_ACTIVE_MAD_TGV_EMERGENCY_MANDATE
+		}
+		if = {
+			limit = { has_idea = MAD_TGV_DELIVERY_WATER }
+			set_country_flag = MAD_PI_EARNED_MAD_TGV_DELIVERY_WATER
+			set_country_flag = MAD_PI_ACTIVE_MAD_TGV_DELIVERY_WATER
+		}
+		if = {
+			limit = { has_idea = MAD_TGV_DELIVERY_INFRASTRUCTURE }
+			set_country_flag = MAD_PI_EARNED_MAD_TGV_DELIVERY_INFRASTRUCTURE
+			set_country_flag = MAD_PI_ACTIVE_MAD_TGV_DELIVERY_INFRASTRUCTURE
+		}
+		if = {
+			limit = { has_idea = MAD_TGV_DELIVERY_DIGITAL }
+			set_country_flag = MAD_PI_EARNED_MAD_TGV_DELIVERY_DIGITAL
+			set_country_flag = MAD_PI_ACTIVE_MAD_TGV_DELIVERY_DIGITAL
+		}
+		if = {
+			limit = { has_idea = MAD_TGV_DELIVERY_JOBS }
+			set_country_flag = MAD_PI_EARNED_MAD_TGV_DELIVERY_JOBS
+			set_country_flag = MAD_PI_ACTIVE_MAD_TGV_DELIVERY_JOBS
+		}
+		if = {
+			limit = { has_idea = MAD_TGV_DELIVERY_FOOD }
+			set_country_flag = MAD_PI_EARNED_MAD_TGV_DELIVERY_FOOD
+			set_country_flag = MAD_PI_ACTIVE_MAD_TGV_DELIVERY_FOOD
+		}
+		if = {
+			limit = { has_idea = MAD_POL_HVM_TECHNOCRATIC_STATE }
+			set_country_flag = MAD_PI_EARNED_MAD_POL_HVM_TECHNOCRATIC_STATE
+			set_country_flag = MAD_PI_ACTIVE_MAD_POL_HVM_TECHNOCRATIC_STATE
+		}
+		if = {
+			limit = { has_idea = MAD_HVM_ADMINISTRATIVE_STATE }
+			set_country_flag = MAD_PI_EARNED_MAD_HVM_ADMINISTRATIVE_STATE
+			set_country_flag = MAD_PI_ACTIVE_MAD_HVM_ADMINISTRATIVE_STATE
+		}
+		if = {
+			limit = { has_idea = MAD_HVM_PUBLIC_FINANCE }
+			set_country_flag = MAD_PI_EARNED_MAD_HVM_PUBLIC_FINANCE
+			set_country_flag = MAD_PI_ACTIVE_MAD_HVM_PUBLIC_FINANCE
+		}
+		if = {
+			limit = { has_idea = MAD_HVM_INVESTMENT_FRIENDLY }
+			set_country_flag = MAD_PI_EARNED_MAD_HVM_INVESTMENT_FRIENDLY
+			set_country_flag = MAD_PI_ACTIVE_MAD_HVM_INVESTMENT_FRIENDLY
+		}
+		if = {
+			limit = { has_idea = MAD_HVM_HUMAN_CAPITAL }
+			set_country_flag = MAD_PI_EARNED_MAD_HVM_HUMAN_CAPITAL
+			set_country_flag = MAD_PI_ACTIVE_MAD_HVM_HUMAN_CAPITAL
+		}
+		if = {
+			limit = { has_idea = MAD_HVM_VOCATIONAL_TRAINING }
+			set_country_flag = MAD_PI_EARNED_MAD_HVM_VOCATIONAL_TRAINING
+			set_country_flag = MAD_PI_ACTIVE_MAD_HVM_VOCATIONAL_TRAINING
+		}
+		if = {
+			limit = { has_idea = MAD_HVM_AGRICULTURE }
+			set_country_flag = MAD_PI_EARNED_MAD_HVM_AGRICULTURE
+			set_country_flag = MAD_PI_ACTIVE_MAD_HVM_AGRICULTURE
+		}
+		if = {
+			limit = { has_idea = MAD_HVM_LIGHT_INDUSTRY }
+			set_country_flag = MAD_PI_EARNED_MAD_HVM_LIGHT_INDUSTRY
+			set_country_flag = MAD_PI_ACTIVE_MAD_HVM_LIGHT_INDUSTRY
+		}
+		if = {
+			limit = { has_idea = MAD_HVM_PPP_FRAMEWORK }
+			set_country_flag = MAD_PI_EARNED_MAD_HVM_PPP_FRAMEWORK
+			set_country_flag = MAD_PI_ACTIVE_MAD_HVM_PPP_FRAMEWORK
+		}
+		if = {
+			limit = { has_idea = MAD_HVM_ENERGY_FOR_GROWTH }
+			set_country_flag = MAD_PI_EARNED_MAD_HVM_ENERGY_FOR_GROWTH
+			set_country_flag = MAD_PI_ACTIVE_MAD_HVM_ENERGY_FOR_GROWTH
+		}
+		if = {
+			limit = { has_idea = MAD_HVM_NATURAL_CAPITAL }
+			set_country_flag = MAD_PI_EARNED_MAD_HVM_NATURAL_CAPITAL
+			set_country_flag = MAD_PI_ACTIVE_MAD_HVM_NATURAL_CAPITAL
+		}
+		if = {
+			limit = { has_idea = MAD_HVM_ELECTORAL_FRAMEWORK }
+			set_country_flag = MAD_PI_EARNED_MAD_HVM_ELECTORAL_FRAMEWORK
+			set_country_flag = MAD_PI_ACTIVE_MAD_HVM_ELECTORAL_FRAMEWORK
+		}
+		if = {
+			limit = { has_idea = MAD_HVM_FRANCO_MALAGASY_PARTNERSHIP }
+			set_country_flag = MAD_PI_EARNED_MAD_HVM_FRANCO_MALAGASY_PARTNERSHIP
+			set_country_flag = MAD_PI_ACTIVE_MAD_HVM_FRANCO_MALAGASY_PARTNERSHIP
+		}
+		if = {
+			limit = { has_idea = MAD_HVM_PROJECT_COMPLETION }
+			set_country_flag = MAD_PI_EARNED_MAD_HVM_PROJECT_COMPLETION
+			set_country_flag = MAD_PI_ACTIVE_MAD_HVM_PROJECT_COMPLETION
+		}
+		if = {
+			limit = { has_idea = MAD_HVM_PROJECT_RENEGOTIATED }
+			set_country_flag = MAD_PI_EARNED_MAD_HVM_PROJECT_RENEGOTIATED
+			set_country_flag = MAD_PI_ACTIVE_MAD_HVM_PROJECT_RENEGOTIATED
+		}
+		if = {
+			limit = { has_idea = MAD_HVM_PROJECT_PRUNING }
+			set_country_flag = MAD_PI_EARNED_MAD_HVM_PROJECT_PRUNING
+			set_country_flag = MAD_PI_ACTIVE_MAD_HVM_PROJECT_PRUNING
+		}
+		if = {
+			limit = { has_idea = MAD_HVM_FISANDRATANA_FULL }
+			set_country_flag = MAD_PI_EARNED_MAD_HVM_FISANDRATANA_FULL
+			set_country_flag = MAD_PI_ACTIVE_MAD_HVM_FISANDRATANA_FULL
+		}
+		if = {
+			limit = { has_idea = MAD_HVM_FISANDRATANA_PARTIAL }
+			set_country_flag = MAD_PI_EARNED_MAD_HVM_FISANDRATANA_PARTIAL
+			set_country_flag = MAD_PI_ACTIVE_MAD_HVM_FISANDRATANA_PARTIAL
+		}
+		if = {
+			limit = { has_idea = MAD_HVM_FISANDRATANA_PLANNING }
+			set_country_flag = MAD_PI_EARNED_MAD_HVM_FISANDRATANA_PLANNING
+			set_country_flag = MAD_PI_ACTIVE_MAD_HVM_FISANDRATANA_PLANNING
+		}
+		if = {
+			limit = { has_idea = MAD_HVM_REPUBLICAN_STABILISATION }
+			set_country_flag = MAD_PI_EARNED_MAD_HVM_REPUBLICAN_STABILISATION
+			set_country_flag = MAD_PI_ACTIVE_MAD_HVM_REPUBLICAN_STABILISATION
+		}
+		if = {
+			limit = { has_idea = MAD_HVM_RULE_OF_LAW_PROGRAMME }
+			set_country_flag = MAD_PI_EARNED_MAD_HVM_RULE_OF_LAW_PROGRAMME
+			set_country_flag = MAD_PI_ACTIVE_MAD_HVM_RULE_OF_LAW_PROGRAMME
+		}
+		set_country_flag = MAD_PI_IDEA_REGISTRY_INITIALISED
 	}
+}
+
+MAD_sync_party_political_ideas = {
+	# Capture any already-active ideas before removing anything (important on old saves).
+	MAD_seed_party_idea_entitlements = yes
+	# Prevent removals in this sync from clearing the earned flags.
+	set_country_flag = MAD_PI_SYNC_IN_PROGRESS
+	# Remove all party-programme ideas, then reapply only the current government's entitlements.
+	remove_ideas = MAD_POL_ROYAL_CONSTITUTION
+	remove_ideas = MAD_POL_ROYAL_GOVERNMENT
+	remove_ideas = MAD_POL_CHRISTOCRATIC_STATE
+	remove_ideas = MAD_POL_CUSTOMARY_ADMINISTRATION
+	remove_ideas = MAD_POL_ROYAL_CONSOLIDATION
+	remove_ideas = MAD_POL_ROYAL_JUSTICE
+	remove_ideas = MAD_POL_TAMIMA_COUNCIL
+	remove_ideas = MAD_POL_TRADITIONAL_CONSTITUTION
+	remove_ideas = MAD_POL_TAMIMA_GOVERNANCE
+	remove_ideas = MAD_POL_MILITARY_GOVERNMENT
+	remove_ideas = MAD_POL_MILITARY_GUARDIAN
+	remove_ideas = MAD_POL_MARITIME_SECURITY
+	remove_ideas = MAD_MIL_PROFESSIONAL_COMMAND
+	remove_ideas = MAD_MIL_PROFESSIONAL_OFFICERS
+	remove_ideas = MAD_MIL_SOUTHERN_SECURITY
+	remove_ideas = MAD_MIL_GENDARMERIE_REFORM
+	remove_ideas = MAD_MIL_ENGINEER_CORPS
+	remove_ideas = MAD_MIL_UNIFIED_FORCES
+	remove_ideas = MAD_MIL_MULTILATERAL_DOCTRINE
+	remove_ideas = MAD_MIL_CLEAN_UNIFORM
+	remove_ideas = MAD_MIL_CIVILIAN_GUARDIANSHIP
+	remove_ideas = MAD_POL_AREMA_PROGRAMME
+	remove_ideas = MAD_POL_AREMA_STATE_SOCIALISM
+	remove_ideas = MAD_POL_AREMA_MODERN_SOCIALISM
+	remove_ideas = MAD_AREMA_OLD_GUARD
+	remove_ideas = MAD_AREMA_RENEWAL
+	remove_ideas = MAD_AREMA_RECONCILIATION
+	remove_ideas = MAD_AREMA_REBUILDING
+	remove_ideas = MAD_AREMA_OLD_GUARD_REFORMED
+	remove_ideas = MAD_AREMA_RENEWAL_MODERNISED
+	remove_ideas = MAD_AREMA_RECONCILIATION_INSTITUTIONALISED
+	remove_ideas = MAD_AREMA_NON_ALIGNMENT
+	remove_ideas = MAD_AREMA_SECOND_SOCIALISM
+	remove_ideas = MAD_AREMA_SOCIAL_CONTRACT
+	remove_ideas = MAD_POL_TIM_LIBERAL_PROGRAMME
+	remove_ideas = MAD_POL_TIM_GREEN_REVOLUTION_IDEA
+	remove_ideas = MAD_POL_TIM_INSTITUTIONAL_LIBERALISM
+	remove_ideas = MAD_POL_TIM_NATIONAL_CHAMPION_PROGRAMME
+	remove_ideas = MAD_TIM_RECONCILIATION_COMPACT
+	remove_ideas = MAD_TIM_RECONCILIATION_CONDITIONAL
+	remove_ideas = MAD_TIM_JUSTICE_AND_ACCOUNTABILITY
+	remove_ideas = MAD_TIM_TIKO_FIREWALL
+	remove_ideas = MAD_TIM_TIKO_NATIONAL_CHAMPION
+	remove_ideas = MAD_TIM_TIKO_MIXED
+	remove_ideas = MAD_TIM_REPUBLICAN_INSTITUTIONS
+	remove_ideas = MAD_POL_TGV_INSTITUTIONAL_EMERGENCE
+	remove_ideas = MAD_POL_TGV_PRESIDENTIALISM
+	remove_ideas = MAD_POL_TGV_PEM
+	remove_ideas = MAD_TGV_REVOLUTIONARY_LEGACY
+	remove_ideas = MAD_TGV_ELECTORAL_LEGITIMACY
+	remove_ideas = MAD_TGV_EMERGENCY_MANDATE
+	remove_ideas = MAD_TGV_DELIVERY_WATER
+	remove_ideas = MAD_TGV_DELIVERY_INFRASTRUCTURE
+	remove_ideas = MAD_TGV_DELIVERY_DIGITAL
+	remove_ideas = MAD_TGV_DELIVERY_JOBS
+	remove_ideas = MAD_TGV_DELIVERY_FOOD
+	remove_ideas = MAD_POL_HVM_TECHNOCRATIC_STATE
+	remove_ideas = MAD_HVM_ADMINISTRATIVE_STATE
+	remove_ideas = MAD_HVM_PUBLIC_FINANCE
+	remove_ideas = MAD_HVM_INVESTMENT_FRIENDLY
+	remove_ideas = MAD_HVM_HUMAN_CAPITAL
+	remove_ideas = MAD_HVM_VOCATIONAL_TRAINING
+	remove_ideas = MAD_HVM_AGRICULTURE
+	remove_ideas = MAD_HVM_LIGHT_INDUSTRY
+	remove_ideas = MAD_HVM_PPP_FRAMEWORK
+	remove_ideas = MAD_HVM_ENERGY_FOR_GROWTH
+	remove_ideas = MAD_HVM_NATURAL_CAPITAL
+	remove_ideas = MAD_HVM_ELECTORAL_FRAMEWORK
+	remove_ideas = MAD_HVM_FRANCO_MALAGASY_PARTNERSHIP
+	remove_ideas = MAD_HVM_PROJECT_COMPLETION
+	remove_ideas = MAD_HVM_PROJECT_RENEGOTIATED
+	remove_ideas = MAD_HVM_PROJECT_PRUNING
+	remove_ideas = MAD_HVM_FISANDRATANA_FULL
+	remove_ideas = MAD_HVM_FISANDRATANA_PARTIAL
+	remove_ideas = MAD_HVM_FISANDRATANA_PLANNING
+	remove_ideas = MAD_HVM_REPUBLICAN_STABILISATION
+	remove_ideas = MAD_HVM_RULE_OF_LAW_PROGRAMME
+
+	# Restore only earned ideas belonging to the current governing party.
+	if = {
+		limit = { OR = { MAD_ROY_IN_POWER = yes MAD_TAMIMA_IN_POWER = yes } has_country_flag = MAD_PI_EARNED_MAD_POL_ROYAL_CONSTITUTION }
+		add_ideas = MAD_POL_ROYAL_CONSTITUTION
+	}
+	if = {
+		limit = { MAD_ROY_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_POL_ROYAL_GOVERNMENT }
+		add_ideas = MAD_POL_ROYAL_GOVERNMENT
+	}
+	if = {
+		limit = { MAD_ROY_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_POL_CHRISTOCRATIC_STATE }
+		add_ideas = MAD_POL_CHRISTOCRATIC_STATE
+	}
+	if = {
+		limit = { MAD_ROY_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_POL_CUSTOMARY_ADMINISTRATION }
+		add_ideas = MAD_POL_CUSTOMARY_ADMINISTRATION
+	}
+	if = {
+		limit = { MAD_ROY_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_POL_ROYAL_CONSOLIDATION }
+		add_ideas = MAD_POL_ROYAL_CONSOLIDATION
+	}
+	if = {
+		limit = { MAD_ROY_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_POL_ROYAL_JUSTICE }
+		add_ideas = MAD_POL_ROYAL_JUSTICE
+	}
+	if = {
+		limit = { MAD_TAMIMA_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_POL_TAMIMA_COUNCIL }
+		add_ideas = MAD_POL_TAMIMA_COUNCIL
+	}
+	if = {
+		limit = { MAD_TAMIMA_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_POL_TRADITIONAL_CONSTITUTION }
+		add_ideas = MAD_POL_TRADITIONAL_CONSTITUTION
+	}
+	if = {
+		limit = { MAD_TAMIMA_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_POL_TAMIMA_GOVERNANCE }
+		add_ideas = MAD_POL_TAMIMA_GOVERNANCE
+	}
+	if = {
+		limit = { MAD_MIL_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_POL_MILITARY_GOVERNMENT }
+		add_ideas = MAD_POL_MILITARY_GOVERNMENT
+	}
+	if = {
+		limit = { MAD_MIL_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_POL_MILITARY_GUARDIAN }
+		add_ideas = MAD_POL_MILITARY_GUARDIAN
+	}
+	if = {
+		limit = { MAD_MIL_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_POL_MARITIME_SECURITY }
+		add_ideas = MAD_POL_MARITIME_SECURITY
+	}
+	if = {
+		limit = { MAD_MIL_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_MIL_PROFESSIONAL_COMMAND }
+		add_ideas = MAD_MIL_PROFESSIONAL_COMMAND
+	}
+	if = {
+		limit = { MAD_MIL_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_MIL_PROFESSIONAL_OFFICERS }
+		add_ideas = MAD_MIL_PROFESSIONAL_OFFICERS
+	}
+	if = {
+		limit = { MAD_MIL_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_MIL_SOUTHERN_SECURITY }
+		add_ideas = MAD_MIL_SOUTHERN_SECURITY
+	}
+	if = {
+		limit = { MAD_MIL_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_MIL_GENDARMERIE_REFORM }
+		add_ideas = MAD_MIL_GENDARMERIE_REFORM
+	}
+	if = {
+		limit = { MAD_MIL_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_MIL_ENGINEER_CORPS }
+		add_ideas = MAD_MIL_ENGINEER_CORPS
+	}
+	if = {
+		limit = { MAD_MIL_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_MIL_UNIFIED_FORCES }
+		add_ideas = MAD_MIL_UNIFIED_FORCES
+	}
+	if = {
+		limit = { MAD_MIL_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_MIL_MULTILATERAL_DOCTRINE }
+		add_ideas = MAD_MIL_MULTILATERAL_DOCTRINE
+	}
+	if = {
+		limit = { MAD_MIL_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_MIL_CLEAN_UNIFORM }
+		add_ideas = MAD_MIL_CLEAN_UNIFORM
+	}
+	if = {
+		limit = { MAD_MIL_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_MIL_CIVILIAN_GUARDIANSHIP }
+		add_ideas = MAD_MIL_CIVILIAN_GUARDIANSHIP
+	}
+	if = {
+		limit = { MAD_AREMA_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_POL_AREMA_PROGRAMME }
+		add_ideas = MAD_POL_AREMA_PROGRAMME
+	}
+	if = {
+		limit = { MAD_AREMA_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_POL_AREMA_STATE_SOCIALISM }
+		add_ideas = MAD_POL_AREMA_STATE_SOCIALISM
+	}
+	if = {
+		limit = { MAD_AREMA_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_POL_AREMA_MODERN_SOCIALISM }
+		add_ideas = MAD_POL_AREMA_MODERN_SOCIALISM
+	}
+	if = {
+		limit = { MAD_AREMA_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_AREMA_OLD_GUARD }
+		add_ideas = MAD_AREMA_OLD_GUARD
+	}
+	if = {
+		limit = { MAD_AREMA_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_AREMA_RENEWAL }
+		add_ideas = MAD_AREMA_RENEWAL
+	}
+	if = {
+		limit = { MAD_AREMA_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_AREMA_RECONCILIATION }
+		add_ideas = MAD_AREMA_RECONCILIATION
+	}
+	if = {
+		limit = { MAD_AREMA_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_AREMA_REBUILDING }
+		add_ideas = MAD_AREMA_REBUILDING
+	}
+	if = {
+		limit = { MAD_AREMA_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_AREMA_OLD_GUARD_REFORMED }
+		add_ideas = MAD_AREMA_OLD_GUARD_REFORMED
+	}
+	if = {
+		limit = { MAD_AREMA_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_AREMA_RENEWAL_MODERNISED }
+		add_ideas = MAD_AREMA_RENEWAL_MODERNISED
+	}
+	if = {
+		limit = { MAD_AREMA_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_AREMA_RECONCILIATION_INSTITUTIONALISED }
+		add_ideas = MAD_AREMA_RECONCILIATION_INSTITUTIONALISED
+	}
+	if = {
+		limit = { MAD_AREMA_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_AREMA_NON_ALIGNMENT }
+		add_ideas = MAD_AREMA_NON_ALIGNMENT
+	}
+	if = {
+		limit = { MAD_AREMA_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_AREMA_SECOND_SOCIALISM }
+		add_ideas = MAD_AREMA_SECOND_SOCIALISM
+	}
+	if = {
+		limit = { MAD_AREMA_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_AREMA_SOCIAL_CONTRACT }
+		add_ideas = MAD_AREMA_SOCIAL_CONTRACT
+	}
+	if = {
+		limit = { MAD_TIM_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_POL_TIM_LIBERAL_PROGRAMME }
+		add_ideas = MAD_POL_TIM_LIBERAL_PROGRAMME
+	}
+	if = {
+		limit = { MAD_TIM_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_POL_TIM_GREEN_REVOLUTION_IDEA }
+		add_ideas = MAD_POL_TIM_GREEN_REVOLUTION_IDEA
+	}
+	if = {
+		limit = { MAD_TIM_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_POL_TIM_INSTITUTIONAL_LIBERALISM }
+		add_ideas = MAD_POL_TIM_INSTITUTIONAL_LIBERALISM
+	}
+	if = {
+		limit = { MAD_TIM_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_POL_TIM_NATIONAL_CHAMPION_PROGRAMME }
+		add_ideas = MAD_POL_TIM_NATIONAL_CHAMPION_PROGRAMME
+	}
+	if = {
+		limit = { MAD_TIM_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_TIM_RECONCILIATION_COMPACT }
+		add_ideas = MAD_TIM_RECONCILIATION_COMPACT
+	}
+	if = {
+		limit = { MAD_TIM_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_TIM_RECONCILIATION_CONDITIONAL }
+		add_ideas = MAD_TIM_RECONCILIATION_CONDITIONAL
+	}
+	if = {
+		limit = { MAD_TIM_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_TIM_JUSTICE_AND_ACCOUNTABILITY }
+		add_ideas = MAD_TIM_JUSTICE_AND_ACCOUNTABILITY
+	}
+	if = {
+		limit = { MAD_TIM_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_TIM_TIKO_FIREWALL }
+		add_ideas = MAD_TIM_TIKO_FIREWALL
+	}
+	if = {
+		limit = { MAD_TIM_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_TIM_TIKO_NATIONAL_CHAMPION }
+		add_ideas = MAD_TIM_TIKO_NATIONAL_CHAMPION
+	}
+	if = {
+		limit = { MAD_TIM_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_TIM_TIKO_MIXED }
+		add_ideas = MAD_TIM_TIKO_MIXED
+	}
+	if = {
+		limit = { MAD_TIM_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_TIM_REPUBLICAN_INSTITUTIONS }
+		add_ideas = MAD_TIM_REPUBLICAN_INSTITUTIONS
+	}
+	if = {
+		limit = { MAD_TGV_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_POL_TGV_INSTITUTIONAL_EMERGENCE }
+		add_ideas = MAD_POL_TGV_INSTITUTIONAL_EMERGENCE
+	}
+	if = {
+		limit = { MAD_TGV_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_POL_TGV_PRESIDENTIALISM }
+		add_ideas = MAD_POL_TGV_PRESIDENTIALISM
+	}
+	if = {
+		limit = { MAD_TGV_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_POL_TGV_PEM }
+		add_ideas = MAD_POL_TGV_PEM
+	}
+	if = {
+		limit = { MAD_TGV_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_TGV_REVOLUTIONARY_LEGACY }
+		add_ideas = MAD_TGV_REVOLUTIONARY_LEGACY
+	}
+	if = {
+		limit = { MAD_TGV_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_TGV_ELECTORAL_LEGITIMACY }
+		add_ideas = MAD_TGV_ELECTORAL_LEGITIMACY
+	}
+	if = {
+		limit = { MAD_TGV_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_TGV_EMERGENCY_MANDATE }
+		add_ideas = MAD_TGV_EMERGENCY_MANDATE
+	}
+	if = {
+		limit = { MAD_TGV_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_TGV_DELIVERY_WATER }
+		add_ideas = MAD_TGV_DELIVERY_WATER
+	}
+	if = {
+		limit = { MAD_TGV_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_TGV_DELIVERY_INFRASTRUCTURE }
+		add_ideas = MAD_TGV_DELIVERY_INFRASTRUCTURE
+	}
+	if = {
+		limit = { MAD_TGV_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_TGV_DELIVERY_DIGITAL }
+		add_ideas = MAD_TGV_DELIVERY_DIGITAL
+	}
+	if = {
+		limit = { MAD_TGV_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_TGV_DELIVERY_JOBS }
+		add_ideas = MAD_TGV_DELIVERY_JOBS
+	}
+	if = {
+		limit = { MAD_TGV_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_TGV_DELIVERY_FOOD }
+		add_ideas = MAD_TGV_DELIVERY_FOOD
+	}
+	if = {
+		limit = { MAD_HVM_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_POL_HVM_TECHNOCRATIC_STATE }
+		add_ideas = MAD_POL_HVM_TECHNOCRATIC_STATE
+	}
+	if = {
+		limit = { MAD_HVM_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_HVM_ADMINISTRATIVE_STATE }
+		add_ideas = MAD_HVM_ADMINISTRATIVE_STATE
+	}
+	if = {
+		limit = { MAD_HVM_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_HVM_PUBLIC_FINANCE }
+		add_ideas = MAD_HVM_PUBLIC_FINANCE
+	}
+	if = {
+		limit = { MAD_HVM_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_HVM_INVESTMENT_FRIENDLY }
+		add_ideas = MAD_HVM_INVESTMENT_FRIENDLY
+	}
+	if = {
+		limit = { MAD_HVM_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_HVM_HUMAN_CAPITAL }
+		add_ideas = MAD_HVM_HUMAN_CAPITAL
+	}
+	if = {
+		limit = { MAD_HVM_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_HVM_VOCATIONAL_TRAINING }
+		add_ideas = MAD_HVM_VOCATIONAL_TRAINING
+	}
+	if = {
+		limit = { MAD_HVM_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_HVM_AGRICULTURE }
+		add_ideas = MAD_HVM_AGRICULTURE
+	}
+	if = {
+		limit = { MAD_HVM_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_HVM_LIGHT_INDUSTRY }
+		add_ideas = MAD_HVM_LIGHT_INDUSTRY
+	}
+	if = {
+		limit = { MAD_HVM_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_HVM_PPP_FRAMEWORK }
+		add_ideas = MAD_HVM_PPP_FRAMEWORK
+	}
+	if = {
+		limit = { MAD_HVM_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_HVM_ENERGY_FOR_GROWTH }
+		add_ideas = MAD_HVM_ENERGY_FOR_GROWTH
+	}
+	if = {
+		limit = { MAD_HVM_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_HVM_NATURAL_CAPITAL }
+		add_ideas = MAD_HVM_NATURAL_CAPITAL
+	}
+	if = {
+		limit = { MAD_HVM_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_HVM_ELECTORAL_FRAMEWORK }
+		add_ideas = MAD_HVM_ELECTORAL_FRAMEWORK
+	}
+	if = {
+		limit = { MAD_HVM_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_HVM_FRANCO_MALAGASY_PARTNERSHIP }
+		add_ideas = MAD_HVM_FRANCO_MALAGASY_PARTNERSHIP
+	}
+	if = {
+		limit = { MAD_HVM_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_HVM_PROJECT_COMPLETION }
+		add_ideas = MAD_HVM_PROJECT_COMPLETION
+	}
+	if = {
+		limit = { MAD_HVM_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_HVM_PROJECT_RENEGOTIATED }
+		add_ideas = MAD_HVM_PROJECT_RENEGOTIATED
+	}
+	if = {
+		limit = { MAD_HVM_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_HVM_PROJECT_PRUNING }
+		add_ideas = MAD_HVM_PROJECT_PRUNING
+	}
+	if = {
+		limit = { MAD_HVM_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_HVM_FISANDRATANA_FULL }
+		add_ideas = MAD_HVM_FISANDRATANA_FULL
+	}
+	if = {
+		limit = { MAD_HVM_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_HVM_FISANDRATANA_PARTIAL }
+		add_ideas = MAD_HVM_FISANDRATANA_PARTIAL
+	}
+	if = {
+		limit = { MAD_HVM_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_HVM_FISANDRATANA_PLANNING }
+		add_ideas = MAD_HVM_FISANDRATANA_PLANNING
+	}
+	if = {
+		limit = { MAD_HVM_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_HVM_REPUBLICAN_STABILISATION }
+		add_ideas = MAD_HVM_REPUBLICAN_STABILISATION
+	}
+	if = {
+		limit = { MAD_HVM_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_HVM_RULE_OF_LAW_PROGRAMME }
+		add_ideas = MAD_HVM_RULE_OF_LAW_PROGRAMME
+	}
+
+	# on_remove has cleared each active marker; on_add recreates it for restored ideas.
+	clr_country_flag = MAD_PI_SYNC_IN_PROGRESS
+
+	# Cancel unfinished party-specific processes but preserve branch-choice and completed-outcome flags.
+	if = { limit = { NOT = { MAD_ROY_IN_POWER = yes } } clr_country_flag = MAD_ROYAL_CROWN_QUESTION_PENDING }
+	if = { limit = { NOT = { MAD_MIL_IN_POWER = yes } } clr_country_flag = MAD_MIL_REFOUNDATION_PENDING }
+	if = { limit = { NOT = { MAD_AREMA_IN_POWER = yes } } clr_country_flag = MAD_AREMA_CONGRESS_PENDING }
+	if = {
+		limit = { NOT = { MAD_TIM_IN_POWER = yes } }
+		clr_country_flag = MAD_TIM_RECONCILIATION_PENDING
+		clr_country_flag = MAD_TIM_TIKO_PENDING
+	}
+	if = {
+		limit = { NOT = { MAD_TGV_IN_POWER = yes } }
+		clr_country_flag = MAD_TGV_2009_LEGACY_PENDING
+		MAD_cancel_TGV_velirano_commitments = yes
+	}
+	if = { limit = { NOT = { MAD_HVM_IN_POWER = yes } } MAD_cancel_HVM_project_review = yes }
+}
 
 

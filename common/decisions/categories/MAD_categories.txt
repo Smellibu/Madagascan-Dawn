@@ -62,20 +62,22 @@ MAD_military_refoundation_category = {
 	visible_when_empty = no
 }
 MAD_royal_political_category = {
-		allowed = {
-				OR = {
-					MAD_ROY_IN_POWER = yes
-					MAD_TAMIMA_IN_POWER = yes
-				}
-			}
-			visible = {
-				OR = {
-					MAD_ROY_IN_POWER = yes
-					MAD_TAMIMA_IN_POWER = yes
-				}
-			}
-			priority = 1
-			visible_when_empty = no
+	# Single royal/TAMIMA panel; individual decisions are revealed by focus-unlock flags.
+	icon = generic_political_discourse
+	allowed = {
+		OR = {
+			MAD_ROY_IN_POWER = yes
+			MAD_TAMIMA_IN_POWER = yes
+		}
+	}
+	visible = {
+		OR = {
+			MAD_ROY_IN_POWER = yes
+			MAD_TAMIMA_IN_POWER = yes
+		}
+	}
+	priority = 1
+	visible_when_empty = no
 }
 MAD_HVM_PROJECT_REVIEW_CATEGORY = {
 

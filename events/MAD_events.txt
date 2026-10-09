@@ -68,15 +68,23 @@ country_event = {
 	desc = MAD_LUFTHANSA_OFFER.1.d
 	picture = GFX_paris_convention
 	is_triggered_only = yes
- 
+
 	option = { # Accept the offer
 		name = MAD_LUFTHANSA_OFFER.a
-		set_temp_variable = { treasury_change = -5 }
+		set_temp_variable = {
+			treasury_change = {
+				value = MAD.gdp_total
+				multiply = -0.01
+			}
+		}
 		modify_treasury_effect = yes
- 
-		set_temp_variable = { int_investment_change = 7.5 }
+		set_temp_variable = {
+			int_investment_change = {
+				value = MAD.gdp_total
+				multiply = 0.015
+			}
+		}
 		modify_international_investment_effect = yes
- 
 		MAD = {
 			set_country_flag = MAD_GERMANS_ACCEPTED_LUFTHANSA
 			country_event = { id = MAD_LUFTHANSA_OFFER.2 hours = 1 }
@@ -85,7 +93,6 @@ country_event = {
 	}
 	option = { # Decline the offer
 		name = MAD_LUFTHANSA_OFFER.b
- 
 		MAD = {
 			set_country_flag = MAD_GERMANS_REJECTED_LUFTHANSA
 			country_event = { id = MAD_LUFTHANSA_OFFER.3 hours = 1 }
@@ -93,29 +100,34 @@ country_event = {
 		ai_chance = { base = 10 }
 	}
 }
- 
+
 country_event = { # Fires on MAD - accept branch
 	id = MAD_LUFTHANSA_OFFER.2
 	title = MAD_LUFTHANSA_OFFER.2.t
 	desc = MAD_LUFTHANSA_OFFER.2.d
 	picture = GFX_paris_convention
 	is_triggered_only = yes
- 
+
 	option = {
 		name = MAD_LUFTHANSA_OFFER_ACCEPT.a
- 
 		custom_effect_tooltip = {
 			localization_key = modifies_dynamic_modifier_tt
 			MODIFIER = MAD_economy_modifier
 		}
+		set_temp_variable = {
+			treasury_change = {
+				value = gdp_total
+				multiply = 0.01
+			}
+		}
+		modify_treasury_effect = yes
 		add_to_variable = { MAD_economy_infrastructure_cost_multiplier_modifier = -0.02 tooltip = infrastructure_cost_multiplier_modifier_tt }
 		add_to_variable = { MAD_economy_receiving_investment_cost_modifier = -0.05 tooltip = receiving_investment_cost_modifier_tt }
 		add_to_variable = { MAD_economy_offices_productivity = 0.02 tooltip = offices_productivity_tt }
- 
 		ai_chance = { base = 1 }
 	}
 }
- 
+
 country_event = { # Fires on MAD - decline branch
 	id = MAD_LUFTHANSA_OFFER.3
 	title = MAD_LUFTHANSA_OFFER.3.t
@@ -515,7 +527,7 @@ country_event = {
 add_namespace = mad_drought
 
 # .1 init (fired on startup), .2 monthly tick (re-fires itself every 30 days), .10/.11 random shocks,
-# .12-.19 scheduled drought/food-crisis events, .20 drought over, .21 exodus (fail state), .22 contained (win state)
+# .12-.19 scheduled drought/food-crisis events, .20 drought over, .22 contained
 
 country_event = {
 	id = mad_drought.1
@@ -524,9 +536,12 @@ country_event = {
 	is_triggered_only = yes
 
 	immediate = {
-		log = "[GetDateText]: [Root.GetName]: mad_drought.1 - the drought panel starts"
-		MAD_drought_init = yes
-		country_event = { id = mad_drought.2 days = 30 }
+		if = {
+			limit = { NOT = { has_country_flag = MAD_DROUGHT_STARTED } }
+			log = "[GetDateText]: [Root.GetName]: mad_drought.1 - the drought panel starts"
+			MAD_drought_init = yes
+			country_event = { id = mad_drought.2 days = 30 }
+		}
 	}
 
 	option = {
@@ -621,7 +636,7 @@ country_event = {
 	desc = mad_drought.13.d
 	picture = GFX_report_event_economy_default
 	is_triggered_only = yes
-	trigger = { MAD_historical_drought_should_fire = yes }
+	trigger = { MAD_drought_exists = yes }
 
 	option = {
 		name = mad_drought.13.a
@@ -648,9 +663,8 @@ country_event = {
 		}
 		add_to_variable = { MAD_drought_shock_pressure = 0.40 }
 		add_to_variable = { MAD_drought_depop = 1 }
-		set_variable = { MAD_drought_migration_amount = 40 }
-		set_variable = { MAD_drought_migration_force = 1 }
-		MAD_drought_migrate_worst_to_best = yes
+		set_variable = { MAD_drought_historical_departure_people = 5000 }
+		MAD_drought_historical_displacement = yes
 		MAD_drought_recalc_national = yes
 	}
 }
@@ -661,7 +675,7 @@ country_event = {
 	desc = mad_drought.14.d
 	picture = GFX_report_event_economy_default
 	is_triggered_only = yes
-	trigger = { MAD_historical_drought_should_fire = yes }
+	trigger = { MAD_drought_exists = yes }
 
 	option = {
 		name = mad_drought.14.a
@@ -688,9 +702,8 @@ country_event = {
 		}
 		add_to_variable = { MAD_drought_shock_pressure = 0.45 }
 		add_to_variable = { MAD_drought_depop = 1 }
-		set_variable = { MAD_drought_migration_amount = 60 }
-		set_variable = { MAD_drought_migration_force = 1 }
-		MAD_drought_migrate_worst_to_best = yes
+		set_variable = { MAD_drought_historical_departure_people = 3500 }
+		MAD_drought_historical_displacement = yes
 		add_stability = -0.03
 		MAD_drought_recalc_national = yes
 	}
@@ -708,7 +721,7 @@ country_event = {
 	desc = mad_drought.15.d
 	picture = GFX_report_event_economy_default
 	is_triggered_only = yes
-	trigger = { MAD_historical_drought_should_fire = yes }
+	trigger = { MAD_drought_exists = yes }
 
 	option = {
 		name = mad_drought.15.a
@@ -724,9 +737,8 @@ country_event = {
 		}
 		add_to_variable = { MAD_drought_shock_pressure = 0.35 }
 		add_to_variable = { MAD_drought_depop = 1 }
-		set_variable = { MAD_drought_migration_amount = 20 }
-		set_variable = { MAD_drought_migration_force = 1 }
-		MAD_drought_migrate_worst_to_best = yes
+		set_variable = { MAD_drought_historical_departure_people = 2000 }
+		MAD_drought_historical_displacement = yes
 		add_stability = -0.01
 		MAD_drought_recalc_national = yes
 	}
@@ -738,7 +750,7 @@ country_event = {
 	desc = mad_drought.16.d
 	picture = GFX_report_event_economy_default
 	is_triggered_only = yes
-	trigger = { MAD_historical_drought_should_fire = yes }
+	trigger = { MAD_drought_exists = yes }
 
 	option = {
 		name = mad_drought.16.a
@@ -754,9 +766,8 @@ country_event = {
 		}
 		add_to_variable = { MAD_drought_shock_pressure = 0.35 }
 		add_to_variable = { MAD_drought_depop = 1 }
-		set_variable = { MAD_drought_migration_amount = 30 }
-		set_variable = { MAD_drought_migration_force = 1 }
-		MAD_drought_migrate_worst_to_best = yes
+		set_variable = { MAD_drought_historical_departure_people = 5000 }
+		MAD_drought_historical_displacement = yes
 		add_stability = -0.02
 		MAD_drought_recalc_national = yes
 	}
@@ -768,7 +779,7 @@ country_event = {
 	desc = mad_drought.17.d
 	picture = GFX_report_event_economy_default
 	is_triggered_only = yes
-	trigger = { MAD_historical_drought_should_fire = yes }
+	trigger = { MAD_drought_exists = yes }
 
 	option = {
 		name = mad_drought.17.a
@@ -784,9 +795,8 @@ country_event = {
 		}
 		add_to_variable = { MAD_drought_shock_pressure = 0.25 }
 		add_to_variable = { MAD_drought_depop = 1 }
-		set_variable = { MAD_drought_migration_amount = 20 }
-		set_variable = { MAD_drought_migration_force = 1 }
-		MAD_drought_migrate_worst_to_best = yes
+		set_variable = { MAD_drought_historical_departure_people = 2000 }
+		MAD_drought_historical_displacement = yes
 		add_stability = -0.01
 		MAD_drought_recalc_national = yes
 	}
@@ -798,7 +808,7 @@ country_event = {
 	desc = mad_drought.18.d
 	picture = GFX_report_event_economy_default
 	is_triggered_only = yes
-	trigger = { MAD_historical_drought_should_fire = yes }
+	trigger = { MAD_drought_exists = yes }
 
 	option = {
 		name = mad_drought.18.a
@@ -814,9 +824,8 @@ country_event = {
 		}
 		add_to_variable = { MAD_drought_shock_pressure = 0.40 }
 		add_to_variable = { MAD_drought_depop = 1 }
-		set_variable = { MAD_drought_migration_amount = 40 }
-		set_variable = { MAD_drought_migration_force = 1 }
-		MAD_drought_migrate_worst_to_best = yes
+		set_variable = { MAD_drought_historical_departure_people = 3000 }
+		MAD_drought_historical_displacement = yes
 		add_stability = -0.02
 		MAD_drought_recalc_national = yes
 	}
@@ -828,7 +837,7 @@ country_event = {
 	desc = mad_drought.19.d
 	picture = GFX_report_event_economy_default
 	is_triggered_only = yes
-	trigger = { MAD_historical_drought_should_fire = yes }
+	trigger = { MAD_drought_exists = yes }
 
 	option = {
 		name = mad_drought.19.a
@@ -844,9 +853,8 @@ country_event = {
 		}
 		add_to_variable = { MAD_drought_shock_pressure = 0.35 }
 		add_to_variable = { MAD_drought_depop = 1 }
-		set_variable = { MAD_drought_migration_amount = 50 }
-		set_variable = { MAD_drought_migration_force = 1 }
-		MAD_drought_migrate_worst_to_best = yes
+		set_variable = { MAD_drought_historical_departure_people = 2000 }
+		MAD_drought_historical_displacement = yes
 		add_stability = -0.02
 		MAD_drought_recalc_national = yes
 	}
@@ -867,19 +875,6 @@ country_event = {
 	}
 }
 
-country_event = {
-	id = mad_drought.21
-	title = mad_drought.21.t
-	desc = mad_drought.21.d
-	picture = GFX_report_event_economy_default
-	is_triggered_only = yes
-
-	option = {
-		name = mad_drought.21.a
-		log = "[GetDateText]: [Root.GetName]: mad_drought.21"
-		add_stability = -0.02
-	}
-}
 
 country_event = {
 	id = mad_drought.22
@@ -894,6 +889,56 @@ country_event = {
 		add_stability = 0.01
 	}
 }
+
+########################################################################
+# DROUGHT DISPLACEMENT REPORTS
+# Each source-state slot can queue one event in a six-month tick, allowing several transfers to be reported separately.
+########################################################################
+country_event = {
+	id = mad_drought.23
+	title = mad_drought.displacement.t
+	desc = mad_drought.23.d
+	picture = GFX_report_event_economy_default
+	is_triggered_only = yes
+	option = { name = mad_drought.displacement.a }
+}
+
+country_event = {
+	id = mad_drought.24
+	title = mad_drought.displacement.t
+	desc = mad_drought.24.d
+	picture = GFX_report_event_economy_default
+	is_triggered_only = yes
+	option = { name = mad_drought.displacement.a }
+}
+
+country_event = {
+	id = mad_drought.25
+	title = mad_drought.displacement.t
+	desc = mad_drought.25.d
+	picture = GFX_report_event_economy_default
+	is_triggered_only = yes
+	option = { name = mad_drought.displacement.a }
+}
+
+country_event = {
+	id = mad_drought.26
+	title = mad_drought.displacement.t
+	desc = mad_drought.26.d
+	picture = GFX_report_event_economy_default
+	is_triggered_only = yes
+	option = { name = mad_drought.displacement.a }
+}
+
+country_event = {
+	id = mad_drought.27
+	title = mad_drought.displacement.t
+	desc = mad_drought.27.d
+	picture = GFX_report_event_economy_default
+	is_triggered_only = yes
+	option = { name = mad_drought.displacement.a }
+}
+
 ########################################################################
 # THE DROUGHT MAP - events that hit STATES, not the country
 ########################################################################
@@ -1370,7 +1415,7 @@ country_event = {
 		add_political_power = 10
 		set_variable = { MAD_vanilla_shock_state = 11 }
 		force_update_dynamic_modifier = yes
-		country_event = { id = mad_vanilla.1 days = 450 }
+		country_event = { id = mad_vanilla.1 days = 600 }
 	}
 
 	option = {
@@ -1387,7 +1432,7 @@ country_event = {
 		modify_treasury_effect = yes
 		set_variable = { MAD_vanilla_shock_state = 12 }
 		force_update_dynamic_modifier = yes
-		country_event = { id = mad_vanilla.1 days = 450 }
+		country_event = { id = mad_vanilla.1 days = 600 }
 	}
 
 	option = {
@@ -1407,7 +1452,7 @@ country_event = {
 		modify_treasury_effect = yes
 		set_variable = { MAD_vanilla_shock_state = -11 }
 		force_update_dynamic_modifier = yes
-		country_event = { id = mad_vanilla.1 days = 450 }
+		country_event = { id = mad_vanilla.1 days = 600 }
 	}
 
 	option = {
@@ -1423,7 +1468,7 @@ country_event = {
 		add_political_power = -25
 		set_variable = { MAD_vanilla_shock_state = -12 }
 		force_update_dynamic_modifier = yes
-		country_event = { id = mad_vanilla.1 days = 450 }
+		country_event = { id = mad_vanilla.1 days = 600 }
 	}
 }
 
@@ -1869,9 +1914,11 @@ country_event = {
 		set_temp_variable = { party_popularity_increase = 0.05 }
 		set_temp_variable = { temp_outlook_increase = 0.05 }
 		change_relative_party_popularity = yes
-		add_political_power = 25
-		add_stability = -0.01
+		increase_centralization = yes
 		recalculate_party = yes
+		
+		set_country_flag = MAD_ROYAL_CROWN_QUESTION_RESOLVED
+
 	}
 
 	option = {
@@ -1882,9 +1929,13 @@ country_event = {
 		set_temp_variable = { party_popularity_increase = 0.05 }
 		set_temp_variable = { temp_outlook_increase = 0.05 }
 		change_relative_party_popularity = yes
-		add_political_power = 25
-		add_stability = 0.02
+		decrease_centralization = yes
+		set_country_flag = MAD_TAMIMA_COUNCIL
 		recalculate_party = yes
+		
+		set_country_flag = MAD_ROYAL_CROWN_QUESTION_RESOLVED
+
+	
 	}
 }
 
@@ -2439,10 +2490,11 @@ country_event = {
 # ---------------------------------------------------------------------------
 country_event = {
 	id = mad_political.8
+	hidden = yes
 	is_triggered_only = yes
 
 	immediate = {
-		MAD_clear_party_political_ideas = yes
+		MAD_sync_party_political_ideas = yes
 	}
 }
 # post-Daewoo Viva political events.
@@ -2471,17 +2523,40 @@ country_event = {
 		set_country_flag = MAD_RATSIRAKA_EXILE_RESOLVED
 	}
 
+	# Use the same party-specific civil-war sequence as mad_political.93.
+	# The player remains on MAD; the elected government is replicated onto the
+	# breakaway side, then the player-led country returns to AREMA (party index 5).
 	option = {
 		name = mad_political.90.a
-		
-		#ban arema
+		log = "[GetDateText]: [Root.GetName]: mad_political.90.a - Ratsiraka rejects the election and starts a civil war"
+		hidden_effect = {
+			set_temp_variable = { party_index = 5 }
+			start_civil_war_with_no_leader_change = yes
+
+			random_other_country = {
+				limit = {
+					original_tag = PREV
+					NOT = { TAG = PREV }
+				}
+				civil_war_replication_effect = yes
+			}
+
+			set_variable = { ruling_party = 5 }
+			set_variable = { party_pop_array^5 = 0.70 }
+			startup_politics = yes
+			set_politics = { elections_allowed = no }
+			set_country_flag = MAD_RATSIRAKA_CIVIL_WAR_STARTED
+		}
+	}
+
+	# Historical route: Ratsiraka flees; AREMA is banned and the exile-return chain can proceed.
+	option = {
+		name = mad_political.90.b
+		log = "[GetDateText]: [Root.GetName]: mad_political.90.b - Ratsiraka flees after losing the election"
 		set_temp_variable = { party_index = 5 }
 		ban_party_scripted_call = yes
 		set_country_flag = MAD_AREMA_BANNED
-		
 		set_country_flag = MAD_RATSIRAKA_EXILED
-
-		
 	}
 }
 
@@ -3018,11 +3093,11 @@ country_event = {
     is_triggered_only = yes
     option = {
         name = MAD_military_procurement.1.a
-        trigger = { country_exists = ZAF }
+        trigger = { country_exists = SAF }
         set_temp_variable = { treasury_change = -2.5 }
         modify_treasury_effect = yes
-        add_equipment_to_stockpile = { type = infantry_weapons_4 amount = 3000 producer = ZAF variant_name = "South African service-rifle package" }
-        ZAF = {
+        add_equipment_to_stockpile = { type = infantry_weapons_4 amount = 3000 producer = SAF variant_name = "South African service-rifle package" }
+        SAF = {
             set_temp_variable = { treasury_change = 2.5 }
             modify_treasury_effect = yes
             set_temp_variable = { percent_change = 4 }
@@ -3031,7 +3106,7 @@ country_event = {
             change_influence_percentage = yes
             add_opinion_modifier = { target = ROOT modifier = military_cooperation }
         }
-        add_opinion_modifier = { target = ZAF modifier = military_cooperation }
+        add_opinion_modifier = { target = SAF modifier = military_cooperation }
         army_experience = 15
     }
     option = {
@@ -3101,11 +3176,11 @@ country_event = {
     }
     option = {
         name = MAD_military_procurement.2.b
-        trigger = { country_exists = ZAF }
+        trigger = { country_exists = SAF }
         set_temp_variable = { treasury_change = -2.2 }
         modify_treasury_effect = yes
-        add_equipment_to_stockpile = { type = util_vehicle_4 amount = 100 producer = ZAF variant_name = "South African utility fleet" }
-        ZAF = {
+        add_equipment_to_stockpile = { type = util_vehicle_4 amount = 100 producer = SAF variant_name = "South African utility fleet" }
+        SAF = {
             set_temp_variable = { treasury_change = 2.2 }
             modify_treasury_effect = yes
             set_temp_variable = { percent_change = 3 }
@@ -3114,7 +3189,7 @@ country_event = {
             change_influence_percentage = yes
             add_opinion_modifier = { target = ROOT modifier = military_cooperation }
         }
-        add_opinion_modifier = { target = ZAF modifier = military_cooperation }
+        add_opinion_modifier = { target = SAF modifier = military_cooperation }
         add_mastery = { amount = 20 folder = land }
         army_experience = 15
     }
@@ -3178,7 +3253,7 @@ country_event = {
         add_to_variable = { supply_consumption_factor = -0.01 }
         if = { limit = { country_exists = FRA } add_opinion_modifier = { target = FRA modifier = military_cooperation } FRA = { add_opinion_modifier = { target = ROOT modifier = military_cooperation } } }
         if = { limit = { country_exists = COM } add_opinion_modifier = { target = COM modifier = military_cooperation } COM = { add_opinion_modifier = { target = ROOT modifier = military_cooperation } } }
-        if = { limit = { country_exists = MUS } add_opinion_modifier = { target = MUS modifier = military_cooperation } MUS = { add_opinion_modifier = { target = ROOT modifier = military_cooperation } } }
+        if = { limit = { country_exists = MRT } add_opinion_modifier = { target = MRT modifier = military_cooperation } MRT = { add_opinion_modifier = { target = ROOT modifier = military_cooperation } } }
         if = { limit = { country_exists = SEY } add_opinion_modifier = { target = SEY modifier = military_cooperation } SEY = { add_opinion_modifier = { target = ROOT modifier = military_cooperation } } }
     }
 
@@ -3228,11 +3303,11 @@ country_event = {
     }
     option = {
         name = MAD_military_procurement.5.b
-        trigger = { country_exists = ZAF }
+        trigger = { country_exists = SAF }
         set_temp_variable = { treasury_change = -2.3 }
         modify_treasury_effect = yes
-        add_equipment_to_stockpile = { type = util_vehicle_4 amount = 70 producer = ZAF variant_name = "South African protected-mobility fleet" }
-        ZAF = {
+        add_equipment_to_stockpile = { type = util_vehicle_4 amount = 70 producer = SAF variant_name = "South African protected-mobility fleet" }
+        SAF = {
             set_temp_variable = { treasury_change = 2.3 }
             modify_treasury_effect = yes
             set_temp_variable = { percent_change = 3 }
@@ -3241,7 +3316,7 @@ country_event = {
             change_influence_percentage = yes
             add_opinion_modifier = { target = ROOT modifier = military_cooperation }
         }
-        add_opinion_modifier = { target = ZAF modifier = military_cooperation }
+        add_opinion_modifier = { target = SAF modifier = military_cooperation }
         add_mastery = { amount = 15 folder = land }
         army_experience = 15
     }
@@ -3277,11 +3352,11 @@ country_event = {
     is_triggered_only = yes
     option = {
         name = MAD_military_procurement.4.a
-        trigger = { country_exists = ZAF }
+        trigger = { country_exists = SAF }
         set_temp_variable = { treasury_change = -3.0 }
         modify_treasury_effect = yes
-        add_equipment_to_stockpile = { type = transport_helicopter_1 amount = 4 producer = ZAF variant_name = "AS350B2" }
-        ZAF = {
+        add_equipment_to_stockpile = { type = transport_helicopter_1 amount = 4 producer = SAF variant_name = "AS350B2" }
+        SAF = {
             set_temp_variable = { treasury_change = 3.0 }
             modify_treasury_effect = yes
             set_temp_variable = { percent_change = 4 }
@@ -3290,7 +3365,7 @@ country_event = {
             change_influence_percentage = yes
             add_opinion_modifier = { target = ROOT modifier = military_cooperation }
         }
-        add_opinion_modifier = { target = ZAF modifier = military_cooperation }
+        add_opinion_modifier = { target = SAF modifier = military_cooperation }
         add_ideas = MAD_ARMY_HELICOPTER_PRIORITY
         add_mastery = { amount = 15 folder = air }
         air_experience = 25
@@ -3317,12 +3392,12 @@ country_event = {
     }
     option = {
         name = MAD_military_procurement.4.c
-        trigger = { country_exists = ZAF country_exists = FRA }
+        trigger = { country_exists = SAF country_exists = FRA }
         set_temp_variable = { treasury_change = -8.0 }
         modify_treasury_effect = yes
-        add_equipment_to_stockpile = { type = transport_helicopter_1 amount = 2 producer = ZAF variant_name = "AS350B2" }
+        add_equipment_to_stockpile = { type = transport_helicopter_1 amount = 2 producer = SAF variant_name = "AS350B2" }
         add_equipment_to_stockpile = { type = transport_plane5 amount = 1 producer = FRA variant_name = "CN-235" }
-        ZAF = {
+        SAF = {
             set_temp_variable = { treasury_change = 3.0 }
             modify_treasury_effect = yes
             set_temp_variable = { percent_change = 3 }
@@ -3340,7 +3415,7 @@ country_event = {
             change_influence_percentage = yes
             add_opinion_modifier = { target = ROOT modifier = military_cooperation }
         }
-        add_opinion_modifier = { target = ZAF modifier = military_cooperation }
+        add_opinion_modifier = { target = SAF modifier = military_cooperation }
         add_opinion_modifier = { target = FRA modifier = military_cooperation }
         add_ideas = MAD_ARMY_HELICOPTER_PRIORITY
         add_mastery = { amount = 20 folder = air }
@@ -3378,7 +3453,7 @@ country_event = {
     option = {
         name = MAD_military_procurement.6.b
         add_tech_bonus = { name = MAD_military_procurement_6_innovation category = CAT_air_eqp uses = 2 bonus = 0.40 }
-        add_breakthrough_progress = { specialization = specialization_air value = sp_breakthrough_progress.small }
+        add_breakthrough_progress = { specialization = specialization_air value = sp_breakthrough_progress.medium }
         set_country_flag = MAD_ARMY_AIRLIFT_READY
         air_experience = 20
         army_experience = 10
@@ -3394,11 +3469,11 @@ country_event = {
     is_triggered_only = yes
     option = {
         name = MAD_military_industry.1.a
-        trigger = { country_exists = ZAF }
+        trigger = { country_exists = SAF }
         set_temp_variable = { treasury_change = -12.0 }
         modify_treasury_effect = yes
-        add_equipment_to_stockpile = { type = util_vehicle_4 amount = 60 producer = ZAF variant_name = "Malagasy-South African protected vehicle" }
-        ZAF = {
+        add_equipment_to_stockpile = { type = util_vehicle_4 amount = 60 producer = SAF variant_name = "Malagasy-South African protected vehicle" }
+        SAF = {
             set_temp_variable = { treasury_change = 12.0 }
             modify_treasury_effect = yes
             set_temp_variable = { percent_change = 6 }
@@ -3407,7 +3482,7 @@ country_event = {
             change_influence_percentage = yes
             add_opinion_modifier = { target = ROOT modifier = military_cooperation }
         }
-        add_opinion_modifier = { target = ZAF modifier = military_cooperation }
+        add_opinion_modifier = { target = SAF modifier = military_cooperation }
         487 = { add_building_construction = { type = arms_factory level = 1 instant_build = yes } }
         set_temp_variable = { treasury_change = -7.5 }
         modify_treasury_effect = yes
@@ -3586,7 +3661,7 @@ country_event = {
     option = {
         name = MAD_military_industry.4.b
         if = { limit = { country_exists = COM } add_opinion_modifier = { target = COM modifier = large_commercial_relations } COM = { add_opinion_modifier = { target = ROOT modifier = large_commercial_relations } } }
-        if = { limit = { country_exists = SYC } add_opinion_modifier = { target = SYC modifier = large_commercial_relations } SYC = { add_opinion_modifier = { target = ROOT modifier = large_commercial_relations } } }
+        if = { limit = { country_exists = SEY } add_opinion_modifier = { target = SEY modifier = large_commercial_relations } SEY = { add_opinion_modifier = { target = ROOT modifier = large_commercial_relations } } }
         add_timed_idea = { idea = MAD_ARMY_INDIAN_OCEAN_NETWORK days = 3650 }
         add_mastery = { amount = 25 folder = naval }
         add_mastery = { amount = 25 folder = land }
@@ -3719,11 +3794,11 @@ country_event = {
     }
     option = {
         name = MAD_military_industry.6.c
-        trigger = { country_exists = ZAF }
+        trigger = { country_exists = SAF }
         set_temp_variable = { treasury_change = -6.6 }
         modify_treasury_effect = yes
-        add_equipment_to_stockpile = { type = util_vehicle_4 amount = 140 producer = ZAF variant_name = "South African mechanised infantry package" }
-        ZAF = {
+        add_equipment_to_stockpile = { type = util_vehicle_4 amount = 140 producer = SAF variant_name = "South African mechanised infantry package" }
+        SAF = {
             set_temp_variable = { treasury_change = 6.6 }
             modify_treasury_effect = yes
             set_temp_variable = { percent_change = 4 }
@@ -3732,7 +3807,7 @@ country_event = {
             change_influence_percentage = yes
             add_opinion_modifier = { target = ROOT modifier = military_cooperation }
         }
-        add_opinion_modifier = { target = ZAF modifier = military_cooperation }
+        add_opinion_modifier = { target = SAF modifier = military_cooperation }
         add_mastery = { amount = 20 folder = land }
         army_experience = 20
     }
@@ -3747,11 +3822,11 @@ country_event = {
     is_triggered_only = yes
     option = {
         name = MAD_military_industry.7.a
-        trigger = { country_exists = ESP }
+        trigger = { country_exists = SPR }
         set_temp_variable = { treasury_change = -8.0 }
         modify_treasury_effect = yes
-        add_equipment_to_stockpile = { type = transport_plane5 amount = 2 producer = ESP variant_name = "C-295M" }
-        ESP = {
+        add_equipment_to_stockpile = { type = transport_plane5 amount = 2 producer = SPR variant_name = "C-295M" }
+        SPR = {
             set_temp_variable = { treasury_change = 8.0 }
             modify_treasury_effect = yes
             set_temp_variable = { percent_change = 6 }
@@ -3760,7 +3835,7 @@ country_event = {
             change_influence_percentage = yes
             add_opinion_modifier = { target = ROOT modifier = military_cooperation }
         }
-        add_opinion_modifier = { target = ESP modifier = military_cooperation }
+        add_opinion_modifier = { target = SPR modifier = military_cooperation }
         add_mastery = { amount = 20 folder = air }
         air_experience = 25
     }
@@ -3802,4 +3877,429 @@ country_event = {
         add_mastery = { amount = 30 folder = air }
         air_experience = 25
     }
+}
+
+add_namespace = mad_royal
+
+country_event = {
+	id = mad_royal.1
+	title = mad_royal.1.t
+	desc = mad_royal.1.d
+	is_triggered_only = yes
+	option = {
+		name = mad_royal.1.a
+		add_power_balance_value = { id = MAD_economy_ownership_bop value = 0.10 tooltip_side = MAD_public_ownership }
+		decrease_corruption = yes
+		set_country_flag = MAD_ROY_NATIONAL_TRUST_IMPLEMENTED
+	}
+	option = {
+		name = mad_royal.1.b
+		add_power_balance_value = { id = MAD_economy_ownership_bop value = 0.075 tooltip_side = MAD_public_ownership }
+		decrease_corruption = yes
+		random_core_state = {
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = { type = industrial_complex level = 1 instant_build = yes }
+		}
+		set_temp_variable = { treasury_change = -3.00 }
+		modify_treasury_effect = yes
+		set_country_flag = MAD_ROY_NATIONAL_CHAMPIONS
+	}
+}
+
+country_event = {
+	id = mad_royal.2
+	title = mad_royal.2.t
+	desc = mad_royal.2.d
+	is_triggered_only = yes
+	option = {
+		name = mad_royal.2.a
+		decrease_corruption = yes
+		set_country_flag = MAD_ROY_LEGAL_REFORM_COMPLETED
+	}
+	option = {
+		name = mad_royal.2.b
+		set_country_flag = MAD_ROY_LEGAL_REFORM_TRANSITIONAL
+	}
+}
+
+country_event = {
+	id = mad_royal.3
+	title = mad_royal.3.t
+	desc = mad_royal.3.d
+	is_triggered_only = yes
+	option = {
+		name = mad_royal.3.a
+		add_tech_bonus = {
+			name = MAD_ROY_BIBLICAL_SCHOLARSHIP
+			category = CAT_Civilian
+			bonus = 0.10
+			uses = 1
+		}
+		set_country_flag = MAD_ROY_BIBLICAL_GEOPOLITICS_SCHOLARLY
+	}
+	option = {
+		name = mad_royal.3.b
+		if = {
+			limit = { ISR = { exists = yes } }
+					if = {
+						limit = { ISR = { exists = yes } }
+						add_opinion_modifier = { target = ISR modifier = has_expressed_loyalty }
+						ISR = { add_opinion_modifier = { target = MAD modifier = has_expressed_loyalty } }
+						set_temp_variable = { percent_change = 5 }
+						set_temp_variable = { influence_target = ISR.id }
+						change_influence_percentage = yes
+					}
+		}
+		add_war_support = 0.02
+		set_country_flag = MAD_ROY_BIBLICAL_GEOPOLITICS_STATE_DOCTRINE
+	}
+}
+
+# TAMIMA sacred-heritage custodianship
+country_event = {
+	id = mad_royal.4
+	title = mad_royal.4.t
+	desc = mad_royal.4.d
+	is_triggered_only = yes
+	option = {
+		name = mad_royal.4.a
+		267 = {
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = { type = offices level = 1 instant_build = yes }
+		}
+		set_temp_variable = { treasury_change = -1.50 }
+		modify_treasury_effect = yes
+		decrease_corruption = yes
+		set_country_flag = MAD_TAMIMA_HERITAGE_HOUSES_CUSTODIANS
+	}
+	option = {
+		name = mad_royal.4.b
+		random_owned_state = {
+			limit = { can_construct_building = land_facility }
+			construct_building_in_random_province = { nuclear_facility = 1 }
+		}
+		increase_education_budget = yes
+		set_country_flag = MAD_TAMIMA_HERITAGE_NATIONAL_TRUST
+	}
+}
+
+country_event = {
+	id = mad_royal.5
+	title = mad_royal.5.t
+	desc = mad_royal.5.d
+	is_triggered_only = yes
+	option = {
+		name = mad_royal.5.a
+		267 = {
+			add_building_construction = { type = offices level = 1 instant_build = yes }
+			add_extra_state_shared_building_slots = 1
+		}
+		set_temp_variable = { treasury_change = -1.50 }
+		modify_treasury_effect = yes
+		set_country_flag = MAD_TAMIMA_CENTRAL_HOUSE_SETTLEMENT
+	}
+	option = {
+		name = mad_royal.5.b
+		random_core_state = {
+			add_building_construction = { type = offices level = 1 instant_build = yes }
+			add_building_construction = { type = infrastructure level = 1 instant_build = yes }
+			add_extra_state_shared_building_slots = 1
+		}
+		set_temp_variable = { treasury_change = -1.50 }
+		modify_treasury_effect = yes
+		set_country_flag = MAD_TAMIMA_REGIONAL_HOUSE_SETTLEMENT
+	}
+}
+
+add_namespace = mad_roy_rework
+
+# Ndriana branch - MAD_POL_ROY_BIBLICAL_GEOPOLITICS
+country_event = {
+	id = mad_roy_rework.1
+	title = mad_roy_rework.1.t
+	desc = mad_roy_rework.1.d
+	picture = GFX_report_event_generic_read_write
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	# A. Formal covenant partnership with Israel
+	option = {
+		name = mad_roy_rework.1.a
+		ai_chance = { base = 1 }
+		log = "[GetDateText]: [Root.GetName]: Event mad_roy_rework.1 option a"
+
+		if = {
+			limit = { country_exists = ISR }
+			ISR = {
+				set_temp_variable = { treasury_change = -2.00 }
+				modify_treasury_effect = yes
+				set_temp_variable = { int_investment_change = 10 }
+				modify_international_investment_effect = yes
+				add_opinion_modifier = { target = MAD modifier = large_commercial_relations }
+			}
+			set_temp_variable = { percent_change = 5 }
+			set_temp_variable = { tag_index = ISR }
+			set_temp_variable = { influence_target = MAD }
+			change_influence_percentage = yes
+		}
+		one_random_agriculture_district = yes
+		add_named_threat = { threat = 2 name = "Madagascar Aligns with Israel" }
+		set_country_flag = MAD_ROY_ISRAEL_COVENANT
+	}
+
+	# B. Church, pilgrimage and agricultural ties only
+	option = {
+		name = mad_roy_rework.1.b
+		ai_chance = { base = 1 }
+		log = "[GetDateText]: [Root.GetName]: Event mad_roy_rework.1 option b"
+
+		if = {
+			limit = { country_exists = ISR }
+			ISR = {
+				set_temp_variable = { int_investment_change = 5 }
+				modify_international_investment_effect = yes
+			}
+		}
+		one_random_agriculture_district = yes
+		set_country_flag = MAD_ROY_ISRAEL_PILGRIM_TIES
+	}
+
+	# C. Blessing to all nations - no alignment
+	option = {
+		name = mad_roy_rework.1.c
+		ai_chance = { base = 1 }
+		log = "[GetDateText]: [Root.GetName]: Event mad_roy_rework.1 option c"
+
+		if = {
+			limit = { has_idea = international_bankers }
+			set_temp_variable = { temp_opinion = 5 }
+			change_international_bankers_opinion = yes
+		}
+		set_country_flag = MAD_ROY_ISRAEL_NEUTRAL
+	}
+}
+
+# Royal succession crisis: a delayed challenge to Ndriana's lineage after the King's Mandate.
+country_event = {
+	id = mad_royal.6
+	title = mad_royal.6.t
+	desc = mad_royal.6.d
+	picture = GFX_report_event_generic_political
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = mad_royal.6.a
+		log = "[GetDateText]: [This.GetName]: mad_royal.6.a - succession protests suppressed"
+		add_stability = -0.08
+		increase_policing_budget = yes
+		set_temp_variable = { party_index = 23 }
+		set_temp_variable = { party_popularity_increase = -0.08 }
+		change_relative_party_popularity = yes
+		recalculate_party = yes
+		set_country_flag = MAD_ROY_SUCCESSION_PROTESTS_CRUSHED
+	}
+	option = {
+		name = mad_royal.6.b
+		log = "[GetDateText]: [This.GetName]: mad_royal.6.b - succession protests permitted"
+		add_stability = -0.04
+		267 = {
+			# Damage approximately half of the existing building level capacity; the damage can be repaired later.
+			set_temp_variable = { MAD_tana_infrastructure_damage = building_level@infrastructure }
+			multiply_temp_variable = { MAD_tana_infrastructure_damage = 0.5 }
+			while_loop_effect = {
+				limit = { check_variable = { MAD_tana_infrastructure_damage > 0 } }
+				damage_building = { type = infrastructure damage = 0.5 }
+				subtract_from_temp_variable = { MAD_tana_infrastructure_damage = 0.5 }
+			}
+			set_temp_variable = { MAD_tana_offices_damage = building_level@offices }
+			multiply_temp_variable = { MAD_tana_offices_damage = 0.5 }
+			while_loop_effect = {
+				limit = { check_variable = { MAD_tana_offices_damage > 0 } }
+				damage_building = { type = offices damage = 0.5 }
+				subtract_from_temp_variable = { MAD_tana_offices_damage = 0.5 }
+			}
+		}
+		set_country_flag = MAD_ROY_SUCCESSION_PROTESTS_ALLOWED
+	}
+}
+
+# Union offers: target nations choose whether to join Madagascar in a voluntary political union.
+country_event = {
+	id = mad_royal.7
+	title = mad_royal.7.t
+	desc = mad_royal.7.d
+	picture = GFX_report_event_generic_political
+	is_triggered_only = yes
+	option = {
+		name = mad_royal.7.a
+		log = "[GetDateText]: [This.GetName]: mad_royal.7.a - Comorian union accepted"
+		every_owned_state = { add_core_of = MAD }
+		MAD = { annex_country = { target = COM } set_country_flag = MAD_ROY_UNION_COMOROS_ACCEPTED }
+		ai_chance = { base = 25 modifier = { factor = 2 has_opinion = { target = MAD value > 149 } } }
+	}
+	option = {
+		name = mad_royal.7.b
+		log = "[GetDateText]: [This.GetName]: mad_royal.7.b - Comorian union rejected"
+		MAD = { set_country_flag = MAD_ROY_UNION_COMOROS_REJECTED }
+		ai_chance = { base = 75 }
+	}
+}
+country_event = {
+	id = mad_royal.8
+	title = mad_royal.8.t
+	desc = mad_royal.8.d
+	picture = GFX_report_event_generic_political
+	is_triggered_only = yes
+	option = {
+		name = mad_royal.8.a
+		log = "[GetDateText]: [This.GetName]: mad_royal.8.a - Seychellois union accepted"
+		every_owned_state = { add_core_of = MAD }
+		MAD = { annex_country = { target = SEY } set_country_flag = MAD_ROY_UNION_SEYCHELLES_ACCEPTED }
+		ai_chance = { base = 25 modifier = { factor = 2 has_opinion = { target = MAD value > 149 } } }
+	}
+	option = {
+		name = mad_royal.8.b
+		log = "[GetDateText]: [This.GetName]: mad_royal.8.b - Seychellois union rejected"
+		MAD = { set_country_flag = MAD_ROY_UNION_SEYCHELLES_REJECTED }
+		ai_chance = { base = 75 }
+	}
+}
+country_event = {
+	id = mad_royal.9
+	title = mad_royal.9.t
+	desc = mad_royal.9.d
+	picture = GFX_report_event_generic_political
+	is_triggered_only = yes
+	option = {
+		name = mad_royal.9.a
+		log = "[GetDateText]: [This.GetName]: mad_royal.9.a - Mauritian union accepted"
+		every_owned_state = { add_core_of = MAD }
+		MAD = { annex_country = { target = MRT } set_country_flag = MAD_ROY_UNION_MAURITIUS_ACCEPTED }
+		ai_chance = { base = 25 modifier = { factor = 2 has_opinion = { target = MAD value > 149 } } }
+	}
+	option = {
+		name = mad_royal.9.b
+		log = "[GetDateText]: [This.GetName]: mad_royal.9.b - Mauritian union rejected"
+		MAD = { set_country_flag = MAD_ROY_UNION_MAURITIUS_REJECTED }
+		ai_chance = { base = 75 }
+	}
+}
+
+# France receives separate sovereignty demands. Reunion and Mayotte are resolved independently.
+country_event = {
+	id = mad_royal.10
+	title = mad_royal.10.t
+	desc = mad_royal.10.d
+	picture = GFX_report_event_generic_political
+	is_triggered_only = yes
+	option = {
+		name = mad_royal.10.a
+		log = "[GetDateText]: [This.GetName]: mad_royal.10.a - French government transfers Reunion"
+		if = {
+			limit = { 706 = { is_owned_by = ROOT } }
+			706 = { add_core_of = MAD transfer_state_to = MAD }
+		}
+		MAD = {
+			set_country_flag = MAD_ROY_FRANCE_TRANSFERRED_REUNION
+			add_stability = 0.01
+			add_war_support = 0.02
+		}
+		ai_chance = {
+			base = 1
+			modifier = { factor = 0.1 NOT = { MAD = { num_divisions > 25 } } }
+			modifier = { factor = 0.1 NOT = { MAD = { has_navy_size = { size > 10 } } } }
+			modifier = { factor = 3 has_opinion = { target = MAD value > 99 } }
+			modifier = {
+				factor = 2
+				OR = {
+					AND = { has_government = democratic MAD = { has_government = democratic } }
+					AND = { has_government = communism MAD = { has_government = communism } }
+					AND = { has_government = fascism MAD = { has_government = fascism } }
+					AND = { has_government = neutrality MAD = { has_government = neutrality } }
+					AND = { has_government = nationalist MAD = { has_government = nationalist } }
+				}
+			}
+		}
+	}
+	option = {
+		name = mad_royal.10.b
+		log = "[GetDateText]: [This.GetName]: mad_royal.10.b - French government refuses Reunion demand"
+		MAD = {
+			set_country_flag = MAD_ROY_FRANCE_REFUSED_REUNION
+			add_war_support = 0.03
+			add_named_threat = { threat = 3 name = MAD_ROY_FRANCE_REFUSES_REUNION_TENSION }
+		}
+		if = {
+			limit = { 706 = { is_owned_by = ROOT } }
+			MAD = { add_state_claim = 706 }
+		}
+		ai_chance = { base = 100 }
+	}
+}
+
+country_event = {
+	id = mad_royal.11
+	title = mad_royal.11.t
+	desc = mad_royal.11.d
+	picture = GFX_report_event_generic_political
+	is_triggered_only = yes
+	option = {
+		name = mad_royal.11.a
+		log = "[GetDateText]: [This.GetName]: mad_royal.11.a - French government transfers Mayotte"
+		# Transfer French-owned states belonging to Mayotte's MTE core, if any.
+		every_owned_state = {
+			limit = { is_core_of = MTE }
+			add_core_of = MAD
+			transfer_state_to = MAD
+		}
+		if = {
+			limit = { MTE = { exists = yes } }
+			MTE = { every_owned_state = { add_core_of = MAD } }
+			MAD = { annex_country = { target = MTE } }
+		}
+		MAD = {
+			set_country_flag = MAD_ROY_FRANCE_TRANSFERRED_MAYOTTE
+			add_stability = 0.01
+			add_war_support = 0.02
+		}
+		ai_chance = {
+			base = 1
+			modifier = { factor = 0.1 NOT = { MAD = { num_divisions > 25 } } }
+			modifier = { factor = 0.1 NOT = { MAD = { has_navy_size = { size > 10 } } } }
+			modifier = { factor = 3 has_opinion = { target = MAD value > 99 } }
+			modifier = {
+				factor = 2
+				OR = {
+					AND = { has_government = democratic MAD = { has_government = democratic } }
+					AND = { has_government = communism MAD = { has_government = communism } }
+					AND = { has_government = fascism MAD = { has_government = fascism } }
+					AND = { has_government = neutrality MAD = { has_government = neutrality } }
+					AND = { has_government = nationalist MAD = { has_government = nationalist } }
+				}
+			}
+		}
+	}
+	option = {
+		name = mad_royal.11.b
+		log = "[GetDateText]: [This.GetName]: mad_royal.11.b - French government refuses Mayotte demand"
+		MAD = {
+			set_country_flag = MAD_ROY_FRANCE_REFUSED_MAYOTTE
+			add_war_support = 0.03
+			add_named_threat = { threat = 3 name = MAD_ROY_FRANCE_REFUSES_MAYOTTE_TENSION }
+		}
+		every_owned_state = {
+			limit = { is_core_of = MTE }
+			MAD = { add_state_claim = PREV }
+		}
+		if = {
+			limit = { MTE = { exists = yes } }
+			MTE = {
+			every_owned_state = {
+				MAD = { add_state_claim = PREV }
+			}
+		}
+		}
+		ai_chance = { base = 100 }
+	}
 }

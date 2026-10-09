@@ -16,6 +16,10 @@ on_actions = {
 					}
 					clamp_variable = { var = MAD_drought_prevention_count min = 0 max = 7 }
 
+					# Party-idea entitlement setup is event-driven; no daily/weekly/monthly polling is used.
+					MAD_seed_party_idea_entitlements = yes
+					country_event = { id = mad_political.8 hours = 1 }
+
 					# Madagascar's historical start is AREMA under Didier Ratsiraka.
 					# Arm the first-loss chain once; the event itself verifies that
 					# AREMA has actually lost power after the party-change hook settles.
@@ -101,6 +105,12 @@ on_actions = {
 
 	on_ruling_party_change = {
 		effect = {
+			# Reconcile party-linked ideas after the new ruling party has settled.
+			# The short delay avoids racing the politics-view/ruling-party update; this is event-driven, not periodic.
+			if = {
+				limit = { original_tag = MAD }
+				country_event = { id = mad_political.8 hours = 1 }
+			}
 			# Schedule the first-loss event after the political state has settled.
 			# The event itself performs the actual AREMA-loss check.
 			if = {

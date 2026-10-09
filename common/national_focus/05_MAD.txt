@@ -21,11 +21,21 @@ focus_tree = {
 		icon = GFX_goal_generic_political_pressure
 		x = 96
 		y = 0
-		cost = 5
+		cost = 3
 		search_filters = { FOCUS_FILTER_ECONOMY }
+
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_ARMY_INDIAN_OCEAN_EXERCISE"
-			country_event = { id = MAD_military_procurement.3 days = 1 }
+			custom_effect_tooltip = {
+				localization_key = modifies_dynamic_modifier_tt
+				MODIFIER = MAD_economy_modifier
+			}
+			add_to_variable = { MAD_economy_local_resources_steel_factor = 0.05 tooltip = local_resources_steel_factor_tt }
+			add_to_variable = { MAD_economy_local_resources_oil_factor = 0.05 tooltip = local_resources_oil_factor_tt }
+			add_to_variable = { MAD_economy_local_resources_tungsten_factor = 0.05 tooltip = local_resources_tungsten_factor_tt }
+			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.03 tooltip = productivity_growth_modifier_tt }
+			add_to_variable = { MAD_economy_receiving_investment_cost_modifier = -0.03 tooltip = receiving_investment_cost_modifier_tt }
+
 		}
 
 		ai_will_do = {
@@ -38,7 +48,7 @@ focus_tree = {
 		icon = GFX_focus_market_economy
 		x = 42
 		y = 0
-		cost = 5
+		cost = 3
 		search_filters = { FOCUS_FILTER_POLITICAL }
 
 		completion_reward = {
@@ -61,7 +71,7 @@ focus_tree = {
 		icon = GFX_goal_generic_urban_warfare
 		x = 16
 		y = 22
-		cost = 5
+		cost = 3
 		search_filters = { FOCUS_FILTER_INTERNAL_FACTION FOCUS_FILTER_STABILITY }
 
 		completion_reward = {
@@ -100,7 +110,7 @@ focus_tree = {
 		x = 16
 		y = 2
 		relative_position_id = MAD_natural_resource_extraction
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_natural_resource_extraction }
 		search_filters = { FOCUS_FILTER_ECONOMY }
 		available = {
@@ -127,7 +137,7 @@ focus_tree = {
 		x = 2
 		y = 2
 		relative_position_id = MAD_natural_resource_extraction
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_natural_resource_extraction }
 		search_filters = { FOCUS_FILTER_ECONOMY }
 
@@ -169,6 +179,11 @@ focus_tree = {
 						add_idea = full_environmental_protections
 					}
 				}
+			if = {
+				limit = { has_idea = landowners }
+				set_temp_variable = { temp_opinion = -5 }
+				change_landowners_opinion = yes
+			}
 		}
 
 		ai_will_do = {
@@ -182,7 +197,7 @@ focus_tree = {
 		x = -20
 		y = 2
 		relative_position_id = MAD_natural_resource_extraction
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_natural_resource_extraction }
 		search_filters = { FOCUS_FILTER_ECONOMY }
 		available = {
@@ -228,7 +243,7 @@ focus_tree = {
 		x = 10
 		y = 2
 		relative_position_id = MAD_natural_resource_extraction
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_natural_resource_extraction }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -277,7 +292,7 @@ focus_tree = {
 		x = -8
 		y = 2
 		relative_position_id = MAD_natural_resource_extraction
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_natural_resource_extraction }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -308,6 +323,11 @@ focus_tree = {
 				value = -0.075
 				tooltip_side = MAD_private_ownership
 			}
+			if = {
+				limit = { has_idea = fossil_fuel_industry }
+				set_temp_variable = { temp_opinion = 10 }
+				change_fossil_fuel_industry_opinion = yes
+			}
 		}
 
 		ai_will_do = {
@@ -321,7 +341,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_COMPANIES
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_COMPANIES }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 
@@ -342,7 +362,7 @@ focus_tree = {
 		x = 7
 		y = 2
 		relative_position_id = MAD_COMPANIES
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_COMPANIES }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 
@@ -367,12 +387,15 @@ focus_tree = {
 		x = 13
 		y = 2
 		relative_position_id = MAD_COMPANIES
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_COMPANIES }
 		search_filters = { FOCUS_FILTER_ECONOMY }
 
 		completion_reward = {
 			log = "[GetDateText]: [This.GetName]: Focus MAD_GPM"
+			
+			add_political_power = 25
+			
 			custom_effect_tooltip = {
 				localization_key = modifies_dynamic_modifier_tt
 				MODIFIER = MAD_economy_modifier
@@ -384,8 +407,13 @@ focus_tree = {
 			}
 			add_to_variable = { MAD_power_non_electric_fuel_consumption_modifier = -0.03 tooltip = non_electric_fuel_consumption_modifier_tt }
 			
-			add_political_power = 25
+			
 			set_country_flag = MAD_GPM_MARKET_FRAMEWORK_STARTED
+			if = {
+				limit = { has_idea = fossil_fuel_industry }
+				set_temp_variable = { temp_opinion = 5 }
+				change_fossil_fuel_industry_opinion = yes
+			}
 		}
 
 		ai_will_do = {
@@ -399,12 +427,16 @@ focus_tree = {
 		x = 21
 		y = 2
 		relative_position_id = MAD_COMPANIES
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_COMPANIES }
 		search_filters = { FOCUS_FILTER_ECONOMY FOCUS_FILTER_EXPENDITURE }
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_JIRAMA"
+			
+			add_political_power = 25
+
+
 			set_country_flag = MAD_JIRAMA_PROGRAM_STARTED
 			custom_effect_tooltip = {
 				localization_key = modifies_dynamic_modifier_tt
@@ -416,7 +448,6 @@ focus_tree = {
 				MODIFIER = MAD_economy_modifier
 			}
 			add_to_variable = { MAD_economy_production_speed_energy_infrastructure_factor = 0.03 tooltip = production_speed_energy_infrastructure_factor_tt }
-			add_political_power = 25
 		}
 
 		ai_will_do = {
@@ -430,7 +461,7 @@ focus_tree = {
 		x = 1
 		y = 1
 		relative_position_id = MAD_JIRAMA
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_JIRAMA }
 		search_filters = { FOCUS_FILTER_ECONOMY FOCUS_FILTER_EXPENDITURE }
 
@@ -463,7 +494,7 @@ focus_tree = {
 		x = 8
 		y = 1
 		relative_position_id = MAD_JIRAMA
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_JIRAMA }
 		search_filters = { FOCUS_FILTER_ECONOMY }
 
@@ -495,7 +526,7 @@ focus_tree = {
 		x = 5
 		y = 1
 		relative_position_id = MAD_JIRAMA_MAINTENANCE
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_JIRAMA_MAINTENANCE focus = MAD_JIRAMA_BILL_COLLECTION }
 		search_filters = { FOCUS_FILTER_ECONOMY FOCUS_FILTER_EXPENDITURE }
 
@@ -527,7 +558,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_JIRAMA_BILL_COLLECTION
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_JIRAMA_BILL_COLLECTION }
 		search_filters = { FOCUS_FILTER_ECONOMY }
 
@@ -557,7 +588,7 @@ focus_tree = {
 		x = 0
 		y = 1
 		relative_position_id = MAD_JIRAMA_MAINTENANCE
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_JIRAMA_MAINTENANCE }
 		search_filters = { FOCUS_FILTER_ECONOMY }
 
@@ -588,7 +619,7 @@ focus_tree = {
 		x = 3
 		y = 1
 		relative_position_id = MAD_HYDROLECT_FUEL_PP
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_HYDROLECT_FUEL_PP focus = MAD_JIRAMA_GRID_REINFORCEMENT }
 		search_filters = { FOCUS_FILTER_ECONOMY FOCUS_FILTER_EXPENDITURE }
 		available = {
@@ -619,7 +650,7 @@ focus_tree = {
 		x = 3
 		y = 3
 		relative_position_id = MAD_JIRAMA_ANDEKALEKA
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_JIRAMA_GRID_REINFORCEMENT }
 		search_filters = { FOCUS_FILTER_ECONOMY FOCUS_FILTER_EXPENDITURE }
 		available = {
@@ -656,7 +687,7 @@ focus_tree = {
 		x = -4
 		y = 3
 		relative_position_id = MAD_JIRAMA_GRID_REINFORCEMENT
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_JIRAMA_GRID_REINFORCEMENT focus = MAD_HYDROLECT_FUEL_PP }
 		search_filters = { FOCUS_FILTER_ECONOMY }
 		available = {
@@ -692,7 +723,7 @@ focus_tree = {
 		x = -1
 		y = 3
 		relative_position_id = MAD_JIRAMA_PRIVATIZATION_FORK
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_JIRAMA_PRIVATIZATION_FORK }
 		mutually_exclusive = { focus = MAD_JIRAMA_STAY_PUBLIC }
 		search_filters = { FOCUS_FILTER_ECONOMY }
@@ -701,8 +732,12 @@ focus_tree = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_JIRAMA_CORPORATIZE"
 			set_country_flag = MAD_JIRAMA_PRIVATE_MODEL
 			
-			
-			set_temp_variable = { treasury_change = 12.00 }			
+			set_temp_variable = {
+				treasury_change = {
+					value = gdp_total
+					multiply = 0.03
+				}
+			}
 			modify_treasury_effect = yes
 			
 			custom_effect_tooltip = {
@@ -736,7 +771,7 @@ focus_tree = {
 		x = 1
 		y = 3
 		relative_position_id = MAD_JIRAMA_PRIVATIZATION_FORK
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_JIRAMA_PRIVATIZATION_FORK }
 		mutually_exclusive = { focus = MAD_JIRAMA_CORPORATIZE }
 		search_filters = { FOCUS_FILTER_ECONOMY FOCUS_FILTER_STABILITY }
@@ -797,7 +832,7 @@ focus_tree = {
 		x = 3
 		y = 1
 		relative_position_id = MAD_JIRAMA_PRIVATIZATION_FORK
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_JIRAMA_PRIVATIZATION_FORK }
 		search_filters = { FOCUS_FILTER_ECONOMY FOCUS_FILTER_STABILITY }
 		available = {
@@ -833,7 +868,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_JIRAMA_IMF_PLAN
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_JIRAMA_IMF_PLAN }
 		search_filters = { FOCUS_FILTER_ECONOMY FOCUS_FILTER_STABILITY }
 
@@ -856,7 +891,7 @@ focus_tree = {
 		x = -3
 		y = 2
 		relative_position_id = MAD_IMF_REVIEW_2025
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_IMF_REVIEW_2025 }
 		mutually_exclusive = { focus = MAD_JIRAMA_RECOVERY_SUCCEEDS }
 		search_filters = { FOCUS_FILTER_ECONOMY FOCUS_FILTER_STABILITY FOCUS_FILTER_EXPENDITURE }
@@ -912,7 +947,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_IMF_REVIEW_2025
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_IMF_REVIEW_2025 }
 		mutually_exclusive = { focus = MAD_JIRAMA_RECOVERY_FAILS }
 		search_filters = { FOCUS_FILTER_ECONOMY FOCUS_FILTER_STABILITY FOCUS_FILTER_INDUSTRY }
@@ -971,7 +1006,7 @@ focus_tree = {
 		x = -5
 		y = -1
 		relative_position_id = MAD_JIRAMA_RECOVERY_SUCCEEDS
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_IMF_REVIEW_2025 }
 		search_filters = { FOCUS_FILTER_ECONOMY FOCUS_FILTER_STABILITY FOCUS_FILTER_INDUSTRY }
 		available = {
@@ -1079,7 +1114,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_counter_the_dahalo
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_counter_the_dahalo }
 		search_filters = { FOCUS_FILTER_STABILITY FOCUS_FILTER_POLITICAL }
 		available = {
@@ -1108,7 +1143,7 @@ focus_tree = {
 		x = 2
 		y = 2
 		relative_position_id = MAD_lost_decade
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_lost_decade }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 
@@ -1134,7 +1169,7 @@ focus_tree = {
 		x = 2
 		y = 2
 		relative_position_id = MAD_NATURE_PRESERVATION
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_NATURE_PRESERVATION }
 		search_filters = { FOCUS_FILTER_ECONOMY }
 
@@ -1147,8 +1182,12 @@ focus_tree = {
 			}
 			add_to_variable = { MAD_economy_local_resources_oil_factor = -0.05 tooltip = local_resources_tungsten_factor_tt }
 			add_to_variable = { MAD_economy_local_resources_tungsten_factor = -0.05 tooltip = local_resources_tungsten_factor_tt }
-			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.1 tooltip = productivity_growth_modifier_tt }
 			add_stability = 0.05
+			if = {
+				limit = { has_idea = landowners }
+				set_temp_variable = { temp_opinion = -5 }
+				change_landowners_opinion = yes
+			}
 		}
 
 		ai_will_do = {
@@ -1162,7 +1201,7 @@ focus_tree = {
 		x = -4
 		y = 2
 		relative_position_id = MAD_NATURE_PRESERVATION
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_NATURE_PRESERVATION }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 
@@ -1188,7 +1227,7 @@ focus_tree = {
 		x = 2
 		y = 2
 		relative_position_id = MAD_PROTECTED_AREAS_EXPANSION
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_PROTECTED_AREAS_EXPANSION }
 		search_filters = { FOCUS_FILTER_ECONOMY }
 
@@ -1215,7 +1254,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_Rosewood
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_Rosewood }
 		search_filters = { FOCUS_FILTER_ECONOMY FOCUS_FILTER_POLITICAL }
 		available = {
@@ -1235,6 +1274,11 @@ focus_tree = {
 			add_to_variable = { MAD_economy_receiving_investment_cost_modifier = -0.03 tooltip = receiving_investment_cost_modifier_tt }
 			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.10 tooltip = productivity_growth_modifier_tt }
 			add_stability = 0.01
+			if = {
+				limit = { has_idea = small_medium_business_owners }
+				set_temp_variable = { temp_opinion = 5 }
+				change_small_medium_business_owners_opinion = yes
+			}
 		}
 
 		ai_will_do = {
@@ -1248,7 +1292,7 @@ focus_tree = {
 		x = -2
 		y = 2
 		relative_position_id = MAD_ROSEWOOD_STOCKPILE_AUDIT
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_ROSEWOOD_STOCKPILE_AUDIT }
 		mutually_exclusive = { focus = MAD_ROSEWOOD_DOMESTIC_USE }
 		search_filters = { FOCUS_FILTER_ECONOMY FOCUS_FILTER_STABILITY }
@@ -1288,7 +1332,7 @@ focus_tree = {
 		x = 2
 		y = 2
 		relative_position_id = MAD_ROSEWOOD_STOCKPILE_AUDIT
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_ROSEWOOD_STOCKPILE_AUDIT }
 		mutually_exclusive = { focus = MAD_ROSEWOOD_CITES_TRACEABILITY }
 		search_filters = { FOCUS_FILTER_ECONOMY FOCUS_FILTER_POLITICAL }
@@ -1322,7 +1366,7 @@ focus_tree = {
 		x = -1
 		y = 2
 		relative_position_id = MAD_QMM_CONSTRUCTION
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_QMM_CONSTRUCTION }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 
@@ -1357,6 +1401,11 @@ focus_tree = {
 				value = -0.0375
 				tooltip_side = MAD_private_ownership
 			}
+			if = {
+				limit = { has_idea = landowners }
+				set_temp_variable = { temp_opinion = 10 }
+				change_landowners_opinion = yes
+			}
 		}
 
 		ai_will_do = {
@@ -1370,7 +1419,7 @@ focus_tree = {
 		x = 1
 		y = 2
 		relative_position_id = MAD_QMM_CONSTRUCTION
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_QMM_CONSTRUCTION }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 
@@ -1415,7 +1464,7 @@ focus_tree = {
 		x = -8
 		y = 2
 		relative_position_id = MAD_lost_decade
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_lost_decade }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -1450,7 +1499,7 @@ focus_tree = {
 		x = -2
 		y = 2
 		relative_position_id = MAD_lost_decade
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_lost_decade }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 
@@ -1496,7 +1545,7 @@ focus_tree = {
 		x = 6
 		y = 2
 		relative_position_id = MAD_lost_decade
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_lost_decade }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 
@@ -1520,6 +1569,11 @@ focus_tree = {
 					instant_build = yes
 				}
 			}
+			if = {
+				limit = { has_idea = farmers }
+				set_temp_variable = { temp_opinion = 5 }
+				change_farmers_opinion = yes
+			}
 		}
 
 		ai_will_do = {
@@ -1533,7 +1587,7 @@ focus_tree = {
 		x = 2
 		y = 2
 		relative_position_id = MAD_AMBATOVY_JV_FORMED
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_AMBATOVY_JV_FORMED }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -1580,6 +1634,16 @@ focus_tree = {
 			
 				
 			}
+			if = {
+				limit = { has_idea = international_bankers }
+				set_temp_variable = { temp_opinion = 5 }
+				change_international_bankers_opinion = yes
+			}
+			if = {
+				limit = { has_idea = landowners }
+				set_temp_variable = { temp_opinion = 5 }
+				change_landowners_opinion = yes
+			}
 		}
 
 		ai_will_do = {
@@ -1593,7 +1657,7 @@ focus_tree = {
 		x = -3
 		y = 2
 		relative_position_id = MAD_QMM_CONSTRUCTION
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_QMM_CONSTRUCTION }
 		search_filters = { FOCUS_FILTER_ECONOMY }
 		available = {
@@ -1644,7 +1708,7 @@ focus_tree = {
 		x = -4
 		y = 2
 		relative_position_id = MAD_Bemolanga_oil_sands_project
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_Bemolanga_oil_sands_project }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 
@@ -1669,6 +1733,11 @@ focus_tree = {
 				value = -0.0375
 				tooltip_side = MAD_private_ownership
 			}
+			if = {
+				limit = { has_idea = fossil_fuel_industry }
+				set_temp_variable = { temp_opinion = 10 }
+				change_fossil_fuel_industry_opinion = yes
+			}
 		}
 
 		ai_will_do = {
@@ -1682,7 +1751,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_ilmenite_mine
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_ilmenite_mine }
 		search_filters = { FOCUS_FILTER_ECONOMY }
 
@@ -1720,6 +1789,11 @@ focus_tree = {
 				value = -0.0375
 				tooltip_side = MAD_private_ownership
 			}
+			if = {
+				limit = { has_idea = landowners }
+				set_temp_variable = { temp_opinion = 10 }
+				change_landowners_opinion = yes
+			}
 		}
 
 		ai_will_do = {
@@ -1733,7 +1807,7 @@ focus_tree = {
 		x = 4
 		y = 2
 		relative_position_id = MAD_Toliara_rare_earths
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_Toliara_rare_earths }
 		search_filters = { FOCUS_FILTER_ECONOMY }
 
@@ -1758,7 +1832,7 @@ focus_tree = {
 		x = -2
 		y = 2
 		relative_position_id = MAD_Toliara_rare_earths
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_Toliara_rare_earths }
 		search_filters = { FOCUS_FILTER_ECONOMY }
 
@@ -1806,7 +1880,7 @@ focus_tree = {
 		x = 2
 		y = 2
 		relative_position_id = MAD_Bemolanga_oil_sands_project
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_Bemolanga_oil_sands_project }
 		search_filters = { FOCUS_FILTER_ECONOMY }
 
@@ -1833,7 +1907,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_Bemolanga_oil_sands_project
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_Bemolanga_oil_sands_project }
 		search_filters = { FOCUS_FILTER_ECONOMY }
 
@@ -1879,7 +1953,7 @@ focus_tree = {
 		x = -8
 		y = 2
 		relative_position_id = MAD_Bemolanga_oil_sands_project
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_Bemolanga_oil_sands_project }
 		search_filters = { FOCUS_FILTER_ECONOMY }
 
@@ -1905,7 +1979,7 @@ focus_tree = {
 		x = 2
 		y = 2
 		relative_position_id = MAD_Tsimiroro_heavy_oil_field
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_Tsimiroro_heavy_oil_field }
 		search_filters = { FOCUS_FILTER_ECONOMY }
 
@@ -1943,7 +2017,7 @@ focus_tree = {
 		x = -2
 		y = 2
 		relative_position_id = MAD_Tsimiroro_heavy_oil_field
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_Tsimiroro_heavy_oil_field }
 		search_filters = { FOCUS_FILTER_ECONOMY }
 
@@ -1978,7 +2052,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_Telma
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_Telma }
 		search_filters = { FOCUS_FILTER_ECONOMY }
 		available = {
@@ -2000,6 +2074,15 @@ focus_tree = {
 			add_to_variable = { MAD_economy_civilian_industry_tax_modifier = 0.05 tooltip = civilian_industry_tax_modifier_tt }
 			
 			add_to_variable = { MAD_economy_production_speed_offices_factor = 0.05 tooltip = production_speed_offices_factor_tt }
+			
+			set_temp_variable = {
+				treasury_change = {
+					value = gdp_total
+					multiply = 0.04
+				}
+			}
+			modify_treasury_effect = yes
+			
 			add_power_balance_value = {
 				id = MAD_economy_ownership_bop
 				value = -0.075
@@ -2018,7 +2101,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_Madarail
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_Madarail }
 		search_filters = { FOCUS_FILTER_ECONOMY }
 		available = {
@@ -2031,7 +2114,13 @@ focus_tree = {
 			set_country_flag = MAD_MADARAIL_PRIVATE
 			
 			
-			set_temp_variable = { treasury_change = 12.00 }
+			set_temp_variable = {
+				treasury_change = {
+					value = gdp_total
+					multiply = 0.01
+				}
+			}
+			modify_treasury_effect = yes
 					modify_treasury_effect = yes
 					
 			custom_effect_tooltip = {
@@ -2052,8 +2141,7 @@ focus_tree = {
 					instant_build = yes
 				}
 			}
-			add_political_power = 25
-			set_temp_variable = { treasury_change = -3.53 }
+			set_temp_variable = { treasury_change = -3.50 }
 			modify_treasury_effect = yes
 			add_power_balance_value = {
 				id = MAD_economy_ownership_bop
@@ -2073,7 +2161,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_GPM
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_GPM_CARTEL_FORMS }
 		search_filters = { FOCUS_FILTER_ECONOMY }
 		available = {
@@ -2095,6 +2183,11 @@ focus_tree = {
 			add_to_variable = { MAD_economy_international_market_income_modifier = 0.05 tooltip = international_market_income_modifier_tt }
 			add_political_power = 25
 			set_country_flag = MAD_GPM_DOWNSTREAM_LIBERALIZED
+			if = {
+				limit = { has_idea = fossil_fuel_industry }
+				set_temp_variable = { temp_opinion = 10 }
+				change_fossil_fuel_industry_opinion = yes
+			}
 		}
 
 		ai_will_do = {
@@ -2108,7 +2201,7 @@ focus_tree = {
 		x = -2
 		y = 2
 		relative_position_id = MAD_AIR
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_AIR }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -2116,12 +2209,12 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			set_temp_variable = { percent_change = 10 }
+			set_temp_variable = { percent_change = 5 }
 						set_temp_variable = { tag_index = GER }
 						set_temp_variable = { influence_target = MAD }
 						change_influence_percentage = yes
 						set_temp_variable = { debt_change = debt }
-						multiply_temp_variable = { debt_change = -0.10 }
+						multiply_temp_variable = { debt_change = -0.05 }
 						modify_debt_effect = yes
 		}
 
@@ -2136,7 +2229,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_formalize_dina_courts
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_formalize_dina_courts }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 
@@ -2164,7 +2257,7 @@ focus_tree = {
 		x = -4
 		y = 2
 		relative_position_id = MAD_The_Capital
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_The_Capital }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 
@@ -2207,7 +2300,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_The_Capital
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_The_Capital }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 
@@ -2237,7 +2330,7 @@ focus_tree = {
 		x = -4
 		y = 2
 		relative_position_id = MAD_Drought_and_famine
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_Drought_and_famine }
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ECONOMY }
 		available = {
@@ -2256,6 +2349,11 @@ focus_tree = {
 			}
 			add_to_variable = { MAD_agri_productivity = 0.02 tooltip = agricolture_productivity_modifier_tt }
 			force_update_dynamic_modifier = yes
+			if = {
+				limit = { has_idea = farmers }
+				set_temp_variable = { temp_opinion = 5 }
+				change_farmers_opinion = yes
+			}
 		}
 
 		ai_will_do = {
@@ -2269,7 +2367,7 @@ focus_tree = {
 		x = 4
 		y = 2
 		relative_position_id = MAD_Drought_and_famine
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_Drought_and_famine }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 
@@ -2296,7 +2394,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_Drought_and_famine
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_Drought_and_famine }
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ECONOMY }
 		available = {
@@ -2335,7 +2433,7 @@ focus_tree = {
 		x = 2
 		y = 2
 		relative_position_id = MAD_Toliara_rare_earths
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_Toliara_rare_earths }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 
@@ -2382,7 +2480,7 @@ focus_tree = {
 		x = -4
 		y = 2
 		relative_position_id = MAD_TOAMASINA
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_TOAMASINA }
 		search_filters = { FOCUS_FILTER_ECONOMY }
 		available = {
@@ -2416,7 +2514,7 @@ focus_tree = {
 		x = 10
 		y = 2
 		relative_position_id = MAD_Agricultural_reforms
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_Agricultural_reforms }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 
@@ -2428,6 +2526,14 @@ focus_tree = {
 			}
 			add_to_variable = { MAD_economy_foreign_influence_modifier = 0.03 tooltip = foreign_influence_modifier_tt }
 			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.05 tooltip = productivity_growth_modifier_tt }
+			if = {
+				limit = { has_idea = farmers }
+				set_temp_variable = { temp_opinion = 5 }
+				change_farmers_opinion = yes
+			}
+			# Start the recurring vanilla market boom/bust cycle 600 days after this focus.
+			set_country_flag = MAD_VANILLA_VOLATILE_MARKET
+			country_event = { id = mad_vanilla.1 days = 600 }
 		}
 
 		ai_will_do = {
@@ -2441,7 +2547,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_Agricultural_reforms
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_Agricultural_reforms }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -2454,7 +2560,7 @@ focus_tree = {
 			KOR = {
 				set_temp_variable = { int_investment_change = 5 }
 				modify_international_investment_effect = yes
-				set_temp_variable = { treasury_change = -2.00 }
+				set_temp_variable = { treasury_change = -3.75 }
 				modify_treasury_effect = yes
 			}
 			set_temp_variable = { percent_change = 5 }
@@ -2478,7 +2584,6 @@ focus_tree = {
 			add_to_variable = { MAD_agri_income_tax = 0.02 tooltip = agriculture_district_income_tax_modifier_tt }
 			hidden_effect = {
 				set_country_flag = MAD_DAEWOO_KOREAN_AGRI_SECTOR
-				force_update_dynamic_modifier = yes
 			}
 		}
 
@@ -2493,7 +2598,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_NATURELLE
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_NATURELLE }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 
@@ -2506,6 +2611,11 @@ focus_tree = {
 			}
 			add_to_variable = { MAD_economy_expected_welfare_modifier = 0.5 tooltip = expected_welfare_modifier_tt }
 			add_to_variable = { MAD_economy_production_speed_infrastructure_factor = 0.03 tooltip = production_speed_infrastructure_factor_tt }
+			if = {
+				limit = { has_idea = farmers }
+				set_temp_variable = { temp_opinion = 5 }
+				change_farmers_opinion = yes
+			}
 		}
 
 		ai_will_do = {
@@ -2519,7 +2629,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_AMBATOVY_OPERATIONAL
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_AMBATOVY_OPERATIONAL }
 		search_filters = { FOCUS_FILTER_ECONOMY }
 		available = {
@@ -2561,7 +2671,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_PROTECTED_AREAS_EXPANSION
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_PROTECTED_AREAS_EXPANSION }
 		search_filters = { FOCUS_FILTER_ECONOMY }
 
@@ -2575,7 +2685,7 @@ focus_tree = {
 					level = 1
 					instant_build = yes
 				}
-			set_temp_variable = { treasury_change = -12.00 }
+			set_temp_variable = { treasury_change = -16.00 }
 				modify_treasury_effect = yes
 			}
 			
@@ -2600,7 +2710,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_EHOALA_PORT
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_EHOALA_PORT }
 		search_filters = { FOCUS_FILTER_ECONOMY FOCUS_FILTER_STABILITY }
 
@@ -2620,7 +2730,7 @@ focus_tree = {
 		x = 1
 		y = 2
 		relative_position_id = MAD_RNCFM_PRIVATIZE
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_RNCFM_PRIVATIZE }
 		search_filters = { FOCUS_FILTER_ECONOMY }
 
@@ -2658,7 +2768,7 @@ focus_tree = {
 		x = 0
 		y = 1
 		relative_position_id = MAD_GPM
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_GPM }
 		search_filters = { FOCUS_FILTER_ECONOMY }
 		available = {
@@ -2679,6 +2789,11 @@ focus_tree = {
 			add_to_variable = { MAD_economy_trade_opinion_factor = 0.03 tooltip = trade_opinion_factor_tt }
 			add_political_power = 50
 			set_country_flag = MAD_GPM_FORMED
+			if = {
+				limit = { has_idea = fossil_fuel_industry }
+				set_temp_variable = { temp_opinion = 10 }
+				change_fossil_fuel_industry_opinion = yes
+			}
 		}
 
 		ai_will_do = {
@@ -2692,7 +2807,7 @@ focus_tree = {
 		x = 0
 		y = 1
 		relative_position_id = MAD_RURAL_ENERGY
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_RURAL_ENERGY }
 		search_filters = { FOCUS_FILTER_ECONOMY }
 		available = {
@@ -2730,7 +2845,7 @@ focus_tree = {
 		x = -3
 		y = 2
 		relative_position_id = MAD_LUFTHANSA
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_LUFTHANSA }
 		mutually_exclusive = { focus = MAD_AIR_STATE_CONTROL }
 		search_filters = { FOCUS_FILTER_POLITICAL }
@@ -2759,7 +2874,7 @@ focus_tree = {
 		x = 3
 		y = 2
 		relative_position_id = MAD_LUFTHANSA
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_LUFTHANSA }
 		mutually_exclusive = { focus = MAD_CONTINUE_WITH_LUFTHANSA }
 		search_filters = { FOCUS_FILTER_POLITICAL }
@@ -2797,7 +2912,7 @@ focus_tree = {
 		icon = GFX_goal_generic_political_pressure
 		x = 10
 		y = 28
-		cost = 5
+		cost = 3
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
 			NOT = { has_country_flag = MAD_REMENABILA_KILLED }
@@ -2821,7 +2936,7 @@ focus_tree = {
 		x = -4
 		y = 2
 		relative_position_id = MAD_ZEBU_CERTIFICATES
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_ZEBU_CERTIFICATES }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 
@@ -2853,7 +2968,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_ZEBU_CERTIFICATES
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_ZEBU_CERTIFICATES }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 
@@ -2877,7 +2992,7 @@ focus_tree = {
 		x = 4
 		y = 2
 		relative_position_id = MAD_ZEBU_CERTIFICATES
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_ZEBU_CERTIFICATES }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 
@@ -2911,7 +3026,7 @@ focus_tree = {
 		x = -4
 		y = 2
 		relative_position_id = MAD_Rocade_ring_road
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_Rocade_ring_road }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -2964,7 +3079,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_Promote_drought_tolerant_crops
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_Promote_drought_tolerant_crops }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 
@@ -2991,7 +3106,7 @@ focus_tree = {
 		x = 4
 		y = 2
 		relative_position_id = MAD_CNA
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_CNA }
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ECONOMY }
 
@@ -3022,7 +3137,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_CNA
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_CNA }
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ECONOMY }
 
@@ -3062,7 +3177,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_Toliara_Deep_Sea_port
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_Toliara_Deep_Sea_port }
 		search_filters = { FOCUS_FILTER_ECONOMY }
 
@@ -3111,7 +3226,7 @@ focus_tree = {
 		x = -4
 		y = 1
 		relative_position_id = MAD_HYDROLECT_FUEL_PP
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_HYDROLECT_FUEL_PP }
 		search_filters = { FOCUS_FILTER_ECONOMY FOCUS_FILTER_EXPENDITURE }
 
@@ -3146,7 +3261,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_ICTSI_CONCESSION
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_ICTSI_CONCESSION focus = MAD_SPAT_STRENGTHEN_AUTHORITY }
 		search_filters = { FOCUS_FILTER_ECONOMY FOCUS_FILTER_INDUSTRY }
 
@@ -3194,7 +3309,7 @@ focus_tree = {
 		x = 2
 		y = 2
 		relative_position_id = MAD_vanilla_export_sector
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_vanilla_export_sector }
 		mutually_exclusive = { focus = MAD_vanilla_quantity }
 		search_filters = { FOCUS_FILTER_POLITICAL }
@@ -3221,7 +3336,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_vanilla_export_sector
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_vanilla_export_sector }
 		mutually_exclusive = { focus = MAD_vanilla_quality_control }
 		search_filters = { FOCUS_FILTER_POLITICAL }
@@ -3247,7 +3362,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_DAEWOO_DEAL
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_DAEWOO_DEAL }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 
@@ -3274,7 +3389,7 @@ focus_tree = {
 		x = -2
 		y = 2
 		relative_position_id = MAD_POVERTY_PAPER
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_POVERTY_PAPER }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 
@@ -3300,7 +3415,7 @@ focus_tree = {
 		icon = GFX_goal_generic_trade
 		x = 114
 		y = 9
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_AMBATOVY_OPERATIONAL }
 		search_filters = { FOCUS_FILTER_ECONOMY FOCUS_FILTER_INDUSTRY }
 
@@ -3328,7 +3443,7 @@ focus_tree = {
 		x = 2
 		y = 2
 		relative_position_id = MAD_MADARAIL_OWNERSHIP_CHURN
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_MADARAIL_OWNERSHIP_CHURN }
 		mutually_exclusive = { focus = MAD_MADARAIL_INVESTORS_DESIST }
 		search_filters = { FOCUS_FILTER_ECONOMY }
@@ -3379,7 +3494,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_MADARAIL_INVESTORS_STAY
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_MADARAIL_INVESTORS_STAY }
 		search_filters = { FOCUS_FILTER_ECONOMY }
 
@@ -3427,7 +3542,7 @@ focus_tree = {
 		x = -2
 		y = 2
 		relative_position_id = MAD_MADARAIL_OWNERSHIP_CHURN
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_MADARAIL_OWNERSHIP_CHURN }
 		mutually_exclusive = { focus = MAD_MADARAIL_INVESTORS_STAY }
 		search_filters = { FOCUS_FILTER_ECONOMY }
@@ -3461,7 +3576,7 @@ focus_tree = {
 		x = 0
 		y = 1
 		relative_position_id = MAD_PAGOSE
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_PAGOSE }
 		search_filters = { FOCUS_FILTER_ECONOMY }
 
@@ -3500,7 +3615,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_CONTINUE_WITH_LUFTHANSA
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_CONTINUE_WITH_LUFTHANSA }
 		mutually_exclusive = { focus = MAD_SELL_TO_AUSTRAL }
 		search_filters = { FOCUS_FILTER_POLITICAL }
@@ -3518,14 +3633,10 @@ focus_tree = {
 			add_idea = MAD_PRIVATE_AIRLINE
 			}
 			
-			
-			set_temp_variable = { treasury_change = 8.00 }
-				modify_treasury_effect = yes
-						
 			add_tech_bonus = {
 				name = MAD_WORK_WITH_GERMANS
 				category = CAT_h_air
-				uses = 4
+				uses = 3
 				bonus = 0.25
 				}
 			267 = { 
@@ -3563,7 +3674,7 @@ focus_tree = {
 		x = 3
 		y = 2
 		relative_position_id = MAD_CONTINUE_WITH_LUFTHANSA
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_CONTINUE_WITH_LUFTHANSA focus = MAD_AIR_STATE_CONTROL }
 		mutually_exclusive = { focus = MAD_STATE_CONTROL_SUCCEEDS }
 		mutually_exclusive = { focus = MAD_WORK_WITH_GERMANS }
@@ -3609,7 +3720,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_AIR_STATE_CONTROL
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_AIR_STATE_CONTROL }
 		mutually_exclusive = { focus = MAD_SELL_TO_AUSTRAL }
 		search_filters = { FOCUS_FILTER_POLITICAL }
@@ -3644,7 +3755,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_enter_Remenabila
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_enter_Remenabila }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -3671,7 +3782,7 @@ focus_tree = {
 		x = -4
 		y = 2
 		relative_position_id = MAD_enter_Remenabila
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_enter_Remenabila }
 		mutually_exclusive = { focus = MAD_ARREST_ARMS }
 		search_filters = { FOCUS_FILTER_POLITICAL }
@@ -3696,7 +3807,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_FIGHTING_CERTIFICATE_FRAUD
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_FIGHTING_CERTIFICATE_FRAUD }
 		prerequisite = { focus = MAD_enter_Remenabila }
 		mutually_exclusive = { focus = MAD_PERMIT_ARMS }
@@ -3721,7 +3832,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_dahalo_military_ops
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_dahalo_military_ops }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 
@@ -3744,7 +3855,7 @@ focus_tree = {
 		x = 0
 		y = 3
 		relative_position_id = MAD_mining_code_reform
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_mining_code_reform }
 		search_filters = { FOCUS_FILTER_ECONOMY FOCUS_FILTER_INDUSTRY }
 
@@ -3773,7 +3884,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_END_PERMIT_FREEZE
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_END_PERMIT_FREEZE }
 		search_filters = { FOCUS_FILTER_ECONOMY FOCUS_FILTER_STABILITY }
 
@@ -3801,7 +3912,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_anticipating_faming_strategy
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_anticipating_faming_strategy }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 
@@ -3815,6 +3926,16 @@ focus_tree = {
 			}
 			add_to_variable = { MAD_agri_worker_req = -0.02 tooltip = agriculture_district_worker_requirement_modifier_tt }
 			force_update_dynamic_modifier = yes
+			if = {
+				limit = { has_idea = farmers }
+				set_temp_variable = { temp_opinion = 5 }
+				change_farmers_opinion = yes
+			}
+			if = {
+				limit = { has_idea = landowners }
+				set_temp_variable = { temp_opinion = 5 }
+				change_landowners_opinion = yes
+			}
 		}
 
 		ai_will_do = {
@@ -3828,7 +3949,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_Continue_the_path
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_Continue_the_path }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 
@@ -3856,7 +3977,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_become_the_locust
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_become_the_locust }
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ECONOMY }
 		available = {
@@ -3895,7 +4016,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_Soalala_iron_mine
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_Soalala_iron_mine }
 		search_filters = { FOCUS_FILTER_ECONOMY FOCUS_FILTER_EXPENDITURE }
 
@@ -3946,7 +4067,7 @@ focus_tree = {
 		x = 3
 		y = 2
 		relative_position_id = MAD_Mandroseza_PLANT
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_Mandroseza_PLANT }
 		search_filters = { FOCUS_FILTER_ECONOMY FOCUS_FILTER_EXPENDITURE }
 		available = {
@@ -4005,7 +4126,7 @@ focus_tree = {
 		x = -2
 		y = 2
 		relative_position_id = MAD_Mandroseza_PLANT
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_Mandroseza_PLANT }
 		search_filters = { FOCUS_FILTER_ECONOMY }
 		available = {
@@ -4040,7 +4161,7 @@ focus_tree = {
 		x = 1
 		y = 2
 		relative_position_id = MAD_Mandroseza_PLANT
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_Mandroseza_PLANT }
 		search_filters = { FOCUS_FILTER_ECONOMY }
 		available = {
@@ -4082,7 +4203,7 @@ focus_tree = {
 		x = -2
 		y = 2
 		relative_position_id = MAD_TOAMASINA_JICA_EXPANSION
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_TOAMASINA_JICA_EXPANSION focus = MAD_SPAT_STRENGTHEN_AUTHORITY }
 		prerequisite = { focus = MAD_Rocade_ring_road }
 		search_filters = { FOCUS_FILTER_ECONOMY FOCUS_FILTER_INDUSTRY }
@@ -4124,7 +4245,7 @@ focus_tree = {
 		x = 2
 		y = 2
 		relative_position_id = MAD_vanilla_quantity
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_vanilla_quantity focus = MAD_vanilla_quality_control }
 		mutually_exclusive = { focus = MAD_self_regulate_vanilla }
 		search_filters = { FOCUS_FILTER_POLITICAL }
@@ -4137,6 +4258,11 @@ focus_tree = {
 				MODIFIER = MAD_economy_modifier
 			}
 			add_to_variable = { MAD_economy_international_market_income_modifier = -0.03 tooltip = international_market_income_modifier_tt }
+			if = {
+				limit = { has_idea = farmers }
+				set_temp_variable = { temp_opinion = 10 }
+				change_farmers_opinion = yes
+			}
 		}
 
 		ai_will_do = {
@@ -4150,7 +4276,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_vanilla_quantity
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_vanilla_quantity focus = MAD_vanilla_quality_control }
 		mutually_exclusive = { focus = MAD_set_prices }
 		search_filters = { FOCUS_FILTER_POLITICAL }
@@ -4165,6 +4291,11 @@ focus_tree = {
 			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.05 tooltip = productivity_growth_modifier_tt }
 			add_to_variable = { MAD_economy_trade_opinion_factor = 0.03 tooltip = trade_opinion_factor_tt }
 			add_to_variable = { MAD_economy_population_tax_income_multiplier_modifier = 0.05 tooltip = population_tax_income_multiplier_modifier_tt }
+			if = {
+				limit = { has_idea = international_bankers }
+				set_temp_variable = { temp_opinion = 10 }
+				change_international_bankers_opinion = yes
+			}
 		}
 
 		ai_will_do = {
@@ -4178,7 +4309,7 @@ focus_tree = {
 		x = 2
 		y = 2
 		relative_position_id = MAD_DAEWOO_FALLOUT
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_DAEWOO_FALLOUT }
 		mutually_exclusive = { focus = MAD_DEAL_BROKEN }
 		search_filters = { FOCUS_FILTER_POLITICAL }
@@ -4211,13 +4342,23 @@ focus_tree = {
 			}
 			
 			
-			set_temp_variable = { temp_opinion = -25 }
-			change_small_medium_business_owners_opinion = yes
+			if = {
+				limit = { has_idea = small_medium_business_owners }
+				set_temp_variable = { temp_opinion = -25 }
+				change_small_medium_business_owners_opinion = yes
+			}
 			
-			set_temp_variable = { temp_opinion = -25 }
-			change_landowners_opinion = yes
 			increase_corruption = yes
-			
+			if = {
+				limit = { has_idea = landowners }
+				set_temp_variable = { temp_opinion = -15 }
+				change_landowners_opinion = yes
+			}
+			if = {
+				limit = { has_idea = farmers }
+				set_temp_variable = { temp_opinion = -10 }
+				change_farmers_opinion = yes
+			}
 			MAD_daewoo_drought_kept = yes
 			
 			set_variable = { MAD_daewoo_viability = 10 }
@@ -4236,7 +4377,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_DAEWOO_FALLOUT
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_DAEWOO_FALLOUT }
 		mutually_exclusive = { focus = MAD_DEAL_KEPT }
 		search_filters = { FOCUS_FILTER_POLITICAL }
@@ -4245,8 +4386,16 @@ focus_tree = {
 			set_country_flag = MAD_DAEWOO_BROKEN
 			add_stability = 0.02
 			add_political_power = 50
-			set_temp_variable = { temp_opinion = 10 }
-			change_landowners_opinion = yes
+			if = {
+				limit = { has_idea = landowners }
+				set_temp_variable = { temp_opinion = 10 }
+				change_landowners_opinion = yes
+			}
+			if = {
+				limit = { has_idea = farmers }
+				set_temp_variable = { temp_opinion = 10 }
+				change_farmers_opinion = yes
+			}
 			add_timed_idea = { idea = MAD_DAEWOO_CANCELLED days = 730 }
 			
 			268 = {
@@ -4296,7 +4445,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_CUT_CORPORATE_TAX
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_CUT_CORPORATE_TAX }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 
@@ -4311,6 +4460,11 @@ focus_tree = {
 			add_to_variable = { MAD_economy_receiving_investment_cost_modifier = -0.05 tooltip = receiving_investment_cost_modifier_tt }
 			add_to_variable = { MAD_economy_receiving_investment_duration_modifier = -0.05 tooltip = receiving_investment_duration_modifier_tt }
 			add_to_variable = { MAD_economy_foreign_influence_modifier = -0.05 tooltip = foreign_influence_modifier_tt }
+			if = {
+				limit = { has_idea = international_bankers }
+				set_temp_variable = { temp_opinion = 10 }
+				change_international_bankers_opinion = yes
+			}
 		}
 
 		ai_will_do = {
@@ -4324,7 +4478,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_ECOTOURISM_INVESTMENT
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_ECOTOURISM_INVESTMENT }
 		search_filters = { FOCUS_FILTER_ECONOMY }
 
@@ -4350,7 +4504,7 @@ focus_tree = {
 		x = 2
 		y = 2
 		relative_position_id = MAD_TELMA_SOLD_TO_CONSORTIUM
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_TELMA_SOLD_TO_CONSORTIUM }
 		mutually_exclusive = { focus = MAD_TELMA_RENATIONALIZE }
 		search_filters = { FOCUS_FILTER_ECONOMY }
@@ -4376,7 +4530,7 @@ focus_tree = {
 					instant_build = yes
 				}
 			}
-			set_temp_variable = { treasury_change = -12.00 }
+			set_temp_variable = { treasury_change = -8.00 }
 				modify_treasury_effect = yes
 			custom_effect_tooltip = {
 				localization_key = modifies_dynamic_modifier_tt
@@ -4403,7 +4557,7 @@ focus_tree = {
 		x = 2
 		y = 2
 		relative_position_id = MAD_TELMA_AXIAN_CONSOLIDATES
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_TELMA_AXIAN_CONSOLIDATES }
 		search_filters = { FOCUS_FILTER_ECONOMY }
 
@@ -4440,7 +4594,7 @@ focus_tree = {
 		x = -2
 		y = 2
 		relative_position_id = MAD_TELMA_SOLD_TO_CONSORTIUM
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_TELMA_SOLD_TO_CONSORTIUM }
 		mutually_exclusive = { focus = MAD_TELMA_AXIAN_CONSOLIDATES }
 		search_filters = { FOCUS_FILTER_ECONOMY }
@@ -4450,7 +4604,12 @@ focus_tree = {
 			set_country_flag = MAD_TELMA_STATE_OWNED
 			
 			 
-			set_temp_variable = { treasury_change = -8 }
+			set_temp_variable = {
+				treasury_change = {
+					value = gdp_total
+					multiply = -0.04
+				}
+			}
 			modify_treasury_effect = yes
 			 
 			custom_effect_tooltip = {
@@ -4463,7 +4622,7 @@ focus_tree = {
 			add_to_variable = { MAD_economy_internal_investments_money_cost_modifier = -0.10 tooltip = internal_investments_money_cost_modifier_tt }
 			add_to_variable = { MAD_economy_receiving_investment_cost_modifier = 0.10 tooltip = receiving_investment_cost_modifier_tt }
 			 
-			two_random_network_infrastructure = yes
+			one_random_network_infrastructure = yes
 			 
 			add_stability = -0.02
 			add_power_balance_value = {
@@ -4484,7 +4643,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_MADARAIL_INVESTORS_DESIST
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_MADARAIL_INVESTORS_DESIST }
 		search_filters = { FOCUS_FILTER_ECONOMY FOCUS_FILTER_STABILITY }
 
@@ -4512,9 +4671,19 @@ focus_tree = {
 					instant_build = yes
 				}
 			}
-			set_temp_variable = { treasury_change = -3.52 }
+			set_temp_variable = {
+				treasury_change = {
+					value = gdp_total
+					multiply = -0.01
+				}
+			}
 			modify_treasury_effect = yes
 			country_event = { id = mad_madarail.1 }
+			if = {
+				limit = { has_idea = international_bankers }
+				set_temp_variable = { temp_opinion = -5 }
+				change_international_bankers_opinion = yes
+			}
 		}
 
 		ai_will_do = {
@@ -4528,7 +4697,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_WORK_WITH_GERMANS
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_WORK_WITH_GERMANS }
 		search_filters = { FOCUS_FILTER_ECONOMY FOCUS_FILTER_AIRCRAFT }
 
@@ -4585,7 +4754,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_SELL_TO_AUSTRAL
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_SELL_TO_AUSTRAL }
 		search_filters = { FOCUS_FILTER_ECONOMY FOCUS_FILTER_AIRCRAFT }
 
@@ -4630,7 +4799,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_STATE_CONTROL_SUCCEEDS
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_STATE_CONTROL_SUCCEEDS }
 		search_filters = { FOCUS_FILTER_MILITARY_LAWS FOCUS_FILTER_AIRCRAFT }
 
@@ -4670,7 +4839,7 @@ focus_tree = {
 		x = 2
 		y = 2
 		relative_position_id = MAD_Hunt_for_red_with_a_swagger
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_Hunt_for_red_with_a_swagger }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 
@@ -4687,6 +4856,11 @@ focus_tree = {
 			
 			army_experience = 10
 			MAD_dahalo_update_modifier = yes
+			if = {
+				limit = { has_idea = the_military }
+				set_temp_variable = { temp_opinion = 5 }
+				change_the_military_opinion = yes
+			}
 		}
 
 		ai_will_do = {
@@ -4700,7 +4874,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_PERMIT_ARMS
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_PERMIT_ARMS }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -4730,7 +4904,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_Tandroka
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_Tandroka }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -4762,7 +4936,7 @@ focus_tree = {
 		x = -2
 		y = 2
 		relative_position_id = MAD_Grand_Sud_program
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_Grand_Sud_program }
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ECONOMY }
 		available = {
@@ -4786,6 +4960,16 @@ focus_tree = {
 			add_to_variable = { MAD_agri_productivity = 0.02 tooltip = agricolture_productivity_modifier_tt }
 			add_to_variable = { MAD_agri_income_tax = 0.02 tooltip = agriculture_district_income_tax_modifier_tt }
 			force_update_dynamic_modifier = yes
+			if = {
+				limit = { has_idea = farmers }
+				set_temp_variable = { temp_opinion = 5 }
+				change_farmers_opinion = yes
+			}
+			if = {
+				limit = { has_idea = landowners }
+				set_temp_variable = { temp_opinion = 5 }
+				change_landowners_opinion = yes
+			}
 		}
 
 		ai_will_do = {
@@ -4799,7 +4983,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_map_infestations
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_map_infestations }
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ECONOMY }
 
@@ -4826,7 +5010,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_biopesticides
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_biopesticides }
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ECONOMY }
 		available = {
@@ -4865,7 +5049,7 @@ focus_tree = {
 		x = -2
 		y = 2
 		relative_position_id = MAD_MADARAIL_TERMINAL_EXPANSION
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_MADARAIL_TERMINAL_EXPANSION focus = MAD_MADARAIL_STATE_TAKEOVER }
 		search_filters = { FOCUS_FILTER_ECONOMY }
 
@@ -4898,6 +5082,16 @@ focus_tree = {
 			}
 			set_temp_variable = { treasury_change = -7.55 }
 			modify_treasury_effect = yes
+			if = {
+				limit = { has_idea = farmers }
+				set_temp_variable = { temp_opinion = 10 }
+				change_farmers_opinion = yes
+			}
+			if = {
+				limit = { has_idea = landowners }
+				set_temp_variable = { temp_opinion = 5 }
+				change_landowners_opinion = yes
+			}
 		}
 
 		ai_will_do = {
@@ -4911,7 +5105,7 @@ focus_tree = {
 		x = 0
 		y = 3
 		relative_position_id = MAD_JIRAMA_VOLOBE_AMONT
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_JIRAMA_VOLOBE_AMONT }
 		search_filters = { FOCUS_FILTER_ECONOMY FOCUS_FILTER_EXPENDITURE }
 
@@ -4963,7 +5157,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_DECIM
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_DECIM }
 		search_filters = { FOCUS_FILTER_ECONOMY }
 		available = {
@@ -4994,7 +5188,7 @@ focus_tree = {
 		x = 1
 		y = 2
 		relative_position_id = MAD_LEAD_PROJECT
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_LEAD_PROJECT }
 		search_filters = { FOCUS_FILTER_ECONOMY }
 
@@ -5026,7 +5220,7 @@ focus_tree = {
 		x = -4
 		y = 2
 		relative_position_id = MAD_AR1_HIGHWAY
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_AR1_HIGHWAY }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 
@@ -5057,7 +5251,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_AR1_HIGHWAY
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_AR1_HIGHWAY }
 		search_filters = { FOCUS_FILTER_ECONOMY }
 		available = {
@@ -5097,7 +5291,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_set_prices
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_set_prices }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 
@@ -5124,7 +5318,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_self_regulate_vanilla
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_self_regulate_vanilla }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 
@@ -5143,6 +5337,11 @@ focus_tree = {
 				value = -0.0375
 				tooltip_side = MAD_private_ownership
 			}
+			if = {
+				limit = { has_idea = international_bankers }
+				set_temp_variable = { temp_opinion = 5 }
+				change_international_bankers_opinion = yes
+			}
 		}
 
 		ai_will_do = {
@@ -5156,7 +5355,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_DEAL_KEPT
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_DEAL_KEPT }
 		mutually_exclusive = { focus = MAD_DEAL_KEPT_MANAGED_WELL }
 		search_filters = { FOCUS_FILTER_ECONOMY FOCUS_FILTER_STABILITY }
@@ -5186,6 +5385,11 @@ focus_tree = {
 			hidden_effect = {
 				country_event = { id = mad_political.94 days = 1 }
 			}
+			if = {
+				limit = { has_idea = farmers }
+				set_temp_variable = { temp_opinion = -10 }
+				change_farmers_opinion = yes
+			}
 		}
 
 		ai_will_do = {
@@ -5199,7 +5403,7 @@ focus_tree = {
 		x = 4
 		y = 2
 		relative_position_id = MAD_DEAL_KEPT
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_DEAL_KEPT }
 		mutually_exclusive = { focus = MAD_DEAL_KEPT_FAILED }
 		search_filters = { FOCUS_FILTER_ECONOMY FOCUS_FILTER_STABILITY }
@@ -5249,6 +5453,11 @@ focus_tree = {
 			set_temp_variable = { party_popularity_increase = 0.10 }
 			set_temp_variable = { temp_outlook_increase = 0.075 }
 			change_relative_party_popularity = yes
+			if = {
+				limit = { has_idea = farmers }
+				set_temp_variable = { temp_opinion = 15 }
+				change_farmers_opinion = yes
+			}
 		}
 
 		ai_will_do = {
@@ -5262,7 +5471,7 @@ focus_tree = {
 		x = 0
 		y = 4
 		relative_position_id = MAD_DEAL_BROKEN
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_DEAL_BROKEN focus = MAD_DEAL_KEPT_FAILED }
 		search_filters = { FOCUS_FILTER_ECONOMY FOCUS_FILTER_STABILITY }
 		available = {
@@ -5277,6 +5486,11 @@ focus_tree = {
 			set_temp_variable = { treasury_change = -9.00 }
 			modify_treasury_effect = yes
 			add_ideas = MAD_FARMER_FUNDING
+			if = {
+				limit = { has_idea = farmers }
+				set_temp_variable = { temp_opinion = 10 }
+				change_farmers_opinion = yes
+			}
 		}
 
 		ai_will_do = {
@@ -5290,7 +5504,7 @@ focus_tree = {
 		x = 2
 		y = 2
 		relative_position_id = MAD_ACCEPT_FOREIGN_OWNERSHIP
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_ACCEPT_FOREIGN_OWNERSHIP }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -5314,7 +5528,7 @@ focus_tree = {
 		x = -6
 		y = 2
 		relative_position_id = MAD_ACCEPT_FOREIGN_OWNERSHIP
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_ACCEPT_FOREIGN_OWNERSHIP }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -5338,7 +5552,7 @@ focus_tree = {
 		x = -2
 		y = 2
 		relative_position_id = MAD_ACCEPT_FOREIGN_OWNERSHIP
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_ACCEPT_FOREIGN_OWNERSHIP }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -5362,7 +5576,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_MADARAIL_NETWORK_EXPANSION
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_MADARAIL_NETWORK_EXPANSION }
 		search_filters = { FOCUS_FILTER_ECONOMY }
 
@@ -5407,7 +5621,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_GPM_CARTEL_FORMS
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_FUEL_LIBERALIZATION }
 		search_filters = { FOCUS_FILTER_ECONOMY }
 		available = {
@@ -5443,6 +5657,11 @@ focus_tree = {
 			}
 			add_to_variable = { MAD_economy_production_factory_max_efficiency_factor = 0.05 tooltip = production_factory_max_efficiency_factor_tt }
 			add_power_balance_value = { id = MAD_economy_ownership_bop value = -0.0375 tooltip_side = MAD_private_ownership }
+			if = {
+				limit = { has_idea = fossil_fuel_industry }
+				set_temp_variable = { temp_opinion = 5 }
+				change_fossil_fuel_industry_opinion = yes
+			}
 		}
 
 		ai_will_do = {
@@ -5456,7 +5675,7 @@ focus_tree = {
 		x = -2
 		y = 1
 		relative_position_id = MAD_GPM_TERMINAL_2009
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_GPM_TERMINAL_2009 }
 		mutually_exclusive = { focus = MAD_BREAK_GPM_CARTEL }
 		search_filters = { FOCUS_FILTER_ECONOMY }
@@ -5464,7 +5683,7 @@ focus_tree = {
 		completion_reward = {
 			log = "[GetDateText]: [This.GetName]: Focus MAD_RUBIS_BUYS_GALANA"
 			set_country_flag = MAD_GPM_PRIVATE_MODEL
-			
+			add_political_power = 25
 			custom_effect_tooltip = {
 				localization_key = modifies_dynamic_modifier_tt
 				MODIFIER = MAD_economy_modifier
@@ -5473,8 +5692,13 @@ focus_tree = {
 			add_to_variable = { MAD_economy_receiving_investment_duration_modifier = -0.05 tooltip = receiving_investment_duration_modifier_tt }
 			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.10 tooltip = productivity_growth_modifier_tt }
 			add_to_variable = { MAD_economy_trade_opinion_factor = 0.05 tooltip = trade_opinion_factor_tt }
-			add_political_power = 25
+
 			add_power_balance_value = { id = MAD_economy_ownership_bop value = -0.075 tooltip_side = MAD_private_ownership }
+			if = {
+				limit = { has_idea = fossil_fuel_industry }
+				set_temp_variable = { temp_opinion = 15 }
+				change_fossil_fuel_industry_opinion = yes
+			}
 		}
 
 		ai_will_do = {
@@ -5488,7 +5712,7 @@ focus_tree = {
 		x = 1
 		y = 1
 		relative_position_id = MAD_GPM_TERMINAL_2009
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_GPM_TERMINAL_2009 }
 		mutually_exclusive = { focus = MAD_RUBIS_BUYS_GALANA }
 		search_filters = { FOCUS_FILTER_ECONOMY FOCUS_FILTER_STABILITY }
@@ -5496,6 +5720,14 @@ focus_tree = {
 		completion_reward = {
 			log = "[GetDateText]: [This.GetName]: Focus MAD_BREAK_GPM_CARTEL"
 			set_country_flag = MAD_GPM_STATE_MODEL
+			
+			set_temp_variable = {
+				treasury_change = {
+					value = gdp_total
+					multiply = -0.02
+				}
+			}
+			modify_treasury_effect = yes
 			
 			custom_effect_tooltip = {
 				localization_key = modifies_dynamic_modifier_tt
@@ -5512,6 +5744,11 @@ focus_tree = {
 			}
 			add_to_variable = { MAD_economy_return_on_investment_modifier = 0.02 tooltip = return_on_investment_modifier_tt }
 			add_power_balance_value = { id = MAD_economy_ownership_bop value = 0.075 tooltip_side = MAD_public_ownership }
+			if = {
+				limit = { has_idea = fossil_fuel_industry }
+				set_temp_variable = { temp_opinion = -15 }
+				change_fossil_fuel_industry_opinion = yes
+			}
 		}
 
 		ai_will_do = {
@@ -5525,7 +5762,7 @@ focus_tree = {
 		x = 0
 		y = 1
 		relative_position_id = MAD_RUBIS_BUYS_GALANA
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_RUBIS_BUYS_GALANA }
 		search_filters = { FOCUS_FILTER_ECONOMY }
 
@@ -5556,7 +5793,7 @@ focus_tree = {
 		x = 0
 		y = 1
 		relative_position_id = MAD_BREAK_GPM_CARTEL
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_BREAK_GPM_CARTEL }
 		search_filters = { FOCUS_FILTER_ECONOMY }
 
@@ -5598,7 +5835,7 @@ focus_tree = {
 		x = 0
 		y = 4
 		relative_position_id = MAD_GPM_TERMINAL_2009
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_GPM_CARTEL_CONTINUES focus = MAD_STATE_FUEL_IMPORTS }
 		search_filters = { FOCUS_FILTER_ECONOMY FOCUS_FILTER_EXPENDITURE }
 		available = {
@@ -5638,7 +5875,7 @@ focus_tree = {
 		x = 2
 		y = 2
 		relative_position_id = MAD_GPM_NATIONAL_FUEL_RESERVE
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_GPM_NATIONAL_FUEL_RESERVE }
 		search_filters = { FOCUS_FILTER_ECONOMY }
 		available = {
@@ -5679,7 +5916,7 @@ focus_tree = {
 		x = -2
 		y = 2
 		relative_position_id = MAD_GPM_NATIONAL_FUEL_RESERVE
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_GPM_NATIONAL_FUEL_RESERVE }
 		search_filters = { FOCUS_FILTER_ECONOMY FOCUS_FILTER_STABILITY }
 		available = {
@@ -5709,7 +5946,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_GPM_PREPARE_OIL_SHOCK
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_GPM_PREPARE_OIL_SHOCK }
 		search_filters = { FOCUS_FILTER_ECONOMY FOCUS_FILTER_STABILITY }
 		available = {
@@ -5745,7 +5982,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_GPM_NATIONAL_FUEL_RESERVE
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_GPM_NATIONAL_FUEL_RESERVE }
 		search_filters = { FOCUS_FILTER_ECONOMY }
 
@@ -5773,7 +6010,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_GPM_REFERENCE_PRICE_2019
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_GPM_REFERENCE_PRICE_2019 }
 		search_filters = { FOCUS_FILTER_ECONOMY }
 
@@ -5820,7 +6057,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_GERMAN_AIR_INVESTMENT
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_GERMAN_AIR_INVESTMENT }
 		search_filters = { FOCUS_FILTER_MILITARY_LAWS FOCUS_FILTER_AIRCRAFT }
 
@@ -5862,7 +6099,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_Austral_offer
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_Austral_offer }
 		search_filters = { FOCUS_FILTER_ECONOMY FOCUS_FILTER_AIRCRAFT }
 
@@ -5890,7 +6127,7 @@ focus_tree = {
 		x = 0
 		y = 3
 		relative_position_id = MAD_AIRLINE_MILITARY_LINKS
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_AIRLINE_MILITARY_LINKS }
 		search_filters = { FOCUS_FILTER_ECONOMY FOCUS_FILTER_AIRCRAFT }
 
@@ -5929,7 +6166,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_army_traverse_mountains
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_army_traverse_mountains }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 
@@ -5952,7 +6189,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_BANDIT_ARMY
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_BANDIT_ARMY }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 
@@ -5981,7 +6218,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_Grand_sud_est_program
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_Grand_sud_est_program }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -6007,7 +6244,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_Volobe_Amont_DAM
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_Volobe_Amont_DAM }
 		search_filters = { FOCUS_FILTER_ECONOMY }
 		available = {
@@ -6048,7 +6285,7 @@ focus_tree = {
 		x = 2
 		y = 1
 		relative_position_id = MAD_DECIM
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_DECIM }
 		search_filters = { FOCUS_FILTER_ECONOMY FOCUS_FILTER_INDUSTRY }
 
@@ -6083,7 +6320,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_CNV_CVM
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_CNV_CVM }
 		search_filters = { FOCUS_FILTER_ECONOMY }
 
@@ -6095,6 +6332,11 @@ focus_tree = {
 				MODIFIER = MAD_economy_modifier
 			}
 			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.15 tooltip = productivity_growth_modifier_tt }
+			if = {
+				limit = { has_idea = farmers }
+				set_temp_variable = { temp_opinion = 10 }
+				change_farmers_opinion = yes
+			}
 		}
 
 		ai_will_do = {
@@ -6108,7 +6350,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_liberalise_market
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_liberalise_market }
 		search_filters = { FOCUS_FILTER_ECONOMY }
 
@@ -6122,6 +6364,11 @@ focus_tree = {
 			}
 			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.10 tooltip = productivity_growth_modifier_tt }
 			add_to_variable = { MAD_economy_return_on_investment_modifier = 0.05 tooltip = return_on_investment_modifier_tt }
+			if = {
+				limit = { has_idea = international_bankers }
+				set_temp_variable = { temp_opinion = 5 }
+				change_international_bankers_opinion = yes
+			}
 		}
 
 		ai_will_do = {
@@ -6135,9 +6382,8 @@ focus_tree = {
 		x = -2
 		y = 2
 		relative_position_id = MAD_Fighting_climate_change
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_Fighting_climate_change }
-		mutually_exclusive = { focus = MAD_losing_the_fight }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
 			custom_trigger_tooltip = {
@@ -6159,34 +6405,6 @@ focus_tree = {
 		}
 	}
 
-	focus = {
-		id = MAD_losing_the_fight
-		icon = GFX_goal_generic_political_pressure
-		x = 0
-		y = 2
-		relative_position_id = MAD_Fighting_climate_change
-		cost = 5
-		prerequisite = { focus = MAD_Fighting_climate_change }
-		mutually_exclusive = { focus = MAD_Winning_the_fight }
-		search_filters = { FOCUS_FILTER_POLITICAL }
-		available = {
-			custom_trigger_tooltip = {
-				tooltip = MAD_DROUGHT_FAILED_tt
-				has_country_flag = MAD_DROUGHT_FAILED_STATE
-			}
-		}
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus MAD_losing_the_fight"
-			set_country_flag = MAD_DROUGHT_LOST
-			add_stability = -0.03
-			custom_effect_tooltip = MAD_drought_lost_tt
-		}
-
-		ai_will_do = {
-			base = 1
-		}
-	}
 
 	focus = {
 		id = MAD_extension_fce
@@ -6194,7 +6412,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_RAIL_FCE_REHAB
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_RAIL_FCE_REHAB }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 
@@ -6218,7 +6436,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_extension_fce
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_extension_fce }
 		search_filters = { FOCUS_FILTER_ECONOMY }
 
@@ -6240,7 +6458,7 @@ focus_tree = {
 		x = 0
 		y = 6
 		relative_position_id = MAD_GERMAN_PLANES
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_GERMAN_PLANES }
 		search_filters = { FOCUS_FILTER_ECONOMY FOCUS_FILTER_AIRCRAFT }
 
@@ -6294,7 +6512,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_Austral_deal_falls_through
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_Austral_deal_falls_through }
 		search_filters = { FOCUS_FILTER_ECONOMY FOCUS_FILTER_AIRCRAFT }
 		available = {
@@ -6335,7 +6553,7 @@ focus_tree = {
 		x = 0
 		y = 5
 		relative_position_id = MAD_AIR_EXPANSION
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_AIR_EXPANSION }
 		search_filters = { FOCUS_FILTER_ECONOMY FOCUS_FILTER_INDUSTRY FOCUS_FILTER_AIRCRAFT }
 
@@ -6372,7 +6590,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_capture_spiritual_advisor
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_capture_spiritual_advisor }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -6399,7 +6617,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_MARCH_OF_THE_COWBOYS
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_MARCH_OF_THE_COWBOYS }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 
@@ -6423,7 +6641,7 @@ focus_tree = {
 		x = 1
 		y = 3
 		relative_position_id = MAD_DECIM_SMART_GRID
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_DECIM_SMART_GRID }
 		search_filters = { FOCUS_FILTER_ECONOMY FOCUS_FILTER_INDUSTRY }
 		available = {
@@ -6457,7 +6675,7 @@ focus_tree = {
 		x = 4
 		y = 2
 		relative_position_id = MAD_USA_PURCHASES
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_USA_PURCHASES }
 		prerequisite = { focus = MAD_GERMANY_PURCHASES }
 		prerequisite = { focus = MAD_KOREAN_PURCHASES }
@@ -6487,7 +6705,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_Winning_the_fight
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_Winning_the_fight }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -6509,39 +6727,18 @@ focus_tree = {
 			add_to_variable = { MAD_agri_monthly_population = 0.05 tooltip = monthly_population_tt }
 			add_to_variable = { MAD_agri_construction_speed = 0.10 tooltip = production_speed_agriculture_district_factor_tt }
 			force_update_dynamic_modifier = yes
-		}
-
-		ai_will_do = {
-			base = 1
-		}
-	}
-
-	focus = {
-		id = MAD_crop_death
-		icon = GFX_goal_generic_political_pressure
-		x = 0
-		y = 2
-		relative_position_id = MAD_losing_the_fight
-		cost = 5
-		prerequisite = { focus = MAD_losing_the_fight }
-		search_filters = { FOCUS_FILTER_POLITICAL }
-		available = {
-			custom_trigger_tooltip = {
-				tooltip = MAD_DROUGHT_OVER_tt
-				MAD_drought_resolved = yes
+			if = {
+				limit = { has_idea = farmers }
+				set_temp_variable = { temp_opinion = 10 }
+				change_farmers_opinion = yes
 			}
 		}
 
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus MAD_crop_death"
-			
-			MAD_crop_death_effects = yes
-		}
-
 		ai_will_do = {
 			base = 1
 		}
 	}
+
 
 	focus = {
 		id = MAD_OLD_RELIABLE
@@ -6549,7 +6746,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MADAGASCAR_AIRLINES
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MADAGASCAR_AIRLINES }
 		search_filters = { FOCUS_FILTER_ECONOMY FOCUS_FILTER_AIRCRAFT }
 
@@ -6573,7 +6770,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_BIANCO
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_BIANCO }
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
 
@@ -6582,10 +6779,16 @@ focus_tree = {
 														
 			
 						add_stability = 0.03
-						set_temp_variable = { temp_opinion = -5 }
-						change_landowners_opinion = yes
-						set_temp_variable = { temp_opinion = -5 }
-						change_small_medium_business_owners_opinion = yes
+						if = {
+							limit = { has_idea = landowners }
+							set_temp_variable = { temp_opinion = -5 }
+							change_landowners_opinion = yes
+						}
+						if = {
+							limit = { has_idea = small_medium_business_owners }
+							set_temp_variable = { temp_opinion = -5 }
+							change_small_medium_business_owners_opinion = yes
+						}
 			add_political_power = 75
 		}
 
@@ -6600,7 +6803,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_OLD_RELIABLE
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_OLD_RELIABLE }
 		search_filters = { FOCUS_FILTER_ECONOMY FOCUS_FILTER_AIRCRAFT }
 		available = {
@@ -6637,7 +6840,7 @@ focus_tree = {
 		x = -2
 		y = 2
 		relative_position_id = MAD_BIANCO_INVESTIGATIONS
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_BIANCO_INVESTIGATIONS }
 		mutually_exclusive = { focus = MAD_BIANCO_POLITICIZED }
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
@@ -6667,7 +6870,7 @@ focus_tree = {
 		x = 2
 		y = 2
 		relative_position_id = MAD_BIANCO_INVESTIGATIONS
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_BIANCO_INVESTIGATIONS }
 		mutually_exclusive = { focus = MAD_BIANCO_INDEPENDENT }
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_INTERNAL_FACTION }
@@ -6698,7 +6901,7 @@ focus_tree = {
 		x = 3
 		y = 2
 		relative_position_id = MAD_GERMAN_FLEET_MODERNIZED
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_GERMAN_FLEET_MODERNIZED focus = MAD_AIR_BRAND_RESTORED focus = MAD_AIR_REGIONAL_HUB }
 		search_filters = { FOCUS_FILTER_ECONOMY FOCUS_FILTER_INDUSTRY FOCUS_FILTER_AIRCRAFT }
 
@@ -6739,7 +6942,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_TOAMASINA
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_TOAMASINA }
 		mutually_exclusive = { focus = MAD_ICTSI_CONCESSION }
 		search_filters = { FOCUS_FILTER_POLITICAL }
@@ -6768,7 +6971,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_SPAT
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_SPAT }
 		search_filters = { FOCUS_FILTER_ECONOMY FOCUS_FILTER_INDUSTRY }
 
@@ -6797,7 +7000,7 @@ focus_tree = {
 		x = 3
 		y = 5
 		relative_position_id = MAD_AIRLINE_MILITARY_LINKS
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MADAGASCAR_AIRLINES focus = MAD_AIRLINE_MILITARY_LINKS }
 		search_filters = { FOCUS_FILTER_MILITARY_LAWS FOCUS_FILTER_INDUSTRY FOCUS_FILTER_AIRCRAFT }
 
@@ -6846,7 +7049,7 @@ focus_tree = {
 		x = -2
 		y = 1
 		relative_position_id = MAD_GERMAN_PLANES
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_GERMAN_PLANES }
 		search_filters = { FOCUS_FILTER_MILITARY_LAWS FOCUS_FILTER_AIRCRAFT }
 
@@ -6905,7 +7108,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_Hunt_for_red_with_a_swagger
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_Hunt_for_red_with_a_swagger }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -6933,7 +7136,7 @@ focus_tree = {
 		x = -3
 		y = 2
 		relative_position_id = MAD_TELMA_AXIAN_CONSOLIDATES
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_TELMA_AXIAN_CONSOLIDATES focus = MAD_TELMA_RENATIONALIZE }
 		search_filters = { FOCUS_FILTER_ECONOMY }
 		available = {
@@ -6980,7 +7183,7 @@ focus_tree = {
 		x = -1
 		y = 2
 		relative_position_id = MAD_TELMA_AXIAN_CONSOLIDATES
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_TELMA_AXIAN_CONSOLIDATES focus = MAD_TELMA_RENATIONALIZE }
 		search_filters = { FOCUS_FILTER_ECONOMY }
 		available = {
@@ -6999,6 +7202,11 @@ focus_tree = {
 			}
 			add_to_variable = { MAD_economy_consumer_goods_factor = -0.03 tooltip = consumer_goods_factor_tt }
 			add_to_variable = { MAD_economy_civilian_factories_productivity = -0.02 tooltip = civilian_factories_productivity_tt }
+			if = {
+				limit = { has_idea = small_medium_business_owners }
+				set_temp_variable = { temp_opinion = -10 }
+				change_small_medium_business_owners_opinion = yes
+			}
 		}
 
 		ai_will_do = {
@@ -7012,7 +7220,7 @@ focus_tree = {
 		x = 2
 		y = 2
 		relative_position_id = MAD_TELMA_FIBER_MONOPOLY_PERSISTS
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_TELMA_FIBER_MONOPOLY_PERSISTS }
 		mutually_exclusive = { focus = MAD_PROTECT_NATIONAL_CHAMPION }
 		search_filters = { FOCUS_FILTER_ECONOMY }
@@ -7068,6 +7276,11 @@ focus_tree = {
 				MODIFIER = MAD_economy_modifier
 			}
 			add_to_variable = { MAD_economy_civilian_industry_tax_modifier = 0.05 tooltip = civilian_industry_tax_modifier_tt }
+			if = {
+				limit = { has_idea = small_medium_business_owners }
+				set_temp_variable = { temp_opinion = 10 }
+				change_small_medium_business_owners_opinion = yes
+			}
 		}
 
 		ai_will_do = {
@@ -7081,7 +7294,7 @@ focus_tree = {
 		x = -2
 		y = 2
 		relative_position_id = MAD_TELMA_FIBER_MONOPOLY_PERSISTS
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_TELMA_FIBER_MONOPOLY_PERSISTS }
 		mutually_exclusive = { focus = MAD_BREAK_TELMA_MONOPOLY }
 		search_filters = { FOCUS_FILTER_ECONOMY }
@@ -7133,6 +7346,11 @@ focus_tree = {
 			add_to_variable = { MAD_economy_civilian_industry_tax_modifier = 0.05 tooltip = civilian_industry_tax_modifier_tt }
 			add_to_variable = { MAD_economy_trade_opinion_factor = -0.05 tooltip = trade_opinion_factor_tt }
 			add_to_variable = { MAD_economy_civilian_factories_productivity = -0.02 tooltip = civilian_factories_productivity_tt }
+			if = {
+				limit = { has_idea = small_medium_business_owners }
+				set_temp_variable = { temp_opinion = -5 }
+				change_small_medium_business_owners_opinion = yes
+			}
 		}
 
 		ai_will_do = {
@@ -7154,7 +7372,7 @@ focus_tree = {
 		x = -2
 		y = 2
 		relative_position_id = MAD_TELMA_RENATIONALIZE
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_TELMA_RENATIONALIZE }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 
@@ -7190,7 +7408,7 @@ focus_tree = {
 		x = 0
 		y = 3
 		relative_position_id = MAD_TELMA_SIGINT_SHARING
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_TELMA_SIGINT_SHARING }
 		prerequisite = { focus = MAD_PROTECT_NATIONAL_CHAMPION }
 		search_filters = { FOCUS_FILTER_POLITICAL }
@@ -7214,6 +7432,11 @@ focus_tree = {
 				MODIFIER = MAD_economy_modifier
 			}
 			add_to_variable = { MAD_economy_civilian_factories_productivity = 0.02 tooltip = civilian_factories_productivity_tt }
+			if = {
+				limit = { has_idea = the_military }
+				set_temp_variable = { temp_opinion = 5 }
+				change_the_military_opinion = yes
+			}
 		}
 
 		ai_will_do = {
@@ -7227,7 +7450,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_TELMA_MARITIME_DOMAIN_NETWORK
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_TELMA_MARITIME_DOMAIN_NETWORK }
 		prerequisite = { focus = MAD_DIGITAL_MADAGASCAR }
 		search_filters = { FOCUS_FILTER_POLITICAL }
@@ -7251,6 +7474,11 @@ focus_tree = {
 				bonus = 0.35
 			}
 			add_political_power = 50
+			if = {
+				limit = { has_idea = the_military }
+				set_temp_variable = { temp_opinion = 5 }
+				change_the_military_opinion = yes
+			}
 		}
 
 		ai_will_do = {
@@ -7264,7 +7492,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_BREAK_TELMA_MONOPOLY
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_BREAK_TELMA_MONOPOLY focus = MAD_PROTECT_NATIONAL_CHAMPION }
 		search_filters = { FOCUS_FILTER_ECONOMY FOCUS_FILTER_INDUSTRY }
 
@@ -7334,7 +7562,7 @@ focus_tree = {
 		icon = GFX_focus_internet_freedom_ukraine
 		x = 43
 		y = 14
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_DIGITAL_MADAGASCAR }
 		search_filters = { FOCUS_FILTER_ECONOMY }
 
@@ -7383,7 +7611,7 @@ focus_tree = {
 		x = -1
 		y = 3
 		relative_position_id = MAD_DECIM_SMART_GRID
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_DECIM_SMART_GRID }
 		search_filters = { FOCUS_FILTER_ECONOMY }
 		available = {
@@ -7422,7 +7650,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_Grand_Sud_program
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_Grand_Sud_program }
 		search_filters = { FOCUS_FILTER_ECONOMY FOCUS_FILTER_STABILITY }
 		available = {
@@ -7445,7 +7673,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_cowthief_in_chief
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_cowthief_in_chief }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -7495,7 +7723,7 @@ focus_tree = {
 		x = -2
 		y = 2
 		relative_position_id = MAD_remenabila_takes_command
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_remenabila_takes_command }
 		search_filters = { FOCUS_FILTER_MILITARY }
 		available = {
@@ -7531,7 +7759,7 @@ focus_tree = {
 		x = 2
 		y = 2
 		relative_position_id = MAD_remenabila_takes_command
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_remenabila_takes_command }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -7565,10 +7793,10 @@ focus_tree = {
 	focus = {
 		id = MAD_remenabila_steal_the_cow
 		icon = GFX_goal_generic_political_pressure
-		x = -2
+		x = 0
 		y = 2
 		relative_position_id = MAD_remenabila_gather_the_dahalo
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_remenabila_gather_the_dahalo }
 		prerequisite = { focus = MAD_remenabila_cattle_must_be_counted }
 		search_filters = { FOCUS_FILTER_WAR_SUPPORT }
@@ -7600,10 +7828,10 @@ focus_tree = {
 	focus = {
 		id = MAD_remenabila_more_cows_more_men
 		icon = GFX_goal_generic_political_pressure
-		x = 4
+		x = 2
 		y = 2
 		relative_position_id = MAD_remenabila_steal_the_cow
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_remenabila_steal_the_cow focus = MAD_NORTHERN_CATTLE focus = MAD_COMORIAN_HERDS }
 		search_filters = { FOCUS_FILTER_MILITARY }
 		available = {
@@ -7639,7 +7867,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_remenabila_more_cows_more_men
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_remenabila_more_cows_more_men }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -7683,24 +7911,24 @@ focus_tree = {
 	focus = {
 		id = MAD_POL_ROY_SUMMON_HOUSES
 		icon = GFX_goal_generic_political_pressure
-		x = 24
+		x = 23
 		y = 22
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_POL_PARTIES }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 
 		completion_reward = {
-			add_political_power = 50
-			            add_stability = 0.02
-			            set_temp_variable = { party_index = 15 }
-			            set_temp_variable = { party_popularity_increase = 0.05 }
-			            set_temp_variable = { temp_outlook_increase = 0.05 }
-			            change_relative_party_popularity = yes
-						
-			            set_country_flag = MAD_POL_ROYAL_MOVEMENT_ESTABLISHED
-			        
-			            recalculate_party = yes
-			            set_country_flag = MAD_ROYAL_MOVEMENT_ESTABLISHED
+			set_temp_variable = { party_index = 15 }
+			set_temp_variable = { party_popularity_increase = 0.05 }
+			set_temp_variable = { temp_outlook_increase = 0.05 }
+			change_relative_party_popularity = yes
+			set_temp_variable = { party_index = 23 }
+			set_temp_variable = { party_popularity_increase = 0.05 }
+			set_temp_variable = { temp_outlook_increase = 0.05 }
+			change_relative_party_popularity = yes
+			recalculate_party = yes
+			set_country_flag = MAD_POL_ROYAL_MOVEMENT_ESTABLISHED
+			set_country_flag = MAD_ROY_MOVEMENT_CONVENED
 		}
 
 		ai_will_do = {
@@ -7712,20 +7940,16 @@ focus_tree = {
 		id = MAD_POL_ROY_MALAGASY_TRADITION
 		icon = GFX_goal_generic_culture
 		x = 0
-		y = 3
+		y = 2
 		relative_position_id = MAD_POL_ROY_SUMMON_HOUSES
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_POL_ROY_SUMMON_HOUSES }
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
 
 		completion_reward = {
-			add_political_power = 50
-			            set_temp_variable = { party_index = 15 }
-			            set_temp_variable = { party_popularity_increase = 0.05 }
-			            set_temp_variable = { temp_outlook_increase = 0.05 }
-			            change_relative_party_popularity = yes
-			        
-			            recalculate_party = yes
+			decrease_corruption = yes
+			set_country_flag = MAD_ROY_FIHAVANANA_HASINA
+			add_stability = 0.03
 		}
 
 		ai_will_do = {
@@ -7739,23 +7963,22 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_POL_ROY_MALAGASY_TRADITION
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_POL_ROY_MALAGASY_TRADITION }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
 			custom_trigger_tooltip = {
-				tooltip = MAD_ROY_CRPM_IN_POWER_tt
-				MAD_ROY_IN_POWER = yes
+				tooltip = MAD_ROY_CRPM_OR_TAMIMA_IN_POWER_tt
+				OR = {
+					MAD_ROY_IN_POWER = yes
+					MAD_TAMIMA_IN_POWER = yes
+				}
 			}
 		}
 
 		completion_reward = {
-			add_political_power = 50
-			            set_temp_variable = { party_index = 23 }
-			            set_temp_variable = { party_popularity_increase = 0.10 }
-			            set_temp_variable = { temp_outlook_increase = 0.10 }
-			            change_relative_party_popularity = yes
-			            add_ideas = MAD_POL_ROYAL_CONSTITUTION
+			add_ideas = MAD_POL_ROYAL_CONSTITUTION
+			set_country_flag = MAD_ROY_CONSTITUTIONAL_ORDER_STARTED
 		}
 
 		ai_will_do = {
@@ -7769,7 +7992,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_POL_ROY_SACRED_CONSTITUTION
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_POL_ROY_SACRED_CONSTITUTION }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -7781,15 +8004,79 @@ focus_tree = {
 				}
 			}
 		}
-		select_effect = {
-			hidden_effect = {
+
+		completion_reward = {
 			set_country_flag = MAD_ROYAL_CROWN_QUESTION_PENDING
 			country_event = { id = mad_political.1 days = 1 }
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_POL_ROY_COUNCIL_OF_KINGS
+		icon = GFX_goal_generic_council
+		x = -2
+		y = 2
+		relative_position_id = MAD_POL_ROY_CROWN_QUESTION
+		cost = 3
+		prerequisite = { focus = MAD_POL_ROY_CROWN_QUESTION }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_ROY_CRPM_OR_TAMIMA_IN_POWER_tt
+				OR = {
+					MAD_ROY_IN_POWER = yes
+					MAD_TAMIMA_IN_POWER = yes
+				}
+			}
+		}
+		completion_reward = {
+			267 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = { type = offices level = 1 instant_build = yes }
+			}
+			set_temp_variable = { treasury_change = -12.00 }
+			modify_treasury_effect = yes
+			increase_centralization = yes
+			add_stability = 0.015
+			decrease_corruption = yes
+			set_temp_variable = { percent_change = 2 }
+			change_domestic_influence_percentage = yes
+			set_country_flag = MAD_ROY_COUNCIL_ESTABLISHED
+		}
+		ai_will_do = { base = 1 }
+	}
+
+	focus = {
+		id = MAD_POL_ROY_LIVING_FORCES
+		icon = GFX_goal_generic_allies
+		x = 2
+		y = 2
+		relative_position_id = MAD_POL_ROY_CROWN_QUESTION
+		cost = 3
+		prerequisite = { focus = MAD_POL_ROY_CROWN_QUESTION }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_ROY_CRPM_OR_TAMIMA_IN_POWER_tt
+				OR = {
+					MAD_ROY_IN_POWER = yes
+					MAD_TAMIMA_IN_POWER = yes
+				}
 			}
 		}
 
 		completion_reward = {
-			add_political_power = 25
+			random_owned_state = {
+				limit = { can_construct_building = land_facility }
+				construct_building_in_random_province = { nuclear_facility = 1 }
+			}
+			set_temp_variable = { treasury_change = -15.00 }
+			modify_treasury_effect = yes
+			set_country_flag = MAD_ROY_LIVING_FORCES_CONVENED
 		}
 
 		ai_will_do = {
@@ -7800,11 +8087,11 @@ focus_tree = {
 	focus = {
 		id = MAD_POL_ROY_KINGS_MANDATE
 		icon = GFX_goal_monarchism
-		x = -1
-		y = 1
-		relative_position_id = MAD_POL_ROY_CROWN_QUESTION
-		cost = 5
-		prerequisite = { focus = MAD_POL_ROY_CROWN_QUESTION }
+		x = 0
+		y = 2
+		relative_position_id = MAD_POL_ROY_COUNCIL_OF_KINGS
+		cost = 3
+		prerequisite = { focus = MAD_POL_ROY_COUNCIL_OF_KINGS focus = MAD_POL_ROY_LIVING_FORCES }
 		mutually_exclusive = { focus = MAD_POL_ROY_TAMIMA_COUNCIL }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -7816,22 +8103,20 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			add_political_power = 100
 			set_country_flag = MAD_ROYAL_PERSONAL_CROWN
-			add_ideas = MAD_POL_ROYAL_GOVERNMENT
-			        
-			set_country_flag = MAD_ROYAL_ABSOLUTE_GOVERNMENT
-			recalculate_party = yes
+			clr_country_flag = MAD_ROYAL_ABSOLUTE_GOVERNMENT
+			set_country_flag = MAD_ROYAL_PERSONAL_AUTHORITY
+			set_politics = { ruling_party = nationalist elections_allowed = no }
 			
-			set_temp_variable = { party_index = 2 }
-			set_temp_variable = { party_popularity_increase = -0.05 }
-			change_relative_party_popularity = yes
-			recalculate_party = yes
+			set_country_flag = MAD_ROY_UNLOCK_CROWN_AFFAIRS
+			custom_effect_tooltip = MAD_ROY_UNLOCK_CROWN_AFFAIRS_SECTION_TT
 			
 			set_temp_variable = { party_index = 23 }
 			set_temp_variable = { party_popularity_increase = 0.03 }
+			set_temp_variable = { temp_outlook_increase = 0.03 }
 			change_relative_party_popularity = yes
 			recalculate_party = yes
+			hidden_effect = { country_event = { id = mad_royal.6 days = 30 } }
 		}
 
 		ai_will_do = {
@@ -7841,11 +8126,11 @@ focus_tree = {
 
 	focus = {
 		id = MAD_POL_ROY_CROWN_ABOVE_NOBILITY
-		icon = GFX_goal_authority
+		icon = GFX_goal_generic_religion
 		x = 0
 		y = 2
 		relative_position_id = MAD_POL_ROY_KINGS_MANDATE
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_POL_ROY_KINGS_MANDATE }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -7853,17 +8138,53 @@ focus_tree = {
 				tooltip = MAD_ROY_CRPM_IN_POWER_tt
 				MAD_ROY_IN_POWER = yes
 			}
-			has_country_flag = MAD_RABARIOELINA_ABSOLUTE
 		}
 
 		completion_reward = {
-			add_political_power = 100
-			        
-			            decrease_corruption = yes
-			            set_temp_variable = { party_index = 23 }
-			            set_temp_variable = { party_popularity_increase = 0.05 }
-			            set_temp_variable = { temp_outlook_increase = 0.05 }
-			            change_relative_party_popularity = yes
+			swap_ideas = {
+				remove_idea = MAD_POL_ROYAL_CONSTITUTION
+				add_idea = MAD_POL_CHRISTOCRATIC_STATE
+			}
+			increase_centralization = yes
+			set_temp_variable = { party_index = 23 }
+			set_temp_variable = { party_popularity_increase = 0.05 }
+			set_temp_variable = { temp_outlook_increase = 0.05 }
+			change_relative_party_popularity = yes
+			recalculate_party = yes			
+			set_country_flag = MAD_ROY_CHRISTOCRATIC_CONSTITUTION
+			
+			if = {
+				limit = { NOT = { has_idea = the_clergy } }
+				if = {
+					limit = { has_idea = landowners }
+					swap_ideas = {
+						remove_idea = landowners
+						add_idea = the_clergy
+					}
+				}
+			
+				else_if = {
+					limit = { has_idea = small_medium_business_owners }
+					swap_ideas = {
+						remove_idea = small_medium_business_owners
+						add_idea = the_clergy
+					}
+				}
+				else_if = {
+					limit = { has_idea = the_military }
+					swap_ideas = {
+						remove_idea = the_military
+						add_idea = the_clergy
+					}
+				}
+				else_if = {
+					limit = { has_idea = international_bankers }
+					swap_ideas = {
+						remove_idea = international_bankers
+						add_idea = the_clergy
+					}
+				}
+			}
 		}
 
 		ai_will_do = {
@@ -7873,11 +8194,11 @@ focus_tree = {
 
 	focus = {
 		id = MAD_POL_ROY_CHRIST_KING
-		icon = GFX_goal_generic_religion
+		icon = GFX_goal_generic_government
 		x = 0
 		y = 2
 		relative_position_id = MAD_POL_ROY_CROWN_ABOVE_NOBILITY
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_POL_ROY_CROWN_ABOVE_NOBILITY }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -7888,13 +8209,19 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			swap_ideas = { remove_idea = MAD_POL_ROYAL_CONSTITUTION add_idea = MAD_POL_CHRISTOCRATIC_STATE }
-			            add_stability = 0.05
-			            add_political_power = 40
-			            set_temp_variable = { party_index = 23 }
-			            set_temp_variable = { party_popularity_increase = 0.05 }
-			change_relative_party_popularity = yes
-			recalculate_party = yes
+			decrease_corruption = yes
+			random_owned_state = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = { type = offices level = 1 instant_build = yes }
+			}
+			if = {
+				limit = { has_idea = the_clergy }
+				set_temp_variable = { temp_opinion = 15 }
+				change_the_clergy_opinion = yes
+			}
+			set_temp_variable = { treasury_change = -12.00 }
+			modify_treasury_effect = yes
+			set_country_flag = MAD_ROYAL_PUBLIC_SERVICE_REFORMED
 		}
 
 		ai_will_do = {
@@ -7904,11 +8231,11 @@ focus_tree = {
 
 	focus = {
 		id = MAD_POL_ROY_NATIONAL_WEALTH
-		icon = GFX_goal_generic_resource_production
+		icon = GFX_goal_generic_constitution
 		x = 0
 		y = 2
 		relative_position_id = MAD_POL_ROY_CHRIST_KING
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_POL_ROY_CHRIST_KING }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -7916,29 +8243,11 @@ focus_tree = {
 				tooltip = MAD_ROY_CRPM_IN_POWER_tt
 				MAD_ROY_IN_POWER = yes
 			}
-			OR = {
-			                has_completed_focus = MAD_mining_code_reform
-			                has_completed_focus = MAD_Rosewood
-			                has_completed_focus = MAD_AMBATOVY_OPERATIONAL
-			                has_completed_focus = MAD_Toliara_rare_earths
-			            }
 		}
 
 		completion_reward = {
-			add_power_balance_value = { id = MAD_economy_ownership_bop value = 0.10 tooltip_side = MAD_public_ownership}
-			            custom_effect_tooltip = {
-			            	localization_key = modifies_dynamic_modifier_tt
-			            	MODIFIER = MAD_economy_modifier
-			            }
-			            add_to_variable = { MAD_economy_receiving_investment_cost_modifier = 0.03 tooltip = receiving_investment_cost_modifier_tt }
-			            add_to_variable = { MAD_economy_productivity_growth_modifier = 0.10 tooltip = productivity_growth_modifier_tt }
-			        
-			
-			set_temp_variable = { party_index = 23 }
-			set_temp_variable = { party_popularity_increase = 0.03 }
-			set_temp_variable = { temp_outlook_increase = 0.03 }
-			change_relative_party_popularity = yes
-			recalculate_party = yes
+			set_country_flag = MAD_ROY_COLONIAL_LAW_REFORM
+			country_event = { id = mad_royal.2 days = 1 }
 		}
 
 		ai_will_do = {
@@ -7948,11 +8257,11 @@ focus_tree = {
 
 	focus = {
 		id = MAD_POL_ROY_CUSTOM_BEFORE_PARTY
-		icon = GFX_goal_generic_culture
+		icon = GFX_goal_generic_law
 		x = 0
 		y = 2
 		relative_position_id = MAD_POL_ROY_NATIONAL_WEALTH
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_POL_ROY_NATIONAL_WEALTH }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -7963,14 +8272,16 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			add_political_power = 50
-			            add_ideas = MAD_POL_CUSTOMARY_ADMINISTRATION
-			        
-			            set_temp_variable = { party_index = 23 }
-			            set_temp_variable = { party_popularity_increase = 0.05 }
-			            set_temp_variable = { temp_outlook_increase = 0.05 }
-			            change_relative_party_popularity = yes
-			            recalculate_party = yes
+			set_temp_variable = { treasury_change = -3.00 }
+			modify_treasury_effect = yes
+			if = {
+				limit = { has_idea = international_bankers }
+				set_temp_variable = { temp_opinion = -8 }
+				change_international_bankers_opinion = yes
+			}
+			set_country_flag = MAD_ROY_UNLOCK_FINANCIAL_REFORM
+			custom_effect_tooltip = MAD_ROY_UNLOCK_FINANCIAL_SECTION_TT
+			set_country_flag = MAD_ROY_MONETARY_REFORM
 		}
 
 		ai_will_do = {
@@ -7980,12 +8291,148 @@ focus_tree = {
 
 	focus = {
 		id = MAD_POL_ROY_CROWN_FINAL
-		icon = GFX_goal_monarchism
+		icon = GFX_goal_generic_agriculture
 		x = 0
 		y = 2
 		relative_position_id = MAD_POL_ROY_CUSTOM_BEFORE_PARTY
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_POL_ROY_CUSTOM_BEFORE_PARTY }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ECONOMY }
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_ROY_CRPM_IN_POWER_tt
+				MAD_ROY_IN_POWER = yes
+			}
+		}
+
+		completion_reward = {
+			random_core_state = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = { type = agriculture_district level = 1 instant_build = yes }
+			}
+			random_core_state = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = { type = agriculture_district level = 1 instant_build = yes }
+			}
+			set_temp_variable = { treasury_change = -2.50 }
+			modify_treasury_effect = yes
+			if = {
+				limit = { has_idea = landowners }
+				set_temp_variable = { temp_opinion = -10 }
+				change_landowners_opinion = yes
+			}
+			set_country_flag = MAD_ROY_MALAGASY_LAND_POLICY
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_POL_ROY_NATIONAL_TRUST
+		icon = GFX_goal_generic_resource_production
+		x = 0
+		y = 2
+		relative_position_id = MAD_POL_ROY_CROWN_FINAL
+		cost = 3
+		prerequisite = { focus = MAD_POL_ROY_CROWN_FINAL }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ECONOMY }
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_ROY_CRPM_IN_POWER_tt
+				MAD_ROY_IN_POWER = yes
+			}
+		}
+
+		completion_reward = {
+			set_country_flag = MAD_ROY_NATIONAL_WEALTH_TRUST
+			country_event = { id = mad_royal.1 days = 1 }
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_POL_ROY_ENDOGENOUS_DEVELOPMENT
+		icon = GFX_goal_generic_science
+		x = 0
+		y = 2
+		relative_position_id = MAD_POL_ROY_NATIONAL_TRUST
+		cost = 3
+		prerequisite = { focus = MAD_POL_ROY_NATIONAL_TRUST }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ECONOMY }
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_ROY_CRPM_IN_POWER_tt
+				MAD_ROY_IN_POWER = yes
+			}
+		}
+
+		completion_reward = {
+			random_owned_state = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = { type = industrial_complex level = 1 instant_build = yes }
+			}
+			add_tech_bonus = {
+				name = MAD_POL_ROY_ENDOGENOUS_DEVELOPMENT
+				category = CAT_industry
+				bonus = 0.15
+				uses = 2
+			}
+			set_temp_variable = { treasury_change = -3.50 }
+			modify_treasury_effect = yes
+			set_country_flag = MAD_ROY_ENDOGENOUS_DEVELOPMENT
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_POL_ROY_SACRED_HERITAGE
+		icon = GFX_goal_generic_construct_civilian
+		x = 0
+		y = 2
+		relative_position_id = MAD_POL_ROY_ENDOGENOUS_DEVELOPMENT
+		cost = 3
+		prerequisite = { focus = MAD_POL_ROY_ENDOGENOUS_DEVELOPMENT }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_ROY_CRPM_IN_POWER_tt
+				MAD_ROY_IN_POWER = yes
+			}
+		}
+
+		completion_reward = {
+			267 = {
+				add_extra_state_shared_building_slots = 2
+			}
+			increase_economic_growth = yes
+			set_country_flag = MAD_ROY_SACRED_HERITAGE_RESTORED
+			set_temp_variable = { treasury_change = -4.00 }
+			modify_treasury_effect = yes
+			set_country_flag = MAD_ROY_UNLOCK_HERITAGE
+			custom_effect_tooltip = MAD_ROY_UNLOCK_HERITAGE_SECTION_TT
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_POL_ROY_BIBLICAL_GEOPOLITICS
+		icon = GFX_goal_generic_diplomacy
+		x = 0
+		y = 2
+		relative_position_id = MAD_POL_ROY_SACRED_HERITAGE
+		cost = 3
+		prerequisite = { focus = MAD_POL_ROY_SACRED_HERITAGE }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
 			custom_trigger_tooltip = {
@@ -7995,14 +8442,299 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			add_political_power = 100
+			set_country_flag = MAD_ROY_BIBLICAL_GEOPOLITICS
+			country_event = { id = mad_roy_rework.1 days = 1 }
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_POL_ROY_TRUE_SOVEREIGNTY
+		icon = GFX_goal_generic_national_unity
+		x = 0
+		y = 2
+		relative_position_id = MAD_POL_ROY_BIBLICAL_GEOPOLITICS
+		cost = 3
+		prerequisite = { focus = MAD_POL_ROY_BIBLICAL_GEOPOLITICS }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_ROY_CRPM_IN_POWER_tt
+				MAD_ROY_IN_POWER = yes
+			}
+		}
+
+		completion_reward = {
+			set_temp_variable = { percent_change = 8 }
+			change_domestic_influence_percentage = yes
+			set_temp_variable = { debt_change = -5.00 }
+			modify_debt_effect = yes
+			add_named_threat = { threat = 3 name = "Madagascar Reasserts National Sovereignty" }
+			set_country_flag = MAD_ROY_TRUE_SOVEREIGNTY
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_POL_ROY_TRIBES_BEFORE_PARTIES
+		icon = GFX_goal_generic_culture
+		x = 0
+		y = 2
+		relative_position_id = MAD_POL_ROY_TRUE_SOVEREIGNTY
+		cost = 3
+		prerequisite = { focus = MAD_POL_ROY_TRUE_SOVEREIGNTY }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_ROY_CRPM_IN_POWER_tt
+				MAD_ROY_IN_POWER = yes
+			}
+		}
+
+		completion_reward = {
+			decrease_centralization = yes
+			two_random_network_infrastructure = yes
+			if = {
+				limit = { has_idea = landowners }
+				set_temp_variable = { temp_opinion = 5 }
+				change_landowners_opinion = yes
+			}
+			set_country_flag = MAD_ROY_UNLOCK_CUSTOMARY_GOVERNANCE
+			custom_effect_tooltip = MAD_ROY_UNLOCK_CUSTOMARY_SECTION_TT
+			set_country_flag = MAD_ROY_CUSTOMARY_GOVERNANCE
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_POL_ROY_NEW_KINGDOM
+		icon = GFX_goal_monarchism
+		x = 0
+		y = 2
+		relative_position_id = MAD_POL_ROY_TRIBES_BEFORE_PARTIES
+		cost = 3
+		prerequisite = { focus = MAD_POL_ROY_TRIBES_BEFORE_PARTIES }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_ROY_CRPM_IN_POWER_tt
+				MAD_ROY_IN_POWER = yes
+			}
+		}
+
+		completion_reward = {
 			add_ideas = MAD_POL_ROYAL_CONSOLIDATION
 			set_country_flag = MAD_ROYAL_REGIME_CONSOLIDATED
+			set_country_flag = MAD_ROYAL_NEW_KINGDOM
+			increase_social_spending = yes
+			
 			set_temp_variable = { party_index = 23 }
-			set_temp_variable = { party_popularity_increase = 0.08 }
-			set_temp_variable = { temp_outlook_increase = 0.08 }
+			set_temp_variable = { party_popularity_increase = 0.05 }
+			set_temp_variable = { temp_outlook_increase = 0.05 }
 			change_relative_party_popularity = yes
-			recalculate_party = yes
+			recalculate_party = yes		
+	}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_POL_ROY_FFKM_CONCORDAT
+		icon = GFX_goal_generic_religion
+		x = -2
+		y = 0
+		relative_position_id = MAD_POL_ROY_CROWN_ABOVE_NOBILITY
+		cost = 3
+		prerequisite = { focus = MAD_POL_ROY_CROWN_ABOVE_NOBILITY }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_ROY_CRPM_IN_POWER_tt
+				MAD_ROY_IN_POWER = yes
+			}
+		}
+
+		completion_reward = {
+			increase_healthcare_budget = yes
+			random_core_state = { add_extra_state_shared_building_slots = 1 }
+			random_core_state = { add_extra_state_shared_building_slots = 1 }
+			set_country_flag = MAD_ROY_FFKM_CONCORDAT
+			if = {
+				limit = { has_idea = the_clergy }
+				set_temp_variable = { temp_opinion = 10 }
+				change_the_clergy_opinion = yes
+			}
+			
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_POL_ROY_PEOPLES_GUARDIANS
+		icon = GFX_goal_generic_police
+		x = -2
+		y = 0
+		relative_position_id = MAD_POL_ROY_CHRIST_KING
+		cost = 3
+		prerequisite = { focus = MAD_POL_ROY_CHRIST_KING }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ARMY_BONUS }
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_ROY_CRPM_IN_POWER_tt
+				MAD_ROY_IN_POWER = yes
+			}
+		}
+
+		completion_reward = {
+			army_experience = 15
+			add_mastery = { amount = 10 folder = land }
+			if = {
+				limit = { has_idea = the_military }
+				set_temp_variable = { temp_opinion = -5 }
+				change_the_military_opinion = yes
+			}
+			set_country_flag = MAD_ROY_PEOPLES_GUARDIANS
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_POL_ROY_ISRAEL_AGRITECH
+		icon = GFX_goal_generic_agriculture
+		x = -2
+		y = 2
+		relative_position_id = MAD_POL_ROY_BIBLICAL_GEOPOLITICS
+		cost = 3
+		prerequisite = { focus = MAD_POL_ROY_BIBLICAL_GEOPOLITICS }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ECONOMY }
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_ROY_CRPM_IN_POWER_tt
+				MAD_ROY_IN_POWER = yes
+			}
+			custom_trigger_tooltip = {
+				tooltip = MAD_ROY_ISRAEL_TIES_tt
+				OR = {
+					has_country_flag = MAD_ROY_ISRAEL_COVENANT
+					has_country_flag = MAD_ROY_ISRAEL_PILGRIM_TIES
+				}
+			}
+		}
+
+		completion_reward = {
+			add_tech_bonus = {
+				name = MAD_POL_ROY_ISRAEL_AGRITECH
+				category = CAT_agriculture_tech
+				bonus = 0.25
+				uses = 2
+			}
+			one_random_agriculture_district = yes
+			if = {
+				limit = { has_country_flag = MAD_ROY_ISRAEL_COVENANT }
+				one_random_agriculture_district = yes
+			}
+			set_country_flag = MAD_ROY_ISRAEL_AGRITECH
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_POL_ROY_ISRAEL_SECURITY
+		icon = GFX_goal_generic_army
+		x = -2
+		y = 2
+		relative_position_id = MAD_POL_ROY_ISRAEL_AGRITECH
+		cost = 3
+		prerequisite = { focus = MAD_POL_ROY_ISRAEL_AGRITECH }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ARMY_BONUS }
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_ROY_CRPM_IN_POWER_tt
+				MAD_ROY_IN_POWER = yes
+			}
+			custom_trigger_tooltip = {
+				tooltip = MAD_ROY_ISRAEL_COVENANT_tt
+				has_country_flag = MAD_ROY_ISRAEL_COVENANT
+			}
+		}
+
+		completion_reward = {
+			army_experience = 20
+			add_mastery = { amount = 15 folder = land }
+			add_tech_bonus = {
+				name = MAD_POL_ROY_ISRAEL_SECURITY
+				category = CAT_inf
+				uses = 1
+				bonus = 0.25
+			}
+			add_named_threat = { threat = 2 name = "Madagascar Hosts Israeli Military Advisers" }
+			set_country_flag = MAD_ROY_UNLOCK_ISRAEL_DIPLOMACY
+			custom_effect_tooltip = MAD_ROY_UNLOCK_ISRAEL_SECTION_TT
+			set_country_flag = MAD_ROY_ISRAEL_SECURITY
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_POL_ROY_ISLANDS_WAIT
+		icon = GFX_goal_generic_diplomacy
+		x = 2
+		y = 2
+		relative_position_id = MAD_POL_ROY_BIBLICAL_GEOPOLITICS
+		cost = 3
+		prerequisite = { focus = MAD_POL_ROY_BIBLICAL_GEOPOLITICS }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_ROY_CRPM_IN_POWER_tt
+				MAD_ROY_IN_POWER = yes
+			}
+			custom_trigger_tooltip = {
+				tooltip = MAD_ROY_ISRAEL_NEUTRAL_tt
+				has_country_flag = MAD_ROY_ISRAEL_NEUTRAL
+			}
+		}
+
+		completion_reward = {
+			if = {
+				limit = { country_exists = COM }
+				COM = { add_opinion_modifier = { target = MAD modifier = large_commercial_relations } }
+			}
+			if = {
+				limit = { country_exists = SEY }
+				SEY = { add_opinion_modifier = { target = MAD modifier = large_commercial_relations } }
+			}
+			random_owned_state = {
+				limit = { is_coastal = yes }
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = { type = infrastructure level = 1 instant_build = yes }
+			}
+			set_country_flag = MAD_ROY_UNLOCK_ISLAND_SOVEREIGNTY
+			custom_effect_tooltip = MAD_ROY_UNLOCK_ISLANDS_SECTION_TT
+			set_country_flag = MAD_ROY_ISLANDS_WAIT
 		}
 
 		ai_will_do = {
@@ -8013,11 +8745,11 @@ focus_tree = {
 	focus = {
 		id = MAD_POL_ROY_TAMIMA_COUNCIL
 		icon = GFX_goal_generic_council
-		x = 1
-		y = 1
-		relative_position_id = MAD_POL_ROY_CROWN_QUESTION
-		cost = 5
-		prerequisite = { focus = MAD_POL_ROY_CROWN_QUESTION }
+		x = 0
+		y = 2
+		relative_position_id = MAD_POL_ROY_LIVING_FORCES
+		cost = 3
+		prerequisite = { focus = MAD_POL_ROY_COUNCIL_OF_KINGS focus = MAD_POL_ROY_LIVING_FORCES }
 		mutually_exclusive = { focus = MAD_POL_ROY_KINGS_MANDATE }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -8029,13 +8761,17 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			set_politics = { ruling_party = neutrality elections_allowed = yes }
-			            set_temp_variable = { party_index = 15 }
-			            set_temp_variable = { party_popularity_increase = 0.10 }
-			            change_relative_party_popularity = yes
-			            add_ideas = MAD_POL_TAMIMA_COUNCIL
-			        
-			            recalculate_party = yes
+			add_ideas = MAD_POL_TAMIMA_COUNCIL
+			set_country_flag = MAD_TAMIMA_UNLOCK_HOUSE_AFFAIRS
+			custom_effect_tooltip = MAD_TAMIMA_UNLOCK_HOUSE_AFFAIRS_SECTION_TT
+			
+			set_temp_variable = { party_index = 15 }
+			set_temp_variable = { party_popularity_increase = 0.03 }
+			set_temp_variable = { temp_outlook_increase = 0.03 }
+			change_relative_party_popularity = yes
+			recalculate_party = yes
+			
+			set_country_flag = MAD_TAMIMA_COUNCIL_GOVERNMENT
 		}
 
 		ai_will_do = {
@@ -8049,28 +8785,34 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_POL_ROY_TAMIMA_COUNCIL
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_POL_ROY_TAMIMA_COUNCIL }
-		search_filters = { FOCUS_FILTER_POLITICAL }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_ROY_TAMIMA_IN_POWER_tt
 				MAD_TAMIMA_IN_POWER = yes
 			}
 		}
-
 		completion_reward = {
-			add_political_power = 50
-			            set_temp_variable = { party_index = 15 }
-			            set_temp_variable = { party_popularity_increase = 0.05 }
-			            set_temp_variable = { temp_outlook_increase = 0.05 }
-			            change_relative_party_popularity = yes
-			            recalculate_party = yes
+			# Fihavanana is enacted as a social compact, not unlocked as a repeatable button.
+			add_stability = 0.03
+			set_temp_variable = { percent_change = 3 }
+			change_domestic_influence_percentage = yes
+			if = {
+				limit = { has_idea = landowners }
+				set_temp_variable = { temp_opinion = 5 }
+				change_landowners_opinion = yes
+			}
+			if = {
+				limit = { has_idea = labour_unions }
+				set_temp_variable = { temp_opinion = 5 }
+				change_labour_unions_opinion = yes
+			}
+			increase_social_spending = yes
+			set_country_flag = MAD_TAMIMA_FIHAVANANA
 		}
-
-		ai_will_do = {
-			base = 1
-		}
+		ai_will_do = { base = 1 }
 	}
 
 	focus = {
@@ -8079,7 +8821,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_POL_ROY_FIHAVANANA
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_POL_ROY_FIHAVANANA }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -8090,20 +8832,13 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			add_power_balance_value = { id = MAD_economy_ownership_bop value = -0.05 }
-			            custom_effect_tooltip = {
-			            	localization_key = modifies_dynamic_modifier_tt
-			            	MODIFIER = MAD_economy_modifier
-			            }
-			            add_to_variable = { MAD_economy_infrastructure_tax_gain_multiplier_modifier = 0.05 tooltip = infrastructure_tax_gain_multiplier_modifier_tt }
-			
-			decrease_corruption = yes
-			
-			set_temp_variable = { party_index = 15 }
-			set_temp_variable = { party_popularity_increase = 0.03 }
-			set_temp_variable = { temp_outlook_increase = 0.03 }
-			change_relative_party_popularity = yes
-			recalculate_party = yes
+			267 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = { type = offices level = 1 instant_build = yes }
+			}
+			set_temp_variable = { treasury_change = -2.50 }
+			modify_treasury_effect = yes
+			set_country_flag = MAD_TAMIMA_ANTENIMIERAN_ANDRIANA
 		}
 
 		ai_will_do = {
@@ -8113,43 +8848,57 @@ focus_tree = {
 
 	focus = {
 		id = MAD_POL_ROY_CUSTOMARY_JUSTICE
-		icon = GFX_goal_generic_government
+		icon = GFX_goal_generic_council
 		x = 0
 		y = 2
 		relative_position_id = MAD_POL_ROY_FOKONOLONA
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_POL_ROY_FOKONOLONA }
-		search_filters = { FOCUS_FILTER_POLITICAL }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_ROY_TAMIMA_IN_POWER_tt
 				MAD_TAMIMA_IN_POWER = yes
 			}
 		}
-
 		completion_reward = {
-			add_ideas = MAD_POL_ROYAL_JUSTICE
-			set_temp_variable = { party_index = 15 }
-			set_temp_variable = { party_popularity_increase = 0.02 }
-			set_temp_variable = { temp_outlook_increase = 0.02 }
-			change_relative_party_popularity = yes
-			recalculate_party = yes
+			add_tech_bonus = {
+				name = MAD_POL_ROY_TAMIMA_LIVING_FORCES
+				category = CAT_Civilian
+				bonus = 0.15
+				uses = 2
+			}
+			random_owned_state = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = { type = offices level = 1 instant_build = yes }
+			}
+			add_stability = 0.02
+			set_temp_variable = { percent_change = 2 }
+			change_domestic_influence_percentage = yes
+			if = {
+				limit = { has_idea = labour_unions }
+				set_temp_variable = { temp_opinion = 4 }
+				change_labour_unions_opinion = yes
+			}
+			if = {
+				limit = { has_idea = small_medium_business_owners }
+				set_temp_variable = { temp_opinion = 4 }
+				change_small_medium_business_owners_opinion = yes
+			}
+			set_country_flag = MAD_TAMIMA_LIVING_FORCES
 		}
-
-		ai_will_do = {
-			base = 1
-		}
+		ai_will_do = { base = 1 }
 	}
 
 	focus = {
 		id = MAD_POL_ROY_CROWN_WITHOUT_KING
-		icon = GFX_goal_generic_constitution
+		icon = GFX_focus_generic_self_management
 		x = 0
 		y = 2
 		relative_position_id = MAD_POL_ROY_CUSTOMARY_JUSTICE
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_POL_ROY_CUSTOMARY_JUSTICE }
-		search_filters = { FOCUS_FILTER_POLITICAL }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_ROY_TAMIMA_IN_POWER_tt
@@ -8158,13 +8907,22 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			swap_ideas = { remove_idea = MAD_POL_TAMIMA_COUNCIL add_idea = MAD_POL_TRADITIONAL_CONSTITUTION }
-			            set_temp_variable = { party_index = 15 }
-			            set_temp_variable = { party_popularity_increase = 0.05 }
-			            set_temp_variable = { temp_outlook_increase = 0.05 }
-			            change_relative_party_popularity = yes
-			        
-			            recalculate_party = yes
+			random_core_state = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = { type = infrastructure level = 1 instant_build = yes }
+				add_building_construction = { type = offices level = 1 instant_build = yes }
+			}
+			random_core_state = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = { type = infrastructure level = 1 instant_build = yes }
+			}
+			random_core_state = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = { type = offices level = 1 instant_build = yes }
+			}
+			set_temp_variable = { treasury_change = -4.00 }
+			modify_treasury_effect = yes
+			set_country_flag = MAD_TAMIMA_FOKONOLONA_RESTORED
 		}
 
 		ai_will_do = {
@@ -8174,12 +8932,80 @@ focus_tree = {
 
 	focus = {
 		id = MAD_POL_ROY_ONE_MADAGASCAR_MANY_HOUSES
-		icon = GFX_goal_generic_national_unity
+		icon = GFX_goal_generic_government
 		x = 0
 		y = 2
 		relative_position_id = MAD_POL_ROY_CROWN_WITHOUT_KING
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_POL_ROY_CROWN_WITHOUT_KING }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_ROY_TAMIMA_IN_POWER_tt
+				MAD_TAMIMA_IN_POWER = yes
+			}
+		}
+		completion_reward = {
+			# Constitutional recognition of Dina is enacted here; the older follow-up decision is removed.
+			decrease_corruption = yes
+			add_stability = 0.015
+			decrease_centralization = yes
+			set_temp_variable = { percent_change = 2 }
+			change_domestic_influence_percentage = yes
+			if = {
+				limit = { has_idea = landowners }
+				set_temp_variable = { temp_opinion = 3 }
+				change_landowners_opinion = yes
+			}
+			set_country_flag = MAD_TAMIMA_DINA_JUSTICE
+		}
+		ai_will_do = { base = 1 }
+	}
+
+	focus = {
+		id = MAD_POL_ROY_TAMIMA_SACRED_HERITAGE
+		icon = GFX_goal_generic_construct_civilian
+		x = 0
+		y = 2
+		relative_position_id = MAD_POL_ROY_ONE_MADAGASCAR_MANY_HOUSES
+		cost = 3
+		prerequisite = { focus = MAD_POL_ROY_ONE_MADAGASCAR_MANY_HOUSES }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_ROY_TAMIMA_IN_POWER_tt
+				MAD_TAMIMA_IN_POWER = yes
+			}
+		}
+
+		completion_reward = {
+			random_owned_state = {
+				limit = { can_construct_building = land_facility }
+				construct_building_in_random_province = { nuclear_facility = 1 }
+			}
+			increase_education_budget = yes
+			if = {
+				limit = { has_variable = literacy_rate check_variable = { literacy_rate < 0.899 } }
+				set_temp_variable = { LR_change = 0.04 }
+				update_literacy_rate = yes
+			}
+			set_country_flag = MAD_TAMIMA_SACRED_HERITAGE
+			country_event = { id = mad_royal.4 days = 1 }
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_POL_ROY_CROWNLESS_CONSTITUTION
+		icon = GFX_goal_generic_constitution
+		x = 0
+		y = 2
+		relative_position_id = MAD_POL_ROY_TAMIMA_SACRED_HERITAGE
+		cost = 3
+		prerequisite = { focus = MAD_POL_ROY_TAMIMA_SACRED_HERITAGE }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
 			custom_trigger_tooltip = {
@@ -8189,21 +9015,76 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			add_political_power = 100
-			add_ideas = MAD_POL_TAMIMA_GOVERNANCE
-			custom_effect_tooltip = {
-				localization_key = modifies_dynamic_modifier_tt
-				MODIFIER = MAD_economy_modifier
+			swap_ideas = {
+				remove_idea = MAD_POL_TAMIMA_COUNCIL
+				add_idea = MAD_POL_TRADITIONAL_CONSTITUTION
 			}
-			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.15 tooltip = productivity_growth_modifier_tt }
-			add_to_variable = { MAD_economy_expected_welfare_modifier = 0.25 tooltip = expected_welfare_modifier_tt }
-			set_country_flag = MAD_TAMIMA_REGIME_CONSOLIDATED
+			if = {
+				limit = { has_idea = international_bankers }
+				set_temp_variable = { temp_opinion = 5 }
+				change_international_bankers_opinion = yes
+			}
+			set_country_flag = MAD_TAMIMA_CROWNLESS_ORDER
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_POL_ROY_ONE_MADAGASCAR_MANY_HOUSES_FINAL
+		icon = GFX_goal_generic_national_unity
+		x = 0
+		y = 2
+		relative_position_id = MAD_POL_ROY_CROWNLESS_CONSTITUTION
+		cost = 3
+		prerequisite = { focus = MAD_POL_ROY_CROWNLESS_CONSTITUTION }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_ROY_TAMIMA_IN_POWER_tt
+				MAD_TAMIMA_IN_POWER = yes
+			}
+		}
+
+		completion_reward = {
+			set_country_flag = MAD_TAMIMA_ONE_MADAGASCAR_MANY_HOUSES_READY
+			country_event = { id = mad_royal.5 days = 1 }
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_POL_ROY_TAMIMA_COUNCIL_GOVERNMENT
+		icon = GFX_goal_generic_council
+		x = 0
+		y = 2
+		relative_position_id = MAD_POL_ROY_ONE_MADAGASCAR_MANY_HOUSES_FINAL
+		cost = 3
+		prerequisite = { focus = MAD_POL_ROY_ONE_MADAGASCAR_MANY_HOUSES_FINAL }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_ROY_TAMIMA_IN_POWER_tt
+				MAD_TAMIMA_IN_POWER = yes
+			}
+		}
+
+		completion_reward = {
+			add_ideas = MAD_POL_TAMIMA_GOVERNANCE
 			set_politics = { ruling_party = neutrality elections_allowed = yes }
+			set_temp_variable = { threshold_change = -0.02 }
+			modify_election_threshold = yes
 			set_temp_variable = { party_index = 15 }
-			set_temp_variable = { party_popularity_increase = 0.10 }
-			set_temp_variable = { temp_outlook_increase = 0.10 }
+			set_temp_variable = { party_popularity_increase = 0.05 }
+			set_temp_variable = { temp_outlook_increase = 0.05 }
 			change_relative_party_popularity = yes
-			recalculate_party = yes
+			recalculate_party = yes			
+			set_country_flag = MAD_TAMIMA_REGIME_CONSOLIDATED
 		}
 
 		ai_will_do = {
@@ -8216,7 +9097,7 @@ focus_tree = {
 		icon = GFX_goal_generic_major_war
 		x = 29
 		y = 22
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_POL_PARTIES }
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ARMY_BONUS }
 		available = {
@@ -8234,24 +9115,27 @@ focus_tree = {
 			change_relative_party_popularity = yes
 			recalculate_party = yes
 			if = {
-				limit = { has_idea = international_bankers }
-				swap_ideas = {
-					remove_idea = international_bankers
-					add_idea = the_military
+				limit = { NOT = { has_idea = the_military } }
+				if = {
+					limit = { has_idea = international_bankers }
+					swap_ideas = {
+						remove_idea = international_bankers
+						add_idea = the_military
+					}
 				}
-			}
-			else_if = {
-				limit = { has_idea = landowners }
-				swap_ideas = {
-					remove_idea = landowners
-					add_idea = the_military
+				else_if = {
+					limit = { has_idea = landowners }
+					swap_ideas = {
+						remove_idea = landowners
+						add_idea = the_military
+					}
 				}
-			}
-			else_if = {
-				limit = { has_idea = small_medium_business_owners }
-				swap_ideas = {
-					remove_idea = small_medium_business_owners
-					add_idea = the_military
+				else_if = {
+					limit = { has_idea = small_medium_business_owners }
+					swap_ideas = {
+						remove_idea = small_medium_business_owners
+						add_idea = the_military
+					}
 				}
 			}
 			army_experience = 25
@@ -8268,7 +9152,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_POL_MIL_TAKES_RESPONSIBILITY
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_POL_MIL_TAKES_RESPONSIBILITY }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -8295,7 +9179,7 @@ focus_tree = {
 		x = -2
 		y = 3
 		relative_position_id = MAD_POL_MIL_CHAIN_OF_COMMAND
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_POL_MIL_CHAIN_OF_COMMAND }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -8322,7 +9206,7 @@ focus_tree = {
 		x = 1
 		y = 3
 		relative_position_id = MAD_POL_MIL_CHAIN_OF_COMMAND
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_POL_MIL_CHAIN_OF_COMMAND }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -8354,7 +9238,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_POL_MIL_LESSON_2002
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_POL_MIL_LESSON_2002 }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -8385,7 +9269,7 @@ focus_tree = {
 		x = -2
 		y = 2
 		relative_position_id = MAD_POL_MIL_LESSON_2009
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_POL_MIL_LESSON_2009 }
 		mutually_exclusive = { focus = MAD_POL_MIL_FINAL_ARBITER }
 		search_filters = { FOCUS_FILTER_POLITICAL }
@@ -8426,7 +9310,7 @@ focus_tree = {
 		x = 1
 		y = 2
 		relative_position_id = MAD_POL_MIL_LESSON_2009
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_POL_MIL_LESSON_2009 }
 		mutually_exclusive = { focus = MAD_POL_MIL_PROTECT_BALLOT }
 		search_filters = { FOCUS_FILTER_POLITICAL }
@@ -8469,7 +9353,7 @@ focus_tree = {
 		x = -1
 		y = 2
 		relative_position_id = MAD_POL_MIL_FINAL_ARBITER
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_POL_MIL_FINAL_ARBITER }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -8503,7 +9387,7 @@ focus_tree = {
 		x = 2
 		y = 2
 		relative_position_id = MAD_POL_MIL_ENGINEERS
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_POL_MIL_ENGINEERS focus = MAD_POL_MIL_CIVILIAN_GUARDIANSHIP focus = MAD_POL_MIL_CAPSAT_LESSON }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -8519,6 +9403,11 @@ focus_tree = {
 				add_idea = MAD_MIL_UNIFIED_FORCES
 			}
 			army_experience = 35
+			if = {
+				limit = { has_idea = the_military }
+				set_temp_variable = { temp_opinion = 10 }
+				change_the_military_opinion = yes
+			}
 		}
 
 		ai_will_do = {
@@ -8532,7 +9421,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_POL_MIL_PROFESSIONAL_OFFICERS
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_POL_MIL_PROFESSIONAL_OFFICERS }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -8572,7 +9461,7 @@ focus_tree = {
 		x = -1
 		y = 2
 		relative_position_id = MAD_POL_MIL_SOUTHERN_SECURITY
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_POL_MIL_SOUTHERN_SECURITY }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -8610,7 +9499,7 @@ focus_tree = {
 		x = 1
 		y = 2
 		relative_position_id = MAD_POL_MIL_GENDARMERIE_REFORM
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_POL_MIL_GENDARMERIE_REFORM }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -8640,7 +9529,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_POL_MIL_NEVER_DIVIDED
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_POL_MIL_NEVER_DIVIDED }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -8669,7 +9558,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_POL_MIL_MARITIME_SECURITY
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_POL_MIL_MARITIME_SECURITY }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -8707,7 +9596,7 @@ focus_tree = {
 		x = -1
 		y = 2
 		relative_position_id = MAD_POL_MIL_MULTILATERAL_DOCTRINE
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_POL_MIL_MULTILATERAL_DOCTRINE }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -8739,7 +9628,7 @@ focus_tree = {
 		x = 1
 		y = 2
 		relative_position_id = MAD_POL_MIL_MULTILATERAL_DOCTRINE
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_POL_MIL_MULTILATERAL_DOCTRINE }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -8777,7 +9666,7 @@ focus_tree = {
 		x = -1
 		y = 1
 		relative_position_id = MAD_POL_MIL_CLEAN_UNIFORM
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_POL_MIL_ASSEMBLIES focus = MAD_POL_MIL_CLEAN_UNIFORM }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -8791,6 +9680,11 @@ focus_tree = {
 			set_country_flag = MAD_MIL_REFOUNDATION_PENDING
 			hidden_effect = { country_event = { id = mad_political.3 days = 1 } }
 			add_political_power = 25
+			if = {
+				limit = { has_idea = the_military }
+				set_temp_variable = { temp_opinion = 10 }
+				change_the_military_opinion = yes
+			}
 		}
 
 		ai_will_do = {
@@ -8804,7 +9698,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_POL_MIL_PROTECT_BALLOT
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_POL_MIL_PROTECT_BALLOT }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -8840,7 +9734,7 @@ focus_tree = {
 		icon = GFX_goal_generic_political_pressure
 		x = 39
 		y = 22
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_POL_PARTIES }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -8872,7 +9766,7 @@ focus_tree = {
 		x = -3
 		y = 1
 		relative_position_id = MAD_POL_AREMA_REBUILD
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_POL_AREMA_REBUILD }
 		mutually_exclusive = { focus = MAD_POL_AREMA_CHOOSE_RENEWAL }
 		mutually_exclusive = { focus = MAD_POL_AREMA_CHOOSE_RECONCILIATION }
@@ -8914,7 +9808,7 @@ focus_tree = {
 		x = 0
 		y = 1
 		relative_position_id = MAD_POL_AREMA_REBUILD
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_POL_AREMA_REBUILD }
 		mutually_exclusive = { focus = MAD_POL_AREMA_CHOOSE_OLD_GUARD }
 		mutually_exclusive = { focus = MAD_POL_AREMA_CHOOSE_RECONCILIATION }
@@ -8958,7 +9852,7 @@ focus_tree = {
 		x = 3
 		y = 1
 		relative_position_id = MAD_POL_AREMA_REBUILD
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_POL_AREMA_REBUILD }
 		mutually_exclusive = { focus = MAD_POL_AREMA_CHOOSE_OLD_GUARD }
 		mutually_exclusive = { focus = MAD_POL_AREMA_CHOOSE_RENEWAL }
@@ -9006,7 +9900,7 @@ focus_tree = {
 		x = -6
 		y = 1
 		relative_position_id = MAD_POL_AREMA_REVOLUTION_ADAPTS
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_POL_AREMA_REVOLUTION_ADAPTS }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -9029,8 +9923,11 @@ focus_tree = {
 			
 			increase_centralization = yes
 			
-			set_temp_variable = { temp_opinion = -10 }
-			change_landowners_opinion = yes
+			if = {
+				limit = { has_idea = landowners }
+				set_temp_variable = { temp_opinion = -10 }
+				change_landowners_opinion = yes
+			}
 			
 			
 			add_power_balance_value = { id = MAD_economy_ownership_bop value = 0.05 tooltip_side = MAD_public_ownership }
@@ -9047,7 +9944,7 @@ focus_tree = {
 		x = 0
 		y = 1
 		relative_position_id = MAD_POL_AREMA_REVOLUTIONARY_ORGANISATION
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_POL_AREMA_REVOLUTIONARY_ORGANISATION }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -9071,7 +9968,7 @@ focus_tree = {
 		x = -4
 		y = 1
 		relative_position_id = MAD_POL_AREMA_REVOLUTION_ADAPTS
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_POL_AREMA_REVOLUTION_ADAPTS }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -9112,7 +10009,7 @@ focus_tree = {
 		x = 0
 		y = 1
 		relative_position_id = MAD_POL_AREMA_RENEWAL_PROGRAMME
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_POL_AREMA_RENEWAL_PROGRAMME }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -9136,7 +10033,7 @@ focus_tree = {
 		x = -2
 		y = 1
 		relative_position_id = MAD_POL_AREMA_REVOLUTION_ADAPTS
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_POL_AREMA_REVOLUTION_ADAPTS }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -9154,8 +10051,11 @@ focus_tree = {
 			
 			increase_exports = yes
 			
-			set_temp_variable = { temp_opinion = 10 }
-			change_international_bankers_opinion = yes
+			if = {
+				limit = { has_idea = international_bankers }
+				set_temp_variable = { temp_opinion = 10 }
+				change_international_bankers_opinion = yes
+			}
 			
 			set_temp_variable = { party_index = 5 }
 			set_temp_variable = { party_popularity_increase = 0.04 }
@@ -9178,7 +10078,7 @@ focus_tree = {
 		x = 0
 		y = 1
 		relative_position_id = MAD_POL_AREMA_RECONCILIATION_PACT
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_POL_AREMA_RECONCILIATION_PACT }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -9202,7 +10102,7 @@ focus_tree = {
 		x = 0
 		y = 3
 		relative_position_id = MAD_POL_AREMA_REBUILD
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_POL_AREMA_CHOOSE_OLD_GUARD focus = MAD_POL_AREMA_CHOOSE_RENEWAL focus = MAD_POL_AREMA_CHOOSE_RECONCILIATION }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -9234,7 +10134,7 @@ focus_tree = {
 		x = 0
 		y = 1
 		relative_position_id = MAD_POL_AREMA_OLD_GUARD_ADAPT
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_POL_AREMA_OLD_GUARD_ADAPT }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -9254,8 +10154,11 @@ focus_tree = {
 			
 			decrease_exports = yes
 			
-			set_temp_variable = { temp_opinion = -10 }
-			change_international_bankers_opinion = yes
+			if = {
+				limit = { has_idea = international_bankers }
+				set_temp_variable = { temp_opinion = -10 }
+				change_international_bankers_opinion = yes
+			}
 			
 			set_country_flag = MAD_AREMA_REVOLUTIONARY_LEGACY
 			add_stability = -0.03
@@ -9283,7 +10186,7 @@ focus_tree = {
 		x = 0
 		y = 1
 		relative_position_id = MAD_POL_AREMA_RENEWAL_MODERNISE
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_POL_AREMA_RENEWAL_MODERNISE }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -9308,6 +10211,14 @@ focus_tree = {
 			set_temp_variable = { party_popularity_increase = 0.03 }
 			set_temp_variable = { temp_outlook_increase = 0.03 }
 			change_relative_party_popularity = yes
+			
+			custom_effect_tooltip = {
+				localization_key = modifies_dynamic_modifier_tt
+				MODIFIER = MAD_agriculture_modifier
+			}
+			add_to_variable = { MAD_agri_worker_req = -0.03 tooltip = agriculture_district_worker_requirement_modifier_tt }
+					
+			add_power_balance_value = { id = MAD_economy_ownership_bop value = 0.05 tooltip_side = MAD_public_ownership }
 		}
 
 		ai_will_do = {
@@ -9321,7 +10232,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_POL_AREMA_REVOLUTION_ADAPTS
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_POL_AREMA_REVOLUTION_ADAPTS }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -9362,10 +10273,10 @@ focus_tree = {
 		id = MAD_POL_AREMA_STRATEGIC_ENTERPRISES
 		icon = GFX_goal_generic_takeover_industry
 		x = 0
-		y = 2
+		y = 3
 		relative_position_id = MAD_POL_AREMA_STATE_LEADS
-		cost = 5
-		prerequisite = { focus = MAD_POL_AREMA_STATE_LEADS }
+		cost = 3
+		prerequisite = { focus = MAD_POL_AREMA_STATE_LEADS focus = MAD_POL_AREMA_SOCIALIST_PLANNING }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
 			custom_trigger_tooltip = {
@@ -9382,8 +10293,11 @@ focus_tree = {
 						
 			
 						
-			set_temp_variable = { temp_opinion = -15 }
-			change_international_bankers_opinion = yes
+			if = {
+				limit = { has_idea = international_bankers }
+				set_temp_variable = { temp_opinion = -15 }
+				change_international_bankers_opinion = yes
+			}
 			
 			
 			set_country_flag = MAD_AREMA_PUBLIC_ENTERPRISES
@@ -9411,7 +10325,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_POL_AREMA_STRATEGIC_ENTERPRISES
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_POL_AREMA_STRATEGIC_ENTERPRISES }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -9428,8 +10342,11 @@ focus_tree = {
 			
 			increase_economic_growth = yes
 			
-			set_temp_variable = { temp_opinion = -15 }
-			change_international_bankers_opinion = yes
+			if = {
+				limit = { has_idea = international_bankers }
+				set_temp_variable = { temp_opinion = -15 }
+				change_international_bankers_opinion = yes
+			}
 						
 			
 			
@@ -9460,7 +10377,7 @@ focus_tree = {
 		x = 5
 		y = 1
 		relative_position_id = MAD_POL_AREMA_REVOLUTION_ADAPTS
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_POL_AREMA_REVOLUTION_ADAPTS }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -9501,7 +10418,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_POL_AREMA_FOKONOLONA
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_POL_AREMA_FOKONOLONA }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -9517,7 +10434,6 @@ focus_tree = {
 			if = {
 				limit = {
 					NOT = { has_completed_focus = MAD_Thriving_south }
-					NOT = { has_completed_focus = MAD_crop_death }
 				}
 				268 = {
 					custom_effect_tooltip = MAD_DROUGHT_FAMINE_RELIEF_12_tt
@@ -9553,7 +10469,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_POL_AREMA_FOOD_FIRST
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_POL_AREMA_FOOD_FIRST }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -9570,8 +10486,45 @@ focus_tree = {
 			set_temp_variable = { percent_change = 10 }
 			change_domestic_influence_percentage = yes
 			
-			set_temp_variable = { temp_opinion = 5 }
-			change_small_medium_business_owners_opinion = yes
+			if = {
+				limit = { has_idea = small_medium_business_owners }
+				set_temp_variable = { temp_opinion = 5 }
+				change_small_medium_business_owners_opinion = yes
+			}
+			if = {
+				limit = { NOT = { has_idea = farmers } }
+				if = {
+					limit = { has_idea = international_bankers }
+					swap_ideas = {
+						remove_idea = international_bankers
+						add_idea = farmers
+					}
+				}
+			
+				
+					else_if = {
+						limit = { has_idea = the_military }
+						swap_ideas = {
+							remove_idea = the_military
+							add_idea = farmers
+						}
+					}
+				
+					else_if = {
+						limit = { has_idea = landowners	 }
+						swap_ideas = {
+							remove_idea = landowners
+							add_idea = farmers
+						}
+					}
+					else_if = {
+						limit = { has_idea = small_medium_business_owners }
+						swap_ideas = {
+							remove_idea = small_medium_business_owners
+							add_idea = farmers
+						}
+					}
+			}
 			
 			set_country_flag = MAD_AREMA_ECONOMIC_INDEPENDENCE
 			
@@ -9598,7 +10551,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_POL_AREMA_INDEPENDENCE
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_POL_AREMA_INDEPENDENCE }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -9654,7 +10607,7 @@ focus_tree = {
 		x = 0
 		y = 1
 		relative_position_id = MAD_POL_AREMA_RECONCILIATION_INSTITUTIONALISE
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_POL_AREMA_RECONCILIATION_INSTITUTIONALISE }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -9697,7 +10650,7 @@ focus_tree = {
 		x = 4
 		y = 2
 		relative_position_id = MAD_POL_AREMA_REVOLUTION_ADAPTS
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_POL_AREMA_REVOLUTION_ADAPTS }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -9739,7 +10692,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_POL_AREMA_MIXED_ECONOMY
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_POL_AREMA_MIXED_ECONOMY }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -9755,8 +10708,11 @@ focus_tree = {
 			
 			one_random_infrastructure = yes
 			
-			set_temp_variable = { temp_opinion = 10 }
-			change_international_bankers_opinion = yes
+			if = {
+				limit = { has_idea = international_bankers }
+				set_temp_variable = { temp_opinion = 10 }
+				change_international_bankers_opinion = yes
+			}
 			
 			set_temp_variable = { percent_change = 5 }
 			change_domestic_influence_percentage = yes
@@ -9777,7 +10733,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_POL_AREMA_STRATEGIC_INVESTMENT
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_POL_AREMA_STRATEGIC_INVESTMENT }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -9838,7 +10794,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_POL_AREMA_ECO_SOCIAL_REPUBLIC
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_POL_AREMA_ECO_SOCIAL_REPUBLIC }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -9873,7 +10829,7 @@ focus_tree = {
 		x = 0
 		y = -1
 		relative_position_id = MAD_POL_AREMA_SECOND_SOCIALISM
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_POL_AREMA_REVOLUTION_ADAPTS }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -9914,7 +10870,7 @@ focus_tree = {
 		icon = GFX_goal_generic_national_unity
 		x = 41
 		y = 28
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_POL_AREMA_NATIONAL_DEVELOPMENT_PACT }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -9956,7 +10912,7 @@ focus_tree = {
 		icon = GFX_goal_support_democracy
 		x = 53
 		y = 22
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_POL_PARTIES }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -9987,7 +10943,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_POL_TIM_RETURN
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_POL_TIM_RETURN }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -10018,7 +10974,7 @@ focus_tree = {
 		x = 2
 		y = 2
 		relative_position_id = MAD_POL_TIM_TRUST
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_POL_TIM_TRUST }
 		mutually_exclusive = { focus = MAD_POL_TIM_NATIONAL_CHAMPION }
 		search_filters = { FOCUS_FILTER_POLITICAL }
@@ -10036,8 +10992,11 @@ focus_tree = {
 			set_temp_variable = { temp_outlook_increase = 0.05 }
 			change_relative_party_popularity = yes
 			
-			set_temp_variable = { temp_opinion = 10 }
-			change_small_medium_business_owners_opinion = yes
+			if = {
+				limit = { has_idea = small_medium_business_owners }
+				set_temp_variable = { temp_opinion = 10 }
+				change_small_medium_business_owners_opinion = yes
+			}
 			
 			set_temp_variable = { corp_change = -3 }
 			modify_corporate_tax_rate_effect = yes
@@ -10062,7 +11021,7 @@ focus_tree = {
 		x = -2
 		y = 2
 		relative_position_id = MAD_POL_TIM_TRUST
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_POL_TIM_TRUST }
 		mutually_exclusive = { focus = MAD_POL_TIM_BUSINESS_SEPARATION }
 		search_filters = { FOCUS_FILTER_POLITICAL }
@@ -10082,10 +11041,49 @@ focus_tree = {
 					category = CAT_Civilian
 				}
 			
-				set_temp_variable = { temp_opinion = 5 }
-				change_international_bankers_opinion = yes
-				set_temp_variable = { temp_opinion = 5 }
-				change_landowners_opinion = yes
+				if = {
+					limit = { has_idea = international_bankers }
+					set_temp_variable = { temp_opinion = 5 }
+					change_international_bankers_opinion = yes
+				}
+				
+				if = {
+					limit = { NOT = { has_idea = industrial_conglomerates } }
+					if = {
+					limit = { has_idea = small_medium_business_owners }
+					swap_ideas = {
+						remove_idea = small_medium_business_owners
+						add_idea = industrial_conglomerates
+					}
+				}
+			
+					else_if = {
+						limit = { has_idea = landowners }
+						swap_ideas = {
+							remove_idea = landowners
+							add_idea = industrial_conglomerates
+						}
+					}
+					else_if = {
+						limit = { has_idea = the_military }
+						swap_ideas = {
+							remove_idea = the_military
+							add_idea = industrial_conglomerates
+						}
+					}
+				}
+				if = {
+					limit = { has_idea = industrial_conglomerates }
+					set_temp_variable = { temp_opinion = 15 }
+					change_industrial_conglomerates_opinion = yes
+				}
+				if = { 
+					limit = {
+					has_idea = landowners
+					}
+					set_temp_variable = { temp_opinion = 5 }
+					change_landowners_opinion = yes
+					}
 				
 				set_country_flag = MAD_TIM_NATIONAL_CHAMPION_MODEL
 				
@@ -10104,7 +11102,7 @@ focus_tree = {
 		x = 0
 		y = 4
 		relative_position_id = MAD_POL_TIM_TRUST
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_POL_TIM_TRUST }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -10131,7 +11129,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_POL_TIM_BUSINESS_SEPARATION
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_POL_TIM_BUSINESS_SEPARATION }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -10143,8 +11141,11 @@ focus_tree = {
 
 		completion_reward = {
 			decrease_corruption = yes
-			set_temp_variable = { temp_opinion = 10 }
-			change_small_medium_business_owners_opinion = yes
+			if = {
+				limit = { has_idea = small_medium_business_owners }
+				set_temp_variable = { temp_opinion = 10 }
+				change_small_medium_business_owners_opinion = yes
+			}
 			
 			set_country_flag = MAD_TIM_COMPETITION_MODEL
 			
@@ -10166,7 +11167,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_POL_TIM_NATIONAL_CHAMPION
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_POL_TIM_NATIONAL_CHAMPION }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -10187,8 +11188,11 @@ focus_tree = {
 			modify_corporate_tax_rate_effect = yes
 			
 			
-			set_temp_variable = { temp_opinion = 10 }
-			change_landowners_opinion = yes
+			if = {
+				limit = { has_idea = landowners }
+				set_temp_variable = { temp_opinion = 10 }
+				change_landowners_opinion = yes
+			}
 		}
 
 		ai_will_do = {
@@ -10202,7 +11206,7 @@ focus_tree = {
 		x = 2
 		y = 2
 		relative_position_id = MAD_POL_TIM_CONNECT_ISLAND
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_POL_TIM_CONNECT_ISLAND focus = MAD_POL_TIM_COMPETITION_LAW }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -10218,8 +11222,11 @@ focus_tree = {
 			
 			decrease_corruption = yes
 			
-			set_temp_variable = { temp_opinion = 5 }
-			change_small_medium_business_owners_opinion = yes
+			if = {
+				limit = { has_idea = small_medium_business_owners }
+				set_temp_variable = { temp_opinion = 5 }
+				change_small_medium_business_owners_opinion = yes
+			}
 			
 			set_temp_variable = { party_index = 2 }
 			set_temp_variable = { party_popularity_increase = 0.02 }
@@ -10239,7 +11246,7 @@ focus_tree = {
 		x = -2
 		y = 2
 		relative_position_id = MAD_POL_TIM_CONNECT_ISLAND
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_POL_TIM_CONNECT_ISLAND focus = MAD_POL_TIM_NATIONAL_TAX_CAPACITY }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -10272,10 +11279,10 @@ focus_tree = {
 	focus = {
 		id = MAD_POL_TIM_2007_CONSTITUTION
 		icon = GFX_goal_generic_constitution
-		x = -2
+		x = -1
 		y = 1
 		relative_position_id = MAD_POL_TIM_DECENTRALISE
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_POL_TIM_DECENTRALISE }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -10308,7 +11315,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_POL_TIM_CONNECT_ISLAND
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_POL_TIM_CONNECT_ISLAND }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -10356,10 +11363,10 @@ focus_tree = {
 	focus = {
 		id = MAD_POL_TIM_INFRASTRUCTURE_FINANCE
 		icon = GFX_goal_generic_construct_infrastructure
-		x = 2
+		x = 1
 		y = 2
 		relative_position_id = MAD_POL_TIM_MAP
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_POL_TIM_MAP }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -10382,8 +11389,11 @@ focus_tree = {
 			set_temp_variable = { treasury_change = -12.00 }
 			modify_treasury_effect = yes
 			
-			set_temp_variable = { temp_opinion = 10 }
-			change_international_bankers_opinion = yes
+			if = {
+				limit = { has_idea = international_bankers }
+				set_temp_variable = { temp_opinion = 10 }
+				change_international_bankers_opinion = yes
+			}
 			
 			set_country_flag = MAD_TIM_PROJECT_FINANCE
 			set_temp_variable = { party_index = 2 }
@@ -10404,7 +11414,7 @@ focus_tree = {
 		x = 0
 		y = 3
 		relative_position_id = MAD_POL_TIM_MAP
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_POL_TIM_MAP }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -10418,13 +11428,13 @@ focus_tree = {
 		completion_reward = {
 			add_tech_bonus = {
 				name = MAD_POL_TIM_GREEN_REVOLUTION
-				uses = 3
+				uses = 2
 				bonus = 0.25
-				category = CAT_renewable
+				category = CAT_agriculture_tech
 			}
 			
-			one_random_renewable_energy_infra = yes
-			
+			add_ideas = MAD_POL_TIM_GREEN_REVOLUTION_IDEA
+					
 			set_temp_variable = { party_index = 2 }
 			set_temp_variable = { party_popularity_increase = 0.02 }
 			set_temp_variable = { temp_outlook_increase = 0.02 }
@@ -10443,7 +11453,7 @@ focus_tree = {
 		x = 0
 		y = 1
 		relative_position_id = MAD_POL_TIM_GREEN_REVOLUTION
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_POL_TIM_GREEN_REVOLUTION }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -10456,8 +11466,13 @@ focus_tree = {
 		completion_reward = {
 			one_random_agriculture_district = yes
 			
-			set_temp_variable = { temp_opinion = -5 }
-			change_landowners_opinion = yes
+			decrease_corruption = yes
+			
+			if = {
+				limit = { has_idea = landowners }
+				set_temp_variable = { temp_opinion = -5 }
+				change_landowners_opinion = yes
+			}
 		}
 
 		ai_will_do = {
@@ -10471,7 +11486,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_POL_TIM_LAND_TITLES
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_POL_TIM_LAND_TITLES }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -10485,8 +11500,11 @@ focus_tree = {
 		completion_reward = {
 			add_power_balance_value = { id = MAD_economy_ownership_bop value = -0.06 tooltip_side = MAD_private_ownership }
 			increase_exports = yes
-			set_temp_variable = { temp_opinion = 10 }
-			change_international_bankers_opinion = yes
+			if = {
+				limit = { has_idea = international_bankers }
+				set_temp_variable = { temp_opinion = 10 }
+				change_international_bankers_opinion = yes
+			}
 		}
 
 		ai_will_do = {
@@ -10500,7 +11518,7 @@ focus_tree = {
 		x = -2
 		y = 2
 		relative_position_id = MAD_POL_TIM_MAP
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_POL_TIM_MAP }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -10512,8 +11530,11 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			set_temp_variable = { temp_opinion = -10 }
-			change_international_bankers_opinion = yes
+			if = {
+				limit = { has_idea = international_bankers }
+				set_temp_variable = { temp_opinion = -10 }
+				change_international_bankers_opinion = yes
+			}
 			
 			if = {
 					limit = { has_idea = strip_mining }
@@ -10562,7 +11583,7 @@ focus_tree = {
 		x = -2
 		y = 3
 		relative_position_id = MAD_POL_TIM_LAND_TITLES
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_POL_TIM_LAND_TITLES focus = MAD_POL_TIM_OPEN_ECONOMY }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -10575,12 +11596,18 @@ focus_tree = {
 		completion_reward = {
 			if = {
 				limit = { has_completed_focus = MAD_JIRAMA_RECOVERY_SUCCEEDS has_completed_focus = MAD_Agricultural_reforms }
-					set_temp_variable = { temp_opinion = 10 }
-					change_international_bankers_opinion = yes
+					if = {
+						limit = { has_idea = international_bankers }
+						set_temp_variable = { temp_opinion = 10 }
+						change_international_bankers_opinion = yes
+					}
 				}
 			else = {
-					set_temp_variable = { temp_opinion = -5 }
-					change_international_bankers_opinion = yes
+					if = {
+						limit = { has_idea = international_bankers }
+						set_temp_variable = { temp_opinion = -5 }
+						change_international_bankers_opinion = yes
+					}
 				}
 			decrease_corruption = yes
 			
@@ -10598,7 +11625,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_POL_TIM_OPEN_ECONOMY
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_POL_TIM_OPEN_ECONOMY }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -10630,7 +11657,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_POL_TIM_RECONCILIATION
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_POL_TIM_RECONCILIATION }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -10662,7 +11689,7 @@ focus_tree = {
 		icon = GFX_goal_generic_youth
 		x = 46
 		y = 22
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_POL_PARTIES }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		allow_branch = {
@@ -10680,8 +11707,11 @@ focus_tree = {
 			
 			
 			increase_education_budget = yes
-			set_temp_variable = { temp_opinion = 10 }
-			change_labour_unions_opinion = yes
+			if = {
+				limit = { has_idea = labour_unions }
+				set_temp_variable = { temp_opinion = 10 }
+				change_labour_unions_opinion = yes
+			}
 			
 			if = {
 				limit = {
@@ -10704,7 +11734,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_POL_TGV_YOUTH_READY
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_POL_TGV_YOUTH_READY }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -10723,8 +11753,11 @@ focus_tree = {
 			
 			add_stability = 0.02
 			add_war_support = 0.02
-			set_temp_variable = { temp_opinion = 10 }
-			change_the_military_opinion = yes
+			if = {
+				limit = { has_idea = the_military }
+				set_temp_variable = { temp_opinion = 10 }
+				change_the_military_opinion = yes
+			}
 		}
 
 		ai_will_do = {
@@ -10738,7 +11771,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_POL_TGV_2009_LEGACY
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_POL_TGV_2009_LEGACY }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -10771,7 +11804,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_POL_TGV_FOURTH_REPUBLIC
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_POL_TGV_FOURTH_REPUBLIC }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -10820,7 +11853,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_POL_TGV_RETURN_BALLOT
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_POL_TGV_RETURN_BALLOT }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -10857,7 +11890,7 @@ focus_tree = {
 		x = 1
 		y = 1
 		relative_position_id = MAD_POL_TGV_THIRTEEN_VELIRANO
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_POL_TGV_THIRTEEN_VELIRANO }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -10869,7 +11902,7 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			            custom_effect_tooltip = {
+			custom_effect_tooltip = {
 			            	localization_key = modifies_dynamic_modifier_tt
 			            	MODIFIER = MAD_agriculture_modifier
 			            }
@@ -10879,8 +11912,7 @@ focus_tree = {
 				if = {
 				limit = {
 						NOT = { has_completed_focus = MAD_Thriving_south }
-						NOT = { has_completed_focus = MAD_crop_death }
-					}
+						}
 					random_owned_state = {
 						custom_effect_tooltip = MAD_DROUGHT_FAMINE_RELIEF_12_tt
 				
@@ -10907,7 +11939,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_POL_TGV_THIRTEEN_VELIRANO
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_POL_TGV_THIRTEEN_VELIRANO }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -10945,7 +11977,7 @@ focus_tree = {
 		x = -1
 		y = 2
 		relative_position_id = MAD_POL_TGV_EMERGENCE_INITIATIVE
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_POL_TGV_EMERGENCE_INITIATIVE }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -10957,7 +11989,7 @@ focus_tree = {
 		}
 
 		completion_reward = {
-				custom_effect_tooltip = {
+			custom_effect_tooltip = {
 					localization_key = modifies_dynamic_modifier_tt
 					MODIFIER = MAD_economy_modifier
 				}
@@ -10984,7 +12016,7 @@ focus_tree = {
 		x = -2
 		y = 2
 		relative_position_id = MAD_POL_TGV_INFRASTRUCTURE_FIRST
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_POL_TGV_INFRASTRUCTURE_FIRST }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -11011,8 +12043,11 @@ focus_tree = {
 			set_temp_variable = { treasury_change = -4.00 }
 			modify_treasury_effect = yes
 			
-			set_temp_variable = { temp_opinion = 10 }
-			change_international_bankers_opinion = yes
+			if = {
+				limit = { has_idea = international_bankers }
+				set_temp_variable = { temp_opinion = 10 }
+				change_international_bankers_opinion = yes
+			}
 			
 			one_random_industrial_complex = yes
 		}
@@ -11028,7 +12063,7 @@ focus_tree = {
 		x = 1
 		y = 2
 		relative_position_id = MAD_POL_TGV_INFRASTRUCTURE_FIRST
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_POL_TGV_INFRASTRUCTURE_FIRST }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -11071,7 +12106,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_POL_TGV_JIRAMA_DELIVERY
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_POL_TGV_JIRAMA_DELIVERY }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -11110,7 +12145,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_POL_TGV_SPECIAL_ECONOMIC_ZONES
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_POL_TGV_SPECIAL_ECONOMIC_ZONES }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -11152,7 +12187,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_POL_TGV_INDUSTRIAL_MADAGASCAR
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_POL_TGV_INDUSTRIAL_MADAGASCAR }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -11164,7 +12199,7 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			            custom_effect_tooltip = {
+			custom_effect_tooltip = {
 			            	localization_key = modifies_dynamic_modifier_tt
 			            	MODIFIER = MAD_economy_modifier
 			            }
@@ -11192,7 +12227,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_POL_TGV_FOOD_SOVEREIGNTY
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_POL_TGV_FOOD_SOVEREIGNTY }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -11233,7 +12268,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_POL_TGV_DIGITAL_MADAGASCAR
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_POL_TGV_DIGITAL_MADAGASCAR }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -11245,7 +12280,7 @@ focus_tree = {
 		}
 
 		completion_reward = {
-						custom_effect_tooltip = {
+			custom_effect_tooltip = {
 							localization_key = modifies_dynamic_modifier_tt
 							MODIFIER = MAD_economy_modifier
 						}
@@ -11260,8 +12295,11 @@ focus_tree = {
 			one_random_industrial_complex = yes
 			increase_education_budget = yes
 			
-			set_temp_variable = { temp_opinion = 10 }
-			change_small_medium_business_owners_opinion = yes
+			if = {
+				limit = { has_idea = small_medium_business_owners }
+				set_temp_variable = { temp_opinion = 10 }
+				change_small_medium_business_owners_opinion = yes
+			}
 		}
 
 		ai_will_do = {
@@ -11275,7 +12313,7 @@ focus_tree = {
 		x = -3
 		y = 1
 		relative_position_id = MAD_POL_TGV_DIGITAL_MADAGASCAR
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_POL_TGV_DIGITAL_MADAGASCAR focus = MAD_POL_TGV_PROJECT_FINANCE }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -11312,7 +12350,7 @@ focus_tree = {
 		x = 1
 		y = 3
 		relative_position_id = MAD_POL_TGV_PRESIDENTIAL_PROJECTS
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_POL_TGV_PRESIDENTIAL_PROJECTS }
 		mutually_exclusive = { focus = MAD_POL_TGV_STRONG_EXECUTIVE }
 		search_filters = { FOCUS_FILTER_POLITICAL }
@@ -11343,8 +12381,11 @@ focus_tree = {
 			change_relative_party_popularity = yes
 			recalculate_party = yes
 			
-			set_temp_variable = { temp_opinion = 10 }
-			change_small_medium_business_owners_opinion = yes
+			if = {
+				limit = { has_idea = small_medium_business_owners }
+				set_temp_variable = { temp_opinion = 10 }
+				change_small_medium_business_owners_opinion = yes
+			}
 					
 			if = {
 				limit = { NOT = { has_country_flag = MAD_ARMY_COMMAND_DECIDED } }
@@ -11364,7 +12405,7 @@ focus_tree = {
 		x = -2
 		y = 3
 		relative_position_id = MAD_POL_TGV_PRESIDENTIAL_PROJECTS
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_POL_TGV_PRESIDENTIAL_PROJECTS }
 		mutually_exclusive = { focus = MAD_POL_TGV_TRANSPARENT_EMERGENCE }
 		search_filters = { FOCUS_FILTER_POLITICAL }
@@ -11411,7 +12452,7 @@ focus_tree = {
 		icon = GFX_goal_generic_government
 		x = 61
 		y = 22
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_POL_PARTIES }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		allow_branch = {
@@ -11440,7 +12481,7 @@ focus_tree = {
 		x = 0
 		y = 1
 		relative_position_id = MAD_POL_HVM_PARTY_OF_GOVERNMENT
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_POL_HVM_PARTY_OF_GOVERNMENT }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -11472,7 +12513,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_POL_HVM_STABILISE_REPUBLIC
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_POL_HVM_STABILISE_REPUBLIC }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -11506,7 +12547,7 @@ focus_tree = {
 		x = 3
 		y = 1
 		relative_position_id = MAD_POL_HVM_RULE_OF_LAW
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_POL_HVM_RULE_OF_LAW }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -11537,7 +12578,7 @@ focus_tree = {
 		x = 8
 		y = 1
 		relative_position_id = MAD_POL_HVM_RULE_OF_LAW
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_POL_HVM_RULE_OF_LAW }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -11549,6 +12590,8 @@ focus_tree = {
 
 		completion_reward = {
 			decrease_centralization = yes
+			
+			decrease_corruption = yes
 			set_country_flag = MAD_HVM_DECENTRALISATION_MODEL
 		}
 
@@ -11563,7 +12606,7 @@ focus_tree = {
 		x = -3
 		y = 1
 		relative_position_id = MAD_POL_HVM_RULE_OF_LAW
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_POL_HVM_RULE_OF_LAW }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -11594,7 +12637,7 @@ focus_tree = {
 		x = 5
 		y = 1
 		relative_position_id = MAD_POL_HVM_RULE_OF_LAW
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_POL_HVM_RULE_OF_LAW }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -11622,7 +12665,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_POL_HVM_ADMINISTRATIVE_STATE
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_POL_HVM_ADMINISTRATIVE_STATE }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -11655,7 +12698,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_POL_HVM_FRANCO_MALAGASY_PARTNERSHIP
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_POL_HVM_FRANCO_MALAGASY_PARTNERSHIP }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -11670,8 +12713,11 @@ focus_tree = {
 				remove_idea = MAD_HVM_FRANCO_MALAGASY_PARTNERSHIP
 				add_idea = MAD_HVM_INVESTMENT_FRIENDLY
 			}
-			set_temp_variable = { temp_opinion = 5 }
-			change_international_bankers_opinion = yes
+			if = {
+				limit = { has_idea = international_bankers }
+				set_temp_variable = { temp_opinion = 5 }
+				change_international_bankers_opinion = yes
+			}
 			add_political_power = 25
 			set_temp_variable = { party_index = 1 }
 			set_temp_variable = { party_popularity_increase = 0.02 }
@@ -11691,7 +12737,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_POL_HVM_PUBLIC_FINANCE
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_POL_HVM_PUBLIC_FINANCE }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -11726,7 +12772,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_POL_HVM_HUMAN_CAPITAL
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_POL_HVM_HUMAN_CAPITAL }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -11760,7 +12806,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_POL_HVM_ENERGY_FOR_GROWTH
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_POL_HVM_ENERGY_FOR_GROWTH }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -11794,7 +12840,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_POL_HVM_AGRICULTURE
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_POL_HVM_AGRICULTURE }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -11829,7 +12875,7 @@ focus_tree = {
 		x = 0
 		y = 3
 		relative_position_id = MAD_POL_HVM_INVESTMENT_FRIENDLY
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_POL_HVM_INVESTMENT_FRIENDLY }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -11865,7 +12911,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_POL_HVM_RULE_OF_LAW
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_POL_HVM_RULE_OF_LAW }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -11892,7 +12938,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_POL_HVM_VOCATIONAL_TRAINING
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_POL_HVM_VOCATIONAL_TRAINING }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -11928,7 +12974,7 @@ focus_tree = {
 		x = 0
 		y = 10
 		relative_position_id = MAD_POL_HVM_RULE_OF_LAW
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_POL_HVM_PPP_FRAMEWORK }
 		prerequisite = { focus = MAD_POL_HVM_NATURAL_CAPITAL }
 		prerequisite = { focus = MAD_POL_HVM_LIGHT_INDUSTRY }
@@ -11961,7 +13007,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_POL_HVM_ELECTORAL_FRAMEWORK
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_POL_HVM_ELECTORAL_FRAMEWORK }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -11989,7 +13035,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = MAD_POL_HVM_PROJECT_REVIEW
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_POL_HVM_PROJECT_REVIEW }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -12042,7 +13088,7 @@ focus_tree = {
 		x = 35
 		y = 20
 		dynamic = yes
-		cost = 5
+		cost = 3
 		search_filters = { FOCUS_FILTER_POLITICAL }
 
 		completion_reward = {
@@ -12058,9 +13104,9 @@ focus_tree = {
 	focus = {
 		id = MAD_NORTHERN_CATTLE
 		icon = GFX_goal_generic_political_pressure
-		x = 4
+		x = 6
 		y = 42
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_remenabila_gather_the_dahalo }
 		prerequisite = { focus = MAD_remenabila_cattle_must_be_counted }
 		search_filters = { FOCUS_FILTER_WAR_SUPPORT }
@@ -12088,9 +13134,9 @@ focus_tree = {
 	focus = {
 		id = MAD_COMORIAN_HERDS
 		icon = GFX_goal_generic_political_pressure
-		x = 6
+		x = 8
 		y = 42
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_remenabila_gather_the_dahalo }
 		prerequisite = { focus = MAD_remenabila_cattle_must_be_counted }
 		search_filters = { FOCUS_FILTER_WAR_SUPPORT }
@@ -12121,7 +13167,7 @@ focus_tree = {
 		x = 2
 		y = 1
 		relative_position_id = MAD_POL_TGV_INFRASTRUCTURE_FIRST
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_POL_TGV_INFRASTRUCTURE_FIRST }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -12158,12 +13204,13 @@ focus_tree = {
 			base = 1
 		}
 	}
+
 	focus = {
 		id = MAD_ARMY_THE_ARMY_WE_INHERITED
 		icon = GFX_goal_generic_army
 		x = 79
 		y = 20
-		cost = 5
+		cost = 3
 		search_filters = { FOCUS_FILTER_MILITARY_LAWS }
 
 		completion_reward = {
@@ -12182,7 +13229,7 @@ focus_tree = {
 		icon = GFX_goal_generic_army
 		x = 79
 		y = 22
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_ARMY_THE_ARMY_WE_INHERITED }
 		search_filters = { FOCUS_FILTER_MILITARY_LAWS }
 
@@ -12201,7 +13248,7 @@ focus_tree = {
 		icon = GFX_goal_generic_army
 		x = 79
 		y = 24
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_ARMY_PAY_THE_SOLDIER }
 		search_filters = { FOCUS_FILTER_MILITARY_LAWS }
 
@@ -12227,7 +13274,7 @@ focus_tree = {
 		icon = GFX_goal_generic_army
 		x = 79
 		y = 25
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_ARMY_BUILD_TRAINING_CADRE }
 		search_filters = { FOCUS_FILTER_MILITARY_LAWS }
 
@@ -12242,6 +13289,11 @@ focus_tree = {
 			        uses = 1
 			        bonus = 0.25
 			    }
+			if = {
+				limit = { has_idea = the_military }
+				set_temp_variable = { temp_opinion = 10 }
+				change_the_military_opinion = yes
+			}
 		}
 
 		ai_will_do = {
@@ -12254,7 +13306,7 @@ focus_tree = {
 		icon = infantry_allies
 		x = 82
 		y = 26
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_ARMY_STANDARDISE_FIELD_READINESS }
 		search_filters = { FOCUS_FILTER_MILITARY }
 
@@ -12280,16 +13332,21 @@ focus_tree = {
 		icon = GFX_goal_generic_army
 		x = 82
 		y = 27
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_ARMY_ISLAND_INFANTRY_DOCTRINE }
 		search_filters = { FOCUS_FILTER_MILITARY_LAWS }
-		bypass = { has_country_flag = MAD_ARMY_COMMAND_DECIDED }
+		bypass = {
+			has_country_flag = MAD_ARMY_COMMAND_DECIDED
+		}
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_ARMY_COMMAND_QUESTION"
 			country_event = { id = MAD_military_command.1 days = 1 }
 		}
-		ai_will_do = { base = 1 }
+
+		ai_will_do = {
+			base = 1
+		}
 	}
 
 	focus = {
@@ -12297,20 +13354,21 @@ focus_tree = {
 		icon = GFX_goal_generic_coup
 		x = 80
 		y = 28
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_ARMY_COMMAND_QUESTION }
 		mutually_exclusive = { focus = MAD_ARMY_GENERAL_STAFF_PRIMACY }
 		search_filters = { FOCUS_FILTER_MILITARY_LAWS }
 		available = {
 			has_country_flag = MAD_ARMY_COMMAND_CAPSAT
 		}
+
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_ARMY_CAPSAT_LOCAL_INITIATIVE"
 			custom_effect_tooltip = {
 				localization_key = modifies_dynamic_modifier_tt
 				MODIFIER = MAD_ARMY_COMMAND_SYSTEM
 			}
-			# CAPSAT's model favours subordinate initiative and rapid local action over rigid staff control.
+			
 			custom_effect_tooltip = MAD_ARMY_CAPSAT_LOCAL_INITIATIVE_COMMAND_POWER_GAIN_TT
 			add_to_variable = { MAD_ARMY_CMD_COMMAND_POWER_GAIN_MULT = 0.05 }
 			custom_effect_tooltip = MAD_ARMY_CAPSAT_LOCAL_INITIATIVE_TERRAIN_PENALTY_TT
@@ -12330,7 +13388,10 @@ focus_tree = {
 			change_relative_party_popularity = yes
 			recalculate_party = yes
 		}
-		ai_will_do = { base = 1 }
+
+		ai_will_do = {
+			base = 1
+		}
 	}
 
 	focus = {
@@ -12338,9 +13399,10 @@ focus_tree = {
 		icon = GFX_goal_generic_political_pressure
 		x = 80
 		y = 29
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_ARMY_CAPSAT_LOCAL_INITIATIVE }
 		search_filters = { FOCUS_FILTER_MILITARY }
+
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_ARMY_CAPSAT_INTERNAL_NETWORKS"
 			custom_effect_tooltip = {
@@ -12366,7 +13428,10 @@ focus_tree = {
 			change_relative_party_popularity = yes
 			recalculate_party = yes
 		}
-		ai_will_do = { base = 1 }
+
+		ai_will_do = {
+			base = 1
+		}
 	}
 
 	focus = {
@@ -12374,16 +13439,17 @@ focus_tree = {
 		icon = GFX_goal_generic_army
 		x = 80
 		y = 30
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_ARMY_CAPSAT_INTERNAL_NETWORKS }
 		search_filters = { FOCUS_FILTER_MILITARY_LAWS }
+
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_ARMY_CAPSAT_BARRACKS_POLITICS"
 			custom_effect_tooltip = {
 				localization_key = modifies_dynamic_modifier_tt
 				MODIFIER = MAD_ARMY_COMMAND_SYSTEM
 			}
-			# Institutional effect only: the command event already selects CAPSAT and restores Noel.
+			
 			custom_effect_tooltip = MAD_ARMY_CAPSAT_BARRACKS_SPECIAL_FORCES_TT
 			add_to_variable = { MAD_ARMY_CMD_SPECIAL_FORCES_CAP_FLAT = 5 }
 			custom_effect_tooltip = MAD_ARMY_CAPSAT_BARRACKS_DEFENCE_TT
@@ -12403,7 +13469,10 @@ focus_tree = {
 			change_relative_party_popularity = yes
 			recalculate_party = yes
 		}
-		ai_will_do = { base = 1 }
+
+		ai_will_do = {
+			base = 1
+		}
 	}
 
 	focus = {
@@ -12411,13 +13480,14 @@ focus_tree = {
 		icon = GFX_goal_generic_army
 		x = 84
 		y = 28
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_ARMY_COMMAND_QUESTION }
 		mutually_exclusive = { focus = MAD_ARMY_CAPSAT_LOCAL_INITIATIVE }
 		search_filters = { FOCUS_FILTER_MILITARY_LAWS }
 		available = {
 			has_country_flag = MAD_ARMY_COMMAND_GENERAL_STAFF
 		}
+
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_ARMY_GENERAL_STAFF_PRIMACY"
 			custom_effect_tooltip = {
@@ -12438,7 +13508,10 @@ focus_tree = {
 			add_to_variable = { MAD_ARMY_CMD_ARMY_ATTACK_FACTOR = -0.01 }
 			add_mastery = { amount = 25 folder = land }
 		}
-		ai_will_do = { base = 1 }
+
+		ai_will_do = {
+			base = 1
+		}
 	}
 
 	focus = {
@@ -12446,9 +13519,10 @@ focus_tree = {
 		icon = military_factory
 		x = 84
 		y = 29
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_ARMY_GENERAL_STAFF_PRIMACY }
 		search_filters = { FOCUS_FILTER_MILITARY FOCUS_FILTER_INDUSTRY }
+
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_ARMY_CENTRALISED_PROCUREMENT"
 			custom_effect_tooltip = {
@@ -12472,7 +13546,10 @@ focus_tree = {
 				bonus = 0.35
 			}
 		}
-		ai_will_do = { base = 1 }
+
+		ai_will_do = {
+			base = 1
+		}
 	}
 
 	focus = {
@@ -12480,16 +13557,17 @@ focus_tree = {
 		icon = GFX_goal_generic_army
 		x = 84
 		y = 30
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_ARMY_CENTRALISED_PROCUREMENT }
 		search_filters = { FOCUS_FILTER_MILITARY_LAWS }
+
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_ARMY_DOCTRINE_ABOVE_FACTION"
 			custom_effect_tooltip = {
 				localization_key = modifies_dynamic_modifier_tt
 				MODIFIER = MAD_ARMY_COMMAND_SYSTEM
 			}
-			# Consequence of the General Staff route; the command event owns the leader settlement.
+			
 			custom_effect_tooltip = MAD_ARMY_DOCTRINE_ABOVE_FACTION_REINFORCE_TT
 			add_to_variable = { MAD_ARMY_CMD_LAND_REINFORCE_RATE = 0.04 }
 			custom_effect_tooltip = MAD_ARMY_DOCTRINE_ABOVE_FACTION_PLANNING_TT
@@ -12503,7 +13581,10 @@ focus_tree = {
 			set_country_flag = MAD_ARMY_CAPSAT_COMMANDERS_FIRED
 			add_mastery = { amount = 20 folder = land }
 		}
-		ai_will_do = { base = 1 }
+
+		ai_will_do = {
+			base = 1
+		}
 	}
 
 	focus = {
@@ -12511,7 +13592,7 @@ focus_tree = {
 		icon = GFX_goal_generic_army
 		x = 77
 		y = 26
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_ARMY_STANDARDISE_FIELD_READINESS }
 		search_filters = { FOCUS_FILTER_MILITARY }
 
@@ -12537,7 +13618,7 @@ focus_tree = {
 		icon = small_arms4
 		x = 77
 		y = 28
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_ARMY_REFIT_RIFLE_COMPANIES }
 		search_filters = { FOCUS_FILTER_MILITARY }
 
@@ -12556,7 +13637,7 @@ focus_tree = {
 		icon = GFX_focus_research
 		x = 77
 		y = 30
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_ARMY_SERVICE_RIFLE_ACQUISITION }
 		search_filters = { FOCUS_FILTER_MILITARY }
 
@@ -12582,9 +13663,10 @@ focus_tree = {
 		icon = GFX_goal_generic_construction
 		x = 75
 		y = 26
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_ARMY_ISLAND_INFANTRY_DOCTRINE }
 		search_filters = { FOCUS_FILTER_MILITARY FOCUS_FILTER_INDUSTRY }
+
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_ARMY_FIELD_ENGINEERING_STANDARDS"
 			add_to_variable = { terrain_penalty_reduction = 0.02 }
@@ -12592,7 +13674,10 @@ focus_tree = {
 			add_mastery = { amount = 25 folder = land }
 			army_experience = 25
 		}
-		ai_will_do = { base = 1 }
+
+		ai_will_do = {
+			base = 1
+		}
 	}
 
 	focus = {
@@ -12600,9 +13685,10 @@ focus_tree = {
 		icon = GFX_focus_army_radar
 		x = 87
 		y = 26
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_ARMY_ISLAND_INFANTRY_DOCTRINE }
 		search_filters = { FOCUS_FILTER_MILITARY FOCUS_FILTER_AIRCRAFT }
+
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_ARMY_EYES_ALONG_THE_COAST"
 			267 = { add_building_construction = { type = radar_station level = 1 instant_build = yes } }
@@ -12618,7 +13704,10 @@ focus_tree = {
 			navy_experience = 15
 			army_experience = 15
 		}
-		ai_will_do = { base = 1 }
+
+		ai_will_do = {
+			base = 1
+		}
 	}
 
 	focus = {
@@ -12626,14 +13715,18 @@ focus_tree = {
 		icon = GFX_goal_generic_army
 		x = 75
 		y = 28
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_ARMY_FIELD_ENGINEERING_STANDARDS }
 		search_filters = { FOCUS_FILTER_MILITARY }
+
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_ARMY_MOTORISE_THE_INFANTRY"
 			country_event = { id = MAD_military_procurement.2 days = 1 }
 		}
-		ai_will_do = { base = 1 }
+
+		ai_will_do = {
+			base = 1
+		}
 	}
 
 	focus = {
@@ -12641,9 +13734,10 @@ focus_tree = {
 		icon = GFX_goal_generic_intelligence_exchange
 		x = 87
 		y = 28
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_ARMY_EYES_ALONG_THE_COAST }
 		search_filters = { FOCUS_FILTER_MILITARY }
+
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_ARMY_SIGNALS_INTELLIGENCE_SCHOOL"
 			add_to_variable = { decryption_power_factor = 0.03 }
@@ -12658,7 +13752,10 @@ focus_tree = {
 			add_mastery = { amount = 20 folder = land }
 			army_experience = 20
 		}
-		ai_will_do = { base = 1 }
+
+		ai_will_do = {
+			base = 1
+		}
 	}
 
 	focus = {
@@ -12666,7 +13763,7 @@ focus_tree = {
 		icon = GFX_goal_generic_army
 		x = 75
 		y = 30
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_ARMY_MOTORISE_THE_INFANTRY }
 		search_filters = { FOCUS_FILTER_MILITARY }
 
@@ -12685,9 +13782,10 @@ focus_tree = {
 		icon = GFX_focus_air_force
 		x = 90
 		y = 26
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_ARMY_STANDARDISE_FIELD_READINESS }
 		search_filters = { FOCUS_FILTER_MILITARY FOCUS_FILTER_AIRCRAFT }
+
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_ARMY_REBUILD_THE_HELICOPTER_ARM"
 			add_tech_bonus = {
@@ -12697,11 +13795,11 @@ focus_tree = {
 				bonus = 0.40
 			}
 			if = {
-				limit = { country_exists = ZAF }
+				limit = { country_exists = SAF }
 				set_temp_variable = { treasury_change = -1.5 }
 				modify_treasury_effect = yes
-				add_equipment_to_stockpile = { type = transport_helicopter_1 amount = 2 producer = ZAF variant_name = "AS350B2" }
-				ZAF = {
+				add_equipment_to_stockpile = { type = transport_helicopter_1 amount = 2 producer = SAF variant_name = "AS350B2" }
+				SAF = {
 					set_temp_variable = { treasury_change = 1.5 }
 					modify_treasury_effect = yes
 					set_temp_variable = { percent_change = 2 }
@@ -12710,7 +13808,7 @@ focus_tree = {
 					change_influence_percentage = yes
 					add_opinion_modifier = { target = ROOT modifier = military_cooperation }
 				}
-				add_opinion_modifier = { target = ZAF modifier = military_cooperation }
+				add_opinion_modifier = { target = SAF modifier = military_cooperation }
 			}
 			else_if = {
 				limit = { country_exists = FRA }
@@ -12728,7 +13826,7 @@ focus_tree = {
 				}
 				add_opinion_modifier = { target = FRA modifier = military_cooperation }
 			}
-			add_breakthrough_progress = { specialization = specialization_air value = sp_breakthrough_progress.small }
+			add_breakthrough_progress = { specialization = specialization_air value = sp_breakthrough_progress.medium }
 			add_mastery = { amount = 20 folder = air }
 			air_experience = 20
 			army_experience = 20
@@ -12739,7 +13837,10 @@ focus_tree = {
 			}
 			set_country_flag = MAD_ARMY_HELICOPTER_ARM_READY
 		}
-		ai_will_do = { base = 1 }
+
+		ai_will_do = {
+			base = 1
+		}
 	}
 
 	focus = {
@@ -12747,9 +13848,10 @@ focus_tree = {
 		icon = GFX_focus_transport_aircraft
 		x = 90
 		y = 28
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_ARMY_REBUILD_THE_HELICOPTER_ARM }
 		search_filters = { FOCUS_FILTER_MILITARY FOCUS_FILTER_AIRCRAFT }
+
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_ARMY_LIFT_AND_SUSTAIN"
 			add_tech_bonus = {
@@ -12763,7 +13865,10 @@ focus_tree = {
 			air_experience = 25
 			army_experience = 20
 		}
-		ai_will_do = { base = 1 }
+
+		ai_will_do = {
+			base = 1
+		}
 	}
 
 	focus = {
@@ -12771,7 +13876,7 @@ focus_tree = {
 		icon = GFX_goal_generic_military_march
 		x = 87
 		y = 30
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_ARMY_SIGNALS_INTELLIGENCE_SCHOOL }
 		search_filters = { FOCUS_FILTER_MILITARY FOCUS_FILTER_AIRCRAFT }
 
@@ -12790,7 +13895,7 @@ focus_tree = {
 		icon = GFX_focus_transport_aircraft
 		x = 90
 		y = 30
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_ARMY_LIFT_AND_SUSTAIN }
 		search_filters = { FOCUS_FILTER_MILITARY FOCUS_FILTER_AIRCRAFT }
 		available = {
@@ -12813,20 +13918,19 @@ focus_tree = {
 		icon = GFX_goal_generic_army
 		x = 82
 		y = 33
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_ARMY_INFANTRY_WEAPONS_RESEARCH }
 		prerequisite = { focus = MAD_ARMY_PROTECTED_MOBILITY_TENDER }
 		prerequisite = { focus = MAD_ARMY_INDIAN_OCEAN_EXERCISE }
 		prerequisite = { focus = MAD_ARMY_ORGANISE_AIR_PACKAGE }
-		# The historical command branches are mutually exclusive. The modernization plan
-		# only requires completion of one side's final command focus.
+		search_filters = { FOCUS_FILTER_MILITARY FOCUS_FILTER_EXPENDITURE }
 		available = {
 			OR = {
 				has_completed_focus = MAD_ARMY_CAPSAT_BARRACKS_POLITICS
 				has_completed_focus = MAD_ARMY_DOCTRINE_ABOVE_FACTION
 			}
 		}
-		search_filters = { FOCUS_FILTER_MILITARY FOCUS_FILTER_EXPENDITURE }
+
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_ARMY_LAND_FORCES_MODERNISATION_PLAN"
 			remove_ideas = MAD_ARMY_INHERITED_BURDEN
@@ -12835,7 +13939,10 @@ focus_tree = {
 			army_experience = 30
 			add_mastery = { amount = 30 folder = land }
 		}
-		ai_will_do = { base = 1 }
+
+		ai_will_do = {
+			base = 1
+		}
 	}
 
 	focus = {
@@ -12843,7 +13950,7 @@ focus_tree = {
 		icon = GFX_focus_economic_avia_industry
 		x = 82
 		y = 35
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_ARMY_LAND_FORCES_MODERNISATION_PLAN }
 		search_filters = { FOCUS_FILTER_MILITARY FOCUS_FILTER_EXPENDITURE }
 
@@ -12851,6 +13958,11 @@ focus_tree = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_ARMY_EXPAND_DEFENCE_BUDGET"
 			    increase_military_spending = yes
 			    army_experience = 10
+			if = {
+				limit = { has_idea = the_military }
+				set_temp_variable = { temp_opinion = 15 }
+				change_the_military_opinion = yes
+			}
 		}
 
 		ai_will_do = {
@@ -12863,7 +13975,7 @@ focus_tree = {
 		icon = GFX_focus_industry_military
 		x = 82
 		y = 37
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_ARMY_EXPAND_DEFENCE_BUDGET }
 		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_MILITARY_LAWS }
 
@@ -12883,12 +13995,13 @@ focus_tree = {
 		icon = GFX_focus_industry_military
 		x = 82
 		y = 37
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_ARMY_EXPAND_DEFENCE_BUDGET }
+		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_AIRCRAFT }
 		available = {
 			has_completed_focus = MAD_Ivato_second_runway
-			}
-		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_AIRCRAFT }
+		}
+
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_ARMY_IVATO_AEROSPACE_WORKS"
 			267 = { add_building_construction = { type = arms_factory level = 1 instant_build = yes } }
@@ -12900,24 +14013,28 @@ focus_tree = {
 			}
 			add_tech_bonus = {
 				name = MAD_ARMY_IVATO_AEROSPACE_WORKS
-				category = CAT_aircraft
+				category = CAT_mr_fighter
 				category = CAT_air_eqp
 				uses = 2
 				bonus = 0.40
 			}
 			air_experience = 25
 		}
-		ai_will_do = { base = 1 }
+
+		ai_will_do = {
+			base = 1
+		}
 	}
 
 	focus = {
 		id = MAD_ARMY_TOAMASINA_DEFENCE_LOGISTICS_HUB
 		icon = GFX_goal_generic_construct_military
-		x = 82
-		y = 39
-		cost = 5
+		x = 86
+		y = 38
+		cost = 3
 		prerequisite = { focus = MAD_ARMY_IVATO_AEROSPACE_WORKS }
 		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_MILITARY }
+
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_ARMY_TOAMASINA_DEFENCE_LOGISTICS_HUB"
 			487 = {
@@ -12934,15 +14051,18 @@ focus_tree = {
 				mio:MAD_MALAGASY_MOBILITY = { add_mio_size = 1 }
 			}
 		}
-		ai_will_do = { base = 1 }
+
+		ai_will_do = {
+			base = 1
+		}
 	}
 
 	focus = {
 		id = MAD_ARMY_PROTECTED_VEHICLE_ASSEMBLY
 		icon = GFX_goal_generic_army
-		x = 85
+		x = 86
 		y = 40
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_ARMY_TOAMASINA_DEFENCE_LOGISTICS_HUB }
 		search_filters = { FOCUS_FILTER_MILITARY FOCUS_FILTER_INDUSTRY FOCUS_FILTER_MILITARY }
 
@@ -12963,11 +14083,12 @@ focus_tree = {
 	focus = {
 		id = MAD_ARMY_TACTICAL_UAV_PROGRAMME
 		icon = GFX_focus_army_radar
-		x = 80
+		x = 78
 		y = 38
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_ARMY_DEFENCE_INDUSTRIAL_PLANNING }
 		search_filters = { FOCUS_FILTER_MILITARY FOCUS_FILTER_AIRCRAFT FOCUS_FILTER_MILITARY }
+
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_ARMY_TACTICAL_UAV_PROGRAMME"
 			add_tech_bonus = {
@@ -12985,17 +14106,21 @@ focus_tree = {
 			air_experience = 20
 			army_experience = 20
 		}
-		ai_will_do = { base = 1 }
+
+		ai_will_do = {
+			base = 1
+		}
 	}
 
 	focus = {
 		id = MAD_ARMY_MECHANISED_INFANTRY_BRIGADE
 		icon = GFX_goal_generic_army
-		x = 74
+		x = 75
 		y = 38
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_ARMY_DEFENCE_INDUSTRIAL_PLANNING }
 		search_filters = { FOCUS_FILTER_MILITARY }
+
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_ARMY_MECHANISED_INFANTRY_BRIGADE"
 			country_event = { id = MAD_military_industry.6 days = 1 }
@@ -13009,15 +14134,18 @@ focus_tree = {
 			add_mastery = { amount = 25 folder = land }
 			army_experience = 25
 		}
-		ai_will_do = { base = 1 }
+
+		ai_will_do = {
+			base = 1
+		}
 	}
 
 	focus = {
 		id = MAD_ARMY_MOBILE_ARTILLERY_REGIMENT
 		icon = GFX_goal_generic_army
-		x = 74
+		x = 75
 		y = 40
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_ARMY_MECHANISED_INFANTRY_BRIGADE }
 		search_filters = { FOCUS_FILTER_MILITARY FOCUS_FILTER_INDUSTRY }
 
@@ -13034,11 +14162,12 @@ focus_tree = {
 	focus = {
 		id = MAD_ARMY_ISLAND_AIR_DEFENCE
 		icon = GFX_goal_generic_anti_air
-		x = 74
-		y = 40
-		cost = 5
+		x = 78
+		y = 41
+		cost = 3
 		prerequisite = { focus = MAD_ARMY_MOBILE_ARTILLERY_REGIMENT }
 		search_filters = { FOCUS_FILTER_MILITARY FOCUS_FILTER_AIRCRAFT }
+
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_ARMY_ISLAND_AIR_DEFENCE"
 			267 = { add_building_construction = { type = anti_air level = 1 instant_build = yes } }
@@ -13055,15 +14184,18 @@ focus_tree = {
 			add_mastery = { amount = 20 folder = land }
 			army_experience = 15
 		}
-		ai_will_do = { base = 1 }
+
+		ai_will_do = {
+			base = 1
+		}
 	}
 
 	focus = {
 		id = MAD_ARMY_HEAVY_LIFT_AVIATION_COMMAND
 		icon = GFX_focus_transport_aircraft
-		x = 80
-		y = 42
-		cost = 5
+		x = 78
+		y = 43
+		cost = 3
 		prerequisite = { focus = MAD_ARMY_ISLAND_AIR_DEFENCE }
 		search_filters = { FOCUS_FILTER_AIRCRAFT FOCUS_FILTER_INDUSTRY }
 
@@ -13092,11 +14224,12 @@ focus_tree = {
 	focus = {
 		id = MAD_ARMY_MEDIUM_TRANSPORT_FLEET
 		icon = GFX_focus_transport_aircraft
-		x = 80
+		x = 78
 		y = 45
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_ARMY_HEAVY_LIFT_AVIATION_COMMAND }
 		search_filters = { FOCUS_FILTER_AIRCRAFT }
+
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_ARMY_MEDIUM_TRANSPORT_FLEET"
 			country_event = { id = MAD_military_industry.7 days = 1 }
@@ -13109,17 +14242,21 @@ focus_tree = {
 			air_experience = 25
 			add_mastery = { amount = 20 folder = air }
 		}
-		ai_will_do = { base = 1 }
+
+		ai_will_do = {
+			base = 1
+		}
 	}
 
 	focus = {
 		id = MAD_ARMY_AEROSPACE_SUPPLY_CHAIN
 		icon = GFX_focus_industry_military
-		x = 77
+		x = 82
 		y = 40
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_ARMY_IVATO_AEROSPACE_WORKS }
 		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_AIRCRAFT }
+
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_ARMY_AEROSPACE_SUPPLY_CHAIN"
 			267 = { add_building_construction = { type = arms_factory level = 1 instant_build = yes } }
@@ -13138,17 +14275,21 @@ focus_tree = {
 			}
 			air_experience = 20
 		}
-		ai_will_do = { base = 1 }
+
+		ai_will_do = {
+			base = 1
+		}
 	}
 
 	focus = {
 		id = MAD_ARMY_DEFENCE_ELECTRONICS_INDUSTRY
 		icon = GFX_focus_industry_military
-		x = 77
+		x = 82
 		y = 42
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_ARMY_AEROSPACE_SUPPLY_CHAIN }
 		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_MILITARY }
+
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_ARMY_DEFENCE_ELECTRONICS_INDUSTRY"
 			267 = { add_building_construction = { type = arms_factory level = 1 instant_build = yes } }
@@ -13168,26 +14309,29 @@ focus_tree = {
 			add_mastery = { amount = 25 folder = land }
 			army_experience = 20
 		}
-		ai_will_do = { base = 1 }
+
+		ai_will_do = {
+			base = 1
+		}
 	}
 
 	focus = {
 		id = MAD_ARMY_SPECIAL_PROJECTS_BUREAU
 		icon = science2
-		x = 77
-		y = 45
-		cost = 5
+		x = 82
+		y = 46
+		cost = 3
 		prerequisite = { focus = MAD_ARMY_DEFENCE_ELECTRONICS_INDUSTRY }
 		search_filters = { FOCUS_FILTER_MILITARY FOCUS_FILTER_EXPENDITURE }
+
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_ARMY_SPECIAL_PROJECTS_BUREAU"
 			267 = { add_building_construction = { type = land_facility level = 1 instant_build = yes } }
 			set_temp_variable = { treasury_change = -15.0 }
 			modify_treasury_effect = yes
-			# Millennium Dawn's existing land project sp_secure_military_network is advanced directly when Madagascar is actively developing it.
-			every_special_project_facility = {
-				limit = { project = sp_secure_military_network }
-				add_project_completion_progress = 0.15
+			
+			sp:sp_secure_military_network = {
+				add_project_progress_ratio = 0.15
 			}
 			add_breakthrough_progress = { specialization = specialization_land value = sp_breakthrough_progress.medium }
 			add_breakthrough_points = { specialization = specialization_land value = 1 }
@@ -13215,17 +14359,21 @@ focus_tree = {
 			add_mastery = { amount = 30 folder = land }
 			army_experience = 30
 		}
-		ai_will_do = { base = 1 }
+
+		ai_will_do = {
+			base = 1
+		}
 	}
 
 	focus = {
 		id = MAD_ARMY_INTEGRATED_FIRE_SUPPORT
 		icon = artillery3
-		x = 74
+		x = 75
 		y = 42
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_ARMY_MOBILE_ARTILLERY_REGIMENT }
 		search_filters = { FOCUS_FILTER_MILITARY }
+
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_ARMY_INTEGRATED_FIRE_SUPPORT"
 			country_event = { id = MAD_military_industry.3 days = 1 }
@@ -13240,17 +14388,21 @@ focus_tree = {
 			add_mastery = { amount = 30 folder = land }
 			army_experience = 25
 		}
-		ai_will_do = { base = 1 }
+
+		ai_will_do = {
+			base = 1
+		}
 	}
 
 	focus = {
 		id = MAD_ARMY_MAIN_BATTLE_TANK_PROGRAMME
 		icon = GFX_focus_industry_military
-		x = 74
+		x = 75
 		y = 44
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_ARMY_INTEGRATED_FIRE_SUPPORT }
 		search_filters = { FOCUS_FILTER_MILITARY FOCUS_FILTER_INDUSTRY }
+
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_ARMY_MAIN_BATTLE_TANK_PROGRAMME"
 			country_event = { id = MAD_military_industry.5 days = 1 }
@@ -13263,17 +14415,21 @@ focus_tree = {
 			add_mastery = { amount = 30 folder = land }
 			army_experience = 25
 		}
-		ai_will_do = { base = 1 }
+
+		ai_will_do = {
+			base = 1
+		}
 	}
 
 	focus = {
 		id = MAD_ARMY_COASTAL_DEFENCE
 		icon = GFX_goal_generic_army
-		x = 74
+		x = 75
 		y = 46
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_ARMY_MAIN_BATTLE_TANK_PROGRAMME }
 		search_filters = { FOCUS_FILTER_MILITARY }
+
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_ARMY_COASTAL_DEFENCE"
 			267 = { add_building_construction = { type = coastal_bunker level = 2 instant_build = yes } }
@@ -13292,17 +14448,21 @@ focus_tree = {
 			add_mastery = { amount = 15 folder = land }
 			navy_experience = 20
 		}
-		ai_will_do = { base = 1 }
+
+		ai_will_do = {
+			base = 1
+		}
 	}
 
 	focus = {
 		id = MAD_ARMY_NATIONAL_SUSTAINMENT_NETWORK
 		icon = GFX_goal_generic_construct_military
-		x = 85
+		x = 86
 		y = 42
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_ARMY_PROTECTED_VEHICLE_ASSEMBLY }
 		search_filters = { FOCUS_FILTER_MILITARY FOCUS_FILTER_INDUSTRY }
+
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_ARMY_NATIONAL_SUSTAINMENT_NETWORK"
 			267 = { add_building_construction = { type = arms_factory level = 1 instant_build = yes } }
@@ -13313,15 +14473,18 @@ focus_tree = {
 			add_mastery = { amount = 30 folder = land }
 			army_experience = 25
 		}
-		ai_will_do = { base = 1 }
+
+		ai_will_do = {
+			base = 1
+		}
 	}
 
 	focus = {
 		id = MAD_ARMY_LONG_RANGE_ISR_AND_FIRES
 		icon = GFX_focus_army_radar
-		x = 85
-		y = 45
-		cost = 5
+		x = 86
+		y = 46
+		cost = 3
 		prerequisite = { focus = MAD_ARMY_NATIONAL_SUSTAINMENT_NETWORK }
 		search_filters = { FOCUS_FILTER_MILITARY }
 
@@ -13350,7 +14513,7 @@ focus_tree = {
 		icon = GFX_goal_generic_military_march
 		x = 80
 		y = 48
-		cost = 5
+		cost = 3
 		prerequisite = { focus = MAD_ARMY_SPECIAL_PROJECTS_BUREAU }
 		prerequisite = { focus = MAD_ARMY_COASTAL_DEFENCE }
 		prerequisite = { focus = MAD_ARMY_MEDIUM_TRANSPORT_FLEET }
@@ -13367,5 +14530,145 @@ focus_tree = {
 		}
 	}
 
+	focus = {
+		id = MAD_POL_AREMA_SOCIALIST_PLANNING
+		icon = GFX_goal_generic_plan
+		x = 1
+		y = 2
+		relative_position_id = MAD_POL_AREMA_STATE_LEADS
+		cost = 3
+		prerequisite = { focus = MAD_POL_AREMA_STATE_LEADS }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_AREMA_IN_POWER_tt
+				MAD_AREMA_IN_POWER = yes
+			}
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_AREMA_SOCIALIST_PLANNING"
+			
+			one_random_industrial_complex = yes
+			one_random_infrastructure = yes
+			
+			set_temp_variable = { party_index = 5 }
+			set_temp_variable = { party_popularity_increase = 0.03 }
+			set_temp_variable = { temp_outlook_increase = 0.03 }
+			change_relative_party_popularity = yes
+			recalculate_party = yes
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_POL_TIM_HEALTH
+		icon = GFX_goal_generic_national_unity
+		x = 3
+		y = 2
+		relative_position_id = MAD_POL_TIM_MAP
+		cost = 3
+		prerequisite = { focus = MAD_POL_TIM_MAP }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_TIM_IN_POWER_tt
+				MAD_TIM_IN_POWER = yes
+			}
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_TIM_HEALTH"
+			
+			increase_healthcare_budget = yes
+			
+			add_ideas = MAD_HEALTH_SYSTEM_EXPANSION
+			set_country_flag = MAD_TIM_HEALTH_PROGRAMME
+			
+			set_temp_variable = { party_index = 2 }
+			set_temp_variable = { party_popularity_increase = 0.03 }
+			set_temp_variable = { temp_outlook_increase = 0.03 }
+			change_relative_party_popularity = yes
+			recalculate_party = yes
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_POL_TGV_HEALTH_FOR_ALL
+		icon = GFX_goal_generic_national_unity
+		x = -1
+		y = 1
+		relative_position_id = MAD_POL_TGV_THIRTEEN_VELIRANO
+		cost = 3
+		prerequisite = { focus = MAD_POL_TGV_THIRTEEN_VELIRANO }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_TGV_IN_POWER_tt
+				MAD_TGV_IN_POWER = yes
+			}
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_TGV_HEALTH_FOR_ALL"
+			
+			increase_healthcare_budget = yes
+			add_ideas = MAD_HEALTH_SYSTEM_EXPANSION
+			set_country_flag = MAD_TGV_HEALTH_FOR_ALL
+			
+			set_temp_variable = { party_index = 20 }
+			set_temp_variable = { party_popularity_increase = 0.03 }
+			set_temp_variable = { temp_outlook_increase = 0.03 }
+			change_relative_party_popularity = yes
+			recalculate_party = yes
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_POL_HVM_HEALTH_NUTRITION
+		icon = GFX_goal_generic_education
+		x = 1
+		y = 1
+		relative_position_id = MAD_POL_HVM_HUMAN_CAPITAL
+		cost = 3
+		prerequisite = { focus = MAD_POL_HVM_HUMAN_CAPITAL }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_HVM_IN_POWER_tt
+				MAD_HVM_IN_POWER = yes
+			}
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_HVM_HEALTH_NUTRITION"
+			
+			increase_healthcare_budget = yes
+			
+			add_ideas = MAD_HEALTH_SYSTEM_EXPANSION
+			set_country_flag = MAD_HVM_HEALTH_NUTRITION
+			
+			set_temp_variable = { party_index = 1 }
+			set_temp_variable = { party_popularity_increase = 0.03 }
+			set_temp_variable = { temp_outlook_increase = 0.03 }
+			change_relative_party_popularity = yes
+			recalculate_party = yes
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
 }
-	
