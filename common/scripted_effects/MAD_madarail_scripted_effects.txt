@@ -519,13 +519,6 @@ MAD_drought_init = {
 	set_variable = { MAD_drought_transfer_abroad_country_487 = 0 }
 	set_variable = { MAD_drought_transfer_famine_relief_487 = 0 }
 	set_variable = { MAD_drought_transfer_negative_people_487 = 0 }
-	set_variable = { MAD_drought_transfer_gross_hist = 0 }
-	set_variable = { MAD_drought_transfer_survivors_hist = 0 }
-	set_variable = { MAD_drought_transfer_deaths_hist = 0 }
-	set_variable = { MAD_drought_transfer_destination_id_hist = 0 }
-	set_variable = { MAD_drought_transfer_abroad_country_hist = 0 }
-	set_variable = { MAD_drought_transfer_famine_relief_hist = 0 }
-	set_variable = { MAD_drought_transfer_negative_people_hist = 0 }
 	set_variable = { MAD_drought_transfer_survivors_people = 0 }
 	set_variable = { MAD_drought_transfer_deaths_people = 0 }
 	set_variable = { MAD_drought_transfer_negative_people = 0 }
@@ -534,7 +527,6 @@ MAD_drought_init = {
 	set_variable = { MAD_drought_transfer_source_id = 0 }
 	set_variable = { MAD_drought_transfer_destination_id = 0 }
 	set_variable = { MAD_drought_transfer_abroad = 0 }
-	set_variable = { MAD_drought_transfer_historical = 0 }
 	set_variable = { MAD_drought_transfer_famine_relief = 0 }
 	set_variable = { MAD_drought_historical_departure_people = 0 }
 	set_variable = { MAD_drought_migration_amount = 0 } # retained at zero for save compatibility
@@ -578,6 +570,11 @@ MAD_drought_init = {
 	set_variable = { MAD_drought_lowest_other_severity = 101 }
 	set_variable = { MAD_drought_months = 0 }
 	set_variable = { MAD_drought_calendar_months = 0 }
+	# Keep historical drought-event timing separate from the monthly displacement accumulator.
+	set_variable = { MAD_drought_hosted_266 = 0 }
+	set_variable = { MAD_drought_hosted_267 = 0 }
+	set_variable = { MAD_drought_hosted_268 = 0 }
+	set_variable = { MAD_drought_hosted_487 = 0 }
 	set_variable = { MAD_agri_war_support = 0 }
 	add_dynamic_modifier = { modifier = MAD_agriculture_modifier }
 	set_variable = { MAD_drought_containment_days = 0 }
@@ -836,9 +833,11 @@ MAD_drought_south_shock = {
 # DROUGHT DISPLACEMENT
 ########################################################################
 # The four modeled states use state_population_k (in thousands) to calculate population-proportional movement.
-# Every six consecutive drought months at 60+ produces a movement equal to six monthly rates:
-#   state drought 60-79: 1/2000 of state population per month
-#   state drought 80+:   1/1000 of state population per month
+# Every qualifying calendar month contributes its own population fraction to that month's report:
+#   state drought 60-79: 1/2000 of state population per qualifying month
+#   state drought 80+:   1/500 of state population per qualifying month
+# Fractions accumulate without rounding; total departures are rounded once when the monthly report is staged.
+# A month below 60 contributes zero; each monthly report clears that month's accumulator after staging.
 # add_manpower in STATE scope changes state population. A negative STATE add_manpower also creates a national
 # recruitable-manpower side effect, so the same negative amount is applied to the country to cancel that side effect.
 #
@@ -854,106 +853,61 @@ MAD_drought_displacement_snapshot = {
 	487 = { set_variable = { ROOT.MAD_drought_mig_d_487 = MAD_state_drought } }
 }
 
-# Called in each modeled state scope after the country has set MAD_drought_transfer_source_id to this state's ID.
+# Called once per calendar month in state scope. Accumulate that month's departures as PEOPLE,
+# without rounding, so small monthly values are not lost. The monthly report rounds once when staged.
 MAD_drought_state_displacement_tick = {
 	if = {
 		limit = { check_variable = { MAD_state_drought > 59.99 } }
 		add_to_variable = { MAD_state_displacement_months = 1 }
-
-		# Each month contributes one population-proportional tranche at that month's severity.
-		set_temp_variable = { MAD_disp_monthly_people = state_population_k }
-		multiply_temp_variable = { MAD_disp_monthly_people = 1000 }
+		set_temp_variable = { MAD_disp_gross_people = state_population_k }
+		multiply_temp_variable = { MAD_disp_gross_people = 1000 }
 		if = {
 			limit = { check_variable = { MAD_state_drought > 79.99 } }
-			divide_temp_variable = { MAD_disp_monthly_people = 1000 }
+			divide_temp_variable = { MAD_disp_gross_people = 500 }
 		}
 		else = {
-			divide_temp_variable = { MAD_disp_monthly_people = 2000 }
+			divide_temp_variable = { MAD_disp_gross_people = 2000 }
 		}
-		round_temp_variable = MAD_disp_monthly_people
-		add_to_variable = { MAD_state_displacement_accumulator = MAD_disp_monthly_people }
-
-		if = {
-			limit = { check_variable = { MAD_state_displacement_months > 5.99 } }
-			set_variable = { MAD_state_displacement_months = 0 }
-			set_temp_variable = { MAD_disp_gross_people = MAD_state_displacement_accumulator }
-			set_variable = { MAD_state_displacement_accumulator = 0 }
-
-			# Do not re-displace people already recorded as incoming IDPs. They remain attached to their original state.
-			set_temp_variable = { MAD_disp_incoming_people = 0 }
-			if = {
-				limit = { check_variable = { ROOT.MAD_drought_transfer_source_id = 266 } }
-				set_temp_variable = { MAD_disp_incoming_people = ROOT.MAD_drought_idp_267_266 }
-				add_to_temp_variable = { MAD_disp_incoming_people = ROOT.MAD_drought_idp_268_266 }
-				add_to_temp_variable = { MAD_disp_incoming_people = ROOT.MAD_drought_idp_487_266 }
-			}
-			else_if = {
-				limit = { check_variable = { ROOT.MAD_drought_transfer_source_id = 267 } }
-				set_temp_variable = { MAD_disp_incoming_people = ROOT.MAD_drought_idp_266_267 }
-				add_to_temp_variable = { MAD_disp_incoming_people = ROOT.MAD_drought_idp_268_267 }
-				add_to_temp_variable = { MAD_disp_incoming_people = ROOT.MAD_drought_idp_487_267 }
-			}
-			else_if = {
-				limit = { check_variable = { ROOT.MAD_drought_transfer_source_id = 268 } }
-				set_temp_variable = { MAD_disp_incoming_people = ROOT.MAD_drought_idp_266_268 }
-				add_to_temp_variable = { MAD_disp_incoming_people = ROOT.MAD_drought_idp_267_268 }
-				add_to_temp_variable = { MAD_disp_incoming_people = ROOT.MAD_drought_idp_487_268 }
-			}
-			else = {
-				set_temp_variable = { MAD_disp_incoming_people = ROOT.MAD_drought_idp_266_487 }
-				add_to_temp_variable = { MAD_disp_incoming_people = ROOT.MAD_drought_idp_267_487 }
-				add_to_temp_variable = { MAD_disp_incoming_people = ROOT.MAD_drought_idp_268_487 }
-			}
-			set_temp_variable = { MAD_disp_resident_people = state_population_k }
-			multiply_temp_variable = { MAD_disp_resident_people = 1000 }
-			subtract_from_temp_variable = { MAD_disp_resident_people = MAD_disp_incoming_people }
-			clamp_temp_variable = { var = MAD_disp_resident_people min = 0 }
-			if = {
-				limit = { check_variable = { MAD_disp_gross_people > MAD_disp_resident_people } }
-				set_temp_variable = { MAD_disp_gross_people = MAD_disp_resident_people }
-				round_temp_variable = MAD_disp_gross_people
-			}
-
-			if = {
-				limit = { check_variable = { MAD_disp_gross_people > 0.5 } }
-				if = {
-					limit = { check_variable = { ROOT.MAD_drought_transfer_source_id = 266 } }
-					save_event_target_as = MAD_drought_transfer_source_266
-				}
-				else_if = {
-					limit = { check_variable = { ROOT.MAD_drought_transfer_source_id = 267 } }
-					save_event_target_as = MAD_drought_transfer_source_267
-				}
-				else_if = {
-					limit = { check_variable = { ROOT.MAD_drought_transfer_source_id = 268 } }
-					save_event_target_as = MAD_drought_transfer_source_268
-				}
-				else = { save_event_target_as = MAD_drought_transfer_source_487 }
-				set_variable = { ROOT.MAD_drought_transfer_gross_people = MAD_disp_gross_people }
-				set_variable = { ROOT.MAD_drought_transfer_historical = 0 }
-				ROOT = { MAD_drought_execute_displacement = yes }
-			}
-		}
+		add_to_variable = { MAD_state_displacement_accumulator = MAD_disp_gross_people }
 	}
 	else = {
+		# A non-qualifying month adds no departures, but does not erase earlier departures in this report window.
 		set_variable = { MAD_state_displacement_months = 0 }
-		set_variable = { MAD_state_displacement_accumulator = 0 }
 	}
 }
 
-# Dated historical shocks use their specific modeled departure count rather than the six-month population rate.
-# The earlier record is sparse, so most early episodes use a conservative "thousands"-scale estimate; 2020-21 uses
-# about 3,000 people, documented as displaced during Dec 2020-Mar 2021. Source is the modeled Grand Sud state (268).
-MAD_drought_historical_displacement = {
-	MAD_drought_displacement_snapshot = yes
-	set_variable = { MAD_drought_transfer_source_id = 268 }
-	set_variable = { MAD_drought_transfer_historical = 1 }
-	268 = {
-		save_event_target_as = MAD_drought_transfer_source_hist
-		set_temp_variable = { MAD_disp_gross_people = ROOT.MAD_drought_historical_departure_people }
-		set_temp_variable = { MAD_disp_incoming_people = ROOT.MAD_drought_idp_266_268 }
-		add_to_temp_variable = { MAD_disp_incoming_people = ROOT.MAD_drought_idp_267_268 }
-		add_to_temp_variable = { MAD_disp_incoming_people = ROOT.MAD_drought_idp_487_268 }
+# At the report boundary, turn each state's accumulated gross departures into the report slot for that origin.
+# The source is capped at its resident population, excluding people already hosted as IDPs from earlier reports.
+# Destination choice uses the latest four-state drought snapshot; the actual transfer waits for the report option.
+MAD_drought_stage_displacement_period = {
+	if = {
+		limit = { check_variable = { MAD_state_displacement_accumulator > 0.5 } }
+		set_temp_variable = { MAD_disp_gross_people = MAD_state_displacement_accumulator }
+		round_temp_variable = MAD_disp_gross_people
+		set_temp_variable = { MAD_disp_incoming_people = 0 }
+		if = {
+			limit = { check_variable = { ROOT.MAD_drought_transfer_source_id = 266 } }
+			set_temp_variable = { MAD_disp_incoming_people = ROOT.MAD_drought_idp_267_266 }
+			add_to_temp_variable = { MAD_disp_incoming_people = ROOT.MAD_drought_idp_268_266 }
+			add_to_temp_variable = { MAD_disp_incoming_people = ROOT.MAD_drought_idp_487_266 }
+		}
+		else_if = {
+			limit = { check_variable = { ROOT.MAD_drought_transfer_source_id = 267 } }
+			set_temp_variable = { MAD_disp_incoming_people = ROOT.MAD_drought_idp_266_267 }
+			add_to_temp_variable = { MAD_disp_incoming_people = ROOT.MAD_drought_idp_268_267 }
+			add_to_temp_variable = { MAD_disp_incoming_people = ROOT.MAD_drought_idp_487_267 }
+		}
+		else_if = {
+			limit = { check_variable = { ROOT.MAD_drought_transfer_source_id = 268 } }
+			set_temp_variable = { MAD_disp_incoming_people = ROOT.MAD_drought_idp_266_268 }
+			add_to_temp_variable = { MAD_disp_incoming_people = ROOT.MAD_drought_idp_267_268 }
+			add_to_temp_variable = { MAD_disp_incoming_people = ROOT.MAD_drought_idp_487_268 }
+		}
+		else = {
+			set_temp_variable = { MAD_disp_incoming_people = ROOT.MAD_drought_idp_266_487 }
+			add_to_temp_variable = { MAD_disp_incoming_people = ROOT.MAD_drought_idp_267_487 }
+			add_to_temp_variable = { MAD_disp_incoming_people = ROOT.MAD_drought_idp_268_487 }
+		}
 		set_temp_variable = { MAD_disp_resident_people = state_population_k }
 		multiply_temp_variable = { MAD_disp_resident_people = 1000 }
 		subtract_from_temp_variable = { MAD_disp_resident_people = MAD_disp_incoming_people }
@@ -963,13 +917,38 @@ MAD_drought_historical_displacement = {
 			set_temp_variable = { MAD_disp_gross_people = MAD_disp_resident_people }
 			round_temp_variable = MAD_disp_gross_people
 		}
-		set_variable = { ROOT.MAD_drought_transfer_gross_people = MAD_disp_gross_people }
+		if = {
+			limit = { check_variable = { MAD_disp_gross_people > 0.5 } }
+			if = {
+				limit = { check_variable = { ROOT.MAD_drought_transfer_source_id = 266 } }
+				save_event_target_as = MAD_drought_transfer_source_266
+			}
+			else_if = {
+				limit = { check_variable = { ROOT.MAD_drought_transfer_source_id = 267 } }
+				save_event_target_as = MAD_drought_transfer_source_267
+			}
+			else_if = {
+				limit = { check_variable = { ROOT.MAD_drought_transfer_source_id = 268 } }
+				save_event_target_as = MAD_drought_transfer_source_268
+			}
+			else = { save_event_target_as = MAD_drought_transfer_source_487 }
+			set_variable = { ROOT.MAD_drought_transfer_gross_people = MAD_disp_gross_people }
+			ROOT = { MAD_drought_execute_displacement = yes }
+		}
 	}
+	set_variable = { MAD_state_displacement_accumulator = 0 }
+	set_variable = { MAD_state_displacement_months = 0 }
+}
+
+# Dated historical shocks contribute their specific modeled departure estimate to the next monthly report.
+# Source is the modeled Grand Sud state (268); the report later handles the population transfer and survival accounting.
+MAD_drought_historical_displacement = {
 	if = {
-		limit = { check_variable = { MAD_drought_transfer_gross_people > 0.5 } }
-		MAD_drought_execute_displacement = yes
+		limit = { check_variable = { MAD_drought_historical_departure_people > 0.5 } }
+		268 = {
+			add_to_variable = { MAD_state_displacement_accumulator = ROOT.MAD_drought_historical_departure_people }
+		}
 	}
-	set_variable = { MAD_drought_transfer_historical = 0 }
 	set_variable = { MAD_drought_historical_departure_people = 0 }
 }
 
@@ -1030,37 +1009,33 @@ MAD_drought_execute_displacement = {
 			if = { limit = { check_variable = { MAD_drought_transfer_abroad < 0.5 } } set_variable = { MAD_drought_transfer_destination_id = MAD_drought_lowest_other_id } }
 		}
 
-		# Save a destination scope under the unique report slot. Nothing is moved yet.
+		# Save a destination scope under the unique report slot. Nothing is moved until the report option.
 		if = {
 			limit = { check_variable = { MAD_drought_transfer_abroad < 0.5 } }
 		if = {
 			limit = { check_variable = { MAD_drought_transfer_destination_id = 266 } }
-			if = { limit = { check_variable = { MAD_drought_transfer_historical > 0.5 } } 266 = { save_event_target_as = MAD_drought_transfer_destination_hist } }
-			else_if = { limit = { check_variable = { MAD_drought_transfer_source_id = 266 } } 266 = { save_event_target_as = MAD_drought_transfer_destination_266 } }
+			if = { limit = { check_variable = { MAD_drought_transfer_source_id = 266 } } 266 = { save_event_target_as = MAD_drought_transfer_destination_266 } }
 			else_if = { limit = { check_variable = { MAD_drought_transfer_source_id = 267 } } 266 = { save_event_target_as = MAD_drought_transfer_destination_267 } }
 			else_if = { limit = { check_variable = { MAD_drought_transfer_source_id = 268 } } 266 = { save_event_target_as = MAD_drought_transfer_destination_268 } }
 			else_if = { limit = { check_variable = { MAD_drought_transfer_source_id = 487 } } 266 = { save_event_target_as = MAD_drought_transfer_destination_487 } }
 		}
 		else_if = {
 			limit = { check_variable = { MAD_drought_transfer_destination_id = 267 } }
-			if = { limit = { check_variable = { MAD_drought_transfer_historical > 0.5 } } 267 = { save_event_target_as = MAD_drought_transfer_destination_hist } }
-			else_if = { limit = { check_variable = { MAD_drought_transfer_source_id = 266 } } 267 = { save_event_target_as = MAD_drought_transfer_destination_266 } }
+			if = { limit = { check_variable = { MAD_drought_transfer_source_id = 266 } } 267 = { save_event_target_as = MAD_drought_transfer_destination_266 } }
 			else_if = { limit = { check_variable = { MAD_drought_transfer_source_id = 267 } } 267 = { save_event_target_as = MAD_drought_transfer_destination_267 } }
 			else_if = { limit = { check_variable = { MAD_drought_transfer_source_id = 268 } } 267 = { save_event_target_as = MAD_drought_transfer_destination_268 } }
 			else_if = { limit = { check_variable = { MAD_drought_transfer_source_id = 487 } } 267 = { save_event_target_as = MAD_drought_transfer_destination_487 } }
 		}
 		else_if = {
 			limit = { check_variable = { MAD_drought_transfer_destination_id = 268 } }
-			if = { limit = { check_variable = { MAD_drought_transfer_historical > 0.5 } } 268 = { save_event_target_as = MAD_drought_transfer_destination_hist } }
-			else_if = { limit = { check_variable = { MAD_drought_transfer_source_id = 266 } } 268 = { save_event_target_as = MAD_drought_transfer_destination_266 } }
+			if = { limit = { check_variable = { MAD_drought_transfer_source_id = 266 } } 268 = { save_event_target_as = MAD_drought_transfer_destination_266 } }
 			else_if = { limit = { check_variable = { MAD_drought_transfer_source_id = 267 } } 268 = { save_event_target_as = MAD_drought_transfer_destination_267 } }
 			else_if = { limit = { check_variable = { MAD_drought_transfer_source_id = 268 } } 268 = { save_event_target_as = MAD_drought_transfer_destination_268 } }
 			else_if = { limit = { check_variable = { MAD_drought_transfer_source_id = 487 } } 268 = { save_event_target_as = MAD_drought_transfer_destination_487 } }
 		}
 		else_if = {
 			limit = { check_variable = { MAD_drought_transfer_destination_id = 487 } }
-			if = { limit = { check_variable = { MAD_drought_transfer_historical > 0.5 } } 487 = { save_event_target_as = MAD_drought_transfer_destination_hist } }
-			else_if = { limit = { check_variable = { MAD_drought_transfer_source_id = 266 } } 487 = { save_event_target_as = MAD_drought_transfer_destination_266 } }
+			if = { limit = { check_variable = { MAD_drought_transfer_source_id = 266 } } 487 = { save_event_target_as = MAD_drought_transfer_destination_266 } }
 			else_if = { limit = { check_variable = { MAD_drought_transfer_source_id = 267 } } 487 = { save_event_target_as = MAD_drought_transfer_destination_267 } }
 			else_if = { limit = { check_variable = { MAD_drought_transfer_source_id = 268 } } 487 = { save_event_target_as = MAD_drought_transfer_destination_268 } }
 			else_if = { limit = { check_variable = { MAD_drought_transfer_source_id = 487 } } 487 = { save_event_target_as = MAD_drought_transfer_destination_487 } }
@@ -1070,104 +1045,82 @@ MAD_drought_execute_displacement = {
 			random_list = { 34 = { set_variable = { MAD_drought_transfer_abroad_country = 1 } } 33 = { set_variable = { MAD_drought_transfer_abroad_country = 2 } } 33 = { set_variable = { MAD_drought_transfer_abroad_country = 3 } } }
 		if = {
 			limit = { check_variable = { MAD_drought_transfer_abroad_country = 1 } }
-			if = { limit = { check_variable = { MAD_drought_transfer_historical > 0.5 } } COM = { save_event_target_as = MAD_drought_transfer_destination_hist } }
-			else_if = { limit = { check_variable = { MAD_drought_transfer_source_id = 266 } } COM = { save_event_target_as = MAD_drought_transfer_destination_266 } }
+			if = { limit = { check_variable = { MAD_drought_transfer_source_id = 266 } } COM = { save_event_target_as = MAD_drought_transfer_destination_266 } }
 			else_if = { limit = { check_variable = { MAD_drought_transfer_source_id = 267 } } COM = { save_event_target_as = MAD_drought_transfer_destination_267 } }
 			else_if = { limit = { check_variable = { MAD_drought_transfer_source_id = 268 } } COM = { save_event_target_as = MAD_drought_transfer_destination_268 } }
 			else_if = { limit = { check_variable = { MAD_drought_transfer_source_id = 487 } } COM = { save_event_target_as = MAD_drought_transfer_destination_487 } }
 		}
 		else_if = {
 			limit = { check_variable = { MAD_drought_transfer_abroad_country = 2 } }
-			if = { limit = { check_variable = { MAD_drought_transfer_historical > 0.5 } } MOZ = { save_event_target_as = MAD_drought_transfer_destination_hist } }
-			else_if = { limit = { check_variable = { MAD_drought_transfer_source_id = 266 } } MOZ = { save_event_target_as = MAD_drought_transfer_destination_266 } }
+			if = { limit = { check_variable = { MAD_drought_transfer_source_id = 266 } } MOZ = { save_event_target_as = MAD_drought_transfer_destination_266 } }
 			else_if = { limit = { check_variable = { MAD_drought_transfer_source_id = 267 } } MOZ = { save_event_target_as = MAD_drought_transfer_destination_267 } }
 			else_if = { limit = { check_variable = { MAD_drought_transfer_source_id = 268 } } MOZ = { save_event_target_as = MAD_drought_transfer_destination_268 } }
 			else_if = { limit = { check_variable = { MAD_drought_transfer_source_id = 487 } } MOZ = { save_event_target_as = MAD_drought_transfer_destination_487 } }
 		}
 		else_if = {
 			limit = { check_variable = { MAD_drought_transfer_abroad_country = 3 } }
-			if = { limit = { check_variable = { MAD_drought_transfer_historical > 0.5 } } SAF = { save_event_target_as = MAD_drought_transfer_destination_hist } }
-			else_if = { limit = { check_variable = { MAD_drought_transfer_source_id = 266 } } SAF = { save_event_target_as = MAD_drought_transfer_destination_266 } }
+			if = { limit = { check_variable = { MAD_drought_transfer_source_id = 266 } } SAF = { save_event_target_as = MAD_drought_transfer_destination_266 } }
 			else_if = { limit = { check_variable = { MAD_drought_transfer_source_id = 267 } } SAF = { save_event_target_as = MAD_drought_transfer_destination_267 } }
 			else_if = { limit = { check_variable = { MAD_drought_transfer_source_id = 268 } } SAF = { save_event_target_as = MAD_drought_transfer_destination_268 } }
 			else_if = { limit = { check_variable = { MAD_drought_transfer_source_id = 487 } } SAF = { save_event_target_as = MAD_drought_transfer_destination_487 } }
 		}
 		}
 
-		# Queue a report only for a real, positive departure. A zero transfer never produces a popup.
-		# Historical reports use their own slot; regular reports use one independent slot per source state.
+		
+		# Record this departure in its source-state slot; the monthly report commits all slots together.
 		if = {
 			limit = {
-				check_variable = { MAD_drought_transfer_historical > 0.5 }
+				check_variable = { MAD_drought_transfer_source_id = 266 }
 				check_variable = { MAD_drought_transfer_gross_people > 0.5 }
 			}
-			set_variable = { MAD_drought_transfer_gross_hist = MAD_drought_transfer_gross_people }
-			set_variable = { MAD_drought_transfer_survivors_hist = MAD_drought_transfer_survivors_people }
-			set_variable = { MAD_drought_transfer_deaths_hist = MAD_drought_transfer_deaths_people }
-			set_variable = { MAD_drought_transfer_destination_id_hist = MAD_drought_transfer_destination_id }
-			set_variable = { MAD_drought_transfer_abroad_country_hist = MAD_drought_transfer_abroad_country }
-			set_variable = { MAD_drought_transfer_famine_relief_hist = MAD_drought_transfer_famine_relief }
-			country_event = { id = mad_drought.27 days = 0 }
+			set_variable = { MAD_drought_transfer_gross_266 = MAD_drought_transfer_gross_people }
+			set_variable = { MAD_drought_transfer_survivors_266 = MAD_drought_transfer_survivors_people }
+			set_variable = { MAD_drought_transfer_deaths_266 = MAD_drought_transfer_deaths_people }
+			set_variable = { MAD_drought_transfer_destination_id_266 = MAD_drought_transfer_destination_id }
+			set_variable = { MAD_drought_transfer_abroad_country_266 = MAD_drought_transfer_abroad_country }
+			set_variable = { MAD_drought_transfer_famine_relief_266 = MAD_drought_transfer_famine_relief }
 		}
-		else = {
-			if = {
-				limit = {
-					check_variable = { MAD_drought_transfer_source_id = 266 }
-					check_variable = { MAD_drought_transfer_gross_people > 0.5 }
-				}
-				set_variable = { MAD_drought_transfer_gross_266 = MAD_drought_transfer_gross_people }
-				set_variable = { MAD_drought_transfer_survivors_266 = MAD_drought_transfer_survivors_people }
-				set_variable = { MAD_drought_transfer_deaths_266 = MAD_drought_transfer_deaths_people }
-				set_variable = { MAD_drought_transfer_destination_id_266 = MAD_drought_transfer_destination_id }
-				set_variable = { MAD_drought_transfer_abroad_country_266 = MAD_drought_transfer_abroad_country }
-				set_variable = { MAD_drought_transfer_famine_relief_266 = MAD_drought_transfer_famine_relief }
-				country_event = { id = mad_drought.23 days = 0 }
+		else_if = {
+			limit = {
+				check_variable = { MAD_drought_transfer_source_id = 267 }
+				check_variable = { MAD_drought_transfer_gross_people > 0.5 }
 			}
-			else_if = {
-				limit = {
-					check_variable = { MAD_drought_transfer_source_id = 267 }
-					check_variable = { MAD_drought_transfer_gross_people > 0.5 }
-				}
-				set_variable = { MAD_drought_transfer_gross_267 = MAD_drought_transfer_gross_people }
-				set_variable = { MAD_drought_transfer_survivors_267 = MAD_drought_transfer_survivors_people }
-				set_variable = { MAD_drought_transfer_deaths_267 = MAD_drought_transfer_deaths_people }
-				set_variable = { MAD_drought_transfer_destination_id_267 = MAD_drought_transfer_destination_id }
-				set_variable = { MAD_drought_transfer_abroad_country_267 = MAD_drought_transfer_abroad_country }
-				set_variable = { MAD_drought_transfer_famine_relief_267 = MAD_drought_transfer_famine_relief }
-				country_event = { id = mad_drought.24 days = 0 }
+			set_variable = { MAD_drought_transfer_gross_267 = MAD_drought_transfer_gross_people }
+			set_variable = { MAD_drought_transfer_survivors_267 = MAD_drought_transfer_survivors_people }
+			set_variable = { MAD_drought_transfer_deaths_267 = MAD_drought_transfer_deaths_people }
+			set_variable = { MAD_drought_transfer_destination_id_267 = MAD_drought_transfer_destination_id }
+			set_variable = { MAD_drought_transfer_abroad_country_267 = MAD_drought_transfer_abroad_country }
+			set_variable = { MAD_drought_transfer_famine_relief_267 = MAD_drought_transfer_famine_relief }
+		}
+		else_if = {
+			limit = {
+				check_variable = { MAD_drought_transfer_source_id = 268 }
+				check_variable = { MAD_drought_transfer_gross_people > 0.5 }
 			}
-			else_if = {
-				limit = {
-					check_variable = { MAD_drought_transfer_source_id = 268 }
-					check_variable = { MAD_drought_transfer_gross_people > 0.5 }
-				}
-				set_variable = { MAD_drought_transfer_gross_268 = MAD_drought_transfer_gross_people }
-				set_variable = { MAD_drought_transfer_survivors_268 = MAD_drought_transfer_survivors_people }
-				set_variable = { MAD_drought_transfer_deaths_268 = MAD_drought_transfer_deaths_people }
-				set_variable = { MAD_drought_transfer_destination_id_268 = MAD_drought_transfer_destination_id }
-				set_variable = { MAD_drought_transfer_abroad_country_268 = MAD_drought_transfer_abroad_country }
-				set_variable = { MAD_drought_transfer_famine_relief_268 = MAD_drought_transfer_famine_relief }
-				country_event = { id = mad_drought.25 days = 0 }
+			set_variable = { MAD_drought_transfer_gross_268 = MAD_drought_transfer_gross_people }
+			set_variable = { MAD_drought_transfer_survivors_268 = MAD_drought_transfer_survivors_people }
+			set_variable = { MAD_drought_transfer_deaths_268 = MAD_drought_transfer_deaths_people }
+			set_variable = { MAD_drought_transfer_destination_id_268 = MAD_drought_transfer_destination_id }
+			set_variable = { MAD_drought_transfer_abroad_country_268 = MAD_drought_transfer_abroad_country }
+			set_variable = { MAD_drought_transfer_famine_relief_268 = MAD_drought_transfer_famine_relief }
+		}
+		else_if = {
+			limit = {
+				check_variable = { MAD_drought_transfer_source_id = 487 }
+				check_variable = { MAD_drought_transfer_gross_people > 0.5 }
 			}
-			else_if = {
-				limit = {
-					check_variable = { MAD_drought_transfer_source_id = 487 }
-					check_variable = { MAD_drought_transfer_gross_people > 0.5 }
-				}
-				set_variable = { MAD_drought_transfer_gross_487 = MAD_drought_transfer_gross_people }
-				set_variable = { MAD_drought_transfer_survivors_487 = MAD_drought_transfer_survivors_people }
-				set_variable = { MAD_drought_transfer_deaths_487 = MAD_drought_transfer_deaths_people }
-				set_variable = { MAD_drought_transfer_destination_id_487 = MAD_drought_transfer_destination_id }
-				set_variable = { MAD_drought_transfer_abroad_country_487 = MAD_drought_transfer_abroad_country }
-				set_variable = { MAD_drought_transfer_famine_relief_487 = MAD_drought_transfer_famine_relief }
-				country_event = { id = mad_drought.26 days = 0 }
-			}
+			set_variable = { MAD_drought_transfer_gross_487 = MAD_drought_transfer_gross_people }
+			set_variable = { MAD_drought_transfer_survivors_487 = MAD_drought_transfer_survivors_people }
+			set_variable = { MAD_drought_transfer_deaths_487 = MAD_drought_transfer_deaths_people }
+			set_variable = { MAD_drought_transfer_destination_id_487 = MAD_drought_transfer_destination_id }
+			set_variable = { MAD_drought_transfer_abroad_country_487 = MAD_drought_transfer_abroad_country }
+			set_variable = { MAD_drought_transfer_famine_relief_487 = MAD_drought_transfer_famine_relief }
 		}
 
 	}
 }
 
-# Each report option calls exactly one commit effect. Until then the transfer is only staged.
+# The regular report commits all four staged state slots together, including departures contributed by historical drought shocks.
 
 MAD_drought_commit_displacement_266 = {
 	if = {
@@ -1212,6 +1165,9 @@ MAD_drought_commit_displacement_266 = {
 		set_variable = { MAD_drought_transfer_gross_266 = 0 }
 		set_variable = { MAD_drought_transfer_survivors_266 = 0 }
 		set_variable = { MAD_drought_transfer_deaths_266 = 0 }
+		set_variable = { MAD_drought_transfer_destination_id_266 = 0 }
+		set_variable = { MAD_drought_transfer_abroad_country_266 = 0 }
+		set_variable = { MAD_drought_transfer_famine_relief_266 = 0 }
 	}
 }
 
@@ -1258,6 +1214,9 @@ MAD_drought_commit_displacement_267 = {
 		set_variable = { MAD_drought_transfer_gross_267 = 0 }
 		set_variable = { MAD_drought_transfer_survivors_267 = 0 }
 		set_variable = { MAD_drought_transfer_deaths_267 = 0 }
+		set_variable = { MAD_drought_transfer_destination_id_267 = 0 }
+		set_variable = { MAD_drought_transfer_abroad_country_267 = 0 }
+		set_variable = { MAD_drought_transfer_famine_relief_267 = 0 }
 	}
 }
 
@@ -1304,6 +1263,9 @@ MAD_drought_commit_displacement_268 = {
 		set_variable = { MAD_drought_transfer_gross_268 = 0 }
 		set_variable = { MAD_drought_transfer_survivors_268 = 0 }
 		set_variable = { MAD_drought_transfer_deaths_268 = 0 }
+		set_variable = { MAD_drought_transfer_destination_id_268 = 0 }
+		set_variable = { MAD_drought_transfer_abroad_country_268 = 0 }
+		set_variable = { MAD_drought_transfer_famine_relief_268 = 0 }
 	}
 }
 
@@ -1350,66 +1312,251 @@ MAD_drought_commit_displacement_487 = {
 		set_variable = { MAD_drought_transfer_gross_487 = 0 }
 		set_variable = { MAD_drought_transfer_survivors_487 = 0 }
 		set_variable = { MAD_drought_transfer_deaths_487 = 0 }
+		set_variable = { MAD_drought_transfer_destination_id_487 = 0 }
+		set_variable = { MAD_drought_transfer_abroad_country_487 = 0 }
+		set_variable = { MAD_drought_transfer_famine_relief_487 = 0 }
 	}
 }
 
-MAD_drought_commit_displacement_hist = {
-	if = {
-		limit = { check_variable = { MAD_drought_transfer_gross_hist > 0.5 } }
-		set_variable = { MAD_drought_transfer_negative_people_hist = MAD_drought_transfer_gross_hist }
-		multiply_variable = { MAD_drought_transfer_negative_people_hist = -1 }
-		event_target:MAD_drought_transfer_source_hist = {
-			set_temp_variable = { MAD_disp_state_pop_change = ROOT.MAD_drought_transfer_negative_people_hist }
-			add_manpower = var:MAD_disp_state_pop_change
-			set_temp_variable = { MAD_dr_state_famine = ROOT.MAD_drought_transfer_famine_relief_hist }
-			multiply_temp_variable = { MAD_dr_state_famine = -1 }
-			MAD_drought_state_apply_famine = yes
-		}
-		add_manpower = var:MAD_drought_transfer_negative_people_hist
-		add_to_variable = { MAD_drought_total_departed = MAD_drought_transfer_gross_hist }
-		add_to_variable = { MAD_drought_displacement_deaths = MAD_drought_transfer_deaths_hist }
-		if = {
-			limit = { check_variable = { MAD_drought_transfer_abroad_country_hist < 0.5 } }
-			event_target:MAD_drought_transfer_destination_hist = {
-				set_temp_variable = { MAD_disp_state_pop_change = ROOT.MAD_drought_transfer_survivors_hist }
-				add_manpower = var:MAD_disp_state_pop_change
-			}
-			add_to_variable = { MAD_drought_displaced_internal = MAD_drought_transfer_survivors_hist }
-			add_to_variable = { MAD_drought_displaced = MAD_drought_transfer_survivors_hist }
-			if = { limit = { check_variable = { MAD_drought_transfer_destination_id_hist = 266 } } add_to_variable = { MAD_drought_idp_268_266 = MAD_drought_transfer_survivors_hist } }
-			if = { limit = { check_variable = { MAD_drought_transfer_destination_id_hist = 267 } } add_to_variable = { MAD_drought_idp_268_267 = MAD_drought_transfer_survivors_hist } }
-			if = { limit = { check_variable = { MAD_drought_transfer_destination_id_hist = 487 } } add_to_variable = { MAD_drought_idp_268_487 = MAD_drought_transfer_survivors_hist } }
-		}
-		else = {
-			add_to_variable = { MAD_drought_displaced_abroad = MAD_drought_transfer_survivors_hist }
-			add_to_variable = { MAD_drought_displaced = MAD_drought_transfer_survivors_hist }
-			add_to_variable = { MAD_drought_abroad_original_survivors = MAD_drought_transfer_survivors_hist }
-			add_to_variable = { MAD_drought_abroad_from_268 = MAD_drought_transfer_survivors_hist }
-			event_target:MAD_drought_transfer_destination_hist = {
-				random_owned_state = { set_temp_variable = { MAD_disp_state_pop_change = ROOT.MAD_drought_transfer_survivors_hist } add_manpower = var:MAD_disp_state_pop_change }
-			}
-			if = { limit = { check_variable = { MAD_drought_transfer_abroad_country_hist = 1 } } add_to_variable = { MAD_drought_abroad_in_COM = MAD_drought_transfer_survivors_hist } }
-			else_if = { limit = { check_variable = { MAD_drought_transfer_abroad_country_hist = 2 } } add_to_variable = { MAD_drought_abroad_in_MOZ = MAD_drought_transfer_survivors_hist } }
-			else_if = { limit = { check_variable = { MAD_drought_transfer_abroad_country_hist = 3 } } add_to_variable = { MAD_drought_abroad_in_SAF = MAD_drought_transfer_survivors_hist } }
-		}
-		set_variable = { MAD_drought_transfer_negative_people_hist = 0 }
-		set_variable = { MAD_drought_transfer_gross_hist = 0 }
-		set_variable = { MAD_drought_transfer_survivors_hist = 0 }
-		set_variable = { MAD_drought_transfer_deaths_hist = 0 }
+
+
+MAD_drought_clear_regular_transfer_slots = {
+	set_variable = { MAD_drought_transfer_gross_266 = 0 }
+	set_variable = { MAD_drought_transfer_survivors_266 = 0 }
+	set_variable = { MAD_drought_transfer_deaths_266 = 0 }
+	set_variable = { MAD_drought_transfer_destination_id_266 = 0 }
+	set_variable = { MAD_drought_transfer_abroad_country_266 = 0 }
+	set_variable = { MAD_drought_transfer_famine_relief_266 = 0 }
+	set_variable = { MAD_drought_transfer_negative_people_266 = 0 }
+	set_variable = { MAD_drought_transfer_gross_267 = 0 }
+	set_variable = { MAD_drought_transfer_survivors_267 = 0 }
+	set_variable = { MAD_drought_transfer_deaths_267 = 0 }
+	set_variable = { MAD_drought_transfer_destination_id_267 = 0 }
+	set_variable = { MAD_drought_transfer_abroad_country_267 = 0 }
+	set_variable = { MAD_drought_transfer_famine_relief_267 = 0 }
+	set_variable = { MAD_drought_transfer_negative_people_267 = 0 }
+	set_variable = { MAD_drought_transfer_gross_268 = 0 }
+	set_variable = { MAD_drought_transfer_survivors_268 = 0 }
+	set_variable = { MAD_drought_transfer_deaths_268 = 0 }
+	set_variable = { MAD_drought_transfer_destination_id_268 = 0 }
+	set_variable = { MAD_drought_transfer_abroad_country_268 = 0 }
+	set_variable = { MAD_drought_transfer_famine_relief_268 = 0 }
+	set_variable = { MAD_drought_transfer_negative_people_268 = 0 }
+	set_variable = { MAD_drought_transfer_gross_487 = 0 }
+	set_variable = { MAD_drought_transfer_survivors_487 = 0 }
+	set_variable = { MAD_drought_transfer_deaths_487 = 0 }
+	set_variable = { MAD_drought_transfer_destination_id_487 = 0 }
+	set_variable = { MAD_drought_transfer_abroad_country_487 = 0 }
+	set_variable = { MAD_drought_transfer_famine_relief_487 = 0 }
+	set_variable = { MAD_drought_transfer_negative_people_487 = 0 }
+	set_variable = { MAD_drought_report_arrivals_266 = 0 }
+	set_variable = { MAD_drought_report_arrivals_267 = 0 }
+	set_variable = { MAD_drought_report_arrivals_268 = 0 }
+	set_variable = { MAD_drought_report_arrivals_487 = 0 }
+	set_variable = { MAD_drought_report_arrivals_COM = 0 }
+	set_variable = { MAD_drought_report_arrivals_MOZ = 0 }
+	set_variable = { MAD_drought_report_arrivals_SAF = 0 }
+}
+
+
+# Build display totals by DESTINATION for the event body/option tooltip. The underlying
+# transfers remain stored per source state so each source can still lose manpower correctly,
+# but a destination reached from two or more sources is displayed only once with their sum.
+MAD_drought_prepare_displacement_report_summary = {
+	set_variable = { MAD_drought_report_arrivals_266 = 0 }
+	set_variable = { MAD_drought_report_arrivals_267 = 0 }
+	set_variable = { MAD_drought_report_arrivals_268 = 0 }
+	set_variable = { MAD_drought_report_arrivals_487 = 0 }
+	set_variable = { MAD_drought_report_arrivals_COM = 0 }
+	set_variable = { MAD_drought_report_arrivals_MOZ = 0 }
+	set_variable = { MAD_drought_report_arrivals_SAF = 0 }
+
+	if = { limit = { check_variable = { MAD_drought_transfer_gross_266 > 0.5 } }
+		if = { limit = { check_variable = { MAD_drought_transfer_abroad_country_266 = 1 } } add_to_variable = { MAD_drought_report_arrivals_COM = MAD_drought_transfer_survivors_266 } }
+		else_if = { limit = { check_variable = { MAD_drought_transfer_abroad_country_266 = 2 } } add_to_variable = { MAD_drought_report_arrivals_MOZ = MAD_drought_transfer_survivors_266 } }
+		else_if = { limit = { check_variable = { MAD_drought_transfer_abroad_country_266 = 3 } } add_to_variable = { MAD_drought_report_arrivals_SAF = MAD_drought_transfer_survivors_266 } }
+		else_if = { limit = { check_variable = { MAD_drought_transfer_destination_id_266 = 266 } } add_to_variable = { MAD_drought_report_arrivals_266 = MAD_drought_transfer_survivors_266 } }
+		else_if = { limit = { check_variable = { MAD_drought_transfer_destination_id_266 = 267 } } add_to_variable = { MAD_drought_report_arrivals_267 = MAD_drought_transfer_survivors_266 } }
+		else_if = { limit = { check_variable = { MAD_drought_transfer_destination_id_266 = 268 } } add_to_variable = { MAD_drought_report_arrivals_268 = MAD_drought_transfer_survivors_266 } }
+		else_if = { limit = { check_variable = { MAD_drought_transfer_destination_id_266 = 487 } } add_to_variable = { MAD_drought_report_arrivals_487 = MAD_drought_transfer_survivors_266 } }
+	}
+	if = { limit = { check_variable = { MAD_drought_transfer_gross_267 > 0.5 } }
+		if = { limit = { check_variable = { MAD_drought_transfer_abroad_country_267 = 1 } } add_to_variable = { MAD_drought_report_arrivals_COM = MAD_drought_transfer_survivors_267 } }
+		else_if = { limit = { check_variable = { MAD_drought_transfer_abroad_country_267 = 2 } } add_to_variable = { MAD_drought_report_arrivals_MOZ = MAD_drought_transfer_survivors_267 } }
+		else_if = { limit = { check_variable = { MAD_drought_transfer_abroad_country_267 = 3 } } add_to_variable = { MAD_drought_report_arrivals_SAF = MAD_drought_transfer_survivors_267 } }
+		else_if = { limit = { check_variable = { MAD_drought_transfer_destination_id_267 = 266 } } add_to_variable = { MAD_drought_report_arrivals_266 = MAD_drought_transfer_survivors_267 } }
+		else_if = { limit = { check_variable = { MAD_drought_transfer_destination_id_267 = 267 } } add_to_variable = { MAD_drought_report_arrivals_267 = MAD_drought_transfer_survivors_267 } }
+		else_if = { limit = { check_variable = { MAD_drought_transfer_destination_id_267 = 268 } } add_to_variable = { MAD_drought_report_arrivals_268 = MAD_drought_transfer_survivors_267 } }
+		else_if = { limit = { check_variable = { MAD_drought_transfer_destination_id_267 = 487 } } add_to_variable = { MAD_drought_report_arrivals_487 = MAD_drought_transfer_survivors_267 } }
+	}
+	if = { limit = { check_variable = { MAD_drought_transfer_gross_268 > 0.5 } }
+		if = { limit = { check_variable = { MAD_drought_transfer_abroad_country_268 = 1 } } add_to_variable = { MAD_drought_report_arrivals_COM = MAD_drought_transfer_survivors_268 } }
+		else_if = { limit = { check_variable = { MAD_drought_transfer_abroad_country_268 = 2 } } add_to_variable = { MAD_drought_report_arrivals_MOZ = MAD_drought_transfer_survivors_268 } }
+		else_if = { limit = { check_variable = { MAD_drought_transfer_abroad_country_268 = 3 } } add_to_variable = { MAD_drought_report_arrivals_SAF = MAD_drought_transfer_survivors_268 } }
+		else_if = { limit = { check_variable = { MAD_drought_transfer_destination_id_268 = 266 } } add_to_variable = { MAD_drought_report_arrivals_266 = MAD_drought_transfer_survivors_268 } }
+		else_if = { limit = { check_variable = { MAD_drought_transfer_destination_id_268 = 267 } } add_to_variable = { MAD_drought_report_arrivals_267 = MAD_drought_transfer_survivors_268 } }
+		else_if = { limit = { check_variable = { MAD_drought_transfer_destination_id_268 = 268 } } add_to_variable = { MAD_drought_report_arrivals_268 = MAD_drought_transfer_survivors_268 } }
+		else_if = { limit = { check_variable = { MAD_drought_transfer_destination_id_268 = 487 } } add_to_variable = { MAD_drought_report_arrivals_487 = MAD_drought_transfer_survivors_268 } }
+	}
+	if = { limit = { check_variable = { MAD_drought_transfer_gross_487 > 0.5 } }
+		if = { limit = { check_variable = { MAD_drought_transfer_abroad_country_487 = 1 } } add_to_variable = { MAD_drought_report_arrivals_COM = MAD_drought_transfer_survivors_487 } }
+		else_if = { limit = { check_variable = { MAD_drought_transfer_abroad_country_487 = 2 } } add_to_variable = { MAD_drought_report_arrivals_MOZ = MAD_drought_transfer_survivors_487 } }
+		else_if = { limit = { check_variable = { MAD_drought_transfer_abroad_country_487 = 3 } } add_to_variable = { MAD_drought_report_arrivals_SAF = MAD_drought_transfer_survivors_487 } }
+		else_if = { limit = { check_variable = { MAD_drought_transfer_destination_id_487 = 266 } } add_to_variable = { MAD_drought_report_arrivals_266 = MAD_drought_transfer_survivors_487 } }
+		else_if = { limit = { check_variable = { MAD_drought_transfer_destination_id_487 = 267 } } add_to_variable = { MAD_drought_report_arrivals_267 = MAD_drought_transfer_survivors_487 } }
+		else_if = { limit = { check_variable = { MAD_drought_transfer_destination_id_487 = 268 } } add_to_variable = { MAD_drought_report_arrivals_268 = MAD_drought_transfer_survivors_487 } }
+		else_if = { limit = { check_variable = { MAD_drought_transfer_destination_id_487 = 487 } } add_to_variable = { MAD_drought_report_arrivals_487 = MAD_drought_transfer_survivors_487 } }
 	}
 }
 
+# Called once per calendar month by on_monthly_MAD.
+# Each monthly tick collects that month's departure estimate, stages all four origins,
+# and opens ONE report only when at least one origin has a positive staged departure.
+# Empty months are silent: no event is queued and the regular transfer slots remain zero.
+# Historical displacement estimates are included because they share each state's accumulator.
 MAD_drought_displacement_monthly_tick = {
-	MAD_drought_displacement_snapshot = yes
-	set_variable = { MAD_drought_transfer_historical = 0 }
-	set_variable = { MAD_drought_transfer_source_id = 266 }
-	266 = { MAD_drought_state_displacement_tick = yes }
-	set_variable = { MAD_drought_transfer_source_id = 267 }
-	267 = { MAD_drought_state_displacement_tick = yes }
-	set_variable = { MAD_drought_transfer_source_id = 268 }
-	268 = { MAD_drought_state_displacement_tick = yes }
-	set_variable = { MAD_drought_transfer_source_id = 487 }
-	487 = { MAD_drought_state_displacement_tick = yes }
+	MAD_drought_collect_displacement_month = yes
+	if = {
+		limit = { NOT = { has_country_flag = MAD_DROUGHT_DISPLACEMENT_REPORT_PENDING } }
+		MAD_drought_displacement_snapshot = yes
+		MAD_drought_clear_regular_transfer_slots = yes
+		set_variable = { MAD_drought_transfer_source_id = 266 }
+		266 = { MAD_drought_stage_displacement_period = yes }
+		set_variable = { MAD_drought_transfer_source_id = 267 }
+		267 = { MAD_drought_stage_displacement_period = yes }
+		set_variable = { MAD_drought_transfer_source_id = 268 }
+		268 = { MAD_drought_stage_displacement_period = yes }
+		set_variable = { MAD_drought_transfer_source_id = 487 }
+		487 = { MAD_drought_stage_displacement_period = yes }
+		MAD_drought_prepare_displacement_report_summary = yes
+		if = {
+			limit = {
+				OR = {
+					check_variable = { MAD_drought_transfer_gross_266 > 0.5 }
+					check_variable = { MAD_drought_transfer_gross_267 > 0.5 }
+					check_variable = { MAD_drought_transfer_gross_268 > 0.5 }
+					check_variable = { MAD_drought_transfer_gross_487 > 0.5 }
+				}
+			}
+			set_country_flag = MAD_DROUGHT_DISPLACEMENT_REPORT_PENDING
+			country_event = { id = mad_drought.23 hours = 1 }
+		}
+	}
+}
+
+MAD_drought_collect_displacement_month = {
+	if = {
+		limit = { MAD_drought_exists = yes }
+		set_variable = { MAD_drought_transfer_source_id = 266 }
+		266 = { MAD_drought_state_displacement_tick = yes }
+		set_variable = { MAD_drought_transfer_source_id = 267 }
+		267 = { MAD_drought_state_displacement_tick = yes }
+		set_variable = { MAD_drought_transfer_source_id = 268 }
+		268 = { MAD_drought_state_displacement_tick = yes }
+		set_variable = { MAD_drought_transfer_source_id = 487 }
+		487 = { MAD_drought_state_displacement_tick = yes }
+	}
+}
+
+# Recalculate living displaced people who originated in each state after transfers/returns.
+# The penalty belongs to the state that LOST these residents, not the state hosting them.
+# Count only people still displaced (domestically or abroad); returns reduce the relevant route
+# counters, so the modifier clears once that origin state's outstanding displacement falls below 50,000.
+MAD_drought_update_displacement_overload = {
+	# Fail closed at game start and whenever every displaced person has returned.
+	# Do not attempt to calculate origin totals or add modifiers until living displacement
+	# is actually recorded. MAD_drought_displaced is maintained by report commits/returns.
+	if = {
+		limit = { check_variable = { MAD_drought_displaced > 0.5 } }
+			set_variable = { MAD_drought_origin_displaced_266 = 0 }
+			add_to_variable = { MAD_drought_origin_displaced_266 = MAD_drought_idp_266_267 }
+			add_to_variable = { MAD_drought_origin_displaced_266 = MAD_drought_idp_266_268 }
+			add_to_variable = { MAD_drought_origin_displaced_266 = MAD_drought_idp_266_487 }
+			add_to_variable = { MAD_drought_origin_displaced_266 = MAD_drought_abroad_from_266 }
+
+			set_variable = { MAD_drought_origin_displaced_267 = 0 }
+			add_to_variable = { MAD_drought_origin_displaced_267 = MAD_drought_idp_267_266 }
+			add_to_variable = { MAD_drought_origin_displaced_267 = MAD_drought_idp_267_268 }
+			add_to_variable = { MAD_drought_origin_displaced_267 = MAD_drought_idp_267_487 }
+			add_to_variable = { MAD_drought_origin_displaced_267 = MAD_drought_abroad_from_267 }
+
+			set_variable = { MAD_drought_origin_displaced_268 = 0 }
+			add_to_variable = { MAD_drought_origin_displaced_268 = MAD_drought_idp_268_266 }
+			add_to_variable = { MAD_drought_origin_displaced_268 = MAD_drought_idp_268_267 }
+			add_to_variable = { MAD_drought_origin_displaced_268 = MAD_drought_idp_268_487 }
+			add_to_variable = { MAD_drought_origin_displaced_268 = MAD_drought_abroad_from_268 }
+
+			set_variable = { MAD_drought_origin_displaced_487 = 0 }
+			add_to_variable = { MAD_drought_origin_displaced_487 = MAD_drought_idp_487_266 }
+			add_to_variable = { MAD_drought_origin_displaced_487 = MAD_drought_idp_487_267 }
+			add_to_variable = { MAD_drought_origin_displaced_487 = MAD_drought_idp_487_268 }
+			add_to_variable = { MAD_drought_origin_displaced_487 = MAD_drought_abroad_from_487 }
+
+			266 = {
+				# Copy the country-scope total onto this state, then test the local value.
+				# This avoids evaluating another state's threshold while in state scope.
+				set_variable = { MAD_drought_origin_displaced = ROOT.MAD_drought_origin_displaced_266 }
+				if = {
+					limit = { check_variable = { var = MAD_drought_origin_displaced value = 50000 compare = greater_than_or_equals } NOT = { has_dynamic_modifier = MAD_DROUGHT_DISPLACEMENT_OVERLOAD } }
+					add_dynamic_modifier = { modifier = MAD_DROUGHT_DISPLACEMENT_OVERLOAD }
+				}
+				else_if = {
+					limit = { check_variable = { var = MAD_drought_origin_displaced value = 50000 compare = less_than } has_dynamic_modifier = MAD_DROUGHT_DISPLACEMENT_OVERLOAD }
+					remove_dynamic_modifier = { modifier = MAD_DROUGHT_DISPLACEMENT_OVERLOAD }
+				}
+			}
+			267 = {
+				# Copy the country-scope total onto this state, then test the local value.
+				# This avoids evaluating another state's threshold while in state scope.
+				set_variable = { MAD_drought_origin_displaced = ROOT.MAD_drought_origin_displaced_267 }
+				if = {
+					limit = { check_variable = { var = MAD_drought_origin_displaced value = 50000 compare = greater_than_or_equals } NOT = { has_dynamic_modifier = MAD_DROUGHT_DISPLACEMENT_OVERLOAD } }
+					add_dynamic_modifier = { modifier = MAD_DROUGHT_DISPLACEMENT_OVERLOAD }
+				}
+				else_if = {
+					limit = { check_variable = { var = MAD_drought_origin_displaced value = 50000 compare = less_than } has_dynamic_modifier = MAD_DROUGHT_DISPLACEMENT_OVERLOAD }
+					remove_dynamic_modifier = { modifier = MAD_DROUGHT_DISPLACEMENT_OVERLOAD }
+				}
+			}
+			268 = {
+				# Copy the country-scope total onto this state, then test the local value.
+				# This avoids evaluating another state's threshold while in state scope.
+				set_variable = { MAD_drought_origin_displaced = ROOT.MAD_drought_origin_displaced_268 }
+				if = {
+					limit = { check_variable = { var = MAD_drought_origin_displaced value = 50000 compare = greater_than_or_equals } NOT = { has_dynamic_modifier = MAD_DROUGHT_DISPLACEMENT_OVERLOAD } }
+					add_dynamic_modifier = { modifier = MAD_DROUGHT_DISPLACEMENT_OVERLOAD }
+				}
+				else_if = {
+					limit = { check_variable = { var = MAD_drought_origin_displaced value = 50000 compare = less_than } has_dynamic_modifier = MAD_DROUGHT_DISPLACEMENT_OVERLOAD }
+					remove_dynamic_modifier = { modifier = MAD_DROUGHT_DISPLACEMENT_OVERLOAD }
+				}
+			}
+			487 = {
+				# Copy the country-scope total onto this state, then test the local value.
+				# This avoids evaluating another state's threshold while in state scope.
+				set_variable = { MAD_drought_origin_displaced = ROOT.MAD_drought_origin_displaced_487 }
+				if = {
+					limit = { check_variable = { var = MAD_drought_origin_displaced value = 50000 compare = greater_than_or_equals } NOT = { has_dynamic_modifier = MAD_DROUGHT_DISPLACEMENT_OVERLOAD } }
+					add_dynamic_modifier = { modifier = MAD_DROUGHT_DISPLACEMENT_OVERLOAD }
+				}
+				else_if = {
+					limit = { check_variable = { var = MAD_drought_origin_displaced value = 50000 compare = less_than } has_dynamic_modifier = MAD_DROUGHT_DISPLACEMENT_OVERLOAD }
+					remove_dynamic_modifier = { modifier = MAD_DROUGHT_DISPLACEMENT_OVERLOAD }
+				}
+			}
+	}
+	else = {
+		# No living displaced population exists: clear any stale Refugee Pressure modifier
+		# from every MAD-owned state, not merely the four states currently in the model.
+		# This also cleans up modifiers accidentally left by an earlier script version.
+		every_owned_state = {
+			set_variable = { MAD_drought_origin_displaced = 0 }
+			if = {
+				limit = { has_dynamic_modifier = MAD_DROUGHT_DISPLACEMENT_OVERLOAD }
+				remove_dynamic_modifier = { modifier = MAD_DROUGHT_DISPLACEMENT_OVERLOAD }
+			}
+		}
+	}
 }
 
 ########################################################################
@@ -1792,6 +1939,8 @@ MAD_drought_resettle = {
 	MAD_drought_return_route_487_266 = yes
 	MAD_drought_return_route_487_267 = yes
 	MAD_drought_return_route_487_268 = yes
+	# Re-evaluate the host-state construction penalty immediately after returns change route counters.
+	MAD_drought_update_displacement_overload = yes
 	clamp_variable = { var = MAD_drought_resettle_remaining min = 0 }
 	set_temp_variable = { MAD_drought_people_resettled = 20000 }
 	subtract_from_temp_variable = { MAD_drought_people_resettled = MAD_drought_resettle_remaining }
@@ -2150,9 +2299,8 @@ MAD_drought_monthly_tick = {
 			remove_ideas = MAD_DROUGHT_EVACUATIONS
 		}
 
-		# One state-specific transfer can occur after each six consecutive months at 60+.
-		# The per-state effect also handles the doubled rate at 80+ and queues one report per transfer.
-		MAD_drought_displacement_monthly_tick = yes
+		# Regular displacement is handled by the separate calendar-month on_action.
+		# Keep this 30-day climate/severity tick separate from the monthly displacement report tick.
 
 		MAD_drought_update_tier = yes
 		# over?

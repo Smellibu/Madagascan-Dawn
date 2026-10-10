@@ -35,7 +35,6 @@ focus_tree = {
 			add_to_variable = { MAD_economy_local_resources_tungsten_factor = 0.05 tooltip = local_resources_tungsten_factor_tt }
 			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.03 tooltip = productivity_growth_modifier_tt }
 			add_to_variable = { MAD_economy_receiving_investment_cost_modifier = -0.03 tooltip = receiving_investment_cost_modifier_tt }
-
 		}
 
 		ai_will_do = {
@@ -359,7 +358,7 @@ focus_tree = {
 	focus = {
 		id = MAD_Madarail
 		icon = GFX_focus_africa_rail
-		x = 7
+		x = 8
 		y = 2
 		relative_position_id = MAD_COMPANIES
 		cost = 3
@@ -435,8 +434,8 @@ focus_tree = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_JIRAMA"
 			
 			add_political_power = 25
-
-
+			
+			
 			set_country_flag = MAD_JIRAMA_PROGRAM_STARTED
 			custom_effect_tooltip = {
 				localization_key = modifies_dynamic_modifier_tt
@@ -1154,7 +1153,7 @@ focus_tree = {
 				MODIFIER = MAD_economy_modifier
 			}
 			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.2 tooltip = productivity_growth_modifier_tt }
-			add_to_variable = { MAD_economy_expected_welfare_modifier = -0.5 tooltip = expected_welfare_modifier_tt }
+			add_to_variable = { MAD_economy_expected_welfare_modifier = 0.25 tooltip = expected_welfare_modifier_tt }
 			add_stability = 0.02
 		}
 
@@ -2581,7 +2580,7 @@ focus_tree = {
 			add_to_variable = { MAD_agri_income_tax = 0.02 tooltip = agriculture_district_income_tax_modifier_tt }
 			hidden_effect = {
 				set_country_flag = MAD_DAEWOO_KOREAN_AGRI_SECTOR
-				# If the fallout focus is still unfinished after six months, reveal the deal and force its fallout focus.
+				
 				country_event = { id = mad_daewoo.4 days = 180 }
 			}
 		}
@@ -2608,7 +2607,7 @@ focus_tree = {
 				localization_key = modifies_dynamic_modifier_tt
 				MODIFIER = MAD_economy_modifier
 			}
-			add_to_variable = { MAD_economy_expected_welfare_modifier = 0.5 tooltip = expected_welfare_modifier_tt }
+			add_to_variable = { MAD_economy_expected_welfare_modifier = 0.25 tooltip = expected_welfare_modifier_tt }
 			add_to_variable = { MAD_economy_production_speed_infrastructure_factor = 0.03 tooltip = production_speed_infrastructure_factor_tt }
 			if = {
 				limit = { has_idea = farmers }
@@ -2726,7 +2725,7 @@ focus_tree = {
 	focus = {
 		id = MAD_MADARAIL_OWNERSHIP_CHURN
 		icon = GFX_focus_money_on_fire
-		x = 1
+		x = 0
 		y = 2
 		relative_position_id = MAD_RNCFM_PRIVATIZE
 		cost = 3
@@ -3306,7 +3305,7 @@ focus_tree = {
 		id = MAD_vanilla_quality_control
 		icon = GFX_goal_generic_political_pressure
 		x = 2
-		y = 2
+		y = 1
 		relative_position_id = MAD_vanilla_export_sector
 		cost = 3
 		prerequisite = { focus = MAD_vanilla_export_sector }
@@ -3333,7 +3332,7 @@ focus_tree = {
 		id = MAD_vanilla_quantity
 		icon = GFX_goal_generic_political_pressure
 		x = 0
-		y = 2
+		y = 1
 		relative_position_id = MAD_vanilla_export_sector
 		cost = 3
 		prerequisite = { focus = MAD_vanilla_export_sector }
@@ -4242,7 +4241,7 @@ focus_tree = {
 		id = MAD_set_prices
 		icon = GFX_goal_generic_political_pressure
 		x = 2
-		y = 2
+		y = 1
 		relative_position_id = MAD_vanilla_quantity
 		cost = 3
 		prerequisite = { focus = MAD_vanilla_quantity focus = MAD_vanilla_quality_control }
@@ -4273,7 +4272,7 @@ focus_tree = {
 		id = MAD_self_regulate_vanilla
 		icon = GFX_goal_generic_political_pressure
 		x = 0
-		y = 2
+		y = 1
 		relative_position_id = MAD_vanilla_quantity
 		cost = 3
 		prerequisite = { focus = MAD_vanilla_quantity focus = MAD_vanilla_quality_control }
@@ -4410,12 +4409,9 @@ focus_tree = {
 			add_to_variable = { MAD_agri_productivity = -0.02 tooltip = agricolture_productivity_modifier_tt }
 			add_to_variable = { MAD_agri_income_tax = -0.02 tooltip = agriculture_district_income_tax_modifier_tt }
 			hidden_effect = { clr_country_flag = MAD_DAEWOO_KOREAN_AGRI_SECTOR }
-			set_variable = { MAD_drought_daewoo_pressure = 0 }
-			custom_effect_tooltip = {
-				localization_key = modifies_dynamic_modifier_tt
-				MODIFIER = MAD_agriculture_modifier
-			}
 			add_to_variable = { MAD_agri_worker_req = 0.03 tooltip = agriculture_district_worker_requirement_modifier_tt }
+			set_variable = { MAD_drought_daewoo_pressure = 0 }
+			
 			
 			
 			set_party_index_to_ruling_party = yes
@@ -5288,7 +5284,7 @@ focus_tree = {
 		id = MAD_CNV_CVM
 		icon = GFX_goal_generic_political_pressure
 		x = 0
-		y = 2
+		y = 1
 		relative_position_id = MAD_set_prices
 		cost = 3
 		prerequisite = { focus = MAD_set_prices }
@@ -5315,7 +5311,7 @@ focus_tree = {
 		id = MAD_liberalise_market
 		icon = GFX_goal_generic_political_pressure
 		x = 0
-		y = 2
+		y = 1
 		relative_position_id = MAD_self_regulate_vanilla
 		cost = 3
 		prerequisite = { focus = MAD_self_regulate_vanilla }
@@ -5691,7 +5687,7 @@ focus_tree = {
 			add_to_variable = { MAD_economy_receiving_investment_duration_modifier = -0.05 tooltip = receiving_investment_duration_modifier_tt }
 			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.10 tooltip = productivity_growth_modifier_tt }
 			add_to_variable = { MAD_economy_trade_opinion_factor = 0.05 tooltip = trade_opinion_factor_tt }
-
+			
 			add_power_balance_value = { id = MAD_economy_ownership_bop value = -0.075 tooltip_side = MAD_private_ownership }
 			if = {
 				limit = { has_idea = fossil_fuel_industry }
@@ -6317,7 +6313,7 @@ focus_tree = {
 		id = MAD_VANILLA_PRICE_STABILITY
 		icon = GFX_goal_generic_political_pressure
 		x = 0
-		y = 2
+		y = 1
 		relative_position_id = MAD_CNV_CVM
 		cost = 3
 		prerequisite = { focus = MAD_CNV_CVM }
@@ -6347,7 +6343,7 @@ focus_tree = {
 		id = MAD_VANILLA_BOOM_BUST_CYCLE
 		icon = GFX_goal_generic_political_pressure
 		x = 0
-		y = 2
+		y = 1
 		relative_position_id = MAD_liberalise_market
 		cost = 3
 		prerequisite = { focus = MAD_liberalise_market }
@@ -7999,7 +7995,7 @@ focus_tree = {
 		id = MAD_POL_ROY_MALAGASY_TRADITION
 		icon = GFX_goal_generic_culture
 		x = 0
-		y = 2
+		y = 1
 		relative_position_id = MAD_POL_ROY_SUMMON_HOUSES
 		cost = 3
 		prerequisite = { focus = MAD_POL_ROY_SUMMON_HOUSES }
@@ -8020,7 +8016,7 @@ focus_tree = {
 		id = MAD_POL_ROY_SACRED_CONSTITUTION
 		icon = GFX_goal_generic_constitution
 		x = 0
-		y = 2
+		y = 1
 		relative_position_id = MAD_POL_ROY_MALAGASY_TRADITION
 		cost = 3
 		prerequisite = { focus = MAD_POL_ROY_MALAGASY_TRADITION }
@@ -8049,7 +8045,7 @@ focus_tree = {
 		id = MAD_POL_ROY_CROWN_QUESTION
 		icon = GFX_goal_monarchism
 		x = 0
-		y = 2
+		y = 1
 		relative_position_id = MAD_POL_ROY_SACRED_CONSTITUTION
 		cost = 3
 		prerequisite = { focus = MAD_POL_ROY_SACRED_CONSTITUTION }
@@ -8092,6 +8088,7 @@ focus_tree = {
 				}
 			}
 		}
+
 		completion_reward = {
 			267 = {
 				add_extra_state_shared_building_slots = 1
@@ -8106,7 +8103,10 @@ focus_tree = {
 			change_domestic_influence_percentage = yes
 			set_country_flag = MAD_ROY_COUNCIL_ESTABLISHED
 		}
-		ai_will_do = { base = 1 }
+
+		ai_will_do = {
+			base = 1
+		}
 	}
 
 	focus = {
@@ -8187,7 +8187,7 @@ focus_tree = {
 		id = MAD_POL_ROY_CROWN_ABOVE_NOBILITY
 		icon = GFX_goal_generic_religion
 		x = 0
-		y = 2
+		y = 1
 		relative_position_id = MAD_POL_ROY_KINGS_MANDATE
 		cost = 3
 		prerequisite = { focus = MAD_POL_ROY_KINGS_MANDATE }
@@ -8255,7 +8255,7 @@ focus_tree = {
 		id = MAD_POL_ROY_CHRIST_KING
 		icon = GFX_goal_generic_government
 		x = 0
-		y = 2
+		y = 1
 		relative_position_id = MAD_POL_ROY_CROWN_ABOVE_NOBILITY
 		cost = 3
 		prerequisite = { focus = MAD_POL_ROY_CROWN_ABOVE_NOBILITY }
@@ -8292,7 +8292,7 @@ focus_tree = {
 		id = MAD_POL_ROY_NATIONAL_WEALTH
 		icon = GFX_goal_generic_constitution
 		x = 0
-		y = 2
+		y = 1
 		relative_position_id = MAD_POL_ROY_CHRIST_KING
 		cost = 3
 		prerequisite = { focus = MAD_POL_ROY_CHRIST_KING }
@@ -8318,7 +8318,7 @@ focus_tree = {
 		id = MAD_POL_ROY_CUSTOM_BEFORE_PARTY
 		icon = GFX_goal_generic_law
 		x = 0
-		y = 2
+		y = 1
 		relative_position_id = MAD_POL_ROY_NATIONAL_WEALTH
 		cost = 3
 		prerequisite = { focus = MAD_POL_ROY_NATIONAL_WEALTH }
@@ -8352,7 +8352,7 @@ focus_tree = {
 		id = MAD_POL_ROY_CROWN_FINAL
 		icon = GFX_goal_generic_agriculture
 		x = 0
-		y = 2
+		y = 1
 		relative_position_id = MAD_POL_ROY_CUSTOM_BEFORE_PARTY
 		cost = 3
 		prerequisite = { focus = MAD_POL_ROY_CUSTOM_BEFORE_PARTY }
@@ -8392,7 +8392,7 @@ focus_tree = {
 		id = MAD_POL_ROY_NATIONAL_TRUST
 		icon = GFX_goal_generic_resource_production
 		x = 0
-		y = 2
+		y = 1
 		relative_position_id = MAD_POL_ROY_CROWN_FINAL
 		cost = 3
 		prerequisite = { focus = MAD_POL_ROY_CROWN_FINAL }
@@ -8418,7 +8418,7 @@ focus_tree = {
 		id = MAD_POL_ROY_ENDOGENOUS_DEVELOPMENT
 		icon = GFX_goal_generic_science
 		x = 0
-		y = 2
+		y = 1
 		relative_position_id = MAD_POL_ROY_NATIONAL_TRUST
 		cost = 3
 		prerequisite = { focus = MAD_POL_ROY_NATIONAL_TRUST }
@@ -8455,7 +8455,7 @@ focus_tree = {
 		id = MAD_POL_ROY_SACRED_HERITAGE
 		icon = GFX_goal_generic_construct_civilian
 		x = 0
-		y = 2
+		y = 1
 		relative_position_id = MAD_POL_ROY_ENDOGENOUS_DEVELOPMENT
 		cost = 3
 		prerequisite = { focus = MAD_POL_ROY_ENDOGENOUS_DEVELOPMENT }
@@ -8488,7 +8488,7 @@ focus_tree = {
 		id = MAD_POL_ROY_BIBLICAL_GEOPOLITICS
 		icon = GFX_goal_generic_diplomacy
 		x = 0
-		y = 2
+		y = 1
 		relative_position_id = MAD_POL_ROY_SACRED_HERITAGE
 		cost = 3
 		prerequisite = { focus = MAD_POL_ROY_SACRED_HERITAGE }
@@ -8544,7 +8544,7 @@ focus_tree = {
 		id = MAD_POL_ROY_TRIBES_BEFORE_PARTIES
 		icon = GFX_goal_generic_culture
 		x = 0
-		y = 2
+		y = 1
 		relative_position_id = MAD_POL_ROY_TRUE_SOVEREIGNTY
 		cost = 3
 		prerequisite = { focus = MAD_POL_ROY_TRUE_SOVEREIGNTY }
@@ -8578,7 +8578,7 @@ focus_tree = {
 		id = MAD_POL_ROY_NEW_KINGDOM
 		icon = GFX_goal_monarchism
 		x = 0
-		y = 2
+		y = 1
 		relative_position_id = MAD_POL_ROY_TRIBES_BEFORE_PARTIES
 		cost = 3
 		prerequisite = { focus = MAD_POL_ROY_TRIBES_BEFORE_PARTIES }
@@ -8600,8 +8600,8 @@ focus_tree = {
 			set_temp_variable = { party_popularity_increase = 0.05 }
 			set_temp_variable = { temp_outlook_increase = 0.05 }
 			change_relative_party_popularity = yes
-			recalculate_party = yes		
-	}
+			recalculate_party = yes
+		}
 
 		ai_will_do = {
 			base = 1
@@ -8612,7 +8612,7 @@ focus_tree = {
 		id = MAD_POL_ROY_FFKM_CONCORDAT
 		icon = GFX_goal_generic_religion
 		x = -2
-		y = 0
+		y = 1
 		relative_position_id = MAD_POL_ROY_CROWN_ABOVE_NOBILITY
 		cost = 3
 		prerequisite = { focus = MAD_POL_ROY_CROWN_ABOVE_NOBILITY }
@@ -8634,7 +8634,6 @@ focus_tree = {
 				set_temp_variable = { temp_opinion = 10 }
 				change_the_clergy_opinion = yes
 			}
-			
 		}
 
 		ai_will_do = {
@@ -8646,7 +8645,7 @@ focus_tree = {
 		id = MAD_POL_ROY_PEOPLES_GUARDIANS
 		icon = GFX_goal_generic_police
 		x = -2
-		y = 0
+		y = 1
 		relative_position_id = MAD_POL_ROY_CHRIST_KING
 		cost = 3
 		prerequisite = { focus = MAD_POL_ROY_CHRIST_KING }
@@ -8677,8 +8676,8 @@ focus_tree = {
 	focus = {
 		id = MAD_POL_ROY_ISRAEL_AGRITECH
 		icon = GFX_goal_generic_agriculture
-		x = -2
-		y = 2
+		x = -1
+		y = 1
 		relative_position_id = MAD_POL_ROY_BIBLICAL_GEOPOLITICS
 		cost = 3
 		prerequisite = { focus = MAD_POL_ROY_BIBLICAL_GEOPOLITICS }
@@ -8720,8 +8719,8 @@ focus_tree = {
 	focus = {
 		id = MAD_POL_ROY_ISRAEL_SECURITY
 		icon = GFX_goal_generic_army
-		x = -2
-		y = 2
+		x = -1
+		y = 1
 		relative_position_id = MAD_POL_ROY_ISRAEL_AGRITECH
 		cost = 3
 		prerequisite = { focus = MAD_POL_ROY_ISRAEL_AGRITECH }
@@ -8760,8 +8759,8 @@ focus_tree = {
 	focus = {
 		id = MAD_POL_ROY_ISLANDS_WAIT
 		icon = GFX_goal_generic_diplomacy
-		x = 2
-		y = 2
+		x = 1
+		y = 1
 		relative_position_id = MAD_POL_ROY_BIBLICAL_GEOPOLITICS
 		cost = 3
 		prerequisite = { focus = MAD_POL_ROY_BIBLICAL_GEOPOLITICS }
@@ -8842,7 +8841,7 @@ focus_tree = {
 		id = MAD_POL_ROY_FIHAVANANA
 		icon = GFX_goal_generic_culture
 		x = 0
-		y = 2
+		y = 1
 		relative_position_id = MAD_POL_ROY_TAMIMA_COUNCIL
 		cost = 3
 		prerequisite = { focus = MAD_POL_ROY_TAMIMA_COUNCIL }
@@ -8853,8 +8852,8 @@ focus_tree = {
 				MAD_TAMIMA_IN_POWER = yes
 			}
 		}
+
 		completion_reward = {
-			# Fihavanana is enacted as a social compact, not unlocked as a repeatable button.
 			add_stability = 0.03
 			set_temp_variable = { percent_change = 3 }
 			change_domestic_influence_percentage = yes
@@ -8871,14 +8870,17 @@ focus_tree = {
 			increase_social_spending = yes
 			set_country_flag = MAD_TAMIMA_FIHAVANANA
 		}
-		ai_will_do = { base = 1 }
+
+		ai_will_do = {
+			base = 1
+		}
 	}
 
 	focus = {
 		id = MAD_POL_ROY_FOKONOLONA
 		icon = GFX_focus_generic_self_management
 		x = 0
-		y = 2
+		y = 1
 		relative_position_id = MAD_POL_ROY_FIHAVANANA
 		cost = 3
 		prerequisite = { focus = MAD_POL_ROY_FIHAVANANA }
@@ -8909,7 +8911,7 @@ focus_tree = {
 		id = MAD_POL_ROY_CUSTOMARY_JUSTICE
 		icon = GFX_goal_generic_council
 		x = 0
-		y = 2
+		y = 1
 		relative_position_id = MAD_POL_ROY_FOKONOLONA
 		cost = 3
 		prerequisite = { focus = MAD_POL_ROY_FOKONOLONA }
@@ -8920,6 +8922,7 @@ focus_tree = {
 				MAD_TAMIMA_IN_POWER = yes
 			}
 		}
+
 		completion_reward = {
 			add_tech_bonus = {
 				name = MAD_POL_ROY_TAMIMA_LIVING_FORCES
@@ -8946,14 +8949,17 @@ focus_tree = {
 			}
 			set_country_flag = MAD_TAMIMA_LIVING_FORCES
 		}
-		ai_will_do = { base = 1 }
+
+		ai_will_do = {
+			base = 1
+		}
 	}
 
 	focus = {
 		id = MAD_POL_ROY_CROWN_WITHOUT_KING
 		icon = GFX_focus_generic_self_management
 		x = 0
-		y = 2
+		y = 1
 		relative_position_id = MAD_POL_ROY_CUSTOMARY_JUSTICE
 		cost = 3
 		prerequisite = { focus = MAD_POL_ROY_CUSTOMARY_JUSTICE }
@@ -8993,7 +8999,7 @@ focus_tree = {
 		id = MAD_POL_ROY_ONE_MADAGASCAR_MANY_HOUSES
 		icon = GFX_goal_generic_government
 		x = 0
-		y = 2
+		y = 1
 		relative_position_id = MAD_POL_ROY_CROWN_WITHOUT_KING
 		cost = 3
 		prerequisite = { focus = MAD_POL_ROY_CROWN_WITHOUT_KING }
@@ -9004,8 +9010,8 @@ focus_tree = {
 				MAD_TAMIMA_IN_POWER = yes
 			}
 		}
+
 		completion_reward = {
-			# Constitutional recognition of Dina is enacted here; the older follow-up decision is removed.
 			decrease_corruption = yes
 			add_stability = 0.015
 			decrease_centralization = yes
@@ -9018,14 +9024,17 @@ focus_tree = {
 			}
 			set_country_flag = MAD_TAMIMA_DINA_JUSTICE
 		}
-		ai_will_do = { base = 1 }
+
+		ai_will_do = {
+			base = 1
+		}
 	}
 
 	focus = {
 		id = MAD_POL_ROY_TAMIMA_SACRED_HERITAGE
 		icon = GFX_goal_generic_construct_civilian
 		x = 0
-		y = 2
+		y = 1
 		relative_position_id = MAD_POL_ROY_ONE_MADAGASCAR_MANY_HOUSES
 		cost = 3
 		prerequisite = { focus = MAD_POL_ROY_ONE_MADAGASCAR_MANY_HOUSES }
@@ -9061,7 +9070,7 @@ focus_tree = {
 		id = MAD_POL_ROY_CROWNLESS_CONSTITUTION
 		icon = GFX_goal_generic_constitution
 		x = 0
-		y = 2
+		y = 1
 		relative_position_id = MAD_POL_ROY_TAMIMA_SACRED_HERITAGE
 		cost = 3
 		prerequisite = { focus = MAD_POL_ROY_TAMIMA_SACRED_HERITAGE }
@@ -9095,7 +9104,7 @@ focus_tree = {
 		id = MAD_POL_ROY_ONE_MADAGASCAR_MANY_HOUSES_FINAL
 		icon = GFX_goal_generic_national_unity
 		x = 0
-		y = 2
+		y = 1
 		relative_position_id = MAD_POL_ROY_CROWNLESS_CONSTITUTION
 		cost = 3
 		prerequisite = { focus = MAD_POL_ROY_CROWNLESS_CONSTITUTION }
@@ -9121,7 +9130,7 @@ focus_tree = {
 		id = MAD_POL_ROY_TAMIMA_COUNCIL_GOVERNMENT
 		icon = GFX_goal_generic_council
 		x = 0
-		y = 2
+		y = 1
 		relative_position_id = MAD_POL_ROY_ONE_MADAGASCAR_MANY_HOUSES_FINAL
 		cost = 3
 		prerequisite = { focus = MAD_POL_ROY_ONE_MADAGASCAR_MANY_HOUSES_FINAL }

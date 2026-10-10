@@ -7,6 +7,12 @@ on_actions = {
 				limit = { country_exists = MAD }
 				MAD = {
 					MAD_dahalo_init = yes
+					# Initialise the displacement calendar independently of the drought focus.
+					if = {
+						limit = { NOT = { has_country_flag = MAD_DROUGHT_CALENDAR_CLOCK_STARTED } }
+						set_variable = { MAD_drought_calendar_month = 1 }
+						set_country_flag = MAD_DROUGHT_CALENDAR_CLOCK_STARTED
+					}
 					if = { limit = { NOT = { has_idea = MAD_ARMY_INHERITED_BURDEN } NOT = { has_country_flag = MAD_ARMY_BURDEN_REMOVED } } add_ideas = MAD_ARMY_INHERITED_BURDEN }
 					set_country_flag = MAD_MIL_PARTY_LEADER_CAPSAT
 					if = {
@@ -15,6 +21,8 @@ on_actions = {
 						country_event = { id = mad_drought.2 days = 30 }
 					}
 					clamp_variable = { var = MAD_drought_prevention_count min = 0 max = 7 }
+					# Clear any stale displacement penalty and evaluate per-origin totals on startup.
+					MAD_drought_update_displacement_overload = yes
 
 					# Party-idea entitlement setup is event-driven; no daily/weekly/monthly polling is used.
 					MAD_seed_party_idea_entitlements = yes
@@ -64,15 +72,14 @@ on_actions = {
 			}
 		}
 	}
-		on_monthly = {
-			effect = {
+	on_monthly = {
+		effect = {
+			# This hook runs for every country. Keep Madagascar-only monthly maintenance
+			# behind the tag check so it cannot run once for every country in the world.
 			if = {
-				limit = { country_exists = MAD }
+				limit = { tag = MAD }
 				MAD = {
 					# TGV formation/reveal is checked monthly for performance.
-					# If December 2007 arrives first, the historical formation event wins;
-					# if mad_political.91 has already been resolved into the delayed TGV route,
-					# the pending flag prevents a second formation event.
 					if = {
 						limit = {
 							original_tag = MAD
@@ -82,7 +89,6 @@ on_actions = {
 						}
 						country_event = { id = mad_political.96 }
 					}
-
 					if = {
 						limit = {
 							NOT = { has_country_flag = MAD_DAHALO_DEFEATED }
@@ -98,6 +104,36 @@ on_actions = {
 						clamp_variable = { var = MAD_dahalo_threat min = 0 max = 100 }
 						MAD_dahalo_update_modifier = yes
 					}
+				}
+			}
+		}
+	}
+
+	# Tag-specific monthly hook: this is the ONLY active hook that advances the
+	# displacement calendar. The obsolete MAD_drought_displacement_on_actions.txt
+	# must be replaced by the comment-only stub in this bundle or removed.
+	on_monthly_MAD = {
+		effect = {
+			if = {
+				limit = { has_country_flag = MAD_DROUGHT_STARTED }
+				if = {
+					limit = { has_country_flag = MAD_DROUGHT_CALENDAR_CLOCK_STARTED }
+					clr_country_flag = MAD_DROUGHT_CALENDAR_CLOCK_STARTED
+					# At the 2000-01-01 new-game pulse, January has not elapsed yet.
+					# If the first hook instead occurs in February, run normally below.
+					if = {
+						limit = { date > 1999.12.31 date < 2000.1.2 }
+						set_country_flag = MAD_DROUGHT_SKIP_INITIAL_DISPLACEMENT_PULSE
+					}
+				}
+				if = {
+					limit = { NOT = { has_country_flag = MAD_DROUGHT_SKIP_INITIAL_DISPLACEMENT_PULSE } }
+					MAD_drought_displacement_monthly_tick = yes
+					MAD_drought_update_displacement_overload = yes
+				}
+				if = {
+					limit = { has_country_flag = MAD_DROUGHT_SKIP_INITIAL_DISPLACEMENT_PULSE }
+					clr_country_flag = MAD_DROUGHT_SKIP_INITIAL_DISPLACEMENT_PULSE
 				}
 			}
 		}

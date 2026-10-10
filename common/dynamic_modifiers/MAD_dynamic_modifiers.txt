@@ -295,3 +295,18 @@ MAD_ARMY_COMMAND_SYSTEM = {
 	supply_consumption_factor = MAD_ARMY_CMD_SUPPLY_CONSUMPTION_FACTOR
 	planning_speed = MAD_ARMY_CMD_PLANNING_SPEED
 }
+# common/dynamic_modifiers/MAD_drought_displacement_modifiers.txt
+# Applied only to an origin state with 50,000 or more of its own residents still displaced.
+# The scripted effect removes it once fewer than 50,000 of that state's residents remain displaced.
+MAD_DROUGHT_DISPLACEMENT_OVERLOAD = {
+	icon = GFX_idea_unknown
+	enable = {
+	# Even if accidentally attached, the penalty only applies to the state whose own
+	# outstanding displacement counter reaches 50,000.
+	check_variable = { var = MAD_drought_origin_displaced value = 50000 compare = greater_than_or_equals }
+}
+	remove_trigger = {
+	check_variable = { var = MAD_drought_origin_displaced value = 50000 compare = less_than }
+}
+	state_production_speed_buildings_factor = -0.20
+}
