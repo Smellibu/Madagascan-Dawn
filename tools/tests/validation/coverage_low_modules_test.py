@@ -13,6 +13,7 @@ import validate_mod_descriptors as descriptors
 import validate_scripted_gui as scripted_gui
 import validate_unused_scripted as unused
 from shared_utils import run_validator_main
+from sprite_index import SpriteSizeIndex
 
 
 def _write(root: Path, relative: str, content: str) -> Path:
@@ -188,7 +189,9 @@ def _agency_completion_cache_fixture(tmp_path, triggers: str, effects: str):
     return validator
 
 
-def _slot_trigger(idx: int, read_idx: int = None, max_idx: int = None) -> str:
+def _slot_trigger(
+    idx: int, read_idx: int | None = None, max_idx: int | None = None
+) -> str:
     read_idx = idx if read_idx is None else read_idx
     max_idx = idx if max_idx is None else max_idx
     return (
@@ -429,6 +432,7 @@ novalue:0
 bracket:0 "[broken"
 typo:0 "seperate [ROOT.GetName] $VALUE$"
 prose:0 "bad — `"
+unbalanced:0 "said \\"go."
 clean:0 "§Yok§!"
 """,
     )
@@ -450,6 +454,7 @@ clean:0 "§Yok§!"
     assert {item.category for item in prose_results} == {
         "loc-em-dash",
         "loc-backtick-apostrophe",
+        "loc-unbalanced-quote",
     }
     _write(
         tmp_path,
@@ -524,6 +529,7 @@ novalue:0
 bracket:0 "[broken"
 typo:0 "seperate"
 prose:0 "bad — `"
+unbalanced:0 "said \\"go."
 sub_a:0 "§Y"
 orphan_tt:0 "never used"
 used_tt:0 "used"
@@ -582,6 +588,7 @@ tooltip = dynamic_[TAG]_tt
     assert "loc-typo-watchlist" in categories
     assert "loc-em-dash" in categories
     assert "loc-backtick-apostrophe" in categories
+    assert "loc-unbalanced-quote" in categories
     assert any("missing_key" in issue.message for issue in validator._issues)
     assert any("orphan_tt" in issue.message for issue in validator._issues)
     assert any("resistance_bad" in issue.message for issue in validator._issues)
@@ -906,10 +913,15 @@ def test_decision_parsers_and_low_level_branches(tmp_path):
     assert decisions._slot_for_size(114, 101) == "category_picture"
     assert decisions._slot_for_size(40, 40) is None
     assert (
-        decisions._resolved_sprite("decision", "plain", {"GFX_decision_plain": "x"})
+        decisions._resolved_sprite(
+            "decision", "plain", SpriteSizeIndex({"GFX_decision_plain": "x"})
+        )
         == "GFX_decision_plain"
     )
-    assert decisions._icon_type_message("decision", "x", "none", {}) is None
+    assert (
+        decisions._icon_type_message("decision", "x", "none", SpriteSizeIndex({}))
+        is None
+    )
     assert decisions._extract_from_blocks("FROM = { x = yes }") == [" x = yes "]
     assert decisions._extract_from_blocks("FROM = {") == []
     assert decisions._flat_tag_pins("{ tag = GER NOT = { tag = ITA } }") == {"GER"}
@@ -1236,12 +1248,12 @@ cat_ai_disabled = {
         "missing-decision-log",
         "decision-log-not-first",
         "bare-trigger-name",
+        "missing-decision-war-hint",
     }
     assert expected <= categories
     for marker in (
         "Decision AI factor issues",
         "Decisions in categories without allowed",
-        "Decisions that declare war",
         "Decisions with custom_cost_trigger",
         "Decisions with redundant tag checks",
         "Missions with visible block",

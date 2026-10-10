@@ -7,15 +7,23 @@ adapted for Millennium Dawn with multiprocessing.
 
 import bisect
 import glob
+import math
 import os
 import re
 import sys
+from functools import partial
 from pathlib import Path
 from typing import AbstractSet, Any, Dict, List, Optional, Set, Tuple
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 
 import disk_cache
+from linting.check_common_mistakes import (
+    _build_event_index,
+    _event_chain_leads_to_war,
+    _owner_scope_event_sends,
+    _war_at_scope,
+)
 from shared_utils import (
     ai_only_decision_categories,
     atomic_write_text,
@@ -29,6 +37,7 @@ from shared_utils import (
     read_text_strict,
     strip_comments,
     strip_inline_comment,
+    validation_config,
 )
 from sprite_index import SpriteSizeIndex, build_sprite_index, build_sprite_size_index
 from validator_common import (
@@ -49,9 +58,14 @@ _DECISION_REFERENCE_SOURCE_PATTERNS = (
     "history/**/*.txt",
 )
 
+# Decision and category IDs may contain hyphens.
+_LITERAL_ID_TOKEN = r"[\w-]+"
 
-def _should_skip(filename: str) -> bool:
-    return should_skip_file(filename, extra_skip_patterns=EXTRA_SKIP_PATTERNS)
+
+def _should_skip(filename: str, *, mod_path: Optional[str] = None) -> bool:
+    return should_skip_file(
+        filename, extra_skip_patterns=EXTRA_SKIP_PATTERNS, mod_path=mod_path
+    )
 
 
 _TARGETED_BLOCK_RE = re.compile(
@@ -195,6 +209,10 @@ def _resolved_sprite(kind: str, value: str, sprites: SpriteSizeIndex) -> Optiona
     return None
 
 
+_SLOT_EXEMPT_SPRITES = frozenset(
+    validation_config("validate_decisions", "slot_exempt_sprites")
+)
+
 _MOD_ART_HINT = "resize with tools/assets/resize_decision_icons.py"
 _VANILLA_ART_HINT = (
     "vanilla art: use a sprite sized for this slot or add a resized MD copy"
@@ -212,7 +230,7 @@ def _icon_type_message(
     if "[" in value or "]" in value:
         return None
     sprite = _resolved_sprite(kind, value, sprites)
-    if sprite is None:
+    if sprite is None or sprite in _SLOT_EXEMPT_SPRITES:
         return None
     size = sprites.size(sprite)
     if size is None:
@@ -225,6 +243,55 @@ def _icon_type_message(
         f"{owner}: {_ICON_KIND_FIELD[kind]} = {value} -> {sprite} is "
         f"{size[0]}x{size[1]}, which is {_SLOT_LABEL[actual]} art; a "
         f"{_SLOT_LABEL[kind]} is {_SLOT_TYPICAL_SIZE[kind]} ({hint})"
+    )
+
+
+# A category description that opens with a text icon (`£name` draws GFX_name)
+# shows the art at native size, centred on its text line. `full_text` starts 6px
+# down in hoi_16mbs, whose lines are 16px (interface/countrydecisionview.gui:158),
+# so each leading `\n` lowers the art 16px. The 480x73 banners overhang the box by
+# about 7px behind their one newline and read fine, so 8px is allowed; a 480x225
+# picture behind the same padding covers the category header (#4315).
+_DESC_LEADING_ICON_RE = re.compile(
+    r'^[ \t]*([\w.\-]+)_desc:\d*[ \t]*"((?:\\n|[ \t])*)£(\w+)', re.MULTILINE
+)
+_DESC_LINE_HEIGHT = 16
+_DESC_HEADROOM = 6 + _DESC_LINE_HEIGHT // 2 + 8
+
+
+def _desc_image_min_newlines(height: int) -> int:
+    """Leading newlines a description needs above art of this pixel height."""
+    return max(0, math.ceil((height / 2 - _DESC_HEADROOM) / _DESC_LINE_HEIGHT))
+
+
+def _leading_desc_icons(text: str) -> List[Tuple[str, int, str, int]]:
+    """Return (owner, leading newlines, icon, line) for each `<owner>_desc`
+    value in a localisation file that opens with a text icon."""
+    return [
+        (
+            m.group(1),
+            m.group(2).count("\\n"),
+            m.group(3),
+            text.count("\n", 0, m.start()) + 1,
+        )
+        for m in _DESC_LEADING_ICON_RE.finditer(text)
+    ]
+
+
+def _desc_image_message(
+    owner: str, newlines: int, icon: str, sprites: SpriteSizeIndex
+) -> Optional[str]:
+    """Return a finding when the art opening a category description sits too
+    high. An icon that resolves to no measurable sprite is not reported."""
+    size = sprites.size(f"GFX_{icon}")
+    if size is None:
+        return None
+    needed = _desc_image_min_newlines(size[1])
+    if newlines >= needed:
+        return None
+    return (
+        f"{owner}_desc: £{icon} is {size[0]}x{size[1]} behind {newlines} leading "
+        f"\\n, so it overlaps the category header; it needs {needed}"
     )
 
 
@@ -359,10 +426,18 @@ def _unactivated(candidates: set, activated: set) -> list:
     return sorted(remaining)
 
 
+# The leading `\b` on both keywords rejects a longer key ending in one
+# (`md_unlock_decision_tooltip`).
 _UNLOCK_CATEGORY_RE = re.compile(
-    r"unlock_decision_category_tooltip\s*=\s*([A-Za-z0-9_]+)"
+    rf"\bunlock_decision_category_tooltip\s*=\s*({_LITERAL_ID_TOKEN})"
 )
-_UNLOCK_DECISION_RE = re.compile(r"unlock_decision_tooltip\s*=\s*([A-Za-z0-9_]+)")
+# `unlock_decision_tooltip` takes a bare decision token or the block form
+# `{ decision = <token> ... }` (resources/documentation/effects_documentation.md),
+# where the decision may sit beside `show_effect_tooltip` / `show_modifiers`.
+_UNLOCK_DECISION_RE = re.compile(
+    rf"\bunlock_decision_tooltip\s*=\s*(?:({_LITERAL_ID_TOKEN})"
+    rf"|\{{[^{{}}]*?\bdecision\s*=\s*({_LITERAL_ID_TOKEN}))"
+)
 # State that flips on during play, so the category it gates appears mid-game.
 _MIDGAME_GATE_RE = re.compile(
     r"\b(?:has_country_flag|has_global_flag|has_completed_focus|has_idea)"
@@ -374,7 +449,60 @@ _SET_FLAG_RE = re.compile(
     r"set_(?:country|global)_flag\s*=\s*(?:([A-Za-z0-9_]+)"
     r"|\{[^{}]*?flag\s*=\s*([A-Za-z0-9_]+))"
 )
-_UNLOCK_IN_EFFECT_RE = re.compile(r"unlock_decision_tooltip\s*=\s*([A-Za-z0-9_]+)")
+
+
+def _unlock_decision_names(text: str) -> Set[str]:
+    """Decision names `unlock_decision_tooltip` names in *text*, either form.
+
+    A quoted string is text, not an effect: a `log = "unlock_decision_tooltip =
+    X"` line names nothing, so the strings are blanked before matching.
+    """
+    code = blank_quoted_strings(text)
+    return {m.group(1) or m.group(2) for m in _UNLOCK_DECISION_RE.finditer(code)}
+
+
+def _announced_names(refs: List[Tuple[str, str, str, int]]) -> Set[str]:
+    """Names told to the player by (kind, name, file, line) unlock refs."""
+    return {name for _, name, _, _ in refs}
+
+
+# What each unlock tooltip names, and where that definition lives.
+_UNLOCK_TARGET_FIELD = {
+    "decision": "unlock_decision_tooltip",
+    "category": "unlock_decision_category_tooltip",
+}
+_UNLOCK_TARGET_SOURCE = {
+    "decision": "common/decisions",
+    "category": "common/decisions/categories",
+}
+
+
+def _undefined_unlock_message(kind: str, name: str) -> str:
+    """Finding text for an unlock tooltip whose target has no definition."""
+    return (
+        f"{_UNLOCK_TARGET_FIELD[kind]} = {name} -> no {kind} named {name} is "
+        f"defined in {_UNLOCK_TARGET_SOURCE[kind]} (fix the typo or define it)"
+    )
+
+
+def _unlock_refs(text: str) -> List[Tuple[str, str, int]]:
+    """Return (kind, name, line) for each unlock tooltip reference in *text*.
+
+    The caller strips comments first, so a commented-out tooltip is absent.
+    Quoted strings are blanked before matching: a string quoting the keyword
+    references nothing. blank_quoted_strings keeps every offset and newline, so
+    a reported line still points at the real reference.
+    """
+    code = blank_quoted_strings(text)
+    refs = [
+        ("category", m.group(1), code.count("\n", 0, m.start()) + 1)
+        for m in _UNLOCK_CATEGORY_RE.finditer(code)
+    ]
+    refs.extend(
+        ("decision", m.group(1) or m.group(2), code.count("\n", 0, m.start()) + 1)
+        for m in _UNLOCK_DECISION_RE.finditer(code)
+    )
+    return refs
 
 
 def _flat_flag_gates(block: str) -> Set[str]:
@@ -395,23 +523,25 @@ def _flat_flag_gates(block: str) -> Set[str]:
     return flags
 
 
-def _scan_activations_and_removals(filename: str) -> Tuple[set, set, set, set]:
-    """Single-read worker: (activated, missions, removed, announced).
+def _scan_activations_and_removals(
+    filename: str, *, mod_path: Optional[str] = None
+) -> Tuple[set, set, set, list]:
+    """Single-read worker: (activated, missions, removed, unlock refs).
 
     Combines the activation, external-removal and unlock-tooltip scans so the
-    full-repo .txt sweep reads each file once instead of three times.
-    `announced` holds both the categories and the individual decisions that some
-    focus or effect tells the player it has unlocked.
+    full-repo .txt sweep reads each file once instead of three times. The last
+    element holds (kind, name, line) for every reference that tells the player a
+    decision or category it has unlocked; the caller adds the file path.
     """
-    if _should_skip(filename):
-        return set(), set(), set(), set()
+    if _should_skip(filename, mod_path=mod_path):
+        return set(), set(), set(), []
     text_file = FileOpener.open_text_file(
         filename, lowercase=False, strip_comments_flag=True
     )
     decisions: set = set()
     missions: set = set()
     removals: set = set()
-    announced: set = set()
+    unlock_refs: List[Tuple[str, str, int]] = []
     if "activate_targeted_decision" in text_file:
         for block in _TARGETED_BLOCK_RE.findall(text_file):
             decisions.update(_DECISION_NAME_RE.findall(block))
@@ -421,18 +551,16 @@ def _scan_activations_and_removals(filename: str) -> Tuple[set, set, set, set]:
         removals.update(_REMOVE_DECISION_RE.findall(text_file))
         for block in _REMOVE_TARGETED_BLOCK_RE.findall(text_file):
             removals.update(_REMOVE_DECISION_NAME_RE.findall(block))
-    if "unlock_decision_category_tooltip" in text_file:
-        announced.update(_UNLOCK_CATEGORY_RE.findall(text_file))
-    if "unlock_decision_tooltip" in text_file:
-        announced.update(_UNLOCK_DECISION_RE.findall(text_file))
-    return decisions, missions, removals, announced
+    if "unlock_decision" in text_file:
+        unlock_refs = _unlock_refs(text_file)
+    return decisions, missions, removals, unlock_refs
 
 
 def _load_scripted_localisation_keys(mod_path: str) -> set:
     keys = set()
     pattern = os.path.join(mod_path, "common", "scripted_localisation", "*.txt")
     for filename in glob.iglob(pattern):
-        if _should_skip(filename):
+        if _should_skip(filename, mod_path=mod_path):
             continue
         text_file = FileOpener.open_text_file(
             filename, lowercase=False, strip_comments_flag=True
@@ -454,7 +582,9 @@ _DECISIONS_BLOCK_RE = re.compile(
     r"^\t[^\t#\n]+?\s*=\s*\{.*?^\t\}", flags=re.MULTILINE | re.DOTALL
 )
 _DECISION_TOKEN_LINE_RE = re.compile(r"^\t(\S+)\s*=", flags=re.MULTILINE)
-_CATEGORY_BLOCK_RE = re.compile(r"^\w* = \{.*?^\}", flags=re.DOTALL | re.MULTILINE)
+_CATEGORY_BLOCK_RE = re.compile(
+    rf"^{_LITERAL_ID_TOKEN} = \{{.*?^\}}", flags=re.DOTALL | re.MULTILINE
+)
 _CATEGORY_NAME_RE = re.compile(r"^(.*) = \{")
 _CATEGORY_DECISION_TOKEN_RE = re.compile(r"^[ \t]+(\S+) = \{", flags=re.MULTILINE)
 
@@ -811,6 +941,11 @@ def _is_effectively_ai_only(
 ) -> bool:
     """Whether the decision or its category is gated to AI players."""
     return dec.ai_only or dec_id in ai_only_by_category
+
+
+_AI_ONLY_LOC_KEEP = frozenset(
+    validation_config("validate_decisions", "ai_only_loc_keep")
+)
 
 
 def _formable_state_counts(factories: List["DecisionFactory"]) -> Dict[str, int]:
@@ -1400,7 +1535,7 @@ class Validator(BaseValidator):
         self.missing_icons = missing_icons
         self.unannounced_categories = unannounced_categories
         self._activation_removal_cache: Optional[
-            Tuple[Set[str], Set[str], Set[str], Set[str]]
+            Tuple[Set[str], Set[str], Set[str], List[Tuple[str, str, str, int]]]
         ] = None
         self._ai_only_by_category: Optional[Set[str]] = None
         self._ai_only_categories: Optional[Dict[str, str]] = None
@@ -1439,8 +1574,13 @@ class Validator(BaseValidator):
 
     def _get_activation_removal_scan(
         self,
-    ) -> Tuple[Set[str], Set[str], Set[str], Set[str]]:
-        """Scan shipped content for activations, external removals and unlocks."""
+    ) -> Tuple[Set[str], Set[str], Set[str], List[Tuple[str, str, str, int]]]:
+        """Scan shipped content for activations, external removals and unlocks.
+
+        The fourth element is every `unlock_*_tooltip` reference as
+        (kind, name, file, line); the names it carries are the unlocks that
+        announce themselves to the player.
+        """
         if self._activation_removal_cache is not None:
             return self._activation_removal_cache
         all_files = [
@@ -1453,19 +1593,32 @@ class Validator(BaseValidator):
         activated_decisions: Set[str] = set()
         activated_missions: Set[str] = set()
         externally_removed: Set[str] = set()
-        announced: Set[str] = set()
-        for decision_set, mission_set, removed_set, announced_set in self._pool_map(
-            _scan_activations_and_removals, all_files, chunksize=30
+        unlock_refs: List[Tuple[str, str, str, int]] = []
+        for filename, (
+            decision_set,
+            mission_set,
+            removed_set,
+            file_refs,
+        ) in zip(
+            all_files,
+            self._pool_map(
+                partial(_scan_activations_and_removals, mod_path=self.mod_path),
+                all_files,
+                chunksize=30,
+            ),
         ):
             activated_decisions |= decision_set
             activated_missions |= mission_set
             externally_removed |= removed_set
-            announced |= announced_set
+            relative = os.path.relpath(filename, self.mod_path)
+            unlock_refs.extend(
+                (kind, name, relative, line) for kind, name, line in file_refs
+            )
         self._activation_removal_cache = (
             activated_decisions,
             activated_missions,
             externally_removed,
-            announced,
+            unlock_refs,
         )
         return self._activation_removal_cache
 
@@ -1936,6 +2089,19 @@ class Validator(BaseValidator):
             "Decisions in categories without allowed check that also lack their own allowed trigger:",
         )
 
+    def validate_allowed_country_flag(self):
+        results = [
+            f"{d.token:<55}{d.source_basename}"
+            for d in parse_all_decision_factories(self.mod_path)
+            if d.allowed and re.search(r"\bhas_country_flag\s*=", d.allowed)
+        ]
+        self._report(
+            results,
+            "✓ No unsupported country flags in decision allowed blocks",
+            "Decision allowed blocks with has_country_flag (unsupported by the engine; move the check to visible or available):",
+            category="unsupported-decision-allowed-flag",
+        )
+
     def validate_random_seed(self):
         """Flag repeatable decisions rolling randomness without an explicit ``fixed_random_seed``.
 
@@ -2294,7 +2460,7 @@ class Validator(BaseValidator):
         results = []
         dec_filepath = str(Path(self.mod_path) / "common" / "decisions")
         for filename in sorted(glob.iglob(dec_filepath + "/**/*.txt", recursive=True)):
-            if _should_skip(filename):
+            if _should_skip(filename, mod_path=self.mod_path):
                 continue
             text_file = FileOpener.open_text_file(
                 filename, lowercase=False, strip_comments_flag=True
@@ -2346,6 +2512,8 @@ class Validator(BaseValidator):
                 # weight — the check runs in reverse and reports keys that
                 # exist. `custom_cost_text` is exempt: it can point at a
                 # scripted-loc key shared with player-facing decisions.
+                if dec_id in _AI_ONLY_LOC_KEEP:
+                    continue
                 for key in (name_key, f"{dec_id}_desc", dec.desc_override):
                     if key and key in loc_keys:
                         ai_results.append(
@@ -2405,7 +2573,8 @@ class Validator(BaseValidator):
         if not flagged:
             return []
 
-        _, _, _, announced = self._get_activation_removal_scan()
+        _, _, _, unlock_refs = self._get_activation_removal_scan()
+        announced = _announced_names(unlock_refs)
         return [
             f"{name} - {sources.get(name, 'decisions/categories')}: AI-only "
             f"decision category has localisation key '{key}'"
@@ -2413,6 +2582,40 @@ class Validator(BaseValidator):
             if name not in announced
             for key in flagged[name]
         ]
+
+    def validate_undefined_unlock_tooltips(self):
+        """Flag unlock tooltips naming a decision or category that does not exist.
+
+        `unlock_decision_tooltip = <decision>` (or `= { decision = <decision> }`)
+        and `unlock_decision_category_tooltip = <category>` tell the player what
+        has just opened. A typo or a rename leaves the tooltip naming nothing
+        while the unlock still happens. #3957's stale category name produced
+        `Invalid Decision Category` in error.log. This check reports the stale
+        reference during CI, with the file and line of the call.
+        """
+        self._log_section("Checking unlock tooltips name real decisions...")
+        self._report(
+            self._undefined_unlock_targets(),
+            "✓ Every unlock tooltip names a defined decision or category",
+            "Unlock tooltips naming a decision or category that does not exist:",
+            Severity.ERROR,
+            category="undefined-unlock-tooltip-target",
+        )
+
+    def _undefined_unlock_targets(self) -> List[Tuple[str, str, int]]:
+        """Findings for unlock tooltips whose decision/category is undefined."""
+        known = {
+            "decision": set(
+                parse_all_decision_names(self.mod_path, lowercase=False)[0]
+            ),
+            "category": set(parse_decision_categories(self.mod_path)),
+        }
+        _, _, _, unlock_refs = self._get_activation_removal_scan()
+        results = []
+        for kind, name, filepath, line in unlock_refs:
+            if name not in known[kind]:
+                results.append((_undefined_unlock_message(kind, name), filepath, line))
+        return results
 
     def validate_unannounced_categories(self):
         """Flag categories that switch on mid-game without telling the player.
@@ -2438,7 +2641,8 @@ class Validator(BaseValidator):
     def _unannounced_categories(self) -> List[str]:
         """Findings for mid-game categories nothing announces to the player."""
         ai_only = self._get_ai_only_categories()
-        _, _, _, announced = self._get_activation_removal_scan()
+        _, _, _, unlock_refs = self._get_activation_removal_scan()
+        announced = _announced_names(unlock_refs)
         by_category = parse_categories_with_decisions(self.mod_path, lowercase=False)
 
         results = []
@@ -2498,9 +2702,13 @@ class Validator(BaseValidator):
         for setter in factories:
             for block_name in EFFECT_BLOCKS:
                 block = getattr(setter, block_name)
-                if not block or "unlock_decision_tooltip" not in block:
+                if not block:
                     continue
-                announced = set(_UNLOCK_IN_EFFECT_RE.findall(block))
+                announced = _unlock_decision_names(block)
+                # Nothing announced: only the inconsistent case (some unlocks
+                # announced, siblings missed) is a defect.
+                if not announced:
+                    continue
                 missed: Set[str] = set()
                 for first, second in _SET_FLAG_RE.findall(block):
                     missed |= gated.get(first or second, set())
@@ -2645,41 +2853,80 @@ class Validator(BaseValidator):
         )
 
     def validate_missing_war_hint(self):
-        """Flag decisions that declare war but carry no war_with_* hint.
-
-        A decision whose complete_effect/remove_effect/timeout_effect calls
-        create_wargoal or declare_war should set one of the war_with_on_* (fixed
-        target) or war_with_target_on_* (FROM target) attributes so the AI
-        prepares for the war. create_wargoal inside an effect_tooltip still
-        represents an intended war, so its presence counts; the hint anywhere in
-        the decision body clears it.
-        """
+        """Check direct wars and owner-scope event chains for a matching phase hint."""
         self._log_section(
             "Checking decisions declaring war for a missing war_with_* hint..."
         )
 
         factories = parse_all_decision_factories(self.mod_path)
-        results = []
-        hints = (
-            "war_with_on_complete",
-            "war_with_on_remove",
-            "war_with_on_timeout",
-            "war_with_target_on_complete",
-            "war_with_target_on_remove",
-            "war_with_target_on_timeout",
-        )
+        category_pins = _category_allowed_pins(parse_decision_categories(self.mod_path))
+        category_decisions = parse_categories_with_decisions(self.mod_path)
+        owners: Dict[str, Set[str]] = {}
+        for category, tokens in category_decisions.items():
+            tags = {tag for _, tag in category_pins.get(category, set())}
+            if len(tags) == 1:
+                for token in tokens:
+                    owners.setdefault(token, set()).update(tags)
 
+        results = []
+        event_index = None
         for d in factories:
-            if not re.search(r"\b(?:create_wargoal|declare_war_on)\b", d.raw):
-                continue
-            if any(hint in d.raw for hint in hints):
-                continue
-            results.append(f"{d.token:<55}{d.source_basename}")
+            fields = blank_quoted_strings(d.raw)
+            tags = owners.get(d.token, set())
+            prefix = re.match(r"^([A-Z]{3})_", d.token)
+            allowed_tags = _flat_tag_pins(d.allowed)
+            owner_tag = next(iter(tags)) if len(tags) == 1 else None
+            if not owner_tag and len(allowed_tags) == 1:
+                owner_tag = next(iter(allowed_tags))
+            if not owner_tag and prefix:
+                owner_tag = prefix.group(1)
+            for phase in ("complete", "remove", "timeout"):
+                effect = getattr(d, f"{phase}_effect")
+                if not effect:
+                    continue
+                direct_war = _war_at_scope(blank_quoted_strings(effect), owner_tag)
+                chain = []
+                if not direct_war:
+                    sends = _owner_scope_event_sends(effect, owner_tag)
+                    if sends:
+                        if event_index is None:
+                            event_index = _build_event_index(self.mod_path)
+                        for event_id in sends:
+                            leads, chain = _event_chain_leads_to_war(
+                                event_id, owner_tag, event_index=event_index
+                            )
+                            if leads:
+                                break
+                        else:
+                            chain = []
+                if not direct_war and not chain:
+                    continue
+
+                fixed_hint = _top_level_field_value(fields, f"war_with_on_{phase}")
+                target_hint = (
+                    _top_level_field_value(fields, f"war_with_target_on_{phase}")
+                    == "yes"
+                )
+                targets_from = direct_war and re.search(
+                    r"\btarget\s*=\s*FROM\b", effect
+                )
+                if targets_from:
+                    has_hint = bool(target_hint)
+                else:
+                    has_hint = bool(fixed_hint and fixed_hint != "FROM") or bool(
+                        target_hint and (d.targets or d.target_array)
+                    )
+                if not has_hint:
+                    path = f" via {' -> '.join(chain)}" if chain else ""
+                    results.append(
+                        (f"{d.token} - {phase}_effect{path}", d.source_basename, 0)
+                    )
 
         self._report(
             results,
-            "✓ No decisions declaring war without a war_with_* hint",
-            "Decisions that declare war but have no war_with_on_* / war_with_target_on_* hint (AI won't prepare):",
+            "✓ No decisions declaring war without a matching war_with_* hint",
+            "Decision effects leading to war without a matching war_with_on_* / war_with_target_on_* hint (AI won't prepare):",
+            category="missing-decision-war-hint",
         )
 
     def validate_cancel_if_not_visible(self):
@@ -2938,7 +3185,7 @@ class Validator(BaseValidator):
         for parts in _COMMIT_SCAN_DIRS:
             pattern = os.path.join(self.mod_path, *parts, "**", "*.txt")
             for filename in glob.iglob(pattern, recursive=True):
-                if _should_skip(filename):
+                if _should_skip(filename, mod_path=self.mod_path):
                     continue
                 if os.path.basename(filename) == _FORMABLE_DECISIONS_BASENAME:
                     continue
@@ -3064,8 +3311,38 @@ class Validator(BaseValidator):
             results,
             "✓ All decision icons use art sized for their slot",
             "Decision icons using art from the wrong slot:",
-            Severity.WARNING,
+            Severity.ERROR,
             category="decision-icon-slot-mismatch",
+        )
+
+    def validate_category_desc_images(self):
+        """Flag category descriptions whose opening art overlaps the header."""
+        self._log_section("Checking category description images clear the header...")
+
+        categories = parse_decision_categories(self.mod_path, lowercase=False)
+        sprites = build_sprite_size_index(self.mod_path, self._pool_map)
+        files = self._collect_files(
+            ["localisation/english/**/*.yml"], ignore_staged=True
+        )
+
+        results = []
+        for filepath in files:
+            text = read_text_strict(filepath)
+            for owner, newlines, icon, line in _leading_desc_icons(text):
+                if owner not in categories:
+                    continue
+                msg = _desc_image_message(owner, newlines, icon, sprites)
+                if msg:
+                    results.append(
+                        (msg, os.path.relpath(filepath, self.mod_path), line)
+                    )
+
+        self._report(
+            results,
+            "✓ All category description images clear the header",
+            "Category description images overlapping the header:",
+            Severity.WARNING,
+            category="category-desc-image-overlap",
         )
 
     def run_validations(self):
@@ -3090,6 +3367,7 @@ class Validator(BaseValidator):
         self.validate_from_checks_in_visible()
         self.validate_from_without_targets()
         self.validate_without_allowed_check()
+        self.validate_allowed_country_flag()
         self.validate_random_seed()
         self.validate_redundant_tag_checks()
         self.validate_allowed_redundant_with_category()
@@ -3098,6 +3376,7 @@ class Validator(BaseValidator):
         self.validate_visible_equals_available()
         self.validate_bare_trigger_names()
         self.validate_missing_localisation()
+        self.validate_undefined_unlock_tooltips()
         self.validate_unannounced_decision_unlocks()
         self.validate_missing_log()
         self.validate_log_not_first()
@@ -3112,6 +3391,7 @@ class Validator(BaseValidator):
         self.validate_orphaned_target_modifiers()
         self.validate_formable_commitment_sync()
         self.validate_icon_types()
+        self.validate_category_desc_images()
 
         if self.missing_icons:
             self.validate_missing_icons()

@@ -10,21 +10,25 @@
 import glob
 import os
 import re
+import subprocess
 import sys
 from difflib import get_close_matches
-from typing import Any, Dict, FrozenSet, Iterator, List, Optional, Set, Tuple
+from typing import Any, Dict, FrozenSet, Iterable, Iterator, List, Optional, Set, Tuple
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 
 import disk_cache
 from equipment_module_slots import (
+    CreatedVariants,
     Finding,
     _iter_blocks,
     _iter_named_blocks,
     _scalar,
     blank_comments,
     build_equipment_index,
+    check_created_variant_upgrades,
     check_created_variants,
+    created_variant_spans,
     parse_variant_names,
 )
 from shared_utils import (
@@ -48,6 +52,7 @@ _VARIANT_SLOT_CATEGORIES = {
     "missing_required_module": "SHIP VARIANT: required slot left empty",
     "count_limit_exceeded": "SHIP VARIANT: module count limit exceeded",
     "forbidden_equipment_type": "SHIP VARIANT: module forbidden on hull type",
+    "unsupported_upgrade": "SHIP VARIANT: unsupported upgrade",
 }
 
 _EQUIPMENT_VARIANT_SLOT_CATEGORIES = {
@@ -58,6 +63,7 @@ _EQUIPMENT_VARIANT_SLOT_CATEGORIES = {
     "missing_required_module": "EQUIPMENT VARIANT: required slot left empty",
     "count_limit_exceeded": "EQUIPMENT VARIANT: module count limit exceeded",
     "forbidden_equipment_type": "EQUIPMENT VARIANT: module forbidden on hull type",
+    "unsupported_upgrade": "EQUIPMENT VARIANT: unsupported upgrade",
 }
 
 # Every directory where a create_equipment_variant effect actually appears.
@@ -91,6 +97,8 @@ _OOB_CREATOR_RE = re.compile(r'\bcreator\s*=\s*"?([A-Za-z_]\w*)"?')
 _OOB_OWNER_RE = re.compile(r'\bowner\s*=\s*"?([A-Za-z_]\w*)"?')
 _PRODUCER_RE = re.compile(r'\b(?:creator|producer)\s*=\s*"?([A-Za-z_]\w*)"?')
 _LOAD_OOB_RE = re.compile(r'\bload_oob\s*=\s*(?:"([^"]+)"|([A-Za-z_]\w*))')
+_DIVISION_TEMPLATE_DEF_PATTERN = r"division_template\s*=\s*\{"
+_DIVISION_TEMPLATE_DEF_RE = re.compile(_DIVISION_TEMPLATE_DEF_PATTERN.encode())
 
 # create_unit and runtime load_oob appear in these sources.
 _CREATE_UNIT_SOURCE_PATTERNS = _VARIANT_SOURCE_PATTERNS + [
@@ -133,6 +141,60 @@ _TEMPLATE_SOURCE_ROOTS = (
 )
 
 
+def _any_file_contains(paths: List[str], needle: bytes) -> bool:
+    # Unreadable files stay in-scope so a skip cannot hide a real check.
+    for path in paths:
+        try:
+            with open(path, "rb") as handle:
+                if needle in handle.read():
+                    return True
+        except OSError:
+            return True
+    return False
+
+
+def _any_file_matches(paths: List[str], pattern: re.Pattern[bytes]) -> bool:
+    for path in paths:
+        try:
+            with open(path, "rb") as handle:
+                if pattern.search(handle.read()):
+                    return True
+        except OSError:
+            return True
+    return False
+
+
+def _changed_lines_match(mod_path: str, paths: List[str], pattern: str) -> bool:
+    if not paths or not os.path.exists(os.path.join(mod_path, ".git")):
+        return False
+    relative = [
+        normalize_path_separators(os.path.relpath(path, mod_path)) for path in paths
+    ]
+    try:
+        staged = subprocess.run(
+            ["git", "diff", "--cached", "--quiet", "--", *relative],
+            cwd=mod_path,
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+            check=False,
+            timeout=15,
+        )
+        if staged.returncode not in (0, 1):
+            return True
+        scope = ["--cached"] if staged.returncode == 1 else ["main...HEAD"]
+        matched = subprocess.run(
+            ["git", "diff", *scope, "--quiet", f"-G{pattern}", "--", *relative],
+            cwd=mod_path,
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+            check=False,
+            timeout=15,
+        )
+    except (OSError, subprocess.TimeoutExpired):
+        return True
+    return matched.returncode != 0
+
+
 def _read_text(filepath: str, under: str) -> str:
     try:
         return read_text_under(filepath, under)
@@ -142,6 +204,8 @@ def _read_text(filepath: str, under: str) -> str:
 
 def find_load_oob_references(content: str) -> List[Tuple[str, int]]:
     """Return literal load_oob targets and their line numbers."""
+    if "load_oob" not in content:
+        return []
     refs = []
     content = strip_comments(content)
     for match in _LOAD_OOB_RE.finditer(content):
@@ -502,9 +566,9 @@ def variant_tag_from_path(rel: str) -> Optional[str]:
 
 
 def build_variant_name_index(
-    sources: List[Tuple[str, str]],
+    sources: List[Tuple[str, Optional[CreatedVariants]]],
 ) -> Tuple[Dict[str, Set[Tuple[str, str]]], Set[Tuple[str, str]]]:
-    """``(per-tag, wildcard)`` ``(type, name)`` sets from ``(relpath, content)``.
+    """``(per-tag, wildcard)`` ``(type, name)`` sets from ``(relpath, variants)``.
 
     A variant in `history/countries/` belongs to that file's tag. Everywhere else
     (focus rewards, events, decisions, scripted effects) the effect runs in a
@@ -514,11 +578,11 @@ def build_variant_name_index(
     """
     by_tag: Dict[str, Set[Tuple[str, str]]] = {}
     wildcard: Set[Tuple[str, str]] = set()
-    for rel, content in sources:
-        if "create_equipment_variant" not in content:
+    for rel, variants in sources:
+        if variants is None:
             continue
         tag = variant_tag_from_path(rel)
-        for etype, name, _ in parse_variant_names(content):
+        for etype, name, _ in parse_variant_names(variants):
             if tag:
                 by_tag.setdefault(tag, set()).add((etype, name))
             else:
@@ -763,8 +827,10 @@ _DELETE_TEMPLATE_BLOCK_RE = re.compile(
     r"delete_unit_template_and_units\s*=\s*\{([^{}]*)\}"
 )
 _DELETE_TEMPLATE_NAME_RE = re.compile(r'\bdivision_template\s*=\s*"([^"]*)"')
-_ZERO_FACTOR_RE = re.compile(
-    r"\b(?:start_equipment_factor|start_manpower_factor)\s*=\s*0(?![.\d])"
+_EQUIPMENT_FACTOR_RE = re.compile(r"\bstart_equipment_factor\s*=")
+_START_FACTOR_RE = re.compile(
+    r"\bstart_(equipment|manpower)_factor\s*=\s*"
+    r"([+-]?(?:\d+\.\d*|\.\d+|\d+))(?![.\w])"
 )
 _STATE_YES_RE = re.compile(r"\bstate\s*=\s*yes\b")
 _EXECUTE_EFFECT_RE = re.compile(r"\bexecute_effect\b")
@@ -819,6 +885,10 @@ _CREATE_UNIT_CATEGORIES = {
     "malformed-division": "CREATE UNIT: division string does not parse",
     "out-of-bounds-division": "CREATE UNIT: division string has German/Danish letters",
     "zero-factor": "CREATE UNIT: equipment/manpower factor is zero",
+    "missing-equipment-factor": (
+        "CREATE UNIT: division string lacks start_equipment_factor"
+    ),
+    "near-zero-factor": "CREATE UNIT: equipment/manpower factor below 0.01",
     "template-order": "CREATE UNIT: template defined after create_unit",
     "missing-template-ensure": (
         "CREATE UNIT: template not created or has_template-guarded in this effect"
@@ -853,6 +923,7 @@ _DIVISION_NUMBER_KEYS = frozenset(
 )
 _FEV_ENTRY_KEYS = frozenset({"owner", "amount", "version_name", "creator"})
 _NUMBER_RE = re.compile(r"^[+-]?(?:\d+\.\d*|\.\d+|\d+)$")
+_BRACE_SCAN_RE = re.compile(r'[{}"\n]')
 
 
 class _CreateUnitChecks:
@@ -882,10 +953,6 @@ class _CreateUnitChecks:
         )
 
 
-def _line_of(text: str, pos: int) -> int:
-    return text[:pos].count("\n") + 1
-
-
 def _label_before_brace(text: str, brace_idx: int) -> Optional[str]:
     j = brace_idx - 1
     while j >= 0 and text[j] in " \t\r\n":
@@ -905,17 +972,20 @@ def _matching_braces(text: str) -> Dict[int, int]:
     stack = []
     pairs = {}
     in_str = False
-    for i, c in enumerate(text):
-        if c == '"' and (i == 0 or text[i - 1] != "\\"):
-            in_str = not in_str
+    for match in _BRACE_SCAN_RE.finditer(text):
+        i = match.start()
+        c = text[i]
+        if c == "\n":
+            # HOI4 strings cannot span lines.
+            in_str = False
+        elif c == '"':
+            if i == 0 or text[i - 1] != "\\":
+                in_str = not in_str
         elif not in_str:
             if c == "{":
                 stack.append(i)
             elif c == "}" and stack:
                 pairs[stack.pop()] = i
-        # HOI4 strings cannot span lines.
-        if c == "\n":
-            in_str = False
     return pairs
 
 
@@ -924,14 +994,18 @@ def _build_block_nodes(text: str) -> List[Dict]:
     pairs = _matching_braces(text)
     nodes: List[Dict[str, Any]] = []
     stack: List[int] = []
+    line = 1
+    counted_to = 0
     for op in sorted(pairs):
         while stack and nodes[stack[-1]]["end"] < op:
             stack.pop()
+        line += text.count("\n", counted_to, op)
+        counted_to = op
         node: Dict[str, Any] = {
             "label": _label_before_brace(text, op),
             "start": op,
             "end": pairs[op],
-            "line": _line_of(text, op),
+            "line": line,
             "parent": stack[-1] if stack else -1,
             "children": [],
         }
@@ -1092,24 +1166,41 @@ def _template_owner(nodes: List[Dict], text: str, idx: int, rel: str) -> Optiona
     return None
 
 
+def division_template_entries(rel: str, raw: str) -> List[Tuple[str, Optional[str]]]:
+    """``(name, owner)`` for each static division_template in one file.
+
+    The owner is None when no safe country scope pins the definition down.
+    """
+    if "division_template" not in raw:
+        return []
+    text = strip_comments(raw)
+    nodes = _build_block_nodes(text)
+    entries = []
+    for idx, node in enumerate(nodes):
+        if node["label"] != "division_template":
+            continue
+        name = _static_template_name(nodes, text, idx)
+        if name is not None:
+            entries.append((name, _template_owner(nodes, text, idx, rel)))
+    return entries
+
+
+def _read_division_template_entries(
+    args: Tuple[str, str],
+) -> List[Tuple[str, Optional[str]]]:
+    filepath, mod_path = args
+    rel = normalize_path_separators(os.path.relpath(filepath, mod_path))
+    return division_template_entries(rel, _read_text(filepath, mod_path))
+
+
 def build_division_template_index(
-    sources: List[Tuple[str, str]],
+    file_entries: Iterable[List[Tuple[str, Optional[str]]]],
 ) -> Tuple[Dict[str, FrozenSet[str]], FrozenSet[str]]:
     """Index static template names by safe country scope and wildcard the rest."""
     owners: Dict[str, Set[str]] = {}
     wildcard: Set[str] = set()
-    for rel, raw in sources:
-        if "division_template" not in raw:
-            continue
-        text = strip_comments(raw)
-        nodes = _build_block_nodes(text)
-        for idx, node in enumerate(nodes):
-            if node["label"] != "division_template":
-                continue
-            name = _static_template_name(nodes, text, idx)
-            if name is None:
-                continue
-            owner = _template_owner(nodes, text, idx, rel)
+    for entries in file_entries:
+        for name, owner in entries:
             if owner is None:
                 wildcard.add(name)
             else:
@@ -1595,15 +1686,20 @@ def _effect_template_closure(
         content = strip_comments(_read_text(filepath, mod_path))
         if not content:
             continue
-        nodes = _build_block_nodes(content)
-        for i, node in enumerate(nodes):
-            if node["parent"] != -1 or not node["label"]:
+        pairs = _matching_braces(content)
+        top_end = -1
+        for start in sorted(pairs):
+            if start < top_end:
                 continue
-            body = content[node["start"] : node["end"]]
+            top_end = pairs[start]
+            label = _label_before_brace(content, start)
+            if not label:
+                continue
+            body = content[start:top_end]
             names = set(_TEMPLATE_NAME_RE.findall(body))
             names.update(_HAS_TEMPLATE_RE.findall(body))
-            ensures.setdefault(node["label"], set()).update(names)
-            calls.setdefault(node["label"], set()).update(_EFFECT_CALL_RE.findall(body))
+            ensures.setdefault(label, set()).update(names)
+            calls.setdefault(label, set()).update(_EFFECT_CALL_RE.findall(body))
 
     resolved: Dict[str, FrozenSet[str]] = {}
 
@@ -1646,7 +1742,7 @@ def _deleted_template_names(mod_path: str, files: List[str]) -> FrozenSet[str]:
     names: Set[str] = set()
     for filepath in files:
         raw = _read_text(filepath, mod_path)
-        if not raw:
+        if "delete_unit_template_and_units" not in raw:
             continue
         for block in _DELETE_TEMPLATE_BLOCK_RE.finditer(strip_comments(raw)):
             m = _DELETE_TEMPLATE_NAME_RE.search(block.group(1))
@@ -1678,6 +1774,10 @@ def _check_created_units(
     ) = args
     raw = _read_text(filepath, mod_path)
     if not raw:
+        return []
+    if "create_unit" not in raw:
+        # Most candidates never mention it; the strip and block parse below
+        # would find no create_unit node anyway.
         return []
     content = strip_comments(raw)
     nodes = disk_cache.per_file_cached_by_content(
@@ -1749,12 +1849,29 @@ def _check_created_units(
         # The string carries escaped quotes (\"...\"); normalize so the inner
         # name/template/factor tokens parse like the engine's parsed string.
         dval_clean = dval.replace('\\"', '"')
-        if _ZERO_FACTOR_RE.search(dval_clean):
-            out.error(
-                "zero-factor",
-                f"{cu['line']}: start_equipment_factor/start_manpower_factor of 0 is treated as 1",
+        if not _EQUIPMENT_FACTOR_RE.search(dval_clean):
+            out.warn(
+                "missing-equipment-factor",
+                f"{cu['line']}: division string has no start_equipment_factor; set it explicitly",
                 line,
             )
+        for fmatch in _START_FACTOR_RE.finditer(dval_clean):
+            try:
+                fvalue = float(fmatch.group(2))
+            except ValueError:
+                continue
+            if fvalue == 0.0:
+                out.error(
+                    "zero-factor",
+                    f"{cu['line']}: start_{fmatch.group(1)}_factor of {fmatch.group(2)} is treated as 1",
+                    line,
+                )
+            elif fvalue < 0.01:
+                out.error(
+                    "near-zero-factor",
+                    f"{cu['line']}: start_{fmatch.group(1)}_factor of {fmatch.group(2)} is below 0.01",
+                    line,
+                )
 
         parsed_issues, tname = _parse_division_string(dval_clean)
         for kind, message in parsed_issues:
@@ -1833,12 +1950,15 @@ class Validator(BaseValidator):
     STAGED_EXTENSIONS = [".txt"]
 
     def __init__(self, *args, **kwargs):
+        self.missing_equipment_factor = kwargs.pop("missing_equipment_factor", False)
         super().__init__(*args, **kwargs)
         self.canonical = set()
         self.canonical_lower = {}
         self.namelist_canonical = set()
         self.namelist_canonical_lower = {}
-        self._variant_sources_by_scope: Dict[bool, List[Tuple[str, str]]] = {}
+        self._variant_sources_by_scope: Dict[
+            bool, List[Tuple[str, Optional[CreatedVariants]]]
+        ] = {}
 
     def _build_canonical_units(self):
         """Build the canonical unit name set from unit definition files."""
@@ -1935,12 +2055,19 @@ class Validator(BaseValidator):
         """Validate every `division_names_group = X` in OOB files points to a real group."""
         self._log_section("Checking division_names_group references in OOB files...")
 
+        files = self._collect_files(["history/units/*.txt"])
+        self.log(f"  Found {len(files)} OOB files to check")
+        if not files:
+            self._report(
+                [],
+                "✓ All division_names_group references resolve",
+                "OOB files with unknown division_names_group references:",
+            )
+            return
+
         group_keys = parse_division_group_keys(self.mod_path)
         group_keys_lower = {k.lower(): k for k in group_keys}
         self.log(f"  Found {len(group_keys)} division_names_group definitions")
-
-        files = self._collect_files(["history/units/*.txt"])
-        self.log(f"  Found {len(files)} OOB files to check")
 
         args_list = [(f, group_keys, group_keys_lower, self.mod_path) for f in files]
         all_results = self._pool_map(
@@ -1965,9 +2092,18 @@ class Validator(BaseValidator):
         """
         self._log_section("Checking air_wing_names_template loc references...")
 
-        loc_keys = self._load_localisation_keys()
         files = self._collect_files(["common/units/names/*.txt", "history/units/*.txt"])
         self.log(f"  Found {len(files)} files to check")
+        if not files:
+            self._report(
+                [],
+                "✓ All air_wing_names_template references resolve to a loc key",
+                "Files with unknown air_wing_names_template loc references:",
+                severity=Severity.WARNING,
+                category="air-wing-template-loc",
+            )
+            return
+        loc_keys = self._load_localisation_keys()
 
         results = []
         for filepath in files:
@@ -1998,20 +2134,26 @@ class Validator(BaseValidator):
             category="air-wing-template-loc",
         )
 
-    def _get_variant_sources(self, *, ignore_staged: bool) -> List[Tuple[str, str]]:
-        """Read variant sources once per effective staged/full scope."""
+    def _get_variant_sources(
+        self, *, ignore_staged: bool
+    ) -> List[Tuple[str, Optional[CreatedVariants]]]:
+        """Walk variant sources once per effective staged/full scope.
+
+        A file without `create_equipment_variant` maps to None.
+        """
         full_scope = not (self.staged_only and not ignore_staged)
         if full_scope in self._variant_sources_by_scope:
             return self._variant_sources_by_scope[full_scope]
 
         files = self._collect_files(_VARIANT_SOURCE_PATTERNS, ignore_staged=full_scope)
-        sources = [
-            (
-                normalize_path_separators(os.path.relpath(filepath, self.mod_path)),
-                _read_text(filepath, self.mod_path),
-            )
-            for filepath in files
-        ]
+        sources = []
+        for filepath in files:
+            content = _read_text(filepath, self.mod_path)
+            rel = normalize_path_separators(os.path.relpath(filepath, self.mod_path))
+            variants = None
+            if "create_equipment_variant" in content:
+                variants = created_variant_spans(content)
+            sources.append((rel, variants))
         self._variant_sources_by_scope[full_scope] = sources
         return sources
 
@@ -2041,18 +2183,24 @@ class Validator(BaseValidator):
         if not sources:
             self.log("  No files with equipment variants to check")
             return
-        self.log(f"  Found {len(sources)} files to check")
+        variant_files = [
+            (rel, variants) for rel, variants in sources if variants is not None
+        ]
+        if not variant_files:
+            self.log("  No create_equipment_variant effects in scope — skipping")
+            return
+        self.log(f"  Found {len(variant_files)} files to check")
 
         index = self.cached(
             "equipment_hull_index", lambda: build_equipment_index(units_dir)
         )
 
         results = []
-        for rel, content in sources:
-            if "create_equipment_variant" not in content:
-                continue
-
-            for f in check_created_variants(content, index):
+        for rel, variants in variant_files:
+            findings = check_created_variants(
+                variants, index
+            ) + check_created_variant_upgrades(variants, index)
+            for f in findings:
                 labels = (
                     _VARIANT_SLOT_CATEGORIES
                     if f.hull in index.ship_hulls
@@ -2084,15 +2232,29 @@ class Validator(BaseValidator):
         """
         self._log_section("Checking OOB and production equipment references...")
 
+        oob_files = self._collect_files(["history/units/*.txt"])
+        prod_files = self._collect_files(_HISTORY_PRODUCTION_PATTERNS)
+        if not oob_files and not prod_files:
+            self.log("  No OOB or production files in scope — skipping")
+            return
+        need_variants = _any_file_contains(oob_files, b"version_name")
+        need_archetypes = _any_file_contains(prod_files, b"add_equipment_")
+        if not need_variants and not need_archetypes:
+            self.log("  No equipment references in scope — skipping")
+            return
+
         def _build_variants():
             return build_variant_name_index(
                 self._get_variant_sources(ignore_staged=True)
             )
 
-        by_tag, wildcard = self.cached("variant_name_index", _build_variants)
-        if not by_tag and not wildcard:
-            self.log("  No equipment variants found, skipping")
-            return
+        by_tag: Dict[str, Set[Tuple[str, str]]] = {}
+        wildcard: Set[Tuple[str, str]] = set()
+        if need_variants:
+            by_tag, wildcard = self.cached("variant_name_index", _build_variants)
+            if not by_tag and not wildcard:
+                self.log("  No equipment variants found")
+                need_variants = False
 
         def _build_archetypes():
             units_dir = os.path.join(self.mod_path, "common", "units", "equipment")
@@ -2103,40 +2265,50 @@ class Validator(BaseValidator):
                 ]
             )
 
-        archetypes = self.cached("equipment_archetypes", _build_archetypes)
+        archetypes: Set[str] = set()
+        if need_archetypes:
+            archetypes = self.cached("equipment_archetypes", _build_archetypes)
+        if not need_variants and not need_archetypes:
+            return
 
         results = []
-        for filepath in self._collect_files(["history/units/*.txt"]):
-            content = _read_text(filepath, self.mod_path)
-            if "version_name" not in content:
-                continue
-            rel = normalize_path_separators(os.path.relpath(filepath, self.mod_path))
-            for f in check_oob_variant_refs(content, by_tag, wildcard):
-                results.append(
-                    Issue(
-                        severity=Severity.ERROR,
-                        category=_VARIANT_REF_CATEGORIES[f.kind],
-                        message=f.message,
-                        file=rel,
-                        line=f.line,
-                    )
+        if need_variants:
+            for filepath in oob_files:
+                content = _read_text(filepath, self.mod_path)
+                if "version_name" not in content:
+                    continue
+                rel = normalize_path_separators(
+                    os.path.relpath(filepath, self.mod_path)
                 )
+                for f in check_oob_variant_refs(content, by_tag, wildcard):
+                    results.append(
+                        Issue(
+                            severity=Severity.ERROR,
+                            category=_VARIANT_REF_CATEGORIES[f.kind],
+                            message=f.message,
+                            file=rel,
+                            line=f.line,
+                        )
+                    )
 
-        for filepath in self._collect_files(_HISTORY_PRODUCTION_PATTERNS):
-            content = _read_text(filepath, self.mod_path)
-            if "add_equipment_" not in content:
-                continue
-            rel = normalize_path_separators(os.path.relpath(filepath, self.mod_path))
-            for f in check_attributed_archetypes(content, archetypes):
-                results.append(
-                    Issue(
-                        severity=Severity.ERROR,
-                        category=_VARIANT_REF_CATEGORIES[f.kind],
-                        message=f.message,
-                        file=rel,
-                        line=f.line,
-                    )
+        if need_archetypes:
+            for filepath in prod_files:
+                content = _read_text(filepath, self.mod_path)
+                if "add_equipment_" not in content:
+                    continue
+                rel = normalize_path_separators(
+                    os.path.relpath(filepath, self.mod_path)
                 )
+                for f in check_attributed_archetypes(content, archetypes):
+                    results.append(
+                        Issue(
+                            severity=Severity.ERROR,
+                            category=_VARIANT_REF_CATEGORIES[f.kind],
+                            message=f.message,
+                            file=rel,
+                            line=f.line,
+                        )
+                    )
 
         self._report(
             results,
@@ -2148,10 +2320,6 @@ class Validator(BaseValidator):
         """Check that runtime OOB loads name an existing history file."""
         self._log_section("Checking runtime OOB references...")
 
-        target_paths = self._collect_files(["history/units/*.txt"], ignore_staged=True)
-        targets = {
-            os.path.splitext(os.path.basename(filepath))[0] for filepath in target_paths
-        }
         changed_targets = self.staged_only and any(
             normalize_path_separators(
                 os.path.relpath(filepath, self.mod_path)
@@ -2164,6 +2332,17 @@ class Validator(BaseValidator):
         source_paths = self._collect_files(
             _CREATE_UNIT_SOURCE_PATTERNS, ignore_staged=changed_targets
         )
+        if not source_paths:
+            self.log("  No runtime OOB callers in scope — skipping")
+            return
+        if not changed_targets and not _any_file_contains(source_paths, b"load_oob"):
+            self.log("  No load_oob calls in scope — skipping")
+            return
+
+        target_paths = self._collect_files(["history/units/*.txt"], ignore_staged=True)
+        targets = {
+            os.path.splitext(os.path.basename(filepath))[0] for filepath in target_paths
+        }
 
         results = []
         for filepath in source_paths:
@@ -2194,22 +2373,6 @@ class Validator(BaseValidator):
         """Check every create_unit effect source for proper form."""
         self._log_section("Checking create_unit effects across the mod...")
 
-        template_files = self._collect_files(
-            _TEMPLATE_SOURCE_PATTERNS, ignore_staged=True
-        )
-        template_sources = [
-            (
-                normalize_path_separators(os.path.relpath(filepath, self.mod_path)),
-                _read_text(filepath, self.mod_path),
-            )
-            for filepath in template_files
-        ]
-        template_owners, template_wildcard = disk_cache.aggregate_cached(
-            self.mod_path,
-            "oob_units.division_templates",
-            template_files,
-            lambda: build_division_template_index(template_sources),
-        )
         staged_template_paths = [
             normalize_path_separators(os.path.relpath(path, self.mod_path))
             for path in get_staged_files(
@@ -2217,9 +2380,23 @@ class Validator(BaseValidator):
             )
             or []
         ]
-        template_changed = self.staged_only and any(
-            path.startswith(_TEMPLATE_SOURCE_ROOTS) and path.endswith(".txt")
-            for path in staged_template_paths
+        template_candidates = []
+        for path in staged_template_paths:
+            if not (path.startswith(_TEMPLATE_SOURCE_ROOTS) and path.endswith(".txt")):
+                continue
+            template_candidates.append(
+                path if os.path.isabs(path) else os.path.join(self.mod_path, path)
+            )
+        # Path roots include events/focuses, which usually have no template
+        # definition. Only a real `division_template = {` (or a deleted file)
+        # should force a full-repo create_unit rescan.
+        template_changed = self.staged_only and (
+            _any_file_matches(template_candidates, _DIVISION_TEMPLATE_DEF_RE)
+            or _changed_lines_match(
+                self.mod_path,
+                template_candidates,
+                _DIVISION_TEMPLATE_DEF_PATTERN,
+            )
         )
         files = self._collect_files(
             _CREATE_UNIT_SOURCE_PATTERNS, ignore_staged=template_changed
@@ -2227,7 +2404,26 @@ class Validator(BaseValidator):
         if not files:
             self.log("  No files to check")
             return
+        if not template_changed and not _any_file_contains(files, b"create_unit"):
+            self.log("  No create_unit effects in scope — skipping")
+            return
         self.log(f"  Found {len(files)} files to check")
+
+        template_files = self._collect_files(
+            _TEMPLATE_SOURCE_PATTERNS, ignore_staged=True
+        )
+        template_owners, template_wildcard = disk_cache.aggregate_cached(
+            self.mod_path,
+            "oob_units.division_templates",
+            template_files,
+            lambda: build_division_template_index(
+                self._pool_map(
+                    _read_division_template_entries,
+                    [(f, self.mod_path) for f in template_files],
+                    chunksize=20,
+                )
+            ),
+        )
 
         delete_files = self._collect_files(
             _DELETE_TEMPLATE_SOURCE_PATTERNS, ignore_staged=True
@@ -2265,6 +2461,14 @@ class Validator(BaseValidator):
         for file_results in all_results:
             results.extend(file_results)
 
+        if not self.missing_equipment_factor:
+            self.log(
+                "  Skipping missing-equipment-factor check "
+                "(pass --missing-equipment-factor to enable)"
+            )
+            skip_cat = _CREATE_UNIT_CATEGORIES["missing-equipment-factor"]
+            results = [issue for issue in results if issue.category != skip_cat]
+
         self._report(
             results,
             "✓ All create_unit effects are well-formed",
@@ -2283,8 +2487,18 @@ class Validator(BaseValidator):
         self.validate_created_units()
 
 
+def _add_extra_args(parser):
+    parser.add_argument(
+        "--missing-equipment-factor",
+        action="store_true",
+        dest="missing_equipment_factor",
+        help=("Warn when a create_unit division string omits start_equipment_factor"),
+    )
+
+
 if __name__ == "__main__":
     run_validator_main(
         Validator,
         "Validate unit names in OOB files and AI templates against canonical definitions",
+        extra_args_fn=_add_extra_args,
     )

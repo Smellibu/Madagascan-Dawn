@@ -9,19 +9,24 @@ from pathlib import Path
 import pytest
 import run_validator_batch as rvb
 from report_lib import load_all
-from validator_batches import ValidatorSpec
+from validator_batches import IMPACT_ONLY_SPECS, ValidatorSpec
 
 
 class _Process:
     def __init__(self, returncode=0):
         self.returncode = returncode
 
+    def poll(self) -> int | None:
+        return self.returncode
+
     def wait(self):
         return self.returncode
 
 
-def _spec(name, script="validate_stub.py", strict=True):
-    return ValidatorSpec(name=name, script=script, groups=("common",), strict=strict)
+def _spec(name, script="validate_stub.py", strict=True, args=()):
+    return ValidatorSpec(
+        name=name, script=script, groups=("common",), strict=strict, args=args
+    )
 
 
 class _Args:
@@ -56,6 +61,19 @@ def _patch_runner(tmp_path, monkeypatch, behaviors, parallel):
 class _FakeStream:
     def close(self):
         pass
+
+
+def _tracked(name, live, peak):
+    """A finished process that stays in `live` until the runner waits on it."""
+    live.append(name)
+    peak.append(len(live))
+
+    class _Tracked(_Process):
+        def wait(self):
+            live.remove(name)
+            return 0
+
+    return _Tracked()
 
 
 _current_specs: list[ValidatorSpec] = []
@@ -99,11 +117,16 @@ def test_crash_fails_but_remaining_validators_still_run(tmp_path, monkeypatch, c
     assert "1 of 2 validator(s) failed: events" in out
 
 
-def test_strict_findings_fail_and_non_strict_findings_pass(tmp_path, monkeypatch):
-    finding = [{"severity": "error", "category": "c", "message": "m"}]
+def test_strict_findings_fail_and_non_strict_findings_pass(
+    tmp_path, monkeypatch, capsys
+):
+    findings = [
+        {"severity": severity, "category": "c", "message": "m"}
+        for severity in ("error", "error", "warning")
+    ]
     behaviors = {
-        "validation-gated": (1, "log", finding),
-        "validation-advisory": (0, "log", finding),
+        "validation-gated": (1, "log", findings),
+        "validation-advisory": (0, "log", findings),
     }
     _current_specs[:] = [_spec("gated"), _spec("advisory", strict=False)]
     _patch_runner(tmp_path, monkeypatch, behaviors, 2)
@@ -113,7 +136,11 @@ def test_strict_findings_fail_and_non_strict_findings_pass(tmp_path, monkeypatch
     )
 
     assert code == 1
-    assert (tmp_path / "validation-advisory.json").is_file()
+    out = capsys.readouterr().out
+    assert "FAILED gated (validate_stub.py): findings — 2 error(s), 1 warning(s)" in out
+    assert "OK advisory" in out
+    assert "1 of 2 validator(s) failed: gated" in out
+    assert _manifest_results(tmp_path)["advisory"]["status"] == "ok"
 
 
 def test_missing_result_files_fail_the_run(tmp_path, monkeypatch, capsys):
@@ -127,6 +154,7 @@ def test_missing_result_files_fail_the_run(tmp_path, monkeypatch, capsys):
 
     assert code == 1
     assert "missing" in capsys.readouterr().out
+    assert _manifest_results(tmp_path)["events"]["status"] == "missing"
 
 
 def test_concurrency_stays_bounded(tmp_path, monkeypatch):
@@ -134,17 +162,9 @@ def test_concurrency_stays_bounded(tmp_path, monkeypatch):
     peak = []
 
     def launch(_script, flags, _output_dir, name, _mod_path, **_kwargs):
-        live.append(name)
-        peak.append(len(live))
         (tmp_path / f"{name}.log").write_text("log", encoding="utf-8")
         (tmp_path / f"{name}.json").write_text("[]", encoding="utf-8")
-
-        class _Tracked(_Process):
-            def wait(self):
-                live.remove(name)
-                return 0
-
-        return _Tracked(), _FakeStream()
+        return _tracked(name, live, peak), _FakeStream()
 
     specs = [_spec(f"v{i}") for i in range(6)]
     _current_specs[:] = specs
@@ -155,11 +175,76 @@ def test_concurrency_stays_bounded(tmp_path, monkeypatch):
     assert max(peak) == 2
 
 
+def test_ci_runner_gives_each_validator_the_whole_budget(tmp_path, monkeypatch):
+    workers = []
+    live = []
+    peak = []
+
+    def launch(_script, flags, _output_dir, name, _mod_path, **_kwargs):
+        workers.append(flags[flags.index("--workers") + 1])
+        for suffix, body in ((".log", "log"), (".json", "[]")):
+            (tmp_path / f"{name}{suffix}").write_text(body, encoding="utf-8")
+        return _tracked(name, live, peak), _FakeStream()
+
+    specs = [_spec(f"v{i}") for i in range(6)]
+    monkeypatch.setattr(rvb.run_all_validators, "launch_validator", launch)
+    monkeypatch.setenv("MD_MAX_WORKERS", "4")
+
+    monkeypatch.delenv("CI", raising=False)
+    assert rvb.run_batch(specs, _Args(tmp_path)) == 0
+    assert max(peak) == 4
+    peak.clear()
+    monkeypatch.setenv("CI", "true")
+    assert rvb.run_batch(specs, _Args(tmp_path)) == 0
+
+    assert workers == ["1"] * 6 + ["4"] * 6
+    # Only the per-validator worker count grows on CI; concurrency stays capped.
+    assert max(peak) == 4
+
+
+def test_refills_slot_when_any_validator_finishes_first(tmp_path, monkeypatch, capsys):
+    events = []
+    poll_counts = {}
+
+    def launch(_script, _flags, _output_dir, name, _mod_path, **_kwargs):
+        events.append(("launch", name))
+        (tmp_path / f"{name}.log").write_text("log", encoding="utf-8")
+        (tmp_path / f"{name}.json").write_text("[]", encoding="utf-8")
+
+        class _Controlled(_Process):
+            def poll(self) -> int | None:
+                poll_counts[name] = poll_counts.get(name, 0) + 1
+                if poll_counts[name] > 20:
+                    pytest.fail(f"{name} never finished; a filled slot stayed idle")
+                if name == "validation-a" and ("launch", "validation-c") not in events:
+                    return None
+                return self.returncode
+
+            def wait(self):
+                events.append(("done", name))
+                return self.returncode
+
+        return _Controlled(), _FakeStream()
+
+    specs = [_spec("a"), _spec("b"), _spec("c")]
+    monkeypatch.setattr(rvb.run_all_validators, "launch_validator", launch)
+    monkeypatch.setattr(rvb, "split_cpu_budget", lambda tasks: (2, 1))
+
+    assert rvb.run_batch(specs, _Args(tmp_path)) == 0
+    assert events.index(("launch", "validation-c")) < events.index(
+        ("done", "validation-a")
+    )
+    output = capsys.readouterr().out
+    assert output.index("OK a") < output.index("OK b") < output.index("OK c")
+
+
 STUB_VALIDATOR = """
 import json
 import os
 import sys
 
+if os.environ.get('STUB_CRASH'):
+    raise RuntimeError('stub crashed')
 args = sys.argv[1:]
 out = args[args.index('--output') + 1]
 issues = json.loads(os.environ.get('STUB_ISSUES', '[]'))
@@ -180,15 +265,29 @@ def _install_stub_runner(tmp_path, monkeypatch):
     monkeypatch.setattr(rvb, "split_cpu_budget", lambda tasks: (2, 1))
 
 
-def test_real_subprocess_launch_honors_output_names_and_exit_codes(
-    tmp_path, monkeypatch
-):
-    """Integration: launch_validator uses batch output naming."""
-    _install_stub_runner(tmp_path, monkeypatch)
-
+def _tmp_batch_args(tmp_path):
+    """Batch args for mod root tmp_path with results in tmp_path/results."""
     out_dir = tmp_path / "results"
     args = _Args(out_dir)
     args.path = str(tmp_path)
+    return args, out_dir
+
+
+def _stub_batch(tmp_path, monkeypatch):
+    _install_stub_runner(tmp_path, monkeypatch)
+    return _tmp_batch_args(tmp_path)
+
+
+def _manifest_results(out_dir):
+    with open(out_dir / rvb.MANIFEST_NAME, "r", encoding="utf-8") as handle:
+        return {entry["name"]: entry for entry in json.load(handle)["results"]}
+
+
+def test_real_subprocess_launch_honors_output_names_and_exit_codes(
+    tmp_path, monkeypatch, capsys
+):
+    """Integration: launch_validator uses batch output naming."""
+    args, out_dir = _stub_batch(tmp_path, monkeypatch)
 
     # Clean run: rc 0, both files written.
     assert rvb.run_batch([_spec("stub")], args) == 0
@@ -203,11 +302,27 @@ def test_real_subprocess_launch_honors_output_names_and_exit_codes(
     assert rvb.run_batch([_spec("stub")], args) == 1
 
     # Crash: non-zero exit with no sidecar at all.
-    monkeypatch.setenv("STUB_ISSUES", "[]")
-    monkeypatch.setenv("STUB_EXIT", "3")
+    monkeypatch.setenv("STUB_CRASH", "1")
     (out_dir / "validation-stub.log").unlink()
     (out_dir / "validation-stub.json").unlink()
+    capsys.readouterr()
     assert rvb.run_batch([_spec("stub")], args) == 1
+
+    assert "RuntimeError: stub crashed" in capsys.readouterr().err
+    crashed = _manifest_results(out_dir)["stub"]
+    assert (crashed["status"], crashed["returncode"]) == ("crash", 1)
+
+
+def test_standalone_spec_runs_through_the_impact_adapter(tmp_path):
+    spec = next(spec for spec in IMPACT_ONLY_SPECS if spec.name == "mod-encoding")
+    (tmp_path / "descriptor.mod").write_bytes(b'name="Test"\n')
+    args, out_dir = _tmp_batch_args(tmp_path)
+
+    assert rvb.run_batch([spec], args) == 0
+
+    log = (out_dir / "validation-mod-encoding.log").read_text(encoding="utf-8")
+    assert "Valid UTF-8 encoding" in log
+    assert _manifest_results(out_dir)["mod-encoding"]["status"] == "ok"
 
 
 def test_batch_selection_passes_strict_only_for_gated_specs(tmp_path, monkeypatch):
@@ -229,6 +344,25 @@ def test_batch_selection_passes_strict_only_for_gated_specs(tmp_path, monkeypatc
         "validation-gated": True,
         "validation-advisory": False,
     }
+
+
+def test_run_batch_forwards_spec_args_to_launch_validator(tmp_path, monkeypatch):
+    captured = []
+
+    def launch(_script, flags, _output_dir, name, _mod_path, **_kwargs):
+        captured.append((name, list(flags)))
+        (tmp_path / f"{name}.log").write_text("log", encoding="utf-8")
+        (tmp_path / f"{name}.json").write_text("[]", encoding="utf-8")
+        return _Process(0), _FakeStream()
+
+    specs = [_spec("variables", args=("--redundant-focus-flags",))]
+    _current_specs[:] = specs
+    monkeypatch.setattr(rvb.run_all_validators, "launch_validator", launch)
+    monkeypatch.setattr(rvb, "split_cpu_budget", lambda tasks: (1, 1))
+
+    assert rvb.run_batch(specs, _Args(tmp_path)) == 0
+    assert "--redundant-focus-flags" in captured[0][1]
+    assert captured[0][0] == "validation-variables"
 
 
 def test_main_impact_selects_by_changed_files(tmp_path, monkeypatch, capsys):
@@ -303,6 +437,25 @@ def test_main_batch_with_no_selection_does_nothing(tmp_path, monkeypatch):
     assert ran == []
 
 
+def test_main_batch_forwards_the_changed_group_selection(tmp_path, monkeypatch):
+    ran = []
+    monkeypatch.setattr(rvb, "run_batch", lambda specs, _args: ran.append(specs) or 0)
+
+    code = rvb.main(
+        [
+            "--batch",
+            "targeted-a",
+            "--changed-groups",
+            "localisation",
+            "--output-dir",
+            str(tmp_path / "out"),
+        ]
+    )
+
+    assert code == 0
+    assert [[spec.name for spec in specs] for specs in ran] == [["decisions", "mios"]]
+
+
 def test_manifest_records_selection_and_execution_outcomes(
     tmp_path, monkeypatch, capsys
 ):
@@ -329,19 +482,14 @@ def test_manifest_records_selection_and_execution_outcomes(
 
 def test_stub_batch_artifact_loads_end_to_end(tmp_path, monkeypatch):
     """The full stub run produces an artifact tree the loader consumes."""
-    _install_stub_runner(tmp_path, monkeypatch)
-
-    out_dir = tmp_path / "results"
-    args = _Args(out_dir)
-    args.path = str(tmp_path)
+    args, out_dir = _stub_batch(tmp_path, monkeypatch)
 
     monkeypatch.setenv("STUB_ISSUES", '[{"severity": "error"}]')
     monkeypatch.setenv("STUB_EXIT", "1")
     assert rvb.run_batch([_spec("stub")], args) == 1
 
     # Crash: non-zero exit with no sidecar at all.
-    monkeypatch.delenv("STUB_ISSUES")
-    monkeypatch.setenv("STUB_EXIT", "3")
+    monkeypatch.setenv("STUB_CRASH", "1")
     (out_dir / "validation-stub.log").unlink()
     (out_dir / "validation-stub.json").unlink()
     assert rvb.run_batch([_spec("stub")], args) == 1
@@ -352,14 +500,10 @@ def test_stub_batch_artifact_loads_end_to_end(tmp_path, monkeypatch):
     # never surface as bogus validators.
     assert set(runs) == {"stub"}
     # Manifest execution metadata is applied by the ordinary report loader,
-    # so an empty sidecar after a crash is failed per validator.
+    # so a crash that wrote nothing is failed per validator.
     assert runs["stub"].status == "failed"
-    with open(out_dir / rvb.MANIFEST_NAME, "r", encoding="utf-8") as handle:
-        manifest = json.load(handle)
-    # rc 3 with an empty sidecar classifies as an empty "findings" run; the
-    # non-zero returncode is the load-bearing execution metadata.
-    assert manifest["results"][0]["returncode"] == 3
-    assert manifest["results"][0]["status"] in {"crash", "findings"}
+    crashed = _manifest_results(out_dir)["stub"]
+    assert (crashed["status"], crashed["returncode"]) == ("crash", 1)
 
 
 @pytest.mark.parametrize(
@@ -369,14 +513,11 @@ def test_stub_batch_artifact_loads_end_to_end(tmp_path, monkeypatch):
 def test_batch_archive_round_trip_includes_stderr(
     tmp_path, monkeypatch, exit_code, stderr, expected_status
 ):
-    _install_stub_runner(tmp_path, monkeypatch)
+    args, out_dir = _stub_batch(tmp_path, monkeypatch)
     monkeypatch.setenv("STUB_ISSUES", "[]")
     monkeypatch.setenv("STUB_EXIT", str(exit_code))
     monkeypatch.setenv("STUB_STDERR", stderr)
 
-    out_dir = tmp_path / "results"
-    args = _Args(out_dir)
-    args.path = str(tmp_path)
     assert rvb.run_batch([_spec("stub")], args) == (1 if exit_code else 0)
 
     archive_path = tmp_path / "artifact.zip"

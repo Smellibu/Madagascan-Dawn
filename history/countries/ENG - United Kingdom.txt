@@ -25,23 +25,23 @@ capital = 13
 			defensive_systems = 1
 			nsb_gun_technology_1 = 1
 			nsb_artillery_ammo_1 = 1
-			nsb_special_ammo_0 = 1
-			nsb_special_ammo_2 = 1
+			nsb_special_ammo_1 = 1
+			nsb_special_ammo_3 = 1
 			nsb_artillery_ammo_3 = 1
-			nsb_AA_autocannon_0 = 1
-			nsb_SHORAD_missile_0 = 1
+			nsb_AA_autocannon_1 = 1
+			nsb_SHORAD_missile_1 = 1
 			mbt_tech_1 = 1
 			defensive_systems_2 = 1
 			nsb_gun_technology_2 = 1
 			nsb_artillery_ammo_2 = 1
-			nsb_special_ammo_1 = 1
-			nsb_AA_autocannon_1 = 1
-			nsb_SHORAD_missile_1 = 1
+			nsb_special_ammo_2 = 1
+			nsb_AA_autocannon_2 = 1
+			nsb_SHORAD_missile_2 = 1
 			mbt_tech_2 = 1
 			tank_ammo_2 = 1
 			nsb_gun_technology_3 = 1
-			nsb_AA_autocannon_2 = 1
-			nsb_SHORAD_missile_2 = 1
+			nsb_AA_autocannon_3 = 1
+			nsb_SHORAD_missile_3 = 1
 			tank_components_tech = 1
 			tank_components_tech_2 = 1
 			tank_components_tech_3 = 1
@@ -52,6 +52,7 @@ capital = 13
 			armor_tech = 1
 			armor_tech_2 = 1
 			nera_armor_tech_1 = 1
+			nera_armor_tech_2 = 1
 			era_tech = 1
 			era_tech_2 = 1
 			diesel_engine_tech = 1
@@ -66,10 +67,10 @@ capital = 13
 			small_autocannon_tech_2 = 1
 			assault_gun_tech = 1
 			assault_gun_tech_2 = 1
-			nsb_artillery_0 = 1
-			nsb_artillery_1 = 1 #L118 Light Gun
-			nsb_Arty_upgrade_1 = 1
-			nsb_Arty_upgrade_2 = 1
+			nsb_artillery_1 = 1
+			nsb_artillery_2 = 1 #L118 Light Gun
+			nsb_arty_upgrade_1 = 1
+			nsb_arty_upgrade_2 = 1
 			nsb_Anti_Air_0 = 1
 			nsb_Anti_Air_1 = 1
 			nsb_AA_upgrade_1 = 1
@@ -103,9 +104,10 @@ capital = 13
 			 name = "Centurion"
 			 type = medium_tank_chassis_0
 			 parent_version = 0
-			modules = {
+			 modules = {
 				 main_armament_slot = tank_small_medium_cannon
-				ammunition_load_slot = mixed_main_ammo_1
+				 secondary_armament_slot = afv_coax_machine_gun
+				 ammunition_load_slot = mixed_main_ammo_1
 				 turret_type_slot = tank_base_tank_turret
 				 suspension_type_slot = tank_torsion_bar_suspension_medium
 				 armor_type_slot = tank_steel_armor_gen1
@@ -125,9 +127,10 @@ capital = 13
 			 name = "Vickers MBT Mk 1"
 			 type = medium_tank_chassis_0
 			 parent_version = 1
-			modules = {
+			 modules = {
 				 main_armament_slot = tank_small_medium_cannon
-				ammunition_load_slot = mixed_main_ammo_1
+				 secondary_armament_slot = afv_coax_machine_gun
+				 ammunition_load_slot = mixed_main_ammo_1
 				 turret_type_slot = tank_base_tank_turret
 				 suspension_type_slot = tank_torsion_bar_suspension_medium
 				 armor_type_slot = tank_steel_armor_gen1
@@ -147,9 +150,10 @@ capital = 13
 			 name = "Vickers MBT Mk 3"
 			 type = medium_tank_chassis_0
 			 parent_version = 2
-			modules = {
+			 modules = {
 				 main_armament_slot = tank_small_medium_cannon_2
-				ammunition_load_slot = mixed_main_ammo_2
+				 secondary_armament_slot = afv_coax_machine_gun_2
+				 ammunition_load_slot = mixed_main_ammo_2
 				 turret_type_slot = tank_base_tank_turret
 				 suspension_type_slot = tank_torsion_bar_suspension_medium
 				 armor_type_slot = tank_steel_armor_gen1
@@ -171,6 +175,7 @@ capital = 13
 			parent_version = 3
 			modules = {
 				main_armament_slot = tank_medium_cannon
+				secondary_armament_slot = afv_coax_machine_gun_2
 				ammunition_load_slot = mixed_main_ammo_1
 				turret_type_slot = tank_base_tank_turret
 				suspension_type_slot = tank_torsion_bar_suspension_medium
@@ -193,10 +198,11 @@ capital = 13
 			 parent_version = 0
 			modules = {
 				main_armament_slot = tank_medium_cannon_2
+					
 				ammunition_load_slot = mixed_main_ammo_2
 				turret_type_slot = tank_base_tank_turret
 				suspension_type_slot = tank_torsion_bar_suspension_medium
-				armor_type_slot = tank_composite_armor_gen1
+				armor_type_slot = nera_armor_gen1
 				engine_type_slot = tank_diesel_engine_gen2
 				reload_type_slot = manual_loading
 				special_type_slot_1 = smoke_launchers
@@ -217,16 +223,18 @@ capital = 13
 			parent_version = 0
 			modules = {
 				main_armament_slot = tank_medium_cannon_2
+				secondary_armament_slot = afv_coax_machine_gun_2
 				ammunition_load_slot = mixed_main_ammo_2
 				turret_type_slot = tank_base_tank_turret
 				suspension_type_slot = tank_pneumatic_suspension_medium
-				armor_type_slot = nera_armor_gen1
+				armor_type_slot = nera_armor_gen2
 				engine_type_slot = tank_diesel_engine_gen2
 				reload_type_slot = manual_loading
 				special_type_slot_1 = smoke_launchers_2
 				special_type_slot_2 = empty
-				special_type_slot_3 = tank_aux_engine_2
+				special_type_slot_3 = empty
 				special_type_slot_4 = tank_battlestation_2_thermal
+				special_type_slot_5 = tank_aux_engine_2
 				special_type_slot_6 = spaced_armor_gen2
 			}
 			upgrades = {
@@ -244,7 +252,7 @@ capital = 13
 				reload_type_slot = automatic_loading
 				ammunition_load_slot = machine_gun_ammo_1
 				turret_type_slot = tank_no_turret
-				suspension_type_slot = tank_torsion_bar_suspension_medium
+				suspension_type_slot = tank_wheeled_suspension_light
 				armor_type_slot = afv_alum_armor_gen2
 				engine_type_slot = tank_diesel_engine_gen2
 				special_type_slot_1 = afv_troop_capacity
@@ -270,7 +278,7 @@ capital = 13
 				reload_type_slot = automatic_loading
 				ammunition_load_slot = machine_gun_ammo_1
 				turret_type_slot = tank_base_tank_turret
-				suspension_type_slot = tank_torsion_bar_suspension_medium
+				suspension_type_slot = tank_torsion_bar_suspension_light
 				armor_type_slot = afv_alum_armor_gen2
 				engine_type_slot = tank_diesel_engine_gen2
 				special_type_slot_1 = afv_troop_capacity
@@ -298,7 +306,7 @@ capital = 13
 				reload_type_slot = automatic_loading
 				ammunition_load_slot = machine_gun_ammo_1
 				turret_type_slot = tank_no_turret
-				suspension_type_slot = tank_torsion_bar_suspension_medium
+				suspension_type_slot = tank_torsion_bar_suspension_light
 				engine_type_slot = tank_diesel_engine_gen2
 				armor_type_slot = afv_alum_armor_gen1
 				special_type_slot_1 = afv_gun_ports
@@ -322,10 +330,11 @@ capital = 13
 			parent_version = 0
 			modules = {
 				main_armament_slot = small_autocannon_2
+				secondary_armament_slot = afv_coax_machine_gun_2
 				reload_type_slot = automatic_loading
 				ammunition_load_slot = mixed_autocannon_ammo_1
 				turret_type_slot = tank_base_tank_turret
-				suspension_type_slot = tank_torsion_bar_suspension_medium
+				suspension_type_slot = tank_torsion_bar_suspension_light
 				armor_type_slot = afv_alum_armor_gen1
 				engine_type_slot = tank_diesel_engine_gen2
 				special_type_slot_1 = smoke_launchers_2
@@ -350,10 +359,10 @@ capital = 13
 			 parent_version = 0
 			modules = {
 				 main_armament_slot = art_med_gun_gen1
-				reload_type_slot = automatic_loading
-				ammunition_load_slot = artillery_medium_ammo_1
-				turret_type_slot = tank_base_tank_turret
-				 suspension_type_slot = tank_torsion_bar_suspension_medium
+				 reload_type_slot = automatic_loading
+				 ammunition_load_slot = artillery_medium_ammo_1
+				 turret_type_slot = tank_base_tank_turret
+				 suspension_type_slot = tank_torsion_bar_suspension_light
 				 engine_type_slot = tank_diesel_engine_gen1
 				 special_type_slot_1 = empty
 				 special_type_slot_2 = heat_ammo_1
@@ -371,9 +380,9 @@ capital = 13
 			 parent_version = 0
 			modules = {
 				 main_armament_slot = art_med_gun_gen3
-				reload_type_slot = automatic_loading
-				ammunition_load_slot = artillery_medium_ammo_2
-				turret_type_slot = tank_base_tank_turret
+				 reload_type_slot = automatic_loading
+				 ammunition_load_slot = artillery_medium_ammo_2
+				 turret_type_slot = tank_base_tank_turret
 				 suspension_type_slot = tank_torsion_bar_suspension_medium
 				 engine_type_slot = tank_diesel_engine_gen3
 				 special_type_slot_1 = empty
@@ -399,7 +408,7 @@ capital = 13
 				main_armament_slot = missile_launcher_system
 				reload_type_slot = eight_missile_pack
 				ammunition_load_slot = spaa_short_range_missiles_1
-				suspension_type_slot = tank_wheeled_suspension_medium
+				suspension_type_slot = tank_torsion_bar_suspension_light
 				engine_type_slot = tank_diesel_engine_gen3
 				turret_type_slot = tank_base_tank_turret
 				secondary_armament_slot = empty
@@ -422,7 +431,7 @@ capital = 13
 				main_armament_slot = missile_launcher_system
 				reload_type_slot = eight_missile_pack
 				ammunition_load_slot = spaa_short_range_missiles_1
-				suspension_type_slot = tank_wheeled_suspension_medium
+				suspension_type_slot = tank_torsion_bar_suspension_light
 				engine_type_slot = tank_diesel_engine_gen1
 				turret_type_slot = tank_base_tank_turret
 				secondary_armament_slot = empty
@@ -445,7 +454,7 @@ capital = 13
 				main_armament_slot = missile_launcher_system
 				reload_type_slot = eight_missile_pack
 				ammunition_load_slot = spaa_short_range_missiles_2
-				suspension_type_slot = tank_wheeled_suspension_medium
+				suspension_type_slot = tank_torsion_bar_suspension_light
 				engine_type_slot = tank_diesel_engine_gen4
 				secondary_armament_slot = empty
 				turret_type_slot = tank_no_turret
@@ -466,13 +475,13 @@ capital = 13
 			parent_version = 0
 			modules = {
 				main_armament_slot = afv_assault_gun
+				secondary_armament_slot = afv_coax_machine_gun_2
 				ammunition_load_slot = mixed_main_ammo_1
 				turret_type_slot = tank_base_tank_turret
-				suspension_type_slot = tank_wheeled_suspension_medium
+				suspension_type_slot = tank_wheeled_suspension_light
 				engine_type_slot = tank_diesel_engine_gen2
 				armor_type_slot = afv_alum_armor_gen1
 				reload_type_slot = automatic_loading
-				secondary_armament_slot = empty
 				special_type_slot_1 = empty
 				special_type_slot_2 = empty
 				special_type_slot_3 = smoke_launchers
@@ -493,10 +502,9 @@ capital = 13
 				reload_type_slot = automatic_loading
 				ammunition_load_slot = machine_gun_ammo_1
 				turret_type_slot = tank_base_tank_turret
-				suspension_type_slot = tank_wheeled_suspension_medium
+				suspension_type_slot = tank_wheeled_suspension_light
 				engine_type_slot = tank_diesel_engine_gen1
 				armor_type_slot = afv_alum_armor_gen1
-				secondary_armament_slot = empty
 				special_type_slot_1 = empty
 				special_type_slot_2 = empty
 				special_type_slot_3 = smoke_launchers
@@ -517,10 +525,9 @@ capital = 13
 				reload_type_slot = automatic_loading
 				ammunition_load_slot = machine_gun_ammo_1
 				turret_type_slot = tank_base_tank_turret
-				suspension_type_slot = tank_wheeled_suspension_medium
+				suspension_type_slot = tank_wheeled_suspension_light
 				engine_type_slot = tank_diesel_engine_gen1
 				armor_type_slot = afv_alum_armor_gen1
-				secondary_armament_slot = empty
 				special_type_slot_1 = empty
 				special_type_slot_2 = empty
 				special_type_slot_3 = empty
@@ -538,13 +545,13 @@ capital = 13
 			parent_version = 0
 			modules = {
 				main_armament_slot = afv_assault_gun
+				secondary_armament_slot = afv_coax_machine_gun_2
 				ammunition_load_slot = mixed_main_ammo_1
 				turret_type_slot = tank_base_tank_turret
-				suspension_type_slot = tank_torsion_bar_suspension_medium
+				suspension_type_slot = tank_torsion_bar_suspension_light
 				engine_type_slot = tank_diesel_engine_gen3
 				armor_type_slot = afv_alum_armor_gen1
 				reload_type_slot = automatic_loading
-				secondary_armament_slot = empty
 				special_type_slot_2 = smoke_launchers
 				special_type_slot_4 = tank_battlestation_1
 			}
@@ -560,13 +567,13 @@ capital = 13
 			parent_version = 0
 			modules = {
 				main_armament_slot = small_autocannon_2
+				secondary_armament_slot = afv_coax_machine_gun_2
 				reload_type_slot = automatic_loading
 				ammunition_load_slot = mixed_autocannon_ammo_1
 				turret_type_slot = tank_base_tank_turret
-				suspension_type_slot = tank_torsion_bar_suspension_medium
+				suspension_type_slot = tank_torsion_bar_suspension_light
 				engine_type_slot = tank_diesel_engine_gen3
 				armor_type_slot = afv_alum_armor_gen1
-				secondary_armament_slot = empty
 				special_type_slot_2 = smoke_launchers_2
 				special_type_slot_4 = tank_battlestation_2
 			}
@@ -683,34 +690,34 @@ capital = 13
 		}
 		create_equipment_variant = {
 			name = "M119"
-			type = artillery_1
+			type = artillery_2
 			upgrades = {
-				L_Arty_Reliability = 2
+				L_arty_reliability = 2
 			}
 		}
 		create_equipment_variant = {
 			name = "Milan 2"
-			type = Anti_tank_1
+			type = Anti_tank_2
 			upgrades = {
-				L_AT_Warhead = 1
+				L_AT_warhead = 1
 			}
 			obsolete = yes
 		}
 		create_equipment_variant = {
 			name = "Milan 2T"
-			type = Anti_tank_1
+			type = Anti_tank_2
 			upgrades = {
-				L_AT_Warhead = 3
+				L_AT_warhead = 3
 				L_AT_Reliability = 2
 			}
 			obsolete = yes
 		}
 		create_equipment_variant = {
 			name = "Milan 3"
-			type = Anti_tank_1
+			type = Anti_tank_2
 			upgrades = {
-				L_AT_Fire_Control = 2
-				L_AT_Warhead = 3
+				L_AT_fire_control = 2
+				L_AT_warhead = 3
 				L_AT_Reliability = 3
 			}
 			mark_older_equipment_obsolete = yes
@@ -733,8 +740,8 @@ capital = 13
 				APC_3 = 1 #FV103 Spartan
 				tech_arty_0 = 1
 				tech_arty_1 = 1 #L118 Light Gun
-				Arty_upgrade_1 = 1
-				Arty_upgrade_3 = 1
+				arty_upgrade_1 = 1
+				arty_upgrade_3 = 1
 				SP_arty_0 = 1
 				SP_arty_1 = 1
 				SP_arty_2 = 1 #AS-90
@@ -1213,13 +1220,13 @@ capital = 13
 				CV_MR_Fighter2 = 1
 				Strike_fighter1 = 1
 				Strike_fighter2 = 1 #Panavia Tornado
-				Strike_upgrade_1 = 1
+				strike_upgrade_1 = 1
 				Strike_fighter3 = 1
 				L_Strike_fighter1 = 1
 				L_Strike_fighter2 = 1
 				L_Strike_fighter3 = 1 #BAE Hawk 200
-				CV_L_Strike_Fighter1 = 1
-				CV_L_Strike_Fighter2 = 1
+				CV_L_Strike_fighter1 = 1
+				CV_L_Strike_fighter2 = 1
 				early_bomber = 1
 				strategic_bomber1 = 1
 				transport_plane1 = 1
@@ -1296,13 +1303,9 @@ capital = 13
 	set_variable = { ENG_north_irish_nationalists = 44 } # North Irish nationalism
 	set_variable = { ENG_north_irish_dependency = 94 } # The dependancy of the North Irish on the British
 	# Wales
-	set_variable = { ENG_wales_agitation = 0 } # Anger of the Welsh people
 	set_variable = { ENG_wales_nationalists = 17 } # Number of Nationalism in Wales
 	set_variable = { ENG_wales_dependency = 100 } # The dependancy of the Welsh on the British
-	# Inner Circle
-	set_variable = { ENG_ascended_advisor_1 = 0 }
-	set_variable = { ENG_ascended_advisor_2 = 0 }
-	set_variable = { ENG_ascended_advisor_3 = 0 }
+
 
 	# Flags
 	set_country_flag = ENG_elizabeth_ruling_monarch
@@ -1411,6 +1414,7 @@ capital = 13
 	}
 	set_variable = { ENG_drift_defence_factor_monarchy = 0.10 }
 	set_variable = { ENG_political_power_factor_monarchy = 0.05 }
+	add_dynamic_modifier = { modifier = ENG_hitachi_rail_industry }
 	17 = {
 		add_dynamic_modifier = {
 			modifier = ENG_State_17_Paramilitary_Activity
@@ -1698,9 +1702,9 @@ capital = 13
 		reactor1 = 1
 		reactor2 = 1
 
-		integrated_transportation_system = 1
-		post_conventional_rail = 1
-		early_freight_locomotive = 1
+		railway_system_01 = 1
+		railway_system_02 = 1
+		railway_system_03 = 1
 
 
 		superior_firepower = 1
@@ -1725,12 +1729,12 @@ capital = 13
 
 		land_drone_equipment_type = 1
 
-		Anti_tank_0 = 1
-		AT_upgrade_1 = 1
 		Anti_tank_1 = 1
+		AT_upgrade_1 = 1
+		Anti_tank_2 = 1
 
-		Heavy_Anti_tank_0 = 1
 		Heavy_Anti_tank_1 = 1
+		Heavy_Anti_tank_2 = 1
 
 		combat_eng_equipment = 1
 
@@ -1750,16 +1754,16 @@ capital = 13
 
 		basic_computing = 1
 		integrated_circuit = 1
-		computing1 = 1
-		decryption1 = 1
-		encryption1 = 1
+		computing_1 = 1
+		decryption_1 = 1
+		encryption_1 = 1
 		microprocessors = 1
-		computing2 = 1
-		decryption2 = 1
-		encryption2 = 1
+		computing_2 = 1
+		decryption_2 = 1
+		encryption_2 = 1
 		radar = 1
-		internet1 = 1
-		internet2 = 1
+		internet_1 = 1
+		internet_2 = 1
 		gprs = 1
 		fuel_silos = 1
 
@@ -1915,7 +1919,7 @@ capital = 13
 			name = "Centaur Class"
 			type = carrier_hull_1
 			name_group = ENG_CV_HISTORICAL
-			parent_version = 0
+			parent_version = 0 #Current Version: 1
 			modules = {
 				fixed_ship_engine_slot = module_surface_oil_power
 				fixed_ship_fire_control_system_slot = module_analog_fire_control
@@ -1934,6 +1938,7 @@ capital = 13
 				fixed_ship_missile_ammo_slot = module_naval_ammo_air_defense_1
 			}
 			obsolete = yes
+			role_icon_index = 25
 			icon = "gfx/interface/technologies/ENG/NAV/CV1.dds"
 		}
 		#Invincible Class
@@ -1941,7 +1946,7 @@ capital = 13
 			name = "Fearless Class"
 			type = helicopter_operator_hull_1
 			name_group = ENG_CV_HISTORICAL
-			parent_version = 0
+			parent_version = 0 #Current Version: 1
 			modules = {
 				fixed_ship_engine_slot = module_surface_jet_turbine_power
 				fixed_ship_fire_control_system_slot = module_analog_fire_control
@@ -1956,6 +1961,7 @@ capital = 13
 				fixed_ship_missile_ammo_slot = module_naval_ammo_air_defense_1
 			}
 			obsolete = yes
+			role_icon_index = 21
 			icon = "gfx/interface/technologies/ENG/NAV/LHA1.dds"
 		}
 		#Invincible Class
@@ -1963,7 +1969,7 @@ capital = 13
 			name = "Invincible Class"
 			type = helicopter_operator_hull_1
 			name_group = ENG_CV_HISTORICAL
-			parent_version = 0
+			parent_version = 0 #Current Version: 2
 			modules = {
 				fixed_ship_engine_slot = module_surface_jet_turbine_power
 				fixed_ship_fire_control_system_slot = module_digital_integrated_fire_control
@@ -1978,6 +1984,7 @@ capital = 13
 				fixed_ship_missile_ammo_slot = module_naval_ammo_air_defense_3
 			}
 			obsolete = yes
+			role_icon_index = 25
 			icon = "gfx/interface/technologies/ENG/NAV/CV2.dds"
 		}
 		#Ocean (L12)
@@ -1985,7 +1992,7 @@ capital = 13
 			name = "Ocean Class"
 			type = helicopter_operator_hull_2
 			name_group = ENG_CV_HISTORICAL
-			parent_version = 0
+			parent_version = 0 #Current Version: 1
 			modules = {
 				fixed_ship_engine_slot = module_surface_jet_turbine_power
 				fixed_ship_fire_control_system_slot = module_digital_integrated_fire_control
@@ -1998,6 +2005,7 @@ capital = 13
 				mid_1_custom_slot = module_76mm_gun_2
 				rear_1_custom_slot = module_helipads_1
 			}
+			role_icon_index = 22
 			icon = "gfx/interface/technologies/ENG/NAV/LHA2.dds"
 		}
 		#Albion class
@@ -2005,7 +2013,7 @@ capital = 13
 			name = "Albion Class"
 			type = helicopter_operator_hull_2
 			name_group = ENG_CV_HISTORICAL
-			parent_version = 1
+			parent_version = 1 #Current Version: 2
 			modules = {
 				fixed_ship_engine_slot = module_surface_jet_turbine_power
 				fixed_ship_fire_control_system_slot = module_digital_integrated_fire_control
@@ -2019,6 +2027,7 @@ capital = 13
 				rear_1_custom_slot = module_helipads_2
 				fixed_ship_missile_ammo_slot = module_naval_ammo_air_defense_3
 			}
+			role_icon_index = 21
 			icon = "gfx/interface/technologies/ENG/NAV/Albion.dds"
 		}
 		#Type 42 Class
@@ -2026,7 +2035,7 @@ capital = 13
 			name = "Type 42 Class"
 			type = destroyer_hull_2
 			name_group = ENG_DD_HISTORICAL
-			parent_version = 0
+			parent_version = 0 #Current Version: 1
 			modules = {
 				fixed_ship_engine_slot = module_surface_jet_turbine_power
 				fixed_ship_fire_control_system_slot = module_capital_digital_integrated_fire_control
@@ -2042,6 +2051,7 @@ capital = 13
 				fixed_ship_missile_ammo_slot = module_naval_ammo_balanced_3
 			}
 			obsolete = yes
+			role_icon_index = 14
 			icon = "gfx/interface/technologies/ENG/NAV/D2.dds"
 		}
 		#Type 23
@@ -2049,7 +2059,7 @@ capital = 13
 			name = "Type 23 Class"
 			type = frigate_hull_3
 			name_group = ENG_FRIGATE_HISTORICAL
-			parent_version = 0
+			parent_version = 0 #Current Version: 1
 			modules = {
 				fixed_ship_engine_slot = module_light_surface_jet_turbine_power
 				fixed_ship_fire_control_system_slot = module_digital_integrated_fire_control
@@ -2062,6 +2072,7 @@ capital = 13
 				rear_1_custom_slot = module_light_helipad_1
 				fixed_ship_missile_ammo_slot = module_naval_ammo_balanced_2
 			}
+			role_icon_index = 12
 			icon = "gfx/interface/technologies/ENG/NAV/F3.dds"
 		}
 		#Leander Class #Decommisioned
@@ -2069,7 +2080,7 @@ capital = 13
 			name = "Leander Class"
 			type = frigate_hull_1
 			name_group = ENG_DD_HISTORICAL
-			parent_version = 0
+			parent_version = 0 #Current Version: 1
 			modules = {
 				fixed_ship_engine_slot = module_light_surface_diesel_power_1
 				fixed_ship_fire_control_system_slot = module_analog_fire_control
@@ -2083,6 +2094,7 @@ capital = 13
 				fixed_ship_missile_ammo_slot = module_naval_ammo_anti_ship_1
 			}
 			obsolete = yes
+			role_icon_index = 12
 			icon = "gfx/interface/technologies/ENG/NAV/Leander.dds"
 		}
 		#Tribal Class #Decommisioned
@@ -2090,7 +2102,7 @@ capital = 13
 			name = "Tribal Class"
 			type = frigate_hull_1
 			name_group = ENG_DD_HISTORICAL
-			parent_version = 1
+			parent_version = 1 #Current Version: 2
 			modules = {
 				fixed_ship_engine_slot = module_light_surface_diesel_power_1
 				fixed_ship_fire_control_system_slot = module_analog_fire_control
@@ -2104,6 +2116,8 @@ capital = 13
 
 			}
 			obsolete = yes
+
+			role_icon_index = 11
 			icon = "gfx/interface/technologies/ENG/NAV/Tribal.dds"
 		}
 		#Type 21 #decommissioned
@@ -2111,7 +2125,7 @@ capital = 13
 			name = "Type 21 Class"
 			type = frigate_hull_1
 			name_group = ENG_DD_HISTORICAL
-			parent_version = 2
+			parent_version = 2 #Current Version: 3
 			modules = {
 				fixed_ship_engine_slot = module_light_surface_jet_turbine_power
 				fixed_ship_fire_control_system_slot = module_analog_fire_control
@@ -2125,6 +2139,7 @@ capital = 13
 				fixed_ship_missile_ammo_slot = module_naval_ammo_balanced_2
 			}
 			obsolete = yes
+			role_icon_index = 12
 			icon = "gfx/interface/technologies/ENG/NAV/F2.dds"
 		}
 		#Type 22
@@ -2132,7 +2147,7 @@ capital = 13
 			name = "Type 22 Class - Broadsword Class"
 			type = frigate_hull_2
 			name_group = ENG_DD_HISTORICAL
-			parent_version = 0
+			parent_version = 0 #Current Version: 1
 			modules = {
 				fixed_ship_engine_slot = module_light_surface_jet_turbine_power
 				fixed_ship_fire_control_system_slot = module_analog_fire_control
@@ -2146,6 +2161,7 @@ capital = 13
 				fixed_ship_missile_ammo_slot = module_naval_ammo_balanced_1
 			}
 			obsolete = yes
+			role_icon_index = 12
 			icon = "gfx/interface/technologies/ENG/NAV/Type22B3.dds"
 		}
 		#Type 22
@@ -2153,7 +2169,7 @@ capital = 13
 			name = "Type 22 Class - Batch 3"
 			type = frigate_hull_2
 			name_group = ENG_DD_HISTORICAL
-			parent_version = 1
+			parent_version = 1 #Current Version: 2
 			modules = {
 				fixed_ship_engine_slot = module_light_surface_jet_turbine_power
 				fixed_ship_fire_control_system_slot = module_analog_fire_control
@@ -2166,6 +2182,7 @@ capital = 13
 				rear_1_custom_slot = module_naval_missile_mount_quad
 				fixed_ship_missile_ammo_slot = module_naval_ammo_balanced_2
 			}
+			role_icon_index = 12
 			icon = "gfx/interface/technologies/ENG/NAV/Type22B3.dds"
 		}
 		#Salisbury Class
@@ -2173,7 +2190,7 @@ capital = 13
 			name = "Salisbury Class"
 			type = frigate_hull_2
 			name_group = ENG_DD_HISTORICAL
-			parent_version = 2
+			parent_version = 2 #Current Version: 3
 			modules = {
 				fixed_ship_engine_slot = module_light_surface_diesel_power_1
 				fixed_ship_fire_control_system_slot = module_analog_fire_control
@@ -2187,6 +2204,7 @@ capital = 13
 				fixed_ship_missile_ammo_slot = module_naval_ammo_air_defense_1
 			}
 			obsolete = yes
+			role_icon_index = 11
 			icon = "gfx/interface/technologies/ENG/NAV/Salisbury.dds"
 		}
 		#Castle Class
@@ -2194,7 +2212,7 @@ capital = 13
 			name = "Castle Class"
 			type = corvette_hull_2
 			name_group = ENG_DD_HISTORICAL
-			parent_version = 0
+			parent_version = 0 #Current Version: 1
 			modules = {
 				fixed_ship_engine_slot = module_light_surface_diesel_power_1
 				fixed_ship_fire_control_system_slot = module_analog_fire_control
@@ -2206,13 +2224,14 @@ capital = 13
 			}
 			icon = "gfx/interface/technologies/ENG/NAV/Castle.dds"
 			obsolete = yes
+			role_icon_index = 7
 		}
 		#Bung Tomo Class
 		create_equipment_variant = {
 			name = "Bung Tomo Class"
 			type = corvette_hull_3
 			name_group = ENG_DD_HISTORICAL
-			parent_version = 0
+			parent_version = 0 #Current Version: 1
 			modules = {
 				fixed_ship_engine_slot = module_light_surface_diesel_power_1
 				fixed_ship_fire_control_system_slot = module_analog_fire_control
@@ -2225,13 +2244,14 @@ capital = 13
 			}
 			icon = "gfx/interface/technologies/ENG/NAV/BungTomo.dds"
 			obsolete = yes
+			role_icon_index = 10
 		}
 		#Lekiu Class
 		create_equipment_variant = {
 			name = "Lekiu Class"
 			type = corvette_hull_3
 			name_group = ENG_DD_HISTORICAL
-			parent_version = 1
+			parent_version = 1 #Current Version: 2
 			modules = {
 				fixed_ship_engine_slot = module_light_surface_diesel_power_1
 				fixed_ship_fire_control_system_slot = module_analog_fire_control
@@ -2244,13 +2264,14 @@ capital = 13
 			}
 			icon = "gfx/interface/technologies/ENG/NAV/Lekiu.dds"
 			obsolete = yes
+			role_icon_index = 12
 		}
 		#Qahir Class
 		create_equipment_variant = {
 			name = "Qahir Class"
 			type = corvette_hull_3
 			name_group = ENG_DD_HISTORICAL
-			parent_version = 2
+			parent_version = 2 #Current Version: 3
 			modules = {
 				fixed_ship_engine_slot = module_light_surface_diesel_power_1
 				fixed_ship_fire_control_system_slot = module_digital_integrated_fire_control
@@ -2263,13 +2284,14 @@ capital = 13
 			}
 			icon = "gfx/interface/technologies/ENG/NAV/Qahir.dds"
 			obsolete = yes
+			role_icon_index = 10
 		}
 		#Vosper Class https://en.wikipedia.org/wiki/Vosper_Thornycroft_MK9
 		create_equipment_variant = {
 			name = "Vosper Class"
 			type = corvette_hull_2
 			name_group = ENG_DD_HISTORICAL
-			parent_version = 0
+			parent_version = 0 #Current Version: 2
 			modules = {
 				fixed_ship_engine_slot = module_light_surface_diesel_power_1
 				fixed_ship_fire_control_system_slot = module_analog_fire_control
@@ -2282,13 +2304,14 @@ capital = 13
 			}
 			icon = "gfx/interface/technologies/ENG/NAV/Vosper.dds"
 			obsolete = yes
+			role_icon_index = 9
 		}
 		#Hunt Class Mine Countermeasures
 		create_equipment_variant = {
 			name = "Hunt Class"
 			type = corvette_hull_2
 			#name_group = ENG_CORVETTE_HISTORICAL
-			parent_version = 0
+			parent_version = 0 #Current Version: 3
 			modules = {
 				fixed_ship_engine_slot = module_light_surface_diesel_power_1
 				fixed_ship_fire_control_system_slot = module_analog_fire_control
@@ -2300,12 +2323,13 @@ capital = 13
 			}
 			icon = "gfx/interface/technologies/ENG/NAV/Hunt.dds"
 			obsolete = yes
+			role_icon_index = 6
 		}
 		#Roisin Class
 		create_equipment_variant = {
 			name = "Peacock Class"
 			type = corvette_hull_2
-			parent_version = 0
+			parent_version = 0 #Current Version: 4
 			modules = {
 				fixed_ship_engine_slot = module_light_surface_diesel_power_1
 				fixed_ship_fire_control_system_slot = module_digital_integrated_fire_control
@@ -2317,12 +2341,13 @@ capital = 13
 			}
 			icon = "gfx/interface/technologies/ENG/NAV/Peacock.dds"
 			obsolete = yes
+			role_icon_index = 7
 		}
 		#Roisin Class
 		create_equipment_variant = {
 			name = "Roisin Class"
 			type = corvette_hull_3
-			parent_version = 0
+			parent_version = 0 #Current Version: 4
 			modules = {
 				fixed_ship_engine_slot = module_light_surface_diesel_power_1
 				fixed_ship_fire_control_system_slot = module_digital_integrated_fire_control
@@ -2334,13 +2359,15 @@ capital = 13
 			}
 			icon = "gfx/interface/technologies/ENG/NAV/Roisin.dds"
 			obsolete = yes
+			role_icon_index = 7
 		}
 		#Sandown Class Mine Countermeasures
+		#in active production: Blyth and Shoreham under construction at game start
 		create_equipment_variant = {
 			name = "Sandown Class"
 			type = corvette_hull_3
-			#name_group = ENG_CORVETTE_HISTORICAL
-			parent_version = 0
+			name_group = ENG_MINEHUNTER_HISTORICAL
+			parent_version = 0 #Current Version: 5
 			modules = {
 				fixed_ship_engine_slot = module_light_surface_diesel_power_1
 				fixed_ship_fire_control_system_slot = module_digital_integrated_fire_control
@@ -2350,15 +2377,15 @@ capital = 13
 				front_1_custom_slot = module_chain_gun
 				rear_1_custom_slot = module_chain_gun
 			}
+			role_icon_index = 5
 			icon = "gfx/interface/technologies/ENG/NAV/Sandown.dds"
-			obsolete = yes
 		}
 		#Archer Class
 		create_equipment_variant = {
 			name = "Archer Class"
 			type = corvette_hull_2
 			#name_group = ENG_CORVETTE_HISTORICAL
-			parent_version = 0
+			parent_version = 0 #Current Version: 5
 			modules = {
 				fixed_ship_engine_slot = module_light_surface_diesel_power_1
 				fixed_ship_fire_control_system_slot = module_digital_integrated_fire_control
@@ -2370,6 +2397,7 @@ capital = 13
 			}
 			icon = "gfx/interface/technologies/ENG/NAV/Archer.dds"
 			obsolete = yes
+			role_icon_index = 1
 		}
 		#Vanguard Class
 		#missile_submarine_hull_3
@@ -2377,8 +2405,8 @@ capital = 13
 			name = "Vanguard Class"
 			type = missile_submarine_hull_3
 			name_group = ENG_SS_HISTORICAL
-			role_icon_index = 16
-			parent_version = 0
+			role_icon_index = 30
+			parent_version = 0 #Current Version: 1
 			modules = {
 				fixed_ship_engine_slot = module_sub_adv_reactor_power
 				fixed_ship_radar_slot = module_sonar_3
@@ -2396,8 +2424,8 @@ capital = 13
 			name = "Astute Class"
 			type = attack_submarine_hull_3
 			name_group = ENG_SS_HISTORICAL
-			role_icon_index = 15
-			parent_version = 0
+			role_icon_index = 29
+			parent_version = 0 #Current Version: 1
 			modules = {
 				fixed_ship_engine_slot = module_sub_mod_reactor_power
 				fixed_ship_radar_slot = module_sonar_4
@@ -2417,8 +2445,8 @@ capital = 13
 			name = "Trafalgar Class"
 			type = attack_submarine_hull_2
 			name_group = ENG_SS_HISTORICAL
-			role_icon_index = 15
-			parent_version = 0
+			role_icon_index = 29
+			parent_version = 0 #Current Version: 1
 			modules = {
 				fixed_ship_engine_slot = module_sub_adv_reactor_power
 				fixed_ship_radar_slot = module_sonar_3
@@ -2437,7 +2465,7 @@ capital = 13
 			name = "Swiftsure Class"
 			type = attack_submarine_hull_2
 			name_group = ENG_SS_HISTORICAL
-			parent_version = 0
+			parent_version = 0 #Current Version: 2
 			modules = {
 				fixed_ship_engine_slot = module_sub_early_reactor_power
 				fixed_ship_radar_slot = module_sonar_2
@@ -2449,6 +2477,7 @@ capital = 13
 				fixed_ship_missile_ammo_slot = module_naval_sub_ammo_anti_ship_1
 			}
 			obsolete = yes
+			role_icon_index = 29
 			icon = "gfx/interface/technologies/ENG/NAV/Swift.dds"
 		}
 
@@ -2476,7 +2505,7 @@ capital = 13
 	set_variable = { party_pop_array^1 = 0.21 } #conservatism
 	set_variable = { party_pop_array^2 = 0.183 } #liberalism
 	set_variable = { party_pop_array^3 = 0.507 } #socialism
-	set_variable = { party_pop_array^4 = 0.01 } #Communist-State
+	set_variable = { party_pop_array^4 = 0.01 } #communist_state
 	set_variable = { party_pop_array^5 = 0.01 } #anarchist_communism
 	set_variable = { party_pop_array^16 = 0.01 } #Neutral_Libertarian
 	set_variable = { party_pop_array^17 = 0.02 } #Neutral_green
@@ -2582,7 +2611,7 @@ capital = 13
 	#Land variants
 	create_equipment_variant = {
 		name = "L119 Light Gun"
-		type = artillery_1
+		type = artillery_2
 		upgrades = {
 		}
 		obsolete = yes

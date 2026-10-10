@@ -233,7 +233,7 @@ def test_skipped_files_contribute_no_activations_or_removals(tmp_path, write_pat
         set(),
         set(),
         set(),
-        set(),
+        [],
     )
 
 
@@ -298,9 +298,9 @@ def test_icon_type_message_accepts_art_sized_for_its_slot(tmp_path):
     textures = V.SpriteSizeIndex({"GFX_decision_x": str(texture)})
 
     assert V._icon_type_message("decision", "dec", "GFX_decision_x", textures) is None
-    assert "category icon" in V._icon_type_message(
-        "category_icon", "cat", "GFX_decision_x", textures
-    )
+    message = V._icon_type_message("category_icon", "cat", "GFX_decision_x", textures)
+    assert message is not None
+    assert "category icon" in message
 
 
 def test_icon_type_message_skips_a_texture_it_cannot_measure(tmp_path):
@@ -428,6 +428,11 @@ def test_full_run_with_both_opt_in_checks(tmp_path, write_path):
     categories = {issue.category for issue in validator._issues}
 
     assert "decision-icon-slot-mismatch" in categories
+    assert all(
+        i.severity == V.Severity.ERROR
+        for i in validator._issues
+        if i.category == "decision-icon-slot-mismatch"
+    )
     assert "unannounced-decision-category" in categories
     assert any("cat_main" in i.message for i in validator._issues)
     assert any(

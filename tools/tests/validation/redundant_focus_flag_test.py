@@ -6,6 +6,8 @@ has_completed_focus replaces it. Each negative case below pins one of the five
 disqualifiers that make the two constructs stop being equivalent.
 """
 
+import os
+
 import pytest
 import validate_variables as V
 
@@ -69,9 +71,7 @@ def test_set_nested_in_hidden_effect_is_reported(tmp_path, write_path):
         write_path,
         tmp_path,
         _focus(
-            "\t\t\thidden_effect = {\n"
-            "\t\t\t\tset_country_flag = tag_done\n"
-            "\t\t\t}\n"
+            "\t\t\thidden_effect = {\n\t\t\t\tset_country_flag = tag_done\n\t\t\t}\n"
         ),
     )
     _reader(write_path, tmp_path, "d = { available = { has_country_flag = tag_done } }")
@@ -308,7 +308,125 @@ def test_keep_completed_reload_adds_no_caution(tmp_path, write_path):
     assert "keep_completed = yes" not in message
 
 
+# --- issue #4541 backlog pins -------------------------------------------------
+
+
+def test_loc_key_present_adds_tooltip_suffix(tmp_path, write_path):
+    _tree(write_path, tmp_path, _focus("\t\t\tset_country_flag = tag_done\n"))
+    _reader(write_path, tmp_path, "d = { available = { has_country_flag = tag_done } }")
+    write_path(
+        tmp_path,
+        "localisation/english/test_l_english.yml",
+        'l_english:\n tag_done: "done"\n',
+    )
+
+    message, _, _ = _run(tmp_path)[0]
+    assert "flag has a loc key" in message
+
+
+def test_loc_key_absent_adds_no_tooltip_suffix(tmp_path, write_path):
+    _tree(write_path, tmp_path, _focus("\t\t\tset_country_flag = tag_done\n"))
+    _reader(write_path, tmp_path, "d = { available = { has_country_flag = tag_done } }")
+
+    message, _, _ = _run(tmp_path)[0]
+    assert "flag has a loc key" not in message
+
+
+def test_self_read_in_setter_focus_own_available_is_still_reported(
+    tmp_path, write_path
+):
+    # TUR_beacon_of_islam gates its own availability on its own flag: dead
+    # under both constructs, so a future skip-self-reads change must confront it.
+    _tree(
+        write_path,
+        tmp_path,
+        _focus(
+            "\t\t\tset_country_flag = beacon_done\n",
+            focus_id="TUR_beacon_of_islam",
+            extra="\t\tavailable = { has_country_flag = beacon_done }\n",
+        ),
+    )
+
+    found = _run(tmp_path)
+    assert len(found) == 1
+    assert "beacon_done" in found[0][0]
+
+
+def test_caution_and_loc_suffix_combine_in_order(tmp_path, write_path):
+    # UKR_vitrenko_power / IRQ_spring_of_islam shape: tree reload without
+    # keep_completed plus a loc key on the flag.
+    _tree(
+        write_path,
+        tmp_path,
+        _focus("\t\t\tset_country_flag = tag_done\n")
+        + _focus(
+            "\t\t\tload_focus_tree = generic_focus\n",
+            focus_id="TAG_swap",
+        ),
+    )
+    _reader(write_path, tmp_path, "d = { available = { has_country_flag = tag_done } }")
+    write_path(
+        tmp_path,
+        "localisation/english/test_l_english.yml",
+        'l_english:\n tag_done: "done"\n',
+    )
+
+    message, _, _ = _run(tmp_path)[0]
+    assert "keep_completed = yes" in message
+    assert "flag has a loc key" in message
+    assert message.index("keep_completed = yes") < message.index("flag has a loc key")
+
+
+def test_reader_count_names_the_replace_total(tmp_path, write_path):
+    _tree(write_path, tmp_path, _focus("\t\t\tset_country_flag = tag_done\n"))
+    _reader(
+        write_path,
+        tmp_path,
+        "d1 = { available = { has_country_flag = tag_done } }\n"
+        "d2 = { available = { has_country_flag = tag_done } }\n",
+    )
+
+    message, _, _ = _run(tmp_path)[0]
+    assert "replace 2 read(s)" in message
+    assert "+" not in message.split("replace 2 read(s)")[1].split(";")[0]
+
+
+def test_reader_list_truncates_after_eight_shown(tmp_path, write_path):
+    _tree(write_path, tmp_path, _focus("\t\t\tset_country_flag = tag_done\n"))
+    body = "".join(
+        f"d{i} = {{ available = {{ has_country_flag = tag_done }} }}\n"
+        for i in range(10)
+    )
+    _reader(write_path, tmp_path, body)
+
+    message, _, _ = _run(tmp_path)[0]
+    assert "replace 10 read(s)" in message
+    assert "+2 more" in message
+
+
 # --- wiring ----------------------------------------------------------------
+
+
+@pytest.mark.parametrize("enabled", [True, False])
+def test_full_run_reports_the_flag_only_when_enabled(tmp_path, write_path, enabled):
+    _tree(write_path, tmp_path, _focus("\t\t\tset_country_flag = tag_done\n"))
+    _reader(write_path, tmp_path, "d = { available = { has_country_flag = tag_done } }")
+    validator = _validator(tmp_path, redundant_focus_flags=enabled)
+
+    validator.run_validations()
+
+    found = [
+        (issue.message, issue.file, issue.line)
+        for issue in validator._issues
+        if issue.category == "redundant-focus-flag"
+    ]
+    expected = (
+        "tag_done - set only by focus TAG_focus; replace 1 read(s) with"
+        f" `has_completed_focus = TAG_focus`: {os.path.normpath('common/decisions/tag.txt')}:1"
+    )
+    assert found == (
+        [(expected, "common/national_focus/05_tag.txt", 6)] if enabled else []
+    )
 
 
 def test_check_is_opt_in(tmp_path, monkeypatch):

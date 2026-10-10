@@ -68,7 +68,7 @@ def test_parse_leader_trait_names_reads_only_txt_files(tmp_path, write_path):
     write_path(
         tmp_path,
         "common/country_leader/traits.txt",
-        "leader_traits = {\n\temerging_Communist-State = {\n\t}\n}\n",
+        "leader_traits = {\n\temerging_communist_state = {\n\t}\n}\n",
     )
     write_path(
         tmp_path,
@@ -78,7 +78,7 @@ def test_parse_leader_trait_names_reads_only_txt_files(tmp_path, write_path):
 
     names = VC.parse_leader_trait_names(str(tmp_path), "country_leader")
 
-    assert names == {"emerging_Communist-State"}
+    assert names == {"emerging_communist_state"}
 
 
 def test_parse_leader_trait_names_survives_an_unreadable_dir(tmp_path, monkeypatch):
@@ -149,10 +149,16 @@ def test_scan_meta_constructed_names_needs_a_substituted_segment(tmp_path, write
 # ---- logging --------------------------------------------------------------
 
 
-@pytest.mark.parametrize("level", ["ERROR", "INFO", "WARNING"])
-def test_md_log_level_env_var_sets_the_module_threshold(monkeypatch, level):
+@pytest.mark.parametrize(
+    ("env", "level"),
+    [("error", "ERROR"), ("info", "INFO"), ("warning", "WARNING"), (None, "WARNING")],
+)
+def test_md_log_level_env_var_sets_the_module_threshold(monkeypatch, env, level):
     """The threshold is read at import, so it is env-driven, not settable later."""
-    monkeypatch.setenv("MD_LOG_LEVEL", level.lower())
+    if env is None:
+        monkeypatch.delenv("MD_LOG_LEVEL", raising=False)
+    else:
+        monkeypatch.setenv("MD_LOG_LEVEL", env)
     spec = importlib.util.spec_from_file_location("validator_common_probe", VC.__file__)
     assert spec is not None and spec.loader is not None
     module = importlib.util.module_from_spec(spec)
@@ -250,7 +256,9 @@ def test_get_full_path_returns_none_when_unreadable(dummy, tmp_path):
 # ---- file collection ------------------------------------------------------
 
 
-def test_collect_files_staged_with_nothing_staged(tmp_path, monkeypatch):
+def test_collect_files_staged_with_nothing_staged(tmp_path, monkeypatch, write_path):
+    # A full scan would find this file, so an empty result proves the staged path.
+    write_path(tmp_path, "common/a.txt", "x")
     monkeypatch.setenv("MD_STAGED_FILES", "")
     v = _Dummy(mod_path=str(tmp_path), use_colors=False, staged_only=True, workers=1)
     assert v._collect_files(["common/**/*.txt"]) == []
@@ -260,6 +268,31 @@ def test_collect_files_dedupes_overlapping_patterns(dummy, write_path, tmp_path)
     write_path(tmp_path, "common/a.txt", "x")
     files = dummy._collect_files(["common/*.txt", "**/*.txt"])
     assert len(files) == 1
+
+
+def test_collect_files_dedupes_nested_dir_patterns(dummy, write_path, tmp_path):
+    write_path(tmp_path, "common/sub/a.txt", "x")
+    files = dummy._collect_files(["common/sub/*.txt", "common/**/*.txt"])
+    assert len(files) == 1
+
+
+@pytest.mark.parametrize("staged_only", [False, True])
+def test_worktree_collection_and_basename_index_use_checkout_root(
+    tmp_path, write_path, monkeypatch, staged_only
+):
+    root = tmp_path / ".claude/worktrees/repo"
+    kept = write_path(root, "events/kept.txt", "wanted_item = yes\n")
+    nested = write_path(root, ".claude/worktrees/stale/events/nested.txt", "ignored")
+    write_path(root, "resources/vanilla/events/reference.txt", "ignored")
+    monkeypatch.setenv(
+        "MD_STAGED_FILES", "events/kept.txt\n.claude/worktrees/stale/events/nested.txt"
+    )
+    v = _Dummy(str(root), use_colors=False, workers=1, staged_only=staged_only)
+
+    assert v._collect_files(["**/*.txt"]) == [str(kept)]
+    assert v._basename_index(("**/*.txt",)) == {"kept.txt": [str(kept)]}
+    assert v.get_full_path("kept.txt", "wanted_item") == str(kept)
+    assert str(nested) not in v._collect_files(["**/*.txt"])
 
 
 def test_pool_map_falls_back_to_sequential_without_a_pool(tmp_path, monkeypatch):

@@ -1,6 +1,7 @@
 """Drift guards for validator declarations and the validation workflows."""
 
 import re
+import sys
 
 import dev_setup
 import pytest
@@ -9,6 +10,7 @@ from change_groups import GROUP_PATTERNS, classify
 from coverage import Coverage
 from precommit_validate import _REGISTRY
 from shared.paths import REPO_ROOT, VALIDATION_DIR
+from shared.suite import run_bash_step, workflow_step, write_under_str
 from validate_decisions import _DECISION_REFERENCE_SOURCE_PATTERNS
 from validate_ideas import Validator as IdeaValidator
 from validate_oob_units import (
@@ -124,10 +126,15 @@ CI_EXEMPT = {
     "validate_style.py",
     "validate_standardization.py",
     "validate_unused_textures.py",
+    # The CI workspace ships no gfx/models or gfx/entities.
+    "validate_mesh_textures.py",
     "validate_file_paths.py",
     "validate_mod_descriptors.py",
 }
-PRECOMMIT_EXEMPT: set[str] = set()
+# Manual-only: the standardization report is deliberately unwired from
+# pre-commit and CI; standardizers run by hand instead (see
+# tools/standardization/README.md).
+PRECOMMIT_EXEMPT: set[str] = {"validate_standardization.py"}
 STRICT_MISMATCH_ALLOWED = {"validate_ai_equipment.py"}
 
 
@@ -139,15 +146,31 @@ def test_test_suite_replaces_old_workflows():
         "validate-paths",
         "prepare-workspace",
         "tools-tests",
+        "tools-quality",
         "mod-tests",
+        "docs-quality",
         "report",
+        "gate",
     }
     assert "pull_request" in _workflow_trigger(CI_WORKFLOW)
     assert "pull_request_target" not in _workflow_trigger(CI_WORKFLOW)
     leftovers = [CI_WORKFLOW.parent / name for name in OLD_WORKFLOWS]
-    if any(path.exists() for path in leftovers):
-        pytest.skip("old workflow deletion is pending parent cleanup")
     assert not [path for path in leftovers if path.exists()]
+
+
+def test_docs_quality_runs_in_suite_and_feeds_the_report():
+    workflow = yaml.safe_load(CI_WORKFLOW.read_text(encoding="utf-8"))
+    job = workflow["jobs"]["docs-quality"]
+    assert job["uses"] == "./.github/workflows/docs-quality.yml"
+    assert "needs.detect-changes.outputs.docs" in job["if"]
+    assert "full_suite" in job["if"]
+    assert "docs-quality" in workflow["jobs"]["report"]["needs"]
+    detect = workflow["jobs"]["detect-changes"]
+    assert detect["outputs"]["docs"] == "${{ steps.groups.outputs.docs }}"
+    assert "workflow_call" in _workflow_trigger(DOCS_QUALITY_WORKFLOW)
+    text = DOCS_QUALITY_WORKFLOW.read_text(encoding="utf-8")
+    assert "suite-run.json" in text
+    assert "docs-quality-results" in text
 
 
 def test_change_groups_cover_every_batch_group():
@@ -168,21 +191,50 @@ def test_mod_tests_matrix_lists_every_batch():
     assert sorted(matrix) == sorted(BATCHES)
 
 
-def test_tools_linux_runs_quality_suite():
+def _job_commands(workflow, job):
+    return "\n".join(step.get("run", "") for step in workflow["jobs"][job]["steps"])
+
+
+def test_tools_linux_collects_coverage():
     workflow = yaml.safe_load(CI_WORKFLOW.read_text(encoding="utf-8"))
     matrix = workflow["jobs"]["tools-tests"]["strategy"]["matrix"]["include"]
-    linux = next(entry for entry in matrix if entry["os"] == "Linux")
-    assert linux["quality"] is True
-    assert {entry["os"] for entry in matrix} == {"Linux", "macOS", "Windows"}
-    steps = workflow["jobs"]["tools-tests"]["steps"]
-    commands = "\n".join(step.get("run", "") for step in steps)
-    assert "coverage run" in commands
+    assert {entry["os"]: entry["coverage"] for entry in matrix} == {
+        "Linux": True,
+        "macOS": False,
+        "Windows": False,
+    }
+    commands = _job_commands(workflow, "tools-tests")
+    assert "-n auto --cov --cov-branch" in commands
     assert "coverage report" in commands
+
+
+def test_tools_quality_runs_beside_the_test_matrix():
+    workflow = yaml.safe_load(CI_WORKFLOW.read_text(encoding="utf-8"))
+    quality = workflow["jobs"]["tools-quality"]
+    assert quality["needs"] == ["detect-changes"]
+    assert quality["if"] == workflow["jobs"]["tools-tests"]["if"]
+    commands = _job_commands(workflow, "tools-quality")
     for command in ("ruff check tools", "black --check tools", "pylint tools", "mypy"):
         assert command in commands
     assert "bun run jscpd" in commands
     assert "staged_validators_test.py" in commands
     assert "staged_validators_real_test.py" in commands
+    assert "tools/validate_tools.py --strict" in commands
+    test_commands = _job_commands(workflow, "tools-tests")
+    for command in ("ruff check", "black --check", "pylint", "bun run jscpd"):
+        assert command not in test_commands
+
+
+def test_tools_tests_install_only_the_test_group():
+    setup = "Set up Python and dependencies"
+    assert workflow_step("tools-tests", setup)["with"]["group"] == "test"
+    assert "group" not in workflow_step("tools-quality", setup)["with"]
+    action = yaml.safe_load(SETUP_MD_PYTHON.read_text(encoding="utf-8"))
+    assert action["inputs"]["group"]["default"] == "dev"
+    lint = set(dev_setup._group_packages("dev")) - set(
+        dev_setup._group_packages("test")
+    )
+    assert {spec.split("==")[0] for spec in lint} == {"ruff", "black", "mypy", "pylint"}
 
 
 def test_python_version_declarations_agree():
@@ -231,6 +283,7 @@ def test_tools_checkout_exposes_consumed_configuration():
     required = {
         "tools",
         "pyproject.toml",
+        "validation_config.json",
         ".pre-commit-config.yaml",
         ".claude/docs/typo-watchlist.md",
         ".github/actions/setup-md-python/action.yml",
@@ -242,6 +295,10 @@ def test_tools_checkout_exposes_consumed_configuration():
         "docs/src/content/resources/developer-setup.md",
     }
     assert required <= sparse
+    # Whole trees would add ~590 MB of translations and art no test reads.
+    assert not {"localisation", "resources"} & sparse
+    assert checkout["with"]["fetch-depth"] == 1
+    assert checkout["with"]["filter"] == "blob:none"
 
 
 def test_file_paths_run_in_a_lightweight_index_job():
@@ -291,11 +348,27 @@ def test_detect_changes_uses_python_grouping():
     assert "dorny/paths-filter" not in text
     assert "filter: blob:none" in text
     assert "git diff --name-status -z" in text
+    detect_script = next(
+        step["run"]
+        for step in detect["steps"]
+        if step.get("name") == "Derive changed files"
+    )
+    assert re.search(
+        r'git diff --unified=0 "\$merge_base" "\$HEAD_SHA" -- \\\n'
+        r"\s+localisation/english/MD_politics_view_parties_l_english\.yml \\\n"
+        r'\s+"\$hook_path" > party-loc-scope\.diff',
+        detect_script,
+    )
+    assert "party-loc-scope.diff" in text
     assert "collect_changed_files.py" in text
     assert "change_groups.py" in text
     assert "full_suite" in detect["outputs"]
     assert "tools" in detect["outputs"]
-    assert any(step.get("name") == "Upload changed files" for step in detect["steps"])
+    upload = next(
+        step for step in detect["steps"] if step.get("name") == "Upload changed files"
+    )
+    assert "changed-files.txt" in upload["with"]["path"]
+    assert "party-loc-scope.diff" in upload["with"]["path"]
     for path in ("resources/documentation/modifiers_documentation.md",):
         assert classify([path])["full_suite"] is True
 
@@ -311,7 +384,7 @@ def test_dispatch_forces_all_content_groups():
     assert "< changed-files.txt" in script
 
 
-def test_prepare_workspace_is_pr_code_and_cache_scoped_to_head():
+def test_prepare_workspace_materializes_pr_code_on_every_run():
     workflow = yaml.safe_load(CI_WORKFLOW.read_text(encoding="utf-8"))
     prepare = workflow["jobs"]["prepare-workspace"]
     checkout = next(
@@ -329,24 +402,52 @@ def test_prepare_workspace_is_pr_code_and_cache_scoped_to_head():
     assert not any(
         "validate_file_paths.py" in (step.get("run") or "") for step in prepare["steps"]
     )
-    cache = next(
+    # An exact-head workspace cache never hit: each head has a new key.
+    assert "md-sparse" not in CI_WORKFLOW.read_text(encoding="utf-8")
+    assert not any(
+        "actions/cache/save@" in step.get("uses", "") for step in prepare["steps"]
+    )
+    assert checkout["with"]["fetch-depth"] == 1
+    assert checkout["with"]["sparse-checkout"] == (
+        "/tools/validation/ci_workspace_profile.txt"
+    )
+    materialize = next(
         step
         for step in prepare["steps"]
-        if "actions/cache/restore@" in step.get("uses", "")
-        and step.get("with", {}).get("path")
-        and "sparse" in step.get("id", "")
+        if step.get("name", "").startswith("Materialize")
     )
-    assert "md-sparse-v2-${{ runner.os }}" in cache["with"]["key"]
-    assert "needs.detect-changes.outputs.head-sha" in cache["with"]["key"]
+    assert "if" not in materialize
+    assert "git sparse-checkout set --no-cone --stdin" in materialize["run"]
+    assert "ci_workspace_profile.txt" in materialize["run"]
     valcache = next(
         step
         for step in prepare["steps"]
         if "actions/cache/restore@" in step.get("uses", "")
         and "validation_cache" in step.get("with", {}).get("path", "")
     )
-    assert "full_suite != 'true'" in valcache["if"]
+    assert "if" not in valcache
+    assert "MD_NO_CACHE" not in prepare["env"]
     assert "steps.toolshash.outputs.hash" in valcache["with"]["key"]
     assert "base-sha" not in valcache["with"]["key"]
+
+
+def test_targeted_b_downloads_and_hands_off_party_loc_scope():
+    workflow = yaml.safe_load(CI_WORKFLOW.read_text(encoding="utf-8"))
+    steps = workflow["jobs"]["mod-tests"]["steps"]
+    download = next(
+        step
+        for step in steps
+        if step.get("name") == "Download party localisation scope"
+    )
+    assert download["if"] == "matrix.batch == 'targeted-b'"
+    assert download["with"] == {
+        "name": "changed-files",
+        "path": "validation-scope",
+    }
+    batch = next(step for step in steps if step.get("name") == "Run validator batch")
+    assert "MD_PARTY_LOC_DIFF" in batch["env"]
+    assert "validation-scope/party-loc-scope.diff" in batch["env"]["MD_PARTY_LOC_DIFF"]
+    assert "targeted-b" in batch["env"]["MD_PARTY_LOC_DIFF"]
 
 
 def test_mod_core_runs_extra_checks_after_batch():
@@ -358,6 +459,7 @@ def test_mod_core_runs_extra_checks_after_batch():
         "Run style check",
         "Run common-mistakes check",
         "Check localisation UTF-8 BOM",
+        "Check localisation YAML syntax",
         "Check .mod file encoding",
         "Check mod descriptor replace_path sync",
     ):
@@ -366,6 +468,8 @@ def test_mod_core_runs_extra_checks_after_batch():
         assert names.index(name) > batch_index
     style = next(step for step in steps if step.get("name") == "Run style check")
     assert "MD_STAGED_FILES" in style["run"]
+    loc_yaml = steps[names.index("Check localisation YAML syntax")]
+    assert loc_yaml["run"] == "python3 tools/linting/fix_loc_yaml.py"
 
 
 def test_report_job_posts_comment_and_checks():
@@ -385,6 +489,85 @@ def test_report_job_posts_comment_and_checks():
     )
     assert "checkout-repository" in checkout["with"]["repository"]
     assert "checkout-ref" in checkout["with"]["ref"]
+
+
+def test_suite_gate_requires_every_validation_job():
+    workflow = yaml.safe_load(CI_WORKFLOW.read_text(encoding="utf-8"))
+    gate = workflow["jobs"]["gate"]
+    assert gate["name"] == "Test suite gate"
+    assert gate["if"] == "${{ always() }}"
+    assert set(gate["needs"]) == set(workflow["jobs"]) - {"gate"}
+    failure_step = gate["steps"][0]
+    for job in gate["needs"]:
+        assert f"needs.{job}.result" in failure_step["if"]
+    assert failure_step["run"] == "exit 1"
+
+
+def test_gate_steps_cannot_be_switched_off():
+    workflow = yaml.safe_load(CI_WORKFLOW.read_text(encoding="utf-8"))
+    # The report job's downloads tolerate missing artifacts on purpose.
+    gated = set(workflow["jobs"]["gate"]["needs"]) - {"report"} | {"gate"}
+    for name in sorted(gated):
+        job = workflow["jobs"][name]
+        assert "continue-on-error" not in job, name
+        for step in job.get("steps", []):
+            label = f"{name}: {step.get('name') or step.get('id')}"
+            assert "continue-on-error" not in step, label
+            condition = str(step.get("if", "")).replace("${{", "").replace("}}", "")
+            assert condition.strip().lower() != "false", label
+
+
+CONTRACT_FILES = (
+    "tools/validation/ci_workspace_profile.txt",
+    "tools/validation/staged_sparse_profile.txt",
+    "validation_config.json",
+    "pyproject.toml",
+)
+
+
+def _contract_guard():
+    return workflow_step("detect-changes", "Check CI tooling contract")["run"]
+
+
+@pytest.mark.skipif(sys.platform == "win32", reason="the step runs in bash on Linux")
+@pytest.mark.parametrize(
+    "dropped",
+    [None, *CONTRACT_FILES[:3], "pytest-xdist", "pytest-cov"],
+)
+def test_detect_changes_stops_a_head_without_the_ci_contract(tmp_path, dropped):
+    for relative in CONTRACT_FILES:
+        if relative != dropped:
+            body = (REPO_ROOT / relative).read_text(encoding="utf-8")
+            if relative == "pyproject.toml" and dropped:
+                body = "".join(
+                    line
+                    for line in body.splitlines(keepends=True)
+                    if f'"{dropped}' not in line
+                )
+            write_under_str(tmp_path, relative, body)
+
+    result = run_bash_step(_contract_guard(), tmp_path)
+
+    if dropped is None:
+        assert result.returncode == 0, result.stdout
+    else:
+        assert result.returncode == 1
+        assert "predates the CI tooling contract" in result.stdout
+        assert dropped in result.stdout
+
+
+def test_contract_guard_covers_what_the_workflow_reads_from_the_head():
+    text = CI_WORKFLOW.read_text(encoding="utf-8")
+    guard = _contract_guard()
+    checkout = workflow_step("detect-changes", "Checkout PR head")
+    sparse = {path.lstrip("/") for path in checkout["with"]["sparse-checkout"].split()}
+    profiles = set(re.findall(r"tools/validation/\w+_profile\.txt", text))
+    assert profiles
+    for path in sorted(profiles) + ["validation_config.json", "pyproject.toml"]:
+        assert path in sparse, path
+        assert path in guard, path
+    assert "-n auto" in text and "pytest-xdist" in guard
+    assert "--cov" in text and "pytest-cov" in guard
 
 
 def test_report_restores_baseline_for_full_and_dispatch_runs():
@@ -410,17 +593,26 @@ def test_report_restores_baseline_for_full_and_dispatch_runs():
     )
 
 
-def test_tools_sidecars_have_stable_schema():
+@pytest.mark.parametrize(
+    ("job", "artifact"),
+    [
+        ("tools-tests", "tools-tests-${{ matrix.os }}-results"),
+        ("tools-quality", "tools-quality-results"),
+    ],
+)
+def test_tools_sidecars_have_stable_schema(job, artifact):
     workflow = yaml.safe_load(CI_WORKFLOW.read_text(encoding="utf-8"))
-    steps = workflow["jobs"]["tools-tests"]["steps"]
+    steps = workflow["jobs"][job]["steps"]
     sidecar = next(step for step in steps if step.get("id") == "suite-sidecar")
     assert "suite-run.json" in sidecar["run"]
     for field in ('"suite":"tools"', '"status"', '"errors"', '"warnings"', '"issues"'):
         assert field in sidecar["run"]
-    upload = next(
-        step for step in steps if step.get("name") == "Upload tools test results"
-    )
-    assert upload["with"]["name"] == "tools-tests-${{ matrix.os }}-results"
+    # A step the sidecar does not count can fail without failing the report.
+    for step in steps:
+        if "id" in step and step is not sidecar:
+            assert f"steps.{step['id']}.outcome" in sidecar["run"], step["id"]
+    upload = next(step for step in steps if "upload-artifact@" in step.get("uses", ""))
+    assert upload["with"]["name"] == artifact
 
 
 def test_nightly_dispatches_test_suite_and_matches_its_runs():
@@ -526,6 +718,44 @@ def test_validator_cache_restores_are_source_hash_scoped():
     assert baseline in CI_WORKFLOW.read_text(encoding="utf-8")
 
 
+def test_validation_config_reaches_every_validator_run():
+    text = CI_WORKFLOW.read_text(encoding="utf-8")
+    workflow = yaml.safe_load(text)
+    assert "validation_config.json" in workflow["env"]["WORKSPACE_PATHS"].split()
+    profile = (VALIDATION_DIR / "ci_workspace_profile.txt").read_text(encoding="utf-8")
+    assert "/validation_config.json" in profile.split()
+    checkout = next(
+        step
+        for step in workflow["jobs"]["report"]["steps"]
+        if step.get("name") == "Checkout report tooling"
+    )
+    assert "validation_config.json" in checkout["with"]["sparse-checkout"].split()
+    for source in (text, VALIDATOR_CACHE_WORKFLOW.read_text(encoding="utf-8")):
+        hashes = re.findall(
+            r"hashFiles\('tools/validation/\*\*/\*\.py',[^)]*\)", source
+        )
+        assert hashes
+        assert all(
+            "'validation_config.json'" in h and "'tools/validation/**/*.txt'" in h
+            for h in hashes
+        )
+        assert "'tools/validation/**'" not in source
+    profile = (VALIDATION_DIR / "staged_sparse_profile.txt").read_text(encoding="utf-8")
+    assert "/validation_config.json" in profile.split()
+    assert classify(["validation_config.json"])["full_suite"] is True
+    assert workflow["jobs"]["detect-changes"]["outputs"]["style_config"] == (
+        "${{ steps.groups.outputs.style_config }}"
+    )
+    steps = workflow["jobs"]["mod-tests"]["steps"]
+    collect = next(s for s in steps if s.get("name") == "Collect style-relevant files")
+    assert "needs.detect-changes.outputs.style_config" in collect["env"]["STYLE_CONFIG"]
+    assert "find common/national_focus -type f -name '*.txt'" in collect["run"]
+    style = next(s for s in steps if s.get("name") == "Run style check")
+    mistakes = next(s for s in steps if s.get("name") == "Run common-mistakes check")
+    assert "has-files" in style["if"]
+    assert "has-changed-files" in mistakes["if"]
+
+
 def test_baseline_saves_only_after_clean_diff():
     config = yaml.safe_load(VALIDATOR_CACHE_WORKFLOW.read_text(encoding="utf-8"))
     job = config["jobs"]["build-cache"]
@@ -552,7 +782,15 @@ def test_tools_quality_checks_are_wired_in_precommit_and_ci():
     assert "pylint tools" in text
     assert "mypy" in text
     pyproject = (REPO_ROOT / "pyproject.toml").read_text(encoding="utf-8")
-    for package in ("black==", "coverage==", "mypy==", "pylint==", "ruff=="):
+    for package in (
+        "black==",
+        "coverage==",
+        "mypy==",
+        "pylint==",
+        "pytest-cov==",
+        "pytest-xdist==",
+        "ruff==",
+    ):
         assert package in pyproject
     assert Coverage().config.include_namespace_packages is True
 
@@ -570,7 +808,7 @@ def test_pytest_collection_gate_cannot_self_exclude():
     assert "python_files=*_test.py" in prepush_suite
     text = CI_WORKFLOW.read_text(encoding="utf-8")
     assert "tools/tests/collection_layout_test.py" in text
-    assert "coverage run" in text
+    assert "--cov --cov-branch" in text
     assert "python_files=*_test.py" in text
 
 
@@ -590,9 +828,22 @@ def test_ci_strict_gate_lives_in_batch_specs():
     assert ValidatorSpec("x", "validate_x.py", ("common",)).strict is True
     assert sorted(spec.name for spec in ALL_SPECS if not spec.strict) == [
         "building-guards",
-        "party-loc",
+        "equipment-variants",
         "simplifications",
     ]
+
+
+def test_ci_oob_units_does_not_enable_missing_equipment_factor():
+    spec = _spec_for("validate_oob_units.py")
+    assert spec.name == "oob-units"
+    assert "--missing-equipment-factor" not in spec.args
+
+
+def test_ci_party_loc_gate_is_registered_and_strict():
+    spec = _spec_for("validate_party_loc.py")
+    assert spec.name == "party-loc"
+    assert spec.groups == ("localisation", "common")
+    assert spec.strict is True
 
 
 def test_ci_redundant_modifier_gate_is_strict():

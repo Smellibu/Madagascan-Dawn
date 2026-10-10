@@ -13,6 +13,22 @@ def no_vanilla_gfx(monkeypatch):
 
 
 @pytest.fixture
+def pool_sizes(monkeypatch):
+    """Record the size of every worker pool validator_common starts."""
+    import validator_common
+
+    real_pool = validator_common.Pool
+    sizes = []
+
+    def counting_pool(*args, **kwargs):
+        sizes.append(kwargs.get("processes"))
+        return real_pool(*args, **kwargs)
+
+    monkeypatch.setattr(validator_common, "Pool", counting_pool)
+    return sizes
+
+
+@pytest.fixture
 def write_path():
     from shared.suite import write_text
 
@@ -58,6 +74,18 @@ def ai_split_available():
         )
 
     return build
+
+
+@pytest.fixture
+def issues_by_line():
+    def run(validator_cls, root):
+        validator = validator_cls(str(root), use_colors=False, workers=1)
+        validator.run_validations()
+        return {
+            (issue.category, issue.line): issue for issue in validator._issues
+        }, validator
+
+    return run
 
 
 @pytest.fixture

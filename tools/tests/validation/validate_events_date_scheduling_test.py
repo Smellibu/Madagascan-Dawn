@@ -242,18 +242,29 @@ def test_extract_random_event_ids():
 _FakeValidator = collecting_validator(V.Validator)
 
 
-def _run(monkeypatch, gated, fires, graph, random_events=(), polls=()):
+def _stub(monkeypatch, fires, pool_map):
     validator = _FakeValidator("/tmp")
     monkeypatch.setattr(validator, "_collect_files", lambda *a, **kw: ["f.txt"])
     monkeypatch.setattr(validator, "_rel_posix", lambda f: f)
     monkeypatch.setattr(validator, "_get_event_fires", lambda: fires)
+    monkeypatch.setattr(validator, "_pool_map", pool_map)
+    return validator
+
+
+def _run(monkeypatch, gated, fires, graph, random_events=(), polls=()):
+    validator = _stub(
+        monkeypatch,
+        fires,
+        lambda fn, args, **kw: [
+            (
+                graph
+                if fn in (V.scan_event_fire_graph, V._cached_scan_event_fire_graph)
+                else gated
+            )
+        ],
+    )
     monkeypatch.setattr(validator, "_get_random_event_ids", lambda: set(random_events))
     monkeypatch.setattr(validator, "_get_probability_rolled_ids", lambda: set(polls))
-    monkeypatch.setattr(
-        validator,
-        "_pool_map",
-        lambda fn, args, **kw: [graph if fn is V.scan_event_fire_graph else gated],
-    )
     validator.validate_date_gated_scheduling()
     return validator.collected
 
@@ -361,6 +372,13 @@ def test_date_gated_check_reports_error_severity(monkeypatch):
     assert validator.last_severity == V.Severity.ERROR
 
 
+def _on_actions_validator(tmp_path, monkeypatch, body):
+    path = _write(tmp_path, "common/on_actions/99_GER.txt", body)
+    validator = _FakeValidator(str(tmp_path))
+    monkeypatch.setattr(validator, "_collect_files", lambda *a, **kw: [path])
+    return validator
+
+
 def test_get_probability_rolled_ids_wiring(tmp_path, monkeypatch):
     """The wrapper scans on_actions files and caches the result."""
     body = """on_actions = {
@@ -374,9 +392,7 @@ def test_get_probability_rolled_ids_wiring(tmp_path, monkeypatch):
 \t}
 }
 """
-    f = _write(tmp_path, "common/on_actions/99_GER.txt", body)
-    validator = _FakeValidator("/tmp")
-    monkeypatch.setattr(validator, "_collect_files", lambda *a, **kw: [f])
+    validator = _on_actions_validator(tmp_path, monkeypatch, body)
     calls = []
 
     def fake_pool_map(fn, args, **kw):
@@ -386,7 +402,9 @@ def test_get_probability_rolled_ids_wiring(tmp_path, monkeypatch):
     monkeypatch.setattr(validator, "_pool_map", fake_pool_map)
     assert validator._get_probability_rolled_ids() == {"foo.1"}
     assert validator._get_probability_rolled_ids() == {"foo.1"}  # cached
-    assert calls == [V.scan_probability_rolled_fires]
+    assert len(calls) == 1
+    assert calls[0].func is V.scan_probability_rolled_fires
+    assert calls[0].keywords == {"mod_path": validator.mod_path}
 
 
 # --- redundant date bounds on scheduled events ---
@@ -399,9 +417,7 @@ def test_get_probability_rolled_ids_wiring(tmp_path, monkeypatch):
 def _bounded(tmp_path, body, name="events/Ev.txt"):
     return {
         e[0]
-        for e in V.scan_date_bounded_events(
-            (_write(tmp_path, name, body), frozenset())
-        )
+        for e in V.scan_date_bounded_events((_write(tmp_path, name, body), frozenset()))
     }
 
 
@@ -438,11 +454,7 @@ def test_bounded_date_outside_trigger_not_detected(tmp_path):
 
 
 def _run_bounded(monkeypatch, bounded, fires):
-    validator = _FakeValidator("/tmp")
-    monkeypatch.setattr(validator, "_collect_files", lambda *a, **kw: ["f.txt"])
-    monkeypatch.setattr(validator, "_rel_posix", lambda f: f)
-    monkeypatch.setattr(validator, "_get_event_fires", lambda: fires)
-    monkeypatch.setattr(validator, "_pool_map", lambda fn, args, **kw: [bounded])
+    validator = _stub(monkeypatch, fires, lambda fn, args, **kw: [bounded])
     validator.validate_scheduled_date_bounds()
     return validator.collected
 
@@ -515,8 +527,6 @@ def test_get_random_event_ids_wiring(tmp_path, monkeypatch):
 \t}
 }
 """
-    f = _write(tmp_path, "common/on_actions/99_GER.txt", body)
-    validator = _FakeValidator("/tmp")
-    monkeypatch.setattr(validator, "_collect_files", lambda *a, **kw: [f])
+    validator = _on_actions_validator(tmp_path, monkeypatch, body)
     assert validator._get_random_event_ids() == {"foo.1"}
     assert validator._get_random_event_ids() == {"foo.1"}  # cached

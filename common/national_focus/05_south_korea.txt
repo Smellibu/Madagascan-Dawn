@@ -56,7 +56,13 @@ focus_tree = {
 			log = "[GetDateText]: [This.GetName]: focus KOR_foreign_procurement executed"
 		}
 
-		ai_will_do = { base = 1 }
+		ai_will_do = {
+			base = 1
+			modifier = {
+				factor = 2
+				ai_is_threatened = yes
+			}
+		}
 	}
 
 	focus = {
@@ -339,7 +345,7 @@ focus_tree = {
 				name = KOR_kss_program
 				bonus = 0.5
 				uses = 2
-				category = CAT_d_sub
+				category = CAT_attack_submarines
 			}
 			log = "[GetDateText]: [This.GetName]: focus KOR_kss_program executed"
 		}
@@ -378,7 +384,7 @@ focus_tree = {
 				name = KOR_ffx_program
 				bonus = 0.5
 				uses = 2
-				category = CAT_frigate
+				category = CAT_frigates
 			}
 			log = "[GetDateText]: [This.GetName]: focus KOR_ffx_program executed"
 		}
@@ -417,7 +423,7 @@ focus_tree = {
 				name = KOR_kdx_program
 				bonus = 0.5
 				uses = 2
-				category = CAT_destroyer
+				category = CAT_destroyers
 			}
 			log = "[GetDateText]: [This.GetName]: focus KOR_kdx_program executed"
 		}
@@ -580,6 +586,10 @@ focus_tree = {
 				factor = 0
 				has_active_mission = bankruptcy_incoming_collapse
 			}
+			modifier = {
+				factor = 2
+				ai_is_threatened = yes
+			}
 		}
 	}
 
@@ -683,7 +693,7 @@ focus_tree = {
 				name = KOR_rifle_modernization_program
 				bonus = 0.25
 				uses = 2
-				category = CAT_inf_wep
+				category = CAT_small_arms
 			}
 			log = "[GetDateText]: [This.GetName]: focus KOR_rifle_modernization_program executed"
 		}
@@ -722,7 +732,7 @@ focus_tree = {
 				name = KOR_next_generation_ifvs
 				bonus = 0.25
 				uses = 2
-				category = CAT_ifv
+				category = CAT_infantry_fighting_vehicles
 			}
 			log = "[GetDateText]: [This.GetName]: focus KOR_next_generation_ifvs executed"
 		}
@@ -761,7 +771,7 @@ focus_tree = {
 				name = KOR_tank_improvements
 				bonus = 0.25
 				uses = 2
-				category = CAT_mbt
+				category = CAT_tanks
 			}
 			log = "[GetDateText]: [This.GetName]: focus KOR_tank_improvements executed"
 		}
@@ -824,7 +834,7 @@ focus_tree = {
 				name = KOR_ticn_program
 				bonus = 0.25
 				uses = 2
-				category = CAT_cnc
+				category = CAT_command_and_control_equipment
 			}
 			log = "[GetDateText]: [This.GetName]: focus KOR_ticn_program executed"
 		}
@@ -863,7 +873,7 @@ focus_tree = {
 				name = KOR_bolster_cyber_security
 				bonus = 0.25
 				uses = 2
-				category = CAT_encryption_tech
+				category = CAT_encryption
 			}
 			log = "[GetDateText]: [This.GetName]: focus KOR_bolster_cyber_security executed"
 		}
@@ -894,7 +904,7 @@ focus_tree = {
 		completion_reward = {
 			add_doctrine_cost_reduction = {
 				name = KOR_it_augmentation
-				category = CAT_land_doctrine
+				category = land_doctrine
 				uses = 2
 				cost_reduction = 0.5
 			}
@@ -927,8 +937,8 @@ focus_tree = {
 				uses = 3
 				technology = body_armor_3
 				technology = body_armor_4
-				category = CAT_l_drone
-				category = CAT_nvg
+				category = CAT_land_drones
+				category = CAT_night_vision
 			}
 			log = "[GetDateText]: [This.GetName]: focus KOR_warrior_platform executed"
 		}
@@ -1014,6 +1024,10 @@ focus_tree = {
 				factor = 0
 				has_active_mission = bankruptcy_incoming_collapse
 			}
+			modifier = {
+				factor = 2
+				ai_is_threatened = yes
+			}
 		}
 	}
 
@@ -1039,7 +1053,13 @@ focus_tree = {
 			log = "[GetDateText]: [This.GetName]: focus KOR_slimmer_but_smarter executed"
 		}
 
-		ai_will_do = { base = 1 }
+		ai_will_do = {
+			base = 1
+			modifier = {
+				factor = 2
+				ai_is_threatened = yes
+			}
+		}
 	}
 
 	focus = {
@@ -1099,7 +1119,7 @@ focus_tree = {
 				name = KOR_korean_helicopters
 				bonus = 0.25
 				uses = 2
-				category = CAT_heli
+				category = CAT_helicopters
 			}
 			log = "[GetDateText]: [This.GetName]: focus KOR_korean_helicopters executed"
 		}
@@ -1138,7 +1158,7 @@ focus_tree = {
 				name = KOR_next_generation_uavs
 				bonus = 0.5
 				uses = 1
-				category = CAT_a_uav
+				category = CAT_air_drones
 			}
 			log = "[GetDateText]: [This.GetName]: focus KOR_next_generation_uavs executed"
 		}
@@ -1318,7 +1338,18 @@ focus_tree = {
 			log = "[GetDateText]: [This.GetName]: focus KOR_tolerate_objectors executed"
 		}
 
-		ai_will_do = { base = 1 }
+		ai_will_do = {
+			base = 1
+			modifier = {
+				factor = 3
+				OR = {
+					has_idea = KOR_conscientious_objectors
+					has_idea = KOR_conscientious_objectors1
+					has_idea = KOR_conscientious_objectors2
+					has_idea = KOR_conscientious_objectors3
+				}
+			}
+		}
 	}
 
 	focus = {
@@ -1392,7 +1423,18 @@ focus_tree = {
 			log = "[GetDateText]: [This.GetName]: focus KOR_repeal_article_92_6 executed"
 		}
 
-		ai_will_do = { base = 1 }
+		ai_will_do = {
+			base = 1
+			modifier = {
+				factor = 2
+				OR = {
+					has_idea = KOR_conscientious_objectors
+					has_idea = KOR_conscientious_objectors1
+					has_idea = KOR_conscientious_objectors2
+					has_idea = KOR_conscientious_objectors3
+				}
+			}
+		}
 	}
 
 	focus = {
@@ -1565,13 +1607,7 @@ focus_tree = {
 			log = "[GetDateText]: [This.GetName]: focus KOR_anti_capitalist_backlash executed"
 		}
 
-		ai_will_do = {
-			base = 1
-			modifier = {
-				factor = 0
-				is_historical_focus_on = yes
-			}
-		}
+		ai_will_do = { base = 0 }
 	}
 
 	focus = {
@@ -1596,7 +1632,7 @@ focus_tree = {
 			log = "[GetDateText]: [This.GetName]: focus KOR_support_underground_organizations executed"
 		}
 
-		ai_will_do = { base = 1 }
+		ai_will_do = { base = 0 }
 	}
 
 	focus = {
@@ -1622,7 +1658,7 @@ focus_tree = {
 			news_event = { id = korea.8 days = 1 }
 		}
 
-		ai_will_do = { base = 1 }
+		ai_will_do = { base = 0 }
 	}
 
 	focus = {
@@ -1647,7 +1683,7 @@ focus_tree = {
 			log = "[GetDateText]: [This.GetName]: focus KOR_national_liberation executed"
 		}
 
-		ai_will_do = { base = 1 }
+		ai_will_do = { base = 0 }
 	}
 
 	focus = {
@@ -1669,7 +1705,7 @@ focus_tree = {
 			log = "[GetDateText]: [This.GetName]: focus KOR_form_armed_militias executed"
 		}
 
-		ai_will_do = { base = 1 }
+		ai_will_do = { base = 0 }
 	}
 
 	focus = {
@@ -1692,7 +1728,7 @@ focus_tree = {
 			log = "[GetDateText]: [This.GetName]: focus KOR_make_preparations executed"
 		}
 
-		ai_will_do = { base = 1 }
+		ai_will_do = { base = 0 }
 	}
 
 	focus = {
@@ -1893,7 +1929,7 @@ focus_tree = {
 						producer = USA
 					}
 					add_equipment_to_stockpile = {
-						type = Anti_tank_0
+						type = Anti_tank_1
 						amount = 15
 						producer = USA
 					}
@@ -1911,7 +1947,7 @@ focus_tree = {
 						producer = USA
 					}
 					add_equipment_to_stockpile = {
-						type = Anti_tank_0
+						type = Anti_tank_1
 						amount = 15
 						producer = USA
 					}
@@ -1929,7 +1965,7 @@ focus_tree = {
 						producer = USA
 					}
 					add_equipment_to_stockpile = {
-						type = Anti_tank_0
+						type = Anti_tank_1
 						amount = 15
 						producer = USA
 					}
@@ -1947,7 +1983,7 @@ focus_tree = {
 						producer = USA
 					}
 					add_equipment_to_stockpile = {
-						type = Anti_tank_0
+						type = Anti_tank_1
 						amount = 15
 						producer = USA
 					}
@@ -1965,7 +2001,7 @@ focus_tree = {
 						producer = USA
 					}
 					add_equipment_to_stockpile = {
-						type = Anti_tank_0
+						type = Anti_tank_1
 						amount = 15
 						producer = USA
 					}
@@ -1983,7 +2019,7 @@ focus_tree = {
 						producer = USA
 					}
 					add_equipment_to_stockpile = {
-						type = Anti_tank_0
+						type = Anti_tank_1
 						amount = 15
 						producer = USA
 					}
@@ -2001,7 +2037,7 @@ focus_tree = {
 						producer = USA
 					}
 					add_equipment_to_stockpile = {
-						type = Anti_tank_0
+						type = Anti_tank_1
 						amount = 15
 						producer = USA
 					}
@@ -2019,7 +2055,7 @@ focus_tree = {
 						producer = USA
 					}
 					add_equipment_to_stockpile = {
-						type = Anti_tank_0
+						type = Anti_tank_1
 						amount = 15
 						producer = USA
 					}
@@ -2037,7 +2073,7 @@ focus_tree = {
 						producer = USA
 					}
 					add_equipment_to_stockpile = {
-						type = Anti_tank_0
+						type = Anti_tank_1
 						amount = 15
 						producer = USA
 					}
@@ -2055,7 +2091,7 @@ focus_tree = {
 						producer = USA
 					}
 					add_equipment_to_stockpile = {
-						type = Anti_tank_0
+						type = Anti_tank_1
 						amount = 15
 						producer = USA
 					}
@@ -2073,7 +2109,7 @@ focus_tree = {
 						producer = USA
 					}
 					add_equipment_to_stockpile = {
-						type = Anti_tank_0
+						type = Anti_tank_1
 						amount = 15
 						producer = USA
 					}
@@ -2091,7 +2127,7 @@ focus_tree = {
 						producer = USA
 					}
 					add_equipment_to_stockpile = {
-						type = Anti_tank_0
+						type = Anti_tank_1
 						amount = 15
 						producer = USA
 					}
@@ -2109,7 +2145,7 @@ focus_tree = {
 						producer = USA
 					}
 					add_equipment_to_stockpile = {
-						type = Anti_tank_0
+						type = Anti_tank_1
 						amount = 15
 						producer = USA
 					}
@@ -2127,7 +2163,7 @@ focus_tree = {
 						producer = USA
 					}
 					add_equipment_to_stockpile = {
-						type = Anti_tank_0
+						type = Anti_tank_1
 						amount = 15
 						producer = USA
 					}
@@ -2145,7 +2181,7 @@ focus_tree = {
 						producer = CHI
 					}
 					add_equipment_to_stockpile = {
-						type = Anti_tank_0
+						type = Anti_tank_1
 						amount = 15
 						producer = CHI
 					}
@@ -2163,7 +2199,7 @@ focus_tree = {
 						producer = CHI
 					}
 					add_equipment_to_stockpile = {
-						type = Anti_tank_0
+						type = Anti_tank_1
 						amount = 15
 						producer = CHI
 					}
@@ -2181,7 +2217,7 @@ focus_tree = {
 						producer = CHI
 					}
 					add_equipment_to_stockpile = {
-						type = Anti_tank_0
+						type = Anti_tank_1
 						amount = 15
 						producer = CHI
 					}
@@ -2199,7 +2235,7 @@ focus_tree = {
 						producer = CHI
 					}
 					add_equipment_to_stockpile = {
-						type = Anti_tank_0
+						type = Anti_tank_1
 						amount = 15
 						producer = CHI
 					}
@@ -2217,7 +2253,7 @@ focus_tree = {
 						producer = CHI
 					}
 					add_equipment_to_stockpile = {
-						type = Anti_tank_0
+						type = Anti_tank_1
 						amount = 15
 						producer = CHI
 					}
@@ -2235,7 +2271,7 @@ focus_tree = {
 						producer = CHI
 					}
 					add_equipment_to_stockpile = {
-						type = Anti_tank_0
+						type = Anti_tank_1
 						amount = 15
 						producer = CHI
 					}
@@ -2253,7 +2289,7 @@ focus_tree = {
 						producer = CHI
 					}
 					add_equipment_to_stockpile = {
-						type = Anti_tank_0
+						type = Anti_tank_1
 						amount = 15
 						producer = CHI
 					}
@@ -2271,7 +2307,7 @@ focus_tree = {
 						producer = CHI
 					}
 					add_equipment_to_stockpile = {
-						type = Anti_tank_0
+						type = Anti_tank_1
 						amount = 15
 						producer = CHI
 					}
@@ -2289,7 +2325,7 @@ focus_tree = {
 						producer = CHI
 					}
 					add_equipment_to_stockpile = {
-						type = Anti_tank_0
+						type = Anti_tank_1
 						amount = 15
 						producer = CHI
 					}
@@ -2307,7 +2343,7 @@ focus_tree = {
 						producer = CHI
 					}
 					add_equipment_to_stockpile = {
-						type = Anti_tank_0
+						type = Anti_tank_1
 						amount = 15
 						producer = CHI
 					}
@@ -2325,7 +2361,7 @@ focus_tree = {
 						producer = CHI
 					}
 					add_equipment_to_stockpile = {
-						type = Anti_tank_0
+						type = Anti_tank_1
 						amount = 15
 						producer = CHI
 					}
@@ -2343,7 +2379,7 @@ focus_tree = {
 						producer = CHI
 					}
 					add_equipment_to_stockpile = {
-						type = Anti_tank_0
+						type = Anti_tank_1
 						amount = 15
 						producer = CHI
 					}
@@ -2361,7 +2397,7 @@ focus_tree = {
 						producer = CHI
 					}
 					add_equipment_to_stockpile = {
-						type = Anti_tank_0
+						type = Anti_tank_1
 						amount = 15
 						producer = CHI
 					}
@@ -2379,7 +2415,7 @@ focus_tree = {
 						producer = CHI
 					}
 					add_equipment_to_stockpile = {
-						type = Anti_tank_0
+						type = Anti_tank_1
 						amount = 15
 						producer = CHI
 					}
@@ -2393,7 +2429,7 @@ focus_tree = {
 			log = "[GetDateText]: [This.GetName]: focus KOR_ignite_the_rebellion executed"
 		}
 
-		ai_will_do = { base = 1 }
+		ai_will_do = { base = 0 }
 	}
 
 	focus = {
@@ -2425,7 +2461,7 @@ focus_tree = {
 			custom_effect_tooltip = TT_IF_THEY_ACCEPT
 		}
 
-		ai_will_do = { base = 1 }
+		ai_will_do = { base = 0 }
 	}
 
 	focus = {
@@ -2464,7 +2500,7 @@ focus_tree = {
 			log = "[GetDateText]: [This.GetName]: focus KOR_juche_in_the_south executed"
 		}
 
-		ai_will_do = { base = 1 }
+		ai_will_do = { base = 0 }
 	}
 
 	focus = {
@@ -2849,7 +2885,21 @@ focus_tree = {
 			log = "[GetDateText]: [This.GetName]: focus KOR_a_fair_economy executed"
 		}
 
-		ai_will_do = { base = 1 }
+		ai_will_do = {
+			base = 1
+			modifier = {
+				factor = 3
+				OR = {
+					has_idea = KOR_chaebol_dependence
+					has_idea = KOR_chaebol_dependence1
+					has_idea = KOR_chaebol_dependence2
+					has_idea = KOR_chaebol_dependence3
+					has_idea = KOR_chaebol_dependence4
+					has_idea = KOR_chaebol_dependence5
+					has_idea = KOR_chaebol_dependence6
+				}
+			}
+		}
 	}
 
 	focus = {
@@ -2915,7 +2965,23 @@ focus_tree = {
 			log = "[GetDateText]: [This.GetName]: focus KOR_a_liberated_economy executed"
 		}
 
-		ai_will_do = { base = 1 }
+		ai_will_do = {
+			base = 1
+			modifier = {
+				factor = 3
+				OR = {
+					has_idea = KOR_chaebol_dependence
+					has_idea = KOR_chaebol_dependence1
+					has_idea = KOR_chaebol_dependence2
+					has_idea = KOR_chaebol_dependence3
+					has_idea = KOR_chaebol_dependence4
+					has_idea = KOR_chaebol_dependence5
+					has_idea = KOR_chaebol_dependence6
+				}
+			}
+			modifier = { factor = 25 has_global_flag = KOR_SUNSHINE_FOCUS_PATH }
+			modifier = { factor = 0 KOR_ai_not_sunshine_path = yes }
+		}
 	}
 
 	focus = {
@@ -2952,7 +3018,13 @@ focus_tree = {
 			log = "[GetDateText]: [This.GetName]: focus KOR_repeal_the_national_security_law executed"
 		}
 
-		ai_will_do = { base = 1 }
+		ai_will_do = {
+			base = 1
+			modifier = {
+				factor = 3
+				has_idea = KOR_national_security_law
+			}
+		}
 	}
 
 	focus = {
@@ -2975,8 +3047,6 @@ focus_tree = {
 				KOR_has_liberal_government = yes
 			}
 		}
-
-		completion_reward = { log = "[GetDateText]: [This.GetName]: focus KOR_reform_the_nis executed" }
 
 		ai_will_do = { base = 1 }
 	}
@@ -3137,7 +3207,20 @@ focus_tree = {
 			log = "[GetDateText]: [This.GetName]: focus KOR_decouple_politics_from_intelligence executed"
 		}
 
-		ai_will_do = { base = 1 }
+		ai_will_do = {
+			base = 1
+			modifier = {
+				factor = 3
+				OR = {
+					has_idea = KOR_politicized_spy_agency
+					has_idea = KOR_politicized_spy_agency1
+					has_idea = KOR_politicized_spy_agency2
+					has_idea = KOR_politicized_spy_agency3
+					has_idea = KOR_politicized_spy_agency4
+					has_idea = KOR_politicized_spy_agency5
+				}
+			}
+		}
 	}
 
 	focus = {
@@ -3202,7 +3285,14 @@ focus_tree = {
 			log = "[GetDateText]: [This.GetName]: focus KOR_expand_proportional_representation executed"
 		}
 
-		ai_will_do = { base = 1 }
+		ai_will_do = {
+			base = 1
+			modifier = {
+				factor = 3
+				has_idea = KOR_de_facto_two_party_system
+			}
+			modifier = { factor = 0 has_global_flag = KOR_HARDLINE_FOCUS_PATH }
+		}
 	}
 
 	focus = {
@@ -3234,7 +3324,15 @@ focus_tree = {
 			log = "[GetDateText]: [This.GetName]: focus KOR_end_proportional_representation executed"
 		}
 
-		ai_will_do = { base = 1 }
+		ai_will_do = {
+			base = 1
+			modifier = {
+				factor = 3
+				has_idea = KOR_de_facto_two_party_system
+			}
+			modifier = { factor = 25 has_global_flag = KOR_HARDLINE_FOCUS_PATH }
+			modifier = { factor = 0 KOR_ai_not_hardline_path = yes }
+		}
 	}
 
 	focus = {
@@ -3894,6 +3992,7 @@ focus_tree = {
 				factor = 10
 				is_historical_focus_on = yes
 			}
+			modifier = { factor = 0 has_global_flag = KOR_YUSIN_FOCUS_PATH }
 		}
 	}
 
@@ -3957,7 +4056,11 @@ focus_tree = {
 			log = "[GetDateText]: [This.GetName]: focus KOR_venerate_park_chung_hee executed"
 		}
 
-		ai_will_do = { base = 1 }
+		ai_will_do = {
+			base = 1
+			modifier = { factor = 25 has_global_flag = KOR_YUSIN_FOCUS_PATH }
+			modifier = { factor = 0 KOR_ai_not_yusin_path = yes }
+		}
 	}
 
 	focus = {
@@ -3990,10 +4093,8 @@ focus_tree = {
 
 		ai_will_do = {
 			base = 1
-			modifier = {
-				factor = 0
-				is_historical_focus_on = yes
-			}
+			modifier = { factor = 25 has_global_flag = KOR_YUSIN_FOCUS_PATH }
+			modifier = { factor = 0 KOR_ai_not_yusin_path = yes }
 		}
 	}
 
@@ -4030,10 +4131,8 @@ focus_tree = {
 
 		ai_will_do = {
 			base = 1
-			modifier = {
-				factor = 0
-				is_historical_focus_on = yes
-			}
+			modifier = { factor = 25 has_global_flag = KOR_YUSIN_FOCUS_PATH }
+			modifier = { factor = 0 KOR_ai_not_yusin_path = yes }
 		}
 	}
 
@@ -4071,7 +4170,11 @@ focus_tree = {
 			subtract_from_variable = { reunification_chance = 1 }
 		}
 
-		ai_will_do = { base = 1 }
+		ai_will_do = {
+			base = 1
+			modifier = { factor = 25 has_global_flag = KOR_YUSIN_FOCUS_PATH }
+			modifier = { factor = 0 KOR_ai_not_yusin_path = yes }
+		}
 	}
 
 	focus = {
@@ -4123,6 +4226,8 @@ focus_tree = {
 				NKO = { is_subject_of = CHI }
 				NOT = { has_idea = NATO_member }
 			}
+			modifier = { factor = 25 has_global_flag = KOR_YUSIN_FOCUS_PATH }
+			modifier = { factor = 0 KOR_ai_not_yusin_path = yes }
 		}
 	}
 
@@ -4160,10 +4265,8 @@ focus_tree = {
 
 		ai_will_do = {
 			base = 1
-			modifier = {
-				factor = 10
-				is_historical_focus_on = yes
-			}
+			modifier = { factor = 25 KOR_ai_historical_path = yes }
+			modifier = { factor = 0 KOR_ai_not_historical_path = yes }
 		}
 	}
 
@@ -4236,6 +4339,8 @@ focus_tree = {
 				factor = 0
 				has_active_mission = bankruptcy_incoming_collapse
 			}
+			modifier = { factor = 25 KOR_ai_historical_path = yes }
+			modifier = { factor = 0 KOR_ai_not_historical_path = yes }
 		}
 	}
 
@@ -4284,6 +4389,8 @@ focus_tree = {
 				factor = 0
 				has_active_mission = bankruptcy_incoming_collapse
 			}
+			modifier = { factor = 25 KOR_ai_historical_path = yes }
+			modifier = { factor = 0 KOR_ai_not_historical_path = yes }
 		}
 	}
 
@@ -4335,10 +4442,8 @@ focus_tree = {
 
 		ai_will_do = {
 			base = 1
-			modifier = {
-				factor = 0
-				is_historical_focus_on = yes
-			}
+			modifier = { factor = 25 has_global_flag = KOR_HARDLINE_FOCUS_PATH }
+			modifier = { factor = 0 KOR_ai_not_hardline_path = yes }
 		}
 	}
 
@@ -4388,6 +4493,8 @@ focus_tree = {
 				factor = 0
 				has_active_mission = bankruptcy_incoming_collapse
 			}
+			modifier = { factor = 25 has_global_flag = KOR_HARDLINE_FOCUS_PATH }
+			modifier = { factor = 0 KOR_ai_not_hardline_path = yes }
 		}
 	}
 
@@ -4472,7 +4579,11 @@ focus_tree = {
 			log = "[GetDateText]: [This.GetName]: focus KOR_spark_insurrection executed"
 		}
 
-		ai_will_do = { base = 1 }
+		ai_will_do = {
+			base = 1
+			modifier = { factor = 25 has_global_flag = KOR_HARDLINE_FOCUS_PATH }
+			modifier = { factor = 0 KOR_ai_not_hardline_path = yes }
+		}
 	}
 
 	focus = {
@@ -4509,7 +4620,11 @@ focus_tree = {
 			log = "[GetDateText]: [This.GetName]: focus KOR_raise_tensions executed"
 		}
 
-		ai_will_do = { base = 1 }
+		ai_will_do = {
+			base = 1
+			modifier = { factor = 25 has_global_flag = KOR_YUSIN_FOCUS_PATH }
+			modifier = { factor = 0 KOR_ai_not_yusin_path = yes }
+		}
 	}
 
 	focus = {
@@ -4535,7 +4650,11 @@ focus_tree = {
 			log = "[GetDateText]: [This.GetName]: focus KOR_clamp_down_on_political_activism executed"
 		}
 
-		ai_will_do = { base = 1 }
+		ai_will_do = {
+			base = 1
+			modifier = { factor = 25 has_global_flag = KOR_YUSIN_FOCUS_PATH }
+			modifier = { factor = 0 KOR_ai_not_yusin_path = yes }
+		}
 	}
 
 	focus = {
@@ -4587,7 +4706,15 @@ focus_tree = {
 			log = "[GetDateText]: [This.GetName]: focus KOR_impose_martial_law executed"
 		}
 
-		ai_will_do = { base = 1 }
+		ai_will_do = {
+			base = 1
+			modifier = {
+				factor = 3
+				has_idea = KOR_national_assembly_deadlocked
+			}
+			modifier = { factor = 25 has_global_flag = KOR_YUSIN_FOCUS_PATH }
+			modifier = { factor = 0 KOR_ai_not_yusin_path = yes }
+		}
 	}
 
 	focus = {
@@ -4613,7 +4740,11 @@ focus_tree = {
 			log = "[GetDateText]: [This.GetName]: focus KOR_muzzle_the_media executed"
 		}
 
-		ai_will_do = { base = 1 }
+		ai_will_do = {
+			base = 1
+			modifier = { factor = 25 has_global_flag = KOR_YUSIN_FOCUS_PATH }
+			modifier = { factor = 0 KOR_ai_not_yusin_path = yes }
+		}
 	}
 
 	focus = {
@@ -4646,7 +4777,11 @@ focus_tree = {
 			log = "[GetDateText]: [This.GetName]: focus KOR_favor_armed_forces executed"
 		}
 
-		ai_will_do = { base = 1 }
+		ai_will_do = {
+			base = 1
+			modifier = { factor = 30 has_global_flag = KOR_YUSIN_FOCUS_PATH }
+			modifier = { factor = 0 KOR_ai_not_yusin_path = yes }
+		}
 	}
 
 	focus = {
@@ -4679,7 +4814,11 @@ focus_tree = {
 			log = "[GetDateText]: [This.GetName]: focus KOR_favor_the_nis executed"
 		}
 
-		ai_will_do = { base = 1 }
+		ai_will_do = {
+			base = 1
+			modifier = { factor = 25 has_global_flag = KOR_YUSIN_FOCUS_PATH }
+			modifier = { factor = 0 KOR_ai_not_yusin_path = yes }
+		}
 	}
 
 	focus = {
@@ -4703,13 +4842,25 @@ focus_tree = {
 				set_temp_variable = { rul_party_temp = 0 }
 				set_temp_variable = { disable_elections = 1 }
 				change_ruling_party_effect = yes
+				if = {
+					limit = {
+						is_ai = yes
+						has_global_flag = KOR_YUSIN_FOCUS_PATH
+						has_idea = KOR_wartime_control
+					}
+					remove_ideas = KOR_wartime_control
+				}
 			}
 			custom_effect_tooltip = KOR_yusin_takes_power_tt
 			add_ideas = GCC_censored_nation_01
 			log = "[GetDateText]: [This.GetName]: focus KOR_install_the_yusin_dictatorship executed"
 		}
 
-		ai_will_do = { base = 1 }
+		ai_will_do = {
+			base = 1
+			modifier = { factor = 25 has_global_flag = KOR_YUSIN_FOCUS_PATH }
+			modifier = { factor = 0 KOR_ai_not_yusin_path = yes }
+		}
 	}
 
 	focus = {
@@ -4745,7 +4896,11 @@ focus_tree = {
 			GCC_censored_nation_level_up = yes
 		}
 
-		ai_will_do = { base = 1 }
+		ai_will_do = {
+			base = 1
+			modifier = { factor = 25 has_global_flag = KOR_YUSIN_FOCUS_PATH }
+			modifier = { factor = 0 KOR_ai_not_yusin_path = yes }
+		}
 	}
 
 	focus = {
@@ -4774,7 +4929,11 @@ focus_tree = {
 			log = "[GetDateText]: [This.GetName]: focus KOR_increase_surveillance executed"
 		}
 
-		ai_will_do = { base = 1 }
+		ai_will_do = {
+			base = 1
+			modifier = { factor = 25 has_global_flag = KOR_YUSIN_FOCUS_PATH }
+			modifier = { factor = 0 KOR_ai_not_yusin_path = yes }
+		}
 	}
 
 	focus = {
@@ -4802,7 +4961,11 @@ focus_tree = {
 			log = "[GetDateText]: [This.GetName]: focus KOR_imprison_leftists executed"
 		}
 
-		ai_will_do = { base = 1 }
+		ai_will_do = {
+			base = 1
+			modifier = { factor = 25 has_global_flag = KOR_YUSIN_FOCUS_PATH }
+			modifier = { factor = 0 KOR_ai_not_yusin_path = yes }
+		}
 	}
 
 	##DIPLOMATIC#
@@ -5776,6 +5939,7 @@ focus_tree = {
 						modifier = mutual_trade_agreement
 					}
 					set_temp_variable = { percent_change = 1 }
+					set_temp_variable = { influence_target = THIS }
 					change_influence_percentage = yes
 				}
 			}
@@ -6502,7 +6666,13 @@ focus_tree = {
 			conservative_policy_effect = yes
 		}
 
-		ai_will_do = { base = 1 }
+		ai_will_do = {
+			base = 1
+			modifier = {
+				factor = 3
+				has_idea = KOR_joint_us_exercises
+			}
+		}
 	}
 
 	focus = {
@@ -6622,7 +6792,11 @@ focus_tree = {
 			}
 		}
 
-		ai_will_do = { base = 1 }
+		ai_will_do = {
+			base = 1
+			modifier = { factor = 25 has_global_flag = KOR_HARDLINE_FOCUS_PATH }
+			modifier = { factor = 0 KOR_ai_not_hardline_path = yes }
+		}
 	}
 
 	focus = {
@@ -6672,7 +6846,11 @@ focus_tree = {
 			log = "[GetDateText]: [This.GetName]: focus KOR_support_the_self_defense_forces executed"
 		}
 
-		ai_will_do = { base = 1 }
+		ai_will_do = {
+			base = 1
+			modifier = { factor = 25 has_global_flag = KOR_HARDLINE_FOCUS_PATH }
+			modifier = { factor = 0 KOR_ai_not_hardline_path = yes }
+		}
 	}
 
 	focus = {
@@ -6729,7 +6907,11 @@ focus_tree = {
 			log = "[GetDateText]: [This.GetName]: focus KOR_distance_from_china executed"
 		}
 
-		ai_will_do = { base = 1 }
+		ai_will_do = {
+			base = 1
+			modifier = { factor = 25 has_global_flag = KOR_HARDLINE_FOCUS_PATH }
+			modifier = { factor = 0 KOR_ai_not_hardline_path = yes }
+		}
 	}
 
 	focus = {
@@ -6771,7 +6953,11 @@ focus_tree = {
 			log = "[GetDateText]: [This.GetName]: focus KOR_revisit_the_alliance executed"
 		}
 
-		ai_will_do = { base = 1 }
+		ai_will_do = {
+			base = 1
+			modifier = { factor = 25 has_global_flag = KOR_SUNSHINE_FOCUS_PATH }
+			modifier = { factor = 0 KOR_ai_not_sunshine_path = yes }
+		}
 	}
 
 	focus = {
@@ -6808,7 +6994,15 @@ focus_tree = {
 			log = "[GetDateText]: [This.GetName]: focus KOR_secure_wartime_control executed"
 		}
 
-		ai_will_do = { base = 1 }
+		ai_will_do = {
+			base = 1
+			modifier = {
+				factor = 3
+				has_idea = KOR_wartime_control
+			}
+			modifier = { factor = 25 has_global_flag = KOR_SUNSHINE_FOCUS_PATH }
+			modifier = { factor = 0 KOR_ai_not_sunshine_path = yes }
+		}
 	}
 
 	focus = {
@@ -6859,7 +7053,15 @@ focus_tree = {
 			log = "[GetDateText]: [This.GetName]: focus KOR_wind_down_the_us_presence executed"
 		}
 
-		ai_will_do = { base = 1 }
+		ai_will_do = {
+			base = 1
+			modifier = {
+				factor = 3
+				has_idea = KOR_joint_us_exercises
+			}
+			modifier = { factor = 25 has_global_flag = KOR_SUNSHINE_FOCUS_PATH }
+			modifier = { factor = 0 KOR_ai_not_sunshine_path = yes }
+		}
 	}
 
 	focus = {
@@ -6926,10 +7128,8 @@ focus_tree = {
 
 		ai_will_do = {
 			base = 1
-			modifier = {
-				factor = 0
-				is_historical_focus_on = yes
-			}
+			modifier = { factor = 25 has_global_flag = KOR_SUNSHINE_FOCUS_PATH }
+			modifier = { factor = 0 KOR_ai_not_sunshine_path = yes }
 		}
 	}
 
@@ -7025,6 +7225,7 @@ focus_tree = {
 				}
 				add_ideas = KOR_development_assistance_idea
 				set_temp_variable = { percent_change = 5 }
+				set_temp_variable = { influence_target = THIS }
 				change_influence_percentage = yes
 			}
 			log = "[GetDateText]: [This.GetName]: focus KOR_support_development executed"
@@ -7317,6 +7518,7 @@ focus_tree = {
 				}
 				add_ideas = KOR_development_assistance_idea
 				set_temp_variable = { percent_change = 5 }
+				set_temp_variable = { influence_target = THIS }
 				change_influence_percentage = yes
 			}
 			log = "[GetDateText]: [This.GetName]: focus KOR_development_assistance executed"
@@ -7471,6 +7673,7 @@ focus_tree = {
 					modifier = trade_mission
 				}
 				set_temp_variable = { percent_change = 5 }
+				set_temp_variable = { influence_target = THIS }
 				change_influence_percentage = yes
 			}
 			215 = {
@@ -7627,6 +7830,7 @@ focus_tree = {
 					}
 				}
 				set_temp_variable = { percent_change = 10 }
+				set_temp_variable = { influence_target = THIS }
 				change_influence_percentage = yes
 			}
 			log = "[GetDateText]: [This.GetName]: focus KOR_extend_our_influence executed"
@@ -7660,7 +7864,7 @@ focus_tree = {
 		id = KOR_CELLTRION
 		icon = economic_it
 
-		x = -10
+		x = -11
 		y = 1
 		relative_position_id = KOR_economics_improvement
 
@@ -7762,7 +7966,7 @@ focus_tree = {
 			log = "[GetDateText]: [Root.GetName]: Focus KOR_civilians_first "
 			add_tech_bonus = {
 				name = KOR_civilians_first
-				category = CAT_genes
+				category = CAT_genetics
 				bonus = 0.50
 				uses = 1
 			}
@@ -7794,7 +7998,7 @@ focus_tree = {
 			log = "[GetDateText]: [Root.GetName]: Focus KOR_biotechnology_focus "
 			add_tech_bonus = {
 				name = KOR_biotechnology_focus
-				category = CAT_genes
+				category = CAT_genetics
 				bonus = 0.25
 				uses = 1
 			}
@@ -7928,7 +8132,7 @@ focus_tree = {
 				name = KOR_ultimate_protection
 				ahead_reduction = 2
 				uses = 2
-				category = CAT_inf
+				category = CAT_infantry
 			}
 		}
 
@@ -7939,7 +8143,7 @@ focus_tree = {
 		id = KOR_posco
 		icon = coal_mining_2
 
-		x = -4
+		x = -5
 		y = 2
 		relative_position_id = KOR_economics_improvement
 
@@ -8177,7 +8381,7 @@ focus_tree = {
 				name = KOR_worlds_second
 				ahead_reduction = 1.5
 				uses = 2
-				category = CAT_excavation_tech
+				category = CAT_excavation
 			}
 			country_event = { id = korea.64 days = 1 }
 		}
@@ -8189,7 +8393,7 @@ focus_tree = {
 		id = KOR_samsung
 		icon = circular_electron_positron_collider
 
-		x = 2
+		x = 3
 		y = 2
 		relative_position_id = KOR_economics_improvement
 
@@ -8205,7 +8409,7 @@ focus_tree = {
 				name = KOR_samsung
 				ahead_reduction = 1
 				uses = 1
-				category = CAT_internet_tech
+				category = CAT_internet
 			}
 		}
 
@@ -8255,7 +8459,7 @@ focus_tree = {
 				name = KOR_samsung_thunder
 				ahead_reduction = 1
 				uses = 1
-				category = CAT_sp_r_arty
+				category = CAT_self_propelled_artillery
 			}
 		}
 
@@ -8367,7 +8571,7 @@ focus_tree = {
 		id = KOR_lg
 		icon = hydroelectric2
 
-		x = 6
+		x = 7
 		y = 1
 		relative_position_id = KOR_economics_improvement
 
@@ -8403,7 +8607,7 @@ focus_tree = {
 			log = "[GetDateText]: [Root.GetName]: Focus KOR_lg_cns "
 			add_tech_bonus = {
 				name = KOR_lg_cns
-				category = CAT_ai
+				category = CAT_artificial_intelligence
 				bonus = 0.30
 				uses = 1
 			}
@@ -8430,7 +8634,7 @@ focus_tree = {
 			log = "[GetDateText]: [Root.GetName]: Focus KOR_cloud_computing "
 			add_tech_bonus = {
 				name = KOR_cloud_computing
-				category = CAT_computing_tech
+				category = CAT_information_technology
 				bonus = 0.30
 				uses = 2
 			}
@@ -8459,7 +8663,7 @@ focus_tree = {
 				name = KOR_ai_focus
 				ahead_reduction = 2.5
 				uses = 1
-				category = CAT_ai
+				category = CAT_artificial_intelligence
 			}
 		}
 
@@ -8524,7 +8728,7 @@ focus_tree = {
 			one_random_industrial_complex = yes
 			add_tech_bonus = {
 				name = KOR_ochang_plant
-				category = CAT_3d
+				category = CAT_3d_printing
 				bonus = 0.25
 				uses = 1
 			}
@@ -8562,7 +8766,7 @@ focus_tree = {
 			one_random_industrial_complex = yes
 			add_tech_bonus = {
 				name = KOR_sbl_plant
-				category = CAT_renewable
+				category = CAT_renewable_energy
 				bonus = 0.50
 				uses = 1
 			}
@@ -8585,7 +8789,7 @@ focus_tree = {
 		id = KOR_hyundai
 		icon = generic_ship_fix
 
-		x = 10
+		x = 11
 		y = 5
 		relative_position_id = KOR_economics_improvement
 
@@ -8771,7 +8975,7 @@ focus_tree = {
 		id = KOR_naver
 		icon = south_east_asian_offensive
 
-		x = 13
+		x = 14
 		y = 2
 		relative_position_id = KOR_economics_improvement
 
@@ -8807,7 +9011,7 @@ focus_tree = {
 			log = "[GetDateText]: [Root.GetName]: Focus KOR_webtoon"
 			add_tech_bonus = {
 				name = KOR_webtoon
-				category = CAT_internet_tech
+				category = CAT_internet
 				bonus = 0.30
 				uses = 1
 			}
@@ -8858,7 +9062,7 @@ focus_tree = {
 		id = KOR_samsung_memory_frontier
 		icon = circular_electron_positron_collider
 
-		x = -4
+		x = -3
 		y = 2
 		relative_position_id = KOR_samsung
 
@@ -8920,7 +9124,7 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus KOR_samsung_hbm_ai"
-			add_tech_bonus = { name = KOR_samsung_hbm_ai bonus = 0.25 uses = 1 category = CAT_ai }
+			add_tech_bonus = { name = KOR_samsung_hbm_ai bonus = 0.25 uses = 1 category = CAT_artificial_intelligence }
 			hidden_effect = {
 				if = { limit = { OR = { has_game_rule = { rule = rule_corporate_history option = full } has_game_rule = { rule = rule_corporate_history option = outcomes_only } } } KOR_samsung_initialize_state = yes set_country_flag = KOR_samsung_integrated_stack_strategy add_to_variable = { KOR_samsung_memory_leadership = 1 } add_to_variable = { KOR_samsung_consumer_ecosystem = 1 } KOR_samsung_clamp_state = yes }
 			}
@@ -8933,7 +9137,7 @@ focus_tree = {
 		id = KOR_samsung_advanced_packaging
 		icon = MEX_Scientific_investment
 
-		x = -4
+		x = -5
 		y = 4
 		relative_position_id = KOR_samsung
 
@@ -8945,7 +9149,7 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus KOR_samsung_advanced_packaging"
-			add_tech_bonus = { name = KOR_samsung_advanced_packaging bonus = 0.20 uses = 1 category = CAT_computing_tech }
+			add_tech_bonus = { name = KOR_samsung_advanced_packaging bonus = 0.20 uses = 1 category = CAT_information_technology }
 			hidden_effect = {
 				if = { limit = { OR = { has_game_rule = { rule = rule_corporate_history option = full } has_game_rule = { rule = rule_corporate_history option = outcomes_only } } } KOR_samsung_initialize_state = yes set_country_flag = KOR_samsung_integrated_stack_strategy add_to_variable = { KOR_samsung_memory_leadership = 1 } add_to_variable = { KOR_samsung_foundry_capability = 1 } KOR_samsung_clamp_state = yes }
 			}

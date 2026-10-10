@@ -570,7 +570,8 @@ on_actions = {
 
 	on_government_change = {
 		effect = {
-			# swiss_political_system* tiers cancel daily on this same condition, so never gate on has_idea here (usually already stripped)
+			# Engine state, not ruling_party: set_politics fires this before the variable is written.
+			# Tiers cancel on the same condition, so never gate on has_idea here.
 			if = {
 				limit = {
 					original_tag = SWI
@@ -929,9 +930,9 @@ on_actions = {
 					10 = {
 						modifier = {
 							factor = 0
-							SPR = { owns_state = 88 }
-							88 = {
-								NOT = { is_core_of = NAV }
+							OR = {
+								NOT = { SPR = { owns_state = 88 } }
+								88 = { NOT = { is_core_of = NAV } }
 							}
 						}
 						# Basque
@@ -988,8 +989,10 @@ on_actions = {
 					10 = {
 						modifier = {
 							factor = 0
-							SPR = { owns_state = 86 }
-							86 = { NOT = { is_core_of = CAT } }
+							OR = {
+								NOT = { SPR = { owns_state = 86 } }
+								86 = { NOT = { is_core_of = CAT } }
+							}
 						}
 						# Catalonians
 						random_list = {
@@ -1017,8 +1020,10 @@ on_actions = {
 					10 = {
 						modifier = {
 							factor = 0
-							SPR = { owns_state = 93 }
-							93 = { NOT = { is_core_of = CAT } }
+							OR = {
+								NOT = { SPR = { owns_state = 93 } }
+								93 = { NOT = { is_core_of = SPA } }
+							}
 						}
 						# andalusians
 						random_list = {
@@ -1041,8 +1046,10 @@ on_actions = {
 					10 = {
 						modifier = {
 							factor = 0
-							SPR = { owns_state = 95 }
-							95 = { NOT = { is_core_of = CNR } }
+							OR = {
+								NOT = { SPR = { owns_state = 95 } }
+								95 = { NOT = { is_core_of = CNR } }
+							}
 						}
 						# Canarios
 						random_list = {
@@ -1762,42 +1769,13 @@ on_actions = {
 		}
 	}
 
-	# Nigeria
-	on_weekly_NIG = {
-		effect = {
-			if = { limit = { has_active_mission = NIG_religious_civil_war_mission }
-
-				if = {
-					limit = {
-						322 = { NIG_has_been_converted = yes }
-						337 = { NIG_has_been_converted = yes }
-						336 = { NIG_has_been_converted = yes }
-						334 = { NIG_has_been_converted = yes }
-						340 = { NIG_has_been_converted = yes }
-						338 = { NIG_has_been_converted = yes }
-						339 = { NIG_has_been_converted = yes }
-						332 = { NIG_has_been_converted = yes }
-					}
-					set_country_flag = NIG_has_converted_everything
-				}
-			}
-		}
-	}
-
 	# ETH
 	on_weekly_ETH = {
 		effect = {
 			if = {
 				limit = {
 					NOT = { has_country_flag = ETH_isaias_afwerki_arrested }
-					OR = {
-						AND = {
-							owns_state = 228
-							owns_state = 229
-							NOT = { country_exists = ERI }
-						}
-						ERI = { is_subject_of = ETH }
-					}
+					ETH_eritrea_defeated = yes
 				}
 				set_country_flag = ETH_isaias_afwerki_arrested
 				country_event = { id = ethiopia.13 days = 2 }
