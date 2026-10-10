@@ -3633,7 +3633,7 @@ focus_tree = {
 			
 			add_tech_bonus = {
 				name = MAD_WORK_WITH_GERMANS
-				category = CAT_h_air
+				category = CAT_heavy_aircraft
 				uses = 3
 				bonus = 0.25
 				}
@@ -4143,7 +4143,7 @@ focus_tree = {
 			add_to_variable = { MAD_power_pop_energy_use_multiplier = -0.02 tooltip = pop_energy_use_multiplier_tt }
 			add_to_variable = { MAD_power_production_speed_renewable_energy_infra_factor = 0.05 tooltip = production_speed_renewable_energy_infra_factor_tt }
 			add_stability = 0.01
-			add_tech_bonus = { name = MAD_DECIM_RENEWABLES bonus = 0.35 uses = 1 category = CAT_renewable }
+			add_tech_bonus = { name = MAD_DECIM_RENEWABLES bonus = 0.35 uses = 1 category = CAT_renewable_energy }
 			
 			MAD_JIRAMA_START_GENERATION_RECOVERY = yes
 		}
@@ -4712,7 +4712,7 @@ focus_tree = {
 			add_to_variable = { MAD_air_range_factor = 0.05 tooltip = air_range_factor_tt }
 			add_tech_bonus = {
 				name = MAD_GERMAN_AIR_INVESTMENT
-				category = CAT_air_eqp
+				category = CAT_aircraft
 				uses = 2
 				bonus = 0.25
 			}
@@ -4815,7 +4815,7 @@ focus_tree = {
 			add_to_variable = { MAD_air_range_factor = 0.05 tooltip = air_range_factor_tt }
 			add_tech_bonus = {
 				name = MAD_AIRLINE_MILITARY_LINKS
-				category = CAT_air_eqp
+				category = CAT_aircraft
 				uses = 2
 				bonus = 0.20
 			}
@@ -6066,7 +6066,7 @@ focus_tree = {
 			
 			add_tech_bonus = {
 				name = MAD_GERMAN_PLANES
-				category = CAT_air_eqp
+				category = CAT_aircraft
 				uses = 2
 				bonus = 0.25
 			}
@@ -6558,7 +6558,7 @@ focus_tree = {
 			add_to_variable = { MAD_economy_receiving_investment_cost_modifier = -0.02 tooltip = receiving_investment_cost_modifier_tt }
 			add_tech_bonus = {
 				name = MADAGASCAR_AIRLINES
-				category = CAT_air_eqp
+				category = CAT_aircraft
 				uses = 1
 				bonus = 0.25
 			}
@@ -6763,37 +6763,6 @@ focus_tree = {
 		}
 	}
 
-	focus = {
-		id = MAD_crop_death
-		icon = GFX_goal_generic_political_pressure
-		x = 0
-		y = 2
-		relative_position_id = MAD_losing_the_fight
-		cost = 3
-		prerequisite = { focus = MAD_losing_the_fight }
-		search_filters = { FOCUS_FILTER_POLITICAL }
-		available = {
-			custom_trigger_tooltip = {
-				tooltip = MAD_DROUGHT_OVER_tt
-				MAD_drought_resolved = yes
-			}
-		}
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus MAD_crop_death"
-			
-			MAD_crop_death_effects = yes
-			if = {
-				limit = { has_idea = farmers }
-				set_temp_variable = { temp_opinion = -15 }
-				change_farmers_opinion = yes
-			}
-		}
-
-		ai_will_do = {
-			base = 1
-		}
-	}
 
 	focus = {
 		id = MAD_OLD_RELIABLE
@@ -7076,7 +7045,7 @@ focus_tree = {
 			add_to_variable = { MAD_air_mission_xp_gain_factor = 0.05 tooltip = air_mission_xp_gain_factor_tt }
 			add_tech_bonus = {
 				name = MAD_airforce_prod
-				category = CAT_air_eqp
+				category = CAT_aircraft
 				uses = 2
 				bonus = 0.25
 			}
@@ -7126,7 +7095,7 @@ focus_tree = {
 			add_to_variable = { MAD_air_mission_xp_gain_factor = 0.05 tooltip = air_mission_xp_gain_factor_tt }
 			add_tech_bonus = {
 				name = MAD_german_assisted_airforce
-				category = CAT_fighter
+				category = CAT_medium_aircraft
 				uses = 2
 				bonus = 0.25
 			}
@@ -7437,7 +7406,7 @@ focus_tree = {
 			 
 			add_tech_bonus = {
 				name = MAD_TELMA_SIGINT_SHARING
-				category = CAT_cnc
+				category = CAT_command_and_control_equipment
 				uses = 2
 				bonus = 0.10
 			}
@@ -7518,7 +7487,7 @@ focus_tree = {
 			 }
 			add_tech_bonus = {
 				name = MAD_TELMA_NATIONAL_C2_BACKBONE
-				category = CAT_internet_tech
+				category = CAT_internet
 				uses = 2
 				bonus = 0.50
 			}
@@ -7564,13 +7533,13 @@ focus_tree = {
 				add_to_variable = { MAD_economy_productivity_growth_modifier = 0.35 tooltip = productivity_growth_modifier_tt }
 				add_tech_bonus = {
 					name = MAD_DIGITAL_MADAGASCAR
-					category = CAT_computing_tech
+					category = CAT_computing
 					uses = 2
 					bonus = 0.25
 				}
 				add_tech_bonus = {
 					name = MAD_DIGITAL_MADAGASCAR
-					category = CAT_internet_tech
+					category = CAT_internet
 					uses = 2
 					bonus = 0.25
 				}
@@ -8699,7 +8668,7 @@ focus_tree = {
 		completion_reward = {
 			add_tech_bonus = {
 				name = MAD_POL_ROY_ISRAEL_AGRITECH
-				category = CAT_agriculture_tech
+				category = CAT_agriculture
 				bonus = 0.25
 				uses = 2
 			}
@@ -8741,7 +8710,7 @@ focus_tree = {
 			add_mastery = { amount = 15 folder = land }
 			add_tech_bonus = {
 				name = MAD_POL_ROY_ISRAEL_SECURITY
-				category = CAT_inf
+				category = CAT_infantry
 				uses = 1
 				bonus = 0.25
 			}
@@ -10502,7 +10471,6 @@ focus_tree = {
 			if = {
 				limit = {
 					NOT = { has_completed_focus = MAD_Thriving_south }
-					NOT = { has_completed_focus = MAD_crop_death }
 				}
 				268 = {
 					custom_effect_tooltip = MAD_DROUGHT_FAMINE_RELIEF_12_tt
@@ -11419,7 +11387,7 @@ focus_tree = {
 				name = MAD_POL_TIM_MAP
 				uses = 3
 				bonus = 0.15
-				category = CAT_construction_tech
+				category = CAT_construction
 			}
 			set_country_flag = MAD_TIM_MAP_RESTORED
 		}
@@ -11499,7 +11467,7 @@ focus_tree = {
 				name = MAD_POL_TIM_GREEN_REVOLUTION
 				uses = 2
 				bonus = 0.25
-				category = CAT_agriculture_tech
+				category = CAT_agriculture
 			}
 			
 			add_ideas = MAD_POL_TIM_GREEN_REVOLUTION_IDEA
@@ -11981,7 +11949,6 @@ focus_tree = {
 				if = {
 				limit = {
 						NOT = { has_completed_focus = MAD_Thriving_south }
-						NOT = { has_completed_focus = MAD_crop_death }
 					}
 					random_owned_state = {
 						custom_effect_tooltip = MAD_DROUGHT_FAMINE_RELIEF_12_tt
@@ -11992,7 +11959,7 @@ focus_tree = {
 				}
 				add_tech_bonus = {
 					name = MAD_POL_TGV_WATER_PROGRAMME
-					category = CAT_agriculture_tech
+					category = CAT_agriculture
 					uses = 2
 					bonus = 0.15
 				}
@@ -12320,7 +12287,7 @@ focus_tree = {
 			
 			add_tech_bonus = {
 				name = MAD_POL_TGV_DIGITAL_MADAGASCAR
-				category = CAT_computing_tech
+				category = CAT_computing
 				uses = 2
 				bonus = 0.25
 			}
@@ -13328,7 +13295,7 @@ focus_tree = {
 			    add_mastery = { amount = 15 folder = land }
 			    add_tech_bonus = {
 			        name = MAD_ARMY_BUILD_TRAINING_CADRE
-			        category = CAT_inf
+			        category = CAT_infantry
 			        uses = 1
 			        bonus = 0.25
 			    }
@@ -13354,8 +13321,8 @@ focus_tree = {
 			    add_mastery = { amount = 20 folder = land }
 			    add_tech_bonus = {
 			        name = MAD_ARMY_STANDARDISE_FIELD_READINESS
-			        category = CAT_cnc
-			        category = CAT_internet_tech
+			        category = CAT_command_and_control_equipment
+			        category = CAT_internet
 			        uses = 1
 			        bonus = 0.25
 			    }
@@ -13386,7 +13353,7 @@ focus_tree = {
 			    add_mastery = { amount = 25 folder = land }
 			    add_tech_bonus = {
 			        name = MAD_ARMY_ISLAND_INFANTRY_DOCTRINE
-			        category = CAT_inf
+			        category = CAT_infantry
 			        uses = 2
 			        bonus = 0.40
 			    }
@@ -13610,8 +13577,8 @@ focus_tree = {
 			add_mastery = { amount = 25 folder = land }
 			add_tech_bonus = {
 				name = MAD_ARMY_CENTRALISED_PROCUREMENT
-				category = CAT_cnc
-				category = CAT_computing_tech
+				category = CAT_command_and_control_equipment
+				category = CAT_computing
 				uses = 2
 				bonus = 0.35
 			}
@@ -13672,7 +13639,7 @@ focus_tree = {
 			    add_mastery = { amount = 15 folder = land }
 			    add_tech_bonus = {
 			        name = MAD_ARMY_REFIT_RIFLE_COMPANIES
-			        category = CAT_inf
+			        category = CAT_infantry
 			        uses = 2
 			        bonus = 0.35
 			    }
@@ -13715,7 +13682,7 @@ focus_tree = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_ARMY_INFANTRY_WEAPONS_RESEARCH"
 			    add_tech_bonus = {
 			        name = MAD_ARMY_INFANTRY_WEAPONS_RESEARCH
-			        category = CAT_inf
+			        category = CAT_infantry
 			        uses = 3
 			        bonus = 0.50
 			    }
@@ -13814,8 +13781,8 @@ focus_tree = {
 			add_to_variable = { encryption_factor = 0.03 }
 			add_tech_bonus = {
 				name = MAD_ARMY_SIGNALS_INTELLIGENCE_SCHOOL
-				category = CAT_computing_tech
-				category = CAT_internet_tech
+				category = CAT_computing
+				category = CAT_internet
 				uses = 2
 				bonus = 0.40
 			}
@@ -13860,7 +13827,7 @@ focus_tree = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_ARMY_REBUILD_THE_HELICOPTER_ARM"
 			add_tech_bonus = {
 				name = MAD_ARMY_REBUILD_THE_HELICOPTER_ARM
-				category = CAT_air_eqp
+				category = CAT_aircraft
 				uses = 2
 				bonus = 0.40
 			}
@@ -13926,7 +13893,7 @@ focus_tree = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_ARMY_LIFT_AND_SUSTAIN"
 			add_tech_bonus = {
 				name = MAD_ARMY_LIFT_AND_SUSTAIN
-				category = CAT_air_eqp
+				category = CAT_aircraft
 				uses = 3
 				bonus = 0.35
 			}
@@ -14083,8 +14050,8 @@ focus_tree = {
 			}
 			add_tech_bonus = {
 				name = MAD_ARMY_IVATO_AEROSPACE_WORKS
-				category = CAT_mr_fighter
-				category = CAT_air_eqp
+				category = CAT_medium_aircraft
+				category = CAT_aircraft
 				uses = 2
 				bonus = 0.40
 			}
@@ -14163,8 +14130,8 @@ focus_tree = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_ARMY_TACTICAL_UAV_PROGRAMME"
 			add_tech_bonus = {
 				name = MAD_ARMY_TACTICAL_UAV_PROGRAMME
-				category = CAT_air_eqp
-				category = CAT_computing_tech
+				category = CAT_aircraft
+				category = CAT_computing
 				uses = 2
 				bonus = 0.50
 			}
@@ -14196,8 +14163,8 @@ focus_tree = {
 			country_event = { id = MAD_military_industry.6 days = 1 }
 			add_tech_bonus = {
 				name = MAD_ARMY_MECHANISED_INFANTRY_BRIGADE
-				category = CAT_afv
-				category = CAT_apc
+				category = CAT_armored_fighting_vehicles
+				category = CAT_armored_personnel_carriers
 				uses = 2
 				bonus = 0.50
 			}
@@ -14246,8 +14213,7 @@ focus_tree = {
 			modify_treasury_effect = yes
 			add_tech_bonus = {
 				name = MAD_ARMY_ISLAND_AIR_DEFENCE
-				category = CAT_aa
-				category = CAT_l_aa
+				category = CAT_anti_air
 				uses = 2
 				bonus = 0.50
 			}
@@ -14277,7 +14243,7 @@ focus_tree = {
 				}
 			    add_tech_bonus = {
 			        name = MAD_ARMY_HEAVY_LIFT_AVIATION_COMMAND
-			        category = CAT_air_eqp
+			        category = CAT_aircraft
 			        uses = 3
 			        bonus = 0.35
 			    }
@@ -14305,7 +14271,7 @@ focus_tree = {
 			country_event = { id = MAD_military_industry.7 days = 1 }
 			add_tech_bonus = {
 				name = MAD_ARMY_MEDIUM_TRANSPORT_FLEET
-				category = CAT_air_eqp
+				category = CAT_aircraft
 				uses = 2
 				bonus = 0.40
 			}
@@ -14339,7 +14305,7 @@ focus_tree = {
 			add_mastery = { amount = 20 folder = air }
 			add_tech_bonus = {
 				name = MAD_ARMY_AEROSPACE_SUPPLY_CHAIN
-				category = CAT_air_eqp
+				category = CAT_aircraft
 				uses = 2
 				bonus = 0.40
 			}
@@ -14371,8 +14337,8 @@ focus_tree = {
 			}
 			add_tech_bonus = {
 				name = MAD_ARMY_DEFENCE_ELECTRONICS_INDUSTRY
-				category = CAT_computing_tech
-				category = CAT_internet_tech
+				category = CAT_computing
+				category = CAT_internet
 				uses = 3
 				bonus = 0.50
 			}
@@ -14407,16 +14373,16 @@ focus_tree = {
 			add_breakthrough_points = { specialization = specialization_land value = 1 }
 			add_tech_bonus = {
 				name = MAD_ARMY_SPECIAL_PROJECTS_BUREAU_LAND
-				category = CAT_afv
-				category = CAT_mbt
+				category = CAT_armored_fighting_vehicles
+				category = CAT_main_battle_tanks
 				category = CAT_artillery
 				uses = 2
 				bonus = 0.35
 			}
 			add_tech_bonus = {
 				name = MAD_ARMY_SPECIAL_PROJECTS_BUREAU_NETWORK
-				category = CAT_computing_tech
-				category = CAT_internet_tech
+				category = CAT_computing
+				category = CAT_internet
 				uses = 2
 				bonus = 0.50
 			}
@@ -14450,8 +14416,8 @@ focus_tree = {
 			add_tech_bonus = {
 				name = MAD_ARMY_INTEGRATED_FIRE_SUPPORT
 				category = CAT_artillery
-				category = CAT_afv
-				category = CAT_apc
+				category = CAT_armored_fighting_vehicles
+				category = CAT_armored_personnel_carriers
 				uses = 2
 				bonus = 0.40
 			}
@@ -14478,7 +14444,7 @@ focus_tree = {
 			country_event = { id = MAD_military_industry.5 days = 1 }
 			add_tech_bonus = {
 				name = MAD_ARMY_MAIN_BATTLE_TANK_PROGRAMME
-				category = CAT_mbt
+				category = CAT_main_battle_tanks
 				uses = 2
 				bonus = 0.50
 			}
@@ -14509,8 +14475,7 @@ focus_tree = {
 			add_breakthrough_points = { specialization = specialization_naval value = 1 }
 			add_tech_bonus = {
 				name = MAD_ARMY_COASTAL_DEFENCE
-				category = CAT_aa
-				category = CAT_l_aa
+				category = CAT_anti_air
 				uses = 2
 				bonus = 0.40
 			}
@@ -14563,7 +14528,7 @@ focus_tree = {
 			    add_tech_bonus = {
 			        name = MAD_ARMY_LONG_RANGE_ISR_AND_FIRES
 			        category = CAT_naval_radar
-			        category = CAT_computing_tech
+			        category = CAT_computing
 			        uses = 3
 			        bonus = 0.45
 			    }

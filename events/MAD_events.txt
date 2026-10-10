@@ -3488,7 +3488,7 @@ country_event = {
             add_opinion_modifier = { target = ROOT modifier = military_cooperation }
         }
         add_opinion_modifier = { target = UAE modifier = military_cooperation }
-        add_tech_bonus = { name = MAD_military_procurement_3_panthera category = CAT_afv category = CAT_apc uses = 1 bonus = 0.25 }
+        add_tech_bonus = { name = MAD_military_procurement_3_panthera category = CAT_armored_fighting_vehicles category = CAT_armored_personnel_carriers uses = 1 bonus = 0.25 }
         army_experience = 15
     }
     option = {
@@ -3642,7 +3642,7 @@ country_event = {
     }
     option = {
         name = MAD_military_procurement.6.b
-        add_tech_bonus = { name = MAD_military_procurement_6_innovation category = CAT_air_eqp uses = 2 bonus = 0.40 }
+        add_tech_bonus = { name = MAD_military_procurement_6_innovation category = CAT_aircraft uses = 2 bonus = 0.40 }
         add_breakthrough_progress = { specialization = specialization_air value = sp_breakthrough_progress.medium }
         set_country_flag = MAD_ARMY_AIRLIFT_READY
         air_experience = 20
@@ -3846,7 +3846,7 @@ country_event = {
         add_mastery = { amount = 35 folder = land }
         add_mastery = { amount = 25 folder = air }
         add_mastery = { amount = 20 folder = naval }
-        add_tech_bonus = { name = MAD_military_industry_4_french category = CAT_cnc category = CAT_internet_tech uses = 3 bonus = 0.50 }
+        add_tech_bonus = { name = MAD_military_industry_4_french category = CAT_command_and_control_equipment category = CAT_internet uses = 3 bonus = 0.50 }
     }
     option = {
         name = MAD_military_industry.4.b
@@ -3856,7 +3856,7 @@ country_event = {
         add_mastery = { amount = 25 folder = naval }
         add_mastery = { amount = 25 folder = land }
         add_mastery = { amount = 15 folder = air }
-        add_tech_bonus = { name = MAD_military_industry_4_regional category = CAT_naval_radar category = CAT_air_eqp uses = 3 bonus = 0.40 }
+        add_tech_bonus = { name = MAD_military_industry_4_regional category = CAT_naval_radar category = CAT_aircraft uses = 3 bonus = 0.40 }
     }
     option = {
         name = MAD_military_industry.4.c
@@ -3864,7 +3864,7 @@ country_event = {
         add_mastery = { amount = 40 folder = land }
         add_mastery = { amount = 20 folder = air }
         add_mastery = { amount = 20 folder = naval }
-        add_tech_bonus = { name = MAD_military_industry_4_autonomy category = CAT_computing_tech category = CAT_industry uses = 3 bonus = 0.35 }
+        add_tech_bonus = { name = MAD_military_industry_4_autonomy category = CAT_computing category = CAT_industry uses = 3 bonus = 0.35 }
     }
 }
 
@@ -3891,7 +3891,7 @@ country_event = {
             add_opinion_modifier = { target = ROOT modifier = military_cooperation }
         }
         add_opinion_modifier = { target = FRA modifier = military_cooperation }
-        add_tech_bonus = { name = MAD_military_industry_5_french category = CAT_mbt uses = 2 bonus = 0.50 }
+        add_tech_bonus = { name = MAD_military_industry_5_french category = CAT_main_battle_tanks uses = 2 bonus = 0.50 }
         add_mastery = { amount = 30 folder = land }
         army_experience = 25
     }
@@ -3911,7 +3911,7 @@ country_event = {
             add_opinion_modifier = { target = ROOT modifier = military_cooperation }
         }
         add_opinion_modifier = { target = TUR modifier = military_cooperation }
-        add_tech_bonus = { name = MAD_military_industry_5_turkish category = CAT_mbt uses = 2 bonus = 0.50 }
+        add_tech_bonus = { name = MAD_military_industry_5_turkish category = CAT_main_battle_tanks uses = 2 bonus = 0.50 }
         add_mastery = { amount = 30 folder = land }
         army_experience = 25
     }
@@ -3931,7 +3931,7 @@ country_event = {
             add_opinion_modifier = { target = ROOT modifier = military_cooperation }
         }
         add_opinion_modifier = { target = RAJ modifier = military_cooperation }
-        add_tech_bonus = { name = MAD_military_industry_5_indian category = CAT_mbt uses = 2 bonus = 0.50 }
+        add_tech_bonus = { name = MAD_military_industry_5_indian category = CAT_main_battle_tanks uses = 2 bonus = 0.50 }
         add_mastery = { amount = 25 folder = land }
         army_experience = 20
     }
