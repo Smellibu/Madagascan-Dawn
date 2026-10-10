@@ -8,6 +8,7 @@
 
 MAD_IVATO_AEROSYSTEMS = {
     allowed = { original_tag = MAD }
+    available = { FROM = { has_completed_focus = MAD_ARMY_IVATO_AEROSPACE_WORKS } }
     name = MAD_IVATO_AEROSYSTEMS
     icon = GFX_idea_generic_tank_manufacturer_1
     task_capacity = 3
@@ -19,8 +20,11 @@ MAD_IVATO_AEROSYSTEMS = {
     research_categories = {
         CAT_light_aircraft
         CAT_medium_aircraft
+        CAT_heavy_aircraft
         CAT_air_drones
         CAT_avionics
+        CAT_air_engines
+        CAT_industry
     }
     tree_header_text = { text = MAD_IVATO_AEROSYSTEMS_header_aero x = 1 }
     tree_header_text = { text = MAD_IVATO_AEROSYSTEMS_header_support x = 4 }
@@ -72,10 +76,96 @@ MAD_IVATO_AEROSYSTEMS = {
         on_complete = { expenditure_for_mio_upgrade = yes }
         ai_will_do = { base = 10 }
     }
+
+    trait = {
+        token = MAD_IVATO_AEROSYSTEMS_airlift_reliability
+        name = MAD_IVATO_AEROSYSTEMS_airlift_reliability
+        limit_to_equipment_type = { large_plane_air_transport_airframe }
+        icon = GFX_generic_mio_trait_icon_reliability
+        position = { x = 1 y = 4 }
+        equipment_bonus = { reliability = 0.06 }
+        on_complete = { expenditure_for_mio_upgrade = yes }
+        ai_will_do = { base = 10 }
+    }
+    trait = {
+        token = MAD_IVATO_AEROSYSTEMS_airlift_logistics
+        name = MAD_IVATO_AEROSYSTEMS_airlift_logistics
+        limit_to_equipment_type = { large_plane_air_transport_airframe }
+        icon = GFX_generic_mio_trait_icon_transport_airplane
+        position = { x = 4 y = 0 }
+        relative_position_id = MAD_IVATO_AEROSYSTEMS_airlift_reliability
+        equipment_bonus = { air_range = 0.05 }
+        on_complete = { expenditure_for_mio_upgrade = yes }
+        ai_will_do = { base = 10 }
+    }
+    trait = {
+        token = MAD_IVATO_AEROSYSTEMS_airlift_redeployment
+        name = MAD_IVATO_AEROSYSTEMS_airlift_redeployment
+        limit_to_equipment_type = { large_plane_air_transport_airframe }
+        icon = GFX_generic_mio_trait_icon_design
+        position = { x = 7 y = 0 }
+        relative_position_id = MAD_IVATO_AEROSYSTEMS_airlift_logistics
+        production_bonus = { production_cost_factor = -0.06 }
+        on_complete = { expenditure_for_mio_upgrade = yes }
+        ai_will_do = { base = 10 }
+    }
+    trait = {
+        token = MAD_IVATO_AEROSYSTEMS_airlift_maintenance
+        name = MAD_IVATO_AEROSYSTEMS_airlift_maintenance
+        limit_to_equipment_type = { large_plane_air_transport_airframe }
+        icon = GFX_generic_mio_trait_icon_reliability
+        position = { x = 7 y = 2 }
+        relative_position_id = MAD_IVATO_AEROSYSTEMS_airlift_redeployment
+        organization_modifier = { military_industrial_organization_task_capacity = 1 }
+        equipment_bonus = { reliability = 0.04 }
+        on_complete = { expenditure_for_mio_upgrade = yes }
+        ai_will_do = { base = 10 }
+    }
+    trait = {
+        token = MAD_IVATO_AEROSYSTEMS_components
+        name = MAD_IVATO_AEROSYSTEMS_components
+        icon = GFX_generic_mio_trait_icon_reliability
+        position = { x = 1 y = 8 }
+        equipment_bonus = { reliability = 0.04 }
+        on_complete = { expenditure_for_mio_upgrade = yes }
+        ai_will_do = { base = 10 }
+    }
+    trait = {
+        token = MAD_IVATO_AEROSYSTEMS_avionics_supply
+        name = MAD_IVATO_AEROSYSTEMS_avionics_supply
+        icon = GFX_generic_mio_trait_icon_design
+        position = { x = 4 y = 0 }
+        relative_position_id = MAD_IVATO_AEROSYSTEMS_components
+        equipment_bonus = { air_range = 0.04 }
+        organization_modifier = { military_industrial_organization_research_bonus = 0.02 }
+        on_complete = { expenditure_for_mio_upgrade = yes }
+        ai_will_do = { base = 10 }
+    }
+    trait = {
+        token = MAD_IVATO_AEROSYSTEMS_maintenance_chain
+        name = MAD_IVATO_AEROSYSTEMS_maintenance_chain
+        icon = GFX_generic_mio_trait_icon_efficiency_gain
+        position = { x = 7 y = 0 }
+        relative_position_id = MAD_IVATO_AEROSYSTEMS_avionics_supply
+        production_bonus = { production_efficiency_gain_factor = 0.08 }
+        on_complete = { expenditure_for_mio_upgrade = yes }
+        ai_will_do = { base = 10 }
+    }
+    trait = {
+        token = MAD_IVATO_AEROSYSTEMS_production_scale
+        name = MAD_IVATO_AEROSYSTEMS_production_scale
+        icon = GFX_generic_mio_trait_icon_production_capacity
+        position = { x = 7 y = 2 }
+        relative_position_id = MAD_IVATO_AEROSYSTEMS_maintenance_chain
+        production_bonus = { production_capacity_factor = 0.05 production_efficiency_cap_factor = 0.05 }
+        on_complete = { expenditure_for_mio_upgrade = yes }
+        ai_will_do = { base = 10 }
+    }
 }
 
 MAD_MALAGASY_MOBILITY = {
     allowed = { original_tag = MAD }
+    available = { FROM = { has_completed_focus = MAD_ARMY_TOAMASINA_DEFENCE_LOGISTICS_HUB } }
     name = MAD_MALAGASY_MOBILITY
     icon = GFX_idea_generic_tank_manufacturer_1
     task_capacity = 4
@@ -136,135 +226,13 @@ MAD_MALAGASY_MOBILITY = {
     }
 }
 
-MAD_MADAGASCAR_AIRLIFT = {
-    allowed = { original_tag = MAD }
-    name = MAD_MADAGASCAR_AIRLIFT
-    icon = GFX_idea_generic_tank_manufacturer_1
-    task_capacity = 3
-    equipment_type = { large_plane_air_transport_airframe }
-    research_categories = {
-        CAT_heavy_aircraft
-        CAT_medium_aircraft
-        CAT_avionics
-    }
-    tree_header_text = { text = MAD_MADAGASCAR_AIRLIFT_header_airlift x = 1 }
-    tree_header_text = { text = MAD_MADAGASCAR_AIRLIFT_header_logistics x = 4 }
-    tree_header_text = { text = MAD_MADAGASCAR_AIRLIFT_header_readiness x = 8 }
-    initial_trait = {
-        name = MAD_MADAGASCAR_AIRLIFT_trait
-        equipment_bonus = { reliability = 0.04 }
-        organization_modifier = { military_industrial_organization_research_bonus = 0.03 }
-    }
-    trait = {
-        token = MAD_MADAGASCAR_AIRLIFT_reliability
-        name = MAD_MADAGASCAR_AIRLIFT_reliability
-        icon = GFX_generic_mio_trait_icon_reliability
-        position = { x = 1 y = 0 }
-        equipment_bonus = { reliability = 0.06 }
-        on_complete = { expenditure_for_mio_upgrade = yes }
-        ai_will_do = { base = 10 }
-    }
-    trait = {
-        token = MAD_MADAGASCAR_AIRLIFT_logistics
-        name = MAD_MADAGASCAR_AIRLIFT_logistics
-        icon = GFX_generic_mio_trait_icon_transport_airplane
-        position = { x = 4 y = 0 }
-        relative_position_id = MAD_MADAGASCAR_AIRLIFT_reliability
-        equipment_bonus = { air_range = 0.05 }
-        on_complete = { expenditure_for_mio_upgrade = yes }
-        ai_will_do = { base = 10 }
-    }
-    trait = {
-        token = MAD_MADAGASCAR_AIRLIFT_redeployment
-        name = MAD_MADAGASCAR_AIRLIFT_redeployment
-        icon = GFX_generic_mio_trait_icon_design
-        position = { x = 7 y = 0 }
-        relative_position_id = MAD_MADAGASCAR_AIRLIFT_logistics
-        production_bonus = { production_cost_factor = -0.06 }
-        on_complete = { expenditure_for_mio_upgrade = yes }
-        ai_will_do = { base = 10 }
-    }
-    trait = {
-        token = MAD_MADAGASCAR_AIRLIFT_maint
-        name = MAD_MADAGASCAR_AIRLIFT_maint
-        icon = GFX_generic_mio_trait_icon_reliability
-        position = { x = 7 y = 2 }
-        relative_position_id = MAD_MADAGASCAR_AIRLIFT_redeployment
-        organization_modifier = { military_industrial_organization_task_capacity = 1 }
-        equipment_bonus = { reliability = 0.04 }
-        on_complete = { expenditure_for_mio_upgrade = yes }
-        ai_will_do = { base = 10 }
-    }
-}
 
-MAD_AEROSPACE_SUPPLY_CHAIN = {
-    allowed = { original_tag = MAD }
-    name = MAD_AEROSPACE_SUPPLY_CHAIN
-    icon = GFX_idea_generic_tank_manufacturer_1
-    task_capacity = 3
-    equipment_type = {
-        mio_cat_eq_only_all_light_aircraft
-        mio_cat_eq_only_uav
-        large_plane_air_transport_airframe
-    }
-    research_categories = {
-        CAT_air_engines
-        CAT_avionics
-        CAT_air_drones
-        CAT_industry
-    }
-    tree_header_text = { text = MAD_AEROSPACE_SUPPLY_CHAIN_header_components x = 1 }
-    tree_header_text = { text = MAD_AEROSPACE_SUPPLY_CHAIN_header_avionics x = 4 }
-    tree_header_text = { text = MAD_AEROSPACE_SUPPLY_CHAIN_header_production x = 8 }
-    initial_trait = {
-        name = MAD_AEROSPACE_SUPPLY_CHAIN_trait
-        equipment_bonus = { reliability = 0.03 }
-        organization_modifier = { military_industrial_organization_research_bonus = 0.03 }
-    }
-    trait = {
-        token = MAD_AEROSPACE_SUPPLY_CHAIN_components
-        name = MAD_AEROSPACE_SUPPLY_CHAIN_components
-        icon = GFX_generic_mio_trait_icon_reliability
-        position = { x = 1 y = 0 }
-        equipment_bonus = { reliability = 0.04 }
-        on_complete = { expenditure_for_mio_upgrade = yes }
-        ai_will_do = { base = 10 }
-    }
-    trait = {
-        token = MAD_AEROSPACE_SUPPLY_CHAIN_avionics
-        name = MAD_AEROSPACE_SUPPLY_CHAIN_avionics
-        icon = GFX_generic_mio_trait_icon_design
-        position = { x = 4 y = 0 }
-        relative_position_id = MAD_AEROSPACE_SUPPLY_CHAIN_components
-        equipment_bonus = { air_range = 0.04 }
-        organization_modifier = { military_industrial_organization_research_bonus = 0.02 }
-        on_complete = { expenditure_for_mio_upgrade = yes }
-        ai_will_do = { base = 10 }
-    }
-    trait = {
-        token = MAD_AEROSPACE_SUPPLY_CHAIN_maintenance
-        name = MAD_AEROSPACE_SUPPLY_CHAIN_maintenance
-        icon = GFX_generic_mio_trait_icon_efficiency_gain
-        position = { x = 7 y = 0 }
-        relative_position_id = MAD_AEROSPACE_SUPPLY_CHAIN_avionics
-        production_bonus = { production_efficiency_gain_factor = 0.08 }
-        on_complete = { expenditure_for_mio_upgrade = yes }
-        ai_will_do = { base = 10 }
-    }
-    trait = {
-        token = MAD_AEROSPACE_SUPPLY_CHAIN_efficiency
-        name = MAD_AEROSPACE_SUPPLY_CHAIN_efficiency
-        icon = GFX_generic_mio_trait_icon_production_capacity
-        position = { x = 7 y = 2 }
-        relative_position_id = MAD_AEROSPACE_SUPPLY_CHAIN_maintenance
-        production_bonus = { production_capacity_factor = 0.05 production_efficiency_cap_factor = 0.05 }
-        on_complete = { expenditure_for_mio_upgrade = yes }
-        ai_will_do = { base = 10 }
-    }
-}
+
+
 
 MAD_DEFENCE_ELECTRONICS = {
     allowed = { original_tag = MAD }
+    available = { FROM = { has_completed_focus = MAD_ARMY_DEFENCE_ELECTRONICS_INDUSTRY } }
     name = MAD_DEFENCE_ELECTRONICS
     icon = GFX_idea_generic_tank_manufacturer_1
     task_capacity = 4

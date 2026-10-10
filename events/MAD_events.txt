@@ -519,6 +519,42 @@ country_event = {
 
 
 
+# Six-month timer started when the Daewoo Deal focus completes.
+# The historic story broke through press reporting that drew on the investor's own claims;
+# available accounts do not establish that the Malagasy government deliberately leaked it.
+country_event = {
+	id = mad_daewoo.4
+	hidden = yes
+	is_triggered_only = yes
+	fire_only_once = yes
+	immediate = {
+		if = {
+			limit = {
+				has_completed_focus = MAD_DAEWOO_DEAL
+				NOT = { has_completed_focus = MAD_DAEWOO_FALLOUT }
+			}
+			country_event = { id = mad_daewoo.5 }
+		}
+	}
+}
+
+# The only option completes the Daewoo Fallout focus; its completion reward then runs normally.
+country_event = {
+	id = mad_daewoo.5
+	title = mad_daewoo.5.t
+	desc = mad_daewoo.5.d
+	picture = GFX_report_event_economy_default
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = mad_daewoo.5.a
+		if = {
+			limit = { NOT = { has_completed_focus = MAD_DAEWOO_FALLOUT } }
+			complete_national_focus = MAD_DAEWOO_FALLOUT
+		}
+	}
+}
+
 ########################################################################
 # events/MAD_drought_events.txt
 ########################################################################
@@ -900,7 +936,11 @@ country_event = {
 	desc = mad_drought.23.d
 	picture = GFX_report_event_economy_default
 	is_triggered_only = yes
-	option = { name = mad_drought.displacement.a }
+	option = {
+		name = mad_drought.displacement.a
+		custom_effect_tooltip = mad_drought.23.tt
+		MAD_drought_commit_displacement_266 = yes
+	}
 }
 
 country_event = {
@@ -909,7 +949,11 @@ country_event = {
 	desc = mad_drought.24.d
 	picture = GFX_report_event_economy_default
 	is_triggered_only = yes
-	option = { name = mad_drought.displacement.a }
+	option = {
+		name = mad_drought.displacement.a
+		custom_effect_tooltip = mad_drought.24.tt
+		MAD_drought_commit_displacement_267 = yes
+	}
 }
 
 country_event = {
@@ -918,7 +962,11 @@ country_event = {
 	desc = mad_drought.25.d
 	picture = GFX_report_event_economy_default
 	is_triggered_only = yes
-	option = { name = mad_drought.displacement.a }
+	option = {
+		name = mad_drought.displacement.a
+		custom_effect_tooltip = mad_drought.25.tt
+		MAD_drought_commit_displacement_268 = yes
+	}
 }
 
 country_event = {
@@ -927,7 +975,11 @@ country_event = {
 	desc = mad_drought.26.d
 	picture = GFX_report_event_economy_default
 	is_triggered_only = yes
-	option = { name = mad_drought.displacement.a }
+	option = {
+		name = mad_drought.displacement.a
+		custom_effect_tooltip = mad_drought.26.tt
+		MAD_drought_commit_displacement_487 = yes
+	}
 }
 
 country_event = {
@@ -936,7 +988,11 @@ country_event = {
 	desc = mad_drought.27.d
 	picture = GFX_report_event_economy_default
 	is_triggered_only = yes
-	option = { name = mad_drought.displacement.a }
+	option = {
+		name = mad_drought.displacement.a
+		custom_effect_tooltip = mad_drought.27.tt
+		MAD_drought_commit_displacement_hist = yes
+	}
 }
 
 ########################################################################

@@ -2531,9 +2531,6 @@ focus_tree = {
 				set_temp_variable = { temp_opinion = 5 }
 				change_farmers_opinion = yes
 			}
-			# Start the recurring vanilla market boom/bust cycle 600 days after this focus.
-			set_country_flag = MAD_VANILLA_VOLATILE_MARKET
-			country_event = { id = mad_vanilla.1 days = 600 }
 		}
 
 		ai_will_do = {
@@ -2584,6 +2581,8 @@ focus_tree = {
 			add_to_variable = { MAD_agri_income_tax = 0.02 tooltip = agriculture_district_income_tax_modifier_tt }
 			hidden_effect = {
 				set_country_flag = MAD_DAEWOO_KOREAN_AGRI_SECTOR
+				# If the fallout focus is still unfinished after six months, reveal the deal and force its fallout focus.
+				country_event = { id = mad_daewoo.4 days = 180 }
 			}
 		}
 
@@ -6384,6 +6383,7 @@ focus_tree = {
 		relative_position_id = MAD_Fighting_climate_change
 		cost = 3
 		prerequisite = { focus = MAD_Fighting_climate_change }
+		mutually_exclusive = { focus = MAD_losing_the_fight }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
 			custom_trigger_tooltip = {
@@ -6405,6 +6405,34 @@ focus_tree = {
 		}
 	}
 
+	focus = {
+		id = MAD_losing_the_fight
+		icon = GFX_goal_generic_political_pressure
+		x = 0
+		y = 2
+		relative_position_id = MAD_Fighting_climate_change
+		cost = 3
+		prerequisite = { focus = MAD_Fighting_climate_change }
+		mutually_exclusive = { focus = MAD_Winning_the_fight }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_DROUGHT_FAILED_tt
+				has_country_flag = MAD_DROUGHT_FAILED_STATE
+			}
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_losing_the_fight"
+			set_country_flag = MAD_DROUGHT_LOST
+			add_stability = -0.03
+			custom_effect_tooltip = MAD_drought_lost_tt
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
 
 	focus = {
 		id = MAD_extension_fce
@@ -6739,6 +6767,37 @@ focus_tree = {
 		}
 	}
 
+	focus = {
+		id = MAD_crop_death
+		icon = GFX_goal_generic_political_pressure
+		x = 0
+		y = 2
+		relative_position_id = MAD_losing_the_fight
+		cost = 3
+		prerequisite = { focus = MAD_losing_the_fight }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_DROUGHT_OVER_tt
+				MAD_drought_resolved = yes
+			}
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_crop_death"
+			
+			MAD_crop_death_effects = yes
+			if = {
+				limit = { has_idea = farmers }
+				set_temp_variable = { temp_opinion = -15 }
+				change_farmers_opinion = yes
+			}
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
 
 	focus = {
 		id = MAD_OLD_RELIABLE
@@ -10434,6 +10493,7 @@ focus_tree = {
 			if = {
 				limit = {
 					NOT = { has_completed_focus = MAD_Thriving_south }
+					NOT = { has_completed_focus = MAD_crop_death }
 				}
 				268 = {
 					custom_effect_tooltip = MAD_DROUGHT_FAMINE_RELIEF_12_tt
@@ -11912,7 +11972,8 @@ focus_tree = {
 				if = {
 				limit = {
 						NOT = { has_completed_focus = MAD_Thriving_south }
-						}
+						NOT = { has_completed_focus = MAD_crop_death }
+					}
 					random_owned_state = {
 						custom_effect_tooltip = MAD_DROUGHT_FAMINE_RELIEF_12_tt
 				
@@ -14203,7 +14264,7 @@ focus_tree = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_ARMY_HEAVY_LIFT_AVIATION_COMMAND"
 				if = {
 					limit = { has_dlc = "Arms Against Tyranny" }
-					mio:MAD_MADAGASCAR_AIRLIFT = { add_mio_size = 2 }
+					mio:MAD_IVATO_AEROSYSTEMS = { add_mio_size = 2 }
 				}
 			    add_tech_bonus = {
 			        name = MAD_ARMY_HEAVY_LIFT_AVIATION_COMMAND
@@ -14264,7 +14325,7 @@ focus_tree = {
 			modify_treasury_effect = yes
 			if = {
 				limit = { has_dlc = "Arms Against Tyranny" }
-				mio:MAD_AEROSPACE_SUPPLY_CHAIN = { add_mio_size = 2 }
+				mio:MAD_IVATO_AEROSYSTEMS = { add_mio_size = 2 }
 			}
 			add_mastery = { amount = 20 folder = air }
 			add_tech_bonus = {
