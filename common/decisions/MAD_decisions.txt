@@ -8,6 +8,7 @@ MAD_INVITE_KOREANS = {
 		visible = {
 			has_completed_focus = MAD_AMBATOVY_JV_FORMED
 			NOT = { has_country_flag = MAD_ambatovy_mission_done }
+			NOT = { check_variable = { MAD_AMBATOVY_TOTAL > 99 } }
 		}
 		available = {
 			NOT = { has_decision = MAD_INVITE_JAPANESE }
@@ -19,10 +20,10 @@ MAD_INVITE_KOREANS = {
 		}
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_INVITE_KOREANS complete"
-			custom_effect_tooltip = { localization_key = MAD_ambatovy_corp_plus30_tt }
-			add_to_variable = { var = MAD_AMBATOVY_CORP value = 30 }
-			custom_effect_tooltip = { localization_key = MAD_ambatovy_total_plus30_tt }
-			add_to_variable = { var = MAD_AMBATOVY_TOTAL value = 30 }
+			custom_effect_tooltip = { localization_key = MAD_ambatovy_corp_contribution_tt }
+			add_to_variable = { var = MAD_AMBATOVY_CORP value = 33.2 }
+			custom_effect_tooltip = { localization_key = MAD_ambatovy_total_contribution_tt }
+			add_to_variable = { var = MAD_AMBATOVY_TOTAL value = 33.2 }
 			}
 		ai_will_do = {
 			base = 0
@@ -37,6 +38,7 @@ MAD_INVITE_KOREANS = {
 		visible = {
 			has_completed_focus = MAD_AMBATOVY_JV_FORMED
 			NOT = { has_country_flag = MAD_ambatovy_mission_done }
+			NOT = { check_variable = { MAD_AMBATOVY_TOTAL > 99 } }
 		}
 		available = {
 			NOT = { has_decision = MAD_INVITE_KOREANS }
@@ -48,10 +50,10 @@ MAD_INVITE_KOREANS = {
 		}
 		remove_effect = {
 				log = "[GetDateText]: [Root.GetName]: Decision MAD_INVITE_JAPANESE complete"
-				custom_effect_tooltip = { localization_key = MAD_ambatovy_corp_plus30_tt }
-				add_to_variable = { var = MAD_AMBATOVY_CORP value = 30 }
-				custom_effect_tooltip = { localization_key = MAD_ambatovy_total_plus30_tt }
-				add_to_variable = { var = MAD_AMBATOVY_TOTAL value = 30 }
+				custom_effect_tooltip = { localization_key = MAD_ambatovy_corp_contribution_tt }
+				add_to_variable = { var = MAD_AMBATOVY_CORP value = 33.2 }
+				custom_effect_tooltip = { localization_key = MAD_ambatovy_total_contribution_tt }
+				add_to_variable = { var = MAD_AMBATOVY_TOTAL value = 33.2 }
 			}
 		ai_will_do = {
 			base = 0
@@ -66,12 +68,12 @@ MAD_INVITE_KOREANS = {
 		visible = {
 			has_completed_focus = MAD_AMBATOVY_JV_FORMED
 			NOT = { has_country_flag = MAD_ambatovy_mission_done }
+			NOT = { check_variable = { MAD_AMBATOVY_TOTAL > 99 } }
 		}
 		available = {
 			NOT = { has_decision = MAD_INVITE_KOREANS }
 			NOT = { has_decision = MAD_INVITE_JAPANESE }
 			NOT = { has_decision = MAD_STATE_INVESTMENT }
-			NOT = { check_variable = { MAD_AMBATOVY_TOTAL > 60 } }
 		}
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_INVITE_DYNATEC started"
@@ -79,10 +81,10 @@ MAD_INVITE_KOREANS = {
 		}
 		remove_effect = {
 				log = "[GetDateText]: [Root.GetName]: Decision MAD_INVITE_DYNATEC complete"
-				custom_effect_tooltip = { localization_key = MAD_ambatovy_corp_plus40_tt }
-				add_to_variable = { var = MAD_AMBATOVY_CORP value = 40 }
-				custom_effect_tooltip = { localization_key = MAD_ambatovy_total_plus40_tt }
-				add_to_variable = { var = MAD_AMBATOVY_TOTAL value = 40 }
+				custom_effect_tooltip = { localization_key = MAD_ambatovy_corp_contribution_tt }
+				add_to_variable = { var = MAD_AMBATOVY_CORP value = 33.2 }
+				custom_effect_tooltip = { localization_key = MAD_ambatovy_total_contribution_tt }
+				add_to_variable = { var = MAD_AMBATOVY_TOTAL value = 33.2 }
 			}
 		ai_will_do = {
 			base = 0
@@ -97,6 +99,7 @@ MAD_INVITE_KOREANS = {
 		visible = {
 			has_completed_focus = MAD_AMBATOVY_JV_FORMED
 			NOT = { has_country_flag = MAD_ambatovy_mission_done }
+			NOT = { check_variable = { MAD_AMBATOVY_TOTAL > 99 } }
 		}
 		custom_cost_trigger = { check_variable = { treasury > 7.499 } }
 		custom_cost_text = cost_7_5
@@ -112,10 +115,10 @@ MAD_INVITE_KOREANS = {
 		}
 		remove_effect = {
 				log = "[GetDateText]: [Root.GetName]: Decision MAD_STATE_INVESTMENT complete"
-				custom_effect_tooltip = { localization_key = MAD_ambatovy_state_plus30_tt }
-				add_to_variable = { var = MAD_AMBATOVY_STATE_FUNDS value = 30 }
-				custom_effect_tooltip = { localization_key = MAD_ambatovy_total_plus30_tt }
-				add_to_variable = { var = MAD_AMBATOVY_TOTAL value = 30 }
+				custom_effect_tooltip = { localization_key = MAD_ambatovy_state_contribution_tt }
+				add_to_variable = { var = MAD_AMBATOVY_STATE_FUNDS value = 33.2 }
+				custom_effect_tooltip = { localization_key = MAD_ambatovy_total_contribution_tt }
+				add_to_variable = { var = MAD_AMBATOVY_TOTAL value = 33.2 }
 			}
 		ai_will_do = {
 			base = 0
@@ -130,20 +133,12 @@ MAD_INVITE_KOREANS = {
 			has_completed_focus = MAD_AMBATOVY_JV_FORMED
 		}
 		available = {
-			OR = {
-				check_variable = { MAD_AMBATOVY_TOTAL > 99 }
-				check_variable = { MAD_AMBATOVY_STATE_FUNDS > 99 }
-			}
+			check_variable = { MAD_AMBATOVY_TOTAL > 99 }
 		}
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_AMBATOVY_MISSION complete"
 			set_country_flag = MAD_ambatovy_mission_done
-			if = {
-				limit = {
-					has_country_flag = MAD_dynatec_invited	
-				}
-				country_event = { id = mad_ambatovy.1 }
-			}
+			country_event = { id = mad_ambatovy.1 }
 		}
 		timeout_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_AMBATOVY_MISSION failed (timed out)"
@@ -781,8 +776,8 @@ MAD_madarail_category = {
 # The Daewoo lease review. Started by MAD_DEAL_KEPT (activate_mission). Each qualifier adds to MAD_daewoo_viability
 # (0-100, starts at 10) and re-tiers the lease (MAD_daewoo_update_tier). Several are gated by other parts of the
 # tree, so how the rest of the game has gone decides how fixable the deal is.
-#   viability >= 60  ->  the player can sign off the project (MANAGED_WELL unlocks)
-#   deadline reached below 60 -> MANAGED_POORLY unlocks
+#   viability >= 80  ->  the player can sign off the project (MANAGED_WELL unlocks)
+#   deadline reached below 80 -> MANAGED_POORLY unlocks
 
 MAD_daewoo_category = {
 
@@ -800,8 +795,8 @@ MAD_daewoo_category = {
 		}
 		available = {
 			custom_trigger_tooltip = {
-				tooltip = MAD_DAEWOO_VIABILITY_60_tt
-				check_variable = { MAD_daewoo_viability > 59.99 }
+				tooltip = MAD_DAEWOO_VIABILITY_80_tt
+				check_variable = { MAD_daewoo_viability > 79.99 }
 			}
 		}
 
@@ -813,7 +808,7 @@ MAD_daewoo_category = {
 		timeout_effect = {
 			log = "[GetDateText]: [Root.GetName]: Mission MAD_DAEWOO_REVIEW timed out"
 			if = {
-				limit = { check_variable = { MAD_daewoo_viability > 59.99 } }
+				limit = { check_variable = { MAD_daewoo_viability > 79.99 } }
 				country_event = { id = mad_daewoo.2 }
 			}
 			else = {
@@ -2098,46 +2093,54 @@ MAD_JIRAMA_PROJECTS = {
 		days_remove = 365
 
 		available = {
-			OR = {
-				267 = {
-					is_owned_and_controlled_by = ROOT
-					free_building_slots = {
-						building = internet_station
-						size > 0
-						include_locked = no
-					}
-					free_building_slots = {
-						building = infrastructure
-						size > 0
-						include_locked = no
-					}
-				}
-
-				487 = {
-					is_owned_and_controlled_by = ROOT
-					free_building_slots = {
-						building = internet_station
-						size > 0
-						include_locked = no
-					}
-					free_building_slots = {
-						building = infrastructure
-						size > 0
-						include_locked = no
-					}
+			# Vanilla infrastructure is capped at level 5 and does not use shared building slots.
+			# Network infrastructure is a slot-based MD building. Each target must be buildable somewhere at start.
+			any_owned_state = {
+				is_owned_and_controlled_by = ROOT
+				infrastructure < 5
+			}
+			any_owned_state = {
+				is_owned_and_controlled_by = ROOT
+				free_building_slots = {
+					building = network_infrastructure
+					size > 0
+					include_locked = no
 				}
 			}
 		}
 
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_JIRAMA_BUILD_SMART_GRID - construction begins"
-			
+			set_temp_variable = { treasury_change = -6.500 }
+			modify_treasury_effect = yes
 		}
 
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_JIRAMA_BUILD_SMART_GRID - project complete"
-			one_random_infrastructure = yes
-			one_random_network_infrastructure = yes
+			# The $6.50bn was paid at the start. Use direct building effects here to avoid charging twice.
+			# Vanilla infrastructure is selected by its level cap; network infrastructure is selected by free shared slots.
+			if = {
+				limit = { any_owned_state = { is_owned_and_controlled_by = ROOT infrastructure < 5 } }
+				random_owned_state = {
+					limit = { is_owned_and_controlled_by = ROOT infrastructure < 5 }
+					add_building_construction = { type = infrastructure level = 1 instant_build = yes }
+				}
+			}
+			# If all controlled states reached level-5 infrastructure during the construction year, do not overbuild it.
+			if = {
+				limit = { any_owned_state = { is_owned_and_controlled_by = ROOT free_building_slots = { building = network_infrastructure size > 0 include_locked = no } } }
+				random_owned_state = {
+					limit = { is_owned_and_controlled_by = ROOT free_building_slots = { building = network_infrastructure size > 0 include_locked = no } }
+					add_building_construction = { type = network_infrastructure level = 1 instant_build = yes }
+				}
+			}
+			else = {
+				random_owned_state = {
+					limit = { is_owned_and_controlled_by = ROOT }
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = { type = network_infrastructure level = 1 instant_build = yes }
+				}
+			}
 
 			set_country_flag = MAD_JIRAMA_SMART_GRID_BUILT
 			custom_effect_tooltip = { localization_key = modifies_dynamic_modifier_tt MODIFIER = MAD_power_modifier }
@@ -2189,7 +2192,7 @@ MAD_JIRAMA_PROJECTS = {
 	}
 
 	# ------------------------------------------------------------------------
-	# Rural smart-meter/network rollout - $0.50bn / 12 months
+	# Rural smart-meter/network rollout - $3.00bn / 12 months
 	# ------------------------------------------------------------------------
 	MAD_JIRAMA_BUILD_SMART_METERS = {
 		icon = generic_construction
@@ -2207,7 +2210,8 @@ MAD_JIRAMA_PROJECTS = {
 
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_JIRAMA_BUILD_SMART_METERS - rollout begins"
-			
+			set_temp_variable = { treasury_change = -3.000 }
+			modify_treasury_effect = yes
 		}
 
 		remove_effect = {
@@ -2215,6 +2219,7 @@ MAD_JIRAMA_PROJECTS = {
 			if = {
 				limit = {
 					268 = {
+						is_owned_and_controlled_by = ROOT
 						free_building_slots = {
 							building = internet_station
 							size > 0
@@ -2223,11 +2228,13 @@ MAD_JIRAMA_PROJECTS = {
 					}
 				}
 				268 = {
-					add_extra_state_shared_building_slots = 1
 					add_building_construction = { type = internet_station level = 1 instant_build = yes }
 				}
-				set_temp_variable = { treasury_change = -3.000 }
-				modify_treasury_effect = yes
+			}
+			else = {
+				# The same $3bn is spent; if Toamasina has no slot at completion, provide a one-use Internet tech bonus instead.
+				add_tech_bonus = { name = CAT_internet bonus = 0.35 uses = 1 }
+				custom_effect_tooltip = MAD_JIRAMA_SMART_METERS_TECH_FALLBACK_TT
 			}
 			set_country_flag = MAD_JIRAMA_SMART_METERS_BUILT
 			custom_effect_tooltip = { localization_key = modifies_dynamic_modifier_tt MODIFIER = MAD_power_modifier }
@@ -2300,10 +2307,8 @@ MAD_dahalo_category = {
 		icon = generic_political_discourse
 		allowed = { tag = MAD }
 		visible = {
-			check_variable = { MAD_dahalo_threat > 0 }
 		}
 		available = {
-			check_variable = { MAD_dahalo_threat > 0 }
 		}
 		cost = 35
 		days_remove = 45
@@ -2327,11 +2332,9 @@ MAD_dahalo_category = {
 		allowed = { tag = MAD }
 		visible = {
 			has_completed_focus = MAD_ZEBU_CERTIFICATES
-			check_variable = { MAD_dahalo_threat > 0 }
 		}
 		available = {
 			has_completed_focus = MAD_ZEBU_CERTIFICATES
-			check_variable = { MAD_dahalo_threat > 0 }
 		}
 		cost = 60
 		fire_only_once = yes
@@ -2354,11 +2357,9 @@ MAD_dahalo_category = {
 		allowed = { tag = MAD }
 		visible = {
 			has_completed_focus = MAD_FIGHTING_CERTIFICATE_FRAUD
-			check_variable = { MAD_dahalo_threat > 0 }
 		}
 		available = {
 			has_completed_focus = MAD_FIGHTING_CERTIFICATE_FRAUD
-			check_variable = { MAD_dahalo_threat > 0 }
 		}
 		cost = 75
 		fire_only_once = yes
@@ -2381,11 +2382,9 @@ MAD_dahalo_category = {
 		allowed = { tag = MAD }
 		visible = {
 			has_completed_focus = MAD_dahalo_military_ops
-			check_variable = { MAD_dahalo_threat > 0 }
 		}
 		available = {
 			has_completed_focus = MAD_dahalo_military_ops
-			check_variable = { MAD_dahalo_threat > 0 }
 		}
 		cost = 60
 		days_remove = 45
@@ -2411,11 +2410,9 @@ MAD_dahalo_category = {
 		allowed = { tag = MAD }
 		visible = {
 			has_completed_focus = MAD_Tandroka
-			check_variable = { MAD_dahalo_threat > 0 }
 		}
 		available = {
 			has_completed_focus = MAD_Tandroka
-			check_variable = { MAD_dahalo_threat > 0 }
 		}
 		cost = 80
 		fire_only_once = yes
@@ -2438,11 +2435,9 @@ MAD_dahalo_category = {
 		allowed = { tag = MAD }
 		visible = {
 			has_completed_focus = MAD_ARREST_ARMS
-			check_variable = { MAD_dahalo_threat > 0 }
 		}
 		available = {
 			has_completed_focus = MAD_ARREST_ARMS
-			check_variable = { MAD_dahalo_threat > 0 }
 		}
 		cost = 70
 		fire_only_once = yes
@@ -2468,14 +2463,12 @@ MAD_dahalo_category = {
 				has_completed_focus = MAD_Tandroka
 				has_completed_focus = MAD_ARREST_ARMS
 			}
-			check_variable = { MAD_dahalo_threat > 0 }
 		}
 		available = {
 			OR = {
 				has_completed_focus = MAD_Tandroka
 				has_completed_focus = MAD_ARREST_ARMS
 			}
-			check_variable = { MAD_dahalo_threat > 0 }
 		}
 		cost = 100
 		fire_only_once = yes
@@ -2500,11 +2493,9 @@ MAD_dahalo_category = {
 		allowed = { tag = MAD }
 		visible = {
 			check_variable = { MAD_dahalo_ringleader_sweeps > 0.99 }
-			check_variable = { MAD_dahalo_threat > 0 }
 		}
 		available = {
 			check_variable = { MAD_dahalo_ringleader_sweeps > 0.99 }
-			check_variable = { MAD_dahalo_threat > 0 }
 		}
 		cost = 120
 		fire_only_once = yes
@@ -2529,11 +2520,9 @@ MAD_dahalo_category = {
 		allowed = { tag = MAD }
 		visible = {
 			check_variable = { MAD_dahalo_ringleader_sweeps > 1.99 }
-			check_variable = { MAD_dahalo_threat > 0 }
 		}
 		available = {
 			check_variable = { MAD_dahalo_ringleader_sweeps > 1.99 }
-			check_variable = { MAD_dahalo_threat > 0 }
 		}
 		cost = 140
 		fire_only_once = yes
@@ -3004,7 +2993,7 @@ MAD_OWNERSHIP_BOP = {
 			modify_treasury_effect = yes
 			add_tech_bonus = {
 				name = MAD_SELL_AIRLINE_PRIVATE
-				category = CAT_h_air
+				category = CAT_heavy_aircraft
 				uses = 3
 				bonus = 0.25
 			}
@@ -3243,7 +3232,12 @@ MAD_OWNERSHIP_BOP = {
 				}
 			}
 			if = {
-				limit = { has_country_flag = MAD_ambatovy_state_bought_dynatec }
+				limit = {
+					OR = {
+						has_country_flag = MAD_ambatovy_state_bought_dynatec
+						has_country_flag = MAD_ambatovy_state_bought_corporate_stake
+					}
+				}
 				add_power_balance_value = {
 					id = MAD_economy_ownership_bop
 					value = -0.075

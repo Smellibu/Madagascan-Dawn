@@ -12,8 +12,15 @@ add_namespace = mad_ambatovy
 country_event = {
 	id = mad_ambatovy.1
 	title = mad_ambatovy.1.t
-	desc = mad_ambatovy.1.d
-	picture = GFX_report_event_mining_default # swap for whatever MD actually uses
+	desc = {
+		text = mad_ambatovy.1.d_dynatec
+		trigger = { has_country_flag = MAD_dynatec_invited }
+	}
+	desc = {
+		text = mad_ambatovy.1.d_consortium
+		trigger = { NOT = { has_country_flag = MAD_dynatec_invited } }
+	}
+	picture = GFX_report_event_mining_default
 
 	is_triggered_only = yes
 
@@ -37,15 +44,19 @@ country_event = {
 	}
 
 	option = {
-		name = mad_ambatovy.1.b # "Pay to buy out Dynatec's position"
+		name = mad_ambatovy.1.b # "Increase the state's stake"
 		
 
 
 		set_temp_variable = { treasury_change = -17.00 } # placeholder magnitude, tune to taste
 		modify_treasury_effect = yes
-		add_to_variable = { var = MAD_AMBATOVY_CORP value = -40 }
-		add_to_variable = { var = MAD_AMBATOVY_STATE_FUNDS value = 40 }
-		set_country_flag = MAD_ambatovy_state_bought_dynatec
+		add_to_variable = { var = MAD_AMBATOVY_CORP value = -33.2 }
+		add_to_variable = { var = MAD_AMBATOVY_STATE_FUNDS value = 33.2 }
+		set_country_flag = MAD_ambatovy_state_bought_corporate_stake
+		if = {
+			limit = { has_country_flag = MAD_dynatec_invited }
+			set_country_flag = MAD_ambatovy_state_bought_dynatec
+		}
 		add_power_balance_value = {
 			id = MAD_economy_ownership_bop
 			value = 0.075
@@ -200,6 +211,8 @@ country_event = {
 						instant_build = yes
 			}
 		}
+		set_temp_variable = { treasury_change = -15.00 }
+		modify_treasury_effect = yes
 		log = "[GetDateText]: [This.GetName]: mad_telma.1 - competitor blocked"
 	}
 }
@@ -502,6 +515,7 @@ country_event = {
 # The settlement (10 billion for the deal plus 5 billion, and -5% stability) is paid by the focus MAD_DEAL_KEPT_FAILED.
 country_event = {
 	id = mad_daewoo.3
+	title = mad_daewoo.3.t
 	hidden = yes
 	is_triggered_only = yes
 	fire_only_once = yes
@@ -513,7 +527,6 @@ country_event = {
 		set_country_flag = MAD_DAEWOO_OUTCOME_FAILED
 		MAD_daewoo_end_lease = yes
 		add_timed_idea = { idea = MAD_DAEWOO_CANCELLED days = 1095 }
-		country_event = { id = mad_political.94 days = 1 }
 	}
 }
 
@@ -557,6 +570,8 @@ country_event = {
 
 ########################################################################
 # events/MAD_drought_events.txt
+# Historical drought events add state severity/famine and update the drought/exodus meters.
+# Population transfers are handled only by the monthly displacement mechanic.
 ########################################################################
 
 # events/MAD_drought_events.txt
@@ -648,6 +663,7 @@ country_event = {
 	desc = mad_drought.12.d
 	picture = GFX_report_event_economy_default
 	is_triggered_only = yes
+	trigger = { MAD_historical_drought_should_fire = yes }
 
 	option = {
 		name = mad_drought.12.a
@@ -672,7 +688,7 @@ country_event = {
 	desc = mad_drought.13.d
 	picture = GFX_report_event_economy_default
 	is_triggered_only = yes
-	trigger = { MAD_drought_exists = yes }
+	trigger = { MAD_historical_drought_should_fire = yes }
 
 	option = {
 		name = mad_drought.13.a
@@ -699,8 +715,6 @@ country_event = {
 		}
 		add_to_variable = { MAD_drought_shock_pressure = 0.40 }
 		add_to_variable = { MAD_drought_depop = 1 }
-		set_variable = { MAD_drought_historical_departure_people = 5000 }
-		MAD_drought_historical_displacement = yes
 		MAD_drought_recalc_national = yes
 	}
 }
@@ -711,7 +725,7 @@ country_event = {
 	desc = mad_drought.14.d
 	picture = GFX_report_event_economy_default
 	is_triggered_only = yes
-	trigger = { MAD_drought_exists = yes }
+	trigger = { MAD_historical_drought_should_fire = yes }
 
 	option = {
 		name = mad_drought.14.a
@@ -738,8 +752,6 @@ country_event = {
 		}
 		add_to_variable = { MAD_drought_shock_pressure = 0.45 }
 		add_to_variable = { MAD_drought_depop = 1 }
-		set_variable = { MAD_drought_historical_departure_people = 3500 }
-		MAD_drought_historical_displacement = yes
 		add_stability = -0.03
 		MAD_drought_recalc_national = yes
 	}
@@ -757,7 +769,7 @@ country_event = {
 	desc = mad_drought.15.d
 	picture = GFX_report_event_economy_default
 	is_triggered_only = yes
-	trigger = { MAD_drought_exists = yes }
+	trigger = { MAD_historical_drought_should_fire = yes }
 
 	option = {
 		name = mad_drought.15.a
@@ -773,8 +785,6 @@ country_event = {
 		}
 		add_to_variable = { MAD_drought_shock_pressure = 0.35 }
 		add_to_variable = { MAD_drought_depop = 1 }
-		set_variable = { MAD_drought_historical_departure_people = 2000 }
-		MAD_drought_historical_displacement = yes
 		add_stability = -0.01
 		MAD_drought_recalc_national = yes
 	}
@@ -786,7 +796,7 @@ country_event = {
 	desc = mad_drought.16.d
 	picture = GFX_report_event_economy_default
 	is_triggered_only = yes
-	trigger = { MAD_drought_exists = yes }
+	trigger = { MAD_historical_drought_should_fire = yes }
 
 	option = {
 		name = mad_drought.16.a
@@ -802,8 +812,6 @@ country_event = {
 		}
 		add_to_variable = { MAD_drought_shock_pressure = 0.35 }
 		add_to_variable = { MAD_drought_depop = 1 }
-		set_variable = { MAD_drought_historical_departure_people = 5000 }
-		MAD_drought_historical_displacement = yes
 		add_stability = -0.02
 		MAD_drought_recalc_national = yes
 	}
@@ -815,7 +823,7 @@ country_event = {
 	desc = mad_drought.17.d
 	picture = GFX_report_event_economy_default
 	is_triggered_only = yes
-	trigger = { MAD_drought_exists = yes }
+	trigger = { MAD_historical_drought_should_fire = yes }
 
 	option = {
 		name = mad_drought.17.a
@@ -831,8 +839,6 @@ country_event = {
 		}
 		add_to_variable = { MAD_drought_shock_pressure = 0.25 }
 		add_to_variable = { MAD_drought_depop = 1 }
-		set_variable = { MAD_drought_historical_departure_people = 2000 }
-		MAD_drought_historical_displacement = yes
 		add_stability = -0.01
 		MAD_drought_recalc_national = yes
 	}
@@ -844,7 +850,7 @@ country_event = {
 	desc = mad_drought.18.d
 	picture = GFX_report_event_economy_default
 	is_triggered_only = yes
-	trigger = { MAD_drought_exists = yes }
+	trigger = { MAD_historical_drought_should_fire = yes }
 
 	option = {
 		name = mad_drought.18.a
@@ -860,8 +866,6 @@ country_event = {
 		}
 		add_to_variable = { MAD_drought_shock_pressure = 0.40 }
 		add_to_variable = { MAD_drought_depop = 1 }
-		set_variable = { MAD_drought_historical_departure_people = 3000 }
-		MAD_drought_historical_displacement = yes
 		add_stability = -0.02
 		MAD_drought_recalc_national = yes
 	}
@@ -873,7 +877,7 @@ country_event = {
 	desc = mad_drought.19.d
 	picture = GFX_report_event_economy_default
 	is_triggered_only = yes
-	trigger = { MAD_drought_exists = yes }
+	trigger = { MAD_historical_drought_should_fire = yes }
 
 	option = {
 		name = mad_drought.19.a
@@ -889,8 +893,6 @@ country_event = {
 		}
 		add_to_variable = { MAD_drought_shock_pressure = 0.35 }
 		add_to_variable = { MAD_drought_depop = 1 }
-		set_variable = { MAD_drought_historical_departure_people = 2000 }
-		MAD_drought_historical_displacement = yes
 		add_stability = -0.02
 		MAD_drought_recalc_national = yes
 	}
@@ -1152,7 +1154,7 @@ country_event = {
 		custom_effect_tooltip = mad_drought.30_tt
 		hidden_effect = {
 			random_owned_state = {
-				limit = { check_variable = { MAD_state_drought < 85 } }
+				limit = { check_variable = { MAD_state_drought_exposure > 0.001 } check_variable = { MAD_state_drought < 85 } }
 				set_temp_variable = { MAD_dr_state_change = 9 }
 				MAD_drought_state_apply_change = yes
 				set_temp_variable = { MAD_dr_state_famine = 5 }
@@ -1179,7 +1181,7 @@ country_event = {
 		custom_effect_tooltip = mad_drought.31_tt
 		hidden_effect = {
 			random_owned_state = {
-				limit = { is_coastal = yes }
+				limit = { is_coastal = yes check_variable = { MAD_state_drought_exposure > 0.001 } }
 				set_temp_variable = { MAD_dr_state_change = 7 }
 				MAD_drought_state_apply_change = yes
 				set_temp_variable = { MAD_dr_state_famine = 10 }
@@ -1209,7 +1211,7 @@ country_event = {
 		custom_effect_tooltip = mad_drought.32_tt
 		hidden_effect = {
 			random_owned_state = {
-				limit = { check_variable = { MAD_state_drought > 54.99 } }
+				limit = { check_variable = { MAD_state_drought_exposure > 0.001 } check_variable = { MAD_state_drought > 54.99 } }
 				set_temp_variable = { MAD_dr_state_famine = 18 }
 				MAD_drought_state_apply_famine = yes
 			}
@@ -1233,7 +1235,7 @@ country_event = {
 		custom_effect_tooltip = mad_drought.33_tt
 		hidden_effect = {
 			random_owned_state = {
-				limit = { has_state_flag = MAD_STATE_WELLS }
+				limit = { check_variable = { MAD_state_drought_exposure > 0.001 } has_state_flag = MAD_STATE_WELLS }
 				clr_state_flag = MAD_STATE_WELLS
 				set_temp_variable = { MAD_dr_state_change = 8 }
 				MAD_drought_state_apply_change = yes
@@ -1563,7 +1565,7 @@ country_event = {
 			limit = { check_variable = { MAD_vanilla_shock_state = -11 } }
 			add_to_variable = { MAD_economy_international_market_income_modifier = 0.04 tooltip = international_market_income_modifier_tt }
 			add_to_variable = { MAD_economy_return_on_investment_modifier = 0.01 tooltip = return_on_investment_modifier_tt }
-			add_to_variable = { MAD_economy_expected_welfare_modifier = 0.10 tooltip = expected_welfare_modifier_tt }
+			add_to_variable = { MAD_economy_expected_welfare_modifier = 0.25 tooltip = expected_welfare_modifier_tt }
 		}
 		else_if = {
 			limit = { check_variable = { MAD_vanilla_shock_state = -12 } }
@@ -1590,7 +1592,7 @@ country_event = {
 
 		# The exact response options overwrite 1/-1 with 11/12/-11/-12,
 		# preserving which temporary package must be reversed next cycle.
-		force_update_dynamic_modifier = yes
+
 	}
 
 	option = {
@@ -1604,7 +1606,7 @@ country_event = {
 		add_stability = 0.02
 		add_political_power = 10
 		set_variable = { MAD_vanilla_shock_state = 11 }
-		force_update_dynamic_modifier = yes
+
 		country_event = { id = mad_vanilla.1 days = 600 }
 	}
 
@@ -1621,7 +1623,7 @@ country_event = {
 		set_temp_variable = { treasury_change = 1.00 }
 		modify_treasury_effect = yes
 		set_variable = { MAD_vanilla_shock_state = 12 }
-		force_update_dynamic_modifier = yes
+
 		country_event = { id = mad_vanilla.1 days = 600 }
 	}
 
@@ -1636,12 +1638,12 @@ country_event = {
 		custom_effect_tooltip = mad_vanilla.1.support_tt
 		add_to_variable = { MAD_economy_international_market_income_modifier = -0.04 tooltip = international_market_income_modifier_tt }
 		add_to_variable = { MAD_economy_return_on_investment_modifier = -0.01 tooltip = return_on_investment_modifier_tt }
-		add_to_variable = { MAD_economy_expected_welfare_modifier = -0.10 tooltip = expected_welfare_modifier_tt }
+		add_to_variable = { MAD_economy_expected_welfare_modifier = -0.25 tooltip = expected_welfare_modifier_tt }
 		add_stability = 0.01
 		set_temp_variable = { treasury_change = -2.00 }
 		modify_treasury_effect = yes
 		set_variable = { MAD_vanilla_shock_state = -11 }
-		force_update_dynamic_modifier = yes
+
 		country_event = { id = mad_vanilla.1 days = 600 }
 	}
 
@@ -1657,7 +1659,7 @@ country_event = {
 		add_stability = -0.03
 		add_political_power = -25
 		set_variable = { MAD_vanilla_shock_state = -12 }
-		force_update_dynamic_modifier = yes
+
 		country_event = { id = mad_vanilla.1 days = 600 }
 	}
 }
@@ -1834,7 +1836,7 @@ country_event = {
 			add_to_variable = { MAD_agri_income_tax = -0.01 tooltip = agriculture_district_income_tax_modifier_tt }
 		}
 		add_stability = -0.02
-		force_update_dynamic_modifier = yes
+
 		MAD_dahalo_update_modifier = yes
 	}
 	option = {
@@ -1856,7 +1858,7 @@ country_event = {
 		}
 		add_stability = -0.03
 		MAD_dahalo_update_modifier = yes
-		force_update_dynamic_modifier = yes
+
 	}
 }
 
@@ -1904,7 +1906,7 @@ country_event = {
 		set_temp_variable = { treasury_change = -0.75 }
 		modify_treasury_effect = yes
 		add_to_variable = { MAD_dahalo_threat = -6 tooltip = MAD_DAHALO_THREAT_MINUS_6_TT }
-		add_to_variable = { MAD_economy_expected_police_modifier = -0.5 tooltip = expected_police_modifier_tt }
+		add_to_variable = { MAD_economy_expected_police_modifier = -0.25 tooltip = expected_police_modifier_tt }
 		add_power_balance_value = { id = MAD_economy_ownership_bop value = -0.01875 tooltip_side = MAD_private_ownership }
 		add_stability = 0.01
 		MAD_dahalo_update_modifier = yes
@@ -1916,7 +1918,7 @@ country_event = {
 		set_temp_variable = { treasury_change = -0.50 }
 		modify_treasury_effect = yes
 		add_to_variable = { MAD_dahalo_threat = -4 tooltip = MAD_DAHALO_THREAT_MINUS_4_TT }
-		add_to_variable = { MAD_economy_expected_police_modifier = 0.5 tooltip = expected_police_modifier_tt }
+		add_to_variable = { MAD_economy_expected_police_modifier = 0.25 tooltip = expected_police_modifier_tt }
 		add_power_balance_value = { id = MAD_economy_ownership_bop value = 0.01875 tooltip_side = MAD_public_ownership }
 		add_stability = 0.005
 		MAD_dahalo_update_modifier = yes
@@ -2076,6 +2078,7 @@ country_event = {
 }
 
 add_namespace = mad_political
+add_namespace = mad_ratsiraka
 
 # ---------------------------------------------------------------------------
 # 1. Royal Crown Question
@@ -2195,10 +2198,12 @@ country_event = {
 			end = 24
 			compare = less_than
 			value = p
+			# is_party_banned_trigger reads party_index, so set it as an effect before evaluating limit.
+			set_temp_variable = { party_index = p }
 			if = {
 				limit = {
 					NOT = { check_variable = { ruling_party = p } }
-					set_temp_variable = { party_index = p }
+					NOT = { is_in_array = { array = gov_coalition_array value = p } }
 					NOT = { is_party_banned_trigger = yes }
 					check_variable = { party_pop_array^p > 0 }
 					check_variable = { party_pop_array^p > MAD_DAEWOO_NEXT_PARTY_POPULARITY }
@@ -2687,41 +2692,63 @@ country_event = {
 		MAD_sync_party_political_ideas = yes
 	}
 }
-# post-Daewoo Viva political events.
-# The chain is intentionally separate from the ruling party: any non-AREMA
-# government can inherit the consequences once AREMA has lost power.
+# Ratsiraka’s first loss and the follow-up exile choice.
+# The later Viva/return chain remains separate and unchanged.
 
 country_event = {
 	id = mad_political.90
 	title = mad_political.90.t
 	desc = mad_political.90.d
-	picture = GFX_report_event_election
 	is_triggered_only = yes
-	fire_only_once = yes
 
-	trigger = {
-		original_tag = MAD
-		has_country_flag = MAD_RATSIRAKA_FIRST_LOSS_PENDING
-		NOT = { has_country_flag = MAD_RATSIRAKA_FIRST_LOSS_DONE }
-		NOT = { MAD_AREMA_IN_POWER = yes }
-		NOT = { has_country_flag = MAD_RATSIRAKA_EXILE_RESOLVED }
-	}
-
-	immediate = {
-		clr_country_flag = MAD_RATSIRAKA_FIRST_LOSS_PENDING
-		set_country_flag = MAD_RATSIRAKA_FIRST_LOSS_DONE
-		set_country_flag = MAD_RATSIRAKA_EXILE_RESOLVED
-	}
-
-	# Use the same party-specific civil-war sequence as mad_political.93.
-	# The player remains on MAD; the elected government is replicated onto the
-	# breakaway side, then the player-led country returns to AREMA (party index 5).
 	option = {
 		name = mad_political.90.a
-		log = "[GetDateText]: [Root.GetName]: mad_political.90.a - Ratsiraka rejects the election and starts a civil war"
+		custom_effect_tooltip = mad_political.90.a_tt
+		log = "[GetDateText]: [This.GetName]: mad_political.90.a selected"
 		hidden_effect = {
-			set_temp_variable = { party_index = 5 }
-			start_civil_war_with_no_leader_change = yes
+			clr_country_flag = MAD_RATSIRAKA_EVENT_QUEUED
+			clr_country_flag = MAD_RATSIRAKA_FIRST_LOSS_PENDING
+			clr_country_flag = MAD_RATSIRAKA_COALITION_TRACKING
+			clr_country_flag = MAD_RATSIRAKA_COALITION_TIMED_OUT
+			set_country_flag = MAD_RATSIRAKA_FIRST_LOSS_DONE
+			set_country_flag = MAD_RATSIRAKA_EXILE_RESOLVED
+			set_country_flag = MAD_RATSIRAKA_CIVIL_WAR_STARTED
+			set_variable = { MAD_RATSIRAKA_FORMATION_STABLE_DAYS = 0 }
+			}
+			hidden_effect = {
+			# Cache the elected government's standard HOI4 ideology shares BEFORE the civil war.
+			# MD's replication helper runs startup_politics again, which can overwrite these shares.
+			set_variable = { MAD_RATSIRAKA_CW_PREWAR_DEMOCRATIC = { value = party_popularity@democratic multiply = 100 } }
+			set_variable = { MAD_RATSIRAKA_CW_PREWAR_COMMUNISM = { value = party_popularity@communism multiply = 100 } }
+			set_variable = { MAD_RATSIRAKA_CW_PREWAR_NEUTRALITY = { value = party_popularity@neutrality multiply = 100 } }
+			set_variable = { MAD_RATSIRAKA_CW_PREWAR_FASCISM = { value = party_popularity@fascism multiply = 100 } }
+			set_variable = { MAD_RATSIRAKA_CW_PREWAR_NATIONALIST = { value = party_popularity@nationalist multiply = 100 } }
+			set_temp_variable = {
+				MAD_RATSIRAKA_CW_PREWAR_TOTAL_ADJUSTMENT = {
+					value = MAD_RATSIRAKA_CW_PREWAR_DEMOCRATIC
+					add = MAD_RATSIRAKA_CW_PREWAR_COMMUNISM
+					add = MAD_RATSIRAKA_CW_PREWAR_NEUTRALITY
+					add = MAD_RATSIRAKA_CW_PREWAR_FASCISM
+					add = MAD_RATSIRAKA_CW_PREWAR_NATIONALIST
+					subtract = 100
+					multiply = -1
+				}
+			}
+			add_to_variable = { MAD_RATSIRAKA_CW_PREWAR_NATIONALIST = MAD_RATSIRAKA_CW_PREWAR_TOTAL_ADJUSTMENT }
+
+			# Create the civil war and copy the elected government.
+			set_country_flag = no_leader_change
+
+			start_civil_war = {
+				ideology = ROOT
+				size = 0.5
+				states = all
+				states_filter = {
+					is_capital = no
+				}
+			}
+
+			clr_country_flag = no_leader_change
 
 			random_other_country = {
 				limit = {
@@ -2729,24 +2756,85 @@ country_event = {
 					NOT = { TAG = PREV }
 				}
 				civil_war_replication_effect = yes
+
+				# Reapply the pre-war standard ideology split after MD's politics startup.
+				# The party arrays/ruling party remain those copied by civil_war_replication_effect.
+				set_temp_variable = { MAD_RATSIRAKA_CW_COPY_DEMOCRATIC = PREV.MAD_RATSIRAKA_CW_PREWAR_DEMOCRATIC }
+				set_temp_variable = { MAD_RATSIRAKA_CW_COPY_COMMUNISM = PREV.MAD_RATSIRAKA_CW_PREWAR_COMMUNISM }
+				set_temp_variable = { MAD_RATSIRAKA_CW_COPY_NEUTRALITY = PREV.MAD_RATSIRAKA_CW_PREWAR_NEUTRALITY }
+				set_temp_variable = { MAD_RATSIRAKA_CW_COPY_FASCISM = PREV.MAD_RATSIRAKA_CW_PREWAR_FASCISM }
+				set_temp_variable = { MAD_RATSIRAKA_CW_COPY_NATIONALIST = PREV.MAD_RATSIRAKA_CW_PREWAR_NATIONALIST }
+				set_popularities = {
+					democratic = MAD_RATSIRAKA_CW_COPY_DEMOCRATIC
+					communism = MAD_RATSIRAKA_CW_COPY_COMMUNISM
+					neutrality = MAD_RATSIRAKA_CW_COPY_NEUTRALITY
+					fascism = MAD_RATSIRAKA_CW_COPY_FASCISM
+					nationalist = MAD_RATSIRAKA_CW_COPY_NATIONALIST
+				}
 			}
 
+			# These one-use cached values have now been copied to the breakaway country.
+			clear_variable = MAD_RATSIRAKA_CW_PREWAR_DEMOCRATIC
+			clear_variable = MAD_RATSIRAKA_CW_PREWAR_COMMUNISM
+			clear_variable = MAD_RATSIRAKA_CW_PREWAR_NEUTRALITY
+			clear_variable = MAD_RATSIRAKA_CW_PREWAR_FASCISM
+			clear_variable = MAD_RATSIRAKA_CW_PREWAR_NATIONALIST
+
+			# Turn the original, player-controlled Madagascar into AREMA's side.
+			set_politics = {
+				ruling_party = communism
+				elections_allowed = no
+			}
+			add_popularity = {
+				ideology = communism
+				popularity = 0.5
+			}
+
+			start_politics_input = yes
 			set_variable = { ruling_party = 5 }
-			set_variable = { party_pop_array^5 = 0.70 }
+			set_variable = { party_pop_array^5 = 0.7 }
 			startup_politics = yes
-			set_politics = { elections_allowed = no }
-			set_country_flag = MAD_RATSIRAKA_CIVIL_WAR_STARTED
+
+			create_country_leader = {
+				name = "Didier Ratsiraka"
+				picture = "Didier_Ratsiraka.dds"
+				ideology = anarchist_communism
+				traits = {
+					emerging_anarchist_communism
+				}
+			}
 		}
 	}
 
-	# Historical route: Ratsiraka flees; AREMA is banned and the exile-return chain can proceed.
 	option = {
 		name = mad_political.90.b
-		log = "[GetDateText]: [Root.GetName]: mad_political.90.b - Ratsiraka flees after losing the election"
+		log = "[GetDateText]: [This.GetName]: mad_political.90.b selected"
+		clr_country_flag = MAD_RATSIRAKA_EVENT_QUEUED
+		clr_country_flag = MAD_RATSIRAKA_FIRST_LOSS_PENDING
+		clr_country_flag = MAD_RATSIRAKA_COALITION_TRACKING
+		clr_country_flag = MAD_RATSIRAKA_COALITION_TIMED_OUT
+		set_country_flag = MAD_RATSIRAKA_FIRST_LOSS_DONE
+		set_country_flag = MAD_RATSIRAKA_EXILE_EVENT_PENDING
+		set_variable = { MAD_RATSIRAKA_FORMATION_STABLE_DAYS = 0 }
+		country_event = { id = mad_ratsiraka.2 days = 1 }
+	}
+}
+
+country_event = {
+	id = mad_ratsiraka.2
+	title = mad_political.98.t
+	desc = mad_political.98.d
+	picture = GFX_report_event_generic_political
+	is_triggered_only = yes
+
+	option = {
+		name = mad_political.98.a
+		clr_country_flag = MAD_RATSIRAKA_EXILE_EVENT_PENDING
+		set_country_flag = MAD_RATSIRAKA_EXILE_RESOLVED
+		set_country_flag = MAD_RATSIRAKA_EXILED
+		set_country_flag = MAD_AREMA_BANNED
 		set_temp_variable = { party_index = 5 }
 		ban_party_scripted_call = yes
-		set_country_flag = MAD_AREMA_BANNED
-		set_country_flag = MAD_RATSIRAKA_EXILED
 	}
 }
 
@@ -3095,7 +3183,7 @@ country_event = {
 			set_variable = { MAD_ARMY_CMD_SUPPLY_CONSUMPTION_FACTOR = 0 }
 			set_variable = { MAD_ARMY_CMD_PLANNING_SPEED = 0 }
 			add_dynamic_modifier = { modifier = MAD_ARMY_COMMAND_SYSTEM }
-			force_update_dynamic_modifier = yes
+
 		}
 		set_country_flag = MAD_ARMY_COMMAND_DECIDED
 		set_country_flag = MAD_ARMY_COMMAND_CAPSAT
@@ -3150,7 +3238,7 @@ country_event = {
 			set_variable = { MAD_ARMY_CMD_SUPPLY_CONSUMPTION_FACTOR = 0 }
 			set_variable = { MAD_ARMY_CMD_PLANNING_SPEED = 0 }
 			add_dynamic_modifier = { modifier = MAD_ARMY_COMMAND_SYSTEM }
-			force_update_dynamic_modifier = yes
+
 		}
 		set_country_flag = MAD_ARMY_COMMAND_DECIDED
 		set_country_flag = MAD_ARMY_COMMAND_GENERAL_STAFF

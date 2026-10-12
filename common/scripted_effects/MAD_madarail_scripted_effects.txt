@@ -67,7 +67,6 @@ MAD_madarail_enact_concessions = {
 				tooltip_side = MAD_private_ownership
 			}
 		}
-		hidden_effect = { force_update_dynamic_modifier = yes }
 	}
 	if = {
 		limit = { has_country_flag = MAD_MADARAIL_SEATED_VECTURIS }
@@ -103,7 +102,6 @@ MAD_madarail_enact_concessions = {
 			add_to_variable = { MAD_vecturis_productivity_growth_modifier = -0.3 tooltip = productivity_growth_modifier_tt }
 			add_stability = -0.02
 		}
-		hidden_effect = { force_update_dynamic_modifier = yes }
 	}
 	if = {
 		limit = { has_country_flag = MAD_MADARAIL_SEATED_HOLDING }
@@ -139,7 +137,6 @@ MAD_madarail_enact_concessions = {
 			set_temp_variable = { treasury_change = -2.50 }
 			modify_treasury_effect = yes
 		}
-		hidden_effect = { force_update_dynamic_modifier = yes }
 	}
 }
 
@@ -198,90 +195,10 @@ MAD_madarail_apply_desist_outcome = {
 	custom_effect_tooltip = MAD_madarail_desist_unlocked_tt
 }
 
-########################################################################
-# RAILWAY DECISIONS (run when the one-year build finishes)
-########################################################################
-
-# State scope:  <state id> = { MAD_madarail_state_productivity_boost = yes }
-# ASSUMPTION: MD stores per-state productivity in the state variable "productivity_state_var".
-# If that's not how you add state productivity, this is the ONLY line to change.
-MAD_madarail_state_productivity_boost = {
-	add_to_variable = { productivity_state_var = 80 }
-}
-
-# Antsirabe - Fianarantsoa ("AF" line). Province path and state 267 are the ones already used in the focus tree.
-MAD_madarail_finish_fce_extension = {
-	custom_effect_tooltip = {
-		localization_key = modifies_dynamic_modifier_tt
-		MODIFIER = MAD_economy_modifier
-	}
-	add_to_variable = { MAD_economy_production_speed_rail_way_factor = 0.05 tooltip = production_speed_rail_way_factor_tt }
-	add_to_variable = { MAD_economy_supply_node_range = 0.05 tooltip = supply_node_range_tt }
-	build_railway = {
-		level = 2
-		path = { 681 576 566 }
-	}
-	267 = {
-		add_building_construction = {
-			type = infrastructure
-			level = 1
-			instant_build = yes
-		}
-		MAD_madarail_state_productivity_boost = yes
-	}
-}
-
-########################################################################
-# FILL IN BEFORE USE - four lines, each needs a province path and a state ID.
-# (Province IDs for build_railway = the provinces the track runs through, in order; state ID = the state
-# named in each comment. I don't have MD's map data, so these are yours to fill. Until they are, each
-# decision still charges 15 billion and finishes, but builds nothing - it only writes a warning to the log.)
-########################################################################
-
-# TOLIARA - "Fianarantsoa - Toliara": Fianarantsoa (566) -> Ihosy -> Sakaraha -> Toliara, following the RN7 corridor.
-MAD_madarail_finish_toliara_line = {
-	log = "[GetDateText]: [This.GetName]: MAD_madarail_finish_toliara_line has no province path / state ID yet"
-	# build_railway = {
-	#	level = 2
-	#	path = { 566 <provinces along RN7> <Toliara province> }
-	# }
-	# <TOLIARA STATE ID> = { MAD_madarail_state_productivity_boost = yes }
-}
-
-# MAHAJANGA - "Antananarivo - Mahajanga": Antananarivo (11015) -> Maevatanana -> Ambondromamy -> Mahajanga, following the RN4.
-MAD_madarail_finish_mahajanga_line = {
-	log = "[GetDateText]: [This.GetName]: MAD_madarail_finish_mahajanga_line has no province path / state ID yet"
-	# build_railway = {
-	#	level = 2
-	#	path = { 11015 <provinces along RN4> <Mahajanga province> }
-	# }
-	# <MAHAJANGA STATE ID> = { MAD_madarail_state_productivity_boost = yes }
-}
-
-# AMBOVOMBE - "Fianarantsoa - Ambovombe": Fianarantsoa (566) -> Ihosy -> south into Androy -> Ambovombe.
-MAD_madarail_finish_ambovombe_line = {
-	log = "[GetDateText]: [This.GetName]: MAD_madarail_finish_ambovombe_line has no province path / state ID yet"
-	# build_railway = {
-	#	level = 2
-	#	path = { 566 <provinces to Ihosy> <provinces south to Ambovombe> }
-	# }
-	# <AMBOVOMBE STATE ID> = { MAD_madarail_state_productivity_boost = yes }
-}
-
-# ANTSIRANANA - "Northern Railway": Antsiranana -> Ambilobe -> Ambanja -> Antsohihy -> joins the network at Mahajanga's line, following the RN6.
-MAD_madarail_finish_antsiranana_line = {
-	log = "[GetDateText]: [This.GetName]: MAD_madarail_finish_antsiranana_line has no province path / state ID yet"
-	# build_railway = {
-	#	level = 2
-	#	path = { <Antsiranana province> <provinces along RN6> <a province already on the network> }
-	# }
-	# <ANTSIRANANA STATE ID> = { MAD_madarail_state_productivity_boost = yes }
-}
-
 # common/scripted_effects/MAD_daewoo_scripted_effects.txt
 
 # Puts the right lease tier on the country for the current MAD_daewoo_viability:
-#   < 30  TOXIC      30 - 59.99  TROUBLED      60+  SOUND
+#   < 30  TOXIC      30 - 79.99  TROUBLED      80+  SOUND
 # Only swaps when the tier actually changes.
 MAD_daewoo_update_tier = {
 	if = {
@@ -295,7 +212,7 @@ MAD_daewoo_update_tier = {
 	if = {
 		limit = {
 			check_variable = { MAD_daewoo_viability > 29.99 }
-			check_variable = { MAD_daewoo_viability < 60 }
+			check_variable = { MAD_daewoo_viability < 80 }
 			NOT = { has_idea = MAD_DAEWOO_LEASE_TROUBLED }
 		}
 		MAD_daewoo_clear_tiers = yes
@@ -303,7 +220,7 @@ MAD_daewoo_update_tier = {
 	}
 	if = {
 		limit = {
-			check_variable = { MAD_daewoo_viability > 59.99 }
+			check_variable = { MAD_daewoo_viability > 79.99 }
 			NOT = { has_idea = MAD_DAEWOO_LEASE_SOUND }
 		}
 		MAD_daewoo_clear_tiers = yes
@@ -334,7 +251,7 @@ MAD_daewoo_break_effects = {
 		hidden_effect = {
 			add_to_variable = { MAD_agri_productivity = -0.02 }
 			add_to_variable = { MAD_agri_income_tax = -0.02 }
-			force_update_dynamic_modifier = yes
+
 			268 = {
 				if = {
 					limit = { agriculture_district > 0 }
@@ -353,7 +270,7 @@ MAD_daewoo_break_effects = {
 		MODIFIER = MAD_agriculture_modifier
 	}
 	add_to_variable = { MAD_agri_worker_req = 0.03 tooltip = agriculture_district_worker_requirement_modifier_tt }
-	force_update_dynamic_modifier = yes
+
 }
 
 # The lease ends: the tier idea goes (the Sound tier hands its farmland bonuses back in its on_remove) and the break effects run.
@@ -423,7 +340,7 @@ MAD_daewoo_drought_kept = {
 	if = {
 		limit = { MAD_drought_exists = yes }
 		custom_effect_tooltip = MAD_daewoo_drought_kept_tt
-		add_to_variable = { MAD_drought_daewoo_pressure = 0.20 }
+		add_to_variable = { MAD_drought_daewoo_pressure = 0.15 }
 		set_temp_variable = { MAD_dr_change = 4 }
 		MAD_drought_apply_change = yes
 	}
@@ -434,7 +351,8 @@ MAD_daewoo_drought_well = {
 	if = {
 		limit = { MAD_drought_exists = yes }
 		custom_effect_tooltip = MAD_daewoo_drought_well_tt
-		add_to_variable = { MAD_drought_daewoo_pressure = 0.15 }
+		# The initial kept-deal +0.15 is the total Daewoo pressure.
+		# Successful management expands the estate but does not add more monthly pressure.
 		set_temp_variable = { MAD_dr_change = 4 }
 		MAD_drought_apply_change = yes
 	}
@@ -2264,8 +2182,11 @@ MAD_drought_monthly_tick = {
 		set_variable = { MAD_drought_last_delta = MAD_dr_delta }
 		set_temp_variable = { MAD_dr_change = MAD_dr_delta }
 		MAD_drought_apply_change = yes
-		# each state then drifts a little on its own and its famine meter follows its drought
+		# each state then drifts a little on its own and its famine meter follows the drought
 		MAD_drought_state_monthly = yes
+		# State-monthly relief expiry/drift changes MAD_state_drought after MAD_drought_apply_change
+		# has already recalculated the average. Recalculate again so MAD_drought_severity and the map stay current.
+		MAD_drought_recalc_national = yes
 
 		# People leave the states that are actually in severe drought, not just because the national average is high.
 		# The severe-state counter keeps the evacuation response active while the drought remains severe; actual people are moved below.
@@ -2336,42 +2257,50 @@ MAD_drought_scheduled_events = {
 	if = {
 		limit = { check_variable = { MAD_drought_calendar_months > 3.99 } NOT = { has_country_flag = MAD_DROUGHT_EVENT_2000 } }
 		set_country_flag = MAD_DROUGHT_EVENT_2000
-		country_event = { id = mad_drought.15 }
+		# Record the historical date once even if recovery suppresses this shock.
+		if = { limit = { MAD_historical_drought_should_fire = yes } country_event = { id = mad_drought.15 } }
 	}
 	if = {
 		limit = { check_variable = { MAD_drought_calendar_months > 39.99 } NOT = { has_country_flag = MAD_DROUGHT_EVENT_2003 } }
 		set_country_flag = MAD_DROUGHT_EVENT_2003
-		country_event = { id = mad_drought.16 }
+		# Record the historical date once even if recovery suppresses this shock.
+		if = { limit = { MAD_historical_drought_should_fire = yes } country_event = { id = mad_drought.16 } }
 	}
 	if = {
 		limit = { check_variable = { MAD_drought_calendar_months > 55.99 } NOT = { has_country_flag = MAD_DROUGHT_EVENT_2005 } }
 		set_country_flag = MAD_DROUGHT_EVENT_2005
-		country_event = { id = mad_drought.17 }
+		# Record the historical date once even if recovery suppresses this shock.
+		if = { limit = { MAD_historical_drought_should_fire = yes } country_event = { id = mad_drought.17 } }
 	}
 	if = {
 		limit = { check_variable = { MAD_drought_calendar_months > 111.99 } NOT = { has_country_flag = MAD_DROUGHT_EVENT_2009 } }
 		set_country_flag = MAD_DROUGHT_EVENT_2009
-		country_event = { id = mad_drought.18 }
+		# Record the historical date once even if recovery suppresses this shock.
+		if = { limit = { MAD_historical_drought_should_fire = yes } country_event = { id = mad_drought.18 } }
 	}
 	if = {
 		limit = { check_variable = { MAD_drought_calendar_months > 125.99 } NOT = { has_country_flag = MAD_DROUGHT_EVENT_2010 } }
 		set_country_flag = MAD_DROUGHT_EVENT_2010
-		country_event = { id = mad_drought.19 }
+		# Record the historical date once even if recovery suppresses this shock.
+		if = { limit = { MAD_historical_drought_should_fire = yes } country_event = { id = mad_drought.19 } }
 	}
 	if = {
 		limit = { check_variable = { MAD_drought_calendar_months > 146.99 } NOT = { has_country_flag = MAD_DROUGHT_EVENT_LOCUSTS } }
 		set_country_flag = MAD_DROUGHT_EVENT_LOCUSTS
-		country_event = { id = mad_drought.12 }
+		# Record the historical date once even if recovery suppresses this shock.
+		if = { limit = { MAD_historical_drought_should_fire = yes } country_event = { id = mad_drought.12 } }
 	}
 	if = {
 		limit = { check_variable = { MAD_drought_calendar_months > 188.99 } NOT = { has_country_flag = MAD_DROUGHT_EVENT_ELNINO } }
 		set_country_flag = MAD_DROUGHT_EVENT_ELNINO
-		country_event = { id = mad_drought.13 }
+		# Record the historical date once even if recovery suppresses this shock.
+		if = { limit = { MAD_historical_drought_should_fire = yes } country_event = { id = mad_drought.13 } }
 	}
 	if = {
 		limit = { check_variable = { MAD_drought_calendar_months > 244.99 } NOT = { has_country_flag = MAD_DROUGHT_EVENT_KERE } }
 		set_country_flag = MAD_DROUGHT_EVENT_KERE
-		country_event = { id = mad_drought.14 }
+		# Record the historical date once even if recovery suppresses this shock.
+		if = { limit = { MAD_historical_drought_should_fire = yes } country_event = { id = mad_drought.14 } }
 	}
 
 	random_list = {
@@ -2384,23 +2313,28 @@ MAD_drought_scheduled_events = {
 			}
 		}
 		# --- the regional ones: these are what make the map uneven ---
-		4 = { country_event = { id = mad_drought.30 } }
+		4 = {
+			if = {
+				limit = { any_owned_state = { check_variable = { MAD_state_drought_exposure > 0.001 } check_variable = { MAD_state_drought < 85 } } }
+				country_event = { id = mad_drought.30 }
+			}
+		}
 		3 = {
 			# a cyclone only matters if there is a coast to hit and something on it to lose
 			if = {
-				limit = { any_owned_state = { is_coastal = yes } }
+				limit = { any_owned_state = { is_coastal = yes check_variable = { MAD_state_drought_exposure > 0.001 } } }
 				country_event = { id = mad_drought.31 }
 			}
 		}
 		2 = {
 			if = {
-				limit = { any_owned_state = { check_variable = { MAD_state_drought > 54.99 } } }
+				limit = { any_owned_state = { check_variable = { MAD_state_drought_exposure > 0.001 } check_variable = { MAD_state_drought > 54.99 } } }
 				country_event = { id = mad_drought.32 }
 			}
 		}
 		1 = {
 			if = {
-				limit = { any_owned_state = { has_state_flag = MAD_STATE_WELLS } }
+				limit = { any_owned_state = { check_variable = { MAD_state_drought_exposure > 0.001 } has_state_flag = MAD_STATE_WELLS } }
 				country_event = { id = mad_drought.33 }
 			}
 		}
@@ -2622,7 +2556,7 @@ MAD_drought_containment_daily_tick = {
 			NOT = { has_country_flag = MAD_DROUGHT_OVER }
 			OR = {
 				check_variable = { MAD_drought_prevention_count < 7 }
-				check_variable = { MAD_drought_severity > 15 }
+				check_variable = { MAD_drought_severity > 10 }
 			}
 		}
 		clr_country_flag = MAD_DROUGHT_CONTAINED_STATE
@@ -2634,7 +2568,7 @@ MAD_drought_containment_daily_tick = {
 			MAD_drought_exists = yes
 			NOT = { has_country_flag = MAD_DROUGHT_CONTAINED_STATE }
 			check_variable = { MAD_drought_prevention_count > 6.99 }
-			check_variable = { MAD_drought_severity < 15.01 }
+			check_variable = { MAD_drought_severity < 10.01 }
 		}
 		add_to_variable = { MAD_drought_containment_days = 1 }
 		if = {
@@ -2734,7 +2668,10 @@ MAD_drought_state_monthly_one = {
 	subtract_from_temp_variable = { MAD_fam_t = 45 }
 	multiply_temp_variable = { MAD_fam_t = 0.12 }
 	if = {
-		limit = { has_state_flag = MAD_STATE_WELLS }
+		limit = {
+			has_state_flag = MAD_STATE_WELLS
+			check_variable = { MAD_fam_t > 0 }
+		}
 		multiply_temp_variable = { MAD_fam_t = 0.6 }
 	}
 	add_to_variable = { MAD_state_famine = MAD_fam_t }
@@ -2767,7 +2704,7 @@ MAD_cna_establish = {
 		MODIFIER = MAD_agriculture_modifier
 	}
 	add_to_variable = { MAD_agri_productivity = 0.05 tooltip = agricolture_productivity_modifier_tt }
-	force_update_dynamic_modifier = yes
+
 	# A standing survey service reduces ongoing drought pressure, but is not one of the seven formal measures.
 	add_to_variable = { MAD_drought_cna_pressure_reduction = 0.10 }
 	set_temp_variable = { MAD_dr_change = -2 }
@@ -2786,7 +2723,7 @@ MAD_cna_continue_the_path = {
 	}
 	add_to_variable = { MAD_agri_worker_req = -0.01 tooltip = agriculture_district_worker_requirement_modifier_tt }
 	add_to_variable = { MAD_agri_productivity = 0.02 tooltip = agricolture_productivity_modifier_tt }
-	force_update_dynamic_modifier = yes
+
 	add_stability = 0.02
 }
 
@@ -2802,7 +2739,7 @@ MAD_cna_become_the_locust = {
 	}
 	add_to_variable = { MAD_agri_income_tax = 0.03 tooltip = agriculture_district_income_tax_modifier_tt }
 	add_to_variable = { MAD_agri_productivity = 0.01 tooltip = agricolture_productivity_modifier_tt }
-	force_update_dynamic_modifier = yes
+
 	# Protein in the worst-hit state(s) right now.
 	every_owned_state = {
 		limit = { has_state_flag = MAD_GRAND_SUD_STATE }
@@ -2822,7 +2759,7 @@ MAD_cna_map_infestations = {
 		MODIFIER = MAD_agriculture_modifier
 	}
 	add_to_variable = { MAD_agri_productivity = 0.01 tooltip = agricolture_productivity_modifier_tt }
-	force_update_dynamic_modifier = yes
+
 }
 
 # BIOPESTICIDES - Metarhizium acridum instead of fenitrothion. Slower to kill, but it does not poison the zebu,
@@ -2837,7 +2774,7 @@ MAD_cna_biopesticides = {
 	}
 	add_to_variable = { MAD_agri_productivity = 0.03 tooltip = agricolture_productivity_modifier_tt }
 	add_to_variable = { MAD_agri_worker_req = -0.01 tooltip = agriculture_district_worker_requirement_modifier_tt }
-	force_update_dynamic_modifier = yes
+
 	add_to_variable = { MAD_drought_cna_pressure_reduction = 0.20 }
 	set_temp_variable = { MAD_dr_change = -2 }
 	MAD_drought_apply_change = yes
@@ -2867,7 +2804,7 @@ MAD_cna_preventative_measures = {
 	}
 	add_to_variable = { MAD_agri_productivity = 0.02 tooltip = agricolture_productivity_modifier_tt }
 	add_to_variable = { MAD_agri_worker_req = -0.02 tooltip = agriculture_district_worker_requirement_modifier_tt }
-	force_update_dynamic_modifier = yes
+
 	add_to_variable = { MAD_drought_cna_pressure_reduction = 0.30 }
 	set_temp_variable = { MAD_dr_change = -2 }
 	MAD_drought_apply_change = yes
@@ -2939,10 +2876,29 @@ MAD_JIRAMA_START_GENERATION_RECOVERY = {
 
 ########################################################################
 # DAILY AUTO-RESOLUTION
-# Call this once per day for Madagascar from an existing on_daily MAD block.
+# Called once per day for Madagascar from on_daily_MAD.
 ########################################################################
 
 MAD_JIRAMA_GENERATION_RECOVERY_DAILY = {
+
+	# MD's energy_calc_balance computes this BEFORE storage discharge and fossil
+	# curtailment adjustments:
+	#   energy_balance = energy_sum - energy_consumption
+	# energy_sum contains all generation sources (renewable, hydro, geothermal,
+	# fossil, nuclear and other energy gain). Therefore generation >= 140% of use
+	# is exactly equivalent to an energy balance >= 40% of consumption. This avoids
+	# source-by-source reconstruction and does not mistake stored energy for generation.
+	if = {
+		limit = {
+			has_country_flag = MAD_JIRAMA_GENERATION_RECOVERY_STARTED
+			NOT = { has_completed_focus = MAD_JIRAMA_RECOVERY_SUCCEEDS }
+			NOT = { has_completed_focus = MAD_JIRAMA_RECOVERY_FAILS }
+			has_variable = energy_balance
+			has_variable = energy_consumption
+		}
+		set_variable = { MAD_JIRAMA_required_surplus = energy_consumption }
+		multiply_variable = { MAD_JIRAMA_required_surplus = 0.40 }
+	}
 
 	# Expire the one-off mission 1095 days after the first generation-project unlock.
 	# has_country_flag's age check supplies the timer; no separate scheduled event is needed.
@@ -2964,17 +2920,8 @@ MAD_JIRAMA_GENERATION_RECOVERY_DAILY = {
 			NOT = { has_completed_focus = MAD_JIRAMA_RECOVERY_FAILS }
 			MAD_JIRAMA_RECOVERY_REQUIREMENTS_MET = yes
 		}
-		complete_national_focus = MAD_JIRAMA_RECOVERY_SUCCEEDS
-	}
-
-	# FAILURE: the three-year mission has expired without a successful recovery.
-	if = {
-		limit = {
-			has_country_flag = MAD_JIRAMA_GENERATION_RECOVERY_EXPIRED
-			NOT = { has_completed_focus = MAD_JIRAMA_RECOVERY_SUCCEEDS }
-			NOT = { has_completed_focus = MAD_JIRAMA_RECOVERY_FAILS }
-		}
-		complete_national_focus = MAD_JIRAMA_RECOVERY_FAILS
+		log = "[GetDateText]: [This.GetName]: JIRAMA recovery requirements met"
+		set_country_flag = MAD_JIRAMA_GENERATION_RECOVERY_REQUIREMENTS_MET
 	}
 }
 # common/scripted_effects/MAD_dahalo_scripted_effects.txt
@@ -3120,7 +3067,7 @@ MAD_dahalo_update_modifier = {
 			NOT = { has_country_flag = MAD_DAHALO_DEFEATED }
 			NOT = { has_country_flag = MAD_REMENABILA_IN_POWER }
 		}
-		force_update_dynamic_modifier = yes
+
 	}
 }
 
@@ -3358,7 +3305,7 @@ MAD_dahalo_daily_tick = {
 			NOT = { has_country_flag = MAD_DAHALO_CIVIL_WAR_PENDING }
 			NOT = { has_civil_war = yes }
 		}
-		add_to_variable = { MAD_dahalo_threat = 0.0666667 }
+		add_to_variable = { MAD_dahalo_threat = 0.000666667 }
 		clamp_variable = { var = MAD_dahalo_threat min = 0 max = 100 }
 		MAD_dahalo_update_modifier = yes
 	}
@@ -4219,4 +4166,75 @@ MAD_sync_party_political_ideas = {
 	if = { limit = { NOT = { MAD_HVM_IN_POWER = yes } } MAD_cancel_HVM_project_review = yes }
 }
 
+# Ratsiraka's first loss: wait for a direct majority or completed MD coalition.
+MAD_ratsiraka_check_government_formed = {
+	# Recover saves where an older version marked the event resolved before a choice.
+	if = {
+		limit = {
+			original_tag = MAD
+			has_country_flag = MAD_RATSIRAKA_FIRST_LOSS_DONE
+			has_country_flag = MAD_RATSIRAKA_EXILE_RESOLVED
+			NOT = { has_country_flag = MAD_RATSIRAKA_CIVIL_WAR_STARTED }
+			NOT = { has_country_flag = MAD_RATSIRAKA_EXILED }
+			NOT = { has_country_flag = MAD_AREMA_BANNED }
+			NOT = { has_civil_war = yes }
+			NOT = { MAD_AREMA_IN_POWER = yes }
+		}
+		clr_country_flag = MAD_RATSIRAKA_FIRST_LOSS_DONE
+		clr_country_flag = MAD_RATSIRAKA_EXILE_RESOLVED
+		clr_country_flag = MAD_RATSIRAKA_EVENT_QUEUED
+		clr_country_flag = MAD_RATSIRAKA_COALITION_TRACKING
+		clr_country_flag = MAD_RATSIRAKA_COALITION_TIMED_OUT
+		set_country_flag = MAD_RATSIRAKA_FIRST_LOSS_PENDING
+		set_variable = { MAD_RATSIRAKA_FORMATION_STABLE_DAYS = 0 }
+	}
 
+	if = {
+		limit = {
+			original_tag = MAD
+			has_country_flag = MAD_RATSIRAKA_FIRST_LOSS_PENDING
+			NOT = { has_country_flag = MAD_RATSIRAKA_FIRST_LOSS_DONE }
+			NOT = { has_country_flag = MAD_RATSIRAKA_EVENT_QUEUED }
+			NOT = { has_country_flag = MAD_RATSIRAKA_CIVIL_WAR_STARTED }
+			NOT = { has_country_flag = MAD_RATSIRAKA_EXILED }
+			NOT = { has_country_flag = MAD_AREMA_BANNED }
+			NOT = { has_civil_war = yes }
+		}
+		if = {
+			limit = { MAD_AREMA_IN_POWER = yes }
+			set_variable = { MAD_RATSIRAKA_FORMATION_STABLE_DAYS = 0 }
+		}
+		else_if = {
+			limit = { is_in_array = { array = gov_coalition_array value = 5 } }
+			# AREMA remains in government as a junior partner; this is not a loss of power.
+			set_variable = { MAD_RATSIRAKA_FORMATION_STABLE_DAYS = 0 }
+		}
+		else_if = {
+			limit = {
+				OR = {
+					has_country_flag = coalition_forming
+					has_country_flag = coalition_party_negotiations
+				}
+			}
+			set_variable = { MAD_RATSIRAKA_FORMATION_STABLE_DAYS = 0 }
+		}
+		else = {
+			add_to_variable = { MAD_RATSIRAKA_FORMATION_STABLE_DAYS = 1 }
+			if = {
+				limit = {
+					check_variable = { MAD_RATSIRAKA_FORMATION_STABLE_DAYS > 2 }
+					OR = {
+						# A direct election majority.
+						check_variable = { var = party_pop_elect_array^ruling_party value = majority_threshold compare = greater_than_or_equals }
+						# A formed coalition, including one that is below MD's majority threshold.
+						check_variable = { var = government_coalition_strength_elect value = party_pop_elect_array^ruling_party compare = greater_than }
+						# Support a formed government when elections are disabled.
+						has_elections = no
+					}
+				}
+				set_country_flag = MAD_RATSIRAKA_EVENT_QUEUED
+				country_event = { id = mad_political.90 days = 1 }
+			}
+		}
+	}
+}
