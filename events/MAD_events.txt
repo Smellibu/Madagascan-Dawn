@@ -3654,7 +3654,7 @@ country_event = {
         trigger = { country_exists = FRA }
         set_temp_variable = { treasury_change = -10.0 }
         modify_treasury_effect = yes
-        add_equipment_to_stockpile = { type = transport_plane5 amount = 2 producer = FRA variant_name = "CN-235 transport fleet" }
+        add_equipment_to_stockpile = { type = transport_plane2 amount = 5 producer = FRA variant_name = "CN-235" }
         FRA = {
             set_temp_variable = { treasury_change = 10.0 }
             modify_treasury_effect = yes
@@ -3674,7 +3674,7 @@ country_event = {
         set_temp_variable = { treasury_change = -8.0 }
         modify_treasury_effect = yes
         add_equipment_to_stockpile = { type = transport_helicopter_1 amount = 2 producer = SAF variant_name = "AS350B2" }
-        add_equipment_to_stockpile = { type = transport_plane5 amount = 1 producer = FRA variant_name = "CN-235" }
+        add_equipment_to_stockpile = { type = transport_plane2 amount = 1 producer = FRA variant_name = "CN-235" }
         SAF = {
             set_temp_variable = { treasury_change = 3.0 }
             modify_treasury_effect = yes
@@ -3714,7 +3714,7 @@ country_event = {
         trigger = { country_exists = FRA }
         set_temp_variable = { treasury_change = -5.0 }
         modify_treasury_effect = yes
-        add_equipment_to_stockpile = { type = transport_plane5 amount = 1 producer = FRA variant_name = "CN-235" }
+        add_equipment_to_stockpile = { type = transport_plane2 amount = 1 producer = FRA variant_name = "CN-235" }
         FRA = {
             set_temp_variable = { treasury_change = 5.0 }
             modify_treasury_effect = yes
@@ -4103,7 +4103,7 @@ country_event = {
         trigger = { country_exists = SPR }
         set_temp_variable = { treasury_change = -8.0 }
         modify_treasury_effect = yes
-        add_equipment_to_stockpile = { type = transport_plane5 amount = 2 producer = SPR variant_name = "C-295M" }
+        add_equipment_to_stockpile = { type = transport_plane5 amount = 5 producer = SPR variant_name = "C-295M" }
         SPR = {
             set_temp_variable = { treasury_change = 8.0 }
             modify_treasury_effect = yes
@@ -4122,7 +4122,7 @@ country_event = {
         trigger = { country_exists = FRA }
         set_temp_variable = { treasury_change = -10.0 }
         modify_treasury_effect = yes
-        add_equipment_to_stockpile = { type = transport_plane5 amount = 2 producer = FRA variant_name = "CN-235" }
+        add_equipment_to_stockpile = { type = transport_plane2 amount = 2 producer = FRA variant_name = "CN-235" }
         FRA = {
             set_temp_variable = { treasury_change = 10.0 }
             modify_treasury_effect = yes
@@ -4580,4 +4580,175 @@ country_event = {
 		}
 		ai_chance = { base = 100 }
 	}
+}
+
+add_namespace = mad_naval
+
+# Event 1 — Chapter I: the first institutional review.
+country_event = {
+    id = mad_naval.1
+    title = mad_naval.1.t
+    desc = mad_naval.1.d
+    picture = GFX_report_event_generic_political
+    is_triggered_only = yes
+    option = {
+        name = mad_naval.1.a
+        log = "[GetDateText]: [This.GetName]: mad_naval.1.a executed"
+        set_country_flag = MAD_NAVAL_PRIORITY_COASTAL
+        navy_experience = 10
+        add_tech_bonus = { name = MAD_NAVAL_REVIEW_COASTAL category = CAT_naval_radar bonus = 0.15 uses = 1 }
+    }
+    option = {
+        name = mad_naval.1.b
+        log = "[GetDateText]: [This.GetName]: mad_naval.1.b executed"
+        set_country_flag = MAD_NAVAL_PRIORITY_OFFSHORE
+        navy_experience = 10
+        add_tech_bonus = { name = MAD_NAVAL_REVIEW_OFFSHORE category = CAT_corvettes bonus = 0.15 uses = 1 }
+    }
+    option = {
+        name = mad_naval.1.c
+        log = "[GetDateText]: [This.GetName]: mad_naval.1.c executed"
+        set_country_flag = MAD_NAVAL_PRIORITY_SECREN
+        if = { limit = { has_dlc = "Arms Against Tyranny" } mio:MAD_SECREN_shipbuilding = { add_mio_funds = 500 add_mio_research_bonus = 0.02 } }
+    }
+}
+
+# Event 2 — Chapter II: select the first practical modernisation emphasis.
+country_event = {
+    id = mad_naval.2
+    title = mad_naval.2.t
+    desc = mad_naval.2.d
+    picture = GFX_report_event_generic_political
+    is_triggered_only = yes
+    option = {
+        name = mad_naval.2.a
+        log = "[GetDateText]: [This.GetName]: mad_naval.2.a executed"
+        set_country_flag = MAD_NAVAL_PROGRAMME_MAINTENANCE
+        navy_experience = 10
+        if = { limit = { has_dlc = "Arms Against Tyranny" } mio:MAD_SECREN_shipbuilding = { add_mio_funds = 400 } }
+    }
+    option = {
+        name = mad_naval.2.b
+        log = "[GetDateText]: [This.GetName]: mad_naval.2.b executed"
+        set_country_flag = MAD_NAVAL_PROGRAMME_SURVEILLANCE
+        add_tech_bonus = { name = MAD_NAVAL_COMMON_PICTURE category = CAT_naval_radar bonus = 0.35 uses = 1 }
+        navy_experience = 5
+    }
+    option = {
+        name = mad_naval.2.c
+        log = "[GetDateText]: [This.GetName]: mad_naval.2.c executed"
+        set_country_flag = MAD_NAVAL_PROGRAMME_INTERCEPTORS
+        add_tech_bonus = { name = MAD_NAVAL_FAST_INTERCEPTION category = CAT_patrol_boats bonus = 0.25 uses = 1 }
+        add_tech_bonus = { name = MAD_NAVAL_FAST_INTERCEPTION category = CAT_landing_craft bonus = 0.25 uses = 1 }
+    }
+}
+
+# Event 3 — Chapter III: the industrial route to a locally sustained corvette.
+country_event = {
+    id = mad_naval.3
+    title = mad_naval.3.t
+    desc = mad_naval.3.d
+    picture = GFX_report_event_generic_political
+    is_triggered_only = yes
+    option = {
+        name = mad_naval.3.a
+        log = "[GetDateText]: [This.GetName]: mad_naval.3.a executed"
+        set_country_flag = MAD_NAVAL_DESIGN_LICENSED
+        add_tech_bonus = { name = MAD_NAVAL_LICENSED_CORVETTE category = CAT_corvettes bonus = 0.50 uses = 1 }
+        if = { limit = { has_dlc = "Arms Against Tyranny" } mio:MAD_SECREN_shipbuilding = { add_mio_funds = 350 } }
+    }
+    option = {
+        name = mad_naval.3.b
+        log = "[GetDateText]: [This.GetName]: mad_naval.3.b executed"
+        set_country_flag = MAD_NAVAL_DESIGN_JOINT
+        add_tech_bonus = { name = MAD_NAVAL_JOINT_CORVETTE category = CAT_corvettes bonus = 0.35 uses = 1 }
+        add_tech_bonus = { name = MAD_NAVAL_JOINT_CORVETTE category = CAT_naval_modules bonus = 0.25 uses = 1 }
+        if = { limit = { has_dlc = "Arms Against Tyranny" } mio:MAD_SECREN_shipbuilding = { add_mio_funds = 500 add_mio_research_bonus = 0.03 } }
+    }
+    option = {
+        name = mad_naval.3.c
+        log = "[GetDateText]: [This.GetName]: mad_naval.3.c executed"
+        set_country_flag = MAD_NAVAL_DESIGN_DOMESTIC
+        add_tech_bonus = { name = MAD_NAVAL_DOMESTIC_CORVETTE category = CAT_corvettes bonus = 0.25 uses = 1 }
+        add_tech_bonus = { name = MAD_NAVAL_DOMESTIC_CORVETTE category = CAT_naval_modules bonus = 0.50 uses = 1 }
+        if = { limit = { has_dlc = "Arms Against Tyranny" } mio:MAD_SECREN_shipbuilding = { add_mio_funds = 500 add_mio_research_bonus = 0.05 } }
+    }
+}
+
+# Event 4 — Chapter IV: choose the tested corvette's operational emphasis.
+country_event = {
+    id = mad_naval.4
+    title = mad_naval.4.t
+    desc = mad_naval.4.d
+    picture = GFX_report_event_generic_political
+    is_triggered_only = yes
+    option = {
+        name = mad_naval.4.a
+        log = "[GetDateText]: [This.GetName]: mad_naval.4.a executed"
+        set_country_flag = MAD_CORVETTE_ROLE_PATROL
+        add_tech_bonus = { name = MAD_NAVAL_CORVETTE_PATROL category = CAT_naval_radar bonus = 0.50 uses = 1 }
+        add_tech_bonus = { name = MAD_NAVAL_CORVETTE_PATROL category = CAT_corvettes bonus = 0.20 uses = 1 }
+    }
+    option = {
+        name = mad_naval.4.b
+        log = "[GetDateText]: [This.GetName]: mad_naval.4.b executed"
+        set_country_flag = MAD_CORVETTE_ROLE_COASTAL_DEFENCE
+        add_tech_bonus = { name = MAD_NAVAL_CORVETTE_COASTAL_DEFENCE category = CAT_naval_cannons bonus = 0.35 uses = 1 }
+        add_tech_bonus = { name = MAD_NAVAL_CORVETTE_COASTAL_DEFENCE category = CAT_corvettes bonus = 0.25 uses = 1 }
+    }
+    option = {
+        name = mad_naval.4.c
+        log = "[GetDateText]: [This.GetName]: mad_naval.4.c executed"
+        set_country_flag = MAD_CORVETTE_ROLE_MULTIPURPOSE
+        add_tech_bonus = { name = MAD_NAVAL_CORVETTE_MULTIPURPOSE category = CAT_naval_modules bonus = 0.35 uses = 1 }
+        add_tech_bonus = { name = MAD_NAVAL_CORVETTE_MULTIPURPOSE category = CAT_corvettes bonus = 0.25 uses = 1 }
+    }
+}
+
+# Event 5 — Chapter V: the regular tree's conclusion; the aviation branch is optional.
+country_event = {
+    id = mad_naval.5
+    title = mad_naval.5.t
+    desc = mad_naval.5.d
+    picture = GFX_report_event_generic_political
+    is_triggered_only = yes
+    option = {
+        name = mad_naval.5.a
+        log = "[GetDateText]: [This.GetName]: mad_naval.5.a executed"
+        set_country_flag = MAD_NAVAL_CORVETTE_FORCE_PRIORITY
+        navy_experience = 15
+        add_mastery = { amount = 20 folder = naval }
+        add_tech_bonus = { name = MAD_NAVAL_CORVETTE_FORCE category = CAT_corvettes bonus = 0.50 uses = 1 }
+        if = { limit = { has_dlc = "Arms Against Tyranny" } mio:MAD_SECREN_shipbuilding = { add_mio_funds = 500 } }
+    }
+    option = {
+        name = mad_naval.5.b
+        log = "[GetDateText]: [This.GetName]: mad_naval.5.b executed"
+        set_country_flag = MAD_NAVAL_HELICOPTER_OPERATOR_AUTHORIZED
+        add_tech_bonus = { name = MAD_NAVAL_OPERATOR_STUDY category = CAT_helicopter_operators bonus = 0.25 uses = 1 }
+        if = { limit = { has_dlc = "Arms Against Tyranny" } mio:MAD_SECREN_shipbuilding = { add_mio_research_bonus = 0.03 } }
+    }
+}
+
+# Event 6 — Optional helicopter-operator concept conclusion. This authorises further work, not a free hull.
+country_event = {
+    id = mad_naval.6
+    title = mad_naval.6.t
+    desc = mad_naval.6.d
+    picture = GFX_report_event_generic_political
+    is_triggered_only = yes
+    option = {
+        name = mad_naval.6.a
+        log = "[GetDateText]: [This.GetName]: mad_naval.6.a executed"
+        set_country_flag = MAD_NAVAL_OPERATOR_FOREIGN_ASSISTED
+        add_tech_bonus = { name = MAD_NAVAL_OPERATOR_DESIGN category = CAT_helicopter_operators bonus = 0.50 uses = 1 }
+        navy_experience = 20
+    }
+    option = {
+        name = mad_naval.6.b
+        log = "[GetDateText]: [This.GetName]: mad_naval.6.b executed"
+        set_country_flag = MAD_NAVAL_OPERATOR_DOMESTIC_CONCEPT
+        if = { limit = { has_dlc = "Arms Against Tyranny" } mio:MAD_SECREN_shipbuilding = { add_mio_funds = 750 add_mio_research_bonus = 0.05 } }
+        add_mastery = { amount = 20 folder = naval }
+    }
 }

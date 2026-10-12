@@ -1096,7 +1096,7 @@ focus_tree = {
 							MODIFIER = MAD_economy_modifier
 						}
 						add_to_variable = { MAD_economy_production_speed_infrastructure_factor = 0.05 tooltip = production_speed_infrastructure_factor_tt }
-		
+					
 			set_temp_variable = { treasury_change = -2.50 }
 			modify_treasury_effect = yes
 		}
@@ -1115,8 +1115,6 @@ focus_tree = {
 		cost = 3
 		prerequisite = { focus = MAD_counter_the_dahalo }
 		search_filters = { FOCUS_FILTER_STABILITY FOCUS_FILTER_POLITICAL }
-		available = {
-		}
 
 		completion_reward = {
 			log = "[GetDateText]: [This.GetName]: Focus MAD_formalize_dina_courts"
@@ -1448,7 +1446,7 @@ focus_tree = {
 				MODIFIER = MAD_economy_modifier
 			}
 			add_to_variable = { MAD_economy_production_speed_industrial_infrastructure_factor = 0.05 tooltip = production_speed_industrial_infrastructure_factor_tt }
-		
+					
 			set_temp_variable = { treasury_change = -15.50 }
 			modify_treasury_effect = yes
 		}
@@ -1559,7 +1557,7 @@ focus_tree = {
 			}
 			add_to_variable = { MAD_agri_worker_req = -0.03 tooltip = agriculture_district_worker_requirement_modifier_tt }
 			add_to_variable = { MAD_agri_productivity = 0.03 tooltip = agricolture_productivity_modifier_tt }
-
+			
 			
 			487 = {
 				add_extra_state_shared_building_slots = 1
@@ -1574,7 +1572,7 @@ focus_tree = {
 				set_temp_variable = { temp_opinion = 5 }
 				change_farmers_opinion = yes
 			}
-		
+					
 			set_temp_variable = { treasury_change = -3.75 }
 			modify_treasury_effect = yes
 		}
@@ -2245,7 +2243,6 @@ focus_tree = {
 			}
 			add_to_variable = { MAD_agri_income_tax = 0.01 tooltip = agriculture_district_income_tax_modifier_tt }
 			MAD_dahalo_update_modifier = yes
-
 		}
 
 		ai_will_do = {
@@ -2350,7 +2347,7 @@ focus_tree = {
 				MODIFIER = MAD_agriculture_modifier
 			}
 			add_to_variable = { MAD_agri_productivity = 0.02 tooltip = agricolture_productivity_modifier_tt }
-
+			
 			if = {
 				limit = { has_idea = farmers }
 				set_temp_variable = { temp_opinion = 5 }
@@ -2385,7 +2382,6 @@ focus_tree = {
 				MODIFIER = MAD_agriculture_modifier
 			}
 			add_to_variable = { MAD_agri_income_tax = -0.03 tooltip = agriculture_district_income_tax_modifier_tt }
-
 		}
 
 		ai_will_do = {
@@ -2433,7 +2429,7 @@ focus_tree = {
 				MODIFIER = MAD_agriculture_modifier
 			}
 			add_to_variable = { MAD_agri_income_tax = 0.02 tooltip = agriculture_district_income_tax_modifier_tt }
-
+			
 			add_stability = 0.02
 		}
 
@@ -2470,7 +2466,7 @@ focus_tree = {
 				MODIFIER = MAD_agriculture_modifier
 			}
 			add_to_variable = { MAD_agri_productivity = 0.05 tooltip = agricolture_productivity_modifier_tt }
-
+			
 			add_to_variable = { MAD_drought_cna_pressure_reduction = 0.10 tooltip = cna_pressure_reduction_tt }
 			set_temp_variable = { MAD_dr_change = -2 }
 			MAD_drought_apply_change = yes
@@ -3145,7 +3141,6 @@ focus_tree = {
 			}
 			add_to_variable = { MAD_agri_worker_req = -0.01 tooltip = agriculture_district_worker_requirement_modifier_tt }
 			add_to_variable = { MAD_agri_income_tax = 0.02 tooltip = agriculture_district_income_tax_modifier_tt }
-
 		}
 
 		ai_will_do = {
@@ -3175,7 +3170,7 @@ focus_tree = {
 			}
 			add_to_variable = { MAD_agri_worker_req = -0.01 tooltip = agriculture_district_worker_requirement_modifier_tt }
 			add_to_variable = { MAD_agri_productivity = 0.02 tooltip = agricolture_productivity_modifier_tt }
-
+			
 			add_stability = 0.02
 		}
 
@@ -3205,7 +3200,7 @@ focus_tree = {
 			}
 			add_to_variable = { MAD_agri_income_tax = 0.03 tooltip = agriculture_district_income_tax_modifier_tt }
 			add_to_variable = { MAD_agri_productivity = 0.01 tooltip = agricolture_productivity_modifier_tt }
-
+			
 			268 = {
 				
 				custom_effect_tooltip = MAD_DROUGHT_FAMINE_RELIEF_12_tt
@@ -3978,7 +3973,7 @@ focus_tree = {
 				MODIFIER = MAD_agriculture_modifier
 			}
 			add_to_variable = { MAD_agri_worker_req = -0.02 tooltip = agriculture_district_worker_requirement_modifier_tt }
-
+			
 			if = {
 				limit = { has_idea = farmers }
 				set_temp_variable = { temp_opinion = 5 }
@@ -4016,7 +4011,6 @@ focus_tree = {
 				MODIFIER = MAD_agriculture_modifier
 			}
 			add_to_variable = { MAD_agri_productivity = 0.01 tooltip = agricolture_productivity_modifier_tt }
-
 		}
 
 		ai_will_do = {
@@ -4052,7 +4046,7 @@ focus_tree = {
 			}
 			add_to_variable = { MAD_agri_productivity = 0.03 tooltip = agricolture_productivity_modifier_tt }
 			add_to_variable = { MAD_agri_worker_req = -0.01 tooltip = agriculture_district_worker_requirement_modifier_tt }
-
+			
 			add_to_variable = { MAD_drought_cna_pressure_reduction = 0.20 tooltip = cna_pressure_reduction_tt }
 			set_temp_variable = { MAD_dr_change = -2 }
 			MAD_drought_apply_change = yes
@@ -4790,7 +4784,6 @@ focus_tree = {
 				set_temp_variable = { int_investment_change = 12 }
 				modify_international_investment_effect = yes
 			}
-
 		}
 
 		ai_will_do = {
@@ -4875,7 +4868,6 @@ focus_tree = {
 				bonus = 0.20
 			}
 			air_experience = 10
-
 		}
 
 		ai_will_do = {
@@ -5009,7 +5001,7 @@ focus_tree = {
 			}
 			add_to_variable = { MAD_agri_productivity = 0.02 tooltip = agricolture_productivity_modifier_tt }
 			add_to_variable = { MAD_agri_income_tax = 0.02 tooltip = agriculture_district_income_tax_modifier_tt }
-
+			
 			if = {
 				limit = { has_idea = farmers }
 				set_temp_variable = { temp_opinion = 5 }
@@ -5081,7 +5073,7 @@ focus_tree = {
 			}
 			add_to_variable = { MAD_agri_productivity = 0.02 tooltip = agricolture_productivity_modifier_tt }
 			add_to_variable = { MAD_agri_worker_req = -0.02 tooltip = agriculture_district_worker_requirement_modifier_tt }
-
+			
 			add_to_variable = { MAD_drought_cna_pressure_reduction = 0.30 tooltip = cna_pressure_reduction_tt }
 			set_temp_variable = { MAD_dr_change = -2 }
 			MAD_drought_apply_change = yes
@@ -5495,7 +5487,7 @@ focus_tree = {
 			}
 			add_to_variable = { MAD_agri_worker_req = -0.03 tooltip = agriculture_district_worker_requirement_modifier_tt }
 			add_to_variable = { MAD_agri_income_tax = 0.05 tooltip = agriculture_district_income_tax_modifier_tt }
-
+			
 			
 			MAD_daewoo_drought_well = yes
 			
@@ -5830,7 +5822,7 @@ focus_tree = {
 			487 = { add_building_construction = { type = fuel_silo level = 1 instant_build = yes } }
 			add_political_power = 25
 			add_power_balance_value = { id = MAD_economy_ownership_bop value = -0.0375 tooltip_side = MAD_private_ownership }
-		
+					
 			set_temp_variable = { treasury_change = -3.00 }
 			modify_treasury_effect = yes
 		}
@@ -5915,7 +5907,7 @@ focus_tree = {
 				limit = { fuel_silo = 0 }
 				add_building_construction = { type = fuel_silo level = 1 instant_build = yes }
 			}
-		
+					
 			set_temp_variable = { treasury_change = -6.00 }
 			modify_treasury_effect = yes
 		}
@@ -6208,7 +6200,6 @@ focus_tree = {
 			add_to_variable = { MAD_air_range_factor = 0.05 tooltip = air_range_factor_tt }
 			set_temp_variable = { treasury_change = -9.00 }
 			modify_treasury_effect = yes
-
 		}
 
 		ai_will_do = {
@@ -6260,7 +6251,6 @@ focus_tree = {
 			add_war_support = 0.02
 			add_stability = -0.015
 			MAD_dahalo_update_modifier = yes
-
 		}
 
 		ai_will_do = {
@@ -6461,8 +6451,6 @@ focus_tree = {
 		}
 	}
 
-
-
 	focus = {
 		id = MAD_extension_fce
 		icon = railways_shaaban
@@ -6550,7 +6538,7 @@ focus_tree = {
 			}
 			set_temp_variable = { treasury_change = -4.00 }
 			modify_treasury_effect = yes
-
+			
 			custom_effect_tooltip = {
 				localization_key = modifies_dynamic_modifier_tt
 				MODIFIER = MAD_economy_modifier
@@ -6783,7 +6771,7 @@ focus_tree = {
 			add_to_variable = { MAD_agri_stability = 0.02 tooltip = stability_factor_tt }
 			add_to_variable = { MAD_agri_monthly_population = 0.05 tooltip = monthly_population_tt }
 			add_to_variable = { MAD_agri_construction_speed = 0.10 tooltip = production_speed_agriculture_district_factor_tt }
-
+			
 			if = {
 				limit = { has_idea = farmers }
 				set_temp_variable = { temp_opinion = 10 }
@@ -6984,7 +6972,6 @@ focus_tree = {
 			set_country_flag = MAD_IVATO_TERMINAL_RUNWAY_UPGRADED
 			set_temp_variable = { treasury_change = -15.00 }
 			modify_treasury_effect = yes
-
 		}
 
 		ai_will_do = {
@@ -7091,7 +7078,6 @@ focus_tree = {
 			}
 			set_temp_variable = { treasury_change = -8.50 }
 			modify_treasury_effect = yes
-
 		}
 
 		ai_will_do = {
@@ -7150,7 +7136,6 @@ focus_tree = {
 			set_temp_variable = { int_investment_change = 3.75 }
 			modify_international_investment_effect = yes
 			}
-
 		}
 
 		ai_will_do = {
@@ -7169,7 +7154,7 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
 			NOT = { has_country_flag = MAD_REMENABILA_KILLED }
-			has_completed_focus = { MAD_TELMA_LEGACY }
+			has_completed_focus = MAD_TELMA_LEGACY
 		}
 
 		completion_reward = {
@@ -7768,7 +7753,7 @@ focus_tree = {
 			add_to_variable = { MAD_agri_productivity = -0.05 tooltip = agricolture_productivity_modifier_tt }
 			add_to_variable = { MAD_agri_income_tax = -0.05 tooltip = agriculture_district_income_tax_modifier_tt }
 			add_to_variable = { MAD_agri_worker_req = 0.03 tooltip = agriculture_district_worker_requirement_modifier_tt }
-
+			
 			add_stability = -0.05
 		}
 
@@ -7805,7 +7790,6 @@ focus_tree = {
 			add_to_variable = { MAD_agri_income_tax = -0.02 tooltip = agriculture_district_income_tax_modifier_tt }
 			add_to_variable = { MAD_agri_worker_req = 0.02 tooltip = agriculture_district_worker_requirement_modifier_tt }
 			add_stability = -0.02
-
 		}
 
 		ai_will_do = {
@@ -7842,7 +7826,6 @@ focus_tree = {
 			}
 			add_to_variable = { MAD_economy_corporate_tax_income_multiplier_modifier = 0.02 tooltip = corporate_tax_income_multiplier_modifier_tt }
 			add_stability = -0.03
-
 		}
 
 		ai_will_do = {
@@ -7913,7 +7896,6 @@ focus_tree = {
 			add_to_variable = { MAD_agri_income_tax = -0.03 tooltip = agriculture_district_income_tax_modifier_tt }
 			add_to_variable = { MAD_agri_worker_req = 0.02 tooltip = agriculture_district_worker_requirement_modifier_tt }
 			add_stability = -0.02
-
 		}
 
 		ai_will_do = {
@@ -7960,7 +7942,6 @@ focus_tree = {
 			}
 			add_to_variable = { MAD_economy_corporate_tax_income_multiplier_modifier = 0.02 tooltip = corporate_tax_income_multiplier_modifier_tt }
 			set_country_flag = MAD_REMENABILA_REGIME_CONSOLIDATED
-
 		}
 
 		ai_will_do = {
@@ -8808,7 +8789,7 @@ focus_tree = {
 			set_country_flag = MAD_ROY_UNLOCK_ISLAND_SOVEREIGNTY
 			custom_effect_tooltip = MAD_ROY_UNLOCK_ISLANDS_SECTION_TT
 			set_country_flag = MAD_ROY_ISLANDS_WAIT
-		
+					
 			set_temp_variable = { treasury_change = -3.50 }
 			modify_treasury_effect = yes
 		}
@@ -8966,7 +8947,7 @@ focus_tree = {
 				change_small_medium_business_owners_opinion = yes
 			}
 			set_country_flag = MAD_TAMIMA_LIVING_FORCES
-		
+					
 			set_temp_variable = { treasury_change = -12.00 }
 			modify_treasury_effect = yes
 		}
@@ -14062,7 +14043,7 @@ focus_tree = {
 	focus = {
 		id = MAD_ARMY_DEFENCE_INDUSTRIAL_PLANNING
 		icon = army_military_industryy
-		x = 82
+		x = 80
 		y = 37
 		cost = 3
 		prerequisite = { focus = MAD_ARMY_EXPAND_DEFENCE_BUDGET }
@@ -14082,7 +14063,7 @@ focus_tree = {
 	focus = {
 		id = MAD_ARMY_IVATO_AEROSPACE_WORKS
 		icon = aviation_industry
-		x = 82
+		x = 84
 		y = 37
 		cost = 3
 		prerequisite = { focus = MAD_ARMY_EXPAND_DEFENCE_BUDGET }
@@ -14751,6 +14732,539 @@ focus_tree = {
 			set_temp_variable = { temp_outlook_increase = 0.03 }
 			change_relative_party_popularity = yes
 			recalculate_party = yes
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_NAVAL_FORCE_REVIEW
+		icon = naval_industry
+		x = 87
+		y = 32
+		cost = 3
+		prerequisite = { focus = MAD_ARMY_INDIAN_OCEAN_EXERCISE }
+		search_filters = { FOCUS_FILTER_NAVY FOCUS_FILTER_MILITARY_LAWS }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_NAVAL_FORCE_REVIEW"
+			        navy_experience = 10
+			                    add_mastery = { amount = 10 folder = naval }
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_RESTORE_SECREN_NAVAL_SUPPORT
+		icon = naval_dockyard
+		x = 87
+		y = 33
+		cost = 3
+		prerequisite = { focus = MAD_NAVAL_FORCE_REVIEW }
+		search_filters = { FOCUS_FILTER_NAVY FOCUS_FILTER_INDUSTRY }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_RESTORE_SECREN_NAVAL_SUPPORT"
+			        if = {
+			            limit = { has_dlc = "Arms Against Tyranny" }
+			            unlock_military_industrial_organization_tooltip = mio:MAD_SECREN_shipbuilding
+			        }
+			                    if = { limit = { has_dlc = "Arms Against Tyranny" } mio:MAD_SECREN_shipbuilding = { add_mio_funds = 250 } }
+			                    navy_experience = 10
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_REORGANISE_NAVAL_DETACHMENTS
+		icon = navy3
+		x = 87
+		y = 34
+		cost = 3
+		prerequisite = { focus = MAD_RESTORE_SECREN_NAVAL_SUPPORT }
+		search_filters = { FOCUS_FILTER_NAVY FOCUS_FILTER_MILITARY_LAWS }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_REORGANISE_NAVAL_DETACHMENTS"
+			        navy_experience = 10
+			                    add_tech_bonus = { name = MAD_NAVAL_DETACHMENT_STUDIES category = CAT_patrol_boats bonus = 0.25 uses = 1 }
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_MARITIME_INFORMATION_FUSION
+		icon = maritime_trade
+		x = 90
+		y = 37
+		cost = 3
+		prerequisite = { focus = MAD_REORGANISE_NAVAL_DETACHMENTS }
+		search_filters = { FOCUS_FILTER_NAVY FOCUS_FILTER_EQUIPMENT }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_MARITIME_INFORMATION_FUSION"
+			        add_tech_bonus = { name = MAD_NAVAL_SURVEILLANCE_STUDIES category = CAT_naval_radar bonus = 0.25 uses = 1 }
+			                    navy_experience = 10
+			                    country_event = { id = mad_naval.1 days = 1 }
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_NAVAL_MAINTENANCE_TRAINING
+		icon = continuous_repairments
+		x = 89
+		y = 38
+		cost = 3
+		prerequisite = { focus = MAD_MARITIME_INFORMATION_FUSION }
+		search_filters = { FOCUS_FILTER_NAVY FOCUS_FILTER_INDUSTRY }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_NAVAL_MAINTENANCE_TRAINING"
+			        if = { limit = { has_dlc = "Arms Against Tyranny" } mio:MAD_SECREN_shipbuilding = { add_mio_funds = 300 add_mio_research_bonus = 0.02 } }
+			                    navy_experience = 10
+			                    if = { limit = { has_country_flag = MAD_NAVAL_PRIORITY_SECREN } if = { limit = { has_dlc = "Arms Against Tyranny" } mio:MAD_SECREN_shipbuilding = { add_mio_funds = 250 } } }
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_COASTAL_SURVEILLANCE_NETWORK
+		icon = naval_upgrade
+		x = 91
+		y = 38
+		cost = 3
+		prerequisite = { focus = MAD_MARITIME_INFORMATION_FUSION }
+		search_filters = { FOCUS_FILTER_NAVY FOCUS_FILTER_EQUIPMENT }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_COASTAL_SURVEILLANCE_NETWORK"
+			        add_tech_bonus = { name = MAD_NAVAL_COASTAL_SURVEILLANCE category = CAT_naval_radar bonus = 0.35 uses = 1 }
+			                    if = { limit = { has_country_flag = MAD_NAVAL_PRIORITY_COASTAL } navy_experience = 5 }
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_FAST_INTERCEPTOR_PROGRAMME
+		icon = generic_ship1
+		x = 91
+		y = 40
+		cost = 3
+		prerequisite = { focus = MAD_COASTAL_SURVEILLANCE_NETWORK }
+		search_filters = { FOCUS_FILTER_NAVY FOCUS_FILTER_EQUIPMENT }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_FAST_INTERCEPTOR_PROGRAMME"
+			        add_tech_bonus = { name = MAD_NAVAL_INTERCEPTOR_DESIGNS category = CAT_patrol_boats bonus = 0.25 uses = 1 }
+			                    add_tech_bonus = { name = MAD_NAVAL_INTERCEPTOR_DESIGNS category = CAT_landing_craft bonus = 0.25 uses = 1 }
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_JOINT_MARITIME_OPERATIONS
+		icon = Generic_Naval_Treaty
+		x = 89
+		y = 41
+		cost = 3
+		prerequisite = { focus = MAD_NAVAL_MAINTENANCE_TRAINING }
+		prerequisite = { focus = MAD_FAST_INTERCEPTOR_PROGRAMME }
+		search_filters = { FOCUS_FILTER_NAVY FOCUS_FILTER_MILITARY_LAWS }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_JOINT_MARITIME_OPERATIONS"
+			        navy_experience = 10
+			                    add_mastery = { amount = 10 folder = naval }
+			                    country_event = { id = mad_naval.2 days = 1 }
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_SECREN_TECHNICAL_TRAINING
+		icon = naval_industry
+		x = 93
+		y = 38
+		cost = 3
+		prerequisite = { focus = MAD_MARITIME_INFORMATION_FUSION }
+		search_filters = { FOCUS_FILTER_NAVY FOCUS_FILTER_INDUSTRY }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_SECREN_TECHNICAL_TRAINING"
+			        if = { limit = { has_dlc = "Arms Against Tyranny" } mio:MAD_SECREN_shipbuilding = { add_mio_funds = 350 add_mio_research_bonus = 0.03 } }
+			                    navy_experience = 10
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_MODULAR_HULL_ASSEMBLY
+		icon = naval_dockyard
+		x = 93
+		y = 40
+		cost = 3
+		prerequisite = { focus = MAD_SECREN_TECHNICAL_TRAINING }
+		search_filters = { FOCUS_FILTER_NAVY FOCUS_FILTER_INDUSTRY }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_MODULAR_HULL_ASSEMBLY"
+			        add_tech_bonus = { name = MAD_SECREN_MODULAR_HULLS category = CAT_corvettes bonus = 0.35 uses = 1 }
+			                    if = { limit = { has_dlc = "Arms Against Tyranny" } mio:MAD_SECREN_shipbuilding = { add_mio_funds = 300 } }
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_STANDARDISE_MARINE_PROPULSION
+		icon = naval_upgrade
+		x = 93
+		y = 41
+		cost = 3
+		prerequisite = { focus = MAD_MODULAR_HULL_ASSEMBLY }
+		search_filters = { FOCUS_FILTER_NAVY FOCUS_FILTER_RESEARCH }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_STANDARDISE_MARINE_PROPULSION"
+			        add_tech_bonus = { name = MAD_SECREN_MARINE_ENGINEERING category = CAT_naval_modules bonus = 0.35 uses = 1 }
+			                    if = { limit = { has_dlc = "Arms Against Tyranny" } mio:MAD_SECREN_shipbuilding = { add_mio_research_bonus = 0.02 } }
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_DRAFT_THE_MALAGASY_CORVETTE
+		icon = frigates
+		x = 91
+		y = 42
+		cost = 3
+		prerequisite = { focus = MAD_JOINT_MARITIME_OPERATIONS }
+		prerequisite = { focus = MAD_STANDARDISE_MARINE_PROPULSION }
+		search_filters = { FOCUS_FILTER_NAVY FOCUS_FILTER_RESEARCH }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_DRAFT_THE_MALAGASY_CORVETTE"
+				        navy_experience = 15
+				                    add_mastery = { amount = 15 folder = naval }
+			            
+			            if = { limit = { has_country_flag = MAD_NAVAL_PROGRAMME_INTERCEPTORS } add_mastery = { amount = 10 folder = naval } }
+			            if = { limit = { has_country_flag = MAD_NAVAL_PROGRAMME_SURVEILLANCE } add_tech_bonus = { name = MAD_NAVAL_JOINT_PICTURE category = CAT_naval_radar bonus = 0.25 uses = 1 } }
+				                    country_event = { id = mad_naval.3 days = 1 }
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_NAVAL_DESIGN_OFFICE
+		icon = naval_dockyard
+		x = 92
+		y = 43
+		cost = 3
+		prerequisite = { focus = MAD_DRAFT_THE_MALAGASY_CORVETTE }
+		search_filters = { FOCUS_FILTER_NAVY FOCUS_FILTER_RESEARCH }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_NAVAL_DESIGN_OFFICE"
+				        navy_experience = 10
+				                    if = { limit = { has_dlc = "Arms Against Tyranny" } mio:MAD_SECREN_shipbuilding = { add_mio_research_bonus = 0.03 add_mio_funds = 350 } }
+				                    if = { limit = { has_country_flag = MAD_NAVAL_DESIGN_JOINT } add_tech_bonus = { name = MAD_NAVAL_JOINT_DESIGN category = CAT_naval_modules bonus = 0.25 uses = 1 } }
+			            if = { limit = { has_country_flag = MAD_NAVAL_DESIGN_LICENSED } add_tech_bonus = { name = MAD_SECREN_MODULAR_HULLS category = CAT_corvettes bonus = 0.15 uses = 1 } }
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_CORVETTE_PROTOTYPE_HULL
+		icon = generic_ship1
+		x = 91
+		y = 44
+		cost = 3
+		prerequisite = { focus = MAD_NAVAL_DESIGN_OFFICE }
+		prerequisite = { focus = MAD_LOCAL_NAVAL_COMPONENTS }
+		search_filters = { FOCUS_FILTER_NAVY FOCUS_FILTER_RESEARCH }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_CORVETTE_PROTOTYPE_HULL"
+			        add_tech_bonus = { name = MAD_SECREN_PROTOTYPE_PROGRAMME category = CAT_corvettes bonus = 0.50 uses = 1 }
+			                    if = { limit = { has_dlc = "Arms Against Tyranny" } mio:MAD_SECREN_shipbuilding = { add_mio_funds = 450 } }
+			                    if = { limit = { has_country_flag = MAD_NAVAL_DESIGN_DOMESTIC } if = { limit = { has_dlc = "Arms Against Tyranny" } mio:MAD_SECREN_shipbuilding = { add_mio_research_bonus = 0.02 } } }
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_INTEGRATE_NAVAL_SENSORS_AND_WEAPONS
+		icon = naval_upgrade
+		x = 91
+		y = 45
+		cost = 3
+		prerequisite = { focus = MAD_CORVETTE_PROTOTYPE_HULL }
+		search_filters = { FOCUS_FILTER_NAVY FOCUS_FILTER_EQUIPMENT }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_INTEGRATE_NAVAL_SENSORS_AND_WEAPONS"
+			        add_tech_bonus = { name = MAD_NAVAL_SYSTEMS_INTEGRATION category = CAT_naval_modules bonus = 0.50 uses = 1 }
+			                    add_tech_bonus = { name = MAD_NAVAL_SYSTEMS_INTEGRATION category = CAT_naval_radar bonus = 0.25 uses = 1 }
+			                    if = { limit = { has_country_flag = MAD_NAVAL_DESIGN_LICENSED } add_tech_bonus = { name = MAD_NAVAL_SYSTEMS_INTEGRATION category = CAT_corvettes bonus = 0.15 uses = 1 } }
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_CORVETTE_SEA_TRIALS
+		icon = navy2
+		x = 91
+		y = 46
+		cost = 3
+		prerequisite = { focus = MAD_INTEGRATE_NAVAL_SENSORS_AND_WEAPONS }
+		search_filters = { FOCUS_FILTER_NAVY FOCUS_FILTER_EQUIPMENT }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_CORVETTE_SEA_TRIALS"
+			        navy_experience = 25
+			                    add_mastery = { amount = 20 folder = naval }
+			                    country_event = { id = mad_naval.4 days = 1 }
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_STANDARDISE_THE_CORVETTE_CLASS
+		icon = frigates
+		x = 89
+		y = 47
+		cost = 3
+		prerequisite = { focus = MAD_CORVETTE_SEA_TRIALS }
+		search_filters = { FOCUS_FILTER_NAVY FOCUS_FILTER_RESEARCH }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_STANDARDISE_THE_CORVETTE_CLASS"
+			        add_tech_bonus = { name = MAD_SECREN_CLASS_STANDARDISATION category = CAT_corvettes bonus = 0.35 uses = 1 }
+			                    if = { limit = { has_dlc = "Arms Against Tyranny" } mio:MAD_SECREN_shipbuilding = { add_mio_funds = 500 } }
+			                    if = { limit = { has_country_flag = MAD_CORVETTE_ROLE_PATROL } add_tech_bonus = { name = MAD_SECREN_CLASS_STANDARDISATION category = CAT_naval_radar bonus = 0.25 uses = 1 } }
+			                    if = { limit = { has_country_flag = MAD_CORVETTE_ROLE_COASTAL_DEFENCE } add_tech_bonus = { name = MAD_SECREN_CLASS_STANDARDISATION category = CAT_naval_cannons bonus = 0.25 uses = 1 } }
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_LOCAL_NAVAL_COMPONENTS
+		icon = naval_industry
+		x = 90
+		y = 43
+		cost = 3
+		prerequisite = { focus = MAD_DRAFT_THE_MALAGASY_CORVETTE }
+		search_filters = { FOCUS_FILTER_NAVY FOCUS_FILTER_INDUSTRY }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_LOCAL_NAVAL_COMPONENTS"
+			        if = { limit = { has_dlc = "Arms Against Tyranny" } mio:MAD_SECREN_shipbuilding = { add_mio_funds = 600 add_mio_research_bonus = 0.03 } }
+			                    if = { limit = { has_country_flag = MAD_NAVAL_PRIORITY_SECREN } if = { limit = { has_dlc = "Arms Against Tyranny" } mio:MAD_SECREN_shipbuilding = { add_mio_funds = 250 } } }
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_ESTABLISH_THE_FIRST_CORVETTE_SQUADRON
+		icon = generic_ship2
+		x = 93
+		y = 47
+		cost = 3
+		prerequisite = { focus = MAD_CORVETTE_SEA_TRIALS }
+		search_filters = { FOCUS_FILTER_NAVY FOCUS_FILTER_MILITARY_LAWS }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_ESTABLISH_THE_FIRST_CORVETTE_SQUADRON"
+			        navy_experience = 25
+			                    add_mastery = { amount = 20 folder = naval }
+			                    if = { limit = { has_country_flag = MAD_CORVETTE_ROLE_MULTIPURPOSE } add_tech_bonus = { name = MAD_NAVAL_SQUADRON_TRAINING category = CAT_naval_modules bonus = 0.25 uses = 1 } }
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_WESTERN_INDIAN_OCEAN_DOCTRINE
+		icon = naval_doctrine
+		x = 91
+		y = 48
+		cost = 3
+		prerequisite = { focus = MAD_STANDARDISE_THE_CORVETTE_CLASS }
+		prerequisite = { focus = MAD_ESTABLISH_THE_FIRST_CORVETTE_SQUADRON }
+		search_filters = { FOCUS_FILTER_NAVY FOCUS_FILTER_MILITARY_LAWS }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_WESTERN_INDIAN_OCEAN_DOCTRINE"
+			        add_tech_bonus = { name = MAD_NAVAL_WESTERN_INDIAN_OCEAN_DOCTRINE category = CAT_corvettes bonus = 0.35 uses = 1 }
+			                    navy_experience = 20
+			                    if = { limit = { has_dlc = "Arms Against Tyranny" } mio:MAD_SECREN_shipbuilding = { add_mio_funds = 500 } }
+			                    country_event = { id = mad_naval.5 days = 1 }
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_NAVAL_HELICOPTER_DETACHMENT
+		icon = Generic_Naval_Helicopter
+		x = 89
+		y = 50
+		visible = {
+			has_country_flag = MAD_NAVAL_HELICOPTER_OPERATOR_AUTHORIZED
+		}
+		cost = 3
+		prerequisite = { focus = MAD_WESTERN_INDIAN_OCEAN_DOCTRINE }
+		search_filters = { FOCUS_FILTER_NAVY FOCUS_FILTER_AIRCRAFT }
+		available = {
+			has_country_flag = MAD_NAVAL_HELICOPTER_OPERATOR_AUTHORIZED
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_NAVAL_HELICOPTER_DETACHMENT"
+			        add_tech_bonus = { name = MAD_NAVAL_HELICOPTER_SUPPORT category = CAT_helicopter_operators bonus = 0.25 uses = 1 }
+			                    navy_experience = 10
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_SHIPBORNE_HELICOPTER_DOCTRINE
+		icon = carriers2
+		x = 91
+		y = 51
+		visible = {
+			has_country_flag = MAD_NAVAL_HELICOPTER_OPERATOR_AUTHORIZED
+		}
+		cost = 3
+		prerequisite = { focus = MAD_NAVAL_HELICOPTER_DETACHMENT }
+		search_filters = { FOCUS_FILTER_NAVY FOCUS_FILTER_AIRCRAFT }
+		available = {
+			has_country_flag = MAD_NAVAL_HELICOPTER_OPERATOR_AUTHORIZED
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_SHIPBORNE_HELICOPTER_DOCTRINE"
+			        add_tech_bonus = { name = MAD_NAVAL_SHIPBORNE_AVIATION category = CAT_helicopter_operators bonus = 0.35 uses = 1 }
+			                    add_tech_bonus = { name = MAD_NAVAL_SHIPBORNE_AVIATION category = CAT_naval_modules bonus = 0.25 uses = 1 }
+			                    add_mastery = { amount = 15 folder = naval }
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_SECREN_FLIGHT_DECK_ENGINEERING
+		icon = naval_dockyard
+		x = 93
+		y = 50
+		visible = {
+			has_country_flag = MAD_NAVAL_HELICOPTER_OPERATOR_AUTHORIZED
+		}
+		cost = 3
+		prerequisite = { focus = MAD_WESTERN_INDIAN_OCEAN_DOCTRINE }
+		search_filters = { FOCUS_FILTER_NAVY FOCUS_FILTER_INDUSTRY }
+		available = {
+			has_country_flag = MAD_NAVAL_HELICOPTER_OPERATOR_AUTHORIZED
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_SECREN_FLIGHT_DECK_ENGINEERING"
+			        if = { limit = { has_dlc = "Arms Against Tyranny" } mio:MAD_SECREN_shipbuilding = { add_mio_research_bonus = 0.03 add_mio_funds = 500 } }
+			                    add_tech_bonus = { name = MAD_SECREN_FLIGHT_DECK_ENGINEERING category = CAT_naval_modules bonus = 0.35 uses = 1 }
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_HELICOPTER_OPERATOR_CONCEPT
+		icon = carriers
+		x = 92
+		y = 52
+		visible = {
+			has_country_flag = MAD_NAVAL_HELICOPTER_OPERATOR_AUTHORIZED
+		}
+		cost = 3
+		prerequisite = { focus = MAD_SHIPBORNE_HELICOPTER_DOCTRINE }
+		prerequisite = { focus = MAD_SECREN_FLIGHT_DECK_ENGINEERING }
+		search_filters = { FOCUS_FILTER_NAVY FOCUS_FILTER_RESEARCH }
+		available = {
+			has_country_flag = MAD_NAVAL_HELICOPTER_OPERATOR_AUTHORIZED
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_HELICOPTER_OPERATOR_CONCEPT"
+			        add_tech_bonus = { name = MAD_NAVAL_HELICOPTER_OPERATOR_CONCEPT category = CAT_helicopter_operators bonus = 0.50 uses = 1 }
+			                    navy_experience = 30
+			                    add_mastery = { amount = 25 folder = naval }
+			                    country_event = { id = mad_naval.6 days = 1 }
 		}
 
 		ai_will_do = {

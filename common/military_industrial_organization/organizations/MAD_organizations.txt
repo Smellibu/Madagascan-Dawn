@@ -296,3 +296,180 @@ MAD_DEFENCE_ELECTRONICS = {
         ai_will_do = { base = 10 }
     }
 }
+
+
+# SECREN — Société d'Études, de Construction et de Réparation Navales.
+# Naval MIO for Malagasy-built small combatants and maritime craft.
+# Intentional scope: small ships, frigates, patrol boats and civilian/support vessels.
+# The helicopter-operator path can use SECREN for research, but a hull of that scale
+# should require an external design/yard partner rather than receiving local-shipyard bonuses automatically.
+
+MAD_SECREN_shipbuilding = {
+    allowed = { original_tag = MAD }
+    name = MAD_SECREN_shipbuilding
+    icon = GFX_idea_Kockums_AB
+    task_capacity = 3
+
+    available = { FROM = { has_completed_focus = MAD_RESTORE_SECREN_NAVAL_SUPPORT } }
+
+    equipment_type = {
+        corvette
+        stealth_corvette
+        frigate
+        stealth_frigate
+        patrol_boat
+        support_ship_hull
+    }
+
+    research_categories = {
+        CAT_naval
+        CAT_naval_modules
+        CAT_naval_radar
+        CAT_landing_craft
+        CAT_corvettes
+        CAT_frigates
+        CAT_helicopter_operators
+    }
+
+    tree_header_text = {
+        text = MAD_SECREN_shipbuilding_header_hull
+        x = 1
+    }
+    tree_header_text = {
+        text = MAD_SECREN_shipbuilding_header_systems
+        x = 4
+    }
+    tree_header_text = {
+        text = MAD_SECREN_shipbuilding_header_production
+        x = 7
+    }
+
+    initial_trait = {
+        name = MAD_SECREN_shipbuilding_trait
+        equipment_bonus = {
+            reliability = 0.03
+            build_cost_ic = -0.02
+        }
+        organization_modifier = {
+            military_industrial_organization_research_bonus = 0.03
+        }
+    }
+
+    trait = {
+        token = MAD_SECREN_trait_modular_hulls
+        name = MAD_SECREN_trait_modular_hulls
+        icon = GFX_generic_mio_trait_icon_build_cost_ic
+        position = { x = 1 y = 0 }
+        limit_to_equipment_type = { corvette stealth_corvette frigate stealth_frigate }
+        equipment_bonus = { build_cost_ic = -0.04 }
+        on_complete = { expenditure_for_mio_upgrade = yes }
+        ai_will_do = { base = 10 }
+    }
+
+    trait = {
+        token = MAD_SECREN_trait_tropical_corrosion_control
+        name = MAD_SECREN_trait_tropical_corrosion_control
+        icon = GFX_generic_mio_trait_icon_small_ship_reliability
+        position = { x = -1 y = 0 }
+        limit_to_equipment_type = { corvette stealth_corvette frigate stealth_frigate patrol_boat support_ship_hull }
+        equipment_bonus = { reliability = 0.06 }
+        on_complete = { expenditure_for_mio_upgrade = yes }
+        ai_will_do = { base = 10 }
+    }
+
+    trait = {
+        token = MAD_SECREN_trait_local_shipyard_sustainment
+        name = MAD_SECREN_trait_local_shipyard_sustainment
+        icon = GFX_generic_mio_trait_icon_task
+        all_parents = { MAD_SECREN_trait_tropical_corrosion_control }
+        position = { x = -1 y = 1 }
+        relative_position_id = MAD_SECREN_trait_tropical_corrosion_control
+        limit_to_equipment_type = { patrol_boat support_ship_hull }
+        organization_modifier = {
+            military_industrial_organization_task_capacity = 1
+            military_industrial_organization_industrial_manufacturer_assign_cost = -0.10
+        }
+        on_complete = { expenditure_for_mio_upgrade = yes }
+        ai_will_do = { base = 10 }
+    }
+
+    trait = {
+        token = MAD_SECREN_trait_sensors_and_combat_systems
+        name = MAD_SECREN_trait_sensors_and_combat_systems
+        icon = GFX_generic_mio_trait_icon_surface_detection
+        all_parents = { MAD_SECREN_trait_modular_hulls }
+        position = { x = 1 y = 1 }
+        relative_position_id = MAD_SECREN_trait_modular_hulls
+        limit_to_equipment_type = { corvette stealth_corvette frigate stealth_frigate }
+        equipment_bonus = {
+            surface_detection = 0.06
+            sub_detection = 0.04
+        }
+        on_complete = { expenditure_for_mio_upgrade = yes }
+        ai_will_do = { base = 10 }
+    }
+
+    trait = {
+        token = MAD_SECREN_trait_local_weapon_integration
+        name = MAD_SECREN_trait_local_weapon_integration
+        icon = GFX_generic_mio_trait_icon_small_ship_lg_attack
+        all_parents = { MAD_SECREN_trait_sensors_and_combat_systems }
+        position = { x = 1 y = 2 }
+        relative_position_id = MAD_SECREN_trait_modular_hulls
+        limit_to_equipment_type = { corvette stealth_corvette frigate stealth_frigate patrol_boat }
+        equipment_bonus = { lg_attack = 0.05 }
+        on_complete = { expenditure_for_mio_upgrade = yes }
+        ai_will_do = { base = 10 }
+    }
+
+    trait = {
+        token = MAD_SECREN_trait_repeatable_quality_control
+        name = MAD_SECREN_trait_repeatable_quality_control
+        icon = GFX_generic_mio_trait_icon_production_capacity
+        all_parents = {
+            MAD_SECREN_trait_local_shipyard_sustainment
+            MAD_SECREN_trait_sensors_and_combat_systems
+        }
+        position = { x = 0 y = 3 }
+        relative_position_id = MAD_SECREN_trait_modular_hulls
+        limit_to_equipment_type = { corvette stealth_corvette frigate stealth_frigate patrol_boat support_ship_hull }
+        production_bonus = { production_capacity_factor = 0.05 production_cost_factor = -0.03 }
+        on_complete = { expenditure_for_mio_upgrade = yes }
+        ai_will_do = { base = 10 }
+    }
+
+    trait = {
+        token = MAD_SECREN_trait_national_supply_chain
+        name = MAD_SECREN_trait_national_supply_chain
+        icon = GFX_generic_mio_trait_icon_research
+        all_parents = { MAD_SECREN_trait_repeatable_quality_control }
+        position = { x = 0 y = 4 }
+        relative_position_id = MAD_SECREN_trait_modular_hulls
+        limit_to_equipment_type = { corvette stealth_corvette frigate stealth_frigate }
+        organization_modifier = {
+            military_industrial_organization_research_bonus = 0.04
+            military_industrial_organization_funds_gain = 0.05
+        }
+        on_complete = { expenditure_for_mio_upgrade = yes }
+        ai_will_do = { base = 10 }
+    }
+
+    trait = {
+        token = MAD_SECREN_trait_indian_ocean_corvette_design
+        name = MAD_SECREN_trait_indian_ocean_corvette_design
+        icon = GFX_generic_mio_trait_icon_naval_range
+        all_parents = {
+            MAD_SECREN_trait_local_weapon_integration
+            MAD_SECREN_trait_national_supply_chain
+        }
+        position = { x = 1 y = 5 }
+        relative_position_id = MAD_SECREN_trait_modular_hulls
+        limit_to_equipment_type = { corvette stealth_corvette }
+        equipment_bonus = {
+            naval_range = 0.08
+            max_strength = 0.05
+        }
+        on_complete = { expenditure_for_mio_upgrade = yes }
+        ai_will_do = { base = 10 }
+    }
+}
