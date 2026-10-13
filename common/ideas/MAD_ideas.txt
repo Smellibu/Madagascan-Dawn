@@ -438,7 +438,7 @@ ideas = {
 					localization_key = modifies_dynamic_modifier_tt
 					MODIFIER = MAD_agriculture_modifier
 				}
-				add_to_variable = { MAD_agri_productivity = 0.04 tooltip = agricolture_productivity_modifier_tt }
+				add_to_variable = { MAD_agri_productivity = 0.05 tooltip = agricolture_productivity_modifier_tt }
 				add_to_variable = { MAD_agri_worker_req = -0.02 tooltip = agriculture_district_worker_requirement_modifier_tt }
 				add_to_variable = { MAD_agri_income_tax = 0.05 tooltip = agriculture_district_income_tax_modifier_tt }
 
@@ -448,7 +448,7 @@ ideas = {
 					localization_key = modifies_dynamic_modifier_tt
 					MODIFIER = MAD_agriculture_modifier
 				}
-				add_to_variable = { MAD_agri_productivity = -0.04 tooltip = agricolture_productivity_modifier_tt }
+				add_to_variable = { MAD_agri_productivity = -0.05 tooltip = agricolture_productivity_modifier_tt }
 				add_to_variable = { MAD_agri_worker_req = 0.02 tooltip = agriculture_district_worker_requirement_modifier_tt }
 				add_to_variable = { MAD_agri_income_tax = -0.05 tooltip = agriculture_district_income_tax_modifier_tt }
 
@@ -553,7 +553,7 @@ ideas = {
 			removal_cost = -1
 
 			modifier = {
-				agricolture_productivity_modifier = 0.03
+				agricolture_productivity_modifier = 0.05
 				agriculture_district_income_tax_modifier = 0.03
 				stability_factor = 0.02
 			}
@@ -980,9 +980,9 @@ MAD_POL_MARITIME_SECURITY = {
 			picture = generic_political_discourse
 			modifier = {
 				political_power_gain = 0.15
-				stability_factor = 0.03
+				stability_factor = 0.05
 				productivity_growth_modifier = 0.1
-				internal_investments_money_cost_modifier = -0.04
+				internal_investments_money_cost_modifier = -0.08
 				receiving_investment_cost_modifier = 0.04
 				social_cost_multiplier_modifier = -0.02
 				foreign_influence_defense_modifier = 0.03
@@ -1054,7 +1054,7 @@ MAD_POL_MARITIME_SECURITY = {
 				agriculture_district_worker_requirement_modifier = -0.05
 				production_speed_agriculture_district_factor = 0.10
 				research_speed_factor = 0.01
-				production_speed_infrastructure_factor = 0.03
+				production_speed_infrastructure_factor = 0.05
 			}
 		
 			# Tracks the current earned version of this party idea.
@@ -1390,8 +1390,8 @@ MAD_HVM_AGRICULTURE = {
             modifier = {
                 energy_gain_multiplier = 0.05
                 pop_energy_use_multiplier = -0.02
-                production_speed_renewable_energy_infra_factor = 0.03
-                agricolture_productivity_modifier = 0.04
+                production_speed_renewable_energy_infra_factor = 0.05
+                agricolture_productivity_modifier = 0.05
                 agriculture_district_income_tax_modifier = 0.03
                 agriculture_workers_modifier = 0.02
             }
@@ -1429,12 +1429,12 @@ MAD_HVM_LIGHT_INDUSTRY = {
             modifier = {
                 energy_gain_multiplier = 0.05
                 pop_energy_use_multiplier = -0.02
-                production_speed_renewable_energy_infra_factor = 0.03
-                agricolture_productivity_modifier = 0.04
+                production_speed_renewable_energy_infra_factor = 0.05
+                agricolture_productivity_modifier = 0.05
                 agriculture_district_income_tax_modifier = 0.03
                 agriculture_workers_modifier = 0.02
-                production_speed_industrial_complex_factor = 0.04
-                production_factory_efficiency_gain_factor = 0.04
+                production_speed_industrial_complex_factor = 0.05
+                production_factory_efficiency_gain_factor = 0.05
                 corporate_tax_income_multiplier_modifier = 0.02
             }
         
@@ -1485,7 +1485,7 @@ MAD_HVM_ENERGY_FOR_GROWTH = {
             modifier = {
                 energy_gain_multiplier = 0.05
                 pop_energy_use_multiplier = -0.02
-                production_speed_renewable_energy_infra_factor = 0.03
+                production_speed_renewable_energy_infra_factor = 0.05
             }
         
 	# Tracks the current earned version of this party idea.
@@ -1838,6 +1838,7 @@ MAD_MIL_CIVILIAN_GUARDIANSHIP = {
 		MAD_AREMA_OLD_GUARD = {
 			picture = generic_political_discourse
 			modifier = {
+				political_power_gain = 0.10
 				political_power_factor = 0.10
 				stability_factor = 0.02
 				bureaucracy_cost_multiplier_modifier = -0.03
@@ -1865,6 +1866,7 @@ MAD_MIL_CIVILIAN_GUARDIANSHIP = {
 		MAD_AREMA_RENEWAL = {
 			picture = generic_political_discourse
 			modifier = {
+				political_power_gain = 0.10
 				political_power_factor = 0.10
 				productivity_growth_modifier = 0.1
 				education_cost_multiplier_modifier = -0.05
@@ -1872,7 +1874,6 @@ MAD_MIL_CIVILIAN_GUARDIANSHIP = {
 				social_cost_multiplier_modifier = 0.5
 				bureaucracy_cost_multiplier_modifier = 0.05
 				communism_drift = 0.15
-
 			}
 		
 			# Tracks the current earned version of this party idea.
@@ -1892,6 +1893,7 @@ MAD_MIL_CIVILIAN_GUARDIANSHIP = {
 		MAD_AREMA_RECONCILIATION = {
 			picture = generic_political_discourse
 			modifier = {
+				political_power_gain = 0.10
 				political_power_factor = 0.15
 				stability_factor = 0.05
 				police_cost_multiplier_modifier = -0.05
@@ -1969,12 +1971,17 @@ MAD_MIL_CIVILIAN_GUARDIANSHIP = {
 		MAD_AREMA_OLD_GUARD_REFORMED = {
 			picture = generic_political_discourse
 			modifier = {
-				political_power_factor = 0.1
+				political_power_gain = 0.10
+				political_power_factor = 0.10
+				stability_factor = 0.02
 				bureaucracy_cost_multiplier_modifier = -0.02
+				police_cost_multiplier_modifier = -0.03
+				army_personnel_cost_multiplier_modifier = -0.03
 				social_cost_multiplier_modifier = -0.01
 				receiving_investment_cost_modifier = 0.02
 				foreign_influence_defense_modifier = 0.03
-				productivity_growth_modifier = 0.02
+				productivity_growth_modifier = 0.05
+				communism_drift = 0.05
 			}
 		
 
@@ -2007,7 +2014,8 @@ MAD_MIL_CIVILIAN_GUARDIANSHIP = {
 		MAD_AREMA_RENEWAL_MODERNISED = {
 			picture = generic_political_discourse
 			modifier = {
-				political_power_factor = 0.1
+				political_power_gain = 0.10
+				political_power_factor = 0.10
 				stability_factor = 0.03
 				productivity_growth_modifier = 0.12
 				education_cost_multiplier_modifier = -0.05
@@ -2046,15 +2054,17 @@ MAD_MIL_CIVILIAN_GUARDIANSHIP = {
 		MAD_AREMA_RECONCILIATION_INSTITUTIONALISED = {
 			picture = generic_political_discourse
 			modifier = {
-				political_power_factor = -0.02
-				stability_factor = 0.035
-				police_cost_multiplier_modifier = -0.03
+				political_power_gain = 0.10
+				political_power_factor = 0.10
+				stability_factor = 0.05
+				police_cost_multiplier_modifier = -0.05
 				bureaucracy_cost_multiplier_modifier = -0.02
-				receiving_investment_cost_modifier = -0.04
-				foreign_influence_defense_modifier = -0.01
+				receiving_investment_cost_modifier = -0.05
+				foreign_influence_defense_modifier = -0.03
 				projects_cost_modifier = 0.015
+				democratic_drift = 0.03
 				receiving_investment_duration_modifier = -0.03
-				productivity_growth_modifier = 0.02
+				productivity_growth_modifier = 0.05
 				infrastructure_tax_gain_multiplier_modifier = 0.03
 			}
 		
@@ -3122,7 +3132,7 @@ MAD_ARMY_INHERITED_BURDEN = {
         army_org_factor = -0.03
         research_speed_factor = -0.02
         military_spending_cost_factor = 0.08
-        military_factories_productivity = -0.03
+        military_factories_productivity = -0.05
         supply_consumption_factor = 0.04
     }
 }
@@ -3238,7 +3248,7 @@ MAD_ARMY_STRATEGIC_AUTONOMY = {
     removal_cost = -1
     modifier = {
         research_speed_factor = 0.04
-        production_speed_arms_factory_factor = 0.03
+        production_speed_arms_factory_factor = 0.05
         foreign_influence_defense_modifier = 0.04
     }
 }

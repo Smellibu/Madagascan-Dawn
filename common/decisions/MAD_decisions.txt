@@ -1,4 +1,4 @@
-MAD_AMBATOVY_FORMING = {
+﻿MAD_AMBATOVY_FORMING = {
 
 MAD_INVITE_KOREANS = {
 		on_map_mode = map_and_decisions_view
@@ -1193,6 +1193,7 @@ MAD_drought_category = {
 			FROM = {
 				set_temp_variable = { MAD_dr_state_change = -8 }
 				set_temp_variable = { MAD_dr_state_famine = -20 }
+				MAD_rural_cooperation_boost_state_relief = yes
 				MAD_dahalo_southern_supply_interference = yes
 				MAD_drought_state_apply_change = yes
 				MAD_drought_state_apply_famine = yes
@@ -1233,14 +1234,26 @@ MAD_drought_category = {
 		targets = { 266 267 268 487 }					# Mahajanga, Antananarivo, Toliara, Toamasina
 		target_root_trigger = {
 			MAD_drought_exists = yes
-			has_completed_focus = MAD_MVOLA_CASH_TRANSFERS
+			OR = {
+				has_country_flag = MAD_MVOLA_CASH_TRANSFERS_UNLOCKED
+				has_completed_focus = MAD_MVOLA_CASH_TRANSFERS # supports saves where the focus was completed before this fix
+			}
 		}
-		target_trigger = { FROM = { check_variable = { MAD_state_famine > 9.99 } } }
 		highlight_states = { highlight_state_targets = { state = FROM } }
+		on_map_mode = map_and_decisions_view
 
 		visible = {
 			MAD_drought_exists = yes
-			has_completed_focus = MAD_MVOLA_CASH_TRANSFERS
+			OR = {
+				has_country_flag = MAD_MVOLA_CASH_TRANSFERS_UNLOCKED
+				has_completed_focus = MAD_MVOLA_CASH_TRANSFERS # supports saves where the focus was completed before this fix
+			}
+		}
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_MVOLA_CASH_TRANSFER_FAMINE_REQUIRED_TT
+				FROM = { check_variable = { MAD_state_famine > 9.99 } }
+			}
 		}
 		cost = 20
 		days_re_enable = 90
@@ -1254,6 +1267,7 @@ MAD_drought_category = {
 			modify_treasury_effect = yes
 			FROM = {
 				set_temp_variable = { MAD_dr_state_famine = -18 }
+				MAD_rural_cooperation_boost_state_relief = yes
 				MAD_drought_state_apply_famine = yes
 			}
 			add_stability = 0.01
@@ -1311,6 +1325,7 @@ MAD_drought_category = {
 			FROM = {
 				set_temp_variable = { MAD_dr_state_change = -5 }
 				set_temp_variable = { MAD_dr_state_famine = -6 }
+				MAD_rural_cooperation_boost_state_relief = yes
 				MAD_dahalo_southern_supply_interference = yes
 				MAD_drought_state_apply_change = yes
 				MAD_drought_state_apply_famine = yes
@@ -1377,6 +1392,7 @@ MAD_drought_category = {
 			FROM = {
 				set_state_flag = MAD_STATE_WELLS
 				set_temp_variable = { MAD_dr_state_change = -10 }
+				MAD_rural_cooperation_boost_state_relief = yes
 				MAD_drought_state_apply_change = yes
 				subtract_from_variable = { MAD_state_drought_exposure = 0.15 }
 				clamp_variable = { var = MAD_state_drought_exposure min = 0.4 max = 2 }
@@ -1435,6 +1451,7 @@ MAD_drought_category = {
 			FROM = {
 				set_temp_variable = { MAD_dr_state_change = -7 }
 				set_temp_variable = { MAD_dr_state_famine = -8 }
+				MAD_rural_cooperation_boost_state_relief = yes
 				MAD_dahalo_southern_supply_interference = yes
 				MAD_drought_state_apply_change = yes
 				MAD_drought_state_apply_famine = yes
@@ -1763,7 +1780,47 @@ MAD_drought_category = {
 #- put inside a new category in MAD_decisions.txt
 # ============================================================================
 MAD_JIRAMA_PROJECTS = {
-	
+
+	# Visible three-year objective started by the first generation-project focus.
+	MAD_JIRAMA_GENERATION_RECOVERY_MISSION = {
+		icon = generic_construction
+		on_map_mode = map_and_decisions_view
+		allowed = { tag = MAD }
+		fire_only_once = yes
+		days_mission_timeout = 1095
+		selectable_mission = yes
+		# This mission is activated explicitly by MAD_JIRAMA_START_GENERATION_RECOVERY.
+		activation = { always = no }
+		visible = {
+			has_country_flag = MAD_JIRAMA_GENERATION_RECOVERY_STARTED
+			NOT = { has_country_flag = MAD_JIRAMA_GENERATION_RECOVERY_EXPIRED }
+			NOT = { has_completed_focus = MAD_JIRAMA_RECOVERY_SUCCEEDS }
+			NOT = { has_completed_focus = MAD_JIRAMA_RECOVERY_FAILS }
+		}
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_JIRAMA_TWO_GENERATION_PROJECTS_tt
+				MAD_JIRAMA_HAS_TWO_GENERATION_PROJECTS = yes
+			}
+			custom_trigger_tooltip = {
+				tooltip = MAD_JIRAMA_GENERATION_140_PERCENT_tt
+				MAD_JIRAMA_GENERATION_AT_LEAST_140_PERCENT = yes
+			}
+		}
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: JIRAMA generation recovery mission completed"
+			set_country_flag = MAD_JIRAMA_GENERATION_RECOVERY_REQUIREMENTS_MET
+			remove_mission = MAD_JIRAMA_GENERATION_RECOVERY_MISSION
+		}
+		timeout_effect = {
+			log = "[GetDateText]: [Root.GetName]: JIRAMA generation recovery mission timed out"
+			if = {
+				limit = { NOT = { has_country_flag = MAD_JIRAMA_GENERATION_RECOVERY_REQUIREMENTS_MET } }
+				set_country_flag = MAD_JIRAMA_GENERATION_RECOVERY_EXPIRED
+			}
+		}
+		ai_will_do = { base = 0 }
+	}
 
 	MAD_JIRAMA_BUILD_GRID = {
 		icon = generic_construction
@@ -1811,8 +1868,12 @@ MAD_JIRAMA_PROJECTS = {
 			has_country_flag = MAD_JIRAMA_RURAL_PROJECT_UNLOCKED
 			NOT = { has_country_flag = MAD_JIRAMA_RURAL_GRID_BUILT }
 		}
-		custom_cost_trigger = { check_variable = { treasury > 6.499 } }
-		custom_cost_text = cost_6_5
+		custom_cost_trigger = {
+			AND = { check_variable = { treasury > 6.499 } 
+				check_variable = { MAD_rural_cooperation > 17.99 }
+			}
+		}
+		custom_cost_text = MAD_JIRAMA_BUILD_RURAL_GRID_RURAL_COOP_COST_TT
 		fire_only_once = yes
 		days_remove = 365
 
@@ -1821,12 +1882,20 @@ MAD_JIRAMA_PROJECTS = {
 		}
 
 		complete_effect = {
+			set_temp_variable = { MAD_rc_delta = -18 }
+			MAD_rural_cooperation_adjust = yes
+			custom_effect_tooltip = MAD_RURAL_COOPERATION_SPENT_TT
+
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_JIRAMA_BUILD_RURAL_GRID - construction begins"
 			set_temp_variable = { treasury_change = -6.500 }
 			modify_treasury_effect = yes
 		}
 
 		remove_effect = {
+			set_temp_variable = { MAD_rc_delta = 8 }
+			MAD_rural_cooperation_adjust = yes
+			custom_effect_tooltip = MAD_RURAL_COOPERATION_REBUILT_TT
+
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_JIRAMA_BUILD_RURAL_GRID - project complete"
 			268 = { add_extra_state_shared_building_slots = 1 add_building_construction = { type = energy_infrastructure level = 1 instant_build = yes } }
 			set_country_flag = MAD_JIRAMA_RURAL_GRID_BUILT
@@ -1909,7 +1978,7 @@ MAD_JIRAMA_PROJECTS = {
 			custom_effect_tooltip = { localization_key = modifies_dynamic_modifier_tt MODIFIER = MAD_power_modifier }
 			add_to_variable = { MAD_power_energy_gain_multiplier = 0.05 tooltip = energy_gain_multiplier_tt }
 			add_to_variable = { MAD_power_renewable_energy_gain_multiplier = 0.02 tooltip = renewable_energy_gain_multiplier_tt }
-			add_to_variable = { MAD_power_production_speed_renewable_energy_infra_factor = 0.02 tooltip = production_speed_renewable_energy_infra_factor_tt }
+			add_to_variable = { MAD_power_production_speed_renewable_energy_infra_factor = 0.05 tooltip = production_speed_renewable_energy_infra_factor_tt }
 			custom_effect_tooltip = { localization_key = modifies_dynamic_modifier_tt MODIFIER = MAD_economy_modifier }
 			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.10 tooltip = productivity_growth_modifier_tt }
 		}
@@ -1950,9 +2019,9 @@ MAD_JIRAMA_PROJECTS = {
 			custom_effect_tooltip = { localization_key = modifies_dynamic_modifier_tt MODIFIER = MAD_power_modifier }
 			add_to_variable = { MAD_power_energy_gain_multiplier = 0.06 tooltip = energy_gain_multiplier_tt }
 			add_to_variable = { MAD_power_renewable_energy_gain_multiplier = 0.05 tooltip = renewable_energy_gain_multiplier_tt }
-			add_to_variable = { MAD_power_production_speed_renewable_energy_infra_factor = 0.04 tooltip = production_speed_renewable_energy_infra_factor_tt }
+			add_to_variable = { MAD_power_production_speed_renewable_energy_infra_factor = 0.05 tooltip = production_speed_renewable_energy_infra_factor_tt }
 			custom_effect_tooltip = { localization_key = modifies_dynamic_modifier_tt MODIFIER = MAD_economy_modifier }
-			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.02 tooltip = productivity_growth_modifier_tt }
+			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.05 tooltip = productivity_growth_modifier_tt }
 			add_stability = 0.02
 		}
 
@@ -1994,7 +2063,7 @@ MAD_JIRAMA_PROJECTS = {
 			custom_effect_tooltip = { localization_key = modifies_dynamic_modifier_tt MODIFIER = MAD_power_modifier }
 			add_to_variable = { MAD_power_energy_gain_multiplier = 0.05 tooltip = energy_gain_multiplier_tt }
 			add_to_variable = { MAD_power_renewable_energy_gain_multiplier = 0.07 tooltip = renewable_energy_gain_multiplier_tt }
-			add_to_variable = { MAD_power_production_speed_renewable_energy_infra_factor = 0.04 tooltip = production_speed_renewable_energy_infra_factor_tt }
+			add_to_variable = { MAD_power_production_speed_renewable_energy_infra_factor = 0.05 tooltip = production_speed_renewable_energy_infra_factor_tt }
 			custom_effect_tooltip = { localization_key = modifies_dynamic_modifier_tt MODIFIER = MAD_economy_modifier }
 			add_to_variable = { MAD_economy_foreign_influence_modifier = -0.01 tooltip = foreign_influence_modifier_tt }
 			add_stability = 0.02
@@ -2010,8 +2079,12 @@ MAD_JIRAMA_PROJECTS = {
 			has_country_flag = MAD_LEAD_PROJECT_UNLOCKED
 			NOT = { has_country_flag = MAD_LEAD_ACCESS_BUILT }
 		}
-		custom_cost_trigger = { check_variable = { treasury > 14.999 } }
-		custom_cost_text = cost_15_0
+		custom_cost_trigger = {
+			AND = { check_variable = { treasury > 14.999 } 
+				check_variable = { MAD_rural_cooperation > 17.99 }
+			}
+		}
+		custom_cost_text = MAD_JIRAMA_BUILD_LEAD_ACCESS_RURAL_COOP_COST_TT
 		fire_only_once = yes
 		days_remove = 730
 
@@ -2021,12 +2094,20 @@ MAD_JIRAMA_PROJECTS = {
 		}
 
 		complete_effect = {
+			set_temp_variable = { MAD_rc_delta = -18 }
+			MAD_rural_cooperation_adjust = yes
+			custom_effect_tooltip = MAD_RURAL_COOPERATION_SPENT_TT
+
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_JIRAMA_BUILD_LEAD_ACCESS - construction begins"
 			set_temp_variable = { treasury_change = -15.000 }
 			modify_treasury_effect = yes
 		}
 
 		remove_effect = {
+			set_temp_variable = { MAD_rc_delta = 8 }
+			MAD_rural_cooperation_adjust = yes
+			custom_effect_tooltip = MAD_RURAL_COOPERATION_REBUILT_TT
+
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_JIRAMA_BUILD_LEAD_ACCESS - project complete"
 			267 = { add_building_construction = { type = energy_infrastructure level = 1 instant_build = yes } }
 			268 = { add_building_construction = { type = renewable_energy_infra level = 1 instant_build = yes } }
@@ -2050,8 +2131,12 @@ MAD_JIRAMA_PROJECTS = {
 			has_country_flag = MAD_DECIM_SOLAR_PROJECT_UNLOCKED
 			NOT = { has_country_flag = MAD_JIRAMA_DECIM_SOLAR_BUILT }
 		}
-		custom_cost_trigger = { check_variable = { treasury > 16.999 } }
-		custom_cost_text = cost_17_0
+		custom_cost_trigger = {
+			AND = { check_variable = { treasury > 16.999 } 
+				check_variable = { MAD_rural_cooperation > 11.99 }
+			}
+		}
+		custom_cost_text = MAD_JIRAMA_BUILD_DECIM_SOLAR_RURAL_COOP_COST_TT
 		fire_only_once = yes
 		days_remove = 730
 
@@ -2061,12 +2146,20 @@ MAD_JIRAMA_PROJECTS = {
 		}
 
 		complete_effect = {
+			set_temp_variable = { MAD_rc_delta = -12 }
+			MAD_rural_cooperation_adjust = yes
+			custom_effect_tooltip = MAD_RURAL_COOPERATION_SPENT_TT
+
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_JIRAMA_BUILD_DECIM_SOLAR - construction begins"
 			set_temp_variable = { treasury_change = -17.000 }
 			modify_treasury_effect = yes
 		}
 
 		remove_effect = {
+			set_temp_variable = { MAD_rc_delta = 5 }
+			MAD_rural_cooperation_adjust = yes
+			custom_effect_tooltip = MAD_RURAL_COOPERATION_REBUILT_TT
+
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_JIRAMA_BUILD_DECIM_SOLAR - project complete"
 			two_random_renewable_energy_infra = yes
 			set_country_flag = MAD_JIRAMA_DECIM_SOLAR_BUILT
@@ -2074,7 +2167,7 @@ MAD_JIRAMA_PROJECTS = {
 			add_to_variable = { MAD_power_renewable_energy_gain_multiplier = 0.04 tooltip = renewable_energy_gain_multiplier_tt }
 			add_to_variable = { MAD_power_energy_gain_multiplier = 0.02 tooltip = energy_gain_multiplier_tt }
 			custom_effect_tooltip = { localization_key = modifies_dynamic_modifier_tt MODIFIER = MAD_economy_modifier }
-			add_to_variable = { MAD_economy_production_speed_energy_infrastructure_factor = 0.03 tooltip = production_speed_energy_infrastructure_factor_tt }
+			add_to_variable = { MAD_economy_production_speed_energy_infrastructure_factor = 0.05 tooltip = production_speed_energy_infrastructure_factor_tt }
 		}
 
 		ai_will_do = { base = 0 }
@@ -2147,7 +2240,7 @@ MAD_JIRAMA_PROJECTS = {
 			add_to_variable = { MAD_power_energy_use_modifier_civs = -0.02 tooltip = energy_use_modifier_civs_tt }
 			add_to_variable = { MAD_power_pop_energy_use_multiplier = -0.01 tooltip = pop_energy_use_multiplier_tt }
 			custom_effect_tooltip = { localization_key = modifies_dynamic_modifier_tt MODIFIER = MAD_economy_modifier }
-			add_to_variable = { MAD_economy_production_speed_energy_infrastructure_factor = 0.04 tooltip = production_speed_energy_infrastructure_factor_tt }
+			add_to_variable = { MAD_economy_production_speed_energy_infrastructure_factor = 0.05 tooltip = production_speed_energy_infrastructure_factor_tt }
 			add_to_variable = { MAD_economy_infrastructure_tax_gain_multiplier_modifier = 0.03 tooltip = infrastructure_tax_gain_multiplier_modifier_tt }
 		}
 
@@ -2184,7 +2277,7 @@ MAD_JIRAMA_PROJECTS = {
 			add_to_variable = { MAD_power_renewable_energy_gain_multiplier = 0.04 tooltip = renewable_energy_gain_multiplier_tt }
 			add_to_variable = { MAD_power_energy_gain_multiplier = 0.03 tooltip = energy_gain_multiplier_tt }
 			custom_effect_tooltip = { localization_key = modifies_dynamic_modifier_tt MODIFIER = MAD_economy_modifier }
-			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.02 tooltip = productivity_growth_modifier_tt }
+			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.05 tooltip = productivity_growth_modifier_tt }
 			add_stability = 0.01
 		}
 
@@ -2271,7 +2364,7 @@ MAD_JIRAMA_PROJECTS = {
 			set_country_flag = MAD_EDF_ENGINEERING_COMPLETE
 			custom_effect_tooltip = { localization_key = modifies_dynamic_modifier_tt MODIFIER = MAD_power_modifier }
 			add_to_variable = { MAD_power_renewable_energy_gain_multiplier = 0.02 tooltip = renewable_energy_gain_multiplier_tt }
-			add_to_variable = { MAD_power_production_speed_renewable_energy_infra_factor = 0.04 tooltip = production_speed_renewable_energy_infra_factor_tt }
+			add_to_variable = { MAD_power_production_speed_renewable_energy_infra_factor = 0.05 tooltip = production_speed_renewable_energy_infra_factor_tt }
 			custom_effect_tooltip = { localization_key = modifies_dynamic_modifier_tt MODIFIER = MAD_economy_modifier }
 			add_to_variable = { MAD_economy_receiving_investment_duration_modifier = -0.03 tooltip = receiving_investment_duration_modifier_tt }
 			add_to_variable = { MAD_economy_foreign_influence_modifier = -0.02 tooltip = foreign_influence_modifier_tt }
@@ -2313,10 +2406,22 @@ MAD_dahalo_category = {
 		cost = 35
 		days_remove = 45
 		days_re_enable = 0
-		custom_cost_trigger = { check_variable = { treasury > 0.199 } }
-		custom_cost_text = cost_0_2
+		custom_cost_trigger = {
+			AND = { check_variable = { treasury > 0.199 } 
+				OR = {
+					AND = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM check_variable = { MAD_rural_cooperation > 4.49 } }
+					AND = { NOT = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM } check_variable = { MAD_rural_cooperation > 5.99 } }
+				}
+			}
+		}
+		custom_cost_text = MAD_DAHALO_RURAL_PATROLS_RURAL_COOP_COST_TT
 
 		complete_effect = {
+			set_temp_variable = { MAD_rc_delta = -6 }
+			if = { limit = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM } multiply_temp_variable = { MAD_rc_delta = 0.75 } }
+			MAD_rural_cooperation_adjust = yes
+			custom_effect_tooltip = MAD_RURAL_COOPERATION_SPENT_TT
+
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAHALO_RURAL_PATROLS"
 			set_temp_variable = { treasury_change = -0.20 }
 			modify_treasury_effect = yes
@@ -2338,10 +2443,22 @@ MAD_dahalo_category = {
 		}
 		cost = 60
 		fire_only_once = yes
-		custom_cost_trigger = { check_variable = { treasury > 1.249 } }
-		custom_cost_text = cost_1_25
+		custom_cost_trigger = {
+			AND = { check_variable = { treasury > 1.249 } 
+				OR = {
+					AND = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM check_variable = { MAD_rural_cooperation > 5.99 } }
+					AND = { NOT = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM } check_variable = { MAD_rural_cooperation > 7.99 } }
+				}
+			}
+		}
+		custom_cost_text = MAD_DAHALO_HERD_REGISTRY_RURAL_COOP_COST_TT
 
 		complete_effect = {
+			set_temp_variable = { MAD_rc_delta = -8 }
+			if = { limit = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM } multiply_temp_variable = { MAD_rc_delta = 0.75 } }
+			MAD_rural_cooperation_adjust = yes
+			custom_effect_tooltip = MAD_RURAL_COOPERATION_SPENT_TT
+
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAHALO_HERD_REGISTRY"
 			set_temp_variable = { treasury_change = -1.25 }
 			modify_treasury_effect = yes
@@ -2363,10 +2480,22 @@ MAD_dahalo_category = {
 		}
 		cost = 75
 		fire_only_once = yes
-		custom_cost_trigger = { check_variable = { treasury > 1.499 } }
-		custom_cost_text = cost_1_5
+		custom_cost_trigger = {
+			AND = { check_variable = { treasury > 1.499 } 
+				OR = {
+					AND = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM check_variable = { MAD_rural_cooperation > 5.99 } }
+					AND = { NOT = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM } check_variable = { MAD_rural_cooperation > 7.99 } }
+				}
+			}
+		}
+		custom_cost_text = MAD_DAHALO_CERTIFICATE_CRACKDOWN_RURAL_COOP_COST_TT
 
 		complete_effect = {
+			set_temp_variable = { MAD_rc_delta = -8 }
+			if = { limit = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM } multiply_temp_variable = { MAD_rc_delta = 0.75 } }
+			MAD_rural_cooperation_adjust = yes
+			custom_effect_tooltip = MAD_RURAL_COOPERATION_SPENT_TT
+
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAHALO_CERTIFICATE_CRACKDOWN"
 			set_temp_variable = { treasury_change = -1.50 }
 			modify_treasury_effect = yes
@@ -2389,10 +2518,22 @@ MAD_dahalo_category = {
 		cost = 60
 		days_remove = 45
 		days_re_enable = 270
-		custom_cost_trigger = { check_variable = { treasury > 1.499 } }
-		custom_cost_text = cost_1_5
+		custom_cost_trigger = {
+			AND = { check_variable = { treasury > 1.499 } 
+				OR = {
+					AND = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM check_variable = { MAD_rural_cooperation > 11.24 } }
+					AND = { NOT = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM } check_variable = { MAD_rural_cooperation > 14.99 } }
+				}
+			}
+		}
+		custom_cost_text = MAD_DAHALO_MILITARY_SWEEP_RURAL_COOP_COST_TT
 
 		complete_effect = {
+			set_temp_variable = { MAD_rc_delta = -15 }
+			if = { limit = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM } multiply_temp_variable = { MAD_rc_delta = 0.75 } }
+			MAD_rural_cooperation_adjust = yes
+			custom_effect_tooltip = MAD_RURAL_COOPERATION_SPENT_TT
+
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAHALO_MILITARY_SWEEP"
 			set_temp_variable = { treasury_change = -1.50 }
 			modify_treasury_effect = yes
@@ -2416,10 +2557,22 @@ MAD_dahalo_category = {
 		}
 		cost = 80
 		fire_only_once = yes
-		custom_cost_trigger = { check_variable = { treasury > 1.999 } }
-		custom_cost_text = cost_2_0
+		custom_cost_trigger = {
+			AND = { check_variable = { treasury > 1.999 } 
+				OR = {
+					AND = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM check_variable = { MAD_rural_cooperation > 7.49 } }
+					AND = { NOT = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM } check_variable = { MAD_rural_cooperation > 9.99 } }
+				}
+			}
+		}
+		custom_cost_text = MAD_DAHALO_TANDROKA_TRACKERS_RURAL_COOP_COST_TT
 
 		complete_effect = {
+			set_temp_variable = { MAD_rc_delta = -10 }
+			if = { limit = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM } multiply_temp_variable = { MAD_rc_delta = 0.75 } }
+			MAD_rural_cooperation_adjust = yes
+			custom_effect_tooltip = MAD_RURAL_COOPERATION_SPENT_TT
+
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAHALO_TANDROKA_TRACKERS"
 			set_temp_variable = { treasury_change = -2.00 }
 			modify_treasury_effect = yes
@@ -2441,10 +2594,22 @@ MAD_dahalo_category = {
 		}
 		cost = 70
 		fire_only_once = yes
-		custom_cost_trigger = { check_variable = { treasury > 1.249 } }
-		custom_cost_text = cost_1_25
+		custom_cost_trigger = {
+			AND = { check_variable = { treasury > 1.249 } 
+				OR = {
+					AND = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM check_variable = { MAD_rural_cooperation > 5.99 } }
+					AND = { NOT = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM } check_variable = { MAD_rural_cooperation > 7.99 } }
+				}
+			}
+		}
+		custom_cost_text = MAD_DAHALO_ARMS_CRACKDOWN_RURAL_COOP_COST_TT
 
 		complete_effect = {
+			set_temp_variable = { MAD_rc_delta = -8 }
+			if = { limit = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM } multiply_temp_variable = { MAD_rc_delta = 0.75 } }
+			MAD_rural_cooperation_adjust = yes
+			custom_effect_tooltip = MAD_RURAL_COOPERATION_SPENT_TT
+
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAHALO_ARMS_CRACKDOWN"
 			set_temp_variable = { treasury_change = -1.25 }
 			modify_treasury_effect = yes
@@ -2472,10 +2637,22 @@ MAD_dahalo_category = {
 		}
 		cost = 100
 		fire_only_once = yes
-		custom_cost_trigger = { check_variable = { treasury > 1.999 } }
-		custom_cost_text = cost_2_0
+		custom_cost_trigger = {
+			AND = { check_variable = { treasury > 1.999 } 
+				OR = {
+					AND = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM check_variable = { MAD_rural_cooperation > 8.99 } }
+					AND = { NOT = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM } check_variable = { MAD_rural_cooperation > 11.99 } }
+				}
+			}
+		}
+		custom_cost_text = MAD_DAHALO_RINGLEADER_FIRST_RURAL_COOP_COST_TT
 
 		complete_effect = {
+			set_temp_variable = { MAD_rc_delta = -12 }
+			if = { limit = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM } multiply_temp_variable = { MAD_rc_delta = 0.75 } }
+			MAD_rural_cooperation_adjust = yes
+			custom_effect_tooltip = MAD_RURAL_COOPERATION_SPENT_TT
+
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAHALO_RINGLEADER_FIRST"
 			set_temp_variable = { treasury_change = -2.00 }
 			modify_treasury_effect = yes
@@ -2499,10 +2676,22 @@ MAD_dahalo_category = {
 		}
 		cost = 120
 		fire_only_once = yes
-		custom_cost_trigger = { check_variable = { treasury > 2.499 } }
-		custom_cost_text = cost_2_5
+		custom_cost_trigger = {
+			AND = { check_variable = { treasury > 2.499 } 
+				OR = {
+					AND = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM check_variable = { MAD_rural_cooperation > 11.24 } }
+					AND = { NOT = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM } check_variable = { MAD_rural_cooperation > 14.99 } }
+				}
+			}
+		}
+		custom_cost_text = MAD_DAHALO_RINGLEADER_SECOND_RURAL_COOP_COST_TT
 
 		complete_effect = {
+			set_temp_variable = { MAD_rc_delta = -15 }
+			if = { limit = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM } multiply_temp_variable = { MAD_rc_delta = 0.75 } }
+			MAD_rural_cooperation_adjust = yes
+			custom_effect_tooltip = MAD_RURAL_COOPERATION_SPENT_TT
+
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAHALO_RINGLEADER_SECOND"
 			set_temp_variable = { treasury_change = -2.50 }
 			modify_treasury_effect = yes
@@ -2526,10 +2715,22 @@ MAD_dahalo_category = {
 		}
 		cost = 140
 		fire_only_once = yes
-		custom_cost_trigger = { check_variable = { treasury > 2.999 } }
-		custom_cost_text = cost_3_0
+		custom_cost_trigger = {
+			AND = { check_variable = { treasury > 2.999 } 
+				OR = {
+					AND = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM check_variable = { MAD_rural_cooperation > 13.49 } }
+					AND = { NOT = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM } check_variable = { MAD_rural_cooperation > 17.99 } }
+				}
+			}
+		}
+		custom_cost_text = MAD_DAHALO_RINGLEADER_FINAL_RURAL_COOP_COST_TT
 
 		complete_effect = {
+			set_temp_variable = { MAD_rc_delta = -18 }
+			if = { limit = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM } multiply_temp_variable = { MAD_rc_delta = 0.75 } }
+			MAD_rural_cooperation_adjust = yes
+			custom_effect_tooltip = MAD_RURAL_COOPERATION_SPENT_TT
+
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAHALO_RINGLEADER_FINAL"
 			set_temp_variable = { treasury_change = -3.00 }
 			modify_treasury_effect = yes
@@ -2561,10 +2762,22 @@ MAD_dahalo_category = {
 		}
 		cost = 100
 		fire_only_once = yes
-		custom_cost_trigger = { check_variable = { treasury > 1.999 } }
-		custom_cost_text = cost_2_0
+		custom_cost_trigger = {
+			AND = { check_variable = { treasury > 1.999 } 
+				OR = {
+					AND = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM check_variable = { MAD_rural_cooperation > 8.99 } }
+					AND = { NOT = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM } check_variable = { MAD_rural_cooperation > 11.99 } }
+				}
+			}
+		}
+		custom_cost_text = MAD_DAHALO_SECURE_SOUTHERN_CATTLE_ROADS_RURAL_COOP_COST_TT
 
 		complete_effect = {
+			set_temp_variable = { MAD_rc_delta = -12 }
+			if = { limit = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM } multiply_temp_variable = { MAD_rc_delta = 0.75 } }
+			MAD_rural_cooperation_adjust = yes
+			custom_effect_tooltip = MAD_RURAL_COOPERATION_SPENT_TT
+
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAHALO_SECURE_SOUTHERN_CATTLE_ROADS"
 			set_temp_variable = { treasury_change = -2.00 }
 			modify_treasury_effect = yes
@@ -2595,10 +2808,22 @@ MAD_dahalo_category = {
 		cost = 100
 		fire_only_once = yes
 		days_remove = 180
-		custom_cost_trigger = { check_variable = { treasury > 2.999 } }
-		custom_cost_text = cost_3_0
+		custom_cost_trigger = {
+			AND = { check_variable = { treasury > 2.999 } 
+				OR = {
+					AND = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM check_variable = { MAD_rural_cooperation > 13.49 } }
+					AND = { NOT = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM } check_variable = { MAD_rural_cooperation > 17.99 } }
+				}
+			}
+		}
+		custom_cost_text = MAD_DAHALO_COUP_D_ARRET_RURAL_COOP_COST_TT
 
 		complete_effect = {
+			set_temp_variable = { MAD_rc_delta = -18 }
+			if = { limit = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM } multiply_temp_variable = { MAD_rc_delta = 0.75 } }
+			MAD_rural_cooperation_adjust = yes
+			custom_effect_tooltip = MAD_RURAL_COOPERATION_SPENT_TT
+
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAHALO_COUP_D_ARRET started"
 			set_temp_variable = { treasury_change = -3.00 }
 			modify_treasury_effect = yes
@@ -2637,10 +2862,22 @@ MAD_dahalo_category = {
 		cost = 50
 		fire_only_once = yes
 		days_remove = 90
-		custom_cost_trigger = { check_variable = { treasury > 0.749 } }
-		custom_cost_text = cost_0_75
+		custom_cost_trigger = {
+			AND = { check_variable = { treasury > 0.749 } 
+				OR = {
+					AND = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM check_variable = { MAD_rural_cooperation > 4.49 } }
+					AND = { NOT = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM } check_variable = { MAD_rural_cooperation > 5.99 } }
+				}
+			}
+		}
+		custom_cost_text = MAD_REMENABILA_LOCATE_RURAL_COOP_COST_TT
 
 		complete_effect = {
+			set_temp_variable = { MAD_rc_delta = -6 }
+			if = { limit = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM } multiply_temp_variable = { MAD_rc_delta = 0.75 } }
+			MAD_rural_cooperation_adjust = yes
+			custom_effect_tooltip = MAD_RURAL_COOPERATION_SPENT_TT
+
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_REMENABILA_LOCATE started"
 			set_temp_variable = { treasury_change = -0.75 }
 			modify_treasury_effect = yes
@@ -2673,10 +2910,22 @@ MAD_dahalo_category = {
 		cost = 65
 		fire_only_once = yes
 		days_remove = 120
-		custom_cost_trigger = { check_variable = { treasury > 0.999 } }
-		custom_cost_text = cost_1_0
+		custom_cost_trigger = {
+			AND = { check_variable = { treasury > 0.999 } 
+				OR = {
+					AND = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM check_variable = { MAD_rural_cooperation > 5.99 } }
+					AND = { NOT = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM } check_variable = { MAD_rural_cooperation > 7.99 } }
+				}
+			}
+		}
+		custom_cost_text = MAD_REMENABILA_MOUNTAIN_PURSUIT_RURAL_COOP_COST_TT
 
 		complete_effect = {
+			set_temp_variable = { MAD_rc_delta = -8 }
+			if = { limit = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM } multiply_temp_variable = { MAD_rc_delta = 0.75 } }
+			MAD_rural_cooperation_adjust = yes
+			custom_effect_tooltip = MAD_RURAL_COOPERATION_SPENT_TT
+
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_REMENABILA_MOUNTAIN_PURSUIT started"
 			set_temp_variable = { treasury_change = -1.00 }
 			modify_treasury_effect = yes
@@ -2709,10 +2958,22 @@ MAD_dahalo_category = {
 		cost = 80
 		fire_only_once = yes
 		days_remove = 180
-		custom_cost_trigger = { check_variable = { treasury > 1.499 } }
-		custom_cost_text = cost_1_5
+		custom_cost_trigger = {
+			AND = { check_variable = { treasury > 1.499 } 
+				OR = {
+					AND = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM check_variable = { MAD_rural_cooperation > 7.49 } }
+					AND = { NOT = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM } check_variable = { MAD_rural_cooperation > 9.99 } }
+				}
+			}
+		}
+		custom_cost_text = MAD_REMENABILA_CAPTURE_SPIRITUAL_ADVISER_RURAL_COOP_COST_TT
 
 		complete_effect = {
+			set_temp_variable = { MAD_rc_delta = -10 }
+			if = { limit = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM } multiply_temp_variable = { MAD_rc_delta = 0.75 } }
+			MAD_rural_cooperation_adjust = yes
+			custom_effect_tooltip = MAD_RURAL_COOPERATION_SPENT_TT
+
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_REMENABILA_CAPTURE_SPIRITUAL_ADVISER started"
 			set_temp_variable = { treasury_change = -1.50 }
 			modify_treasury_effect = yes
@@ -2751,10 +3012,22 @@ MAD_dahalo_category = {
 		cost = 150
 		fire_only_once = yes
 		days_remove = 365
-		custom_cost_trigger = { check_variable = { treasury > 3.999 } }
-		custom_cost_text = cost_4_0
+		custom_cost_trigger = {
+			AND = { check_variable = { treasury > 3.999 } 
+				OR = {
+					AND = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM check_variable = { MAD_rural_cooperation > 11.99 } }
+					AND = { NOT = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM } check_variable = { MAD_rural_cooperation > 15.99 } }
+				}
+			}
+		}
+		custom_cost_text = MAD_REMENABILA_FINAL_HUNT_RURAL_COOP_COST_TT
 
 		complete_effect = {
+			set_temp_variable = { MAD_rc_delta = -16 }
+			if = { limit = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM } multiply_temp_variable = { MAD_rc_delta = 0.75 } }
+			MAD_rural_cooperation_adjust = yes
+			custom_effect_tooltip = MAD_RURAL_COOPERATION_SPENT_TT
+
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_REMENABILA_FINAL_HUNT started"
 			set_temp_variable = { treasury_change = -4.00 }
 			modify_treasury_effect = yes
@@ -2798,10 +3071,22 @@ MAD_dahalo_category = {
 		cost = 45
 		days_remove = 60
 		days_re_enable = 180
-		custom_cost_trigger = { check_variable = { treasury > 1.249 } }
-		custom_cost_text = cost_1_25
+		custom_cost_trigger = {
+			AND = { check_variable = { treasury > 1.249 } 
+				OR = {
+					AND = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM check_variable = { MAD_rural_cooperation > 5.99 } }
+					AND = { NOT = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM } check_variable = { MAD_rural_cooperation > 7.99 } }
+				}
+			}
+		}
+		custom_cost_text = MAD_DAHALO_ESCORT_RELIEF_CONVOYS_RURAL_COOP_COST_TT
 
 		complete_effect = {
+			set_temp_variable = { MAD_rc_delta = -8 }
+			if = { limit = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM } multiply_temp_variable = { MAD_rc_delta = 0.75 } }
+			MAD_rural_cooperation_adjust = yes
+			custom_effect_tooltip = MAD_RURAL_COOPERATION_SPENT_TT
+
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAHALO_ESCORT_RELIEF_CONVOYS started"
 			set_temp_variable = { treasury_change = -1.25 }
 			modify_treasury_effect = yes
@@ -2954,13 +3239,16 @@ MAD_OWNERSHIP_BOP = {
 			add_to_variable = { MAD_economy_internal_investments_money_cost_modifier = 0.10 tooltip = internal_investments_money_cost_modifier_tt }
 			add_to_variable = { MAD_economy_receiving_investment_cost_modifier = -0.10 tooltip = receiving_investment_cost_modifier_tt }
 			add_stability = 0.02
+			# BOP sale: 2 percentage points below the initial 10% GDP sale price.
+			set_temp_variable = { treasury_change = { value = gdp_total multiply = 0.08 } }
+			modify_treasury_effect = yes
 
 			# 75% of the original private TelMa route.
 			add_to_variable = { MAD_economy_civ_facs_worker_requirement_modifier = -0.03 tooltip = civ_facs_worker_requirement_modifier_tt }
 			add_to_variable = { MAD_economy_stability_factor = -0.03 tooltip = stability_factor_tt }
-			add_to_variable = { MAD_economy_civilian_factories_productivity = 0.0225 tooltip = civilian_factories_productivity_tt }
+			add_to_variable = { MAD_economy_civilian_factories_productivity = 0.05 tooltip = civilian_factories_productivity_tt }
 			add_to_variable = { MAD_economy_civilian_industry_tax_modifier = 0.0375 tooltip = civilian_industry_tax_modifier_tt }
-			add_to_variable = { MAD_economy_production_speed_offices_factor = 0.0375 tooltip = production_speed_offices_factor_tt }
+			add_to_variable = { MAD_economy_production_speed_offices_factor = 0.05 tooltip = production_speed_offices_factor_tt }
 			add_political_power = 19
 			add_power_balance_value = {
 				id = MAD_economy_ownership_bop
@@ -2989,7 +3277,8 @@ MAD_OWNERSHIP_BOP = {
 			remove_ideas = MAD_STATE_AIRLINE
 			add_ideas = MAD_PRIVATE_AIRLINE
 			set_country_flag = MAD_AIR_PRIVATISED_AFTER_STATE
-			set_temp_variable = { treasury_change = 6.00 }
+			# BOP sale: 2 percentage points below the initial 5% GDP sale price.
+			set_temp_variable = { treasury_change = { value = gdp_total multiply = 0.03 } }
 			modify_treasury_effect = yes
 			add_tech_bonus = {
 				name = MAD_SELL_AIRLINE_PRIVATE
@@ -2997,7 +3286,7 @@ MAD_OWNERSHIP_BOP = {
 				uses = 3
 				bonus = 0.25
 			}
-			add_to_variable = { MAD_economy_production_factory_max_efficiency_factor = 0.0375 tooltip = production_factory_max_efficiency_factor_tt }
+			add_to_variable = { MAD_economy_production_factory_max_efficiency_factor = 0.05 tooltip = production_factory_max_efficiency_factor_tt }
 			add_power_balance_value = {
 				id = MAD_economy_ownership_bop
 				value = -0.13125
@@ -3028,7 +3317,7 @@ MAD_OWNERSHIP_BOP = {
 			add_to_variable = { MAD_power_renewable_energy_gain_multiplier = -0.03 tooltip = renewable_energy_gain_multiplier_tt }
 			add_to_variable = { MAD_power_renewable_infra_cost_multiplier_modifier = 0.05 tooltip = renewable_infra_cost_multiplier_modifier_tt }
 			add_to_variable = { MAD_economy_internal_investments_money_cost_modifier = 0.05 tooltip = internal_investments_money_cost_modifier_tt }
-			add_to_variable = { MAD_economy_productivity_growth_modifier = -0.02 tooltip = productivity_growth_modifier_tt }
+			add_to_variable = { MAD_economy_productivity_growth_modifier = -0.05 tooltip = productivity_growth_modifier_tt }
 			add_stability = -0.02
 			add_to_variable = { MAD_economy_return_on_investment_modifier = -0.03 tooltip = return_on_investment_modifier_tt }
 			add_to_variable = { MAD_economy_foreign_influence_modifier = -0.05 tooltip = foreign_influence_modifier_tt }
@@ -3057,14 +3346,15 @@ MAD_OWNERSHIP_BOP = {
 			set_country_flag = MAD_JIRAMA_PRIVATISED_AFTER_STATE
 			clr_country_flag = MAD_JIRAMA_PUBLIC_MODEL
 			set_country_flag = MAD_JIRAMA_PRIVATE_MODEL
-			set_temp_variable = { treasury_change = 9.00 }
+			# BOP sale: 2 percentage points below the initial 12% GDP sale price.
+			set_temp_variable = { treasury_change = { value = gdp_total multiply = 0.10 } }
 			modify_treasury_effect = yes
 			add_to_variable = { MAD_power_energy_gain_multiplier = 0.0225 tooltip = energy_gain_multiplier_tt }
 			add_to_variable = { MAD_power_renewable_energy_gain_multiplier = 0.0225 tooltip = renewable_energy_gain_multiplier_tt }
 			add_to_variable = { MAD_economy_receiving_investment_cost_modifier = -0.0375 tooltip = receiving_investment_cost_modifier_tt }
 			add_to_variable = { MAD_economy_receiving_investment_duration_modifier = -0.0225 tooltip = receiving_investment_duration_modifier_tt }
 			add_to_variable = { MAD_economy_foreign_influence_modifier = -0.0375 tooltip = foreign_influence_modifier_tt }
-			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.015 tooltip = productivity_growth_modifier_tt }
+			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.05 tooltip = productivity_growth_modifier_tt }
 			add_stability = -0.0225
 
 			add_power_balance_value = {
@@ -3113,7 +3403,8 @@ MAD_OWNERSHIP_BOP = {
 
 			# Reverse the state operator's direct economy/stability effect.
 
-			set_temp_variable = { treasury_change = 6.35 }
+			# BOP sale: 2 percentage points below the initial 8% GDP sale price.
+			set_temp_variable = { treasury_change = { value = gdp_total multiply = 0.06 } }
 			modify_treasury_effect = yes
 			add_to_variable = { MAD_economy_receiving_investment_cost_modifier = -0.0375 tooltip = receiving_investment_cost_modifier_tt }
 			add_to_variable = { MAD_economy_production_speed_rail_way_factor = 0.075 tooltip = production_speed_rail_way_factor_tt }
@@ -3181,6 +3472,9 @@ MAD_OWNERSHIP_BOP = {
 			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.075 tooltip = productivity_growth_modifier_tt }
 			add_to_variable = { MAD_economy_trade_opinion_factor = 0.0375 tooltip = trade_opinion_factor_tt }
 			add_political_power = 19
+			# BOP sale: 2 percentage points below the initial 8% GDP sale price.
+			set_temp_variable = { treasury_change = { value = gdp_total multiply = 0.06 } }
+			modify_treasury_effect = yes
 
 			add_power_balance_value = {
 				id = MAD_economy_ownership_bop
@@ -3213,47 +3507,53 @@ MAD_OWNERSHIP_BOP = {
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_SELL_AMBATOVY_PRIVATE"
 
+			# Ambatovy BOP sale uses fixed values: $15bn for majority state ownership, $5bn for partial.
+			if = {
+				limit = { has_idea = MAD_AMBATOVY_FULL_STATE }
+				set_temp_variable = { treasury_change = 15.00 }
+			}
+			else_if = {
+				limit = { has_idea = MAD_AMBATOVY_PARTIAL_STATE }
+				set_temp_variable = { treasury_change = 5.00 }
+			}
+			modify_treasury_effect = yes
+
+			# Reverse state ownership and apply the private-model shift together, once per route.
 			if = {
 				limit = { has_idea = MAD_AMBATOVY_FULL_STATE }
 				remove_ideas = MAD_AMBATOVY_FULL_STATE
-				add_power_balance_value = {
-					id = MAD_economy_ownership_bop
-					value = -0.075
-					tooltip_side = MAD_private_ownership
+				if = {
+					limit = {
+						OR = {
+							has_country_flag = MAD_ambatovy_state_bought_dynatec
+							has_country_flag = MAD_ambatovy_state_bought_corporate_stake
+						}
+					}
+					add_power_balance_value = { id = MAD_economy_ownership_bop value = -0.20625 tooltip_side = MAD_private_ownership }
+				}
+				else = {
+					add_power_balance_value = { id = MAD_economy_ownership_bop value = -0.13125 tooltip_side = MAD_private_ownership }
 				}
 			}
 			else_if = {
 				limit = { has_idea = MAD_AMBATOVY_PARTIAL_STATE }
 				remove_ideas = MAD_AMBATOVY_PARTIAL_STATE
-				add_power_balance_value = {
-					id = MAD_economy_ownership_bop
-					value = -0.0375
-					tooltip_side = MAD_private_ownership
-				}
-			}
-			if = {
-				limit = {
-					OR = {
-						has_country_flag = MAD_ambatovy_state_bought_dynatec
-						has_country_flag = MAD_ambatovy_state_bought_corporate_stake
+				if = {
+					limit = {
+						OR = {
+							has_country_flag = MAD_ambatovy_state_bought_dynatec
+							has_country_flag = MAD_ambatovy_state_bought_corporate_stake
+						}
 					}
+					add_power_balance_value = { id = MAD_economy_ownership_bop value = -0.16875 tooltip_side = MAD_private_ownership }
 				}
-				add_power_balance_value = {
-					id = MAD_economy_ownership_bop
-					value = -0.075
-					tooltip_side = MAD_private_ownership
+				else = {
+					add_power_balance_value = { id = MAD_economy_ownership_bop value = -0.09375 tooltip_side = MAD_private_ownership }
 				}
 			}
 
 			add_ideas = MAD_AMBATOVY_PRIVATE
 			set_country_flag = MAD_AMBATOVY_PRIVATISED_AFTER_STATE
-
-			# 75% of the original private operational route.
-			add_power_balance_value = {
-				id = MAD_economy_ownership_bop
-				value = -0.05625
-				tooltip_side = MAD_private_ownership
-			}
 		}
 		ai_will_do = { base = 0 }
 	}
@@ -3269,7 +3569,7 @@ MAD_royal_political_category = {
 		cost = 50
 		days_remove = 120
 		fire_only_once = yes
-		allowed = { MAD_ROY_IN_POWER = yes }
+		allowed = { tag = MAD }
 		visible = {
 			MAD_ROY_IN_POWER = yes
 			has_country_flag = MAD_ROY_UNLOCK_CROWN_AFFAIRS
@@ -3294,7 +3594,7 @@ MAD_royal_political_category = {
 		cost = 75
 		days_remove = 150
 		fire_only_once = yes
-		allowed = { MAD_ROY_IN_POWER = yes }
+		allowed = { tag = MAD }
 		visible = {
 			MAD_ROY_IN_POWER = yes
 			has_country_flag = MAD_ROY_UNLOCK_FINANCIAL_REFORM
@@ -3319,7 +3619,7 @@ MAD_royal_political_category = {
 		cost = 75
 		days_remove = 180
 		fire_only_once = yes
-		allowed = { MAD_ROY_IN_POWER = yes }
+		allowed = { tag = MAD }
 		visible = {
 			MAD_ROY_IN_POWER = yes
 			has_country_flag = MAD_ROY_UNLOCK_HERITAGE
@@ -3348,7 +3648,7 @@ MAD_royal_political_category = {
 		cost = 50
 		days_remove = 180
 		fire_only_once = yes
-		allowed = { MAD_ROY_IN_POWER = yes }
+		allowed = { tag = MAD }
 		visible = {
 			MAD_ROY_IN_POWER = yes
 			has_country_flag = MAD_ROY_UNLOCK_ISRAEL_DIPLOMACY
@@ -3373,7 +3673,7 @@ MAD_royal_political_category = {
 		cost = 75
 		days_remove = 180
 		fire_only_once = yes
-		allowed = { MAD_ROY_IN_POWER = yes }
+		allowed = { tag = MAD }
 		visible = {
 			MAD_ROY_IN_POWER = yes
 			has_country_flag = MAD_ROY_UNLOCK_ISLAND_SOVEREIGNTY
@@ -3395,7 +3695,7 @@ MAD_royal_political_category = {
 		cost = 75
 		days_remove = 180
 		fire_only_once = yes
-		allowed = { MAD_ROY_IN_POWER = yes }
+		allowed = { tag = MAD }
 		visible = {
 			MAD_ROY_IN_POWER = yes
 			has_country_flag = MAD_ROY_UNLOCK_ISLAND_SOVEREIGNTY
@@ -3420,7 +3720,7 @@ MAD_royal_political_category = {
 		cost = 50
 		days_remove = 150
 		fire_only_once = yes
-		allowed = { MAD_ROY_IN_POWER = yes }
+		allowed = { tag = MAD }
 		visible = {
 			MAD_ROY_IN_POWER = yes
 			has_country_flag = MAD_ROY_UNLOCK_CUSTOMARY_GOVERNANCE
@@ -3452,7 +3752,7 @@ MAD_royal_political_category = {
 		days_remove = 120
 		days_re_enable = 180
 		fire_only_once = no
-		allowed = { MAD_TAMIMA_IN_POWER = yes }
+		allowed = { tag = MAD }
 		visible = {
 			MAD_TAMIMA_IN_POWER = yes
 			has_country_flag = MAD_TAMIMA_UNLOCK_HOUSE_AFFAIRS
@@ -3478,7 +3778,7 @@ MAD_royal_political_category = {
 		days_remove = 120
 		days_re_enable = 365
 		fire_only_once = no
-		allowed = { MAD_TAMIMA_IN_POWER = yes }
+		allowed = { tag = MAD }
 		visible = {
 			MAD_TAMIMA_IN_POWER = yes
 			has_country_flag = MAD_TAMIMA_UNLOCK_HOUSE_AFFAIRS
@@ -3501,7 +3801,7 @@ MAD_royal_political_category = {
 		cost = 100
 		days_remove = 180
 		fire_only_once = yes
-		allowed = { MAD_ROY_IN_POWER = yes }
+		allowed = { tag = MAD }
 		visible = {
 			MAD_ROY_IN_POWER = yes
 			has_country_flag = MAD_ROY_ISLAND_RECLAMATION_PREPARED
@@ -3521,7 +3821,7 @@ MAD_royal_political_category = {
 		cost = 100
 		days_remove = 180
 		fire_only_once = yes
-		allowed = { MAD_ROY_IN_POWER = yes }
+		allowed = { tag = MAD }
 		visible = {
 			MAD_ROY_IN_POWER = yes
 			has_country_flag = MAD_ROY_ISLAND_RECLAMATION_PREPARED
@@ -3541,7 +3841,7 @@ MAD_royal_political_category = {
 		cost = 100
 		days_remove = 180
 		fire_only_once = yes
-		allowed = { MAD_ROY_IN_POWER = yes }
+		allowed = { tag = MAD }
 		visible = {
 			MAD_ROY_IN_POWER = yes
 			has_country_flag = MAD_ROY_ISLAND_RECLAMATION_PREPARED
@@ -3561,7 +3861,7 @@ MAD_royal_political_category = {
 		cost = 100
 		days_remove = 180
 		fire_only_once = yes
-		allowed = { MAD_ROY_IN_POWER = yes }
+		allowed = { tag = MAD }
 		visible = {
 			MAD_ROY_IN_POWER = yes
 			has_country_flag = MAD_ROY_ISLAND_RECLAMATION_PREPARED
@@ -3581,7 +3881,7 @@ MAD_royal_political_category = {
 		cost = 100
 		days_remove = 180
 		fire_only_once = yes
-		allowed = { MAD_ROY_IN_POWER = yes }
+		allowed = { tag = MAD }
 		visible = {
 			MAD_ROY_IN_POWER = yes
 			has_country_flag = MAD_ROY_ISLAND_RECLAMATION_PREPARED
@@ -3996,5 +4296,104 @@ MAD_HVM_PROJECT_REVIEW_CATEGORY = {
 			recalculate_party = yes
 		}
 		ai_will_do = { base = 1 }
+	}
+}
+
+
+########################################################################
+# RURAL COOPERATION — ONLY TWO DECISIONS LIVE IN THIS NEW PANEL.
+# The consultations are a reusable safety valve; the Compact is a one-off programme.
+########################################################################
+MAD_rural_cooperation_category = {
+	MAD_RURAL_CONVENE_RURAL_CONSULTATIONS = {
+		icon = generic_political_discourse
+		allowed = { tag = MAD }
+		visible = { tag = MAD }
+		available = { NOT = { has_country_flag = MAD_RURAL_CONSULTATIONS_ACTIVE } }
+		cost = 35
+		days_remove = 60
+		days_re_enable = 180
+		custom_cost_trigger = { check_variable = { treasury > 0.249 } }
+		custom_cost_text = MAD_RURAL_CONSULTATIONS_COST_TT
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Rural consultations begin"
+			set_temp_variable = { treasury_change = -0.25 }
+			modify_treasury_effect = yes
+			set_country_flag = MAD_RURAL_CONSULTATIONS_ACTIVE
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Rural consultations complete"
+			clr_country_flag = MAD_RURAL_CONSULTATIONS_ACTIVE
+			if = {
+				limit = { OR = {
+					has_completed_focus = MAD_POL_ROY_FOKONOLONA
+					has_completed_focus = MAD_POL_ROY_CUSTOMARY_JUSTICE
+					has_completed_focus = MAD_POL_ROY_ONE_MADAGASCAR_MANY_HOUSES
+					has_completed_focus = MAD_POL_AREMA_FOKONOLONA
+					has_completed_focus = MAD_POL_AREMA_FOOD_FIRST
+					has_completed_focus = MAD_POL_AREMA_PROVINCES
+				} }
+				set_temp_variable = { MAD_rc_delta = 14 }
+			}
+			else = { set_temp_variable = { MAD_rc_delta = 10 } }
+			MAD_rural_cooperation_adjust = yes
+			add_stability = 0.005
+			custom_effect_tooltip = MAD_RURAL_CONSULTATIONS_REWARD_TT
+		}
+		ai_will_do = {
+			base = 1
+			modifier = { factor = 0 check_variable = { MAD_rural_cooperation > 74.99 } }
+			modifier = { factor = 2 check_variable = { MAD_rural_cooperation < 45 } }
+		}
+	}
+
+	MAD_RURAL_SERVICES_COMPACT = {
+		icon = generic_construction
+		allowed = { tag = MAD }
+		visible = {
+			has_completed_focus = MAD_Drought_and_famine
+			NOT = { has_country_flag = MAD_RURAL_SERVICES_COMPACT_COMPLETE }
+		}
+		available = {
+			has_completed_focus = MAD_Drought_and_famine
+			NOT = { has_country_flag = MAD_RURAL_SERVICES_COMPACT_STARTED }
+			custom_trigger_tooltip = {
+				tooltip = MAD_RURAL_SERVICES_COMPACT_TT
+				OR = {
+					has_country_flag = MAD_JIRAMA_RURAL_GRID_BUILT
+					has_country_flag = MAD_LEAD_ACCESS_BUILT
+					has_country_flag = MAD_RAIL_TOLIARA_BUILT
+					has_country_flag = MAD_RAIL_AMBOVOMBE_BUILT
+				}
+			}
+		}
+		cost = 50
+		fire_only_once = yes
+		days_remove = 180
+		custom_cost_trigger = {
+			AND = {
+				check_variable = { treasury > 1.999 }
+				check_variable = { MAD_rural_cooperation > 17.99 }
+			}
+		}
+		custom_cost_text = MAD_RURAL_SERVICES_COMPACT_COST_TT
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Southern Services Compact launched"
+			set_temp_variable = { treasury_change = -2.00 }
+			modify_treasury_effect = yes
+			set_temp_variable = { MAD_rc_delta = -18 }
+			MAD_rural_cooperation_adjust = yes
+			custom_effect_tooltip = MAD_RURAL_COOPERATION_SPENT_TT
+			set_country_flag = MAD_RURAL_SERVICES_COMPACT_STARTED
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Southern Services Compact reaches delivery stage"
+			clr_country_flag = MAD_RURAL_SERVICES_COMPACT_STARTED
+			set_country_flag = MAD_RURAL_SERVICES_COMPACT_COMPLETE
+			country_event = { id = mad_rural_cooperation.1 }
+		}
+		ai_will_do = { base = 0 }
 	}
 }

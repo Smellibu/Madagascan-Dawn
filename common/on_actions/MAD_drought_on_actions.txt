@@ -1,4 +1,4 @@
-# common/on_actions/MAD_drought_on_actions.txt
+﻿# common/on_actions/MAD_drought_on_actions.txt
 # Madagascar startup and periodic mechanics.
 # Tag-specific daily/monthly hooks prevent MAD effects from being run once for every country.
 
@@ -9,6 +9,7 @@ on_actions = {
 				limit = { country_exists = MAD }
 				MAD = {
 					MAD_dahalo_init = yes
+					MAD_rural_cooperation_initialize = yes
 					# Initialise the displacement calendar independently of the drought focus.
 					if = {
 						limit = { NOT = { has_country_flag = MAD_DROUGHT_CALENDAR_CLOCK_STARTED } }
@@ -39,6 +40,9 @@ on_actions = {
 						limit = {
 							original_tag = MAD
 							NOT = { has_country_flag = MAD_RATSIRAKA_FIRST_LOSS_DONE }
+							NOT = { has_country_flag = MAD_RATSIRAKA_SUCCESSOR_SELECTED }
+							NOT = { has_country_flag = MAD_AREMA_RENEWAL }
+							NOT = { has_country_flag = MAD_AREMA_RECONCILIATION }
 							NOT = { has_country_flag = MAD_RATSIRAKA_FIRST_LOSS_PENDING }
 						}
 						set_country_flag = MAD_RATSIRAKA_FIRST_LOSS_PENDING
@@ -52,6 +56,7 @@ on_actions = {
 	# This fires once per in-game day for MAD, not once per country worldwide.
 	on_daily_MAD = {
 		effect = {
+			MAD_rural_cooperation_daily_tick = yes
 			MAD_dahalo_daily_tick = yes
 			MAD_drought_containment_daily_tick = yes
 			MAD_autocomplete_forced_outcome_foci = yes
@@ -90,8 +95,8 @@ on_actions = {
 						}
 						country_event = { id = mad_political.96 }
 					}
-					# Passive Dahalo pressure is handled only by MAD_dahalo_daily_tick.
-					# Do not add another +2 monthly here: that would double the intended drift.
+					# Passive Dahalo pressure is handled by MAD_dahalo_monthly_tick under on_monthly_MAD.
+					# Do not call it from this generic monthly hook.
 				}
 			}
 		}
@@ -100,6 +105,8 @@ on_actions = {
 	# Tag-specific monthly hook: this is the only active hook advancing the displacement calendar.
 	on_monthly_MAD = {
 		effect = {
+			MAD_dahalo_monthly_tick = yes
+			MAD_rural_cooperation_monthly_tick = yes
 			if = {
 				limit = { has_country_flag = MAD_DROUGHT_STARTED }
 				if = {

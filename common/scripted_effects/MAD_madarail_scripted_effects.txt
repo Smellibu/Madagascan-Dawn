@@ -1,4 +1,4 @@
-# common/scripted_effects/MAD_madarail_scripted_effects.txt
+﻿# common/scripted_effects/MAD_madarail_scripted_effects.txt
 
 ########################################################################
 # INVESTOR CYCLE
@@ -39,12 +39,12 @@ MAD_madarail_enact_concessions = {
 			MODIFIER = MAD_MADARAIL_COMAZAR_modifier
 		}
 		# the operator's own terms
-		add_to_variable = { MAD_comazar_production_speed_rail_way_factor = 0.04 tooltip = production_speed_rail_way_factor_tt }
-		add_to_variable = { MAD_comazar_production_speed_rail_terminal_factor = 0.02 tooltip = production_speed_rail_terminal_factor_tt }
+		add_to_variable = { MAD_comazar_production_speed_rail_way_factor = 0.05 tooltip = production_speed_rail_way_factor_tt }
+		add_to_variable = { MAD_comazar_production_speed_rail_terminal_factor = 0.05 tooltip = production_speed_rail_terminal_factor_tt }
 		if = {
 			limit = { has_country_flag = MAD_MADARAIL_OFFER_1 }
-			add_to_variable = { MAD_comazar_production_speed_rail_way_factor = 0.04 tooltip = production_speed_rail_way_factor_tt }
-			add_to_variable = { MAD_comazar_production_speed_rail_terminal_factor = 0.03 tooltip = production_speed_rail_terminal_factor_tt }
+			add_to_variable = { MAD_comazar_production_speed_rail_way_factor = 0.05 tooltip = production_speed_rail_way_factor_tt }
+			add_to_variable = { MAD_comazar_production_speed_rail_terminal_factor = 0.05 tooltip = production_speed_rail_terminal_factor_tt }
 			add_to_variable = { MAD_comazar_internal_investments_money_cost_modifier = 0.02 tooltip = internal_investments_money_cost_modifier_tt }
 			set_temp_variable = { treasury_change = -5.00 }
 			modify_treasury_effect = yes
@@ -76,7 +76,7 @@ MAD_madarail_enact_concessions = {
 			MODIFIER = MAD_MADARAIL_VECTURIS_modifier
 		}
 		# the operator's own terms
-		add_to_variable = { MAD_vecturis_production_speed_rail_way_factor = 0.02 tooltip = production_speed_rail_way_factor_tt }
+		add_to_variable = { MAD_vecturis_production_speed_rail_way_factor = 0.05 tooltip = production_speed_rail_way_factor_tt }
 		add_to_variable = { MAD_vecturis_receiving_investment_cost_modifier = -0.02 tooltip = receiving_investment_cost_modifier_tt }
 		if = {
 			limit = { has_country_flag = MAD_MADARAIL_OFFER_1 }
@@ -98,7 +98,7 @@ MAD_madarail_enact_concessions = {
 		if = {
 			limit = { has_country_flag = MAD_MADARAIL_OFFER_3 }
 			add_to_variable = { MAD_vecturis_infrastructure_tax_gain_multiplier_modifier = 0.05 tooltip = infrastructure_tax_gain_multiplier_modifier_tt }
-			add_to_variable = { MAD_vecturis_production_speed_rail_terminal_factor = 0.02 tooltip = production_speed_rail_terminal_factor_tt }
+			add_to_variable = { MAD_vecturis_production_speed_rail_terminal_factor = 0.05 tooltip = production_speed_rail_terminal_factor_tt }
 			add_to_variable = { MAD_vecturis_productivity_growth_modifier = -0.3 tooltip = productivity_growth_modifier_tt }
 			add_stability = -0.02
 		}
@@ -111,12 +111,12 @@ MAD_madarail_enact_concessions = {
 			MODIFIER = MAD_MADARAIL_HOLDING_modifier
 		}
 		# the operator's own terms
-		add_to_variable = { MAD_holding_production_speed_rail_way_factor = 0.01 tooltip = production_speed_rail_way_factor_tt }
+		add_to_variable = { MAD_holding_production_speed_rail_way_factor = 0.05 tooltip = production_speed_rail_way_factor_tt }
 		add_to_variable = { MAD_holding_infrastructure_tax_gain_multiplier_modifier = 0.01 tooltip = infrastructure_tax_gain_multiplier_modifier_tt }
 		if = {
 			limit = { has_country_flag = MAD_MADARAIL_OFFER_1 }
-			add_to_variable = { MAD_holding_production_speed_rail_way_factor = 0.02 tooltip = production_speed_rail_way_factor_tt }
-			add_to_variable = { MAD_holding_production_speed_rail_terminal_factor = 0.02 tooltip = production_speed_rail_terminal_factor_tt }
+			add_to_variable = { MAD_holding_production_speed_rail_way_factor = 0.05 tooltip = production_speed_rail_way_factor_tt }
+			add_to_variable = { MAD_holding_production_speed_rail_terminal_factor = 0.05 tooltip = production_speed_rail_terminal_factor_tt }
 			add_power_balance_value = {
 				id = MAD_economy_ownership_bop
 				value = -0.03
@@ -126,14 +126,14 @@ MAD_madarail_enact_concessions = {
 		}
 		if = {
 			limit = { has_country_flag = MAD_MADARAIL_OFFER_2 }
-			add_to_variable = { MAD_holding_production_speed_rail_terminal_factor = 0.04 tooltip = production_speed_rail_terminal_factor_tt }
+			add_to_variable = { MAD_holding_production_speed_rail_terminal_factor = 0.05 tooltip = production_speed_rail_terminal_factor_tt }
 			add_to_variable = { MAD_holding_infrastructure_tax_gain_multiplier_modifier = -0.10 tooltip = infrastructure_tax_gain_multiplier_modifier_tt }
 			add_to_variable = { MAD_holding_corporate_tax_income_multiplier_modifier = -0.04 tooltip = corporate_tax_income_multiplier_modifier_tt }
 		}
 		if = {
 			limit = { has_country_flag = MAD_MADARAIL_OFFER_3 }
-			add_to_variable = { MAD_holding_production_speed_rail_way_factor = 0.03 tooltip = production_speed_rail_way_factor_tt }
-			add_to_variable = { MAD_holding_production_speed_rail_terminal_factor = 0.02 tooltip = production_speed_rail_terminal_factor_tt }
+			add_to_variable = { MAD_holding_production_speed_rail_way_factor = 0.05 tooltip = production_speed_rail_way_factor_tt }
+			add_to_variable = { MAD_holding_production_speed_rail_terminal_factor = 0.05 tooltip = production_speed_rail_terminal_factor_tt }
 			set_temp_variable = { treasury_change = -2.50 }
 			modify_treasury_effect = yes
 		}
@@ -249,7 +249,7 @@ MAD_daewoo_break_effects = {
 	if = {
 		limit = { has_country_flag = MAD_DAEWOO_KOREAN_AGRI_SECTOR }
 		hidden_effect = {
-			add_to_variable = { MAD_agri_productivity = -0.02 }
+			add_to_variable = { MAD_agri_productivity = -0.05 }
 			add_to_variable = { MAD_agri_income_tax = -0.02 }
 
 			268 = {
@@ -2722,7 +2722,7 @@ MAD_cna_continue_the_path = {
 		MODIFIER = MAD_agriculture_modifier
 	}
 	add_to_variable = { MAD_agri_worker_req = -0.01 tooltip = agriculture_district_worker_requirement_modifier_tt }
-	add_to_variable = { MAD_agri_productivity = 0.02 tooltip = agricolture_productivity_modifier_tt }
+	add_to_variable = { MAD_agri_productivity = 0.05 tooltip = agricolture_productivity_modifier_tt }
 
 	add_stability = 0.02
 }
@@ -2738,7 +2738,7 @@ MAD_cna_become_the_locust = {
 		MODIFIER = MAD_agriculture_modifier
 	}
 	add_to_variable = { MAD_agri_income_tax = 0.03 tooltip = agriculture_district_income_tax_modifier_tt }
-	add_to_variable = { MAD_agri_productivity = 0.01 tooltip = agricolture_productivity_modifier_tt }
+	add_to_variable = { MAD_agri_productivity = 0.05 tooltip = agricolture_productivity_modifier_tt }
 
 	# Protein in the worst-hit state(s) right now.
 	every_owned_state = {
@@ -2758,7 +2758,7 @@ MAD_cna_map_infestations = {
 		localization_key = modifies_dynamic_modifier_tt
 		MODIFIER = MAD_agriculture_modifier
 	}
-	add_to_variable = { MAD_agri_productivity = 0.01 tooltip = agricolture_productivity_modifier_tt }
+	add_to_variable = { MAD_agri_productivity = 0.05 tooltip = agricolture_productivity_modifier_tt }
 
 }
 
@@ -2772,7 +2772,7 @@ MAD_cna_biopesticides = {
 		localization_key = modifies_dynamic_modifier_tt
 		MODIFIER = MAD_agriculture_modifier
 	}
-	add_to_variable = { MAD_agri_productivity = 0.03 tooltip = agricolture_productivity_modifier_tt }
+	add_to_variable = { MAD_agri_productivity = 0.05 tooltip = agricolture_productivity_modifier_tt }
 	add_to_variable = { MAD_agri_worker_req = -0.01 tooltip = agriculture_district_worker_requirement_modifier_tt }
 
 	add_to_variable = { MAD_drought_cna_pressure_reduction = 0.20 }
@@ -2802,7 +2802,7 @@ MAD_cna_preventative_measures = {
 		localization_key = modifies_dynamic_modifier_tt
 		MODIFIER = MAD_agriculture_modifier
 	}
-	add_to_variable = { MAD_agri_productivity = 0.02 tooltip = agricolture_productivity_modifier_tt }
+	add_to_variable = { MAD_agri_productivity = 0.05 tooltip = agricolture_productivity_modifier_tt }
 	add_to_variable = { MAD_agri_worker_req = -0.02 tooltip = agriculture_district_worker_requirement_modifier_tt }
 
 	add_to_variable = { MAD_drought_cna_pressure_reduction = 0.30 }
@@ -2871,6 +2871,7 @@ MAD_JIRAMA_START_GENERATION_RECOVERY = {
 		}
 
 		set_country_flag = MAD_JIRAMA_GENERATION_RECOVERY_STARTED
+		activate_mission = MAD_JIRAMA_GENERATION_RECOVERY_MISSION
 	}
 }
 
@@ -2880,6 +2881,19 @@ MAD_JIRAMA_START_GENERATION_RECOVERY = {
 ########################################################################
 
 MAD_JIRAMA_GENERATION_RECOVERY_DAILY = {
+
+	# Also cover saves where the recovery flag was set before this visible mission existed.
+	if = {
+		limit = {
+			has_country_flag = MAD_JIRAMA_GENERATION_RECOVERY_STARTED
+			NOT = { has_country_flag = MAD_JIRAMA_GENERATION_RECOVERY_EXPIRED }
+			NOT = { has_country_flag = MAD_JIRAMA_GENERATION_RECOVERY_REQUIREMENTS_MET }
+			NOT = { has_completed_focus = MAD_JIRAMA_RECOVERY_SUCCEEDS }
+			NOT = { has_completed_focus = MAD_JIRAMA_RECOVERY_FAILS }
+			NOT = { has_active_mission = MAD_JIRAMA_GENERATION_RECOVERY_MISSION }
+		}
+		activate_mission = MAD_JIRAMA_GENERATION_RECOVERY_MISSION
+	}
 
 	# MD's energy_calc_balance computes this BEFORE storage discharge and fossil
 	# curtailment adjustments:
@@ -2900,17 +2914,7 @@ MAD_JIRAMA_GENERATION_RECOVERY_DAILY = {
 		multiply_variable = { MAD_JIRAMA_required_surplus = 0.40 }
 	}
 
-	# Expire the one-off mission 1095 days after the first generation-project unlock.
-	# has_country_flag's age check supplies the timer; no separate scheduled event is needed.
-	if = {
-		limit = {
-			has_country_flag = { flag = MAD_JIRAMA_GENERATION_RECOVERY_STARTED days > 1094 }
-			NOT = { has_country_flag = MAD_JIRAMA_GENERATION_RECOVERY_EXPIRED }
-			NOT = { has_completed_focus = MAD_JIRAMA_RECOVERY_SUCCEEDS }
-			NOT = { has_completed_focus = MAD_JIRAMA_RECOVERY_FAILS }
-		}
-		set_country_flag = MAD_JIRAMA_GENERATION_RECOVERY_EXPIRED
-	}
+	# The visible mission owns the 1095-day deadline and sets the expired flag.
 
 	# SUCCESS: requirements must be met before the three-year timer expires.
 	if = {
@@ -2922,6 +2926,7 @@ MAD_JIRAMA_GENERATION_RECOVERY_DAILY = {
 		}
 		log = "[GetDateText]: [This.GetName]: JIRAMA recovery requirements met"
 		set_country_flag = MAD_JIRAMA_GENERATION_RECOVERY_REQUIREMENTS_MET
+		remove_mission = MAD_JIRAMA_GENERATION_RECOVERY_MISSION
 	}
 }
 # common/scripted_effects/MAD_dahalo_scripted_effects.txt
@@ -2982,7 +2987,7 @@ MAD_dahalo_update_modifier = {
 		set_variable = { MAD_dahalo_agri_productivity = -0.08 }
 		set_variable = { MAD_dahalo_agri_income_tax = -0.08 }
 		set_variable = { MAD_dahalo_agri_worker_req = 0.05 }
-		set_variable = { MAD_dahalo_productivity_growth = -0.04 }
+		set_variable = { MAD_dahalo_productivity_growth = -0.05 }
 		set_variable = { MAD_dahalo_receiving_investment_cost = 0.08 }
 		set_variable = { MAD_dahalo_receiving_investment_duration = 0.08 }
 		set_variable = { MAD_dahalo_stability = -0.06 }
@@ -2995,7 +3000,7 @@ MAD_dahalo_update_modifier = {
 		set_variable = { MAD_dahalo_agri_productivity = -0.06 }
 		set_variable = { MAD_dahalo_agri_income_tax = -0.06 }
 		set_variable = { MAD_dahalo_agri_worker_req = 0.04 }
-		set_variable = { MAD_dahalo_productivity_growth = -0.03 }
+		set_variable = { MAD_dahalo_productivity_growth = -0.05 }
 		set_variable = { MAD_dahalo_receiving_investment_cost = 0.06 }
 		set_variable = { MAD_dahalo_receiving_investment_duration = 0.06 }
 		set_variable = { MAD_dahalo_stability = -0.05 }
@@ -3005,10 +3010,10 @@ MAD_dahalo_update_modifier = {
 	}
 	else_if = {
 		limit = { check_variable = { MAD_dahalo_threat > 39.99 } }
-		set_variable = { MAD_dahalo_agri_productivity = -0.04 }
+		set_variable = { MAD_dahalo_agri_productivity = -0.05 }
 		set_variable = { MAD_dahalo_agri_income_tax = -0.04 }
 		set_variable = { MAD_dahalo_agri_worker_req = 0.03 }
-		set_variable = { MAD_dahalo_productivity_growth = -0.02 }
+		set_variable = { MAD_dahalo_productivity_growth = -0.05 }
 		set_variable = { MAD_dahalo_receiving_investment_cost = 0.04 }
 		set_variable = { MAD_dahalo_receiving_investment_duration = 0.04 }
 		set_variable = { MAD_dahalo_stability = -0.03 }
@@ -3018,10 +3023,10 @@ MAD_dahalo_update_modifier = {
 	}
 	else_if = {
 		limit = { check_variable = { MAD_dahalo_threat > 19.99 } }
-		set_variable = { MAD_dahalo_agri_productivity = -0.02 }
+		set_variable = { MAD_dahalo_agri_productivity = -0.05 }
 		set_variable = { MAD_dahalo_agri_income_tax = -0.02 }
 		set_variable = { MAD_dahalo_agri_worker_req = 0.02 }
-		set_variable = { MAD_dahalo_productivity_growth = -0.01 }
+		set_variable = { MAD_dahalo_productivity_growth = -0.05 }
 		set_variable = { MAD_dahalo_receiving_investment_cost = 0.02 }
 		set_variable = { MAD_dahalo_receiving_investment_duration = 0.02 }
 		set_variable = { MAD_dahalo_stability = -0.015 }
@@ -3031,7 +3036,7 @@ MAD_dahalo_update_modifier = {
 	}
 	else_if = {
 		limit = { check_variable = { MAD_dahalo_threat > 0 } }
-		set_variable = { MAD_dahalo_agri_productivity = -0.01 }
+		set_variable = { MAD_dahalo_agri_productivity = -0.05 }
 		set_variable = { MAD_dahalo_agri_income_tax = -0.01 }
 		set_variable = { MAD_dahalo_agri_worker_req = 0.01 }
 		set_variable = { MAD_dahalo_productivity_growth = 0 }
@@ -3137,9 +3142,9 @@ MAD_dahalo_southern_supply_interference = {
 }
 
 MAD_dahalo_southern_water_relief_interference = {
-	# Emergency water tankers lose part of their effective six-month relief window when
-	# Dahalo bands are strong enough to divert or seize deliveries. An active escort
-	# operation restores the full delivery window.
+	# Start with the original six-month window, then apply the pre-existing Dahalo
+	# interception penalties. Cooperation extends the remaining window afterward.
+	set_temp_variable = { MAD_dahalo_water_relief_months = 6 }
 	if = {
 		limit = {
 			has_state_flag = MAD_GRAND_SUD_STATE
@@ -3147,10 +3152,9 @@ MAD_dahalo_southern_water_relief_interference = {
 			NOT = { has_country_flag = MAD_REMENABILA_IN_POWER }
 			check_variable = { ROOT.MAD_dahalo_threat > 39.99 }
 		}
-
 		set_temp_variable = { MAD_dahalo_water_relief_months = 5 }
 		if = {
-			limit = { has_country_flag = MAD_DAHALO_ESCORT_RELIEF_ACTIVE }
+			limit = { ROOT = { has_country_flag = MAD_DAHALO_ESCORT_RELIEF_ACTIVE } }
 			set_temp_variable = { MAD_dahalo_water_relief_months = 6 }
 		}
 		else_if = {
@@ -3161,11 +3165,13 @@ MAD_dahalo_southern_water_relief_interference = {
 			limit = { check_variable = { ROOT.MAD_dahalo_threat > 59.99 } }
 			set_temp_variable = { MAD_dahalo_water_relief_months = 4 }
 		}
-		add_to_variable = { MAD_state_relief_months = MAD_dahalo_water_relief_months }
 	}
-	else = {
-		add_to_variable = { MAD_state_relief_months = 6 }
-	}
+	set_temp_variable = { MAD_rc_water_relief_bonus = 0 }
+	if = { limit = { ROOT = { check_variable = { MAD_rural_cooperation > 79.99 } } } set_temp_variable = { MAD_rc_water_relief_bonus = 3 } }
+	else_if = { limit = { ROOT = { check_variable = { MAD_rural_cooperation > 59.99 } } } set_temp_variable = { MAD_rc_water_relief_bonus = 2 } }
+	else_if = { limit = { ROOT = { check_variable = { MAD_rural_cooperation > 34.99 } } } set_temp_variable = { MAD_rc_water_relief_bonus = 1 } }
+	add_to_temp_variable = { MAD_dahalo_water_relief_months = MAD_rc_water_relief_bonus }
+	add_to_variable = { MAD_state_relief_months = MAD_dahalo_water_relief_months }
 }
 
 ########################################################################
@@ -3292,7 +3298,7 @@ MAD_dahalo_random_event_tick = {
 }
 
 MAD_dahalo_daily_tick = {
-	# The insecurity network slowly rebuilds itself after suppression: +2 threat per month (30-day equivalent).
+	# Daily incident processing only; passive Dahalo threat growth is handled by MAD_dahalo_monthly_tick.
 	# Random incidents are additional shocks and remain possible until the system reaches a terminal ending.
 	if = {
 		limit = {
@@ -3305,12 +3311,12 @@ MAD_dahalo_daily_tick = {
 			NOT = { has_country_flag = MAD_DAHALO_CIVIL_WAR_PENDING }
 			NOT = { has_civil_war = yes }
 		}
-		add_to_variable = { MAD_dahalo_threat = 0.000666667 }
+		
 		clamp_variable = { var = MAD_dahalo_threat min = 0 max = 100 }
 		MAD_dahalo_update_modifier = yes
 	}
 
-	# Open revolt is checked after the passive pressure tick so the meter cannot be artificially held at 0.
+	# Open revolt is checked during daily processing so the meter cannot be artificially held at 0.
 	if = {
 		limit = {
 			has_completed_focus = MAD_PERMIT_ARMS
@@ -3326,7 +3332,23 @@ MAD_dahalo_daily_tick = {
 	}
 	MAD_dahalo_random_event_tick = yes
 }
-
+MAD_dahalo_monthly_tick = {
+    if = {
+        limit = {
+            NOT = { has_country_flag = MAD_DAHALO_DEFEATED }
+            NOT = { has_country_flag = MAD_REMENABILA_IN_POWER }
+            NOT = { has_country_flag = MAD_REMENABILA_KILLED }
+            NOT = { has_country_flag = MAD_DAHALO_SECURITY_ENDING }
+            NOT = { has_country_flag = MAD_DAHALO_ACCOMMODATION_ENDING }
+            NOT = { has_country_flag = MAD_DAHALO_CIVIL_WAR_STARTED }
+            NOT = { has_country_flag = MAD_DAHALO_CIVIL_WAR_PENDING }
+            NOT = { has_civil_war = yes }
+        }
+        add_to_variable = { MAD_dahalo_threat = 2 }
+        clamp_variable = { var = MAD_dahalo_threat min = 0 max = 100 }
+        MAD_dahalo_update_modifier = yes
+    }
+}
 MAD_dahalo_prepare_for_civil_war = {
 	set_country_flag = MAD_DAHALO_CIVIL_WAR_STARTED
 	clr_country_flag = MAD_DAHALO_CIVIL_WAR_PENDING
@@ -4168,10 +4190,37 @@ MAD_sync_party_political_ideas = {
 
 # Ratsiraka's first loss: wait for a direct majority or completed MD coalition.
 MAD_ratsiraka_check_government_formed = {
+	# If a successor-led AREMA route was selected, permanently disarm Ratsiraka's first-loss chain.
+	# Existing route flags also cover saves made before the explicit successor marker was added.
+	if = {
+		limit = {
+			original_tag = MAD
+			OR = {
+				has_country_flag = MAD_RATSIRAKA_SUCCESSOR_SELECTED
+				has_country_flag = MAD_AREMA_RENEWAL
+				has_country_flag = MAD_AREMA_RECONCILIATION
+			}
+		}
+		clr_country_flag = MAD_RATSIRAKA_FIRST_LOSS_PENDING
+		clr_country_flag = MAD_RATSIRAKA_EVENT_QUEUED
+		clr_country_flag = MAD_RATSIRAKA_EXILE_EVENT_PENDING
+		clr_country_flag = MAD_VIVA_INTERVIEW_PENDING
+		clr_country_flag = MAD_RATSIRAKA_COALITION_TRACKING
+		clr_country_flag = MAD_RATSIRAKA_COALITION_TIMED_OUT
+		set_variable = { MAD_RATSIRAKA_FORMATION_STABLE_DAYS = 0 }
+	}
+
 	# Recover saves where an older version marked the event resolved before a choice.
 	if = {
 		limit = {
 			original_tag = MAD
+			NOT = {
+				OR = {
+					has_country_flag = MAD_RATSIRAKA_SUCCESSOR_SELECTED
+					has_country_flag = MAD_AREMA_RENEWAL
+					has_country_flag = MAD_AREMA_RECONCILIATION
+				}
+			}
 			has_country_flag = MAD_RATSIRAKA_FIRST_LOSS_DONE
 			has_country_flag = MAD_RATSIRAKA_EXILE_RESOLVED
 			NOT = { has_country_flag = MAD_RATSIRAKA_CIVIL_WAR_STARTED }
@@ -4192,6 +4241,13 @@ MAD_ratsiraka_check_government_formed = {
 	if = {
 		limit = {
 			original_tag = MAD
+			NOT = {
+				OR = {
+					has_country_flag = MAD_RATSIRAKA_SUCCESSOR_SELECTED
+					has_country_flag = MAD_AREMA_RENEWAL
+					has_country_flag = MAD_AREMA_RECONCILIATION
+				}
+			}
 			has_country_flag = MAD_RATSIRAKA_FIRST_LOSS_PENDING
 			NOT = { has_country_flag = MAD_RATSIRAKA_FIRST_LOSS_DONE }
 			NOT = { has_country_flag = MAD_RATSIRAKA_EVENT_QUEUED }
@@ -4238,3 +4294,250 @@ MAD_ratsiraka_check_government_formed = {
 		}
 	}
 }
+########################################################################
+# SAFE PLACEMENT FOR MD SPECIAL-PROJECT FACILITIES
+########################################################################
+
+########################################################################
+# SAFE PLACEMENT FOR MD SPECIAL-PROJECT FACILITIES
+# MD's air/land/nuclear facilities are provincial special-project facilities,
+# and the special_project_facility building has a one-per-state limit. Use
+# the province-aware constructor rather than add_building_construction.
+# Prefer Antananarivo (state 267) if owned, controlled, and available; otherwise
+# select another eligible owned+controlled state. Each helper checks the exact
+# facility type it builds.
+########################################################################
+
+MAD_build_air_facility_in_available_state = {
+	if = {
+		limit = {
+			267 = {
+				is_owned_by = ROOT
+				is_controlled_by = ROOT
+				can_construct_building = air_facility
+			}
+		}
+		267 = { construct_building_in_random_province = { air_facility = 1 } }
+		else = {
+			random_owned_controlled_state = {
+				limit = { can_construct_building = air_facility }
+				construct_building_in_random_province = { air_facility = 1 }
+			}
+		}
+	}
+}
+
+MAD_build_land_facility_in_available_state = {
+	if = {
+		limit = {
+			267 = {
+				is_owned_by = ROOT
+				is_controlled_by = ROOT
+				can_construct_building = land_facility
+			}
+		}
+		267 = { construct_building_in_random_province = { land_facility = 1 } }
+		else = {
+			random_owned_controlled_state = {
+				limit = { can_construct_building = land_facility }
+				construct_building_in_random_province = { land_facility = 1 }
+			}
+		}
+	}
+}
+
+MAD_build_nuclear_facility_in_available_state = {
+	if = {
+		limit = {
+			267 = {
+				is_owned_by = ROOT
+				is_controlled_by = ROOT
+				can_construct_building = nuclear_facility
+			}
+		}
+		267 = { construct_building_in_random_province = { nuclear_facility = 1 } }
+		else = {
+			random_owned_controlled_state = {
+				limit = { can_construct_building = nuclear_facility }
+				construct_building_in_random_province = { nuclear_facility = 1 }
+			}
+		}
+	}
+}
+
+
+########################################################################
+# ARMY COMMAND EVENT BASELINES — now applied through MAD_ARMY_COMMAND_SYSTEM
+########################################################################
+
+MAD_ARMY_COMMAND_APPLY_CAPSAT_BASE = {
+	add_to_variable = { MAD_ARMY_CMD_ARMY_ORG_FACTOR = 0.07 }
+	add_to_variable = { MAD_ARMY_CMD_EXPERIENCE_GAIN_ARMY_FACTOR = 0.05 }
+	add_to_variable = { MAD_ARMY_CMD_MILITARY_LEADER_COST_FACTOR = -0.06 }
+	add_to_variable = { MAD_ARMY_CMD_ROOT_OUT_RESISTANCE_EFFECTIVENESS_FACTOR = 0.08 }
+	add_to_variable = { MAD_ARMY_CMD_SPECIAL_FORCES_CAP_FLAT = 10 }
+	add_to_variable = { MAD_ARMY_CMD_PERSONNEL_COST_MULTIPLIER_MODIFIER = 0.07 }
+	add_to_variable = { MAD_ARMY_CMD_MILITARY_SPENDING_COST_FACTOR = 0.08 }
+	add_to_variable = { MAD_ARMY_CMD_RESEARCH_SPEED_FACTOR = -0.03 }
+	add_to_variable = { MAD_ARMY_CMD_FOREIGN_INFLUENCE_DEFENSE_MODIFIER = -0.03 }
+	add_to_variable = { MAD_ARMY_CMD_ARMY_ATTACK_FACTOR = 0.02 }
+	add_to_variable = { MAD_ARMY_CMD_COMMAND_POWER_GAIN_MULT = 0.04 }
+	add_to_variable = { MAD_ARMY_CMD_TERRAIN_PENALTY_REDUCTION = 0.02 }
+}
+
+MAD_ARMY_COMMAND_APPLY_GENERAL_STAFF_BASE = {
+	add_to_variable = { MAD_ARMY_CMD_ARMY_ORG_FACTOR = 0.09 }
+	add_to_variable = { MAD_ARMY_CMD_EXPERIENCE_GAIN_ARMY_FACTOR = 0.02 }
+	add_to_variable = { MAD_ARMY_CMD_MILITARY_LEADER_COST_FACTOR = -0.02 }
+	add_to_variable = { MAD_ARMY_CMD_RESEARCH_SPEED_FACTOR = 0.03 }
+	add_to_variable = { MAD_ARMY_CMD_MILITARY_SPENDING_COST_FACTOR = -0.06 }
+	add_to_variable = { MAD_ARMY_CMD_PERSONNEL_COST_MULTIPLIER_MODIFIER = -0.04 }
+	add_to_variable = { MAD_ARMY_CMD_FOREIGN_INFLUENCE_DEFENSE_MODIFIER = 0.03 }
+	add_to_variable = { MAD_ARMY_CMD_ARMY_ATTACK_FACTOR = -0.01 }
+	add_to_variable = { MAD_ARMY_CMD_REQUIRED_GARRISON_FACTOR = 0.02 }
+	add_to_variable = { MAD_ARMY_CMD_SUPPLY_CONSUMPTION_FACTOR = -0.02 }
+	add_to_variable = { MAD_ARMY_CMD_COMMAND_POWER_GAIN_MULT = -0.01 }
+}
+
+# Remove only the General Staff's original event baseline. Completed focus bonuses
+# stay in the variables when the later CAPSAT compromise changes the command system.
+MAD_ARMY_COMMAND_REMOVE_GENERAL_STAFF_BASE = {
+	add_to_variable = { MAD_ARMY_CMD_ARMY_ORG_FACTOR = -0.09 }
+	add_to_variable = { MAD_ARMY_CMD_EXPERIENCE_GAIN_ARMY_FACTOR = -0.02 }
+	add_to_variable = { MAD_ARMY_CMD_MILITARY_LEADER_COST_FACTOR = 0.02 }
+	add_to_variable = { MAD_ARMY_CMD_RESEARCH_SPEED_FACTOR = -0.03 }
+	add_to_variable = { MAD_ARMY_CMD_MILITARY_SPENDING_COST_FACTOR = 0.06 }
+	add_to_variable = { MAD_ARMY_CMD_PERSONNEL_COST_MULTIPLIER_MODIFIER = 0.04 }
+	add_to_variable = { MAD_ARMY_CMD_FOREIGN_INFLUENCE_DEFENSE_MODIFIER = -0.03 }
+	add_to_variable = { MAD_ARMY_CMD_ARMY_ATTACK_FACTOR = 0.01 }
+	add_to_variable = { MAD_ARMY_CMD_REQUIRED_GARRISON_FACTOR = -0.02 }
+	add_to_variable = { MAD_ARMY_CMD_SUPPLY_CONSUMPTION_FACTOR = 0.02 }
+	add_to_variable = { MAD_ARMY_CMD_COMMAND_POWER_GAIN_MULT = 0.01 }
+}
+
+MAD_ARMY_COMMAND_APPLY_CAPSAT_CONCESSIONS = {
+	add_to_variable = { MAD_ARMY_CMD_ARMY_ORG_FACTOR = 0.05 }
+	add_to_variable = { MAD_ARMY_CMD_EXPERIENCE_GAIN_ARMY_FACTOR = 0.06 }
+	add_to_variable = { MAD_ARMY_CMD_PERSONNEL_COST_MULTIPLIER_MODIFIER = 0.12 }
+	add_to_variable = { MAD_ARMY_CMD_MILITARY_SPENDING_COST_FACTOR = 0.12 }
+	add_to_variable = { MAD_ARMY_CMD_RESEARCH_SPEED_FACTOR = -0.05 }
+	add_to_variable = { MAD_ARMY_CMD_FOREIGN_INFLUENCE_DEFENSE_MODIFIER = -0.05 }
+	add_to_variable = { MAD_ARMY_CMD_ARMY_ATTACK_FACTOR = 0.03 }
+}
+
+########################################################################
+# RURAL COOPERATION — ONE SHARED, VISIBLE STATE/CIVIL-SOCIETY CAPACITY POOL
+# Persistent meter: MAD_rural_cooperation (0-100). No stored regeneration rate.
+########################################################################
+
+MAD_rural_cooperation_initialize = {
+	if = {
+		limit = { NOT = { has_variable = MAD_rural_cooperation } }
+		set_variable = { MAD_rural_cooperation = 50 }
+	}
+	clamp_variable = { var = MAD_rural_cooperation min = 0 max = 100 }
+}
+
+MAD_rural_cooperation_daily_tick = {
+	# Migration safety: initialise the meter for new games and existing saves.
+	MAD_rural_cooperation_initialize = yes
+}
+
+# Caller sets the temporary MAD_rc_delta (+/-). This helper is intentionally the only
+# place that adjusts/clamps the persistent cooperation meter.
+MAD_rural_cooperation_adjust = {
+	if = {
+		limit = { NOT = { has_variable = MAD_rural_cooperation } }
+		set_variable = { MAD_rural_cooperation = 50 }
+	}
+	add_to_variable = { MAD_rural_cooperation = MAD_rc_delta }
+	clamp_variable = { var = MAD_rural_cooperation min = 0 max = 100 }
+}
+
+MAD_rural_cooperation_monthly_tick = {
+	MAD_rural_cooperation_initialize = yes
+	set_temp_variable = { MAD_rc_monthly_gain = 0.50 }
+
+	# Trust follows basic state capacity, public consent, and a countryside not in crisis.
+	if = { limit = { stability > 0.499 } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
+	if = { limit = { stability > 0.649 } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
+
+	# Government popularity is checked against the ruling ideology group rather than a fixed party.
+	if = {
+		limit = { OR = {
+			AND = { has_government = democratic democratic > 0.499 }
+			AND = { has_government = communism communism > 0.499 }
+			AND = { has_government = fascism fascism > 0.499 }
+			AND = { has_government = neutrality neutrality > 0.499 }
+		} }
+		add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 }
+	}
+	if = {
+		limit = { OR = {
+			AND = { has_government = democratic democratic > 0.599 }
+			AND = { has_government = communism communism > 0.599 }
+			AND = { has_government = fascism fascism > 0.599 }
+			AND = { has_government = neutrality neutrality > 0.599 }
+		} }
+		add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 }
+	}
+
+	if = { limit = { check_variable = { MAD_drought_severity < 55 } } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
+	if = { limit = { check_variable = { MAD_drought_severity < 30 } } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
+	if = { limit = { check_variable = { MAD_dahalo_threat < 50 } } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
+	if = { limit = { check_variable = { MAD_dahalo_threat < 25 } } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
+
+	# Governance paths provide lasting institutional memory. Milestones stack, subject to the +3 cap.
+	if = { limit = { has_completed_focus = MAD_POL_ROY_CROWN_WITHOUT_KING } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
+	if = { limit = { has_completed_focus = MAD_POL_ROY_CUSTOMARY_JUSTICE } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
+	if = { limit = { has_completed_focus = MAD_POL_ROY_ONE_MADAGASCAR_MANY_HOUSES } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
+	if = { limit = { has_completed_focus = MAD_POL_AREMA_FOKONOLONA } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
+	if = { limit = { has_completed_focus = MAD_POL_AREMA_FOOD_FIRST } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
+	if = { limit = { has_completed_focus = MAD_POL_AREMA_PROVINCES } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
+	if = { limit = { has_completed_focus = MAD_POL_MIL_SOUTHERN_SECURITY } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
+	if = { limit = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM } add_to_temp_variable = { MAD_rc_monthly_gain = 0.50 } }
+	if = { limit = { has_completed_focus = MAD_POL_MIL_ENGINEERS } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
+	if = { limit = { has_completed_focus = MAD_POL_TGV_JIRAMA_DELIVERY } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
+	if = { limit = { has_completed_focus = MAD_POL_TGV_FOOD_SOVEREIGNTY } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
+
+	# Completed rural access projects give their own permanent dividend; a project under construction does not.
+	if = { limit = { has_country_flag = MAD_JIRAMA_RURAL_GRID_BUILT } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
+	if = { limit = { has_country_flag = MAD_LEAD_ACCESS_BUILT } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
+	if = { limit = { has_country_flag = MAD_JIRAMA_DECIM_SOLAR_BUILT } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
+
+	# Cap monthly recovery, even if several route and infrastructure milestones stack.
+	if = {
+		limit = { check_variable = { MAD_rc_monthly_gain > 2.99 } }
+		set_temp_variable = { MAD_rc_monthly_gain = 3.0 }
+	}
+	add_to_variable = { MAD_rural_cooperation = MAD_rc_monthly_gain }
+	clamp_variable = { var = MAD_rural_cooperation min = 0 max = 100 }
+}
+
+# Used only by explicitly listed targeted relief decisions. Scale their helpful negative
+# deltas before the Dahalo interception effect is applied; cash costs and containment counts
+# are deliberately unaffected.
+MAD_rural_cooperation_boost_state_relief = {
+	set_temp_variable = { MAD_rc_relief_multiplier = 1.0 }
+	if = {
+		limit = { ROOT = { check_variable = { MAD_rural_cooperation > 79.99 } } }
+		set_temp_variable = { MAD_rc_relief_multiplier = 1.30 }
+	}
+	else_if = {
+		limit = { ROOT = { check_variable = { MAD_rural_cooperation > 59.99 } } }
+		set_temp_variable = { MAD_rc_relief_multiplier = 1.20 }
+	}
+	else_if = {
+		limit = { ROOT = { check_variable = { MAD_rural_cooperation > 34.99 } } }
+		set_temp_variable = { MAD_rc_relief_multiplier = 1.10 }
+	}
+	if = {
+		limit = { check_variable = { MAD_dr_state_change < -0.001 } }
+		multiply_temp_variable = { MAD_dr_state_change = MAD_rc_relief_multiplier }
+	}
+	if = {
+		limit = { check_variable = { MAD_dr_state_famine < -0.001 } }
+		multiply_temp_variable = { MAD_dr_state_famine = MAD_rc_relief_multiplier }
+	}
+}
+

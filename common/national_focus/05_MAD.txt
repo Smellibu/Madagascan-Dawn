@@ -1,4 +1,4 @@
-focus_tree = {
+﻿focus_tree = {
 	id = madagascar_focus
 
 	country = {
@@ -33,7 +33,7 @@ focus_tree = {
 			add_to_variable = { MAD_economy_local_resources_steel_factor = 0.05 tooltip = local_resources_steel_factor_tt }
 			add_to_variable = { MAD_economy_local_resources_oil_factor = 0.05 tooltip = local_resources_oil_factor_tt }
 			add_to_variable = { MAD_economy_local_resources_tungsten_factor = 0.05 tooltip = local_resources_tungsten_factor_tt }
-			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.03 tooltip = productivity_growth_modifier_tt }
+			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.05 tooltip = productivity_growth_modifier_tt }
 			add_to_variable = { MAD_economy_receiving_investment_cost_modifier = -0.03 tooltip = receiving_investment_cost_modifier_tt }
 		}
 
@@ -446,7 +446,7 @@ focus_tree = {
 				localization_key = modifies_dynamic_modifier_tt
 				MODIFIER = MAD_economy_modifier
 			}
-			add_to_variable = { MAD_economy_production_speed_energy_infrastructure_factor = 0.03 tooltip = production_speed_energy_infrastructure_factor_tt }
+			add_to_variable = { MAD_economy_production_speed_energy_infrastructure_factor = 0.05 tooltip = production_speed_energy_infrastructure_factor_tt }
 		}
 
 		ai_will_do = {
@@ -476,7 +476,7 @@ focus_tree = {
 				localization_key = modifies_dynamic_modifier_tt
 				MODIFIER = MAD_economy_modifier
 			}
-			add_to_variable = { MAD_economy_production_speed_energy_infrastructure_factor = 0.04 tooltip = production_speed_energy_infrastructure_factor_tt }
+			add_to_variable = { MAD_economy_production_speed_energy_infrastructure_factor = 0.05 tooltip = production_speed_energy_infrastructure_factor_tt }
 			set_temp_variable = { treasury_change = -1.50 }
 			modify_treasury_effect = yes
 			add_stability = 0.03
@@ -599,7 +599,7 @@ focus_tree = {
 			}
 			add_to_variable = { MAD_power_renewable_energy_gain_multiplier = 0.04 tooltip = renewable_energy_gain_multiplier_tt }
 			add_to_variable = { MAD_power_fossil_pp_fuel_consumption_modifier = -0.04 tooltip = fossil_pp_fuel_consumption_modifier_tt }
-			add_to_variable = { MAD_power_production_speed_renewable_energy_infra_factor = 0.03 tooltip = production_speed_renewable_energy_infra_factor_tt }
+			add_to_variable = { MAD_power_production_speed_renewable_energy_infra_factor = 0.05 tooltip = production_speed_renewable_energy_infra_factor_tt }
 			custom_effect_tooltip = {
 				localization_key = modifies_dynamic_modifier_tt
 				MODIFIER = MAD_economy_modifier
@@ -635,7 +635,7 @@ focus_tree = {
 			}
 			add_to_variable = { MAD_power_energy_gain_multiplier = 0.015 tooltip = energy_gain_multiplier_tt }
 			add_to_variable = { MAD_power_renewable_energy_gain_multiplier = 0.02 tooltip = renewable_energy_gain_multiplier_tt }
-			add_to_variable = { MAD_power_production_speed_renewable_energy_infra_factor = 0.03 tooltip = production_speed_renewable_energy_infra_factor_tt }
+			add_to_variable = { MAD_power_production_speed_renewable_energy_infra_factor = 0.05 tooltip = production_speed_renewable_energy_infra_factor_tt }
 		}
 
 		ai_will_do = {
@@ -734,7 +734,7 @@ focus_tree = {
 			set_temp_variable = {
 				treasury_change = {
 					value = gdp_total
-					multiply = 0.03
+					multiply = 0.12 # Initial JIRAMA privatisation: 12% of GDP.
 				}
 			}
 			modify_treasury_effect = yes
@@ -752,7 +752,7 @@ focus_tree = {
 			add_to_variable = { MAD_economy_receiving_investment_cost_modifier = -0.05 tooltip = receiving_investment_cost_modifier_tt }
 			add_to_variable = { MAD_economy_receiving_investment_duration_modifier = -0.03 tooltip = receiving_investment_duration_modifier_tt }
 			add_to_variable = { MAD_economy_foreign_influence_modifier = -0.05 tooltip = foreign_influence_modifier_tt }
-			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.02 tooltip = productivity_growth_modifier_tt }
+			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.05 tooltip = productivity_growth_modifier_tt }
 			add_stability = -0.03
 			if = { limit = { has_idea = international_bankers } set_temp_variable = { temp_opinion = 10 } change_international_bankers_opinion = yes }
 			if = { limit = { has_idea = small_medium_business_owners } set_temp_variable = { temp_opinion = 6 } change_small_medium_business_owners_opinion = yes }
@@ -791,7 +791,7 @@ focus_tree = {
 				MODIFIER = MAD_economy_modifier
 			}
 			add_to_variable = { MAD_economy_internal_investments_money_cost_modifier = -0.05 tooltip = internal_investments_money_cost_modifier_tt }
-			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.02 tooltip = productivity_growth_modifier_tt }
+			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.05 tooltip = productivity_growth_modifier_tt }
 			add_stability = 0.02
 			if = { limit = { has_idea = international_bankers } set_temp_variable = { temp_opinion = -5 } change_international_bankers_opinion = yes }
 			if = { limit = { has_idea = landowners } set_temp_variable = { temp_opinion = 4 } change_landowners_opinion = yes }
@@ -851,7 +851,7 @@ focus_tree = {
 				localization_key = modifies_dynamic_modifier_tt
 				MODIFIER = MAD_economy_modifier
 			}
-			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.02 tooltip = productivity_growth_modifier_tt }
+			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.05 tooltip = productivity_growth_modifier_tt }
 			add_to_variable = { MAD_economy_receiving_investment_cost_modifier = -0.03 tooltip = receiving_investment_cost_modifier_tt }
 			add_to_variable = { MAD_economy_internal_investments_money_cost_modifier = -0.02 tooltip = internal_investments_money_cost_modifier_tt }
 		}
@@ -967,7 +967,7 @@ focus_tree = {
 				}
 				add_to_variable = { MAD_power_energy_gain_multiplier = 0.04 tooltip = energy_gain_multiplier_tt }
 				add_to_variable = { MAD_power_renewable_energy_gain_multiplier = 0.03 tooltip = renewable_energy_gain_multiplier_tt }
-				add_to_variable = { MAD_power_production_speed_renewable_energy_infra_factor = 0.04 tooltip = production_speed_renewable_energy_infra_factor_tt }
+				add_to_variable = { MAD_power_production_speed_renewable_energy_infra_factor = 0.05 tooltip = production_speed_renewable_energy_infra_factor_tt }
 				custom_effect_tooltip = {
 					localization_key = modifies_dynamic_modifier_tt
 					MODIFIER = MAD_economy_modifier
@@ -1039,7 +1039,7 @@ focus_tree = {
 				MODIFIER = MAD_economy_modifier
 			}
 			add_to_variable = { MAD_economy_production_speed_energy_infrastructure_factor = 0.05 tooltip = production_speed_energy_infrastructure_factor_tt }
-			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.03 tooltip = productivity_growth_modifier_tt }
+			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.05 tooltip = productivity_growth_modifier_tt }
 			add_to_variable = { MAD_economy_expected_welfare_modifier = 0.25 tooltip = expected_welfare_modifier_tt }
 			if = {
 				limit = { has_country_flag = MAD_JIRAMA_PUBLIC_MODEL }
@@ -1370,11 +1370,11 @@ focus_tree = {
 			268 = {
 				add_resource = {
 					type = tungsten
-					amount = 6
+					amount = 7
 				}
 				add_resource = {
 					type = chromium
-					amount = 2
+					amount = 3
 				}
 				add_extra_state_shared_building_slots = 1
 				add_building_construction = {
@@ -1438,7 +1438,7 @@ focus_tree = {
 				MODIFIER = MAD_economy_modifier
 			}
 			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.05 tooltip = productivity_growth_modifier_tt }
-			add_to_variable = { MAD_economy_offices_productivity = 0.03 tooltip = offices_productivity_tt }
+			add_to_variable = { MAD_economy_offices_productivity = 0.05 tooltip = offices_productivity_tt }
 			add_to_variable = { MAD_economy_civ_facs_worker_requirement_modifier = -0.03 tooltip = civ_facs_worker_requirement_modifier_tt }
 			add_stability = 0.02
 			custom_effect_tooltip = {
@@ -1529,7 +1529,7 @@ focus_tree = {
 				localization_key = modifies_dynamic_modifier_tt
 				MODIFIER = MAD_economy_modifier
 			}
-			add_to_variable = { MAD_economy_production_speed_industrial_infrastructure_factor = 0.02 tooltip = production_speed_industrial_infrastructure_factor_tt }
+			add_to_variable = { MAD_economy_production_speed_industrial_infrastructure_factor = 0.05 tooltip = production_speed_industrial_infrastructure_factor_tt }
 		}
 
 		ai_will_do = {
@@ -1556,7 +1556,7 @@ focus_tree = {
 				MODIFIER = MAD_agriculture_modifier
 			}
 			add_to_variable = { MAD_agri_worker_req = -0.03 tooltip = agriculture_district_worker_requirement_modifier_tt }
-			add_to_variable = { MAD_agri_productivity = 0.03 tooltip = agricolture_productivity_modifier_tt }
+			add_to_variable = { MAD_agri_productivity = 0.05 tooltip = agricolture_productivity_modifier_tt }
 			
 			
 			487 = {
@@ -1695,7 +1695,7 @@ focus_tree = {
 			add_to_variable = { MAD_economy_international_market_income_modifier = 0.05 tooltip = international_market_income_modifier_tt }
 			add_to_variable = { MAD_economy_receiving_investment_cost_modifier = -0.05 tooltip = receiving_investment_cost_modifier_tt }
 			add_to_variable = { MAD_economy_receiving_investment_duration_modifier = -0.05 tooltip = receiving_investment_duration_modifier_tt }
-			add_to_variable = { MAD_economy_production_speed_industrial_infrastructure_factor = 0.03 tooltip = production_speed_industrial_infrastructure_factor_tt }
+			add_to_variable = { MAD_economy_production_speed_industrial_infrastructure_factor = 0.05 tooltip = production_speed_industrial_infrastructure_factor_tt }
 		}
 
 		ai_will_do = {
@@ -1761,22 +1761,15 @@ focus_tree = {
 			268 = {
 				add_resource = {
 					type = tungsten
-					amount = 2
+					amount = 3
 				}
 				add_resource = {
 					type = chromium
-					amount = 2
+					amount = 3
 				}
 				add_extra_state_shared_building_slots = 1
-				add_building_construction = {
-					type = industrial_complex
-					level = 1
-					instant_build = yes
-				}
 				
 			}
-			set_temp_variable = { treasury_change = -14.00 }
-				modify_treasury_effect = yes
 			
 			custom_effect_tooltip = {
 				localization_key = modifies_dynamic_modifier_tt
@@ -1784,7 +1777,7 @@ focus_tree = {
 			}
 			add_to_variable = { MAD_economy_local_resources_tungsten_factor = 0.10 tooltip = local_resources_tungsten_factor_tt }
 			add_to_variable = { MAD_economy_research_speed_factor = 0.05 tooltip = research_speed_factor_tt }
-			add_to_variable = { MAD_economy_production_speed_industrial_complex_factor = 0.03 tooltip = production_speed_industrial_complex_factor_tt }
+			add_to_variable = { MAD_economy_production_speed_industrial_complex_factor = 0.05 tooltip = production_speed_industrial_complex_factor_tt }
 			add_power_balance_value = {
 				id = MAD_economy_ownership_bop
 				value = -0.0375
@@ -1842,18 +1835,13 @@ focus_tree = {
 			268 = {
 				add_resource = {
 					type = tungsten
-					amount = 3
+					amount = 4
 				}
 				add_resource = {
 					type = chromium
-					amount = 3
+					amount = 4
 				}
 				add_extra_state_shared_building_slots = 1
-				add_building_construction = {
-					type = industrial_complex
-					level = 1
-					instant_build = yes
-				}
 			}
 			
 			custom_effect_tooltip = {
@@ -1862,7 +1850,7 @@ focus_tree = {
 			}
 			add_to_variable = { MAD_economy_local_resources_tungsten_factor = 0.10 tooltip = local_resources_tungsten_factor_tt }
 			add_to_variable = { MAD_economy_research_speed_factor = 0.05 tooltip = research_speed_factor_tt }
-			add_to_variable = { MAD_economy_production_speed_industrial_complex_factor = 0.03 tooltip = production_speed_industrial_complex_factor_tt }
+			add_to_variable = { MAD_economy_production_speed_industrial_complex_factor = 0.05 tooltip = production_speed_industrial_complex_factor_tt }
 			add_power_balance_value = {
 				id = MAD_economy_ownership_bop
 				value = -0.0375
@@ -1933,9 +1921,9 @@ focus_tree = {
 				localization_key = modifies_dynamic_modifier_tt
 				MODIFIER = MAD_economy_modifier
 			}
-			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.03 tooltip = productivity_growth_modifier_tt }
+			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.05 tooltip = productivity_growth_modifier_tt }
 			add_to_variable = { MAD_economy_local_resources_oil_factor = 0.09 tooltip = local_resources_oil_factor_tt }
-			add_to_variable = { MAD_economy_production_speed_industrial_complex_factor = 0.04 tooltip = production_speed_industrial_complex_factor_tt }
+			add_to_variable = { MAD_economy_production_speed_industrial_complex_factor = 0.05 tooltip = production_speed_industrial_complex_factor_tt }
 			add_power_balance_value = {
 				id = MAD_economy_ownership_bop
 				value = -0.0375
@@ -2071,7 +2059,7 @@ focus_tree = {
 			}
 			add_to_variable = { MAD_economy_civ_facs_worker_requirement_modifier = -0.04 tooltip = civ_facs_worker_requirement_modifier_tt }
 			add_to_variable = { MAD_economy_stability_factor = -0.04 tooltip = stability_factor_tt}
-			add_to_variable = { MAD_economy_civilian_factories_productivity = 0.03 tooltip = civilian_factories_productivity_tt }
+			add_to_variable = { MAD_economy_civilian_factories_productivity = 0.05 tooltip = civilian_factories_productivity_tt }
 			add_to_variable = { MAD_economy_civilian_industry_tax_modifier = 0.05 tooltip = civilian_industry_tax_modifier_tt }
 			
 			add_to_variable = { MAD_economy_production_speed_offices_factor = 0.05 tooltip = production_speed_offices_factor_tt }
@@ -2079,7 +2067,7 @@ focus_tree = {
 			set_temp_variable = {
 				treasury_change = {
 					value = gdp_total
-					multiply = 0.04
+					multiply = 0.10 # Initial Telma privatisation: 10% of GDP.
 				}
 			}
 			modify_treasury_effect = yes
@@ -2118,7 +2106,7 @@ focus_tree = {
 			set_temp_variable = {
 				treasury_change = {
 					value = gdp_total
-					multiply = 0.025
+					multiply = 0.08 # Initial Madarail privatisation: 8% of GDP.
 				}
 			}
 			modify_treasury_effect = yes
@@ -2285,7 +2273,7 @@ focus_tree = {
 				localization_key = modifies_dynamic_modifier_tt
 				MODIFIER = MAD_economy_modifier
 			}
-			add_to_variable = { MAD_economy_production_speed_infrastructure_factor = 0.03 tooltip = production_speed_infrastructure_factor_tt }
+			add_to_variable = { MAD_economy_production_speed_infrastructure_factor = 0.05 tooltip = production_speed_infrastructure_factor_tt }
 		}
 
 		ai_will_do = {
@@ -2346,7 +2334,7 @@ focus_tree = {
 				localization_key = modifies_dynamic_modifier_tt
 				MODIFIER = MAD_agriculture_modifier
 			}
-			add_to_variable = { MAD_agri_productivity = 0.02 tooltip = agricolture_productivity_modifier_tt }
+			add_to_variable = { MAD_agri_productivity = 0.05 tooltip = agricolture_productivity_modifier_tt }
 			
 			if = {
 				limit = { has_idea = farmers }
@@ -2627,7 +2615,7 @@ focus_tree = {
 				localization_key = modifies_dynamic_modifier_tt
 				MODIFIER = MAD_agriculture_modifier
 			}
-			add_to_variable = { MAD_agri_productivity = 0.02 tooltip = agricolture_productivity_modifier_tt }
+			add_to_variable = { MAD_agri_productivity = 0.05 tooltip = agricolture_productivity_modifier_tt }
 			add_to_variable = { MAD_agri_income_tax = 0.02 tooltip = agriculture_district_income_tax_modifier_tt }
 			hidden_effect = {
 				set_country_flag = MAD_DAEWOO_KOREAN_AGRI_SECTOR
@@ -2659,7 +2647,7 @@ focus_tree = {
 				MODIFIER = MAD_economy_modifier
 			}
 			add_to_variable = { MAD_economy_expected_welfare_modifier = 0.25 tooltip = expected_welfare_modifier_tt }
-			add_to_variable = { MAD_economy_production_speed_infrastructure_factor = 0.03 tooltip = production_speed_infrastructure_factor_tt }
+			add_to_variable = { MAD_economy_production_speed_infrastructure_factor = 0.05 tooltip = production_speed_infrastructure_factor_tt }
 			if = {
 				limit = { has_idea = farmers }
 				set_temp_variable = { temp_opinion = 5 }
@@ -2997,7 +2985,7 @@ focus_tree = {
 				localization_key = modifies_dynamic_modifier_tt
 				MODIFIER = MAD_economy_modifier
 			}
-			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.02 tooltip = productivity_growth_modifier_tt }
+			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.05 tooltip = productivity_growth_modifier_tt }
 			custom_effect_tooltip = {
 				localization_key = modifies_dynamic_modifier_tt
 				MODIFIER = MAD_agriculture_modifier
@@ -3169,7 +3157,7 @@ focus_tree = {
 				MODIFIER = MAD_agriculture_modifier
 			}
 			add_to_variable = { MAD_agri_worker_req = -0.01 tooltip = agriculture_district_worker_requirement_modifier_tt }
-			add_to_variable = { MAD_agri_productivity = 0.02 tooltip = agricolture_productivity_modifier_tt }
+			add_to_variable = { MAD_agri_productivity = 0.05 tooltip = agricolture_productivity_modifier_tt }
 			
 			add_stability = 0.02
 		}
@@ -3199,7 +3187,7 @@ focus_tree = {
 				MODIFIER = MAD_agriculture_modifier
 			}
 			add_to_variable = { MAD_agri_income_tax = 0.03 tooltip = agriculture_district_income_tax_modifier_tt }
-			add_to_variable = { MAD_agri_productivity = 0.01 tooltip = agricolture_productivity_modifier_tt }
+			add_to_variable = { MAD_agri_productivity = 0.05 tooltip = agricolture_productivity_modifier_tt }
 			
 			268 = {
 				
@@ -3255,7 +3243,7 @@ focus_tree = {
 				MODIFIER = MAD_economy_modifier
 			}
 			add_to_variable = { MAD_economy_local_resources_steel_factor = 0.10 tooltip = local_resources_steel_factor_tt }
-			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.03 tooltip = productivity_growth_modifier_tt }
+			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.05 tooltip = productivity_growth_modifier_tt }
 			add_power_balance_value = {
 				id = MAD_economy_ownership_bop
 				value = -0.0375
@@ -3288,7 +3276,7 @@ focus_tree = {
 				MODIFIER = MAD_power_modifier
 			}
 			add_to_variable = { MAD_power_energy_gain_multiplier = 0.02 tooltip = energy_gain_multiplier_tt }
-			add_to_variable = { MAD_power_production_speed_fossil_powerplant_factor = 0.03 tooltip = production_speed_fossil_powerplant_factor_tt }
+			add_to_variable = { MAD_power_production_speed_fossil_powerplant_factor = 0.05 tooltip = production_speed_fossil_powerplant_factor_tt }
 			add_to_variable = { MAD_power_fossil_pp_fuel_consumption_modifier = -0.02 tooltip = fossil_pp_fuel_consumption_modifier_tt }
 			add_stability = 0.03
 			custom_effect_tooltip = {
@@ -3647,7 +3635,7 @@ focus_tree = {
 				MODIFIER = MAD_power_modifier
 			}
 			add_to_variable = { MAD_power_energy_gain_multiplier = 0.02 tooltip = energy_gain_multiplier_tt }
-			add_to_variable = { MAD_power_production_speed_fossil_powerplant_factor = 0.03 tooltip = production_speed_fossil_powerplant_factor_tt }
+			add_to_variable = { MAD_power_production_speed_fossil_powerplant_factor = 0.05 tooltip = production_speed_fossil_powerplant_factor_tt }
 			if = { limit = { has_idea = international_bankers } set_temp_variable = { temp_opinion = 6 } change_international_bankers_opinion = yes }
 			if = { limit = { has_idea = small_medium_business_owners } set_temp_variable = { temp_opinion = 2 } change_small_medium_business_owners_opinion = yes }
 		}
@@ -3741,7 +3729,8 @@ focus_tree = {
 				add_idea = MAD_AUSTRAL_AIRLINE
 			}
 			
-			set_temp_variable = { treasury_change = 6.00 }
+			# Initial Air Madagascar privatisation: 5% of GDP.
+			set_temp_variable = { treasury_change = { value = gdp_total multiply = 0.05 } }
 			modify_treasury_effect = yes
 			custom_effect_tooltip = {
 				localization_key = modifies_dynamic_modifier_tt
@@ -4004,13 +3993,19 @@ focus_tree = {
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_map_infestations"
 			add_political_power = 25
+			add_tech_bonus = {
+				name = MAD_CNA_GENETIC_ENGINEERING
+				category = CAT_genetics
+				bonus = 0.25
+				uses = 1
+			}
 			set_country_flag = MAD_DROUGHT_LOCUST_WATCH
 			custom_effect_tooltip = MAD_drought_unlock_locust_tt
 			custom_effect_tooltip = {
 				localization_key = modifies_dynamic_modifier_tt
 				MODIFIER = MAD_agriculture_modifier
 			}
-			add_to_variable = { MAD_agri_productivity = 0.01 tooltip = agricolture_productivity_modifier_tt }
+			add_to_variable = { MAD_agri_productivity = 0.05 tooltip = agricolture_productivity_modifier_tt }
 		}
 
 		ai_will_do = {
@@ -4044,7 +4039,7 @@ focus_tree = {
 				localization_key = modifies_dynamic_modifier_tt
 				MODIFIER = MAD_agriculture_modifier
 			}
-			add_to_variable = { MAD_agri_productivity = 0.03 tooltip = agricolture_productivity_modifier_tt }
+			add_to_variable = { MAD_agri_productivity = 0.05 tooltip = agricolture_productivity_modifier_tt }
 			add_to_variable = { MAD_agri_worker_req = -0.01 tooltip = agriculture_district_worker_requirement_modifier_tt }
 			
 			add_to_variable = { MAD_drought_cna_pressure_reduction = 0.20 tooltip = cna_pressure_reduction_tt }
@@ -4100,7 +4095,7 @@ focus_tree = {
 			add_to_variable = { MAD_economy_resource_export_multiplier_modifier = 0.05 tooltip = resource_export_multiplier_modifier_tt }
 			add_to_variable = { MAD_economy_international_market_income_modifier = 0.04 tooltip = international_market_income_modifier_tt }
 			add_to_variable = { MAD_economy_receiving_investment_duration_modifier = -0.03 tooltip = receiving_investment_duration_modifier_tt }
-			add_to_variable = { MAD_economy_production_speed_infrastructure_factor = 0.03 tooltip = production_speed_infrastructure_factor_tt }
+			add_to_variable = { MAD_economy_production_speed_infrastructure_factor = 0.05 tooltip = production_speed_infrastructure_factor_tt }
 		}
 
 		ai_will_do = {
@@ -4157,7 +4152,7 @@ focus_tree = {
 				localization_key = modifies_dynamic_modifier_tt
 				MODIFIER = MAD_economy_modifier
 			}
-			add_to_variable = { MAD_economy_production_speed_energy_infrastructure_factor = 0.03 tooltip = production_speed_energy_infrastructure_factor_tt }
+			add_to_variable = { MAD_economy_production_speed_energy_infrastructure_factor = 0.05 tooltip = production_speed_energy_infrastructure_factor_tt }
 			
 			MAD_JIRAMA_START_GENERATION_RECOVERY = yes
 		}
@@ -4455,7 +4450,7 @@ focus_tree = {
 				localization_key = modifies_dynamic_modifier_tt
 				MODIFIER = MAD_agriculture_modifier
 			}
-			add_to_variable = { MAD_agri_productivity = -0.02 tooltip = agricolture_productivity_modifier_tt }
+			add_to_variable = { MAD_agri_productivity = -0.05 tooltip = agricolture_productivity_modifier_tt }
 			add_to_variable = { MAD_agri_income_tax = -0.02 tooltip = agriculture_district_income_tax_modifier_tt }
 			hidden_effect = { clr_country_flag = MAD_DAEWOO_KOREAN_AGRI_SECTOR }
 			add_to_variable = { MAD_agri_worker_req = 0.03 tooltip = agriculture_district_worker_requirement_modifier_tt }
@@ -4580,7 +4575,7 @@ focus_tree = {
 				localization_key = modifies_dynamic_modifier_tt
 				MODIFIER = MAD_economy_modifier
 			}
-			add_to_variable = { MAD_economy_civilian_factories_productivity = 0.02 tooltip = civilian_factories_productivity_tt }
+			add_to_variable = { MAD_economy_civilian_factories_productivity = 0.05 tooltip = civilian_factories_productivity_tt }
 			add_to_variable = { MAD_economy_civilian_industry_tax_modifier = 0.05 tooltip = civilian_industry_tax_modifier_tt }
 			add_to_variable = { MAD_economy_production_speed_offices_factor = 0.05 tooltip = production_speed_offices_factor_tt }
 			add_power_balance_value = {
@@ -4651,7 +4646,7 @@ focus_tree = {
 			set_temp_variable = {
 				treasury_change = {
 					value = gdp_total
-					multiply = -0.04
+					multiply = -0.10 # State buyback matches the initial Telma sale price.
 				}
 			}
 			modify_treasury_effect = yes
@@ -4772,12 +4767,10 @@ focus_tree = {
 					level = 1
 					instant_build = yes
 				}
-				add_building_construction = {
-					type = air_facility
-					level = 1
-					instant_build = yes
-				}
 			}
+			# Special-project facilities are provincial and limited to one per state.
+			# Prefer Antananarivo, but fall back if another facility already occupies it.
+			MAD_build_air_facility_in_available_state = yes
 			GER = {
 				set_temp_variable = { treasury_change = -10.00 }
 				modify_treasury_effect = yes
@@ -4810,7 +4803,7 @@ focus_tree = {
 			add_to_variable = { MAD_economy_foreign_influence_modifier = -0.03 tooltip = foreign_influence_modifier_tt }
 			add_to_variable = { MAD_economy_receiving_investment_cost_modifier = -0.03 tooltip = receiving_investment_cost_modifier_tt }
 			add_to_variable = { MAD_economy_receiving_investment_duration_modifier = -0.05 tooltip = receiving_investment_duration_modifier_tt }
-			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.03 tooltip = productivity_growth_modifier_tt }
+			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.05 tooltip = productivity_growth_modifier_tt }
 			267 = {
 				add_extra_state_shared_building_slots = 1
 				add_building_construction = {
@@ -4999,7 +4992,7 @@ focus_tree = {
 				localization_key = modifies_dynamic_modifier_tt
 				MODIFIER = MAD_agriculture_modifier
 			}
-			add_to_variable = { MAD_agri_productivity = 0.02 tooltip = agricolture_productivity_modifier_tt }
+			add_to_variable = { MAD_agri_productivity = 0.05 tooltip = agricolture_productivity_modifier_tt }
 			add_to_variable = { MAD_agri_income_tax = 0.02 tooltip = agriculture_district_income_tax_modifier_tt }
 			
 			if = {
@@ -5071,7 +5064,7 @@ focus_tree = {
 				localization_key = modifies_dynamic_modifier_tt
 				MODIFIER = MAD_agriculture_modifier
 			}
-			add_to_variable = { MAD_agri_productivity = 0.02 tooltip = agricolture_productivity_modifier_tt }
+			add_to_variable = { MAD_agri_productivity = 0.05 tooltip = agricolture_productivity_modifier_tt }
 			add_to_variable = { MAD_agri_worker_req = -0.02 tooltip = agriculture_district_worker_requirement_modifier_tt }
 			
 			add_to_variable = { MAD_drought_cna_pressure_reduction = 0.30 tooltip = cna_pressure_reduction_tt }
@@ -5215,7 +5208,7 @@ focus_tree = {
 				MODIFIER = MAD_power_modifier
 			}
 			add_to_variable = { MAD_power_renewable_energy_gain_multiplier = 0.02 tooltip = renewable_energy_gain_multiplier_tt }
-			add_to_variable = { MAD_power_production_speed_renewable_energy_infra_factor = 0.03 tooltip = production_speed_renewable_energy_infra_factor_tt }
+			add_to_variable = { MAD_power_production_speed_renewable_energy_infra_factor = 0.05 tooltip = production_speed_renewable_energy_infra_factor_tt }
 			MAD_JIRAMA_START_GENERATION_RECOVERY = yes
 		}
 
@@ -5279,7 +5272,7 @@ focus_tree = {
 				MODIFIER = MAD_economy_modifier
 			}
 			add_to_variable = { MAD_economy_supply_node_range = 0.02 tooltip = supply_node_range_tt }
-			add_to_variable = { MAD_economy_production_speed_infrastructure_factor = 0.02 tooltip = production_speed_infrastructure_factor_tt }
+			add_to_variable = { MAD_economy_production_speed_infrastructure_factor = 0.05 tooltip = production_speed_infrastructure_factor_tt }
 		}
 
 		ai_will_do = {
@@ -5345,7 +5338,7 @@ focus_tree = {
 				MODIFIER = MAD_economy_modifier
 			}
 			add_to_variable = { MAD_economy_trade_opinion_factor = 0.05 tooltip = trade_opinion_factor_tt }
-			add_to_variable = { MAD_economy_offices_productivity = 0.03 tooltip = offices_productivity_tt }
+			add_to_variable = { MAD_economy_offices_productivity = 0.05 tooltip = offices_productivity_tt }
 			add_to_variable = { MAD_economy_receiving_investment_cost_modifier = 0.03 tooltip = receiving_investment_cost_modifier_tt }
 		}
 
@@ -5725,6 +5718,9 @@ focus_tree = {
 		completion_reward = {
 			log = "[GetDateText]: [This.GetName]: Focus MAD_RUBIS_BUYS_GALANA"
 			set_country_flag = MAD_GPM_PRIVATE_MODEL
+			# Initial Rubis/Galana privatisation proceeds: 8% of Madagascar GDP.
+			set_temp_variable = { treasury_change = { value = gdp_total multiply = 0.08 } }
+			modify_treasury_effect = yes
 			add_political_power = 25
 			custom_effect_tooltip = {
 				localization_key = modifies_dynamic_modifier_tt
@@ -6133,7 +6129,7 @@ focus_tree = {
 				localization_key = modifies_dynamic_modifier_tt
 				MODIFIER = MAD_economy_modifier
 			}
-			add_to_variable = { MAD_economy_production_factory_max_efficiency_factor = 0.03 tooltip = production_factory_max_efficiency_factor_tt }
+			add_to_variable = { MAD_economy_production_factory_max_efficiency_factor = 0.05 tooltip = production_factory_max_efficiency_factor_tt }
 		}
 
 		ai_will_do = {
@@ -6543,7 +6539,7 @@ focus_tree = {
 				localization_key = modifies_dynamic_modifier_tt
 				MODIFIER = MAD_economy_modifier
 			}
-			add_to_variable = { MAD_economy_production_factory_max_efficiency_factor = 0.02 tooltip = production_factory_max_efficiency_factor_tt }
+			add_to_variable = { MAD_economy_production_factory_max_efficiency_factor = 0.05 tooltip = production_factory_max_efficiency_factor_tt }
 		}
 
 		ai_will_do = {
@@ -6575,7 +6571,7 @@ focus_tree = {
 				localization_key = modifies_dynamic_modifier_tt
 				MODIFIER = MAD_economy_modifier
 			}
-			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.03 tooltip = productivity_growth_modifier_tt }
+			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.05 tooltip = productivity_growth_modifier_tt }
 			add_to_variable = { MAD_economy_receiving_investment_cost_modifier = -0.02 tooltip = receiving_investment_cost_modifier_tt }
 			add_tech_bonus = {
 				name = MADAGASCAR_AIRLINES
@@ -6619,7 +6615,7 @@ focus_tree = {
 			add_to_variable = { MAD_economy_foreign_influence_modifier = 0.03 tooltip = foreign_influence_modifier_tt }
 			add_to_variable = { MAD_economy_receiving_investment_cost_modifier = -0.03 tooltip = receiving_investment_cost_modifier_tt }
 			add_to_variable = { MAD_economy_receiving_investment_duration_modifier = -0.05 tooltip = receiving_investment_duration_modifier_tt }
-			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.03 tooltip = productivity_growth_modifier_tt }
+			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.05 tooltip = productivity_growth_modifier_tt }
 			set_temp_variable = { treasury_change = -12.00 }
 			modify_treasury_effect = yes
 		}
@@ -6702,7 +6698,7 @@ focus_tree = {
 				MODIFIER = MAD_power_modifier
 			}
 			add_to_variable = { MAD_power_renewable_energy_gain_multiplier = 0.02 tooltip = renewable_energy_gain_multiplier_tt }
-			add_to_variable = { MAD_power_production_speed_renewable_energy_infra_factor = 0.03 tooltip = production_speed_renewable_energy_infra_factor_tt }
+			add_to_variable = { MAD_power_production_speed_renewable_energy_infra_factor = 0.05 tooltip = production_speed_renewable_energy_infra_factor_tt }
 			add_to_variable = { MAD_power_renewable_infra_cost_multiplier_modifier = -0.03 tooltip = renewable_infra_cost_multiplier_modifier_tt }
 			add_stability = -0.01
 			
@@ -7119,12 +7115,9 @@ focus_tree = {
 			}
 			267 = {
 				add_extra_state_shared_building_slots = 1
-				add_building_construction = {
-					type = air_facility
-					level = 1
-					instant_build = yes
-				}
 			}
+			# Avoid failing when Antananarivo already contains another special-project facility.
+			MAD_build_air_facility_in_available_state = yes
 			add_breakthrough_points = {
 				specialization = specialization_air
 				value = 1
@@ -7213,7 +7206,7 @@ focus_tree = {
 				localization_key = modifies_dynamic_modifier_tt
 				MODIFIER = MAD_economy_modifier
 			}
-			add_to_variable = { MAD_economy_civilian_factories_productivity = 0.02 tooltip = civilian_factories_productivity_tt }
+			add_to_variable = { MAD_economy_civilian_factories_productivity = 0.05 tooltip = civilian_factories_productivity_tt }
 			add_to_variable = { MAD_economy_production_speed_offices_factor = 0.05 tooltip = production_speed_offices_factor_tt }
 		}
 
@@ -7246,7 +7239,7 @@ focus_tree = {
 				MODIFIER = MAD_economy_modifier
 			}
 			add_to_variable = { MAD_economy_consumer_goods_factor = -0.03 tooltip = consumer_goods_factor_tt }
-			add_to_variable = { MAD_economy_civilian_factories_productivity = -0.02 tooltip = civilian_factories_productivity_tt }
+			add_to_variable = { MAD_economy_civilian_factories_productivity = -0.05 tooltip = civilian_factories_productivity_tt }
 			if = {
 				limit = { has_idea = small_medium_business_owners }
 				set_temp_variable = { temp_opinion = -10 }
@@ -7312,7 +7305,7 @@ focus_tree = {
 			}
 			add_to_variable = { MAD_economy_production_speed_infrastructure_factor = 0.05 tooltip = production_speed_infrastructure_factor_tt }
 			add_to_variable = { MAD_economy_consumer_goods_factor = 0.05 tooltip = consumer_goods_factor_tt }
-			add_to_variable = { MAD_economy_civilian_factories_productivity = 0.03 tooltip = civilian_factories_productivity_tt }
+			add_to_variable = { MAD_economy_civilian_factories_productivity = 0.05 tooltip = civilian_factories_productivity_tt }
 			add_to_variable = { MAD_economy_infrastructure_tax_gain_multiplier_modifier = -0.10 tooltip = infrastructure_tax_gain_multiplier_modifier_tt }
 			 
 			two_random_network_infrastructure = yes
@@ -7390,7 +7383,7 @@ focus_tree = {
 			add_to_variable = { MAD_economy_infrastructure_tax_gain_multiplier_modifier = 0.10 tooltip = infrastructure_tax_gain_multiplier_modifier_tt }
 			add_to_variable = { MAD_economy_civilian_industry_tax_modifier = 0.05 tooltip = civilian_industry_tax_modifier_tt }
 			add_to_variable = { MAD_economy_trade_opinion_factor = -0.05 tooltip = trade_opinion_factor_tt }
-			add_to_variable = { MAD_economy_civilian_factories_productivity = -0.02 tooltip = civilian_factories_productivity_tt }
+			add_to_variable = { MAD_economy_civilian_factories_productivity = -0.05 tooltip = civilian_factories_productivity_tt }
 			if = {
 				limit = { has_idea = small_medium_business_owners }
 				set_temp_variable = { temp_opinion = -5 }
@@ -7429,7 +7422,7 @@ focus_tree = {
 				name = MAD_TELMA_SIGINT_SHARING
 				category = CAT_command_and_control_equipment
 				uses = 2
-				bonus = 0.10
+				bonus = 0.25
 			}
 			 
 			add_political_power = 25
@@ -7476,7 +7469,7 @@ focus_tree = {
 				localization_key = modifies_dynamic_modifier_tt
 				MODIFIER = MAD_economy_modifier
 			}
-			add_to_variable = { MAD_economy_civilian_factories_productivity = 0.02 tooltip = civilian_factories_productivity_tt }
+			add_to_variable = { MAD_economy_civilian_factories_productivity = 0.05 tooltip = civilian_factories_productivity_tt }
 			if = {
 				limit = { has_idea = the_military }
 				set_temp_variable = { temp_opinion = 5 }
@@ -7704,6 +7697,7 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [This.GetName]: Focus MAD_MVOLA_CASH_TRANSFERS"
+			set_country_flag = MAD_MVOLA_CASH_TRANSFERS_UNLOCKED
 			custom_effect_tooltip = MAD_drought_unlock_cash_tt
 		}
 
@@ -7741,7 +7735,7 @@ focus_tree = {
 				localization_key = modifies_dynamic_modifier_tt
 				MODIFIER = MAD_economy_modifier
 			}
-			add_to_variable = { MAD_economy_productivity_growth_modifier = -0.03 tooltip = productivity_growth_modifier_tt }
+			add_to_variable = { MAD_economy_productivity_growth_modifier = -0.05 tooltip = productivity_growth_modifier_tt }
 			add_to_variable = { MAD_economy_receiving_investment_cost_modifier = 0.05 tooltip = receiving_investment_cost_modifier_tt }
 			add_to_variable = { MAD_economy_receiving_investment_duration_modifier = 0.05 tooltip = receiving_investment_duration_modifier_tt }
 			add_to_variable = { MAD_economy_stability_factor = -0.05 tooltip = stability_factor_tt }
@@ -7786,7 +7780,7 @@ focus_tree = {
 				localization_key = modifies_dynamic_modifier_tt
 				MODIFIER = MAD_agriculture_modifier
 			}
-			add_to_variable = { MAD_agri_productivity = -0.02 tooltip = agricolture_productivity_modifier_tt }
+			add_to_variable = { MAD_agri_productivity = -0.05 tooltip = agricolture_productivity_modifier_tt }
 			add_to_variable = { MAD_agri_income_tax = -0.02 tooltip = agriculture_district_income_tax_modifier_tt }
 			add_to_variable = { MAD_agri_worker_req = 0.02 tooltip = agriculture_district_worker_requirement_modifier_tt }
 			add_stability = -0.02
@@ -7892,7 +7886,7 @@ focus_tree = {
 				localization_key = modifies_dynamic_modifier_tt
 				MODIFIER = MAD_agriculture_modifier
 			}
-			add_to_variable = { MAD_agri_productivity = -0.03 tooltip = agricolture_productivity_modifier_tt }
+			add_to_variable = { MAD_agri_productivity = -0.05 tooltip = agricolture_productivity_modifier_tt }
 			add_to_variable = { MAD_agri_income_tax = -0.03 tooltip = agriculture_district_income_tax_modifier_tt }
 			add_to_variable = { MAD_agri_worker_req = 0.02 tooltip = agriculture_district_worker_requirement_modifier_tt }
 			add_stability = -0.02
@@ -7933,7 +7927,7 @@ focus_tree = {
 				localization_key = modifies_dynamic_modifier_tt
 				MODIFIER = MAD_agriculture_modifier
 			}
-			add_to_variable = { MAD_agri_productivity = 0.04 tooltip = agricolture_productivity_modifier_tt }
+			add_to_variable = { MAD_agri_productivity = 0.05 tooltip = agricolture_productivity_modifier_tt }
 			add_to_variable = { MAD_agri_income_tax = 0.03 tooltip = agriculture_district_income_tax_modifier_tt }
 			add_to_variable = { MAD_agri_worker_req = -0.02 tooltip = agriculture_district_worker_requirement_modifier_tt }
 			custom_effect_tooltip = {
@@ -8125,10 +8119,7 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			random_owned_state = {
-				limit = { can_construct_building = land_facility }
-				construct_building_in_random_province = { nuclear_facility = 1 }
-			}
+			MAD_build_nuclear_facility_in_available_state = yes
 			set_temp_variable = { treasury_change = -15.00 }
 			modify_treasury_effect = yes
 			set_country_flag = MAD_ROY_LIVING_FORCES_CONVENED
@@ -8427,6 +8418,8 @@ focus_tree = {
 		}
 
 		completion_reward = {
+			# The Royal Academy's civilian research institute is a nuclear_facility in MD.
+			MAD_build_nuclear_facility_in_available_state = yes
 			random_owned_state = {
 				add_extra_state_shared_building_slots = 1
 				add_building_construction = { type = industrial_complex level = 1 instant_build = yes }
@@ -8892,6 +8885,7 @@ focus_tree = {
 		}
 
 		completion_reward = {
+
 			267 = {
 				add_extra_state_shared_building_slots = 2
 				add_building_construction = { type = offices level = 1 instant_build = yes }
@@ -8923,6 +8917,10 @@ focus_tree = {
 		}
 
 		completion_reward = {
+			set_temp_variable = { MAD_rc_delta = 6 }
+			MAD_rural_cooperation_adjust = yes
+			custom_effect_tooltip = MAD_RURAL_COOP_FOCUS_GAIN_6_TT
+
 			add_tech_bonus = {
 				name = MAD_POL_ROY_TAMIMA_LIVING_FORCES
 				category = CAT_Civilian
@@ -8974,6 +8972,9 @@ focus_tree = {
 		}
 
 		completion_reward = {
+			set_temp_variable = { MAD_rc_delta = 6 }
+			MAD_rural_cooperation_adjust = yes
+			custom_effect_tooltip = MAD_RURAL_COOP_FOCUS_GAIN_6_TT
 			random_core_state = {
 				add_extra_state_shared_building_slots = 1
 				add_building_construction = { type = infrastructure level = 1 instant_build = yes }
@@ -9014,6 +9015,10 @@ focus_tree = {
 		}
 
 		completion_reward = {
+			set_temp_variable = { MAD_rc_delta = 4 }
+			MAD_rural_cooperation_adjust = yes
+			custom_effect_tooltip = MAD_RURAL_COOP_FOCUS_GAIN_4_TT
+
 			decrease_corruption = yes
 			add_stability = 0.015
 			decrease_centralization = yes
@@ -9049,10 +9054,7 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			random_owned_state = {
-				limit = { can_construct_building = land_facility }
-				construct_building_in_random_province = { nuclear_facility = 1 }
-			}
+			# Facility construction is decided by the following custodianship event.
 			increase_education_budget = yes
 			if = {
 				limit = { has_variable = literacy_rate check_variable = { literacy_rate < 0.899 } }
@@ -9503,6 +9505,10 @@ focus_tree = {
 		}
 
 		completion_reward = {
+			set_temp_variable = { MAD_rc_delta = 4 }
+			MAD_rural_cooperation_adjust = yes
+			custom_effect_tooltip = MAD_RURAL_COOP_FOCUS_GAIN_4_TT
+
 			swap_ideas = {
 				remove_idea = MAD_MIL_PROFESSIONAL_OFFICERS
 				add_idea = MAD_MIL_SOUTHERN_SECURITY
@@ -9542,6 +9548,10 @@ focus_tree = {
 		}
 
 		completion_reward = {
+			set_temp_variable = { MAD_rc_delta = 5 }
+			MAD_rural_cooperation_adjust = yes
+			custom_effect_tooltip = MAD_RURAL_COOP_FOCUS_GAIN_GENDARMERIE_TT
+
 			swap_ideas = {
 				remove_idea = MAD_MIL_SOUTHERN_SECURITY
 				add_idea = MAD_MIL_GENDARMERIE_REFORM
@@ -9580,6 +9590,10 @@ focus_tree = {
 		}
 
 		completion_reward = {
+			set_temp_variable = { MAD_rc_delta = 4 }
+			MAD_rural_cooperation_adjust = yes
+			custom_effect_tooltip = MAD_RURAL_COOP_FOCUS_GAIN_4_TT
+
 			swap_ideas = {
 				remove_idea = MAD_MIL_GENDARMERIE_REFORM
 				add_idea = MAD_MIL_ENGINEER_CORPS
@@ -9893,6 +9907,19 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_AREMA_CHOOSE_RENEWAL"
+			# Retire Ratsiraka and record that a successor, not Ratsiraka, leads this AREMA route.
+			hidden_effect = {
+				kill_country_leader = yes
+				set_country_flag = MAD_RATSIRAKA_SUCCESSOR_SELECTED
+				# Disarm any startup first-loss tracking; the Ratsiraka exile/civil-war chain is not for successor-led AREMA.
+				clr_country_flag = MAD_RATSIRAKA_FIRST_LOSS_PENDING
+				clr_country_flag = MAD_RATSIRAKA_EVENT_QUEUED
+				clr_country_flag = MAD_RATSIRAKA_EXILE_EVENT_PENDING
+				clr_country_flag = MAD_VIVA_INTERVIEW_PENDING
+				clr_country_flag = MAD_RATSIRAKA_COALITION_TRACKING
+				clr_country_flag = MAD_RATSIRAKA_COALITION_TIMED_OUT
+				set_variable = { MAD_RATSIRAKA_FORMATION_STABLE_DAYS = 0 }
+			}
 			create_country_leader = {
 				name = "Pierrot Rajaonarivelo"
 				picture = "Pierrot_Rajaonarivelo.dds"
@@ -9938,6 +9965,19 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_AREMA_CHOOSE_RECONCILIATION"
+			# Retire Ratsiraka and record that a successor, not Ratsiraka, leads this AREMA route.
+			hidden_effect = {
+				kill_country_leader = yes
+				set_country_flag = MAD_RATSIRAKA_SUCCESSOR_SELECTED
+				# Disarm any startup first-loss tracking; the Ratsiraka exile/civil-war chain is not for successor-led AREMA.
+				clr_country_flag = MAD_RATSIRAKA_FIRST_LOSS_PENDING
+				clr_country_flag = MAD_RATSIRAKA_EVENT_QUEUED
+				clr_country_flag = MAD_RATSIRAKA_EXILE_EVENT_PENDING
+				clr_country_flag = MAD_VIVA_INTERVIEW_PENDING
+				clr_country_flag = MAD_RATSIRAKA_COALITION_TRACKING
+				clr_country_flag = MAD_RATSIRAKA_COALITION_TIMED_OUT
+				set_variable = { MAD_RATSIRAKA_FORMATION_STABLE_DAYS = 0 }
+			}
 			create_country_leader = {
 				name = "Pierre Raharijaona"
 				picture = "Pierre_Raharijaona.dds"
@@ -10057,7 +10097,7 @@ focus_tree = {
 				localization_key = modifies_dynamic_modifier_tt
 				MODIFIER = MAD_agriculture_modifier
 			}
-			add_to_variable = { MAD_agri_productivity = 0.02 tooltip = agricolture_productivity_modifier_tt }
+			add_to_variable = { MAD_agri_productivity = 0.05 tooltip = agricolture_productivity_modifier_tt }
 			
 			increase_education_budget = yes
 			increase_healthcare_budget = yes
@@ -10458,13 +10498,17 @@ focus_tree = {
 		}
 
 		completion_reward = {
+			set_temp_variable = { MAD_rc_delta = 6 }
+			MAD_rural_cooperation_adjust = yes
+			custom_effect_tooltip = MAD_RURAL_COOP_FOCUS_GAIN_6_TT
+
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_AREMA_FOKONOLONA"
 			
 			custom_effect_tooltip = {
 				localization_key = modifies_dynamic_modifier_tt
 				MODIFIER = MAD_agriculture_modifier
 			}
-			add_to_variable = { MAD_agri_productivity = 0.04 tooltip = agricolture_productivity_modifier_tt }
+			add_to_variable = { MAD_agri_productivity = 0.05 tooltip = agricolture_productivity_modifier_tt }
 			
 			decrease_centralization = yes
 			one_random_agriculture_district = yes
@@ -10500,6 +10544,10 @@ focus_tree = {
 		}
 
 		completion_reward = {
+			set_temp_variable = { MAD_rc_delta = 6 }
+			MAD_rural_cooperation_adjust = yes
+			custom_effect_tooltip = MAD_RURAL_COOP_FOCUS_GAIN_6_TT
+
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_AREMA_FOOD_FIRST"
 			if = {
 				limit = {
@@ -10693,6 +10741,10 @@ focus_tree = {
 		}
 
 		completion_reward = {
+			set_temp_variable = { MAD_rc_delta = 4 }
+			MAD_rural_cooperation_adjust = yes
+			custom_effect_tooltip = MAD_RURAL_COOP_FOCUS_GAIN_4_TT
+
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_AREMA_PROVINCES"
 			
 			
@@ -12145,6 +12197,10 @@ focus_tree = {
 		}
 
 		completion_reward = {
+			set_temp_variable = { MAD_rc_delta = 6 }
+			MAD_rural_cooperation_adjust = yes
+			custom_effect_tooltip = MAD_RURAL_COOP_FOCUS_GAIN_6_TT
+
 			if = { limit = { has_completed_focus = MAD_JIRAMA_RECOVERY_SUCCEEDS } 
 				custom_effect_tooltip = {
 					localization_key = modifies_dynamic_modifier_tt
@@ -12269,6 +12325,10 @@ focus_tree = {
 		}
 
 		completion_reward = {
+			set_temp_variable = { MAD_rc_delta = 6 }
+			MAD_rural_cooperation_adjust = yes
+			custom_effect_tooltip = MAD_RURAL_COOP_FOCUS_GAIN_6_TT
+
 			custom_effect_tooltip = {
 			            	localization_key = modifies_dynamic_modifier_tt
 			            	MODIFIER = MAD_economy_modifier
@@ -13602,7 +13662,7 @@ focus_tree = {
 			custom_effect_tooltip = MAD_ARMY_CENTRALISED_PROCUREMENT_EQUIPMENT_COST_TT
 			add_to_variable = { MAD_ARMY_CMD_EQUIPMENT_COST_MULTIPLIER_MODIFIER = -0.05 }
 			custom_effect_tooltip = MAD_ARMY_CENTRALISED_PROCUREMENT_PRODUCTION_TT
-			add_to_variable = { MAD_ARMY_CMD_PRODUCTION_SPEED_ARMS_FACTORY_FACTOR = 0.04 }
+			add_to_variable = { MAD_ARMY_CMD_PRODUCTION_SPEED_ARMS_FACTORY_FACTOR = 0.05 }
 			custom_effect_tooltip = MAD_ARMY_CENTRALISED_PROCUREMENT_SPENDING_TT
 			add_to_variable = { MAD_ARMY_CMD_MILITARY_SPENDING_COST_FACTOR = -0.03 }
 			custom_effect_tooltip = MAD_ARMY_CENTRALISED_PROCUREMENT_SUPPLY_TT
@@ -14395,7 +14455,7 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_ARMY_SPECIAL_PROJECTS_BUREAU"
-			267 = { add_building_construction = { type = land_facility level = 1 instant_build = yes } }
+			MAD_build_land_facility_in_available_state = yes
 			set_temp_variable = { treasury_change = -15.0 }
 			modify_treasury_effect = yes
 			
@@ -14752,6 +14812,32 @@ focus_tree = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_NAVAL_FORCE_REVIEW"
 			        navy_experience = 10
 			                    add_mastery = { amount = 10 folder = naval }
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_REQUEST_FRENCH_CORVETTES
+		icon = frigates
+		x = 84
+		y = 33
+		cost = 3
+		prerequisite = { focus = MAD_NAVAL_FORCE_REVIEW }
+		search_filters = { FOCUS_FILTER_NAVY FOCUS_FILTER_EQUIPMENT }
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_FRENCH_CORVETTES_AFFORD_TT
+				check_variable = { treasury > 4.99 }
+			}
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_REQUEST_FRENCH_CORVETTES"
+			set_country_flag = MAD_FRENCH_CORVETTE_REQUEST_SENT
+			FRA = { country_event = { id = mad_naval.7 days = 1 } }
 		}
 
 		ai_will_do = {
