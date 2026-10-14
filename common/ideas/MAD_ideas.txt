@@ -719,7 +719,7 @@ ideas = {
 				supply_consumption_factor = -0.03
 			}
 		}
-		 MAD_POL_ROYAL_CONSTITUTION = {
+		MAD_POL_ROYAL_CONSTITUTION = {
             picture = GFX_idea_generic_political_pressure
             allowed = { original_tag = MAD }
             removal_cost = -1
@@ -764,6 +764,101 @@ ideas = {
         		}
         		clr_country_flag = MAD_PI_ACTIVE_MAD_POL_ROYAL_GOVERNMENT
         	}
+        }
+        # These are neutral constitutional ideas, separate from the party-synchronised
+        # Royalist political programme above. They persist across changes of government.
+        # Focus-granted recruitment modifiers must live in an idea modifier block, not as a focus effect.
+        MAD_REMENABILA_GATHER_DAHALO_POPULATION_IDEA = {
+            name = MAD_REMENABILA_GATHER_DAHALO_POPULATION_IDEA
+            picture = GFX_idea_generic_political_pressure
+            allowed = { original_tag = MAD }
+            removal_cost = -1
+            modifier = { recruitable_population = 0.01 }
+        }
+        MAD_REMENABILA_MORE_COWS_POPULATION_IDEA = {
+            name = MAD_REMENABILA_MORE_COWS_POPULATION_IDEA
+            picture = GFX_idea_generic_political_pressure
+            allowed = { original_tag = MAD }
+            removal_cost = -1
+            modifier = { recruitable_population = 0.03 }
+        }
+
+        MAD_RURAL_LOCAL_DEVELOPMENT_BOOST = {
+            name = MAD_RURAL_LOCAL_DEVELOPMENT_BOOST
+            picture = GFX_idea_generic_infrastructure
+            allowed = { original_tag = MAD }
+            removal_cost = -1
+            modifier = {
+                production_speed_infrastructure_factor = 0.15
+            }
+        }
+
+        MAD_POL_SECULAR_GOVERNMENT = {
+            name = MAD_POL_SECULAR_GOVERNMENT
+            picture = GFX_idea_generic_political_pressure
+            allowed = { original_tag = MAD }
+            removal_cost = -1
+            modifier = {
+                # Millennium Dawn internal-faction modifier: persistent monthly drift.
+                if_the_clergy_monthly_opinion = -0.5
+                bureaucracy_cost_multiplier_modifier = -0.05
+                education_cost_multiplier_modifier = -0.05
+                corruption_cost_factor = -0.10
+                custom_modifier_tooltip = MAD_POL_SECULAR_GOVERNMENT_RC_MONTHLY_TT
+            }
+        }
+        MAD_POL_UNSECULAR_GOVERNMENT = {
+            name = MAD_POL_UNSECULAR_GOVERNMENT
+            picture = GFX_idea_generic_political_pressure
+            allowed = { original_tag = MAD }
+            removal_cost = -1
+            modifier = {
+                # Millennium Dawn internal-faction modifier: persistent monthly drift.
+                if_the_clergy_monthly_opinion = 0.5
+                corruption_cost_factor = 0.15
+                education_cost_multiplier_modifier = 0.10
+                stability_factor = -0.03
+                custom_modifier_tooltip = MAD_POL_UNSECULAR_GOVERNMENT_RC_MONTHLY_TT
+            }
+        }
+        MAD_POL_ANDRIANA_HERITAGE_RECOGNISED = {
+            name = MAD_POL_ANDRIANA_HERITAGE_RECOGNISED
+            picture = GFX_idea_generic_political_pressure
+            allowed = { original_tag = MAD }
+            removal_cost = -1
+            modifier = {
+                nationalist_drift = 0.03
+                bureaucracy_cost_multiplier_modifier = 0.05
+                corruption_cost_factor = 0.15
+                custom_modifier_tooltip = MAD_ANDRIANA_HERITAGE_RC_MONTHLY_TT
+            }
+        }
+        MAD_POL_ANDRIANA_NON_RECOGNITION = {
+            name = MAD_POL_ANDRIANA_NON_RECOGNITION
+            picture = GFX_idea_generic_political_pressure
+            allowed = { original_tag = MAD }
+            removal_cost = -1
+            modifier = {
+                bureaucracy_cost_multiplier_modifier = -0.05
+                custom_modifier_tooltip = MAD_ANDRIANA_NON_RECOGNITION_RC_MONTHLY_TT
+            }
+        }
+        MAD_POL_AREMA_REPUBLICAN_SECULARISM = {
+            # Inert migration shell for saves from versions that applied this redundant policy idea.
+            # MAD_rural_governance_policy_sync removes it; AREMA's constitution rule is enforced on ruling-party changes.
+            name = MAD_POL_AREMA_REPUBLICAN_SECULARISM
+            picture = GFX_idea_generic_political_pressure
+            allowed = { original_tag = MAD }
+            removal_cost = -1
+        }
+        MAD_MADARAIL_COMAZAR_FREIGHT_CONCESSION = {
+            name = MAD_MADARAIL_COMAZAR_FREIGHT_CONCESSION
+            picture = GFX_idea_generic_political_pressure
+            allowed = { original_tag = MAD }
+            removal_cost = -1
+            modifier = {
+                custom_modifier_tooltip = MAD_MADARAIL_COMAZAR_RC_MONTHLY_TT
+            }
         }
         MAD_POL_CHRISTOCRATIC_STATE = {
             picture = GFX_idea_generic_political_pressure

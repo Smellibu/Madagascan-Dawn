@@ -1,4 +1,4 @@
-﻿### ==============================================================
+### ==============================================================
 ### EVENT - fires once MAD_AMBATOVY_TOTAL hits 100 (JV formed)
 ### Hook this into whichever effect field runs on successful
 ### early ACTIVATION, not TIMEOUT_EFFECT.
@@ -514,6 +514,7 @@ country_event = {
 	option = {
 		name = mad_daewoo.2.a
 		log = "[GetDateText]: [Root.GetName]: mad_daewoo.2 - Daewoo lease managed well"
+		custom_effect_tooltip = MAD_DAEWOO_RURAL_COOP_DRAIN_TT
 		set_country_flag = MAD_DAEWOO_OUTCOME_WELL
 	}
 }
@@ -1083,36 +1084,40 @@ country_event = {
 		name = mad_drought.displacement.a
 		custom_effect_tooltip = mad_drought.displacement.option_header_tt
 		if = {
-			limit = { check_variable = { MAD_drought_transfer_gross_266 > 0.5 } }
-			custom_effect_tooltip = mad_drought.displacement.departure_266_tt
+			limit = { check_variable = { MAD_drought_report_net_266 > 0.5 } }
+			custom_effect_tooltip = mad_drought.displacement.net_266_positive_tt
+		}
+		else_if = {
+			limit = { check_variable = { MAD_drought_report_net_266 < -0.5 } }
+			custom_effect_tooltip = mad_drought.displacement.net_266_negative_tt
 		}
 		if = {
-			limit = { check_variable = { MAD_drought_transfer_gross_267 > 0.5 } }
-			custom_effect_tooltip = mad_drought.displacement.departure_267_tt
+			limit = { check_variable = { MAD_drought_report_net_267 > 0.5 } }
+			custom_effect_tooltip = mad_drought.displacement.net_267_positive_tt
+		}
+		else_if = {
+			limit = { check_variable = { MAD_drought_report_net_267 < -0.5 } }
+			custom_effect_tooltip = mad_drought.displacement.net_267_negative_tt
 		}
 		if = {
-			limit = { check_variable = { MAD_drought_transfer_gross_268 > 0.5 } }
-			custom_effect_tooltip = mad_drought.displacement.departure_268_tt
+			limit = { check_variable = { MAD_drought_report_net_268 > 0.5 } }
+			custom_effect_tooltip = mad_drought.displacement.net_268_positive_tt
+		}
+		else_if = {
+			limit = { check_variable = { MAD_drought_report_net_268 < -0.5 } }
+			custom_effect_tooltip = mad_drought.displacement.net_268_negative_tt
 		}
 		if = {
-			limit = { check_variable = { MAD_drought_transfer_gross_487 > 0.5 } }
-			custom_effect_tooltip = mad_drought.displacement.departure_487_tt
+			limit = { check_variable = { MAD_drought_report_net_487 > 0.5 } }
+			custom_effect_tooltip = mad_drought.displacement.net_487_positive_tt
+		}
+		else_if = {
+			limit = { check_variable = { MAD_drought_report_net_487 < -0.5 } }
+			custom_effect_tooltip = mad_drought.displacement.net_487_negative_tt
 		}
 		if = {
-			limit = { check_variable = { MAD_drought_report_arrivals_266 > 0.5 } }
-			custom_effect_tooltip = mad_drought.displacement.arrival_266_tt
-		}
-		if = {
-			limit = { check_variable = { MAD_drought_report_arrivals_267 > 0.5 } }
-			custom_effect_tooltip = mad_drought.displacement.arrival_267_tt
-		}
-		if = {
-			limit = { check_variable = { MAD_drought_report_arrivals_268 > 0.5 } }
-			custom_effect_tooltip = mad_drought.displacement.arrival_268_tt
-		}
-		if = {
-			limit = { check_variable = { MAD_drought_report_arrivals_487 > 0.5 } }
-			custom_effect_tooltip = mad_drought.displacement.arrival_487_tt
+			limit = { check_variable = { MAD_drought_report_deaths_monthly > 0.5 } }
+			custom_effect_tooltip = mad_drought.displacement.deaths_monthly_tt
 		}
 		if = {
 			limit = { check_variable = { MAD_drought_report_arrivals_COM > 0.5 } }
@@ -1478,9 +1483,18 @@ country_event = {
 	picture = GFX_report_event_economy_default
 	is_triggered_only = yes
 
+	immediate = {
+		# The scandal itself damages trust in the state before the response is chosen.
+		set_temp_variable = { MAD_rc_delta = -10 }
+		MAD_rural_cooperation_adjust = yes
+	}
+
 	option = {
 		name = mad_qmm.1.a
 		log = "[GetDateText]: [Root.GetName]: mad_qmm.1.a - QMM scandal covered up"
+		custom_effect_tooltip = MAD_QMM_COVERUP_COOP_TT
+		set_temp_variable = { MAD_rc_delta = -5 }
+		MAD_rural_cooperation_adjust = yes
 
 		if = {
 			limit = { has_idea = international_bankers }
@@ -1504,6 +1518,10 @@ country_event = {
 	option = {
 		name = mad_qmm.1.b
 		log = "[GetDateText]: [Root.GetName]: mad_qmm.1.b - QMM scandal investigated and cleaned up"
+		custom_effect_tooltip = MAD_QMM_CLEANUP_COOP_TT
+		# Transparent remediation restores part, but not all, of the trust lost to the scandal.
+		set_temp_variable = { MAD_rc_delta = 5 }
+		MAD_rural_cooperation_adjust = yes
 
 		decrease_corruption = yes
 		set_temp_variable = { corp_change = -5 }
@@ -1894,7 +1912,7 @@ country_event = {
 		if = { limit = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM } multiply_temp_variable = { MAD_rc_delta = 0.75 } }
 		MAD_rural_cooperation_adjust = yes
 		custom_effect_tooltip = MAD_RURAL_COOPERATION_SPENT_TT
-set_temp_variable = { treasury_change = -0.75 }
+		set_temp_variable = { treasury_change = -0.75 }
 		modify_treasury_effect = yes
 		add_to_variable = { MAD_dahalo_threat = 4 tooltip = MAD_DAHALO_THREAT_PLUS_4_TT }
 		add_to_variable = { MAD_economy_receiving_investment_duration_modifier = 0.01 tooltip = receiving_investment_duration_modifier_tt }
@@ -4784,6 +4802,7 @@ country_event = {
         name = mad_naval.5.b
         log = "[GetDateText]: [This.GetName]: mad_naval.5.b executed"
         set_country_flag = MAD_NAVAL_HELICOPTER_OPERATOR_AUTHORIZED
+        mark_focus_tree_layout_dirty = yes
         add_tech_bonus = { name = MAD_NAVAL_OPERATOR_STUDY category = CAT_helicopter_operators bonus = 0.25 uses = 1 }
         if = { limit = { has_dlc = "Arms Against Tyranny" } mio:MAD_SECREN_shipbuilding = { add_mio_research_bonus = 0.03 } }
     }
@@ -4825,36 +4844,82 @@ country_event = {
     option = {
         name = mad_naval.7.a
         log = "[GetDateText]: [This.GetName]: mad_naval.7.a accepted French corvette sale"
+
+        # Clear any stale fallback flag from an earlier attempt.
+        clr_country_flag = MAD_NAVAL_RECREATE_65_CORVETTES
+
+        # Check whether France has at least two corvettes.
+        # Prefer the two named Tripartite-class ships.
         if = {
-            limit = { MAD = { check_variable = { treasury > 4.99 } } }
-            MAD = {
-                # D'Estienne d'Orves-class corvettes use MD's 1970s-era corvette hull 2.
-                create_ship = { type = corvette_hull_2 equipment_variant = "D'Estienne d'Orves Class" creator = FRA name = "Toliara (C-01)" }
-                create_ship = { type = corvette_hull_2 equipment_variant = "D'Estienne d'Orves Class" creator = FRA name = "Toamasina (C-02)" }
-                set_temp_variable = { treasury_change = -5.00 }
-                modify_treasury_effect = yes
-                set_country_flag = MAD_FRENCH_CORVETTES_PURCHASED
-                country_event = { id = mad_naval.8 days = 1 }
+            limit = {
+                has_navy_size = {
+                    size > 1
+                    type = corvette
+                }
             }
-            set_temp_variable = { treasury_change = 5.00 }
-            modify_treasury_effect = yes
-            # As in the Saudi naval procurement example, the seller gains influence over the buyer.
-            set_temp_variable = { percent_change = 6 }
-            set_temp_variable = { tag_index = FRA }
-            set_temp_variable = { influence_target = MAD }
-            change_influence_percentage = yes
+
+            transfer_ship = {
+                prefer_name = "Pégase (M644)"
+                type = corvette
+                target = MAD
+                exclude_refitting = no
+            }
+
+            transfer_ship = {
+                prefer_name = "Orion (M645)"
+                type = corvette
+                target = MAD
+                exclude_refitting = no
+            }
         }
         else = {
-            MAD = { country_event = { id = mad_naval.10 days = 1 } }
+            # Fallback: remove available French corvettes and
+            # create the replacement ships for Madagascar in Event 8.
+            destroy_ships = {
+                type = corvette
+                count = 2
+            }
+
+            set_country_flag = MAD_NAVAL_RECREATE_65_CORVETTES
         }
-        ai_chance = { factor = 6 }
+
+        # France receives the sale payment.
+        set_temp_variable = { treasury_change = 5.00 }
+        modify_treasury_effect = yes
+
+        # Increase French influence over Madagascar.
+        set_temp_variable = { percent_change = 6 }
+        set_temp_variable = { tag_index = FRA }
+        set_temp_variable = { influence_target = MAD }
+        change_influence_percentage = yes
+
+        # Trigger Madagascar's receipt event.
+        MAD = {
+            country_event = {
+                id = mad_naval.8
+                days = 1
+            }
+        }
+
+        ai_chance = {
+            factor = 6
+        }
     }
 
     option = {
         name = mad_naval.7.b
         log = "[GetDateText]: [This.GetName]: mad_naval.7.b declined French corvette sale"
-        MAD = { country_event = { id = mad_naval.9 days = 1 } }
-        ai_chance = { factor = 4 }
+
+        MAD = {
+            country_event = {
+                id = mad_naval.9
+                days = 1
+            }
+        }
+
+        ai_chance = {
+            factor = 4
+        }
     }
 }
 
@@ -4865,12 +4930,71 @@ country_event = {
     desc = mad_naval.8.d
     picture = GFX_report_event_generic_political
     is_triggered_only = yes
+
     option = {
         name = mad_naval.8.a
         log = "[GetDateText]: [This.GetName]: mad_naval.8.a corvettes received"
+
+        # Fallback only: create replacement ships if Event 7
+        # could not use its corvette-transfer branch.
+        if = {
+            limit = {
+                FRA = {
+                    has_country_flag = MAD_NAVAL_RECREATE_65_CORVETTES
+                }
+            }
+
+            create_ship = {
+                type = corvette_hull_1
+                equipment_variant = "Tripartite Class"
+                creator = FRA
+                name = "Pégase (M644)"
+            }
+
+            create_ship = {
+                type = corvette_hull_1
+                equipment_variant = "Tripartite Class"
+                creator = FRA
+                name = "Orion (M645)"
+            }
+
+            FRA = {
+                clr_country_flag = MAD_NAVAL_RECREATE_65_CORVETTES
+            }
+        }
+
+        # Madagascar pays for the purchase.
+        set_temp_variable = { treasury_change = -5.00 }
+        modify_treasury_effect = yes
+
+        set_country_flag = MAD_FRENCH_CORVETTES_PURCHASED
+
+        # Fully complete Naval Vessel Experimentation
+        # only if it has not already been completed.
+        if = {
+            limit = {
+                NOT = {
+                    is_special_project_completed = sp:sp_naval_vessel_project
+                }
+            }
+
+            complete_special_project = sp:sp_naval_vessel_project
+        }
+
+        # Grant the 1965 Corvette technology only if missing.
+        if = {
+            limit = {
+                NOT = {
+                    has_tech = corvette_hull_1
+                }
+            }
+
+            set_technology = {
+                corvette_hull_1 = 1
+            }
+        }
     }
 }
-
 # Event 9 — France declines the request; no money or ships change hands.
 country_event = {
     id = mad_naval.9
@@ -4884,21 +5008,12 @@ country_event = {
     }
 }
 
-# Event 10 — France accepted, but Madagascar no longer has the funds when the decision arrives.
-country_event = {
-    id = mad_naval.10
-    title = mad_naval.10.t
-    desc = mad_naval.10.d
-    picture = GFX_report_event_generic_political
-    is_triggered_only = yes
-    option = {
-        name = mad_naval.10.a
-        log = "[GetDateText]: [This.GetName]: mad_naval.10.a French offer unaffordable"
-    }
-}
+# Rural Cooperation — Southern Services Compact outcome event.
+add_namespace = mad_rural_cooperation
+
 # Southern Services Compact — the programme's delivery contract is chosen only after
 # 180 days of mobilising the logistics, village institutions and security presence.
-add_namespace = mad_rural_cooperation
+
 
 country_event = {
 	id = mad_rural_cooperation.1

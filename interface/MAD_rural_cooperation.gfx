@@ -1,0 +1,26 @@
+spriteTypes = {
+	# 100 discrete fill steps; scripted GUI binds frame to MAD_rural_cooperation (0-100).
+	progressbartype = {
+		name = "GFX_MAD_rural_cooperation_progress"
+		textureFile1 = "gfx/interface/MAD_rural_cooperation_progress_fill.dds"
+		textureFile2 = "gfx/interface/MAD_rural_cooperation_progress_background.dds"
+		color = { 1.0 1.0 1.0 1.0 }
+		colortwo = { 1.0 1.0 1.0 1.0 }
+		size = { x = 450 y = 18 }
+		effectFile = "gfx/FX/progress.lua"
+		horizontal = yes
+		steps = 100
+	}
+	spriteType = {
+		name = "GFX_MAD_rural_cooperation_marker"
+		texturefile = "gfx/interface/MAD_rural_cooperation_marker.dds"
+		noOfFrames = 1
+		allwaystransparent = yes
+	}
+	spriteType = {
+		name = "GFX_MAD_rural_cooperation_marker_threshold"
+		texturefile = "gfx/interface/MAD_rural_cooperation_marker_threshold.dds"
+		noOfFrames = 1
+		allwaystransparent = yes
+	}
+}

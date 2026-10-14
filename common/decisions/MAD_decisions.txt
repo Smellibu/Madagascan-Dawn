@@ -1,4 +1,4 @@
-﻿MAD_AMBATOVY_FORMING = {
+MAD_AMBATOVY_FORMING = {
 
 MAD_INVITE_KOREANS = {
 		on_map_mode = map_and_decisions_view
@@ -158,9 +158,16 @@ MAD_INVITE_KOREANS = {
     }
     available = {
         NOT = { has_country_flag = MAD_ambatovy_mine_built }
+        custom_trigger_tooltip = {
+            tooltip = MAD_RC_REQUIRE_12_TT
+            check_variable = { MAD_rural_cooperation > 11.99 }
+        }
     }
     complete_effect = {
         log = "[GetDateText]: [Root.GetName]: Decision MAD_BUILD_MINE started"
+        custom_effect_tooltip = MAD_RURAL_COOPERATION_SPENT_TT
+        set_temp_variable = { MAD_rc_delta = -12 }
+        MAD_rural_cooperation_adjust = yes
     }
     remove_effect = {
         log = "[GetDateText]: [Root.GetName]: Decision MAD_BUILD_MINE complete"
@@ -1133,6 +1140,10 @@ MAD_drought_category = {
 
 			clr_country_flag = MAD_DROUGHT_WATER_TRUCK_ACTIVE
 			clr_country_flag = MAD_DROUGHT_WATER_DECISION_ACTIVE
+			set_temp_variable = { MAD_rc_delta = 1 }
+			MAD_rural_cooperation_adjust = yes
+			custom_effect_tooltip = MAD_RC_DROUGHT_GAIN_1_TT
+
 		}
 
 		ai_will_do = {
@@ -1199,6 +1210,10 @@ MAD_drought_category = {
 				MAD_drought_state_apply_famine = yes
 			}
 			MAD_drought_recalc_national = yes
+			set_temp_variable = { MAD_rc_delta = 2 }
+			MAD_rural_cooperation_adjust = yes
+			custom_effect_tooltip = MAD_RC_DROUGHT_GAIN_2_TT
+
 			clr_country_flag = MAD_DROUGHT_FOOD_AID_ACTIVE
 		}
 
@@ -1271,6 +1286,10 @@ MAD_drought_category = {
 				MAD_drought_state_apply_famine = yes
 			}
 			add_stability = 0.01
+			set_temp_variable = { MAD_rc_delta = 1 }
+			MAD_rural_cooperation_adjust = yes
+			custom_effect_tooltip = MAD_RC_DROUGHT_GAIN_1_TT
+
 		}
 
 		ai_will_do = { base = 6 }
@@ -1314,6 +1333,12 @@ MAD_drought_category = {
 		}
 		cost = 25
 		fire_only_once = yes
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_RC_REQUIRE_1_TT
+				check_variable = { MAD_rural_cooperation > 0.99 }
+			}
+		}
 		custom_cost_trigger = { check_variable = { treasury > 0.399 } }
 		custom_cost_text = cost_0_4
 
@@ -1322,6 +1347,9 @@ MAD_drought_category = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_DROUGHT_LOCAL_SEED_DISTRIBUTION"
 			set_temp_variable = { treasury_change = -0.40 }
 			modify_treasury_effect = yes
+			set_temp_variable = { MAD_rc_delta = -1 }
+			MAD_rural_cooperation_adjust = yes
+			custom_effect_tooltip = MAD_RC_LOCAL_SEED_COST_TT
 			FROM = {
 				set_temp_variable = { MAD_dr_state_change = -5 }
 				set_temp_variable = { MAD_dr_state_famine = -6 }
@@ -1398,6 +1426,10 @@ MAD_drought_category = {
 				clamp_variable = { var = MAD_state_drought_exposure min = 0.4 max = 2 }
 			}
 			MAD_drought_recalc_national = yes
+			set_temp_variable = { MAD_rc_delta = 2 }
+			MAD_rural_cooperation_adjust = yes
+			custom_effect_tooltip = MAD_RC_DROUGHT_GAIN_2_TT
+
 		}
 
 		ai_will_do = {
@@ -1438,6 +1470,15 @@ MAD_drought_category = {
 			MAD_drought_exists = yes
 			has_country_flag = MAD_CNA_RAPID_RESPONSE
 		}
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_RC_LOCUST_SPRAY_REQUIRE_TT
+				OR = {
+					has_country_flag = MAD_CNA_BIOPESTICIDES
+					check_variable = { MAD_rural_cooperation > 0.99 }
+				}
+			}
+		}
 		cost = 30
 		days_re_enable = 180
 		custom_cost_trigger = { check_variable = { treasury > 0.799 } }
@@ -1466,6 +1507,18 @@ MAD_drought_category = {
 				add_stability = -0.01
 			}
 			MAD_drought_recalc_national = yes
+			if = {
+				limit = { has_country_flag = MAD_CNA_BIOPESTICIDES }
+				set_temp_variable = { MAD_rc_delta = 0.5 }
+				MAD_rural_cooperation_adjust = yes
+				custom_effect_tooltip = MAD_RC_DROUGHT_CLEAN_SPRAY_TT
+			}
+			else = {
+				set_temp_variable = { MAD_rc_delta = -1 }
+				MAD_rural_cooperation_adjust = yes
+				custom_effect_tooltip = MAD_RC_DROUGHT_DIRTY_SPRAY_TT
+			}
+
 		}
 
 		ai_will_do = { base = 7 }
@@ -1489,6 +1542,12 @@ MAD_drought_category = {
 		}
 		cost = 60
 		fire_only_once = yes
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_RC_REQUIRE_3_TT
+				check_variable = { MAD_rural_cooperation > 2.99 }
+			}
+		}
 		custom_cost_trigger = { check_variable = { treasury > 1.999 } }
 		custom_cost_text = cost_2_0
 
@@ -1497,6 +1556,9 @@ MAD_drought_category = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_DROUGHT_SEED"
 			set_temp_variable = { treasury_change = -2.00 }
 			modify_treasury_effect = yes
+			set_temp_variable = { MAD_rc_delta = -3 }
+			MAD_rural_cooperation_adjust = yes
+			custom_effect_tooltip = MAD_RC_DROUGHT_SEED_COST_TT
 			custom_effect_tooltip = MAD_drought_prevention_tt
 			set_temp_variable = { MAD_dr_prevent_amount = 0.30 }
 			MAD_drought_add_prevention = yes
@@ -1527,6 +1589,10 @@ MAD_drought_category = {
 			set_country_flag = MAD_DROUGHT_EARLY_WARNING
 			set_temp_variable = { MAD_dr_prevent_amount = 0.20 }
 			MAD_drought_add_prevention = yes
+			set_temp_variable = { MAD_rc_delta = 1 }
+			MAD_rural_cooperation_adjust = yes
+			custom_effect_tooltip = MAD_RC_DROUGHT_GAIN_1_TT
+
 		}
 
 		ai_will_do = { base = 1 }
@@ -1552,6 +1618,10 @@ MAD_drought_category = {
 			custom_effect_tooltip = MAD_drought_prevention_tt
 			set_temp_variable = { MAD_dr_prevent_amount = 0.40 }
 			MAD_drought_add_prevention = yes
+			set_temp_variable = { MAD_rc_delta = 2 }
+			MAD_rural_cooperation_adjust = yes
+			custom_effect_tooltip = MAD_RC_DROUGHT_GAIN_2_TT
+
 		}
 
 		ai_will_do = { base = 1 }
@@ -1584,6 +1654,10 @@ MAD_drought_category = {
 			custom_effect_tooltip = MAD_drought_prevention_tt
 			set_temp_variable = { MAD_dr_prevent_amount = 0.35 }
 			MAD_drought_add_prevention = yes
+			set_temp_variable = { MAD_rc_delta = 1 }
+			MAD_rural_cooperation_adjust = yes
+			custom_effect_tooltip = MAD_RC_DROUGHT_GAIN_1_TT
+
 		}
 
 		ai_will_do = { base = 1 }
@@ -1609,6 +1683,10 @@ MAD_drought_category = {
 			custom_effect_tooltip = MAD_drought_prevention_tt
 			set_temp_variable = { MAD_dr_prevent_amount = 0.35 }
 			MAD_drought_add_prevention = yes
+			set_temp_variable = { MAD_rc_delta = 2 }
+			MAD_rural_cooperation_adjust = yes
+			custom_effect_tooltip = MAD_RC_DROUGHT_GAIN_2_TT
+
 		}
 
 		ai_will_do = { base = 1 }
@@ -1635,6 +1713,10 @@ MAD_drought_category = {
 			add_stability = 0.01
 			set_temp_variable = { MAD_dr_prevent_amount = 0.25 }
 			MAD_drought_add_prevention = yes
+			set_temp_variable = { MAD_rc_delta = 1 }
+			MAD_rural_cooperation_adjust = yes
+			custom_effect_tooltip = MAD_RC_DROUGHT_GAIN_1_TT
+
 		}
 
 		ai_will_do = { base = 1 }
@@ -1662,6 +1744,10 @@ MAD_drought_category = {
 			set_country_flag = MAD_DROUGHT_LOCUST_WATCH
 			set_temp_variable = { MAD_dr_prevent_amount = 0.15 }
 			MAD_drought_add_prevention = yes
+			set_temp_variable = { MAD_rc_delta = 1 }
+			MAD_rural_cooperation_adjust = yes
+			custom_effect_tooltip = MAD_RC_DROUGHT_GAIN_1_TT
+
 		}
 
 		ai_will_do = { base = 1 }
@@ -1698,6 +1784,10 @@ MAD_drought_category = {
 			set_temp_variable = { treasury_change = -1.00 }
 			modify_treasury_effect = yes
 			MAD_drought_resettle = yes
+			set_temp_variable = { MAD_rc_delta = 1 }
+			MAD_rural_cooperation_adjust = yes
+			custom_effect_tooltip = MAD_RC_DROUGHT_GAIN_1_TT
+
 		}
 
 		ai_will_do = { base = 1 }
@@ -1732,6 +1822,10 @@ MAD_drought_category = {
 			set_temp_variable = { treasury_change = -2.00 }
 			modify_treasury_effect = yes
 			MAD_drought_return_expats = yes
+			set_temp_variable = { MAD_rc_delta = 1 }
+			MAD_rural_cooperation_adjust = yes
+			custom_effect_tooltip = MAD_RC_DROUGHT_GAIN_1_TT
+
 		}
 
 		ai_will_do = { base = 1 }
@@ -1757,6 +1851,10 @@ MAD_drought_category = {
 			modify_treasury_effect = yes
 			set_temp_variable = { MAD_dr_change = -25 }
 			MAD_drought_apply_change = yes
+			set_temp_variable = { MAD_rc_delta = 2 }
+			MAD_rural_cooperation_adjust = yes
+			custom_effect_tooltip = MAD_RC_DROUGHT_GAIN_2_TT
+
 		}
 
 		ai_will_do = { base = 1 }
@@ -1868,17 +1966,18 @@ MAD_JIRAMA_PROJECTS = {
 			has_country_flag = MAD_JIRAMA_RURAL_PROJECT_UNLOCKED
 			NOT = { has_country_flag = MAD_JIRAMA_RURAL_GRID_BUILT }
 		}
-		custom_cost_trigger = {
-			AND = { check_variable = { treasury > 6.499 } 
-				check_variable = { MAD_rural_cooperation > 17.99 }
-			}
-		}
-		custom_cost_text = MAD_JIRAMA_BUILD_RURAL_GRID_RURAL_COOP_COST_TT
+		custom_cost_trigger = { check_variable = { treasury > 6.499 } }
+		custom_cost_text = cost_6_5
 		fire_only_once = yes
 		days_remove = 365
 
 		available = {
 			268 = { is_owned_and_controlled_by = ROOT }
+		
+			custom_trigger_tooltip = {
+				tooltip = MAD_RC_REQUIRE_18_TT
+				check_variable = { MAD_rural_cooperation > 17.99 }
+			}
 		}
 
 		complete_effect = {
@@ -2079,18 +2178,19 @@ MAD_JIRAMA_PROJECTS = {
 			has_country_flag = MAD_LEAD_PROJECT_UNLOCKED
 			NOT = { has_country_flag = MAD_LEAD_ACCESS_BUILT }
 		}
-		custom_cost_trigger = {
-			AND = { check_variable = { treasury > 14.999 } 
-				check_variable = { MAD_rural_cooperation > 17.99 }
-			}
-		}
-		custom_cost_text = MAD_JIRAMA_BUILD_LEAD_ACCESS_RURAL_COOP_COST_TT
+		custom_cost_trigger = { check_variable = { treasury > 14.999 } }
+		custom_cost_text = cost_15_0
 		fire_only_once = yes
 		days_remove = 730
 
 		available = {
 			267 = { is_owned_and_controlled_by = ROOT }
 			268 = { is_owned_and_controlled_by = ROOT }
+		
+			custom_trigger_tooltip = {
+				tooltip = MAD_RC_REQUIRE_18_TT
+				check_variable = { MAD_rural_cooperation > 17.99 }
+			}
 		}
 
 		complete_effect = {
@@ -2131,18 +2231,19 @@ MAD_JIRAMA_PROJECTS = {
 			has_country_flag = MAD_DECIM_SOLAR_PROJECT_UNLOCKED
 			NOT = { has_country_flag = MAD_JIRAMA_DECIM_SOLAR_BUILT }
 		}
-		custom_cost_trigger = {
-			AND = { check_variable = { treasury > 16.999 } 
-				check_variable = { MAD_rural_cooperation > 11.99 }
-			}
-		}
-		custom_cost_text = MAD_JIRAMA_BUILD_DECIM_SOLAR_RURAL_COOP_COST_TT
+		custom_cost_trigger = { check_variable = { treasury > 16.999 } }
+		custom_cost_text = cost_17_0
 		fire_only_once = yes
 		days_remove = 730
 
 		available = {
 			267 = { is_owned_and_controlled_by = ROOT }
 			487 = { is_owned_and_controlled_by = ROOT }
+		
+			custom_trigger_tooltip = {
+				tooltip = MAD_RC_REQUIRE_12_TT
+				check_variable = { MAD_rural_cooperation > 11.99 }
+			}
 		}
 
 		complete_effect = {
@@ -2402,19 +2503,26 @@ MAD_dahalo_category = {
 		visible = {
 		}
 		available = {
+		
+			custom_trigger_tooltip = {
+				tooltip = MAD_RC_REQUIRE_6_OR_4_5_TT
+				OR = {
+					AND = {
+						has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM
+						check_variable = { MAD_rural_cooperation > 4.49 }
+					}
+					AND = {
+						NOT = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM }
+						check_variable = { MAD_rural_cooperation > 5.99 }
+					}
+				}
+			}
 		}
 		cost = 35
 		days_remove = 45
 		days_re_enable = 0
-		custom_cost_trigger = {
-			AND = { check_variable = { treasury > 0.199 } 
-				OR = {
-					AND = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM check_variable = { MAD_rural_cooperation > 4.49 } }
-					AND = { NOT = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM } check_variable = { MAD_rural_cooperation > 5.99 } }
-				}
-			}
-		}
-		custom_cost_text = MAD_DAHALO_RURAL_PATROLS_RURAL_COOP_COST_TT
+		custom_cost_trigger = { check_variable = { treasury > 0.199 } }
+		custom_cost_text = cost_0_2
 
 		complete_effect = {
 			set_temp_variable = { MAD_rc_delta = -6 }
@@ -2440,18 +2548,25 @@ MAD_dahalo_category = {
 		}
 		available = {
 			has_completed_focus = MAD_ZEBU_CERTIFICATES
-		}
-		cost = 60
-		fire_only_once = yes
-		custom_cost_trigger = {
-			AND = { check_variable = { treasury > 1.249 } 
+		
+			custom_trigger_tooltip = {
+				tooltip = MAD_RC_REQUIRE_8_OR_6_TT
 				OR = {
-					AND = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM check_variable = { MAD_rural_cooperation > 5.99 } }
-					AND = { NOT = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM } check_variable = { MAD_rural_cooperation > 7.99 } }
+					AND = {
+						has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM
+						check_variable = { MAD_rural_cooperation > 5.99 }
+					}
+					AND = {
+						NOT = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM }
+						check_variable = { MAD_rural_cooperation > 7.99 }
+					}
 				}
 			}
 		}
-		custom_cost_text = MAD_DAHALO_HERD_REGISTRY_RURAL_COOP_COST_TT
+		cost = 60
+		fire_only_once = yes
+		custom_cost_trigger = { check_variable = { treasury > 1.249 } }
+		custom_cost_text = cost_1_25
 
 		complete_effect = {
 			set_temp_variable = { MAD_rc_delta = -8 }
@@ -2477,18 +2592,25 @@ MAD_dahalo_category = {
 		}
 		available = {
 			has_completed_focus = MAD_FIGHTING_CERTIFICATE_FRAUD
-		}
-		cost = 75
-		fire_only_once = yes
-		custom_cost_trigger = {
-			AND = { check_variable = { treasury > 1.499 } 
+		
+			custom_trigger_tooltip = {
+				tooltip = MAD_RC_REQUIRE_8_OR_6_TT
 				OR = {
-					AND = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM check_variable = { MAD_rural_cooperation > 5.99 } }
-					AND = { NOT = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM } check_variable = { MAD_rural_cooperation > 7.99 } }
+					AND = {
+						has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM
+						check_variable = { MAD_rural_cooperation > 5.99 }
+					}
+					AND = {
+						NOT = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM }
+						check_variable = { MAD_rural_cooperation > 7.99 }
+					}
 				}
 			}
 		}
-		custom_cost_text = MAD_DAHALO_CERTIFICATE_CRACKDOWN_RURAL_COOP_COST_TT
+		cost = 75
+		fire_only_once = yes
+		custom_cost_trigger = { check_variable = { treasury > 1.499 } }
+		custom_cost_text = cost_1_5
 
 		complete_effect = {
 			set_temp_variable = { MAD_rc_delta = -8 }
@@ -2514,19 +2636,26 @@ MAD_dahalo_category = {
 		}
 		available = {
 			has_completed_focus = MAD_dahalo_military_ops
+		
+			custom_trigger_tooltip = {
+				tooltip = MAD_RC_REQUIRE_15_OR_11_25_TT
+				OR = {
+					AND = {
+						has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM
+						check_variable = { MAD_rural_cooperation > 11.24 }
+					}
+					AND = {
+						NOT = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM }
+						check_variable = { MAD_rural_cooperation > 14.99 }
+					}
+				}
+			}
 		}
 		cost = 60
 		days_remove = 45
 		days_re_enable = 270
-		custom_cost_trigger = {
-			AND = { check_variable = { treasury > 1.499 } 
-				OR = {
-					AND = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM check_variable = { MAD_rural_cooperation > 11.24 } }
-					AND = { NOT = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM } check_variable = { MAD_rural_cooperation > 14.99 } }
-				}
-			}
-		}
-		custom_cost_text = MAD_DAHALO_MILITARY_SWEEP_RURAL_COOP_COST_TT
+		custom_cost_trigger = { check_variable = { treasury > 1.499 } }
+		custom_cost_text = cost_1_5
 
 		complete_effect = {
 			set_temp_variable = { MAD_rc_delta = -15 }
@@ -2554,18 +2683,25 @@ MAD_dahalo_category = {
 		}
 		available = {
 			has_completed_focus = MAD_Tandroka
-		}
-		cost = 80
-		fire_only_once = yes
-		custom_cost_trigger = {
-			AND = { check_variable = { treasury > 1.999 } 
+		
+			custom_trigger_tooltip = {
+				tooltip = MAD_RC_REQUIRE_10_OR_7_5_TT
 				OR = {
-					AND = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM check_variable = { MAD_rural_cooperation > 7.49 } }
-					AND = { NOT = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM } check_variable = { MAD_rural_cooperation > 9.99 } }
+					AND = {
+						has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM
+						check_variable = { MAD_rural_cooperation > 7.49 }
+					}
+					AND = {
+						NOT = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM }
+						check_variable = { MAD_rural_cooperation > 9.99 }
+					}
 				}
 			}
 		}
-		custom_cost_text = MAD_DAHALO_TANDROKA_TRACKERS_RURAL_COOP_COST_TT
+		cost = 80
+		fire_only_once = yes
+		custom_cost_trigger = { check_variable = { treasury > 1.999 } }
+		custom_cost_text = cost_2_0
 
 		complete_effect = {
 			set_temp_variable = { MAD_rc_delta = -10 }
@@ -2591,18 +2727,25 @@ MAD_dahalo_category = {
 		}
 		available = {
 			has_completed_focus = MAD_ARREST_ARMS
-		}
-		cost = 70
-		fire_only_once = yes
-		custom_cost_trigger = {
-			AND = { check_variable = { treasury > 1.249 } 
+		
+			custom_trigger_tooltip = {
+				tooltip = MAD_RC_REQUIRE_8_OR_6_TT
 				OR = {
-					AND = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM check_variable = { MAD_rural_cooperation > 5.99 } }
-					AND = { NOT = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM } check_variable = { MAD_rural_cooperation > 7.99 } }
+					AND = {
+						has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM
+						check_variable = { MAD_rural_cooperation > 5.99 }
+					}
+					AND = {
+						NOT = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM }
+						check_variable = { MAD_rural_cooperation > 7.99 }
+					}
 				}
 			}
 		}
-		custom_cost_text = MAD_DAHALO_ARMS_CRACKDOWN_RURAL_COOP_COST_TT
+		cost = 70
+		fire_only_once = yes
+		custom_cost_trigger = { check_variable = { treasury > 1.249 } }
+		custom_cost_text = cost_1_25
 
 		complete_effect = {
 			set_temp_variable = { MAD_rc_delta = -8 }
@@ -2634,18 +2777,25 @@ MAD_dahalo_category = {
 				has_completed_focus = MAD_Tandroka
 				has_completed_focus = MAD_ARREST_ARMS
 			}
-		}
-		cost = 100
-		fire_only_once = yes
-		custom_cost_trigger = {
-			AND = { check_variable = { treasury > 1.999 } 
+		
+			custom_trigger_tooltip = {
+				tooltip = MAD_RC_REQUIRE_12_OR_9_TT
 				OR = {
-					AND = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM check_variable = { MAD_rural_cooperation > 8.99 } }
-					AND = { NOT = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM } check_variable = { MAD_rural_cooperation > 11.99 } }
+					AND = {
+						has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM
+						check_variable = { MAD_rural_cooperation > 8.99 }
+					}
+					AND = {
+						NOT = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM }
+						check_variable = { MAD_rural_cooperation > 11.99 }
+					}
 				}
 			}
 		}
-		custom_cost_text = MAD_DAHALO_RINGLEADER_FIRST_RURAL_COOP_COST_TT
+		cost = 100
+		fire_only_once = yes
+		custom_cost_trigger = { check_variable = { treasury > 1.999 } }
+		custom_cost_text = cost_2_0
 
 		complete_effect = {
 			set_temp_variable = { MAD_rc_delta = -12 }
@@ -2673,18 +2823,25 @@ MAD_dahalo_category = {
 		}
 		available = {
 			check_variable = { MAD_dahalo_ringleader_sweeps > 0.99 }
-		}
-		cost = 120
-		fire_only_once = yes
-		custom_cost_trigger = {
-			AND = { check_variable = { treasury > 2.499 } 
+		
+			custom_trigger_tooltip = {
+				tooltip = MAD_RC_REQUIRE_15_OR_11_25_TT
 				OR = {
-					AND = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM check_variable = { MAD_rural_cooperation > 11.24 } }
-					AND = { NOT = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM } check_variable = { MAD_rural_cooperation > 14.99 } }
+					AND = {
+						has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM
+						check_variable = { MAD_rural_cooperation > 11.24 }
+					}
+					AND = {
+						NOT = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM }
+						check_variable = { MAD_rural_cooperation > 14.99 }
+					}
 				}
 			}
 		}
-		custom_cost_text = MAD_DAHALO_RINGLEADER_SECOND_RURAL_COOP_COST_TT
+		cost = 120
+		fire_only_once = yes
+		custom_cost_trigger = { check_variable = { treasury > 2.499 } }
+		custom_cost_text = cost_2_5
 
 		complete_effect = {
 			set_temp_variable = { MAD_rc_delta = -15 }
@@ -2712,18 +2869,25 @@ MAD_dahalo_category = {
 		}
 		available = {
 			check_variable = { MAD_dahalo_ringleader_sweeps > 1.99 }
-		}
-		cost = 140
-		fire_only_once = yes
-		custom_cost_trigger = {
-			AND = { check_variable = { treasury > 2.999 } 
+		
+			custom_trigger_tooltip = {
+				tooltip = MAD_RC_REQUIRE_18_OR_13_5_TT
 				OR = {
-					AND = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM check_variable = { MAD_rural_cooperation > 13.49 } }
-					AND = { NOT = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM } check_variable = { MAD_rural_cooperation > 17.99 } }
+					AND = {
+						has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM
+						check_variable = { MAD_rural_cooperation > 13.49 }
+					}
+					AND = {
+						NOT = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM }
+						check_variable = { MAD_rural_cooperation > 17.99 }
+					}
 				}
 			}
 		}
-		custom_cost_text = MAD_DAHALO_RINGLEADER_FINAL_RURAL_COOP_COST_TT
+		cost = 140
+		fire_only_once = yes
+		custom_cost_trigger = { check_variable = { treasury > 2.999 } }
+		custom_cost_text = cost_3_0
 
 		complete_effect = {
 			set_temp_variable = { MAD_rc_delta = -18 }
@@ -2759,18 +2923,25 @@ MAD_dahalo_category = {
 				check_variable = { MAD_dahalo_ringleader_sweeps > 2.99 }
 				has_country_flag = MAD_REMENABILA_KILLED
 			}
-		}
-		cost = 100
-		fire_only_once = yes
-		custom_cost_trigger = {
-			AND = { check_variable = { treasury > 1.999 } 
+		
+			custom_trigger_tooltip = {
+				tooltip = MAD_RC_REQUIRE_12_OR_9_TT
 				OR = {
-					AND = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM check_variable = { MAD_rural_cooperation > 8.99 } }
-					AND = { NOT = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM } check_variable = { MAD_rural_cooperation > 11.99 } }
+					AND = {
+						has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM
+						check_variable = { MAD_rural_cooperation > 8.99 }
+					}
+					AND = {
+						NOT = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM }
+						check_variable = { MAD_rural_cooperation > 11.99 }
+					}
 				}
 			}
 		}
-		custom_cost_text = MAD_DAHALO_SECURE_SOUTHERN_CATTLE_ROADS_RURAL_COOP_COST_TT
+		cost = 100
+		fire_only_once = yes
+		custom_cost_trigger = { check_variable = { treasury > 1.999 } }
+		custom_cost_text = cost_2_0
 
 		complete_effect = {
 			set_temp_variable = { MAD_rc_delta = -12 }
@@ -2804,19 +2975,26 @@ MAD_dahalo_category = {
 			date > 2014.5.20
 			NOT = { has_country_flag = MAD_DAHALO_COUP_D_ARRET_ACTIVE }
 			check_variable = { MAD_dahalo_threat > 19.99 }
+		
+			custom_trigger_tooltip = {
+				tooltip = MAD_RC_REQUIRE_18_OR_13_5_TT
+				OR = {
+					AND = {
+						has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM
+						check_variable = { MAD_rural_cooperation > 13.49 }
+					}
+					AND = {
+						NOT = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM }
+						check_variable = { MAD_rural_cooperation > 17.99 }
+					}
+				}
+			}
 		}
 		cost = 100
 		fire_only_once = yes
 		days_remove = 180
-		custom_cost_trigger = {
-			AND = { check_variable = { treasury > 2.999 } 
-				OR = {
-					AND = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM check_variable = { MAD_rural_cooperation > 13.49 } }
-					AND = { NOT = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM } check_variable = { MAD_rural_cooperation > 17.99 } }
-				}
-			}
-		}
-		custom_cost_text = MAD_DAHALO_COUP_D_ARRET_RURAL_COOP_COST_TT
+		custom_cost_trigger = { check_variable = { treasury > 2.999 } }
+		custom_cost_text = cost_3_0
 
 		complete_effect = {
 			set_temp_variable = { MAD_rc_delta = -18 }
@@ -2858,19 +3036,26 @@ MAD_dahalo_category = {
 			has_completed_focus = MAD_Hunt_for_red_with_a_swagger
 			NOT = { has_country_flag = MAD_REMENABILA_LOCATE_ACTIVE }
 			NOT = { has_country_flag = MAD_REMENABILA_LOCATED }
+		
+			custom_trigger_tooltip = {
+				tooltip = MAD_RC_REQUIRE_6_OR_4_5_TT
+				OR = {
+					AND = {
+						has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM
+						check_variable = { MAD_rural_cooperation > 4.49 }
+					}
+					AND = {
+						NOT = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM }
+						check_variable = { MAD_rural_cooperation > 5.99 }
+					}
+				}
+			}
 		}
 		cost = 50
 		fire_only_once = yes
 		days_remove = 90
-		custom_cost_trigger = {
-			AND = { check_variable = { treasury > 0.749 } 
-				OR = {
-					AND = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM check_variable = { MAD_rural_cooperation > 4.49 } }
-					AND = { NOT = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM } check_variable = { MAD_rural_cooperation > 5.99 } }
-				}
-			}
-		}
-		custom_cost_text = MAD_REMENABILA_LOCATE_RURAL_COOP_COST_TT
+		custom_cost_trigger = { check_variable = { treasury > 0.749 } }
+		custom_cost_text = cost_0_75
 
 		complete_effect = {
 			set_temp_variable = { MAD_rc_delta = -6 }
@@ -2906,19 +3091,26 @@ MAD_dahalo_category = {
 		available = {
 			NOT = { has_country_flag = MAD_REMENABILA_PURSUIT_ACTIVE }
 			NOT = { has_country_flag = MAD_REMENABILA_PURSUIT_COMPLETE }
+		
+			custom_trigger_tooltip = {
+				tooltip = MAD_RC_REQUIRE_8_OR_6_TT
+				OR = {
+					AND = {
+						has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM
+						check_variable = { MAD_rural_cooperation > 5.99 }
+					}
+					AND = {
+						NOT = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM }
+						check_variable = { MAD_rural_cooperation > 7.99 }
+					}
+				}
+			}
 		}
 		cost = 65
 		fire_only_once = yes
 		days_remove = 120
-		custom_cost_trigger = {
-			AND = { check_variable = { treasury > 0.999 } 
-				OR = {
-					AND = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM check_variable = { MAD_rural_cooperation > 5.99 } }
-					AND = { NOT = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM } check_variable = { MAD_rural_cooperation > 7.99 } }
-				}
-			}
-		}
-		custom_cost_text = MAD_REMENABILA_MOUNTAIN_PURSUIT_RURAL_COOP_COST_TT
+		custom_cost_trigger = { check_variable = { treasury > 0.999 } }
+		custom_cost_text = cost_1_0
 
 		complete_effect = {
 			set_temp_variable = { MAD_rc_delta = -8 }
@@ -2954,19 +3146,26 @@ MAD_dahalo_category = {
 		available = {
 			NOT = { has_country_flag = MAD_REMENABILA_ADVISER_HUNT_ACTIVE }
 			NOT = { has_country_flag = MAD_REMENABILA_ADVISER_CAPTURED }
+		
+			custom_trigger_tooltip = {
+				tooltip = MAD_RC_REQUIRE_10_OR_7_5_TT
+				OR = {
+					AND = {
+						has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM
+						check_variable = { MAD_rural_cooperation > 7.49 }
+					}
+					AND = {
+						NOT = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM }
+						check_variable = { MAD_rural_cooperation > 9.99 }
+					}
+				}
+			}
 		}
 		cost = 80
 		fire_only_once = yes
 		days_remove = 180
-		custom_cost_trigger = {
-			AND = { check_variable = { treasury > 1.499 } 
-				OR = {
-					AND = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM check_variable = { MAD_rural_cooperation > 7.49 } }
-					AND = { NOT = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM } check_variable = { MAD_rural_cooperation > 9.99 } }
-				}
-			}
-		}
-		custom_cost_text = MAD_REMENABILA_CAPTURE_SPIRITUAL_ADVISER_RURAL_COOP_COST_TT
+		custom_cost_trigger = { check_variable = { treasury > 1.499 } }
+		custom_cost_text = cost_1_5
 
 		complete_effect = {
 			set_temp_variable = { MAD_rc_delta = -10 }
@@ -3008,19 +3207,26 @@ MAD_dahalo_category = {
 			has_country_flag = MAD_REMENABILA_ADVISER_CAPTURED
 			NOT = { has_country_flag = MAD_REMENABILA_FINAL_HUNT_ACTIVE }
 			NOT = { has_country_flag = MAD_REMENABILA_KILLED }
+		
+			custom_trigger_tooltip = {
+				tooltip = MAD_RC_REQUIRE_16_OR_12_TT
+				OR = {
+					AND = {
+						has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM
+						check_variable = { MAD_rural_cooperation > 11.99 }
+					}
+					AND = {
+						NOT = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM }
+						check_variable = { MAD_rural_cooperation > 15.99 }
+					}
+				}
+			}
 		}
 		cost = 150
 		fire_only_once = yes
 		days_remove = 365
-		custom_cost_trigger = {
-			AND = { check_variable = { treasury > 3.999 } 
-				OR = {
-					AND = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM check_variable = { MAD_rural_cooperation > 11.99 } }
-					AND = { NOT = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM } check_variable = { MAD_rural_cooperation > 15.99 } }
-				}
-			}
-		}
-		custom_cost_text = MAD_REMENABILA_FINAL_HUNT_RURAL_COOP_COST_TT
+		custom_cost_trigger = { check_variable = { treasury > 3.999 } }
+		custom_cost_text = cost_4_0
 
 		complete_effect = {
 			set_temp_variable = { MAD_rc_delta = -16 }
@@ -3067,19 +3273,26 @@ MAD_dahalo_category = {
 			check_variable = { MAD_dahalo_threat > 39.99 }
 			268 = { check_variable = { MAD_state_famine > 24.99 } }
 			NOT = { has_country_flag = MAD_DAHALO_ESCORT_RELIEF_ACTIVE }
+		
+			custom_trigger_tooltip = {
+				tooltip = MAD_RC_REQUIRE_8_OR_6_TT
+				OR = {
+					AND = {
+						has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM
+						check_variable = { MAD_rural_cooperation > 5.99 }
+					}
+					AND = {
+						NOT = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM }
+						check_variable = { MAD_rural_cooperation > 7.99 }
+					}
+				}
+			}
 		}
 		cost = 45
 		days_remove = 60
 		days_re_enable = 180
-		custom_cost_trigger = {
-			AND = { check_variable = { treasury > 1.249 } 
-				OR = {
-					AND = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM check_variable = { MAD_rural_cooperation > 5.99 } }
-					AND = { NOT = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM } check_variable = { MAD_rural_cooperation > 7.99 } }
-				}
-			}
-		}
-		custom_cost_text = MAD_DAHALO_ESCORT_RELIEF_CONVOYS_RURAL_COOP_COST_TT
+		custom_cost_trigger = { check_variable = { treasury > 1.249 } }
+		custom_cost_text = cost_1_25
 
 		complete_effect = {
 			set_temp_variable = { MAD_rc_delta = -8 }
@@ -3579,6 +3792,9 @@ MAD_royal_political_category = {
 			check_variable = { treasury > 0.999 }
 			NOT = { has_country_flag = MAD_ROY_CROWN_ADMINISTRATION_ASSERTED }
 		}
+		custom_cost_trigger = { check_variable = { treasury > 0.999 } }
+		custom_cost_text = cost_1_0
+
 		complete_effect = {
 			set_temp_variable = { treasury_change = -1.00 }
 			modify_treasury_effect = yes
@@ -3629,6 +3845,9 @@ MAD_royal_political_category = {
 			check_variable = { treasury > 7.999 }
 			NOT = { has_country_flag = MAD_ROY_ROVA_RESTORED }
 		}
+		custom_cost_trigger = { check_variable = { treasury > 7.999 } }
+		custom_cost_text = cost_8_0
+
 		complete_effect = {
 			# Ceremonial and archival consecration complements, rather than repeats, the focus's physical public works.
 			set_temp_variable = { treasury_change = -8.00 }
@@ -3731,6 +3950,9 @@ MAD_royal_political_category = {
 			268 = { is_core_of = ROOT offices < 2 }
 			NOT = { has_country_flag = MAD_ROY_CUSTOMARY_GOVERNANCE_IMPLEMENTED }
 		}
+		custom_cost_trigger = { check_variable = { treasury > 11.999 } }
+		custom_cost_text = cost_12_0
+
 		complete_effect = {
 			if = {
 				limit = { 268 = { is_core_of = ROOT offices < 2 } }
@@ -4301,10 +4523,143 @@ MAD_HVM_PROJECT_REVIEW_CATEGORY = {
 
 
 ########################################################################
-# RURAL COOPERATION — ONLY TWO DECISIONS LIVE IN THIS NEW PANEL.
+# RURAL COOPERATION — constitutional choices and rural recovery programmes.
 # The consultations are a reusable safety valve; the Compact is a one-off programme.
 ########################################################################
 MAD_rural_cooperation_category = {
+	# The constitutional ideas are neutral state models, separate from party-synchronised programme ideas.
+	MAD_RURAL_UNSECULARISE_GOVERNMENT = {
+		icon = generic_political_discourse
+		allowed = { tag = MAD }
+		visible = {
+			has_idea = MAD_POL_SECULAR_GOVERNMENT
+			NOT = { has_idea = MAD_POL_CHRISTOCRATIC_STATE }
+		}
+		available = {
+			has_idea = MAD_POL_SECULAR_GOVERNMENT
+			custom_trigger_tooltip = {
+				tooltip = MAD_RURAL_CONSTITUTION_SWITCH_COOLDOWN_TT
+				NOT = { has_country_flag = MAD_RURAL_CONSTITUTION_SWITCH_COOLDOWN }
+			}
+			NOT = { has_idea = MAD_POL_CHRISTOCRATIC_STATE }
+			# AREMA cannot adopt open state-church cooperation until its Reconciliation focus is complete.
+			NOT = {
+				AND = {
+					MAD_AREMA_IN_POWER = yes
+					NOT = { has_completed_focus = MAD_POL_AREMA_CHOOSE_RECONCILIATION }
+				}
+			}
+		}
+		cost = 25
+		complete_effect = {
+			remove_ideas = MAD_POL_SECULAR_GOVERNMENT
+			add_ideas = MAD_POL_UNSECULAR_GOVERNMENT
+
+			set_country_flag = { flag = MAD_RURAL_CONSTITUTION_SWITCH_COOLDOWN value = 1 days = 365 }
+		}
+		ai_will_do = { base = 0 }
+	}
+
+	MAD_RURAL_SECULARISE_GOVERNMENT = {
+		icon = generic_political_discourse
+		allowed = { tag = MAD }
+		visible = {
+			has_idea = MAD_POL_UNSECULAR_GOVERNMENT
+			NOT = { has_idea = MAD_POL_CHRISTOCRATIC_STATE }
+		}
+		available = {
+			has_idea = MAD_POL_UNSECULAR_GOVERNMENT
+			custom_trigger_tooltip = {
+				tooltip = MAD_RURAL_CONSTITUTION_SWITCH_COOLDOWN_TT
+				NOT = { has_country_flag = MAD_RURAL_CONSTITUTION_SWITCH_COOLDOWN }
+			}
+			NOT = { has_idea = MAD_POL_CHRISTOCRATIC_STATE }
+			# After Sacred Constitution, CRPM/TAMIMA cannot return to secular government while either rules.
+			NOT = {
+				AND = {
+					has_completed_focus = MAD_POL_ROY_SACRED_CONSTITUTION
+					OR = { MAD_ROY_IN_POWER = yes MAD_TAMIMA_IN_POWER = yes }
+				}
+			}
+		}
+		cost = 25
+		complete_effect = {
+			swap_ideas = {
+				remove_idea = MAD_POL_UNSECULAR_GOVERNMENT
+				add_idea = MAD_POL_SECULAR_GOVERNMENT
+			}
+			set_country_flag = { flag = MAD_RURAL_CONSTITUTION_SWITCH_COOLDOWN value = 1 days = 365 }
+			custom_effect_tooltip = MAD_RURAL_SECULAR_CLERGY_OPINION_TT
+		}
+		ai_will_do = { base = 0 }
+	}
+
+	# Recognition decisions are available only under non-royal, non-TAMIMA governments.
+	# The chosen position is remembered by a country flag and adjusted immediately on ruling-party changes.
+	MAD_RURAL_RECOGNISE_ANDRIANA_HOUSES = {
+		icon = generic_political_discourse
+		allowed = { tag = MAD }
+		visible = {
+			has_idea = MAD_POL_ANDRIANA_NON_RECOGNITION
+			NOT = { OR = { MAD_ROY_IN_POWER = yes MAD_TAMIMA_IN_POWER = yes } }
+		}
+		available = {
+			has_idea = MAD_POL_ANDRIANA_NON_RECOGNITION
+			NOT = { OR = { MAD_ROY_IN_POWER = yes MAD_TAMIMA_IN_POWER = yes } }
+			custom_trigger_tooltip = {
+				tooltip = MAD_ANDRIANA_POLICY_SWITCH_COOLDOWN_TT
+				NOT = {
+					has_country_flag = MAD_ANDRIANA_POLICY_SWITCH_COOLDOWN
+				}
+			}
+		}
+		cost = 35
+		complete_effect = {
+			hidden_effect = { set_country_flag = MAD_ANDRIANA_RECOGNITION_ENACTED }
+			
+			remove_ideas = MAD_POL_ANDRIANA_NON_RECOGNITION
+			add_ideas = MAD_POL_ANDRIANA_HERITAGE_RECOGNISED
+			
+			set_country_flag = {
+				flag = MAD_ANDRIANA_POLICY_SWITCH_COOLDOWN
+				value = 1
+				days = 365
+			}
+		}
+		ai_will_do = { base = 0 }
+	}
+
+	MAD_RURAL_WITHDRAW_ANDRIANA_RECOGNITION = {
+		icon = generic_political_discourse
+		allowed = { tag = MAD }
+		visible = {
+			has_idea = MAD_POL_ANDRIANA_HERITAGE_RECOGNISED
+			NOT = { OR = { MAD_ROY_IN_POWER = yes MAD_TAMIMA_IN_POWER = yes } }
+		}
+		available = {
+			has_idea = MAD_POL_ANDRIANA_HERITAGE_RECOGNISED
+			NOT = { OR = { MAD_ROY_IN_POWER = yes MAD_TAMIMA_IN_POWER = yes } }
+			custom_trigger_tooltip = {
+				tooltip = MAD_ANDRIANA_POLICY_SWITCH_COOLDOWN_TT
+				NOT = {
+					has_country_flag = MAD_ANDRIANA_POLICY_SWITCH_COOLDOWN
+				}
+			}
+		}
+		cost = 25
+		complete_effect = {
+			hidden_effect = { clr_country_flag = MAD_ANDRIANA_RECOGNITION_ENACTED }
+				remove_ideas = MAD_POL_ANDRIANA_HERITAGE_RECOGNISED
+				add_ideas = MAD_POL_ANDRIANA_NON_RECOGNITION
+				
+				set_country_flag = {
+					flag = MAD_ANDRIANA_POLICY_SWITCH_COOLDOWN
+					value = 1
+					days = 365
+				}
+		}
+		ai_will_do = { base = 0 }
+	}
 	MAD_RURAL_CONVENE_RURAL_CONSULTATIONS = {
 		icon = generic_political_discourse
 		allowed = { tag = MAD }
@@ -4314,7 +4669,7 @@ MAD_rural_cooperation_category = {
 		days_remove = 60
 		days_re_enable = 180
 		custom_cost_trigger = { check_variable = { treasury > 0.249 } }
-		custom_cost_text = MAD_RURAL_CONSULTATIONS_COST_TT
+		custom_cost_text = cost_0_25
 
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Rural consultations begin"
@@ -4367,17 +4722,17 @@ MAD_rural_cooperation_category = {
 					has_country_flag = MAD_RAIL_AMBOVOMBE_BUILT
 				}
 			}
+		
+			custom_trigger_tooltip = {
+				tooltip = MAD_RC_REQUIRE_18_TT
+				check_variable = { MAD_rural_cooperation > 17.99 }
+			}
 		}
 		cost = 50
 		fire_only_once = yes
 		days_remove = 180
-		custom_cost_trigger = {
-			AND = {
-				check_variable = { treasury > 1.999 }
-				check_variable = { MAD_rural_cooperation > 17.99 }
-			}
-		}
-		custom_cost_text = MAD_RURAL_SERVICES_COMPACT_COST_TT
+		custom_cost_trigger = { check_variable = { treasury > 1.999 } }
+		custom_cost_text = cost_2_0
 
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Southern Services Compact launched"
@@ -4393,6 +4748,114 @@ MAD_rural_cooperation_category = {
 			clr_country_flag = MAD_RURAL_SERVICES_COMPACT_STARTED
 			set_country_flag = MAD_RURAL_SERVICES_COMPACT_COMPLETE
 			country_event = { id = mad_rural_cooperation.1 }
+		}
+		ai_will_do = { base = 0 }
+	}
+
+
+	# General-purpose investment in district administration, roads and local service delivery.
+	MAD_RURAL_LOCAL_DEVELOPMENT_GRANTS = {
+		icon = generic_construction
+		allowed = { tag = MAD }
+		visible = { tag = MAD }
+		available = {
+			NOT = { has_country_flag = MAD_RURAL_LOCAL_DEVELOPMENT_ACTIVE }
+			check_variable = { MAD_rural_cooperation < 85 }
+		}
+		cost = 50
+		days_remove = 120
+		days_re_enable = 180
+		custom_cost_trigger = { check_variable = { treasury > 0.999 } }
+		custom_cost_text = cost_1_0
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Local development grants launched"
+			set_temp_variable = { treasury_change = -1.00 }
+			modify_treasury_effect = yes
+			add_timed_idea = { idea = MAD_RURAL_LOCAL_DEVELOPMENT_BOOST days = 120 }
+			set_country_flag = MAD_RURAL_LOCAL_DEVELOPMENT_ACTIVE
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Local development grants delivered"
+			clr_country_flag = MAD_RURAL_LOCAL_DEVELOPMENT_ACTIVE
+			set_temp_variable = { MAD_rc_delta = 7 }
+			MAD_rural_cooperation_adjust = yes
+			custom_effect_tooltip = MAD_RURAL_LOCAL_DEVELOPMENT_REWARD_TT
+		}
+		ai_will_do = {
+			base = 0
+		}
+	}
+
+	# A recurring accountability mechanism unlocked by the mining local-benefit programme.
+	MAD_RURAL_AUDIT_MINING_REVENUE = {
+		icon = generic_political_discourse
+		allowed = { tag = MAD }
+		visible = {
+			OR = {
+				has_country_flag = MAD_MINING_LOCAL_BENEFITS
+				has_completed_focus = MAD_MINING_LOCAL_BENEFIT_FUND
+			}
+		}
+		available = {
+			NOT = { has_country_flag = MAD_RURAL_MINING_AUDIT_ACTIVE }
+			check_variable = { MAD_rural_cooperation < 90 }
+		}
+		cost = 50
+		days_remove = 90
+		days_re_enable = 365
+		custom_cost_trigger = { check_variable = { treasury > 0.749 } }
+		custom_cost_text = cost_0_75
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Mining revenue distribution audit launched"
+			set_temp_variable = { treasury_change = -0.75 }
+			modify_treasury_effect = yes
+			set_country_flag = MAD_RURAL_MINING_AUDIT_ACTIVE
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Mining revenue distribution audit completed"
+			clr_country_flag = MAD_RURAL_MINING_AUDIT_ACTIVE
+			set_temp_variable = { MAD_rc_delta = 6 }
+			MAD_rural_cooperation_adjust = yes
+			decrease_corruption = yes
+			add_stability = 0.005
+			custom_effect_tooltip = MAD_RURAL_MINING_AUDIT_REWARD_TT
+		}
+		ai_will_do = { base = 0 }
+	}
+
+	# Targeted drought relief acts directly on the modeled Grand Sud state, then refreshes the national average.
+	MAD_RURAL_COORDINATE_AGRICULTURAL_RELIEF = {
+		icon = generic_political_discourse
+		allowed = { tag = MAD }
+		visible = { has_completed_focus = MAD_Drought_and_famine }
+		available = {
+			NOT = { has_country_flag = MAD_RURAL_AGRICULTURAL_RELIEF_ACTIVE }
+			check_variable = { MAD_drought_severity > 24.99 }
+		}
+		cost = 35
+		days_remove = 90
+		days_re_enable = 180
+		custom_cost_trigger = { check_variable = { treasury > 0.749 } }
+		custom_cost_text = cost_0_75
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Agricultural relief coordination launched"
+			set_temp_variable = { treasury_change = -0.75 }
+			modify_treasury_effect = yes
+			set_country_flag = MAD_RURAL_AGRICULTURAL_RELIEF_ACTIVE
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Agricultural relief coordination completed"
+			clr_country_flag = MAD_RURAL_AGRICULTURAL_RELIEF_ACTIVE
+			268 = {
+				add_to_variable = { MAD_state_drought = -8 }
+				MAD_drought_state_clamp = yes
+				set_temp_variable = { MAD_dr_state_famine = -6 }
+				MAD_drought_state_apply_famine = yes
+			}
+			MAD_drought_recalc_national = yes
+			set_temp_variable = { MAD_rc_delta = 4 }
+			MAD_rural_cooperation_adjust = yes
+			custom_effect_tooltip = MAD_RURAL_AGRICULTURAL_RELIEF_REWARD_TT
 		}
 		ai_will_do = { base = 0 }
 	}

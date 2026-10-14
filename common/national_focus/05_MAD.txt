@@ -1,4 +1,4 @@
-﻿focus_tree = {
+focus_tree = {
 	id = madagascar_focus
 
 	country = {
@@ -734,7 +734,7 @@
 			set_temp_variable = {
 				treasury_change = {
 					value = gdp_total
-					multiply = 0.12 # Initial JIRAMA privatisation: 12% of GDP.
+					multiply = 0.12 
 				}
 			}
 			modify_treasury_effect = yes
@@ -1548,6 +1548,8 @@
 		search_filters = { FOCUS_FILTER_POLITICAL }
 
 		completion_reward = {
+			set_temp_variable = { MAD_rc_delta = 4 }
+			MAD_rural_cooperation_adjust = yes
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_Agricultural_reforms"
 			
 			add_dynamic_modifier = { modifier = MAD_agriculture_modifier }
@@ -2067,7 +2069,7 @@
 			set_temp_variable = {
 				treasury_change = {
 					value = gdp_total
-					multiply = 0.10 # Initial Telma privatisation: 10% of GDP.
+					multiply = 0.10 
 				}
 			}
 			modify_treasury_effect = yes
@@ -2106,7 +2108,7 @@
 			set_temp_variable = {
 				treasury_change = {
 					value = gdp_total
-					multiply = 0.08 # Initial Madarail privatisation: 8% of GDP.
+					multiply = 0.08 
 				}
 			}
 			modify_treasury_effect = yes
@@ -2328,6 +2330,8 @@
 		}
 
 		completion_reward = {
+			set_temp_variable = { MAD_rc_delta = 4 }
+			MAD_rural_cooperation_adjust = yes
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_Promote_drought_tolerant_crops"
 			custom_effect_tooltip = MAD_drought_unlock_seed_tt
 			custom_effect_tooltip = {
@@ -2587,10 +2591,17 @@
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
 			has_completed_focus = MAD_ACCEPT_FOREIGN_OWNERSHIP
+			custom_trigger_tooltip = {
+				tooltip = MAD_DAEWOO_DEAL_RURAL_COOP_TT
+				check_variable = { MAD_rural_cooperation > 11.99 }
+			}
 		}
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_DAEWOO_DEAL"
+			custom_effect_tooltip = MAD_RURAL_COOPERATION_SPENT_TT
+			set_temp_variable = { MAD_rc_delta = -12 }
+			MAD_rural_cooperation_adjust = yes
 			set_country_flag = MAD_DAEWOO_SIGNED
 			KOR = {
 				set_temp_variable = { int_investment_change = 5 }
@@ -3729,7 +3740,7 @@
 				add_idea = MAD_AUSTRAL_AIRLINE
 			}
 			
-			# Initial Air Madagascar privatisation: 5% of GDP.
+			
 			set_temp_variable = { treasury_change = { value = gdp_total multiply = 0.05 } }
 			modify_treasury_effect = yes
 			custom_effect_tooltip = {
@@ -3926,6 +3937,8 @@
 		search_filters = { FOCUS_FILTER_ECONOMY FOCUS_FILTER_STABILITY }
 
 		completion_reward = {
+			set_temp_variable = { MAD_rc_delta = 5 }
+			MAD_rural_cooperation_adjust = yes
 			log = "[GetDateText]: [This.GetName]: Focus MAD_MINING_LOCAL_BENEFIT_FUND"
 			set_country_flag = MAD_MINING_LOCAL_BENEFITS
 			custom_effect_tooltip = {
@@ -3954,6 +3967,8 @@
 		search_filters = { FOCUS_FILTER_POLITICAL }
 
 		completion_reward = {
+			set_temp_variable = { MAD_rc_delta = 5 }
+			MAD_rural_cooperation_adjust = yes
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_Grand_Sud_program"
 			custom_effect_tooltip = MAD_drought_unlock_boreholes_tt
 			custom_effect_tooltip = MAD_drought_unlock_wells_tt
@@ -4646,7 +4661,7 @@
 			set_temp_variable = {
 				treasury_change = {
 					value = gdp_total
-					multiply = -0.10 # State buyback matches the initial Telma sale price.
+					multiply = -0.10 
 				}
 			}
 			modify_treasury_effect = yes
@@ -4768,8 +4783,8 @@
 					instant_build = yes
 				}
 			}
-			# Special-project facilities are provincial and limited to one per state.
-			# Prefer Antananarivo, but fall back if another facility already occupies it.
+			
+			
 			MAD_build_air_facility_in_available_state = yes
 			GER = {
 				set_temp_variable = { treasury_change = -10.00 }
@@ -5718,7 +5733,7 @@
 		completion_reward = {
 			log = "[GetDateText]: [This.GetName]: Focus MAD_RUBIS_BUYS_GALANA"
 			set_country_flag = MAD_GPM_PRIVATE_MODEL
-			# Initial Rubis/Galana privatisation proceeds: 8% of Madagascar GDP.
+			
 			set_temp_variable = { treasury_change = { value = gdp_total multiply = 0.08 } }
 			modify_treasury_effect = yes
 			add_political_power = 25
@@ -6757,6 +6772,8 @@
 		}
 
 		completion_reward = {
+			set_temp_variable = { MAD_rc_delta = 6 }
+			MAD_rural_cooperation_adjust = yes
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_Thriving_south"
 			custom_effect_tooltip = {
 				localization_key = modifies_dynamic_modifier_tt
@@ -7116,7 +7133,7 @@
 			267 = {
 				add_extra_state_shared_building_slots = 1
 			}
-			# Avoid failing when Antananarivo already contains another special-project facility.
+			
 			MAD_build_air_facility_in_available_state = yes
 			add_breakthrough_points = {
 				specialization = specialization_air
@@ -7774,7 +7791,7 @@
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_remenabila_gather_the_dahalo"
-			recruitable_population = 0.01
+			add_ideas = MAD_REMENABILA_GATHER_DAHALO_POPULATION_IDEA
 			add_war_support = 0.03
 			custom_effect_tooltip = {
 				localization_key = modifies_dynamic_modifier_tt
@@ -7880,7 +7897,7 @@
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_remenabila_more_cows_more_men"
-			recruitable_population = 0.03
+			add_ideas = MAD_REMENABILA_MORE_COWS_POPULATION_IDEA
 			add_war_support = 0.05
 			custom_effect_tooltip = {
 				localization_key = modifies_dynamic_modifier_tt
@@ -8022,7 +8039,26 @@
 		}
 
 		completion_reward = {
-			add_ideas = MAD_POL_ROYAL_CONSTITUTION
+			if = {
+				limit = { NOT = { has_idea = MAD_POL_CHRISTOCRATIC_STATE } }
+				add_ideas = MAD_POL_ROYAL_CONSTITUTION
+			}
+			
+			if = {
+				limit = { has_idea = MAD_POL_SECULAR_GOVERNMENT }
+				swap_ideas = {
+					remove_idea = MAD_POL_SECULAR_GOVERNMENT
+					add_idea = MAD_POL_UNSECULAR_GOVERNMENT
+				}
+				set_country_flag = { flag = MAD_RURAL_CONSTITUTION_SWITCH_COOLDOWN value = 1 days = 365 }
+			}
+			else = {
+				remove_ideas = MAD_POL_SECULAR_GOVERNMENT
+				if = {
+					limit = { NOT = { has_idea = MAD_POL_UNSECULAR_GOVERNMENT } }
+					add_ideas = MAD_POL_UNSECULAR_GOVERNMENT
+				}
+			}
 			set_country_flag = MAD_ROY_CONSTITUTIONAL_ORDER_STARTED
 		}
 
@@ -8191,6 +8227,7 @@
 				remove_idea = MAD_POL_ROYAL_CONSTITUTION
 				add_idea = MAD_POL_CHRISTOCRATIC_STATE
 			}
+			remove_ideas = MAD_POL_ROYAL_CONSTITUTION
 			increase_centralization = yes
 			set_temp_variable = { party_index = 23 }
 			set_temp_variable = { party_popularity_increase = 0.05 }
@@ -8418,7 +8455,6 @@
 		}
 
 		completion_reward = {
-			# The Royal Academy's civilian research institute is a nuclear_facility in MD.
 			MAD_build_nuclear_facility_in_available_state = yes
 			random_owned_state = {
 				add_extra_state_shared_building_slots = 1
@@ -8885,7 +8921,6 @@
 		}
 
 		completion_reward = {
-
 			267 = {
 				add_extra_state_shared_building_slots = 2
 				add_building_construction = { type = offices level = 1 instant_build = yes }
@@ -8893,6 +8928,10 @@
 			set_temp_variable = { treasury_change = -2.50 }
 			modify_treasury_effect = yes
 			set_country_flag = MAD_TAMIMA_ANTENIMIERAN_ANDRIANA
+					
+			set_temp_variable = { MAD_rc_delta = 6 }
+			MAD_rural_cooperation_adjust = yes
+			custom_effect_tooltip = MAD_RURAL_COOP_FOCUS_GAIN_6_TT
 		}
 
 		ai_will_do = {
@@ -8920,7 +8959,7 @@
 			set_temp_variable = { MAD_rc_delta = 6 }
 			MAD_rural_cooperation_adjust = yes
 			custom_effect_tooltip = MAD_RURAL_COOP_FOCUS_GAIN_6_TT
-
+			
 			add_tech_bonus = {
 				name = MAD_POL_ROY_TAMIMA_LIVING_FORCES
 				category = CAT_Civilian
@@ -9018,7 +9057,7 @@
 			set_temp_variable = { MAD_rc_delta = 4 }
 			MAD_rural_cooperation_adjust = yes
 			custom_effect_tooltip = MAD_RURAL_COOP_FOCUS_GAIN_4_TT
-
+			
 			decrease_corruption = yes
 			add_stability = 0.015
 			decrease_centralization = yes
@@ -9054,7 +9093,6 @@
 		}
 
 		completion_reward = {
-			# Facility construction is decided by the following custodianship event.
 			increase_education_budget = yes
 			if = {
 				limit = { has_variable = literacy_rate check_variable = { literacy_rate < 0.899 } }
@@ -9508,7 +9546,7 @@
 			set_temp_variable = { MAD_rc_delta = 4 }
 			MAD_rural_cooperation_adjust = yes
 			custom_effect_tooltip = MAD_RURAL_COOP_FOCUS_GAIN_4_TT
-
+			
 			swap_ideas = {
 				remove_idea = MAD_MIL_PROFESSIONAL_OFFICERS
 				add_idea = MAD_MIL_SOUTHERN_SECURITY
@@ -9551,7 +9589,7 @@
 			set_temp_variable = { MAD_rc_delta = 5 }
 			MAD_rural_cooperation_adjust = yes
 			custom_effect_tooltip = MAD_RURAL_COOP_FOCUS_GAIN_GENDARMERIE_TT
-
+			
 			swap_ideas = {
 				remove_idea = MAD_MIL_SOUTHERN_SECURITY
 				add_idea = MAD_MIL_GENDARMERIE_REFORM
@@ -9593,7 +9631,7 @@
 			set_temp_variable = { MAD_rc_delta = 4 }
 			MAD_rural_cooperation_adjust = yes
 			custom_effect_tooltip = MAD_RURAL_COOP_FOCUS_GAIN_4_TT
-
+			
 			swap_ideas = {
 				remove_idea = MAD_MIL_GENDARMERIE_REFORM
 				add_idea = MAD_MIL_ENGINEER_CORPS
@@ -9833,6 +9871,8 @@
 			add_ideas = MAD_AREMA_REBUILDING
 			set_country_flag = MAD_AREMA_RETURNED
 			set_country_flag = MAD_AREMA_CONGRESS_PENDING
+			
+			
 			set_temp_variable = { party_index = 5 }
 			set_temp_variable = { party_popularity_increase = 0.03 }
 			set_temp_variable = { temp_outlook_increase = 0.03 }
@@ -9907,11 +9947,11 @@
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_AREMA_CHOOSE_RENEWAL"
-			# Retire Ratsiraka and record that a successor, not Ratsiraka, leads this AREMA route.
+			
 			hidden_effect = {
 				kill_country_leader = yes
 				set_country_flag = MAD_RATSIRAKA_SUCCESSOR_SELECTED
-				# Disarm any startup first-loss tracking; the Ratsiraka exile/civil-war chain is not for successor-led AREMA.
+				
 				clr_country_flag = MAD_RATSIRAKA_FIRST_LOSS_PENDING
 				clr_country_flag = MAD_RATSIRAKA_EVENT_QUEUED
 				clr_country_flag = MAD_RATSIRAKA_EXILE_EVENT_PENDING
@@ -9964,12 +10004,13 @@
 		}
 
 		completion_reward = {
+			clr_country_flag = MAD_ROY_CONSTITUTIONAL_ORDER_STARTED
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_AREMA_CHOOSE_RECONCILIATION"
-			# Retire Ratsiraka and record that a successor, not Ratsiraka, leads this AREMA route.
+			
 			hidden_effect = {
 				kill_country_leader = yes
 				set_country_flag = MAD_RATSIRAKA_SUCCESSOR_SELECTED
-				# Disarm any startup first-loss tracking; the Ratsiraka exile/civil-war chain is not for successor-led AREMA.
+				
 				clr_country_flag = MAD_RATSIRAKA_FIRST_LOSS_PENDING
 				clr_country_flag = MAD_RATSIRAKA_EVENT_QUEUED
 				clr_country_flag = MAD_RATSIRAKA_EXILE_EVENT_PENDING
@@ -10312,6 +10353,8 @@
 		}
 
 		completion_reward = {
+			set_temp_variable = { MAD_rc_delta = 4 }
+			MAD_rural_cooperation_adjust = yes
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_AREMA_WORKERS_FARMERS"
 			
 			increase_social_spending = yes
@@ -10501,7 +10544,7 @@
 			set_temp_variable = { MAD_rc_delta = 6 }
 			MAD_rural_cooperation_adjust = yes
 			custom_effect_tooltip = MAD_RURAL_COOP_FOCUS_GAIN_6_TT
-
+			
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_AREMA_FOKONOLONA"
 			
 			custom_effect_tooltip = {
@@ -10547,7 +10590,7 @@
 			set_temp_variable = { MAD_rc_delta = 6 }
 			MAD_rural_cooperation_adjust = yes
 			custom_effect_tooltip = MAD_RURAL_COOP_FOCUS_GAIN_6_TT
-
+			
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_AREMA_FOOD_FIRST"
 			if = {
 				limit = {
@@ -10744,7 +10787,7 @@
 			set_temp_variable = { MAD_rc_delta = 4 }
 			MAD_rural_cooperation_adjust = yes
 			custom_effect_tooltip = MAD_RURAL_COOP_FOCUS_GAIN_4_TT
-
+			
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_AREMA_PROVINCES"
 			
 			
@@ -11586,6 +11629,8 @@
 		}
 
 		completion_reward = {
+			set_temp_variable = { MAD_rc_delta = 4 }
+			MAD_rural_cooperation_adjust = yes
 			one_random_agriculture_district = yes
 			
 			decrease_corruption = yes
@@ -11664,6 +11709,8 @@
 						remove_idea = strip_mining
 						add_idea = economic_motivated_mining
 					}
+					set_temp_variable = { MAD_rc_delta = 3 }
+					MAD_rural_cooperation_adjust = yes
 				}
 				else_if = {
 					limit = { has_idea = economic_motivated_mining }
@@ -11671,6 +11718,8 @@
 						remove_idea = economic_motivated_mining
 						add_idea = balanced_protections
 					}
+					set_temp_variable = { MAD_rc_delta = 3 }
+					MAD_rural_cooperation_adjust = yes
 				}
 				else_if = {
 					limit = { has_idea = balanced_protections }
@@ -11678,6 +11727,8 @@
 						remove_idea = balanced_protections
 						add_idea = partial_environmental_protections
 					}
+					set_temp_variable = { MAD_rc_delta = 3 }
+					MAD_rural_cooperation_adjust = yes
 				}
 				else_if = {
 					limit = { has_idea = partial_environmental_protections }
@@ -11685,6 +11736,8 @@
 						remove_idea = partial_environmental_protections
 						add_idea = full_environmental_protections
 					}
+					set_temp_variable = { MAD_rc_delta = 3 }
+					MAD_rural_cooperation_adjust = yes
 				}
 			
 			set_temp_variable = { party_index = 2 }
@@ -12024,6 +12077,8 @@
 		}
 
 		completion_reward = {
+			set_temp_variable = { MAD_rc_delta = 4 }
+			MAD_rural_cooperation_adjust = yes
 			custom_effect_tooltip = {
 			            	localization_key = modifies_dynamic_modifier_tt
 			            	MODIFIER = MAD_agriculture_modifier
@@ -12125,6 +12180,10 @@
 				uses = 2
 				bonus = 0.15
 			}
+					
+			set_temp_variable = { MAD_rc_delta = 4 }
+			MAD_rural_cooperation_adjust = yes
+			custom_effect_tooltip = MAD_RURAL_COOP_FOCUS_GAIN_4_TT
 		}
 
 		ai_will_do = {
@@ -12200,7 +12259,7 @@
 			set_temp_variable = { MAD_rc_delta = 6 }
 			MAD_rural_cooperation_adjust = yes
 			custom_effect_tooltip = MAD_RURAL_COOP_FOCUS_GAIN_6_TT
-
+			
 			if = { limit = { has_completed_focus = MAD_JIRAMA_RECOVERY_SUCCEEDS } 
 				custom_effect_tooltip = {
 					localization_key = modifies_dynamic_modifier_tt
@@ -12328,7 +12387,7 @@
 			set_temp_variable = { MAD_rc_delta = 6 }
 			MAD_rural_cooperation_adjust = yes
 			custom_effect_tooltip = MAD_RURAL_COOP_FOCUS_GAIN_6_TT
-
+			
 			custom_effect_tooltip = {
 			            	localization_key = modifies_dynamic_modifier_tt
 			            	MODIFIER = MAD_economy_modifier
@@ -13338,7 +13397,7 @@
 	focus = {
 		id = MAD_ARMY_THE_ARMY_WE_INHERITED
 		icon = army_general_stuff1
-		x = 79
+		x = 82
 		y = 20
 		cost = 3
 		search_filters = { FOCUS_FILTER_MILITARY_LAWS }
@@ -13357,8 +13416,8 @@
 	focus = {
 		id = MAD_ARMY_PAY_THE_SOLDIER
 		icon = military_mission
-		x = 79
-		y = 22
+		x = 82
+		y = 21
 		cost = 3
 		prerequisite = { focus = MAD_ARMY_THE_ARMY_WE_INHERITED }
 		search_filters = { FOCUS_FILTER_MILITARY_LAWS }
@@ -13376,8 +13435,8 @@
 	focus = {
 		id = MAD_ARMY_BUILD_TRAINING_CADRE
 		icon = Generic_Infantry_Training
-		x = 79
-		y = 24
+		x = 82
+		y = 23
 		cost = 3
 		prerequisite = { focus = MAD_ARMY_PAY_THE_SOLDIER }
 		search_filters = { FOCUS_FILTER_MILITARY_LAWS }
@@ -13402,8 +13461,8 @@
 	focus = {
 		id = MAD_ARMY_STANDARDISE_FIELD_READINESS
 		icon = army_upgrade
-		x = 79
-		y = 25
+		x = 82
+		y = 24
 		cost = 3
 		prerequisite = { focus = MAD_ARMY_BUILD_TRAINING_CADRE }
 		search_filters = { FOCUS_FILTER_MILITARY_LAWS }
@@ -13435,7 +13494,7 @@
 		id = MAD_ARMY_ISLAND_INFANTRY_DOCTRINE
 		icon = infantry_allies
 		x = 82
-		y = 26
+		y = 25
 		cost = 3
 		prerequisite = { focus = MAD_ARMY_STANDARDISE_FIELD_READINESS }
 		search_filters = { FOCUS_FILTER_MILITARY }
@@ -14756,6 +14815,10 @@
 			set_temp_variable = { temp_outlook_increase = 0.03 }
 			change_relative_party_popularity = yes
 			recalculate_party = yes
+					
+			set_temp_variable = { MAD_rc_delta = 4 }
+			MAD_rural_cooperation_adjust = yes
+			custom_effect_tooltip = MAD_RURAL_COOP_FOCUS_GAIN_4_TT
 		}
 
 		ai_will_do = {
@@ -14828,10 +14891,7 @@
 		prerequisite = { focus = MAD_NAVAL_FORCE_REVIEW }
 		search_filters = { FOCUS_FILTER_NAVY FOCUS_FILTER_EQUIPMENT }
 		available = {
-			custom_trigger_tooltip = {
-				tooltip = MAD_FRENCH_CORVETTES_AFFORD_TT
-				check_variable = { treasury > 4.99 }
-			}
+			
 		}
 
 		completion_reward = {
@@ -15255,12 +15315,12 @@
 		icon = Generic_Naval_Helicopter
 		x = 89
 		y = 50
-		visible = {
-			has_country_flag = MAD_NAVAL_HELICOPTER_OPERATOR_AUTHORIZED
-		}
 		cost = 3
 		prerequisite = { focus = MAD_WESTERN_INDIAN_OCEAN_DOCTRINE }
 		search_filters = { FOCUS_FILTER_NAVY FOCUS_FILTER_AIRCRAFT }
+		allow_branch = {
+			has_country_flag = MAD_NAVAL_HELICOPTER_OPERATOR_AUTHORIZED
+		}
 		available = {
 			has_country_flag = MAD_NAVAL_HELICOPTER_OPERATOR_AUTHORIZED
 		}
@@ -15281,12 +15341,12 @@
 		icon = carriers2
 		x = 91
 		y = 51
-		visible = {
-			has_country_flag = MAD_NAVAL_HELICOPTER_OPERATOR_AUTHORIZED
-		}
 		cost = 3
 		prerequisite = { focus = MAD_NAVAL_HELICOPTER_DETACHMENT }
 		search_filters = { FOCUS_FILTER_NAVY FOCUS_FILTER_AIRCRAFT }
+		allow_branch = {
+			has_country_flag = MAD_NAVAL_HELICOPTER_OPERATOR_AUTHORIZED
+		}
 		available = {
 			has_country_flag = MAD_NAVAL_HELICOPTER_OPERATOR_AUTHORIZED
 		}
@@ -15308,12 +15368,12 @@
 		icon = naval_dockyard
 		x = 93
 		y = 50
-		visible = {
-			has_country_flag = MAD_NAVAL_HELICOPTER_OPERATOR_AUTHORIZED
-		}
 		cost = 3
 		prerequisite = { focus = MAD_WESTERN_INDIAN_OCEAN_DOCTRINE }
 		search_filters = { FOCUS_FILTER_NAVY FOCUS_FILTER_INDUSTRY }
+		allow_branch = {
+			has_country_flag = MAD_NAVAL_HELICOPTER_OPERATOR_AUTHORIZED
+		}
 		available = {
 			has_country_flag = MAD_NAVAL_HELICOPTER_OPERATOR_AUTHORIZED
 		}
@@ -15334,13 +15394,13 @@
 		icon = carriers
 		x = 92
 		y = 52
-		visible = {
-			has_country_flag = MAD_NAVAL_HELICOPTER_OPERATOR_AUTHORIZED
-		}
 		cost = 3
 		prerequisite = { focus = MAD_SHIPBORNE_HELICOPTER_DOCTRINE }
 		prerequisite = { focus = MAD_SECREN_FLIGHT_DECK_ENGINEERING }
 		search_filters = { FOCUS_FILTER_NAVY FOCUS_FILTER_RESEARCH }
+		allow_branch = {
+			has_country_flag = MAD_NAVAL_HELICOPTER_OPERATOR_AUTHORIZED
+		}
 		available = {
 			has_country_flag = MAD_NAVAL_HELICOPTER_OPERATOR_AUTHORIZED
 		}

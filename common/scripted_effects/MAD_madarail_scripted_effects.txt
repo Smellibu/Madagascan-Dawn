@@ -1,4 +1,4 @@
-﻿# common/scripted_effects/MAD_madarail_scripted_effects.txt
+# common/scripted_effects/MAD_madarail_scripted_effects.txt
 
 ########################################################################
 # INVESTOR CYCLE
@@ -22,6 +22,9 @@ MAD_madarail_clear_concessions = {
 	clr_country_flag = MAD_MADARAIL_OFFER_1
 	clr_country_flag = MAD_MADARAIL_OFFER_2
 	clr_country_flag = MAD_MADARAIL_OFFER_3
+	# The Comazar freight penalty only applies while that committed concession remains active.
+	clr_country_flag = MAD_MADARAIL_COMAZAR_FREIGHT_CONCESSION_ACCEPTED
+	remove_ideas = MAD_MADARAIL_COMAZAR_FREIGHT_CONCESSION
 }
 
 # Concessions are only OFFERS until the investors commit. This is where they become real, all in one go:
@@ -175,6 +178,16 @@ MAD_madarail_seat_holding = {
 # Outcome 1: the investors commit. The suitor in place stays and every concession OFFERED now takes effect; STAY focus unlocks.
 MAD_madarail_apply_stay_outcome = {
 	MAD_madarail_enact_concessions = yes
+	# Guaranteeing public freight for Comazar is the rural-distribution concession.
+	# Its ongoing penalty starts only if Comazar commits after Freight Volumes was offered.
+	if = {
+		limit = {
+			has_country_flag = MAD_MADARAIL_SEATED_COMAZAR
+			has_country_flag = MAD_MADARAIL_OFFER_3
+		}
+		set_country_flag = MAD_MADARAIL_COMAZAR_FREIGHT_CONCESSION_ACCEPTED
+		add_ideas = MAD_MADARAIL_COMAZAR_FREIGHT_CONCESSION
+	}
 	set_country_flag = MAD_MADARAIL_OUTCOME_DECIDED
 	set_country_flag = MAD_MADARAIL_STAY_UNLOCKED
 	custom_effect_tooltip = MAD_madarail_stay_unlocked_tt
@@ -473,6 +486,11 @@ MAD_drought_init = {
 	set_variable = { MAD_drought_abroad_in_MOZ_before = 0 }
 	set_variable = { MAD_drought_abroad_in_SAF_before = 0 }
 	set_variable = { MAD_drought_transfer_abroad_country = 0 }
+	set_variable = { MAD_drought_report_net_266 = 0 }
+	set_variable = { MAD_drought_report_net_267 = 0 }
+	set_variable = { MAD_drought_report_net_268 = 0 }
+	set_variable = { MAD_drought_report_net_487 = 0 }
+	set_variable = { MAD_drought_report_deaths_monthly = 0 }
 	set_variable = { MAD_drought_expat_country_remaining = 0 }
 	set_variable = { MAD_drought_abroad_before_266 = 0 }
 	set_variable = { MAD_drought_abroad_before_267 = 0 }
@@ -888,26 +906,20 @@ MAD_drought_execute_displacement = {
 		# Pick the destination from the four-state severity snapshot taken for this tick.
 		set_variable = { MAD_drought_lowest_safe_id = 0 }
 		set_variable = { MAD_drought_lowest_safe_severity = 101 }
-		set_variable = { MAD_drought_lowest_other_id = 0 }
-		set_variable = { MAD_drought_lowest_other_severity = 101 }
 		if = {
 			limit = { NOT = { check_variable = { MAD_drought_transfer_source_id = 266 } } }
-			if = { limit = { check_variable = { MAD_drought_mig_d_266 < MAD_drought_lowest_other_severity } } set_variable = { MAD_drought_lowest_other_id = 266 } set_variable = { MAD_drought_lowest_other_severity = MAD_drought_mig_d_266 } }
 			if = { limit = { check_variable = { MAD_drought_mig_d_266 < 60 } check_variable = { MAD_drought_mig_d_266 < MAD_drought_lowest_safe_severity } } set_variable = { MAD_drought_lowest_safe_id = 266 } set_variable = { MAD_drought_lowest_safe_severity = MAD_drought_mig_d_266 } }
 		}
 		if = {
 			limit = { NOT = { check_variable = { MAD_drought_transfer_source_id = 267 } } }
-			if = { limit = { check_variable = { MAD_drought_mig_d_267 < MAD_drought_lowest_other_severity } } set_variable = { MAD_drought_lowest_other_id = 267 } set_variable = { MAD_drought_lowest_other_severity = MAD_drought_mig_d_267 } }
 			if = { limit = { check_variable = { MAD_drought_mig_d_267 < 60 } check_variable = { MAD_drought_mig_d_267 < MAD_drought_lowest_safe_severity } } set_variable = { MAD_drought_lowest_safe_id = 267 } set_variable = { MAD_drought_lowest_safe_severity = MAD_drought_mig_d_267 } }
 		}
 		if = {
 			limit = { NOT = { check_variable = { MAD_drought_transfer_source_id = 268 } } }
-			if = { limit = { check_variable = { MAD_drought_mig_d_268 < MAD_drought_lowest_other_severity } } set_variable = { MAD_drought_lowest_other_id = 268 } set_variable = { MAD_drought_lowest_other_severity = MAD_drought_mig_d_268 } }
 			if = { limit = { check_variable = { MAD_drought_mig_d_268 < 60 } check_variable = { MAD_drought_mig_d_268 < MAD_drought_lowest_safe_severity } } set_variable = { MAD_drought_lowest_safe_id = 268 } set_variable = { MAD_drought_lowest_safe_severity = MAD_drought_mig_d_268 } }
 		}
 		if = {
 			limit = { NOT = { check_variable = { MAD_drought_transfer_source_id = 487 } } }
-			if = { limit = { check_variable = { MAD_drought_mig_d_487 < MAD_drought_lowest_other_severity } } set_variable = { MAD_drought_lowest_other_id = 487 } set_variable = { MAD_drought_lowest_other_severity = MAD_drought_mig_d_487 } }
 			if = { limit = { check_variable = { MAD_drought_mig_d_487 < 60 } check_variable = { MAD_drought_mig_d_487 < MAD_drought_lowest_safe_severity } } set_variable = { MAD_drought_lowest_safe_id = 487 } set_variable = { MAD_drought_lowest_safe_severity = MAD_drought_mig_d_487 } }
 		}
 
@@ -918,13 +930,11 @@ MAD_drought_execute_displacement = {
 			limit = { check_variable = { MAD_drought_lowest_safe_id > 0 } }
 			set_variable = { MAD_drought_transfer_destination_id = MAD_drought_lowest_safe_id }
 		}
-		else_if = {
-			limit = { check_variable = { MAD_drought_mig_d_266 > 79.99 } check_variable = { MAD_drought_mig_d_267 > 79.99 } check_variable = { MAD_drought_mig_d_268 > 79.99 } check_variable = { MAD_drought_mig_d_487 > 79.99 } }
-			set_variable = { MAD_drought_transfer_abroad = 1 }
-		}
 		else = {
-			random_list = { 50 = { set_variable = { MAD_drought_transfer_abroad = 1 } } 50 = { set_variable = { MAD_drought_transfer_abroad = 0 } } }
-			if = { limit = { check_variable = { MAD_drought_transfer_abroad < 0.5 } } set_variable = { MAD_drought_transfer_destination_id = MAD_drought_lowest_other_id } }
+			# No other state is below 60: do not send people into another unsafe state.
+			# Use the established international destinations instead of creating reciprocal
+			# Antananarivo <-> Toliara flows while the whole island is severely affected.
+			set_variable = { MAD_drought_transfer_abroad = 1 }
 		}
 
 		# Save a destination scope under the unique report slot. Nothing is moved until the report option.
@@ -1271,15 +1281,20 @@ MAD_drought_clear_regular_transfer_slots = {
 	set_variable = { MAD_drought_report_arrivals_267 = 0 }
 	set_variable = { MAD_drought_report_arrivals_268 = 0 }
 	set_variable = { MAD_drought_report_arrivals_487 = 0 }
+	set_variable = { MAD_drought_report_net_266 = 0 }
+	set_variable = { MAD_drought_report_net_267 = 0 }
+	set_variable = { MAD_drought_report_net_268 = 0 }
+	set_variable = { MAD_drought_report_net_487 = 0 }
+	set_variable = { MAD_drought_report_deaths_monthly = 0 }
 	set_variable = { MAD_drought_report_arrivals_COM = 0 }
 	set_variable = { MAD_drought_report_arrivals_MOZ = 0 }
 	set_variable = { MAD_drought_report_arrivals_SAF = 0 }
 }
 
 
-# Build display totals by DESTINATION for the event body/option tooltip. The underlying
-# transfers remain stored per source state so each source can still lose manpower correctly,
-# but a destination reached from two or more sources is displayed only once with their sum.
+# Build display totals by destination for the event option tooltip. The underlying
+# transfers remain stored per source state so each source can still lose manpower correctly.
+# Report rows below combine each state's inbound survivors and gross departures into one net change.
 MAD_drought_prepare_displacement_report_summary = {
 	set_variable = { MAD_drought_report_arrivals_266 = 0 }
 	set_variable = { MAD_drought_report_arrivals_267 = 0 }
@@ -1325,6 +1340,22 @@ MAD_drought_prepare_displacement_report_summary = {
 		else_if = { limit = { check_variable = { MAD_drought_transfer_destination_id_487 = 268 } } add_to_variable = { MAD_drought_report_arrivals_268 = MAD_drought_transfer_survivors_487 } }
 		else_if = { limit = { check_variable = { MAD_drought_transfer_destination_id_487 = 487 } } add_to_variable = { MAD_drought_report_arrivals_487 = MAD_drought_transfer_survivors_487 } }
 	}
+
+	# One row per Madagascar state: arrivals minus all departures from that state this month.
+	# This reports its actual net population change, rather than separate gross outflow and inflow lines.
+	set_variable = { MAD_drought_report_net_266 = MAD_drought_report_arrivals_266 }
+	subtract_from_variable = { MAD_drought_report_net_266 = MAD_drought_transfer_gross_266 }
+	set_variable = { MAD_drought_report_net_267 = MAD_drought_report_arrivals_267 }
+	subtract_from_variable = { MAD_drought_report_net_267 = MAD_drought_transfer_gross_267 }
+	set_variable = { MAD_drought_report_net_268 = MAD_drought_report_arrivals_268 }
+	subtract_from_variable = { MAD_drought_report_net_268 = MAD_drought_transfer_gross_268 }
+	set_variable = { MAD_drought_report_net_487 = MAD_drought_report_arrivals_487 }
+	subtract_from_variable = { MAD_drought_report_net_487 = MAD_drought_transfer_gross_487 }
+
+	set_variable = { MAD_drought_report_deaths_monthly = MAD_drought_transfer_deaths_266 }
+	add_to_variable = { MAD_drought_report_deaths_monthly = MAD_drought_transfer_deaths_267 }
+	add_to_variable = { MAD_drought_report_deaths_monthly = MAD_drought_transfer_deaths_268 }
+	add_to_variable = { MAD_drought_report_deaths_monthly = MAD_drought_transfer_deaths_487 }
 }
 
 # Called once per calendar month by on_monthly_MAD.
@@ -2932,7 +2963,7 @@ MAD_JIRAMA_GENERATION_RECOVERY_DAILY = {
 # common/scripted_effects/MAD_dahalo_scripted_effects.txt
 #
 # The Dahalo system is a permanent pressure mechanic, not a temporary chain of generic bonuses.
-# MAD_dahalo_threat runs from 100 (severe insecurity) to 0 (security restored).
+# MAD_dahalo_threat runs from 100 (maximum severe insecurity) to 0 (security restored); new games start at 65.
 # Decisions and relevant focuses move that number; this effect translates the current tier into
 # the actual economic/law consequences.
 
@@ -2943,7 +2974,7 @@ MAD_dahalo_init = {
 			NOT = { has_country_flag = MAD_DAHALO_INITIALISED }
 		}
 		set_country_flag = MAD_DAHALO_INITIALISED
-		set_variable = { MAD_dahalo_threat = 100 }
+		set_variable = { MAD_dahalo_threat = 65 }
 		set_variable = { MAD_dahalo_ringleader_sweeps = 0 }
 		set_variable = { MAD_dahalo_event_cooldown = 180 }
 		if = {
@@ -3143,7 +3174,7 @@ MAD_dahalo_southern_supply_interference = {
 
 MAD_dahalo_southern_water_relief_interference = {
 	# Start with the original six-month window, then apply the pre-existing Dahalo
-	# interception penalties. Cooperation extends the remaining window afterward.
+	# interception penalties. Rural Cooperation applies its current effectiveness band afterward.
 	set_temp_variable = { MAD_dahalo_water_relief_months = 6 }
 	if = {
 		limit = {
@@ -3166,11 +3197,15 @@ MAD_dahalo_southern_water_relief_interference = {
 			set_temp_variable = { MAD_dahalo_water_relief_months = 4 }
 		}
 	}
-	set_temp_variable = { MAD_rc_water_relief_bonus = 0 }
-	if = { limit = { ROOT = { check_variable = { MAD_rural_cooperation > 79.99 } } } set_temp_variable = { MAD_rc_water_relief_bonus = 3 } }
-	else_if = { limit = { ROOT = { check_variable = { MAD_rural_cooperation > 59.99 } } } set_temp_variable = { MAD_rc_water_relief_bonus = 2 } }
-	else_if = { limit = { ROOT = { check_variable = { MAD_rural_cooperation > 34.99 } } } set_temp_variable = { MAD_rc_water_relief_bonus = 1 } }
-	add_to_temp_variable = { MAD_dahalo_water_relief_months = MAD_rc_water_relief_bonus }
+	# Apply the same national Cooperation bands to the duration of emergency-water relief.
+	# Relief duration is counted in whole monthly ticks, so round the adjusted period once.
+	set_temp_variable = { MAD_rc_water_relief_multiplier = 0.50 }
+	if = { limit = { ROOT = { check_variable = { MAD_rural_cooperation > 79.99 } } } set_temp_variable = { MAD_rc_water_relief_multiplier = 1.20 } }
+	else_if = { limit = { ROOT = { check_variable = { MAD_rural_cooperation > 59.99 } } } set_temp_variable = { MAD_rc_water_relief_multiplier = 1.00 } }
+	else_if = { limit = { ROOT = { check_variable = { MAD_rural_cooperation > 34.99 } } } set_temp_variable = { MAD_rc_water_relief_multiplier = 0.80 } }
+	multiply_temp_variable = { MAD_dahalo_water_relief_months = MAD_rc_water_relief_multiplier }
+	round_temp_variable = MAD_dahalo_water_relief_months
+	if = { limit = { check_variable = { MAD_dahalo_water_relief_months < 1 } } set_temp_variable = { MAD_dahalo_water_relief_months = 1 } }
 	add_to_variable = { MAD_state_relief_months = MAD_dahalo_water_relief_months }
 }
 
@@ -4426,8 +4461,12 @@ MAD_ARMY_COMMAND_APPLY_CAPSAT_CONCESSIONS = {
 }
 
 ########################################################################
+# RURAL COOPERATION — shared rural mobilisation resource
+########################################################################
+
+########################################################################
 # RURAL COOPERATION — ONE SHARED, VISIBLE STATE/CIVIL-SOCIETY CAPACITY POOL
-# Persistent meter: MAD_rural_cooperation (0-100). No stored regeneration rate.
+# Persistent meter: MAD_rural_cooperation (0-100). Cached rate variables are UI readouts; only the monthly tick moves the meter.
 ########################################################################
 
 MAD_rural_cooperation_initialize = {
@@ -4438,9 +4477,114 @@ MAD_rural_cooperation_initialize = {
 	clamp_variable = { var = MAD_rural_cooperation min = 0 max = 100 }
 }
 
-MAD_rural_cooperation_daily_tick = {
-	# Migration safety: initialise the meter for new games and existing saves.
-	MAD_rural_cooperation_initialize = yes
+# Ensure a single constitutional model exists on startup. Party-conditioned overrides are event-driven.
+MAD_rural_constitution_initialize = {
+	if = {
+		limit = { has_idea = MAD_POL_CHRISTOCRATIC_STATE }
+		MAD_rural_constitution_force_religious = yes
+	}
+	else_if = {
+		limit = { has_idea = MAD_POL_UNSECULAR_GOVERNMENT }
+		remove_ideas = MAD_POL_SECULAR_GOVERNMENT
+	}
+	else = {
+		if = {
+			limit = { NOT = { has_idea = MAD_POL_SECULAR_GOVERNMENT } }
+			add_ideas = MAD_POL_SECULAR_GOVERNMENT
+		}
+	}
+}
+
+# A forced constitutional change starts the same one-year lock as a player-selected change.
+# The effects only set the lock when they actually change models; already-correct states are untouched.
+MAD_rural_constitution_force_secular = {
+	if = {
+		limit = { has_idea = MAD_POL_UNSECULAR_GOVERNMENT }
+		swap_ideas = {
+			remove_idea = MAD_POL_UNSECULAR_GOVERNMENT
+			add_idea = MAD_POL_SECULAR_GOVERNMENT
+		}
+		set_country_flag = { flag = MAD_RURAL_CONSTITUTION_SWITCH_COOLDOWN value = 1 days = 365 }
+	}
+	else_if = {
+		limit = { NOT = { has_idea = MAD_POL_SECULAR_GOVERNMENT } }
+		add_ideas = MAD_POL_SECULAR_GOVERNMENT
+	}
+}
+
+MAD_rural_constitution_force_religious = {
+	if = {
+		limit = { has_idea = MAD_POL_SECULAR_GOVERNMENT }
+		swap_ideas = {
+			remove_idea = MAD_POL_SECULAR_GOVERNMENT
+			add_idea = MAD_POL_UNSECULAR_GOVERNMENT
+		}
+		set_country_flag = { flag = MAD_RURAL_CONSTITUTION_SWITCH_COOLDOWN value = 1 days = 365 }
+	}
+	else_if = {
+		limit = { NOT = { has_idea = MAD_POL_UNSECULAR_GOVERNMENT } }
+		add_ideas = MAD_POL_UNSECULAR_GOVERNMENT
+	}
+}
+
+# Only government transitions impose a constitutional model automatically; other governments preserve the player's choice.
+MAD_rural_constitution_government_sync = {
+	if = {
+		limit = { has_idea = MAD_POL_CHRISTOCRATIC_STATE }
+		MAD_rural_constitution_force_religious = yes
+	}
+	else_if = {
+		limit = {
+			MAD_AREMA_IN_POWER = yes
+			NOT = { has_completed_focus = MAD_POL_AREMA_CHOOSE_RECONCILIATION }
+		}
+		MAD_rural_constitution_force_secular = yes
+	}
+	else_if = {
+		limit = {
+			has_completed_focus = MAD_POL_ROY_SACRED_CONSTITUTION
+			OR = { MAD_ROY_IN_POWER = yes MAD_TAMIMA_IN_POWER = yes }
+		}
+		MAD_rural_constitution_force_religious = yes
+	}
+}
+
+# Remembered royal-house policy is separately suspended under CRPM/TAMIMA and restored on government change.
+MAD_rural_andriana_recognition_sync = {
+	# Migration for older saves: retire the previous redundant AREMA counter-policy idea/flag.
+	if = {
+		limit = { has_idea = MAD_POL_AREMA_REPUBLICAN_SECULARISM }
+		remove_ideas = MAD_POL_AREMA_REPUBLICAN_SECULARISM
+	}
+	if = {
+		limit = { has_country_flag = MAD_AREMA_SECULAR_HOUSE_POLICY_UNLOCKED }
+		clr_country_flag = MAD_AREMA_SECULAR_HOUSE_POLICY_UNLOCKED
+	}
+	if = {
+		limit = { OR = { MAD_ROY_IN_POWER = yes MAD_TAMIMA_IN_POWER = yes } }
+		remove_ideas = MAD_POL_ANDRIANA_HERITAGE_RECOGNISED
+		remove_ideas = MAD_POL_ANDRIANA_NON_RECOGNITION
+	}
+	else_if = {
+		limit = { has_country_flag = MAD_ANDRIANA_RECOGNITION_ENACTED }
+		remove_ideas = MAD_POL_ANDRIANA_NON_RECOGNITION
+		if = {
+			limit = { NOT = { has_idea = MAD_POL_ANDRIANA_HERITAGE_RECOGNISED } }
+			add_ideas = MAD_POL_ANDRIANA_HERITAGE_RECOGNISED
+		}
+	}
+	else = {
+		remove_ideas = MAD_POL_ANDRIANA_HERITAGE_RECOGNISED
+		if = {
+			limit = { NOT = { has_idea = MAD_POL_ANDRIANA_NON_RECOGNITION } }
+			add_ideas = MAD_POL_ANDRIANA_NON_RECOGNITION
+		}
+	}
+}
+
+MAD_rural_governance_policy_sync = {
+	MAD_rural_constitution_government_sync = yes
+	MAD_rural_andriana_recognition_sync = yes
 }
 
 # Caller sets the temporary MAD_rc_delta (+/-). This helper is intentionally the only
@@ -4454,13 +4598,44 @@ MAD_rural_cooperation_adjust = {
 	clamp_variable = { var = MAD_rural_cooperation min = 0 max = 100 }
 }
 
-MAD_rural_cooperation_monthly_tick = {
-	MAD_rural_cooperation_initialize = yes
+MAD_rural_cooperation_calculate_monthly_change = {
+	# Calculate and cache the upcoming monthly rate for the category description.
+	# Refreshed at startup, monthly ticks, and ruling-party changes, not by daily polling.
 	set_temp_variable = { MAD_rc_monthly_gain = 0.50 }
+	set_variable = { MAD_rural_cooperation_cap_adjustment = 0 }
+	set_variable = { MAD_rural_cooperation_meter_upper_adjustment = 0 }
+	set_variable = { MAD_rural_cooperation_meter_lower_adjustment = 0 }
+	# Constitutional secularism dampens rural cooperation; open state-church cooperation strengthens it.
+	if = { limit = { has_idea = MAD_POL_SECULAR_GOVERNMENT } add_to_temp_variable = { MAD_rc_monthly_gain = -0.50 } }
+	if = { limit = { has_idea = MAD_POL_UNSECULAR_GOVERNMENT } add_to_temp_variable = { MAD_rc_monthly_gain = 0.50 } }
+	if = { limit = { has_idea = MAD_POL_ANDRIANA_HERITAGE_RECOGNISED } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
+	if = { limit = { has_idea = MAD_POL_ANDRIANA_NON_RECOGNITION } add_to_temp_variable = { MAD_rc_monthly_gain = -0.25 } }
+	# MD stores inflation_rate_var as a fraction: 0.25 = 25%, 0.50 = 50%, 0.75 = 75%.
+	if = {
+		limit = {
+			has_variable = inflation_rate_var
+			NOT = { check_variable = { inflation_rate_var < 0.75 } }
+		}
+		add_to_temp_variable = { MAD_rc_monthly_gain = -1.00 }
+	}
+	else_if = {
+		limit = {
+			has_variable = inflation_rate_var
+			NOT = { check_variable = { inflation_rate_var < 0.50 } }
+		}
+		add_to_temp_variable = { MAD_rc_monthly_gain = -0.50 }
+	}
+	else_if = {
+		limit = {
+			has_variable = inflation_rate_var
+			NOT = { check_variable = { inflation_rate_var < 0.25 } }
+		}
+		add_to_temp_variable = { MAD_rc_monthly_gain = -0.25 }
+	}
 
 	# Trust follows basic state capacity, public consent, and a countryside not in crisis.
-	if = { limit = { stability > 0.499 } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
-	if = { limit = { stability > 0.649 } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
+	if = { limit = { has_stability > 0.499 } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
+	if = { limit = { has_stability > 0.649 } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
 
 	# Government popularity is checked against the ruling ideology group rather than a fixed party.
 	if = {
@@ -4489,6 +4664,7 @@ MAD_rural_cooperation_monthly_tick = {
 
 	# Governance paths provide lasting institutional memory. Milestones stack, subject to the +3 cap.
 	if = { limit = { has_completed_focus = MAD_POL_ROY_CROWN_WITHOUT_KING } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
+	if = { limit = { has_completed_focus = MAD_POL_ROY_FOKONOLONA } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
 	if = { limit = { has_completed_focus = MAD_POL_ROY_CUSTOMARY_JUSTICE } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
 	if = { limit = { has_completed_focus = MAD_POL_ROY_ONE_MADAGASCAR_MANY_HOUSES } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
 	if = { limit = { has_completed_focus = MAD_POL_AREMA_FOKONOLONA } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
@@ -4497,39 +4673,92 @@ MAD_rural_cooperation_monthly_tick = {
 	if = { limit = { has_completed_focus = MAD_POL_MIL_SOUTHERN_SECURITY } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
 	if = { limit = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM } add_to_temp_variable = { MAD_rc_monthly_gain = 0.50 } }
 	if = { limit = { has_completed_focus = MAD_POL_MIL_ENGINEERS } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
+	if = { limit = { has_completed_focus = MAD_POL_TGV_INFRASTRUCTURE_FIRST } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
+	if = { limit = { has_completed_focus = MAD_POL_TGV_HEALTH_FOR_ALL } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
 	if = { limit = { has_completed_focus = MAD_POL_TGV_JIRAMA_DELIVERY } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
 	if = { limit = { has_completed_focus = MAD_POL_TGV_FOOD_SOVEREIGNTY } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
+	# Successful resolution of the southern drought leaves a durable recovery dividend.
+	if = { limit = { has_completed_focus = MAD_Thriving_south } add_to_temp_variable = { MAD_rc_monthly_gain = 0.50 } }
 
 	# Completed rural access projects give their own permanent dividend; a project under construction does not.
 	if = { limit = { has_country_flag = MAD_JIRAMA_RURAL_GRID_BUILT } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
 	if = { limit = { has_country_flag = MAD_LEAD_ACCESS_BUILT } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
 	if = { limit = { has_country_flag = MAD_JIRAMA_DECIM_SOLAR_BUILT } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
 
-	# Cap monthly recovery, even if several route and infrastructure milestones stack.
+	# Cap positive recovery, even if several route and infrastructure milestones stack.
 	if = {
 		limit = { check_variable = { MAD_rc_monthly_gain > 2.99 } }
+		set_variable = { MAD_rural_cooperation_cap_adjustment = MAD_rc_monthly_gain }
+		subtract_from_variable = { MAD_rural_cooperation_cap_adjustment = 3.0 }
 		set_temp_variable = { MAD_rc_monthly_gain = 3.0 }
 	}
-	add_to_variable = { MAD_rural_cooperation = MAD_rc_monthly_gain }
+	set_variable = { MAD_rural_cooperation_monthly_gain = MAD_rc_monthly_gain }
+	set_variable = { MAD_rural_cooperation_monthly_change = MAD_rc_monthly_gain }
+	# The retained Daewoo lease drains Cooperation after the normal recovery calculation.
+	if = {
+		limit = { has_country_flag = MAD_DAEWOO_OUTCOME_WELL }
+		add_to_variable = { MAD_rural_cooperation_monthly_change = -0.25 }
+	}
+	if = {
+		limit = { has_idea = MAD_MADARAIL_COMAZAR_FREIGHT_CONCESSION }
+		add_to_variable = { MAD_rural_cooperation_monthly_change = -0.25 }
+	}
+
+	# Net monthly change includes Daewoo/Comazar deductions and may fall to -1.00,
+	# but never lower. Positive gross recovery remains capped at +3.00 above.
+	if = {
+		limit = { check_variable = { MAD_rural_cooperation_monthly_change < -1.00 } }
+		set_variable = { MAD_rural_cooperation_monthly_change = -1.00 }
+	}
+	# Report the expected realised change after the 0-100 meter limits.
+	set_temp_variable = { MAD_rc_cooperation_headroom = 100 }
+	subtract_from_temp_variable = { MAD_rc_cooperation_headroom = MAD_rural_cooperation }
+	if = {
+		limit = { check_variable = { MAD_rural_cooperation_monthly_change > MAD_rc_cooperation_headroom } }
+		set_variable = { MAD_rural_cooperation_meter_upper_adjustment = MAD_rural_cooperation_monthly_change }
+		subtract_from_variable = { MAD_rural_cooperation_meter_upper_adjustment = MAD_rc_cooperation_headroom }
+		set_variable = { MAD_rural_cooperation_monthly_change = MAD_rc_cooperation_headroom }
+	}
+	set_temp_variable = { MAD_rc_cooperation_floor = 0 }
+	subtract_from_temp_variable = { MAD_rc_cooperation_floor = MAD_rural_cooperation }
+	if = {
+		limit = { check_variable = { MAD_rural_cooperation_monthly_change < MAD_rc_cooperation_floor } }
+		set_variable = { MAD_rural_cooperation_meter_lower_adjustment = MAD_rc_cooperation_floor }
+		subtract_from_variable = { MAD_rural_cooperation_meter_lower_adjustment = MAD_rural_cooperation_monthly_change }
+		set_variable = { MAD_rural_cooperation_monthly_change = MAD_rc_cooperation_floor }
+	}
+	# The monthly tick applies this net amount, so keep gain and displayed change aligned.
+	set_variable = { MAD_rural_cooperation_monthly_gain = MAD_rural_cooperation_monthly_change }
+}
+
+MAD_rural_cooperation_monthly_tick = {
+	MAD_rural_cooperation_initialize = yes
+	MAD_rural_cooperation_calculate_monthly_change = yes
+	# Apply the already-calculated net monthly change (including lease deductions).
+	add_to_variable = { MAD_rural_cooperation = MAD_rural_cooperation_monthly_gain }
 	clamp_variable = { var = MAD_rural_cooperation min = 0 max = 100 }
+	# After the meter changes, refresh the displayed rate for the next monthly pulse.
+	MAD_rural_cooperation_calculate_monthly_change = yes
 }
 
 # Used only by explicitly listed targeted relief decisions. Scale their helpful negative
 # deltas before the Dahalo interception effect is applied; cash costs and containment counts
 # are deliberately unaffected.
 MAD_rural_cooperation_boost_state_relief = {
-	set_temp_variable = { MAD_rc_relief_multiplier = 1.0 }
+	# Cooperation changes the effectiveness of targeted drought/famine relief:
+	# below 35: -50%; 35-59.99: -20%; 60-79.99: no modifier; 80+: +20%.
+	set_temp_variable = { MAD_rc_relief_multiplier = 0.50 }
 	if = {
 		limit = { ROOT = { check_variable = { MAD_rural_cooperation > 79.99 } } }
-		set_temp_variable = { MAD_rc_relief_multiplier = 1.30 }
-	}
-	else_if = {
-		limit = { ROOT = { check_variable = { MAD_rural_cooperation > 59.99 } } }
 		set_temp_variable = { MAD_rc_relief_multiplier = 1.20 }
 	}
 	else_if = {
+		limit = { ROOT = { check_variable = { MAD_rural_cooperation > 59.99 } } }
+		set_temp_variable = { MAD_rc_relief_multiplier = 1.00 }
+	}
+	else_if = {
 		limit = { ROOT = { check_variable = { MAD_rural_cooperation > 34.99 } } }
-		set_temp_variable = { MAD_rc_relief_multiplier = 1.10 }
+		set_temp_variable = { MAD_rc_relief_multiplier = 0.80 }
 	}
 	if = {
 		limit = { check_variable = { MAD_dr_state_change < -0.001 } }
@@ -4540,4 +4769,3 @@ MAD_rural_cooperation_boost_state_relief = {
 		multiply_temp_variable = { MAD_dr_state_famine = MAD_rc_relief_multiplier }
 	}
 }
-

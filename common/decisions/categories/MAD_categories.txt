@@ -1,4 +1,4 @@
-﻿# ================================================================
+# ================================================================
 # FILE: common/decisions/categories/MAD_categories.txt
 # ================================================================
 MAD_AMBATOVY_FORMING = {
@@ -108,4 +108,6 @@ MAD_rural_cooperation_category = {
 	allowed = { tag = MAD }
 	visible = { tag = MAD }
 	visible_when_empty = yes
+	# Native HOI4 scripted-GUI panel embedded directly beneath this category's description.
+	scripted_gui = MAD_rural_cooperation_gui
 }
