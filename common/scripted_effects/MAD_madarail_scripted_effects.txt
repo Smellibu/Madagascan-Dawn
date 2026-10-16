@@ -25,6 +25,7 @@ MAD_madarail_clear_concessions = {
 	# The Comazar freight penalty only applies while that committed concession remains active.
 	clr_country_flag = MAD_MADARAIL_COMAZAR_FREIGHT_CONCESSION_ACCEPTED
 	remove_ideas = MAD_MADARAIL_COMAZAR_FREIGHT_CONCESSION
+	MAD_rural_cooperation_calculate_monthly_change = yes
 }
 
 # Concessions are only OFFERS until the investors commit. This is where they become real, all in one go:
@@ -187,10 +188,12 @@ MAD_madarail_apply_stay_outcome = {
 		}
 		set_country_flag = MAD_MADARAIL_COMAZAR_FREIGHT_CONCESSION_ACCEPTED
 		add_ideas = MAD_MADARAIL_COMAZAR_FREIGHT_CONCESSION
+		custom_effect_tooltip = MAD_RC_MONTHLY_NEG_025_TT
 	}
 	set_country_flag = MAD_MADARAIL_OUTCOME_DECIDED
 	set_country_flag = MAD_MADARAIL_STAY_UNLOCKED
 	custom_effect_tooltip = MAD_madarail_stay_unlocked_tt
+	MAD_rural_cooperation_calculate_monthly_change = yes
 }
 
 # Outcome 2: the investors leave (by the player's choice or because the third suitor ran out of time).
@@ -209,6 +212,13 @@ MAD_madarail_apply_desist_outcome = {
 }
 
 # common/scripted_effects/MAD_daewoo_scripted_effects.txt
+
+# Apply one Daewoo review delta and keep viability within its 0-100 range.
+# Caller sets MAD_daewoo_viability_delta immediately before invoking this effect.
+MAD_daewoo_adjust_viability = {
+	add_to_variable = { MAD_daewoo_viability = MAD_daewoo_viability_delta }
+	clamp_variable = { var = MAD_daewoo_viability min = 0 max = 100 }
+}
 
 # Puts the right lease tier on the country for the current MAD_daewoo_viability:
 #   < 30  TOXIC      30 - 79.99  TROUBLED      80+  SOUND
@@ -617,6 +627,9 @@ MAD_drought_state_apply_change = {
 	add_to_variable = { MAD_state_drought = MAD_dr_state_change }
 	MAD_drought_state_clamp = yes
 	MAD_drought_state_update_tier = yes
+	
+	
+	custom_effect_tooltip = MAD_dr_state_change_tt
 }
 
 # LOCAL famine change, state scope. Set MAD_dr_state_famine first (negative = fed, positive = hungrier).
@@ -624,6 +637,8 @@ MAD_drought_state_apply_famine = {
 	add_to_variable = { MAD_state_famine = MAD_dr_state_famine }
 	clamp_variable = { var = MAD_state_famine min = 0 max = 100 }
 	MAD_drought_state_update_tier = yes
+	
+	custom_effect_tooltip = MAD_dr_state_famine_tt
 }
 
 MAD_drought_clamp = {
@@ -2440,7 +2455,7 @@ MAD_drought_state_init = {
 		set_state_flag = MAD_GRAND_SUD_STATE
 		clr_state_flag = MAD_REFUGE_STATE
 		add_to_array = { array = ROOT.MAD_drought_states value = THIS }
-		add_to_variable = { MAD_state_drought = 10 }
+		add_to_variable = { MAD_state_drought = 30 }
 	}
 	487 = {
 		set_variable = { MAD_state_drought = ROOT.MAD_drought_severity }
@@ -2513,6 +2528,7 @@ MAD_drought_recalc_national = {
 	MAD_drought_clamp = yes
 	MAD_drought_update_tier = yes
 	MAD_drought_sync_display = yes
+	MAD_rural_cooperation_calculate_monthly_change = yes
 }
 # Mirror the four state meters into country variables so the decision-category scripted GUI and the category
 # description can render exact per-state values without relying on FROM scope.
@@ -3105,6 +3121,7 @@ MAD_dahalo_update_modifier = {
 		}
 
 	}
+	MAD_rural_cooperation_calculate_monthly_change = yes
 }
 
 MAD_dahalo_switch_to_remenabila = {
@@ -4493,6 +4510,7 @@ MAD_rural_constitution_initialize = {
 			add_ideas = MAD_POL_SECULAR_GOVERNMENT
 		}
 	}
+	MAD_rural_cooperation_calculate_monthly_change = yes
 }
 
 # A forced constitutional change starts the same one-year lock as a player-selected change.
@@ -4547,6 +4565,7 @@ MAD_rural_constitution_government_sync = {
 		}
 		MAD_rural_constitution_force_religious = yes
 	}
+	MAD_rural_cooperation_calculate_monthly_change = yes
 }
 
 # Remembered royal-house policy is separately suspended under CRPM/TAMIMA and restored on government change.
@@ -4580,11 +4599,21 @@ MAD_rural_andriana_recognition_sync = {
 			add_ideas = MAD_POL_ANDRIANA_NON_RECOGNITION
 		}
 	}
+	MAD_rural_cooperation_calculate_monthly_change = yes
 }
 
 MAD_rural_governance_policy_sync = {
 	MAD_rural_constitution_government_sync = yes
 	MAD_rural_andriana_recognition_sync = yes
+}
+
+# Apply the same 25% Rural Cooperation cost reduction for the gendarmerie reform route.
+# Call after setting MAD_rc_delta and before MAD_rural_cooperation_adjust.
+MAD_rural_cooperation_apply_gendarmerie_discount = {
+	if = {
+		limit = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM }
+		multiply_temp_variable = { MAD_rc_delta = 0.75 }
+	}
 }
 
 # Caller sets the temporary MAD_rc_delta (+/-). This helper is intentionally the only
@@ -4594,13 +4623,23 @@ MAD_rural_cooperation_adjust = {
 		limit = { NOT = { has_variable = MAD_rural_cooperation } }
 		set_variable = { MAD_rural_cooperation = 50 }
 	}
+
 	add_to_variable = { MAD_rural_cooperation = MAD_rc_delta }
 	clamp_variable = { var = MAD_rural_cooperation min = 0 max = 100 }
+
+	# Refresh the cap-aware monthly rate after the meter changes. This does not
+	# apply a monthly gain; the monthly tick remains responsible for that.
+	MAD_rural_cooperation_calculate_monthly_change = yes
+
+	# Match the treasury tooltip style: show the signed adjustment value directly.
+	custom_effect_tooltip = MAD_rural_cooperation_adjust_tt
 }
 
 MAD_rural_cooperation_calculate_monthly_change = {
-	# Calculate and cache the upcoming monthly rate for the category description.
-	# Refreshed at startup, monthly ticks, and ruling-party changes, not by daily polling.
+	# Recalculate the cap-aware monthly rate cached for the category description.
+	# This only updates the displayed/cached rate; it does not apply a monthly meter change.
+	# Source scripts call this immediately after changing an input to the monthly-rate calculation.
+	# There is no election, government-transition, or daily polling hook.
 	set_temp_variable = { MAD_rc_monthly_gain = 0.50 }
 	set_variable = { MAD_rural_cooperation_cap_adjustment = 0 }
 	set_variable = { MAD_rural_cooperation_meter_upper_adjustment = 0 }

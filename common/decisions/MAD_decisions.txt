@@ -158,10 +158,7 @@ MAD_INVITE_KOREANS = {
     }
     available = {
         NOT = { has_country_flag = MAD_ambatovy_mine_built }
-        custom_trigger_tooltip = {
-            tooltip = MAD_RC_REQUIRE_12_TT
-            check_variable = { MAD_rural_cooperation > 11.99 }
-        }
+        check_variable = { MAD_rural_cooperation > 11.99 }
     }
     complete_effect = {
         log = "[GetDateText]: [Root.GetName]: Decision MAD_BUILD_MINE started"
@@ -562,6 +559,10 @@ MAD_madarail_category = {
 			has_country_flag = MAD_FCE_EXTENSION_UNLOCKED
 			NOT = { has_country_flag = MAD_RAIL_FCE_EXTENSION_BUILT }
 		}
+		available = {
+			check_variable = { MAD_rural_cooperation > 6.99 }
+		}
+
 		custom_cost_trigger = { check_variable = { treasury > 14.999 } }
 		custom_cost_text = cost_15_0
 
@@ -571,6 +572,8 @@ MAD_madarail_category = {
 		# pay now, the line opens in a year
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_MADARAIL_BUILD_FCE_EXTENSION - construction begins"
+			set_temp_variable = { MAD_rc_delta = -7 }
+			MAD_rural_cooperation_adjust = yes
 			set_temp_variable = { treasury_change = -15.00 }
 			modify_treasury_effect = yes
 		}
@@ -578,6 +581,8 @@ MAD_madarail_category = {
 		# one year later: the railway is built and the state gains 80 productivity
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_MADARAIL_BUILD_FCE_EXTENSION - line completed"
+			set_temp_variable = { MAD_rc_delta = 2 }
+			MAD_rural_cooperation_adjust = yes
 			build_railway = {
 				level = 2
 				path = { 681 576 566 }
@@ -614,6 +619,10 @@ MAD_madarail_category = {
 			has_country_flag = MAD_RAIL_NETWORK_UNLOCKED
 			NOT = { has_country_flag = MAD_RAIL_TOLIARA_BUILT }
 		}
+		available = {
+			check_variable = { MAD_rural_cooperation > 6.99 }
+		}
+
 		custom_cost_trigger = { check_variable = { treasury > 14.999 } }
 		custom_cost_text = cost_15_0
 
@@ -623,6 +632,8 @@ MAD_madarail_category = {
 		# pay now, the line opens in a year
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_MADARAIL_BUILD_TOLIARA_LINE - construction begins"
+			set_temp_variable = { MAD_rc_delta = -7 }
+			MAD_rural_cooperation_adjust = yes
 			set_temp_variable = { treasury_change = -15.00 }
 			modify_treasury_effect = yes
 		}
@@ -630,6 +641,8 @@ MAD_madarail_category = {
 		# one year later: the railway is built and the state gains 80 productivity
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_MADARAIL_BUILD_TOLIARA_LINE - line completed"
+			set_temp_variable = { MAD_rc_delta = 2 }
+			MAD_rural_cooperation_adjust = yes
 			# Fianarantsoa -> Toliara; the endpoints are adjacent
 			build_railway = {
 				level = 2
@@ -656,6 +669,10 @@ MAD_madarail_category = {
 			has_country_flag = MAD_RAIL_NETWORK_UNLOCKED
 			NOT = { has_country_flag = MAD_RAIL_MAHAJANGA_BUILT }
 		}
+		available = {
+			check_variable = { MAD_rural_cooperation > 5.99 }
+		}
+
 		custom_cost_trigger = { check_variable = { treasury > 14.999 } }
 		custom_cost_text = cost_15_0
 
@@ -665,6 +682,8 @@ MAD_madarail_category = {
 		# pay now, the line opens in a year
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_MADARAIL_BUILD_MAHAJANGA_LINE - construction begins"
+			set_temp_variable = { MAD_rc_delta = -6 }
+			MAD_rural_cooperation_adjust = yes
 			set_temp_variable = { treasury_change = -15.00 }
 			modify_treasury_effect = yes
 		}
@@ -672,6 +691,8 @@ MAD_madarail_category = {
 		# one year later: the railway is built and the state gains 80 productivity
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_MADARAIL_BUILD_MAHAJANGA_LINE - line completed"
+			set_temp_variable = { MAD_rc_delta = 2 }
+			MAD_rural_cooperation_adjust = yes
 			# Antananarivo -> 844 -> Mahajanga, along the intended RN4 route
 			build_railway = {
 				level = 2
@@ -699,6 +720,10 @@ MAD_madarail_category = {
 			has_country_flag = MAD_RAIL_TOLIARA_BUILT
 			NOT = { has_country_flag = MAD_RAIL_AMBOVOMBE_BUILT }
 		}
+		available = {
+			check_variable = { MAD_rural_cooperation > 7.99 }
+		}
+
 		custom_cost_trigger = { check_variable = { treasury > 14.999 } }
 		custom_cost_text = cost_15_0
 
@@ -708,6 +733,8 @@ MAD_madarail_category = {
 		# pay now, the line opens in a year
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_MADARAIL_BUILD_AMBOVOMBE_LINE - construction begins"
+			set_temp_variable = { MAD_rc_delta = -8 }
+			MAD_rural_cooperation_adjust = yes
 			set_temp_variable = { treasury_change = -15.00 }
 			modify_treasury_effect = yes
 		}
@@ -715,6 +742,8 @@ MAD_madarail_category = {
 		# one year later: the railway is built and the state gains 80 productivity
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_MADARAIL_BUILD_AMBOVOMBE_LINE - line completed"
+			set_temp_variable = { MAD_rc_delta = 3 }
+			MAD_rural_cooperation_adjust = yes
 			# Toliara -> Ambovombe; requires the Toliara line to be completed first
 			build_railway = {
 				level = 2
@@ -741,6 +770,10 @@ MAD_madarail_category = {
 			has_country_flag = MAD_RAIL_NETWORK_UNLOCKED
 			NOT = { has_country_flag = MAD_RAIL_ANTSIRANANA_BUILT }
 		}
+		available = {
+			check_variable = { MAD_rural_cooperation > 5.99 }
+		}
+
 		custom_cost_trigger = { check_variable = { treasury > 14.999 } }
 		custom_cost_text = cost_15_0
 
@@ -750,6 +783,8 @@ MAD_madarail_category = {
 		# pay now, the line opens in a year
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_MADARAIL_BUILD_ANTSIRANANA_LINE - construction begins"
+			set_temp_variable = { MAD_rc_delta = -6 }
+			MAD_rural_cooperation_adjust = yes
 			set_temp_variable = { treasury_change = -15.00 }
 			modify_treasury_effect = yes
 		}
@@ -757,6 +792,8 @@ MAD_madarail_category = {
 		# one year later: the railway is built and the state gains 80 productivity
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_MADARAIL_BUILD_ANTSIRANANA_LINE - line completed"
+			set_temp_variable = { MAD_rc_delta = 2 }
+			MAD_rural_cooperation_adjust = yes
 			# Antsiranana -> 884 -> Mahajanga, along the intended RN6 route
 			build_railway = {
 				level = 2
@@ -849,8 +886,8 @@ MAD_daewoo_category = {
 
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAEWOO_RENEGOTIATE"
-			add_to_variable = { MAD_daewoo_viability = 20 }
-			clamp_variable = { var = MAD_daewoo_viability min = 0 max = 100 }
+			set_temp_variable = { MAD_daewoo_viability_delta = 20 }
+			MAD_daewoo_adjust_viability = yes
 			MAD_daewoo_update_tier = yes
 		}
 
@@ -872,8 +909,8 @@ MAD_daewoo_category = {
 
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAEWOO_LAND_TITLES"
-			add_to_variable = { MAD_daewoo_viability = 15 }
-			clamp_variable = { var = MAD_daewoo_viability min = 0 max = 100 }
+			set_temp_variable = { MAD_daewoo_viability_delta = 15 }
+			MAD_daewoo_adjust_viability = yes
 			set_temp_variable = { temp_opinion = 10 }
 			change_landowners_opinion = yes
 			MAD_daewoo_update_tier = yes
@@ -903,8 +940,8 @@ MAD_daewoo_category = {
 
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAEWOO_PUBLISH_CONTRACT"
-			add_to_variable = { MAD_daewoo_viability = 20 }
-			clamp_variable = { var = MAD_daewoo_viability min = 0 max = 100 }
+			set_temp_variable = { MAD_daewoo_viability_delta = 20 }
+			MAD_daewoo_adjust_viability = yes
 			add_stability = 0.02
 			set_country_flag = MAD_DAEWOO_CONTRACT_PUBLISHED
 			MAD_daewoo_update_tier = yes
@@ -928,13 +965,16 @@ MAD_daewoo_category = {
 				has_completed_focus = MAD_BIANCO_POLITICIZED
 				NOT = { has_country_flag = MAD_DAEWOO_CONTRACT_PUBLISHED }
 			}
+			check_variable = { MAD_rural_cooperation > 3.99 }
 		}
 		fire_only_once = yes
 
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAEWOO_CLASSIFIED_ADDENDUM"
-			add_to_variable = { MAD_daewoo_viability = -10 }
-			clamp_variable = { var = MAD_daewoo_viability min = 0 max = 100 }
+			set_temp_variable = { MAD_rc_delta = -4 }
+			MAD_rural_cooperation_adjust = yes
+			set_temp_variable = { MAD_daewoo_viability_delta = -10 }
+			MAD_daewoo_adjust_viability = yes
 			add_political_power = 40
 			increase_corruption = yes
 			MAD_daewoo_update_tier = yes
@@ -953,6 +993,10 @@ MAD_daewoo_category = {
 			has_active_mission = MAD_DAEWOO_REVIEW
 		}
 
+		available = {
+			check_variable = { MAD_rural_cooperation > 3.99 }
+		}
+
 		cost = 25
 		fire_only_once = yes
 		custom_cost_trigger = { check_variable = { treasury > 1.999 } }
@@ -961,8 +1005,10 @@ MAD_daewoo_category = {
 
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAEWOO_OUTGROWERS"
-			add_to_variable = { MAD_daewoo_viability = 15 }
-			clamp_variable = { var = MAD_daewoo_viability min = 0 max = 100 }
+			set_temp_variable = { MAD_rc_delta = -4 }
+			MAD_rural_cooperation_adjust = yes
+			set_temp_variable = { MAD_daewoo_viability_delta = 15 }
+			MAD_daewoo_adjust_viability = yes
 			set_temp_variable = { treasury_change = -2.00 }
 			modify_treasury_effect = yes
 			set_country_flag = MAD_DAEWOO_FOOD_QUOTA
@@ -999,8 +1045,8 @@ MAD_daewoo_category = {
 
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAEWOO_LOGISTICS"
-			add_to_variable = { MAD_daewoo_viability = 15 }
-			clamp_variable = { var = MAD_daewoo_viability min = 0 max = 100 }
+			set_temp_variable = { MAD_daewoo_viability_delta = 15 }
+			MAD_daewoo_adjust_viability = yes
 			set_temp_variable = { treasury_change = -2.00 }
 			modify_treasury_effect = yes
 			MAD_daewoo_update_tier = yes
@@ -1030,8 +1076,8 @@ MAD_daewoo_category = {
 
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAEWOO_LOCAL_PROCESSING"
-			add_to_variable = { MAD_daewoo_viability = 10 }
-			clamp_variable = { var = MAD_daewoo_viability min = 0 max = 100 }
+			set_temp_variable = { MAD_daewoo_viability_delta = 10 }
+			MAD_daewoo_adjust_viability = yes
 			MAD_daewoo_update_tier = yes
 		}
 
@@ -1142,7 +1188,6 @@ MAD_drought_category = {
 			clr_country_flag = MAD_DROUGHT_WATER_DECISION_ACTIVE
 			set_temp_variable = { MAD_rc_delta = 1 }
 			MAD_rural_cooperation_adjust = yes
-			custom_effect_tooltip = MAD_RC_DROUGHT_GAIN_1_TT
 
 		}
 
@@ -1210,9 +1255,6 @@ MAD_drought_category = {
 				MAD_drought_state_apply_famine = yes
 			}
 			MAD_drought_recalc_national = yes
-			set_temp_variable = { MAD_rc_delta = 2 }
-			MAD_rural_cooperation_adjust = yes
-			custom_effect_tooltip = MAD_RC_DROUGHT_GAIN_2_TT
 
 			clr_country_flag = MAD_DROUGHT_FOOD_AID_ACTIVE
 		}
@@ -1288,7 +1330,6 @@ MAD_drought_category = {
 			add_stability = 0.01
 			set_temp_variable = { MAD_rc_delta = 1 }
 			MAD_rural_cooperation_adjust = yes
-			custom_effect_tooltip = MAD_RC_DROUGHT_GAIN_1_TT
 
 		}
 
@@ -1334,10 +1375,7 @@ MAD_drought_category = {
 		cost = 25
 		fire_only_once = yes
 		available = {
-			custom_trigger_tooltip = {
-				tooltip = MAD_RC_REQUIRE_1_TT
-				check_variable = { MAD_rural_cooperation > 0.99 }
-			}
+			check_variable = { MAD_rural_cooperation > 0.99 }
 		}
 		custom_cost_trigger = { check_variable = { treasury > 0.399 } }
 		custom_cost_text = cost_0_4
@@ -1428,7 +1466,6 @@ MAD_drought_category = {
 			MAD_drought_recalc_national = yes
 			set_temp_variable = { MAD_rc_delta = 2 }
 			MAD_rural_cooperation_adjust = yes
-			custom_effect_tooltip = MAD_RC_DROUGHT_GAIN_2_TT
 
 		}
 
@@ -1543,10 +1580,7 @@ MAD_drought_category = {
 		cost = 60
 		fire_only_once = yes
 		available = {
-			custom_trigger_tooltip = {
-				tooltip = MAD_RC_REQUIRE_3_TT
-				check_variable = { MAD_rural_cooperation > 2.99 }
-			}
+			check_variable = { MAD_rural_cooperation > 2.99 }
 		}
 		custom_cost_trigger = { check_variable = { treasury > 1.999 } }
 		custom_cost_text = cost_2_0
@@ -1591,7 +1625,6 @@ MAD_drought_category = {
 			MAD_drought_add_prevention = yes
 			set_temp_variable = { MAD_rc_delta = 1 }
 			MAD_rural_cooperation_adjust = yes
-			custom_effect_tooltip = MAD_RC_DROUGHT_GAIN_1_TT
 
 		}
 
@@ -1620,7 +1653,6 @@ MAD_drought_category = {
 			MAD_drought_add_prevention = yes
 			set_temp_variable = { MAD_rc_delta = 2 }
 			MAD_rural_cooperation_adjust = yes
-			custom_effect_tooltip = MAD_RC_DROUGHT_GAIN_2_TT
 
 		}
 
@@ -1656,7 +1688,6 @@ MAD_drought_category = {
 			MAD_drought_add_prevention = yes
 			set_temp_variable = { MAD_rc_delta = 1 }
 			MAD_rural_cooperation_adjust = yes
-			custom_effect_tooltip = MAD_RC_DROUGHT_GAIN_1_TT
 
 		}
 
@@ -1685,7 +1716,6 @@ MAD_drought_category = {
 			MAD_drought_add_prevention = yes
 			set_temp_variable = { MAD_rc_delta = 2 }
 			MAD_rural_cooperation_adjust = yes
-			custom_effect_tooltip = MAD_RC_DROUGHT_GAIN_2_TT
 
 		}
 
@@ -1715,7 +1745,6 @@ MAD_drought_category = {
 			MAD_drought_add_prevention = yes
 			set_temp_variable = { MAD_rc_delta = 1 }
 			MAD_rural_cooperation_adjust = yes
-			custom_effect_tooltip = MAD_RC_DROUGHT_GAIN_1_TT
 
 		}
 
@@ -1746,7 +1775,6 @@ MAD_drought_category = {
 			MAD_drought_add_prevention = yes
 			set_temp_variable = { MAD_rc_delta = 1 }
 			MAD_rural_cooperation_adjust = yes
-			custom_effect_tooltip = MAD_RC_DROUGHT_GAIN_1_TT
 
 		}
 
@@ -1786,7 +1814,6 @@ MAD_drought_category = {
 			MAD_drought_resettle = yes
 			set_temp_variable = { MAD_rc_delta = 1 }
 			MAD_rural_cooperation_adjust = yes
-			custom_effect_tooltip = MAD_RC_DROUGHT_GAIN_1_TT
 
 		}
 
@@ -1824,7 +1851,6 @@ MAD_drought_category = {
 			MAD_drought_return_expats = yes
 			set_temp_variable = { MAD_rc_delta = 1 }
 			MAD_rural_cooperation_adjust = yes
-			custom_effect_tooltip = MAD_RC_DROUGHT_GAIN_1_TT
 
 		}
 
@@ -1853,7 +1879,6 @@ MAD_drought_category = {
 			MAD_drought_apply_change = yes
 			set_temp_variable = { MAD_rc_delta = 2 }
 			MAD_rural_cooperation_adjust = yes
-			custom_effect_tooltip = MAD_RC_DROUGHT_GAIN_2_TT
 
 		}
 
@@ -1936,16 +1961,21 @@ MAD_JIRAMA_PROJECTS = {
 		available = {
 			267 = { is_owned_and_controlled_by = ROOT }
 			487 = { is_owned_and_controlled_by = ROOT }
+			check_variable = { MAD_rural_cooperation > 7.99 }
 		}
 
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_JIRAMA_BUILD_GRID - construction begins"
+			set_temp_variable = { MAD_rc_delta = -8 }
+			MAD_rural_cooperation_adjust = yes
 			set_temp_variable = { treasury_change = -9.750 }
 			modify_treasury_effect = yes
 		}
 
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_JIRAMA_BUILD_GRID - project complete"
+			set_temp_variable = { MAD_rc_delta = 3 }
+			MAD_rural_cooperation_adjust = yes
 			267 = { add_extra_state_shared_building_slots = 1 add_building_construction = { type = industrial_infrastructure level = 1 instant_build = yes } }
 			487 = { add_extra_state_shared_building_slots = 1 add_building_construction = { type = fossil_powerplant level = 1 instant_build = yes } }
 			set_country_flag = MAD_JIRAMA_GRID_BUILT
@@ -1974,10 +2004,7 @@ MAD_JIRAMA_PROJECTS = {
 		available = {
 			268 = { is_owned_and_controlled_by = ROOT }
 		
-			custom_trigger_tooltip = {
-				tooltip = MAD_RC_REQUIRE_18_TT
-				check_variable = { MAD_rural_cooperation > 17.99 }
-			}
+			check_variable = { MAD_rural_cooperation > 17.99 }
 		}
 
 		complete_effect = {
@@ -1993,7 +2020,6 @@ MAD_JIRAMA_PROJECTS = {
 		remove_effect = {
 			set_temp_variable = { MAD_rc_delta = 8 }
 			MAD_rural_cooperation_adjust = yes
-			custom_effect_tooltip = MAD_RURAL_COOPERATION_REBUILT_TT
 
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_JIRAMA_BUILD_RURAL_GRID - project complete"
 			268 = { add_extra_state_shared_building_slots = 1 add_building_construction = { type = energy_infrastructure level = 1 instant_build = yes } }
@@ -2004,6 +2030,8 @@ MAD_JIRAMA_PROJECTS = {
 			add_to_variable = { MAD_power_renewable_energy_gain_multiplier = 0.02 tooltip = renewable_energy_gain_multiplier_tt }
 			custom_effect_tooltip = { localization_key = modifies_dynamic_modifier_tt MODIFIER = MAD_economy_modifier }
 			add_to_variable = { MAD_economy_expected_welfare_modifier = 0.10 tooltip = expected_welfare_modifier_tt }
+			MAD_rural_cooperation_calculate_monthly_change = yes
+			custom_effect_tooltip = MAD_RC_MONTHLY_POS_025_TT
 		}
 
 		ai_will_do = { base = 0 }
@@ -2023,16 +2051,21 @@ MAD_JIRAMA_PROJECTS = {
 
 		available = {
 			267 = { is_owned_and_controlled_by = ROOT }
+			check_variable = { MAD_rural_cooperation > 4.99 }
 		}
 
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_JIRAMA_BUILD_MANDROSEZA - construction begins"
+			set_temp_variable = { MAD_rc_delta = -5 }
+			MAD_rural_cooperation_adjust = yes
 			set_temp_variable = { treasury_change = -6.500 }
 			modify_treasury_effect = yes
 		}
 
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_JIRAMA_BUILD_MANDROSEZA - project complete"
+			set_temp_variable = { MAD_rc_delta = 2 }
+			MAD_rural_cooperation_adjust = yes
 			267 = { add_extra_state_shared_building_slots = 1 add_building_construction = { type = fossil_powerplant level = 2 instant_build = yes } }
 			set_country_flag = MAD_JIRAMA_MANDROSEZA_BUILT
 			custom_effect_tooltip = { localization_key = modifies_dynamic_modifier_tt MODIFIER = MAD_power_modifier }
@@ -2058,16 +2091,21 @@ MAD_JIRAMA_PROJECTS = {
 
 		available = {
 			267 = { is_owned_and_controlled_by = ROOT }
+			check_variable = { MAD_rural_cooperation > 9.99 }
 		}
 
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_JIRAMA_BUILD_ANDEKALEKA - construction begins"
+			set_temp_variable = { MAD_rc_delta = -10 }
+			MAD_rural_cooperation_adjust = yes
 			set_temp_variable = { treasury_change = -13.000 }
 			modify_treasury_effect = yes
 		}
 
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_JIRAMA_BUILD_ANDEKALEKA - project complete"
+			set_temp_variable = { MAD_rc_delta = 4 }
+			MAD_rural_cooperation_adjust = yes
 			487 = { set_variable = { hydroelectric_energy_production_var = 2.5 } 
 			add_dynamic_modifier = {
 			modifier = hydroelectric_infrastructure_in_state
@@ -2099,16 +2137,21 @@ MAD_JIRAMA_PROJECTS = {
 
 		available = {
 			267 = { is_owned_and_controlled_by = ROOT }
+			check_variable = { MAD_rural_cooperation > 9.99 }
 		}
 
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_JIRAMA_BUILD_SAHOFIKA - construction begins"
+			set_temp_variable = { MAD_rc_delta = -10 }
+			MAD_rural_cooperation_adjust = yes
 			set_temp_variable = { treasury_change = -13.000 }
 			modify_treasury_effect = yes
 		}
 
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_JIRAMA_BUILD_SAHOFIKA - project complete"
+			set_temp_variable = { MAD_rc_delta = 4 }
+			MAD_rural_cooperation_adjust = yes
 			267 = { set_variable = { hydroelectric_energy_production_var = 2.5 } 
 			add_dynamic_modifier = {
 			modifier = hydroelectric_infrastructure_in_state
@@ -2141,10 +2184,13 @@ MAD_JIRAMA_PROJECTS = {
 
 		available = {
 			487 = { is_owned_and_controlled_by = ROOT }
+			check_variable = { MAD_rural_cooperation > 6.99 }
 		}
 
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_JIRAMA_BUILD_VOLOBE - construction begins"
+			set_temp_variable = { MAD_rc_delta = -7 }
+			MAD_rural_cooperation_adjust = yes
 			set_temp_variable = { treasury_change = -6.500 }
 			modify_treasury_effect = yes
 			set_country_flag = MAD_JIRAMA_VOLOBE_BUILDING
@@ -2152,6 +2198,8 @@ MAD_JIRAMA_PROJECTS = {
 
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_JIRAMA_BUILD_VOLOBE - project complete"
+			set_temp_variable = { MAD_rc_delta = 3 }
+			MAD_rural_cooperation_adjust = yes
 			487 = { set_variable = { hydroelectric_energy_production_var = 2.5 }
 			add_dynamic_modifier = {
 			modifier = hydroelectric_infrastructure_in_state
@@ -2187,10 +2235,7 @@ MAD_JIRAMA_PROJECTS = {
 			267 = { is_owned_and_controlled_by = ROOT }
 			268 = { is_owned_and_controlled_by = ROOT }
 		
-			custom_trigger_tooltip = {
-				tooltip = MAD_RC_REQUIRE_18_TT
-				check_variable = { MAD_rural_cooperation > 17.99 }
-			}
+			check_variable = { MAD_rural_cooperation > 17.99 }
 		}
 
 		complete_effect = {
@@ -2206,7 +2251,6 @@ MAD_JIRAMA_PROJECTS = {
 		remove_effect = {
 			set_temp_variable = { MAD_rc_delta = 8 }
 			MAD_rural_cooperation_adjust = yes
-			custom_effect_tooltip = MAD_RURAL_COOPERATION_REBUILT_TT
 
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_JIRAMA_BUILD_LEAD_ACCESS - project complete"
 			267 = { add_building_construction = { type = energy_infrastructure level = 1 instant_build = yes } }
@@ -2219,6 +2263,8 @@ MAD_JIRAMA_PROJECTS = {
 			custom_effect_tooltip = { localization_key = modifies_dynamic_modifier_tt MODIFIER = MAD_economy_modifier }
 			add_to_variable = { MAD_economy_expected_welfare_modifier = 0.20 tooltip = expected_welfare_modifier_tt }
 			add_stability = 0.02
+			MAD_rural_cooperation_calculate_monthly_change = yes
+			custom_effect_tooltip = MAD_RC_MONTHLY_POS_025_TT
 		}
 
 		ai_will_do = { base = 0 }
@@ -2240,10 +2286,7 @@ MAD_JIRAMA_PROJECTS = {
 			267 = { is_owned_and_controlled_by = ROOT }
 			487 = { is_owned_and_controlled_by = ROOT }
 		
-			custom_trigger_tooltip = {
-				tooltip = MAD_RC_REQUIRE_12_TT
-				check_variable = { MAD_rural_cooperation > 11.99 }
-			}
+			check_variable = { MAD_rural_cooperation > 11.99 }
 		}
 
 		complete_effect = {
@@ -2259,7 +2302,6 @@ MAD_JIRAMA_PROJECTS = {
 		remove_effect = {
 			set_temp_variable = { MAD_rc_delta = 5 }
 			MAD_rural_cooperation_adjust = yes
-			custom_effect_tooltip = MAD_RURAL_COOPERATION_REBUILT_TT
 
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_JIRAMA_BUILD_DECIM_SOLAR - project complete"
 			two_random_renewable_energy_infra = yes
@@ -2269,6 +2311,8 @@ MAD_JIRAMA_PROJECTS = {
 			add_to_variable = { MAD_power_energy_gain_multiplier = 0.02 tooltip = energy_gain_multiplier_tt }
 			custom_effect_tooltip = { localization_key = modifies_dynamic_modifier_tt MODIFIER = MAD_economy_modifier }
 			add_to_variable = { MAD_economy_production_speed_energy_infrastructure_factor = 0.05 tooltip = production_speed_energy_infrastructure_factor_tt }
+			MAD_rural_cooperation_calculate_monthly_change = yes
+			custom_effect_tooltip = MAD_RC_MONTHLY_POS_025_TT
 		}
 
 		ai_will_do = { base = 0 }
@@ -2301,16 +2345,21 @@ MAD_JIRAMA_PROJECTS = {
 					include_locked = no
 				}
 			}
+			check_variable = { MAD_rural_cooperation > 5.99 }
 		}
 
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_JIRAMA_BUILD_SMART_GRID - construction begins"
+			set_temp_variable = { MAD_rc_delta = -6 }
+			MAD_rural_cooperation_adjust = yes
 			set_temp_variable = { treasury_change = -6.500 }
 			modify_treasury_effect = yes
 		}
 
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_JIRAMA_BUILD_SMART_GRID - project complete"
+			set_temp_variable = { MAD_rc_delta = 2 }
+			MAD_rural_cooperation_adjust = yes
 			# The $6.50bn was paid at the start. Use direct building effects here to avoid charging twice.
 			# Vanilla infrastructure is selected by its level cap; network infrastructure is selected by free shared slots.
 			if = {
@@ -2362,16 +2411,21 @@ MAD_JIRAMA_PROJECTS = {
 
 		available = {
 			487 = { is_owned_and_controlled_by = ROOT }
+			check_variable = { MAD_rural_cooperation > 9.99 }
 		}
 
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_JIRAMA_BUILD_OFFSHORE_WIND - construction begins"
+			set_temp_variable = { MAD_rc_delta = -10 }
+			MAD_rural_cooperation_adjust = yes
 			set_temp_variable = { treasury_change = -17.000 }
 			modify_treasury_effect = yes
 		}
 
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_JIRAMA_BUILD_OFFSHORE_WIND - project complete"
+			set_temp_variable = { MAD_rc_delta = 4 }
+			MAD_rural_cooperation_adjust = yes
 			487 = {add_building_construction = { type = renewable_energy_infra level = 2 instant_build = yes }}
 			set_country_flag = MAD_JIRAMA_OFFSHORE_WIND_BUILT
 			custom_effect_tooltip = { localization_key = modifies_dynamic_modifier_tt MODIFIER = MAD_power_modifier }
@@ -2526,7 +2580,7 @@ MAD_dahalo_category = {
 
 		complete_effect = {
 			set_temp_variable = { MAD_rc_delta = -6 }
-			if = { limit = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM } multiply_temp_variable = { MAD_rc_delta = 0.75 } }
+			MAD_rural_cooperation_apply_gendarmerie_discount = yes
 			MAD_rural_cooperation_adjust = yes
 			custom_effect_tooltip = MAD_RURAL_COOPERATION_SPENT_TT
 
@@ -2570,7 +2624,7 @@ MAD_dahalo_category = {
 
 		complete_effect = {
 			set_temp_variable = { MAD_rc_delta = -8 }
-			if = { limit = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM } multiply_temp_variable = { MAD_rc_delta = 0.75 } }
+			MAD_rural_cooperation_apply_gendarmerie_discount = yes
 			MAD_rural_cooperation_adjust = yes
 			custom_effect_tooltip = MAD_RURAL_COOPERATION_SPENT_TT
 
@@ -2614,7 +2668,7 @@ MAD_dahalo_category = {
 
 		complete_effect = {
 			set_temp_variable = { MAD_rc_delta = -8 }
-			if = { limit = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM } multiply_temp_variable = { MAD_rc_delta = 0.75 } }
+			MAD_rural_cooperation_apply_gendarmerie_discount = yes
 			MAD_rural_cooperation_adjust = yes
 			custom_effect_tooltip = MAD_RURAL_COOPERATION_SPENT_TT
 
@@ -2659,7 +2713,7 @@ MAD_dahalo_category = {
 
 		complete_effect = {
 			set_temp_variable = { MAD_rc_delta = -15 }
-			if = { limit = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM } multiply_temp_variable = { MAD_rc_delta = 0.75 } }
+			MAD_rural_cooperation_apply_gendarmerie_discount = yes
 			MAD_rural_cooperation_adjust = yes
 			custom_effect_tooltip = MAD_RURAL_COOPERATION_SPENT_TT
 
@@ -2705,7 +2759,7 @@ MAD_dahalo_category = {
 
 		complete_effect = {
 			set_temp_variable = { MAD_rc_delta = -10 }
-			if = { limit = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM } multiply_temp_variable = { MAD_rc_delta = 0.75 } }
+			MAD_rural_cooperation_apply_gendarmerie_discount = yes
 			MAD_rural_cooperation_adjust = yes
 			custom_effect_tooltip = MAD_RURAL_COOPERATION_SPENT_TT
 
@@ -2749,7 +2803,7 @@ MAD_dahalo_category = {
 
 		complete_effect = {
 			set_temp_variable = { MAD_rc_delta = -8 }
-			if = { limit = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM } multiply_temp_variable = { MAD_rc_delta = 0.75 } }
+			MAD_rural_cooperation_apply_gendarmerie_discount = yes
 			MAD_rural_cooperation_adjust = yes
 			custom_effect_tooltip = MAD_RURAL_COOPERATION_SPENT_TT
 
@@ -2799,7 +2853,7 @@ MAD_dahalo_category = {
 
 		complete_effect = {
 			set_temp_variable = { MAD_rc_delta = -12 }
-			if = { limit = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM } multiply_temp_variable = { MAD_rc_delta = 0.75 } }
+			MAD_rural_cooperation_apply_gendarmerie_discount = yes
 			MAD_rural_cooperation_adjust = yes
 			custom_effect_tooltip = MAD_RURAL_COOPERATION_SPENT_TT
 
@@ -2845,7 +2899,7 @@ MAD_dahalo_category = {
 
 		complete_effect = {
 			set_temp_variable = { MAD_rc_delta = -15 }
-			if = { limit = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM } multiply_temp_variable = { MAD_rc_delta = 0.75 } }
+			MAD_rural_cooperation_apply_gendarmerie_discount = yes
 			MAD_rural_cooperation_adjust = yes
 			custom_effect_tooltip = MAD_RURAL_COOPERATION_SPENT_TT
 
@@ -2891,7 +2945,7 @@ MAD_dahalo_category = {
 
 		complete_effect = {
 			set_temp_variable = { MAD_rc_delta = -18 }
-			if = { limit = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM } multiply_temp_variable = { MAD_rc_delta = 0.75 } }
+			MAD_rural_cooperation_apply_gendarmerie_discount = yes
 			MAD_rural_cooperation_adjust = yes
 			custom_effect_tooltip = MAD_RURAL_COOPERATION_SPENT_TT
 
@@ -2945,7 +2999,7 @@ MAD_dahalo_category = {
 
 		complete_effect = {
 			set_temp_variable = { MAD_rc_delta = -12 }
-			if = { limit = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM } multiply_temp_variable = { MAD_rc_delta = 0.75 } }
+			MAD_rural_cooperation_apply_gendarmerie_discount = yes
 			MAD_rural_cooperation_adjust = yes
 			custom_effect_tooltip = MAD_RURAL_COOPERATION_SPENT_TT
 
@@ -2998,7 +3052,7 @@ MAD_dahalo_category = {
 
 		complete_effect = {
 			set_temp_variable = { MAD_rc_delta = -18 }
-			if = { limit = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM } multiply_temp_variable = { MAD_rc_delta = 0.75 } }
+			MAD_rural_cooperation_apply_gendarmerie_discount = yes
 			MAD_rural_cooperation_adjust = yes
 			custom_effect_tooltip = MAD_RURAL_COOPERATION_SPENT_TT
 
@@ -3059,7 +3113,7 @@ MAD_dahalo_category = {
 
 		complete_effect = {
 			set_temp_variable = { MAD_rc_delta = -6 }
-			if = { limit = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM } multiply_temp_variable = { MAD_rc_delta = 0.75 } }
+			MAD_rural_cooperation_apply_gendarmerie_discount = yes
 			MAD_rural_cooperation_adjust = yes
 			custom_effect_tooltip = MAD_RURAL_COOPERATION_SPENT_TT
 
@@ -3114,7 +3168,7 @@ MAD_dahalo_category = {
 
 		complete_effect = {
 			set_temp_variable = { MAD_rc_delta = -8 }
-			if = { limit = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM } multiply_temp_variable = { MAD_rc_delta = 0.75 } }
+			MAD_rural_cooperation_apply_gendarmerie_discount = yes
 			MAD_rural_cooperation_adjust = yes
 			custom_effect_tooltip = MAD_RURAL_COOPERATION_SPENT_TT
 
@@ -3169,7 +3223,7 @@ MAD_dahalo_category = {
 
 		complete_effect = {
 			set_temp_variable = { MAD_rc_delta = -10 }
-			if = { limit = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM } multiply_temp_variable = { MAD_rc_delta = 0.75 } }
+			MAD_rural_cooperation_apply_gendarmerie_discount = yes
 			MAD_rural_cooperation_adjust = yes
 			custom_effect_tooltip = MAD_RURAL_COOPERATION_SPENT_TT
 
@@ -3230,7 +3284,7 @@ MAD_dahalo_category = {
 
 		complete_effect = {
 			set_temp_variable = { MAD_rc_delta = -16 }
-			if = { limit = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM } multiply_temp_variable = { MAD_rc_delta = 0.75 } }
+			MAD_rural_cooperation_apply_gendarmerie_discount = yes
 			MAD_rural_cooperation_adjust = yes
 			custom_effect_tooltip = MAD_RURAL_COOPERATION_SPENT_TT
 
@@ -3296,7 +3350,7 @@ MAD_dahalo_category = {
 
 		complete_effect = {
 			set_temp_variable = { MAD_rc_delta = -8 }
-			if = { limit = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM } multiply_temp_variable = { MAD_rc_delta = 0.75 } }
+			MAD_rural_cooperation_apply_gendarmerie_discount = yes
 			MAD_rural_cooperation_adjust = yes
 			custom_effect_tooltip = MAD_RURAL_COOPERATION_SPENT_TT
 
@@ -3335,6 +3389,7 @@ MAD_dahalo_category = {
 			NOT = { has_completed_focus = MAD_Hunt_for_red_with_a_swagger }
 			check_variable = { MAD_dahalo_threat > 59.99 }
 			268 = { check_variable = { MAD_state_famine > 24.99 } }
+			check_variable = { MAD_rural_cooperation > 5.99 }
 		}
 		cost = 35
 		days_re_enable = 180
@@ -3343,6 +3398,8 @@ MAD_dahalo_category = {
 
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAHALO_NEGOTIATE_HERDMASTER_CORRIDORS"
+			set_temp_variable = { MAD_rc_delta = -6 }
+			MAD_rural_cooperation_adjust = yes
 			set_temp_variable = { treasury_change = -0.75 }
 			modify_treasury_effect = yes
 			268 = {
@@ -3375,6 +3432,7 @@ MAD_dahalo_category = {
 			has_completed_focus = MAD_PERMIT_ARMS
 			NOT = { has_completed_focus = MAD_Hunt_for_red_with_a_swagger }
 			check_variable = { MAD_dahalo_threat < 100 }
+			check_variable = { MAD_rural_cooperation > 9.99 }
 		}
 		cost = 40
 		days_re_enable = 365
@@ -3383,6 +3441,8 @@ MAD_dahalo_category = {
 
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAHALO_ARM_THE_BANDS"
+			set_temp_variable = { MAD_rc_delta = -10 }
+			MAD_rural_cooperation_adjust = yes
 			set_temp_variable = { treasury_change = -0.50 }
 			modify_treasury_effect = yes
 			add_to_variable = { MAD_dahalo_threat = 10 tooltip = MAD_DAHALO_THREAT_PLUS_10_TT }
@@ -3406,12 +3466,15 @@ MAD_dahalo_category = {
 			has_completed_focus = MAD_MARCH_OF_THE_COWBOYS
 			NOT = { has_completed_focus = MAD_Hunt_for_red_with_a_swagger }
 			check_variable = { MAD_dahalo_threat < 100 }
+			check_variable = { MAD_rural_cooperation > 4.99 }
 		}
 		cost = 40
 		days_re_enable = 365
 
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAHALO_CATTLE_LEVY"
+			set_temp_variable = { MAD_rc_delta = -5 }
+			MAD_rural_cooperation_adjust = yes
 			set_temp_variable = { treasury_change = 0.75 }
 			modify_treasury_effect = yes
 			add_to_variable = { MAD_dahalo_threat = 8 tooltip = MAD_DAHALO_THREAT_PLUS_8_TT }
@@ -4542,11 +4605,14 @@ MAD_rural_cooperation_category = {
 				NOT = { has_country_flag = MAD_RURAL_CONSTITUTION_SWITCH_COOLDOWN }
 			}
 			NOT = { has_idea = MAD_POL_CHRISTOCRATIC_STATE }
-			# AREMA cannot adopt open state-church cooperation until its Reconciliation focus is complete.
-			NOT = {
-				AND = {
-					MAD_AREMA_IN_POWER = yes
-					NOT = { has_completed_focus = MAD_POL_AREMA_CHOOSE_RECONCILIATION }
+			# Show the AREMA restriction as a tick/cross like the other prerequisites.
+			custom_trigger_tooltip = {
+				tooltip = MAD_RURAL_AREMA_NOT_IN_POWER_TT
+				NOT = {
+					AND = {
+						MAD_AREMA_IN_POWER = yes
+						NOT = { has_completed_focus = MAD_POL_AREMA_CHOOSE_RECONCILIATION }
+					}
 				}
 			}
 		}
@@ -4556,6 +4622,7 @@ MAD_rural_cooperation_category = {
 			add_ideas = MAD_POL_UNSECULAR_GOVERNMENT
 
 			set_country_flag = { flag = MAD_RURAL_CONSTITUTION_SWITCH_COOLDOWN value = 1 days = 365 }
+			MAD_rural_cooperation_calculate_monthly_change = yes
 		}
 		ai_will_do = { base = 0 }
 	}
@@ -4590,6 +4657,7 @@ MAD_rural_cooperation_category = {
 			}
 			set_country_flag = { flag = MAD_RURAL_CONSTITUTION_SWITCH_COOLDOWN value = 1 days = 365 }
 			custom_effect_tooltip = MAD_RURAL_SECULAR_CLERGY_OPINION_TT
+			MAD_rural_cooperation_calculate_monthly_change = yes
 		}
 		ai_will_do = { base = 0 }
 	}
@@ -4625,6 +4693,7 @@ MAD_rural_cooperation_category = {
 				value = 1
 				days = 365
 			}
+			MAD_rural_cooperation_calculate_monthly_change = yes
 		}
 		ai_will_do = { base = 0 }
 	}
@@ -4657,6 +4726,7 @@ MAD_rural_cooperation_category = {
 					value = 1
 					days = 365
 				}
+			MAD_rural_cooperation_calculate_monthly_change = yes
 		}
 		ai_will_do = { base = 0 }
 	}
@@ -4723,10 +4793,7 @@ MAD_rural_cooperation_category = {
 				}
 			}
 		
-			custom_trigger_tooltip = {
-				tooltip = MAD_RC_REQUIRE_18_TT
-				check_variable = { MAD_rural_cooperation > 17.99 }
-			}
+			check_variable = { MAD_rural_cooperation > 17.99 }
 		}
 		cost = 50
 		fire_only_once = yes
@@ -4830,7 +4897,10 @@ MAD_rural_cooperation_category = {
 		visible = { has_completed_focus = MAD_Drought_and_famine }
 		available = {
 			NOT = { has_country_flag = MAD_RURAL_AGRICULTURAL_RELIEF_ACTIVE }
-			check_variable = { MAD_drought_severity > 24.99 }
+			custom_trigger_tooltip = { tooltip = MAD_DROUGHT_SEVERITY_ABOVE_25_TT
+						check_variable = { MAD_drought_severity > 24.99 }
+			
+				}
 		}
 		cost = 35
 		days_remove = 90
@@ -4847,8 +4917,8 @@ MAD_rural_cooperation_category = {
 			log = "[GetDateText]: [Root.GetName]: Agricultural relief coordination completed"
 			clr_country_flag = MAD_RURAL_AGRICULTURAL_RELIEF_ACTIVE
 			268 = {
-				add_to_variable = { MAD_state_drought = -8 }
-				MAD_drought_state_clamp = yes
+				set_temp_variable = { MAD_dr_state_change = -8 }
+				MAD_drought_state_apply_change = yes
 				set_temp_variable = { MAD_dr_state_famine = -6 }
 				MAD_drought_state_apply_famine = yes
 			}

@@ -216,6 +216,8 @@ country_event = {
 		set_temp_variable = { treasury_change = -15.00 }
 		modify_treasury_effect = yes
 		log = "[GetDateText]: [This.GetName]: mad_telma.1 - competitor blocked"
+		set_temp_variable = { MAD_rc_delta = -3 }
+		MAD_rural_cooperation_adjust = yes
 	}
 }
 
@@ -235,6 +237,8 @@ country_event = {
 	option = {
 		name = mad_madarail.1.a
 		log = "[GetDateText]: [This.GetName]: mad_madarail.1.a executed - seized Madarail without compensation"
+		set_temp_variable = { MAD_rc_delta = -4 }
+		MAD_rural_cooperation_adjust = yes
 		add_ideas = MAD_MADARAIL_OPERATOR_STATE_AUSTERE
 		add_stability = -0.02
 		add_power_balance_value = {
@@ -514,8 +518,14 @@ country_event = {
 	option = {
 		name = mad_daewoo.2.a
 		log = "[GetDateText]: [Root.GetName]: mad_daewoo.2 - Daewoo lease managed well"
-		custom_effect_tooltip = MAD_DAEWOO_RURAL_COOP_DRAIN_TT
 		set_country_flag = MAD_DAEWOO_OUTCOME_WELL
+		custom_effect_tooltip = MAD_DAEWOO_RURAL_COOP_DRAIN_TT
+		MAD_rural_cooperation_calculate_monthly_change = yes
+		if = {
+			limit = { has_country_flag = MAD_DAEWOO_FOOD_QUOTA }
+			set_temp_variable = { MAD_rc_delta = 2 }
+			MAD_rural_cooperation_adjust = yes
+		}
 	}
 }
 
@@ -1316,6 +1326,8 @@ country_event = {
 		}
 		add_to_variable = { MAD_economy_production_speed_industrial_complex_factor = 0.05 tooltip = production_speed_industrial_complex_factor_tt }
 		add_to_variable = { MAD_economy_agricolture_productivity_modifier = 0.05 tooltip = agricolture_productivity_modifier_tt }
+		set_temp_variable = { temp_opinion = 5 }
+		change_international_bankers_opinion = yes
 		set_temp_variable = { temp_opinion = -5 }
 		change_landowners_opinion = yes
 	}
@@ -1706,6 +1718,8 @@ country_event = {
 	option = {
 		name = mad_jirama.1.a
 		log = "[GetDateText]: [Root.GetName]: mad_jirama.1.a - cost-reflective tariffs"
+		set_temp_variable = { MAD_rc_delta = -4 }
+		MAD_rural_cooperation_adjust = yes
 		set_country_flag = MAD_JIRAMA_TARIFF_DISCIPLINE
 		custom_effect_tooltip = { localization_key = modifies_dynamic_modifier_tt MODIFIER = MAD_power_modifier }
 		add_to_variable = { MAD_power_pop_energy_use_multiplier = -0.03 tooltip = pop_energy_use_multiplier_tt }
@@ -1848,16 +1862,15 @@ country_event = {
 		name = mad_dahalo.10.a
 		log = "[GetDateText]: [Root.GetName]: mad_dahalo.10.a - emergency restocking"
 		268 = {
-			add_to_variable = { MAD_state_famine = 5 }
-			clamp_variable = { var = MAD_state_famine min = 0 max = 100 }
-			MAD_drought_state_update_tier = yes
+			set_temp_variable = { MAD_dr_state_famine = 5 }
+			MAD_drought_state_apply_famine = yes
 		}
 		set_temp_variable = { treasury_change = -1.00 }
 		modify_treasury_effect = yes
 		add_to_variable = { MAD_dahalo_threat = 5 tooltip = MAD_DAHALO_THREAT_PLUS_5_TT }
 		if = {
 			limit = { check_variable = { MAD_agri_productivity > -0.039 } }
-			add_to_variable = { MAD_agri_productivity = -0.05 tooltip = agricolture_productivity_modifier_tt }
+			add_to_variable = { MAD_agri_productivity = -0.01 tooltip = agricolture_productivity_modifier_tt }
 		}
 		if = {
 			limit = { check_variable = { MAD_agri_income_tax > -0.029 } }
@@ -1871,9 +1884,8 @@ country_event = {
 		name = mad_dahalo.10.b
 		log = "[GetDateText]: [Root.GetName]: mad_dahalo.10.b - accept the loss"
 		268 = {
-			add_to_variable = { MAD_state_famine = 10 }
-			clamp_variable = { var = MAD_state_famine min = 0 max = 100 }
-			MAD_drought_state_update_tier = yes
+			set_temp_variable = { MAD_dr_state_famine = 10 }
+			MAD_drought_state_apply_famine = yes
 		}
 		add_to_variable = { MAD_dahalo_threat = 8 tooltip = MAD_DAHALO_THREAT_PLUS_8_TT }
 		if = {
@@ -1882,7 +1894,7 @@ country_event = {
 		}
 		if = {
 			limit = { check_variable = { MAD_agri_income_tax > -0.029 } }
-			add_to_variable = { MAD_agri_income_tax = -0.01 tooltip = agriculture_district_income_tax_modifier_tt }
+			add_to_variable = { MAD_agri_income_tax = -0.02 tooltip = agriculture_district_income_tax_modifier_tt }
 		}
 		add_stability = -0.03
 		MAD_dahalo_update_modifier = yes
@@ -1909,7 +1921,7 @@ country_event = {
 		log = "[GetDateText]: [Root.GetName]: mad_dahalo.11.a - escort the convoys"
 		
 		set_temp_variable = { MAD_rc_delta = -8 }
-		if = { limit = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM } multiply_temp_variable = { MAD_rc_delta = 0.75 } }
+		MAD_rural_cooperation_apply_gendarmerie_discount = yes
 		MAD_rural_cooperation_adjust = yes
 		custom_effect_tooltip = MAD_RURAL_COOPERATION_SPENT_TT
 		set_temp_variable = { treasury_change = -0.75 }
@@ -1945,7 +1957,7 @@ country_event = {
 		set_country_flag = MAD_DAHALO_LOCAL_DEFENCE_RESOLVED
 		set_temp_variable = { treasury_change = -0.75 }
 		modify_treasury_effect = yes
-		add_to_variable = { MAD_dahalo_threat = -6 tooltip = MAD_DAHALO_THREAT_MINUS_6_TT }
+		add_to_variable = { MAD_dahalo_threat = -4 tooltip = MAD_DAHALO_THREAT_MINUS_4_TT }
 		add_to_variable = { MAD_economy_expected_police_modifier = -0.25 tooltip = expected_police_modifier_tt }
 		add_power_balance_value = { id = MAD_economy_ownership_bop value = -0.01875 tooltip_side = MAD_private_ownership }
 		add_stability = 0.01
@@ -1957,7 +1969,7 @@ country_event = {
 		set_country_flag = MAD_DAHALO_LOCAL_DEFENCE_RESOLVED
 		set_temp_variable = { treasury_change = -0.50 }
 		modify_treasury_effect = yes
-		add_to_variable = { MAD_dahalo_threat = -4 tooltip = MAD_DAHALO_THREAT_MINUS_4_TT }
+		add_to_variable = { MAD_dahalo_threat = -8 tooltip = MAD_DAHALO_THREAT_MINUS_8_TT }
 		add_to_variable = { MAD_economy_expected_police_modifier = 0.25 tooltip = expected_police_modifier_tt }
 		add_power_balance_value = { id = MAD_economy_ownership_bop value = 0.01875 tooltip_side = MAD_public_ownership }
 		add_stability = 0.005
@@ -1968,7 +1980,7 @@ country_event = {
 		log = "[GetDateText]: [Root.GetName]: mad_dahalo.12.c - disarm the local groups"
 		set_country_flag = MAD_DAHALO_LOCAL_DEFENCE_RESOLVED
 		add_to_variable = { MAD_dahalo_threat = 3 tooltip = MAD_DAHALO_THREAT_PLUS_3_TT }
-		add_stability = 0.01
+		add_stability = -0.02
 		MAD_dahalo_update_modifier = yes
 	}
 }
@@ -5094,4 +5106,119 @@ country_event = {
 		MAD_drought_recalc_national = yes
 		add_stability = 0.01
 	}
+}
+
+add_namespace = mad_secren
+
+# France decides whether to finance the SECREN modernisation programme.
+country_event = {
+    id = mad_secren.1
+    title = mad_secren.1.t
+    desc = mad_secren.1.d
+    picture = GFX_report_event_economy_default
+    is_triggered_only = yes
+
+    option = {
+        name = mad_secren.1.a
+        trigger = {
+            check_variable = { treasury > 7.499 }
+            has_opinion = { target = MAD value > 79 }
+            MAD = {
+                has_country_flag = MAD_SECREN_FRENCH_INVESTMENT_REQUESTED
+                266 = {
+                    is_owned_and_controlled_by = MAD
+                }
+            }
+        }
+        ai_chance = { base = 80 }
+
+        log = "[GetDateText]: [This.GetName]: French SECREN investment accepted"
+
+        # France pays $7.5 billion.
+        set_temp_variable = { treasury_change = -7.50 }
+        modify_treasury_effect = yes
+
+        # Record $7.5 billion in French international investments.
+        set_temp_variable = { int_investment_change = 7.50 }
+        modify_international_investment_effect = yes
+
+        # Increase French influence in Madagascar by 5%.
+        set_temp_variable = { percent_change = 5 }
+        set_temp_variable = { tag_index = FRA }
+        set_temp_variable = { influence_target = MAD }
+        change_influence_percentage = yes
+
+        # Madagascar receives the investment and executes the project.
+        MAD = {
+            country_event = {
+                id = mad_secren.2
+                days = 1
+            }
+        }
+    }
+
+    option = {
+        name = mad_secren.1.b
+        ai_chance = { base = 20 }
+
+        log = "[GetDateText]: [This.GetName]: French SECREN investment declined"
+
+        MAD = {
+            country_event = {
+                id = mad_secren.3
+                days = 1
+            }
+        }
+    }
+}
+
+country_event = {
+    id = mad_secren.2
+    title = mad_secren.2.t
+    desc = mad_secren.2.d
+    picture = GFX_report_event_economy_default
+    is_triggered_only = yes
+
+    option = {
+        name = mad_secren.2.a
+
+        log = "[GetDateText]: [This.GetName]: French investment in SECREN completed"
+
+        set_country_flag = MAD_SECREN_FRENCH_INVESTMENT_COMPLETED
+
+        # The investment goes directly to SECREN, not Madagascar's treasury.
+        if = {
+            limit = { has_dlc = "Arms Against Tyranny" }
+            mio:MAD_SECREN_shipbuilding = {
+                add_mio_funds = 750
+            }
+        }
+
+        # Expand the shipyard at Antsiranana.
+        266 = {
+            add_extra_state_shared_building_slots = 1
+
+            add_building_construction = {
+                type = dockyard
+                level = 1
+                instant_build = yes
+            }
+        }
+    }
+}
+
+country_event = {
+    id = mad_secren.3
+    title = mad_secren.3.t
+    desc = mad_secren.3.d
+    picture = GFX_report_event_economy_default
+    is_triggered_only = yes
+
+    option = {
+        name = mad_secren.3.a
+
+        log = "[GetDateText]: [This.GetName]: France declined SECREN investment"
+
+        set_country_flag = MAD_SECREN_FRENCH_INVESTMENT_DECLINED
+    }
 }
