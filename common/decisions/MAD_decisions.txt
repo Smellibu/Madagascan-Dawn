@@ -1153,46 +1153,51 @@ MAD_drought_category = {
 		}
 
 		cost = 55
-		days_remove = 30
+		days_remove = 180
 		fire_only_once = no
+
 		custom_cost_trigger = {
 			check_variable = {
 				treasury > 0.499
 			}
 		}
+
 		custom_cost_text = cost_0_5
 
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_DROUGHT_EMERGENCY_WATER started"
 
+			# Lock out other water-trucking programmes for the duration.
 			set_country_flag = MAD_DROUGHT_WATER_DECISION_ACTIVE
 			set_country_flag = MAD_DROUGHT_WATER_TRUCK_ACTIVE
 
+			# Pay the programme's cost.
 			set_temp_variable = {
 				treasury_change = -0.50
 			}
 			modify_treasury_effect = yes
+
+			# Start the targeted state's six-month relief immediately.
+			FROM = {
+				MAD_dahalo_southern_water_relief_interference = yes
+			}
+
+			# Display the relief effect in the decision tooltip.
+			custom_effect_tooltip = MAD_DROUGHT_EMERGENCY_WATER_EFFECT_tt
 		}
 
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_DROUGHT_EMERGENCY_WATER complete"
 
-			FROM = {
-				set_temp_variable = {
-					MAD_dahalo_water_relief_months = 6
-				}
-				MAD_dahalo_southern_water_relief_interference = yes
-			}
-
+			# The 180-day programme has ended.
 			clr_country_flag = MAD_DROUGHT_WATER_TRUCK_ACTIVE
 			clr_country_flag = MAD_DROUGHT_WATER_DECISION_ACTIVE
-			set_temp_variable = { MAD_rc_delta = 1 }
-			MAD_rural_cooperation_adjust = yes
 
 		}
 
 		ai_will_do = {
 			base = 4
+
 			modifier = {
 				factor = 3
 				FROM = {

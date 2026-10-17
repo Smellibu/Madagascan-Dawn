@@ -3190,40 +3190,15 @@ MAD_dahalo_southern_supply_interference = {
 }
 
 MAD_dahalo_southern_water_relief_interference = {
-	# Start with the original six-month window, then apply the pre-existing Dahalo
-	# interception penalties. Rural Cooperation applies its current effectiveness band afterward.
-	set_temp_variable = { MAD_dahalo_water_relief_months = 6 }
-	if = {
-		limit = {
-			has_state_flag = MAD_GRAND_SUD_STATE
-			NOT = { has_country_flag = MAD_DAHALO_DEFEATED }
-			NOT = { has_country_flag = MAD_REMENABILA_IN_POWER }
-			check_variable = { ROOT.MAD_dahalo_threat > 39.99 }
-		}
-		set_temp_variable = { MAD_dahalo_water_relief_months = 5 }
-		if = {
-			limit = { ROOT = { has_country_flag = MAD_DAHALO_ESCORT_RELIEF_ACTIVE } }
-			set_temp_variable = { MAD_dahalo_water_relief_months = 6 }
-		}
-		else_if = {
-			limit = { check_variable = { ROOT.MAD_dahalo_threat > 79.99 } }
-			set_temp_variable = { MAD_dahalo_water_relief_months = 3 }
-		}
-		else_if = {
-			limit = { check_variable = { ROOT.MAD_dahalo_threat > 59.99 } }
-			set_temp_variable = { MAD_dahalo_water_relief_months = 4 }
-		}
-	}
-	# Apply the same national Cooperation bands to the duration of emergency-water relief.
-	# Relief duration is counted in whole monthly ticks, so round the adjusted period once.
-	set_temp_variable = { MAD_rc_water_relief_multiplier = 0.50 }
-	if = { limit = { ROOT = { check_variable = { MAD_rural_cooperation > 79.99 } } } set_temp_variable = { MAD_rc_water_relief_multiplier = 1.20 } }
-	else_if = { limit = { ROOT = { check_variable = { MAD_rural_cooperation > 59.99 } } } set_temp_variable = { MAD_rc_water_relief_multiplier = 1.00 } }
-	else_if = { limit = { ROOT = { check_variable = { MAD_rural_cooperation > 34.99 } } } set_temp_variable = { MAD_rc_water_relief_multiplier = 0.80 } }
-	multiply_temp_variable = { MAD_dahalo_water_relief_months = MAD_rc_water_relief_multiplier }
-	round_temp_variable = MAD_dahalo_water_relief_months
-	if = { limit = { check_variable = { MAD_dahalo_water_relief_months < 1 } } set_temp_variable = { MAD_dahalo_water_relief_months = 1 } }
-	add_to_variable = { MAD_state_relief_months = MAD_dahalo_water_relief_months }
+    # Emergency-water relief always lasts six months.
+    # Rural Cooperation affects relief effectiveness, not duration.
+    set_temp_variable = {
+        MAD_dahalo_water_relief_months = 6
+    }
+
+    add_to_variable = {
+        MAD_state_relief_months = MAD_dahalo_water_relief_months
+    }
 }
 
 ########################################################################

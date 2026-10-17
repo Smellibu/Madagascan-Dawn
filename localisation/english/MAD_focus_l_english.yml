@@ -684,7 +684,6 @@
  MAD_DEAL_KEPT_FAILED_desc: "The lease fell apart, the government fell with it, and the state is left paying the bill."
  # --- decisions ---
  MAD_DROUGHT_EMERGENCY_WATER: "Truck Water to [FROM.GetName]"
- MAD_DROUGHT_EMERGENCY_WATER_desc: "A 30-day tanker programme for §Y[FROM.GetName]§!. While it runs, no other water-trucking programme can start. After completion, the state gets §Y6 months§! of reduced drought growth.\n\nEmergency-water relief duration follows the same Cooperation bands: below 35, 50% shorter; 35-59.99, 20% shorter; 60-79.99, unchanged; 80+, 20% longer. Duration is rounded to whole months after Dahalo interference."
  MAD_DROUGHT_FOOD_AID_APPEAL: "Food Aid Appeal for [FROM.GetName]"
  MAD_DROUGHT_FOOD_AID_APPEAL_desc: "A 30-day food-aid programme for §Y[FROM.GetName]§!. It reduces local drought and hunger; while it runs, no other food-aid programme can start.\n\nCooperation changes relief effectiveness: below 35, reductions are 50% weaker; 35-59.99, 20% weaker; 60-79.99, unchanged; 80+, 20% stronger."
  MAD_DROUGHT_SEED: "Distribute Drought-Tolerant Seed"
@@ -2664,3 +2663,7 @@
  MAD_dr_state_famine_tt: "§YFamine§!: [?MAD_dr_state_famine|-]\n"
  MAD_dr_state_change_tt: "§YDrought§!: [?MAD_dr_state_change|-]\n"
  
+ 
+ MAD_DROUGHT_EMERGENCY_WATER_desc: "A 180-day emergency tanker programme for §Y[FROM.GetName]§!. The targeted state immediately receives §Y6 months§! of emergency-water relief. While the programme runs, no other water-trucking programme can start. Relief effectiveness follows Rural Cooperation: below 35, §Y50%§!; 35–59.99, §Y80%§!; 60–79.99, §Y100%§!; and 80+, §Y120%§!."
+
+MAD_DROUGHT_EMERGENCY_WATER_EFFECT_tt: "§Y[FROM.GetName]§! receives §Y6 months§! of emergency-water relief immediately."
