@@ -4718,20 +4718,7 @@ focus_tree = {
 				level = 2
 				path = { 681 11015 }
 			}
-			267 = {
-				add_building_construction = {
-					type = infrastructure
-					level = 1
-					instant_build = yes
-				}
-			}
-			set_temp_variable = {
-				treasury_change = {
-					value = gdp_total
-					multiply = -0.01
-				}
-			}
-			modify_treasury_effect = yes
+			one_random_infrastructure
 			country_event = { id = mad_madarail.1 }
 			if = {
 				limit = { has_idea = international_bankers }
@@ -5788,13 +5775,8 @@ focus_tree = {
 			add_to_variable = { MAD_economy_internal_investments_money_cost_modifier = -0.10 tooltip = internal_investments_money_cost_modifier_tt }
 			add_to_variable = { MAD_economy_infrastructure_tax_gain_multiplier_modifier = 0.05 tooltip = infrastructure_tax_gain_multiplier_modifier_tt }
 			add_to_variable = { MAD_economy_foreign_influence_modifier = 0.05 tooltip = foreign_influence_modifier_tt }
-			add_stability = 0.02
-			add_political_power = 25
-			custom_effect_tooltip = {
-				localization_key = modifies_dynamic_modifier_tt
-				MODIFIER = MAD_economy_modifier
-			}
-			add_to_variable = { MAD_economy_return_on_investment_modifier = 0.02 tooltip = return_on_investment_modifier_tt }
+			add_to_variable = { MAD_economy_trade_opinion_factor = -0.05 tooltip = trade_opinion_factor_tt }
+			
 			add_power_balance_value = { id = MAD_economy_ownership_bop value = 0.075 tooltip_side = MAD_public_ownership }
 			if = {
 				limit = { has_idea = fossil_fuel_industry }
@@ -5947,14 +5929,12 @@ focus_tree = {
 							MODIFIER = MAD_economy_modifier
 						}
 						add_to_variable = { MAD_economy_international_market_income_modifier = 0.05 tooltip = international_market_income_modifier_tt }
-						add_to_variable = { MAD_economy_receiving_investment_cost_modifier = -0.03 tooltip = receiving_investment_cost_modifier_tt }
-						
+						add_to_variable = { MAD_economy_trade_opinion_factor = 0.15 tooltip = trade_opinion_factor_tt }						
 						custom_effect_tooltip = {
 							localization_key = modifies_dynamic_modifier_tt
 							MODIFIER = MAD_power_modifier
 						}
 						add_to_variable = { MAD_power_max_fuel_factor = 0.10 tooltip = max_fuel_factor_tt }
-						add_stability = 0.01
 						if = { limit = { has_country_flag = MAD_GPM_PRIVATE_MODEL }
 			add_power_balance_value = { id = MAD_economy_ownership_bop value = -0.0375 tooltip_side = MAD_private_ownership }
 			  }

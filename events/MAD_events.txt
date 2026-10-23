@@ -250,7 +250,8 @@ country_event = {
 			localization_key = modifies_dynamic_modifier_tt
 			MODIFIER = MAD_economy_modifier
 		}
-		add_to_variable = { MAD_economy_infrastructure_tax_gain_multiplier_modifier = -0.05 tooltip = infrastructure_tax_gain_multiplier_modifier_tt }
+		add_to_variable = { MAD_economy_infrastructure_tax_gain_multiplier_modifier = -0.10 tooltip = infrastructure_tax_gain_multiplier_modifier_tt }
+		add_to_variable = { MAD_economy_receiving_investment_cost_modifier = 0.10 tooltip = receiving_investment_cost_modifier_tt }
 	}
 
 	# Option B: pay off the concession's debts and take it over properly - costs treasury, bigger buffs, free infrastructure
@@ -272,9 +273,6 @@ country_event = {
 		# Purchase compensation: match the initial Madarail privatisation value (8% of GDP).
 		set_temp_variable = { treasury_change = { value = gdp_total multiply = -0.08 } }
 		modify_treasury_effect = yes
-		# Separately clear the concession's debts / recapitalise the operator.
-		set_temp_variable = { treasury_change = -15.00 }
-		modify_treasury_effect = yes
 		# free infrastructure investment as part of the recapitalisation
 		487 = {
 			add_building_construction = {
@@ -283,6 +281,9 @@ country_event = {
 				instant_build = yes
 			}
 		}
+		# Separately clear the concession's debts / recapitalise the operator.
+		set_temp_variable = { treasury_change = -5.00 }
+		modify_treasury_effect = yes
 	}
 }
 
