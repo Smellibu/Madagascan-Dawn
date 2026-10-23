@@ -654,7 +654,8 @@ defined_text = {
 
 defined_text = {
 	name = MAD_RC_MOD_STABILITY_50
-	text = { trigger = { has_stability > 0.499 } localization_key = MAD_RC_LINE_STABILITY_50 }
+	# Show the 50% tier only until the cumulative 65% tier is reached.
+	text = { trigger = { AND = { has_stability > 0.499 NOT = { has_stability > 0.649 } } } localization_key = MAD_RC_LINE_STABILITY_50 }
 	text = { localization_key = MAD_RC_EMPTY }
 }
 
@@ -666,7 +667,8 @@ defined_text = {
 
 defined_text = {
 	name = MAD_RC_MOD_GOVERNMENT_50
-	text = { trigger = { OR = { AND = { has_government = democratic democratic > 0.499 } AND = { has_government = communism communism > 0.499 } AND = { has_government = fascism fascism > 0.499 } AND = { has_government = neutrality neutrality > 0.499 } } } localization_key = MAD_RC_LINE_GOVERNMENT_50 }
+	# Show the 50% tier only until the cumulative 60% tier is reached.
+	text = { trigger = { OR = { AND = { has_government = democratic democratic > 0.499 NOT = { democratic > 0.599 } } AND = { has_government = communism communism > 0.499 NOT = { communism > 0.599 } } AND = { has_government = fascism fascism > 0.499 NOT = { fascism > 0.599 } } AND = { has_government = neutrality neutrality > 0.499 NOT = { neutrality > 0.599 } } } } localization_key = MAD_RC_LINE_GOVERNMENT_50 }
 	text = { localization_key = MAD_RC_EMPTY }
 }
 
@@ -677,20 +679,20 @@ defined_text = {
 }
 
 defined_text = {
-	name = MAD_RC_MOD_DROUGHT_55
-	text = { trigger = { check_variable = { MAD_drought_severity < 55 } } localization_key = MAD_RC_LINE_DROUGHT_55 }
+	name = MAD_RC_MOD_DROUGHT_50
+	text = { trigger = { check_variable = { MAD_drought_severity < 50 } check_variable = { MAD_drought_severity > 20 } } localization_key = MAD_RC_LINE_DROUGHT_50 }
 	text = { localization_key = MAD_RC_EMPTY }
 }
 
 defined_text = {
-	name = MAD_RC_MOD_DROUGHT_30
-	text = { trigger = { check_variable = { MAD_drought_severity < 30 } } localization_key = MAD_RC_LINE_DROUGHT_30 }
+	name = MAD_RC_MOD_DROUGHT_20
+	text = { trigger = { check_variable = { MAD_drought_severity < 20 } } localization_key = MAD_RC_LINE_DROUGHT_20 }
 	text = { localization_key = MAD_RC_EMPTY }
 }
 
 defined_text = {
 	name = MAD_RC_MOD_DAHALO_50
-	text = { trigger = { check_variable = { MAD_dahalo_threat < 50 } } localization_key = MAD_RC_LINE_DAHALO_50 }
+	text = { trigger = { check_variable = { MAD_dahalo_threat < 50 } check_variable = { MAD_dahalo_threat > 25 }} localization_key = MAD_RC_LINE_DAHALO_50 }
 	text = { localization_key = MAD_RC_EMPTY }
 }
 

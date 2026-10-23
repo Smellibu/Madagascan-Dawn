@@ -4648,10 +4648,14 @@ MAD_rural_cooperation_calculate_monthly_change = {
 	}
 
 	# Trust follows basic state capacity, public consent, and a countryside not in crisis.
+	# Stability tiers deliberately stack: above 65%, both +0.25 effects apply (= +0.50 total).
+	# Scripted localisation hides the lower-tier row when the cumulative higher tier is active.
 	if = { limit = { has_stability > 0.499 } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
 	if = { limit = { has_stability > 0.649 } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
 
 	# Government popularity is checked against the ruling ideology group rather than a fixed party.
+	# Popularity tiers deliberately stack: above 60%, both +0.25 effects apply (= +0.50 total).
+	# Scripted localisation hides the lower-tier row when the cumulative higher tier is active.
 	if = {
 		limit = { OR = {
 			AND = { has_government = democratic democratic > 0.499 }
@@ -4671,10 +4675,10 @@ MAD_rural_cooperation_calculate_monthly_change = {
 		add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 }
 	}
 
-	if = { limit = { check_variable = { MAD_drought_severity < 55 } } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
-	if = { limit = { check_variable = { MAD_drought_severity < 30 } } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
-	if = { limit = { check_variable = { MAD_dahalo_threat < 50 } } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
-	if = { limit = { check_variable = { MAD_dahalo_threat < 25 } } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
+	if = { limit = { check_variable = { MAD_drought_severity < 50 } check_variable = { MAD_drought_severity > 20 } } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
+	if = { limit = { check_variable = { MAD_drought_severity < 20 } } add_to_temp_variable = { MAD_rc_monthly_gain = 0.5 } }
+	if = { limit = { check_variable = { MAD_dahalo_threat < 50 } check_variable = { MAD_dahalo_threat > 25 }  } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
+	if = { limit = { check_variable = { MAD_dahalo_threat < 25 } } add_to_temp_variable = { MAD_rc_monthly_gain = 0.50 } }
 
 	# Governance paths provide lasting institutional memory. Milestones stack, subject to the +3 cap.
 	if = { limit = { has_completed_focus = MAD_POL_ROY_CROWN_WITHOUT_KING } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }

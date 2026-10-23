@@ -2462,7 +2462,7 @@
 
  # --- Rural Cooperation system ---
  MAD_rural_cooperation_category: "Rural Cooperation"
- MAD_rural_cooperation_category_desc: "Rural Cooperation tracks rural trust, participation and delivery capacity. Current balance: §Y[?MAD_rural_cooperation|.2]/100§!.\n[MAD_RC_MONTHLY_TOTAL]\n§YActive monthly modifiers§!:\n[MAD_RC_MOD_BASE][MAD_RC_MOD_SECULAR][MAD_RC_MOD_UNSECULAR][MAD_RC_MOD_HERITAGE][MAD_RC_MOD_NON_RECOGNITION][MAD_RC_MOD_INFLATION_25][MAD_RC_MOD_INFLATION_50][MAD_RC_MOD_INFLATION_75][MAD_RC_MOD_STABILITY_50][MAD_RC_MOD_STABILITY_65][MAD_RC_MOD_GOVERNMENT_50][MAD_RC_MOD_GOVERNMENT_60][MAD_RC_MOD_DROUGHT_55][MAD_RC_MOD_DROUGHT_30][MAD_RC_MOD_DAHALO_50][MAD_RC_MOD_DAHALO_25][MAD_RC_MOD_FOCUS_CROWN_WITHOUT_KING][MAD_RC_MOD_FOCUS_ROY_FOKONOLONA][MAD_RC_MOD_FOCUS_CUSTOMARY_JUSTICE][MAD_RC_MOD_FOCUS_MANY_HOUSES][MAD_RC_MOD_FOCUS_AREMA_FOKONOLONA][MAD_RC_MOD_FOCUS_AREMA_FOOD][MAD_RC_MOD_FOCUS_AREMA_PROVINCES][MAD_RC_MOD_FOCUS_SOUTHERN_SECURITY][MAD_RC_MOD_FOCUS_GENDARMERIE][MAD_RC_MOD_FOCUS_ENGINEERS][MAD_RC_MOD_FOCUS_TGV_INFRA][MAD_RC_MOD_FOCUS_TGV_HEALTH][MAD_RC_MOD_FOCUS_TGV_JIRAMA][MAD_RC_MOD_FOCUS_TGV_FOOD][MAD_RC_MOD_FOCUS_THRIVING_SOUTH][MAD_RC_MOD_GRID][MAD_RC_MOD_LEAD][MAD_RC_MOD_DECIM][MAD_RC_MOD_DAEWOO][MAD_RC_MOD_COMAZAR][MAD_RC_MOD_CAP][MAD_RC_MOD_METER_UPPER][MAD_RC_MOD_METER_LOWER]\n\n§YDrought relief§!: below 35, -50%; 35-59.99, -20%; 60-79.99, no modifier; 80+, +20%. Emergency-water duration uses the same bands and rounds to whole months. Positive gross recovery is capped at +3.00/month before Daewoo and Comazar deductions; the net change is limited by the 0-100 meter."
+ MAD_rural_cooperation_category_desc: "Rural Cooperation tracks rural trust, participation and delivery capacity. Current balance: §Y[?MAD_rural_cooperation|.2]/100§!.\n[MAD_RC_MONTHLY_TOTAL]\n§YActive monthly modifiers§!:\n[MAD_RC_MOD_BASE][MAD_RC_MOD_SECULAR][MAD_RC_MOD_UNSECULAR][MAD_RC_MOD_HERITAGE][MAD_RC_MOD_NON_RECOGNITION][MAD_RC_MOD_INFLATION_25][MAD_RC_MOD_INFLATION_50][MAD_RC_MOD_INFLATION_75][MAD_RC_MOD_STABILITY_50][MAD_RC_MOD_STABILITY_65][MAD_RC_MOD_GOVERNMENT_50][MAD_RC_MOD_GOVERNMENT_60][MAD_RC_MOD_DROUGHT_50][MAD_RC_MOD_DROUGHT_20][MAD_RC_MOD_DAHALO_50][MAD_RC_MOD_DAHALO_25][MAD_RC_MOD_FOCUS_CROWN_WITHOUT_KING][MAD_RC_MOD_FOCUS_ROY_FOKONOLONA][MAD_RC_MOD_FOCUS_CUSTOMARY_JUSTICE][MAD_RC_MOD_FOCUS_MANY_HOUSES][MAD_RC_MOD_FOCUS_AREMA_FOKONOLONA][MAD_RC_MOD_FOCUS_AREMA_FOOD][MAD_RC_MOD_FOCUS_AREMA_PROVINCES][MAD_RC_MOD_FOCUS_SOUTHERN_SECURITY][MAD_RC_MOD_FOCUS_GENDARMERIE][MAD_RC_MOD_FOCUS_ENGINEERS][MAD_RC_MOD_FOCUS_TGV_INFRA][MAD_RC_MOD_FOCUS_TGV_HEALTH][MAD_RC_MOD_FOCUS_TGV_JIRAMA][MAD_RC_MOD_FOCUS_TGV_FOOD][MAD_RC_MOD_FOCUS_THRIVING_SOUTH][MAD_RC_MOD_GRID][MAD_RC_MOD_LEAD][MAD_RC_MOD_DECIM][MAD_RC_MOD_DAEWOO][MAD_RC_MOD_COMAZAR][MAD_RC_MOD_CAP][MAD_RC_MOD_METER_UPPER][MAD_RC_MOD_METER_LOWER]\n\n§YDrought relief§!: below 35, -50%; 35-59.99, -20%; 60-79.99, no modifier; 80+, +20%. Emergency-water duration uses the same bands and rounds to whole months. Positive gross recovery is capped at +3.00/month before Daewoo and Comazar deductions; the net change is limited by the 0-100 meter."
 
 
  # --- Rural Cooperation cost requirements (short availability tooltips) ---
@@ -2608,13 +2608,13 @@
  MAD_RC_LINE_INFLATION_50: "Inflation 50–74.99%: §R-0.50§!\n"
  MAD_RC_LINE_INFLATION_75: "Inflation 75%+: §R-1.00§!\n"
  MAD_RC_LINE_STABILITY_50: "Stability above 50%: §G+0.25§!\n"
- MAD_RC_LINE_STABILITY_65: "Stability above 65%: §G+0.25§!\n"
+ MAD_RC_LINE_STABILITY_65: "Stability above 65%: §G+0.50§!\n"
  MAD_RC_LINE_GOVERNMENT_50: "Ruling ideology popularity above 50%: §G+0.25§!\n"
- MAD_RC_LINE_GOVERNMENT_60: "Ruling ideology popularity above 60%: §G+0.25§!\n"
- MAD_RC_LINE_DROUGHT_55: "National drought severity below 55: §G+0.25§!\n"
- MAD_RC_LINE_DROUGHT_30: "National drought severity below 30: §G+0.25§!\n"
+ MAD_RC_LINE_GOVERNMENT_60: "Ruling ideology popularity above 60%: §G+0.50§!\n"
+ MAD_RC_LINE_DROUGHT_50: "National drought severity below 50: §G+0.25§!\n"
+ MAD_RC_LINE_DROUGHT_20: "National drought severity below 20: §G+0.5§!\n"
  MAD_RC_LINE_DAHALO_50: "Dahalo threat below 50: §G+0.25§!\n"
- MAD_RC_LINE_DAHALO_25: "Dahalo threat below 25: §G+0.25§!\n"
+ MAD_RC_LINE_DAHALO_25: "Dahalo threat below 25: §G+0.5§!\n"
  MAD_RC_LINE_FOCUS_CROWN_WITHOUT_KING: "Focus: Crown Without King: §G+0.25§!\n"
  MAD_RC_LINE_FOCUS_ROY_FOKONOLONA: "Focus: Royal Fokonolona: §G+0.25§!\n"
  MAD_RC_LINE_FOCUS_CUSTOMARY_JUSTICE: "Focus: Customary Justice: §G+0.25§!\n"
@@ -2666,4 +2666,4 @@
  
  MAD_DROUGHT_EMERGENCY_WATER_desc: "A 180-day emergency tanker programme for §Y[FROM.GetName]§!. The targeted state immediately receives §Y6 months§! of emergency-water relief. While the programme runs, no other water-trucking programme can start. Relief effectiveness follows Rural Cooperation: below 35, §Y50%§!; 35–59.99, §Y80%§!; 60–79.99, §Y100%§!; and 80+, §Y120%§!."
 
-MAD_DROUGHT_EMERGENCY_WATER_EFFECT_tt: "§Y[FROM.GetName]§! receives §Y6 months§! of emergency-water relief immediately."
+ MAD_DROUGHT_EMERGENCY_WATER_EFFECT_tt: "§Y[FROM.GetName]§! receives §Y6 months§! of emergency-water relief immediately."

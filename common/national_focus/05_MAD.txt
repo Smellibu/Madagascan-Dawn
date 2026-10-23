@@ -25,7 +25,7 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_ECONOMY }
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus MAD_ARMY_INDIAN_OCEAN_EXERCISE"
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_natural_resource_extraction"
 			custom_effect_tooltip = {
 				localization_key = modifies_dynamic_modifier_tt
 				MODIFIER = MAD_economy_modifier
@@ -9543,7 +9543,7 @@ focus_tree = {
 				tooltip = MAD_MIL_IN_POWER_tt
 				MAD_MIL_IN_POWER = yes
 			}
-			has_completed_focus = MAD_DAHALO_COUP_D_ARRET
+			has_completed_focus = MAD_Coup_d_arret
 		}
 
 		completion_reward = {
@@ -12085,7 +12085,7 @@ focus_tree = {
 				tooltip = MAD_TGV_IN_POWER_tt
 				MAD_TGV_IN_POWER = yes
 			}
-			OR = { has_completed_focus = MAD_LEAD_PROJECT has_completed_focus = MAD_JIRAMA_BUILD_RURAL_GRID has_completed_focus = MAD_DROUGHT_and_famine }
+			OR = { has_completed_focus = MAD_LEAD_PROJECT has_completed_focus = MAD_DROUGHT_and_famine }
 		}
 
 		completion_reward = {
