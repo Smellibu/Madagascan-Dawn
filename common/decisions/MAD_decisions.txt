@@ -2637,6 +2637,11 @@ MAD_dahalo_category = {
 			add_to_variable = { MAD_dahalo_threat = -6 tooltip = MAD_DAHALO_THREAT_MINUS_6_TT }
 			add_stability = 0.0025
 			MAD_dahalo_update_modifier = yes
+		
+			set_country_flag = MAD_DAHALO_OPERATION_ACTIVE
+		}
+		remove_effect = {
+			clr_country_flag = MAD_DAHALO_OPERATION_ACTIVE
 		}
 		ai_will_do = { base = 4 }
 	}
@@ -2775,6 +2780,11 @@ MAD_dahalo_category = {
 			add_war_support = 0.01
 			add_stability = -0.01
 			MAD_dahalo_update_modifier = yes
+		
+			set_country_flag = MAD_DAHALO_OPERATION_ACTIVE
+		}
+		remove_effect = {
+			clr_country_flag = MAD_DAHALO_OPERATION_ACTIVE
 		}
 		ai_will_do = { base = 2 }
 	}
