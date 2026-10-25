@@ -3527,6 +3527,7 @@ MAD_dahalo_category = {
 			NOT = { has_country_flag = MAD_DAHALO_ESCORT_RELIEF_ACTIVE }
 		}
 		available = {
+			NOT = { has_country_flag = MAD_DAHALO_OPERATION_ACTIVE }
 			has_completed_focus = MAD_Drought_and_famine
 			check_variable = { MAD_dahalo_threat > 39.99 }
 			268 = { check_variable = { MAD_state_famine > 24.99 } }
@@ -3562,6 +3563,7 @@ MAD_dahalo_category = {
 			set_temp_variable = { treasury_change = -1.25 }
 			modify_treasury_effect = yes
 			set_country_flag = MAD_DAHALO_ESCORT_RELIEF_ACTIVE
+			set_country_flag = MAD_DAHALO_OPERATION_ACTIVE
 			268 = {
 				# Guarded deliveries get through immediately, before the next normal relief action.
 				set_temp_variable = { MAD_dr_state_famine = -6 }
@@ -3573,6 +3575,7 @@ MAD_dahalo_category = {
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAHALO_ESCORT_RELIEF_CONVOYS complete"
 			clr_country_flag = MAD_DAHALO_ESCORT_RELIEF_ACTIVE
+			clr_country_flag = MAD_DAHALO_OPERATION_ACTIVE
 			add_to_variable = { MAD_dahalo_threat = -3 tooltip = MAD_DAHALO_THREAT_MINUS_3_TT }
 			MAD_dahalo_update_modifier = yes
 		}
