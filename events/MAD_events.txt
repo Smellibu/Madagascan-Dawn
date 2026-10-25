@@ -2087,7 +2087,7 @@ country_event = {
 		name = mad_dahalo.15.a
 		log = "[GetDateText]: [Root.GetName]: mad_dahalo.15.a - recover and keep moving"
 		if = {
-			limit = { has_completed_focus = MAD_Tandroka }
+			limit = { has_country_flag = MAD_DAHALO_TANDROKA_RESOLVED }
 			add_to_variable = { MAD_dahalo_threat = 4 tooltip = MAD_DAHALO_THREAT_PLUS_4_TT }
 			army_experience = -1
 			add_stability = -0.005
