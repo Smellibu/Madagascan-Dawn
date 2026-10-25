@@ -3175,16 +3175,16 @@ MAD_dahalo_campaign_roll = {
 	}
 }
 MAD_dahalo_campaign_apply_success_rc = {
-	if = { limit = { has_country_flag = MAD_DAHALO_CAMPAIGN_COMMUNITY_APPROACH } add_to_variable = { MAD_rc_delta = 2 } }
+	if = { limit = { has_country_flag = MAD_DAHALO_CAMPAIGN_COMMUNITY_APPROACH } add_to_temp_variable = { MAD_rc_delta = 2 } }
 	MAD_rural_cooperation_adjust = yes
 	if = { limit = { has_country_flag = MAD_DAHALO_CAMPAIGN_GENERAL_STAFF_STYLE } army_experience = 5 }
 }
 MAD_dahalo_campaign_apply_failure_rc = {
-	if = { limit = { has_country_flag = MAD_DAHALO_CAMPAIGN_COMMUNITY_APPROACH } add_to_variable = { MAD_rc_delta = 2 } }
-	if = { limit = { has_country_flag = MAD_DAHALO_CAMPAIGN_COERCIVE_APPROACH } add_to_variable = { MAD_rc_delta = -3 } }
-	if = { limit = { has_country_flag = MAD_DAHALO_CAMPAIGN_CAPSAT_STYLE } add_to_variable = { MAD_rc_delta = -2 } }
-	if = { limit = { has_country_flag = MAD_DAHALO_CAMPAIGN_GENERAL_STAFF_STYLE } add_to_variable = { MAD_rc_delta = 2 } }
-	if = { limit = { has_country_flag = MAD_USAD_COMMUNITY_LIAISON } add_to_variable = { MAD_rc_delta = 2 } }
+	if = { limit = { has_country_flag = MAD_DAHALO_CAMPAIGN_COMMUNITY_APPROACH } add_to_temp_variable = { MAD_rc_delta = 2 } }
+	if = { limit = { has_country_flag = MAD_DAHALO_CAMPAIGN_COERCIVE_APPROACH } add_to_temp_variable = { MAD_rc_delta = -3 } }
+	if = { limit = { has_country_flag = MAD_DAHALO_CAMPAIGN_CAPSAT_STYLE } add_to_temp_variable = { MAD_rc_delta = -2 } }
+	if = { limit = { has_country_flag = MAD_DAHALO_CAMPAIGN_GENERAL_STAFF_STYLE } add_to_temp_variable = { MAD_rc_delta = 2 } }
+	if = { limit = { has_country_flag = MAD_USAD_COMMUNITY_LIAISON } add_to_temp_variable = { MAD_rc_delta = 2 } }
 	MAD_rural_cooperation_adjust = yes
 }
 MAD_dahalo_campaign_clear_after_resolution = {
@@ -3306,7 +3306,7 @@ MAD_dahalo_resolve_mazava = {
 			add_to_variable = { MAD_dahalo_threat = -14 tooltip = MAD_DAHALO_THREAT_MINUS_14_TT }
 			set_temp_variable = { MAD_rc_delta = 5 }
 		}
-		if = { limit = { has_country_flag = MAD_USAD_COMMUNITY_LIAISON } add_to_variable = { MAD_rc_delta = 2 } }
+		if = { limit = { has_country_flag = MAD_USAD_COMMUNITY_LIAISON } add_to_temp_variable = { MAD_rc_delta = 2 } }
 		MAD_dahalo_campaign_apply_success_rc = yes
 		add_stability = 0.01
 		army_experience = 10
