@@ -1148,7 +1148,7 @@ focus_tree = {
 				localization_key = modifies_dynamic_modifier_tt
 				MODIFIER = MAD_economy_modifier
 			}
-			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.2 tooltip = productivity_growth_modifier_tt }
+			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.1 tooltip = productivity_growth_modifier_tt }
 			add_to_variable = { MAD_economy_expected_welfare_modifier = 0.25 tooltip = expected_welfare_modifier_tt }
 			add_stability = 0.02
 		}
@@ -2599,7 +2599,8 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_DAEWOO_DEAL"
-			custom_effect_tooltip = MAD_RURAL_COOPERATION_SPENT_TT
+			custom_effect_tooltip = MAD_daewoo_deal_tt
+			newline = yes
 			set_temp_variable = { MAD_rc_delta = -12 }
 			MAD_rural_cooperation_adjust = yes
 			set_country_flag = MAD_DAEWOO_SIGNED
@@ -2613,7 +2614,6 @@ focus_tree = {
 			set_temp_variable = { tag_index = KOR }
 			set_temp_variable = { influence_target = MAD }
 			change_influence_percentage = yes
-			custom_effect_tooltip = MAD_daewoo_deal_tt
 			268 = {
 				add_extra_state_shared_building_slots = 1
 				add_building_construction = {
@@ -4373,6 +4373,8 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_DEAL_KEPT"
+			activate_mission = MAD_DAEWOO_REVIEW
+			
 			set_country_flag = MAD_DAEWOO_KEPT
 			
 			268 = {
@@ -4405,7 +4407,6 @@ focus_tree = {
 				change_small_medium_business_owners_opinion = yes
 			}
 			
-			increase_corruption = yes
 			if = {
 				limit = { has_idea = landowners }
 				set_temp_variable = { temp_opinion = -15 }
@@ -4420,7 +4421,8 @@ focus_tree = {
 			
 			set_variable = { MAD_daewoo_viability = 10 }
 			MAD_daewoo_update_tier = yes
-			activate_mission = MAD_DAEWOO_REVIEW
+			
+			increase_corruption = yes
 		}
 
 		ai_will_do = {
@@ -7019,7 +7021,7 @@ focus_tree = {
 				localization_key = modifies_dynamic_modifier_tt
 				MODIFIER = MAD_economy_modifier
 			}
-			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.15 tooltip = productivity_growth_modifier_tt }
+			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.1 tooltip = productivity_growth_modifier_tt }
 			add_to_variable = { MAD_economy_production_speed_rail_terminal_factor = 0.05 tooltip = production_speed_rail_terminal_factor_tt }
 			add_to_variable = { MAD_economy_infrastructure_cost_multiplier_modifier = -0.05 tooltip = infrastructure_cost_multiplier_modifier_tt }
 			add_to_variable = { MAD_economy_infrastructure_tax_gain_multiplier_modifier = 0.03 tooltip = infrastructure_tax_gain_multiplier_modifier_tt }
@@ -7540,7 +7542,7 @@ focus_tree = {
 					MODIFIER = MAD_economy_modifier
 				}
 				add_to_variable = { MAD_economy_research_speed_factor = 0.05 tooltip = research_speed_factor_tt }
-				add_to_variable = { MAD_economy_productivity_growth_modifier = 0.35 tooltip = productivity_growth_modifier_tt }
+				add_to_variable = { MAD_economy_productivity_growth_modifier = 0.1 tooltip = productivity_growth_modifier_tt }
 				add_tech_bonus = {
 					name = MAD_DIGITAL_MADAGASCAR
 					category = CAT_computing
@@ -7610,7 +7612,7 @@ focus_tree = {
 					MODIFIER = MAD_economy_modifier
 				}
 				add_to_variable = { MAD_economy_research_speed_factor = 0.05 tooltip = research_speed_factor_tt }
-				add_to_variable = { MAD_economy_productivity_growth_modifier = 0.15 tooltip = productivity_growth_modifier_tt }
+				add_to_variable = { MAD_economy_productivity_growth_modifier = 0.1 tooltip = productivity_growth_modifier_tt }
 			}
 			else_if = {
 				limit = { has_idea = MAD_FIBRE_MONOPOLY_ENTRENCHED }

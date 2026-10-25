@@ -879,17 +879,22 @@ MAD_daewoo_category = {
 				tooltip = MAD_DAEWOO_KOREAN_PURCHASES_tt
 				has_completed_focus = MAD_KOREAN_PURCHASES
 			}
+			NOT = { has_country_flag = mad_daewoo_decision }
 		}
 
 		cost = 50
 		fire_only_once = yes
-
+		days_remove = 75
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAEWOO_RENEGOTIATE"
 			set_temp_variable = { MAD_daewoo_viability_delta = 20 }
 			MAD_daewoo_adjust_viability = yes
 			MAD_daewoo_update_tier = yes
+			set_country_flag = mad_daewoo_decision
 		}
+		remove_effect = {
+			clr_country_flag = mad_daewoo_decision
+			}
 
 		ai_will_do = {
 			base = 1
@@ -903,10 +908,13 @@ MAD_daewoo_category = {
 		visible = {
 			has_active_mission = MAD_DAEWOO_REVIEW
 		}
-
+		available = {
+			NOT = { has_country_flag = mad_daewoo_decision }
+			}
 		cost = 25
 		fire_only_once = yes
-
+		days_remove = 75
+		
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAEWOO_LAND_TITLES"
 			set_temp_variable = { MAD_daewoo_viability_delta = 15 }
@@ -914,7 +922,11 @@ MAD_daewoo_category = {
 			set_temp_variable = { temp_opinion = 10 }
 			change_landowners_opinion = yes
 			MAD_daewoo_update_tier = yes
+			set_country_flag = mad_daewoo_decision
 		}
+		remove_effect = {
+			clr_country_flag = mad_daewoo_decision
+			}
 
 		ai_will_do = {
 			base = 1
@@ -933,11 +945,13 @@ MAD_daewoo_category = {
 				tooltip = MAD_DAEWOO_BIANCO_INDEPENDENT_tt
 				has_completed_focus = MAD_BIANCO_INDEPENDENT
 			}
+			NOT = { has_country_flag = mad_daewoo_decision }
 		}
 
 		cost = 25
 		fire_only_once = yes
-
+		days_remove = 75
+		
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAEWOO_PUBLISH_CONTRACT"
 			set_temp_variable = { MAD_daewoo_viability_delta = 20 }
@@ -945,7 +959,11 @@ MAD_daewoo_category = {
 			add_stability = 0.02
 			set_country_flag = MAD_DAEWOO_CONTRACT_PUBLISHED
 			MAD_daewoo_update_tier = yes
+			set_country_flag = mad_daewoo_decision
 		}
+		remove_effect = {
+			clr_country_flag = mad_daewoo_decision
+			}
 
 		ai_will_do = {
 			base = 1
@@ -965,10 +983,12 @@ MAD_daewoo_category = {
 				has_completed_focus = MAD_BIANCO_POLITICIZED
 				NOT = { has_country_flag = MAD_DAEWOO_CONTRACT_PUBLISHED }
 			}
+			NOT = { has_country_flag = mad_daewoo_decision }
 			check_variable = { MAD_rural_cooperation > 3.99 }
 		}
 		fire_only_once = yes
-
+		days_remove = 75
+		
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAEWOO_CLASSIFIED_ADDENDUM"
 			set_temp_variable = { MAD_rc_delta = -4 }
@@ -978,7 +998,11 @@ MAD_daewoo_category = {
 			add_political_power = 40
 			increase_corruption = yes
 			MAD_daewoo_update_tier = yes
+			set_country_flag = mad_daewoo_decision
 		}
+		remove_effect = {
+			clr_country_flag = mad_daewoo_decision
+			}
 
 		ai_will_do = {
 			base = 1
@@ -995,10 +1019,12 @@ MAD_daewoo_category = {
 
 		available = {
 			check_variable = { MAD_rural_cooperation > 3.99 }
+			NOT = { has_country_flag = mad_daewoo_decision }
 		}
 
 		cost = 25
 		fire_only_once = yes
+		days_remove = 75
 		custom_cost_trigger = { check_variable = { treasury > 1.999 } }
 		custom_cost_text = cost_2_0
 
@@ -1013,7 +1039,11 @@ MAD_daewoo_category = {
 			modify_treasury_effect = yes
 			set_country_flag = MAD_DAEWOO_FOOD_QUOTA
 			MAD_daewoo_update_tier = yes
+			set_country_flag = mad_daewoo_decision
 		}
+		remove_effect = {
+			clr_country_flag = mad_daewoo_decision
+			}
 
 		ai_will_do = {
 			base = 1
@@ -1035,10 +1065,12 @@ MAD_daewoo_category = {
 					has_country_flag = MAD_RAIL_TOLIARA_BUILT
 				}
 			}
+			NOT = { has_country_flag = mad_daewoo_decision }
 		}
 
 		cost = 25
 		fire_only_once = yes
+		days_remove = 75
 		custom_cost_trigger = { check_variable = { treasury > 1.999 } }
 		custom_cost_text = cost_2_0
 
@@ -1050,8 +1082,11 @@ MAD_daewoo_category = {
 			set_temp_variable = { treasury_change = -2.00 }
 			modify_treasury_effect = yes
 			MAD_daewoo_update_tier = yes
+			set_country_flag = mad_daewoo_decision
 		}
-
+		remove_effect = {
+			clr_country_flag = mad_daewoo_decision
+			}
 		ai_will_do = {
 			base = 1
 		}
@@ -1069,17 +1104,23 @@ MAD_daewoo_category = {
 				tooltip = MAD_DAEWOO_VANILLA_SECTOR_tt
 				has_completed_focus = MAD_vanilla_export_sector
 			}
+			NOT = { has_country_flag = mad_daewoo_decision }
 		}
 
 		cost = 25
 		fire_only_once = yes
-
+		days_remove = 75
+		
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAEWOO_LOCAL_PROCESSING"
 			set_temp_variable = { MAD_daewoo_viability_delta = 10 }
 			MAD_daewoo_adjust_viability = yes
 			MAD_daewoo_update_tier = yes
+			set_country_flag = mad_daewoo_decision
 		}
+		remove_effect = {
+			clr_country_flag = mad_daewoo_decision
+			}
 
 		ai_will_do = {
 			base = 1
