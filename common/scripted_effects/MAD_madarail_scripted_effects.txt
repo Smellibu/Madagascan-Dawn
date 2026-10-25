@@ -3118,15 +3118,15 @@ MAD_dahalo_campaign_reset = {
 	clr_country_flag = MAD_MAZAVA_GROUND_OPERATION
 }
 MAD_dahalo_campaign_add_readiness = {
-	if = { limit = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM } add_to_variable = { MAD_dahalo_campaign_success_chance = 5 } }
+	if = { limit = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM } add_to_variable = { MAD_dahalo_campaign_success_chance = 10 } }
 	if = { limit = { has_country_flag = MAD_DAHALO_TRACKER_NETWORK_ESTABLISHED } add_to_variable = { MAD_dahalo_campaign_success_chance = 6 } }
 	if = {
 		limit = { check_variable = { MAD_rural_cooperation > 69.99 } }
-		add_to_variable = { MAD_dahalo_campaign_success_chance = 8 }
+		add_to_variable = { MAD_dahalo_campaign_success_chance = 7 }
 	}
 	else_if = {
 		limit = { check_variable = { MAD_rural_cooperation > 54.99 } }
-		add_to_variable = { MAD_dahalo_campaign_success_chance = 6 }
+		add_to_variable = { MAD_dahalo_campaign_success_chance = 5 }
 	}
 	else_if = {
 		limit = { check_variable = { MAD_rural_cooperation > 34.99 } }
@@ -3138,14 +3138,14 @@ MAD_dahalo_campaign_add_readiness = {
 	if = {
 		limit = { has_country_flag = MAD_ARMY_COMMAND_CAPSAT }
 		set_country_flag = MAD_DAHALO_CAMPAIGN_CAPSAT_STYLE
-		add_to_variable = { MAD_dahalo_campaign_success_chance = 10 }
+		add_to_variable = { MAD_dahalo_campaign_success_chance = 8 }
 		if = { limit = { has_completed_focus = MAD_ARMY_CAPSAT_LOCAL_INITIATIVE } add_to_variable = { MAD_dahalo_campaign_success_chance = 3 } }
 	}
 	else_if = {
 		limit = { has_country_flag = MAD_ARMY_COMMAND_GENERAL_STAFF }
 		set_country_flag = MAD_DAHALO_CAMPAIGN_GENERAL_STAFF_STYLE
-		add_to_variable = { MAD_dahalo_campaign_success_chance = 7 }
-		if = { limit = { has_completed_focus = MAD_ARMY_CENTRALISED_PROCUREMENT } add_to_variable = { MAD_dahalo_campaign_success_chance = 4 } }
+		add_to_variable = { MAD_dahalo_campaign_success_chance = 6 }
+		if = { limit = { has_completed_focus = MAD_ARMY_CENTRALISED_PROCUREMENT } add_to_variable = { MAD_dahalo_campaign_success_chance = 3 } }
 	}
 }
 MAD_dahalo_campaign_add_threat_modifier = {
@@ -3156,8 +3156,8 @@ MAD_dahalo_campaign_add_threat_modifier = {
 	else_if = { limit = { check_variable = { MAD_dahalo_threat > 70 } } add_to_variable = { MAD_dahalo_campaign_success_chance = -4 } }
 }
 MAD_dahalo_campaign_add_fahalemana_threat_modifier = {
-	if = { limit = { check_variable = { MAD_dahalo_threat < 30.01 } } add_to_variable = { MAD_dahalo_campaign_success_chance = 6 } }
-	else_if = { limit = { check_variable = { MAD_dahalo_threat < 50.01 } } add_to_variable = { MAD_dahalo_campaign_success_chance = 8 } }
+	if = { limit = { check_variable = { MAD_dahalo_threat < 30.01 } } add_to_variable = { MAD_dahalo_campaign_success_chance = 8 } }
+	else_if = { limit = { check_variable = { MAD_dahalo_threat < 50.01 } } add_to_variable = { MAD_dahalo_campaign_success_chance = 6 } }
 	else_if = { limit = { check_variable = { MAD_dahalo_threat < 70.01 } } add_to_variable = { MAD_dahalo_campaign_success_chance = 3 } }
 	else_if = { limit = { check_variable = { MAD_dahalo_threat > 80 } } add_to_variable = { MAD_dahalo_campaign_success_chance = -10 } }
 	else_if = { limit = { check_variable = { MAD_dahalo_threat > 65 } } add_to_variable = { MAD_dahalo_campaign_success_chance = -6 } }
