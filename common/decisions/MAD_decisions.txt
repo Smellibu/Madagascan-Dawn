@@ -2762,6 +2762,29 @@ MAD_dahalo_category = {
 		custom_cost_trigger = { check_variable = { treasury > 1.499 } }
 		custom_cost_text = cost_1_5
 		complete_effect = {
+			if = {
+				limit = { OR = {
+									AND = {
+										has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM
+										check_variable = { MAD_rural_cooperation > 37.49 }
+									}
+									AND = {
+										has_country_flag = MAD_ARMY_COMMAND_CAPSAT
+										has_completed_focus = MAD_ARMY_CAPSAT_LOCAL_INITIATIVE
+										check_variable = { MAD_rural_cooperation > 49.99 }
+									}
+									AND = {
+										has_country_flag = MAD_ARMY_COMMAND_GENERAL_STAFF
+										has_completed_focus = MAD_ARMY_CENTRALISED_PROCUREMENT
+										check_variable = { MAD_rural_cooperation > 39.99 }
+									}
+									check_variable = { MAD_rural_cooperation > 74.99 }
+								} }
+				set_country_flag = MAD_DAHALO_TANDROKA_READY
+			}
+			else = {
+				clr_country_flag = MAD_DAHALO_TANDROKA_READY
+			}
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAHALO_TANDROKA_OPERATION started"
 			set_temp_variable = { MAD_rc_delta = -10 }
 			MAD_rural_cooperation_apply_gendarmerie_discount = yes
@@ -3113,6 +3136,33 @@ MAD_dahalo_category = {
 		custom_cost_text = cost_3_0
 
 		complete_effect = {
+			if = {
+				limit = { OR = {
+									AND = {
+										has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM
+										check_variable = { MAD_rural_cooperation > 33.49 }
+									}
+									AND = {
+										has_country_flag = MAD_DAHALO_TRACKER_NETWORK_ESTABLISHED
+										check_variable = { MAD_rural_cooperation > 42.99 }
+									}
+									AND = {
+										has_country_flag = MAD_ARMY_COMMAND_CAPSAT
+										has_completed_focus = MAD_ARMY_CAPSAT_LOCAL_INITIATIVE
+										check_variable = { MAD_rural_cooperation > 37.99 }
+									}
+									AND = {
+										has_country_flag = MAD_ARMY_COMMAND_GENERAL_STAFF
+										has_completed_focus = MAD_ARMY_CENTRALISED_PROCUREMENT
+										check_variable = { MAD_rural_cooperation > 37.99 }
+									}
+									check_variable = { MAD_rural_cooperation > 72.99 }
+								} }
+				set_country_flag = MAD_DAHALO_COUP_D_ARRET_READY
+			}
+			else = {
+				clr_country_flag = MAD_DAHALO_COUP_D_ARRET_READY
+			}
 			set_temp_variable = { MAD_rc_delta = -18 }
 			MAD_rural_cooperation_apply_gendarmerie_discount = yes
 			MAD_rural_cooperation_adjust = yes
@@ -3162,6 +3212,37 @@ MAD_dahalo_category = {
 		custom_cost_trigger = { check_variable = { treasury > 2.499 } }
 		custom_cost_text = cost_2_5
 		complete_effect = {
+			if = {
+				limit = { OR = {
+									AND = {
+										has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM
+										check_variable = { MAD_rural_cooperation > 34.99 }
+									}
+									AND = {
+										has_country_flag = MAD_DAHALO_TRACKER_NETWORK_ESTABLISHED
+										check_variable = { MAD_rural_cooperation > 44.99 }
+									}
+									AND = {
+										has_country_flag = MAD_DAHALO_COUP_D_ARRET_SUCCESS
+										check_variable = { MAD_rural_cooperation > 34.99 }
+									}
+									AND = {
+										has_country_flag = MAD_ARMY_COMMAND_CAPSAT
+										has_completed_focus = MAD_ARMY_CAPSAT_LOCAL_INITIATIVE
+										check_variable = { MAD_rural_cooperation > 44.99 }
+									}
+									AND = {
+										has_country_flag = MAD_ARMY_COMMAND_GENERAL_STAFF
+										has_completed_focus = MAD_ARMY_CENTRALISED_PROCUREMENT
+										check_variable = { MAD_rural_cooperation > 39.99 }
+									}
+									check_variable = { MAD_rural_cooperation > 79.99 }
+								} }
+				set_country_flag = MAD_DAHALO_FAHALEMANA_READY
+			}
+			else = {
+				clr_country_flag = MAD_DAHALO_FAHALEMANA_READY
+			}
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAHALO_FAHALEMANA started"
 			set_temp_variable = { MAD_rc_delta = -20 }
 			MAD_rural_cooperation_apply_gendarmerie_discount = yes
@@ -3246,6 +3327,29 @@ MAD_dahalo_category = {
 		custom_cost_trigger = { check_variable = { treasury > 1.499 } }
 		custom_cost_text = cost_1_5
 		complete_effect = {
+			if = {
+				limit = { OR = {
+									AND = {
+										has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM
+										check_variable = { MAD_rural_cooperation > 25.99 }
+									}
+									AND = {
+										has_country_flag = MAD_ARMY_COMMAND_GENERAL_STAFF
+										has_completed_focus = MAD_ARMY_CENTRALISED_PROCUREMENT
+										check_variable = { MAD_rural_cooperation > 27.99 }
+									}
+									AND = {
+										has_country_flag = MAD_ARMY_COMMAND_CAPSAT
+										has_completed_focus = MAD_ARMY_CAPSAT_LOCAL_INITIATIVE
+										check_variable = { MAD_rural_cooperation > 32.99 }
+									}
+									check_variable = { MAD_rural_cooperation > 62.99 }
+								} }
+				set_country_flag = MAD_MAZAVA_READY
+			}
+			else = {
+				clr_country_flag = MAD_MAZAVA_READY
+			}
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAHALO_OPERATION_MAZAVA started"
 			set_temp_variable = { MAD_rc_delta = -8 }
 			MAD_rural_cooperation_apply_gendarmerie_discount = yes
