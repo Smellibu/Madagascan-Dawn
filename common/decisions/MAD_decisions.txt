@@ -3270,6 +3270,7 @@ MAD_dahalo_category = {
 			NOT = { has_country_flag = MAD_DAHALO_DEFEATED }
 		}
 		available = {
+			NOT = { has_country_flag = MAD_DAHALO_OPERATION_ACTIVE }
 			has_completed_focus = MAD_Hunt_for_red_with_a_swagger
 			NOT = { has_country_flag = MAD_REMENABILA_LOCATE_ACTIVE }
 			NOT = { has_country_flag = MAD_REMENABILA_LOCATED }
@@ -3304,10 +3305,12 @@ MAD_dahalo_category = {
 			set_temp_variable = { treasury_change = -0.75 }
 			modify_treasury_effect = yes
 			set_country_flag = MAD_REMENABILA_LOCATE_ACTIVE
+			set_country_flag = MAD_DAHALO_OPERATION_ACTIVE
 		}
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_REMENABILA_LOCATE complete"
 			clr_country_flag = MAD_REMENABILA_LOCATE_ACTIVE
+			clr_country_flag = MAD_DAHALO_OPERATION_ACTIVE
 			set_country_flag = MAD_REMENABILA_LOCATED
 			add_to_variable = { MAD_dahalo_threat = -5 tooltip = MAD_DAHALO_THREAT_MINUS_5_TT }
 			add_stability = 0.01
@@ -3326,6 +3329,7 @@ MAD_dahalo_category = {
 			NOT = { has_country_flag = MAD_DAHALO_DEFEATED }
 		}
 		available = {
+			NOT = { has_country_flag = MAD_DAHALO_OPERATION_ACTIVE }
 			NOT = { has_country_flag = MAD_REMENABILA_PURSUIT_ACTIVE }
 			NOT = { has_country_flag = MAD_REMENABILA_PURSUIT_COMPLETE }
 		
@@ -3359,10 +3363,12 @@ MAD_dahalo_category = {
 			set_temp_variable = { treasury_change = -1.00 }
 			modify_treasury_effect = yes
 			set_country_flag = MAD_REMENABILA_PURSUIT_ACTIVE
+			set_country_flag = MAD_DAHALO_OPERATION_ACTIVE
 		}
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_REMENABILA_MOUNTAIN_PURSUIT complete"
 			clr_country_flag = MAD_REMENABILA_PURSUIT_ACTIVE
+			clr_country_flag = MAD_DAHALO_OPERATION_ACTIVE
 			set_country_flag = MAD_REMENABILA_PURSUIT_COMPLETE
 			add_to_variable = { MAD_dahalo_threat = -10 tooltip = MAD_DAHALO_THREAT_MINUS_10_TT }
 			army_experience = 10
@@ -3381,6 +3387,7 @@ MAD_dahalo_category = {
 			NOT = { has_country_flag = MAD_DAHALO_DEFEATED }
 		}
 		available = {
+			NOT = { has_country_flag = MAD_DAHALO_OPERATION_ACTIVE }
 			NOT = { has_country_flag = MAD_REMENABILA_ADVISER_HUNT_ACTIVE }
 			NOT = { has_country_flag = MAD_REMENABILA_ADVISER_CAPTURED }
 		
@@ -3414,10 +3421,12 @@ MAD_dahalo_category = {
 			set_temp_variable = { treasury_change = -1.50 }
 			modify_treasury_effect = yes
 			set_country_flag = MAD_REMENABILA_ADVISER_HUNT_ACTIVE
+			set_country_flag = MAD_DAHALO_OPERATION_ACTIVE
 		}
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_REMENABILA_CAPTURE_SPIRITUAL_ADVISER complete"
 			clr_country_flag = MAD_REMENABILA_ADVISER_HUNT_ACTIVE
+			clr_country_flag = MAD_DAHALO_OPERATION_ACTIVE
 			set_country_flag = MAD_REMENABILA_ADVISER_CAPTURED
 			add_to_variable = { MAD_dahalo_threat = -12 tooltip = MAD_DAHALO_THREAT_MINUS_12_TT }
 			add_stability = 0.02
@@ -3440,6 +3449,7 @@ MAD_dahalo_category = {
 			NOT = { has_country_flag = MAD_DAHALO_ACCOMMODATION_ENDING }
 		}
 		available = {
+			NOT = { has_country_flag = MAD_DAHALO_OPERATION_ACTIVE }
 			has_completed_focus = MAD_capture_spiritual_advisor
 			has_country_flag = MAD_REMENABILA_ADVISER_CAPTURED
 			NOT = { has_country_flag = MAD_REMENABILA_FINAL_HUNT_ACTIVE }
@@ -3475,10 +3485,12 @@ MAD_dahalo_category = {
 			set_temp_variable = { treasury_change = -4.00 }
 			modify_treasury_effect = yes
 			set_country_flag = MAD_REMENABILA_FINAL_HUNT_ACTIVE
+			set_country_flag = MAD_DAHALO_OPERATION_ACTIVE
 		}
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_REMENABILA_FINAL_HUNT complete"
 			clr_country_flag = MAD_REMENABILA_FINAL_HUNT_ACTIVE
+			clr_country_flag = MAD_DAHALO_OPERATION_ACTIVE
 			set_country_flag = MAD_REMENABILA_KILLED
 			add_to_variable = { MAD_dahalo_threat = -25 tooltip = MAD_DAHALO_THREAT_MINUS_25_TT }
 			add_stability = 0.04
