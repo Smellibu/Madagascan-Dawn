@@ -3886,9 +3886,11 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_Tandroka"
-			custom_effect_tooltip = MAD_DAHALO_TANDROKA_TRACKERS_UNLOCK_TT
-			add_to_variable = { MAD_dahalo_threat = -8 tooltip = MAD_DAHALO_THREAT_MINUS_8_TT }
-			army_experience = 25
+			custom_effect_tooltip = MAD_DAHALO_TANDROKA_PREPARE_TT
+			# Preparation improves readiness; the main security result comes from the operation decision.
+			add_to_variable = { MAD_dahalo_threat = -3 tooltip = MAD_DAHALO_THREAT_MINUS_3_TT }
+			army_experience = 15
+			set_country_flag = MAD_DAHALO_TANDROKA_PREPARED
 			MAD_dahalo_update_modifier = yes
 		}
 
@@ -4964,6 +4966,81 @@ focus_tree = {
 		ai_will_do = {
 			base = 1
 		}
+	}
+
+
+	focus = {
+		id = MAD_FAHALEMANA
+		icon = Generic_Policeman
+		x = 0
+		y = 1
+		relative_position_id = MAD_Coup_d_arret
+		cost = 3
+		prerequisite = { focus = MAD_Coup_d_arret }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
+		available = {
+			date > 2015.8.1
+			custom_trigger_tooltip = {
+				tooltip = MAD_FAHALEMANA_PREVIOUS_OPERATION_TT
+				has_country_flag = MAD_DAHALO_COUP_D_ARRET_COMPLETE
+			}
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_FAHALEMANA"
+			set_country_flag = MAD_DAHALO_FAHALEMANA_UNLOCKED
+			add_political_power = 25
+			army_experience = 20
+		}
+		ai_will_do = { base = 1 }
+	}
+
+	focus = {
+		id = MAD_ESTABLISH_USAD
+		icon = Generic_Policeman
+		x = 0
+		y = 1
+		relative_position_id = MAD_FAHALEMANA
+		cost = 3
+		prerequisite = { focus = MAD_FAHALEMANA }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_MILITARY }
+		available = {
+			date > 2016.6.16
+			custom_trigger_tooltip = {
+				tooltip = MAD_FAHALEMANA_AFTERCARE_TT
+				has_country_flag = MAD_DAHALO_FAHALEMANA_AFTERCARE_RESOLVED
+			}
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_ESTABLISH_USAD"
+			set_country_flag = MAD_USAD_UNLOCKED
+			add_political_power = 25
+		}
+		ai_will_do = { base = 1 }
+	}
+
+	focus = {
+		id = MAD_OPERATION_MAZAVA
+		icon = Generic_Transport_Helicopter
+		x = 0
+		y = 1
+		relative_position_id = MAD_ESTABLISH_USAD
+		cost = 3
+		prerequisite = { focus = MAD_ESTABLISH_USAD }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_MILITARY FOCUS_FILTER_AIRCRAFT }
+		available = {
+			date > 2016.11.30
+			has_country_flag = MAD_USAD_ESTABLISHED
+			has_country_flag = MAD_ARMY_HELICOPTER_ARM_READY
+			has_country_flag = MAD_ARMY_AIRLIFT_READY
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_OPERATION_MAZAVA"
+			set_country_flag = MAD_MAZAVA_UNLOCKED
+			custom_effect_tooltip = MAD_MAZAVA_OPERATION_UNLOCK_TT
+			army_experience = 10
+			air_experience = 10
+		}
+		ai_will_do = { base = 1 }
 	}
 
 	focus = {
@@ -9523,7 +9600,10 @@ focus_tree = {
 				tooltip = MAD_MIL_IN_POWER_tt
 				MAD_MIL_IN_POWER = yes
 			}
-			has_completed_focus = MAD_Coup_d_arret
+			custom_trigger_tooltip = {
+				tooltip = MAD_COUP_D_ARRET_OPERATION_COMPLETE_TT
+				has_country_flag = MAD_DAHALO_COUP_D_ARRET_COMPLETE
+			}
 		}
 
 		completion_reward = {
