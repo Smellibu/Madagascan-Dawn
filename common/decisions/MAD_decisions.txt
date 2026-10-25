@@ -3230,7 +3230,6 @@ MAD_dahalo_category = {
 			MAD_dahalo_campaign_reset = yes
 			set_variable = { MAD_dahalo_campaign_success_chance = 14 }
 			MAD_dahalo_campaign_add_readiness = yes
-			set_variable = { MAD_dahalo_fahalemana_launch_threat = MAD_dahalo_threat }
 			if = { limit = { has_country_flag = MAD_DAHALO_COUP_D_ARRET_SUCCESS } add_to_variable = { MAD_dahalo_campaign_success_chance = 8 } }
 			else_if = { limit = { has_country_flag = MAD_DAHALO_COUP_D_ARRET_CONTESTED } add_to_variable = { MAD_dahalo_campaign_success_chance = 3 } }
 			MAD_dahalo_campaign_add_fahalemana_threat_modifier = yes
