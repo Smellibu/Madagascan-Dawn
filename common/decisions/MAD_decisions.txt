@@ -3084,7 +3084,6 @@ MAD_dahalo_category = {
 			has_completed_focus = MAD_Coup_d_arret
 			has_country_flag = MAD_DAHALO_TANDROKA_RESOLVED
 			NOT = { has_country_flag = MAD_DAHALO_COUP_D_ARRET_COMPLETE }
-			check_variable = { MAD_dahalo_threat > 19.99 }
 		}
 		available = {
 			date > 2014.5.20
@@ -3092,7 +3091,6 @@ MAD_dahalo_category = {
 			NOT = { has_country_flag = MAD_DAHALO_COUP_D_ARRET_ACTIVE }
 			NOT = { has_country_flag = MAD_DAHALO_OPERATION_ACTIVE }
 			NOT = { has_civil_war = yes }
-			check_variable = { MAD_dahalo_threat > 19.99 }
 		
 			custom_trigger_tooltip = {
 				tooltip = MAD_RC_REQUIRE_18_OR_13_5_TT
