@@ -546,6 +546,7 @@ country_event = {
 		set_country_flag = MAD_DAEWOO_OUTCOME_FAILED
 		MAD_daewoo_end_lease = yes
 		add_timed_idea = { idea = MAD_DAEWOO_CANCELLED days = 1095 }
+		country_event = { id = mad_political.94 days = 1 }
 	}
 }
 
@@ -2136,7 +2137,8 @@ country_event = {
 country_event = {
 	id = mad_dahalo.17
 	title = mad_dahalo.17.t
-	desc = mad_dahalo.17.d
+	desc = { text = mad_dahalo.17.d_success trigger = { has_country_flag = MAD_DAHALO_TANDROKA_SUCCESS } }
+	desc = { text = mad_dahalo.17.d_failure trigger = { has_country_flag = MAD_DAHALO_TANDROKA_CONTESTED } }
 	picture = GFX_report_event_economy_default
 	is_triggered_only = yes
 	fire_only_once = yes
@@ -2153,7 +2155,8 @@ country_event = {
 country_event = {
 	id = mad_dahalo.18
 	title = mad_dahalo.18.t
-	desc = mad_dahalo.18.d
+	desc = { text = mad_dahalo.18.d_success trigger = { has_country_flag = MAD_DAHALO_COUP_D_ARRET_SUCCESS } }
+	desc = { text = mad_dahalo.18.d_failure trigger = { has_country_flag = MAD_DAHALO_COUP_D_ARRET_CONTESTED } }
 	picture = GFX_report_event_economy_default
 	is_triggered_only = yes
 	fire_only_once = yes
@@ -2170,7 +2173,8 @@ country_event = {
 country_event = {
 	id = mad_dahalo.19
 	title = mad_dahalo.19.t
-	desc = mad_dahalo.19.d
+	desc = { text = mad_dahalo.19.d_success trigger = { has_country_flag = MAD_DAHALO_FAHALEMANA_SUCCESS } }
+	desc = { text = mad_dahalo.19.d_failure trigger = { has_country_flag = MAD_DAHALO_FAHALEMANA_CONTESTED } }
 	picture = GFX_report_event_economy_default
 	is_triggered_only = yes
 	fire_only_once = yes
@@ -2187,7 +2191,8 @@ country_event = {
 country_event = {
 	id = mad_dahalo.20
 	title = mad_dahalo.20.t
-	desc = mad_dahalo.20.d
+	desc = { text = mad_dahalo.20.d_success trigger = { has_country_flag = MAD_MAZAVA_SUCCESS } }
+	desc = { text = mad_dahalo.20.d_failure trigger = { has_country_flag = MAD_MAZAVA_CONTESTED } }
 	picture = GFX_report_event_economy_default
 	is_triggered_only = yes
 	fire_only_once = yes
@@ -2201,6 +2206,121 @@ country_event = {
 	}
 }
 
+
+country_event = {
+	id = mad_dahalo.21
+	title = mad_dahalo.21.t
+	desc = mad_dahalo.21.d
+	picture = GFX_report_event_economy_default
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = mad_dahalo.21.a
+		set_country_flag = MAD_DAHALO_CAMPAIGN_COMMUNITY_APPROACH
+		clr_country_flag = MAD_DAHALO_CAMPAIGN_COERCIVE_APPROACH
+		add_to_variable = { MAD_dahalo_campaign_success_chance = 8 }
+		MAD_dahalo_campaign_finalize_odds = yes
+	}
+	option = {
+		name = mad_dahalo.21.b
+		set_country_flag = MAD_DAHALO_CAMPAIGN_COERCIVE_APPROACH
+		clr_country_flag = MAD_DAHALO_CAMPAIGN_COMMUNITY_APPROACH
+		add_to_variable = { MAD_dahalo_campaign_success_chance = 14 }
+		MAD_dahalo_campaign_finalize_odds = yes
+	}
+}
+
+country_event = {
+	id = mad_dahalo.22
+	title = mad_dahalo.22.t
+	desc = mad_dahalo.22.d
+	picture = GFX_report_event_economy_default
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = mad_dahalo.22.a
+		set_country_flag = MAD_DAHALO_CAMPAIGN_COMMUNITY_APPROACH
+		clr_country_flag = MAD_DAHALO_CAMPAIGN_COERCIVE_APPROACH
+		add_to_variable = { MAD_dahalo_campaign_success_chance = 8 }
+		MAD_dahalo_campaign_finalize_odds = yes
+	}
+	option = {
+		name = mad_dahalo.22.b
+		set_country_flag = MAD_DAHALO_CAMPAIGN_COERCIVE_APPROACH
+		clr_country_flag = MAD_DAHALO_CAMPAIGN_COMMUNITY_APPROACH
+		add_to_variable = { MAD_dahalo_campaign_success_chance = 14 }
+		MAD_dahalo_campaign_finalize_odds = yes
+	}
+}
+
+country_event = {
+	id = mad_dahalo.23
+	title = mad_dahalo.23.t
+	desc = mad_dahalo.23.d
+	picture = GFX_report_event_economy_default
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = mad_dahalo.23.a
+		set_country_flag = MAD_DAHALO_CAMPAIGN_COMMUNITY_APPROACH
+		clr_country_flag = MAD_DAHALO_CAMPAIGN_COERCIVE_APPROACH
+		add_to_variable = { MAD_dahalo_campaign_success_chance = 8 }
+		MAD_dahalo_campaign_finalize_odds = yes
+	}
+	option = {
+		name = mad_dahalo.23.b
+		set_country_flag = MAD_DAHALO_CAMPAIGN_COERCIVE_APPROACH
+		clr_country_flag = MAD_DAHALO_CAMPAIGN_COMMUNITY_APPROACH
+		add_to_variable = { MAD_dahalo_campaign_success_chance = 14 }
+		MAD_dahalo_campaign_finalize_odds = yes
+	}
+}
+
+country_event = {
+	id = mad_dahalo.24
+	title = mad_dahalo.24.t
+	desc = mad_dahalo.24.d
+	picture = GFX_report_event_economy_default
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = mad_dahalo.24.a
+		set_country_flag = MAD_DAHALO_CAMPAIGN_COMMUNITY_APPROACH
+		clr_country_flag = MAD_DAHALO_CAMPAIGN_COERCIVE_APPROACH
+		add_to_variable = { MAD_dahalo_campaign_success_chance = 8 }
+		MAD_dahalo_campaign_finalize_odds = yes
+	}
+	option = {
+		name = mad_dahalo.24.b
+		set_country_flag = MAD_DAHALO_CAMPAIGN_COERCIVE_APPROACH
+		clr_country_flag = MAD_DAHALO_CAMPAIGN_COMMUNITY_APPROACH
+		add_to_variable = { MAD_dahalo_campaign_success_chance = 14 }
+		MAD_dahalo_campaign_finalize_odds = yes
+	}
+}
+
+country_event = {
+	id = mad_dahalo.25
+	title = mad_dahalo.25.t
+	desc = mad_dahalo.25.d
+	picture = GFX_report_event_economy_default
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = mad_dahalo.25.a
+		set_country_flag = MAD_DAHALO_CAMPAIGN_COMMUNITY_APPROACH
+		clr_country_flag = MAD_DAHALO_CAMPAIGN_COERCIVE_APPROACH
+		add_to_variable = { MAD_dahalo_campaign_success_chance = 8 }
+		MAD_dahalo_campaign_finalize_odds = yes
+	}
+	option = {
+		name = mad_dahalo.25.b
+		set_country_flag = MAD_DAHALO_CAMPAIGN_COERCIVE_APPROACH
+		clr_country_flag = MAD_DAHALO_CAMPAIGN_COMMUNITY_APPROACH
+		add_to_variable = { MAD_dahalo_campaign_success_chance = 14 }
+		MAD_dahalo_campaign_finalize_odds = yes
+	}
+}
 
 add_namespace = mad_political
 add_namespace = mad_ratsiraka
