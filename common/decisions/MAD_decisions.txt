@@ -3416,7 +3416,7 @@ MAD_dahalo_category = {
 	MAD_DAHALO_OPERATION_MAZAVA = {
 		icon = Generic_Transport_Helicopter
 		allowed = { tag = MAD }
-		visible = { has_completed_focus = MAD_OPERATION_MAZAVA date > 2016.11.30 NOT = { has_country_flag = MAD_MAZAVA_RESOLVED } }
+		visible = { has_completed_focus = MAD_OPERATION_MAZAVA has_country_flag = MAD_ARMY_HELICOPTER_ARM_READY has_country_flag = MAD_ARMY_AIRLIFT_READY date > 2016.11.30 NOT = { has_country_flag = MAD_MAZAVA_RESOLVED } }
 		available = {
 			has_completed_focus = MAD_OPERATION_MAZAVA
 			has_country_flag = MAD_USAD_ESTABLISHED
