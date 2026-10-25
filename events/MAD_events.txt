@@ -2130,6 +2130,78 @@ country_event = {
 	}
 }
 
+
+# Outcomes for the timed national security operations.
+# Mechanical effects are resolved by MAD_dahalo_resolve_* before these reports appear.
+country_event = {
+	id = mad_dahalo.17
+	title = mad_dahalo.17.t
+	desc = mad_dahalo.17.d
+	picture = GFX_report_event_economy_default
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		trigger = { has_country_flag = MAD_DAHALO_TANDROKA_SUCCESS }
+		name = mad_dahalo.17.a
+	}
+	option = {
+		trigger = { has_country_flag = MAD_DAHALO_TANDROKA_CONTESTED }
+		name = mad_dahalo.17.b
+	}
+}
+
+country_event = {
+	id = mad_dahalo.18
+	title = mad_dahalo.18.t
+	desc = mad_dahalo.18.d
+	picture = GFX_report_event_economy_default
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		trigger = { has_country_flag = MAD_DAHALO_COUP_D_ARRET_SUCCESS }
+		name = mad_dahalo.18.a
+	}
+	option = {
+		trigger = { has_country_flag = MAD_DAHALO_COUP_D_ARRET_CONTESTED }
+		name = mad_dahalo.18.b
+	}
+}
+
+country_event = {
+	id = mad_dahalo.19
+	title = mad_dahalo.19.t
+	desc = mad_dahalo.19.d
+	picture = GFX_report_event_economy_default
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		trigger = { has_country_flag = MAD_DAHALO_FAHALEMANA_SUCCESS }
+		name = mad_dahalo.19.a
+	}
+	option = {
+		trigger = { has_country_flag = MAD_DAHALO_FAHALEMANA_CONTESTED }
+		name = mad_dahalo.19.b
+	}
+}
+
+country_event = {
+	id = mad_dahalo.20
+	title = mad_dahalo.20.t
+	desc = mad_dahalo.20.d
+	picture = GFX_report_event_economy_default
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		trigger = { has_country_flag = MAD_MAZAVA_SUCCESS }
+		name = mad_dahalo.20.a
+	}
+	option = {
+		trigger = { has_country_flag = MAD_MAZAVA_CONTESTED }
+		name = mad_dahalo.20.b
+	}
+}
+
+
 add_namespace = mad_political
 add_namespace = mad_ratsiraka
 
