@@ -3118,25 +3118,28 @@ MAD_dahalo_campaign_reset = {
 	clr_country_flag = MAD_MAZAVA_GROUND_OPERATION
 }
 MAD_dahalo_campaign_add_readiness = {
-	if = { limit = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM } add_to_variable = { MAD_dahalo_campaign_success_chance = 12 } }
-	if = { limit = { has_country_flag = MAD_DAHALO_TRACKER_NETWORK_ESTABLISHED } add_to_variable = { MAD_dahalo_campaign_success_chance = 8 } }
+	if = { limit = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM } add_to_variable = { MAD_dahalo_campaign_success_chance = 5 } }
+	if = { limit = { has_country_flag = MAD_DAHALO_TRACKER_NETWORK_ESTABLISHED } add_to_variable = { MAD_dahalo_campaign_success_chance = 6 } }
 	if = {
 		limit = { check_variable = { MAD_rural_cooperation > 69.99 } }
-		add_to_variable = { MAD_dahalo_campaign_success_chance = 10 }
+		add_to_variable = { MAD_dahalo_campaign_success_chance = 8 }
 	}
 	else_if = {
 		limit = { check_variable = { MAD_rural_cooperation > 54.99 } }
-		add_to_variable = { MAD_dahalo_campaign_success_chance = 7 }
+		add_to_variable = { MAD_dahalo_campaign_success_chance = 6 }
 	}
 	else_if = {
 		limit = { check_variable = { MAD_rural_cooperation > 34.99 } }
-		add_to_variable = { MAD_dahalo_campaign_success_chance = 4 }
+		add_to_variable = { MAD_dahalo_campaign_success_chance = 3 }
+	}
+	else = {
+		add_to_variable = { MAD_dahalo_campaign_success_chance = -6 }
 	}
 	if = {
 		limit = { has_country_flag = MAD_ARMY_COMMAND_CAPSAT }
 		set_country_flag = MAD_DAHALO_CAMPAIGN_CAPSAT_STYLE
 		add_to_variable = { MAD_dahalo_campaign_success_chance = 10 }
-		if = { limit = { has_completed_focus = MAD_ARMY_CAPSAT_LOCAL_INITIATIVE } add_to_variable = { MAD_dahalo_campaign_success_chance = 4 } }
+		if = { limit = { has_completed_focus = MAD_ARMY_CAPSAT_LOCAL_INITIATIVE } add_to_variable = { MAD_dahalo_campaign_success_chance = 3 } }
 	}
 	else_if = {
 		limit = { has_country_flag = MAD_ARMY_COMMAND_GENERAL_STAFF }
@@ -3146,18 +3149,18 @@ MAD_dahalo_campaign_add_readiness = {
 	}
 }
 MAD_dahalo_campaign_add_threat_modifier = {
-	if = { limit = { check_variable = { MAD_dahalo_threat < 30.01 } } add_to_variable = { MAD_dahalo_campaign_success_chance = 10 } }
-	else_if = { limit = { check_variable = { MAD_dahalo_threat < 50.01 } } add_to_variable = { MAD_dahalo_campaign_success_chance = 7 } }
-	else_if = { limit = { check_variable = { MAD_dahalo_threat < 70.01 } } add_to_variable = { MAD_dahalo_campaign_success_chance = 3 } }
-	else_if = { limit = { check_variable = { MAD_dahalo_threat > 80 } } add_to_variable = { MAD_dahalo_campaign_success_chance = -12 } }
-	else_if = { limit = { check_variable = { MAD_dahalo_threat > 70 } } add_to_variable = { MAD_dahalo_campaign_success_chance = -6 } }
+	if = { limit = { check_variable = { MAD_dahalo_threat < 30.01 } } add_to_variable = { MAD_dahalo_campaign_success_chance = 6 } }
+	else_if = { limit = { check_variable = { MAD_dahalo_threat < 50.01 } } add_to_variable = { MAD_dahalo_campaign_success_chance = 4 } }
+	else_if = { limit = { check_variable = { MAD_dahalo_threat < 70.01 } } add_to_variable = { MAD_dahalo_campaign_success_chance = 2 } }
+	else_if = { limit = { check_variable = { MAD_dahalo_threat > 80 } } add_to_variable = { MAD_dahalo_campaign_success_chance = -8 } }
+	else_if = { limit = { check_variable = { MAD_dahalo_threat > 70 } } add_to_variable = { MAD_dahalo_campaign_success_chance = -4 } }
 }
 MAD_dahalo_campaign_add_fahalemana_threat_modifier = {
-	if = { limit = { check_variable = { MAD_dahalo_threat < 30.01 } } add_to_variable = { MAD_dahalo_campaign_success_chance = 12 } }
+	if = { limit = { check_variable = { MAD_dahalo_threat < 30.01 } } add_to_variable = { MAD_dahalo_campaign_success_chance = 6 } }
 	else_if = { limit = { check_variable = { MAD_dahalo_threat < 50.01 } } add_to_variable = { MAD_dahalo_campaign_success_chance = 8 } }
-	else_if = { limit = { check_variable = { MAD_dahalo_threat < 70.01 } } add_to_variable = { MAD_dahalo_campaign_success_chance = 4 } }
-	else_if = { limit = { check_variable = { MAD_dahalo_threat > 80 } } add_to_variable = { MAD_dahalo_campaign_success_chance = -14 } }
-	else_if = { limit = { check_variable = { MAD_dahalo_threat > 65 } } add_to_variable = { MAD_dahalo_campaign_success_chance = -8 } }
+	else_if = { limit = { check_variable = { MAD_dahalo_threat < 70.01 } } add_to_variable = { MAD_dahalo_campaign_success_chance = 3 } }
+	else_if = { limit = { check_variable = { MAD_dahalo_threat > 80 } } add_to_variable = { MAD_dahalo_campaign_success_chance = -10 } }
+	else_if = { limit = { check_variable = { MAD_dahalo_threat > 65 } } add_to_variable = { MAD_dahalo_campaign_success_chance = -6 } }
 }
 MAD_dahalo_campaign_finalize_odds = {
 	clamp_variable = { var = MAD_dahalo_campaign_success_chance min = 5 max = 80 }
@@ -3313,12 +3316,14 @@ MAD_dahalo_resolve_mazava = {
 			268 = {
 				if = {
 					limit = { ROOT = { has_country_flag = MAD_MAZAVA_GROUND_OPERATION } }
-					set_temp_variable = { MAD_dr_state_famine = -6 }
-					add_to_variable = { MAD_state_relief_months = 2 }
 					if = {
 						limit = { ROOT = { has_country_flag = MAD_USAD_GROUND_LOGISTICS_READY } }
-						set_temp_variable = { MAD_dr_state_famine = -2 }
-						add_to_variable = { MAD_state_relief_months = 1 }
+						set_temp_variable = { MAD_dr_state_famine = -8 }
+						add_to_variable = { MAD_state_relief_months = 3 }
+					}
+					else = {
+						set_temp_variable = { MAD_dr_state_famine = -6 }
+						add_to_variable = { MAD_state_relief_months = 2 }
 					}
 				}
 				else = {
@@ -3346,10 +3351,23 @@ MAD_dahalo_resolve_mazava = {
 		if = {
 			limit = { has_completed_focus = MAD_Drought_and_famine }
 			268 = {
-				if = { limit = { ROOT = { has_country_flag = MAD_MAZAVA_GROUND_OPERATION } } set_temp_variable = { MAD_dr_state_famine = -2 } }
-				else = { set_temp_variable = { MAD_dr_state_famine = -4 } }
+				if = {
+					limit = { ROOT = { has_country_flag = MAD_MAZAVA_GROUND_OPERATION } }
+					if = {
+						limit = { ROOT = { has_country_flag = MAD_USAD_GROUND_LOGISTICS_READY } }
+						set_temp_variable = { MAD_dr_state_famine = -4 }
+						add_to_variable = { MAD_state_relief_months = 2 }
+					}
+					else = {
+						set_temp_variable = { MAD_dr_state_famine = -2 }
+						add_to_variable = { MAD_state_relief_months = 1 }
+					}
+				}
+				else = {
+					set_temp_variable = { MAD_dr_state_famine = -4 }
+					add_to_variable = { MAD_state_relief_months = 1 }
+				}
 				MAD_drought_state_apply_famine = yes
-				add_to_variable = { MAD_state_relief_months = 1 }
 			}
 			MAD_drought_recalc_national = yes
 		}
