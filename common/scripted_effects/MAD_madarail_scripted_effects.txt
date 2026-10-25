@@ -304,37 +304,6 @@ MAD_daewoo_end_lease = {
 
 
 ########################################################################
-# DAEWOO ELECTION DISPATCHER
-# The MD election campaign is deliberately queued from the daily tick rather than from a focus reward.
-# This keeps MD4_election_campaign.0 out of the focus tooltip/effect evaluation path.
-########################################################################
-
-MAD_daewoo_election_daily_tick = {
-	# Deal Broken: only call the election campaign when the government is below 50%.
-	if = {
-		limit = {
-			has_country_flag = MAD_DAEWOO_ELECTION_PENDING_BROKEN
-		}
-		clr_country_flag = MAD_DAEWOO_ELECTION_PENDING_BROKEN
-		if = {
-			limit = { MAD_government_popularity_below_half = yes }
-			set_politics = { elections_allowed = yes }
-			hidden_effect = { country_event = { id = MD4_election_campaign.0 days = 0 } }
-		}
-	}
-
-	# Deal Collapses: always start the full Millennium Dawn election campaign.
-	if = {
-		limit = {
-			has_country_flag = MAD_DAEWOO_ELECTION_PENDING_COLLAPSE
-		}
-		clr_country_flag = MAD_DAEWOO_ELECTION_PENDING_COLLAPSE
-		set_politics = { elections_allowed = yes }
-		hidden_effect = { country_event = { id = MD4_election_campaign.0 days = 0 } }
-	}
-}
-
-########################################################################
 # FORCED OUTCOME FOCUSES
 # These branches are consequences of the systems, not player choices.
 # Complete them automatically as soon as their actual outcome conditions exist.
@@ -3133,39 +3102,130 @@ MAD_dahalo_switch_to_remenabila = {
 # Resolve the time-limited campaigns only when their operation timer expires.
 # Prepared institutions improve outcomes; each route still has a useful, but costly, partial result.
 
+
+# Readiness affects probability, but does not guarantee success. Probability is capped at 80%.
+MAD_dahalo_campaign_reset = {
+	clr_country_flag = MAD_DAHALO_CAMPAIGN_COMMUNITY_APPROACH
+	clr_country_flag = MAD_DAHALO_CAMPAIGN_COERCIVE_APPROACH
+	clr_country_flag = MAD_DAHALO_CAMPAIGN_CAPSAT_STYLE
+	clr_country_flag = MAD_DAHALO_CAMPAIGN_GENERAL_STAFF_STYLE
+	clr_country_flag = MAD_DAHALO_CAMPAIGN_ROLL_SUCCESS
+	clr_country_flag = MAD_DAHALO_CAMPAIGN_ROLL_FAILURE
+	clr_country_flag = MAD_DAHALO_TANDROKA_READY
+	clr_country_flag = MAD_DAHALO_COUP_D_ARRET_READY
+	clr_country_flag = MAD_DAHALO_FAHALEMANA_READY
+	clr_country_flag = MAD_MAZAVA_READY
+	clr_country_flag = MAD_MAZAVA_GROUND_OPERATION
+}
+MAD_dahalo_campaign_add_readiness = {
+	if = { limit = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM } add_to_variable = { MAD_dahalo_campaign_success_chance = 12 } }
+	if = { limit = { has_country_flag = MAD_DAHALO_TRACKER_NETWORK_ESTABLISHED } add_to_variable = { MAD_dahalo_campaign_success_chance = 8 } }
+	if = {
+		limit = { check_variable = { MAD_rural_cooperation > 69.99 } }
+		add_to_variable = { MAD_dahalo_campaign_success_chance = 10 }
+	}
+	else_if = {
+		limit = { check_variable = { MAD_rural_cooperation > 54.99 } }
+		add_to_variable = { MAD_dahalo_campaign_success_chance = 7 }
+	}
+	else_if = {
+		limit = { check_variable = { MAD_rural_cooperation > 34.99 } }
+		add_to_variable = { MAD_dahalo_campaign_success_chance = 4 }
+	}
+	if = {
+		limit = { has_country_flag = MAD_ARMY_COMMAND_CAPSAT }
+		set_country_flag = MAD_DAHALO_CAMPAIGN_CAPSAT_STYLE
+		add_to_variable = { MAD_dahalo_campaign_success_chance = 10 }
+		if = { limit = { has_completed_focus = MAD_ARMY_CAPSAT_LOCAL_INITIATIVE } add_to_variable = { MAD_dahalo_campaign_success_chance = 4 } }
+	}
+	else_if = {
+		limit = { has_country_flag = MAD_ARMY_COMMAND_GENERAL_STAFF }
+		set_country_flag = MAD_DAHALO_CAMPAIGN_GENERAL_STAFF_STYLE
+		add_to_variable = { MAD_dahalo_campaign_success_chance = 7 }
+		if = { limit = { has_completed_focus = MAD_ARMY_CENTRALISED_PROCUREMENT } add_to_variable = { MAD_dahalo_campaign_success_chance = 4 } }
+	}
+}
+MAD_dahalo_campaign_add_threat_modifier = {
+	if = { limit = { check_variable = { MAD_dahalo_threat < 30.01 } } add_to_variable = { MAD_dahalo_campaign_success_chance = 10 } }
+	else_if = { limit = { check_variable = { MAD_dahalo_threat < 50.01 } } add_to_variable = { MAD_dahalo_campaign_success_chance = 7 } }
+	else_if = { limit = { check_variable = { MAD_dahalo_threat < 70.01 } } add_to_variable = { MAD_dahalo_campaign_success_chance = 3 } }
+	else_if = { limit = { check_variable = { MAD_dahalo_threat > 80 } } add_to_variable = { MAD_dahalo_campaign_success_chance = -12 } }
+	else_if = { limit = { check_variable = { MAD_dahalo_threat > 70 } } add_to_variable = { MAD_dahalo_campaign_success_chance = -6 } }
+}
+MAD_dahalo_campaign_add_fahalemana_threat_modifier = {
+	if = { limit = { check_variable = { MAD_dahalo_threat < 30.01 } } add_to_variable = { MAD_dahalo_campaign_success_chance = 12 } }
+	else_if = { limit = { check_variable = { MAD_dahalo_threat < 50.01 } } add_to_variable = { MAD_dahalo_campaign_success_chance = 8 } }
+	else_if = { limit = { check_variable = { MAD_dahalo_threat < 70.01 } } add_to_variable = { MAD_dahalo_campaign_success_chance = 4 } }
+	else_if = { limit = { check_variable = { MAD_dahalo_threat > 80 } } add_to_variable = { MAD_dahalo_campaign_success_chance = -14 } }
+	else_if = { limit = { check_variable = { MAD_dahalo_threat > 65 } } add_to_variable = { MAD_dahalo_campaign_success_chance = -8 } }
+}
+MAD_dahalo_campaign_finalize_odds = {
+	clamp_variable = { var = MAD_dahalo_campaign_success_chance min = 5 max = 80 }
+	set_variable = { MAD_dahalo_campaign_failure_chance = { value = 100 subtract = MAD_dahalo_campaign_success_chance } }
+}
+MAD_dahalo_campaign_roll = {
+	clr_country_flag = MAD_DAHALO_CAMPAIGN_ROLL_SUCCESS
+	clr_country_flag = MAD_DAHALO_CAMPAIGN_ROLL_FAILURE
+	random_list = {
+		MAD_dahalo_campaign_success_chance = { set_country_flag = MAD_DAHALO_CAMPAIGN_ROLL_SUCCESS }
+		MAD_dahalo_campaign_failure_chance = { set_country_flag = MAD_DAHALO_CAMPAIGN_ROLL_FAILURE }
+	}
+}
+MAD_dahalo_campaign_apply_success_rc = {
+	if = { limit = { has_country_flag = MAD_DAHALO_CAMPAIGN_COMMUNITY_APPROACH } add_to_variable = { MAD_rc_delta = 2 } }
+	MAD_rural_cooperation_adjust = yes
+	if = { limit = { has_country_flag = MAD_DAHALO_CAMPAIGN_GENERAL_STAFF_STYLE } army_experience = 5 }
+}
+MAD_dahalo_campaign_apply_failure_rc = {
+	if = { limit = { has_country_flag = MAD_DAHALO_CAMPAIGN_COMMUNITY_APPROACH } add_to_variable = { MAD_rc_delta = 2 } }
+	if = { limit = { has_country_flag = MAD_DAHALO_CAMPAIGN_COERCIVE_APPROACH } add_to_variable = { MAD_rc_delta = -3 } }
+	if = { limit = { has_country_flag = MAD_DAHALO_CAMPAIGN_CAPSAT_STYLE } add_to_variable = { MAD_rc_delta = -2 } }
+	if = { limit = { has_country_flag = MAD_DAHALO_CAMPAIGN_GENERAL_STAFF_STYLE } add_to_variable = { MAD_rc_delta = 2 } }
+	if = { limit = { has_country_flag = MAD_USAD_COMMUNITY_LIAISON } add_to_variable = { MAD_rc_delta = 2 } }
+	MAD_rural_cooperation_adjust = yes
+}
+MAD_dahalo_campaign_clear_after_resolution = {
+	clr_country_flag = MAD_DAHALO_CAMPAIGN_ROLL_SUCCESS
+	clr_country_flag = MAD_DAHALO_CAMPAIGN_ROLL_FAILURE
+	clr_country_flag = MAD_DAHALO_CAMPAIGN_COMMUNITY_APPROACH
+	clr_country_flag = MAD_DAHALO_CAMPAIGN_COERCIVE_APPROACH
+	clr_country_flag = MAD_DAHALO_CAMPAIGN_CAPSAT_STYLE
+	clr_country_flag = MAD_DAHALO_CAMPAIGN_GENERAL_STAFF_STYLE
+	clr_country_flag = MAD_DAHALO_TANDROKA_READY
+	clr_country_flag = MAD_DAHALO_COUP_D_ARRET_READY
+	clr_country_flag = MAD_DAHALO_FAHALEMANA_READY
+	clr_country_flag = MAD_MAZAVA_READY
+}
 MAD_dahalo_resolve_tandroka = {
 	set_country_flag = MAD_DAHALO_TANDROKA_RESOLVED
+	MAD_dahalo_campaign_roll = yes
 	if = {
-		limit = { has_country_flag = MAD_DAHALO_TANDROKA_READY }
+		limit = { has_country_flag = MAD_DAHALO_CAMPAIGN_ROLL_SUCCESS }
 		set_country_flag = MAD_DAHALO_TANDROKA_SUCCESS
 		add_to_variable = { MAD_dahalo_threat = -18 tooltip = MAD_DAHALO_THREAT_MINUS_18_TT }
 		set_temp_variable = { MAD_rc_delta = 4 }
-		MAD_rural_cooperation_adjust = yes
+		MAD_dahalo_campaign_apply_success_rc = yes
 		add_stability = 0.01
-	}
-	else_if = {
-		limit = { check_variable = { MAD_rural_cooperation > 24.99 } }
-		set_country_flag = MAD_DAHALO_TANDROKA_CONTESTED
-		add_to_variable = { MAD_dahalo_threat = -10 tooltip = MAD_DAHALO_THREAT_MINUS_10_TT }
-		add_stability = -0.01
 	}
 	else = {
 		set_country_flag = MAD_DAHALO_TANDROKA_CONTESTED
 		add_to_variable = { MAD_dahalo_threat = -6 tooltip = MAD_DAHALO_THREAT_MINUS_6_TT }
+		set_temp_variable = { MAD_rc_delta = -6 }
+		MAD_dahalo_campaign_apply_failure_rc = yes
 		add_stability = -0.02
 	}
-	clr_country_flag = MAD_DAHALO_TANDROKA_READY
 	MAD_dahalo_update_modifier = yes
+	MAD_dahalo_campaign_clear_after_resolution = yes
 }
-
 MAD_dahalo_resolve_coup_d_arret = {
 	set_country_flag = MAD_DAHALO_COUP_D_ARRET_COMPLETE
+	MAD_dahalo_campaign_roll = yes
 	if = {
-		limit = { has_country_flag = MAD_DAHALO_COUP_D_ARRET_READY }
+		limit = { has_country_flag = MAD_DAHALO_CAMPAIGN_ROLL_SUCCESS }
 		set_country_flag = MAD_DAHALO_COUP_D_ARRET_SUCCESS
 		add_to_variable = { MAD_dahalo_threat = -25 tooltip = MAD_DAHALO_THREAT_MINUS_25_TT }
 		set_temp_variable = { MAD_rc_delta = 5 }
-		MAD_rural_cooperation_adjust = yes
+		MAD_dahalo_campaign_apply_success_rc = yes
 		add_stability = 0.01
 		army_experience = 10
 		add_war_support = 0.02
@@ -3173,54 +3233,130 @@ MAD_dahalo_resolve_coup_d_arret = {
 	else = {
 		set_country_flag = MAD_DAHALO_COUP_D_ARRET_CONTESTED
 		add_to_variable = { MAD_dahalo_threat = -12 tooltip = MAD_DAHALO_THREAT_MINUS_12_TT }
+		set_temp_variable = { MAD_rc_delta = -8 }
+		MAD_dahalo_campaign_apply_failure_rc = yes
 		add_stability = -0.02
 		army_experience = 5
 	}
-	clr_country_flag = MAD_DAHALO_COUP_D_ARRET_READY
 	MAD_dahalo_update_modifier = yes
+	MAD_dahalo_campaign_clear_after_resolution = yes
 }
-
 MAD_dahalo_resolve_fahalemana = {
 	set_country_flag = MAD_DAHALO_FAHALEMANA_RESOLVED
 	set_country_flag = MAD_DAHALO_FAHALEMANA_AFTERCARE_RESOLVED
+	MAD_dahalo_campaign_roll = yes
 	if = {
-		limit = { has_country_flag = MAD_DAHALO_FAHALEMANA_READY }
+		limit = { has_country_flag = MAD_DAHALO_CAMPAIGN_ROLL_SUCCESS }
 		set_country_flag = MAD_DAHALO_FAHALEMANA_SUCCESS
-		add_to_variable = { MAD_dahalo_threat = -28 tooltip = MAD_DAHALO_THREAT_MINUS_28_TT }
-		set_temp_variable = { MAD_rc_delta = 8 }
-		MAD_rural_cooperation_adjust = yes
+		if = {
+			limit = { check_variable = { MAD_dahalo_threat > 79.99 } }
+			add_to_variable = { MAD_dahalo_threat = -18 tooltip = MAD_DAHALO_THREAT_MINUS_18_TT }
+			set_temp_variable = { MAD_rc_delta = 3 }
+		}
+		else_if = {
+			limit = { check_variable = { MAD_dahalo_threat > 59.99 } }
+			add_to_variable = { MAD_dahalo_threat = -23 tooltip = MAD_DAHALO_THREAT_MINUS_23_TT }
+			set_temp_variable = { MAD_rc_delta = 5 }
+		}
+		else = {
+			add_to_variable = { MAD_dahalo_threat = -28 tooltip = MAD_DAHALO_THREAT_MINUS_28_TT }
+			set_temp_variable = { MAD_rc_delta = 8 }
+		}
+		MAD_dahalo_campaign_apply_success_rc = yes
 		add_stability = 0.02
 		army_experience = 10
 	}
 	else = {
 		set_country_flag = MAD_DAHALO_FAHALEMANA_CONTESTED
-		add_to_variable = { MAD_dahalo_threat = -14 tooltip = MAD_DAHALO_THREAT_MINUS_14_TT }
+		if = {
+			limit = { check_variable = { MAD_dahalo_threat > 79.99 } }
+			add_to_variable = { MAD_dahalo_threat = -8 tooltip = MAD_DAHALO_THREAT_MINUS_8_TT }
+			set_temp_variable = { MAD_rc_delta = -11 }
+		}
+		else_if = {
+			limit = { check_variable = { MAD_dahalo_threat > 59.99 } }
+			add_to_variable = { MAD_dahalo_threat = -11 tooltip = MAD_DAHALO_THREAT_MINUS_11_TT }
+			set_temp_variable = { MAD_rc_delta = -9 }
+		}
+		else = {
+			add_to_variable = { MAD_dahalo_threat = -14 tooltip = MAD_DAHALO_THREAT_MINUS_14_TT }
+			set_temp_variable = { MAD_rc_delta = -8 }
+		}
+		MAD_dahalo_campaign_apply_failure_rc = yes
 		add_stability = -0.02
 	}
-	clr_country_flag = MAD_DAHALO_FAHALEMANA_READY
 	MAD_dahalo_update_modifier = yes
+	MAD_dahalo_campaign_clear_after_resolution = yes
 }
-
 MAD_dahalo_resolve_mazava = {
 	set_country_flag = MAD_MAZAVA_RESOLVED
+	MAD_dahalo_campaign_roll = yes
 	if = {
-		limit = { has_country_flag = MAD_MAZAVA_READY }
+		limit = { has_country_flag = MAD_DAHALO_CAMPAIGN_ROLL_SUCCESS }
 		set_country_flag = MAD_MAZAVA_SUCCESS
-		add_to_variable = { MAD_dahalo_threat = -14 tooltip = MAD_DAHALO_THREAT_MINUS_14_TT }
-		set_temp_variable = { MAD_rc_delta = 5 }
-		MAD_rural_cooperation_adjust = yes
+		if = {
+			limit = { has_country_flag = MAD_MAZAVA_GROUND_OPERATION }
+			add_to_variable = { MAD_dahalo_threat = -12 tooltip = MAD_DAHALO_THREAT_MINUS_12_TT }
+			set_temp_variable = { MAD_rc_delta = 4 }
+		}
+		else = {
+			add_to_variable = { MAD_dahalo_threat = -14 tooltip = MAD_DAHALO_THREAT_MINUS_14_TT }
+			set_temp_variable = { MAD_rc_delta = 5 }
+		}
+		if = { limit = { has_country_flag = MAD_USAD_COMMUNITY_LIAISON } add_to_variable = { MAD_rc_delta = 2 } }
+		MAD_dahalo_campaign_apply_success_rc = yes
+		add_stability = 0.01
 		army_experience = 10
 		add_war_support = 0.01
+		if = {
+			limit = { has_completed_focus = MAD_Drought_and_famine }
+			268 = {
+				if = {
+					limit = { ROOT = { has_country_flag = MAD_MAZAVA_GROUND_OPERATION } }
+					set_temp_variable = { MAD_dr_state_famine = -6 }
+					add_to_variable = { MAD_state_relief_months = 2 }
+					if = {
+						limit = { ROOT = { has_country_flag = MAD_USAD_GROUND_LOGISTICS_READY } }
+						set_temp_variable = { MAD_dr_state_famine = -2 }
+						add_to_variable = { MAD_state_relief_months = 1 }
+					}
+				}
+				else = {
+					set_temp_variable = { MAD_dr_state_famine = -8 }
+					add_to_variable = { MAD_state_relief_months = 3 }
+				}
+				MAD_drought_state_apply_famine = yes
+			}
+			MAD_drought_recalc_national = yes
+		}
 	}
 	else = {
 		set_country_flag = MAD_MAZAVA_CONTESTED
-		add_to_variable = { MAD_dahalo_threat = -8 tooltip = MAD_DAHALO_THREAT_MINUS_8_TT }
+		if = {
+			limit = { has_country_flag = MAD_MAZAVA_GROUND_OPERATION }
+			add_to_variable = { MAD_dahalo_threat = -5 tooltip = MAD_DAHALO_THREAT_MINUS_5_TT }
+			set_temp_variable = { MAD_rc_delta = -9 }
+		}
+		else = {
+			add_to_variable = { MAD_dahalo_threat = -8 tooltip = MAD_DAHALO_THREAT_MINUS_8_TT }
+			set_temp_variable = { MAD_rc_delta = -7 }
+		}
+		MAD_dahalo_campaign_apply_failure_rc = yes
 		add_stability = -0.01
+		if = {
+			limit = { has_completed_focus = MAD_Drought_and_famine }
+			268 = {
+				if = { limit = { ROOT = { has_country_flag = MAD_MAZAVA_GROUND_OPERATION } } set_temp_variable = { MAD_dr_state_famine = -2 } }
+				else = { set_temp_variable = { MAD_dr_state_famine = -4 } }
+				MAD_drought_state_apply_famine = yes
+				add_to_variable = { MAD_state_relief_months = 1 }
+			}
+			MAD_drought_recalc_national = yes
+		}
 	}
-	clr_country_flag = MAD_MAZAVA_READY
 	MAD_dahalo_update_modifier = yes
+	MAD_dahalo_campaign_clear_after_resolution = yes
 }
-
 MAD_dahalo_southern_supply_interference = {
 	# This is deliberately limited to the Grand Sud and to physical relief/supply operations.
 	# Cash transfers and locally-built wells are not penalised here: the problem is getting
