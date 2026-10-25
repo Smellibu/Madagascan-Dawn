@@ -2562,6 +2562,7 @@ MAD_dahalo_category = {
 		visible = {
 		}
 		available = {
+			NOT = { has_country_flag = MAD_DAHALO_OPERATION_ACTIVE }
 		
 			custom_trigger_tooltip = {
 				tooltip = MAD_RC_REQUIRE_6_OR_4_5_TT
@@ -2606,6 +2607,7 @@ MAD_dahalo_category = {
 			has_completed_focus = MAD_ZEBU_CERTIFICATES
 		}
 		available = {
+			NOT = { has_country_flag = MAD_DAHALO_OPERATION_ACTIVE }
 			has_completed_focus = MAD_ZEBU_CERTIFICATES
 		
 			custom_trigger_tooltip = {
@@ -2650,6 +2652,7 @@ MAD_dahalo_category = {
 			has_completed_focus = MAD_FIGHTING_CERTIFICATE_FRAUD
 		}
 		available = {
+			NOT = { has_country_flag = MAD_DAHALO_OPERATION_ACTIVE }
 			has_completed_focus = MAD_FIGHTING_CERTIFICATE_FRAUD
 		
 			custom_trigger_tooltip = {
@@ -2694,6 +2697,7 @@ MAD_dahalo_category = {
 			has_completed_focus = MAD_dahalo_military_ops
 		}
 		available = {
+			NOT = { has_country_flag = MAD_DAHALO_OPERATION_ACTIVE }
 			has_completed_focus = MAD_dahalo_military_ops
 		
 			custom_trigger_tooltip = {
@@ -2831,6 +2835,7 @@ MAD_dahalo_category = {
 			has_completed_focus = MAD_ARREST_ARMS
 		}
 		available = {
+			NOT = { has_country_flag = MAD_DAHALO_OPERATION_ACTIVE }
 			has_completed_focus = MAD_ARREST_ARMS
 		
 			custom_trigger_tooltip = {
@@ -2878,6 +2883,7 @@ MAD_dahalo_category = {
 			}
 		}
 		available = {
+			NOT = { has_country_flag = MAD_DAHALO_OPERATION_ACTIVE }
 			OR = {
 				has_country_flag = MAD_DAHALO_TRACKER_NETWORK_ESTABLISHED
 				has_completed_focus = MAD_ARREST_ARMS
@@ -2927,6 +2933,7 @@ MAD_dahalo_category = {
 			check_variable = { MAD_dahalo_ringleader_sweeps > 0.99 }
 		}
 		available = {
+			NOT = { has_country_flag = MAD_DAHALO_OPERATION_ACTIVE }
 			check_variable = { MAD_dahalo_ringleader_sweeps > 0.99 }
 		
 			custom_trigger_tooltip = {
@@ -2973,6 +2980,7 @@ MAD_dahalo_category = {
 			check_variable = { MAD_dahalo_ringleader_sweeps > 1.99 }
 		}
 		available = {
+			NOT = { has_country_flag = MAD_DAHALO_OPERATION_ACTIVE }
 			check_variable = { MAD_dahalo_ringleader_sweeps > 1.99 }
 		
 			custom_trigger_tooltip = {
@@ -3023,6 +3031,7 @@ MAD_dahalo_category = {
 			}
 		}
 		available = {
+			NOT = { has_country_flag = MAD_DAHALO_OPERATION_ACTIVE }
 			check_variable = { MAD_dahalo_threat < 10.01 }
 			OR = {
 				check_variable = { MAD_dahalo_ringleader_sweeps > 2.99 }
