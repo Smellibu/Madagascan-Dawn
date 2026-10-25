@@ -2813,30 +2813,12 @@ MAD_dahalo_category = {
 		custom_cost_trigger = { check_variable = { treasury > 1.499 } }
 		custom_cost_text = cost_1_5
 		complete_effect = {
-			if = {
-				limit = { OR = {
-									AND = {
-										has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM
-										check_variable = { MAD_rural_cooperation > 37.49 }
-									}
-									AND = {
-										has_country_flag = MAD_ARMY_COMMAND_CAPSAT
-										has_completed_focus = MAD_ARMY_CAPSAT_LOCAL_INITIATIVE
-										check_variable = { MAD_rural_cooperation > 49.99 }
-									}
-									AND = {
-										has_country_flag = MAD_ARMY_COMMAND_GENERAL_STAFF
-										has_completed_focus = MAD_ARMY_CENTRALISED_PROCUREMENT
-										check_variable = { MAD_rural_cooperation > 39.99 }
-									}
-									check_variable = { MAD_rural_cooperation > 74.99 }
-								} }
-				set_country_flag = MAD_DAHALO_TANDROKA_READY
-			}
-			else = {
-				clr_country_flag = MAD_DAHALO_TANDROKA_READY
-			}
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAHALO_TANDROKA_OPERATION started"
+			MAD_dahalo_campaign_reset = yes
+			set_variable = { MAD_dahalo_campaign_success_chance = 24 }
+			MAD_dahalo_campaign_add_readiness = yes
+			MAD_dahalo_campaign_add_threat_modifier = yes
+			MAD_dahalo_campaign_finalize_odds = yes
 			set_temp_variable = { MAD_rc_delta = -10 }
 			MAD_rural_cooperation_apply_gendarmerie_discount = yes
 			MAD_rural_cooperation_adjust = yes
@@ -2845,6 +2827,7 @@ MAD_dahalo_category = {
 			modify_treasury_effect = yes
 			set_country_flag = MAD_DAHALO_OPERATION_ACTIVE
 			set_country_flag = MAD_DAHALO_TANDROKA_OPERATION_LAUNCHED
+			country_event = { id = mad_dahalo.21 }
 		}
 		remove_effect = {
 			clr_country_flag = MAD_DAHALO_OPERATION_ACTIVE
@@ -3187,43 +3170,23 @@ MAD_dahalo_category = {
 		custom_cost_text = cost_3_0
 
 		complete_effect = {
-			if = {
-				limit = { OR = {
-									AND = {
-										has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM
-										check_variable = { MAD_rural_cooperation > 33.49 }
-									}
-									AND = {
-										has_country_flag = MAD_DAHALO_TRACKER_NETWORK_ESTABLISHED
-										check_variable = { MAD_rural_cooperation > 42.99 }
-									}
-									AND = {
-										has_country_flag = MAD_ARMY_COMMAND_CAPSAT
-										has_completed_focus = MAD_ARMY_CAPSAT_LOCAL_INITIATIVE
-										check_variable = { MAD_rural_cooperation > 37.99 }
-									}
-									AND = {
-										has_country_flag = MAD_ARMY_COMMAND_GENERAL_STAFF
-										has_completed_focus = MAD_ARMY_CENTRALISED_PROCUREMENT
-										check_variable = { MAD_rural_cooperation > 37.99 }
-									}
-									check_variable = { MAD_rural_cooperation > 72.99 }
-								} }
-				set_country_flag = MAD_DAHALO_COUP_D_ARRET_READY
-			}
-			else = {
-				clr_country_flag = MAD_DAHALO_COUP_D_ARRET_READY
-			}
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAHALO_COUP_D_ARRET started"
+			MAD_dahalo_campaign_reset = yes
+			set_variable = { MAD_dahalo_campaign_success_chance = 22 }
+			MAD_dahalo_campaign_add_readiness = yes
+			MAD_dahalo_campaign_add_threat_modifier = yes
+			if = { limit = { has_country_flag = MAD_DAHALO_TANDROKA_SUCCESS } add_to_variable = { MAD_dahalo_campaign_success_chance = 8 } }
+			else_if = { limit = { has_country_flag = MAD_DAHALO_TANDROKA_CONTESTED } add_to_variable = { MAD_dahalo_campaign_success_chance = 3 } }
+			MAD_dahalo_campaign_finalize_odds = yes
 			set_temp_variable = { MAD_rc_delta = -18 }
 			MAD_rural_cooperation_apply_gendarmerie_discount = yes
 			MAD_rural_cooperation_adjust = yes
 			custom_effect_tooltip = MAD_RURAL_COOPERATION_SPENT_TT
-
-			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAHALO_COUP_D_ARRET started"
 			set_temp_variable = { treasury_change = -3.00 }
 			modify_treasury_effect = yes
 			set_country_flag = MAD_DAHALO_COUP_D_ARRET_ACTIVE
 			set_country_flag = MAD_DAHALO_OPERATION_ACTIVE
+			country_event = { id = mad_dahalo.22 }
 		}
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAHALO_COUP_D_ARRET complete"
@@ -3263,38 +3226,15 @@ MAD_dahalo_category = {
 		custom_cost_trigger = { check_variable = { treasury > 2.499 } }
 		custom_cost_text = cost_2_5
 		complete_effect = {
-			if = {
-				limit = { OR = {
-									AND = {
-										has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM
-										check_variable = { MAD_rural_cooperation > 34.99 }
-									}
-									AND = {
-										has_country_flag = MAD_DAHALO_TRACKER_NETWORK_ESTABLISHED
-										check_variable = { MAD_rural_cooperation > 44.99 }
-									}
-									AND = {
-										has_country_flag = MAD_DAHALO_COUP_D_ARRET_SUCCESS
-										check_variable = { MAD_rural_cooperation > 34.99 }
-									}
-									AND = {
-										has_country_flag = MAD_ARMY_COMMAND_CAPSAT
-										has_completed_focus = MAD_ARMY_CAPSAT_LOCAL_INITIATIVE
-										check_variable = { MAD_rural_cooperation > 44.99 }
-									}
-									AND = {
-										has_country_flag = MAD_ARMY_COMMAND_GENERAL_STAFF
-										has_completed_focus = MAD_ARMY_CENTRALISED_PROCUREMENT
-										check_variable = { MAD_rural_cooperation > 39.99 }
-									}
-									check_variable = { MAD_rural_cooperation > 79.99 }
-								} }
-				set_country_flag = MAD_DAHALO_FAHALEMANA_READY
-			}
-			else = {
-				clr_country_flag = MAD_DAHALO_FAHALEMANA_READY
-			}
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAHALO_FAHALEMANA started"
+			MAD_dahalo_campaign_reset = yes
+			set_variable = { MAD_dahalo_campaign_success_chance = 18 }
+			MAD_dahalo_campaign_add_readiness = yes
+			set_variable = { MAD_dahalo_fahalemana_launch_threat = MAD_dahalo_threat }
+			if = { limit = { has_country_flag = MAD_DAHALO_COUP_D_ARRET_SUCCESS } add_to_variable = { MAD_dahalo_campaign_success_chance = 8 } }
+			else_if = { limit = { has_country_flag = MAD_DAHALO_COUP_D_ARRET_CONTESTED } add_to_variable = { MAD_dahalo_campaign_success_chance = 3 } }
+			MAD_dahalo_campaign_add_fahalemana_threat_modifier = yes
+			MAD_dahalo_campaign_finalize_odds = yes
 			set_temp_variable = { MAD_rc_delta = -20 }
 			MAD_rural_cooperation_apply_gendarmerie_discount = yes
 			MAD_rural_cooperation_adjust = yes
@@ -3303,6 +3243,7 @@ MAD_dahalo_category = {
 			modify_treasury_effect = yes
 			set_country_flag = MAD_DAHALO_OPERATION_ACTIVE
 			set_country_flag = MAD_DAHALO_FAHALEMANA_OPERATION_LAUNCHED
+			country_event = { id = mad_dahalo.23 }
 		}
 		remove_effect = {
 			clr_country_flag = MAD_DAHALO_OPERATION_ACTIVE
@@ -3352,6 +3293,127 @@ MAD_dahalo_category = {
 		ai_will_do = { base = 1 }
 	}
 
+
+	MAD_USAD_TRAINING_CADRE = {
+		icon = generic_political_discourse
+		allowed = { tag = MAD }
+		visible = { has_country_flag = MAD_USAD_ESTABLISHED NOT = { has_country_flag = MAD_USAD_TRAINING_CADRE_BUILT } }
+		available = { has_country_flag = MAD_USAD_ESTABLISHED NOT = { has_country_flag = MAD_DAHALO_OPERATION_ACTIVE } NOT = { has_civil_war = yes } check_variable = { treasury > 1.249 } }
+		cost = 50
+		fire_only_once = yes
+		custom_cost_trigger = { check_variable = { treasury > 1.249 } }
+		custom_cost_text = cost_1_25
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_USAD_TRAINING_CADRE"
+			set_temp_variable = { treasury_change = -1.25 }
+			modify_treasury_effect = yes
+			set_country_flag = MAD_USAD_TRAINING_CADRE_BUILT
+			army_experience = 8
+			add_stability = 0.005
+		}
+		ai_will_do = { base = 0 }
+	}
+	MAD_USAD_GROUND_LOGISTICS = {
+		icon = generic_political_discourse
+		allowed = { tag = MAD }
+		visible = { has_country_flag = MAD_USAD_ESTABLISHED NOT = { has_country_flag = MAD_USAD_GROUND_LOGISTICS_READY } }
+		available = { has_country_flag = MAD_USAD_ESTABLISHED NOT = { has_country_flag = MAD_DAHALO_OPERATION_ACTIVE } NOT = { has_civil_war = yes } check_variable = { treasury > 1.999 } }
+		cost = 65
+		fire_only_once = yes
+		custom_cost_trigger = { check_variable = { treasury > 1.999 } }
+		custom_cost_text = cost_2_0
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_USAD_GROUND_LOGISTICS"
+			set_temp_variable = { treasury_change = -2.00 }
+			modify_treasury_effect = yes
+			set_country_flag = MAD_USAD_GROUND_LOGISTICS_READY
+			army_experience = 5
+			set_temp_variable = { MAD_rc_delta = 2 }
+			MAD_rural_cooperation_adjust = yes
+		}
+		ai_will_do = { base = 0 }
+	}
+	MAD_USAD_COMMUNITY_LIAISON = {
+		icon = generic_political_discourse
+		allowed = { tag = MAD }
+		visible = { has_country_flag = MAD_USAD_ESTABLISHED NOT = { has_country_flag = MAD_USAD_COMMUNITY_LIAISON } }
+		available = { has_country_flag = MAD_USAD_ESTABLISHED NOT = { has_country_flag = MAD_DAHALO_OPERATION_ACTIVE } NOT = { has_civil_war = yes } check_variable = { treasury > 0.749 } }
+		cost = 45
+		fire_only_once = yes
+		custom_cost_trigger = { check_variable = { treasury > 0.749 } }
+		custom_cost_text = cost_0_75
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_USAD_COMMUNITY_LIAISON"
+			set_temp_variable = { treasury_change = -0.75 }
+			modify_treasury_effect = yes
+			set_country_flag = MAD_USAD_COMMUNITY_LIAISON
+			set_temp_variable = { MAD_rc_delta = 4 }
+			MAD_rural_cooperation_adjust = yes
+			add_stability = 0.01
+		}
+		ai_will_do = { base = 0 }
+	}
+	MAD_DAHALO_OPERATION_MAZAVA_GROUND = {
+		icon = GFX_decision_com_rebel_highest
+		allowed = { tag = MAD }
+		visible = {
+			has_completed_focus = MAD_OPERATION_MAZAVA
+			has_country_flag = MAD_USAD_ESTABLISHED
+			date > 2016.11.30
+			NOT = { has_country_flag = MAD_MAZAVA_RESOLVED }
+			OR = { NOT = { has_country_flag = MAD_ARMY_HELICOPTER_ARM_READY } NOT = { has_country_flag = MAD_ARMY_AIRLIFT_READY } }
+		}
+		available = {
+			has_completed_focus = MAD_OPERATION_MAZAVA
+			has_country_flag = MAD_USAD_ESTABLISHED
+			date > 2016.11.30
+			NOT = { has_country_flag = MAD_MAZAVA_RESOLVED }
+			NOT = { has_country_flag = MAD_DAHALO_OPERATION_ACTIVE }
+			NOT = { has_civil_war = yes }
+			OR = { NOT = { has_country_flag = MAD_ARMY_HELICOPTER_ARM_READY } NOT = { has_country_flag = MAD_ARMY_AIRLIFT_READY } }
+			custom_trigger_tooltip = {
+				tooltip = MAD_RC_REQUIRE_12_OR_9_TT
+				OR = {
+					AND = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM check_variable = { MAD_rural_cooperation > 8.99 } }
+					AND = { NOT = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM } check_variable = { MAD_rural_cooperation > 11.99 } }
+				}
+			}
+		}
+		cost = 90
+		fire_only_once = yes
+		days_remove = 90
+		custom_cost_trigger = { check_variable = { treasury > 2.499 } }
+		custom_cost_text = cost_2_5
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAHALO_OPERATION_MAZAVA_GROUND started"
+			MAD_dahalo_campaign_reset = yes
+			set_variable = { MAD_dahalo_campaign_success_chance = 16 }
+			MAD_dahalo_campaign_add_readiness = yes
+			MAD_dahalo_campaign_add_threat_modifier = yes
+			if = { limit = { has_country_flag = MAD_USAD_GROUND_LOGISTICS_READY } add_to_variable = { MAD_dahalo_campaign_success_chance = 12 } }
+			if = { limit = { has_country_flag = MAD_USAD_COMMUNITY_LIAISON } add_to_variable = { MAD_dahalo_campaign_success_chance = 5 } }
+			if = { limit = { has_country_flag = MAD_USAD_TRAINING_CADRE_BUILT } add_to_variable = { MAD_dahalo_campaign_success_chance = 3 } }
+			MAD_dahalo_campaign_finalize_odds = yes
+			set_country_flag = MAD_MAZAVA_GROUND_OPERATION
+			set_temp_variable = { MAD_rc_delta = -10 }
+			MAD_rural_cooperation_apply_gendarmerie_discount = yes
+			MAD_rural_cooperation_adjust = yes
+			custom_effect_tooltip = MAD_RURAL_COOPERATION_SPENT_TT
+			set_temp_variable = { treasury_change = -2.50 }
+			modify_treasury_effect = yes
+			set_country_flag = MAD_DAHALO_OPERATION_ACTIVE
+			set_country_flag = MAD_MAZAVA_ACTIVE
+			country_event = { id = mad_dahalo.25 }
+		}
+		remove_effect = {
+			clr_country_flag = MAD_DAHALO_OPERATION_ACTIVE
+			clr_country_flag = MAD_MAZAVA_ACTIVE
+			MAD_dahalo_resolve_mazava = yes
+			country_event = { id = mad_dahalo.20 days = 1 }
+		}
+		ai_will_do = { base = 0 }
+	}
+
 	MAD_DAHALO_OPERATION_MAZAVA = {
 		icon = Generic_Transport_Helicopter
 		allowed = { tag = MAD }
@@ -3378,30 +3440,15 @@ MAD_dahalo_category = {
 		custom_cost_trigger = { check_variable = { treasury > 1.499 } }
 		custom_cost_text = cost_1_5
 		complete_effect = {
-			if = {
-				limit = { OR = {
-									AND = {
-										has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM
-										check_variable = { MAD_rural_cooperation > 25.99 }
-									}
-									AND = {
-										has_country_flag = MAD_ARMY_COMMAND_GENERAL_STAFF
-										has_completed_focus = MAD_ARMY_CENTRALISED_PROCUREMENT
-										check_variable = { MAD_rural_cooperation > 27.99 }
-									}
-									AND = {
-										has_country_flag = MAD_ARMY_COMMAND_CAPSAT
-										has_completed_focus = MAD_ARMY_CAPSAT_LOCAL_INITIATIVE
-										check_variable = { MAD_rural_cooperation > 32.99 }
-									}
-									check_variable = { MAD_rural_cooperation > 62.99 }
-								} }
-				set_country_flag = MAD_MAZAVA_READY
-			}
-			else = {
-				clr_country_flag = MAD_MAZAVA_READY
-			}
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAHALO_OPERATION_MAZAVA started"
+			MAD_dahalo_campaign_reset = yes
+			set_variable = { MAD_dahalo_campaign_success_chance = 24 }
+			MAD_dahalo_campaign_add_readiness = yes
+			MAD_dahalo_campaign_add_threat_modifier = yes
+			if = { limit = { has_country_flag = MAD_USAD_TRAINING_CADRE_BUILT } add_to_variable = { MAD_dahalo_campaign_success_chance = 6 } }
+			if = { limit = { has_country_flag = MAD_USAD_COMMUNITY_LIAISON } add_to_variable = { MAD_dahalo_campaign_success_chance = 5 } }
+			if = { limit = { has_country_flag = MAD_USAD_GROUND_LOGISTICS_READY } add_to_variable = { MAD_dahalo_campaign_success_chance = 3 } }
+			MAD_dahalo_campaign_finalize_odds = yes
 			set_temp_variable = { MAD_rc_delta = -8 }
 			MAD_rural_cooperation_apply_gendarmerie_discount = yes
 			MAD_rural_cooperation_adjust = yes
@@ -3410,6 +3457,8 @@ MAD_dahalo_category = {
 			modify_treasury_effect = yes
 			set_country_flag = MAD_DAHALO_OPERATION_ACTIVE
 			set_country_flag = MAD_MAZAVA_ACTIVE
+			clr_country_flag = MAD_MAZAVA_GROUND_OPERATION
+			country_event = { id = mad_dahalo.24 }
 		}
 		remove_effect = {
 			clr_country_flag = MAD_DAHALO_OPERATION_ACTIVE
