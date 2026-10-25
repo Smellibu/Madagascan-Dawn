@@ -3130,6 +3130,176 @@ MAD_dahalo_switch_to_remenabila = {
 }
 
 
+# Resolve the time-limited campaigns only when their operation timer expires.
+# Prepared institutions improve outcomes; each route still has a useful, but costly, partial result.
+
+MAD_dahalo_resolve_tandroka = {
+	set_country_flag = MAD_DAHALO_TANDROKA_RESOLVED
+	if = {
+		limit = {
+			OR = {
+				AND = {
+					has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM
+					check_variable = { MAD_rural_cooperation > 29.99 }
+				}
+				AND = {
+					has_country_flag = MAD_ARMY_COMMAND_CAPSAT
+					has_completed_focus = MAD_ARMY_CAPSAT_LOCAL_INITIATIVE
+					check_variable = { MAD_rural_cooperation > 39.99 }
+				}
+				AND = {
+					has_country_flag = MAD_ARMY_COMMAND_GENERAL_STAFF
+					has_completed_focus = MAD_ARMY_CENTRALISED_PROCUREMENT
+					check_variable = { MAD_rural_cooperation > 29.99 }
+				}
+				check_variable = { MAD_rural_cooperation > 64.99 }
+			}
+		}
+		set_country_flag = MAD_DAHALO_TANDROKA_SUCCESS
+		add_to_variable = { MAD_dahalo_threat = -18 tooltip = MAD_DAHALO_THREAT_MINUS_18_TT }
+		set_temp_variable = { MAD_rc_delta = 4 }
+		MAD_rural_cooperation_adjust = yes
+		add_stability = 0.01
+	}
+	else_if = {
+		limit = { check_variable = { MAD_rural_cooperation > 24.99 } }
+		set_country_flag = MAD_DAHALO_TANDROKA_CONTESTED
+		add_to_variable = { MAD_dahalo_threat = -10 tooltip = MAD_DAHALO_THREAT_MINUS_10_TT }
+		add_stability = -0.01
+	}
+	else = {
+		set_country_flag = MAD_DAHALO_TANDROKA_CONTESTED
+		add_to_variable = { MAD_dahalo_threat = -6 tooltip = MAD_DAHALO_THREAT_MINUS_6_TT }
+		add_stability = -0.02
+	}
+	MAD_dahalo_update_modifier = yes
+}
+
+MAD_dahalo_resolve_coup_d_arret = {
+	set_country_flag = MAD_DAHALO_COUP_D_ARRET_COMPLETE
+	if = {
+		limit = {
+			OR = {
+				AND = {
+					has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM
+					check_variable = { MAD_rural_cooperation > 19.99 }
+				}
+				AND = {
+					has_country_flag = MAD_DAHALO_TRACKER_NETWORK_ESTABLISHED
+					check_variable = { MAD_rural_cooperation > 24.99 }
+				}
+				AND = {
+					has_country_flag = MAD_ARMY_COMMAND_CAPSAT
+					has_completed_focus = MAD_ARMY_CAPSAT_LOCAL_INITIATIVE
+					check_variable = { MAD_rural_cooperation > 19.99 }
+				}
+				AND = {
+					has_country_flag = MAD_ARMY_COMMAND_GENERAL_STAFF
+					has_completed_focus = MAD_ARMY_CENTRALISED_PROCUREMENT
+					check_variable = { MAD_rural_cooperation > 19.99 }
+				}
+				check_variable = { MAD_rural_cooperation > 54.99 }
+			}
+		}
+		set_country_flag = MAD_DAHALO_COUP_D_ARRET_SUCCESS
+		add_to_variable = { MAD_dahalo_threat = -25 tooltip = MAD_DAHALO_THREAT_MINUS_25_TT }
+		set_temp_variable = { MAD_rc_delta = 5 }
+		MAD_rural_cooperation_adjust = yes
+		add_stability = 0.01
+		army_experience = 10
+		add_war_support = 0.02
+	}
+	else = {
+		set_country_flag = MAD_DAHALO_COUP_D_ARRET_CONTESTED
+		add_to_variable = { MAD_dahalo_threat = -12 tooltip = MAD_DAHALO_THREAT_MINUS_12_TT }
+		add_stability = -0.02
+		army_experience = 5
+	}
+	MAD_dahalo_update_modifier = yes
+}
+
+MAD_dahalo_resolve_fahalemana = {
+	set_country_flag = MAD_DAHALO_FAHALEMANA_RESOLVED
+	if = {
+		limit = {
+			OR = {
+				AND = {
+					has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM
+					check_variable = { MAD_rural_cooperation > 19.99 }
+				}
+				AND = {
+					has_country_flag = MAD_DAHALO_TRACKER_NETWORK_ESTABLISHED
+					check_variable = { MAD_rural_cooperation > 24.99 }
+				}
+				AND = {
+					has_country_flag = MAD_DAHALO_COUP_D_ARRET_SUCCESS
+					check_variable = { MAD_rural_cooperation > 19.99 }
+				}
+				AND = {
+					has_country_flag = MAD_ARMY_COMMAND_CAPSAT
+					has_completed_focus = MAD_ARMY_CAPSAT_LOCAL_INITIATIVE
+					check_variable = { MAD_rural_cooperation > 29.99 }
+				}
+				AND = {
+					has_country_flag = MAD_ARMY_COMMAND_GENERAL_STAFF
+					has_completed_focus = MAD_ARMY_CENTRALISED_PROCUREMENT
+					check_variable = { MAD_rural_cooperation > 24.99 }
+				}
+				check_variable = { MAD_rural_cooperation > 59.99 }
+			}
+		}
+		set_country_flag = MAD_DAHALO_FAHALEMANA_SUCCESS
+		add_to_variable = { MAD_dahalo_threat = -28 tooltip = MAD_DAHALO_THREAT_MINUS_28_TT }
+		set_temp_variable = { MAD_rc_delta = 8 }
+		MAD_rural_cooperation_adjust = yes
+		add_stability = 0.02
+		army_experience = 10
+	}
+	else = {
+		set_country_flag = MAD_DAHALO_FAHALEMANA_CONTESTED
+		add_to_variable = { MAD_dahalo_threat = -14 tooltip = MAD_DAHALO_THREAT_MINUS_14_TT }
+		add_stability = -0.02
+	}
+	MAD_dahalo_update_modifier = yes
+}
+
+MAD_dahalo_resolve_mazava = {
+	set_country_flag = MAD_MAZAVA_RESOLVED
+	if = {
+		limit = {
+			OR = {
+				AND = {
+					has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM
+					check_variable = { MAD_rural_cooperation > 19.99 }
+				}
+				AND = {
+					has_country_flag = MAD_ARMY_COMMAND_GENERAL_STAFF
+					has_completed_focus = MAD_ARMY_CENTRALISED_PROCUREMENT
+					check_variable = { MAD_rural_cooperation > 19.99 }
+				}
+				AND = {
+					has_country_flag = MAD_ARMY_COMMAND_CAPSAT
+					has_completed_focus = MAD_ARMY_CAPSAT_LOCAL_INITIATIVE
+					check_variable = { MAD_rural_cooperation > 24.99 }
+				}
+				check_variable = { MAD_rural_cooperation > 54.99 }
+			}
+		}
+		set_country_flag = MAD_MAZAVA_SUCCESS
+		add_to_variable = { MAD_dahalo_threat = -14 tooltip = MAD_DAHALO_THREAT_MINUS_14_TT }
+		set_temp_variable = { MAD_rc_delta = 5 }
+		MAD_rural_cooperation_adjust = yes
+		army_experience = 10
+		add_war_support = 0.01
+	}
+	else = {
+		set_country_flag = MAD_MAZAVA_CONTESTED
+		add_to_variable = { MAD_dahalo_threat = -8 tooltip = MAD_DAHALO_THREAT_MINUS_8_TT }
+		add_stability = -0.01
+	}
+	MAD_dahalo_update_modifier = yes
+}
+
 MAD_dahalo_southern_supply_interference = {
 	# This is deliberately limited to the Grand Sud and to physical relief/supply operations.
 	# Cash transfers and locally-built wells are not penalised here: the problem is getting
