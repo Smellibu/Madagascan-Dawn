@@ -2815,7 +2815,7 @@ MAD_dahalo_category = {
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAHALO_TANDROKA_OPERATION started"
 			MAD_dahalo_campaign_reset = yes
-			set_variable = { MAD_dahalo_campaign_success_chance = 24 }
+			set_variable = { MAD_dahalo_campaign_success_chance = 20 }
 			MAD_dahalo_campaign_add_readiness = yes
 			MAD_dahalo_campaign_add_threat_modifier = yes
 			MAD_dahalo_campaign_finalize_odds = yes
@@ -3172,7 +3172,7 @@ MAD_dahalo_category = {
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAHALO_COUP_D_ARRET started"
 			MAD_dahalo_campaign_reset = yes
-			set_variable = { MAD_dahalo_campaign_success_chance = 22 }
+			set_variable = { MAD_dahalo_campaign_success_chance = 16 }
 			MAD_dahalo_campaign_add_readiness = yes
 			MAD_dahalo_campaign_add_threat_modifier = yes
 			if = { limit = { has_country_flag = MAD_DAHALO_TANDROKA_SUCCESS } add_to_variable = { MAD_dahalo_campaign_success_chance = 8 } }
@@ -3228,7 +3228,7 @@ MAD_dahalo_category = {
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAHALO_FAHALEMANA started"
 			MAD_dahalo_campaign_reset = yes
-			set_variable = { MAD_dahalo_campaign_success_chance = 18 }
+			set_variable = { MAD_dahalo_campaign_success_chance = 14 }
 			MAD_dahalo_campaign_add_readiness = yes
 			set_variable = { MAD_dahalo_fahalemana_launch_threat = MAD_dahalo_threat }
 			if = { limit = { has_country_flag = MAD_DAHALO_COUP_D_ARRET_SUCCESS } add_to_variable = { MAD_dahalo_campaign_success_chance = 8 } }
@@ -3387,7 +3387,7 @@ MAD_dahalo_category = {
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAHALO_OPERATION_MAZAVA_GROUND started"
 			MAD_dahalo_campaign_reset = yes
-			set_variable = { MAD_dahalo_campaign_success_chance = 16 }
+			set_variable = { MAD_dahalo_campaign_success_chance = 10 }
 			MAD_dahalo_campaign_add_readiness = yes
 			MAD_dahalo_campaign_add_threat_modifier = yes
 			if = { limit = { has_country_flag = MAD_USAD_GROUND_LOGISTICS_READY } add_to_variable = { MAD_dahalo_campaign_success_chance = 12 } }
@@ -3442,7 +3442,7 @@ MAD_dahalo_category = {
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAHALO_OPERATION_MAZAVA started"
 			MAD_dahalo_campaign_reset = yes
-			set_variable = { MAD_dahalo_campaign_success_chance = 24 }
+			set_variable = { MAD_dahalo_campaign_success_chance = 14 }
 			MAD_dahalo_campaign_add_readiness = yes
 			MAD_dahalo_campaign_add_threat_modifier = yes
 			if = { limit = { has_country_flag = MAD_USAD_TRAINING_CADRE_BUILT } add_to_variable = { MAD_dahalo_campaign_success_chance = 6 } }
