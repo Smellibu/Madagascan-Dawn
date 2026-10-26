@@ -211,8 +211,6 @@ MAD_madarail_apply_desist_outcome = {
 	custom_effect_tooltip = MAD_madarail_desist_unlocked_tt
 }
 
-# common/scripted_effects/MAD_daewoo_scripted_effects.txt
-
 # Apply one Daewoo review delta and keep viability within its 0-100 range.
 # Caller sets MAD_daewoo_viability_delta immediately before invoking this effect.
 MAD_daewoo_adjust_viability = {
@@ -252,19 +250,17 @@ MAD_daewoo_update_tier = {
 }
 
 MAD_daewoo_clear_tiers = {
-	if = { limit = { has_idea = MAD_DAEWOO_LEASE_TOXIC } remove_ideas = MAD_DAEWOO_LEASE_TOXIC }
-	if = { limit = { has_idea = MAD_DAEWOO_LEASE_TROUBLED } remove_ideas = MAD_DAEWOO_LEASE_TROUBLED }
-	if = { limit = { has_idea = MAD_DAEWOO_LEASE_SOUND } remove_ideas = MAD_DAEWOO_LEASE_SOUND }
+	remove_ideas = MAD_DAEWOO_LEASE_TOXIC
+	remove_ideas = MAD_DAEWOO_LEASE_TROUBLED
+	remove_ideas = MAD_DAEWOO_LEASE_SOUND
 }
 
 ########################################################################
-# common/scripted_effects/MAD_daewoo_outcome_scripted_effects.txt
+# Daewoo lease outcomes
 ########################################################################
 
-# common/scripted_effects/MAD_daewoo_outcome_scripted_effects.txt
-#
-# Shared effects for the Daewoo outcomes: cancelled (MAD_DEAL_BROKEN), collapsed (event mad_daewoo.3 + focus MAD_DEAL_KEPT_FAILED)
-# and signed off (MAD_DEAL_KEPT_MANAGED_WELL). Uses MAD_daewoo_clear_tiers from MAD_madarail_scripted_effects.txt.
+# Shared lease-ending effects for collapse and managed sign-off.
+# The cancellation focus keeps its outcome effects in the focus tree.
 
 # The concession is gone, whichever way it went: its cash crops stop feeding the drought and every agricultural
 # complex needs more hands again.
