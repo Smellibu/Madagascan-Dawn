@@ -374,8 +374,8 @@ MAD_daewoo_drought_well = {
 
 # THE DROUGHT AND FAMINE PANEL
 #
-# One stat: MAD_drought_severity (0-100). It exists from game start (event mad_drought.1) and is moved once a month by
-# MAD_drought_monthly_tick (event mad_drought.2 re-fires itself every 30 days until the drought is over).
+# One stat: MAD_drought_severity (0-100). Startup and the guarded MAD_Drought_and_famine focus initialise it;
+# event mad_drought.2 calls MAD_drought_monthly_tick every 30 days until the drought is over.
 #
 # Every month:   severity += base pressure (creeps up every year)
 #                          + Grand Sud term  (0.30, cut by up to 45% by infrastructure in the Toliara state, never to 0)
@@ -388,7 +388,7 @@ MAD_daewoo_drought_well = {
 #   Emergency water supply cuts a POSITIVE monthly rise to 30% for 6 months, then a +4 rebound.
 #
 # Phases:
-#   MAD_DROUGHT_CONTAINED_STATE  set automatically: all 7 preventative measures and severity <= 15 for one full year -> Winning The Fight opens
+#   MAD_DROUGHT_CONTAINED_STATE  set automatically: all 7 preventative measures and severity < 10.01 for one full year -> Winning The Fight opens
 #   MAD_DROUGHT_WON              set by Winning The Fight
 #   MAD_DROUGHT_OVER             severity reached 0 -> MAD_drought_resolved unlocks the further agricultural focuses
 # Until containment or victory, severity cannot be pushed below 5; neglect leaves the drought active.
@@ -640,7 +640,7 @@ MAD_drought_clamp = {
 # and the number drops a little at once. Set MAD_dr_prevent_amount right before calling this (see note above on why
 # HOI4 scripted effects use a temp variable here instead of a parameter).
 MAD_drought_add_prevention = {
-	# Only the seven formal drought decisions count toward the 5/7 containment gate. CNA measures have
+	# Only the seven formal drought decisions count toward the 7/7 containment gate. CNA measures have
 	# their own continuing pressure-reduction pool so they cannot produce 10/7 again.
 	if = {
 		limit = { check_variable = { MAD_drought_prevention_count < 7 } }
@@ -2374,8 +2374,8 @@ MAD_drought_scheduled_events = {
 # THE DROUGHT MAP - one drought number and one famine number per STATE
 ########################################################################
 #
-# The national MAD_drought_severity you already had is now the AVERAGE of the states, so nothing above changes:
-# national decisions, events and focuses still set MAD_dr_change and still work. What is new:
+# MAD_drought_severity is the AVERAGE of these four states. National decisions, events and focuses still set
+# MAD_dr_change and work through the state model. The starting state offsets below also affect that average.
 #
 #   MAD_state_drought           0-100, per state. The map decisions show it and colour the state.
 #   MAD_state_famine            0-100, per state. Follows the drought with a lag; fed by food, not by water.
