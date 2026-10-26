@@ -2248,7 +2248,6 @@ MAD_drought_monthly_tick = {
 		# Regular displacement is handled by the separate calendar-month on_action.
 		# Keep this 30-day climate/severity tick separate from the monthly displacement report tick.
 
-		MAD_drought_update_tier = yes
 		# over?
 		if = {
 			limit = { check_variable = { MAD_drought_severity < 0.001 } }
@@ -2258,21 +2257,24 @@ MAD_drought_monthly_tick = {
 }
 
 MAD_drought_finish = {
-	set_country_flag = MAD_DROUGHT_OVER
-	set_variable = { MAD_drought_severity = 0 }
-	set_variable = { MAD_drought_relief_months = 0 }
-	MAD_drought_clear_tiers = yes
-	# the map goes green too
-	266 = { set_variable = { MAD_state_drought = 0 } set_variable = { MAD_state_famine = 0 } set_variable = { MAD_state_drought_tier = 0 } set_variable = { MAD_state_relief_months = 0 } MAD_drought_state_clear_tiers = yes if = { limit = { has_dynamic_modifier = { modifier = MAD_STATE_FAMINE } } remove_dynamic_modifier = { modifier = MAD_STATE_FAMINE } } }
-	267 = { set_variable = { MAD_state_drought = 0 } set_variable = { MAD_state_famine = 0 } set_variable = { MAD_state_drought_tier = 0 } set_variable = { MAD_state_relief_months = 0 } MAD_drought_state_clear_tiers = yes if = { limit = { has_dynamic_modifier = { modifier = MAD_STATE_FAMINE } } remove_dynamic_modifier = { modifier = MAD_STATE_FAMINE } } }
-	268 = { set_variable = { MAD_state_drought = 0 } set_variable = { MAD_state_famine = 0 } set_variable = { MAD_state_drought_tier = 0 } set_variable = { MAD_state_relief_months = 0 } MAD_drought_state_clear_tiers = yes if = { limit = { has_dynamic_modifier = { modifier = MAD_STATE_FAMINE } } remove_dynamic_modifier = { modifier = MAD_STATE_FAMINE } } }
-	487 = { set_variable = { MAD_state_drought = 0 } set_variable = { MAD_state_famine = 0 } set_variable = { MAD_state_drought_tier = 0 } set_variable = { MAD_state_relief_months = 0 } MAD_drought_state_clear_tiers = yes if = { limit = { has_dynamic_modifier = { modifier = MAD_STATE_FAMINE } } remove_dynamic_modifier = { modifier = MAD_STATE_FAMINE } } }
 	if = {
-		limit = { has_idea = MAD_DROUGHT_EVACUATIONS }
-		remove_ideas = MAD_DROUGHT_EVACUATIONS
+		limit = { NOT = { has_country_flag = MAD_DROUGHT_OVER } }
+			set_country_flag = MAD_DROUGHT_OVER
+			set_variable = { MAD_drought_severity = 0 }
+			set_variable = { MAD_drought_relief_months = 0 }
+			MAD_drought_clear_tiers = yes
+			# the map goes green too
+			266 = { set_variable = { MAD_state_drought = 0 } set_variable = { MAD_state_famine = 0 } set_variable = { MAD_state_drought_tier = 0 } set_variable = { MAD_state_relief_months = 0 } MAD_drought_state_clear_tiers = yes if = { limit = { has_dynamic_modifier = { modifier = MAD_STATE_FAMINE } } remove_dynamic_modifier = { modifier = MAD_STATE_FAMINE } } }
+			267 = { set_variable = { MAD_state_drought = 0 } set_variable = { MAD_state_famine = 0 } set_variable = { MAD_state_drought_tier = 0 } set_variable = { MAD_state_relief_months = 0 } MAD_drought_state_clear_tiers = yes if = { limit = { has_dynamic_modifier = { modifier = MAD_STATE_FAMINE } } remove_dynamic_modifier = { modifier = MAD_STATE_FAMINE } } }
+			268 = { set_variable = { MAD_state_drought = 0 } set_variable = { MAD_state_famine = 0 } set_variable = { MAD_state_drought_tier = 0 } set_variable = { MAD_state_relief_months = 0 } MAD_drought_state_clear_tiers = yes if = { limit = { has_dynamic_modifier = { modifier = MAD_STATE_FAMINE } } remove_dynamic_modifier = { modifier = MAD_STATE_FAMINE } } }
+			487 = { set_variable = { MAD_state_drought = 0 } set_variable = { MAD_state_famine = 0 } set_variable = { MAD_state_drought_tier = 0 } set_variable = { MAD_state_relief_months = 0 } MAD_drought_state_clear_tiers = yes if = { limit = { has_dynamic_modifier = { modifier = MAD_STATE_FAMINE } } remove_dynamic_modifier = { modifier = MAD_STATE_FAMINE } } }
+			if = {
+				limit = { has_idea = MAD_DROUGHT_EVACUATIONS }
+				remove_ideas = MAD_DROUGHT_EVACUATIONS
+			}
+			MAD_drought_sync_display = yes
+			country_event = { id = mad_drought.20 }
 	}
-	MAD_drought_sync_display = yes
-	country_event = { id = mad_drought.20 }
 }
 
 # Historical droughts (dates are when the real ones hit) and a little chance every month.
@@ -2382,7 +2384,7 @@ MAD_drought_scheduled_events = {
 # MAD_drought_state_init below marks two groups of states by flag. Everything else reads the flags, so you never
 # have to hunt state IDs through the rest of the mod:
 #
-#   MAD_GRAND_SUD_STATE  - the drought south. Exposure 1.35 and starts 10 points worse. Currently: 268 (Toliara).
+#   MAD_GRAND_SUD_STATE  - the Grand Sud: state 268 (Toliara), starting drought value 45.
 #   MAD_REFUGE_STATE     - where people go when the south empties: 267 (Antananarivo) and 487 (Toamasina).
 #
 # The four Madagascar states, taken from the railway comment in MAD_decisions.txt:
@@ -2393,9 +2395,9 @@ MAD_drought_state_init = {
 	clear_array = MAD_drought_states
 
 	# ONLY these four states belong to the drought model/readout.
-	# The national average is calculated from the same four states.
+	# Starting values are fixed at 19 / 15 / 45 / 15 (266 / 267 / 268 / 487), so the national average is 23.5 immediately.
 	266 = {
-		set_variable = { MAD_state_drought = ROOT.MAD_drought_severity }
+		set_variable = { MAD_state_drought = 19 }
 		set_variable = { MAD_state_famine = 0 }
 		set_variable = { MAD_state_drought_exposure = 1.05 }
 		set_variable = { MAD_state_drought_tier = 0 }
@@ -2405,10 +2407,9 @@ MAD_drought_state_init = {
 		clr_state_flag = MAD_GRAND_SUD_STATE
 		clr_state_flag = MAD_REFUGE_STATE
 		add_to_array = { array = ROOT.MAD_drought_states value = THIS }
-		add_to_variable = { MAD_state_drought = 4 }
 	}
 	267 = {
-		set_variable = { MAD_state_drought = ROOT.MAD_drought_severity }
+		set_variable = { MAD_state_drought = 15 }
 		set_variable = { MAD_state_famine = 0 }
 		set_variable = { MAD_state_drought_exposure = 0.85 }
 		set_variable = { MAD_state_drought_tier = 0 }
@@ -2420,7 +2421,7 @@ MAD_drought_state_init = {
 		add_to_array = { array = ROOT.MAD_drought_states value = THIS }
 	}
 	268 = {
-		set_variable = { MAD_state_drought = ROOT.MAD_drought_severity }
+		set_variable = { MAD_state_drought = 45 }
 		set_variable = { MAD_state_famine = 0 }
 		set_variable = { MAD_state_drought_exposure = 1.35 }
 		set_variable = { MAD_state_drought_tier = 0 }
@@ -2430,10 +2431,9 @@ MAD_drought_state_init = {
 		set_state_flag = MAD_GRAND_SUD_STATE
 		clr_state_flag = MAD_REFUGE_STATE
 		add_to_array = { array = ROOT.MAD_drought_states value = THIS }
-		add_to_variable = { MAD_state_drought = 30 }
 	}
 	487 = {
-		set_variable = { MAD_state_drought = ROOT.MAD_drought_severity }
+		set_variable = { MAD_state_drought = 15 }
 		set_variable = { MAD_state_famine = 0 }
 		set_variable = { MAD_state_drought_exposure = 0.85 }
 		set_variable = { MAD_state_drought_tier = 0 }
@@ -2674,7 +2674,7 @@ MAD_drought_states_update_tiers = {
 # THE PER-STATE MONTHLY STEP (called from MAD_drought_monthly_tick)
 ########################################################################
 # Famine follows the drought with a lag: above 45 the meter rises, below 45 it recovers.
-# Wells (MAD_STATE_WELLS) reduce positive famine growth while drought remains above 45.
+# Wells (MAD_STATE_WELLS) reduce famine growth above 45 and accelerate recovery below 45.
 
 MAD_drought_state_monthly_one = {
 	if = {
@@ -2695,6 +2695,13 @@ MAD_drought_state_monthly_one = {
 			check_variable = { MAD_fam_t > 0 }
 		}
 		multiply_temp_variable = { MAD_fam_t = 0.6 }
+	}
+	if = {
+		limit = {
+			has_state_flag = MAD_STATE_WELLS
+			check_variable = { MAD_fam_t < 0 }
+		}
+		multiply_temp_variable = { MAD_fam_t = 1.4 }
 	}
 	add_to_variable = { MAD_state_famine = MAD_fam_t }
 	clamp_variable = { var = MAD_state_famine min = 0 max = 100 }
