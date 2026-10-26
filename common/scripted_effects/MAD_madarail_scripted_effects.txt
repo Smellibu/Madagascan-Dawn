@@ -275,12 +275,36 @@ MAD_daewoo_break_effects = {
 			add_to_variable = { MAD_agri_productivity = -0.05 }
 			add_to_variable = { MAD_agri_income_tax = -0.02 }
 
+			# The initial deal adds one district in state 268. Keeping the lease
+			# adds another in 268 and one in 266. When the kept lease collapses,
+			# remove both state-268 levels and the state-266 level.
 			268 = {
 				if = {
-					limit = { agriculture_district > 0 }
+					limit = { agriculture_district > 1 }
 					remove_building = {
 						type = agriculture_district
-						level = 1
+						level = 2
+					}
+				}
+				else = {
+					if = {
+						limit = { agriculture_district > 0 }
+						remove_building = {
+							type = agriculture_district
+							level = 1
+						}
+					}
+				}
+			}
+			if = {
+				limit = { has_completed_focus = MAD_DEAL_KEPT }
+				266 = {
+					if = {
+						limit = { agriculture_district > 0 }
+						remove_building = {
+							type = agriculture_district
+							level = 1
+						}
 					}
 				}
 			}
@@ -3204,7 +3228,7 @@ MAD_dahalo_resolve_tandroka = {
 	else = {
 		set_country_flag = MAD_DAHALO_TANDROKA_CONTESTED
 		add_to_variable = { MAD_dahalo_threat = -6 tooltip = MAD_DAHALO_THREAT_MINUS_6_TT }
-		set_temp_variable = { MAD_rc_delta = -16 }
+		set_temp_variable = { MAD_rc_delta = -10 }
 		MAD_dahalo_campaign_apply_failure_rc = yes
 		add_stability = -0.02
 	}
