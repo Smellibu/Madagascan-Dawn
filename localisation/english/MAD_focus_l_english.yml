@@ -775,10 +775,10 @@
  MAD_DROUGHT_LOCAL_WELLS: "Sink Wells in [FROM.GetName]"
  MAD_DROUGHT_LOCAL_WELLS_desc: "Boreholes and solar pumps, so the water is already here and does not have to be driven in.\n\nTakes §Y90 days§!. Then §G-10§! drought, this state takes §G15%§! less from every shock, hunger builds §G40%§! more slowly. §YOnce per state.§!\n\n§RThe water table can still drop.§!\n\nCooperation changes the immediate local drought relief: below 35, reductions are 50% weaker; 35-59.99, 20% weaker; 60-79.99, unchanged; 80+, 20% stronger."
  MAD_DROUGHT_LOCAL_LOCUST_SPRAY: "Spray [FROM.GetName]"
- MAD_DROUGHT_LOCAL_LOCUST_SPRAY_desc: "Put the aircraft and the ground teams over this state.\n\n§G-7§! drought and §G-8§! hunger in §Y[FROM.GetName]§! only. Repeatable every 180 days.\n\nRequires the §YLocust Invasion Response§! focus. With §YBiopesticides§! it does no harm to the farmland; without them it poisons what it lands on.\n\nCooperation changes the helpful drought/famine relief: below 35, reductions are 50% weaker; 35-59.99, 20% weaker; 60-79.99, unchanged; 80+, 20% stronger. Dahalo supply interference still applies."
+ MAD_DROUGHT_LOCAL_LOCUST_SPRAY_desc: "Put the aircraft and ground teams over this state.\n\n§G-7§! drought and §G-8§! hunger in §Y[FROM.GetName]§! only. Repeatable every 180 days.\n\nRequires §YLocust Invasion Response§!. With §YBiopesticides§!, Rural Cooperation increases by §G+0.5§!. Without them, conventional spraying costs §R−2§! Rural Cooperation and §R−1%§! Stability.\n\nRural Cooperation affects relief: below 35, reductions are 50% weaker; 35-59.99, 20% weaker; 60-79.99, unchanged; 80+, 20% stronger. Dahalo supply interference still applies."
  MAD_drought_local_wells_tt: "In §Y90 days§!: §G-10§! drought here, §G-15%§! exposure to future shocks, and hunger builds more slowly"
- MAD_drought_spray_clean_tt: "§GMetarhizium§! kills the locusts and nothing else: the zebu, the bees and the paddies are untouched"
- MAD_drought_spray_dirty_tt: "§ROrganophosphate§!: it works, but it takes the bees and the fish with it. Stability §R-1%§!"
+ MAD_drought_spray_clean_tt: "Biopesticide spraying avoids the Stability penalty and increases Rural Cooperation by §G+0.5§!."
+ MAD_drought_spray_dirty_tt: "Conventional spraying: Stability §R−1%§! and Rural Cooperation §R−2§!."
  # --- state tiers ---
  MAD_state_drought_tier_0: "§Gwatered§!"
  MAD_state_drought_tier_1: "§Ythe rains are late§!"
@@ -821,10 +821,6 @@
  MAD_preventative_measures_desc: "Put the CNA onto a permanent budget with standing staff, aircraft and surveys."
  MAD_drought_unlock_spray_tt: "Unlocks the per-state decision: §YSpray§!"
  MAD_drought_unlock_wells_tt: "Unlocks the per-state decision: §YSink Wells§!"
- MAD_cna_path_founded: "The §YCNA§! exists again."
- MAD_cna_path_survey: "The §YCNA§! surveys and sprays on the FAO pattern."
- MAD_cna_path_harvest: "The §YCNA§! harvests the swarms it cannot stop."
- MAD_cna_path_permanent: "The §YCNA§! is funded out of the budget, permanently."
  # ================================================================
  # NEW TOOLTIPS AND GATES
  # ================================================================
