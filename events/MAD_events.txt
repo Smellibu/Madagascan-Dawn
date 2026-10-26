@@ -585,8 +585,8 @@ country_event = {
 
 ########################################################################
 # Madagascar drought and famine events
-# Historical drought events add state severity/famine and update the drought/exodus meters.
-# Population transfers are handled only by the monthly displacement mechanic.
+# Historical drought events affect drought and famine conditions.
+# Population transfers are calculated only by the monthly mechanism from current state severity.
 ########################################################################
 
 # events/MAD_drought_events.txt
@@ -928,141 +928,6 @@ country_event = {
 country_event = {
 	id = mad_drought.23
 	title = mad_drought.displacement.t
-	desc = {
-		text = mad_drought.23.d_266
-		trigger = {
-			check_variable = { MAD_drought_transfer_gross_266 > 0.5 }
-			NOT = { check_variable = { MAD_drought_transfer_gross_267 > 0.5 } }
-			NOT = { check_variable = { MAD_drought_transfer_gross_268 > 0.5 } }
-			NOT = { check_variable = { MAD_drought_transfer_gross_487 > 0.5 } }
-		}
-	}
-	desc = {
-		text = mad_drought.23.d_267
-		trigger = {
-			NOT = { check_variable = { MAD_drought_transfer_gross_266 > 0.5 } }
-			check_variable = { MAD_drought_transfer_gross_267 > 0.5 }
-			NOT = { check_variable = { MAD_drought_transfer_gross_268 > 0.5 } }
-			NOT = { check_variable = { MAD_drought_transfer_gross_487 > 0.5 } }
-		}
-	}
-	desc = {
-		text = mad_drought.23.d_266_267
-		trigger = {
-			check_variable = { MAD_drought_transfer_gross_266 > 0.5 }
-			check_variable = { MAD_drought_transfer_gross_267 > 0.5 }
-			NOT = { check_variable = { MAD_drought_transfer_gross_268 > 0.5 } }
-			NOT = { check_variable = { MAD_drought_transfer_gross_487 > 0.5 } }
-		}
-	}
-	desc = {
-		text = mad_drought.23.d_268
-		trigger = {
-			NOT = { check_variable = { MAD_drought_transfer_gross_266 > 0.5 } }
-			NOT = { check_variable = { MAD_drought_transfer_gross_267 > 0.5 } }
-			check_variable = { MAD_drought_transfer_gross_268 > 0.5 }
-			NOT = { check_variable = { MAD_drought_transfer_gross_487 > 0.5 } }
-		}
-	}
-	desc = {
-		text = mad_drought.23.d_266_268
-		trigger = {
-			check_variable = { MAD_drought_transfer_gross_266 > 0.5 }
-			NOT = { check_variable = { MAD_drought_transfer_gross_267 > 0.5 } }
-			check_variable = { MAD_drought_transfer_gross_268 > 0.5 }
-			NOT = { check_variable = { MAD_drought_transfer_gross_487 > 0.5 } }
-		}
-	}
-	desc = {
-		text = mad_drought.23.d_267_268
-		trigger = {
-			NOT = { check_variable = { MAD_drought_transfer_gross_266 > 0.5 } }
-			check_variable = { MAD_drought_transfer_gross_267 > 0.5 }
-			check_variable = { MAD_drought_transfer_gross_268 > 0.5 }
-			NOT = { check_variable = { MAD_drought_transfer_gross_487 > 0.5 } }
-		}
-	}
-	desc = {
-		text = mad_drought.23.d_266_267_268
-		trigger = {
-			check_variable = { MAD_drought_transfer_gross_266 > 0.5 }
-			check_variable = { MAD_drought_transfer_gross_267 > 0.5 }
-			check_variable = { MAD_drought_transfer_gross_268 > 0.5 }
-			NOT = { check_variable = { MAD_drought_transfer_gross_487 > 0.5 } }
-		}
-	}
-	desc = {
-		text = mad_drought.23.d_487
-		trigger = {
-			NOT = { check_variable = { MAD_drought_transfer_gross_266 > 0.5 } }
-			NOT = { check_variable = { MAD_drought_transfer_gross_267 > 0.5 } }
-			NOT = { check_variable = { MAD_drought_transfer_gross_268 > 0.5 } }
-			check_variable = { MAD_drought_transfer_gross_487 > 0.5 }
-		}
-	}
-	desc = {
-		text = mad_drought.23.d_266_487
-		trigger = {
-			check_variable = { MAD_drought_transfer_gross_266 > 0.5 }
-			NOT = { check_variable = { MAD_drought_transfer_gross_267 > 0.5 } }
-			NOT = { check_variable = { MAD_drought_transfer_gross_268 > 0.5 } }
-			check_variable = { MAD_drought_transfer_gross_487 > 0.5 }
-		}
-	}
-	desc = {
-		text = mad_drought.23.d_267_487
-		trigger = {
-			NOT = { check_variable = { MAD_drought_transfer_gross_266 > 0.5 } }
-			check_variable = { MAD_drought_transfer_gross_267 > 0.5 }
-			NOT = { check_variable = { MAD_drought_transfer_gross_268 > 0.5 } }
-			check_variable = { MAD_drought_transfer_gross_487 > 0.5 }
-		}
-	}
-	desc = {
-		text = mad_drought.23.d_266_267_487
-		trigger = {
-			check_variable = { MAD_drought_transfer_gross_266 > 0.5 }
-			check_variable = { MAD_drought_transfer_gross_267 > 0.5 }
-			NOT = { check_variable = { MAD_drought_transfer_gross_268 > 0.5 } }
-			check_variable = { MAD_drought_transfer_gross_487 > 0.5 }
-		}
-	}
-	desc = {
-		text = mad_drought.23.d_268_487
-		trigger = {
-			NOT = { check_variable = { MAD_drought_transfer_gross_266 > 0.5 } }
-			NOT = { check_variable = { MAD_drought_transfer_gross_267 > 0.5 } }
-			check_variable = { MAD_drought_transfer_gross_268 > 0.5 }
-			check_variable = { MAD_drought_transfer_gross_487 > 0.5 }
-		}
-	}
-	desc = {
-		text = mad_drought.23.d_266_268_487
-		trigger = {
-			check_variable = { MAD_drought_transfer_gross_266 > 0.5 }
-			NOT = { check_variable = { MAD_drought_transfer_gross_267 > 0.5 } }
-			check_variable = { MAD_drought_transfer_gross_268 > 0.5 }
-			check_variable = { MAD_drought_transfer_gross_487 > 0.5 }
-		}
-	}
-	desc = {
-		text = mad_drought.23.d_267_268_487
-		trigger = {
-			NOT = { check_variable = { MAD_drought_transfer_gross_266 > 0.5 } }
-			check_variable = { MAD_drought_transfer_gross_267 > 0.5 }
-			check_variable = { MAD_drought_transfer_gross_268 > 0.5 }
-			check_variable = { MAD_drought_transfer_gross_487 > 0.5 }
-		}
-	}
-	desc = {
-		text = mad_drought.23.d_266_267_268_487
-		trigger = {
-			check_variable = { MAD_drought_transfer_gross_266 > 0.5 }
-			check_variable = { MAD_drought_transfer_gross_267 > 0.5 }
-			check_variable = { MAD_drought_transfer_gross_268 > 0.5 }
-			check_variable = { MAD_drought_transfer_gross_487 > 0.5 }
-		}
-	}
 	desc = mad_drought.23.d_default
 	picture = GFX_report_event_economy_default
 	is_triggered_only = yes
