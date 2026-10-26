@@ -30,6 +30,7 @@ v2.0.2
 
 ### Bugfix
 
+- [MAD] Final Push now completes drought cleanup immediately at zero severity, starting drought values match the four-state average, and wells speed famine recovery.
 - Fixed policy rate adjustments, and updated reserve-debt tracking (Issue #5190)
 - Standardized USA and Singapore influence call layout without changing effects. (Issue #5226)
 - Fixed faction opinion changes that did nothing or skipped the opinion limits in Myanmar, Cuba, India and UK focuses, restored the battery park from two Singapore reclamation focuses, and fixed broken influence changes in a Syrian focus and two Israeli events (Issue #5124)
