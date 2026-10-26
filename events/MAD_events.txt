@@ -3375,11 +3375,13 @@ country_event = {
 		# Hery becomes the country leader as the generic party becomes HVM.
 		create_country_leader = {
 			name = "Hery Rajaonarimampianina"
+			picture = "Hery_Rajaonarimampianina.dds"
 			expire = "2050.1.1"
 			ideology = conservatism
 			traits = {
-				career_politician
-			}
+	western_conservatism
+	career_politician
+}
 		}
 		set_temp_variable = { party_index = 20 }
 		set_temp_variable = { party_popularity_increase = -0.05 }
@@ -3459,8 +3461,8 @@ country_event = {
 			hidden_effect = { kill_country_leader = yes }
 			create_country_leader = {
 				name = "Noël Rakotonandrasana"
-				ideology = despotism
-				traits = { military_career }
+				ideology = Nat_Autocracy
+				traits = { nationalist_Nat_Autocracy military_career }
 				expire = "2099.1.1"
 			}
 		}
@@ -3522,8 +3524,8 @@ country_event = {
 			hidden_effect = { kill_country_leader = yes }
 			create_country_leader = {
 				name = "Edmond Rasolomahandry"
-				ideology = despotism
-				traits = { military_career }
+				ideology = Nat_Autocracy
+				traits = { nationalist_Nat_Autocracy military_career }
 				expire = "2099.1.1"
 			}
 		}
@@ -3617,8 +3619,8 @@ country_event = {
 		hidden_effect = { kill_country_leader = yes }
 		create_country_leader = {
 			name = "Noël Rakotonandrasana"
-			ideology = despotism
-			traits = { military_career }
+			ideology = Nat_Autocracy
+			traits = { nationalist_Nat_Autocracy military_career }
 			expire = "2099.1.1"
 		}
 		set_country_flag = MAD_MILITARY_RULE_PATH
