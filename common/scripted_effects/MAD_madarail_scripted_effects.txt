@@ -2367,10 +2367,6 @@ MAD_drought_scheduled_events = {
 }
 
 ########################################################################
-# RESETTLEMENT
-########################################################################
-
-########################################################################
 # THE DROUGHT MAP - one drought number and one famine number per STATE
 ########################################################################
 #
@@ -2379,7 +2375,7 @@ MAD_drought_scheduled_events = {
 #
 #   MAD_state_drought           0-100, per state. The map decisions show it and colour the state.
 #   MAD_state_famine            0-100, per state. Follows the drought with a lag; fed by food, not by water.
-#   MAD_state_drought_exposure  how hard a countrywide shock lands here. 1.35 in the Grand Sud, 0.85 elsewhere.
+#   MAD_state_drought_exposure  shock multiplier: 1.35 in Grand Sud (268), 1.05 in Mahajanga (266), 0.85 in Antananarivo (267) and Toamasina (487).
 #   MAD_drought_states          array of the states, used as target_array by the map decisions.
 #
 # ===================== THE ONLY PLACE YOU NEED TO EDIT FOR STATE IDs =====================
@@ -2677,8 +2673,8 @@ MAD_drought_states_update_tiers = {
 ########################################################################
 # THE PER-STATE MONTHLY STEP (called from MAD_drought_monthly_tick)
 ########################################################################
-# Famine follows the drought with a lag: above 45 people start going hungry, below 45 they recover.
-# A state that has had wells sunk (MAD_STATE_WELLS) recovers faster; one cut off from the network suffers more.
+# Famine follows the drought with a lag: above 45 the meter rises, below 45 it recovers.
+# Wells (MAD_STATE_WELLS) reduce positive famine growth while drought remains above 45.
 
 MAD_drought_state_monthly_one = {
 	if = {
