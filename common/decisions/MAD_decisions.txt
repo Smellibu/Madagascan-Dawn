@@ -1901,6 +1901,10 @@ MAD_drought_category = {
 			modify_treasury_effect = yes
 			set_temp_variable = { MAD_dr_change = -25 }
 			MAD_drought_apply_change = yes
+			if = {
+				limit = { check_variable = { MAD_drought_severity < 0.001 } }
+				MAD_drought_finish = yes
+			}
 			set_temp_variable = { MAD_rc_delta = 2 }
 			MAD_rural_cooperation_adjust = yes
 
