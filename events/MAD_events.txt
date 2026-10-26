@@ -596,26 +596,6 @@ add_namespace = mad_drought
 # .12-.19 scheduled drought/food-crisis events, .20 drought over, .22 contained
 
 country_event = {
-	id = mad_drought.1
-	title = mad_drought.1.t
-	hidden = yes
-	is_triggered_only = yes
-
-	immediate = {
-		if = {
-			limit = { NOT = { has_country_flag = MAD_DROUGHT_STARTED } }
-			log = "[GetDateText]: [Root.GetName]: mad_drought.1 - the drought panel starts"
-			MAD_drought_init = yes
-			country_event = { id = mad_drought.2 days = 30 }
-		}
-	}
-
-	option = {
-		name = mad_drought.1.a
-	}
-}
-
-country_event = {
 	id = mad_drought.2
 	title = mad_drought.2.t
 	hidden = yes
