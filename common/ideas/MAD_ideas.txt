@@ -4,7 +4,7 @@
 
 ideas = {
 	country = {
-		
+
 		MAD_FIBRE_MONOPOLY = {
 			name = "TelMa consortium network monopoly"
 			picture = GFX_idea
@@ -56,7 +56,7 @@ ideas = {
 			}
 			ai_will_do = { factor = 1 }
 		}
- 
+
 		MAD_FIBRE_MONOPOLY_ENTRENCHED = {
 			name = "Entrenched Network Monopoly"
 			picture = GFX_idea
@@ -73,7 +73,7 @@ ideas = {
 			}
 			ai_will_do = { factor = 1 }
 		}
- 
+
 		MAD_NETWORK_COMPETITION = {
 			name = "Open Network Competition"
 			picture = GFX_idea
@@ -117,7 +117,7 @@ ideas = {
 			}
 			ai_will_do = { factor = 1 }
 		}
-		 
+
 		MAD_MARITIME_DOMAIN_AWARENESS = {
 			name = "Maritime Domain Awareness"
 			picture = GFX_idea
@@ -131,7 +131,7 @@ ideas = {
 			}
 			ai_will_do = { factor = 1 }
 		}
-		 
+
 		MAD_NATIONAL_C2_BACKBONE_IDEA = {
 			name = "National C2 Backbone"
 			picture = GFX_idea
@@ -140,13 +140,12 @@ ideas = {
 			removal_cost = -1
 			allowed = { original_tag = MAD }
 			modifier = {
-				recon_factor = 0.08	
+				recon_factor = 0.08
 				army_morale_factor = 0.12
 				army_org_factor = 0.08
 			}
 			ai_will_do = { factor = 1 }
 		}
-
 
 		MAD_FAILING_AIRLINE = {
 			name = "Struggling state airline"
@@ -198,7 +197,6 @@ ideas = {
 			productivity_growth_modifier = 0.15
 			foreign_influence_defense_modifier = -0.10
 			receiving_investment_cost_modifier = -0.05
-
 
 			}
 			ai_will_do = { factor = 1 }
@@ -254,24 +252,23 @@ ideas = {
 			}
 			ai_will_do = { factor = 1 }
 		}
-		
-		
+
 				# ------------------------------------------------------------------
 		# State-era operators: granted by event mad_madarail.1 (fired from MAD_MADARAIL_STATE_TAKEOVER).
 		# AUSTERE = nationalised for nothing, run on a shoestring.  FUNDED = debts paid off, properly recapitalised.
 		# Rail output is now a regular idea modifier (shows on the idea itself).
 		# The MD economy modifiers (tax, welfare) still go through MAD_economy_modifier.
 		# ------------------------------------------------------------------
- 
+
 		MAD_MADARAIL_OPERATOR_STATE_AUSTERE = {
 			picture = GFX_idea_generic
 			allowed = { tag = MAD }
 			removal_cost = -1
- 
+
 			modifier = {
 				production_speed_rail_way_factor = 0.1
 			}
- 
+
 			on_add = {
 				custom_effect_tooltip = {
 					localization_key = modifies_dynamic_modifier_tt
@@ -287,17 +284,17 @@ ideas = {
 				add_to_variable = { MAD_economy_infrastructure_tax_gain_multiplier_modifier = -0.05 tooltip = infrastructure_tax_gain_multiplier_modifier_tt }
 			}
 		}
- 
+
 		MAD_MADARAIL_OPERATOR_STATE_FUNDED = {
 			picture = GFX_idea_generic
 			allowed = { tag = MAD }
 			removal_cost = -1
- 
+
 			modifier = {
 				production_speed_rail_way_factor = 0.18
 				production_speed_rail_terminal_factor = 0.05
 			}
- 
+
 			on_add = {
 				custom_effect_tooltip = {
 					localization_key = modifies_dynamic_modifier_tt
@@ -315,24 +312,24 @@ ideas = {
 				add_to_variable = { MAD_economy_expected_welfare_modifier = -0.25 tooltip = expected_welfare_modifier_tt }
 			}
 		}
- 
+
 		# ------------------------------------------------------------------
 		# The investors' exit. Added the moment the investors desist (player decision or the third suitor running out of time).
 		# State takeover swaps it for AFTERMATH; MAD_RAIL_FCE_REHAB removes that.
 		# ------------------------------------------------------------------
- 
+
 		MAD_MADARAIL_INVESTOR_EXODUS = {
 			picture = GFX_idea_generic
 			allowed = { tag = MAD }
 			removal_cost = -1
- 
+
 			modifier = {
 				stability_factor = -0.08
 				political_power_factor = -0.1
 				production_speed_rail_way_factor = -0.15
 				production_speed_rail_terminal_factor = -0.1
 			}
- 
+
 			on_add = {
 				custom_effect_tooltip = {
 					localization_key = modifies_dynamic_modifier_tt
@@ -350,16 +347,16 @@ ideas = {
 				add_to_variable = { MAD_economy_receiving_investment_cost_modifier = -0.06 tooltip = receiving_investment_cost_modifier_tt }
 			}
 		}
- 
+
 		MAD_MADARAIL_EXODUS_AFTERMATH = {
 			picture = GFX_idea_generic
 			allowed = { tag = MAD }
 			removal_cost = -1
- 
+
 			modifier = {
 				production_speed_rail_way_factor = -0.05
 			}
- 
+
 			on_add = {
 				custom_effect_tooltip = {
 					localization_key = modifies_dynamic_modifier_tt
@@ -382,12 +379,12 @@ ideas = {
 		#   < 30 TOXIC    30-59 TROUBLED    60+ SOUND
 		# The qualifier decisions raise viability, which walks the deal from TOXIC (massive corruption) to SOUND.
 		# ------------------------------------------------------------------
- 
+
 		MAD_DAEWOO_LEASE_TOXIC = {
 			picture = GFX_idea_generic
 			allowed = { tag = MAD }
 			removal_cost = -1
- 
+
 			modifier = {
 				corruption_cost_factor = 0.3
 				stability_factor = -0.06
@@ -395,12 +392,12 @@ ideas = {
 				tax_gain_multiplier_modifier = -0.05
 			}
 		}
- 
+
 		MAD_DAEWOO_LEASE_TROUBLED = {
 			picture = GFX_idea_generic
 			allowed = { tag = MAD }
 			removal_cost = -1
- 
+
 			modifier = {
 				corruption_cost_factor = 0.15
 				stability_factor = -0.03
@@ -408,17 +405,17 @@ ideas = {
 				tax_gain_multiplier_modifier = -0.02
 			}
 		}
- 
+
 		MAD_DAEWOO_LEASE_SOUND = {
 			picture = GFX_idea_generic
 			allowed = { tag = MAD }
 			removal_cost = -1
- 
+
 			modifier = {
 				corruption_cost_factor = 0.04
 				foreign_influence_defense_modifier = -0.06
 			}
- 
+
 			on_add = {
 				custom_effect_tooltip = {
 					localization_key = modifies_dynamic_modifier_tt
@@ -440,19 +437,18 @@ ideas = {
 
 			}
 		}
- 
+
 		# Timed scar if the lease is cancelled: investors think twice about Madagascar for a couple of years.
 		MAD_DAEWOO_CANCELLED = {
 			picture = GFX_idea_generic
 			allowed = { tag = MAD }
 			removal_cost = -1
- 
+
 			modifier = {
 				receiving_investment_cost_modifier = 0.50
 				receiving_investment_duration_modifier = 0.50
 			}
 		}
-
 
 		# ------------------------------------------------------------------
 		# Drought and famine panel (common/ideas/MAD_drought_ideas.txt)
@@ -557,7 +553,6 @@ ideas = {
 			}
 		}
 
-
 		# ============================================================
 		# THE CNA AND THE LOCUSTS
 		# ============================================================
@@ -601,9 +596,7 @@ ideas = {
 				corruption_cost_factor = -0.10
 			}
 		}
-		
-		
-				
+
 		MAD_AUSTRAL_AIRLINE = {
 			name = "Pending Air Austral partnership"
 			picture = GFX_idea
@@ -684,7 +677,7 @@ ideas = {
 			}
 			ai_will_do = { factor = 1 }
 		}
-		
+
 		MAD_DAHALO_DEFEATED = {
 			picture = GFX_idea_generic_political_pressure
 
@@ -706,251 +699,251 @@ ideas = {
 			}
 		}
 		MAD_POL_ROYAL_CONSTITUTION = {
-            picture = GFX_idea_generic_political_pressure
-            allowed = { original_tag = MAD }
-            removal_cost = -1
-            modifier = {
-                stability_factor = 0.05
-                political_power_gain = 0.25
-                nationalist_drift = 0.03
-            }
-        
-		 	# Tracks the current earned version of this party idea.
-		 	on_add = {
-		 		set_country_flag = MAD_PI_EARNED_MAD_POL_ROYAL_CONSTITUTION
-		 		set_country_flag = MAD_PI_ACTIVE_MAD_POL_ROYAL_CONSTITUTION
-		 	}
-		 	on_remove = {
-		 		if = {
-		 			limit = { has_country_flag = MAD_PI_ACTIVE_MAD_POL_ROYAL_CONSTITUTION NOT = { has_country_flag = MAD_PI_SYNC_IN_PROGRESS } }
-		 			clr_country_flag = MAD_PI_EARNED_MAD_POL_ROYAL_CONSTITUTION
-		 		}
-		 		clr_country_flag = MAD_PI_ACTIVE_MAD_POL_ROYAL_CONSTITUTION
-		 	}
-		 }
-        MAD_POL_ROYAL_GOVERNMENT = {
-            picture = GFX_idea_generic_political_pressure
-            allowed = { original_tag = MAD }
-            removal_cost = -1
-            modifier = {
-                political_power_gain = 0.10
-                productivity_growth_modifier = 0.10
-                corruption_cost_factor = 0.10
-            }
-        
-        	# Tracks the current earned version of this party idea.
-        	on_add = {
-        		set_country_flag = MAD_PI_EARNED_MAD_POL_ROYAL_GOVERNMENT
-        		set_country_flag = MAD_PI_ACTIVE_MAD_POL_ROYAL_GOVERNMENT
-        	}
-        	on_remove = {
-        		if = {
-        			limit = { has_country_flag = MAD_PI_ACTIVE_MAD_POL_ROYAL_GOVERNMENT NOT = { has_country_flag = MAD_PI_SYNC_IN_PROGRESS } }
-        			clr_country_flag = MAD_PI_EARNED_MAD_POL_ROYAL_GOVERNMENT
-        		}
-        		clr_country_flag = MAD_PI_ACTIVE_MAD_POL_ROYAL_GOVERNMENT
-        	}
-        }
-        # These are neutral constitutional ideas, separate from the party-synchronised
-        # Royalist political programme above. They persist across changes of government.
-        # Focus-granted recruitment modifiers must live in an idea modifier block, not as a focus effect.
-        MAD_REMENABILA_GATHER_DAHALO_POPULATION_IDEA = {
-            name = MAD_REMENABILA_GATHER_DAHALO_POPULATION_IDEA
-            picture = GFX_idea_generic_political_pressure
-            allowed = { original_tag = MAD }
-            removal_cost = -1
-            modifier = { recruitable_population = 0.01 }
-        }
-        MAD_REMENABILA_MORE_COWS_POPULATION_IDEA = {
-            name = MAD_REMENABILA_MORE_COWS_POPULATION_IDEA
-            picture = GFX_idea_generic_political_pressure
-            allowed = { original_tag = MAD }
-            removal_cost = -1
-            modifier = { recruitable_population = 0.03 }
-        }
+			picture = GFX_idea_generic_political_pressure
+			allowed = { original_tag = MAD }
+			removal_cost = -1
+			modifier = {
+				stability_factor = 0.05
+				political_power_gain = 0.25
+				nationalist_drift = 0.03
+			}
 
-        MAD_RURAL_LOCAL_DEVELOPMENT_BOOST = {
-            name = MAD_RURAL_LOCAL_DEVELOPMENT_BOOST
-            picture = GFX_idea_generic_infrastructure
-            allowed = { original_tag = MAD }
-            removal_cost = -1
-            modifier = {
-                production_speed_infrastructure_factor = 0.15
-            }
-        }
+			# Tracks the current earned version of this party idea.
+			on_add = {
+				set_country_flag = MAD_PI_EARNED_MAD_POL_ROYAL_CONSTITUTION
+				set_country_flag = MAD_PI_ACTIVE_MAD_POL_ROYAL_CONSTITUTION
+			}
+			on_remove = {
+				if = {
+					limit = { has_country_flag = MAD_PI_ACTIVE_MAD_POL_ROYAL_CONSTITUTION NOT = { has_country_flag = MAD_PI_SYNC_IN_PROGRESS } }
+					clr_country_flag = MAD_PI_EARNED_MAD_POL_ROYAL_CONSTITUTION
+				}
+				clr_country_flag = MAD_PI_ACTIVE_MAD_POL_ROYAL_CONSTITUTION
+			}
+		}
+		MAD_POL_ROYAL_GOVERNMENT = {
+			picture = GFX_idea_generic_political_pressure
+			allowed = { original_tag = MAD }
+			removal_cost = -1
+			modifier = {
+				political_power_gain = 0.10
+				productivity_growth_modifier = 0.10
+				corruption_cost_factor = 0.10
+			}
 
-        MAD_POL_SECULAR_GOVERNMENT = {
-            name = MAD_POL_SECULAR_GOVERNMENT
-            picture = GFX_idea_generic_political_pressure
-            allowed = { original_tag = MAD }
-            removal_cost = -1
-            modifier = {
-                # Millennium Dawn internal-faction modifier: persistent monthly drift.
-                if_the_clergy_monthly_opinion = -0.5
-                bureaucracy_cost_multiplier_modifier = -0.05
-                education_cost_multiplier_modifier = -0.05
-                corruption_cost_factor = -0.10
-                custom_modifier_tooltip = MAD_POL_SECULAR_GOVERNMENT_RC_MONTHLY_TT
-            }
-        }
-        MAD_POL_UNSECULAR_GOVERNMENT = {
-            name = MAD_POL_UNSECULAR_GOVERNMENT
-            picture = GFX_idea_generic_political_pressure
-            allowed = { original_tag = MAD }
-            removal_cost = -1
-            modifier = {
-                # Millennium Dawn internal-faction modifier: persistent monthly drift.
-                if_the_clergy_monthly_opinion = 0.5
-                corruption_cost_factor = 0.15
-                education_cost_multiplier_modifier = 0.10
-                stability_factor = -0.03
-                custom_modifier_tooltip = MAD_POL_UNSECULAR_GOVERNMENT_RC_MONTHLY_TT
-            }
-        }
-        MAD_POL_ANDRIANA_HERITAGE_RECOGNISED = {
-            name = MAD_POL_ANDRIANA_HERITAGE_RECOGNISED
-            picture = GFX_idea_generic_political_pressure
-            allowed = { original_tag = MAD }
-            removal_cost = -1
-            modifier = {
-                nationalist_drift = 0.03
-                bureaucracy_cost_multiplier_modifier = 0.05
-                corruption_cost_factor = 0.15
-                custom_modifier_tooltip = MAD_ANDRIANA_HERITAGE_RC_MONTHLY_TT
-            }
-        }
-        MAD_POL_ANDRIANA_NON_RECOGNITION = {
-            name = MAD_POL_ANDRIANA_NON_RECOGNITION
-            picture = GFX_idea_generic_political_pressure
-            allowed = { original_tag = MAD }
-            removal_cost = -1
-            modifier = {
-                bureaucracy_cost_multiplier_modifier = -0.05
-                custom_modifier_tooltip = MAD_ANDRIANA_NON_RECOGNITION_RC_MONTHLY_TT
-            }
-        }
-        MAD_POL_AREMA_REPUBLICAN_SECULARISM = {
-            # Inert migration shell for saves from versions that applied this redundant policy idea.
-            # MAD_rural_governance_policy_sync removes it; AREMA's constitution rule is enforced on ruling-party changes.
-            name = MAD_POL_AREMA_REPUBLICAN_SECULARISM
-            picture = GFX_idea_generic_political_pressure
-            allowed = { original_tag = MAD }
-            removal_cost = -1
-        }
-        MAD_MADARAIL_COMAZAR_FREIGHT_CONCESSION = {
-            name = MAD_MADARAIL_COMAZAR_FREIGHT_CONCESSION
-            picture = GFX_idea_generic_political_pressure
-            allowed = { original_tag = MAD }
-            removal_cost = -1
-            modifier = {
-                custom_modifier_tooltip = MAD_MADARAIL_COMAZAR_RC_MONTHLY_TT
-            }
-        }
-        MAD_POL_CHRISTOCRATIC_STATE = {
-            picture = GFX_idea_generic_political_pressure
-            allowed = { original_tag = MAD }
-            removal_cost = -1
-            modifier = {
-                stability_factor = 0.10
-                political_power_gain = 0.50
-                research_speed_factor = -0.03
+			# Tracks the current earned version of this party idea.
+			on_add = {
+				set_country_flag = MAD_PI_EARNED_MAD_POL_ROYAL_GOVERNMENT
+				set_country_flag = MAD_PI_ACTIVE_MAD_POL_ROYAL_GOVERNMENT
+			}
+			on_remove = {
+				if = {
+					limit = { has_country_flag = MAD_PI_ACTIVE_MAD_POL_ROYAL_GOVERNMENT NOT = { has_country_flag = MAD_PI_SYNC_IN_PROGRESS } }
+					clr_country_flag = MAD_PI_EARNED_MAD_POL_ROYAL_GOVERNMENT
+				}
+				clr_country_flag = MAD_PI_ACTIVE_MAD_POL_ROYAL_GOVERNMENT
+			}
+		}
+		# These are neutral constitutional ideas, separate from the party-synchronised
+		# Royalist political programme above. They persist across changes of government.
+		# Focus-granted recruitment modifiers must live in an idea modifier block, not as a focus effect.
+		MAD_REMENABILA_GATHER_DAHALO_POPULATION_IDEA = {
+			name = MAD_REMENABILA_GATHER_DAHALO_POPULATION_IDEA
+			picture = GFX_idea_generic_political_pressure
+			allowed = { original_tag = MAD }
+			removal_cost = -1
+			modifier = { recruitable_population = 0.01 }
+		}
+		MAD_REMENABILA_MORE_COWS_POPULATION_IDEA = {
+			name = MAD_REMENABILA_MORE_COWS_POPULATION_IDEA
+			picture = GFX_idea_generic_political_pressure
+			allowed = { original_tag = MAD }
+			removal_cost = -1
+			modifier = { recruitable_population = 0.03 }
+		}
+
+		MAD_RURAL_LOCAL_DEVELOPMENT_BOOST = {
+			name = MAD_RURAL_LOCAL_DEVELOPMENT_BOOST
+			picture = GFX_idea_generic_infrastructure
+			allowed = { original_tag = MAD }
+			removal_cost = -1
+			modifier = {
+				production_speed_infrastructure_factor = 0.15
+			}
+		}
+
+		MAD_POL_SECULAR_GOVERNMENT = {
+			name = MAD_POL_SECULAR_GOVERNMENT
+			picture = GFX_idea_generic_political_pressure
+			allowed = { original_tag = MAD }
+			removal_cost = -1
+			modifier = {
+				# Millennium Dawn internal-faction modifier: persistent monthly drift.
+				if_the_clergy_monthly_opinion = -0.5
+				bureaucracy_cost_multiplier_modifier = -0.05
+				education_cost_multiplier_modifier = -0.05
+				corruption_cost_factor = -0.10
+				custom_modifier_tooltip = MAD_POL_SECULAR_GOVERNMENT_RC_MONTHLY_TT
+			}
+		}
+		MAD_POL_UNSECULAR_GOVERNMENT = {
+			name = MAD_POL_UNSECULAR_GOVERNMENT
+			picture = GFX_idea_generic_political_pressure
+			allowed = { original_tag = MAD }
+			removal_cost = -1
+			modifier = {
+				# Millennium Dawn internal-faction modifier: persistent monthly drift.
+				if_the_clergy_monthly_opinion = 0.5
+				corruption_cost_factor = 0.15
+				education_cost_multiplier_modifier = 0.10
+				stability_factor = -0.03
+				custom_modifier_tooltip = MAD_POL_UNSECULAR_GOVERNMENT_RC_MONTHLY_TT
+			}
+		}
+		MAD_POL_ANDRIANA_HERITAGE_RECOGNISED = {
+			name = MAD_POL_ANDRIANA_HERITAGE_RECOGNISED
+			picture = GFX_idea_generic_political_pressure
+			allowed = { original_tag = MAD }
+			removal_cost = -1
+			modifier = {
+				nationalist_drift = 0.03
+				bureaucracy_cost_multiplier_modifier = 0.05
+				corruption_cost_factor = 0.15
+				custom_modifier_tooltip = MAD_ANDRIANA_HERITAGE_RC_MONTHLY_TT
+			}
+		}
+		MAD_POL_ANDRIANA_NON_RECOGNITION = {
+			name = MAD_POL_ANDRIANA_NON_RECOGNITION
+			picture = GFX_idea_generic_political_pressure
+			allowed = { original_tag = MAD }
+			removal_cost = -1
+			modifier = {
+				bureaucracy_cost_multiplier_modifier = -0.05
+				custom_modifier_tooltip = MAD_ANDRIANA_NON_RECOGNITION_RC_MONTHLY_TT
+			}
+		}
+		MAD_POL_AREMA_REPUBLICAN_SECULARISM = {
+			# Inert migration shell for saves from versions that applied this redundant policy idea.
+			# MAD_rural_governance_policy_sync removes it; AREMA's constitution rule is enforced on ruling-party changes.
+			name = MAD_POL_AREMA_REPUBLICAN_SECULARISM
+			picture = GFX_idea_generic_political_pressure
+			allowed = { original_tag = MAD }
+			removal_cost = -1
+		}
+		MAD_MADARAIL_COMAZAR_FREIGHT_CONCESSION = {
+			name = MAD_MADARAIL_COMAZAR_FREIGHT_CONCESSION
+			picture = GFX_idea_generic_political_pressure
+			allowed = { original_tag = MAD }
+			removal_cost = -1
+			modifier = {
+				custom_modifier_tooltip = MAD_MADARAIL_COMAZAR_RC_MONTHLY_TT
+			}
+		}
+		MAD_POL_CHRISTOCRATIC_STATE = {
+			picture = GFX_idea_generic_political_pressure
+			allowed = { original_tag = MAD }
+			removal_cost = -1
+			modifier = {
+				stability_factor = 0.10
+				political_power_gain = 0.50
+				research_speed_factor = -0.03
 				nationalist_drift = 0.05
-            }
-        
-        	# Tracks the current earned version of this party idea.
-        	on_add = {
-        		set_country_flag = MAD_PI_EARNED_MAD_POL_CHRISTOCRATIC_STATE
-        		set_country_flag = MAD_PI_ACTIVE_MAD_POL_CHRISTOCRATIC_STATE
-        	}
-        	on_remove = {
-        		if = {
-        			limit = { has_country_flag = MAD_PI_ACTIVE_MAD_POL_CHRISTOCRATIC_STATE NOT = { has_country_flag = MAD_PI_SYNC_IN_PROGRESS } }
-        			clr_country_flag = MAD_PI_EARNED_MAD_POL_CHRISTOCRATIC_STATE
-        		}
-        		clr_country_flag = MAD_PI_ACTIVE_MAD_POL_CHRISTOCRATIC_STATE
-        	}
-        }
-        MAD_POL_CUSTOMARY_ADMINISTRATION = {
-            picture = GFX_idea_generic_political_pressure
-            allowed = { original_tag = MAD }
-            removal_cost = -1
-            modifier = {
-                stability_factor = 0.04
-                corruption_cost_factor = -0.10
-            }
-        
-        	# Tracks the current earned version of this party idea.
-        	on_add = {
-        		set_country_flag = MAD_PI_EARNED_MAD_POL_CUSTOMARY_ADMINISTRATION
-        		set_country_flag = MAD_PI_ACTIVE_MAD_POL_CUSTOMARY_ADMINISTRATION
-        	}
-        	on_remove = {
-        		if = {
-        			limit = { has_country_flag = MAD_PI_ACTIVE_MAD_POL_CUSTOMARY_ADMINISTRATION NOT = { has_country_flag = MAD_PI_SYNC_IN_PROGRESS } }
-        			clr_country_flag = MAD_PI_EARNED_MAD_POL_CUSTOMARY_ADMINISTRATION
-        		}
-        		clr_country_flag = MAD_PI_ACTIVE_MAD_POL_CUSTOMARY_ADMINISTRATION
-        	}
-        }
-        MAD_POL_TAMIMA_COUNCIL = {
-            picture = GFX_idea_generic_political_pressure
-            allowed = { original_tag = MAD }
-            removal_cost = -1
-            modifier = {
-                stability_factor = 0.04
-                political_power_gain = 0.1
-                productivity_growth_modifier = 0.10
-            }
-        
-        	# Tracks the current earned version of this party idea.
-        	on_add = {
-        		set_country_flag = MAD_PI_EARNED_MAD_POL_TAMIMA_COUNCIL
-        		set_country_flag = MAD_PI_ACTIVE_MAD_POL_TAMIMA_COUNCIL
-        	}
-        	on_remove = {
-        		if = {
-        			limit = { has_country_flag = MAD_PI_ACTIVE_MAD_POL_TAMIMA_COUNCIL NOT = { has_country_flag = MAD_PI_SYNC_IN_PROGRESS } }
-        			clr_country_flag = MAD_PI_EARNED_MAD_POL_TAMIMA_COUNCIL
-        		}
-        		clr_country_flag = MAD_PI_ACTIVE_MAD_POL_TAMIMA_COUNCIL
-        	}
-        }
-        MAD_POL_TRADITIONAL_CONSTITUTION = {
-            picture = GFX_idea_generic_political_pressure
-            allowed = { original_tag = MAD }
-            removal_cost = -1
-            modifier = {
-                stability_factor = 0.05
-                social_cost_multiplier_modifier = 0.05
-            }
-        
-        	# Tracks the current earned version of this party idea.
-        	on_add = {
-        		set_country_flag = MAD_PI_EARNED_MAD_POL_TRADITIONAL_CONSTITUTION
-        		set_country_flag = MAD_PI_ACTIVE_MAD_POL_TRADITIONAL_CONSTITUTION
-        	}
-        	on_remove = {
-        		if = {
-        			limit = { has_country_flag = MAD_PI_ACTIVE_MAD_POL_TRADITIONAL_CONSTITUTION NOT = { has_country_flag = MAD_PI_SYNC_IN_PROGRESS } }
-        			clr_country_flag = MAD_PI_EARNED_MAD_POL_TRADITIONAL_CONSTITUTION
-        		}
-        		clr_country_flag = MAD_PI_ACTIVE_MAD_POL_TRADITIONAL_CONSTITUTION
-        	}
-        }
+			}
+
+			# Tracks the current earned version of this party idea.
+			on_add = {
+				set_country_flag = MAD_PI_EARNED_MAD_POL_CHRISTOCRATIC_STATE
+				set_country_flag = MAD_PI_ACTIVE_MAD_POL_CHRISTOCRATIC_STATE
+			}
+			on_remove = {
+				if = {
+					limit = { has_country_flag = MAD_PI_ACTIVE_MAD_POL_CHRISTOCRATIC_STATE NOT = { has_country_flag = MAD_PI_SYNC_IN_PROGRESS } }
+					clr_country_flag = MAD_PI_EARNED_MAD_POL_CHRISTOCRATIC_STATE
+				}
+				clr_country_flag = MAD_PI_ACTIVE_MAD_POL_CHRISTOCRATIC_STATE
+			}
+		}
+		MAD_POL_CUSTOMARY_ADMINISTRATION = {
+			picture = GFX_idea_generic_political_pressure
+			allowed = { original_tag = MAD }
+			removal_cost = -1
+			modifier = {
+				stability_factor = 0.04
+				corruption_cost_factor = -0.10
+			}
+
+			# Tracks the current earned version of this party idea.
+			on_add = {
+				set_country_flag = MAD_PI_EARNED_MAD_POL_CUSTOMARY_ADMINISTRATION
+				set_country_flag = MAD_PI_ACTIVE_MAD_POL_CUSTOMARY_ADMINISTRATION
+			}
+			on_remove = {
+				if = {
+					limit = { has_country_flag = MAD_PI_ACTIVE_MAD_POL_CUSTOMARY_ADMINISTRATION NOT = { has_country_flag = MAD_PI_SYNC_IN_PROGRESS } }
+					clr_country_flag = MAD_PI_EARNED_MAD_POL_CUSTOMARY_ADMINISTRATION
+				}
+				clr_country_flag = MAD_PI_ACTIVE_MAD_POL_CUSTOMARY_ADMINISTRATION
+			}
+		}
+		MAD_POL_TAMIMA_COUNCIL = {
+			picture = GFX_idea_generic_political_pressure
+			allowed = { original_tag = MAD }
+			removal_cost = -1
+			modifier = {
+				stability_factor = 0.04
+				political_power_gain = 0.1
+				productivity_growth_modifier = 0.10
+			}
+
+			# Tracks the current earned version of this party idea.
+			on_add = {
+				set_country_flag = MAD_PI_EARNED_MAD_POL_TAMIMA_COUNCIL
+				set_country_flag = MAD_PI_ACTIVE_MAD_POL_TAMIMA_COUNCIL
+			}
+			on_remove = {
+				if = {
+					limit = { has_country_flag = MAD_PI_ACTIVE_MAD_POL_TAMIMA_COUNCIL NOT = { has_country_flag = MAD_PI_SYNC_IN_PROGRESS } }
+					clr_country_flag = MAD_PI_EARNED_MAD_POL_TAMIMA_COUNCIL
+				}
+				clr_country_flag = MAD_PI_ACTIVE_MAD_POL_TAMIMA_COUNCIL
+			}
+		}
+		MAD_POL_TRADITIONAL_CONSTITUTION = {
+			picture = GFX_idea_generic_political_pressure
+			allowed = { original_tag = MAD }
+			removal_cost = -1
+			modifier = {
+				stability_factor = 0.05
+				social_cost_multiplier_modifier = 0.05
+			}
+
+			# Tracks the current earned version of this party idea.
+			on_add = {
+				set_country_flag = MAD_PI_EARNED_MAD_POL_TRADITIONAL_CONSTITUTION
+				set_country_flag = MAD_PI_ACTIVE_MAD_POL_TRADITIONAL_CONSTITUTION
+			}
+			on_remove = {
+				if = {
+					limit = { has_country_flag = MAD_PI_ACTIVE_MAD_POL_TRADITIONAL_CONSTITUTION NOT = { has_country_flag = MAD_PI_SYNC_IN_PROGRESS } }
+					clr_country_flag = MAD_PI_EARNED_MAD_POL_TRADITIONAL_CONSTITUTION
+				}
+				clr_country_flag = MAD_PI_ACTIVE_MAD_POL_TRADITIONAL_CONSTITUTION
+			}
+		}
 MAD_POL_MILITARY_GOVERNMENT = {
-            picture = GFX_idea_generic_army_reform
-            allowed = { original_tag = MAD }
-            removal_cost = -1
-            modifier = {
-                political_power_factor = 0.15
-                stability_factor = -0.05
-                war_support_factor = 0.05
-                personnel_cost_multiplier_modifier = 0.05
-                military_spending_cost_factor = -0.05
+			picture = GFX_idea_generic_army_reform
+			allowed = { original_tag = MAD }
+			removal_cost = -1
+			modifier = {
+				political_power_factor = 0.15
+				stability_factor = -0.05
+				war_support_factor = 0.05
+				personnel_cost_multiplier_modifier = 0.05
+				military_spending_cost_factor = -0.05
 				military_factories_productivity = 0.05
-                foreign_influence_defense_modifier = 0.05
-            }
-        
+				foreign_influence_defense_modifier = 0.05
+			}
+
 	# Tracks the current earned version of this party idea.
 	on_add = {
 		set_country_flag = MAD_PI_EARNED_MAD_POL_MILITARY_GOVERNMENT
@@ -965,16 +958,16 @@ MAD_POL_MILITARY_GOVERNMENT = {
 	}
 }
 MAD_POL_MILITARY_GUARDIAN = {
-            picture = GFX_idea_generic_army_reform
-            allowed = { original_tag = MAD }
-            removal_cost = -1
-            modifier = {
-                stability_factor = 0.03
-                political_power_factor = 0.15
-                foreign_influence_defense_modifier = 0.03
-                war_support_factor = 0.01
-            }
-        
+			picture = GFX_idea_generic_army_reform
+			allowed = { original_tag = MAD }
+			removal_cost = -1
+			modifier = {
+				stability_factor = 0.03
+				political_power_factor = 0.15
+				foreign_influence_defense_modifier = 0.03
+				war_support_factor = 0.01
+			}
+
 	# Tracks the current earned version of this party idea.
 	on_add = {
 		set_country_flag = MAD_PI_EARNED_MAD_POL_MILITARY_GUARDIAN
@@ -989,16 +982,16 @@ MAD_POL_MILITARY_GUARDIAN = {
 	}
 }
 MAD_POL_MARITIME_SECURITY = {
-            picture = GFX_idea_generic_army_reform
-            allowed = { original_tag = MAD }
-            removal_cost = -1
-            modifier = {
-                production_speed_dockyard_factor = 0.05
-                war_support_factor = 0.01
-                foreign_influence_defense_modifier = 0.03
-                experience_gain_navy_factor = 0.02
-            }
-        
+			picture = GFX_idea_generic_army_reform
+			allowed = { original_tag = MAD }
+			removal_cost = -1
+			modifier = {
+				production_speed_dockyard_factor = 0.05
+				war_support_factor = 0.01
+				foreign_influence_defense_modifier = 0.03
+				experience_gain_navy_factor = 0.02
+			}
+
 	# Tracks the current earned version of this party idea.
 	on_add = {
 		set_country_flag = MAD_PI_EARNED_MAD_POL_MARITIME_SECURITY
@@ -1020,7 +1013,7 @@ MAD_POL_MARITIME_SECURITY = {
 				internal_investments_money_cost_modifier = -0.10
 				receiving_investment_cost_modifier = 0.05
 			}
-		
+
 			# Tracks the current earned version of this party idea.
 			on_add = {
 				set_country_flag = MAD_PI_EARNED_MAD_POL_AREMA_PROGRAMME
@@ -1043,7 +1036,7 @@ MAD_POL_MARITIME_SECURITY = {
 				education_cost_multiplier_modifier = -0.03
 				health_cost_multiplier_modifier = -0.02
 			}
-		
+
 			# Tracks the current earned version of this party idea.
 			on_add = {
 				set_country_flag = MAD_PI_EARNED_MAD_POL_AREMA_STATE_SOCIALISM
@@ -1069,7 +1062,7 @@ MAD_POL_MARITIME_SECURITY = {
 				foreign_influence_defense_modifier = 0.03
 				communism_drift = 0.05
 			}
-		
+
 			# Tracks the current earned version of this party idea.
 			on_add = {
 				set_country_flag = MAD_PI_EARNED_MAD_POL_AREMA_MODERN_SOCIALISM
@@ -1091,42 +1084,41 @@ MAD_POL_MARITIME_SECURITY = {
 			}
 		}
 
-        MAD_POL_TIM_LIBERAL_PROGRAMME = {
-            picture = GFX_idea_generic_political_pressure
-            allowed = { original_tag = MAD }
-            removal_cost = -1
-            modifier = {
-                productivity_growth_modifier = 0.10
-                receiving_investment_cost_modifier = -0.03
-                receiving_investment_duration_modifier = -0.03
-            }
-        
+		MAD_POL_TIM_LIBERAL_PROGRAMME = {
+			picture = GFX_idea_generic_political_pressure
+			allowed = { original_tag = MAD }
+			removal_cost = -1
+			modifier = {
+				productivity_growth_modifier = 0.10
+				receiving_investment_cost_modifier = -0.03
+				receiving_investment_duration_modifier = -0.03
+			}
 
-        	# Tracks the current earned version of this party idea.
+			# Tracks the current earned version of this party idea.
 
-        	on_add = {
+			on_add = {
 
-        		set_country_flag = MAD_PI_EARNED_MAD_POL_TIM_LIBERAL_PROGRAMME
+				set_country_flag = MAD_PI_EARNED_MAD_POL_TIM_LIBERAL_PROGRAMME
 
-        		set_country_flag = MAD_PI_ACTIVE_MAD_POL_TIM_LIBERAL_PROGRAMME
+				set_country_flag = MAD_PI_ACTIVE_MAD_POL_TIM_LIBERAL_PROGRAMME
 
-        	}
+			}
 
-        	on_remove = {
+			on_remove = {
 
-        		if = {
+				if = {
 
-        			limit = { has_country_flag = MAD_PI_ACTIVE_MAD_POL_TIM_LIBERAL_PROGRAMME NOT = { has_country_flag = MAD_PI_SYNC_IN_PROGRESS } }
+					limit = { has_country_flag = MAD_PI_ACTIVE_MAD_POL_TIM_LIBERAL_PROGRAMME NOT = { has_country_flag = MAD_PI_SYNC_IN_PROGRESS } }
 
-        			clr_country_flag = MAD_PI_EARNED_MAD_POL_TIM_LIBERAL_PROGRAMME
+					clr_country_flag = MAD_PI_EARNED_MAD_POL_TIM_LIBERAL_PROGRAMME
 
-        		}
+				}
 
-        		clr_country_flag = MAD_PI_ACTIVE_MAD_POL_TIM_LIBERAL_PROGRAMME
+				clr_country_flag = MAD_PI_ACTIVE_MAD_POL_TIM_LIBERAL_PROGRAMME
 
-        	}
+			}
 
-        }
+		}
 		MAD_POL_TIM_GREEN_REVOLUTION_IDEA = {
 			picture = generic_agriculture
 
@@ -1137,7 +1129,7 @@ MAD_POL_MARITIME_SECURITY = {
 				research_speed_factor = 0.01
 				production_speed_infrastructure_factor = 0.05
 			}
-		
+
 			# Tracks the current earned version of this party idea.
 			on_add = {
 				set_country_flag = MAD_PI_EARNED_MAD_POL_TIM_GREEN_REVOLUTION_IDEA
@@ -1151,146 +1143,146 @@ MAD_POL_MARITIME_SECURITY = {
 				clr_country_flag = MAD_PI_ACTIVE_MAD_POL_TIM_GREEN_REVOLUTION_IDEA
 			}
 		}
-        MAD_POL_TIM_INSTITUTIONAL_LIBERALISM = {
-            picture = GFX_idea_generic_political_pressure
-            allowed = { original_tag = MAD }
-            removal_cost = -1
-            modifier = {
-                productivity_growth_modifier = 0.10
-                receiving_investment_cost_modifier = -0.04
-                corruption_cost_factor = -0.10
-            }
-        
-        	# Tracks the current earned version of this party idea.
-        	on_add = {
-        		set_country_flag = MAD_PI_EARNED_MAD_POL_TIM_INSTITUTIONAL_LIBERALISM
-        		set_country_flag = MAD_PI_ACTIVE_MAD_POL_TIM_INSTITUTIONAL_LIBERALISM
-        	}
-        	on_remove = {
-        		if = {
-        			limit = { has_country_flag = MAD_PI_ACTIVE_MAD_POL_TIM_INSTITUTIONAL_LIBERALISM NOT = { has_country_flag = MAD_PI_SYNC_IN_PROGRESS } }
-        			clr_country_flag = MAD_PI_EARNED_MAD_POL_TIM_INSTITUTIONAL_LIBERALISM
-        		}
-        		clr_country_flag = MAD_PI_ACTIVE_MAD_POL_TIM_INSTITUTIONAL_LIBERALISM
-        	}
-        }
-        MAD_POL_TIM_NATIONAL_CHAMPION_PROGRAMME = {
-            picture = GFX_idea_generic_political_pressure
-            allowed = { original_tag = MAD }
-            removal_cost = -1
-            modifier = {
-                productivity_growth_modifier = 0.15
-                corporate_tax_income_multiplier_modifier = 0.03
-                corruption_cost_factor = 0.15
-            }
-        
-        	# Tracks the current earned version of this party idea.
-        	on_add = {
-        		set_country_flag = MAD_PI_EARNED_MAD_POL_TIM_NATIONAL_CHAMPION_PROGRAMME
-        		set_country_flag = MAD_PI_ACTIVE_MAD_POL_TIM_NATIONAL_CHAMPION_PROGRAMME
-        	}
-        	on_remove = {
-        		if = {
-        			limit = { has_country_flag = MAD_PI_ACTIVE_MAD_POL_TIM_NATIONAL_CHAMPION_PROGRAMME NOT = { has_country_flag = MAD_PI_SYNC_IN_PROGRESS } }
-        			clr_country_flag = MAD_PI_EARNED_MAD_POL_TIM_NATIONAL_CHAMPION_PROGRAMME
-        		}
-        		clr_country_flag = MAD_PI_ACTIVE_MAD_POL_TIM_NATIONAL_CHAMPION_PROGRAMME
-        	}
-        }
-        MAD_TIM_2007_CONSTITUTION_TRANSITION = {
-            name = "2007 Constitutional Transition"
-            picture = GFX_idea_generic_political_pressure
-            allowed = { original_tag = MAD }
-            removal_cost = -1
-            modifier = {
-                political_power_gain = -0.03
-                stability_factor = -0.01
-                bureaucracy_cost_multiplier_modifier = 0.05
-            }
-        }
-        MAD_POL_TGV_INSTITUTIONAL_EMERGENCE = {
-            picture = GFX_idea_generic_political_pressure
-            allowed = { original_tag = MAD }
-            removal_cost = -1
-            modifier = {
-                stability_factor = 0.03
-                productivity_growth_modifier = 0.10
-                receiving_investment_cost_modifier = -0.04
-            }
-        
-        	# Tracks the current earned version of this party idea.
-        	on_add = {
-        		set_country_flag = MAD_PI_EARNED_MAD_POL_TGV_INSTITUTIONAL_EMERGENCE
-        		set_country_flag = MAD_PI_ACTIVE_MAD_POL_TGV_INSTITUTIONAL_EMERGENCE
-        	}
-        	on_remove = {
-        		if = {
-        			limit = { has_country_flag = MAD_PI_ACTIVE_MAD_POL_TGV_INSTITUTIONAL_EMERGENCE NOT = { has_country_flag = MAD_PI_SYNC_IN_PROGRESS } }
-        			clr_country_flag = MAD_PI_EARNED_MAD_POL_TGV_INSTITUTIONAL_EMERGENCE
-        		}
-        		clr_country_flag = MAD_PI_ACTIVE_MAD_POL_TGV_INSTITUTIONAL_EMERGENCE
-        	}
-        }
-        MAD_POL_TGV_PRESIDENTIALISM = {
-            picture = GFX_idea_generic_political_pressure
-            allowed = { original_tag = MAD }
-            removal_cost = -1
-            modifier = {
-                productivity_growth_modifier = 0.15
-                political_power_gain = 0.25
-                corruption_cost_factor = 0.10
-            }
-        
-        	# Tracks the current earned version of this party idea.
-        	on_add = {
-        		set_country_flag = MAD_PI_EARNED_MAD_POL_TGV_PRESIDENTIALISM
-        		set_country_flag = MAD_PI_ACTIVE_MAD_POL_TGV_PRESIDENTIALISM
-        	}
-        	on_remove = {
-        		if = {
-        			limit = { has_country_flag = MAD_PI_ACTIVE_MAD_POL_TGV_PRESIDENTIALISM NOT = { has_country_flag = MAD_PI_SYNC_IN_PROGRESS } }
-        			clr_country_flag = MAD_PI_EARNED_MAD_POL_TGV_PRESIDENTIALISM
-        		}
-        		clr_country_flag = MAD_PI_ACTIVE_MAD_POL_TGV_PRESIDENTIALISM
-        	}
-        }
-        MAD_POL_TGV_PEM = {
-            picture = GFX_idea_generic_political_pressure
-            allowed = { original_tag = MAD }
-            removal_cost = -1
-            modifier = {
+		MAD_POL_TIM_INSTITUTIONAL_LIBERALISM = {
+			picture = GFX_idea_generic_political_pressure
+			allowed = { original_tag = MAD }
+			removal_cost = -1
+			modifier = {
+				productivity_growth_modifier = 0.10
+				receiving_investment_cost_modifier = -0.04
+				corruption_cost_factor = -0.10
+			}
+
+			# Tracks the current earned version of this party idea.
+			on_add = {
+				set_country_flag = MAD_PI_EARNED_MAD_POL_TIM_INSTITUTIONAL_LIBERALISM
+				set_country_flag = MAD_PI_ACTIVE_MAD_POL_TIM_INSTITUTIONAL_LIBERALISM
+			}
+			on_remove = {
+				if = {
+					limit = { has_country_flag = MAD_PI_ACTIVE_MAD_POL_TIM_INSTITUTIONAL_LIBERALISM NOT = { has_country_flag = MAD_PI_SYNC_IN_PROGRESS } }
+					clr_country_flag = MAD_PI_EARNED_MAD_POL_TIM_INSTITUTIONAL_LIBERALISM
+				}
+				clr_country_flag = MAD_PI_ACTIVE_MAD_POL_TIM_INSTITUTIONAL_LIBERALISM
+			}
+		}
+		MAD_POL_TIM_NATIONAL_CHAMPION_PROGRAMME = {
+			picture = GFX_idea_generic_political_pressure
+			allowed = { original_tag = MAD }
+			removal_cost = -1
+			modifier = {
+				productivity_growth_modifier = 0.15
+				corporate_tax_income_multiplier_modifier = 0.03
+				corruption_cost_factor = 0.15
+			}
+
+			# Tracks the current earned version of this party idea.
+			on_add = {
+				set_country_flag = MAD_PI_EARNED_MAD_POL_TIM_NATIONAL_CHAMPION_PROGRAMME
+				set_country_flag = MAD_PI_ACTIVE_MAD_POL_TIM_NATIONAL_CHAMPION_PROGRAMME
+			}
+			on_remove = {
+				if = {
+					limit = { has_country_flag = MAD_PI_ACTIVE_MAD_POL_TIM_NATIONAL_CHAMPION_PROGRAMME NOT = { has_country_flag = MAD_PI_SYNC_IN_PROGRESS } }
+					clr_country_flag = MAD_PI_EARNED_MAD_POL_TIM_NATIONAL_CHAMPION_PROGRAMME
+				}
+				clr_country_flag = MAD_PI_ACTIVE_MAD_POL_TIM_NATIONAL_CHAMPION_PROGRAMME
+			}
+		}
+		MAD_TIM_2007_CONSTITUTION_TRANSITION = {
+			name = "2007 Constitutional Transition"
+			picture = GFX_idea_generic_political_pressure
+			allowed = { original_tag = MAD }
+			removal_cost = -1
+			modifier = {
+				political_power_gain = -0.03
+				stability_factor = -0.01
+				bureaucracy_cost_multiplier_modifier = 0.05
+			}
+		}
+		MAD_POL_TGV_INSTITUTIONAL_EMERGENCE = {
+			picture = GFX_idea_generic_political_pressure
+			allowed = { original_tag = MAD }
+			removal_cost = -1
+			modifier = {
+				stability_factor = 0.03
+				productivity_growth_modifier = 0.10
+				receiving_investment_cost_modifier = -0.04
+			}
+
+			# Tracks the current earned version of this party idea.
+			on_add = {
+				set_country_flag = MAD_PI_EARNED_MAD_POL_TGV_INSTITUTIONAL_EMERGENCE
+				set_country_flag = MAD_PI_ACTIVE_MAD_POL_TGV_INSTITUTIONAL_EMERGENCE
+			}
+			on_remove = {
+				if = {
+					limit = { has_country_flag = MAD_PI_ACTIVE_MAD_POL_TGV_INSTITUTIONAL_EMERGENCE NOT = { has_country_flag = MAD_PI_SYNC_IN_PROGRESS } }
+					clr_country_flag = MAD_PI_EARNED_MAD_POL_TGV_INSTITUTIONAL_EMERGENCE
+				}
+				clr_country_flag = MAD_PI_ACTIVE_MAD_POL_TGV_INSTITUTIONAL_EMERGENCE
+			}
+		}
+		MAD_POL_TGV_PRESIDENTIALISM = {
+			picture = GFX_idea_generic_political_pressure
+			allowed = { original_tag = MAD }
+			removal_cost = -1
+			modifier = {
+				productivity_growth_modifier = 0.15
+				political_power_gain = 0.25
+				corruption_cost_factor = 0.10
+			}
+
+			# Tracks the current earned version of this party idea.
+			on_add = {
+				set_country_flag = MAD_PI_EARNED_MAD_POL_TGV_PRESIDENTIALISM
+				set_country_flag = MAD_PI_ACTIVE_MAD_POL_TGV_PRESIDENTIALISM
+			}
+			on_remove = {
+				if = {
+					limit = { has_country_flag = MAD_PI_ACTIVE_MAD_POL_TGV_PRESIDENTIALISM NOT = { has_country_flag = MAD_PI_SYNC_IN_PROGRESS } }
+					clr_country_flag = MAD_PI_EARNED_MAD_POL_TGV_PRESIDENTIALISM
+				}
+				clr_country_flag = MAD_PI_ACTIVE_MAD_POL_TGV_PRESIDENTIALISM
+			}
+		}
+		MAD_POL_TGV_PEM = {
+			picture = GFX_idea_generic_political_pressure
+			allowed = { original_tag = MAD }
+			removal_cost = -1
+			modifier = {
 				productivity_growth_modifier = 0.15
 				political_power_gain = 0.15
 				investment_duration_modifier = -0.05
-            }
-        
-        	# Tracks the current earned version of this party idea.
-        	on_add = {
-        		set_country_flag = MAD_PI_EARNED_MAD_POL_TGV_PEM
-        		set_country_flag = MAD_PI_ACTIVE_MAD_POL_TGV_PEM
-        	}
-        	on_remove = {
-        		if = {
-        			limit = { has_country_flag = MAD_PI_ACTIVE_MAD_POL_TGV_PEM NOT = { has_country_flag = MAD_PI_SYNC_IN_PROGRESS } }
-        			clr_country_flag = MAD_PI_EARNED_MAD_POL_TGV_PEM
-        		}
-        		clr_country_flag = MAD_PI_ACTIVE_MAD_POL_TGV_PEM
-        	}
-        }
+			}
+
+			# Tracks the current earned version of this party idea.
+			on_add = {
+				set_country_flag = MAD_PI_EARNED_MAD_POL_TGV_PEM
+				set_country_flag = MAD_PI_ACTIVE_MAD_POL_TGV_PEM
+			}
+			on_remove = {
+				if = {
+					limit = { has_country_flag = MAD_PI_ACTIVE_MAD_POL_TGV_PEM NOT = { has_country_flag = MAD_PI_SYNC_IN_PROGRESS } }
+					clr_country_flag = MAD_PI_EARNED_MAD_POL_TGV_PEM
+				}
+				clr_country_flag = MAD_PI_ACTIVE_MAD_POL_TGV_PEM
+			}
+		}
 MAD_POL_HVM_TECHNOCRATIC_STATE = {
-            picture = GFX_idea_generic_political_pressure
-            allowed = { original_tag = MAD }
-            removal_cost = -1
-            modifier = {
-                political_power_factor = 0.05
-                stability_factor = 0.06
-                bureaucracy_cost_multiplier_modifier = -0.11
-                police_cost_multiplier_modifier = -0.04
-                interest_rate_multiplier_modifier = -1
-                productivity_growth_modifier = 0.10
-                receiving_investment_cost_modifier = -0.03
-            }
-        
+			picture = GFX_idea_generic_political_pressure
+			allowed = { original_tag = MAD }
+			removal_cost = -1
+			modifier = {
+				political_power_factor = 0.05
+				stability_factor = 0.06
+				bureaucracy_cost_multiplier_modifier = -0.11
+				police_cost_multiplier_modifier = -0.04
+				interest_rate_multiplier_modifier = -1
+				productivity_growth_modifier = 0.10
+				receiving_investment_cost_modifier = -0.03
+			}
+
 	# Tracks the current earned version of this party idea.
 	on_add = {
 		set_country_flag = MAD_PI_EARNED_MAD_POL_HVM_TECHNOCRATIC_STATE
@@ -1306,15 +1298,14 @@ MAD_POL_HVM_TECHNOCRATIC_STATE = {
 }
 
 MAD_HVM_ADMINISTRATIVE_STATE = {
-            picture = generic_political_discourse
-            allowed = { original_tag = MAD }
-            removal_cost = -1
-            modifier = {
-                political_power_factor = 0.03
-                bureaucracy_cost_multiplier_modifier = -0.07
-                police_cost_multiplier_modifier = -0.04
-            }
-        
+			picture = generic_political_discourse
+			allowed = { original_tag = MAD }
+			removal_cost = -1
+			modifier = {
+				political_power_factor = 0.03
+				bureaucracy_cost_multiplier_modifier = -0.07
+				police_cost_multiplier_modifier = -0.04
+			}
 
 	# Tracks the current earned version of this party idea.
 
@@ -1342,17 +1333,17 @@ MAD_HVM_ADMINISTRATIVE_STATE = {
 
 }
 MAD_HVM_PUBLIC_FINANCE = {
-            picture = generic_political_discourse
-            allowed = { original_tag = MAD }
-            removal_cost = -1
-            modifier = {
-                political_power_factor = 0.03
-                bureaucracy_cost_multiplier_modifier = -0.11
-                police_cost_multiplier_modifier = -0.04
-                interest_rate_multiplier_modifier = -1
-                stability_factor = 0.02
-            }
-        
+			picture = generic_political_discourse
+			allowed = { original_tag = MAD }
+			removal_cost = -1
+			modifier = {
+				political_power_factor = 0.03
+				bureaucracy_cost_multiplier_modifier = -0.11
+				police_cost_multiplier_modifier = -0.04
+				interest_rate_multiplier_modifier = -1
+				stability_factor = 0.02
+			}
+
 	# Tracks the current earned version of this party idea.
 	on_add = {
 		set_country_flag = MAD_PI_EARNED_MAD_HVM_PUBLIC_FINANCE
@@ -1368,18 +1359,17 @@ MAD_HVM_PUBLIC_FINANCE = {
 }
 
 MAD_HVM_INVESTMENT_FRIENDLY = {
-            picture = generic_political_discourse
-            allowed = { original_tag = MAD }
-            removal_cost = -1
-            modifier = {
-                foreign_influence_defense_modifier = 0.03
-                receiving_investment_cost_modifier = -0.08
-                trade_opinion_factor = 0.05
-                improve_relations_maintain_cost_factor = -0.10
-                receiving_investment_duration_modifier = -0.04
-                stability_factor = 0.02
-            }
-        
+			picture = generic_political_discourse
+			allowed = { original_tag = MAD }
+			removal_cost = -1
+			modifier = {
+				foreign_influence_defense_modifier = 0.03
+				receiving_investment_cost_modifier = -0.08
+				trade_opinion_factor = 0.05
+				improve_relations_maintain_cost_factor = -0.10
+				receiving_investment_duration_modifier = -0.04
+				stability_factor = 0.02
+			}
 
 	# Tracks the current earned version of this party idea.
 
@@ -1407,20 +1397,20 @@ MAD_HVM_INVESTMENT_FRIENDLY = {
 
 }
 MAD_HVM_HUMAN_CAPITAL = {
-            picture = generic_political_discourse
-            allowed = { original_tag = MAD }
-            removal_cost = -1
-            modifier = {
-                political_power_factor = 0.05
-                bureaucracy_cost_multiplier_modifier = -0.11
-                police_cost_multiplier_modifier = -0.04
-                interest_rate_multiplier_modifier = -1
-                stability_factor = 0.02
-                education_cost_multiplier_modifier = -0.05
-                research_speed_factor = 0.02
-                total_workforce_modifier = 0.02
-            }
-        
+			picture = generic_political_discourse
+			allowed = { original_tag = MAD }
+			removal_cost = -1
+			modifier = {
+				political_power_factor = 0.05
+				bureaucracy_cost_multiplier_modifier = -0.11
+				police_cost_multiplier_modifier = -0.04
+				interest_rate_multiplier_modifier = -1
+				stability_factor = 0.02
+				education_cost_multiplier_modifier = -0.05
+				research_speed_factor = 0.02
+				total_workforce_modifier = 0.02
+			}
+
 	# Tracks the current earned version of this party idea.
 	on_add = {
 		set_country_flag = MAD_PI_EARNED_MAD_HVM_HUMAN_CAPITAL
@@ -1435,21 +1425,21 @@ MAD_HVM_HUMAN_CAPITAL = {
 	}
 }
 MAD_HVM_VOCATIONAL_TRAINING = {
-            picture = generic_political_discourse
-            allowed = { original_tag = MAD }
-            removal_cost = -1
-            modifier = {
-                political_power_factor = 0.07
-                bureaucracy_cost_multiplier_modifier = -0.11
-                police_cost_multiplier_modifier = -0.04
-                interest_rate_multiplier_modifier = -1
-                stability_factor = 0.02
-                education_cost_multiplier_modifier = -0.05
-                research_speed_factor = 0.02
-                total_workforce_modifier = 0.03
-                training_time_factor = -0.05
-            }
-        
+			picture = generic_political_discourse
+			allowed = { original_tag = MAD }
+			removal_cost = -1
+			modifier = {
+				political_power_factor = 0.07
+				bureaucracy_cost_multiplier_modifier = -0.11
+				police_cost_multiplier_modifier = -0.04
+				interest_rate_multiplier_modifier = -1
+				stability_factor = 0.02
+				education_cost_multiplier_modifier = -0.05
+				research_speed_factor = 0.02
+				total_workforce_modifier = 0.03
+				training_time_factor = -0.05
+			}
+
 	# Tracks the current earned version of this party idea.
 	on_add = {
 		set_country_flag = MAD_PI_EARNED_MAD_HVM_VOCATIONAL_TRAINING
@@ -1465,18 +1455,17 @@ MAD_HVM_VOCATIONAL_TRAINING = {
 }
 
 MAD_HVM_AGRICULTURE = {
-            picture = generic_political_discourse
-            allowed = { original_tag = MAD }
-            removal_cost = -1
-            modifier = {
-                energy_gain_multiplier = 0.05
-                pop_energy_use_multiplier = -0.02
-                production_speed_renewable_energy_infra_factor = 0.05
-                agricolture_productivity_modifier = 0.05
-                agriculture_district_income_tax_modifier = 0.03
-                agriculture_workers_modifier = 0.02
-            }
-        
+			picture = generic_political_discourse
+			allowed = { original_tag = MAD }
+			removal_cost = -1
+			modifier = {
+				energy_gain_multiplier = 0.05
+				pop_energy_use_multiplier = -0.02
+				production_speed_renewable_energy_infra_factor = 0.05
+				agricolture_productivity_modifier = 0.05
+				agriculture_district_income_tax_modifier = 0.03
+				agriculture_workers_modifier = 0.02
+			}
 
 	# Tracks the current earned version of this party idea.
 
@@ -1504,21 +1493,21 @@ MAD_HVM_AGRICULTURE = {
 
 }
 MAD_HVM_LIGHT_INDUSTRY = {
-            picture = generic_political_discourse
-            allowed = { original_tag = MAD }
-            removal_cost = -1
-            modifier = {
-                energy_gain_multiplier = 0.05
-                pop_energy_use_multiplier = -0.02
-                production_speed_renewable_energy_infra_factor = 0.05
-                agricolture_productivity_modifier = 0.05
-                agriculture_district_income_tax_modifier = 0.03
-                agriculture_workers_modifier = 0.02
-                production_speed_industrial_complex_factor = 0.05
-                production_factory_efficiency_gain_factor = 0.05
-                corporate_tax_income_multiplier_modifier = 0.02
-            }
-        
+			picture = generic_political_discourse
+			allowed = { original_tag = MAD }
+			removal_cost = -1
+			modifier = {
+				energy_gain_multiplier = 0.05
+				pop_energy_use_multiplier = -0.02
+				production_speed_renewable_energy_infra_factor = 0.05
+				agricolture_productivity_modifier = 0.05
+				agriculture_district_income_tax_modifier = 0.03
+				agriculture_workers_modifier = 0.02
+				production_speed_industrial_complex_factor = 0.05
+				production_factory_efficiency_gain_factor = 0.05
+				corporate_tax_income_multiplier_modifier = 0.02
+			}
+
 	# Tracks the current earned version of this party idea.
 	on_add = {
 		set_country_flag = MAD_PI_EARNED_MAD_HVM_LIGHT_INDUSTRY
@@ -1533,19 +1522,19 @@ MAD_HVM_LIGHT_INDUSTRY = {
 	}
 }
 MAD_HVM_PPP_FRAMEWORK = {
-            picture = generic_political_discourse
-            allowed = { original_tag = MAD }
-            removal_cost = -1
-            modifier = {
-                foreign_influence_defense_modifier = 0.03
-                receiving_investment_cost_modifier = -0.08
-                trade_opinion_factor = 0.05
-                improve_relations_maintain_cost_factor = -0.10
-                receiving_investment_duration_modifier = -0.08
-                stability_factor = 0.02
-                projects_cost_modifier = -0.05
-            }
-        
+			picture = generic_political_discourse
+			allowed = { original_tag = MAD }
+			removal_cost = -1
+			modifier = {
+				foreign_influence_defense_modifier = 0.03
+				receiving_investment_cost_modifier = -0.08
+				trade_opinion_factor = 0.05
+				improve_relations_maintain_cost_factor = -0.10
+				receiving_investment_duration_modifier = -0.08
+				stability_factor = 0.02
+				projects_cost_modifier = -0.05
+			}
+
 	# Tracks the current earned version of this party idea.
 	on_add = {
 		set_country_flag = MAD_PI_EARNED_MAD_HVM_PPP_FRAMEWORK
@@ -1560,15 +1549,15 @@ MAD_HVM_PPP_FRAMEWORK = {
 	}
 }
 MAD_HVM_ENERGY_FOR_GROWTH = {
-            picture = generic_political_discourse
-            allowed = { original_tag = MAD }
-            removal_cost = -1
-            modifier = {
-                energy_gain_multiplier = 0.05
-                pop_energy_use_multiplier = -0.02
-                production_speed_renewable_energy_infra_factor = 0.05
-            }
-        
+			picture = generic_political_discourse
+			allowed = { original_tag = MAD }
+			removal_cost = -1
+			modifier = {
+				energy_gain_multiplier = 0.05
+				pop_energy_use_multiplier = -0.02
+				production_speed_renewable_energy_infra_factor = 0.05
+			}
+
 	# Tracks the current earned version of this party idea.
 	on_add = {
 		set_country_flag = MAD_PI_EARNED_MAD_HVM_ENERGY_FOR_GROWTH
@@ -1583,22 +1572,22 @@ MAD_HVM_ENERGY_FOR_GROWTH = {
 	}
 }
 MAD_HVM_NATURAL_CAPITAL = {
-            picture = generic_political_discourse
-            allowed = { original_tag = MAD }
-            removal_cost = -1
-            modifier = {
-                political_power_factor = 0.10
-                bureaucracy_cost_multiplier_modifier = -0.11
-                police_cost_multiplier_modifier = -0.04
-                interest_rate_multiplier_modifier = -1
-                stability_factor = 0.02
-                education_cost_multiplier_modifier = -0.05
-                research_speed_factor = 0.02
-                total_workforce_modifier = 0.03
-                training_time_factor = -0.05
-                gdp_from_resource_sector_modifier = 0.02
-            }
-        
+			picture = generic_political_discourse
+			allowed = { original_tag = MAD }
+			removal_cost = -1
+			modifier = {
+				political_power_factor = 0.10
+				bureaucracy_cost_multiplier_modifier = -0.11
+				police_cost_multiplier_modifier = -0.04
+				interest_rate_multiplier_modifier = -1
+				stability_factor = 0.02
+				education_cost_multiplier_modifier = -0.05
+				research_speed_factor = 0.02
+				total_workforce_modifier = 0.03
+				training_time_factor = -0.05
+				gdp_from_resource_sector_modifier = 0.02
+			}
+
 	# Tracks the current earned version of this party idea.
 	on_add = {
 		set_country_flag = MAD_PI_EARNED_MAD_HVM_NATURAL_CAPITAL
@@ -1613,15 +1602,15 @@ MAD_HVM_NATURAL_CAPITAL = {
 	}
 }
 MAD_HVM_ELECTORAL_FRAMEWORK = {
-            picture = generic_political_discourse
-            allowed = { original_tag = MAD }
-            removal_cost = -1
-            modifier = {
-                political_power_factor = 0.05
-                stability_factor = 0.02
-                party_popularity_stability_factor = 0.05
-            }
-        
+			picture = generic_political_discourse
+			allowed = { original_tag = MAD }
+			removal_cost = -1
+			modifier = {
+				political_power_factor = 0.05
+				stability_factor = 0.02
+				party_popularity_stability_factor = 0.05
+			}
+
 	# Tracks the current earned version of this party idea.
 	on_add = {
 		set_country_flag = MAD_PI_EARNED_MAD_HVM_ELECTORAL_FRAMEWORK
@@ -1637,16 +1626,15 @@ MAD_HVM_ELECTORAL_FRAMEWORK = {
 }
 
 MAD_HVM_FRANCO_MALAGASY_PARTNERSHIP = {
-            picture = generic_political_discourse
-            allowed = { original_tag = MAD }
-            removal_cost = -1
-            modifier = {
-                foreign_influence_defense_modifier = 0.03
-                receiving_investment_cost_modifier = -0.03
-                trade_opinion_factor = 0.05
-                improve_relations_maintain_cost_factor = -0.10
-            }
-        
+			picture = generic_political_discourse
+			allowed = { original_tag = MAD }
+			removal_cost = -1
+			modifier = {
+				foreign_influence_defense_modifier = 0.03
+				receiving_investment_cost_modifier = -0.03
+				trade_opinion_factor = 0.05
+				improve_relations_maintain_cost_factor = -0.10
+			}
 
 	# Tracks the current earned version of this party idea.
 
@@ -1674,17 +1662,17 @@ MAD_HVM_FRANCO_MALAGASY_PARTNERSHIP = {
 
 }
 MAD_MIL_PROFESSIONAL_COMMAND = {
-            picture = generic_political_discourse
-            allowed = { original_tag = MAD }
-            removal_cost = -1
-            modifier = {
-                war_support_factor = 0.01
-                minimum_training_level = 0.05
-                military_leader_cost_factor = -0.05
-                experience_gain_army_factor = 0.02
-                personnel_cost_multiplier_modifier = -0.02
-            }
-        
+			picture = generic_political_discourse
+			allowed = { original_tag = MAD }
+			removal_cost = -1
+			modifier = {
+				war_support_factor = 0.01
+				minimum_training_level = 0.05
+				military_leader_cost_factor = -0.05
+				experience_gain_army_factor = 0.02
+				personnel_cost_multiplier_modifier = -0.02
+			}
+
 	# Tracks the current earned version of this party idea.
 	on_add = {
 		set_country_flag = MAD_PI_EARNED_MAD_MIL_PROFESSIONAL_COMMAND
@@ -1699,16 +1687,16 @@ MAD_MIL_PROFESSIONAL_COMMAND = {
 	}
 }
 MAD_MIL_PROFESSIONAL_OFFICERS = {
-            picture = generic_political_discourse
-            allowed = { original_tag = MAD }
-            removal_cost = -1
-            modifier = {
-                minimum_training_level = 0.08
-                military_leader_cost_factor = -0.05
-                experience_gain_army_factor = 0.03
-                military_industrial_organization_research_bonus = 0.02
-            }
-        
+			picture = generic_political_discourse
+			allowed = { original_tag = MAD }
+			removal_cost = -1
+			modifier = {
+				minimum_training_level = 0.08
+				military_leader_cost_factor = -0.05
+				experience_gain_army_factor = 0.03
+				military_industrial_organization_research_bonus = 0.02
+			}
+
 	# Tracks the current earned version of this party idea.
 	on_add = {
 		set_country_flag = MAD_PI_EARNED_MAD_MIL_PROFESSIONAL_OFFICERS
@@ -1723,19 +1711,19 @@ MAD_MIL_PROFESSIONAL_OFFICERS = {
 	}
 }
 MAD_MIL_SOUTHERN_SECURITY = {
-            picture = generic_political_discourse
-            allowed = { original_tag = MAD }
-            removal_cost = -1
-            modifier = {
-                minimum_training_level = 0.08
-                military_leader_cost_factor = -0.05
-                experience_gain_army_factor = 0.03
-                military_industrial_organization_research_bonus = 0.02
-                root_out_resistance_effectiveness_factor = 0.10
-                required_garrison_factor = -0.05
-                special_forces_cap_flat = 15
-            }
-        
+			picture = generic_political_discourse
+			allowed = { original_tag = MAD }
+			removal_cost = -1
+			modifier = {
+				minimum_training_level = 0.08
+				military_leader_cost_factor = -0.05
+				experience_gain_army_factor = 0.03
+				military_industrial_organization_research_bonus = 0.02
+				root_out_resistance_effectiveness_factor = 0.10
+				required_garrison_factor = -0.05
+				special_forces_cap_flat = 15
+			}
+
 	# Tracks the current earned version of this party idea.
 	on_add = {
 		set_country_flag = MAD_PI_EARNED_MAD_MIL_SOUTHERN_SECURITY
@@ -1750,21 +1738,21 @@ MAD_MIL_SOUTHERN_SECURITY = {
 	}
 }
 MAD_MIL_GENDARMERIE_REFORM = {
-            picture = generic_political_discourse
-            allowed = { original_tag = MAD }
-            removal_cost = -1
-            modifier = {
-                minimum_training_level = 0.08
-                military_leader_cost_factor = -0.05
-                experience_gain_army_factor = 0.03
-                military_industrial_organization_research_bonus = 0.05
-                root_out_resistance_effectiveness_factor = 0.10
-                required_garrison_factor = -0.05
-                special_forces_cap_flat = 15
-                personnel_cost_multiplier_modifier = -0.05
-                military_spending_cost_factor = -0.05
-            }
-        
+			picture = generic_political_discourse
+			allowed = { original_tag = MAD }
+			removal_cost = -1
+			modifier = {
+				minimum_training_level = 0.08
+				military_leader_cost_factor = -0.05
+				experience_gain_army_factor = 0.03
+				military_industrial_organization_research_bonus = 0.05
+				root_out_resistance_effectiveness_factor = 0.10
+				required_garrison_factor = -0.05
+				special_forces_cap_flat = 15
+				personnel_cost_multiplier_modifier = -0.05
+				military_spending_cost_factor = -0.05
+			}
+
 	# Tracks the current earned version of this party idea.
 	on_add = {
 		set_country_flag = MAD_PI_EARNED_MAD_MIL_GENDARMERIE_REFORM
@@ -1779,24 +1767,24 @@ MAD_MIL_GENDARMERIE_REFORM = {
 	}
 }
 MAD_MIL_ENGINEER_CORPS = {
-            picture = generic_political_discourse
-            allowed = { original_tag = MAD }
-            removal_cost = -1
-            modifier = {
-                minimum_training_level = 0.08
-                military_leader_cost_factor = -0.05
-                experience_gain_army_factor = 0.03
-                military_industrial_organization_research_bonus = 0.10
-                root_out_resistance_effectiveness_factor = 0.10
-                required_garrison_factor = -0.05
-                special_forces_cap_flat = 15
-                personnel_cost_multiplier_modifier = -0.08
-                military_spending_cost_factor = -0.05
-                production_speed_arms_factory_factor = 0.05
-                mil_facs_worker_requirement_modifier = -0.05
-                military_industry_tax_modifier = -0.05
-            }
-        
+			picture = generic_political_discourse
+			allowed = { original_tag = MAD }
+			removal_cost = -1
+			modifier = {
+				minimum_training_level = 0.08
+				military_leader_cost_factor = -0.05
+				experience_gain_army_factor = 0.03
+				military_industrial_organization_research_bonus = 0.10
+				root_out_resistance_effectiveness_factor = 0.10
+				required_garrison_factor = -0.05
+				special_forces_cap_flat = 15
+				personnel_cost_multiplier_modifier = -0.08
+				military_spending_cost_factor = -0.05
+				production_speed_arms_factory_factor = 0.05
+				mil_facs_worker_requirement_modifier = -0.05
+				military_industry_tax_modifier = -0.05
+			}
+
 	# Tracks the current earned version of this party idea.
 	on_add = {
 		set_country_flag = MAD_PI_EARNED_MAD_MIL_ENGINEER_CORPS
@@ -1811,21 +1799,21 @@ MAD_MIL_ENGINEER_CORPS = {
 	}
 }
 MAD_MIL_UNIFIED_FORCES = {
-            picture = generic_political_discourse
-            allowed = { original_tag = MAD }
-            removal_cost = -1
-            modifier = {
-                war_support_factor = 0.01
-                minimum_training_level = 0.05
-                military_leader_cost_factor = -0.05
-                experience_gain_army_factor = 0.02
-                personnel_cost_multiplier_modifier = -0.02
-                military_factories_productivity = 0.05
-                mil_facs_worker_requirement_modifier = -0.03
-                military_industrial_organization_research_bonus = 0.02
-                army_org_factor = 0.03
-            }
-        
+			picture = generic_political_discourse
+			allowed = { original_tag = MAD }
+			removal_cost = -1
+			modifier = {
+				war_support_factor = 0.01
+				minimum_training_level = 0.05
+				military_leader_cost_factor = -0.05
+				experience_gain_army_factor = 0.02
+				personnel_cost_multiplier_modifier = -0.02
+				military_factories_productivity = 0.05
+				mil_facs_worker_requirement_modifier = -0.03
+				military_industrial_organization_research_bonus = 0.02
+				army_org_factor = 0.03
+			}
+
 	# Tracks the current earned version of this party idea.
 	on_add = {
 		set_country_flag = MAD_PI_EARNED_MAD_MIL_UNIFIED_FORCES
@@ -1840,19 +1828,19 @@ MAD_MIL_UNIFIED_FORCES = {
 	}
 }
 MAD_MIL_MULTILATERAL_DOCTRINE = {
-            picture = generic_political_discourse
-            allowed = { original_tag = MAD }
-            removal_cost = -1
-            modifier = {
-                production_speed_dockyard_factor = 0.05
-                war_support_factor = 0.01
-                foreign_influence_defense_modifier = 0.03
-                experience_gain_navy_factor = 0.02
-                experience_gain_factor = 0.02
-                military_industrial_organization_research_bonus = 0.03
-                send_volunteer_size = 1
-            }
-        
+			picture = generic_political_discourse
+			allowed = { original_tag = MAD }
+			removal_cost = -1
+			modifier = {
+				production_speed_dockyard_factor = 0.05
+				war_support_factor = 0.01
+				foreign_influence_defense_modifier = 0.03
+				experience_gain_navy_factor = 0.02
+				experience_gain_factor = 0.02
+				military_industrial_organization_research_bonus = 0.03
+				send_volunteer_size = 1
+			}
+
 	# Tracks the current earned version of this party idea.
 	on_add = {
 		set_country_flag = MAD_PI_EARNED_MAD_MIL_MULTILATERAL_DOCTRINE
@@ -1867,15 +1855,15 @@ MAD_MIL_MULTILATERAL_DOCTRINE = {
 	}
 }
 MAD_MIL_CLEAN_UNIFORM = {
-            picture = generic_political_discourse
-            allowed = { original_tag = MAD }
-            removal_cost = -1
-            modifier = {
-                stability_factor = 0.02
-                corruption_cost_factor = -0.10
-                military_spending_cost_factor = -0.02
-            }
-        
+			picture = generic_political_discourse
+			allowed = { original_tag = MAD }
+			removal_cost = -1
+			modifier = {
+				stability_factor = 0.02
+				corruption_cost_factor = -0.10
+				military_spending_cost_factor = -0.02
+			}
+
 	# Tracks the current earned version of this party idea.
 	on_add = {
 		set_country_flag = MAD_PI_EARNED_MAD_MIL_CLEAN_UNIFORM
@@ -1890,19 +1878,19 @@ MAD_MIL_CLEAN_UNIFORM = {
 	}
 }
 MAD_MIL_CIVILIAN_GUARDIANSHIP = {
-            picture = generic_political_discourse
-            allowed = { original_tag = MAD }
-            removal_cost = -1
-            modifier = {
-                stability_factor = 0.03
-                political_power_factor = 0.10
-                foreign_influence_defense_modifier = 0.03
-                war_support_factor = 0.01
-                personnel_cost_multiplier_modifier = -0.03
-                military_spending_cost_factor = -0.03
-                expected_mil_modifier = -0.5
-            }
-        
+			picture = generic_political_discourse
+			allowed = { original_tag = MAD }
+			removal_cost = -1
+			modifier = {
+				stability_factor = 0.03
+				political_power_factor = 0.10
+				foreign_influence_defense_modifier = 0.03
+				war_support_factor = 0.01
+				personnel_cost_multiplier_modifier = -0.03
+				military_spending_cost_factor = -0.03
+				expected_mil_modifier = -0.5
+			}
+
 	# Tracks the current earned version of this party idea.
 	on_add = {
 		set_country_flag = MAD_PI_EARNED_MAD_MIL_CIVILIAN_GUARDIANSHIP
@@ -1930,7 +1918,7 @@ MAD_MIL_CIVILIAN_GUARDIANSHIP = {
 				productivity_growth_modifier = -0.1
 				communism_drift = 0.10
 			}
-		
+
 			# Tracks the current earned version of this party idea.
 			on_add = {
 				set_country_flag = MAD_PI_EARNED_MAD_AREMA_OLD_GUARD
@@ -1956,7 +1944,7 @@ MAD_MIL_CIVILIAN_GUARDIANSHIP = {
 				bureaucracy_cost_multiplier_modifier = 0.05
 				communism_drift = 0.15
 			}
-		
+
 			# Tracks the current earned version of this party idea.
 			on_add = {
 				set_country_flag = MAD_PI_EARNED_MAD_AREMA_RENEWAL
@@ -1985,7 +1973,6 @@ MAD_MIL_CIVILIAN_GUARDIANSHIP = {
 				communism_drift = 0.07
 				democratic_drift = 0.03
 			}
-		
 
 			# Tracks the current earned version of this party idea.
 
@@ -2021,7 +2008,6 @@ MAD_MIL_CIVILIAN_GUARDIANSHIP = {
 				political_power_factor = 0.1
 				bureaucracy_cost_multiplier_modifier = 0.15
 			}
-		
 
 			# Tracks the current earned version of this party idea.
 
@@ -2064,7 +2050,6 @@ MAD_MIL_CIVILIAN_GUARDIANSHIP = {
 				productivity_growth_modifier = 0.05
 				communism_drift = 0.05
 			}
-		
 
 			# Tracks the current earned version of this party idea.
 
@@ -2104,7 +2089,6 @@ MAD_MIL_CIVILIAN_GUARDIANSHIP = {
 				social_cost_multiplier_modifier = 0.015
 				receiving_investment_cost_modifier = -0.02
 			}
-		
 
 			# Tracks the current earned version of this party idea.
 
@@ -2148,7 +2132,6 @@ MAD_MIL_CIVILIAN_GUARDIANSHIP = {
 				productivity_growth_modifier = 0.05
 				infrastructure_tax_gain_multiplier_modifier = 0.03
 			}
-		
 
 			# Tracks the current earned version of this party idea.
 
@@ -2184,7 +2167,6 @@ MAD_MIL_CIVILIAN_GUARDIANSHIP = {
 				foreign_influence_defense_modifier = 0.05
 				receiving_investment_cost_modifier = 0.05
 			}
-		
 
 			# Tracks the current earned version of this party idea.
 
@@ -2223,7 +2205,6 @@ MAD_MIL_CIVILIAN_GUARDIANSHIP = {
 				foreign_influence_defense_modifier = 0.03
 				expected_welfare_modifier = 0.25
 			}
-		
 
 			# Tracks the current earned version of this party idea.
 
@@ -2259,7 +2240,6 @@ MAD_MIL_CIVILIAN_GUARDIANSHIP = {
 				bureaucracy_cost_multiplier_modifier = -0.05
 				social_cost_multiplier_modifier = -0.04
 			}
-		
 
 			# Tracks the current earned version of this party idea.
 
@@ -2294,7 +2274,6 @@ MAD_MIL_CIVILIAN_GUARDIANSHIP = {
 				bureaucracy_cost_multiplier_modifier = -0.03
 				projects_cost_modifier = -0.03
 			}
-		
 
 			# Tracks the current earned version of this party idea.
 
@@ -2330,7 +2309,6 @@ MAD_MIL_CIVILIAN_GUARDIANSHIP = {
 				police_cost_multiplier_modifier = -0.06
 				bureaucracy_cost_multiplier_modifier = -0.03
 			}
-		
 
 			# Tracks the current earned version of this party idea.
 
@@ -2365,7 +2343,6 @@ MAD_MIL_CIVILIAN_GUARDIANSHIP = {
 				bureaucracy_cost_multiplier_modifier = -0.05
 				foreign_influence_defense_modifier = 0.02
 			}
-		
 
 			# Tracks the current earned version of this party idea.
 
@@ -2401,7 +2378,6 @@ MAD_MIL_CIVILIAN_GUARDIANSHIP = {
 				corporate_tax_income_multiplier_modifier = 0.02
 				foreign_influence_modifier = 0.02
 			}
-		
 
 			# Tracks the current earned version of this party idea.
 
@@ -2436,7 +2412,6 @@ MAD_MIL_CIVILIAN_GUARDIANSHIP = {
 				stability_factor = 0.01
 				receiving_investment_duration_modifier = -0.03
 			}
-		
 
 			# Tracks the current earned version of this party idea.
 
@@ -2471,7 +2446,6 @@ MAD_MIL_CIVILIAN_GUARDIANSHIP = {
 				political_power_factor = 0.05
 				projects_cost_modifier = -0.03
 			}
-		
 
 			# Tracks the current earned version of this party idea.
 
@@ -2506,7 +2480,6 @@ MAD_MIL_CIVILIAN_GUARDIANSHIP = {
 				bureaucracy_cost_multiplier_modifier = -0.04
 				political_power_factor = 0.15
 			}
-		
 
 			# Tracks the current earned version of this party idea.
 
@@ -2541,7 +2514,6 @@ MAD_MIL_CIVILIAN_GUARDIANSHIP = {
 				production_speed_buildings_factor = 0.08
 				army_strength_factor = 0.04
 			}
-		
 
 			# Tracks the current earned version of this party idea.
 
@@ -2576,7 +2548,6 @@ MAD_MIL_CIVILIAN_GUARDIANSHIP = {
 				health_cost_multiplier_modifier = -0.05
 				social_cost_multiplier_modifier = -0.03
 			}
-		
 
 			# Tracks the current earned version of this party idea.
 
@@ -2610,7 +2581,6 @@ MAD_MIL_CIVILIAN_GUARDIANSHIP = {
 				bureaucracy_cost_multiplier_modifier = -0.04
 				projects_cost_modifier = -0.05
 			}
-		
 
 			# Tracks the current earned version of this party idea.
 
@@ -2644,7 +2614,6 @@ MAD_MIL_CIVILIAN_GUARDIANSHIP = {
 				political_power_factor = 0.05
 				bureaucracy_cost_multiplier_modifier = -0.08
 			}
-		
 
 			# Tracks the current earned version of this party idea.
 
@@ -2678,7 +2647,6 @@ MAD_MIL_CIVILIAN_GUARDIANSHIP = {
 				education_cost_multiplier_modifier = -0.05
 				total_workforce_modifier = 0.02
 			}
-		
 
 			# Tracks the current earned version of this party idea.
 
@@ -2712,7 +2680,6 @@ MAD_MIL_CIVILIAN_GUARDIANSHIP = {
 				social_cost_multiplier_modifier = -0.05
 				health_cost_multiplier_modifier = -0.02
 			}
-		
 
 			# Tracks the current earned version of this party idea.
 
@@ -2748,7 +2715,6 @@ MAD_MIL_CIVILIAN_GUARDIANSHIP = {
 				bureaucracy_cost_multiplier_modifier = -0.05
 				projects_cost_modifier = -0.06
 			}
-		
 
 			# Tracks the current earned version of this party idea.
 
@@ -2783,7 +2749,6 @@ MAD_MIL_CIVILIAN_GUARDIANSHIP = {
 				tax_gain_multiplier_modifier = 0.02
 				political_power_factor = 0.03
 			}
-		
 
 			# Tracks the current earned version of this party idea.
 
@@ -2818,7 +2783,6 @@ MAD_MIL_CIVILIAN_GUARDIANSHIP = {
 				police_cost_multiplier_modifier = -0.05
 				bureaucracy_cost_multiplier_modifier = -0.03
 			}
-		
 
 			# Tracks the current earned version of this party idea.
 
@@ -2846,20 +2810,20 @@ MAD_MIL_CIVILIAN_GUARDIANSHIP = {
 
 		}
 MAD_HVM_FISANDRATANA_FULL = {
-            picture = generic_political_discourse
-            allowed = { original_tag = MAD }
-            removal_cost = -1
-            modifier = {
-                political_power_factor = 0.15
-                stability_factor = 0.04
-                bureaucracy_cost_multiplier_modifier = -0.08
-                education_cost_multiplier_modifier = -0.05
-                productivity_growth_modifier = 0.30
-                receiving_investment_cost_modifier = -0.05
-                expected_welfare_modifier = 0.50
-                party_popularity_stability_factor = 0.05
-            }
-        
+			picture = generic_political_discourse
+			allowed = { original_tag = MAD }
+			removal_cost = -1
+			modifier = {
+				political_power_factor = 0.15
+				stability_factor = 0.04
+				bureaucracy_cost_multiplier_modifier = -0.08
+				education_cost_multiplier_modifier = -0.05
+				productivity_growth_modifier = 0.30
+				receiving_investment_cost_modifier = -0.05
+				expected_welfare_modifier = 0.50
+				party_popularity_stability_factor = 0.05
+			}
+
 	# Tracks the current earned version of this party idea.
 	on_add = {
 		set_country_flag = MAD_PI_EARNED_MAD_HVM_FISANDRATANA_FULL
@@ -2874,19 +2838,19 @@ MAD_HVM_FISANDRATANA_FULL = {
 	}
 }
 MAD_HVM_FISANDRATANA_PARTIAL = {
-            picture = generic_political_discourse
-            allowed = { original_tag = MAD }
-            removal_cost = -1
-            modifier = {
-                political_power_factor = 0.1
-                stability_factor = 0.02
-                bureaucracy_cost_multiplier_modifier = -0.04
-                education_cost_multiplier_modifier = -0.03
-                productivity_growth_modifier = 0.15
-                expected_welfare_modifier = 0.25
-                party_popularity_stability_factor = 0.05
-            }
-        
+			picture = generic_political_discourse
+			allowed = { original_tag = MAD }
+			removal_cost = -1
+			modifier = {
+				political_power_factor = 0.1
+				stability_factor = 0.02
+				bureaucracy_cost_multiplier_modifier = -0.04
+				education_cost_multiplier_modifier = -0.03
+				productivity_growth_modifier = 0.15
+				expected_welfare_modifier = 0.25
+				party_popularity_stability_factor = 0.05
+			}
+
 	# Tracks the current earned version of this party idea.
 	on_add = {
 		set_country_flag = MAD_PI_EARNED_MAD_HVM_FISANDRATANA_PARTIAL
@@ -2901,18 +2865,18 @@ MAD_HVM_FISANDRATANA_PARTIAL = {
 	}
 }
 MAD_HVM_FISANDRATANA_PLANNING = {
-            picture = generic_political_discourse
-            allowed = { original_tag = MAD }
-            removal_cost = -1
-            modifier = {
-                political_power_factor = 0.05
-                stability_factor = 0.02
-                bureaucracy_cost_multiplier_modifier = -0.02
-                productivity_growth_modifier = 0.10
-                projects_cost_modifier = -0.04
-                party_popularity_stability_factor = 0.05
-            }
-        
+			picture = generic_political_discourse
+			allowed = { original_tag = MAD }
+			removal_cost = -1
+			modifier = {
+				political_power_factor = 0.05
+				stability_factor = 0.02
+				bureaucracy_cost_multiplier_modifier = -0.02
+				productivity_growth_modifier = 0.10
+				projects_cost_modifier = -0.04
+				party_popularity_stability_factor = 0.05
+			}
+
 	# Tracks the current earned version of this party idea.
 	on_add = {
 		set_country_flag = MAD_PI_EARNED_MAD_HVM_FISANDRATANA_PLANNING
@@ -2926,7 +2890,6 @@ MAD_HVM_FISANDRATANA_PLANNING = {
 		clr_country_flag = MAD_PI_ACTIVE_MAD_HVM_FISANDRATANA_PLANNING
 	}
 }
-
 
 		MAD_2009_INTERNATIONAL_ISOLATION = {
 			picture = generic_political_discourse
@@ -2946,7 +2909,6 @@ MAD_HVM_FISANDRATANA_PLANNING = {
 				bureaucracy_cost_multiplier_modifier = -0.05
 				police_cost_multiplier_modifier = -0.03
 			}
-		
 
 			# Tracks the current earned version of this party idea.
 
@@ -2982,7 +2944,6 @@ MAD_HVM_FISANDRATANA_PLANNING = {
 				bureaucracy_cost_multiplier_modifier = -0.07
 				social_cost_multiplier_modifier = -0.04
 			}
-		
 
 			# Tracks the current earned version of this party idea.
 
@@ -3011,16 +2972,15 @@ MAD_HVM_FISANDRATANA_PLANNING = {
 		}
 
 	MAD_HVM_REPUBLICAN_STABILISATION = {
-            picture = generic_political_discourse
-            allowed = { original_tag = MAD }
-            removal_cost = -1
-            modifier = {
-                political_power_factor = 0.1
-                stability_factor = 0.05
-                bureaucracy_cost_multiplier_modifier = -0.05
-                police_cost_multiplier_modifier = -0.03
-            }
-        
+			picture = generic_political_discourse
+			allowed = { original_tag = MAD }
+			removal_cost = -1
+			modifier = {
+				political_power_factor = 0.1
+				stability_factor = 0.05
+				bureaucracy_cost_multiplier_modifier = -0.05
+				police_cost_multiplier_modifier = -0.03
+			}
 
 		# Tracks the current earned version of this party idea.
 
@@ -3049,17 +3009,16 @@ MAD_HVM_FISANDRATANA_PLANNING = {
 	}
 
 	MAD_HVM_RULE_OF_LAW_PROGRAMME = {
-            picture = generic_political_discourse
-            allowed = { original_tag = MAD }
-            removal_cost = -1
-            modifier = {
-                political_power_factor = 0.1
-                stability_factor = 0.10
-                bureaucracy_cost_multiplier_modifier = -0.10
-                police_cost_multiplier_modifier = -0.08
-                foreign_influence_defense_modifier = 0.03
-            }
-        
+			picture = generic_political_discourse
+			allowed = { original_tag = MAD }
+			removal_cost = -1
+			modifier = {
+				political_power_factor = 0.1
+				stability_factor = 0.10
+				bureaucracy_cost_multiplier_modifier = -0.10
+				police_cost_multiplier_modifier = -0.08
+				foreign_influence_defense_modifier = 0.03
+			}
 
 		# Tracks the current earned version of this party idea.
 
@@ -3096,7 +3055,6 @@ MAD_HVM_FISANDRATANA_PLANNING = {
 				police_cost_multiplier_modifier = -0.04
 				productivity_growth_modifier = 0.10
 			}
-		
 
 			# Tracks the current earned version of this party idea.
 
@@ -3124,7 +3082,6 @@ MAD_HVM_FISANDRATANA_PLANNING = {
 
 		}
 
-
 		MAD_AREMA_SOCIAL_CONTRACT = {
 			picture = generic_political_discourse
 			modifier = {
@@ -3134,44 +3091,30 @@ MAD_HVM_FISANDRATANA_PLANNING = {
 				health_cost_multiplier_modifier = -0.03
 				expected_welfare_modifier = 0.25
 			}
-		
-
 
 			# Tracks the current earned version of this party idea.
 
-
 			on_add = {
-
 
 				set_country_flag = MAD_PI_EARNED_MAD_AREMA_SOCIAL_CONTRACT
 
-
 				set_country_flag = MAD_PI_ACTIVE_MAD_AREMA_SOCIAL_CONTRACT
 
-
 			}
-
 
 			on_remove = {
 
-
 				if = {
-
 
 					limit = { has_country_flag = MAD_PI_ACTIVE_MAD_AREMA_SOCIAL_CONTRACT NOT = { has_country_flag = MAD_PI_SYNC_IN_PROGRESS } }
 
-
 					clr_country_flag = MAD_PI_EARNED_MAD_AREMA_SOCIAL_CONTRACT
-
 
 				}
 
-
 				clr_country_flag = MAD_PI_ACTIVE_MAD_AREMA_SOCIAL_CONTRACT
 
-
 			}
-
 
 		}
 		MAD_POL_ROYAL_JUSTICE = {
@@ -3182,7 +3125,7 @@ MAD_HVM_FISANDRATANA_PLANNING = {
 				bureaucracy_cost_multiplier_modifier = -0.10
 				police_cost_multiplier_modifier = -0.05
 			}
-		
+
 			# Tracks the current earned version of this party idea.
 			on_add = {
 				set_country_flag = MAD_PI_EARNED_MAD_POL_ROYAL_JUSTICE
@@ -3197,143 +3140,141 @@ MAD_HVM_FISANDRATANA_PLANNING = {
 			}
 		}
 
-
-
 		# ---- Madagascar Army: new non-political command/procurement ideas ----
 # ============================================================================
 # MADAGASCAR ARMY IDEAS REQUIRED BY THE REVISED TREE
 # ============================================================================
 
 MAD_ARMY_INHERITED_BURDEN = {
-    allowed_civil_war = { always = yes }
-    picture = generic_political_discourse
-    allowed = { original_tag = MAD }
-    removal_cost = -1
-    modifier = {
-        army_org_factor = -0.03
-        research_speed_factor = -0.02
-        military_spending_cost_factor = 0.08
-        military_factories_productivity = -0.05
-        supply_consumption_factor = 0.04
-    }
+	allowed_civil_war = { always = yes }
+	picture = generic_political_discourse
+	allowed = { original_tag = MAD }
+	removal_cost = -1
+	modifier = {
+		army_org_factor = -0.03
+		research_speed_factor = -0.02
+		military_spending_cost_factor = 0.08
+		military_factories_productivity = -0.05
+		supply_consumption_factor = 0.04
+	}
 }
 
 MAD_ARMY_CAPSAT_COMMAND = {
-    allowed_civil_war = { always = yes }
-    picture = GFX_idea_generic_army_reform
-    allowed = { original_tag = MAD }
-    removal_cost = -1
-    modifier = {
-        army_org_factor = 0.07
-        experience_gain_army_factor = 0.05
-        military_leader_cost_factor = -0.06
-        root_out_resistance_effectiveness_factor = 0.08
-        special_forces_cap_flat = 10
-        personnel_cost_multiplier_modifier = 0.07
-        military_spending_cost_factor = 0.08
-        research_speed_factor = -0.03
-        foreign_influence_defense_modifier = -0.03
-        army_attack_factor = 0.02
-        command_power_gain_mult = 0.04
-        terrain_penalty_reduction = 0.02
-    }
+	allowed_civil_war = { always = yes }
+	picture = GFX_idea_generic_army_reform
+	allowed = { original_tag = MAD }
+	removal_cost = -1
+	modifier = {
+		army_org_factor = 0.07
+		experience_gain_army_factor = 0.05
+		military_leader_cost_factor = -0.06
+		root_out_resistance_effectiveness_factor = 0.08
+		special_forces_cap_flat = 10
+		personnel_cost_multiplier_modifier = 0.07
+		military_spending_cost_factor = 0.08
+		research_speed_factor = -0.03
+		foreign_influence_defense_modifier = -0.03
+		army_attack_factor = 0.02
+		command_power_gain_mult = 0.04
+		terrain_penalty_reduction = 0.02
+	}
 }
 
 MAD_ARMY_GENERAL_STAFF_COMMAND = {
-    allowed_civil_war = { always = yes }
-    picture = GFX_idea_generic_army_reform
-    allowed = { original_tag = MAD }
-    removal_cost = -1
-    modifier = {
-        army_org_factor = 0.09
-        experience_gain_army_factor = 0.02
-        military_leader_cost_factor = -0.02
-        research_speed_factor = 0.03
-        military_spending_cost_factor = -0.06
-        personnel_cost_multiplier_modifier = -0.04
-        foreign_influence_defense_modifier = 0.03
-        army_attack_factor = -0.01
-        required_garrison_factor = 0.02
-        supply_consumption_factor = -0.02
-        command_power_gain_mult = -0.01
-    }
+	allowed_civil_war = { always = yes }
+	picture = GFX_idea_generic_army_reform
+	allowed = { original_tag = MAD }
+	removal_cost = -1
+	modifier = {
+		army_org_factor = 0.09
+		experience_gain_army_factor = 0.02
+		military_leader_cost_factor = -0.02
+		research_speed_factor = 0.03
+		military_spending_cost_factor = -0.06
+		personnel_cost_multiplier_modifier = -0.04
+		foreign_influence_defense_modifier = 0.03
+		army_attack_factor = -0.01
+		required_garrison_factor = 0.02
+		supply_consumption_factor = -0.02
+		command_power_gain_mult = -0.01
+	}
 }
 
 MAD_ARMY_HELICOPTER_PRIORITY = {
-    allowed_civil_war = { always = yes }
-    picture = generic_political_discourse
-    allowed = { original_tag = MAD }
-    removal_cost = -1
-    modifier = {
-        army_fuel_consumption_factor = -0.02
-        special_forces_cap_flat = 5
-        experience_gain_army_factor = 0.02
-    }
+	allowed_civil_war = { always = yes }
+	picture = generic_political_discourse
+	allowed = { original_tag = MAD }
+	removal_cost = -1
+	modifier = {
+		army_fuel_consumption_factor = -0.02
+		special_forces_cap_flat = 5
+		experience_gain_army_factor = 0.02
+	}
 }
 
 MAD_ARMY_CAPSAT_CONCESSIONS = {
-    allowed_civil_war = { always = yes }
-    picture = GFX_idea_generic_army_reform
-    allowed = { original_tag = MAD }
-    removal_cost = -1
-    modifier = {
-        army_org_factor = 0.05
-        experience_gain_army_factor = 0.06
-        personnel_cost_multiplier_modifier = 0.12
-        military_spending_cost_factor = 0.12
-        research_speed_factor = -0.05
-        foreign_influence_defense_modifier = -0.05
-        army_attack_factor = 0.03
-    }
+	allowed_civil_war = { always = yes }
+	picture = GFX_idea_generic_army_reform
+	allowed = { original_tag = MAD }
+	removal_cost = -1
+	modifier = {
+		army_org_factor = 0.05
+		experience_gain_army_factor = 0.06
+		personnel_cost_multiplier_modifier = 0.12
+		military_spending_cost_factor = 0.12
+		research_speed_factor = -0.05
+		foreign_influence_defense_modifier = -0.05
+		army_attack_factor = 0.03
+	}
 }
 
 MAD_ARMY_DEFENCE_INDUSTRIAL_FRAMEWORK = {
-    allowed_civil_war = { always = yes }
-    picture = GFX_idea_generic_army_reform
-    allowed = { original_tag = MAD }
-    removal_cost = -1
-    modifier = {
-        research_speed_factor = 0.03
-        production_speed_arms_factory_factor = 0.06
-    }
+	allowed_civil_war = { always = yes }
+	picture = GFX_idea_generic_army_reform
+	allowed = { original_tag = MAD }
+	removal_cost = -1
+	modifier = {
+		research_speed_factor = 0.03
+		production_speed_arms_factory_factor = 0.06
+	}
 }
 
 MAD_ARMY_FRENCH_INTEROPERABILITY = {
-    allowed_civil_war = { always = yes }
-    picture = GFX_idea_generic_army_reform
-    allowed = { original_tag = MAD }
-    removal_cost = -1
-    modifier = {
-        research_speed_factor = 0.03
-        foreign_influence_defense_modifier = 0.02
-        supply_consumption_factor = -0.02
-    }
+	allowed_civil_war = { always = yes }
+	picture = GFX_idea_generic_army_reform
+	allowed = { original_tag = MAD }
+	removal_cost = -1
+	modifier = {
+		research_speed_factor = 0.03
+		foreign_influence_defense_modifier = 0.02
+		supply_consumption_factor = -0.02
+	}
 }
 
 MAD_ARMY_INDIAN_OCEAN_NETWORK = {
-    allowed_civil_war = { always = yes }
-    picture = GFX_idea_generic_army_reform
-    allowed = { original_tag = MAD }
-    removal_cost = -1
-    modifier = {
-        command_power_gain_mult = 0.02
-        supply_consumption_factor = -0.03
-        army_org_factor = 0.02
-    }
+	allowed_civil_war = { always = yes }
+	picture = GFX_idea_generic_army_reform
+	allowed = { original_tag = MAD }
+	removal_cost = -1
+	modifier = {
+		command_power_gain_mult = 0.02
+		supply_consumption_factor = -0.03
+		army_org_factor = 0.02
+	}
 }
 
 MAD_ARMY_STRATEGIC_AUTONOMY = {
-    allowed_civil_war = { always = yes }
-    picture = GFX_idea_generic_army_reform
-    allowed = { original_tag = MAD }
-    removal_cost = -1
-    modifier = {
-        research_speed_factor = 0.04
-        production_speed_arms_factory_factor = 0.05
-        foreign_influence_defense_modifier = 0.04
-    }
+	allowed_civil_war = { always = yes }
+	picture = GFX_idea_generic_army_reform
+	allowed = { original_tag = MAD }
+	removal_cost = -1
+	modifier = {
+		research_speed_factor = 0.04
+		production_speed_arms_factory_factor = 0.05
+		foreign_influence_defense_modifier = 0.04
+	}
 }
 
 	}
-	
+
 }
