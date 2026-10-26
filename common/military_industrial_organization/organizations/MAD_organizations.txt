@@ -367,11 +367,16 @@ MAD_SECREN_shipbuilding = {
 	}
 	tree_header_text = {
 		text = MAD_SECREN_shipbuilding_header_systems
-		x = 4
+		x = 6
 	}
 	tree_header_text = {
 		text = MAD_SECREN_shipbuilding_header_production
-		x = 7
+		x = 10
+	}
+
+	tree_header_text = {
+		text = mio_header_reseach_and_production
+		x = 16
 	}
 
 	initial_trait = {
@@ -501,5 +506,602 @@ MAD_SECREN_shipbuilding = {
 		}
 		on_complete = { expenditure_for_mio_upgrade = yes }
 		ai_will_do = { base = 10 }
+	}
+
+
+	# Filtered light-naval path adapted from generic_naval_light_equipment_organization.
+	# The full template also exposes destroyers, cruisers, carriers and battleships;
+	# those are intentionally excluded so SECREN remains limited to its six vessel classes.
+trait = {
+		token = generic_mio_nav_light_trait_light_cost
+		name = generic_mio_nav_light_trait_light_cost
+		icon = GFX_generic_mio_trait_icon_build_cost_ic
+
+		position = { x = 6 y = 0 }
+
+		production_bonus = { production_cost_factor = -0.05 }
+
+		on_complete = { expenditure_for_mio_upgrade = yes }
+
+		ai_will_do = {
+			base = 10
+			modifier = {
+				factor = 0
+				check_variable = { FROM.interest_rate > 8 }
+			}
+		}
+	}
+
+trait = {
+		token = generic_mio_nav_light_trait_light_la
+		name = generic_mio_nav_light_trait_light_la
+		icon = GFX_generic_mio_trait_icon_lg_attack
+
+		any_parent = { generic_mio_nav_light_trait_light_cost }
+
+		position = { x = -1 y = 1 }
+		relative_position_id = generic_mio_nav_light_trait_light_cost
+
+		mutually_exclusive = { generic_mio_nav_light_trait_light_torpedo }
+
+		limit_to_equipment_type = { corvette stealth_corvette frigate stealth_frigate patrol_boat }
+
+		equipment_bonus = { lg_attack = 0.1 }
+
+		on_complete = { expenditure_for_mio_upgrade = yes }
+
+		ai_will_do = {
+			base = 10
+			modifier = {
+				factor = 0
+				check_variable = { FROM.interest_rate > 8 }
+			}
+		}
+	}
+
+trait = {
+		token = generic_mio_nav_light_trait_light_torpedo
+		name = generic_mio_nav_light_trait_light_torpedo
+		icon = GFX_generic_mio_trait_icon_torpedo_attack
+
+		any_parent = { generic_mio_nav_light_trait_light_cost }
+
+		position = { x = 1 y = 1 }
+		relative_position_id = generic_mio_nav_light_trait_light_cost
+
+		mutually_exclusive = { generic_mio_nav_light_trait_light_la }
+
+		limit_to_equipment_type = { corvette stealth_corvette frigate stealth_frigate }
+
+		equipment_bonus = { torpedo_attack = 0.1 }
+
+		on_complete = { expenditure_for_mio_upgrade = yes }
+
+		ai_will_do = {
+			base = 10
+			modifier = {
+				factor = 0
+				check_variable = { FROM.interest_rate > 8 }
+			}
+		}
+	}
+
+trait = {
+		token = generic_mio_nav_light_trait_light_speed
+		name = generic_mio_nav_light_trait_light_speed
+		icon = GFX_generic_mio_trait_icon_naval_speed
+
+		any_parent = {
+			generic_mio_nav_light_trait_light_torpedo
+			generic_mio_nav_light_trait_light_la
+		}
+
+		position = { x = -1 y = 1 }
+		relative_position_id = generic_mio_nav_light_trait_light_la
+
+		limit_to_equipment_type = { corvette stealth_corvette frigate stealth_frigate patrol_boat support_ship_hull }
+
+		equipment_bonus = { naval_speed = 0.1 }
+
+		on_complete = { expenditure_for_mio_upgrade = yes }
+
+		ai_will_do = {
+			base = 10
+			modifier = {
+				factor = 0
+				check_variable = { FROM.interest_rate > 8 }
+			}
+		}
+	}
+
+trait = {
+		token = generic_mio_nav_light_trait_light_detection
+		name = generic_mio_nav_light_trait_light_detection
+		icon = GFX_generic_mio_trait_icon_detection
+
+		any_parent = {
+			generic_mio_nav_light_trait_light_torpedo
+			generic_mio_nav_light_trait_light_la
+		}
+
+		position = { x = 1 y = 1 }
+		relative_position_id = generic_mio_nav_light_trait_light_la
+
+		limit_to_equipment_type = { corvette stealth_corvette frigate stealth_frigate patrol_boat }
+
+		equipment_bonus = {
+			sub_detection = 0.1
+			surface_detection = 0.1
+		}
+
+		on_complete = { expenditure_for_mio_upgrade = yes }
+
+		ai_will_do = {
+			base = 10
+			modifier = {
+				factor = 0
+				check_variable = { FROM.interest_rate > 8 }
+			}
+		}
+	}
+
+trait = {
+		token = generic_mio_nav_light_trait_light_aa
+		name = generic_mio_nav_light_trait_light_aa
+		icon = GFX_generic_mio_trait_icon_naval_anti_air_attack
+
+		any_parent = {
+			generic_mio_nav_light_trait_light_torpedo
+			generic_mio_nav_light_trait_light_la
+		}
+
+		position = { x = 3 y = 1 }
+		relative_position_id = generic_mio_nav_light_trait_light_la
+
+		limit_to_equipment_type = { corvette stealth_corvette frigate stealth_frigate patrol_boat }
+
+		equipment_bonus = { anti_air_attack = 0.1 }
+
+		on_complete = { expenditure_for_mio_upgrade = yes }
+
+		ai_will_do = {
+			base = 10
+			modifier = {
+				factor = 0
+				check_variable = { FROM.interest_rate > 8 }
+			}
+		}
+	}
+
+trait = {
+		token = generic_mio_nav_light_trait_light_range
+		name = generic_mio_nav_light_trait_light_range
+		icon = GFX_generic_mio_trait_icon_naval_range
+
+		any_parent = {
+			generic_mio_nav_light_trait_light_aa
+			generic_mio_nav_light_trait_light_detection
+			generic_mio_nav_light_trait_light_speed
+		}
+
+		position = { x = 1 y = 1 }
+		relative_position_id = generic_mio_nav_light_trait_light_speed
+
+		mutually_exclusive = { generic_mio_nav_light_trait_light_stats }
+
+		limit_to_equipment_type = { corvette stealth_corvette frigate stealth_frigate patrol_boat support_ship_hull }
+
+		equipment_bonus = { naval_range = 0.1 }
+
+		on_complete = { expenditure_for_mio_upgrade = yes }
+
+		ai_will_do = {
+			base = 10
+			modifier = {
+				factor = 0
+				check_variable = { FROM.interest_rate > 8 }
+			}
+		}
+	}
+
+trait = {
+		token = generic_mio_nav_light_trait_light_stats
+		name = generic_mio_nav_light_trait_light_stats
+		icon = GFX_generic_mio_trait_icon_armor_value
+
+		any_parent = {
+			generic_mio_nav_light_trait_light_aa
+			generic_mio_nav_light_trait_light_detection
+			generic_mio_nav_light_trait_light_speed
+		}
+
+		position = { x = 1 y = 1 }
+		relative_position_id = generic_mio_nav_light_trait_light_detection
+
+		mutually_exclusive = { generic_mio_nav_light_trait_light_range }
+
+		limit_to_equipment_type = { corvette stealth_corvette frigate stealth_frigate patrol_boat }
+
+		equipment_bonus = {
+			reliability = 0.1
+			armor_value = 0.1
+			sub_attack = 0.1
+		}
+
+		on_complete = { expenditure_for_mio_upgrade = yes }
+
+		ai_will_do = {
+			base = 10
+			modifier = {
+				factor = 0
+				check_variable = { FROM.interest_rate > 8 }
+			}
+		}
+	}
+
+trait = {
+		token = generic_mio_nav_light_trait_light_strength
+		name = generic_mio_nav_light_trait_light_strength
+		icon = GFX_generic_mio_trait_icon_max_strength
+
+		any_parent = {
+			generic_mio_nav_light_trait_light_stats
+			generic_mio_nav_light_trait_light_range
+		}
+
+		position = { x = -1 y = 1 }
+		relative_position_id = generic_mio_nav_light_trait_light_stats
+
+		limit_to_equipment_type = { corvette stealth_corvette frigate stealth_frigate patrol_boat support_ship_hull }
+
+		equipment_bonus = { max_strength = 0.1 }
+
+		on_complete = { expenditure_for_mio_upgrade = yes }
+
+		ai_will_do = {
+			base = 10
+			modifier = {
+				factor = 0
+				check_variable = { FROM.interest_rate > 8 }
+			}
+		}
+	}
+
+trait = {
+		token = generic_mio_nav_light_trait_light_cost_2
+		name = generic_mio_nav_light_trait_light_cost_2
+		icon = GFX_generic_mio_trait_icon_build_cost_ic
+
+		any_parent = { generic_mio_nav_light_trait_light_strength }
+
+		position = { x = 0 y = 1 }
+		relative_position_id = generic_mio_nav_light_trait_light_strength
+
+		limit_to_equipment_type = { corvette stealth_corvette frigate stealth_frigate patrol_boat }
+
+		production_bonus = { production_cost_factor = -0.05 }
+
+		on_complete = { expenditure_for_mio_upgrade = yes }
+
+		ai_will_do = {
+			base = 10
+			modifier = {
+				factor = 0
+				check_variable = { FROM.interest_rate > 8 }
+			}
+		}
+	}
+
+trait = {
+		token = generic_mio_nav_light_trait_light_visibility
+		name = generic_mio_nav_light_trait_light_visibility
+		icon = GFX_generic_mio_trait_icon_surface_visibility
+
+		any_parent = { generic_mio_nav_light_trait_light_cost }
+
+		position = { x = 4 y = 1 }
+		relative_position_id = generic_mio_nav_light_trait_light_cost
+
+		limit_to_equipment_type = { corvette stealth_corvette frigate stealth_frigate patrol_boat }
+
+		equipment_bonus = { surface_visibility = -0.1 }
+
+		on_complete = { expenditure_for_mio_upgrade = yes }
+
+		ai_will_do = {
+			base = 10
+			modifier = {
+				factor = 0
+				check_variable = { FROM.interest_rate > 8 }
+			}
+		}
+	}
+
+trait = {
+		token = generic_mio_nav_light_trait_light_fuel
+		name = generic_mio_nav_light_trait_light_fuel
+		icon = GFX_generic_mio_trait_icon_fuel_consumption
+
+		any_parent = { generic_mio_nav_light_trait_light_visibility }
+
+		position = { x = 0 y = 1 }
+		relative_position_id = generic_mio_nav_light_trait_light_visibility
+
+		limit_to_equipment_type = { corvette stealth_corvette frigate stealth_frigate patrol_boat support_ship_hull }
+
+		equipment_bonus = { naval_range = 0.10 }
+
+		on_complete = { expenditure_for_mio_upgrade = yes }
+
+		ai_will_do = {
+			base = 10
+			modifier = {
+				factor = 0
+				check_variable = { FROM.interest_rate > 8 }
+			}
+		}
+	}
+
+trait = {
+		token = generic_mio_nav_light_trait_light_detection_2
+		name = generic_mio_nav_light_trait_light_detection_2
+		icon = GFX_generic_mio_trait_icon_detection
+
+		any_parent = { generic_mio_nav_light_trait_light_fuel }
+
+		position = { x = -1 y = 1 }
+		relative_position_id = generic_mio_nav_light_trait_light_fuel
+
+		mutually_exclusive = { generic_mio_nav_light_trait_light_armor }
+
+		limit_to_equipment_type = { corvette stealth_corvette frigate stealth_frigate patrol_boat }
+
+		equipment_bonus = {
+			surface_detection = 0.1
+			sub_detection = 0.1
+		}
+
+		on_complete = { expenditure_for_mio_upgrade = yes }
+
+		ai_will_do = {
+			base = 10
+			modifier = {
+				factor = 0
+				check_variable = { FROM.interest_rate > 8 }
+			}
+		}
+	}
+
+trait = {
+		token = generic_mio_nav_light_trait_light_armor
+		name = generic_mio_nav_light_trait_light_armor
+		icon = GFX_generic_mio_trait_icon_armor_value
+
+		any_parent = { generic_mio_nav_light_trait_light_fuel }
+
+		position = { x = 1 y = 1 }
+		relative_position_id = generic_mio_nav_light_trait_light_fuel
+
+		mutually_exclusive = { generic_mio_nav_light_trait_light_detection_2 }
+
+		limit_to_equipment_type = { corvette stealth_corvette frigate stealth_frigate }
+
+		equipment_bonus = {
+			armor_value = 0.1
+			reliability = 0.1
+		}
+
+		on_complete = { expenditure_for_mio_upgrade = yes }
+
+		ai_will_do = {
+			base = 10
+			modifier = {
+				factor = 0
+				check_variable = { FROM.interest_rate > 8 }
+			}
+		}
+	}
+
+trait = {
+		token = generic_mio_nav_light_trait_strength
+		name = generic_mio_nav_light_trait_strength
+		icon = GFX_generic_mio_trait_icon_naval_anti_air_attack
+
+		any_parent = {
+			generic_mio_nav_light_trait_light_detection_2
+			generic_mio_nav_light_trait_light_armor
+		}
+
+		position = { x = 1 y = 1 }
+		relative_position_id = generic_mio_nav_light_trait_light_detection_2
+
+		limit_to_equipment_type = { corvette stealth_corvette frigate stealth_frigate }
+
+		equipment_bonus = {
+			torpedo_attack = 0.05
+			anti_air_attack = 0.05
+		}
+
+		on_complete = { expenditure_for_mio_upgrade = yes }
+
+		ai_will_do = {
+			base = 10
+			modifier = {
+				factor = 0
+				check_variable = { FROM.interest_rate > 8 }
+			}
+		}
+	}
+
+trait = {
+		token = generic_mio_nav_light_trait_ind_research
+		name = generic_mio_nav_light_trait_ind_research
+		icon = GFX_generic_mio_trait_icon_research
+
+		position = { x = 16 y = 0 }
+
+		organization_modifier = { military_industrial_organization_research_bonus = 0.05 }
+
+		on_complete = { expenditure_for_mio_upgrade = yes }
+
+		ai_will_do = {
+			base = 10
+			modifier = {
+				factor = 0
+				check_variable = { FROM.interest_rate > 8 }
+			}
+		}
+	}
+
+trait = {
+		token = generic_mio_nav_light_trait_ind_xp
+		name = generic_mio_nav_light_trait_ind_xp
+		icon = GFX_generic_mio_trait_icon_funds
+
+		any_parent = { generic_mio_nav_light_trait_ind_research }
+
+		position = { x = 0 y = 1 }
+		relative_position_id = generic_mio_nav_light_trait_ind_research
+
+		organization_modifier = { military_industrial_organization_funds_gain = 0.2 }
+
+		on_complete = { expenditure_for_mio_upgrade = yes }
+
+		ai_will_do = {
+			base = 10
+			modifier = {
+				factor = 0
+				check_variable = { FROM.interest_rate > 8 }
+			}
+		}
+	}
+
+trait = {
+		token = generic_mio_nav_light_trait_ind_buffs
+		name = generic_mio_nav_light_trait_ind_buffs
+		icon = GFX_generic_mio_trait_icon_design
+
+		any_parent = { generic_mio_nav_light_trait_ind_research }
+
+		position = { x = -1 y = 1 }
+		relative_position_id = generic_mio_nav_light_trait_ind_xp
+
+		mutually_exclusive = { generic_mio_nav_light_trait_ind_capacity }
+
+		organization_modifier = {
+			military_industrial_organization_design_team_assign_cost = -0.2
+			military_industrial_organization_design_team_change_cost = -0.2
+			military_industrial_organization_industrial_manufacturer_assign_cost = -0.2
+		}
+
+		on_complete = { expenditure_for_mio_upgrade = yes }
+
+		ai_will_do = {
+			base = 10
+			modifier = {
+				factor = 0
+				check_variable = { FROM.interest_rate > 8 }
+			}
+		}
+	}
+
+trait = {
+		token = generic_mio_nav_light_trait_ind_capacity
+		name = generic_mio_nav_light_trait_ind_capacity
+		icon = GFX_generic_mio_trait_icon_task
+
+		any_parent = { generic_mio_nav_light_trait_ind_research }
+
+		position = { x = 1 y = 1 }
+		relative_position_id = generic_mio_nav_light_trait_ind_xp
+
+		mutually_exclusive = { generic_mio_nav_light_trait_ind_buffs }
+
+		organization_modifier = { military_industrial_organization_task_capacity = 3 }
+
+		on_complete = { expenditure_for_mio_upgrade = yes }
+
+		ai_will_do = {
+			base = 10
+			modifier = {
+				factor = 0
+				check_variable = { FROM.interest_rate > 8 }
+			}
+		}
+	}
+
+trait = {
+		token = generic_mio_nav_light_trait_ind_cost
+		name = generic_mio_nav_light_trait_ind_cost
+		icon = GFX_generic_mio_trait_icon_production_capacity
+
+		any_parent = {
+			generic_mio_nav_light_trait_ind_buffs
+			generic_mio_nav_light_trait_ind_capacity
+		}
+
+		position = { x = 1 y = 1 }
+		relative_position_id = generic_mio_nav_light_trait_ind_buffs
+
+		production_bonus = { production_capacity_factor = 0.05 }
+
+		on_complete = { expenditure_for_mio_upgrade = yes }
+
+		ai_will_do = {
+			base = 10
+			modifier = {
+				factor = 0
+				check_variable = { FROM.interest_rate > 8 }
+			}
+		}
+	}
+
+trait = {
+		token = generic_mio_nav_light_trait_ind_research_2
+		name = generic_mio_nav_light_trait_ind_research_2
+		icon = GFX_generic_mio_trait_icon_research
+
+		any_parent = { generic_mio_nav_light_trait_ind_cost }
+
+		position = { x = 0 y = 1 }
+		relative_position_id = generic_mio_nav_light_trait_ind_cost
+
+		organization_modifier = {
+			military_industrial_organization_research_bonus = 0.05
+			military_industrial_organization_size_up_requirement = -0.1
+		}
+
+		on_complete = { expenditure_for_mio_upgrade = yes }
+
+		ai_will_do = {
+			base = 10
+			modifier = {
+				factor = 0
+				check_variable = { FROM.interest_rate > 8 }
+			}
+		}
+	}
+
+trait = {
+		token = generic_mio_nav_light_trait_ind_capacity_2
+		name = generic_mio_nav_light_trait_ind_capacity_2
+		icon = GFX_generic_mio_trait_icon_task
+
+		all_parents = { generic_mio_nav_light_trait_ind_research_2 }
+
+		position = { x = 0 y = 1 }
+		relative_position_id = generic_mio_nav_light_trait_ind_research_2
+
+		organization_modifier = { military_industrial_organization_task_capacity = 3 }
+
+		on_complete = { expenditure_for_mio_upgrade = yes }
+
+		ai_will_do = {
+			base = 10
+			modifier = {
+				factor = 0
+				check_variable = { FROM.interest_rate > 8 }
+			}
+		}
 	}
 }
