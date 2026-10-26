@@ -2248,7 +2248,7 @@ MAD_drought_monthly_tick = {
 		# Regular displacement is handled by the separate calendar-month on_action.
 		# Keep this 30-day climate/severity tick separate from the monthly displacement report tick.
 
-		# over?
+		# Finish as soon as severity reaches zero.
 		if = {
 			limit = { check_variable = { MAD_drought_severity < 0.001 } }
 			MAD_drought_finish = yes
