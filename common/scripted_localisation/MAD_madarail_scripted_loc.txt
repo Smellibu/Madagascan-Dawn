@@ -441,29 +441,6 @@ defined_text = {
 	}
 }
 
-# Which way the CNA went, for the drought panel description.
-defined_text = {
-	name = MAD_GetCNAPath
-	text = {
-		trigger = { has_country_flag = MAD_CNA_PERMANENT }
-		localization_key = MAD_cna_path_permanent
-	}
-	text = {
-		trigger = { has_country_flag = MAD_CNA_HARVEST_PROGRAMME }
-		localization_key = MAD_cna_path_harvest
-	}
-	text = {
-		trigger = { has_country_flag = MAD_CNA_SURVEY_PROGRAMME }
-		localization_key = MAD_cna_path_survey
-	}
-	text = {
-		trigger = { has_country_flag = MAD_CNA_FOUNDED }
-		localization_key = MAD_cna_path_founded
-	}
-	text = {
-		localization_key = MAD_madarail_blank
-	}
-}
 # Dahalo threat severity display
 #
 # Thresholds match MAD_dahalo_update_modifier:
