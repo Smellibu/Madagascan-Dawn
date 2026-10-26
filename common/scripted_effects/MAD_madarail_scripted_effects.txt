@@ -2765,14 +2765,10 @@ MAD_drought_state_monthly = {
 # THE CNA AND THE LOCUSTS
 ########################################################################
 # Centre National Antiacridien - Madagascar's real anti-locust agency, refounded after the 1997-2000 plague.
-# The branch is: CNA -> (Continue The Path | Become The Locust) -> Map Infestations / Biopesticides ->
-# Locust Invasion Response / Preventative Measures. Everything here needs Agricultural Reforms first, because it
-# all runs on the agriculture modifier that focus creates.
-
-# The CNA routes are complementary, not mutually exclusive: both can be completed and their benefits stack.
+# The two CNA routes are complementary, not mutually exclusive: both can be completed and their benefits stack.
 # Continue the Path -> Map Infestations -> Locust Invasion Response.
 # Become the Locust -> Biopesticides -> Preventative Measures.
-# Focus rewards implement these effects directly; keep this section for the shared swarm calculation only.
+# Focus rewards are implemented inline; the shared swarm calculation applies their flags to locust events.
 
 ########################################################################
 # A LOCUST SWARM ON THE MAP (used by the locust events)
@@ -2821,8 +2817,8 @@ MAD_drought_locust_swarm = {
 
 ########################################################################
 # STARTER EFFECT
-# Called by the six generation-project UNLOCK focuses.
-# The first unlock starts one 1095-day mission; later unlocks do nothing.
+# Called by generation-project unlock focuses and the related DECIM programme focus.
+# The first valid call starts one 1095-day mission; later calls do nothing.
 ########################################################################
 
 MAD_JIRAMA_START_GENERATION_RECOVERY = {
