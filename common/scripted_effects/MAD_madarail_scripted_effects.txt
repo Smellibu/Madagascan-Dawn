@@ -53,7 +53,7 @@ MAD_madarail_enact_concessions = {
 			set_temp_variable = { treasury_change = -5.00 }
 			modify_treasury_effect = yes
 		}
-		
+
 		if = {
 			limit = { has_country_flag = MAD_MADARAIL_OFFER_3 }
 			add_to_variable = { MAD_comazar_infrastructure_tax_gain_multiplier_modifier = -0.05 tooltip = infrastructure_tax_gain_multiplier_modifier_tt }
@@ -302,7 +302,6 @@ MAD_daewoo_end_lease = {
 	MAD_daewoo_break_effects = yes
 }
 
-
 ########################################################################
 # FORCED OUTCOME FOCUSES
 # These branches are consequences of the systems, not player choices.
@@ -321,7 +320,6 @@ MAD_autocomplete_forced_outcome_foci = {
 		complete_national_focus = MAD_DEAL_KEPT_FAILED
 	}
 }
-
 
 # --- the drought hooks -------------------------------------------------------------------------------------------
 # Korean cash crops feed the drought, but only while the drought exists. The monthly tick adds MAD_drought_daewoo_pressure
@@ -349,7 +347,6 @@ MAD_daewoo_drought_well = {
 		MAD_drought_apply_change = yes
 	}
 }
-
 
 ########################################################################
 # common/scripted_effects/MAD_drought_scripted_effects.txt
@@ -596,8 +593,7 @@ MAD_drought_state_apply_change = {
 	add_to_variable = { MAD_state_drought = MAD_dr_state_change }
 	MAD_drought_state_clamp = yes
 	MAD_drought_state_update_tier = yes
-	
-	
+
 	custom_effect_tooltip = MAD_dr_state_change_tt
 }
 
@@ -606,7 +602,7 @@ MAD_drought_state_apply_famine = {
 	add_to_variable = { MAD_state_famine = MAD_dr_state_famine }
 	clamp_variable = { var = MAD_state_famine min = 0 max = 100 }
 	MAD_drought_state_update_tier = yes
-	
+
 	custom_effect_tooltip = MAD_dr_state_famine_tt
 }
 
@@ -978,7 +974,6 @@ MAD_drought_execute_displacement = {
 		}
 		}
 
-		
 		# Record this departure in its source-state slot; the monthly report commits all slots together.
 		if = {
 			limit = {
@@ -1230,8 +1225,6 @@ MAD_drought_commit_displacement_487 = {
 	}
 }
 
-
-
 MAD_drought_clear_regular_transfer_slots = {
 	set_variable = { MAD_drought_transfer_gross_266 = 0 }
 	set_variable = { MAD_drought_transfer_survivors_266 = 0 }
@@ -1274,7 +1267,6 @@ MAD_drought_clear_regular_transfer_slots = {
 	set_variable = { MAD_drought_report_arrivals_MOZ = 0 }
 	set_variable = { MAD_drought_report_arrivals_SAF = 0 }
 }
-
 
 # Build display totals by destination for the event option tooltip. The underlying
 # transfers remain stored per source state so each source can still lose manpower correctly.
@@ -3098,10 +3090,8 @@ MAD_dahalo_switch_to_remenabila = {
 	MAD_dahalo_update_modifier = yes
 }
 
-
 # Resolve the time-limited campaigns only when their operation timer expires.
 # Prepared institutions improve outcomes; each route still has a useful, but costly, partial result.
-
 
 # Readiness affects probability, but does not guarantee success. Probability is capped at 80%.
 MAD_dahalo_campaign_reset = {
@@ -3436,15 +3426,15 @@ MAD_dahalo_southern_supply_interference = {
 }
 
 MAD_dahalo_southern_water_relief_interference = {
-    # Emergency-water relief always lasts six months.
-    # Rural Cooperation affects relief effectiveness, not duration.
-    set_temp_variable = {
-        MAD_dahalo_water_relief_months = 6
-    }
+	# Emergency-water relief always lasts six months.
+	# Rural Cooperation affects relief effectiveness, not duration.
+	set_temp_variable = {
+		MAD_dahalo_water_relief_months = 6
+	}
 
-    add_to_variable = {
-        MAD_state_relief_months = MAD_dahalo_water_relief_months
-    }
+	add_to_variable = {
+		MAD_state_relief_months = MAD_dahalo_water_relief_months
+	}
 }
 
 ########################################################################
@@ -3584,7 +3574,7 @@ MAD_dahalo_daily_tick = {
 			NOT = { has_country_flag = MAD_DAHALO_CIVIL_WAR_PENDING }
 			NOT = { has_civil_war = yes }
 		}
-		
+
 		clamp_variable = { var = MAD_dahalo_threat min = 0 max = 100 }
 		MAD_dahalo_update_modifier = yes
 	}
@@ -3606,21 +3596,21 @@ MAD_dahalo_daily_tick = {
 	MAD_dahalo_random_event_tick = yes
 }
 MAD_dahalo_monthly_tick = {
-    if = {
-        limit = {
-            NOT = { has_country_flag = MAD_DAHALO_DEFEATED }
-            NOT = { has_country_flag = MAD_REMENABILA_IN_POWER }
-            NOT = { has_country_flag = MAD_REMENABILA_KILLED }
-            NOT = { has_country_flag = MAD_DAHALO_SECURITY_ENDING }
-            NOT = { has_country_flag = MAD_DAHALO_ACCOMMODATION_ENDING }
-            NOT = { has_country_flag = MAD_DAHALO_CIVIL_WAR_STARTED }
-            NOT = { has_country_flag = MAD_DAHALO_CIVIL_WAR_PENDING }
-            NOT = { has_civil_war = yes }
-        }
-        add_to_variable = { MAD_dahalo_threat = 2 }
-        clamp_variable = { var = MAD_dahalo_threat min = 0 max = 100 }
-        MAD_dahalo_update_modifier = yes
-    }
+	if = {
+		limit = {
+			NOT = { has_country_flag = MAD_DAHALO_DEFEATED }
+			NOT = { has_country_flag = MAD_REMENABILA_IN_POWER }
+			NOT = { has_country_flag = MAD_REMENABILA_KILLED }
+			NOT = { has_country_flag = MAD_DAHALO_SECURITY_ENDING }
+			NOT = { has_country_flag = MAD_DAHALO_ACCOMMODATION_ENDING }
+			NOT = { has_country_flag = MAD_DAHALO_CIVIL_WAR_STARTED }
+			NOT = { has_country_flag = MAD_DAHALO_CIVIL_WAR_PENDING }
+			NOT = { has_civil_war = yes }
+		}
+		add_to_variable = { MAD_dahalo_threat = 2 }
+		clamp_variable = { var = MAD_dahalo_threat min = 0 max = 100 }
+		MAD_dahalo_update_modifier = yes
+	}
 }
 MAD_dahalo_prepare_for_civil_war = {
 	set_country_flag = MAD_DAHALO_CIVIL_WAR_STARTED
@@ -3629,7 +3619,6 @@ MAD_dahalo_prepare_for_civil_war = {
 	set_variable = { MAD_dahalo_threat = 0 }
 	MAD_dahalo_update_modifier = yes
 }
-
 
 MAD_cancel_TGV_velirano_commitments = {
 	# Unfulfilled promises are cancelled when TGV leaves office. Completed delivery flags are permanent records:
@@ -4637,7 +4626,6 @@ MAD_build_nuclear_facility_in_available_state = {
 		}
 	}
 }
-
 
 ########################################################################
 # ARMY COMMAND EVENT BASELINES — now applied through MAD_ARMY_COMMAND_SYSTEM
