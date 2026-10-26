@@ -446,16 +446,12 @@ MAD_drought_init = {
 	set_variable = { MAD_drought_transfer_negative_people_487 = 0 }
 	set_variable = { MAD_drought_transfer_survivors_people = 0 }
 	set_variable = { MAD_drought_transfer_deaths_people = 0 }
-	set_variable = { MAD_drought_transfer_negative_people = 0 }
 	set_variable = { MAD_drought_return_people_shared = 0 }
 	set_variable = { MAD_drought_return_negative_people_shared = 0 }
 	set_variable = { MAD_drought_transfer_source_id = 0 }
 	set_variable = { MAD_drought_transfer_destination_id = 0 }
 	set_variable = { MAD_drought_transfer_abroad = 0 }
 	set_variable = { MAD_drought_transfer_famine_relief = 0 }
-	set_variable = { MAD_drought_historical_departure_people = 0 }
-	set_variable = { MAD_drought_migration_amount = 0 } # retained at zero for save compatibility
-	set_variable = { MAD_drought_migration_force = 0 } # retained at zero for save compatibility
 	set_variable = { MAD_drought_idp_266_267 = 0 }
 	set_variable = { MAD_drought_idp_266_268 = 0 }
 	set_variable = { MAD_drought_idp_266_487 = 0 }
@@ -500,11 +496,6 @@ MAD_drought_init = {
 	set_variable = { MAD_drought_lowest_other_severity = 101 }
 	set_variable = { MAD_drought_months = 0 }
 	set_variable = { MAD_drought_calendar_months = 0 }
-	# Keep historical drought-event timing separate from the monthly displacement accumulator.
-	set_variable = { MAD_drought_hosted_266 = 0 }
-	set_variable = { MAD_drought_hosted_267 = 0 }
-	set_variable = { MAD_drought_hosted_268 = 0 }
-	set_variable = { MAD_drought_hosted_487 = 0 }
 	set_variable = { MAD_agri_war_support = 0 }
 	add_dynamic_modifier = { modifier = MAD_agriculture_modifier }
 	set_variable = { MAD_drought_containment_days = 0 }
@@ -767,6 +758,7 @@ MAD_drought_south_shock = {
 # DROUGHT DISPLACEMENT
 ########################################################################
 # The four modeled states use state_population_k (in thousands) to calculate population-proportional movement.
+# Historical drought events alter drought/famine severity; departures arise only from this monthly severity check.
 # Every qualifying calendar month contributes its own population fraction to that month's report:
 #   state drought 60-79: 1/2000 of state population per qualifying month
 #   state drought 80+:   1/500 of state population per qualifying month
@@ -792,7 +784,6 @@ MAD_drought_displacement_snapshot = {
 MAD_drought_state_displacement_tick = {
 	if = {
 		limit = { check_variable = { MAD_state_drought > 59.99 } }
-		add_to_variable = { MAD_state_displacement_months = 1 }
 		set_temp_variable = { MAD_disp_gross_people = state_population_k }
 		multiply_temp_variable = { MAD_disp_gross_people = 1000 }
 		if = {
@@ -803,10 +794,6 @@ MAD_drought_state_displacement_tick = {
 			divide_temp_variable = { MAD_disp_gross_people = 2000 }
 		}
 		add_to_variable = { MAD_state_displacement_accumulator = MAD_disp_gross_people }
-	}
-	else = {
-		# A non-qualifying month adds no departures, but does not erase earlier departures in this report window.
-		set_variable = { MAD_state_displacement_months = 0 }
 	}
 }
 
@@ -871,19 +858,6 @@ MAD_drought_stage_displacement_period = {
 		}
 	}
 	set_variable = { MAD_state_displacement_accumulator = 0 }
-	set_variable = { MAD_state_displacement_months = 0 }
-}
-
-# Dated historical shocks contribute their specific modeled departure estimate to the next monthly report.
-# Source is the modeled Grand Sud state (268); the report later handles the population transfer and survival accounting.
-MAD_drought_historical_displacement = {
-	if = {
-		limit = { check_variable = { MAD_drought_historical_departure_people > 0.5 } }
-		268 = {
-			add_to_variable = { MAD_state_displacement_accumulator = ROOT.MAD_drought_historical_departure_people }
-		}
-	}
-	set_variable = { MAD_drought_historical_departure_people = 0 }
 }
 
 MAD_drought_execute_displacement = {
@@ -929,10 +903,87 @@ MAD_drought_execute_displacement = {
 			set_variable = { MAD_drought_transfer_destination_id = MAD_drought_lowest_safe_id }
 		}
 		else = {
-			# No other state is below 60: do not send people into another unsafe state.
-			# Use the established international destinations instead of creating reciprocal
-			# Antananarivo <-> Toliara flows while the whole island is severely affected.
+			# No other state is below 60. Prefer one of the established international destinations,
+			# but never select a country that no longer owns any states.
 			set_variable = { MAD_drought_transfer_abroad = 1 }
+			random_list = { 34 = { set_variable = { MAD_drought_transfer_abroad_country = 1 } } 33 = { set_variable = { MAD_drought_transfer_abroad_country = 2 } } 33 = { set_variable = { MAD_drought_transfer_abroad_country = 3 } } }
+			if = {
+				limit = { check_variable = { MAD_drought_transfer_abroad_country = 1 } }
+				if = {
+					limit = { NOT = { country_exists = COM } }
+					set_variable = { MAD_drought_transfer_abroad_country = 0 }
+				}
+				else_if = {
+					limit = { NOT = { COM = { any_owned_state = { always = yes } } } }
+					set_variable = { MAD_drought_transfer_abroad_country = 0 }
+				}
+			}
+			if = {
+				limit = { check_variable = { MAD_drought_transfer_abroad_country = 2 } }
+				if = {
+					limit = { NOT = { country_exists = MOZ } }
+					set_variable = { MAD_drought_transfer_abroad_country = 0 }
+				}
+				else_if = {
+					limit = { NOT = { MOZ = { any_owned_state = { always = yes } } } }
+					set_variable = { MAD_drought_transfer_abroad_country = 0 }
+				}
+			}
+			if = {
+				limit = { check_variable = { MAD_drought_transfer_abroad_country = 3 } }
+				if = {
+					limit = { NOT = { country_exists = SAF } }
+					set_variable = { MAD_drought_transfer_abroad_country = 0 }
+				}
+				else_if = {
+					limit = { NOT = { SAF = { any_owned_state = { always = yes } } } }
+					set_variable = { MAD_drought_transfer_abroad_country = 0 }
+				}
+			}
+			if = {
+				limit = { check_variable = { MAD_drought_transfer_abroad_country < 0.5 } }
+				# The random pick was unavailable. Try the preferred destinations in order.
+				if = {
+					limit = { country_exists = COM COM = { any_owned_state = { always = yes } } }
+					set_variable = { MAD_drought_transfer_abroad_country = 1 }
+				}
+				else_if = {
+					limit = { country_exists = MOZ MOZ = { any_owned_state = { always = yes } } }
+					set_variable = { MAD_drought_transfer_abroad_country = 2 }
+				}
+				else_if = {
+					limit = { country_exists = SAF SAF = { any_owned_state = { always = yes } } }
+					set_variable = { MAD_drought_transfer_abroad_country = 3 }
+				}
+				else = {
+					# None of the preferred foreign destinations owns a state. As a last resort,
+					# use the least drought-affected other modeled state so population remains tracked.
+					set_variable = { MAD_drought_lowest_safe_id = 0 }
+					set_variable = { MAD_drought_lowest_safe_severity = 101 }
+					if = {
+						limit = { NOT = { check_variable = { MAD_drought_transfer_source_id = 266 } } check_variable = { MAD_drought_mig_d_266 < MAD_drought_lowest_safe_severity } }
+						set_variable = { MAD_drought_lowest_safe_id = 266 }
+						set_variable = { MAD_drought_lowest_safe_severity = MAD_drought_mig_d_266 }
+					}
+					if = {
+						limit = { NOT = { check_variable = { MAD_drought_transfer_source_id = 267 } } check_variable = { MAD_drought_mig_d_267 < MAD_drought_lowest_safe_severity } }
+						set_variable = { MAD_drought_lowest_safe_id = 267 }
+						set_variable = { MAD_drought_lowest_safe_severity = MAD_drought_mig_d_267 }
+					}
+					if = {
+						limit = { NOT = { check_variable = { MAD_drought_transfer_source_id = 268 } } check_variable = { MAD_drought_mig_d_268 < MAD_drought_lowest_safe_severity } }
+						set_variable = { MAD_drought_lowest_safe_id = 268 }
+						set_variable = { MAD_drought_lowest_safe_severity = MAD_drought_mig_d_268 }
+					}
+					if = {
+						limit = { NOT = { check_variable = { MAD_drought_transfer_source_id = 487 } } check_variable = { MAD_drought_mig_d_487 < MAD_drought_lowest_safe_severity } }
+						set_variable = { MAD_drought_lowest_safe_id = 487 }
+						set_variable = { MAD_drought_lowest_safe_severity = MAD_drought_mig_d_487 }
+					}
+					set_variable = { MAD_drought_transfer_destination_id = MAD_drought_lowest_safe_id }
+					set_variable = { MAD_drought_transfer_abroad = 0 }
+				}
+			}
 		}
 
 		# Save a destination scope under the unique report slot. Nothing is moved until the report option.
@@ -968,7 +1019,6 @@ MAD_drought_execute_displacement = {
 		}
 		}
 		else = {
-			random_list = { 34 = { set_variable = { MAD_drought_transfer_abroad_country = 1 } } 33 = { set_variable = { MAD_drought_transfer_abroad_country = 2 } } 33 = { set_variable = { MAD_drought_transfer_abroad_country = 3 } } }
 		if = {
 			limit = { check_variable = { MAD_drought_transfer_abroad_country = 1 } }
 			if = { limit = { check_variable = { MAD_drought_transfer_source_id = 266 } } COM = { save_event_target_as = MAD_drought_transfer_destination_266 } }
@@ -1045,7 +1095,7 @@ MAD_drought_execute_displacement = {
 	}
 }
 
-# The regular report commits all four staged state slots together, including departures contributed by historical drought shocks.
+# The regular report commits the staged monthly departure slots for all four modeled states.
 
 MAD_drought_commit_displacement_266 = {
 	if = {
@@ -1356,7 +1406,6 @@ MAD_drought_prepare_displacement_report_summary = {
 # Each monthly tick collects that month's departure estimate, stages all four origins,
 # and opens ONE report only when at least one origin has a positive staged departure.
 # Empty months are silent: no event is queued and the regular transfer slots remain zero.
-# Historical displacement estimates are included because they share each state's accumulator.
 MAD_drought_displacement_monthly_tick = {
 	MAD_drought_collect_displacement_month = yes
 	if = {
@@ -1882,7 +1931,7 @@ MAD_drought_resettle = {
 	MAD_drought_return_route_487_266 = yes
 	MAD_drought_return_route_487_267 = yes
 	MAD_drought_return_route_487_268 = yes
-	# Re-evaluate the host-state construction penalty immediately after returns change route counters.
+	# Re-evaluate the origin-state construction penalty immediately after returns change route counters.
 	MAD_drought_update_displacement_overload = yes
 	clamp_variable = { var = MAD_drought_resettle_remaining min = 0 }
 	set_temp_variable = { MAD_drought_people_resettled = 20000 }
@@ -1929,6 +1978,7 @@ MAD_drought_return_expats = {
 		MAD_drought_return_expats_to_267 = yes
 		MAD_drought_return_expats_to_268 = yes
 		MAD_drought_return_expats_to_487 = yes
+		MAD_drought_update_displacement_overload = yes
 		clamp_variable = { var = MAD_drought_expat_return_remaining min = 0 }
 		add_timed_idea = { idea = MAD_DROUGHT_RESETTLED days = 730 }
 	}
@@ -2402,7 +2452,6 @@ MAD_drought_state_init = {
 		set_variable = { MAD_state_drought_exposure = 1.05 }
 		set_variable = { MAD_state_drought_tier = 0 }
 		set_variable = { MAD_state_relief_months = 0 }
-		set_variable = { MAD_state_displacement_months = 0 }
 		set_variable = { MAD_state_displacement_accumulator = 0 }
 		clr_state_flag = MAD_GRAND_SUD_STATE
 		clr_state_flag = MAD_REFUGE_STATE
@@ -2414,7 +2463,6 @@ MAD_drought_state_init = {
 		set_variable = { MAD_state_drought_exposure = 0.85 }
 		set_variable = { MAD_state_drought_tier = 0 }
 		set_variable = { MAD_state_relief_months = 0 }
-		set_variable = { MAD_state_displacement_months = 0 }
 		set_variable = { MAD_state_displacement_accumulator = 0 }
 		clr_state_flag = MAD_GRAND_SUD_STATE
 		set_state_flag = MAD_REFUGE_STATE
@@ -2426,7 +2474,6 @@ MAD_drought_state_init = {
 		set_variable = { MAD_state_drought_exposure = 1.35 }
 		set_variable = { MAD_state_drought_tier = 0 }
 		set_variable = { MAD_state_relief_months = 0 }
-		set_variable = { MAD_state_displacement_months = 0 }
 		set_variable = { MAD_state_displacement_accumulator = 0 }
 		set_state_flag = MAD_GRAND_SUD_STATE
 		clr_state_flag = MAD_REFUGE_STATE
@@ -2438,7 +2485,6 @@ MAD_drought_state_init = {
 		set_variable = { MAD_state_drought_exposure = 0.85 }
 		set_variable = { MAD_state_drought_tier = 0 }
 		set_variable = { MAD_state_relief_months = 0 }
-		set_variable = { MAD_state_displacement_months = 0 }
 		set_variable = { MAD_state_displacement_accumulator = 0 }
 		clr_state_flag = MAD_GRAND_SUD_STATE
 		set_state_flag = MAD_REFUGE_STATE
