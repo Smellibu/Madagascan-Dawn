@@ -2259,21 +2259,21 @@ MAD_drought_monthly_tick = {
 MAD_drought_finish = {
 	if = {
 		limit = { NOT = { has_country_flag = MAD_DROUGHT_OVER } }
-			set_country_flag = MAD_DROUGHT_OVER
-			set_variable = { MAD_drought_severity = 0 }
-			set_variable = { MAD_drought_relief_months = 0 }
-			MAD_drought_clear_tiers = yes
-			# the map goes green too
-			266 = { set_variable = { MAD_state_drought = 0 } set_variable = { MAD_state_famine = 0 } set_variable = { MAD_state_drought_tier = 0 } set_variable = { MAD_state_relief_months = 0 } MAD_drought_state_clear_tiers = yes if = { limit = { has_dynamic_modifier = { modifier = MAD_STATE_FAMINE } } remove_dynamic_modifier = { modifier = MAD_STATE_FAMINE } } }
-			267 = { set_variable = { MAD_state_drought = 0 } set_variable = { MAD_state_famine = 0 } set_variable = { MAD_state_drought_tier = 0 } set_variable = { MAD_state_relief_months = 0 } MAD_drought_state_clear_tiers = yes if = { limit = { has_dynamic_modifier = { modifier = MAD_STATE_FAMINE } } remove_dynamic_modifier = { modifier = MAD_STATE_FAMINE } } }
-			268 = { set_variable = { MAD_state_drought = 0 } set_variable = { MAD_state_famine = 0 } set_variable = { MAD_state_drought_tier = 0 } set_variable = { MAD_state_relief_months = 0 } MAD_drought_state_clear_tiers = yes if = { limit = { has_dynamic_modifier = { modifier = MAD_STATE_FAMINE } } remove_dynamic_modifier = { modifier = MAD_STATE_FAMINE } } }
-			487 = { set_variable = { MAD_state_drought = 0 } set_variable = { MAD_state_famine = 0 } set_variable = { MAD_state_drought_tier = 0 } set_variable = { MAD_state_relief_months = 0 } MAD_drought_state_clear_tiers = yes if = { limit = { has_dynamic_modifier = { modifier = MAD_STATE_FAMINE } } remove_dynamic_modifier = { modifier = MAD_STATE_FAMINE } } }
-			if = {
-				limit = { has_idea = MAD_DROUGHT_EVACUATIONS }
-				remove_ideas = MAD_DROUGHT_EVACUATIONS
-			}
-			MAD_drought_sync_display = yes
-			country_event = { id = mad_drought.20 }
+		set_country_flag = MAD_DROUGHT_OVER
+		set_variable = { MAD_drought_severity = 0 }
+		set_variable = { MAD_drought_relief_months = 0 }
+		MAD_drought_clear_tiers = yes
+		# the map goes green too
+		266 = { set_variable = { MAD_state_drought = 0 } set_variable = { MAD_state_famine = 0 } set_variable = { MAD_state_drought_tier = 0 } set_variable = { MAD_state_relief_months = 0 } MAD_drought_state_clear_tiers = yes if = { limit = { has_dynamic_modifier = { modifier = MAD_STATE_FAMINE } } remove_dynamic_modifier = { modifier = MAD_STATE_FAMINE } } }
+		267 = { set_variable = { MAD_state_drought = 0 } set_variable = { MAD_state_famine = 0 } set_variable = { MAD_state_drought_tier = 0 } set_variable = { MAD_state_relief_months = 0 } MAD_drought_state_clear_tiers = yes if = { limit = { has_dynamic_modifier = { modifier = MAD_STATE_FAMINE } } remove_dynamic_modifier = { modifier = MAD_STATE_FAMINE } } }
+		268 = { set_variable = { MAD_state_drought = 0 } set_variable = { MAD_state_famine = 0 } set_variable = { MAD_state_drought_tier = 0 } set_variable = { MAD_state_relief_months = 0 } MAD_drought_state_clear_tiers = yes if = { limit = { has_dynamic_modifier = { modifier = MAD_STATE_FAMINE } } remove_dynamic_modifier = { modifier = MAD_STATE_FAMINE } } }
+		487 = { set_variable = { MAD_state_drought = 0 } set_variable = { MAD_state_famine = 0 } set_variable = { MAD_state_drought_tier = 0 } set_variable = { MAD_state_relief_months = 0 } MAD_drought_state_clear_tiers = yes if = { limit = { has_dynamic_modifier = { modifier = MAD_STATE_FAMINE } } remove_dynamic_modifier = { modifier = MAD_STATE_FAMINE } } }
+		if = {
+			limit = { has_idea = MAD_DROUGHT_EVACUATIONS }
+			remove_ideas = MAD_DROUGHT_EVACUATIONS
+		}
+		MAD_drought_sync_display = yes
+		country_event = { id = mad_drought.20 }
 	}
 }
 
