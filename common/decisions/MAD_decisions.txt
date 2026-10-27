@@ -4489,7 +4489,7 @@ MAD_royal_political_category = {
 		}
 		available = {
 			MAD_ROY_IN_POWER = yes
-			ISR = { exists = yes }
+			country_exists = ISR
 			NOT = { has_country_flag = MAD_ROY_ISRAEL_DELEGATION_SENT }
 		}
 		complete_effect = {
@@ -4515,7 +4515,7 @@ MAD_royal_political_category = {
 		}
 		available = {
 			MAD_ROY_IN_POWER = yes
-			FRA = { exists = yes }
+			country_exists = FRA
 			NOT = { has_country_flag = MAD_ROY_ISLAND_DOSSIER_PRESENTED }
 		}
 		complete_effect = {
@@ -4718,7 +4718,7 @@ MAD_royal_political_category = {
 			has_country_flag = MAD_ROY_ISLAND_RECLAMATION_PREPARED
 		}
 		available = {
-			FRA = { exists = yes }
+			country_exists = FRA
 			NOT = { has_country_flag = MAD_ROY_FRANCE_REUNION_DEMANDED }
 		}
 		complete_effect = {
@@ -4739,7 +4739,7 @@ MAD_royal_political_category = {
 			has_country_flag = MAD_ROY_ISLAND_RECLAMATION_PREPARED
 		}
 		available = {
-			FRA = { exists = yes }
+			country_exists = FRA
 			custom_trigger_tooltip = {
 				tooltip = MAD_ROY_MAYOTTE_REQUIRES_COMOROS_CORE_TT
 				OR = {

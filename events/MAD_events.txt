@@ -4548,13 +4548,7 @@ country_event = {
 			modifier = { factor = 3 has_opinion = { target = MAD value > 99 } }
 			modifier = {
 				factor = 2
-				OR = {
-					AND = { has_government = democratic MAD = { has_government = democratic } }
-					AND = { has_government = communism MAD = { has_government = communism } }
-					AND = { has_government = fascism MAD = { has_government = fascism } }
-					AND = { has_government = neutrality MAD = { has_government = neutrality } }
-					AND = { has_government = nationalist MAD = { has_government = nationalist } }
-				}
+				has_government = MAD
 			}
 		}
 	}
@@ -4589,7 +4583,7 @@ country_event = {
 			transfer_state_to = MAD
 		}
 		if = {
-			limit = { MTE = { exists = yes } }
+			limit = { country_exists = MTE }
 			MTE = { every_owned_state = { add_core_of = MAD } }
 			MAD = { annex_country = { target = MTE } }
 		}
@@ -4604,13 +4598,7 @@ country_event = {
 			modifier = { factor = 3 has_opinion = { target = MAD value > 99 } }
 			modifier = {
 				factor = 2
-				OR = {
-					AND = { has_government = democratic MAD = { has_government = democratic } }
-					AND = { has_government = communism MAD = { has_government = communism } }
-					AND = { has_government = fascism MAD = { has_government = fascism } }
-					AND = { has_government = neutrality MAD = { has_government = neutrality } }
-					AND = { has_government = nationalist MAD = { has_government = nationalist } }
-				}
+				has_government = MAD
 			}
 		}
 	}
@@ -4626,7 +4614,7 @@ country_event = {
 			MAD = { add_state_claim = PREV }
 		}
 		if = {
-			limit = { MTE = { exists = yes } }
+			limit = { country_exists = MTE }
 			MTE = {
 			every_owned_state = {
 				MAD = { add_state_claim = PREV }
