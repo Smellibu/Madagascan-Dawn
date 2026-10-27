@@ -305,7 +305,7 @@ country_event = {
 		log = "[GetDateText]: [This.GetName]: mad_madarail.2 - Madarail investor cycle starts"
 		set_variable = { MAD_madarail_stage = 0 }
 		set_variable = { MAD_madarail_confidence = 0 }
-		country_event = { id = mad_madarail.3 }
+		country_event = mad_madarail.3
 	}
 }
 
@@ -352,11 +352,11 @@ country_event = {
 				log = "[GetDateText]: [This.GetName]: mad_madarail.4 - the suitor leaves without committing, new bidders"
 				MAD_madarail_clear_operators = yes
 				MAD_madarail_clear_concessions = yes
-				country_event = { id = mad_madarail.3 }
+				country_event = mad_madarail.3
 			}
 			else = {
 				log = "[GetDateText]: [This.GetName]: mad_madarail.4 - the third suitor ran out of time, investors desist"
-				country_event = { id = mad_madarail.9 }
+				country_event = mad_madarail.9
 			}
 		}
 	}
@@ -561,7 +561,7 @@ country_event = {
 				has_completed_focus = MAD_DAEWOO_DEAL
 				NOT = { has_completed_focus = MAD_DAEWOO_FALLOUT }
 			}
-			country_event = { id = mad_daewoo.5 }
+			country_event = mad_daewoo.5
 		}
 	}
 }
@@ -4319,7 +4319,7 @@ country_event = {
 		name = mad_royal.3.a
 		add_tech_bonus = {
 			name = MAD_ROY_BIBLICAL_SCHOLARSHIP
-			category = CAT_Civilian
+			category = CAT_civilian
 			bonus = 0.10
 			uses = 1
 		}
