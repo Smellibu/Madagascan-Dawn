@@ -1579,7 +1579,7 @@ visible = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_RC_LOCUST_SPRAY_REQUIRE_TT
 				OR = {
-					has_country_flag = MAD_CNA_BIOPESTICIDES
+					has_completed_focus = MAD_biopesticides
 					check_variable = { MAD_rural_cooperation > 0.99 }
 				}
 			}
@@ -1603,7 +1603,7 @@ visible = {
 			}
 			# biopesticide does not poison what it lands on, so the fields keep working
 			if = {
-				limit = { has_country_flag = MAD_CNA_BIOPESTICIDES }
+				limit = { has_completed_focus = MAD_biopesticides }
 				custom_effect_tooltip = MAD_drought_spray_clean_tt
 			}
 			else = {
@@ -1612,7 +1612,7 @@ visible = {
 			}
 			MAD_drought_recalc_national = yes
 			if = {
-				limit = { has_country_flag = MAD_CNA_BIOPESTICIDES }
+				limit = { has_completed_focus = MAD_biopesticides }
 				set_temp_variable = { MAD_rc_delta = 0.5 }
 				MAD_rural_cooperation_adjust = yes
 				custom_effect_tooltip = MAD_RC_DROUGHT_CLEAN_SPRAY_TT

@@ -516,7 +516,7 @@ defined_text = {
 # Conventional spraying requires 1 RC and spends it, so the UI reports the live outcome.
 defined_text = {
 	name = MAD_RC_LOCUST_SPRAY_AMOUNT
-	text = { trigger = { has_country_flag = MAD_CNA_BIOPESTICIDES } localization_key = MAD_RC_DROUGHT_CLEAN_SPRAY_COST_SHORT_TT }
+	text = { trigger = { has_completed_focus = MAD_biopesticides } localization_key = MAD_RC_DROUGHT_CLEAN_SPRAY_COST_SHORT_TT }
 	text = { localization_key = MAD_RC_REQUIRE_1_TT }
 }
 
