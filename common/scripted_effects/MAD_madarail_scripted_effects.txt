@@ -3050,7 +3050,6 @@ MAD_dahalo_campaign_reset = {
 	clr_country_flag = MAD_DAHALO_CAMPAIGN_CAPSAT_STYLE
 	clr_country_flag = MAD_DAHALO_CAMPAIGN_GENERAL_STAFF_STYLE
 	clr_country_flag = MAD_DAHALO_CAMPAIGN_ROLL_SUCCESS
-	clr_country_flag = MAD_DAHALO_CAMPAIGN_ROLL_FAILURE
 	clr_country_flag = MAD_MAZAVA_GROUND_OPERATION
 }
 MAD_dahalo_campaign_add_readiness = {
@@ -3104,10 +3103,8 @@ MAD_dahalo_campaign_finalize_odds = {
 }
 MAD_dahalo_campaign_roll = {
 	clr_country_flag = MAD_DAHALO_CAMPAIGN_ROLL_SUCCESS
-	clr_country_flag = MAD_DAHALO_CAMPAIGN_ROLL_FAILURE
 	random_list = {
 		MAD_dahalo_campaign_success_chance = { set_country_flag = MAD_DAHALO_CAMPAIGN_ROLL_SUCCESS }
-		MAD_dahalo_campaign_failure_chance = { set_country_flag = MAD_DAHALO_CAMPAIGN_ROLL_FAILURE }
 	}
 }
 MAD_dahalo_campaign_apply_success_rc = {
@@ -3125,7 +3122,6 @@ MAD_dahalo_campaign_apply_failure_rc = {
 }
 MAD_dahalo_campaign_clear_after_resolution = {
 	clr_country_flag = MAD_DAHALO_CAMPAIGN_ROLL_SUCCESS
-	clr_country_flag = MAD_DAHALO_CAMPAIGN_ROLL_FAILURE
 	clr_country_flag = MAD_DAHALO_CAMPAIGN_COMMUNITY_APPROACH
 	clr_country_flag = MAD_DAHALO_CAMPAIGN_COERCIVE_APPROACH
 	clr_country_flag = MAD_DAHALO_CAMPAIGN_CAPSAT_STYLE
