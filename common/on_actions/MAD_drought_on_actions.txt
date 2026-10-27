@@ -10,10 +10,9 @@ on_actions = {
 				MAD = {
 					MAD_dahalo_init = yes
 					MAD_rural_cooperation_initialize = yes
-					# Initialise the displacement calendar independently of the drought focus.
+					# Mark the first eligible monthly tick independently of when the drought focus starts.
 					if = {
 						limit = { NOT = { has_country_flag = MAD_DROUGHT_CALENDAR_CLOCK_STARTED } }
-						set_variable = { MAD_drought_calendar_month = 1 }
 						set_country_flag = MAD_DROUGHT_CALENDAR_CLOCK_STARTED
 					}
 					if = {
