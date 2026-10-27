@@ -2762,7 +2762,10 @@ country_event = {
 	is_triggered_only = yes
 
 	immediate = {
+		# Restore the current government's earned programme ideas before applying party-conditioned constitutional policy.
 		MAD_sync_party_political_ideas = yes
+		MAD_rural_governance_policy_sync = yes
+		MAD_rural_constitution_initialize = yes
 	}
 }
 # Ratsiraka’s first loss and the follow-up exile choice.
