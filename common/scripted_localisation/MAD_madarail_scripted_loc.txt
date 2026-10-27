@@ -287,14 +287,6 @@ defined_text = {
 		localization_key = MAD_drought_phase_won
 	}
 	text = {
-		trigger = { has_country_flag = MAD_DROUGHT_LOST }
-		localization_key = MAD_drought_phase_lost
-	}
-	text = {
-		trigger = { has_country_flag = MAD_DROUGHT_FAILED_STATE }
-		localization_key = MAD_drought_phase_failed
-	}
-	text = {
 		trigger = { has_country_flag = MAD_DROUGHT_CONTAINED_STATE }
 		localization_key = MAD_drought_phase_contained
 	}
@@ -394,8 +386,8 @@ defined_text = {
 defined_text = {
 	name = MAD_GetStateExposureLine
 	text = {
-		trigger = { has_state_flag = MAD_STATE_EMPTIED }
-		localization_key = MAD_state_exposure_emptied
+		trigger = { has_state_flag = MAD_REFUGE_STATE }
+		localization_key = MAD_state_exposure_refuge
 	}
 	text = {
 		trigger = { has_state_flag = MAD_GRAND_SUD_STATE }

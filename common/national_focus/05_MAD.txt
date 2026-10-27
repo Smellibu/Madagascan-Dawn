@@ -6512,6 +6512,11 @@
 				set_temp_variable = { temp_opinion = 5 }
 				change_international_bankers_opinion = yes
 			}
+
+			# Start the recurring vanilla export-market shock cycle.
+			set_variable = { MAD_vanilla_shock_state = 0 }
+			set_country_flag = MAD_VANILLA_VOLATILE_MARKET
+			country_event = { id = mad_vanilla.1 days = 210 }
 		}
 
 		ai_will_do = {

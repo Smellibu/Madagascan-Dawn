@@ -23,7 +23,6 @@ MAD_madarail_clear_concessions = {
 	clr_country_flag = MAD_MADARAIL_OFFER_2
 	clr_country_flag = MAD_MADARAIL_OFFER_3
 	# The Comazar freight penalty only applies while that committed concession remains active.
-	clr_country_flag = MAD_MADARAIL_COMAZAR_FREIGHT_CONCESSION_ACCEPTED
 	remove_ideas = MAD_MADARAIL_COMAZAR_FREIGHT_CONCESSION
 	MAD_rural_cooperation_calculate_monthly_change = yes
 }
@@ -186,7 +185,6 @@ MAD_madarail_apply_stay_outcome = {
 			has_country_flag = MAD_MADARAIL_SEATED_COMAZAR
 			has_country_flag = MAD_MADARAIL_OFFER_3
 		}
-		set_country_flag = MAD_MADARAIL_COMAZAR_FREIGHT_CONCESSION_ACCEPTED
 		add_ideas = MAD_MADARAIL_COMAZAR_FREIGHT_CONCESSION
 		custom_effect_tooltip = MAD_RC_MONTHLY_NEG_025_TT
 	}
