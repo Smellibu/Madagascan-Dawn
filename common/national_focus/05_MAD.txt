@@ -3875,7 +3875,6 @@ focus_tree = {
 			# Preparation improves readiness; the main security result comes from the operation decision.
 			add_to_variable = { MAD_dahalo_threat = -3 tooltip = MAD_DAHALO_THREAT_MINUS_3_TT }
 			army_experience = 15
-			set_country_flag = MAD_DAHALO_TANDROKA_PREPARED
 			MAD_dahalo_update_modifier = yes
 		}
 
@@ -4963,7 +4962,6 @@ focus_tree = {
 		}
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_FAHALEMANA"
-			set_country_flag = MAD_DAHALO_FAHALEMANA_UNLOCKED
 			add_political_power = 25
 			army_experience = 20
 		}
@@ -5009,7 +5007,6 @@ focus_tree = {
 		}
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_OPERATION_MAZAVA"
-			set_country_flag = MAD_MAZAVA_UNLOCKED
 			custom_effect_tooltip = MAD_MAZAVA_OPERATION_UNLOCK_TT
 			army_experience = 10
 			air_experience = 10
@@ -7971,7 +7968,6 @@ focus_tree = {
 				MODIFIER = MAD_economy_modifier
 			}
 			add_to_variable = { MAD_economy_corporate_tax_income_multiplier_modifier = 0.02 tooltip = corporate_tax_income_multiplier_modifier_tt }
-			set_country_flag = MAD_REMENABILA_REGIME_CONSOLIDATED
 		}
 
 		ai_will_do = {
