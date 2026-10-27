@@ -3069,7 +3069,6 @@ country_event = {
 		clr_country_flag = MAD_TGV_FORMATION_PENDING
 		set_country_flag = MAD_TGV_FORMED
 		set_country_flag = MAD_TGV_BRANCH_UNLOCKED
-		set_country_flag = MAD_TGV_MOVEMENT_ACTIVE
 
 		if = {
 			limit = { has_country_flag = MAD_TGV_INITIAL_SUPPORT_PENDING }
@@ -3120,7 +3119,6 @@ country_event = {
 	immediate = {
 		set_country_flag = MAD_TGV_FORMED
 		set_country_flag = MAD_TGV_BRANCH_UNLOCKED
-		set_country_flag = MAD_TGV_MOVEMENT_ACTIVE
 
 		# Historical December formation: reveal the named TGV party while preserving party index 20 support.
 		mark_focus_tree_layout_dirty = yes

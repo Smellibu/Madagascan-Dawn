@@ -390,7 +390,6 @@
 			}
 			add_to_variable = { MAD_power_non_electric_fuel_consumption_modifier = -0.03 tooltip = non_electric_fuel_consumption_modifier_tt }
 
-			set_country_flag = MAD_GPM_MARKET_FRAMEWORK_STARTED
 			if = {
 				limit = { has_idea = fossil_fuel_industry }
 				set_temp_variable = { temp_opinion = 5 }
@@ -418,7 +417,6 @@
 
 			add_political_power = 25
 
-			set_country_flag = MAD_JIRAMA_PROGRAM_STARTED
 			custom_effect_tooltip = {
 				localization_key = modifies_dynamic_modifier_tt
 				MODIFIER = MAD_power_modifier
@@ -657,7 +655,6 @@
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_JIRAMA_VOLOBE_AMONT"
-			set_country_flag = MAD_JIRAMA_VOLOBE_FINANCE_READY
 			set_temp_variable = { treasury_change = -6.500 }
 			modify_treasury_effect = yes
 			custom_effect_tooltip = {
@@ -700,7 +697,6 @@
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_JIRAMA_PRIVATIZATION_FORK"
-			set_country_flag = MAD_JIRAMA_OWNERSHIP_DEBATE
 			custom_effect_tooltip = {
 				localization_key = modifies_dynamic_modifier_tt
 				MODIFIER = MAD_power_modifier
@@ -859,7 +855,6 @@
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_JIRAMA_IMF_PLAN"
-			set_country_flag = MAD_JIRAMA_RECOVERY_FRAMEWORK
 			custom_effect_tooltip = {
 				localization_key = modifies_dynamic_modifier_tt
 				MODIFIER = MAD_power_modifier
@@ -892,7 +887,6 @@
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_IMF_REVIEW_2025"
-			set_country_flag = MAD_JIRAMA_RECOVERY_PLAN_READY
 			add_political_power = 50
 			add_stability = 0.01
 			country_event = { id = mad_jirama.1 days = 1 }
@@ -921,7 +915,6 @@
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_JIRAMA_RECOVERY_FAILS"
-				set_country_flag = MAD_JIRAMA_AUSTERITY_MODEL
 				custom_effect_tooltip = {
 					localization_key = modifies_dynamic_modifier_tt
 					MODIFIER = MAD_power_modifier
@@ -987,7 +980,6 @@
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_JIRAMA_RECOVERY_SUCCEEDS"
-				set_country_flag = MAD_JIRAMA_INVESTMENT_MODEL
 				custom_effect_tooltip = {
 					localization_key = modifies_dynamic_modifier_tt
 					MODIFIER = MAD_power_modifier
@@ -1253,7 +1245,6 @@
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_Rosewood"
-			set_country_flag = MAD_ROSEWOOD_BRANCH_OPEN
 			custom_effect_tooltip = {
 				localization_key = modifies_dynamic_modifier_tt
 				MODIFIER = MAD_economy_modifier
@@ -1286,7 +1277,6 @@
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_ROSEWOOD_STOCKPILE_AUDIT"
-			set_country_flag = MAD_ROSEWOOD_STOCKPILE_AUDITED
 			custom_effect_tooltip = {
 				localization_key = modifies_dynamic_modifier_tt
 				MODIFIER = MAD_economy_modifier
@@ -1322,7 +1312,6 @@
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_ROSEWOOD_CITES_TRACEABILITY"
-			set_country_flag = MAD_ROSEWOOD_CITES_COMPLIANT
 			custom_effect_tooltip = {
 				localization_key = modifies_dynamic_modifier_tt
 				MODIFIER = MAD_economy_modifier
@@ -1362,7 +1351,6 @@
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_ROSEWOOD_DOMESTIC_USE"
-			set_country_flag = MAD_ROSEWOOD_DOMESTIC_USE_AUTHORISED
 			set_temp_variable = { treasury_change = 2.00 }
 			modify_treasury_effect = yes
 			custom_effect_tooltip = {
@@ -2123,7 +2111,6 @@
 		completion_reward = {
 			log = "[GetDateText]: [This.GetName]: Focus MAD_RNCFM_PRIVATIZE"
 
-			set_country_flag = MAD_MADARAIL_PRIVATE
 
 			set_temp_variable = {
 				treasury_change = {
@@ -2192,7 +2179,6 @@
 			add_to_variable = { MAD_economy_receiving_investment_duration_modifier = -0.03  tooltip = receiving_investment_duration_modifier_tt }
 			add_to_variable = { MAD_economy_international_market_income_modifier = 0.05 tooltip = international_market_income_modifier_tt }
 			add_political_power = 25
-			set_country_flag = MAD_GPM_DOWNSTREAM_LIBERALIZED
 			if = {
 				limit = { has_idea = fossil_fuel_industry }
 				set_temp_variable = { temp_opinion = 10 }
@@ -2622,7 +2608,6 @@
 			newline = yes
 			set_temp_variable = { MAD_rc_delta = -12 }
 			MAD_rural_cooperation_adjust = yes
-			set_country_flag = MAD_DAEWOO_SIGNED
 			KOR = {
 				set_temp_variable = { int_investment_change = 5 }
 				modify_international_investment_effect = yes
@@ -2855,7 +2840,6 @@
 			add_to_variable = { MAD_economy_receiving_investment_cost_modifier = -0.03 tooltip = receiving_investment_cost_modifier_tt }
 			add_to_variable = { MAD_economy_trade_opinion_factor = 0.03 tooltip = trade_opinion_factor_tt }
 			add_political_power = 50
-			set_country_flag = MAD_GPM_FORMED
 			if = {
 				limit = { has_idea = fossil_fuel_industry }
 				set_temp_variable = { temp_opinion = 10 }
@@ -2883,7 +2867,6 @@
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_PAGOSE"
-			set_country_flag = MAD_PAGOSE_PROGRAM
 			custom_effect_tooltip = {
 				localization_key = modifies_dynamic_modifier_tt
 				MODIFIER = MAD_power_modifier
@@ -3492,7 +3475,6 @@
 
 		completion_reward = {
 			log = "[GetDateText]: [This.GetName]: Focus MAD_mining_code_reform"
-			set_country_flag = MAD_MINING_CODE_REFORMED
 			custom_effect_tooltip = {
 				localization_key = modifies_dynamic_modifier_tt
 				MODIFIER = MAD_economy_modifier
@@ -3528,7 +3510,6 @@
 		completion_reward = {
 			log = "[GetDateText]: [This.GetName]: Focus MAD_MADARAIL_INVESTORS_STAY"
 
-			set_country_flag = MAD_MADARAIL_INVESTORS_STAYED
 			add_stability = 0.03
 
 			custom_effect_tooltip = {
@@ -3626,7 +3607,6 @@
 		completion_reward = {
 			log = "[GetDateText]: [This.GetName]: Focus MAD_MADARAIL_INVESTORS_DESIST"
 
-			set_country_flag = MAD_MADARAIL_INVESTORS_DESISTED
 			add_political_power = -10
 			add_power_balance_value = {
 				id = MAD_economy_ownership_bop
@@ -3652,7 +3632,6 @@
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_EGOSIP_LOAN"
-			set_country_flag = MAD_EGOSIP_FINANCING
 			set_temp_variable = { treasury_change = 15.00 }
 			modify_treasury_effect = yes
 			set_temp_variable = { debt_change = 10.00 }
@@ -3779,7 +3758,6 @@
 			}
 			add_to_variable = { MAD_economy_receiving_investment_cost_modifier = -0.03 tooltip = receiving_investment_cost_modifier_tt }
 			add_to_variable = { MAD_economy_receiving_investment_duration_modifier = -0.03 tooltip = receiving_investment_duration_modifier_tt }
-			set_country_flag = MAD_AUSTRAL_SALE_COMPLETED
 			add_power_balance_value = {
 				id = MAD_economy_ownership_bop
 				value = -0.075
@@ -3940,7 +3918,6 @@
 
 		completion_reward = {
 			log = "[GetDateText]: [This.GetName]: Focus MAD_END_PERMIT_FREEZE"
-			set_country_flag = MAD_MINING_PERMITS_REOPENED
 			custom_effect_tooltip = {
 				localization_key = modifies_dynamic_modifier_tt
 				MODIFIER = MAD_economy_modifier
@@ -4231,7 +4208,6 @@
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_DECIM"
-			set_country_flag = MAD_DECIM_PROGRAM
 			unlock_decision_category_tooltip = MAD_JIRAMA_PROJECTS
 			custom_effect_tooltip = {
 				localization_key = modifies_dynamic_modifier_tt
@@ -4419,7 +4395,6 @@
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_DEAL_KEPT"
 			activate_mission = MAD_DAEWOO_REVIEW
 
-			set_country_flag = MAD_DAEWOO_KEPT
 
 			268 = {
 				add_extra_state_shared_building_slots = 1
@@ -4744,7 +4719,6 @@
 		completion_reward = {
 			log = "[GetDateText]: [This.GetName]: Focus MAD_MADARAIL_STATE_TAKEOVER"
 
-			set_country_flag = MAD_MADARAIL_STATE_OWNED
 
 			if = {
 				limit = { has_idea = MAD_MADARAIL_INVESTOR_EXODUS }
@@ -5047,7 +5021,6 @@
 		}
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_ESTABLISH_USAD"
-			set_country_flag = MAD_USAD_UNLOCKED
 			add_political_power = 25
 		}
 		ai_will_do = { base = 1 }
@@ -5774,7 +5747,6 @@
 
 		completion_reward = {
 			log = "[GetDateText]: [This.GetName]: Focus MAD_GPM_TERMINAL_2009"
-			set_country_flag = MAD_GPM_TAMATAVE_TERMINAL
 			random_owned_state = {
 				add_extra_state_shared_building_slots = 1
 				add_building_construction = { type = infrastructure level = 1 instant_build = yes }
@@ -5906,7 +5878,6 @@
 
 		completion_reward = {
 			log = "[GetDateText]: [This.GetName]: Focus MAD_GPM_CARTEL_CONTINUES"
-			set_country_flag = MAD_GPM_PRIVATE_DISTRIBUTION
 
 			custom_effect_tooltip = {
 				localization_key = modifies_dynamic_modifier_tt
@@ -5940,7 +5911,6 @@
 
 		completion_reward = {
 			log = "[GetDateText]: [This.GetName]: Focus MAD_STATE_FUEL_IMPORTS"
-			set_country_flag = MAD_GPM_STATE_IMPORTS
 
 			custom_effect_tooltip = {
 				localization_key = modifies_dynamic_modifier_tt
@@ -5988,7 +5958,6 @@
 
 		completion_reward = {
 			log = "[GetDateText]: [This.GetName]: Focus MAD_GPM_NATIONAL_FUEL_RESERVE"
-			set_country_flag = MAD_GPM_FUEL_RESERVE_READY
 			custom_effect_tooltip = {
 				localization_key = modifies_dynamic_modifier_tt
 				MODIFIER = MAD_power_modifier
@@ -6129,7 +6098,6 @@
 
 		completion_reward = {
 			log = "[GetDateText]: [This.GetName]: Focus MAD_GPM_REFERENCE_PRICE_2019"
-			set_country_flag = MAD_GPM_REFERENCE_PRICE_REFORM
 			custom_effect_tooltip = {
 				localization_key = modifies_dynamic_modifier_tt
 				MODIFIER = MAD_economy_modifier
@@ -6157,7 +6125,6 @@
 
 		completion_reward = {
 			log = "[GetDateText]: [This.GetName]: Focus MAD_GPM_AUTOMATIC_PRICING_2025"
-			set_country_flag = MAD_GPM_AUTOMATIC_PRICE_ADJUSTMENT
 			custom_effect_tooltip = {
 				localization_key = modifies_dynamic_modifier_tt
 				MODIFIER = MAD_economy_modifier
@@ -6254,7 +6221,6 @@
 				idea = MAD_AUSTRAL_DEAL_FAILED
 				days = 730
 			}
-			set_country_flag = MAD_AUSTRAL_DEAL_FAILED
 		}
 
 		ai_will_do = {
@@ -7072,7 +7038,6 @@
 			add_to_variable = { MAD_air_mission_efficiency = 0.10 tooltip = air_mission_efficiency_tt }
 			add_to_variable = { MAD_air_range_factor = 0.10 tooltip = air_range_factor_tt }
 			add_to_variable = { MAD_air_mission_xp_gain_factor = 0.05 tooltip = air_mission_xp_gain_factor_tt }
-			set_country_flag = MAD_IVATO_TERMINAL_RUNWAY_UPGRADED
 			set_temp_variable = { treasury_change = -15.00 }
 			modify_treasury_effect = yes
 		}
@@ -7257,7 +7222,6 @@
 
 		completion_reward = {
 			log = "[GetDateText]: [This.GetName]: Focus MAD_TELMA_HUNT_REMENABILA_SUPPORT"
-			set_country_flag = MAD_TELMA_REMENABILA
 
 			add_political_power = 25
 			army_experience = 25
@@ -8069,8 +8033,6 @@
 			set_temp_variable = { temp_outlook_increase = 0.05 }
 			change_relative_party_popularity = yes
 			recalculate_party = yes
-			set_country_flag = MAD_POL_ROYAL_MOVEMENT_ESTABLISHED
-			set_country_flag = MAD_ROY_MOVEMENT_CONVENED
 		}
 
 		ai_will_do = {
@@ -8091,7 +8053,6 @@
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_ROY_MALAGASY_TRADITION"
 			decrease_corruption = yes
-			set_country_flag = MAD_ROY_FIHAVANANA_HASINA
 
 			set_temp_variable = { party_index = 15 }
 			set_temp_variable = { party_popularity_increase = 0.05 }
@@ -8150,7 +8111,6 @@
 					add_ideas = MAD_POL_UNSECULAR_GOVERNMENT
 				}
 			}
-			set_country_flag = MAD_ROY_CONSTITUTIONAL_ORDER_STARTED
 		}
 
 		ai_will_do = {
@@ -8220,7 +8180,6 @@
 			decrease_corruption = yes
 			set_temp_variable = { percent_change = 2 }
 			change_domestic_influence_percentage = yes
-			set_country_flag = MAD_ROY_COUNCIL_ESTABLISHED
 		}
 
 		ai_will_do = {
@@ -8252,7 +8211,6 @@
 			MAD_build_nuclear_facility_in_available_state = yes
 			set_temp_variable = { treasury_change = -15.00 }
 			modify_treasury_effect = yes
-			set_country_flag = MAD_ROY_LIVING_FORCES_CONVENED
 		}
 
 		ai_will_do = {
@@ -8280,9 +8238,6 @@
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_ROY_KINGS_MANDATE"
-			set_country_flag = MAD_ROYAL_PERSONAL_CROWN
-			clr_country_flag = MAD_ROYAL_ABSOLUTE_GOVERNMENT
-			set_country_flag = MAD_ROYAL_PERSONAL_AUTHORITY
 			set_politics = { ruling_party = nationalist elections_allowed = no }
 
 			set_country_flag = MAD_ROY_UNLOCK_CROWN_AFFAIRS
@@ -8330,7 +8285,6 @@
 			set_temp_variable = { temp_outlook_increase = 0.05 }
 			change_relative_party_popularity = yes
 			recalculate_party = yes
-			set_country_flag = MAD_ROY_CHRISTOCRATIC_CONSTITUTION
 
 			if = {
 				limit = { NOT = { has_idea = the_clergy } }
@@ -8401,7 +8355,6 @@
 			}
 			set_temp_variable = { treasury_change = -12.00 }
 			modify_treasury_effect = yes
-			set_country_flag = MAD_ROYAL_PUBLIC_SERVICE_REFORMED
 		}
 
 		ai_will_do = {
@@ -8427,7 +8380,6 @@
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_ROY_NATIONAL_WEALTH"
-			set_country_flag = MAD_ROY_COLONIAL_LAW_REFORM
 			country_event = { id = mad_royal.2 days = 1 }
 		}
 
@@ -8463,7 +8415,6 @@
 			}
 			set_country_flag = MAD_ROY_UNLOCK_FINANCIAL_REFORM
 			custom_effect_tooltip = MAD_ROY_UNLOCK_FINANCIAL_SECTION_TT
-			set_country_flag = MAD_ROY_MONETARY_REFORM
 		}
 
 		ai_will_do = {
@@ -8504,7 +8455,6 @@
 				set_temp_variable = { temp_opinion = -10 }
 				change_landowners_opinion = yes
 			}
-			set_country_flag = MAD_ROY_MALAGASY_LAND_POLICY
 		}
 
 		ai_will_do = {
@@ -8530,7 +8480,6 @@
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_ROY_NATIONAL_TRUST"
-			set_country_flag = MAD_ROY_NATIONAL_WEALTH_TRUST
 			country_event = { id = mad_royal.1 days = 1 }
 		}
 
@@ -8570,7 +8519,6 @@
 			}
 			set_temp_variable = { treasury_change = -3.50 }
 			modify_treasury_effect = yes
-			set_country_flag = MAD_ROY_ENDOGENOUS_DEVELOPMENT
 		}
 
 		ai_will_do = {
@@ -8600,7 +8548,6 @@
 				add_extra_state_shared_building_slots = 2
 			}
 			increase_economic_growth = yes
-			set_country_flag = MAD_ROY_SACRED_HERITAGE_RESTORED
 			set_temp_variable = { treasury_change = -4.00 }
 			modify_treasury_effect = yes
 			set_country_flag = MAD_ROY_UNLOCK_HERITAGE
@@ -8630,7 +8577,6 @@
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_ROY_BIBLICAL_GEOPOLITICS"
-			set_country_flag = MAD_ROY_BIBLICAL_GEOPOLITICS
 			country_event = { id = mad_roy_rework.1 days = 1 }
 		}
 
@@ -8662,7 +8608,6 @@
 			set_temp_variable = { debt_change = -5.00 }
 			modify_debt_effect = yes
 			add_named_threat = { threat = 3 name = "Madagascar Reasserts National Sovereignty" }
-			set_country_flag = MAD_ROY_TRUE_SOVEREIGNTY
 		}
 
 		ai_will_do = {
@@ -8697,7 +8642,6 @@
 			}
 			set_country_flag = MAD_ROY_UNLOCK_CUSTOMARY_GOVERNANCE
 			custom_effect_tooltip = MAD_ROY_UNLOCK_CUSTOMARY_SECTION_TT
-			set_country_flag = MAD_ROY_CUSTOMARY_GOVERNANCE
 		}
 
 		ai_will_do = {
@@ -8724,8 +8668,6 @@
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_ROY_NEW_KINGDOM"
 			add_ideas = MAD_POL_ROYAL_CONSOLIDATION
-			set_country_flag = MAD_ROYAL_REGIME_CONSOLIDATED
-			set_country_flag = MAD_ROYAL_NEW_KINGDOM
 			increase_social_spending = yes
 
 			set_temp_variable = { party_index = 23 }
@@ -8761,7 +8703,6 @@
 			increase_healthcare_budget = yes
 			random_core_state = { add_extra_state_shared_building_slots = 1 }
 			random_core_state = { add_extra_state_shared_building_slots = 1 }
-			set_country_flag = MAD_ROY_FFKM_CONCORDAT
 			if = {
 				limit = { has_idea = the_clergy }
 				set_temp_variable = { temp_opinion = 10 }
@@ -8799,7 +8740,6 @@
 				set_temp_variable = { temp_opinion = -5 }
 				change_the_military_opinion = yes
 			}
-			set_country_flag = MAD_ROY_PEOPLES_GUARDIANS
 		}
 
 		ai_will_do = {
@@ -8843,7 +8783,6 @@
 				limit = { has_country_flag = MAD_ROY_ISRAEL_COVENANT }
 				one_random_agriculture_district = yes
 			}
-			set_country_flag = MAD_ROY_ISRAEL_AGRITECH
 		}
 
 		ai_will_do = {
@@ -8884,7 +8823,6 @@
 			add_named_threat = { threat = 2 name = "Madagascar Hosts Israeli Military Advisers" }
 			set_country_flag = MAD_ROY_UNLOCK_ISRAEL_DIPLOMACY
 			custom_effect_tooltip = MAD_ROY_UNLOCK_ISRAEL_SECTION_TT
-			set_country_flag = MAD_ROY_ISRAEL_SECURITY
 		}
 
 		ai_will_do = {
@@ -8929,7 +8867,6 @@
 			}
 			set_country_flag = MAD_ROY_UNLOCK_ISLAND_SOVEREIGNTY
 			custom_effect_tooltip = MAD_ROY_UNLOCK_ISLANDS_SECTION_TT
-			set_country_flag = MAD_ROY_ISLANDS_WAIT
 
 			set_temp_variable = { treasury_change = -3.50 }
 			modify_treasury_effect = yes
@@ -8970,7 +8907,6 @@
 			change_relative_party_popularity = yes
 			recalculate_party = yes
 
-			set_country_flag = MAD_TAMIMA_COUNCIL_GOVERNMENT
 		}
 
 		ai_will_do = {
@@ -9010,7 +8946,6 @@
 				change_labour_unions_opinion = yes
 			}
 			increase_social_spending = yes
-			set_country_flag = MAD_TAMIMA_FIHAVANANA
 		}
 
 		ai_will_do = {
@@ -9042,7 +8977,6 @@
 			}
 			set_temp_variable = { treasury_change = -2.50 }
 			modify_treasury_effect = yes
-			set_country_flag = MAD_TAMIMA_ANTENIMIERAN_ANDRIANA
 
 			set_temp_variable = { MAD_rc_delta = 6 }
 			MAD_rural_cooperation_adjust = yes
@@ -9100,7 +9034,6 @@
 				set_temp_variable = { temp_opinion = 4 }
 				change_small_medium_business_owners_opinion = yes
 			}
-			set_country_flag = MAD_TAMIMA_LIVING_FORCES
 
 			set_temp_variable = { treasury_change = -12.00 }
 			modify_treasury_effect = yes
@@ -9148,7 +9081,6 @@
 			}
 			set_temp_variable = { treasury_change = -4.00 }
 			modify_treasury_effect = yes
-			set_country_flag = MAD_TAMIMA_FOKONOLONA_RESTORED
 			MAD_rural_cooperation_calculate_monthly_change = yes
 		}
 
@@ -9189,7 +9121,6 @@
 				set_temp_variable = { temp_opinion = 3 }
 				change_landowners_opinion = yes
 			}
-			set_country_flag = MAD_TAMIMA_DINA_JUSTICE
 			MAD_rural_cooperation_calculate_monthly_change = yes
 		}
 
@@ -9222,7 +9153,6 @@
 				set_temp_variable = { LR_change = 0.04 }
 				update_literacy_rate = yes
 			}
-			set_country_flag = MAD_TAMIMA_SACRED_HERITAGE
 			country_event = { id = mad_royal.4 days = 1 }
 		}
 
@@ -9258,7 +9188,6 @@
 				set_temp_variable = { temp_opinion = 5 }
 				change_international_bankers_opinion = yes
 			}
-			set_country_flag = MAD_TAMIMA_CROWNLESS_ORDER
 		}
 
 		ai_will_do = {
@@ -9284,7 +9213,6 @@
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_ROY_ONE_MADAGASCAR_MANY_HOUSES_FINAL"
-			set_country_flag = MAD_TAMIMA_ONE_MADAGASCAR_MANY_HOUSES_READY
 			country_event = { id = mad_royal.5 days = 1 }
 		}
 
@@ -9320,7 +9248,6 @@
 			set_temp_variable = { temp_outlook_increase = 0.05 }
 			change_relative_party_popularity = yes
 			recalculate_party = yes
-			set_country_flag = MAD_TAMIMA_REGIME_CONSOLIDATED
 		}
 
 		ai_will_do = {
@@ -9496,7 +9423,6 @@
 			set_temp_variable = { party_popularity_increase = 0.04 }
 			change_relative_party_popularity = yes
 			recalculate_party = yes
-			set_country_flag = MAD_MILITARY_2009_LESSON
 		}
 
 		ai_will_do = {
@@ -9609,7 +9535,6 @@
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_MIL_CAPSAT_LESSON"
-			set_country_flag = MAD_MILITARY_CAPSAT_CONFRONTED
 			army_experience = 20
 			set_temp_variable = { party_index = 22 }
 			set_temp_variable = { party_popularity_increase = 0.05 }
@@ -10020,8 +9945,6 @@
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_AREMA_REBUILD"
 			add_ideas = MAD_AREMA_REBUILDING
-			set_country_flag = MAD_AREMA_RETURNED
-			set_country_flag = MAD_AREMA_CONGRESS_PENDING
 
 			set_temp_variable = { party_index = 5 }
 			set_temp_variable = { party_popularity_increase = 0.03 }
@@ -10063,7 +9986,6 @@
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_AREMA_CHOOSE_OLD_GUARD"
 			swap_ideas = { remove_idea = MAD_AREMA_REBUILDING add_idea = MAD_AREMA_OLD_GUARD }
-			set_country_flag = MAD_AREMA_OLD_GUARD
 			set_temp_variable = { party_index = 5 }
 			set_temp_variable = { party_popularity_increase = 0.05 }
 			set_temp_variable = { temp_outlook_increase = 0.04 }
@@ -10154,7 +10076,6 @@
 		}
 
 		completion_reward = {
-			clr_country_flag = MAD_ROY_CONSTITUTIONAL_ORDER_STARTED
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_AREMA_CHOOSE_RECONCILIATION"
 
 			hidden_effect = {
@@ -10214,7 +10135,6 @@
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_AREMA_REVOLUTION_ADAPTS"
 			add_ideas = MAD_POL_AREMA_PROGRAMME
-			set_country_flag = MAD_AREMA_PROGRAMME_ADAPTED
 			set_temp_variable = { party_index = 5 }
 			set_temp_variable = { party_popularity_increase = 0.04 }
 			set_temp_variable = { temp_outlook_increase = 0.04 }
@@ -10247,7 +10167,6 @@
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_AREMA_REVOLUTIONARY_ORGANISATION"
 
-			set_country_flag = MAD_AREMA_OLD_GUARD_ORGANISATION
 
 			set_temp_variable = { party_index = 5 }
 			set_temp_variable = { party_popularity_increase = 0.04 }
@@ -10286,7 +10205,6 @@
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_AREMA_OLD_GUARD_ADAPT"
 			swap_ideas = { remove_idea = MAD_AREMA_OLD_GUARD add_idea = MAD_AREMA_OLD_GUARD_REFORMED }
-			set_country_flag = MAD_AREMA_OLD_GUARD_ADAPTED
 		}
 
 		ai_will_do = {
@@ -10323,7 +10241,6 @@
 			increase_education_budget = yes
 			increase_healthcare_budget = yes
 
-			set_country_flag = MAD_AREMA_RENEWAL_PROGRAMME
 			set_temp_variable = { party_index = 5 }
 			set_temp_variable = { party_popularity_increase = 0.04 }
 			change_relative_party_popularity = yes
@@ -10350,7 +10267,6 @@
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_AREMA_RENEWAL_MODERNISE"
 			swap_ideas = { remove_idea = MAD_AREMA_RENEWAL add_idea = MAD_AREMA_RENEWAL_MODERNISED }
-			set_country_flag = MAD_AREMA_RENEWAL_MODERNISED
 		}
 
 		ai_will_do = {
@@ -10378,7 +10294,6 @@
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_AREMA_RECONCILIATION_PACT"
 			add_stability = 0.02
-			set_country_flag = MAD_AREMA_RECONCILIATION_PACT
 
 			increase_exports = yes
 
@@ -10419,7 +10334,6 @@
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_AREMA_RECONCILIATION_INSTITUTIONALISE"
 			swap_ideas = { remove_idea = MAD_AREMA_RECONCILIATION add_idea = MAD_AREMA_RECONCILIATION_INSTITUTIONALISED }
-			set_country_flag = MAD_AREMA_RECONCILIATION_INSTITUTIONALISED
 		}
 
 		ai_will_do = {
@@ -10459,7 +10373,6 @@
 				change_international_bankers_opinion = yes
 			}
 
-			set_country_flag = MAD_AREMA_REVOLUTIONARY_LEGACY
 			add_stability = -0.03
 			set_temp_variable = { party_index = 5 }
 			set_temp_variable = { party_popularity_increase = 0.05 }
@@ -10595,7 +10508,6 @@
 				change_international_bankers_opinion = yes
 			}
 
-			set_country_flag = MAD_AREMA_PUBLIC_ENTERPRISES
 
 			set_temp_variable = { party_index = 5 }
 			set_temp_variable = { party_popularity_increase = 0.04 }
@@ -10642,7 +10554,6 @@
 				change_international_bankers_opinion = yes
 			}
 
-			set_country_flag = MAD_AREMA_STATE_BANKING
 
 			set_temp_variable = { party_index = 5 }
 			set_temp_variable = { party_popularity_increase = 0.03 }
@@ -10823,7 +10734,6 @@
 					}
 			}
 
-			set_country_flag = MAD_AREMA_ECONOMIC_INDEPENDENCE
 
 			set_temp_variable = { party_index = 5 }
 			set_temp_variable = { party_popularity_increase = 0.05 }
@@ -10861,7 +10771,6 @@
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_AREMA_INDIAN_OCEAN"
 			add_ideas = MAD_AREMA_NON_ALIGNMENT
-			set_country_flag = MAD_AREMA_NONALIGNED
 
 			set_temp_variable = { party_index = 5 }
 			set_temp_variable = { party_popularity_increase = 0.05 }
@@ -10929,7 +10838,6 @@
 			decrease_centralization = yes
 			one_random_infrastructure = yes
 
-			set_country_flag = MAD_AREMA_PROVINCIAL_MODEL
 
 			add_stability = 0.02
 
@@ -10966,7 +10874,6 @@
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_AREMA_MIXED_ECONOMY"
 
 			swap_ideas = { remove_idea = MAD_POL_AREMA_PROGRAMME add_idea = MAD_POL_AREMA_MODERN_SOCIALISM }
-			set_country_flag = MAD_AREMA_MIXED_MODEL
 
 			set_temp_variable = { party_index = 5 }
 			set_temp_variable = { party_popularity_increase = 0.04 }
@@ -11109,7 +11016,6 @@
 
 			add_ideas = MAD_AREMA_SOCIAL_CONTRACT
 
-			set_country_flag = MAD_AREMA_SOCIAL_CONTRACT
 			set_temp_variable = { party_index = 5 }
 			set_temp_variable = { party_popularity_increase = 0.05 }
 			set_temp_variable = { temp_outlook_increase = 0.05 }
@@ -11148,7 +11054,6 @@
 				value = 0.10
 				tooltip_side = MAD_public_ownership
 			}
-			set_country_flag = MAD_AREMA_CONSOLIDATED
 			set_politics = { ruling_party = communism elections_allowed = yes }
 			add_ideas = MAD_AREMA_SECOND_SOCIALISM
 			add_stability = 0.02
@@ -11187,7 +11092,6 @@
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_AREMA_NATIONAL_DEVELOPMENT_PACT"
 
-			set_country_flag = MAD_AREMA_DEVELOPMENT_PACT
 
 			add_stability = 0.02
 
@@ -11302,7 +11206,6 @@
 			set_temp_variable = { corp_change = -3 }
 			modify_corporate_tax_rate_effect = yes
 
-			set_country_flag = MAD_TIM_INSTITUTIONAL_MODEL
 
 			add_power_balance_value = {
 				id = MAD_economy_ownership_bop
@@ -11387,7 +11290,6 @@
 					change_landowners_opinion = yes
 					}
 
-				set_country_flag = MAD_TIM_NATIONAL_CHAMPION_MODEL
 
 				add_power_balance_value = { id = MAD_economy_ownership_bop value = 0.05 tooltip_side = MAD_private_ownership }
 		}
@@ -11450,7 +11352,6 @@
 				change_small_medium_business_owners_opinion = yes
 			}
 
-			set_country_flag = MAD_TIM_COMPETITION_MODEL
 
 			set_temp_variable = { party_index = 2 }
 			set_temp_variable = { party_popularity_increase = 0.03 }
@@ -11485,7 +11386,6 @@
 			increase_centralization = yes
 			add_stability = 0.03
 
-			set_country_flag = MAD_TIM_TAX_CAPACITY
 
 			set_temp_variable = { corp_change = -5 }
 			modify_corporate_tax_rate_effect = yes
@@ -11521,7 +11421,6 @@
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_TIM_TIKO_COMPETITION"
-			set_country_flag = MAD_TIM_COMPETITION_MODEL
 
 			decrease_corruption = yes
 
@@ -11606,7 +11505,6 @@
 				years = 1
 			}
 			add_political_power = 100
-			set_country_flag = MAD_TIM_2007_CONSTITUTION
 		}
 
 		ai_will_do = {
@@ -11657,7 +11555,6 @@
 				bonus = 0.15
 				category = CAT_construction
 			}
-			set_country_flag = MAD_TIM_MAP_RESTORED
 		}
 
 		ai_will_do = {
@@ -11701,7 +11598,6 @@
 				change_international_bankers_opinion = yes
 			}
 
-			set_country_flag = MAD_TIM_PROJECT_FINANCE
 			set_temp_variable = { party_index = 2 }
 			set_temp_variable = { party_popularity_increase = 0.02 }
 			set_temp_variable = { temp_outlook_increase = 0.02 }
@@ -11934,7 +11830,6 @@
 				}
 			decrease_corruption = yes
 
-			set_country_flag = MAD_TIM_MAP_REVIEWED
 		}
 
 		ai_will_do = {
@@ -12029,7 +11924,6 @@
 			change_relative_party_popularity = yes
 			recalculate_party = yes
 
-			set_country_flag = MAD_TGV_MOVEMENT_ACTIVE
 
 			increase_education_budget = yes
 			if = {
@@ -12115,7 +12009,6 @@
 			set_temp_variable = { temp_outlook_increase = 0.05 }
 			change_relative_party_popularity = yes
 			recalculate_party = yes
-			set_country_flag = MAD_TGV_FOURTH_REPUBLIC_CONFIRMED
 
 			increase_centralization = yes
 		}
@@ -12195,7 +12088,6 @@
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_TGV_THIRTEEN_VELIRANO"
 			add_ideas = MAD_POL_TGV_PEM
 
-			set_country_flag = MAD_TGV_VELIRANO_PROGRAMME
 
 			set_temp_variable = { party_index = 20 }
 			set_temp_variable = { party_popularity_increase = 0.05 }
@@ -12240,7 +12132,6 @@
 						}
 						add_to_variable = { MAD_agri_income_tax = 0.03 tooltip = agriculture_district_income_tax_modifier_tt }
 
-						set_country_flag = MAD_TGV_WATER_PROGRAMME
 				if = {
 				limit = {
 						NOT = { has_completed_focus = MAD_Thriving_south }
@@ -12368,7 +12259,6 @@
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_TGV_PROJECT_FINANCE"
 			add_power_balance_value = { id = MAD_economy_ownership_bop value = -0.05 tooltip_side = MAD_private_ownership }
-			set_country_flag = MAD_TGV_PROJECT_FINANCE
 
 			set_temp_variable = { party_index = 20 }
 			set_temp_variable = { party_popularity_increase = 0.03 }
@@ -12433,7 +12323,6 @@
 					add_to_variable = { MAD_economy_productivity_growth_modifier = 0.05 tooltip = productivity_growth_modifier_tt }
 					}
 
-			set_country_flag = MAD_TGV_JIRAMA_POLITICAL_RECORD
 
 			one_random_renewable_energy_infra = yes
 			MAD_rural_cooperation_calculate_monthly_change = yes
@@ -12462,7 +12351,6 @@
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_TGV_SPECIAL_ECONOMIC_ZONES"
-			set_country_flag = MAD_TGV_SEZ_MODEL
 
 			set_temp_variable = { party_index = 20 }
 			set_temp_variable = { party_popularity_increase = 0.03 }
@@ -12590,7 +12478,6 @@
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_TGV_DIGITAL_MADAGASCAR"
-			set_country_flag = MAD_TGV_DIGITAL_STATE
 
 			set_temp_variable = { party_index = 20 }
 			set_temp_variable = { party_popularity_increase = 0.03 }
@@ -12676,7 +12563,6 @@
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_TGV_PRESIDENTIAL_PROJECTS"
-			set_country_flag = MAD_TGV_PROJECT_STATE
 
 			set_temp_variable = { party_index = 20 }
 			set_temp_variable = { party_popularity_increase = 0.03 }
@@ -12717,7 +12603,6 @@
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_TGV_TRANSPARENT_EMERGENCE"
 			set_country_flag = MAD_TGV_CAPSAT_REJECTION
-			clr_country_flag = MAD_TGV_CAPSAT_ACCEPTED
 			if = {
 				limit = { NOT = { has_country_flag = MAD_TGV_CAPSAT_REVOLT_SCHEDULED } }
 				set_country_flag = MAD_TGV_CAPSAT_REVOLT_SCHEDULED
@@ -12778,8 +12663,6 @@
 			set_politics = { ruling_party = nationalist elections_allowed = no }
 			}
 			swap_ideas = { remove_idea = MAD_POL_TGV_PEM add_idea = MAD_POL_TGV_PRESIDENTIALISM }
-			set_country_flag = MAD_TGV_EXECUTIVE_MODEL
-			set_country_flag = MAD_TGV_CAPSAT_ACCEPTED
 			clr_country_flag = MAD_TGV_CAPSAT_REJECTION
 
 			increase_centralization = yes
@@ -12819,7 +12702,6 @@
 			set_temp_variable = { temp_outlook_increase = 0.10 }
 			change_relative_party_popularity = yes
 			recalculate_party = yes
-			set_country_flag = MAD_HVM_GOVERNMENT_ESTABLISHED
 			add_stability = 0.02
 		}
 
@@ -12853,7 +12735,6 @@
 			set_temp_variable = { temp_outlook_increase = 0.07 }
 			change_relative_party_popularity = yes
 			recalculate_party = yes
-			set_country_flag = MAD_HVM_GOVERNMENT_ESTABLISHED
 		}
 
 		ai_will_do = {
@@ -12916,7 +12797,6 @@
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_HVM_FRANCO_MALAGASY_PARTNERSHIP"
 			add_ideas = MAD_HVM_FRANCO_MALAGASY_PARTNERSHIP
-			set_country_flag = MAD_HVM_FRANCO_MALAGASY_PARTNERSHIP
 			set_temp_variable = { percent_change = 10 }
 			set_temp_variable = { tag_index = FRA }
 			set_temp_variable = { influence_target = MAD }
@@ -12949,7 +12829,6 @@
 			decrease_centralization = yes
 
 			decrease_corruption = yes
-			set_country_flag = MAD_HVM_DECENTRALISATION_MODEL
 		}
 
 		ai_will_do = {
@@ -12976,7 +12855,6 @@
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_HVM_ADMINISTRATIVE_STATE"
 			add_ideas = MAD_HVM_ADMINISTRATIVE_STATE
-			set_country_flag = MAD_HVM_ADMINISTRATIVE_STATE
 			set_temp_variable = { party_index = 1 }
 			set_temp_variable = { party_popularity_increase = 0.02 }
 			set_temp_variable = { temp_outlook_increase = 0.02 }
@@ -13008,7 +12886,6 @@
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_HVM_MACRO_STABILITY"
 			add_ideas = MAD_POL_HVM_TECHNOCRATIC_STATE
-			set_country_flag = MAD_HVM_MACRO_FRAMEWORK
 			add_political_power = 15
 			add_stability = 0.02
 		}
@@ -13042,7 +12919,6 @@
 			}
 			set_temp_variable = { debt_change = -10.00 }
 			modify_debt_effect = yes
-			set_country_flag = MAD_HVM_PUBLIC_FINANCE
 			add_stability = 0.03
 			add_political_power = 25
 		}
@@ -13183,7 +13059,6 @@
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_HVM_ENERGY_FOR_GROWTH"
 			add_ideas = MAD_HVM_ENERGY_FOR_GROWTH
-			set_country_flag = MAD_HVM_ENERGY_POLICY
 		}
 
 		ai_will_do = {
@@ -13285,7 +13160,6 @@
 				remove_idea = MAD_HVM_INVESTMENT_FRIENDLY
 				add_idea = MAD_HVM_PPP_FRAMEWORK
 			}
-			set_country_flag = MAD_HVM_PPP_STATE
 			add_political_power = 25
 			set_temp_variable = { party_index = 1 }
 			set_temp_variable = { party_popularity_increase = 0.02 }
@@ -13357,7 +13231,6 @@
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_HVM_ELECTORAL_FRAMEWORK"
 			add_ideas = MAD_HVM_ELECTORAL_FRAMEWORK
-			set_country_flag = MAD_HVM_ELECTORAL_FRAMEWORK
 			set_temp_variable = { party_index = 1 }
 			set_temp_variable = { party_popularity_increase = 0.04 }
 			set_temp_variable = { temp_outlook_increase = 0.04 }
@@ -13423,7 +13296,6 @@
 					remove_idea = MAD_HVM_ELECTORAL_FRAMEWORK
 					add_idea = MAD_HVM_FISANDRATANA_FULL
 				}
-				set_country_flag = MAD_HVM_FISANDRATANA_FULL
 			}
 			else_if = {
 				limit = { MAD_HVM_FISANDRATANA_PARTIAL_TRIGGER = yes }
@@ -13431,14 +13303,12 @@
 					remove_idea = MAD_HVM_ELECTORAL_FRAMEWORK
 					add_idea = MAD_HVM_FISANDRATANA_PARTIAL
 				}
-				set_country_flag = MAD_HVM_FISANDRATANA_PARTIAL
 			}
 			else = {
 				swap_ideas = {
 					remove_idea = MAD_HVM_ELECTORAL_FRAMEWORK
 					add_idea = MAD_HVM_FISANDRATANA_PLANNING
 				}
-				set_country_flag = MAD_HVM_FISANDRATANA_PLANNING_ONLY
 			}
 			add_political_power = 50
 			set_temp_variable = { party_index = 1 }
@@ -13946,7 +13816,6 @@
 			add_to_variable = { MAD_ARMY_CMD_REQUIRED_GARRISON_FACTOR = 0.02 }
 			custom_effect_tooltip = MAD_ARMY_DOCTRINE_ABOVE_FACTION_ATTACK_TT
 			add_to_variable = { MAD_ARMY_CMD_ARMY_ATTACK_FACTOR = -0.01 }
-			set_country_flag = MAD_ARMY_CAPSAT_COMMANDERS_FIRED
 			add_mastery = { amount = 20 folder = land }
 		}
 
@@ -14302,7 +14171,6 @@
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_ARMY_LAND_FORCES_MODERNISATION_PLAN"
 			remove_ideas = MAD_ARMY_INHERITED_BURDEN
-			set_country_flag = MAD_HYPOTHETICAL_ARMY_UNLOCKED
 			set_country_flag = MAD_ARMY_BURDEN_REMOVED
 			army_experience = 30
 			add_mastery = { amount = 30 folder = land }
@@ -14953,7 +14821,6 @@
 			increase_healthcare_budget = yes
 
 			add_ideas = MAD_HEALTH_SYSTEM_EXPANSION
-			set_country_flag = MAD_TIM_HEALTH_PROGRAMME
 
 			set_temp_variable = { party_index = 2 }
 			set_temp_variable = { party_popularity_increase = 0.03 }
@@ -14988,7 +14855,6 @@
 
 			increase_healthcare_budget = yes
 			add_ideas = MAD_HEALTH_SYSTEM_EXPANSION
-			set_country_flag = MAD_TGV_HEALTH_FOR_ALL
 
 			set_temp_variable = { party_index = 20 }
 			set_temp_variable = { party_popularity_increase = 0.03 }
@@ -15029,7 +14895,6 @@
 			increase_healthcare_budget = yes
 
 			add_ideas = MAD_HEALTH_SYSTEM_EXPANSION
-			set_country_flag = MAD_HVM_HEALTH_NUTRITION
 
 			set_temp_variable = { party_index = 1 }
 			set_temp_variable = { party_popularity_increase = 0.03 }
@@ -15074,7 +14939,6 @@
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_REQUEST_FRENCH_CORVETTES"
-			set_country_flag = MAD_FRENCH_CORVETTE_REQUEST_SENT
 			FRA = { country_event = { id = mad_naval.7 days = 1 } }
 		}
 

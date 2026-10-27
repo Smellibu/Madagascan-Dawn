@@ -4028,8 +4028,6 @@ MAD_OWNERSHIP_BOP = {
 			}
 			remove_ideas = MAD_MADARAIL_OPERATOR_STATE_AUSTERE
 			remove_ideas = MAD_MADARAIL_OPERATOR_STATE_FUNDED
-			clr_country_flag = MAD_MADARAIL_STATE_OWNED
-			set_country_flag = MAD_MADARAIL_PRIVATE
 			set_country_flag = MAD_MADARAIL_PRIVATISED_AFTER_STATE
 
 			# Reverse the state operator's direct economy/stability effect.
@@ -4063,9 +4061,7 @@ MAD_OWNERSHIP_BOP = {
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_SELL_GPM_PRIVATE"
 			clr_country_flag = MAD_GPM_STATE_MODEL
-			clr_country_flag = MAD_GPM_STATE_IMPORTS
 			set_country_flag = MAD_GPM_PRIVATE_MODEL
-			set_country_flag = MAD_GPM_PRIVATE_DISTRIBUTION
 			set_country_flag = MAD_GPM_PRIVATISED_AFTER_STATE
 
 			# Remove the direct state-control bonuses first.
