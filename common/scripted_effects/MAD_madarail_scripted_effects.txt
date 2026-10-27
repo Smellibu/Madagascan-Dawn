@@ -1484,7 +1484,7 @@ MAD_drought_update_displacement_overload = {
 				# This avoids evaluating another state's threshold while in state scope.
 				set_variable = { MAD_drought_origin_displaced = ROOT.MAD_drought_origin_displaced_266 }
 				if = {
-					limit = { check_variable = { var = MAD_drought_origin_displaced value = 50000 compare = greater_than_or_equals } NOT = { has_dynamic_modifier = MAD_DROUGHT_DISPLACEMENT_OVERLOAD } }
+					limit = { check_variable = { var = MAD_drought_origin_displaced value = 50000 compare = greater_than_or_equals } NOT = { has_dynamic_modifier = { modifier = MAD_DROUGHT_DISPLACEMENT_OVERLOAD } } }
 					add_dynamic_modifier = { modifier = MAD_DROUGHT_DISPLACEMENT_OVERLOAD }
 				}
 				else_if = {
@@ -1496,7 +1496,7 @@ MAD_drought_update_displacement_overload = {
 						}
 					}
 					if = {
-						limit = { has_dynamic_modifier = MAD_DROUGHT_DISPLACEMENT_OVERLOAD }
+						limit = { has_dynamic_modifier = { modifier = MAD_DROUGHT_DISPLACEMENT_OVERLOAD } }
 						remove_dynamic_modifier = { modifier = MAD_DROUGHT_DISPLACEMENT_OVERLOAD }
 					}
 				}
@@ -1506,7 +1506,7 @@ MAD_drought_update_displacement_overload = {
 				# This avoids evaluating another state's threshold while in state scope.
 				set_variable = { MAD_drought_origin_displaced = ROOT.MAD_drought_origin_displaced_267 }
 				if = {
-					limit = { check_variable = { var = MAD_drought_origin_displaced value = 50000 compare = greater_than_or_equals } NOT = { has_dynamic_modifier = MAD_DROUGHT_DISPLACEMENT_OVERLOAD } }
+					limit = { check_variable = { var = MAD_drought_origin_displaced value = 50000 compare = greater_than_or_equals } NOT = { has_dynamic_modifier = { modifier = MAD_DROUGHT_DISPLACEMENT_OVERLOAD } } }
 					add_dynamic_modifier = { modifier = MAD_DROUGHT_DISPLACEMENT_OVERLOAD }
 				}
 				else_if = {
@@ -1518,7 +1518,7 @@ MAD_drought_update_displacement_overload = {
 						}
 					}
 					if = {
-						limit = { has_dynamic_modifier = MAD_DROUGHT_DISPLACEMENT_OVERLOAD }
+						limit = { has_dynamic_modifier = { modifier = MAD_DROUGHT_DISPLACEMENT_OVERLOAD } }
 						remove_dynamic_modifier = { modifier = MAD_DROUGHT_DISPLACEMENT_OVERLOAD }
 					}
 				}
@@ -1528,7 +1528,7 @@ MAD_drought_update_displacement_overload = {
 				# This avoids evaluating another state's threshold while in state scope.
 				set_variable = { MAD_drought_origin_displaced = ROOT.MAD_drought_origin_displaced_268 }
 				if = {
-					limit = { check_variable = { var = MAD_drought_origin_displaced value = 50000 compare = greater_than_or_equals } NOT = { has_dynamic_modifier = MAD_DROUGHT_DISPLACEMENT_OVERLOAD } }
+					limit = { check_variable = { var = MAD_drought_origin_displaced value = 50000 compare = greater_than_or_equals } NOT = { has_dynamic_modifier = { modifier = MAD_DROUGHT_DISPLACEMENT_OVERLOAD } } }
 					add_dynamic_modifier = { modifier = MAD_DROUGHT_DISPLACEMENT_OVERLOAD }
 				}
 				else_if = {
@@ -1540,7 +1540,7 @@ MAD_drought_update_displacement_overload = {
 						}
 					}
 					if = {
-						limit = { has_dynamic_modifier = MAD_DROUGHT_DISPLACEMENT_OVERLOAD }
+						limit = { has_dynamic_modifier = { modifier = MAD_DROUGHT_DISPLACEMENT_OVERLOAD } }
 						remove_dynamic_modifier = { modifier = MAD_DROUGHT_DISPLACEMENT_OVERLOAD }
 					}
 				}
@@ -1550,7 +1550,7 @@ MAD_drought_update_displacement_overload = {
 				# This avoids evaluating another state's threshold while in state scope.
 				set_variable = { MAD_drought_origin_displaced = ROOT.MAD_drought_origin_displaced_487 }
 				if = {
-					limit = { check_variable = { var = MAD_drought_origin_displaced value = 50000 compare = greater_than_or_equals } NOT = { has_dynamic_modifier = MAD_DROUGHT_DISPLACEMENT_OVERLOAD } }
+					limit = { check_variable = { var = MAD_drought_origin_displaced value = 50000 compare = greater_than_or_equals } NOT = { has_dynamic_modifier = { modifier = MAD_DROUGHT_DISPLACEMENT_OVERLOAD } } }
 					add_dynamic_modifier = { modifier = MAD_DROUGHT_DISPLACEMENT_OVERLOAD }
 				}
 				else_if = {
@@ -1562,7 +1562,7 @@ MAD_drought_update_displacement_overload = {
 						}
 					}
 					if = {
-						limit = { has_dynamic_modifier = MAD_DROUGHT_DISPLACEMENT_OVERLOAD }
+						limit = { has_dynamic_modifier = { modifier = MAD_DROUGHT_DISPLACEMENT_OVERLOAD } }
 						remove_dynamic_modifier = { modifier = MAD_DROUGHT_DISPLACEMENT_OVERLOAD }
 					}
 				}
@@ -1575,7 +1575,7 @@ MAD_drought_update_displacement_overload = {
 		every_owned_state = {
 			set_variable = { MAD_drought_origin_displaced = 0 }
 			if = {
-				limit = { has_dynamic_modifier = MAD_DROUGHT_DISPLACEMENT_OVERLOAD }
+				limit = { has_dynamic_modifier = { modifier = MAD_DROUGHT_DISPLACEMENT_OVERLOAD } }
 				remove_dynamic_modifier = { modifier = MAD_DROUGHT_DISPLACEMENT_OVERLOAD }
 			}
 		}
