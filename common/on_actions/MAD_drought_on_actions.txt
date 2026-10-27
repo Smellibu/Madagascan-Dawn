@@ -33,7 +33,7 @@ on_actions = {
 					# Clear any stale displacement penalty and evaluate per-origin totals on startup.
 					MAD_drought_update_displacement_overload = yes
 					# The hidden event synchronises party ideas first, then constitutional policy and the Rural Cooperation readout.
-					country_event = { id = mad_political.8 }
+					country_event = mad_political.8
 					# Arm the first-loss monitor once; it waits for the new government to form.
 					if = {
 						limit = {
@@ -71,7 +71,7 @@ on_actions = {
 				}
 				clr_country_flag = MAD_AREMA_BANNED
 				set_country_flag = MAD_RATSIRAKA_RETURN_PENDING
-				country_event = { id = mad_political.92 }
+				country_event = mad_political.92
 			}
 			# RC readout is refreshed monthly and on ruling-party changes; avoid a daily recalculation.
 		}
@@ -91,7 +91,7 @@ on_actions = {
 							NOT = { has_country_flag = MAD_TGV_FORMED }
 							NOT = { has_country_flag = MAD_TGV_FORMATION_PENDING }
 						}
-						country_event = { id = mad_political.96 }
+						country_event = mad_political.96
 					}
 					# Passive Dahalo pressure is handled by MAD_dahalo_monthly_tick under on_monthly_MAD.
 					# Do not call it from this generic monthly hook.
