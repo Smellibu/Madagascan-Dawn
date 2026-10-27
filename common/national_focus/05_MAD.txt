@@ -510,8 +510,16 @@ focus_tree = {
 				MODIFIER = MAD_economy_modifier
 			}
 			add_to_variable = { MAD_economy_population_tax_income_multiplier_modifier = 0.03 tooltip = population_tax_income_multiplier_modifier_tt }
-			if = { limit = { has_idea = international_bankers } set_temp_variable = { temp_opinion = 8 } change_international_bankers_opinion = yes }
-			if = { limit = { has_idea = small_medium_business_owners } set_temp_variable = { temp_opinion = -5 } change_small_medium_business_owners_opinion = yes }
+			if = {
+				limit = { has_idea = international_bankers }
+				set_temp_variable = { temp_opinion = 8 }
+				change_international_bankers_opinion = yes
+			}
+			if = {
+				limit = { has_idea = small_medium_business_owners }
+				set_temp_variable = { temp_opinion = -5 }
+				change_small_medium_business_owners_opinion = yes
+			}
 		}
 
 		ai_will_do = {
@@ -572,8 +580,16 @@ focus_tree = {
 			add_to_variable = { MAD_power_energy_use_modifier_agriculture_district = -0.04 tooltip = energy_use_modifier_agriculture_district_tt }
 			add_to_variable = { MAD_power_pop_energy_use_multiplier = -0.02 tooltip = pop_energy_use_multiplier_tt }
 			add_to_variable = { MAD_power_renewable_energy_gain_multiplier = 0.02 tooltip = renewable_energy_gain_multiplier_tt }
-			if = { limit = { has_idea = landowners } set_temp_variable = { temp_opinion = 5 } change_landowners_opinion = yes }
-			if = { limit = { has_idea = small_medium_business_owners } set_temp_variable = { temp_opinion = 3 } change_small_medium_business_owners_opinion = yes }
+			if = {
+				limit = { has_idea = landowners }
+				set_temp_variable = { temp_opinion = 5 }
+				change_landowners_opinion = yes
+			}
+			if = {
+				limit = { has_idea = small_medium_business_owners }
+				set_temp_variable = { temp_opinion = 3 }
+				change_small_medium_business_owners_opinion = yes
+			}
 		}
 
 		ai_will_do = {
@@ -673,7 +689,11 @@ focus_tree = {
 			}
 			add_to_variable = { MAD_economy_receiving_investment_cost_modifier = -0.03 tooltip = receiving_investment_cost_modifier_tt }
 			add_to_variable = { MAD_economy_receiving_investment_duration_modifier = -0.03 tooltip = receiving_investment_duration_modifier_tt }
-			if = { limit = { has_idea = international_bankers } set_temp_variable = { temp_opinion = 5 } change_international_bankers_opinion = yes }
+			if = {
+				limit = { has_idea = international_bankers }
+				set_temp_variable = { temp_opinion = 5 }
+				change_international_bankers_opinion = yes
+			}
 		}
 
 		ai_will_do = {
@@ -755,8 +775,16 @@ focus_tree = {
 			add_to_variable = { MAD_economy_foreign_influence_modifier = -0.05 tooltip = foreign_influence_modifier_tt }
 			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.05 tooltip = productivity_growth_modifier_tt }
 			add_stability = -0.03
-			if = { limit = { has_idea = international_bankers } set_temp_variable = { temp_opinion = 10 } change_international_bankers_opinion = yes }
-			if = { limit = { has_idea = small_medium_business_owners } set_temp_variable = { temp_opinion = 6 } change_small_medium_business_owners_opinion = yes }
+			if = {
+				limit = { has_idea = international_bankers }
+				set_temp_variable = { temp_opinion = 10 }
+				change_international_bankers_opinion = yes
+			}
+			if = {
+				limit = { has_idea = small_medium_business_owners }
+				set_temp_variable = { temp_opinion = 6 }
+				change_small_medium_business_owners_opinion = yes
+			}
 			add_power_balance_value = { id = MAD_economy_ownership_bop value = -0.075 tooltip_side = MAD_private_ownership }
 		}
 
@@ -794,8 +822,16 @@ focus_tree = {
 			add_to_variable = { MAD_economy_internal_investments_money_cost_modifier = -0.05 tooltip = internal_investments_money_cost_modifier_tt }
 			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.05 tooltip = productivity_growth_modifier_tt }
 			add_stability = 0.02
-			if = { limit = { has_idea = international_bankers } set_temp_variable = { temp_opinion = -5 } change_international_bankers_opinion = yes }
-			if = { limit = { has_idea = landowners } set_temp_variable = { temp_opinion = 4 } change_landowners_opinion = yes }
+			if = {
+				limit = { has_idea = international_bankers }
+				set_temp_variable = { temp_opinion = -5 }
+				change_international_bankers_opinion = yes
+			}
+			if = {
+				limit = { has_idea = landowners }
+				set_temp_variable = { temp_opinion = 4 }
+				change_landowners_opinion = yes
+			}
 			custom_effect_tooltip = {
 				localization_key = modifies_dynamic_modifier_tt
 				MODIFIER = MAD_economy_modifier
@@ -933,8 +969,16 @@ focus_tree = {
 			if = { limit = { has_country_flag = MAD_JIRAMA_STATE_BACKSTOP } add_to_variable = { MAD_economy_internal_investments_money_cost_modifier = -0.02 tooltip = internal_investments_money_cost_modifier_tt } }
 			if = { limit = { has_country_flag = MAD_JIRAMA_PRIVATE_CONTRACTS } add_to_variable = { MAD_economy_receiving_investment_cost_modifier = -0.03 tooltip = receiving_investment_cost_modifier_tt } }
 			add_stability = -0.05
-			if = { limit = { has_idea = international_bankers } set_temp_variable = { temp_opinion = 5 } change_international_bankers_opinion = yes }
-			if = { limit = { has_idea = small_medium_business_owners } set_temp_variable = { temp_opinion = -5 } change_small_medium_business_owners_opinion = yes }
+			if = {
+				limit = { has_idea = international_bankers }
+				set_temp_variable = { temp_opinion = 5 }
+				change_international_bankers_opinion = yes
+			}
+			if = {
+				limit = { has_idea = small_medium_business_owners }
+				set_temp_variable = { temp_opinion = -5 }
+				change_small_medium_business_owners_opinion = yes
+			}
 		}
 
 		ai_will_do = {
@@ -1614,7 +1658,7 @@ focus_tree = {
 				limit = {
 					check_variable = { MAD_AMBATOVY_STATE_FUNDS < 50 }
 				}
-				add_ideas = MAD_AMBATOVY_PARTIAL_STATE
+				add_ideas = MAD_AMBATOVY_Partial_State
 				add_power_balance_value = {
 					id = MAD_economy_ownership_bop
 					value = 0.0375
@@ -1623,7 +1667,7 @@ focus_tree = {
 
 			}
 			else = {
-				add_ideas = MAD_AMBATOVY_FULL_STATE
+				add_ideas = MAD_AMBATOVY_Full_State
 				add_power_balance_value = {
 					id = MAD_economy_ownership_bop
 					value = 0.075
@@ -2755,7 +2799,7 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [This.GetName]: Focus MAD_QMM_LAGOON_POLLUTION_SCANDAL"
-			country_event = { id = mad_qmm.1 }
+			country_event = mad_qmm.1
 		}
 
 		ai_will_do = {
@@ -2778,7 +2822,7 @@ focus_tree = {
 
 			set_country_flag = MAD_MADARAIL_HOLDING
 
-			country_event = { id = mad_madarail.2 }
+			country_event = mad_madarail.2
 			custom_effect_tooltip = {
 				localization_key = modifies_dynamic_modifier_tt
 				MODIFIER = MAD_economy_modifier
@@ -2869,8 +2913,16 @@ focus_tree = {
 			add_to_variable = { MAD_economy_production_speed_energy_infrastructure_factor = 0.06 tooltip = production_speed_energy_infrastructure_factor_tt }
 			add_to_variable = { MAD_economy_infrastructure_tax_gain_multiplier_modifier = 0.03 tooltip = infrastructure_tax_gain_multiplier_modifier_tt }
 			add_stability = 0.02
-			if = { limit = { has_idea = international_bankers } set_temp_variable = { temp_opinion = 3 } change_international_bankers_opinion = yes }
-			if = { limit = { has_idea = small_medium_business_owners } set_temp_variable = { temp_opinion = 4 } change_small_medium_business_owners_opinion = yes }
+			if = {
+				limit = { has_idea = international_bankers }
+				set_temp_variable = { temp_opinion = 3 }
+				change_international_bankers_opinion = yes
+			}
+			if = {
+				limit = { has_idea = small_medium_business_owners }
+				set_temp_variable = { temp_opinion = 4 }
+				change_small_medium_business_owners_opinion = yes
+			}
 		}
 
 		ai_will_do = {
@@ -3409,7 +3461,7 @@ focus_tree = {
 			set_temp_variable = { party_popularity_increase = -0.20 }
 			set_temp_variable = { temp_outlook_increase = -0.10 }
 			change_relative_party_popularity = yes
-			country_event = { id = mad_daewoo.1 }
+			country_event = mad_daewoo.1
 		}
 
 		ai_will_do = {
@@ -3633,8 +3685,16 @@ focus_tree = {
 			}
 			add_to_variable = { MAD_power_energy_gain_multiplier = 0.02 tooltip = energy_gain_multiplier_tt }
 			add_to_variable = { MAD_power_production_speed_fossil_powerplant_factor = 0.05 tooltip = production_speed_fossil_powerplant_factor_tt }
-			if = { limit = { has_idea = international_bankers } set_temp_variable = { temp_opinion = 6 } change_international_bankers_opinion = yes }
-			if = { limit = { has_idea = small_medium_business_owners } set_temp_variable = { temp_opinion = 2 } change_small_medium_business_owners_opinion = yes }
+			if = {
+				limit = { has_idea = international_bankers }
+				set_temp_variable = { temp_opinion = 6 }
+				change_international_bankers_opinion = yes
+			}
+			if = {
+				limit = { has_idea = small_medium_business_owners }
+				set_temp_variable = { temp_opinion = 2 }
+				change_small_medium_business_owners_opinion = yes
+			}
 		}
 
 		ai_will_do = {
@@ -4147,8 +4207,16 @@ focus_tree = {
 				}
 				add_to_variable = { MAD_economy_foreign_influence_modifier = 0.03 tooltip = foreign_influence_modifier_tt }
 			}
-			if = { limit = { has_idea = international_bankers } set_temp_variable = { temp_opinion = 5 } change_international_bankers_opinion = yes }
-			if = { limit = { has_idea = landowners } set_temp_variable = { temp_opinion = -2 } change_landowners_opinion = yes }
+			if = {
+				limit = { has_idea = international_bankers }
+				set_temp_variable = { temp_opinion = 5 }
+				change_international_bankers_opinion = yes
+			}
+			if = {
+				limit = { has_idea = landowners }
+				set_temp_variable = { temp_opinion = -2 }
+				change_landowners_opinion = yes
+			}
 			custom_effect_tooltip = {
 				localization_key = modifies_dynamic_modifier_tt
 				MODIFIER = MAD_economy_modifier
@@ -4226,8 +4294,16 @@ focus_tree = {
 				MODIFIER = MAD_economy_modifier
 			}
 			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.10 tooltip = productivity_growth_modifier_tt }
-			if = { limit = { has_idea = landowners } set_temp_variable = { temp_opinion = 3 } change_landowners_opinion = yes }
-			if = { limit = { has_idea = small_medium_business_owners } set_temp_variable = { temp_opinion = 4 } change_small_medium_business_owners_opinion = yes }
+			if = {
+				limit = { has_idea = landowners }
+				set_temp_variable = { temp_opinion = 3 }
+				change_landowners_opinion = yes
+			}
+			if = {
+				limit = { has_idea = small_medium_business_owners }
+				set_temp_variable = { temp_opinion = 4 }
+				change_small_medium_business_owners_opinion = yes
+			}
 			custom_effect_tooltip = {
 				localization_key = modifies_dynamic_modifier_tt
 				MODIFIER = MAD_economy_modifier
@@ -4605,7 +4681,7 @@ focus_tree = {
 			add_to_variable = { MAD_economy_research_speed_factor = 0.03 tooltip = research_speed_factor_tt }
 			add_tech_bonus = {
 				name = MAD_PRIVATE_TELECOM_RESEARCH
-				category = CAT_Civilian
+				category = CAT_civilian
 				uses = 2
 				bonus = 0.25
 			}
@@ -4698,7 +4774,7 @@ focus_tree = {
 				path = { 681 11015 }
 			}
 			one_random_infrastructure
-			country_event = { id = mad_madarail.1 }
+			country_event = mad_madarail.1
 			if = {
 				limit = { has_idea = international_bankers }
 				set_temp_variable = { temp_opinion = -5 }
@@ -6384,7 +6460,11 @@ focus_tree = {
 			add_to_variable = { MAD_economy_production_speed_energy_infrastructure_factor = 0.05 tooltip = production_speed_energy_infrastructure_factor_tt }
 			add_to_variable = { MAD_economy_infrastructure_tax_gain_multiplier_modifier = 0.02 tooltip = infrastructure_tax_gain_multiplier_modifier_tt }
 			add_stability = 0.02
-			if = { limit = { has_idea = small_medium_business_owners } set_temp_variable = { temp_opinion = 4 } change_small_medium_business_owners_opinion = yes }
+			if = {
+				limit = { has_idea = small_medium_business_owners }
+				set_temp_variable = { temp_opinion = 4 }
+				change_small_medium_business_owners_opinion = yes
+			}
 		}
 
 		ai_will_do = {
@@ -7236,7 +7316,7 @@ focus_tree = {
 			set_temp_variable = { treasury_change = -12.00 }
 						modify_treasury_effect = yes
 
-			country_event = { id = mad_telma.1 }
+			country_event = mad_telma.1
 			custom_effect_tooltip = {
 				localization_key = modifies_dynamic_modifier_tt
 				MODIFIER = MAD_economy_modifier
@@ -7707,7 +7787,11 @@ focus_tree = {
 			add_to_variable = { MAD_power_pop_energy_use_multiplier = -0.02 tooltip = pop_energy_use_multiplier_tt }
 			add_to_variable = { MAD_power_energy_use_modifier_civs = -0.01 tooltip = energy_use_modifier_civs_tt }
 			add_stability = 0.02
-			if = { limit = { has_idea = small_medium_business_owners } set_temp_variable = { temp_opinion = 5 } change_small_medium_business_owners_opinion = yes }
+			if = {
+				limit = { has_idea = small_medium_business_owners }
+				set_temp_variable = { temp_opinion = 5 }
+				change_small_medium_business_owners_opinion = yes
+			}
 			set_country_flag = MAD_JIRAMA_SMART_METER_PROJECT_UNLOCKED
 			unlock_decision_category_tooltip = MAD_JIRAMA_PROJECTS
 		}
@@ -9005,7 +9089,7 @@ focus_tree = {
 
 			add_tech_bonus = {
 				name = MAD_POL_ROY_TAMIMA_LIVING_FORCES
-				category = CAT_Civilian
+				category = CAT_civilian
 				bonus = 0.15
 				uses = 2
 			}
@@ -11266,7 +11350,7 @@ focus_tree = {
 					name = MAD_POL_TIM_NATIONAL_CHAMPION
 					bonus = 0.4
 					uses = 2
-					category = CAT_Civilian
+					category = CAT_civilian
 				}
 
 				if = {
