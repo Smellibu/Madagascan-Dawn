@@ -4644,7 +4644,7 @@ MAD_rural_cooperation_initialize = {
 	clamp_variable = { var = MAD_rural_cooperation min = 0 max = 100 }
 }
 
-# Ensure a single constitutional model exists on startup. Party-conditioned overrides are event-driven.
+# Ensure a single constitutional model exists after party-idea synchronisation. Party-conditioned overrides are event-driven.
 MAD_rural_constitution_initialize = {
 	if = {
 		limit = { has_idea = MAD_POL_CHRISTOCRATIC_STATE }
@@ -4851,9 +4851,9 @@ MAD_rural_cooperation_calculate_monthly_change = {
 	}
 
 	if = { limit = { check_variable = { MAD_drought_severity < 50 } check_variable = { MAD_drought_severity > 20 } } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
-	if = { limit = { check_variable = { MAD_drought_severity < 20 } } add_to_temp_variable = { MAD_rc_monthly_gain = 0.5 } }
+	if = { limit = { NOT = { check_variable = { MAD_drought_severity > 20 } } } add_to_temp_variable = { MAD_rc_monthly_gain = 0.5 } }
 	if = { limit = { check_variable = { MAD_dahalo_threat < 50 } check_variable = { MAD_dahalo_threat > 25 }  } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
-	if = { limit = { check_variable = { MAD_dahalo_threat < 25 } } add_to_temp_variable = { MAD_rc_monthly_gain = 0.50 } }
+	if = { limit = { NOT = { check_variable = { MAD_dahalo_threat > 25 } } } add_to_temp_variable = { MAD_rc_monthly_gain = 0.50 } }
 
 	# Governance paths provide lasting institutional memory. Milestones stack, subject to the +3 cap.
 	if = { limit = { has_completed_focus = MAD_POL_ROY_CROWN_WITHOUT_KING } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
