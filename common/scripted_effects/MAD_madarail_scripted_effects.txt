@@ -2914,8 +2914,14 @@ MAD_dahalo_init = {
 }
 
 MAD_dahalo_update_modifier = {
+	# Only create the modifier while there is an active insecurity penalty.
+	# At zero threat the later branch removes it, so adding it here would be redundant.
 	if = {
-		limit = { NOT = { has_dynamic_modifier = { modifier = MAD_dahalo_modifier } } }
+		limit = {
+			NOT = { has_country_flag = MAD_REMENABILA_IN_POWER }
+			check_variable = { MAD_dahalo_threat > 0.001 }
+			NOT = { has_dynamic_modifier = { modifier = MAD_dahalo_modifier } }
+		}
 		add_dynamic_modifier = { modifier = MAD_dahalo_modifier }
 	}
 
@@ -3026,13 +3032,6 @@ MAD_dahalo_update_modifier = {
 		}
 	}
 
-	if = {
-		limit = {
-			NOT = { has_country_flag = MAD_DAHALO_DEFEATED }
-			NOT = { has_country_flag = MAD_REMENABILA_IN_POWER }
-		}
-
-	}
 	MAD_rural_cooperation_calculate_monthly_change = yes
 }
 
@@ -3052,10 +3051,6 @@ MAD_dahalo_campaign_reset = {
 	clr_country_flag = MAD_DAHALO_CAMPAIGN_GENERAL_STAFF_STYLE
 	clr_country_flag = MAD_DAHALO_CAMPAIGN_ROLL_SUCCESS
 	clr_country_flag = MAD_DAHALO_CAMPAIGN_ROLL_FAILURE
-	clr_country_flag = MAD_DAHALO_TANDROKA_READY
-	clr_country_flag = MAD_DAHALO_COUP_D_ARRET_READY
-	clr_country_flag = MAD_DAHALO_FAHALEMANA_READY
-	clr_country_flag = MAD_MAZAVA_READY
 	clr_country_flag = MAD_MAZAVA_GROUND_OPERATION
 }
 MAD_dahalo_campaign_add_readiness = {
@@ -3135,10 +3130,6 @@ MAD_dahalo_campaign_clear_after_resolution = {
 	clr_country_flag = MAD_DAHALO_CAMPAIGN_COERCIVE_APPROACH
 	clr_country_flag = MAD_DAHALO_CAMPAIGN_CAPSAT_STYLE
 	clr_country_flag = MAD_DAHALO_CAMPAIGN_GENERAL_STAFF_STYLE
-	clr_country_flag = MAD_DAHALO_TANDROKA_READY
-	clr_country_flag = MAD_DAHALO_COUP_D_ARRET_READY
-	clr_country_flag = MAD_DAHALO_FAHALEMANA_READY
-	clr_country_flag = MAD_MAZAVA_READY
 	clr_country_flag = MAD_MAZAVA_GROUND_OPERATION
 }
 MAD_dahalo_resolve_tandroka = {
