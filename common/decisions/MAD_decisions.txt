@@ -1419,12 +1419,10 @@ MAD_drought_category = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_DROUGHT_LOCAL_SEED_DISTRIBUTION"
 			set_temp_variable = { treasury_change = -0.40 }
 			modify_treasury_effect = yes
-			set_temp_variable = { MAD_rc_delta = -1 }
-			MAD_rural_cooperation_adjust = yes
-			custom_effect_tooltip = MAD_RC_LOCAL_SEED_COST_TT
 			FROM = {
 				set_temp_variable = { MAD_dr_state_change = -5 }
 				set_temp_variable = { MAD_dr_state_famine = -6 }
+				# Calculate relief strength using Rural Cooperation before paying its cost.
 				MAD_rural_cooperation_boost_state_relief = yes
 				MAD_dahalo_southern_supply_interference = yes
 				MAD_drought_state_apply_change = yes
@@ -1433,6 +1431,9 @@ MAD_drought_category = {
 				subtract_from_variable = { MAD_state_drought_exposure = 0.05 }
 				clamp_variable = { var = MAD_state_drought_exposure min = 0.4 max = 2 }
 			}
+			set_temp_variable = { MAD_rc_delta = -1 }
+			MAD_rural_cooperation_adjust = yes
+			custom_effect_tooltip = MAD_RC_LOCAL_SEED_COST_TT
 			MAD_drought_recalc_national = yes
 		}
 
