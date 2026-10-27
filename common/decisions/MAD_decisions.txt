@@ -1,6 +1,6 @@
 MAD_AMBATOVY_FORMING = {
 
-MAD_INVITE_KOREANS = {
+	MAD_INVITE_KOREANS = {
 		on_map_mode = map_and_decisions_view
 		cost = 100
 		fire_only_once = yes
@@ -148,43 +148,43 @@ MAD_INVITE_KOREANS = {
 		
 	}
 	MAD_BUILD_MINE = {
-	on_map_mode = map_and_decisions_view
-	cost = 100
-	fire_only_once = yes
-	days_remove = 730
-	visible = {
-		has_completed_focus = MAD_AMBATOVY_OPERATIONAL
-	}
-	available = {
-		NOT = { has_country_flag = MAD_ambatovy_mine_built }
-		custom_trigger_tooltip = {
-			tooltip = MAD_RC_REQUIRE_12_TT
-			check_variable = {
-				MAD_rural_cooperation > 11.99
+		on_map_mode = map_and_decisions_view
+		cost = 100
+		fire_only_once = yes
+		days_remove = 730
+		visible = {
+			has_completed_focus = MAD_AMBATOVY_OPERATIONAL
+		}
+		available = {
+			NOT = { has_country_flag = MAD_ambatovy_mine_built }
+			custom_trigger_tooltip = {
+				tooltip = MAD_RC_REQUIRE_12_TT
+				check_variable = {
+					MAD_rural_cooperation > 11.99
+				}
 			}
 		}
-	}
-	complete_effect = {
-		log = "[GetDateText]: [Root.GetName]: Decision MAD_BUILD_MINE started"
-		custom_effect_tooltip = MAD_RURAL_COOPERATION_SPENT_TT
-		set_temp_variable = { MAD_rc_delta = -12 }
-		MAD_rural_cooperation_adjust = yes
-	}
-	remove_effect = {
-		log = "[GetDateText]: [Root.GetName]: Decision MAD_BUILD_MINE complete"
-		267 = {
-			add_resource = {
-				type = tungsten
-				amount = 35
-			}
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_BUILD_MINE started"
+			custom_effect_tooltip = MAD_RURAL_COOPERATION_SPENT_TT
+			set_temp_variable = { MAD_rc_delta = -12 }
+			MAD_rural_cooperation_adjust = yes
 		}
-		set_country_flag = MAD_ambatovy_mine_built
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_BUILD_MINE complete"
+			267 = {
+				add_resource = {
+					type = tungsten
+					amount = 35
+				}
+			}
+			set_country_flag = MAD_ambatovy_mine_built
+		}
+		ai_will_do = {
+			base = 0
+		}
 	}
-	ai_will_do = {
-		base = 0
-	}
-	}
-		# MAD_SELL_MINE was moved into MAD_OWNERSHIP_BOP so the ownership reversal is shown in the BOP view.
+	# MAD_SELL_MINE was moved into MAD_OWNERSHIP_BOP so the ownership reversal is shown in the BOP view.
 
 }
 MAD_AIR_STATE_CONTROL_MISSIONS = {
