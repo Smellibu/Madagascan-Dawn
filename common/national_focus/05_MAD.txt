@@ -9636,6 +9636,55 @@ focus_tree = {
 	}
 
 	focus = {
+		id = MAD_POL_MIL_SOUTHERN_SECURITY
+		icon = forceful_treaty
+		x = 0
+		y = 1
+		relative_position_id = MAD_POL_MIL_PROFESSIONAL_OFFICERS
+		cost = 3
+		prerequisite = { focus = MAD_POL_MIL_PROFESSIONAL_OFFICERS }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_MIL_IN_POWER_tt
+				MAD_MIL_IN_POWER = yes
+			}
+			custom_trigger_tooltip = {
+				tooltip = MAD_COUP_D_ARRET_OPERATION_COMPLETE_TT
+				has_country_flag = MAD_DAHALO_COUP_D_ARRET_COMPLETE
+			}
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_MIL_SOUTHERN_SECURITY"
+			set_temp_variable = { MAD_rc_delta = 4 }
+			MAD_rural_cooperation_adjust = yes
+			custom_effect_tooltip = MAD_RURAL_COOP_FOCUS_GAIN_4_TT
+
+			swap_ideas = {
+				remove_idea = MAD_MIL_PROFESSIONAL_OFFICERS
+				add_idea = MAD_MIL_SOUTHERN_SECURITY
+			}
+			army_experience = 35
+			if = {
+				limit = { NOT = { has_country_flag = MAD_DAHALO_DEFEATED } }
+				add_to_variable = { MAD_dahalo_threat = -10 tooltip = MAD_DAHALO_THREAT_MINUS_10_TT }
+			}
+			set_country_flag = MAD_MILITARY_SECURITY_PARTNER
+			set_temp_variable = { party_index = 22 }
+			set_temp_variable = { party_popularity_increase = 0.02 }
+			set_temp_variable = { temp_outlook_increase = 0.02 }
+			change_relative_party_popularity = yes
+			recalculate_party = yes
+			MAD_rural_cooperation_calculate_monthly_change = yes
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
 		id = MAD_POL_MIL_GENDARMERIE_REFORM
 		icon = Generic_Policeman
 		x = 0
@@ -9751,54 +9800,7 @@ focus_tree = {
 		}
 	}
 
-	focus = {
-		id = MAD_POL_MIL_SOUTHERN_SECURITY
-		icon = forceful_treaty
-		x = 0
-		y = 1
-		relative_position_id = MAD_POL_MIL_PROFESSIONAL_OFFICERS
-		cost = 3
-		prerequisite = { focus = MAD_POL_MIL_PROFESSIONAL_OFFICERS }
-		search_filters = { FOCUS_FILTER_POLITICAL }
-		available = {
-			custom_trigger_tooltip = {
-				tooltip = MAD_MIL_IN_POWER_tt
-				MAD_MIL_IN_POWER = yes
-			}
-			custom_trigger_tooltip = {
-				tooltip = MAD_COUP_D_ARRET_OPERATION_COMPLETE_TT
-				has_country_flag = MAD_DAHALO_COUP_D_ARRET_COMPLETE
-			}
-		}
 
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_MIL_SOUTHERN_SECURITY"
-			set_temp_variable = { MAD_rc_delta = 4 }
-			MAD_rural_cooperation_adjust = yes
-			custom_effect_tooltip = MAD_RURAL_COOP_FOCUS_GAIN_4_TT
-
-			swap_ideas = {
-				remove_idea = MAD_MIL_PROFESSIONAL_OFFICERS
-				add_idea = MAD_MIL_SOUTHERN_SECURITY
-			}
-			army_experience = 35
-			if = {
-				limit = { NOT = { has_country_flag = MAD_DAHALO_DEFEATED } }
-				add_to_variable = { MAD_dahalo_threat = -10 tooltip = MAD_DAHALO_THREAT_MINUS_10_TT }
-			}
-			set_country_flag = MAD_MILITARY_SECURITY_PARTNER
-			set_temp_variable = { party_index = 22 }
-			set_temp_variable = { party_popularity_increase = 0.02 }
-			set_temp_variable = { temp_outlook_increase = 0.02 }
-			change_relative_party_popularity = yes
-			recalculate_party = yes
-			MAD_rural_cooperation_calculate_monthly_change = yes
-		}
-
-		ai_will_do = {
-			base = 1
-		}
-	}
 
 
 
