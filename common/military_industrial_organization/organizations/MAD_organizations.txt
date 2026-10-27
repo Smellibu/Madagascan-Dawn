@@ -216,8 +216,8 @@ MAD_DEFENCE_ELECTRONICS = {
 		CAT_anti_air
 		CAT_missiles
 	}
-	tree_header_text = { text = MAD_DEFENCE_ELECTRONICS_header_comms x = 9 }
-	tree_header_text = { text = MAD_DEFENCE_ELECTRONICS_header_recon x = 13 }
+	tree_header_text = { text = MAD_DEFENCE_ELECTRONICS_header_comms x = 5 }
+	tree_header_text = { text = MAD_DEFENCE_ELECTRONICS_header_recon x = 9 }
 	initial_trait = {
 		name = MAD_DEFENCE_ELECTRONICS_trait
 		equipment_bonus = { reliability = 0.03 }
@@ -230,7 +230,7 @@ MAD_DEFENCE_ELECTRONICS = {
 		token = MAD_DEFENCE_ELECTRONICS_cnc_integration
 		name = MAD_DEFENCE_ELECTRONICS_cnc_integration
 		icon = GFX_generic_mio_trait_icon_design
-		position = { x = 9 y = 0 }
+		position = { x = 5 y = 0 }
 		limit_to_equipment_type = { cnc_equipment_type }
 		equipment_bonus = { reliability = 0.05 }
 		organization_modifier = { military_industrial_organization_research_bonus = 0.03 }
@@ -281,7 +281,7 @@ MAD_DEFENCE_ELECTRONICS = {
 		token = MAD_DEFENCE_ELECTRONICS_small_arms
 		name = MAD_DEFENCE_ELECTRONICS_small_arms
 		icon = GFX_generic_mio_trait_icon_design
-		position = { x = 13 y = 0 }
+		position = { x = 9 y = 0 }
 		limit_to_equipment_type = { infantry_weapons_type }
 		equipment_bonus = { soft_attack = 0.04 reliability = 0.03 }
 		on_complete = { expenditure_for_mio_upgrade = yes }
@@ -307,7 +307,7 @@ MAD_DEFENCE_ELECTRONICS = {
 		position = { x = 1 y = 1 }
 		relative_position_id = MAD_DEFENCE_ELECTRONICS_small_arms
 		limit_to_equipment_type = { infantry_weapons_type }
-		equipment_bonus = { ap_attack = 0.03 reliability = 0.04 }
+		equipment_bonus = { hard_attack = 0.03 reliability = 0.04 }
 		on_complete = { expenditure_for_mio_upgrade = yes }
 		ai_will_do = { base = 10 }
 	}
@@ -937,7 +937,7 @@ MAD_SECREN_shipbuilding = {
 		name = generic_mio_nav_light_trait_ind_research
 		icon = GFX_generic_mio_trait_icon_research
 
-		position = { x = 16 y = 0 }
+		position = { x = 8 y = 0 }
 
 		organization_modifier = { military_industrial_organization_research_bonus = 0.05 }
 
