@@ -2985,7 +2985,7 @@ country_event = {
 		change_relative_party_popularity = yes
 		add_stability = 0.01
 		add_political_power = -25
-		clr_country_flag = MAD_VIVA_TV_BANNED
+		
 
 		if = {
 			limit = { NOT = { has_country_flag = MAD_TGV_FORMED } }
@@ -3040,7 +3040,7 @@ country_event = {
 		}
 		set_country_flag = MAD_RATSIRAKA_RETURN_DENIED
 		set_country_flag = MAD_AREMA_OLD_GUARD_LOCKED
-		clr_country_flag = MAD_RATSIRAKA_RETURN_ALLOWED
+		
 
 	}
 }
@@ -3251,7 +3251,7 @@ country_event = {
 		clr_country_flag = MAD_ARMY_COMMAND_GENERAL_STAFF
 		clr_country_flag = MAD_TGV_COMMAND_FORCE_CAPSAT
 		clr_country_flag = MAD_TGV_COMMAND_FORCE_GENERAL_STAFF
-		set_country_flag = MAD_MIL_PARTY_LEADER_CAPSAT
+		
 		clr_country_flag = MAD_MIL_PARTY_LEADER_GENERAL_STAFF
 		# Legacy-spirit cleanup: these bonuses now live in MAD_ARMY_COMMAND_SYSTEM.
 		if = { limit = { has_idea = MAD_ARMY_GENERAL_STAFF_COMMAND } remove_ideas = MAD_ARMY_GENERAL_STAFF_COMMAND }
@@ -3315,7 +3315,7 @@ country_event = {
 			country_event = { id = MAD_military_command.5 days = 1825 }
 		}
 		set_country_flag = MAD_MIL_PARTY_LEADER_GENERAL_STAFF
-		clr_country_flag = MAD_MIL_PARTY_LEADER_CAPSAT
+		
 		# Legacy-spirit cleanup: these bonuses now live in MAD_ARMY_COMMAND_SYSTEM.
 		if = { limit = { has_idea = MAD_ARMY_CAPSAT_COMMAND } remove_ideas = MAD_ARMY_CAPSAT_COMMAND }
 		if = { limit = { has_idea = MAD_ARMY_GENERAL_STAFF_COMMAND } remove_ideas = MAD_ARMY_GENERAL_STAFF_COMMAND }
@@ -3373,7 +3373,7 @@ country_event = {
 		set_country_flag = MAD_CAPSAT_REVOLT_RESOLVED
 		clr_country_flag = MAD_TGV_CAPSAT_REJECTION
 		set_country_flag = MAD_MIL_PARTY_LEADER_GENERAL_STAFF
-		clr_country_flag = MAD_MIL_PARTY_LEADER_CAPSAT
+		
 		add_stability = -0.08
 		army_experience = 35
 	}
@@ -3400,7 +3400,7 @@ country_event = {
 		set_country_flag = MAD_ARMY_COMMAND_DECIDED
 		set_country_flag = MAD_ARMY_COMMAND_CAPSAT
 		clr_country_flag = MAD_ARMY_COMMAND_GENERAL_STAFF
-		set_country_flag = MAD_MIL_PARTY_LEADER_CAPSAT
+		
 		clr_country_flag = MAD_MIL_PARTY_LEADER_GENERAL_STAFF
 		set_country_flag = MAD_CAPSAT_REVOLT_RESOLVED
 		clr_country_flag = MAD_TGV_CAPSAT_REJECTION
@@ -3414,7 +3414,7 @@ country_event = {
 		set_country_flag = MAD_ARMY_COMMAND_DECIDED
 		set_country_flag = MAD_CAPSAT_REVOLT_RESOLVED
 		clr_country_flag = MAD_TGV_CAPSAT_REJECTION
-		set_country_flag = MAD_MIL_PARTY_LEADER_CAPSAT
+		
 		clr_country_flag = MAD_MIL_PARTY_LEADER_GENERAL_STAFF
 		hidden_effect = { kill_country_leader = yes }
 		create_country_leader = {
