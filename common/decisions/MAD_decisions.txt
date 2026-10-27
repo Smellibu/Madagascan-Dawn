@@ -3384,7 +3384,15 @@ MAD_dahalo_category = {
 		icon = generic_political_discourse
 
 		visible = { has_country_flag = MAD_USAD_ESTABLISHED NOT = { has_country_flag = MAD_USAD_TRAINING_CADRE_BUILT } }
-		available = { has_country_flag = MAD_USAD_ESTABLISHED NOT = { has_country_flag = MAD_DAHALO_OPERATION_ACTIVE } NOT = { has_civil_war = yes } custom_trigger_tooltip = { tooltip = MAD_TREASURY_REQUIRE_1_25_TT check_variable = { treasury > 1.249 } } }
+		available = {
+			has_country_flag = MAD_USAD_ESTABLISHED
+			NOT = { has_country_flag = MAD_DAHALO_OPERATION_ACTIVE }
+			NOT = { has_civil_war = yes }
+			custom_trigger_tooltip = {
+				tooltip = MAD_TREASURY_REQUIRE_1_25_TT
+				check_variable = { treasury > 1.249 }
+			}
+		}
 		cost = 50
 		fire_only_once = yes
 		custom_cost_trigger = { check_variable = { treasury > 1.249 } }
@@ -3403,7 +3411,15 @@ MAD_dahalo_category = {
 		icon = generic_political_discourse
 
 		visible = { has_country_flag = MAD_USAD_ESTABLISHED NOT = { has_country_flag = MAD_USAD_GROUND_LOGISTICS_READY } }
-		available = { has_country_flag = MAD_USAD_ESTABLISHED NOT = { has_country_flag = MAD_DAHALO_OPERATION_ACTIVE } NOT = { has_civil_war = yes } custom_trigger_tooltip = { tooltip = MAD_TREASURY_REQUIRE_2_00_TT check_variable = { treasury > 1.999 } } }
+		available = {
+			has_country_flag = MAD_USAD_ESTABLISHED
+			NOT = { has_country_flag = MAD_DAHALO_OPERATION_ACTIVE }
+			NOT = { has_civil_war = yes }
+			custom_trigger_tooltip = {
+				tooltip = MAD_TREASURY_REQUIRE_2_00_TT
+				check_variable = { treasury > 1.999 }
+			}
+		}
 		cost = 65
 		fire_only_once = yes
 		custom_cost_trigger = { check_variable = { treasury > 1.999 } }
@@ -3423,7 +3439,15 @@ MAD_dahalo_category = {
 		icon = generic_political_discourse
 
 		visible = { has_country_flag = MAD_USAD_ESTABLISHED NOT = { has_country_flag = MAD_USAD_COMMUNITY_LIAISON } }
-		available = { has_country_flag = MAD_USAD_ESTABLISHED NOT = { has_country_flag = MAD_DAHALO_OPERATION_ACTIVE } NOT = { has_civil_war = yes } custom_trigger_tooltip = { tooltip = MAD_TREASURY_REQUIRE_0_75_TT check_variable = { treasury > 0.749 } } }
+		available = {
+			has_country_flag = MAD_USAD_ESTABLISHED
+			NOT = { has_country_flag = MAD_DAHALO_OPERATION_ACTIVE }
+			NOT = { has_civil_war = yes }
+			custom_trigger_tooltip = {
+				tooltip = MAD_TREASURY_REQUIRE_0_75_TT
+				check_variable = { treasury > 0.749 }
+			}
+		}
 		cost = 45
 		fire_only_once = yes
 		custom_cost_trigger = { check_variable = { treasury > 0.749 } }
