@@ -2810,7 +2810,7 @@ MAD_drought_locust_swarm = {
 	set_variable = { MAD_dr_swarm_v = MAD_dr_swarm_base }
 	if = { limit = { has_completed_focus = MAD_Continue_the_path } multiply_variable = { MAD_dr_swarm_v = 0.75 } }
 	if = { limit = { has_completed_focus = MAD_biopesticides } multiply_variable = { MAD_dr_swarm_v = 0.75 } }
-	if = { limit = { has_country_flag = MAD_CNA_RAPID_RESPONSE } multiply_variable = { MAD_dr_swarm_v = 0.70 } }
+	if = { limit = { has_completed_focus = MAD_locust_invasion_response } multiply_variable = { MAD_dr_swarm_v = 0.70 } }
 	266 = {
 		set_temp_variable = { MAD_dr_state_change = ROOT.MAD_dr_swarm_v }
 		multiply_temp_variable = { MAD_dr_state_change = MAD_state_drought_exposure }

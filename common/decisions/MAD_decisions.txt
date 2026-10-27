@@ -1567,13 +1567,13 @@ visible = {
 		targets = { 266 267 268 487 }					# Mahajanga, Antananarivo, Toliara, Toamasina
 		target_root_trigger = {
 			MAD_drought_exists = yes
-			has_country_flag = MAD_CNA_RAPID_RESPONSE
+			has_completed_focus = MAD_locust_invasion_response
 		}
 		highlight_states = { highlight_state_targets = { state = FROM } }
 
 		visible = {
 			MAD_drought_exists = yes
-			has_country_flag = MAD_CNA_RAPID_RESPONSE
+			has_completed_focus = MAD_locust_invasion_response
 		}
 		available = {
 			custom_trigger_tooltip = {
@@ -3469,7 +3469,7 @@ MAD_dahalo_category = {
 			has_country_flag = MAD_USAD_ESTABLISHED
 			date > 2016.11.30
 			NOT = { has_country_flag = MAD_MAZAVA_RESOLVED }
-			OR = { NOT = { has_country_flag = MAD_ARMY_HELICOPTER_ARM_READY } NOT = { has_country_flag = MAD_ARMY_AIRLIFT_READY } }
+			OR = { NOT = { has_completed_focus = MAD_ARMY_REBUILD_THE_HELICOPTER_ARM } NOT = { has_country_flag = MAD_ARMY_AIRLIFT_READY } }
 		}
 		available = {
 			has_completed_focus = MAD_OPERATION_MAZAVA
@@ -3478,7 +3478,7 @@ MAD_dahalo_category = {
 			NOT = { has_country_flag = MAD_MAZAVA_RESOLVED }
 			NOT = { has_country_flag = MAD_DAHALO_OPERATION_ACTIVE }
 			NOT = { has_civil_war = yes }
-			OR = { NOT = { has_country_flag = MAD_ARMY_HELICOPTER_ARM_READY } NOT = { has_country_flag = MAD_ARMY_AIRLIFT_READY } }
+			OR = { NOT = { has_completed_focus = MAD_ARMY_REBUILD_THE_HELICOPTER_ARM } NOT = { has_country_flag = MAD_ARMY_AIRLIFT_READY } }
 			custom_trigger_tooltip = {
 				tooltip = MAD_RC_REQUIRE_12_OR_9_TT
 				OR = {
@@ -3524,11 +3524,11 @@ MAD_dahalo_category = {
 	MAD_DAHALO_OPERATION_MAZAVA = {
 		icon = Generic_Transport_Helicopter
 
-		visible = { has_completed_focus = MAD_OPERATION_MAZAVA has_country_flag = MAD_ARMY_HELICOPTER_ARM_READY has_country_flag = MAD_ARMY_AIRLIFT_READY date > 2016.11.30 NOT = { has_country_flag = MAD_MAZAVA_RESOLVED } }
+		visible = { has_completed_focus = MAD_OPERATION_MAZAVA has_completed_focus = MAD_ARMY_REBUILD_THE_HELICOPTER_ARM has_country_flag = MAD_ARMY_AIRLIFT_READY date > 2016.11.30 NOT = { has_country_flag = MAD_MAZAVA_RESOLVED } }
 		available = {
 			has_completed_focus = MAD_OPERATION_MAZAVA
 			has_country_flag = MAD_USAD_ESTABLISHED
-			has_country_flag = MAD_ARMY_HELICOPTER_ARM_READY
+			has_completed_focus = MAD_ARMY_REBUILD_THE_HELICOPTER_ARM
 			has_country_flag = MAD_ARMY_AIRLIFT_READY
 			date > 2016.11.30
 			NOT = { has_country_flag = MAD_DAHALO_OPERATION_ACTIVE }
