@@ -3111,7 +3111,7 @@ country_event = {
 
 	trigger = {
 		original_tag = MAD
-		date > 2007.11.30
+		# The MAD-only monthly dispatcher below owns the historical date gate.
 		NOT = { has_country_flag = MAD_TGV_FORMED }
 		NOT = { has_country_flag = MAD_TGV_FORMATION_PENDING }
 	}
