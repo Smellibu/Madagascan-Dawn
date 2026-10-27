@@ -1494,7 +1494,7 @@ MAD_drought_update_displacement_overload = {
 				}
 				else_if = {
 					limit = { check_variable = { var = MAD_drought_origin_displaced value = 50000 compare = less_than } has_dynamic_modifier = MAD_DROUGHT_DISPLACEMENT_OVERLOAD }
-					remove_dynamic_modifier = { modifier = MAD_DROUGHT_DISPLACEMENT_OVERLOAD }
+			if = { limit = { has_dynamic_modifier = MAD_DROUGHT_DISPLACEMENT_OVERLOAD } remove_dynamic_modifier = { modifier = MAD_DROUGHT_DISPLACEMENT_OVERLOAD } }
 				}
 			}
 			267 = {
@@ -1507,7 +1507,7 @@ MAD_drought_update_displacement_overload = {
 				}
 				else_if = {
 					limit = { check_variable = { var = MAD_drought_origin_displaced value = 50000 compare = less_than } has_dynamic_modifier = MAD_DROUGHT_DISPLACEMENT_OVERLOAD }
-					remove_dynamic_modifier = { modifier = MAD_DROUGHT_DISPLACEMENT_OVERLOAD }
+			if = { limit = { has_dynamic_modifier = MAD_DROUGHT_DISPLACEMENT_OVERLOAD } remove_dynamic_modifier = { modifier = MAD_DROUGHT_DISPLACEMENT_OVERLOAD } }
 				}
 			}
 			268 = {
@@ -1520,7 +1520,7 @@ MAD_drought_update_displacement_overload = {
 				}
 				else_if = {
 					limit = { check_variable = { var = MAD_drought_origin_displaced value = 50000 compare = less_than } has_dynamic_modifier = MAD_DROUGHT_DISPLACEMENT_OVERLOAD }
-					remove_dynamic_modifier = { modifier = MAD_DROUGHT_DISPLACEMENT_OVERLOAD }
+			if = { limit = { has_dynamic_modifier = MAD_DROUGHT_DISPLACEMENT_OVERLOAD } remove_dynamic_modifier = { modifier = MAD_DROUGHT_DISPLACEMENT_OVERLOAD } }
 				}
 			}
 			487 = {
@@ -1533,7 +1533,7 @@ MAD_drought_update_displacement_overload = {
 				}
 				else_if = {
 					limit = { check_variable = { var = MAD_drought_origin_displaced value = 50000 compare = less_than } has_dynamic_modifier = MAD_DROUGHT_DISPLACEMENT_OVERLOAD }
-					remove_dynamic_modifier = { modifier = MAD_DROUGHT_DISPLACEMENT_OVERLOAD }
+			if = { limit = { has_dynamic_modifier = MAD_DROUGHT_DISPLACEMENT_OVERLOAD } remove_dynamic_modifier = { modifier = MAD_DROUGHT_DISPLACEMENT_OVERLOAD } }
 				}
 			}
 	}
@@ -1545,7 +1545,7 @@ MAD_drought_update_displacement_overload = {
 			set_variable = { MAD_drought_origin_displaced = 0 }
 			if = {
 				limit = { has_dynamic_modifier = MAD_DROUGHT_DISPLACEMENT_OVERLOAD }
-				remove_dynamic_modifier = { modifier = MAD_DROUGHT_DISPLACEMENT_OVERLOAD }
+			if = { limit = { has_dynamic_modifier = MAD_DROUGHT_DISPLACEMENT_OVERLOAD } remove_dynamic_modifier = { modifier = MAD_DROUGHT_DISPLACEMENT_OVERLOAD } }
 			}
 		}
 	}
@@ -2323,7 +2323,7 @@ MAD_drought_finish = {
 			remove_ideas = MAD_DROUGHT_EVACUATIONS
 		}
 		MAD_drought_sync_display = yes
-		country_event = { id = mad_drought.20 }
+		country_event = mad_drought.20
 	}
 }
 
@@ -2335,84 +2335,84 @@ MAD_drought_scheduled_events = {
 		limit = { check_variable = { MAD_drought_calendar_months > 3.99 } NOT = { has_country_flag = MAD_DROUGHT_EVENT_2000 } }
 		set_country_flag = MAD_DROUGHT_EVENT_2000
 		# Record the historical date once even if recovery suppresses this shock.
-		if = { limit = { MAD_historical_drought_should_fire = yes } country_event = { id = mad_drought.15 } }
+		if = { limit = { MAD_historical_drought_should_fire = yes } country_event = mad_drought.15 }
 	}
 	if = {
 		limit = { check_variable = { MAD_drought_calendar_months > 39.99 } NOT = { has_country_flag = MAD_DROUGHT_EVENT_2003 } }
 		set_country_flag = MAD_DROUGHT_EVENT_2003
 		# Record the historical date once even if recovery suppresses this shock.
-		if = { limit = { MAD_historical_drought_should_fire = yes } country_event = { id = mad_drought.16 } }
+		if = { limit = { MAD_historical_drought_should_fire = yes } country_event = mad_drought.16 }
 	}
 	if = {
 		limit = { check_variable = { MAD_drought_calendar_months > 55.99 } NOT = { has_country_flag = MAD_DROUGHT_EVENT_2005 } }
 		set_country_flag = MAD_DROUGHT_EVENT_2005
 		# Record the historical date once even if recovery suppresses this shock.
-		if = { limit = { MAD_historical_drought_should_fire = yes } country_event = { id = mad_drought.17 } }
+		if = { limit = { MAD_historical_drought_should_fire = yes } country_event = mad_drought.17 }
 	}
 	if = {
 		limit = { check_variable = { MAD_drought_calendar_months > 111.99 } NOT = { has_country_flag = MAD_DROUGHT_EVENT_2009 } }
 		set_country_flag = MAD_DROUGHT_EVENT_2009
 		# Record the historical date once even if recovery suppresses this shock.
-		if = { limit = { MAD_historical_drought_should_fire = yes } country_event = { id = mad_drought.18 } }
+		if = { limit = { MAD_historical_drought_should_fire = yes } country_event = mad_drought.18 }
 	}
 	if = {
 		limit = { check_variable = { MAD_drought_calendar_months > 125.99 } NOT = { has_country_flag = MAD_DROUGHT_EVENT_2010 } }
 		set_country_flag = MAD_DROUGHT_EVENT_2010
 		# Record the historical date once even if recovery suppresses this shock.
-		if = { limit = { MAD_historical_drought_should_fire = yes } country_event = { id = mad_drought.19 } }
+		if = { limit = { MAD_historical_drought_should_fire = yes } country_event = mad_drought.19 }
 	}
 	if = {
 		limit = { check_variable = { MAD_drought_calendar_months > 146.99 } NOT = { has_country_flag = MAD_DROUGHT_EVENT_LOCUSTS } }
 		set_country_flag = MAD_DROUGHT_EVENT_LOCUSTS
 		# Record the historical date once even if recovery suppresses this shock.
-		if = { limit = { MAD_historical_drought_should_fire = yes } country_event = { id = mad_drought.12 } }
+		if = { limit = { MAD_historical_drought_should_fire = yes } country_event = mad_drought.12 }
 	}
 	if = {
 		limit = { check_variable = { MAD_drought_calendar_months > 188.99 } NOT = { has_country_flag = MAD_DROUGHT_EVENT_ELNINO } }
 		set_country_flag = MAD_DROUGHT_EVENT_ELNINO
 		# Record the historical date once even if recovery suppresses this shock.
-		if = { limit = { MAD_historical_drought_should_fire = yes } country_event = { id = mad_drought.13 } }
+		if = { limit = { MAD_historical_drought_should_fire = yes } country_event = mad_drought.13 }
 	}
 	if = {
 		limit = { check_variable = { MAD_drought_calendar_months > 244.99 } NOT = { has_country_flag = MAD_DROUGHT_EVENT_KERE } }
 		set_country_flag = MAD_DROUGHT_EVENT_KERE
 		# Record the historical date once even if recovery suppresses this shock.
-		if = { limit = { MAD_historical_drought_should_fire = yes } country_event = { id = mad_drought.14 } }
+		if = { limit = { MAD_historical_drought_should_fire = yes } country_event = mad_drought.14 }
 	}
 
 	random_list = {
 		84 = { }
-		4 = { country_event = { id = mad_drought.10 } }
+		4 = { country_event = mad_drought.10 }
 		2 = {
 			if = {
 				limit = { check_variable = { MAD_drought_severity > 25 } }
-				country_event = { id = mad_drought.11 }
+				country_event = mad_drought.11
 			}
 		}
 		# --- the regional ones: these are what make the map uneven ---
 		4 = {
 			if = {
 				limit = { any_owned_state = { check_variable = { MAD_state_drought_exposure > 0.001 } check_variable = { MAD_state_drought < 85 } } }
-				country_event = { id = mad_drought.30 }
+				country_event = mad_drought.30
 			}
 		}
 		3 = {
 			# a cyclone only matters if there is a coast to hit and something on it to lose
 			if = {
 				limit = { any_owned_state = { is_coastal = yes check_variable = { MAD_state_drought_exposure > 0.001 } } }
-				country_event = { id = mad_drought.31 }
+				country_event = mad_drought.31
 			}
 		}
 		2 = {
 			if = {
 				limit = { any_owned_state = { check_variable = { MAD_state_drought_exposure > 0.001 } check_variable = { MAD_state_drought > 54.99 } } }
-				country_event = { id = mad_drought.32 }
+				country_event = mad_drought.32
 			}
 		}
 		1 = {
 			if = {
 				limit = { any_owned_state = { check_variable = { MAD_state_drought_exposure > 0.001 } has_state_flag = MAD_STATE_WELLS } }
-				country_event = { id = mad_drought.33 }
+				country_event = mad_drought.33
 			}
 		}
 	}
@@ -2642,7 +2642,7 @@ MAD_drought_containment_daily_tick = {
 		if = {
 			limit = { check_variable = { MAD_drought_containment_days > 364.99 } }
 			set_country_flag = MAD_DROUGHT_CONTAINED_STATE
-			country_event = { id = mad_drought.22 }
+			country_event = mad_drought.22
 		}
 	}
 	else = {
@@ -3440,15 +3440,15 @@ MAD_dahalo_random_event_tick = {
 		}
 		random_list = {
 			55 = { }
-			17 = { country_event = { id = mad_dahalo.10 } }
-			10 = { country_event = { id = mad_dahalo.11 } }
+			17 = { country_event = mad_dahalo.10 }
+			10 = { country_event = mad_dahalo.11 }
 			8 = {
 				if = {
 					limit = {
 						has_completed_focus = MAD_dahalo_military_ops
 						check_variable = { MAD_dahalo_threat > 59.99 }
 					}
-					country_event = { id = mad_dahalo.15 }
+					country_event = mad_dahalo.15
 				}
 			}
 			4 = {
@@ -3457,7 +3457,7 @@ MAD_dahalo_random_event_tick = {
 						NOT = { has_country_flag = MAD_DAHALO_LOCAL_DEFENCE_RESOLVED }
 						check_variable = { MAD_dahalo_threat > 34.99 }
 					}
-					country_event = { id = mad_dahalo.12 }
+					country_event = mad_dahalo.12
 				}
 			}
 			4 = {
@@ -3467,7 +3467,7 @@ MAD_dahalo_random_event_tick = {
 						NOT = { has_country_flag = MAD_DAHALO_PRIVATE_SECURITY_RESOLVED }
 						check_variable = { MAD_dahalo_threat > 44.99 }
 					}
-					country_event = { id = mad_dahalo.13 }
+					country_event = mad_dahalo.13
 				}
 			}
 			2 = {
@@ -3482,7 +3482,7 @@ MAD_dahalo_random_event_tick = {
 							has_completed_focus = MAD_Toliara_rare_earths
 						}
 					}
-					country_event = { id = mad_dahalo.14 }
+					country_event = mad_dahalo.14
 				}
 			}
 			3 = {
@@ -3494,7 +3494,7 @@ MAD_dahalo_random_event_tick = {
 						NOT = { has_country_flag = MAD_DAHALO_REMENABILA_LEAD_RESOLVED }
 						check_variable = { MAD_dahalo_threat > 29.99 }
 					}
-					country_event = { id = mad_dahalo.16 }
+					country_event = mad_dahalo.16
 				}
 			}
 		}
@@ -3532,7 +3532,7 @@ MAD_dahalo_daily_tick = {
 			check_variable = { MAD_dahalo_threat > 99.99 }
 		}
 		set_country_flag = MAD_DAHALO_CIVIL_WAR_PENDING
-		country_event = { id = mad_dahalo.1 }
+		country_event = mad_dahalo.1
 	}
 	MAD_dahalo_random_event_tick = yes
 }
