@@ -2807,7 +2807,6 @@ MAD_dahalo_category = {
 			set_temp_variable = { treasury_change = -1.50 }
 			modify_treasury_effect = yes
 			set_country_flag = MAD_DAHALO_OPERATION_ACTIVE
-			set_country_flag = MAD_DAHALO_TANDROKA_OPERATION_LAUNCHED
 			country_event = { id = mad_dahalo.21 }
 		}
 		remove_effect = {
@@ -3222,7 +3221,6 @@ MAD_dahalo_category = {
 			set_temp_variable = { treasury_change = -2.50 }
 			modify_treasury_effect = yes
 			set_country_flag = MAD_DAHALO_OPERATION_ACTIVE
-			set_country_flag = MAD_DAHALO_FAHALEMANA_OPERATION_LAUNCHED
 			country_event = { id = mad_dahalo.23 }
 		}
 		remove_effect = {
@@ -3381,12 +3379,10 @@ MAD_dahalo_category = {
 			set_temp_variable = { treasury_change = -2.50 }
 			modify_treasury_effect = yes
 			set_country_flag = MAD_DAHALO_OPERATION_ACTIVE
-			set_country_flag = MAD_MAZAVA_ACTIVE
 			country_event = { id = mad_dahalo.25 }
 		}
 		remove_effect = {
 			clr_country_flag = MAD_DAHALO_OPERATION_ACTIVE
-			clr_country_flag = MAD_MAZAVA_ACTIVE
 			MAD_dahalo_resolve_mazava = yes
 			country_event = { id = mad_dahalo.20 days = 1 }
 		}
@@ -3435,13 +3431,11 @@ MAD_dahalo_category = {
 			set_temp_variable = { treasury_change = -1.50 }
 			modify_treasury_effect = yes
 			set_country_flag = MAD_DAHALO_OPERATION_ACTIVE
-			set_country_flag = MAD_MAZAVA_ACTIVE
 			clr_country_flag = MAD_MAZAVA_GROUND_OPERATION
 			country_event = { id = mad_dahalo.24 }
 		}
 		remove_effect = {
 			clr_country_flag = MAD_DAHALO_OPERATION_ACTIVE
-			clr_country_flag = MAD_MAZAVA_ACTIVE
 			MAD_dahalo_resolve_mazava = yes
 			country_event = { id = mad_dahalo.20 days = 1 }
 		}
