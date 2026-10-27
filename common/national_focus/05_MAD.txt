@@ -9636,6 +9636,42 @@ focus_tree = {
 	}
 
 	focus = {
+		id = MAD_POL_MIL_ENGINEERS
+		icon = army_saper
+		x = 0
+		y = 1
+		relative_position_id = MAD_POL_MIL_GENDARMERIE_REFORM
+		cost = 3
+		prerequisite = { focus = MAD_POL_MIL_GENDARMERIE_REFORM }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_MIL_IN_POWER_tt
+				MAD_MIL_IN_POWER = yes
+			}
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_MIL_ENGINEERS"
+			set_temp_variable = { MAD_rc_delta = 4 }
+			MAD_rural_cooperation_adjust = yes
+			custom_effect_tooltip = MAD_RURAL_COOP_FOCUS_GAIN_4_TT
+
+			swap_ideas = {
+				remove_idea = MAD_MIL_GENDARMERIE_REFORM
+				add_idea = MAD_MIL_ENGINEER_CORPS
+			}
+			army_experience = 15
+			add_political_power = 15
+			MAD_rural_cooperation_calculate_monthly_change = yes
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
 		id = MAD_POL_MIL_NEVER_DIVIDED
 		icon = army_doctrine
 		x = 1
@@ -9764,41 +9800,7 @@ focus_tree = {
 		}
 	}
 
-	focus = {
-		id = MAD_POL_MIL_ENGINEERS
-		icon = army_saper
-		x = 0
-		y = 1
-		relative_position_id = MAD_POL_MIL_GENDARMERIE_REFORM
-		cost = 3
-		prerequisite = { focus = MAD_POL_MIL_GENDARMERIE_REFORM }
-		search_filters = { FOCUS_FILTER_POLITICAL }
-		available = {
-			custom_trigger_tooltip = {
-				tooltip = MAD_MIL_IN_POWER_tt
-				MAD_MIL_IN_POWER = yes
-			}
-		}
 
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_MIL_ENGINEERS"
-			set_temp_variable = { MAD_rc_delta = 4 }
-			MAD_rural_cooperation_adjust = yes
-			custom_effect_tooltip = MAD_RURAL_COOP_FOCUS_GAIN_4_TT
-
-			swap_ideas = {
-				remove_idea = MAD_MIL_GENDARMERIE_REFORM
-				add_idea = MAD_MIL_ENGINEER_CORPS
-			}
-			army_experience = 15
-			add_political_power = 15
-			MAD_rural_cooperation_calculate_monthly_change = yes
-		}
-
-		ai_will_do = {
-			base = 1
-		}
-	}
 
 	focus = {
 		id = MAD_POL_MIL_MARITIME_SECURITY
@@ -10206,6 +10208,38 @@ focus_tree = {
 	}
 
 	focus = {
+		id = MAD_POL_AREMA_REVOLUTION_ADAPTS
+		icon = social_democracy
+		x = 0
+		y = 2
+		relative_position_id = MAD_POL_AREMA_REBUILD
+		cost = 3
+		prerequisite = { focus = MAD_POL_AREMA_CHOOSE_OLD_GUARD focus = MAD_POL_AREMA_CHOOSE_RENEWAL focus = MAD_POL_AREMA_CHOOSE_RECONCILIATION }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_AREMA_IN_POWER_tt
+				MAD_AREMA_IN_POWER = yes
+			}
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_AREMA_REVOLUTION_ADAPTS"
+			add_ideas = MAD_POL_AREMA_PROGRAMME
+			set_country_flag = MAD_AREMA_PROGRAMME_ADAPTED
+			set_temp_variable = { party_index = 5 }
+			set_temp_variable = { party_popularity_increase = 0.04 }
+			set_temp_variable = { temp_outlook_increase = 0.04 }
+			change_relative_party_popularity = yes
+			recalculate_party = yes
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
 		id = MAD_POL_AREMA_REVOLUTIONARY_ORGANISATION
 		icon = Generic_Socialist_Revolution
 		x = -8
@@ -10405,37 +10439,7 @@ focus_tree = {
 		}
 	}
 
-	focus = {
-		id = MAD_POL_AREMA_REVOLUTION_ADAPTS
-		icon = social_democracy
-		x = 0
-		y = 2
-		relative_position_id = MAD_POL_AREMA_REBUILD
-		cost = 3
-		prerequisite = { focus = MAD_POL_AREMA_CHOOSE_OLD_GUARD focus = MAD_POL_AREMA_CHOOSE_RENEWAL focus = MAD_POL_AREMA_CHOOSE_RECONCILIATION }
-		search_filters = { FOCUS_FILTER_POLITICAL }
-		available = {
-			custom_trigger_tooltip = {
-				tooltip = MAD_AREMA_IN_POWER_tt
-				MAD_AREMA_IN_POWER = yes
-			}
-		}
 
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_AREMA_REVOLUTION_ADAPTS"
-			add_ideas = MAD_POL_AREMA_PROGRAMME
-			set_country_flag = MAD_AREMA_PROGRAMME_ADAPTED
-			set_temp_variable = { party_index = 5 }
-			set_temp_variable = { party_popularity_increase = 0.04 }
-			set_temp_variable = { temp_outlook_increase = 0.04 }
-			change_relative_party_popularity = yes
-			recalculate_party = yes
-		}
-
-		ai_will_do = {
-			base = 1
-		}
-	}
 
 	focus = {
 		id = MAD_POL_AREMA_REVOLUTIONARY_LEGACY
@@ -11132,6 +11136,48 @@ focus_tree = {
 	}
 
 	focus = {
+		id = MAD_POL_AREMA_SECOND_SOCIALISM
+		icon = Generic_State_Socialism
+		x = 41
+		y = 18
+		cost = 3
+		prerequisite = { focus = MAD_POL_AREMA_NATIONAL_DEVELOPMENT_PACT }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_AREMA_IN_POWER_tt
+				MAD_AREMA_IN_POWER = yes
+			}
+			OR = {
+				has_completed_focus = MAD_POL_AREMA_STATE_BANKS
+				has_completed_focus = MAD_POL_AREMA_INDIAN_OCEAN
+				has_completed_focus = MAD_POL_AREMA_SOCIAL_CONTRACT
+			}
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_AREMA_SECOND_SOCIALISM"
+			add_power_balance_value = {
+				id = MAD_economy_ownership_bop
+				value = 0.10
+				tooltip_side = MAD_public_ownership
+			}
+			set_country_flag = MAD_AREMA_CONSOLIDATED
+			set_politics = { ruling_party = communism elections_allowed = yes }
+			add_ideas = MAD_AREMA_SECOND_SOCIALISM
+			add_stability = 0.02
+			set_temp_variable = { party_index = 5 }
+			set_temp_variable = { party_popularity_increase = 0.10 }
+			set_temp_variable = { temp_outlook_increase = 0.10 }
+			change_relative_party_popularity = yes
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
 		id = MAD_POL_AREMA_NATIONAL_DEVELOPMENT_PACT
 		icon = focus_generic_central_planning
 		x = 0
@@ -11173,47 +11219,7 @@ focus_tree = {
 		}
 	}
 
-	focus = {
-		id = MAD_POL_AREMA_SECOND_SOCIALISM
-		icon = Generic_State_Socialism
-		x = 41
-		y = 18
-		cost = 3
-		prerequisite = { focus = MAD_POL_AREMA_NATIONAL_DEVELOPMENT_PACT }
-		search_filters = { FOCUS_FILTER_POLITICAL }
-		available = {
-			custom_trigger_tooltip = {
-				tooltip = MAD_AREMA_IN_POWER_tt
-				MAD_AREMA_IN_POWER = yes
-			}
-			OR = {
-				has_completed_focus = MAD_POL_AREMA_STATE_BANKS
-				has_completed_focus = MAD_POL_AREMA_INDIAN_OCEAN
-				has_completed_focus = MAD_POL_AREMA_SOCIAL_CONTRACT
-			}
-		}
 
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_AREMA_SECOND_SOCIALISM"
-			add_power_balance_value = {
-				id = MAD_economy_ownership_bop
-				value = 0.10
-				tooltip_side = MAD_public_ownership
-			}
-			set_country_flag = MAD_AREMA_CONSOLIDATED
-			set_politics = { ruling_party = communism elections_allowed = yes }
-			add_ideas = MAD_AREMA_SECOND_SOCIALISM
-			add_stability = 0.02
-			set_temp_variable = { party_index = 5 }
-			set_temp_variable = { party_popularity_increase = 0.10 }
-			set_temp_variable = { temp_outlook_increase = 0.10 }
-			change_relative_party_popularity = yes
-		}
-
-		ai_will_do = {
-			base = 1
-		}
-	}
 
 	focus = {
 		id = MAD_POL_TIM_RETURN
@@ -13174,6 +13180,34 @@ focus_tree = {
 	}
 
 	focus = {
+		id = MAD_POL_HVM_ENERGY_FOR_GROWTH
+		icon = focus_generic_hydroelectric_energy
+		x = 0
+		y = 2
+		relative_position_id = MAD_POL_HVM_RULE_OF_LAW
+		cost = 3
+		prerequisite = { focus = MAD_POL_HVM_RULE_OF_LAW }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_HVM_IN_POWER_tt
+				MAD_HVM_IN_POWER = yes
+			}
+			OR = { has_completed_focus = MAD_JIRAMA_RECOVERY_SUCCEEDS has_completed_focus = MAD_JIRAMA_STAY_PUBLIC has_completed_focus = MAD_JIRAMA_CORPORATIZE }
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_HVM_ENERGY_FOR_GROWTH"
+			add_ideas = MAD_HVM_ENERGY_FOR_GROWTH
+			set_country_flag = MAD_HVM_ENERGY_POLICY
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
 		id = MAD_POL_HVM_AGRICULTURE
 		icon = agriculture
 		x = 0
@@ -13281,33 +13315,7 @@ focus_tree = {
 		}
 	}
 
-	focus = {
-		id = MAD_POL_HVM_ENERGY_FOR_GROWTH
-		icon = focus_generic_hydroelectric_energy
-		x = 0
-		y = 2
-		relative_position_id = MAD_POL_HVM_RULE_OF_LAW
-		cost = 3
-		prerequisite = { focus = MAD_POL_HVM_RULE_OF_LAW }
-		search_filters = { FOCUS_FILTER_POLITICAL }
-		available = {
-			custom_trigger_tooltip = {
-				tooltip = MAD_HVM_IN_POWER_tt
-				MAD_HVM_IN_POWER = yes
-			}
-			OR = { has_completed_focus = MAD_JIRAMA_RECOVERY_SUCCEEDS has_completed_focus = MAD_JIRAMA_STAY_PUBLIC has_completed_focus = MAD_JIRAMA_CORPORATIZE }
-		}
 
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_HVM_ENERGY_FOR_GROWTH"
-			add_ideas = MAD_HVM_ENERGY_FOR_GROWTH
-			set_country_flag = MAD_HVM_ENERGY_POLICY
-		}
-
-		ai_will_do = {
-			base = 1
-		}
-	}
 
 	focus = {
 		id = MAD_POL_HVM_NATURAL_CAPITAL
