@@ -39,9 +39,8 @@ MAD_drought_category = {
 	icon = generic_political_discourse
 	priority = 99
 	allowed = { tag = MAD }
-	visible = { tag = MAD
-		NOT = { has_completed_focus = MAD_Thriving_south
-		}
+	visible = {
+		NOT = { has_completed_focus = MAD_Thriving_south }
 	}
 	visible_when_empty = yes
 	scripted_gui = MAD_drought_map_gui
@@ -108,7 +107,6 @@ MAD_rural_cooperation_category = {
 	icon = generic_political_discourse
 	priority = 99
 	allowed = { tag = MAD }
-	visible = { tag = MAD }
 	visible_when_empty = yes
 	# Native HOI4 scripted-GUI panel embedded directly beneath this category's description.
 	scripted_gui = MAD_rural_cooperation_gui
