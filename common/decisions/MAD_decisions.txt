@@ -138,7 +138,7 @@ MAD_INVITE_KOREANS = {
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_AMBATOVY_MISSION complete"
 			set_country_flag = MAD_ambatovy_mission_done
-			country_event = { id = mad_ambatovy.1 }
+			country_event = mad_ambatovy.1
 		}
 		timeout_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_AMBATOVY_MISSION failed (timed out)"
@@ -252,12 +252,12 @@ MAD_madarail_category = {
 
 		complete_effect = {
 			log = "[GetDateText]: [This.GetName]: Mission MAD_MADARAIL_INVESTOR_TENURE completed - investors commit"
-			country_event = { id = mad_madarail.7 }
+			country_event = mad_madarail.7
 		}
 
 		timeout_effect = {
 			log = "[GetDateText]: [This.GetName]: Mission MAD_MADARAIL_INVESTOR_TENURE timed out"
-			country_event = { id = mad_madarail.4 }
+			country_event = mad_madarail.4
 		}
 	}
 
@@ -275,7 +275,7 @@ MAD_madarail_category = {
 
 		complete_effect = {
 			log = "[GetDateText]: [This.GetName]: Decision MAD_MADARAIL_LET_INVESTORS_WALK"
-			country_event = { id = mad_madarail.8 }
+			country_event = mad_madarail.8
 		}
 
 		ai_will_do = {
@@ -600,7 +600,7 @@ MAD_madarail_category = {
 				state_flat_productivity_change_effect = yes
 			}
 			set_country_flag = MAD_RAIL_FCE_EXTENSION_BUILT
-			country_event = { id = mad_madarail.20 }
+			country_event = mad_madarail.20
 		}
 
 		ai_will_do = {
@@ -650,7 +650,7 @@ MAD_madarail_category = {
 				state_flat_productivity_change_effect = yes
 			}
 			set_country_flag = MAD_RAIL_TOLIARA_BUILT
-			country_event = { id = mad_madarail.21 }
+			country_event = mad_madarail.21
 		}
 
 		ai_will_do = {
@@ -700,7 +700,7 @@ MAD_madarail_category = {
 				state_flat_productivity_change_effect = yes
 			}
 			set_country_flag = MAD_RAIL_MAHAJANGA_BUILT
-			country_event = { id = mad_madarail.22 }
+			country_event = mad_madarail.22
 		}
 
 		ai_will_do = {
@@ -751,7 +751,7 @@ MAD_madarail_category = {
 				state_flat_productivity_change_effect = yes
 			}
 			set_country_flag = MAD_RAIL_AMBOVOMBE_BUILT
-			country_event = { id = mad_madarail.23 }
+			country_event = mad_madarail.23
 		}
 
 		ai_will_do = {
@@ -801,7 +801,7 @@ MAD_madarail_category = {
 				state_flat_productivity_change_effect = yes
 			}
 			set_country_flag = MAD_RAIL_ANTSIRANANA_BUILT
-			country_event = { id = mad_madarail.24 }
+			country_event = mad_madarail.24
 		}
 
 		ai_will_do = {
@@ -840,18 +840,18 @@ MAD_daewoo_category = {
 
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Mission MAD_DAEWOO_REVIEW signed off"
-			country_event = { id = mad_daewoo.2 }
+			country_event = mad_daewoo.2
 		}
 
 		timeout_effect = {
 			log = "[GetDateText]: [Root.GetName]: Mission MAD_DAEWOO_REVIEW timed out"
 			if = {
 				limit = { check_variable = { MAD_daewoo_viability > 79.99 } }
-				country_event = { id = mad_daewoo.2 }
+				country_event = mad_daewoo.2
 			}
 			else = {
 				set_country_flag = MAD_DAEWOO_REVIEW_FAILED
-				country_event = { id = mad_daewoo.3 }
+				country_event = mad_daewoo.3
 			}
 		}
 	}
@@ -2808,7 +2808,7 @@ MAD_dahalo_category = {
 			set_temp_variable = { treasury_change = -1.50 }
 			modify_treasury_effect = yes
 			set_country_flag = MAD_DAHALO_OPERATION_ACTIVE
-			country_event = { id = mad_dahalo.21 }
+			country_event = mad_dahalo.21
 		}
 		remove_effect = {
 			clr_country_flag = MAD_DAHALO_OPERATION_ACTIVE
@@ -3167,7 +3167,7 @@ MAD_dahalo_category = {
 			modify_treasury_effect = yes
 			set_country_flag = MAD_DAHALO_COUP_D_ARRET_ACTIVE
 			set_country_flag = MAD_DAHALO_OPERATION_ACTIVE
-			country_event = { id = mad_dahalo.22 }
+			country_event = mad_dahalo.22
 		}
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAHALO_COUP_D_ARRET complete"
@@ -3222,7 +3222,7 @@ MAD_dahalo_category = {
 			set_temp_variable = { treasury_change = -2.50 }
 			modify_treasury_effect = yes
 			set_country_flag = MAD_DAHALO_OPERATION_ACTIVE
-			country_event = { id = mad_dahalo.23 }
+			country_event = mad_dahalo.23
 		}
 		remove_effect = {
 			clr_country_flag = MAD_DAHALO_OPERATION_ACTIVE
@@ -3380,7 +3380,7 @@ MAD_dahalo_category = {
 			set_temp_variable = { treasury_change = -2.50 }
 			modify_treasury_effect = yes
 			set_country_flag = MAD_DAHALO_OPERATION_ACTIVE
-			country_event = { id = mad_dahalo.25 }
+			country_event = mad_dahalo.25
 		}
 		remove_effect = {
 			clr_country_flag = MAD_DAHALO_OPERATION_ACTIVE
@@ -3433,7 +3433,7 @@ MAD_dahalo_category = {
 			modify_treasury_effect = yes
 			set_country_flag = MAD_DAHALO_OPERATION_ACTIVE
 			clr_country_flag = MAD_MAZAVA_GROUND_OPERATION
-			country_event = { id = mad_dahalo.24 }
+			country_event = mad_dahalo.24
 		}
 		remove_effect = {
 			clr_country_flag = MAD_DAHALO_OPERATION_ACTIVE
@@ -4153,15 +4153,15 @@ MAD_OWNERSHIP_BOP = {
 		days_remove = 1
 		visible = {
 			OR = {
-				has_idea = MAD_AMBATOVY_PARTIAL_STATE
-				has_idea = MAD_AMBATOVY_FULL_STATE
+				has_idea = MAD_AMBATOVY_Partial_State
+				has_idea = MAD_AMBATOVY_Full_State
 			}
 			NOT = { has_country_flag = MAD_AMBATOVY_PRIVATISED_AFTER_STATE }
 		}
 		available = {
 			OR = {
-				has_idea = MAD_AMBATOVY_PARTIAL_STATE
-				has_idea = MAD_AMBATOVY_FULL_STATE
+				has_idea = MAD_AMBATOVY_Partial_State
+				has_idea = MAD_AMBATOVY_Full_State
 			}
 			NOT = { has_country_flag = MAD_AMBATOVY_PRIVATISED_AFTER_STATE }
 		}
@@ -4170,19 +4170,19 @@ MAD_OWNERSHIP_BOP = {
 
 			# Ambatovy BOP sale uses fixed values: $15bn for majority state ownership, $5bn for partial.
 			if = {
-				limit = { has_idea = MAD_AMBATOVY_FULL_STATE }
+				limit = { has_idea = MAD_AMBATOVY_Full_State }
 				set_temp_variable = { treasury_change = 15.00 }
 			}
 			else_if = {
-				limit = { has_idea = MAD_AMBATOVY_PARTIAL_STATE }
+				limit = { has_idea = MAD_AMBATOVY_Partial_State }
 				set_temp_variable = { treasury_change = 5.00 }
 			}
 			modify_treasury_effect = yes
 
 			# Reverse state ownership and apply the private-model shift together, once per route.
 			if = {
-				limit = { has_idea = MAD_AMBATOVY_FULL_STATE }
-				remove_ideas = MAD_AMBATOVY_FULL_STATE
+				limit = { has_idea = MAD_AMBATOVY_Full_State }
+				remove_ideas = MAD_AMBATOVY_Full_State
 				if = {
 					limit = {
 						OR = {
@@ -4197,8 +4197,8 @@ MAD_OWNERSHIP_BOP = {
 				}
 			}
 			else_if = {
-				limit = { has_idea = MAD_AMBATOVY_PARTIAL_STATE }
-				remove_ideas = MAD_AMBATOVY_PARTIAL_STATE
+				limit = { has_idea = MAD_AMBATOVY_Partial_State }
+				remove_ideas = MAD_AMBATOVY_Partial_State
 				if = {
 					limit = {
 						OR = {
@@ -5173,7 +5173,7 @@ MAD_rural_cooperation_category = {
 			log = "[GetDateText]: [Root.GetName]: Southern Services Compact reaches delivery stage"
 			clr_country_flag = MAD_RURAL_SERVICES_COMPACT_STARTED
 			set_country_flag = MAD_RURAL_SERVICES_COMPACT_COMPLETE
-			country_event = { id = mad_rural_cooperation.1 }
+			country_event = mad_rural_cooperation.1
 		}
 		ai_will_do = { base = 0 }
 	}
