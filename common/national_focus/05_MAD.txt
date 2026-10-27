@@ -217,6 +217,14 @@
 
 		ai_will_do = {
 			base = 1
+			modifier = {
+				factor = 0
+				can_staff_an_industrial_complex = no
+			}
+			modifier = {
+				factor = 0
+				has_active_mission = bankruptcy_incoming_collapse
+			}
 		}
 	}
 
@@ -277,7 +285,7 @@
 		relative_position_id = MAD_natural_resource_extraction
 		cost = 3
 		prerequisite = { focus = MAD_natural_resource_extraction }
-		search_filters = { FOCUS_FILTER_POLITICAL }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ECONOMY }
 		available = {
 			has_country_flag = MAD_QMM_LAGOON_SCANDAL_RESOLVED
 		}
@@ -315,6 +323,14 @@
 
 		ai_will_do = {
 			base = 1
+			modifier = {
+				factor = 0
+				can_staff_an_industrial_complex = no
+			}
+			modifier = {
+				factor = 0
+				has_active_mission = bankruptcy_incoming_collapse
+			}
 		}
 	}
 
@@ -336,6 +352,10 @@
 
 		ai_will_do = {
 			base = 1
+			modifier = {
+				factor = 0
+				has_active_mission = bankruptcy_incoming_collapse
+			}
 		}
 	}
 
@@ -677,6 +697,10 @@
 
 		ai_will_do = {
 			base = 1
+			modifier = {
+				factor = 0
+				has_active_mission = bankruptcy_incoming_collapse
+			}
 		}
 	}
 
@@ -1376,7 +1400,7 @@
 		relative_position_id = MAD_QMM_CONSTRUCTION
 		cost = 3
 		prerequisite = { focus = MAD_QMM_CONSTRUCTION }
-		search_filters = { FOCUS_FILTER_POLITICAL }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ECONOMY }
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_ilmenite_mine"
@@ -1418,6 +1442,14 @@
 
 		ai_will_do = {
 			base = 1
+			modifier = {
+				factor = 0
+				can_staff_an_industrial_complex = no
+			}
+			modifier = {
+				factor = 0
+				has_active_mission = bankruptcy_incoming_collapse
+			}
 		}
 	}
 
@@ -1429,7 +1461,7 @@
 		relative_position_id = MAD_QMM_CONSTRUCTION
 		cost = 3
 		prerequisite = { focus = MAD_QMM_CONSTRUCTION }
-		search_filters = { FOCUS_FILTER_POLITICAL }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ECONOMY }
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_Fort_Dauphin_Taolagnaro"
@@ -1466,6 +1498,20 @@
 
 		ai_will_do = {
 			base = 1
+			modifier = {
+				factor = 0
+				can_staff_an_offices = no
+			}
+			modifier = {
+				factor = 0
+				NOT = {
+					check_variable = { inflation_rate_var < 0.50 }
+				}
+			}
+			modifier = {
+				factor = 0
+				has_active_mission = bankruptcy_incoming_collapse
+			}
 		}
 	}
 
@@ -1477,7 +1523,7 @@
 		relative_position_id = MAD_lost_decade
 		cost = 3
 		prerequisite = { focus = MAD_lost_decade }
-		search_filters = { FOCUS_FILTER_POLITICAL }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ECONOMY }
 		available = {
 			gdp_total_greater_than_150 = yes
 		}
@@ -1500,6 +1546,20 @@
 
 		ai_will_do = {
 			base = 1
+			modifier = {
+				factor = 0
+				can_staff_an_offices = no
+			}
+			modifier = {
+				factor = 0
+				NOT = {
+					check_variable = { inflation_rate_var < 0.50 }
+				}
+			}
+			modifier = {
+				factor = 0
+				has_active_mission = bankruptcy_incoming_collapse
+			}
 		}
 	}
 
@@ -1546,6 +1606,10 @@
 
 		ai_will_do = {
 			base = 1
+			modifier = {
+				factor = 0
+				has_active_mission = bankruptcy_incoming_collapse
+			}
 		}
 	}
 
@@ -1557,7 +1621,7 @@
 		relative_position_id = MAD_lost_decade
 		cost = 3
 		prerequisite = { focus = MAD_lost_decade }
-		search_filters = { FOCUS_FILTER_POLITICAL }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ECONOMY }
 
 		completion_reward = {
 			set_temp_variable = { MAD_rc_delta = 4 }
@@ -1592,6 +1656,10 @@
 
 		ai_will_do = {
 			base = 1
+			modifier = {
+				factor = 0
+				can_staff_an_agriculture_district = no
+			}
 		}
 	}
 
@@ -1722,7 +1790,7 @@
 		relative_position_id = MAD_Bemolanga_oil_sands_project
 		cost = 3
 		prerequisite = { focus = MAD_Bemolanga_oil_sands_project }
-		search_filters = { FOCUS_FILTER_POLITICAL }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ECONOMY }
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_Tsimiroro_heavy_oil_field"
@@ -1754,6 +1822,10 @@
 
 		ai_will_do = {
 			base = 1
+			modifier = {
+				factor = 0
+				has_active_mission = bankruptcy_incoming_collapse
+			}
 		}
 	}
 
@@ -1944,6 +2016,14 @@
 
 		ai_will_do = {
 			base = 1
+			modifier = {
+				factor = 0
+				can_staff_an_industrial_complex = no
+			}
+			modifier = {
+				factor = 0
+				has_active_mission = bankruptcy_incoming_collapse
+			}
 		}
 	}
 
@@ -2593,7 +2673,7 @@
 		relative_position_id = MAD_Agricultural_reforms
 		cost = 3
 		prerequisite = { focus = MAD_Agricultural_reforms }
-		search_filters = { FOCUS_FILTER_POLITICAL }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ECONOMY }
 		available = {
 			has_completed_focus = MAD_ACCEPT_FOREIGN_OWNERSHIP
 			custom_trigger_tooltip = {
@@ -2641,6 +2721,10 @@
 
 		ai_will_do = {
 			base = 1
+			modifier = {
+				factor = 0
+				can_staff_an_agriculture_district = no
+			}
 		}
 	}
 
@@ -2753,6 +2837,20 @@
 
 		ai_will_do = {
 			base = 1
+			modifier = {
+				factor = 0
+				can_staff_an_offices = no
+			}
+			modifier = {
+				factor = 0
+				NOT = {
+					check_variable = { inflation_rate_var < 0.50 }
+				}
+			}
+			modifier = {
+				factor = 0
+				has_active_mission = bankruptcy_incoming_collapse
+			}
 		}
 	}
 
@@ -2918,6 +3016,7 @@
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_CONTINUE_WITH_LUFTHANSA"
+			custom_effect_tooltip = TT_IF_THEY_ACCEPT
 			GER = { country_event = MAD_LUFTHANSA_OFFER.1 }
 		}
 
@@ -3085,7 +3184,7 @@
 		relative_position_id = MAD_Rocade_ring_road
 		cost = 3
 		prerequisite = { focus = MAD_Rocade_ring_road }
-		search_filters = { FOCUS_FILTER_POLITICAL }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ECONOMY }
 		available = {
 			has_completed_focus = MAD_Ivato_terminal_runway_upgrade
 		}
@@ -3127,6 +3226,10 @@
 
 		ai_will_do = {
 			base = 1
+			modifier = {
+				factor = 0
+				has_active_mission = bankruptcy_incoming_collapse
+			}
 		}
 	}
 
@@ -3270,6 +3373,14 @@
 
 		ai_will_do = {
 			base = 1
+			modifier = {
+				factor = 0
+				can_staff_an_industrial_complex = no
+			}
+			modifier = {
+				factor = 0
+				has_active_mission = bankruptcy_incoming_collapse
+			}
 		}
 	}
 
@@ -3354,6 +3465,10 @@
 
 		ai_will_do = {
 			base = 1
+			modifier = {
+				factor = 0
+				has_active_mission = bankruptcy_incoming_collapse
+			}
 		}
 	}
 
@@ -3675,7 +3790,7 @@
 		cost = 3
 		prerequisite = { focus = MAD_CONTINUE_WITH_LUFTHANSA }
 		mutually_exclusive = { focus = MAD_SELL_TO_AUSTRAL }
-		search_filters = { FOCUS_FILTER_POLITICAL }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ECONOMY }
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_GERMANS_ACCEPTED_LUFTHANSA_tt
@@ -3722,6 +3837,10 @@
 
 		ai_will_do = {
 			base = 1
+			modifier = {
+				factor = 0
+				can_staff_an_industrial_complex = no
+			}
 		}
 	}
 
@@ -4123,6 +4242,10 @@
 
 		ai_will_do = {
 			base = 1
+			modifier = {
+				factor = 0
+				has_active_mission = bankruptcy_incoming_collapse
+			}
 		}
 	}
 
@@ -4389,7 +4512,7 @@
 		cost = 3
 		prerequisite = { focus = MAD_DAEWOO_FALLOUT }
 		mutually_exclusive = { focus = MAD_DEAL_BROKEN }
-		search_filters = { FOCUS_FILTER_POLITICAL }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ECONOMY }
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_DEAL_KEPT"
@@ -4444,6 +4567,10 @@
 
 		ai_will_do = {
 			base = 1
+			modifier = {
+				factor = 0
+				can_staff_an_agriculture_district = no
+			}
 		}
 	}
 
@@ -4618,6 +4745,20 @@
 
 		ai_will_do = {
 			base = 1
+			modifier = {
+				factor = 0
+				can_staff_an_offices = no
+			}
+			modifier = {
+				factor = 0
+				NOT = {
+					check_variable = { inflation_rate_var < 0.50 }
+				}
+			}
+			modifier = {
+				factor = 0
+				has_active_mission = bankruptcy_incoming_collapse
+			}
 		}
 	}
 
@@ -4703,6 +4844,10 @@
 
 		ai_will_do = {
 			base = 1
+			modifier = {
+				factor = 0
+				has_active_mission = bankruptcy_incoming_collapse
+			}
 		}
 	}
 
@@ -4795,6 +4940,14 @@
 
 		ai_will_do = {
 			base = 1
+			modifier = {
+				factor = 0
+				can_staff_an_industrial_complex = no
+			}
+			modifier = {
+				factor = 0
+				has_active_mission = bankruptcy_incoming_collapse
+			}
 		}
 	}
 
@@ -5213,6 +5366,10 @@
 
 		ai_will_do = {
 			base = 1
+			modifier = {
+				factor = 0
+				has_active_mission = bankruptcy_incoming_collapse
+			}
 		}
 	}
 
@@ -5397,6 +5554,20 @@
 
 		ai_will_do = {
 			base = 1
+			modifier = {
+				factor = 0
+				can_staff_an_offices = no
+			}
+			modifier = {
+				factor = 0
+				NOT = {
+					check_variable = { inflation_rate_var < 0.50 }
+				}
+			}
+			modifier = {
+				factor = 0
+				has_active_mission = bankruptcy_incoming_collapse
+			}
 		}
 	}
 
@@ -5509,6 +5680,10 @@
 
 		ai_will_do = {
 			base = 1
+			modifier = {
+				factor = 0
+				has_active_mission = bankruptcy_incoming_collapse
+			}
 		}
 	}
 
@@ -5575,6 +5750,10 @@
 
 		ai_will_do = {
 			base = 1
+			modifier = {
+				factor = 0
+				can_staff_an_agriculture_district = no
+			}
 		}
 	}
 
@@ -5608,6 +5787,10 @@
 
 		ai_will_do = {
 			base = 1
+			modifier = {
+				factor = 0
+				has_active_mission = bankruptcy_incoming_collapse
+			}
 		}
 	}
 
@@ -5626,6 +5809,7 @@
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_KOREAN_PURCHASES"
+			custom_effect_tooltip = TT_IF_THEY_ACCEPT
 			custom_effect_tooltip = MAD_KOREAN_PURCHASES_OFFER_tt
 			KOR = { country_event = { id = mad_foreign_investment.1 days = 1 } }
 		}
@@ -5650,6 +5834,7 @@
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_USA_PURCHASES"
+			custom_effect_tooltip = TT_IF_THEY_ACCEPT
 			custom_effect_tooltip = MAD_USA_PURCHASES_OFFER_tt
 			USA = { country_event = { id = mad_foreign_investment.11 days = 1 } }
 		}
@@ -5674,6 +5859,7 @@
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_GERMANY_PURCHASES"
+			custom_effect_tooltip = TT_IF_THEY_ACCEPT
 			custom_effect_tooltip = MAD_GERMANY_PURCHASES_OFFER_tt
 			GER = { country_event = { id = mad_foreign_investment.21 days = 1 } }
 		}
@@ -5725,6 +5911,10 @@
 
 		ai_will_do = {
 			base = 1
+			modifier = {
+				factor = 0
+				has_active_mission = bankruptcy_incoming_collapse
+			}
 		}
 	}
 
@@ -5778,6 +5968,14 @@
 
 		ai_will_do = {
 			base = 1
+			modifier = {
+				factor = 0
+				can_staff_an_industrial_complex = no
+			}
+			modifier = {
+				factor = 0
+				has_active_mission = bankruptcy_incoming_collapse
+			}
 		}
 	}
 
@@ -5978,6 +6176,10 @@
 
 		ai_will_do = {
 			base = 1
+			modifier = {
+				factor = 0
+				has_active_mission = bankruptcy_incoming_collapse
+			}
 		}
 	}
 
@@ -6263,6 +6465,10 @@
 
 		ai_will_do = {
 			base = 1
+			modifier = {
+				factor = 0
+				has_active_mission = bankruptcy_incoming_collapse
+			}
 		}
 	}
 
@@ -6615,6 +6821,10 @@
 
 		ai_will_do = {
 			base = 1
+			modifier = {
+				factor = 0
+				has_active_mission = bankruptcy_incoming_collapse
+			}
 		}
 	}
 
@@ -6693,6 +6903,10 @@
 
 		ai_will_do = {
 			base = 1
+			modifier = {
+				factor = 0
+				has_active_mission = bankruptcy_incoming_collapse
+			}
 		}
 	}
 
@@ -7047,6 +7261,10 @@
 
 		ai_will_do = {
 			base = 1
+			modifier = {
+				factor = 0
+				has_active_mission = bankruptcy_incoming_collapse
+			}
 		}
 	}
 
@@ -7151,6 +7369,10 @@
 
 		ai_will_do = {
 			base = 1
+			modifier = {
+				factor = 0
+				has_active_mission = bankruptcy_incoming_collapse
+			}
 		}
 	}
 
@@ -7284,6 +7506,20 @@
 
 		ai_will_do = {
 			base = 1
+			modifier = {
+				factor = 0
+				can_staff_an_offices = no
+			}
+			modifier = {
+				factor = 0
+				NOT = {
+					check_variable = { inflation_rate_var < 0.50 }
+				}
+			}
+			modifier = {
+				factor = 0
+				has_active_mission = bankruptcy_incoming_collapse
+			}
 		}
 	}
 
@@ -7395,6 +7631,20 @@
 
 		ai_will_do = {
 			base = 1
+			modifier = {
+				factor = 0
+				can_staff_an_offices = no
+			}
+			modifier = {
+				factor = 0
+				NOT = {
+					check_variable = { inflation_rate_var < 0.50 }
+				}
+			}
+			modifier = {
+				factor = 0
+				has_active_mission = bankruptcy_incoming_collapse
+			}
 		}
 	}
 
@@ -7472,6 +7722,12 @@
 			modifier = {
 			factor = 0
 			can_staff_an_offices = no
+			}
+			modifier = {
+				factor = 0
+				NOT = {
+					check_variable = { inflation_rate_var < 0.50 }
+				}
 			}
 		}
 	}
@@ -7577,11 +7833,14 @@
 				uses = 2
 				bonus = 0.50
 			}
-			add_tech_bonus = {
-				name = MAD_TELMA_NATIONAL_C2_BACKBONE
-				category = CAT_air_to_air_weapons
-				uses = 2
-				bonus = 0.35
+			if = {
+				limit = { has_dlc = "By Blood Alone" }
+				add_tech_bonus = {
+					name = MAD_TELMA_NATIONAL_C2_BACKBONE
+					category = CAT_air_to_air_weapons
+					uses = 2
+					bonus = 0.35
+				}
 			}
 			add_political_power = 50
 			if = {
@@ -7664,6 +7923,20 @@
 
 		ai_will_do = {
 			base = 1
+			modifier = {
+				factor = 0
+				can_staff_an_offices = no
+			}
+			modifier = {
+				factor = 0
+				NOT = {
+					check_variable = { inflation_rate_var < 0.50 }
+				}
+			}
+			modifier = {
+				factor = 0
+				has_active_mission = bankruptcy_incoming_collapse
+			}
 		}
 	}
 
@@ -8159,7 +8432,7 @@
 		relative_position_id = MAD_POL_ROY_CROWN_QUESTION
 		cost = 3
 		prerequisite = { focus = MAD_POL_ROY_CROWN_QUESTION }
-		search_filters = { FOCUS_FILTER_POLITICAL }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ECONOMY }
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_ROY_CRPM_OR_TAMIMA_IN_POWER_tt
@@ -8187,6 +8460,20 @@
 
 		ai_will_do = {
 			base = 1
+			modifier = {
+				factor = 0
+				can_staff_an_offices = no
+			}
+			modifier = {
+				factor = 0
+				NOT = {
+					check_variable = { inflation_rate_var < 0.50 }
+				}
+			}
+			modifier = {
+				factor = 0
+				has_active_mission = bankruptcy_incoming_collapse
+			}
 		}
 	}
 
@@ -8198,7 +8485,7 @@
 		relative_position_id = MAD_POL_ROY_CROWN_QUESTION
 		cost = 3
 		prerequisite = { focus = MAD_POL_ROY_CROWN_QUESTION }
-		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY FOCUS_FILTER_ECONOMY }
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_ROY_CRPM_OR_TAMIMA_IN_POWER_tt
@@ -8218,6 +8505,10 @@
 
 		ai_will_do = {
 			base = 1
+			modifier = {
+				factor = 0
+				has_active_mission = bankruptcy_incoming_collapse
+			}
 		}
 	}
 
@@ -8336,7 +8627,7 @@
 		relative_position_id = MAD_POL_ROY_CROWN_ABOVE_NOBILITY
 		cost = 3
 		prerequisite = { focus = MAD_POL_ROY_CROWN_ABOVE_NOBILITY }
-		search_filters = { FOCUS_FILTER_POLITICAL }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ECONOMY }
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_ROY_CRPM_IN_POWER_tt
@@ -8362,6 +8653,20 @@
 
 		ai_will_do = {
 			base = 1
+			modifier = {
+				factor = 0
+				can_staff_an_offices = no
+			}
+			modifier = {
+				factor = 0
+				NOT = {
+					check_variable = { inflation_rate_var < 0.50 }
+				}
+			}
+			modifier = {
+				factor = 0
+				has_active_mission = bankruptcy_incoming_collapse
+			}
 		}
 	}
 
@@ -8462,6 +8767,10 @@
 
 		ai_will_do = {
 			base = 1
+			modifier = {
+				factor = 0
+				can_staff_an_agriculture_district = no
+			}
 		}
 	}
 
@@ -8526,6 +8835,10 @@
 
 		ai_will_do = {
 			base = 1
+			modifier = {
+				factor = 0
+				can_staff_an_industrial_complex = no
+			}
 		}
 	}
 
@@ -8649,6 +8962,10 @@
 
 		ai_will_do = {
 			base = 1
+			modifier = {
+				factor = 0
+				has_active_mission = bankruptcy_incoming_collapse
+			}
 		}
 	}
 
@@ -8790,6 +9107,10 @@
 
 		ai_will_do = {
 			base = 1
+			modifier = {
+				factor = 0
+				can_staff_an_agriculture_district = no
+			}
 		}
 	}
 
@@ -8964,7 +9285,7 @@
 		relative_position_id = MAD_POL_ROY_FIHAVANANA
 		cost = 3
 		prerequisite = { focus = MAD_POL_ROY_FIHAVANANA }
-		search_filters = { FOCUS_FILTER_POLITICAL }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ECONOMY }
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_ROY_TAMIMA_IN_POWER_tt
@@ -8989,6 +9310,16 @@
 
 		ai_will_do = {
 			base = 1
+			modifier = {
+				factor = 0
+				can_staff_an_offices = no
+			}
+			modifier = {
+				factor = 0
+				NOT = {
+					check_variable = { inflation_rate_var < 0.50 }
+				}
+			}
 		}
 	}
 
@@ -9000,7 +9331,7 @@
 		relative_position_id = MAD_POL_ROY_FOKONOLONA
 		cost = 3
 		prerequisite = { focus = MAD_POL_ROY_FOKONOLONA }
-		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY FOCUS_FILTER_ECONOMY }
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_ROY_TAMIMA_IN_POWER_tt
@@ -9045,6 +9376,20 @@
 
 		ai_will_do = {
 			base = 1
+			modifier = {
+				factor = 0
+				can_staff_an_offices = no
+			}
+			modifier = {
+				factor = 0
+				NOT = {
+					check_variable = { inflation_rate_var < 0.50 }
+				}
+			}
+			modifier = {
+				factor = 0
+				has_active_mission = bankruptcy_incoming_collapse
+			}
 		}
 	}
 
@@ -9056,7 +9401,7 @@
 		relative_position_id = MAD_POL_ROY_CUSTOMARY_JUSTICE
 		cost = 3
 		prerequisite = { focus = MAD_POL_ROY_CUSTOMARY_JUSTICE }
-		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY FOCUS_FILTER_ECONOMY }
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_ROY_TAMIMA_IN_POWER_tt
@@ -9089,6 +9434,16 @@
 
 		ai_will_do = {
 			base = 1
+			modifier = {
+				factor = 0
+				can_staff_an_offices = no
+			}
+			modifier = {
+				factor = 0
+				NOT = {
+					check_variable = { inflation_rate_var < 0.50 }
+				}
+			}
 		}
 	}
 
@@ -10402,7 +10757,7 @@
 		relative_position_id = MAD_POL_AREMA_RENEWAL_MODERNISE
 		cost = 3
 		prerequisite = { focus = MAD_POL_AREMA_RENEWAL_MODERNISE }
-		search_filters = { FOCUS_FILTER_POLITICAL }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ECONOMY }
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_AREMA_IN_POWER_tt
@@ -10439,6 +10794,10 @@
 
 		ai_will_do = {
 			base = 1
+			modifier = {
+				factor = 0
+				can_staff_an_agriculture_district = no
+			}
 		}
 	}
 
@@ -10583,7 +10942,7 @@
 		relative_position_id = MAD_POL_AREMA_REVOLUTION_ADAPTS
 		cost = 3
 		prerequisite = { focus = MAD_POL_AREMA_REVOLUTION_ADAPTS }
-		search_filters = { FOCUS_FILTER_POLITICAL }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ECONOMY }
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_AREMA_IN_POWER_tt
@@ -10617,6 +10976,10 @@
 
 		ai_will_do = {
 			base = 1
+			modifier = {
+				factor = 0
+				can_staff_an_agriculture_district = no
+			}
 		}
 	}
 
@@ -11453,7 +11816,7 @@
 		relative_position_id = MAD_POL_TIM_CONNECT_ISLAND
 		cost = 3
 		prerequisite = { focus = MAD_POL_TIM_CONNECT_ISLAND focus = MAD_POL_TIM_NATIONAL_TAX_CAPACITY }
-		search_filters = { FOCUS_FILTER_POLITICAL }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ECONOMY }
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_TIM_IN_POWER_tt
@@ -11479,6 +11842,14 @@
 
 		ai_will_do = {
 			base = 1
+			modifier = {
+				factor = 0
+				can_staff_an_industrial_complex = no
+			}
+			modifier = {
+				factor = 0
+				has_active_mission = bankruptcy_incoming_collapse
+			}
 		}
 	}
 
@@ -11523,7 +11894,7 @@
 		relative_position_id = MAD_POL_TIM_CONNECT_ISLAND
 		cost = 3
 		prerequisite = { focus = MAD_POL_TIM_CONNECT_ISLAND }
-		search_filters = { FOCUS_FILTER_POLITICAL }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ECONOMY }
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_TIM_IN_POWER_tt
@@ -11562,6 +11933,14 @@
 
 		ai_will_do = {
 			base = 1
+			modifier = {
+				factor = 0
+				can_staff_an_industrial_complex = no
+			}
+			modifier = {
+				factor = 0
+				has_active_mission = bankruptcy_incoming_collapse
+			}
 		}
 	}
 
@@ -11573,7 +11952,7 @@
 		relative_position_id = MAD_POL_TIM_MAP
 		cost = 3
 		prerequisite = { focus = MAD_POL_TIM_MAP }
-		search_filters = { FOCUS_FILTER_POLITICAL }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ECONOMY }
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_TIM_IN_POWER_tt
@@ -11610,6 +11989,14 @@
 
 		ai_will_do = {
 			base = 1
+			modifier = {
+				factor = 0
+				can_staff_an_industrial_complex = no
+			}
+			modifier = {
+				factor = 0
+				has_active_mission = bankruptcy_incoming_collapse
+			}
 		}
 	}
 
@@ -11661,7 +12048,7 @@
 		relative_position_id = MAD_POL_TIM_GREEN_REVOLUTION
 		cost = 3
 		prerequisite = { focus = MAD_POL_TIM_GREEN_REVOLUTION }
-		search_filters = { FOCUS_FILTER_POLITICAL }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ECONOMY }
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_TIM_IN_POWER_tt
@@ -11686,6 +12073,10 @@
 
 		ai_will_do = {
 			base = 1
+			modifier = {
+				factor = 0
+				can_staff_an_agriculture_district = no
+			}
 		}
 	}
 
@@ -12250,7 +12641,7 @@
 		relative_position_id = MAD_POL_TGV_INFRASTRUCTURE_FIRST
 		cost = 3
 		prerequisite = { focus = MAD_POL_TGV_INFRASTRUCTURE_FIRST }
-		search_filters = { FOCUS_FILTER_POLITICAL }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ECONOMY }
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_TGV_IN_POWER_tt
@@ -12285,6 +12676,14 @@
 
 		ai_will_do = {
 			base = 1
+			modifier = {
+				factor = 0
+				can_staff_an_industrial_complex = no
+			}
+			modifier = {
+				factor = 0
+				has_active_mission = bankruptcy_incoming_collapse
+			}
 		}
 	}
 
@@ -12333,6 +12732,10 @@
 
 		ai_will_do = {
 			base = 1
+			modifier = {
+				factor = 0
+				has_active_mission = bankruptcy_incoming_collapse
+			}
 		}
 	}
 
@@ -12344,7 +12747,7 @@
 		relative_position_id = MAD_POL_TGV_JIRAMA_DELIVERY
 		cost = 3
 		prerequisite = { focus = MAD_POL_TGV_JIRAMA_DELIVERY }
-		search_filters = { FOCUS_FILTER_POLITICAL }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ECONOMY }
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_TGV_IN_POWER_tt
@@ -12372,6 +12775,14 @@
 
 		ai_will_do = {
 			base = 1
+			modifier = {
+				factor = 0
+				can_staff_an_industrial_complex = no
+			}
+			modifier = {
+				factor = 0
+				has_active_mission = bankruptcy_incoming_collapse
+			}
 		}
 	}
 
@@ -12425,7 +12836,7 @@
 		relative_position_id = MAD_POL_TGV_INDUSTRIAL_MADAGASCAR
 		cost = 3
 		prerequisite = { focus = MAD_POL_TGV_INDUSTRIAL_MADAGASCAR }
-		search_filters = { FOCUS_FILTER_POLITICAL }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ECONOMY }
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_TGV_IN_POWER_tt
@@ -12459,6 +12870,10 @@
 
 		ai_will_do = {
 			base = 1
+			modifier = {
+				factor = 0
+				can_staff_an_agriculture_district = no
+			}
 		}
 	}
 
@@ -12510,7 +12925,7 @@
 		relative_position_id = MAD_POL_TGV_DIGITAL_MADAGASCAR
 		cost = 3
 		prerequisite = { focus = MAD_POL_TGV_DIGITAL_MADAGASCAR }
-		search_filters = { FOCUS_FILTER_POLITICAL }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ECONOMY }
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_TGV_IN_POWER_tt
@@ -12545,6 +12960,14 @@
 
 		ai_will_do = {
 			base = 1
+			modifier = {
+				factor = 0
+				can_staff_an_industrial_complex = no
+			}
+			modifier = {
+				factor = 0
+				has_active_mission = bankruptcy_incoming_collapse
+			}
 		}
 	}
 
@@ -12556,7 +12979,7 @@
 		relative_position_id = MAD_POL_TGV_DIGITAL_MADAGASCAR
 		cost = 3
 		prerequisite = { focus = MAD_POL_TGV_DIGITAL_MADAGASCAR focus = MAD_POL_TGV_PROJECT_FINANCE }
-		search_filters = { FOCUS_FILTER_POLITICAL }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ECONOMY }
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_TGV_IN_POWER_tt
@@ -12581,6 +13004,14 @@
 
 		ai_will_do = {
 			base = 1
+			modifier = {
+				factor = 0
+				can_staff_an_industrial_complex = no
+			}
+			modifier = {
+				factor = 0
+				has_active_mission = bankruptcy_incoming_collapse
+			}
 		}
 	}
 
@@ -14262,6 +14693,14 @@
 
 		ai_will_do = {
 			base = 1
+			modifier = {
+				factor = 0
+				can_staff_an_arms_industry = no
+			}
+			modifier = {
+				factor = 0
+				has_active_mission = bankruptcy_incoming_collapse
+			}
 		}
 	}
 
@@ -14294,6 +14733,14 @@
 
 		ai_will_do = {
 			base = 1
+			modifier = {
+				factor = 0
+				can_staff_an_arms_industry = no
+			}
+			modifier = {
+				factor = 0
+				has_active_mission = bankruptcy_incoming_collapse
+			}
 		}
 	}
 
@@ -14426,6 +14873,10 @@
 
 		ai_will_do = {
 			base = 1
+			modifier = {
+				factor = 0
+				has_active_mission = bankruptcy_incoming_collapse
+			}
 		}
 	}
 
@@ -14517,6 +14968,14 @@
 
 		ai_will_do = {
 			base = 1
+			modifier = {
+				factor = 0
+				can_staff_an_arms_industry = no
+			}
+			modifier = {
+				factor = 0
+				has_active_mission = bankruptcy_incoming_collapse
+			}
 		}
 	}
 
@@ -14551,6 +15010,14 @@
 
 		ai_will_do = {
 			base = 1
+			modifier = {
+				factor = 0
+				can_staff_an_arms_industry = no
+			}
+			modifier = {
+				factor = 0
+				has_active_mission = bankruptcy_incoming_collapse
+			}
 		}
 	}
 
@@ -14601,6 +15068,10 @@
 
 		ai_will_do = {
 			base = 1
+			modifier = {
+				factor = 0
+				has_active_mission = bankruptcy_incoming_collapse
+			}
 		}
 	}
 
@@ -14714,6 +15185,14 @@
 
 		ai_will_do = {
 			base = 1
+			modifier = {
+				factor = 0
+				can_staff_an_arms_industry = no
+			}
+			modifier = {
+				factor = 0
+				has_active_mission = bankruptcy_incoming_collapse
+			}
 		}
 	}
 
@@ -14776,7 +15255,7 @@
 		relative_position_id = MAD_POL_AREMA_STATE_LEADS
 		cost = 3
 		prerequisite = { focus = MAD_POL_AREMA_STATE_LEADS }
-		search_filters = { FOCUS_FILTER_POLITICAL }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ECONOMY }
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_AREMA_IN_POWER_tt
@@ -14799,6 +15278,14 @@
 
 		ai_will_do = {
 			base = 1
+			modifier = {
+				factor = 0
+				can_staff_an_industrial_complex = no
+			}
+			modifier = {
+				factor = 0
+				has_active_mission = bankruptcy_incoming_collapse
+			}
 		}
 	}
 
@@ -14942,6 +15429,7 @@
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_REQUEST_FRENCH_CORVETTES"
+			custom_effect_tooltip = TT_IF_THEY_ACCEPT
 			FRA = { country_event = { id = mad_naval.7 days = 1 } }
 		}
 
@@ -15481,6 +15969,7 @@
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_SECREN_FRENCH_PARTNERSHIP"
 
+			custom_effect_tooltip = TT_IF_THEY_ACCEPT
 			set_country_flag = MAD_SECREN_FRENCH_INVESTMENT_REQUESTED
 
 			FRA = {
