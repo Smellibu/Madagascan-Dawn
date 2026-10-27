@@ -4277,36 +4277,7 @@ country_event = {
 	}
 }
 
-country_event = {
-	id = mad_royal.3
-	title = mad_royal.3.t
-	desc = mad_royal.3.d
-	is_triggered_only = yes
-	option = {
-		name = mad_royal.3.a
-		add_tech_bonus = {
-			name = MAD_ROY_BIBLICAL_SCHOLARSHIP
-			category = CAT_civilian
-			bonus = 0.10
-			uses = 1
-		}
-	}
-	option = {
-		name = mad_royal.3.b
-		if = {
-			limit = { ISR = { exists = yes } }
-					if = {
-						limit = { ISR = { exists = yes } }
-						add_opinion_modifier = { target = ISR modifier = has_expressed_loyalty }
-						ISR = { add_opinion_modifier = { target = MAD modifier = has_expressed_loyalty } }
-						set_temp_variable = { percent_change = 5 }
-						set_temp_variable = { influence_target = ISR.id }
-						change_influence_percentage = yes
-					}
-		}
-		add_war_support = 0.02
-	}
-}
+
 
 # TAMIMA sacred-heritage custodianship
 country_event = {
@@ -4386,9 +4357,21 @@ country_event = {
 				modify_international_investment_effect = yes
 				add_opinion_modifier = { target = MAD modifier = large_commercial_relations }
 			}
+			# Preserve the old diplomatic choice's mutual declaration of loyalty.
+			add_opinion_modifier = { target = ISR modifier = has_expressed_loyalty }
+			ISR = {
+				add_opinion_modifier = { target = MAD modifier = has_expressed_loyalty }
+			}
+			# Israel gains influence in Madagascar under the new covenant.
 			set_temp_variable = { percent_change = 5 }
 			set_temp_variable = { tag_index = ISR }
 			set_temp_variable = { influence_target = MAD }
+			change_influence_percentage = yes
+			# The legacy diplomatic outcome also increased Madagascar's influence in Israel.
+			# Reset tag_index explicitly so the previous ISR -> MAD adjustment cannot leak into this one.
+			set_temp_variable = { percent_change = 5 }
+			set_temp_variable = { tag_index = ROOT.id }
+			set_temp_variable = { influence_target = ISR.id }
 			change_influence_percentage = yes
 		}
 		one_random_agriculture_district = yes
@@ -4423,6 +4406,12 @@ country_event = {
 			limit = { has_idea = international_bankers }
 			set_temp_variable = { temp_opinion = 5 }
 			change_international_bankers_opinion = yes
+		}
+		add_tech_bonus = {
+			name = MAD_ROY_BIBLICAL_SCHOLARSHIP
+			category = CAT_civilian
+			bonus = 0.10
+			uses = 1
 		}
 		set_country_flag = MAD_ROY_ISRAEL_NEUTRAL
 	}
