@@ -4374,6 +4374,8 @@ country_event = {
 			set_temp_variable = { influence_target = ISR.id }
 			change_influence_percentage = yes
 		}
+		# The old diplomatic choice also granted war support, independently of Israel's presence.
+		add_war_support = 0.02
 		one_random_agriculture_district = yes
 		add_named_threat = { threat = 2 name = "Madagascar Aligns with Israel" }
 		set_country_flag = MAD_ROY_ISRAEL_COVENANT
