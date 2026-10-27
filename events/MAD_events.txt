@@ -501,6 +501,13 @@ country_event = {
 	option = {
 		name = mad_daewoo.1.a
 		log = "[GetDateText]: [Root.GetName]: mad_daewoo.1 - the Daewoo lease is exposed"
+		if = {
+			limit = { country_exists = KOR }
+			set_temp_variable = { percent_change = 1.5 }
+			set_temp_variable = { tag_index = KOR }
+			set_temp_variable = { influence_target = MAD }
+			change_influence_percentage = yes
+		}
 	}
 }
 
@@ -1015,7 +1022,7 @@ country_event = {
 		custom_effect_tooltip = mad_drought.30_tt
 		hidden_effect = {
 			random_owned_state = {
-				limit = { check_variable = { MAD_state_drought_exposure > 0.001 } check_variable = { MAD_state_drought < 85 } }
+				limit = { has_variable = MAD_state_drought_exposure check_variable = { MAD_state_drought < 85 } }
 				set_temp_variable = { MAD_dr_state_change = 9 }
 				MAD_drought_state_apply_change = yes
 				set_temp_variable = { MAD_dr_state_famine = 5 }
@@ -1042,7 +1049,7 @@ country_event = {
 		custom_effect_tooltip = mad_drought.31_tt
 		hidden_effect = {
 			random_owned_state = {
-				limit = { is_coastal = yes check_variable = { MAD_state_drought_exposure > 0.001 } }
+				limit = { is_coastal = yes has_variable = MAD_state_drought_exposure }
 				set_temp_variable = { MAD_dr_state_change = 7 }
 				MAD_drought_state_apply_change = yes
 				set_temp_variable = { MAD_dr_state_famine = 10 }
@@ -1072,7 +1079,7 @@ country_event = {
 		custom_effect_tooltip = mad_drought.32_tt
 		hidden_effect = {
 			random_owned_state = {
-				limit = { check_variable = { MAD_state_drought_exposure > 0.001 } check_variable = { MAD_state_drought > 54.99 } }
+				limit = { has_variable = MAD_state_drought_exposure check_variable = { MAD_state_drought > 54.99 } }
 				set_temp_variable = { MAD_dr_state_famine = 18 }
 				MAD_drought_state_apply_famine = yes
 			}
@@ -1096,7 +1103,7 @@ country_event = {
 		custom_effect_tooltip = mad_drought.33_tt
 		hidden_effect = {
 			random_owned_state = {
-				limit = { check_variable = { MAD_state_drought_exposure > 0.001 } has_state_flag = MAD_STATE_WELLS }
+				limit = { has_variable = MAD_state_drought_exposure has_state_flag = MAD_STATE_WELLS }
 				clr_state_flag = MAD_STATE_WELLS
 				set_temp_variable = { MAD_dr_state_change = 8 }
 				MAD_drought_state_apply_change = yes
@@ -4985,6 +4992,10 @@ country_event = {
 	option = {
 		name = mad_naval.9.a
 		log = "[GetDateText]: [This.GetName]: mad_naval.9.a French sale declined"
+		if = {
+			limit = { country_exists = FRA }
+			add_opinion_modifier = { target = FRA modifier = MAD_french_corvette_sale_refused }
+		}
 	}
 }
 

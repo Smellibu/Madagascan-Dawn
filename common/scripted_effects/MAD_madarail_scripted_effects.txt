@@ -2422,26 +2422,26 @@ MAD_drought_scheduled_events = {
 		# --- the regional ones: these are what make the map uneven ---
 		4 = {
 			if = {
-				limit = { any_owned_state = { check_variable = { MAD_state_drought_exposure > 0.001 } check_variable = { MAD_state_drought < 85 } } }
+				limit = { any_owned_state = { has_variable = MAD_state_drought_exposure check_variable = { MAD_state_drought < 85 } } }
 				country_event = mad_drought.30
 			}
 		}
 		3 = {
 			# a cyclone only matters if there is a coast to hit and something on it to lose
 			if = {
-				limit = { any_owned_state = { is_coastal = yes check_variable = { MAD_state_drought_exposure > 0.001 } } }
+				limit = { any_owned_state = { is_coastal = yes has_variable = MAD_state_drought_exposure } }
 				country_event = mad_drought.31
 			}
 		}
 		2 = {
 			if = {
-				limit = { any_owned_state = { check_variable = { MAD_state_drought_exposure > 0.001 } check_variable = { MAD_state_drought > 54.99 } } }
+				limit = { any_owned_state = { has_variable = MAD_state_drought_exposure check_variable = { MAD_state_drought > 54.99 } } }
 				country_event = mad_drought.32
 			}
 		}
 		1 = {
 			if = {
-				limit = { any_owned_state = { check_variable = { MAD_state_drought_exposure > 0.001 } has_state_flag = MAD_STATE_WELLS } }
+				limit = { any_owned_state = { has_variable = MAD_state_drought_exposure has_state_flag = MAD_STATE_WELLS } }
 				country_event = mad_drought.33
 			}
 		}
