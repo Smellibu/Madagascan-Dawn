@@ -9636,6 +9636,50 @@ focus_tree = {
 	}
 
 	focus = {
+		id = MAD_POL_MIL_GENDARMERIE_REFORM
+		icon = Generic_Policeman
+		x = 0
+		y = 1
+		relative_position_id = MAD_POL_MIL_SOUTHERN_SECURITY
+		cost = 3
+		prerequisite = { focus = MAD_POL_MIL_SOUTHERN_SECURITY }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_MIL_IN_POWER_tt
+				MAD_MIL_IN_POWER = yes
+			}
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_MIL_GENDARMERIE_REFORM"
+			set_temp_variable = { MAD_rc_delta = 5 }
+			MAD_rural_cooperation_adjust = yes
+			custom_effect_tooltip = MAD_RURAL_COOP_FOCUS_GAIN_GENDARMERIE_TT
+
+			swap_ideas = {
+				remove_idea = MAD_MIL_SOUTHERN_SECURITY
+				add_idea = MAD_MIL_GENDARMERIE_REFORM
+			}
+			add_stability = 0.03
+			add_political_power = 50
+			set_temp_variable = { party_index = 22 }
+			set_temp_variable = { party_popularity_increase = 0.03 }
+			change_relative_party_popularity = yes
+			recalculate_party = yes
+			set_temp_variable = { party_index = 2 }
+			set_temp_variable = { party_popularity_increase = 0.02 }
+			change_relative_party_popularity = yes
+			recalculate_party = yes
+			MAD_rural_cooperation_calculate_monthly_change = yes
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
 		id = MAD_POL_MIL_ENGINEERS
 		icon = army_saper
 		x = 0
@@ -9756,49 +9800,7 @@ focus_tree = {
 		}
 	}
 
-	focus = {
-		id = MAD_POL_MIL_GENDARMERIE_REFORM
-		icon = Generic_Policeman
-		x = 0
-		y = 1
-		relative_position_id = MAD_POL_MIL_SOUTHERN_SECURITY
-		cost = 3
-		prerequisite = { focus = MAD_POL_MIL_SOUTHERN_SECURITY }
-		search_filters = { FOCUS_FILTER_POLITICAL }
-		available = {
-			custom_trigger_tooltip = {
-				tooltip = MAD_MIL_IN_POWER_tt
-				MAD_MIL_IN_POWER = yes
-			}
-		}
 
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_MIL_GENDARMERIE_REFORM"
-			set_temp_variable = { MAD_rc_delta = 5 }
-			MAD_rural_cooperation_adjust = yes
-			custom_effect_tooltip = MAD_RURAL_COOP_FOCUS_GAIN_GENDARMERIE_TT
-
-			swap_ideas = {
-				remove_idea = MAD_MIL_SOUTHERN_SECURITY
-				add_idea = MAD_MIL_GENDARMERIE_REFORM
-			}
-			add_stability = 0.03
-			add_political_power = 50
-			set_temp_variable = { party_index = 22 }
-			set_temp_variable = { party_popularity_increase = 0.03 }
-			change_relative_party_popularity = yes
-			recalculate_party = yes
-			set_temp_variable = { party_index = 2 }
-			set_temp_variable = { party_popularity_increase = 0.02 }
-			change_relative_party_popularity = yes
-			recalculate_party = yes
-			MAD_rural_cooperation_calculate_monthly_change = yes
-		}
-
-		ai_will_do = {
-			base = 1
-		}
-	}
 
 
 
