@@ -4862,21 +4862,25 @@ MAD_rural_cooperation_calculate_monthly_change = {
 	# Popularity tiers deliberately stack: above 60%, both +0.25 effects apply (= +0.50 total).
 	# Scripted localisation hides the lower-tier row when the cumulative higher tier is active.
 	if = {
-		limit = { OR = {
+		limit = {
+			OR = {
 			AND = { has_government = democratic democratic > 0.499 }
 			AND = { has_government = communism communism > 0.499 }
 			AND = { has_government = fascism fascism > 0.499 }
 			AND = { has_government = neutrality neutrality > 0.499 }
-		} }
+			}
+		}
 		add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 }
 	}
 	if = {
-		limit = { OR = {
+		limit = {
+			OR = {
 			AND = { has_government = democratic democratic > 0.599 }
 			AND = { has_government = communism communism > 0.599 }
 			AND = { has_government = fascism fascism > 0.599 }
 			AND = { has_government = neutrality neutrality > 0.599 }
-		} }
+			}
+		}
 		add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 }
 	}
 
