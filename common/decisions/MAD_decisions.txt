@@ -144,9 +144,7 @@ MAD_INVITE_KOREANS = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_AMBATOVY_MISSION failed (timed out)"
 			set_country_flag = MAD_ambatovy_mission_failed
 		}
-		ai_will_do = {
-			base = 0
-		}
+		
 	}
 	MAD_BUILD_MINE = {
 	on_map_mode = map_and_decisions_view
@@ -189,9 +187,7 @@ MAD_AIR_STATE_CONTROL_MISSIONS = {
 		fire_only_once = yes
 		on_map_mode = map_and_decisions_view
 		days_mission_timeout = 1095 # 3 years
-		visible = {
-		has_completed_focus = MAD_AIR_STATE_CONTROL
-		}
+		
 		activation = {
 			has_completed_focus = MAD_AIR_STATE_CONTROL
 		}
@@ -214,9 +210,7 @@ MAD_AIR_STATE_CONTROL_MISSIONS = {
 			set_country_flag = MAD_GERMANS_REJECTED_LUFTHANSA
 		}
 
-		ai_will_do = {
-			base = 0
-		}
+		
 	}
 }
 # common/decisions/MAD_madarail_decisions.txt
@@ -259,6 +253,7 @@ MAD_madarail_category = {
 			log = "[GetDateText]: [This.GetName]: Mission MAD_MADARAIL_INVESTOR_TENURE timed out"
 			country_event = mad_madarail.4
 		}
+			ai_will_do = { base = 1 }
 	}
 
 	# The player's way out: let the investors go now instead of waiting for the clock.
@@ -307,6 +302,7 @@ MAD_madarail_category = {
 		}
 
 		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_MADARAIL_CONCEDE_COMAZAR_STOCK completed"
 			# only an OFFER: the treasury cost, ownership shift and stat effects are applied by MAD_madarail_enact_concessions if the investors commit
 			set_country_flag = MAD_MADARAIL_OFFER_1
 			add_to_variable = { MAD_madarail_confidence = 25 }
@@ -336,6 +332,7 @@ MAD_madarail_category = {
 		}
 
 		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_MADARAIL_CONCEDE_COMAZAR_AUTONOMY completed"
 			# only an OFFER: the treasury cost, ownership shift and stat effects are applied by MAD_madarail_enact_concessions if the investors commit
 			set_country_flag = MAD_MADARAIL_OFFER_2
 			add_to_variable = { MAD_madarail_confidence = 30 }
@@ -363,6 +360,7 @@ MAD_madarail_category = {
 		}
 
 		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_MADARAIL_CONCEDE_COMAZAR_FREIGHT completed"
 			# only an OFFER: the treasury cost, ownership shift and stat effects are applied by MAD_madarail_enact_concessions if the investors commit
 			set_country_flag = MAD_MADARAIL_OFFER_3
 			add_to_variable = { MAD_madarail_confidence = 25 }
@@ -391,6 +389,7 @@ MAD_madarail_category = {
 		}
 
 		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_MADARAIL_CONCEDE_VECTURIS_RETURNS completed"
 			# only an OFFER: the treasury cost, ownership shift and stat effects are applied by MAD_madarail_enact_concessions if the investors commit
 			set_country_flag = MAD_MADARAIL_OFFER_1
 			add_to_variable = { MAD_madarail_confidence = 30 }
@@ -418,6 +417,7 @@ MAD_madarail_category = {
 		}
 
 		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_MADARAIL_CONCEDE_VECTURIS_ASSETS completed"
 			# only an OFFER: the treasury cost, ownership shift and stat effects are applied by MAD_madarail_enact_concessions if the investors commit
 			set_country_flag = MAD_MADARAIL_OFFER_2
 			add_to_variable = { MAD_madarail_confidence = 25 }
@@ -445,6 +445,7 @@ MAD_madarail_category = {
 		}
 
 		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_MADARAIL_CONCEDE_VECTURIS_TARIFFS completed"
 			# only an OFFER: the treasury cost, ownership shift and stat effects are applied by MAD_madarail_enact_concessions if the investors commit
 			set_country_flag = MAD_MADARAIL_OFFER_3
 			add_to_variable = { MAD_madarail_confidence = 25 }
@@ -475,6 +476,7 @@ MAD_madarail_category = {
 		}
 
 		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_MADARAIL_CONCEDE_HOLDING_COVER completed"
 			# only an OFFER: the treasury cost, ownership shift and stat effects are applied by MAD_madarail_enact_concessions if the investors commit
 			set_country_flag = MAD_MADARAIL_OFFER_1
 			add_to_variable = { MAD_madarail_confidence = 30 }
@@ -502,6 +504,7 @@ MAD_madarail_category = {
 		}
 
 		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_MADARAIL_CONCEDE_HOLDING_HOLIDAY completed"
 			# only an OFFER: the treasury cost, ownership shift and stat effects are applied by MAD_madarail_enact_concessions if the investors commit
 			set_country_flag = MAD_MADARAIL_OFFER_2
 			add_to_variable = { MAD_madarail_confidence = 25 }
@@ -529,6 +532,7 @@ MAD_madarail_category = {
 		}
 
 		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_MADARAIL_CONCEDE_HOLDING_LOANS completed"
 			# only an OFFER: the treasury cost, ownership shift and stat effects are applied by MAD_madarail_enact_concessions if the investors commit
 			set_country_flag = MAD_MADARAIL_OFFER_3
 			add_to_variable = { MAD_madarail_confidence = 25 }
@@ -826,11 +830,7 @@ MAD_daewoo_category = {
 		days_mission_timeout = 730
 		selectable_mission = yes
 		activation = { always = no }
-		visible = {
-			has_country_flag = MAD_DAEWOO_KEPT
-			NOT = { has_country_flag = MAD_DAEWOO_OUTCOME_FAILED }
-			NOT = { has_country_flag = MAD_DAEWOO_REVIEW_FAILED }
-		}
+		
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_DAEWOO_VIABILITY_80_tt
@@ -854,6 +854,7 @@ MAD_daewoo_category = {
 				country_event = mad_daewoo.3
 			}
 		}
+			ai_will_do = { base = 1 }
 	}
 
 	########################################################################
@@ -886,6 +887,7 @@ MAD_daewoo_category = {
 			set_country_flag = mad_daewoo_decision
 		}
 		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAEWOO_RENEGOTIATE completed"
 			clr_country_flag = mad_daewoo_decision
 			}
 
@@ -918,6 +920,7 @@ MAD_daewoo_category = {
 			set_country_flag = mad_daewoo_decision
 		}
 		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAEWOO_LAND_TITLES completed"
 			clr_country_flag = mad_daewoo_decision
 			}
 
@@ -955,6 +958,7 @@ MAD_daewoo_category = {
 			set_country_flag = mad_daewoo_decision
 		}
 		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAEWOO_PUBLISH_CONTRACT completed"
 			clr_country_flag = mad_daewoo_decision
 			}
 
@@ -994,6 +998,7 @@ MAD_daewoo_category = {
 			set_country_flag = mad_daewoo_decision
 		}
 		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAEWOO_CLASSIFIED_ADDENDUM completed"
 			clr_country_flag = mad_daewoo_decision
 			}
 
@@ -1034,6 +1039,7 @@ MAD_daewoo_category = {
 			set_country_flag = mad_daewoo_decision
 		}
 		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAEWOO_OUTGROWERS completed"
 			clr_country_flag = mad_daewoo_decision
 			}
 
@@ -1076,6 +1082,7 @@ MAD_daewoo_category = {
 			set_country_flag = mad_daewoo_decision
 		}
 		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAEWOO_LOGISTICS completed"
 			clr_country_flag = mad_daewoo_decision
 			}
 		ai_will_do = {
@@ -1110,6 +1117,7 @@ MAD_daewoo_category = {
 			set_country_flag = mad_daewoo_decision
 		}
 		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAEWOO_LOCAL_PROCESSING completed"
 			clr_country_flag = mad_daewoo_decision
 			}
 
@@ -1335,19 +1343,17 @@ MAD_drought_category = {
 		highlight_states = { highlight_state_targets = { state = FROM } }
 		on_map_mode = map_and_decisions_view
 
-		visible = {
+				target_trigger = {
+			FROM = { check_variable = { MAD_state_famine > 9.99 } }
+		}
+visible = {
 			MAD_drought_exists = yes
 			OR = {
 				has_country_flag = MAD_MVOLA_CASH_TRANSFERS_UNLOCKED
 				has_completed_focus = MAD_MVOLA_CASH_TRANSFERS # supports saves where the focus was completed before this fix
 			}
 		}
-		available = {
-			custom_trigger_tooltip = {
-				tooltip = MAD_MVOLA_CASH_TRANSFER_FAMINE_REQUIRED_TT
-				FROM = { check_variable = { MAD_state_famine > 9.99 } }
-			}
-		}
+		
 		cost = 20
 		days_re_enable = 90
 		custom_cost_trigger = { check_variable = { treasury > 0.599 } }
@@ -1943,12 +1949,7 @@ MAD_JIRAMA_PROJECTS = {
 		selectable_mission = yes
 		# This mission is activated explicitly by MAD_JIRAMA_START_GENERATION_RECOVERY.
 		activation = { always = no }
-		visible = {
-			has_country_flag = MAD_JIRAMA_GENERATION_RECOVERY_STARTED
-			NOT = { has_country_flag = MAD_JIRAMA_GENERATION_RECOVERY_EXPIRED }
-			NOT = { has_completed_focus = MAD_JIRAMA_RECOVERY_SUCCEEDS }
-			NOT = { has_completed_focus = MAD_JIRAMA_RECOVERY_FAILS }
-		}
+		
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_JIRAMA_TWO_GENERATION_PROJECTS_tt
@@ -2037,20 +2038,20 @@ MAD_JIRAMA_PROJECTS = {
 		}
 
 		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_JIRAMA_BUILD_RURAL_GRID - construction begins"
 			set_temp_variable = { MAD_rc_delta = -18 }
 			MAD_rural_cooperation_adjust = yes
 			custom_effect_tooltip = MAD_RURAL_COOPERATION_SPENT_TT
 
-			log = "[GetDateText]: [Root.GetName]: Decision MAD_JIRAMA_BUILD_RURAL_GRID - construction begins"
 			set_temp_variable = { treasury_change = -6.500 }
 			modify_treasury_effect = yes
 		}
 
 		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_JIRAMA_BUILD_RURAL_GRID - project complete"
 			set_temp_variable = { MAD_rc_delta = 8 }
 			MAD_rural_cooperation_adjust = yes
 
-			log = "[GetDateText]: [Root.GetName]: Decision MAD_JIRAMA_BUILD_RURAL_GRID - project complete"
 			268 = { add_extra_state_shared_building_slots = 1 add_building_construction = { type = energy_infrastructure level = 1 instant_build = yes } }
 			set_country_flag = MAD_JIRAMA_RURAL_GRID_BUILT
 			custom_effect_tooltip = { localization_key = modifies_dynamic_modifier_tt MODIFIER = MAD_power_modifier }
@@ -2268,20 +2269,20 @@ MAD_JIRAMA_PROJECTS = {
 		}
 
 		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_JIRAMA_BUILD_LEAD_ACCESS - construction begins"
 			set_temp_variable = { MAD_rc_delta = -18 }
 			MAD_rural_cooperation_adjust = yes
 			custom_effect_tooltip = MAD_RURAL_COOPERATION_SPENT_TT
 
-			log = "[GetDateText]: [Root.GetName]: Decision MAD_JIRAMA_BUILD_LEAD_ACCESS - construction begins"
 			set_temp_variable = { treasury_change = -15.000 }
 			modify_treasury_effect = yes
 		}
 
 		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_JIRAMA_BUILD_LEAD_ACCESS - project complete"
 			set_temp_variable = { MAD_rc_delta = 8 }
 			MAD_rural_cooperation_adjust = yes
 
-			log = "[GetDateText]: [Root.GetName]: Decision MAD_JIRAMA_BUILD_LEAD_ACCESS - project complete"
 			267 = { add_building_construction = { type = energy_infrastructure level = 1 instant_build = yes } }
 			268 = { add_building_construction = { type = renewable_energy_infra level = 1 instant_build = yes } }
 
@@ -2319,20 +2320,20 @@ MAD_JIRAMA_PROJECTS = {
 		}
 
 		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_JIRAMA_BUILD_DECIM_SOLAR - construction begins"
 			set_temp_variable = { MAD_rc_delta = -12 }
 			MAD_rural_cooperation_adjust = yes
 			custom_effect_tooltip = MAD_RURAL_COOPERATION_SPENT_TT
 
-			log = "[GetDateText]: [Root.GetName]: Decision MAD_JIRAMA_BUILD_DECIM_SOLAR - construction begins"
 			set_temp_variable = { treasury_change = -17.000 }
 			modify_treasury_effect = yes
 		}
 
 		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_JIRAMA_BUILD_DECIM_SOLAR - project complete"
 			set_temp_variable = { MAD_rc_delta = 5 }
 			MAD_rural_cooperation_adjust = yes
 
-			log = "[GetDateText]: [Root.GetName]: Decision MAD_JIRAMA_BUILD_DECIM_SOLAR - project complete"
 			two_random_renewable_energy_infra = yes
 			set_country_flag = MAD_JIRAMA_DECIM_SOLAR_BUILT
 			custom_effect_tooltip = { localization_key = modifies_dynamic_modifier_tt MODIFIER = MAD_power_modifier }
@@ -2608,12 +2609,12 @@ MAD_dahalo_category = {
 		custom_cost_text = cost_0_2
 
 		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAHALO_RURAL_PATROLS"
 			set_temp_variable = { MAD_rc_delta = -6 }
 			MAD_rural_cooperation_apply_gendarmerie_discount = yes
 			MAD_rural_cooperation_adjust = yes
 			custom_effect_tooltip = MAD_RURAL_COOPERATION_SPENT_TT
 
-			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAHALO_RURAL_PATROLS"
 			set_temp_variable = { treasury_change = -0.20 }
 			modify_treasury_effect = yes
 			add_to_variable = { MAD_dahalo_threat = -6 tooltip = MAD_DAHALO_THREAT_MINUS_6_TT }
@@ -2623,6 +2624,7 @@ MAD_dahalo_category = {
 			set_country_flag = MAD_DAHALO_OPERATION_ACTIVE
 		}
 		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAHALO_RURAL_PATROLS completed"
 			clr_country_flag = MAD_DAHALO_OPERATION_ACTIVE
 		}
 		ai_will_do = { base = 4 }
@@ -2658,12 +2660,12 @@ MAD_dahalo_category = {
 		custom_cost_text = cost_1_25
 
 		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAHALO_HERD_REGISTRY"
 			set_temp_variable = { MAD_rc_delta = -8 }
 			MAD_rural_cooperation_apply_gendarmerie_discount = yes
 			MAD_rural_cooperation_adjust = yes
 			custom_effect_tooltip = MAD_RURAL_COOPERATION_SPENT_TT
 
-			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAHALO_HERD_REGISTRY"
 			set_temp_variable = { treasury_change = -1.25 }
 			modify_treasury_effect = yes
 			add_to_variable = { MAD_dahalo_threat = -10 tooltip = MAD_DAHALO_THREAT_MINUS_10_TT }
@@ -2703,12 +2705,12 @@ MAD_dahalo_category = {
 		custom_cost_text = cost_1_5
 
 		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAHALO_CERTIFICATE_CRACKDOWN"
 			set_temp_variable = { MAD_rc_delta = -8 }
 			MAD_rural_cooperation_apply_gendarmerie_discount = yes
 			MAD_rural_cooperation_adjust = yes
 			custom_effect_tooltip = MAD_RURAL_COOPERATION_SPENT_TT
 
-			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAHALO_CERTIFICATE_CRACKDOWN"
 			set_temp_variable = { treasury_change = -1.50 }
 			modify_treasury_effect = yes
 			add_to_variable = { MAD_dahalo_threat = -12 tooltip = MAD_DAHALO_THREAT_MINUS_12_TT }
@@ -2749,12 +2751,12 @@ MAD_dahalo_category = {
 		custom_cost_text = cost_1_5
 
 		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAHALO_MILITARY_SWEEP"
 			set_temp_variable = { MAD_rc_delta = -15 }
 			MAD_rural_cooperation_apply_gendarmerie_discount = yes
 			MAD_rural_cooperation_adjust = yes
 			custom_effect_tooltip = MAD_RURAL_COOPERATION_SPENT_TT
 
-			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAHALO_MILITARY_SWEEP"
 			set_temp_variable = { treasury_change = -1.50 }
 			modify_treasury_effect = yes
 			add_to_variable = { MAD_dahalo_threat = -12 tooltip = MAD_DAHALO_THREAT_MINUS_12_TT }
@@ -2766,6 +2768,7 @@ MAD_dahalo_category = {
 			set_country_flag = MAD_DAHALO_OPERATION_ACTIVE
 		}
 		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAHALO_MILITARY_SWEEP completed"
 			clr_country_flag = MAD_DAHALO_OPERATION_ACTIVE
 		}
 		ai_will_do = { base = 2 }
@@ -2811,6 +2814,7 @@ MAD_dahalo_category = {
 			country_event = mad_dahalo.21
 		}
 		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAHALO_TANDROKA_OPERATION completed"
 			clr_country_flag = MAD_DAHALO_OPERATION_ACTIVE
 			MAD_dahalo_resolve_tandroka = yes
 			country_event = { id = mad_dahalo.17 days = 1 }
@@ -2850,12 +2854,12 @@ MAD_dahalo_category = {
 		custom_cost_text = cost_2_0
 
 		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAHALO_TANDROKA_TRACKERS"
 			set_temp_variable = { MAD_rc_delta = -10 }
 			MAD_rural_cooperation_apply_gendarmerie_discount = yes
 			MAD_rural_cooperation_adjust = yes
 			custom_effect_tooltip = MAD_RURAL_COOPERATION_SPENT_TT
 
-			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAHALO_TANDROKA_TRACKERS"
 			set_temp_variable = { treasury_change = -2.00 }
 			modify_treasury_effect = yes
 			set_country_flag = MAD_DAHALO_TRACKER_NETWORK_ESTABLISHED
@@ -2896,12 +2900,12 @@ MAD_dahalo_category = {
 		custom_cost_text = cost_1_25
 
 		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAHALO_ARMS_CRACKDOWN"
 			set_temp_variable = { MAD_rc_delta = -8 }
 			MAD_rural_cooperation_apply_gendarmerie_discount = yes
 			MAD_rural_cooperation_adjust = yes
 			custom_effect_tooltip = MAD_RURAL_COOPERATION_SPENT_TT
 
-			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAHALO_ARMS_CRACKDOWN"
 			set_temp_variable = { treasury_change = -1.25 }
 			modify_treasury_effect = yes
 			add_to_variable = { MAD_dahalo_threat = -10 tooltip = MAD_DAHALO_THREAT_MINUS_10_TT }
@@ -2947,12 +2951,12 @@ MAD_dahalo_category = {
 		custom_cost_text = cost_2_0
 
 		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAHALO_RINGLEADER_FIRST"
 			set_temp_variable = { MAD_rc_delta = -12 }
 			MAD_rural_cooperation_apply_gendarmerie_discount = yes
 			MAD_rural_cooperation_adjust = yes
 			custom_effect_tooltip = MAD_RURAL_COOPERATION_SPENT_TT
 
-			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAHALO_RINGLEADER_FIRST"
 			set_temp_variable = { treasury_change = -2.00 }
 			modify_treasury_effect = yes
 			add_to_variable = { MAD_dahalo_threat = -12 tooltip = MAD_DAHALO_THREAT_MINUS_12_TT }
@@ -2994,12 +2998,12 @@ MAD_dahalo_category = {
 		custom_cost_text = cost_2_5
 
 		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAHALO_RINGLEADER_SECOND"
 			set_temp_variable = { MAD_rc_delta = -15 }
 			MAD_rural_cooperation_apply_gendarmerie_discount = yes
 			MAD_rural_cooperation_adjust = yes
 			custom_effect_tooltip = MAD_RURAL_COOPERATION_SPENT_TT
 
-			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAHALO_RINGLEADER_SECOND"
 			set_temp_variable = { treasury_change = -2.50 }
 			modify_treasury_effect = yes
 			add_to_variable = { MAD_dahalo_threat = -15 tooltip = MAD_DAHALO_THREAT_MINUS_15_TT }
@@ -3041,12 +3045,12 @@ MAD_dahalo_category = {
 		custom_cost_text = cost_3_0
 
 		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAHALO_RINGLEADER_FINAL"
 			set_temp_variable = { MAD_rc_delta = -18 }
 			MAD_rural_cooperation_apply_gendarmerie_discount = yes
 			MAD_rural_cooperation_adjust = yes
 			custom_effect_tooltip = MAD_RURAL_COOPERATION_SPENT_TT
 
-			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAHALO_RINGLEADER_FINAL"
 			set_temp_variable = { treasury_change = -3.00 }
 			modify_treasury_effect = yes
 			add_to_variable = { MAD_dahalo_threat = -18 tooltip = MAD_DAHALO_THREAT_MINUS_18_TT }
@@ -3096,12 +3100,12 @@ MAD_dahalo_category = {
 		custom_cost_text = cost_2_0
 
 		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAHALO_SECURE_SOUTHERN_CATTLE_ROADS"
 			set_temp_variable = { MAD_rc_delta = -12 }
 			MAD_rural_cooperation_apply_gendarmerie_discount = yes
 			MAD_rural_cooperation_adjust = yes
 			custom_effect_tooltip = MAD_RURAL_COOPERATION_SPENT_TT
 
-			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAHALO_SECURE_SOUTHERN_CATTLE_ROADS"
 			set_temp_variable = { treasury_change = -2.00 }
 			modify_treasury_effect = yes
 			set_variable = { MAD_dahalo_threat = 0 tooltip = MAD_DAHALO_THREAT_SET_0_TT }
@@ -3225,6 +3229,7 @@ MAD_dahalo_category = {
 			country_event = mad_dahalo.23
 		}
 		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAHALO_FAHALEMANA completed"
 			clr_country_flag = MAD_DAHALO_OPERATION_ACTIVE
 			MAD_dahalo_resolve_fahalemana = yes
 			country_event = { id = mad_dahalo.19 days = 1 }
@@ -3383,6 +3388,7 @@ MAD_dahalo_category = {
 			country_event = mad_dahalo.25
 		}
 		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAHALO_OPERATION_MAZAVA_GROUND completed"
 			clr_country_flag = MAD_DAHALO_OPERATION_ACTIVE
 			MAD_dahalo_resolve_mazava = yes
 			country_event = { id = mad_dahalo.20 days = 1 }
@@ -3436,6 +3442,7 @@ MAD_dahalo_category = {
 			country_event = mad_dahalo.24
 		}
 		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAHALO_OPERATION_MAZAVA completed"
 			clr_country_flag = MAD_DAHALO_OPERATION_ACTIVE
 			MAD_dahalo_resolve_mazava = yes
 			country_event = { id = mad_dahalo.20 days = 1 }
@@ -3483,12 +3490,12 @@ MAD_dahalo_category = {
 		custom_cost_text = cost_0_75
 
 		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_REMENABILA_LOCATE started"
 			set_temp_variable = { MAD_rc_delta = -6 }
 			MAD_rural_cooperation_apply_gendarmerie_discount = yes
 			MAD_rural_cooperation_adjust = yes
 			custom_effect_tooltip = MAD_RURAL_COOPERATION_SPENT_TT
 
-			log = "[GetDateText]: [Root.GetName]: Decision MAD_REMENABILA_LOCATE started"
 			set_temp_variable = { treasury_change = -0.75 }
 			modify_treasury_effect = yes
 			set_country_flag = MAD_REMENABILA_LOCATE_ACTIVE
@@ -3541,12 +3548,12 @@ MAD_dahalo_category = {
 		custom_cost_text = cost_1_0
 
 		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_REMENABILA_MOUNTAIN_PURSUIT started"
 			set_temp_variable = { MAD_rc_delta = -8 }
 			MAD_rural_cooperation_apply_gendarmerie_discount = yes
 			MAD_rural_cooperation_adjust = yes
 			custom_effect_tooltip = MAD_RURAL_COOPERATION_SPENT_TT
 
-			log = "[GetDateText]: [Root.GetName]: Decision MAD_REMENABILA_MOUNTAIN_PURSUIT started"
 			set_temp_variable = { treasury_change = -1.00 }
 			modify_treasury_effect = yes
 			set_country_flag = MAD_REMENABILA_PURSUIT_ACTIVE
@@ -3599,12 +3606,12 @@ MAD_dahalo_category = {
 		custom_cost_text = cost_1_5
 
 		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_REMENABILA_CAPTURE_SPIRITUAL_ADVISER started"
 			set_temp_variable = { MAD_rc_delta = -10 }
 			MAD_rural_cooperation_apply_gendarmerie_discount = yes
 			MAD_rural_cooperation_adjust = yes
 			custom_effect_tooltip = MAD_RURAL_COOPERATION_SPENT_TT
 
-			log = "[GetDateText]: [Root.GetName]: Decision MAD_REMENABILA_CAPTURE_SPIRITUAL_ADVISER started"
 			set_temp_variable = { treasury_change = -1.50 }
 			modify_treasury_effect = yes
 			set_country_flag = MAD_REMENABILA_ADVISER_HUNT_ACTIVE
@@ -3663,12 +3670,12 @@ MAD_dahalo_category = {
 		custom_cost_text = cost_4_0
 
 		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_REMENABILA_FINAL_HUNT started"
 			set_temp_variable = { MAD_rc_delta = -16 }
 			MAD_rural_cooperation_apply_gendarmerie_discount = yes
 			MAD_rural_cooperation_adjust = yes
 			custom_effect_tooltip = MAD_RURAL_COOPERATION_SPENT_TT
 
-			log = "[GetDateText]: [Root.GetName]: Decision MAD_REMENABILA_FINAL_HUNT started"
 			set_temp_variable = { treasury_change = -4.00 }
 			modify_treasury_effect = yes
 			set_country_flag = MAD_REMENABILA_FINAL_HUNT_ACTIVE
@@ -3732,12 +3739,12 @@ MAD_dahalo_category = {
 		custom_cost_text = cost_1_25
 
 		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAHALO_ESCORT_RELIEF_CONVOYS started"
 			set_temp_variable = { MAD_rc_delta = -8 }
 			MAD_rural_cooperation_apply_gendarmerie_discount = yes
 			MAD_rural_cooperation_adjust = yes
 			custom_effect_tooltip = MAD_RURAL_COOPERATION_SPENT_TT
 
-			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAHALO_ESCORT_RELIEF_CONVOYS started"
 			set_temp_variable = { treasury_change = -1.25 }
 			modify_treasury_effect = yes
 			set_country_flag = MAD_DAHALO_ESCORT_RELIEF_ACTIVE
@@ -3882,10 +3889,7 @@ MAD_OWNERSHIP_BOP = {
 			has_country_flag = MAD_TELMA_STATE_OWNED
 			NOT = { has_country_flag = MAD_TELMA_PRIVATISED_AFTER_STATE }
 		}
-		available = {
-			has_country_flag = MAD_TELMA_STATE_OWNED
-			NOT = { has_country_flag = MAD_TELMA_PRIVATISED_AFTER_STATE }
-		}
+		
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_SELL_TELMA_PRIVATE"
 			clr_country_flag = MAD_TELMA_STATE_OWNED
@@ -3929,10 +3933,7 @@ MAD_OWNERSHIP_BOP = {
 			has_idea = MAD_STATE_AIRLINE
 			NOT = { has_country_flag = MAD_AIR_PRIVATISED_AFTER_STATE }
 		}
-		available = {
-			has_idea = MAD_STATE_AIRLINE
-			NOT = { has_country_flag = MAD_AIR_PRIVATISED_AFTER_STATE }
-		}
+		
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_SELL_AIRLINE_PRIVATE"
 			remove_ideas = MAD_STATE_AIRLINE
@@ -3966,10 +3967,7 @@ MAD_OWNERSHIP_BOP = {
 			has_country_flag = MAD_JIRAMA_PUBLIC_MODEL
 			NOT = { has_country_flag = MAD_JIRAMA_PRIVATISED_AFTER_STATE }
 		}
-		available = {
-			has_country_flag = MAD_JIRAMA_PUBLIC_MODEL
-			NOT = { has_country_flag = MAD_JIRAMA_PRIVATISED_AFTER_STATE }
-		}
+		
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_SELL_JIRAMA_PRIVATE"
 
@@ -4039,13 +4037,7 @@ MAD_OWNERSHIP_BOP = {
 			}
 			NOT = { has_country_flag = MAD_MADARAIL_PRIVATISED_AFTER_STATE }
 		}
-		available = {
-			OR = {
-				has_idea = MAD_MADARAIL_OPERATOR_STATE_AUSTERE
-				has_idea = MAD_MADARAIL_OPERATOR_STATE_FUNDED
-			}
-			NOT = { has_country_flag = MAD_MADARAIL_PRIVATISED_AFTER_STATE }
-		}
+		
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_SELL_MADARAIL_PRIVATE"
 			if = {
@@ -4089,10 +4081,7 @@ MAD_OWNERSHIP_BOP = {
 			has_country_flag = MAD_GPM_STATE_MODEL
 			NOT = { has_country_flag = MAD_GPM_PRIVATISED_AFTER_STATE }
 		}
-		available = {
-			has_country_flag = MAD_GPM_STATE_MODEL
-			NOT = { has_country_flag = MAD_GPM_PRIVATISED_AFTER_STATE }
-		}
+		
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_SELL_GPM_PRIVATE"
 			clr_country_flag = MAD_GPM_STATE_MODEL
@@ -4158,13 +4147,7 @@ MAD_OWNERSHIP_BOP = {
 			}
 			NOT = { has_country_flag = MAD_AMBATOVY_PRIVATISED_AFTER_STATE }
 		}
-		available = {
-			OR = {
-				has_idea = MAD_AMBATOVY_Partial_State
-				has_idea = MAD_AMBATOVY_Full_State
-			}
-			NOT = { has_country_flag = MAD_AMBATOVY_PRIVATISED_AFTER_STATE }
-		}
+		
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_SELL_AMBATOVY_PRIVATE"
 
@@ -4244,6 +4227,7 @@ MAD_royal_political_category = {
 		custom_cost_text = cost_1_0
 
 		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_ROYAL_ASSERT_THE_CROWN started"
 			set_temp_variable = { treasury_change = -1.00 }
 			modify_treasury_effect = yes
 			increase_centralization = yes
@@ -4269,6 +4253,7 @@ MAD_royal_political_category = {
 			NOT = { has_country_flag = MAD_ROY_MONETARY_REFORM_IMPLEMENTED }
 		}
 		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_ROYAL_BEGIN_MONETARY_REFORM started"
 			decrease_economic_growth = yes
 
 			set_temp_variable = { debt_change = debt }
@@ -4297,6 +4282,7 @@ MAD_royal_political_category = {
 		custom_cost_text = cost_8_0
 
 		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_ROY_RESTORE_ROVA started"
 			# Ceremonial and archival consecration complements, rather than repeats, the focus's physical public works.
 			set_temp_variable = { treasury_change = -8.00 }
 			modify_treasury_effect = yes
@@ -4326,6 +4312,7 @@ MAD_royal_political_category = {
 			NOT = { has_country_flag = MAD_ROY_ISRAEL_DELEGATION_SENT }
 		}
 		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_ROY_SEND_ROYAL_DELEGATION_TO_ISRAEL started"
 			add_opinion_modifier = { target = ISR modifier = has_expressed_loyalty }
 			ISR = { add_opinion_modifier = { target = MAD modifier = has_expressed_loyalty } }
 			set_temp_variable = { percent_change = 5 }
@@ -4351,6 +4338,7 @@ MAD_royal_political_category = {
 			NOT = { has_country_flag = MAD_ROY_ISLAND_DOSSIER_PRESENTED }
 		}
 		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_ROY_PRESENT_ISLAND_DOSSIER started"
 			add_opinion_modifier = { target = FRA modifier = major_breach_of_trust }
 			add_named_threat = { threat = 1 name = MAD_ROY_ISLAND_DOSSIER_TENSION }
 			set_country_flag = MAD_ROY_ISLAND_DOSSIER_PRESENTED
@@ -4376,6 +4364,7 @@ MAD_royal_political_category = {
 			NOT = { has_country_flag = MAD_ROY_ISLAND_RECLAMATION_PREPARED }
 		}
 		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_ROY_PREPARE_ISLAND_RECLAMATION started"
 			add_named_threat = { threat = 2 name = MAD_ROY_ISLAND_RECLAMATION_TENSION }
 			add_war_support = 0.02
 			set_country_flag = MAD_ROY_ISLAND_RECLAMATION_PREPARED
@@ -4402,6 +4391,7 @@ MAD_royal_political_category = {
 		custom_cost_text = cost_12_0
 
 		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_ROYAL_RECOGNISE_CUSTOMARY_GOVERNANCE started"
 			if = {
 				limit = { 268 = { is_core_of = ROOT offices < 2 } }
 				268 = {
@@ -4429,6 +4419,7 @@ MAD_royal_political_category = {
 		}
 		available = { MAD_TAMIMA_IN_POWER = yes }
 		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_TAMIMA_CONSULT_TWELVE_ELDERS started"
 			# The elders mediate disputes, reinforce public order, and bind the Houses to the council.
 			add_stability = 0.005
 			decrease_corruption = yes
@@ -4455,6 +4446,7 @@ MAD_royal_political_category = {
 		}
 		available = { MAD_TAMIMA_IN_POWER = yes }
 		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_TAMIMA_REGIONAL_HOUSE_CONFERENCE started"
 			add_stability = 0.005
 			if = {
 				limit = { has_idea = landowners }
@@ -4481,6 +4473,7 @@ MAD_royal_political_category = {
 			NOT = { has_country_flag = MAD_ROY_UNION_COMOROS_OFFER_SENT }
 		}
 		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_ROY_OFFER_UNION_COMOROS started"
 			set_country_flag = MAD_ROY_UNION_COMOROS_OFFER_SENT
 			COM = { country_event = { id = mad_royal.7 days = 1 } }
 		}
@@ -4501,6 +4494,7 @@ MAD_royal_political_category = {
 			NOT = { has_country_flag = MAD_ROY_UNION_SEYCHELLES_OFFER_SENT }
 		}
 		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_ROY_OFFER_UNION_SEYCHELLES started"
 			set_country_flag = MAD_ROY_UNION_SEYCHELLES_OFFER_SENT
 			SEY = { country_event = { id = mad_royal.8 days = 1 } }
 		}
@@ -4521,6 +4515,7 @@ MAD_royal_political_category = {
 			NOT = { has_country_flag = MAD_ROY_UNION_MAURITIUS_OFFER_SENT }
 		}
 		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_ROY_OFFER_UNION_MAURITIUS started"
 			set_country_flag = MAD_ROY_UNION_MAURITIUS_OFFER_SENT
 			MRT = { country_event = { id = mad_royal.9 days = 1 } }
 		}
@@ -4541,6 +4536,7 @@ MAD_royal_political_category = {
 			NOT = { has_country_flag = MAD_ROY_FRANCE_REUNION_DEMANDED }
 		}
 		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_ROY_DEMAND_REUNION started"
 			set_country_flag = MAD_ROY_FRANCE_REUNION_DEMANDED
 			FRA = { country_event = { id = mad_royal.10 days = 1 } }
 		}
@@ -4571,6 +4567,7 @@ MAD_royal_political_category = {
 			NOT = { has_country_flag = MAD_ROY_FRANCE_MAYOTTE_DEMANDED }
 		}
 		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_ROY_DEMAND_MAYOTTE started"
 			set_country_flag = MAD_ROY_FRANCE_MAYOTTE_DEMANDED
 			FRA = { country_event = { id = mad_royal.11 days = 1 } }
 		}
@@ -4595,6 +4592,7 @@ MAD_military_refoundation_category = {
 			NOT = { has_country_flag = MAD_MIL_OFFICER_CONFERENCE_HELD }
 		}
 		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_MILITARY_OFFICER_CONFERENCE started"
 			set_country_flag = MAD_MIL_OFFICER_CONFERENCE_HELD
 			army_experience = 20
 			add_political_power = 25
@@ -4614,6 +4612,7 @@ MAD_military_refoundation_category = {
 			NOT = { has_country_flag = MAD_MIL_CIVILIAN_OVERSIGHT_DONE }
 		}
 		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_MILITARY_CIVILIAN_OVERSIGHT started"
 			set_country_flag = MAD_MIL_CIVILIAN_OVERSIGHT_DONE
 			set_temp_variable = { party_index = 2 }
 			set_temp_variable = { party_popularity_increase = 0.02 }
@@ -4638,6 +4637,7 @@ MAD_military_refoundation_category = {
 			NOT = { has_country_flag = MAD_MIL_GENDARMERIE_DECISION_DONE }
 		}
 		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_MILITARY_SUPPORT_GENDARMERIE started"
 			set_country_flag = MAD_MIL_GENDARMERIE_DECISION_DONE
 			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.05 tooltip = productivity_growth_modifier_tt }
 			add_political_power = 15
@@ -4665,6 +4665,7 @@ MAD_TGV_VELIRANO_CATEGORY = {
 		}
 		available = { MAD_TGV_IN_POWER = yes }
 		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_TGV_PROMISE_WATER started"
 			set_country_flag = MAD_TGV_PROMISED_WATER
 			set_country_flag = MAD_TGV_PROMISES_OPEN
 			set_temp_variable = { party_index = 20 }
@@ -4683,6 +4684,7 @@ MAD_TGV_VELIRANO_CATEGORY = {
 		visible = { MAD_TGV_IN_POWER = yes NOT = { has_country_flag = MAD_TGV_PROMISED_INFRASTRUCTURE } NOT = { has_country_flag = MAD_TGV_DELIVERED_INFRASTRUCTURE } }
 		available = { MAD_TGV_IN_POWER = yes }
 		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_TGV_PROMISE_INFRASTRUCTURE started"
 			set_country_flag = MAD_TGV_PROMISED_INFRASTRUCTURE
 			set_country_flag = MAD_TGV_PROMISES_OPEN
 			set_temp_variable = { party_index = 20 }
@@ -4701,6 +4703,7 @@ MAD_TGV_VELIRANO_CATEGORY = {
 		visible = { MAD_TGV_IN_POWER = yes NOT = { has_country_flag = MAD_TGV_PROMISED_DIGITAL } NOT = { has_country_flag = MAD_TGV_DELIVERED_DIGITAL } }
 		available = { MAD_TGV_IN_POWER = yes }
 		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_TGV_PROMISE_DIGITAL started"
 			set_country_flag = MAD_TGV_PROMISED_DIGITAL
 			set_country_flag = MAD_TGV_PROMISES_OPEN
 			set_temp_variable = { party_index = 20 }
@@ -4719,6 +4722,7 @@ MAD_TGV_VELIRANO_CATEGORY = {
 		visible = { MAD_TGV_IN_POWER = yes NOT = { has_country_flag = MAD_TGV_PROMISED_JOBS } NOT = { has_country_flag = MAD_TGV_DELIVERED_JOBS } }
 		available = { MAD_TGV_IN_POWER = yes }
 		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_TGV_PROMISE_JOBS started"
 			set_country_flag = MAD_TGV_PROMISED_JOBS
 			set_country_flag = MAD_TGV_PROMISES_OPEN
 			set_temp_variable = { party_index = 20 }
@@ -4737,6 +4741,7 @@ MAD_TGV_VELIRANO_CATEGORY = {
 		visible = { MAD_TGV_IN_POWER = yes NOT = { has_country_flag = MAD_TGV_PROMISED_FOOD } NOT = { has_country_flag = MAD_TGV_DELIVERED_FOOD } }
 		available = { MAD_TGV_IN_POWER = yes }
 		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_TGV_PROMISE_FOOD started"
 			set_country_flag = MAD_TGV_PROMISED_FOOD
 			set_country_flag = MAD_TGV_PROMISES_OPEN
 			set_temp_variable = { party_index = 20 }
@@ -4757,6 +4762,7 @@ MAD_TGV_VELIRANO_CATEGORY = {
 		visible = { MAD_TGV_IN_POWER = yes has_country_flag = MAD_TGV_PROMISED_WATER has_completed_focus = MAD_POL_TGV_WATER_PROGRAMME NOT = { has_country_flag = MAD_TGV_DELIVERED_WATER } }
 		available = { MAD_TGV_IN_POWER = yes has_country_flag = MAD_TGV_PROMISED_WATER has_completed_focus = MAD_POL_TGV_WATER_PROGRAMME }
 		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_TGV_DELIVER_WATER started"
 			set_temp_variable = { treasury_change = -2.5 }
 			modify_treasury_effect = yes
 			set_country_flag = MAD_TGV_DELIVERED_WATER
@@ -4781,6 +4787,7 @@ MAD_TGV_VELIRANO_CATEGORY = {
 		visible = { MAD_TGV_IN_POWER = yes has_country_flag = MAD_TGV_PROMISED_INFRASTRUCTURE has_completed_focus = MAD_POL_TGV_INFRASTRUCTURE_FIRST has_completed_focus = MAD_POL_TGV_PROJECT_FINANCE NOT = { has_country_flag = MAD_TGV_DELIVERED_INFRASTRUCTURE } }
 		available = { MAD_TGV_IN_POWER = yes has_country_flag = MAD_TGV_PROMISED_INFRASTRUCTURE has_completed_focus = MAD_POL_TGV_INFRASTRUCTURE_FIRST has_completed_focus = MAD_POL_TGV_PROJECT_FINANCE }
 		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_TGV_DELIVER_INFRASTRUCTURE started"
 			set_temp_variable = { treasury_change = -4.0 }
 			modify_treasury_effect = yes
 			set_country_flag = MAD_TGV_DELIVERED_INFRASTRUCTURE
@@ -4805,6 +4812,7 @@ MAD_TGV_VELIRANO_CATEGORY = {
 		visible = { MAD_TGV_IN_POWER = yes has_country_flag = MAD_TGV_PROMISED_DIGITAL has_completed_focus = MAD_POL_TGV_DIGITAL_MADAGASCAR NOT = { has_country_flag = MAD_TGV_DELIVERED_DIGITAL } }
 		available = { MAD_TGV_IN_POWER = yes has_country_flag = MAD_TGV_PROMISED_DIGITAL has_completed_focus = MAD_POL_TGV_DIGITAL_MADAGASCAR }
 		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_TGV_DELIVER_DIGITAL started"
 			set_temp_variable = { treasury_change = -1.5 }
 			modify_treasury_effect = yes
 			set_country_flag = MAD_TGV_DELIVERED_DIGITAL
@@ -4829,6 +4837,7 @@ MAD_TGV_VELIRANO_CATEGORY = {
 		visible = { MAD_TGV_IN_POWER = yes has_country_flag = MAD_TGV_PROMISED_JOBS has_completed_focus = MAD_POL_TGV_YOUTH_INDUSTRIALISATION NOT = { has_country_flag = MAD_TGV_DELIVERED_JOBS } }
 		available = { MAD_TGV_IN_POWER = yes has_country_flag = MAD_TGV_PROMISED_JOBS has_completed_focus = MAD_POL_TGV_YOUTH_INDUSTRIALISATION }
 		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_TGV_DELIVER_JOBS started"
 			set_temp_variable = { treasury_change = -1.5 }
 			modify_treasury_effect = yes
 			set_country_flag = MAD_TGV_DELIVERED_JOBS
@@ -4853,6 +4862,7 @@ MAD_TGV_VELIRANO_CATEGORY = {
 		visible = { MAD_TGV_IN_POWER = yes has_country_flag = MAD_TGV_PROMISED_FOOD has_completed_focus = MAD_POL_TGV_FOOD_SOVEREIGNTY NOT = { has_country_flag = MAD_TGV_DELIVERED_FOOD } }
 		available = { MAD_TGV_IN_POWER = yes has_country_flag = MAD_TGV_PROMISED_FOOD has_completed_focus = MAD_POL_TGV_FOOD_SOVEREIGNTY }
 		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_TGV_DELIVER_FOOD started"
 			set_temp_variable = { treasury_change = -2.0 }
 			modify_treasury_effect = yes
 			set_country_flag = MAD_TGV_DELIVERED_FOOD
@@ -4882,6 +4892,7 @@ MAD_HVM_PROJECT_REVIEW_CATEGORY = {
 		visible = { MAD_HVM_PROJECT_REVIEW_READY = yes }
 		available = { MAD_HVM_PROJECT_REVIEW_READY = yes has_completed_focus = MAD_POL_HVM_PPP_FRAMEWORK has_completed_focus = MAD_POL_HVM_ENERGY_FOR_GROWTH has_completed_focus = MAD_POL_HVM_AGRICULTURE }
 		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_HVM_REVIEW_COMPLETE_PORTFOLIO started"
 			set_temp_variable = { treasury_change = -3.0 }
 			modify_treasury_effect = yes
 			decrease_corruption = yes
@@ -4907,6 +4918,7 @@ MAD_HVM_PROJECT_REVIEW_CATEGORY = {
 		visible = { MAD_HVM_PROJECT_REVIEW_READY = yes }
 		available = { MAD_HVM_PROJECT_REVIEW_READY = yes OR = { has_completed_focus = MAD_POL_HVM_PPP_FRAMEWORK has_completed_focus = MAD_POL_HVM_ENERGY_FOR_GROWTH has_completed_focus = MAD_POL_HVM_AGRICULTURE } }
 		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_HVM_REVIEW_RENEGOTIATE started"
 			set_temp_variable = { treasury_change = -1.0 }
 			modify_treasury_effect = yes
 			add_ideas = MAD_HVM_PROJECT_RENEGOTIATED
@@ -4930,6 +4942,7 @@ MAD_HVM_PROJECT_REVIEW_CATEGORY = {
 		visible = { MAD_HVM_PROJECT_REVIEW_READY = yes }
 		available = { MAD_HVM_PROJECT_REVIEW_READY = yes }
 		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_HVM_REVIEW_PRUNE started"
 			add_ideas = MAD_HVM_PROJECT_PRUNING
 			decrease_corruption = yes
 			set_country_flag = MAD_HVM_PROJECT_REVIEW_DECIDED
@@ -4977,6 +4990,7 @@ MAD_rural_cooperation_category = {
 		}
 		cost = 25
 		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_RURAL_UNSECULARISE_GOVERNMENT started"
 			remove_ideas = MAD_POL_SECULAR_GOVERNMENT
 			add_ideas = MAD_POL_UNSECULAR_GOVERNMENT
 
@@ -5010,6 +5024,7 @@ MAD_rural_cooperation_category = {
 		}
 		cost = 25
 		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_RURAL_SECULARISE_GOVERNMENT started"
 			swap_ideas = {
 				remove_idea = MAD_POL_UNSECULAR_GOVERNMENT
 				add_idea = MAD_POL_SECULAR_GOVERNMENT
@@ -5042,6 +5057,7 @@ MAD_rural_cooperation_category = {
 		}
 		cost = 35
 		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_RURAL_RECOGNISE_ANDRIANA_HOUSES started"
 			hidden_effect = { set_country_flag = MAD_ANDRIANA_RECOGNITION_ENACTED }
 
 			remove_ideas = MAD_POL_ANDRIANA_NON_RECOGNITION
@@ -5076,6 +5092,7 @@ MAD_rural_cooperation_category = {
 		}
 		cost = 25
 		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_RURAL_WITHDRAW_ANDRIANA_RECOGNITION started"
 			hidden_effect = { clr_country_flag = MAD_ANDRIANA_RECOGNITION_ENACTED }
 				remove_ideas = MAD_POL_ANDRIANA_HERITAGE_RECOGNISED
 				add_ideas = MAD_POL_ANDRIANA_NON_RECOGNITION
