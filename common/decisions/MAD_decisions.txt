@@ -545,7 +545,7 @@ MAD_madarail_category = {
 
 
 		visible = {
-			has_country_flag = MAD_FCE_EXTENSION_UNLOCKED
+			has_completed_focus = MAD_extension_fce
 			NOT = { has_country_flag = MAD_RAIL_FCE_EXTENSION_BUILT }
 		}
 		available = {
@@ -610,7 +610,7 @@ MAD_madarail_category = {
 
 
 		visible = {
-			has_country_flag = MAD_RAIL_NETWORK_UNLOCKED
+			has_completed_focus = MAD_RAIL_NATIONAL_NETWORK
 			NOT = { has_country_flag = MAD_RAIL_TOLIARA_BUILT }
 		}
 		available = {
@@ -665,7 +665,7 @@ MAD_madarail_category = {
 
 
 		visible = {
-			has_country_flag = MAD_RAIL_NETWORK_UNLOCKED
+			has_completed_focus = MAD_RAIL_NATIONAL_NETWORK
 			NOT = { has_country_flag = MAD_RAIL_MAHAJANGA_BUILT }
 		}
 		available = {
@@ -720,7 +720,7 @@ MAD_madarail_category = {
 
 
 		visible = {
-			has_country_flag = MAD_RAIL_NETWORK_UNLOCKED
+			has_completed_focus = MAD_RAIL_NATIONAL_NETWORK
 			has_country_flag = MAD_RAIL_TOLIARA_BUILT
 			NOT = { has_country_flag = MAD_RAIL_AMBOVOMBE_BUILT }
 		}
@@ -776,7 +776,7 @@ MAD_madarail_category = {
 
 
 		visible = {
-			has_country_flag = MAD_RAIL_NETWORK_UNLOCKED
+			has_completed_focus = MAD_RAIL_NATIONAL_NETWORK
 			NOT = { has_country_flag = MAD_RAIL_ANTSIRANANA_BUILT }
 		}
 		available = {
@@ -2013,7 +2013,7 @@ MAD_JIRAMA_PROJECTS = {
 		on_map_mode = map_and_decisions_view
 
 		visible = {
-			has_country_flag = MAD_JIRAMA_GRID_PROJECT_UNLOCKED
+			has_completed_focus = MAD_JIRAMA_GRID_REINFORCEMENT
 			NOT = { has_country_flag = MAD_JIRAMA_GRID_BUILT }
 		}
 		custom_cost_trigger = { check_variable = { treasury > 9.749 } }
@@ -2061,7 +2061,7 @@ MAD_JIRAMA_PROJECTS = {
 		on_map_mode = map_and_decisions_view
 
 		visible = {
-			has_country_flag = MAD_JIRAMA_RURAL_PROJECT_UNLOCKED
+			has_completed_focus = MAD_RURAL_ENERGY
 			NOT = { has_country_flag = MAD_JIRAMA_RURAL_GRID_BUILT }
 		}
 		custom_cost_trigger = { check_variable = { treasury > 6.499 } }
@@ -2114,7 +2114,7 @@ MAD_JIRAMA_PROJECTS = {
 		on_map_mode = map_and_decisions_view
 
 		visible = {
-			has_country_flag = MAD_JIRAMA_MANDROSEZA_PROJECT_UNLOCKED
+			has_completed_focus = MAD_Mandroseza_PLANT
 			NOT = { has_country_flag = MAD_JIRAMA_MANDROSEZA_BUILT }
 		}
 		custom_cost_trigger = { check_variable = { treasury > 6.499 } }
@@ -2159,7 +2159,7 @@ MAD_JIRAMA_PROJECTS = {
 		on_map_mode = map_and_decisions_view
 
 		visible = {
-			has_country_flag = MAD_JIRAMA_ANDEKALEKA_PROJECT_UNLOCKED
+			has_completed_focus = MAD_JIRAMA_ANDEKALEKA
 			NOT = { has_country_flag = MAD_JIRAMA_ANDEKALEKA_BUILT }
 		}
 		custom_cost_trigger = { check_variable = { treasury > 12.999 } }
@@ -2210,7 +2210,7 @@ MAD_JIRAMA_PROJECTS = {
 		on_map_mode = map_and_decisions_view
 
 		visible = {
-			has_country_flag = MAD_JIRAMA_SAHOFIKA_PROJECT_UNLOCKED
+			has_completed_focus = MAD_Sahofika_DAM
 			NOT = { has_country_flag = MAD_JIRAMA_SAHOFIKA_BUILT }
 		}
 		custom_cost_trigger = { check_variable = { treasury > 12.999 } }
@@ -2262,7 +2262,7 @@ MAD_JIRAMA_PROJECTS = {
 		on_map_mode = map_and_decisions_view
 
 		visible = {
-			has_country_flag = MAD_JIRAMA_VOLOBE_PROJECT_UNLOCKED
+			has_completed_focus = MAD_Volobe_Amont_DAM
 			NOT = { has_country_flag = MAD_JIRAMA_VOLOBE_BUILT }
 		}
 		custom_cost_trigger = { check_variable = { treasury > 6.499 } }
@@ -2316,7 +2316,7 @@ MAD_JIRAMA_PROJECTS = {
 		on_map_mode = map_and_decisions_view
 
 		visible = {
-			has_country_flag = MAD_LEAD_PROJECT_UNLOCKED
+			has_completed_focus = MAD_LEAD_PROJECT
 			NOT = { has_country_flag = MAD_LEAD_ACCESS_BUILT }
 		}
 		custom_cost_trigger = { check_variable = { treasury > 14.999 } }
@@ -2372,7 +2372,7 @@ MAD_JIRAMA_PROJECTS = {
 		on_map_mode = map_and_decisions_view
 
 		visible = {
-			has_country_flag = MAD_DECIM_SOLAR_PROJECT_UNLOCKED
+			has_completed_focus = MAD_ADDED_SOLAR
 			NOT = { has_country_flag = MAD_JIRAMA_DECIM_SOLAR_BUILT }
 		}
 		custom_cost_trigger = { check_variable = { treasury > 16.999 } }
@@ -2425,7 +2425,7 @@ MAD_JIRAMA_PROJECTS = {
 		on_map_mode = map_and_decisions_view
 
 		visible = {
-			has_country_flag = MAD_DECIM_SMART_GRID_PROJECT_UNLOCKED
+			has_completed_focus = MAD_DECIM_SMART_GRID
 			NOT = { has_country_flag = MAD_JIRAMA_SMART_GRID_BUILT }
 		}
 		custom_cost_trigger = { check_variable = { treasury > 6.499 } }
@@ -2509,7 +2509,7 @@ MAD_JIRAMA_PROJECTS = {
 		on_map_mode = map_and_decisions_view
 
 		visible = {
-			has_country_flag = MAD_JIRAMA_OFFSHORE_WIND_UNLOCKED
+			has_completed_focus = MAD_offshore_wind
 			NOT = { has_country_flag = MAD_JIRAMA_OFFSHORE_WIND_BUILT }
 		}
 		custom_cost_trigger = { check_variable = { treasury > 16.999 } }
@@ -2560,7 +2560,7 @@ MAD_JIRAMA_PROJECTS = {
 		on_map_mode = map_and_decisions_view
 
 		visible = {
-			has_country_flag = MAD_JIRAMA_SMART_METER_PROJECT_UNLOCKED
+			has_completed_focus = MAD_RURAL_SMART_METER_CONNECTION
 			NOT = { has_country_flag = MAD_JIRAMA_SMART_METERS_BUILT }
 		}
 		custom_cost_trigger = { check_variable = { treasury > 2.999 } }
@@ -2615,7 +2615,7 @@ MAD_JIRAMA_PROJECTS = {
 		on_map_mode = map_and_decisions_view
 
 		visible = {
-			has_country_flag = MAD_EDF_ENGINEERING_UNLOCKED
+			has_completed_focus = MAD_EDF_JOINS_VOLOBE
 			NOT = { has_country_flag = MAD_EDF_ENGINEERING_COMPLETE }
 		}
 		custom_cost_trigger = { check_variable = { treasury > 4.999 } }
@@ -4382,7 +4382,7 @@ MAD_royal_political_category = {
 
 		visible = {
 			MAD_ROY_IN_POWER = yes
-			has_country_flag = MAD_ROY_UNLOCK_CROWN_AFFAIRS
+			has_completed_focus = MAD_POL_ROY_KINGS_MANDATE
 		}
 		available = {
 			MAD_ROY_IN_POWER = yes
@@ -4416,7 +4416,7 @@ MAD_royal_political_category = {
 
 		visible = {
 			MAD_ROY_IN_POWER = yes
-			has_country_flag = MAD_ROY_UNLOCK_FINANCIAL_REFORM
+			has_completed_focus = MAD_POL_ROY_CUSTOM_BEFORE_PARTY
 		}
 		available = {
 			MAD_ROY_IN_POWER = yes
@@ -4447,7 +4447,7 @@ MAD_royal_political_category = {
 
 		visible = {
 			MAD_ROY_IN_POWER = yes
-			has_country_flag = MAD_ROY_UNLOCK_HERITAGE
+			has_completed_focus = MAD_POL_ROY_SACRED_HERITAGE
 		}
 		available = {
 			MAD_ROY_IN_POWER = yes
@@ -4485,7 +4485,7 @@ MAD_royal_political_category = {
 
 		visible = {
 			MAD_ROY_IN_POWER = yes
-			has_country_flag = MAD_ROY_UNLOCK_ISRAEL_DIPLOMACY
+			has_completed_focus = MAD_POL_ROY_ISRAEL_SECURITY
 		}
 		available = {
 			MAD_ROY_IN_POWER = yes
@@ -4511,7 +4511,7 @@ MAD_royal_political_category = {
 
 		visible = {
 			MAD_ROY_IN_POWER = yes
-			has_country_flag = MAD_ROY_UNLOCK_ISLAND_SOVEREIGNTY
+			has_completed_focus = MAD_POL_ROY_ISLANDS_WAIT
 		}
 		available = {
 			MAD_ROY_IN_POWER = yes
@@ -4534,7 +4534,7 @@ MAD_royal_political_category = {
 
 		visible = {
 			MAD_ROY_IN_POWER = yes
-			has_country_flag = MAD_ROY_UNLOCK_ISLAND_SOVEREIGNTY
+			has_completed_focus = MAD_POL_ROY_ISLANDS_WAIT
 		}
 		available = {
 			MAD_ROY_IN_POWER = yes
@@ -4560,7 +4560,7 @@ MAD_royal_political_category = {
 
 		visible = {
 			MAD_ROY_IN_POWER = yes
-			has_country_flag = MAD_ROY_UNLOCK_CUSTOMARY_GOVERNANCE
+			has_completed_focus = MAD_POL_ROY_TRIBES_BEFORE_PARTIES
 		}
 		available = {
 			MAD_ROY_IN_POWER = yes
@@ -4601,7 +4601,7 @@ MAD_royal_political_category = {
 
 		visible = {
 			MAD_TAMIMA_IN_POWER = yes
-			has_country_flag = MAD_TAMIMA_UNLOCK_HOUSE_AFFAIRS
+			has_completed_focus = MAD_POL_ROY_TAMIMA_COUNCIL
 		}
 		available = { MAD_TAMIMA_IN_POWER = yes }
 		complete_effect = {
@@ -4628,7 +4628,7 @@ MAD_royal_political_category = {
 
 		visible = {
 			MAD_TAMIMA_IN_POWER = yes
-			has_country_flag = MAD_TAMIMA_UNLOCK_HOUSE_AFFAIRS
+			has_completed_focus = MAD_POL_ROY_TAMIMA_COUNCIL
 		}
 		available = { MAD_TAMIMA_IN_POWER = yes }
 		complete_effect = {
