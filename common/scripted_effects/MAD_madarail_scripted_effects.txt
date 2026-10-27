@@ -3105,6 +3105,8 @@ MAD_dahalo_campaign_roll = {
 	clr_country_flag = MAD_DAHALO_CAMPAIGN_ROLL_SUCCESS
 	random_list = {
 		MAD_dahalo_campaign_success_chance = { set_country_flag = MAD_DAHALO_CAMPAIGN_ROLL_SUCCESS }
+		# Failure is represented by the absence of the success flag; keep its weight in the roll.
+		MAD_dahalo_campaign_failure_chance = { }
 	}
 }
 MAD_dahalo_campaign_apply_success_rc = {
