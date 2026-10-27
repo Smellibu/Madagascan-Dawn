@@ -129,7 +129,12 @@ MAD_INVITE_KOREANS = {
 			has_completed_focus = MAD_AMBATOVY_JV_FORMED
 		}
 		available = {
-			check_variable = { MAD_AMBATOVY_TOTAL > 99 }
+			custom_trigger_tooltip = {
+				tooltip = MAD_AMBATOVY_TOTAL_REQUIRE_100_TT
+				check_variable = {
+					MAD_AMBATOVY_TOTAL > 99
+				}
+			}
 		}
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_AMBATOVY_MISSION complete"
@@ -152,7 +157,12 @@ MAD_INVITE_KOREANS = {
 	}
 	available = {
 		NOT = { has_country_flag = MAD_ambatovy_mine_built }
-		check_variable = { MAD_rural_cooperation > 11.99 }
+		custom_trigger_tooltip = {
+			tooltip = MAD_RC_REQUIRE_12_TT
+			check_variable = {
+				MAD_rural_cooperation > 11.99
+			}
+		}
 	}
 	complete_effect = {
 		log = "[GetDateText]: [Root.GetName]: Decision MAD_BUILD_MINE started"
@@ -539,7 +549,12 @@ MAD_madarail_category = {
 			NOT = { has_country_flag = MAD_RAIL_FCE_EXTENSION_BUILT }
 		}
 		available = {
-			check_variable = { MAD_rural_cooperation > 6.99 }
+			custom_trigger_tooltip = {
+				tooltip = MAD_RC_REQUIRE_7_TT
+				check_variable = {
+					MAD_rural_cooperation > 6.99
+				}
+			}
 		}
 
 		custom_cost_trigger = { check_variable = { treasury > 14.999 } }
@@ -599,7 +614,12 @@ MAD_madarail_category = {
 			NOT = { has_country_flag = MAD_RAIL_TOLIARA_BUILT }
 		}
 		available = {
-			check_variable = { MAD_rural_cooperation > 6.99 }
+			custom_trigger_tooltip = {
+				tooltip = MAD_RC_REQUIRE_7_TT
+				check_variable = {
+					MAD_rural_cooperation > 6.99
+				}
+			}
 		}
 
 		custom_cost_trigger = { check_variable = { treasury > 14.999 } }
@@ -649,7 +669,12 @@ MAD_madarail_category = {
 			NOT = { has_country_flag = MAD_RAIL_MAHAJANGA_BUILT }
 		}
 		available = {
-			check_variable = { MAD_rural_cooperation > 5.99 }
+			custom_trigger_tooltip = {
+				tooltip = MAD_RC_REQUIRE_6_TT
+				check_variable = {
+					MAD_rural_cooperation > 5.99
+				}
+			}
 		}
 
 		custom_cost_trigger = { check_variable = { treasury > 14.999 } }
@@ -700,7 +725,12 @@ MAD_madarail_category = {
 			NOT = { has_country_flag = MAD_RAIL_AMBOVOMBE_BUILT }
 		}
 		available = {
-			check_variable = { MAD_rural_cooperation > 7.99 }
+			custom_trigger_tooltip = {
+				tooltip = MAD_RC_REQUIRE_8_TT
+				check_variable = {
+					MAD_rural_cooperation > 7.99
+				}
+			}
 		}
 
 		custom_cost_trigger = { check_variable = { treasury > 14.999 } }
@@ -750,7 +780,12 @@ MAD_madarail_category = {
 			NOT = { has_country_flag = MAD_RAIL_ANTSIRANANA_BUILT }
 		}
 		available = {
-			check_variable = { MAD_rural_cooperation > 5.99 }
+			custom_trigger_tooltip = {
+				tooltip = MAD_RC_REQUIRE_6_TT
+				check_variable = {
+					MAD_rural_cooperation > 5.99
+				}
+			}
 		}
 
 		custom_cost_trigger = { check_variable = { treasury > 14.999 } }
@@ -959,7 +994,12 @@ MAD_daewoo_category = {
 				NOT = { has_country_flag = MAD_DAEWOO_CONTRACT_PUBLISHED }
 			}
 			NOT = { has_country_flag = mad_daewoo_decision }
-			check_variable = { MAD_rural_cooperation > 3.99 }
+			custom_trigger_tooltip = {
+				tooltip = MAD_RC_REQUIRE_4_TT
+				check_variable = {
+					MAD_rural_cooperation > 3.99
+				}
+			}
 		}
 		fire_only_once = yes
 		days_remove = 75
@@ -994,7 +1034,12 @@ MAD_daewoo_category = {
 		}
 
 		available = {
-			check_variable = { MAD_rural_cooperation > 3.99 }
+			custom_trigger_tooltip = {
+				tooltip = MAD_RC_REQUIRE_4_TT
+				check_variable = {
+					MAD_rural_cooperation > 3.99
+				}
+			}
 			NOT = { has_country_flag = mad_daewoo_decision }
 		}
 
@@ -1394,7 +1439,12 @@ visible = {
 		cost = 25
 		fire_only_once = yes
 		available = {
-			check_variable = { MAD_rural_cooperation > 0.99 }
+			custom_trigger_tooltip = {
+				tooltip = MAD_RC_REQUIRE_1_TT
+				check_variable = {
+					MAD_rural_cooperation > 0.99
+				}
+			}
 		}
 		custom_cost_trigger = { check_variable = { treasury > 0.399 } }
 		custom_cost_text = cost_0_4
@@ -1597,7 +1647,12 @@ visible = {
 		cost = 60
 		fire_only_once = yes
 		available = {
-			check_variable = { MAD_rural_cooperation > 2.99 }
+			custom_trigger_tooltip = {
+				tooltip = MAD_RC_REQUIRE_3_TT
+				check_variable = {
+					MAD_rural_cooperation > 2.99
+				}
+			}
 		}
 		custom_cost_trigger = { check_variable = { treasury > 1.999 } }
 		custom_cost_text = cost_2_0
@@ -1969,7 +2024,12 @@ MAD_JIRAMA_PROJECTS = {
 		available = {
 			267 = { is_owned_and_controlled_by = ROOT }
 			487 = { is_owned_and_controlled_by = ROOT }
-			check_variable = { MAD_rural_cooperation > 7.99 }
+			custom_trigger_tooltip = {
+				tooltip = MAD_RC_REQUIRE_8_TT
+				check_variable = {
+					MAD_rural_cooperation > 7.99
+				}
+			}
 		}
 
 		complete_effect = {
@@ -2012,7 +2072,12 @@ MAD_JIRAMA_PROJECTS = {
 		available = {
 			268 = { is_owned_and_controlled_by = ROOT }
 
-			check_variable = { MAD_rural_cooperation > 17.99 }
+			custom_trigger_tooltip = {
+				tooltip = MAD_RC_REQUIRE_18_TT
+				check_variable = {
+					MAD_rural_cooperation > 17.99
+				}
+			}
 		}
 
 		complete_effect = {
@@ -2059,7 +2124,12 @@ MAD_JIRAMA_PROJECTS = {
 
 		available = {
 			267 = { is_owned_and_controlled_by = ROOT }
-			check_variable = { MAD_rural_cooperation > 4.99 }
+			custom_trigger_tooltip = {
+				tooltip = MAD_RC_REQUIRE_5_TT
+				check_variable = {
+					MAD_rural_cooperation > 4.99
+				}
+			}
 		}
 
 		complete_effect = {
@@ -2099,7 +2169,12 @@ MAD_JIRAMA_PROJECTS = {
 
 		available = {
 			267 = { is_owned_and_controlled_by = ROOT }
-			check_variable = { MAD_rural_cooperation > 9.99 }
+			custom_trigger_tooltip = {
+				tooltip = MAD_RC_REQUIRE_10_TT
+				check_variable = {
+					MAD_rural_cooperation > 9.99
+				}
+			}
 		}
 
 		complete_effect = {
@@ -2145,7 +2220,12 @@ MAD_JIRAMA_PROJECTS = {
 
 		available = {
 			267 = { is_owned_and_controlled_by = ROOT }
-			check_variable = { MAD_rural_cooperation > 9.99 }
+			custom_trigger_tooltip = {
+				tooltip = MAD_RC_REQUIRE_10_TT
+				check_variable = {
+					MAD_rural_cooperation > 9.99
+				}
+			}
 		}
 
 		complete_effect = {
@@ -2192,7 +2272,12 @@ MAD_JIRAMA_PROJECTS = {
 
 		available = {
 			487 = { is_owned_and_controlled_by = ROOT }
-			check_variable = { MAD_rural_cooperation > 6.99 }
+			custom_trigger_tooltip = {
+				tooltip = MAD_RC_REQUIRE_7_TT
+				check_variable = {
+					MAD_rural_cooperation > 6.99
+				}
+			}
 		}
 
 		complete_effect = {
@@ -2243,7 +2328,12 @@ MAD_JIRAMA_PROJECTS = {
 			267 = { is_owned_and_controlled_by = ROOT }
 			268 = { is_owned_and_controlled_by = ROOT }
 
-			check_variable = { MAD_rural_cooperation > 17.99 }
+			custom_trigger_tooltip = {
+				tooltip = MAD_RC_REQUIRE_18_TT
+				check_variable = {
+					MAD_rural_cooperation > 17.99
+				}
+			}
 		}
 
 		complete_effect = {
@@ -2294,7 +2384,12 @@ MAD_JIRAMA_PROJECTS = {
 			267 = { is_owned_and_controlled_by = ROOT }
 			487 = { is_owned_and_controlled_by = ROOT }
 
-			check_variable = { MAD_rural_cooperation > 11.99 }
+			custom_trigger_tooltip = {
+				tooltip = MAD_RC_REQUIRE_12_TT
+				check_variable = {
+					MAD_rural_cooperation > 11.99
+				}
+			}
 		}
 
 		complete_effect = {
@@ -2353,7 +2448,12 @@ MAD_JIRAMA_PROJECTS = {
 					include_locked = no
 				}
 			}
-			check_variable = { MAD_rural_cooperation > 5.99 }
+			custom_trigger_tooltip = {
+				tooltip = MAD_RC_REQUIRE_6_TT
+				check_variable = {
+					MAD_rural_cooperation > 5.99
+				}
+			}
 		}
 
 		complete_effect = {
@@ -2419,7 +2519,12 @@ MAD_JIRAMA_PROJECTS = {
 
 		available = {
 			487 = { is_owned_and_controlled_by = ROOT }
-			check_variable = { MAD_rural_cooperation > 9.99 }
+			custom_trigger_tooltip = {
+				tooltip = MAD_RC_REQUIRE_10_TT
+				check_variable = {
+					MAD_rural_cooperation > 9.99
+				}
+			}
 		}
 
 		complete_effect = {
@@ -2954,7 +3059,12 @@ MAD_dahalo_category = {
 		}
 		available = {
 			NOT = { has_country_flag = MAD_DAHALO_OPERATION_ACTIVE }
-			check_variable = { MAD_dahalo_ringleader_sweeps > 0.99 }
+			custom_trigger_tooltip = {
+				tooltip = MAD_DAHALO_SWEEPS_REQUIRE_1_TT
+				check_variable = {
+					MAD_dahalo_ringleader_sweeps > 0.99
+				}
+			}
 
 			custom_trigger_tooltip = {
 				tooltip = MAD_RC_REQUIRE_15_OR_11_25_TT
@@ -3001,7 +3111,12 @@ MAD_dahalo_category = {
 		}
 		available = {
 			NOT = { has_country_flag = MAD_DAHALO_OPERATION_ACTIVE }
-			check_variable = { MAD_dahalo_ringleader_sweeps > 1.99 }
+			custom_trigger_tooltip = {
+				tooltip = MAD_DAHALO_SWEEPS_REQUIRE_2_TT
+				check_variable = {
+					MAD_dahalo_ringleader_sweeps > 1.99
+				}
+			}
 
 			custom_trigger_tooltip = {
 				tooltip = MAD_RC_REQUIRE_18_OR_13_5_TT
@@ -3052,9 +3167,19 @@ MAD_dahalo_category = {
 		}
 		available = {
 			NOT = { has_country_flag = MAD_DAHALO_OPERATION_ACTIVE }
-			check_variable = { MAD_dahalo_threat < 10.01 }
+			custom_trigger_tooltip = {
+				tooltip = MAD_DAHALO_THREAT_AT_MOST_10_TT
+				check_variable = {
+					MAD_dahalo_threat < 10.01
+				}
+			}
 			OR = {
-				check_variable = { MAD_dahalo_ringleader_sweeps > 2.99 }
+				custom_trigger_tooltip = {
+					tooltip = MAD_DAHALO_SWEEPS_REQUIRE_3_TT
+					check_variable = {
+						MAD_dahalo_ringleader_sweeps > 2.99
+					}
+				}
 				has_country_flag = MAD_REMENABILA_KILLED
 			}
 
@@ -3259,7 +3384,7 @@ MAD_dahalo_category = {
 		icon = generic_political_discourse
 
 		visible = { has_country_flag = MAD_USAD_ESTABLISHED NOT = { has_country_flag = MAD_USAD_TRAINING_CADRE_BUILT } }
-		available = { has_country_flag = MAD_USAD_ESTABLISHED NOT = { has_country_flag = MAD_DAHALO_OPERATION_ACTIVE } NOT = { has_civil_war = yes } check_variable = { treasury > 1.249 } }
+		available = { has_country_flag = MAD_USAD_ESTABLISHED NOT = { has_country_flag = MAD_DAHALO_OPERATION_ACTIVE } NOT = { has_civil_war = yes } custom_trigger_tooltip = { tooltip = MAD_TREASURY_REQUIRE_1_25_TT check_variable = { treasury > 1.249 } } }
 		cost = 50
 		fire_only_once = yes
 		custom_cost_trigger = { check_variable = { treasury > 1.249 } }
@@ -3278,7 +3403,7 @@ MAD_dahalo_category = {
 		icon = generic_political_discourse
 
 		visible = { has_country_flag = MAD_USAD_ESTABLISHED NOT = { has_country_flag = MAD_USAD_GROUND_LOGISTICS_READY } }
-		available = { has_country_flag = MAD_USAD_ESTABLISHED NOT = { has_country_flag = MAD_DAHALO_OPERATION_ACTIVE } NOT = { has_civil_war = yes } check_variable = { treasury > 1.999 } }
+		available = { has_country_flag = MAD_USAD_ESTABLISHED NOT = { has_country_flag = MAD_DAHALO_OPERATION_ACTIVE } NOT = { has_civil_war = yes } custom_trigger_tooltip = { tooltip = MAD_TREASURY_REQUIRE_2_00_TT check_variable = { treasury > 1.999 } } }
 		cost = 65
 		fire_only_once = yes
 		custom_cost_trigger = { check_variable = { treasury > 1.999 } }
@@ -3298,7 +3423,7 @@ MAD_dahalo_category = {
 		icon = generic_political_discourse
 
 		visible = { has_country_flag = MAD_USAD_ESTABLISHED NOT = { has_country_flag = MAD_USAD_COMMUNITY_LIAISON } }
-		available = { has_country_flag = MAD_USAD_ESTABLISHED NOT = { has_country_flag = MAD_DAHALO_OPERATION_ACTIVE } NOT = { has_civil_war = yes } check_variable = { treasury > 0.749 } }
+		available = { has_country_flag = MAD_USAD_ESTABLISHED NOT = { has_country_flag = MAD_DAHALO_OPERATION_ACTIVE } NOT = { has_civil_war = yes } custom_trigger_tooltip = { tooltip = MAD_TREASURY_REQUIRE_0_75_TT check_variable = { treasury > 0.749 } } }
 		cost = 45
 		fire_only_once = yes
 		custom_cost_trigger = { check_variable = { treasury > 0.749 } }
@@ -3692,8 +3817,18 @@ MAD_dahalo_category = {
 		available = {
 			NOT = { has_country_flag = MAD_DAHALO_OPERATION_ACTIVE }
 			has_completed_focus = MAD_Drought_and_famine
-			check_variable = { MAD_dahalo_threat > 39.99 }
-			268 = { check_variable = { MAD_state_famine > 24.99 } }
+			custom_trigger_tooltip = {
+				tooltip = MAD_DAHALO_THREAT_AT_LEAST_40_TT
+				check_variable = {
+					MAD_dahalo_threat > 39.99
+				}
+			}
+			268 = {
+				custom_trigger_tooltip = {
+					tooltip = MAD_STATE_FAMINE_AT_LEAST_25_TT
+					check_variable = { MAD_state_famine > 24.99 }
+				}
+			}
 			NOT = { has_country_flag = MAD_DAHALO_ESCORT_RELIEF_ACTIVE }
 
 			custom_trigger_tooltip = {
@@ -3757,9 +3892,24 @@ MAD_dahalo_category = {
 		available = {
 			has_completed_focus = MAD_PERMIT_ARMS
 			NOT = { has_completed_focus = MAD_Hunt_for_red_with_a_swagger }
-			check_variable = { MAD_dahalo_threat > 59.99 }
-			268 = { check_variable = { MAD_state_famine > 24.99 } }
-			check_variable = { MAD_rural_cooperation > 5.99 }
+			custom_trigger_tooltip = {
+				tooltip = MAD_DAHALO_THREAT_AT_LEAST_60_TT
+				check_variable = {
+					MAD_dahalo_threat > 59.99
+				}
+			}
+			268 = {
+				custom_trigger_tooltip = {
+					tooltip = MAD_STATE_FAMINE_AT_LEAST_25_TT
+					check_variable = { MAD_state_famine > 24.99 }
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = MAD_RC_REQUIRE_6_TT
+				check_variable = {
+					MAD_rural_cooperation > 5.99
+				}
+			}
 		}
 		cost = 35
 		days_re_enable = 180
@@ -3801,8 +3951,18 @@ MAD_dahalo_category = {
 		available = {
 			has_completed_focus = MAD_PERMIT_ARMS
 			NOT = { has_completed_focus = MAD_Hunt_for_red_with_a_swagger }
-			check_variable = { MAD_dahalo_threat < 100 }
-			check_variable = { MAD_rural_cooperation > 9.99 }
+			custom_trigger_tooltip = {
+				tooltip = MAD_DAHALO_THREAT_BELOW_100_TT
+				check_variable = {
+					MAD_dahalo_threat < 100
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = MAD_RC_REQUIRE_10_TT
+				check_variable = {
+					MAD_rural_cooperation > 9.99
+				}
+			}
 		}
 		cost = 40
 		days_re_enable = 365
@@ -3835,8 +3995,18 @@ MAD_dahalo_category = {
 		available = {
 			has_completed_focus = MAD_MARCH_OF_THE_COWBOYS
 			NOT = { has_completed_focus = MAD_Hunt_for_red_with_a_swagger }
-			check_variable = { MAD_dahalo_threat < 100 }
-			check_variable = { MAD_rural_cooperation > 4.99 }
+			custom_trigger_tooltip = {
+				tooltip = MAD_DAHALO_THREAT_BELOW_100_TT
+				check_variable = {
+					MAD_dahalo_threat < 100
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = MAD_RC_REQUIRE_5_TT
+				check_variable = {
+					MAD_rural_cooperation > 4.99
+				}
+			}
 		}
 		cost = 40
 		days_re_enable = 365
@@ -4194,7 +4364,12 @@ MAD_royal_political_category = {
 		}
 		available = {
 			MAD_ROY_IN_POWER = yes
-			check_variable = { treasury > 0.999 }
+			custom_trigger_tooltip = {
+				tooltip = MAD_TREASURY_REQUIRE_1_00_TT
+				check_variable = {
+					treasury > 0.999
+				}
+			}
 			NOT = { has_country_flag = MAD_ROY_CROWN_ADMINISTRATION_ASSERTED }
 		}
 		custom_cost_trigger = { check_variable = { treasury > 0.999 } }
@@ -4223,7 +4398,12 @@ MAD_royal_political_category = {
 		}
 		available = {
 			MAD_ROY_IN_POWER = yes
-			check_variable = { debt > 0 }
+			custom_trigger_tooltip = {
+				tooltip = MAD_DEBT_ABOVE_ZERO_TT
+				check_variable = {
+					debt > 0
+				}
+			}
 			NOT = { has_country_flag = MAD_ROY_MONETARY_REFORM_IMPLEMENTED }
 		}
 		complete_effect = {
@@ -4249,7 +4429,12 @@ MAD_royal_political_category = {
 		}
 		available = {
 			MAD_ROY_IN_POWER = yes
-			check_variable = { treasury > 7.999 }
+			custom_trigger_tooltip = {
+				tooltip = MAD_TREASURY_REQUIRE_8_00_TT
+				check_variable = {
+					treasury > 7.999
+				}
+			}
 			NOT = { has_country_flag = MAD_ROY_ROVA_RESTORED }
 		}
 		custom_cost_trigger = { check_variable = { treasury > 7.999 } }
@@ -4357,7 +4542,12 @@ MAD_royal_political_category = {
 		}
 		available = {
 			MAD_ROY_IN_POWER = yes
-			check_variable = { treasury > 11.999 }
+			custom_trigger_tooltip = {
+				tooltip = MAD_TREASURY_REQUIRE_12_00_TT
+				check_variable = {
+					treasury > 11.999
+				}
+			}
 			268 = { is_core_of = ROOT offices < 2 }
 			NOT = { has_country_flag = MAD_ROY_CUSTOMARY_GOVERNANCE_IMPLEMENTED }
 		}
@@ -5138,7 +5328,12 @@ MAD_rural_cooperation_category = {
 				}
 			}
 
-			check_variable = { MAD_rural_cooperation > 17.99 }
+			custom_trigger_tooltip = {
+				tooltip = MAD_RC_REQUIRE_18_TT
+				check_variable = {
+					MAD_rural_cooperation > 17.99
+				}
+			}
 		}
 		cost = 50
 		fire_only_once = yes
@@ -5171,7 +5366,12 @@ MAD_rural_cooperation_category = {
 
 		available = {
 			NOT = { has_country_flag = MAD_RURAL_LOCAL_DEVELOPMENT_ACTIVE }
-			check_variable = { MAD_rural_cooperation < 85 }
+			custom_trigger_tooltip = {
+				tooltip = MAD_RC_BELOW_85_TT
+				check_variable = {
+					MAD_rural_cooperation < 85
+				}
+			}
 		}
 		cost = 50
 		days_remove = 120
@@ -5209,7 +5409,12 @@ MAD_rural_cooperation_category = {
 		}
 		available = {
 			NOT = { has_country_flag = MAD_RURAL_MINING_AUDIT_ACTIVE }
-			check_variable = { MAD_rural_cooperation < 90 }
+			custom_trigger_tooltip = {
+				tooltip = MAD_RC_BELOW_90_TT
+				check_variable = {
+					MAD_rural_cooperation < 90
+				}
+			}
 		}
 		cost = 50
 		days_remove = 90
