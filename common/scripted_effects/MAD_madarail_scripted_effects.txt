@@ -3398,8 +3398,9 @@ MAD_dahalo_random_event_tick = {
 		}
 		subtract_from_variable = { MAD_dahalo_event_cooldown = 1 }
 	}
-	else_if = {
+	if = {
 		limit = {
+			check_variable = { MAD_dahalo_event_cooldown < 0.001 }
 			NOT = { has_country_flag = MAD_DAHALO_DEFEATED }
 			NOT = { has_country_flag = MAD_REMENABILA_IN_POWER }
 			NOT = { has_civil_war = yes }
