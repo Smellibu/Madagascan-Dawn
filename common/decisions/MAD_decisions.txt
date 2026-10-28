@@ -537,7 +537,7 @@ MAD_madarail_category = {
 	# Everything happens right here in remove_effect (when the year is up): the railway, the state's
 	# productivity, then the popup event mad_madarail.20-24.
 	# States: 267 Antananarivo, 268 Toliara, 266 Mahajanga, 487 Toamasina.
-	# Unlocked by MAD_extension_fce (flag MAD_FCE_EXTENSION_UNLOCKED) and MAD_RAIL_NATIONAL_NETWORK (MAD_RAIL_NETWORK_UNLOCKED).
+	# Railway decisions are gated by completion of their respective focuses.
 	########################################################################
 
 	MAD_MADARAIL_BUILD_FCE_EXTENSION = {
@@ -1232,7 +1232,6 @@ MAD_drought_category = {
 
 			# Lock out other water-trucking programmes for the duration.
 			set_country_flag = MAD_DROUGHT_WATER_DECISION_ACTIVE
-			set_country_flag = MAD_DROUGHT_WATER_TRUCK_ACTIVE
 
 			# Pay the programme's cost.
 			set_temp_variable = {
@@ -1253,7 +1252,6 @@ MAD_drought_category = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_DROUGHT_EMERGENCY_WATER complete"
 
 			# The 180-day programme has ended.
-			clr_country_flag = MAD_DROUGHT_WATER_TRUCK_ACTIVE
 			clr_country_flag = MAD_DROUGHT_WATER_DECISION_ACTIVE
 
 		}
