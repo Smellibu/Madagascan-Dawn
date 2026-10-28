@@ -16,11 +16,11 @@ Copyright notes are not licences. Non-CC photographs require permission before p
 | Jules_Mamizara | No verified portrait candidate passed face/source checks | Not imported; no new portrait reference was added |
 | Sylvain_Razafimandimby | [L’Express de Madagascar](https://www.lexpress.mg/2024/03/deces-le-general-sylvain-razafimandimby.html) | Copyright / permission not established |
 | Raonenantsoamampianina | [MadOnline / image-search candidate](https://www.madonline.com/nouvelles-nominations-au-sommet-de-larmee/) | Copyright / permission not established |
-| Petera_Behajaina | [RFI / Olivier Péguy / image-search candidate](https://www1.rfi.fr/actufr/articles/059/article_31466.asp) | Copyright / permission not established; RFI/AFP images may require permission |
-| Noel_Girardin_Rakotonandrasana | [La Dépêche / AFP](https://www.ladepeche.fr/article/2010/11/17/950064-madagascar-appel-a-la-mutinerie-le-jour-du-referendum-constitutionnel.html) | Copyright / permission not established |
+| Petera_Behajaina | [Olivier Péguy / RFI](https://www1.rfi.fr/actufr/articles/059/article_31466.asp) | Copyright / permission not established; RFI/AFP images may require permission |
+| Noel_Girardin_Rakotonandrasana | [Grégoire Pourtier / AFP / La Dépêche](https://www.ladepeche.fr/article/2010/11/17/950064-madagascar-appel-a-la-mutinerie-le-jour-du-referendum-constitutionnel.html) | AFP / La Dépêche copyright; permission not established |
 | Edmond_Rasolomahandry | [Asia-Pacific Center for Security Studies / image-search candidate](https://dkiapcss.edu/wp-content/uploads/2010/PDFs/currents2009-alumni.pdf) | Copyright / permission not established |
 | Andre_Ndriarijaona | [La Tribune de Diego](https://latribune.cyber-diego.com/actualites/677-exercice-de-lutte-contre-la-piraterie-dans-la-baie-de-diego-suarez.html) | Copyright / permission not established |
-| Charles_Andrianasoavina | [Agence Malagasy de Presse](https://www.agencemalagasydepresse.com/politique/raharaham-pirenena-fanambanny-colonel-charles-andrianasoavina/) | Copyright / permission not established |
+| Charles_Andrianasoavina | No verified portrait candidate passed face/source checks | Not imported; no new portrait reference was added |
 | Mamy_Solofoniaina_Ranaivoniarivo | [PixEye](https://commons.wikimedia.org/wiki/File:Mamy_Ranaivoniarivo.jpg) | CC BY-SA 3.0 |
 | Hyppolite_Rarison_Ramaroson | [La Tribune de Diego / image-search candidate](https://latribune.cyber-diego.com/actualites/326-50eme-anniversaire-de-la-creation-de-la-marine-de-madagascar.html) | Copyright / permission not established |
 | Andre_Lucien_Rakotoarimasy | [C.E.D.S Madagascar](https://ceds-madagascar.com/promotions/2-rakoto-ratsimamanga/) | Copyright / permission not established |
