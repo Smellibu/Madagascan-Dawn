@@ -25,11 +25,11 @@ session.headers.update({"User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) 
 SOURCES=[
  {"base":"Andry_Rajoelina","kind":"direct","url":"https://upload.wikimedia.org/wikipedia/commons/0/08/Andry_Rajoelina_%282023%29.jpg","source":"https://commons.wikimedia.org/wiki/File:Andry_Rajoelina_(2023).jpg","rights":"CC BY 4.0","credit":"Rijasolo / European Union","terms":["andry","rajoelina"]},
  {"base":"Marcel_Ranjeva","kind":"direct","url":"https://commons.wikimedia.org/wiki/Special:Redirect/file/Marcel_Ranjeva,_12th_AU_Summit,_090203-N-0506A-616.jpg","source":"https://commons.wikimedia.org/wiki/File:Marcel_Ranjeva,_12th_AU_Summit,_090203-N-0506A-616.jpg","rights":"Public domain, U.S. Navy official-duty photograph","credit":"MC2 Jesse B. Awalt / U.S. Navy","terms":["marcel","ranjeva"]},
- {"base":"Andrianome_Ranivo_Dieudonne","kind":"pdf_face","page":2,"region":"full","url":"https://www.madagate.org/madagascar-informations-politiques/flash-infos/3797-madagascar-general-andrianome-lofficier-superieur-de-la-neutralite-active-est-decede.pdf","source":"https://www.madagate.org/madagascar-informations-politiques/flash-infos/3797-madagascar-general-andrianome-lofficier-superieur-de-la-neutralite-active-est-decede.pdf","rights":"Copyright status not established","credit":"Madagate","terms":["andrianome","dieudonne","ranaivo"]},
+ {"base":"Andrianome_Ranivo_Dieudonne","kind":"image_search","query":"General Andrianome Ranivo Dieudonne Madagascar military portrait","source":"https://www.madagate.org/madagascar-informations-politiques/flash-infos/3797-madagascar-general-andrianome-lofficier-superieur-de-la-neutralite-active-est-decede.pdf","rights":"Copyright / permission not established","credit":"Madagate / alternate image source must be verified","terms":["andrianome","dieudonne","ranaivo"]},
  {"base":"Jules_Mamizara","kind":"page","url":"https://www.2424.mg/news/disparition-le-general-jules-mamizara-tire-sa-reverence/","source":"https://www.2424.mg/news/disparition-le-general-jules-mamizara-tire-sa-reverence/","rights":"Copyright / permission not established","credit":"InfoCom Seg / 2424.mg","terms":["jules","mamizara"]},
  {"base":"Sylvain_Razafimandimby","kind":"page","url":"https://www.lexpress.mg/2024/03/deces-le-general-sylvain-razafimandimby.html","source":"https://www.lexpress.mg/2024/03/deces-le-general-sylvain-razafimandimby.html","rights":"Copyright / permission not established","credit":"L’Express de Madagascar","terms":["sylvain","razafimandimby"]},
  {"base":"Raonenantsoamampianina","kind":"page","url":"https://www.madagascar-tribune.com/Deux-autres-ministres,11146.html","fallback":"https://www.2424.mg/news/60-ans-de-larmee-malgache-une-stele-pour-rendre-hommage-aux-anciens-chefs-detat-major-general-de-larmee-malagasy/","source":"https://www.madagascar-tribune.com/Deux-autres-ministres,11146.html","rights":"Copyright / permission not established","credit":"Madagascar-Tribune.com","terms":["raonenantsoamampianina","raonenantsomampianina","cemgam"]},
- {"base":"Petera_Behajaina","kind":"image_search","query":"General Peter Bahajaina Madagascar June 2002","source":"https://www.gettyimages.com/photos/malagasy-troops-receive-guidance","rights":"Copyright / permission not established","credit":"Getty Images or original photo agency; confirm source before redistribution","terms":["peter bahajaina","petera behajaina","malagasy troops receive guidance"]},
+ {"base":"Petera_Behajaina","kind":"page","url":"https://www1.rfi.fr/actufr/articles/059/article_31466.asp","source":"https://www1.rfi.fr/actufr/articles/059/article_31466.asp","rights":"AFP/RFI copyright; permission required for redistribution","credit":"Olivier Péguy / RFI","terms":["petera behajaina","général petera"]},
  {"base":"Noel_Girardin_Rakotonandrasana","kind":"page","url":"https://www1.rfi.fr/actuen/articles/112/article_3609.asp","source":"https://www1.rfi.fr/actuen/articles/112/article_3609.asp","rights":"AFP/RFI copyright; permission required for redistribution","credit":"AFP via RFI","terms":["noel","rakotonandrasana"]},
  {"base":"Edmond_Rasolomahandry","kind":"pdf_face","page":13,"region":"lower_right","url":"https://dkiapcss.edu/wp-content/uploads/2010/PDFs/currents2009-alumni.pdf","source":"https://dkiapcss.edu/wp-content/uploads/2010/PDFs/currents2009-alumni.pdf","rights":"Copyright / permission not established","credit":"Currents, APCSS Fall 2009 alumni report","terms":["edmond","rasolomahandry"]},
  {"base":"Andre_Ndriarijaona","kind":"direct","url":"https://latribune.cyber-diego.com/images/stories/2012/juin/labuse2012_07.jpg","source":"https://latribune.cyber-diego.com/actualites/677-exercice-de-lutte-contre-la-piraterie-dans-la-baie-de-diego-suarez.html","rights":"Copyright / permission not established","credit":"La Tribune de Diego","terms":["andre","ndriarijaona"]},
@@ -103,38 +103,80 @@ def pdf_face(src):
     if not found: raise RuntimeError("No face found in the requested PDF portrait region")
     buf=io.BytesIO(); cropped.save(buf,format="PNG"); return buf.getvalue()
 def search_image(query, terms):
-    url="https://www.bing.com/images/search?q="+quote_plus(query)
-    page,_=get_bytes(url)
-    soup=BeautifulSoup(page,"html.parser")
     needles=[x.casefold() for x in terms]
     candidates=[]
-    for item in soup.select("a.iusc"):
-        try:
-            meta=json.loads(html.unescape(item.get("m","{}")))
-        except Exception:
-            continue
-        imgurl=meta.get("murl")
-        if not imgurl:
-            continue
-        label=" ".join(str(meta.get(k,"")) for k in ("t","desc","purl")).casefold()
+    def add(url, label, source):
+        if not url:
+            return
+        label=(label+" "+source).casefold()
         score=sum(100 for n in needles if n in label)
-        if "bahajaina" in label: score+=300
-        if "gettyimages" in imgurl.casefold(): score+=5
-        candidates.append((score,imgurl,label))
+        if "bahajaina" in label:
+            score+=300
+        if "andrianome" in label:
+            score+=300
+        if any(bad in label for bad in ("logo","avatar","icon","placeholder")):
+            score-=250
+        candidates.append((score,url,label))
+    try:
+        url="https://www.bing.com/images/search?q="+quote_plus(query)
+        page,_=get_bytes(url)
+        soup=BeautifulSoup(page,"html.parser")
+        for item in soup.select("a.iusc"):
+            try:
+                meta=json.loads(html.unescape(item.get("m","{}")))
+            except Exception:
+                continue
+            add(meta.get("murl")," ".join(str(meta.get(k,"")) for k in ("t","desc","purl")),"bing")
+    except Exception as exc:
+        print("Bing image search error: "+str(exc))
+    try:
+        url="https://www.google.com/search?tbm=isch&q="+quote_plus(query)
+        page,_=get_bytes(url)
+        soup=BeautifulSoup(page,"html.parser")
+        for img in soup.find_all("img"):
+            label=(img.get("alt") or "")
+            u=img.get("src") or img.get("data-src")
+            if u and u.startswith("http") and not u.startswith("data:"):
+                parent=img.parent
+                add(u,label+" "+(parent.get_text(" ",strip=True)[:500] if parent else ""),"google-image")
+        decoded=page.decode("utf-8","ignore").replace("\\u003d","=").replace("\\u0026","&").replace("\\/","/")
+        for u in re.findall(r'https?://[^"\\\s<>]+?\.(?:jpg|jpeg|png|webp)(?:\?[^"\\\s<>]*)?',decoded,re.I):
+            add(u," ".join(needles),"google-json")
+    except Exception as exc:
+        print("Google image search error: "+str(exc))
+    try:
+        url="https://duckduckgo.com/?q="+quote_plus(query)+"&iax=images&ia=images"
+        page,_=get_bytes(url)
+        soup=BeautifulSoup(page,"html.parser")
+        from urllib.parse import urlparse, parse_qs
+        for img in soup.find_all("img"):
+            label=img.get("alt") or ""
+            u=img.get("src") or img.get("data-src")
+            if not u:
+                continue
+            parsed=urlparse(urljoin(url,u))
+            q=parse_qs(parsed.query)
+            original=q.get("u",[None])[0]
+            if original:
+                add(original,label,"duckduckgo")
+    except Exception as exc:
+        print("DuckDuckGo image search error: "+str(exc))
     candidates.sort(key=lambda row:row[0],reverse=True)
-    for score,imgurl,label in candidates[:10]:
-        if score < 100:
+    seen=set()
+    print("Image search candidates for "+query+": "+str(len(candidates)))
+    for score,imgurl,label in candidates:
+        if score < 100 or imgurl in seen:
             continue
+        seen.add(imgurl)
         try:
             data,ctype=get_bytes(imgurl)
             im=Image.open(io.BytesIO(data))
             if im.width>=120 and im.height>=120:
-                print("Image search match: "+label[:160]+" :: "+imgurl)
+                print("Image search match score="+str(score)+" label="+label[:180]+" url="+imgurl)
                 return data
-        except Exception:
-            continue
+        except Exception as exc:
+            print("Image candidate rejected: "+imgurl+" :: "+str(exc)[:160])
     raise RuntimeError("No identifiable image result found for query: "+query)
-
 
 def crop_face(image, region="full"):
     rgb=ImageOps.exif_transpose(image).convert("RGB")
