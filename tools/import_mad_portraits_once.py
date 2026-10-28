@@ -25,7 +25,7 @@ session.headers.update({"User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) 
 SOURCES=[
  {"base":"Andry_Rajoelina","kind":"direct","url":"https://upload.wikimedia.org/wikipedia/commons/0/08/Andry_Rajoelina_%282023%29.jpg","source":"https://commons.wikimedia.org/wiki/File:Andry_Rajoelina_(2023).jpg","rights":"CC BY 4.0","credit":"Rijasolo / European Union","terms":["andry","rajoelina"]},
  {"base":"Marcel_Ranjeva","kind":"direct","url":"https://commons.wikimedia.org/wiki/Special:Redirect/file/Marcel_Ranjeva,_12th_AU_Summit,_090203-N-0506A-616.jpg","source":"https://commons.wikimedia.org/wiki/File:Marcel_Ranjeva,_12th_AU_Summit,_090203-N-0506A-616.jpg","rights":"Public domain, U.S. Navy official-duty photograph","credit":"MC2 Jesse B. Awalt / U.S. Navy","terms":["marcel","ranjeva"]},
- {"base":"Andrianome_Ranivo_Dieudonne","kind":"image_search","query":"General Andrianome Ranivo Dieudonne Madagascar military portrait","source":"https://www.madagate.org/madagascar-informations-politiques/flash-infos/3797-madagascar-general-andrianome-lofficier-superieur-de-la-neutralite-active-est-decede.pdf","rights":"Copyright / permission not established","credit":"Madagate / alternate image source must be verified","terms":["andrianome","dieudonne","ranaivo"]},
+ {"base":"Andrianome_Ranivo_Dieudonne","kind":"pdf_face","page":2,"region":"full","url":"https://www.madagate.org/madagascar-informations-politiques/flash-infos/3797-madagascar-general-andrianome-lofficier-superieur-de-la-neutralite-active-est-decede.pdf","source":"https://www.madagate.org/madagascar-informations-politiques/flash-infos/3797-madagascar-general-andrianome-lofficier-superieur-de-la-neutralite-active-est-decede.pdf","rights":"Copyright / permission not established","credit":"Madagate","terms":["andrianome","dieudonne","ranaivo"]},
  {"base":"Jules_Mamizara","kind":"page","url":"https://www.2424.mg/news/disparition-le-general-jules-mamizara-tire-sa-reverence/","source":"https://www.2424.mg/news/disparition-le-general-jules-mamizara-tire-sa-reverence/","rights":"Copyright / permission not established","credit":"InfoCom Seg / 2424.mg","terms":["jules","mamizara"]},
  {"base":"Sylvain_Razafimandimby","kind":"page","url":"https://www.lexpress.mg/2024/03/deces-le-general-sylvain-razafimandimby.html","source":"https://www.lexpress.mg/2024/03/deces-le-general-sylvain-razafimandimby.html","rights":"Copyright / permission not established","credit":"L’Express de Madagascar","terms":["sylvain","razafimandimby"]},
  {"base":"Raonenantsoamampianina","kind":"page","url":"https://www.madagascar-tribune.com/Deux-autres-ministres,11146.html","fallback":"https://www.2424.mg/news/60-ans-de-larmee-malgache-une-stele-pour-rendre-hommage-aux-anciens-chefs-detat-major-general-de-larmee-malagasy/","source":"https://www.madagascar-tribune.com/Deux-autres-ministres,11146.html","rights":"Copyright / permission not established","credit":"Madagascar-Tribune.com","terms":["raonenantsoamampianina","raonenantsomampianina","cemgam"]},
@@ -93,14 +93,62 @@ def page_image(url, terms):
     raise RuntimeError("No usable image found on " + url)
 
 def pdf_face(src):
-    data,_=get_bytes(src["url"])
+    data=None
+    problems=[]
+    urls=[src["url"]]+src.get("fallback_urls",[])
+    for u in urls:
+        try:
+            data,_=get_bytes(u)
+            if data.startswith(b"%PDF"):
+                src["used_source_url"]=u
+                break
+            data=None
+        except Exception as exc:
+            problems.append(u+": "+str(exc)[:120])
+    if data is None:
+        # The article PDF is no longer served at its original URL; query the Wayback index for a saved copy.
+        original=src["url"]
+        cdx="https://web.archive.org/cdx/search/cdx?url="+quote_plus(original)+"&output=json&filter=statuscode:200&filter=mimetype:application/pdf&fl=timestamp,original&collapse=digest"
+        try:
+            raw,_=get_bytes(cdx)
+            rows=json.loads(raw.decode("utf-8","ignore"))
+            if len(rows)>1:
+                for timestamp, archived_url in reversed(rows[1:]):
+                    archived="https://web.archive.org/web/"+timestamp+"id_/"+archived_url
+                    try:
+                        candidate,_=get_bytes(archived)
+                        if candidate.startswith(b"%PDF"):
+                            data=candidate
+                            src["used_source_url"]=archived
+                            break
+                    except Exception as exc:
+                        problems.append(archived+": "+str(exc)[:100])
+        except Exception as exc:
+            problems.append("Wayback CDX: "+str(exc)[:180])
+    if data is None:
+        raise RuntimeError("PDF source and archived copies unavailable. "+ " | ".join(problems[-3:]))
     pdf=Path("/tmp")/(src["base"]+".pdf")
     pdf.write_bytes(data)
     prefix=Path("/tmp")/(src["base"]+"_page")
     subprocess.run(["pdftoppm","-f",str(src["page"]),"-l",str(src["page"]),"-r","600","-png","-singlefile",str(pdf),str(prefix)],check=True)
     page=Image.open(str(prefix)+".png").convert("RGB")
     cropped,found=crop_face(page,src.get("region","full"))
-    if not found: raise RuntimeError("No face found in the requested PDF portrait region")
+    if not found:
+        # A profile page can have a small face; retry with the full page and a lower detection threshold.
+        rgb=ImageOps.exif_transpose(page).convert("RGB")
+        arr=cv2.cvtColor(np.array(rgb),cv2.COLOR_RGB2BGR)
+        gray=cv2.cvtColor(arr,cv2.COLOR_BGR2GRAY)
+        cascade=cv2.CascadeClassifier(cv2.data.haarcascades+"haarcascade_frontalface_default.xml")
+        faces=cascade.detectMultiScale(gray,scaleFactor=1.02,minNeighbors=1,minSize=(8,8))
+        if len(faces):
+            fx,fy,fw,fh=max(faces,key=lambda f:int(f[2])*int(f[3]))
+            crop_h=max(int(fh*3.2),120); crop_w=max(int(crop_h*156/210),90)
+            cx=fx+fw//2; cy=fy+int(fh*1.1)
+            left=max(0,min(cx-crop_w//2,rgb.width-crop_w)); top=max(0,min(cy-int(fh*1.7),rgb.height-crop_h))
+            cropped=rgb.crop((left,top,min(rgb.width,left+crop_w),min(rgb.height,top+crop_h)))
+            found=True
+    if not found:
+        raise RuntimeError("No face found in the obituary PDF portrait region")
     buf=io.BytesIO(); cropped.save(buf,format="PNG"); return buf.getvalue()
 def search_image(query, terms, src=None):
     needles=[x.casefold() for x in terms]
