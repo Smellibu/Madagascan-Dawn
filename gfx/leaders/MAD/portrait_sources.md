@@ -8,12 +8,12 @@ Copyright notes are not licences. Non-CC photographs require permission before p
 | Remenabila | [Rakrist08 / Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Remenabila_01.jpg) | CC BY-SA 3.0 |
 | Dr_Ndriana_Rabarioelina | [Kingdom of Madagascar blog](https://kingdom-of-madagascar.blogspot.com/2019/) | Copyright / permission not established |
 | Herizo_Razafimahaleo | [Eliana Saxton / U.S. Department of State](https://commons.wikimedia.org/wiki/File:Herizo_Razafimahaleo_(Profile).jpg) | Public domain, U.S. government work |
-| Richard_Andriamanjato | [CIA National Intelligence Survey / National Assembly](https://www.the-sun.com/entertainment/6076518/richard-simmons-last-photos-blankets-hospital-stay/) | Copyright / reuse rights not independently verified |
+| Richard_Andriamanjato | [Madagascar Tribune](https://www.madagascar-tribune.com/Un-elu-de-Dieu-pas-comme-les,6141.html) | Copyright / reuse rights not independently verified |
 | Marc_Ravalomanana | [Mogens Engelund / Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Marc_Ravalomanana.jpg) | CC BY-SA 3.0 |
-| Andry_Rajoelina | No verified portrait candidate passed face/source checks | Not imported; no new portrait reference was added |
+| Andry_Rajoelina | [Rijasolo / European Commission](https://commons.wikimedia.org/wiki/File:Andry_Rajoelina_(2023).jpg) | CC BY 4.0 |
 | Marcel_Ranjeva | [MC2 Jesse B. Awalt / U.S. Navy](https://commons.wikimedia.org/wiki/File:Marcel_Ranjeva,_12th_AU_Summit,_090203-N-0506A-616.jpg) | Public domain, U.S. Navy official-duty photograph |
 | Andrianome_Ranivo_Dieudonne | No verified portrait candidate passed face/source checks | Not imported; no new portrait reference was added |
-| Jules_Mamizara | No verified portrait candidate passed face/source checks | Not imported; no new portrait reference was added |
+| Jules_Mamizara | [2424.mg / InfoCom Seg](https://www.2424.mg/news/disparition-le-general-jules-mamizara-tire-sa-reverence/) | Copyright / permission not established |
 | Sylvain_Razafimandimby | [L’Express de Madagascar](https://www.lexpress.mg/2024/03/deces-le-general-sylvain-razafimandimby.html) | Copyright / permission not established |
 | Raonenantsoamampianina | [MadOnline / image-search candidate](https://www.madonline.com/nouvelles-nominations-au-sommet-de-larmee/) | Copyright / permission not established |
 | Petera_Behajaina | [RFI / Olivier Péguy / image-search candidate](https://www1.rfi.fr/actufr/articles/059/article_31466.asp) | Copyright / permission not established; RFI/AFP images may require permission |
