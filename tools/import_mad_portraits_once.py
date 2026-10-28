@@ -7,7 +7,7 @@ It does not imply that copyrighted photographs are licensed for public redistrib
 from __future__ import annotations
 import io, re, sys, subprocess, json, html
 from pathlib import Path
-from urllib.parse import urljoin, quote_plus
+from urllib.parse import urljoin, quote_plus, urlparse, parse_qs
 import cv2, numpy as np, requests
 from bs4 import BeautifulSoup
 from PIL import Image, ImageOps
@@ -102,7 +102,7 @@ def pdf_face(src):
     cropped,found=crop_face(page,src.get("region","full"))
     if not found: raise RuntimeError("No face found in the requested PDF portrait region")
     buf=io.BytesIO(); cropped.save(buf,format="PNG"); return buf.getvalue()
-def search_image(query, terms):
+def search_image(query, terms, src=None):
     needles=[x.casefold() for x in terms]
     candidates=[]
     def add(url, label, source):
@@ -110,59 +110,116 @@ def search_image(query, terms):
             return
         label=(label+" "+source).casefold()
         score=sum(100 for n in needles if n in label)
-        if "bahajaina" in label:
-            score+=300
-        if "andrianome" in label:
-            score+=300
         if any(bad in label for bad in ("logo","avatar","icon","placeholder")):
             score-=250
         candidates.append((score,url,label))
-    try:
-        url="https://www.bing.com/images/search?q="+quote_plus(query)
-        page,_=get_bytes(url)
-        soup=BeautifulSoup(page,"html.parser")
-        for item in soup.select("a.iusc"):
+    def article_image_search(q):
+        # Find article pages mentioning the exact officer and use their lead portrait if present.
+        variants=[
+            ("https://www.google.com/search?q="+quote_plus(q),"google"),
+            ("https://www.bing.com/search?q="+quote_plus(q),"bing"),
+            ("https://html.duckduckgo.com/html/?q="+quote_plus(q),"duckduckgo"),
+        ]
+        seen_pages=set()
+        for search_url,engine in variants:
             try:
-                meta=json.loads(html.unescape(item.get("m","{}")))
-            except Exception:
-                continue
-            add(meta.get("murl")," ".join(str(meta.get(k,"")) for k in ("t","desc","purl")),"bing")
-    except Exception as exc:
-        print("Bing image search error: "+str(exc))
-    try:
-        url="https://www.google.com/search?tbm=isch&q="+quote_plus(query)
-        page,_=get_bytes(url)
-        soup=BeautifulSoup(page,"html.parser")
-        for img in soup.find_all("img"):
-            label=(img.get("alt") or "")
-            u=img.get("src") or img.get("data-src")
-            if u and u.startswith("http") and not u.startswith("data:"):
-                parent=img.parent
-                add(u,label+" "+(parent.get_text(" ",strip=True)[:500] if parent else ""),"google-image")
-        decoded=page.decode("utf-8","ignore").replace("\\u003d","=").replace("\\u0026","&").replace("\\/","/")
-        pat=r'https?://[^"\\\s<>]+?\.(?:jpg|jpeg|png|webp)(?:\?[^"\\\s<>]*)?'
-        for match in re.finditer(pat,decoded,re.I):
-            context=decoded[max(0,match.start()-600):min(len(decoded),match.end()+300)]
-            add(match.group(0),context,"google-json")
-    except Exception as exc:
-        print("Google image search error: "+str(exc))
-    try:
-        url="https://duckduckgo.com/?q="+quote_plus(query)+"&iax=images&ia=images"
-        page,_=get_bytes(url)
-        soup=BeautifulSoup(page,"html.parser")
-        from urllib.parse import urlparse, parse_qs
-        for img in soup.find_all("img"):
-            label=img.get("alt") or ""
-            u=img.get("src") or img.get("data-src")
-            if not u:
-                continue
-            parsed=urlparse(urljoin(url,u))
-            q=parse_qs(parsed.query)
-            original=q.get("u",[None])[0]
-            if original:
-                add(original,label,"duckduckgo")
-    except Exception as exc:
-        print("DuckDuckGo image search error: "+str(exc))
+                page,_=get_bytes(search_url)
+                soup=BeautifulSoup(page,"html.parser")
+                anchors=[]
+                if engine=="bing":
+                    anchors=soup.select("li.b_algo h2 a")
+                elif engine=="duckduckgo":
+                    anchors=soup.select("a.result__a")
+                else:
+                    anchors=soup.find_all("a",href=True)
+                for a in anchors:
+                    href=a.get("href","")
+                    title=a.get_text(" ",strip=True)
+                    if engine=="google":
+                        parsed=urlparse(href)
+                        if parsed.path=="/url":
+                            href=parse_qs(parsed.query).get("q",[""])[0]
+                        elif href.startswith("/url?"):
+                            href=parse_qs(urlparse(href).query).get("q",[""])[0]
+                    if not href.startswith("http"):
+                        continue
+                    host=urlparse(href).netloc.casefold()
+                    if any(x in host for x in ("google.","bing.com","duckduckgo.com","microsoft.com")):
+                        continue
+                    ctx=a.parent.get_text(" ",strip=True) if a.parent else title
+                    if a.parent and a.parent.parent:
+                        ctx+=" "+a.parent.parent.get_text(" ",strip=True)[:500]
+                    label=(title+" "+ctx+" "+href).casefold()
+                    if not any(term in label for term in needles):
+                        continue
+                    if href in seen_pages:
+                        continue
+                    seen_pages.add(href)
+                    print("Officer article candidate ("+engine+"): "+title[:150]+" :: "+href)
+                    try:
+                        data=page_image(href,terms)
+                        if src is not None:
+                            src["source"]=href
+                            src["credit"]=urlparse(href).netloc
+                        return data
+                    except Exception as exc:
+                        print("Article image candidate rejected: "+href+" :: "+str(exc)[:180])
+            except Exception as exc:
+                print(engine+" web search error: "+str(exc)[:180])
+        return None
+    # Broad, language-aware query variants, because Malagasy military sources often use French titles.
+    queries=[
+        query,
+        '"General Andrianome Ranivo Dieudonne" Madagascar photo',
+        '"Général Andrianome" Madagascar portrait',
+        '"Andrianome" "neutralité active" Madagascar',
+        '"Andrianome" "Académie militaire" Antsirabe',
+    ] if "andrianome" in query.casefold() else [query]
+    for q in queries:
+        try:
+            url="https://www.bing.com/images/search?q="+quote_plus(q)
+            page,_=get_bytes(url)
+            soup=BeautifulSoup(page,"html.parser")
+            for item in soup.select("a.iusc"):
+                try:
+                    meta=json.loads(html.unescape(item.get("m","{}")))
+                except Exception:
+                    continue
+                add(meta.get("murl")," ".join(str(meta.get(k,"")) for k in ("t","desc","purl")),"bing")
+        except Exception as exc:
+            print("Bing image search error: "+str(exc)[:160])
+        try:
+            url="https://www.google.com/search?tbm=isch&q="+quote_plus(q)
+            page,_=get_bytes(url)
+            soup=BeautifulSoup(page,"html.parser")
+            for img in soup.find_all("img"):
+                label=(img.get("alt") or "")
+                u=img.get("src") or img.get("data-src")
+                if u and u.startswith("http") and not u.startswith("data:"):
+                    parent=img.parent
+                    add(u,label+" "+(parent.get_text(" ",strip=True)[:500] if parent else ""),"google-image")
+            decoded=page.decode("utf-8","ignore").replace("\\u003d","=").replace("\\u0026","&").replace("\\/","/")
+            pat=r'https?://[^"\\\s<>]+?\.(?:jpg|jpeg|png|webp)(?:\?[^"\\\s<>]*)?'
+            for match in re.finditer(pat,decoded,re.I):
+                context=decoded[max(0,match.start()-600):min(len(decoded),match.end()+300)]
+                add(match.group(0),context,"google-json")
+        except Exception as exc:
+            print("Google image search error: "+str(exc)[:160])
+        try:
+            url="https://duckduckgo.com/?q="+quote_plus(q)+"&iax=images&ia=images"
+            page,_=get_bytes(url)
+            soup=BeautifulSoup(page,"html.parser")
+            for img in soup.find_all("img"):
+                label=img.get("alt") or ""
+                u=img.get("src") or img.get("data-src")
+                if not u:
+                    continue
+                parsed=urlparse(urljoin(url,u))
+                original=parse_qs(parsed.query).get("u",[None])[0]
+                if original:
+                    add(original,label,"duckduckgo")
+        except Exception as exc:
+            print("DuckDuckGo image search error: "+str(exc)[:160])
     candidates.sort(key=lambda row:row[0],reverse=True)
     seen=set()
     print("Image search candidates for "+query+": "+str(len(candidates)))
@@ -175,9 +232,16 @@ def search_image(query, terms):
             im=Image.open(io.BytesIO(data))
             if im.width>=120 and im.height>=120:
                 print("Image search match score="+str(score)+" label="+label[:180]+" url="+imgurl)
+                if src is not None:
+                    src["source"]=imgurl
+                    src["credit"]=urlparse(imgurl).netloc
                 return data
         except Exception as exc:
             print("Image candidate rejected: "+imgurl+" :: "+str(exc)[:160])
+    if "andrianome" in query.casefold():
+        page_data=article_image_search('"Andrianome" Madagascar général photo 1968 1971')
+        if page_data is not None:
+            return page_data
     raise RuntimeError("No identifiable image result found for query: "+query)
 
 def crop_face(image, region="full"):
@@ -269,7 +333,7 @@ def main():
                     if not src.get("fallback"): raise
                     data=page_image(src["fallback"],src.get("terms",[])); src["used_fallback"]=True
             elif src["kind"]=="pdf_face": data=pdf_face(src)
-            elif src["kind"]=="image_search": data=search_image(src["query"],src.get("terms",[]))
+            elif src["kind"]=="image_search": data=search_image(src["query"],src.get("terms",[]),src)
             else: raise RuntimeError("Unknown source kind")
             im=Image.open(io.BytesIO(data))
             if im.width<80 or im.height<80: raise RuntimeError("source image too small")
