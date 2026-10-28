@@ -18,7 +18,15 @@ jobs:
         uses: actions/checkout@v4
         with:
           ref: codex/dahalo-campaign-chain-review-2026-10-25
-          fetch-depth: 0
+          fetch-depth: 1
+          filter: blob:none
+          sparse-checkout: |
+            .github/workflows/import_mad_portraits_once.yml
+            tools/import_mad_portraits_once.py
+            common/characters/MAD.txt
+            events/MAD_events.txt
+            gfx/leaders/MAD
+          sparse-checkout-cone-mode: true
       - name: Install image tools
         run: |
           sudo apt-get update
