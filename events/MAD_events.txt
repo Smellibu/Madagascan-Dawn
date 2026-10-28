@@ -5167,3 +5167,71 @@ country_event = {
 		set_country_flag = MAD_SECREN_FRENCH_INVESTMENT_DECLINED
 	}
 }
+
+
+# ---------------------------------------------------------------------------
+# Madagascar franchise film releases
+# Scheduled from MAD's 1 January 2000 country history using exact fixed delays.
+# This is intentionally not polled daily; the delays land on original US release dates.
+# ---------------------------------------------------------------------------
+add_namespace = mad_movie
+
+country_event = {
+	id = mad_movie.1
+	title = mad_movie.1.t
+	desc = mad_movie.1.d
+	picture = GFX_report_event_generic_political
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = mad_movie.1.a
+		add_timed_idea = { idea = MAD_MADAGASCAR_1_RELEASED days = 365 }
+		log = "[GetDateText]: [This.GetName]: Madagascar 1 released — timed movie idea applied"
+	}
+}
+
+country_event = {
+	id = mad_movie.2
+	title = mad_movie.2.t
+	desc = mad_movie.2.d
+	picture = GFX_report_event_generic_political
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = mad_movie.2.a
+		add_timed_idea = { idea = MAD_MADAGASCAR_2_RELEASED days = 365 }
+		log = "[GetDateText]: [This.GetName]: Madagascar 2 released — timed movie idea applied"
+	}
+}
+
+country_event = {
+	id = mad_movie.3
+	title = mad_movie.3.t
+	desc = mad_movie.3.d
+	picture = GFX_report_event_generic_political
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = mad_movie.3.a
+		add_timed_idea = { idea = MAD_MADAGASCAR_3_RELEASED days = 365 }
+		log = "[GetDateText]: [This.GetName]: Madagascar 3 released — timed movie idea applied"
+	}
+}
+
+country_event = {
+	id = mad_movie.4
+	title = mad_movie.4.t
+	desc = mad_movie.4.d
+	picture = GFX_report_event_generic_political
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = mad_movie.4.a
+		add_timed_idea = { idea = MAD_MADAGASCAR_4_RELEASED days = 365 }
+		log = "[GetDateText]: [This.GetName]: Penguins of Madagascar released — timed movie idea applied"
+	}
+}
