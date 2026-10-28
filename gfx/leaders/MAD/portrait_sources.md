@@ -10,6 +10,7 @@ Copyright notes are not licences. Non-CC photographs require permission before p
 | Jules_Mamizara | [InfoCom Seg / 2424.mg](https://www.2424.mg/news/disparition-le-general-jules-mamizara-tire-sa-reverence/) | Copyright / permission not established |
 | Sylvain_Razafimandimby | [L’Express de Madagascar](https://www.lexpress.mg/2024/03/deces-le-general-sylvain-razafimandimby.html) | Copyright / permission not established |
 | Raonenantsoamampianina | [Madagascar-Tribune.com](https://www.madagascar-tribune.com/Deux-autres-ministres,11146.html) | Copyright / permission not established |
+| Petera_Behajaina | [Olivier Péguy / RFI](https://www1.rfi.fr/actufr/articles/059/article_31466.asp) | AFP/RFI copyright; permission required for redistribution |
 | Noel_Girardin_Rakotonandrasana | [AFP via RFI](https://www1.rfi.fr/actuen/articles/112/article_3609.asp) | AFP/RFI copyright; permission required for redistribution |
 | Edmond_Rasolomahandry | [Currents, APCSS Fall 2009 alumni report](https://dkiapcss.edu/wp-content/uploads/2010/PDFs/currents2009-alumni.pdf) | Copyright / permission not established |
 | Andre_Ndriarijaona | [La Tribune de Diego](https://latribune.cyber-diego.com/actualites/677-exercice-de-lutte-contre-la-piraterie-dans-la-baie-de-diego-suarez.html) | Copyright / permission not established |
@@ -20,5 +21,4 @@ Copyright notes are not licences. Non-CC photographs require permission before p
 
 ## Failed imports requiring another source
 
-- Andrianome_Ranivo_Dieudonne: 404 Client Error: Not Found for url: https://www.madagate.org/404.html
-- Petera_Behajaina: No identifiable image result found for query: General Peter Bahajaina Madagascar June 2002
+- Andrianome_Ranivo_Dieudonne: No identifiable image result found for query: General Andrianome Ranivo Dieudonne Madagascar military portrait
