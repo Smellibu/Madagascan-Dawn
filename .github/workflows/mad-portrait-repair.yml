@@ -18,6 +18,12 @@ jobs:
         with:
           ref: codex/dahalo-campaign-chain-review-2026-10-25
           persist-credentials: true
+          sparse-checkout: |
+            .github/workflows
+            common/characters
+            events
+            gfx/leaders/MAD
+          sparse-checkout-cone-mode: true
       - name: Install portrait-processing dependencies
         run: |
           sudo apt-get update
