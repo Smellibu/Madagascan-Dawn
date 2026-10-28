@@ -60,14 +60,14 @@ jobs:
           TARGETS = [
             {
               "base":"Andrianome_Ranivo_Dieudonne", "char":"MAD_andrianome_dieudonne", "role":"army",
-              "urls":["https://anoca.fr/sites/default/files/Bulletin%20n%C2%B02%202014.pdf","https://www.madagate.org/madagascar-informations-politiques/flash-infos/3797-madagascar-general-andrianome-lofficier-superieur-de-la-neutralite-active-est-decede.pdf","https://madagate.org/editorial/30-malagasy-people/3264-madagascar-richard-andriamanjato-decede-a-paris-a-lage-de-83-ans.pdf"],
+              "urls":["https://anoca.fr/sites/default/files/Bulletin%20n%C2%B02%202014.pdf","https://www.madagate.org/madagascar-informations-politiques/flash-infos/3797-madagascar-general-andrianome-lofficier-superieur-de-la-neutralite-active-est-decede.pdf"],
               "queries":['"Angelbert Dieudonné Andrianome Ranaivo" photo','"Général Andrianome" Madagascar portrait photo','"Andrianome Ranivo Dieudonné" photo général'],
               "terms":["andrianome","angelbert","dieudonne","ranaivo"],
               "credit":"Madagate / image-search candidate", "rights":"Copyright / permission not established"
             },
             {
               "base":"Jules_Mamizara", "char":"MAD_jules_mamizara", "role":"army",
-              "urls":["https://www.lexpress.mg/17/07/2020/deces-du-general-mamizara-un-trois-etoiles-seteint/","https://www.2424.mg/news/disparition-le-general-jules-mamizara-tire-sa-reverence/","https://www1.rfi.fr/actufr/articles/027/article_13290.asp"],
+              "urls":["https://www.lexpress.mg/2020/07/deces-du-general-mamizara-un-trois-etoiles-seteint.html","https://www.2424.mg/news/disparition-le-general-jules-mamizara-tire-sa-reverence/","https://www1.rfi.fr/actufr/articles/027/article_13290.asp"],
               "queries":['"Jules Mamizara" général photo Madagascar','"général de division Jules Mamizara" portrait'],
               "terms":["jules","mamizara"], "credit":"L’Express de Madagascar / image-search candidate",
               "rights":"Copyright / permission not established"
@@ -82,6 +82,7 @@ jobs:
             {
               "base":"Petera_Behajaina", "char":"MAD_petera_behajaina", "role":"army",
               "urls":["https://www1.rfi.fr/actufr/articles/059/article_31466.asp"],
+              "source_page":"https://www1.rfi.fr/actufr/articles/059/article_31466.asp",
               "queries":['"General Peter Bahajaina" Madagascar photo 2002','"Général Petera Behajaina" photo lunettes'],
               "terms":["petera","behajaina","bahajaina"], "credit":"RFI / Olivier Péguy / image-search candidate",
               "rights":"Copyright / permission not established; RFI/AFP images may require permission",
@@ -104,7 +105,7 @@ jobs:
             },
             {
               "base":"Charles_Andrianasoavina", "char":"MAD_charles_andrianasoavina", "role":"army",
-              "urls":["https://i0.wp.com/www.agencemalagasydepresse.com/media/2023/10/colonel-charles-andrianasoavina.jpg?fit=1024%2C735&ssl=1"],
+              "urls":["https://www.agencemalagasydepresse.com/media/2023/10/colonel-charles-andrianasoavina.jpg"],
               "source_page":"https://www.agencemalagasydepresse.com/politique/raharaham-pirenena-fanambanny-colonel-charles-andrianasoavina/",
               "queries":['"Colonel Charles Andrianasoavina" portrait photo','"Charles Andrianasoavina" Madagascar Tribune photo'],
               "terms":["charles","andrianasoavina"], "credit":"Agence Malagasy de Presse",
@@ -159,15 +160,22 @@ jobs:
             },
             {
               "base":"Remenabila", "char":"MAD_dahalo_leader", "role":"political",
-              "urls":[],
+              "urls":["https://commons.wikimedia.org/wiki/Special:Redirect/file/Remenabila_01.jpg"],
+              "source_page":"https://commons.wikimedia.org/wiki/File:Remenabila_01.jpg",
               "queries":['"Remenabila" Madagascar dahalo leader photo','"Remenabila" chef dahalo portrait Madagascar'],
-              "terms":["remenabila","dahalo"], "credit":"Malagasy press / image-search candidate",
-              "rights":"Copyright / permission not established", "allow_center_crop":True
+              "terms":["remenabila","dahalo"], "credit":"Rakrist08 / Wikimedia Commons",
+              "rights":"CC BY-SA 3.0", "allow_center_crop":True
             },
           ]
 
           def get(url):
-            r = session.get(url, timeout=30, allow_redirects=True)
+            try:
+              r = session.get(url, timeout=30, allow_redirects=True)
+            except requests.exceptions.SSLError as exc:
+              # A few older Malagasy news archives have expired/misconfigured TLS chains.
+              # Retry only those public image/archive requests with certificate validation disabled.
+              print("TLS verification failed; retrying legacy source:", url, str(exc)[:100])
+              r = session.get(url, timeout=30, allow_redirects=True, verify=False)
             r.raise_for_status()
             return r.content, r.headers.get("content-type","").lower(), r.url
 
@@ -218,6 +226,9 @@ jobs:
               if typ.startswith("image/") or data[:4] in (b"\xff\xd8\xff\xe0",b"\xff\xd8\xff\xdb",b"\x89PNG",b"RIFF"):
                 im=image_bytes(data)
                 if im: out.append((url, url, im, 150))
+                return out
+              if url.lower().endswith(".pdf") and not (data.startswith(b"%PDF") or "application/pdf" in typ):
+                print("PDF source redirected to a non-PDF page; skipping:", url, "->", landed)
                 return out
               if data.startswith(b"%PDF") or "application/pdf" in typ or url.lower().endswith(".pdf"):
                 doc=fitz.open(stream=data,filetype="pdf")
@@ -464,6 +475,8 @@ jobs:
             portrait=base+".dds"
             leaders=remove_picture_from_named_leaders(leaders,POLITICAL_NAMES[base],portrait)
             events=remove_picture_from_named_leaders(events,POLITICAL_NAMES[base],portrait)
+            (MAIN/(base+".dds")).unlink(missing_ok=True)
+            (SMALL/(base+"_small.dds")).unlink(missing_ok=True)
           def add_picture_to_named_leaders(doc, names, picture):
             lines=doc.splitlines(True); out=[]; active=False; depth=0; block=[]
             def flush(b):
