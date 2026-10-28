@@ -2863,6 +2863,11 @@ country_event = {
 					emerging_anarchist_communism
 				}
 			}
+			# Keep Ranjeva active under the original MAD tag, which is Ratsiraka's side after the split.
+			if = {
+				limit = { NOT = { has_character = MAD_marcel_ranjeva } }
+				recruit_character = MAD_marcel_ranjeva
+			}
 		}
 	}
 
