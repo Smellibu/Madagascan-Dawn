@@ -7,7 +7,7 @@ Copyright notes are not licences. Non-CC photographs require permission before p
 |---|---|---|
 | Andry_Rajoelina | [Rijasolo / European Union](https://commons.wikimedia.org/wiki/File:Andry_Rajoelina_(2023).jpg) | CC BY 4.0 |
 | Marcel_Ranjeva | [MC2 Jesse B. Awalt / U.S. Navy](https://commons.wikimedia.org/wiki/File:Marcel_Ranjeva,_12th_AU_Summit,_090203-N-0506A-616.jpg) | Public domain, U.S. Navy official-duty photograph |
-| Andrianome_Ranivo_Dieudonne | [Madagate](https://www.madagate.org/madagascar-informations-politiques/flash-infos/3797-madagascar-general-andrianome-lofficier-superieur-de-la-neutralite-active-est-decede.pdf) | Copyright / permission not established |
+| Andrianome_Ranivo_Dieudonne | [Madagate obituary PDF (archived copy retrieved via Internet Archive)](https://web.archive.org/web/*/https://www.madagate.org/madagascar-informations-politiques/flash-infos/3797-madagascar-general-andrianome-lofficier-superieur-de-la-neutralite-active-est-decede.pdf) | Copyright / permission not established |
 | Jules_Mamizara | [InfoCom Seg / 2424.mg](https://www.2424.mg/news/disparition-le-general-jules-mamizara-tire-sa-reverence/) | Copyright / permission not established |
 | Sylvain_Razafimandimby | [L’Express de Madagascar](https://www.lexpress.mg/2024/03/deces-le-general-sylvain-razafimandimby.html) | Copyright / permission not established |
 | Raonenantsoamampianina | [Madagascar-Tribune.com](https://www.madagascar-tribune.com/Deux-autres-ministres,11146.html) | Copyright / permission not established |
