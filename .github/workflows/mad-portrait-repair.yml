@@ -1,4 +1,4 @@
-name: Repair Madagascar leader portraits
+name: Repair Madagascar leader portraits — Group 1
 
 on:
   push:
@@ -59,118 +59,32 @@ jobs:
 
           TARGETS = [
             {
-              "base":"Andrianome_Ranivo_Dieudonne", "char":"MAD_andrianome_dieudonne", "role":"army",
-              "urls":["https://web.archive.org/web/20190101000000id_/https://www.madagate.org/madagascar-informations-politiques/flash-infos/3797-madagascar-general-andrianome-lofficier-superieur-de-la-neutralite-active-est-decede.pdf","https://web.archive.org/web/20200101000000id_/https://www.madagate.org/madagascar-informations-politiques/flash-infos/3797-madagascar-general-andrianome-lofficier-superieur-de-la-neutralite-active-est-decede.pdf","https://anoca.fr/sites/default/files/Bulletin%20n%C2%B02%202014.pdf","https://www.madagate.org/madagascar-informations-politiques/flash-infos/3797-madagascar-general-andrianome-lofficier-superieur-de-la-neutralite-active-est-decede.pdf"],
-              "queries":['"Angelbert Dieudonné Andrianome Ranaivo" portrait photo','"Général Andrianome" Madagascar portrait photo','"Andrianome Ranivo Dieudonné" photo général','"Général Andrianome Ranaivo" chef état major photo'],
-              "terms":["andrianome","angelbert","dieudonne","ranaivo"],
-              "credit":"Madagate / image-search candidate", "rights":"Copyright / permission not established"
-            },
-            {
-              "base":"Jules_Mamizara", "char":"MAD_jules_mamizara", "role":"army",
-              "urls":["https://www.2424.mg/news/disparition-le-general-jules-mamizara-tire-sa-reverence/","https://web.archive.org/web/20200801000000id_/https://www1.rfi.fr/actufr/articles/027/article_13290.asp","https://www1.rfi.fr/actufr/articles/027/article_13290.asp","https://www1.rfi.fr/actufr/images/027/mamizara.jpg","https://www1.rfi.fr/actufr/images/027/jules_mamizara.jpg","https://www1.rfi.fr/actufr/images/027/madagascar_jules_mamizara.jpg"],
-              "source_page":"https://www.2424.mg/news/disparition-le-general-jules-mamizara-tire-sa-reverence/",
-              "queries":['"Jules Mamizara" général photo Madagascar','"général de division Jules Mamizara" portrait','"Mamizara" général Madagascar 2020 photo','"Jules Mamizara" armée malgache image'],
-              "commons_queries":["Jules Mamizara","General Jules Mamizara","Mamizara Madagascar general"],
-              "trusted_domains":["2424.mg","rfi.fr","lexpress.mg","wikimedia.org"],
-              "terms":["jules","mamizara"], "credit":"2424.mg / InfoCom Seg",
-              "rights":"Copyright / permission not established", "allow_center_crop":True
-            },
-            {
-              "base":"Raonenantsoamampianina", "char":"MAD_raonenantsoamampianina", "role":"army",
-              "urls":["https://www.madonline.com/nouvelles-nominations-au-sommet-de-larmee/","https://www.2424.mg/news/60-ans-de-larmee-malgache-une-stele-pour-rendre-hommage-aux-anciens-chefs-detat-major-general-de-larmee-malagasy/"],
-              "queries":['"Raonenantsoamampianina" photo général','"Raonenantsomampianina" chef état-major photo Madagascar','"CEMGAM" "Raonenantsoamampianina" portrait'],
-              "terms":["raonenantsoamampianina","raonenantsomampianina","cemgam"], "credit":"MadOnline / image-search candidate",
-              "rights":"Copyright / permission not established"
-            },
-            {
-              "base":"Petera_Behajaina", "char":"MAD_petera_behajaina", "role":"army",
-              "urls":["https://www1.rfi.fr/actufr/articles/059/article_31466.asp"],
-              "source_page":"https://www1.rfi.fr/actufr/articles/059/article_31466.asp",
-              "queries":['"General Peter Bahajaina" Madagascar photo 2002','"Général Petera Behajaina" photo lunettes'],
-              "terms":["petera","behajaina","bahajaina"], "credit":"RFI / Olivier Péguy / image-search candidate",
-              "rights":"Copyright / permission not established; RFI/AFP images may require permission",
-              "prefer_glasses":True
+              "base":"Charles_Andrianasoavina", "char":"MAD_charles_andrianasoavina", "role":"army",
+              "urls":["https://i0.wp.com/www.agencemalagasydepresse.com/media/2023/10/colonel-charles-andrianasoavina.jpg?fit=1024%2C735&ssl=1"],
+              "source_page":"https://www.agencemalagasydepresse.com/politique/raharaham-pirenena-fanambanny-colonel-charles-andrianasoavina/",
+              "terms":["charles","andrianasoavina"],
+              "credit":"Agence Malagasy de Presse",
+              "rights":"Copyright / permission not established",
+              "allow_center_crop":True
             },
             {
               "base":"Noel_Girardin_Rakotonandrasana", "char":"MAD_noel_rakotonandrasana", "role":"army",
               "urls":["https://images.ladepeche.fr/api/v1/images/view/5c1cf7e28fe56f701700bc28/large/image.jpg"],
               "source_page":"https://www.ladepeche.fr/article/2010/11/17/950064-madagascar-appel-a-la-mutinerie-le-jour-du-referendum-constitutionnel.html",
-              "queries":['"Noël Rakotonandrasana" général photo','"Noel Girardin Rakotonandrasana" 2009 portrait'],
-              "terms":["noel","rakotonandrasana"], "credit":"La Dépêche / AFP",
-              "rights":"Copyright / permission not established"
+              "terms":["noel","rakotonandrasana"],
+              "credit":"Grégoire Pourtier / AFP / La Dépêche",
+              "rights":"AFP / La Dépêche copyright; permission not established",
+              "allow_center_crop":True
             },
             {
-              "base":"Edmond_Rasolomahandry", "char":"MAD_edmond_rasolomahandry", "role":"army",
-              "urls":["https://dkiapcss.edu/wp-content/uploads/2010/PDFs/currents2009-alumni.pdf"],
-              "queries":['"Brigadier General Rasolomahandry Edmond" photo','"Edmond Rasolomahandry" portrait Madagascar'],
-              "terms":["rasolomahandry","edmond"], "credit":"Asia-Pacific Center for Security Studies / image-search candidate",
-              "rights":"Copyright / permission not established"
-            },
-            {
-              "base":"Charles_Andrianasoavina", "char":"MAD_charles_andrianasoavina", "role":"army",
-              "urls":["https://www.agencemalagasydepresse.com/media/2023/10/colonel-charles-andrianasoavina.jpg","https://www.agencemalagasydepresse.com/politique/raharaham-pirenena-fanambanny-colonel-charles-andrianasoavina/","https://www.madagascar-tribune.com/Charles-Andrianasoavina-est-rentre%2C20699.html"],
-              "source_page":"https://www.agencemalagasydepresse.com/politique/raharaham-pirenena-fanambanny-colonel-charles-andrianasoavina/",
-              "queries":['"Colonel Charles Andrianasoavina" portrait photo','"Charles Andrianasoavina est rentré" photo','"Charles Andrianasoavina" colonel Madagascar 2010 photo'],
-              "commons_queries":["Charles Andrianasoavina","Colonel Charles Andrianasoavina"],
-              "trusted_domains":["agencemalagasydepresse.com","madagascar-tribune.com","wikimedia.org"],
-              "terms":["charles","andrianasoavina"], "credit":"Agence Malagasy de Presse",
-              "allow_center_crop":True,
-              "rights":"Copyright / permission not established"
-            },
-            {
-              "base":"Hyppolite_Rarison_Ramaroson", "char":"MAD_hyppolite_ramaroson", "role":"navy",
-              "urls":["https://latribune.cyber-diego.com/actualites/326-50eme-anniversaire-de-la-creation-de-la-marine-de-madagascar.html"],
-              "queries":['"Hyppolite Rarison Ramaroson" portrait photo','"contre-amiral Hyppolite Rarison Ramaroson" Madagascar photo'],
-              "terms":["hyppolite","ramaroson","r arison"], "credit":"La Tribune de Diego / image-search candidate",
-              "rights":"Copyright / permission not established"
-            },
-            {
-              "base":"Andry_Rajoelina", "char":"MAD_TGV_FORMED", "role":"political",
-              "urls":["https://commons.wikimedia.org/wiki/Special:Redirect/file/Andry_Rajoelina_(2023).jpg","https://audiovisual.ec.europa.eu/en/photo-details/P-060421%2F00-40","https://commons.wikimedia.org/wiki/File:Andry_Rajoelina_(2023).jpg","https://upload.wikimedia.org/wikipedia/commons/0/08/Andry_Rajoelina_%282023%29.jpg"],
-              "source_page":"https://commons.wikimedia.org/wiki/File:Andry_Rajoelina_(2023).jpg",
-              "queries":['"Andry Rajoelina (2023)" Rijasolo European Commission'],
-              "terms":["andry","rajoelina"], "credit":"Rijasolo / European Commission",
-              "rights":"CC BY 4.0", "allow_center_crop":True
-            },
-            {
-              "base":"Marc_Ravalomanana", "char":"MAD_tgv_leader", "role":"political",
-              "urls":["https://commons.wikimedia.org/wiki/Special:Redirect/file/Marc_Ravalomanana.jpg"],
-              "source_page":"https://commons.wikimedia.org/wiki/File:Marc_Ravalomanana.jpg",
-              "queries":['"Marc Ravalomanana" portrait Wikimedia Commons'],
-              "terms":["marc","ravalomanana"], "credit":"Mogens Engelund / Wikimedia Commons",
-              "rights":"CC BY-SA 3.0", "allow_center_crop":True
-            },
-            {
-              "base":"Richard_Andriamanjato", "char":"MAD_akfm_leader", "role":"political",
-              "urls":["https://www.madagascar-tribune.com/Un-elu-de-Dieu-pas-comme-les,6141.html","https://www.cia.gov/readingroom/docs/CIA-RDP01-00707R000200080040-3.pdf","https://www.assemblee-nationale.mg/wp-content/uploads/2022/05/N%C2%B016-version-finale-compressed-min-compressed.pdf","https://madagate.org/editorial/30-malagasy-people/3264-madagascar-richard-andriamanjato-decede-a-paris-a-lage-de-83-ans.pdf"],
-              "source_page":"https://www.madagascar-tribune.com/Un-elu-de-Dieu-pas-comme-les,6141.html",
-              "queries":['"Richard Andriamanjato" portrait photo','"Richard Andriamanjato" Madagascar photograph'],
-              "terms":["richard","andriamanjato"], "credit":"Madagascar Tribune",
-              "rights":"Copyright / reuse rights not independently verified", "allow_center_crop":True
-            },
-            {
-              "base":"Herizo_Razafimahaleo", "char":"MAD_fanilo_leader", "role":"political",
-              "urls":["https://commons.wikimedia.org/wiki/Special:Redirect/file/Herizo_Razafimahaleo_(Profile).jpg"],
-              "source_page":"https://commons.wikimedia.org/wiki/File:Herizo_Razafimahaleo_(Profile).jpg",
-              "queries":['"Herizo Razafimahaleo" portrait photo'],
-              "terms":["herizo","razafimahaleo"], "credit":"Eliana Saxton / U.S. Department of State",
-              "rights":"Public domain, U.S. government work", "allow_center_crop":True
-            },
-            {
-              "base":"Dr_Ndriana_Rabarioelina", "char":"MAD_monarchist_leader", "role":"political",
-              "urls":["https://1.bp.blogspot.com/-NuLD01o58Mk/XRAiJV2FqgI/AAAAAAAAB0c/ZaOARBk9A5ERpBRb3xmuBOEF9Ve6ezXKACK4BGAYYCw/s1600/HRH%2Bthe%2BPrince%2BDr%2BNdriana%2BRABARIOELINA%2Bof%2BMadagascar.jpg"],
-              "source_page":"https://kingdom-of-madagascar.blogspot.com/2019/",
-              "queries":['"Dr Ndriana Rabarioelina" photo Madagascar'],
-              "terms":["ndriana","rabarioelina"], "credit":"Kingdom of Madagascar blog",
-              "rights":"Copyright / permission not established", "allow_center_crop":True
-            },
-            {
-              "base":"Remenabila", "char":"MAD_dahalo_leader", "role":"political",
-              "urls":["https://commons.wikimedia.org/wiki/Special:Redirect/file/Remenabila_01.jpg"],
-              "source_page":"https://commons.wikimedia.org/wiki/File:Remenabila_01.jpg",
-              "queries":['"Remenabila" Madagascar dahalo leader photo','"Remenabila" chef dahalo portrait Madagascar'],
-              "terms":["remenabila","dahalo"], "credit":"Rakrist08 / Wikimedia Commons",
-              "rights":"CC BY-SA 3.0", "allow_center_crop":True
+              "base":"Petera_Behajaina", "char":"MAD_petera_behajaina", "role":"army",
+              "urls":["https://www1.rfi.fr/actufr/images/059/madagascar_petera_behajaina.jpg"],
+              "source_page":"https://www1.rfi.fr/actufr/articles/059/article_31466.asp",
+              "terms":["petera","behajaina","bahajaina"],
+              "credit":"Olivier Péguy / RFI",
+              "rights":"Copyright / permission not established; RFI/AFP images may require permission",
+              "prefer_glasses":True,
+              "allow_center_crop":True
             },
           ]
 
@@ -457,10 +371,9 @@ jobs:
 
           # These existing assets were visually checked and confirmed to be bad:
           # a PDF text page, site logos, an article excerpt, a text scrap, an advert, or an unverified officer.
-          invalid_if_unreplaced = {
-            "Andrianome_Ranivo_Dieudonne","Jules_Mamizara","Raonenantsoamampianina",
-            "Edmond_Rasolomahandry","Charles_Andrianasoavina","Hyppolite_Rarison_Ramaroson"
-          }
+          # This grouped pass only replaces portraits when its exact source succeeds.
+          # A source failure must never delete the currently committed portrait or character link.
+          invalid_if_unreplaced = set()
           chars=CHAR_FILE.read_text(encoding="utf-8-sig")
           events=EVENT_FILE.read_text(encoding="utf-8-sig")
           leaders=LEADER_FILE.read_text(encoding="utf-8-sig")
