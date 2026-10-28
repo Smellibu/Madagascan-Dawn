@@ -18,20 +18,22 @@ SMALL=MAIN/"small"
 CHAR_FILE=ROOT/"common/characters/MAD.txt"
 EVENT_FILE=ROOT/"events/MAD_events.txt"
 session=requests.Session()
+session.verify=False
+requests.packages.urllib3.disable_warnings()
 session.headers.update({"User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/128.0 Safari/537.36"})
 
 SOURCES=[
  {"base":"Andry_Rajoelina","kind":"direct","url":"https://upload.wikimedia.org/wikipedia/commons/0/08/Andry_Rajoelina_%282023%29.jpg","source":"https://commons.wikimedia.org/wiki/File:Andry_Rajoelina_(2023).jpg","rights":"CC BY 4.0","credit":"Rijasolo / European Union","terms":["andry","rajoelina"]},
  {"base":"Marcel_Ranjeva","kind":"direct","url":"https://commons.wikimedia.org/wiki/Special:Redirect/file/Marcel_Ranjeva,_12th_AU_Summit,_090203-N-0506A-616.jpg","source":"https://commons.wikimedia.org/wiki/File:Marcel_Ranjeva,_12th_AU_Summit,_090203-N-0506A-616.jpg","rights":"Public domain, U.S. Navy official-duty photograph","credit":"MC2 Jesse B. Awalt / U.S. Navy","terms":["marcel","ranjeva"]},
- {"base":"Andrianome_Ranivo_Dieudonne","kind":"pdf_face","page":2,"region":"full","url":"https://www.madagate.org/madagascar-informations-politiques/flash-infos/3797-madagascar-general-andrianome-lofficier-superieur-de-la-neutralite-active-est-decede.pdf","source":"https://www.madagate.org/madagascar-informations-politiques/flash-infos/3797-madagascar-general-andrianome-lofficier-superieur-de-la-neutralite-active-est-decede.pdf","rights":"Copyright status not established","credit":"Madagate","terms":["andrianome","dieudonne","ranaivo"]},
+ {"base":"Andrianome_Ranivo_Dieudonne","kind":"pdf_face","page":2,"region":"full","url":"https://madagate.org/madagascar-informations-politiques/flash-infos/3797-madagascar-general-andrianome-lofficier-superieur-de-la-neutralite-active-est-decede.pdf","source":"https://www.madagate.org/madagascar-informations-politiques/flash-infos/3797-madagascar-general-andrianome-lofficier-superieur-de-la-neutralite-active-est-decede.pdf","rights":"Copyright status not established","credit":"Madagate","terms":["andrianome","dieudonne","ranaivo"]},
  {"base":"Jules_Mamizara","kind":"page","url":"https://www.2424.mg/news/disparition-le-general-jules-mamizara-tire-sa-reverence/","source":"https://www.2424.mg/news/disparition-le-general-jules-mamizara-tire-sa-reverence/","rights":"Copyright / permission not established","credit":"InfoCom Seg / 2424.mg","terms":["jules","mamizara"]},
- {"base":"Sylvain_Razafimandimby","kind":"page","url":"https://2424.mg/necrologie-le-general-sylvain-razafimandimby-passe-larme-a-gauche/","source":"https://2424.mg/necrologie-le-general-sylvain-razafimandimby-passe-larme-a-gauche/","rights":"Copyright / permission not established","credit":"2424.mg","terms":["sylvain","razafimandimby"]},
- {"base":"Raonenantsoamampianina","kind":"page","url":"https://www.madagascar-tribune.com/Deux-autres-ministres,11146.html","fallback":"https://2424.mg/60-ans-de-larmee-malgache-une-stele-pour-rendre-hommage-aux-anciens-chefs-detat-major-general-de-larmee-malagasy/","source":"https://www.madagascar-tribune.com/Deux-autres-ministres,11146.html","rights":"Copyright / permission not established","credit":"Madagascar-Tribune.com","terms":["raonenantsoamampianina","raonenantsomampianina","cemgam"]},
+ {"base":"Sylvain_Razafimandimby","kind":"page","url":"https://www.lexpress.mg/2024/03/deces-le-general-sylvain-razafimandimby.html","source":"https://www.lexpress.mg/2024/03/deces-le-general-sylvain-razafimandimby.html","rights":"Copyright / permission not established","credit":"L’Express de Madagascar","terms":["sylvain","razafimandimby"]},
+ {"base":"Raonenantsoamampianina","kind":"page","url":"https://www.madagascar-tribune.com/Deux-autres-ministres,11146.html","fallback":"https://www.2424.mg/news/60-ans-de-larmee-malgache-une-stele-pour-rendre-hommage-aux-anciens-chefs-detat-major-general-de-larmee-malagasy/","source":"https://www.madagascar-tribune.com/Deux-autres-ministres,11146.html","rights":"Copyright / permission not established","credit":"Madagascar-Tribune.com","terms":["raonenantsoamampianina","raonenantsomampianina","cemgam"]},
  {"base":"Petera_Behajaina","kind":"page","url":"https://www.gettyimages.com/photos/malagasy-troops-receive-guidance","source":"https://www.gettyimages.com/photos/malagasy-troops-receive-guidance","rights":"Getty Images editorial copyright; permission required for redistribution","credit":"Getty Images, Malagasy Troops Receive Guidance","terms":["malagasy troops receive guidance","peter bahajaina","petera behajaina"]},
  {"base":"Noel_Girardin_Rakotonandrasana","kind":"page","url":"https://www1.rfi.fr/actuen/articles/112/article_3609.asp","source":"https://www1.rfi.fr/actuen/articles/112/article_3609.asp","rights":"AFP/RFI copyright; permission required for redistribution","credit":"AFP via RFI","terms":["noel","rakotonandrasana"]},
- {"base":"Edmond_Rasolomahandry","kind":"pdf_face","page":34,"region":"lower_right","url":"https://dkiapcss.edu/wp-content/uploads/2010/PDFs/currents2009-alumni.pdf","source":"https://dkiapcss.edu/wp-content/uploads/2010/PDFs/currents2009-alumni.pdf","rights":"Copyright / permission not established","credit":"Currents, APCSS Fall 2009 alumni report","terms":["edmond","rasolomahandry"]},
+ {"base":"Edmond_Rasolomahandry","kind":"pdf_face","page":13,"region":"lower_right","url":"https://dkiapcss.edu/wp-content/uploads/2010/PDFs/currents2009-alumni.pdf","source":"https://dkiapcss.edu/wp-content/uploads/2010/PDFs/currents2009-alumni.pdf","rights":"Copyright / permission not established","credit":"Currents, APCSS Fall 2009 alumni report","terms":["edmond","rasolomahandry"]},
  {"base":"Andre_Ndriarijaona","kind":"direct","url":"https://latribune.cyber-diego.com/images/stories/2012/juin/labuse2012_07.jpg","source":"https://latribune.cyber-diego.com/actualites/677-exercice-de-lutte-contre-la-piraterie-dans-la-baie-de-diego-suarez.html","rights":"Copyright / permission not established","credit":"La Tribune de Diego","terms":["andre","ndriarijaona"]},
- {"base":"Charles_Andrianasoavina","kind":"direct","url":"https://i0.wp.com/www.agencemalagasydepresse.com/media/2023/10/colonel-charles-andrianasoavina.jpg?fit=1024%2C735&ssl=1","source":"https://www.agencemalagasydepresse.com/politique/raharaham-pirenena-fanambaranny-colonel-charles-andrianasoavina/","rights":"Copyright / permission not established","credit":"Agence Malagasy de Presse","terms":["charles","andrianasoavina"]},
+ {"base":"Charles_Andrianasoavina","kind":"direct","url":"https://i0.wp.com/www.agencemalagasydepresse.com/media/2023/10/colonel-charles-andrianasoavina.jpg","source":"https://www.agencemalagasydepresse.com/politique/raharaham-pirenena-fanambaranny-colonel-charles-andrianasoavina/","rights":"Copyright / permission not established","credit":"Agence Malagasy de Presse","terms":["charles","andrianasoavina"]},
  {"base":"Mamy_Solofoniaina_Ranaivoniarivo","kind":"direct","url":"https://commons.wikimedia.org/wiki/Special:Redirect/file/Mamy_Ranaivoniarivo.jpg","source":"https://commons.wikimedia.org/wiki/File:Mamy_Ranaivoniarivo.jpg","rights":"CC BY-SA 3.0","credit":"PixEye","terms":["mamy","ranaivoniarivo"]},
  {"base":"Hyppolite_Rarison_Ramaroson","kind":"direct","url":"https://latribune.cyber-diego.com/images/stories/2011/mar/50-ans-marine-madagascar_04.jpg","source":"https://latribune.cyber-diego.com/actualites/326-50eme-anniversaire-de-la-creation-de-la-marine-de-madagascar.html","rights":"Copyright / permission not established","credit":"La Tribune de Diego","terms":["hyppolite","ramaroson"]},
  {"base":"Andre_Lucien_Rakotoarimasy","kind":"direct","url":"https://ceds-madagascar.com/media/promotions/2-rakoto-ratsimamanga/vignettes/general-de-brigade-rakotoarimasy-andre-lucien.webp","source":"https://ceds-madagascar.com/promotions/2-rakoto-ratsimamanga/","rights":"Copyright / permission not established","credit":"C.E.D.S Madagascar","terms":["andre","lucien","rakotoarimasy"]},
@@ -54,7 +56,7 @@ CHAR_IDS={
 }
 
 def get_bytes(url):
-    r=session.get(url,timeout=45,allow_redirects=True)
+    r=session.get(url,timeout=25,allow_redirects=True)
     r.raise_for_status()
     return r.content,r.headers.get("Content-Type","").lower()
 
@@ -81,7 +83,7 @@ def page_image(url, terms):
         if not u and img.get("srcset"): u=img["srcset"].split(",")[0].strip().split(" ")[0]
         if u:
             add(u," ".join(str(img.get(k,"")) for k in ("alt","title","class","id")),"img")
-    for _,u in sorted(ranked,key=lambda a:a[0],reverse=True):
+    for _,u in sorted(ranked,key=lambda a:a[0],reverse=True)[:12]:
         try:
             data,ctype=get_bytes(u)
             if ctype.startswith("image/") or data[:4] in (b"\xff\xd8\xff\xdb",b"\xff\xd8\xff\xe0",b"\x89PNG",b"RIFF"):
