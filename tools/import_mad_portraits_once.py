@@ -140,8 +140,10 @@ def search_image(query, terms):
                 parent=img.parent
                 add(u,label+" "+(parent.get_text(" ",strip=True)[:500] if parent else ""),"google-image")
         decoded=page.decode("utf-8","ignore").replace("\\u003d","=").replace("\\u0026","&").replace("\\/","/")
-        for u in re.findall(r'https?://[^"\\\s<>]+?\.(?:jpg|jpeg|png|webp)(?:\?[^"\\\s<>]*)?',decoded,re.I):
-            add(u," ".join(needles),"google-json")
+        pat=r'https?://[^"\\\s<>]+?\.(?:jpg|jpeg|png|webp)(?:\?[^"\\\s<>]*)?'
+        for match in re.finditer(pat,decoded,re.I):
+            context=decoded[max(0,match.start()-600):min(len(decoded),match.end()+300)]
+            add(match.group(0),context,"google-json")
     except Exception as exc:
         print("Google image search error: "+str(exc))
     try:
