@@ -69,7 +69,9 @@ jobs:
               "base":"Jules_Mamizara", "char":"MAD_jules_mamizara", "role":"army",
               "urls":["https://www.2424.mg/news/disparition-le-general-jules-mamizara-tire-sa-reverence/","https://www1.rfi.fr/actufr/articles/027/article_13290.asp"],
               "source_page":"https://www.2424.mg/news/disparition-le-general-jules-mamizara-tire-sa-reverence/",
-              "queries":['"Jules Mamizara" général photo Madagascar','"général de division Jules Mamizara" portrait'],
+              "queries":['"Jules Mamizara" général photo Madagascar','"général de division Jules Mamizara" portrait','"Mamizara" général Madagascar 2020 photo','"Jules Mamizara" armée malgache image'],
+              "commons_queries":["Jules Mamizara","General Jules Mamizara","Mamizara Madagascar general"],
+              "trusted_domains":["2424.mg","rfi.fr","lexpress.mg","wikimedia.org"],
               "terms":["jules","mamizara"], "credit":"2424.mg / InfoCom Seg",
               "rights":"Copyright / permission not established", "allow_center_crop":True
             },
@@ -108,7 +110,9 @@ jobs:
               "base":"Charles_Andrianasoavina", "char":"MAD_charles_andrianasoavina", "role":"army",
               "urls":["https://www.agencemalagasydepresse.com/media/2023/10/colonel-charles-andrianasoavina.jpg","https://www.agencemalagasydepresse.com/politique/raharaham-pirenena-fanambanny-colonel-charles-andrianasoavina/","https://www.madagascar-tribune.com/Charles-Andrianasoavina-est-rentre%2C20699.html"],
               "source_page":"https://www.agencemalagasydepresse.com/politique/raharaham-pirenena-fanambanny-colonel-charles-andrianasoavina/",
-              "queries":['"Colonel Charles Andrianasoavina" portrait photo','"Charles Andrianasoavina est rentré" photo'],
+              "queries":['"Colonel Charles Andrianasoavina" portrait photo','"Charles Andrianasoavina est rentré" photo','"Charles Andrianasoavina" colonel Madagascar 2010 photo'],
+              "commons_queries":["Charles Andrianasoavina","Colonel Charles Andrianasoavina"],
+              "trusted_domains":["agencemalagasydepresse.com","madagascar-tribune.com","wikimedia.org"],
               "terms":["charles","andrianasoavina"], "credit":"Agence Malagasy de Presse",
               "allow_center_crop":True,
               "rights":"Copyright / permission not established"
@@ -227,7 +231,7 @@ jobs:
               pass
             return None
 
-          def page_candidates(url, terms, allow_center_crop=False):
+          def page_candidates(url, terms, allow_center_crop=False, trusted_domains=None):
             out=[]
             try:
               data, typ, landed = get(url)
@@ -288,6 +292,12 @@ jobs:
                 u=img.get("src") or img.get("data-src") or img.get("data-lazy-src")
                 if u: add(u," ".join(str(img.get(k,"")) for k in ("alt","title","class","id")),0)
               for u,sc in sorted(cand.items(),key=lambda z:z[1],reverse=True)[:24]:
+                if trusted_domains:
+                  lower_u=u.casefold()
+                  label_match=all(term.casefold() in lower_u for term in terms if len(term)>=6)
+                  host_match=any(domain in landed.casefold() and domain in lower_u for domain in trusted_domains)
+                  if not (host_match or label_match):
+                    continue
                 try:
                   b,t,_=get(u)
                   im=image_bytes(b)
@@ -303,6 +313,65 @@ jobs:
             except Exception as exc:
               print("PAGE FAILED",url,str(exc)[:180])
               return []
+
+          def trusted_image_candidate(image_url, page_url, label, spec):
+            domains=spec.get("trusted_domains",[])
+            if not domains:
+              return True
+            image_lower=(image_url+" "+label).casefold()
+            page_lower=(page_url or "").casefold()
+            identity=[term.casefold() for term in spec["terms"] if len(term)>=6]
+            # Either the image itself identifies the person, or a trusted named-person article supplied it.
+            return any(domain in page_lower for domain in domains) and any(domain in page_lower for domain in domains) or (bool(identity) and all(term in image_lower for term in identity))
+
+          def commons_candidates(spec):
+            found=[]
+            queries=spec.get("commons_queries",[])
+            if not queries:
+              return found
+            for query in queries:
+              try:
+                response=session.get("https://commons.wikimedia.org/w/api.php",params={
+                  "action":"query","generator":"search","gsrsearch":query,"gsrnamespace":6,
+                  "gsrlimit":20,"prop":"imageinfo","iiprop":"url|extmetadata","iiurlwidth":1000,"format":"json"
+                },timeout=20)
+                response.raise_for_status()
+                payload=response.json()
+                pages=(payload.get("query",{}).get("pages",{}) or {}).values()
+              except Exception as exc:
+                print("COMMONS SEARCH FAILED",query,str(exc)[:120])
+                continue
+              for page in pages:
+                title=page.get("title","")
+                info=(page.get("imageinfo") or [{}])[0]
+                meta=info.get("extmetadata") or {}
+                desc=" ".join(str(meta.get(k,{}).get("value","")) for k in ("ObjectName","ImageDescription","Artist"))
+                searchable=(title+" "+desc).casefold()
+                identity=[t.casefold() for t in spec["terms"] if len(t)>=6]
+                if identity and not all(t in searchable for t in identity):
+                  continue
+                url=info.get("thumburl") or info.get("url")
+                if not url: continue
+                try:
+                  b,typ,landed=get(url)
+                  im=image_bytes(b)
+                  if not im: continue
+                  _,fs=faces(im)
+                  if fs:
+                    chosen=fs[0]
+                  elif spec.get("allow_center_crop") and im.width>=180 and im.height>=140 and 0.45 <= im.width/float(im.height) <= 2.2:
+                    chosen=(0,0,im.width,im.height,0,False)
+                  else:
+                    continue
+                  pageurl="https://commons.wikimedia.org/wiki/"+quote_plus(title.replace(" ","_"))
+                  license_name=html.unescape(str(meta.get("LicenseShortName",{}).get("value","not stated")))
+                  artist=html.unescape(str(meta.get("Artist",{}).get("value","Wikimedia Commons contributor")))
+                  spec["credit"]=artist+" / Wikimedia Commons"
+                  spec["rights"]="Commons file licence: "+license_name+"; verify attribution on linked file page"
+                  return [(im,chosen,landed,pageurl)]
+                except Exception:
+                  continue
+            return found
 
           def bing_candidates(query, terms):
             try:
@@ -331,7 +400,7 @@ jobs:
           def find_portrait(spec):
             # Search exact source articles and direct files first.
             for url in spec.get("urls",[]):
-              for item in page_candidates(url,spec["terms"],spec.get("allow_center_crop",False)):
+              for item in page_candidates(url,spec["terms"],spec.get("allow_center_crop",False),spec.get("trusted_domains")):
                 src, page, im, box, *extra = item
                 _, found=faces(im)
                 if isinstance(box,tuple) and len(box)>=4:
@@ -347,9 +416,15 @@ jobs:
                   gl=[f for f in found if f[5]]
                   if gl: chosen=gl[0]
                 return im,chosen,src,page
+            # Search Wikimedia Commons by person and source metadata before broad image engines.
+            for item in commons_candidates(spec):
+              im,chosen,source,page=item
+              return im,chosen,source,page
             # Broader image searches, including French-language titles.
             for query in spec.get("queries",[]):
               for score, imgurl, pageurl, label in bing_candidates(query,spec["terms"]):
+                if not trusted_image_candidate(imgurl,pageurl,label,spec):
+                  continue
                 try:
                   data,typ,landed=get(imgurl)
                   im=image_bytes(data)
@@ -466,6 +541,8 @@ jobs:
           ADD_PICTURE_ON_SUCCESS = {
             "Remenabila":["Remenabila"],
             "Andry_Rajoelina":["Andry Rajoelina"],
+            "Noel_Girardin_Rakotonandrasana":["Noël Girardin Rakotonandrasana"],
+            "Edmond_Rasolomahandry":["Edmond Rasolomahandry"],
           }
           def remove_picture_from_named_leaders(doc, names, picture):
             lines=doc.splitlines(True); out=[]; active=False; depth=0; block=[]
@@ -525,6 +602,8 @@ jobs:
               leaders=add_picture_to_named_leaders(leaders,ADD_PICTURE_ON_SUCCESS[base],base+".dds")
               events=add_picture_to_named_leaders(events,ADD_PICTURE_ON_SUCCESS[base],base+".dds")
 
+          # The picture field is filename-only in MD create_country_leader blocks.
+          # Add it to the civilian TGV-formation event as well as the scripted party leader.
           CHARACTER_TARGETS = {
             "Andrianome_Ranivo_Dieudonne":("MAD_andrianome_dieudonne","Andrianome Ranivo Dieudonné","army"),
             "Jules_Mamizara":("MAD_jules_mamizara","Jules Mamizara","army"),
