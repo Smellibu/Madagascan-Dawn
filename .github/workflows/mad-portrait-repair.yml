@@ -60,7 +60,7 @@ jobs:
           TARGETS = [
             {
               "base":"Andrianome_Ranivo_Dieudonne", "char":"MAD_andrianome_dieudonne", "role":"army",
-              "urls":["https://anoca.fr/sites/default/files/Bulletin%20n%C2%B02%202014.pdf","https://www.madagate.org/madagascar-informations-politiques/flash-infos/3797-madagascar-general-andrianome-lofficier-superieur-de-la-neutralite-active-est-decede.pdf"],
+              "urls":["https://web.archive.org/web/20190101000000id_/https://www.madagate.org/madagascar-informations-politiques/flash-infos/3797-madagascar-general-andrianome-lofficier-superieur-de-la-neutralite-active-est-decede.pdf","https://web.archive.org/web/20200101000000id_/https://www.madagate.org/madagascar-informations-politiques/flash-infos/3797-madagascar-general-andrianome-lofficier-superieur-de-la-neutralite-active-est-decede.pdf","https://anoca.fr/sites/default/files/Bulletin%20n%C2%B02%202014.pdf","https://www.madagate.org/madagascar-informations-politiques/flash-infos/3797-madagascar-general-andrianome-lofficier-superieur-de-la-neutralite-active-est-decede.pdf"],
               "queries":['"Angelbert Dieudonné Andrianome Ranaivo" portrait photo','"Général Andrianome" Madagascar portrait photo','"Andrianome Ranivo Dieudonné" photo général','"Général Andrianome Ranaivo" chef état major photo'],
               "terms":["andrianome","angelbert","dieudonne","ranaivo"],
               "credit":"Madagate / image-search candidate", "rights":"Copyright / permission not established"
@@ -188,6 +188,12 @@ jobs:
             found = face_cascade.detectMultiScale(gray, scaleFactor=1.035, minNeighbors=2, minSize=(12,12))
             result = []
             for x,y,w,h in found:
+              # Reject banner/logo false positives such as the tall RFI language strip.
+              ratio = w / float(h) if h else 0
+              if not 0.62 <= ratio <= 1.48:
+                continue
+              if w*h > rgb.width*rgb.height*0.42:
+                continue
               score = w*h
               eyeregion = gray[max(0,y):min(gray.shape[0],y+int(h*.62)), max(0,x):min(gray.shape[1],x+w)]
               glasses = glasses_cascade.detectMultiScale(eyeregion, scaleFactor=1.05, minNeighbors=2, minSize=(5,5)) if eyeregion.size else []
@@ -305,7 +311,8 @@ jobs:
                 try: meta=json.loads(html.unescape(item.get("m","{}")))
                 except Exception: continue
                 url=meta.get("murl")
-                label=" ".join(str(meta.get(k,"")) for k in ("t","desc","purl"))
+                # Do not let a relevant result-page URL make an unrelated image look like a match.
+                label=" ".join(str(meta.get(k,"")) for k in ("t","desc"))
                 if not url: continue
                 joined=(label+" "+url).casefold()
                 identity=[t.casefold() for t in terms if len(t)>=8]
@@ -454,7 +461,10 @@ jobs:
             "Dr_Ndriana_Rabarioelina":["Dr. Ndriana Rabarioelina"],
             "Remenabila":["Remenabila"],
           }
-          ADD_PICTURE_ON_SUCCESS = {"Remenabila":["Remenabila"]}
+          ADD_PICTURE_ON_SUCCESS = {
+            "Remenabila":["Remenabila"],
+            "Andry_Rajoelina":["Andry Rajoelina"],
+          }
           def remove_picture_from_named_leaders(doc, names, picture):
             lines=doc.splitlines(True); out=[]; active=False; depth=0; block=[]
             def flush(b):
@@ -511,6 +521,7 @@ jobs:
           for base,row in rows.items():
             if row[4] and base in ADD_PICTURE_ON_SUCCESS:
               leaders=add_picture_to_named_leaders(leaders,ADD_PICTURE_ON_SUCCESS[base],base+".dds")
+              events=add_picture_to_named_leaders(events,ADD_PICTURE_ON_SUCCESS[base],base+".dds")
 
           CHARACTER_TARGETS = {
             "Andrianome_Ranivo_Dieudonne":("MAD_andrianome_dieudonne","Andrianome Ranivo Dieudonné","army"),
