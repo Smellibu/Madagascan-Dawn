@@ -21,6 +21,7 @@ jobs:
           sparse-checkout: |
             .github/workflows
             common/characters
+            common/scripted_effects
             events
             gfx/leaders/MAD
           sparse-checkout-cone-mode: true
@@ -46,6 +47,7 @@ jobs:
           SMALL = MAIN / "small"
           CHAR_FILE = ROOT / "common/characters/MAD.txt"
           EVENT_FILE = ROOT / "events/MAD_events.txt"
+          LEADER_FILE = ROOT / "common/scripted_effects/MAD_political_leaders.txt"
           SOURCES_FILE = MAIN / "portrait_sources.md"
           MAIN.mkdir(parents=True, exist_ok=True)
           SMALL.mkdir(parents=True, exist_ok=True)
@@ -58,9 +60,9 @@ jobs:
           TARGETS = [
             {
               "base":"Andrianome_Ranivo_Dieudonne", "char":"MAD_andrianome_dieudonne", "role":"army",
-              "urls":["https://www.madagate.org/madagascar-informations-politiques/flash-infos/3797-madagascar-general-andrianome-lofficier-superieur-de-la-neutralite-active-est-decede.pdf"],
-              "queries":['"Général Andrianome" Madagascar portrait photo','"Andrianome Ranivo Dieudonné" photo général'],
-              "terms":["andrianome","dieudonne","général"],
+              "urls":["https://anoca.fr/sites/default/files/Bulletin%20n%C2%B02%202014.pdf","https://www.madagate.org/madagascar-informations-politiques/flash-infos/3797-madagascar-general-andrianome-lofficier-superieur-de-la-neutralite-active-est-decede.pdf","https://madagate.org/editorial/30-malagasy-people/3264-madagascar-richard-andriamanjato-decede-a-paris-a-lage-de-83-ans.pdf"],
+              "queries":['"Angelbert Dieudonné Andrianome Ranaivo" photo','"Général Andrianome" Madagascar portrait photo','"Andrianome Ranivo Dieudonné" photo général'],
+              "terms":["andrianome","angelbert","dieudonne","ranaivo"],
               "credit":"Madagate / image-search candidate", "rights":"Copyright / permission not established"
             },
             {
@@ -103,9 +105,10 @@ jobs:
             {
               "base":"Charles_Andrianasoavina", "char":"MAD_charles_andrianasoavina", "role":"army",
               "urls":["https://i0.wp.com/www.agencemalagasydepresse.com/media/2023/10/colonel-charles-andrianasoavina.jpg?fit=1024%2C735&ssl=1"],
-              "source_page":"https://www.agencemalagasydepresse.com/politique/raharaham-pirenena-fanambaranny-colonel-charles-andrianasoavina/",
-              "queries":['"Colonel Charles Andrianasoavina" portrait photo'],
+              "source_page":"https://www.agencemalagasydepresse.com/politique/raharaham-pirenena-fanambanny-colonel-charles-andrianasoavina/",
+              "queries":['"Colonel Charles Andrianasoavina" portrait photo','"Charles Andrianasoavina" Madagascar Tribune photo'],
               "terms":["charles","andrianasoavina"], "credit":"Agence Malagasy de Presse",
+              "allow_center_crop":True,
               "rights":"Copyright / permission not established"
             },
             {
@@ -114,6 +117,41 @@ jobs:
               "queries":['"Hyppolite Rarison Ramaroson" portrait photo','"contre-amiral Hyppolite Rarison Ramaroson" Madagascar photo'],
               "terms":["hyppolite","ramaroson","r arison"], "credit":"La Tribune de Diego / image-search candidate",
               "rights":"Copyright / permission not established"
+            },
+            {
+              "base":"Andry_Rajoelina", "char":"MAD_TGV_FORMED", "role":"political",
+              "urls":["https://upload.wikimedia.org/wikipedia/commons/0/08/Andry_Rajoelina_%282023%29.jpg"],
+              "queries":['"Andry Rajoelina (2023)" Rijasolo European Commission'],
+              "terms":["andry","rajoelina"], "credit":"Rijasolo / European Commission",
+              "rights":"CC BY 4.0", "allow_center_crop":True
+            },
+            {
+              "base":"Marc_Ravalomanana", "char":"MAD_tgv_leader", "role":"political",
+              "urls":["https://commons.wikimedia.org/wiki/Special:Redirect/file/Marc_Ravalomanana.jpg"],
+              "queries":['"Marc Ravalomanana" portrait Wikimedia Commons'],
+              "terms":["marc","ravalomanana"], "credit":"Mogens Engelund / Wikimedia Commons",
+              "rights":"CC BY-SA 3.0", "allow_center_crop":True
+            },
+            {
+              "base":"Richard_Andriamanjato", "char":"MAD_akfm_leader", "role":"political",
+              "urls":["https://www.cia.gov/readingroom/docs/CIA-RDP01-00707R000200080040-3.pdf","https://www.assemblee-nationale.mg/wp-content/uploads/2022/05/N%C2%B016-version-finale-compressed-min-compressed.pdf","https://madagate.org/editorial/30-malagasy-people/3264-madagascar-richard-andriamanjato-decede-a-paris-a-lage-de-83-ans.pdf"],
+              "queries":['"Richard Andriamanjato" portrait photo','"Richard Andriamanjato" Madagascar photograph'],
+              "terms":["richard","andriamanjato"], "credit":"CIA National Intelligence Survey / National Assembly",
+              "rights":"Copyright / reuse rights not independently verified"
+            },
+            {
+              "base":"Herizo_Razafimahaleo", "char":"MAD_fanilo_leader", "role":"political",
+              "urls":["https://commons.wikimedia.org/wiki/Special:Redirect/file/Herizo_Razafimahaleo_(Profile).jpg"],
+              "queries":['"Herizo Razafimahaleo" portrait photo'],
+              "terms":["herizo","razafimahaleo"], "credit":"Eliana Saxton / U.S. Department of State",
+              "rights":"Public domain, U.S. government work", "allow_center_crop":True
+            },
+            {
+              "base":"Dr_Ndriana_Rabarioelina", "char":"MAD_monarchist_leader", "role":"political",
+              "urls":["https://1.bp.blogspot.com/-NuLD01o58Mk/XRAiJV2FqgI/AAAAAAAAB0c/ZaOARBk9A5ERpBRb3xmuBOEF9Ve6ezXKACK4BGAYYCw/s1600/HRH%2Bthe%2BPrince%2BDr%2BNdriana%2BRABARIOELINA%2Bof%2BMadagascar.jpg"],
+              "queries":['"Dr Ndriana Rabarioelina" photo Madagascar'],
+              "terms":["ndriana","rabarioelina"], "credit":"Kingdom of Madagascar blog",
+              "rights":"Copyright / permission not established", "allow_center_crop":True
             },
           ]
 
@@ -156,7 +194,7 @@ jobs:
             try:
               im = Image.open(io.BytesIO(data))
               im.load()
-              if im.width >= 100 and im.height >= 100:
+              if im.width >= 60 and im.height >= 80:
                 return im.convert("RGB")
             except Exception:
               pass
@@ -202,7 +240,8 @@ jobs:
                 if not u: return
                 u=urljoin(landed,u)
                 low=(u+" "+label).casefold()
-                if any(z in low for z in ["logo","avatar","gravatar","placeholder","advert","sprite","icon"]): weight-=300
+                if any(z in low for z in ["favicon","web-app-manifest","/logo","logo-","avatar","gravatar","placeholder","advert","sprite","site-icon","/icons/"]):
+                  return
                 if re.search(r"\.(jpe?g|png|webp)(?:[?#]|$)",u,re.I): weight+=10
                 weight += sum(25 for term in needles if term and term in low)
                 cand[u]=max(cand.get(u,-999),weight)
@@ -262,6 +301,8 @@ jobs:
                   chosen=box
                 elif found:
                   chosen=found[0]
+                elif spec.get("allow_center_crop") and isinstance(box, (int, float)):
+                  chosen=(0,0,im.width,im.height,0,False)
                 else:
                   continue
                 # For Behajaina, prefer a face with eyewear because the RFI caption identifies him as the man with glasses.
@@ -306,6 +347,7 @@ jobs:
           }
           chars=CHAR_FILE.read_text(encoding="utf-8-sig")
           events=EVENT_FILE.read_text(encoding="utf-8-sig")
+          leaders=LEADER_FILE.read_text(encoding="utf-8-sig")
           rows={}
           old=SOURCES_FILE.read_text(encoding="utf-8-sig") if SOURCES_FILE.exists() else ""
           for spec in TARGETS:
@@ -376,8 +418,43 @@ jobs:
                   if depth<=0 and "}" in line: active=False
               events="".join(new)
 
+          POLITICAL_NAMES = {
+            "Andry_Rajoelina":["Andry Rajoelina"],
+            "Marc_Ravalomanana":["Marc Ravalomanana"],
+            "Richard_Andriamanjato":["Richard Andriamanjato"],
+            "Herizo_Razafimahaleo":["Herizo Razafimahaleo"],
+            "Dr_Ndriana_Rabarioelina":["Dr. Ndriana Rabarioelina"],
+          }
+          def remove_picture_from_named_leaders(doc, names, picture):
+            lines=doc.splitlines(True); out=[]; active=False; depth=0; block=[]
+            def flush(b):
+              txt="".join(b)
+              m=re.search(r'name\s*=\s*"([^"]+)"',txt)
+              if m and m.group(1) in names:
+                txt=re.sub(r'(?m)^[ \t]*picture\s*=\s*"'+re.escape(picture)+r'"[ \t]*\n', '', txt)
+              return txt
+            for line in lines:
+              if not active and "create_country_leader = {" in line:
+                active=True; depth=0; block=[line]
+                depth += line.count("{")-line.count("}")
+                if depth<=0: out.append(flush(block)); active=False; block=[]
+              elif active:
+                block.append(line); depth += line.count("{")-line.count("}")
+                if depth<=0: out.append(flush(block)); active=False; block=[]
+              else:
+                out.append(line)
+            if block: out.append(flush(block))
+            return "".join(out)
+
+          failed_political={base for base,row in rows.items() if not row[4] and base in POLITICAL_NAMES}
+          for base in failed_political:
+            portrait=base+".dds"
+            leaders=remove_picture_from_named_leaders(leaders,POLITICAL_NAMES[base],portrait)
+            events=remove_picture_from_named_leaders(events,POLITICAL_NAMES[base],portrait)
+
           CHAR_FILE.write_text(chars,encoding="utf-8")
           EVENT_FILE.write_text(events,encoding="utf-8")
+          LEADER_FILE.write_text(leaders,encoding="utf-8")
 
           def replace_or_add_row(doc, base, source, page, credit, rights, ok):
             lines=doc.splitlines()
@@ -387,7 +464,7 @@ jobs:
               link="["+credit+"]("+src+")"
               row="| "+base+" | "+link+" | "+rights+" |"
             else:
-              row="| "+base+" | No verified portrait candidate passed face/source checks | Portrait reference removed; old asset was invalid |"
+              row="| "+base+" | No verified portrait candidate passed face/source checks | Not imported; no new portrait reference was added |"
             if start is not None: lines[start]=row
             else:
               marker=next((i for i,l in enumerate(lines) if l.startswith("|---")),None)
@@ -413,7 +490,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add common/characters/MAD.txt events/MAD_events.txt gfx/leaders/MAD
+          git add common/characters/MAD.txt common/scripted_effects/MAD_political_leaders.txt events/MAD_events.txt gfx/leaders/MAD
           if git diff --cached --quiet; then
             echo "No changes to commit."
             exit 0
