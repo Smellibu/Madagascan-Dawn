@@ -3413,6 +3413,21 @@ country_event = {
 		set_country_flag = MAD_ARMY_COMMAND_CAPSAT
 		clr_country_flag = MAD_ARMY_COMMAND_GENERAL_STAFF
 		
+		if = { limit = { has_character = MAD_noel_rakotonandrasana } retire_character = MAD_noel_rakotonandrasana }
+		if = { limit = { has_character = MAD_edmond_rasolomahandry } retire_character = MAD_edmond_rasolomahandry }
+		if = {
+			limit = {
+				has_country_flag = MAD_MIL_PARTY_LEADER_GENERAL_STAFF
+				check_variable = { ruling_party = 22 }
+			}
+			hidden_effect = { kill_country_leader = yes }
+			create_country_leader = {
+				name = "Noël Rakotonandrasana"
+				ideology = Nat_Autocracy
+				traits = { nationalist_Nat_Autocracy military_career }
+				expire = "2099.1.1"
+			}
+		}
 		clr_country_flag = MAD_MIL_PARTY_LEADER_GENERAL_STAFF
 		set_country_flag = MAD_CAPSAT_REVOLT_RESOLVED
 		clr_country_flag = MAD_TGV_CAPSAT_REJECTION
@@ -3427,6 +3442,8 @@ country_event = {
 		set_country_flag = MAD_CAPSAT_REVOLT_RESOLVED
 		clr_country_flag = MAD_TGV_CAPSAT_REJECTION
 		
+		if = { limit = { has_character = MAD_noel_rakotonandrasana } retire_character = MAD_noel_rakotonandrasana }
+		if = { limit = { has_character = MAD_edmond_rasolomahandry } retire_character = MAD_edmond_rasolomahandry }
 		clr_country_flag = MAD_MIL_PARTY_LEADER_GENERAL_STAFF
 		hidden_effect = { kill_country_leader = yes }
 		create_country_leader = {
