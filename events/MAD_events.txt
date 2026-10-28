@@ -1002,7 +1002,8 @@ country_event = {
 # These are what make the map move unevenly: a countrywide number would never show you that Androy is finished
 # while Analamanga is fine.
 
-# The rains fail somewhere. Picks the driest state that is not already at the top of the scale.
+# Select the target in the monthly launcher before this popup is displayed. The same saved state
+# supplies the rendered name and receives all of the event's consequences.
 country_event = {
 	id = mad_drought.30
 	title = mad_drought.30.t
@@ -1012,11 +1013,10 @@ country_event = {
 
 	option = {
 		name = mad_drought.30.a
-		log = "[GetDateText]: [Root.GetName]: mad_drought.30 - the rains fail in one region"
+		log = "[GetDateText]: [Root.GetName]: mad_drought.30 - rains fail in the selected state"
 		custom_effect_tooltip = mad_drought.30_tt
 		hidden_effect = {
-			random_owned_state = {
-				limit = { has_variable = MAD_state_drought_exposure check_variable = { MAD_state_drought < 85 } }
+			event_target:MAD_drought_event_state = {
 				set_temp_variable = { MAD_dr_state_change = 9 }
 				MAD_drought_state_apply_change = yes
 				set_temp_variable = { MAD_dr_state_famine = 5 }
@@ -1028,8 +1028,7 @@ country_event = {
 	}
 }
 
-# A cyclone. Water, but it arrives all at once, takes the topsoil with it and drowns the seed.
-# Coastal states only - and it is worse where the drought had already cracked the ground open.
+# A cyclone causes destructive runoff and damages crops, soil and infrastructure in the selected coastal state.
 country_event = {
 	id = mad_drought.31
 	title = mad_drought.31.t
@@ -1039,11 +1038,10 @@ country_event = {
 
 	option = {
 		name = mad_drought.31.a
-		log = "[GetDateText]: [Root.GetName]: mad_drought.31 - cyclone"
+		log = "[GetDateText]: [Root.GetName]: mad_drought.31 - cyclone in the selected coastal state"
 		custom_effect_tooltip = mad_drought.31_tt
 		hidden_effect = {
-			random_owned_state = {
-				limit = { is_coastal = yes has_variable = MAD_state_drought_exposure }
+			event_target:MAD_drought_event_state = {
 				set_temp_variable = { MAD_dr_state_change = 7 }
 				MAD_drought_state_apply_change = yes
 				set_temp_variable = { MAD_dr_state_famine = 10 }
@@ -1062,7 +1060,7 @@ country_event = {
 	}
 }
 
-# Somewhere has stopped being hungry and started starving.
+# A qualifying state's food insecurity has crossed into severe famine conditions.
 country_event = {
 	id = mad_drought.32
 	title = mad_drought.32.t
@@ -1072,11 +1070,10 @@ country_event = {
 
 	option = {
 		name = mad_drought.32.a
-		log = "[GetDateText]: [Root.GetName]: mad_drought.32 - famine in one state"
+		log = "[GetDateText]: [Root.GetName]: mad_drought.32 - famine in the selected state"
 		custom_effect_tooltip = mad_drought.32_tt
 		hidden_effect = {
-			random_owned_state = {
-				limit = { has_variable = MAD_state_drought_exposure check_variable = { MAD_state_drought > 54.99 } }
+			event_target:MAD_drought_event_state = {
 				set_temp_variable = { MAD_dr_state_famine = 18 }
 				MAD_drought_state_apply_famine = yes
 			}
@@ -1086,7 +1083,7 @@ country_event = {
 	}
 }
 
-# The water table drops below the hand pumps. Wells stop being an answer here.
+# The selected state's well flag is cleared when its hand pumps no longer provide dependable water.
 country_event = {
 	id = mad_drought.33
 	title = mad_drought.33.t
@@ -1096,11 +1093,10 @@ country_event = {
 
 	option = {
 		name = mad_drought.33.a
-		log = "[GetDateText]: [Root.GetName]: mad_drought.33 - the wells run dry"
+		log = "[GetDateText]: [Root.GetName]: mad_drought.33 - wells run dry in the selected state"
 		custom_effect_tooltip = mad_drought.33_tt
 		hidden_effect = {
-			random_owned_state = {
-				limit = { has_variable = MAD_state_drought_exposure has_state_flag = MAD_STATE_WELLS }
+			event_target:MAD_drought_event_state = {
 				clr_state_flag = MAD_STATE_WELLS
 				set_temp_variable = { MAD_dr_state_change = 8 }
 				MAD_drought_state_apply_change = yes
