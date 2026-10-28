@@ -22,5 +22,5 @@ Copyright notes are not licences. Non-CC photographs require permission before p
 | Andre_Ndriarijaona | [La Tribune de Diego](https://latribune.cyber-diego.com/actualites/677-exercice-de-lutte-contre-la-piraterie-dans-la-baie-de-diego-suarez.html) | Copyright / permission not established |
 | Charles_Andrianasoavina | [Bill / Ra Bens (Photos) / Madagascar Tribune](https://www.madagascar-tribune.com/Charles-Andrianasoavina-est-rentre%2C20699.html) | Copyright; reuse permission not established |
 | Mamy_Solofoniaina_Ranaivoniarivo | [PixEye](https://commons.wikimedia.org/wiki/File:Mamy_Ranaivoniarivo.jpg) | CC BY-SA 3.0 |
-| Hyppolite_Rarison_Ramaroson | [La Tribune de Diego (photographer not identified)](https://latribune.cyber-diego.com/actualites/326-50eme-anniversaire-de-la-creation-de-la-marine-de-madagascar.html) | Copyright / permission not established |
+| Hyppolite_Rarison_Ramaroson | [Madagascar Tribune (photographer not identified)](https://madagascar-tribune.com/Le-vice-amiral-Hyppolite-Ramaroson,13613.html) | Copyright / permission not established |
 | Andre_Lucien_Rakotoarimasy | [C.E.D.S Madagascar](https://ceds-madagascar.com/promotions/2-rakoto-ratsimamanga/) | Copyright / permission not established |
