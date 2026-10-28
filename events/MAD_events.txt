@@ -5235,3 +5235,119 @@ country_event = {
 		log = "[GetDateText]: [This.GetName]: Penguins of Madagascar released — timed movie idea applied"
 	}
 }
+
+
+# ============================================================================
+# MADAGASCAR — historical military roster entries
+# Events are scheduled in MAD country history on fixed dates; no on_daily hook.
+# ============================================================================
+add_namespace = MAD_army_roster
+
+country_event = {
+	id = MAD_army_roster.1
+	hidden = yes
+	is_triggered_only = yes
+	fire_only_once = yes
+	immediate = {
+		recruit_character = MAD_jules_mamizara
+	}
+}
+
+country_event = {
+	id = MAD_army_roster.2
+	hidden = yes
+	is_triggered_only = yes
+	fire_only_once = yes
+	immediate = {
+		recruit_character = MAD_sylvain_razafimandimby
+	}
+}
+
+country_event = {
+	id = MAD_army_roster.3
+	hidden = yes
+	is_triggered_only = yes
+	fire_only_once = yes
+	immediate = {
+		retire_character = MAD_marcel_ranjeva
+	}
+}
+
+country_event = {
+	id = MAD_army_roster.4
+	hidden = yes
+	is_triggered_only = yes
+	fire_only_once = yes
+	immediate = {
+		recruit_character = MAD_raonenantsoamampianina
+	}
+}
+
+country_event = {
+	id = MAD_army_roster.5
+	hidden = yes
+	is_triggered_only = yes
+	fire_only_once = yes
+	immediate = {
+		recruit_character = MAD_petera_behajaina
+	}
+}
+
+country_event = {
+	id = MAD_army_roster.6
+	hidden = yes
+	is_triggered_only = yes
+	fire_only_once = yes
+	immediate = {
+		recruit_character = MAD_mamy_ranaivoniarivo
+	}
+}
+
+country_event = {
+	id = MAD_army_roster.7
+	hidden = yes
+	is_triggered_only = yes
+	fire_only_once = yes
+	immediate = {
+		# The faction chiefs only remain available as generals if the player has not
+		# already made the command choice. That choice retires both from the roster.
+		if = {
+			limit = { NOT = { has_country_flag = MAD_ARMY_COMMAND_DECIDED } }
+			recruit_character = MAD_noel_rakotonandrasana
+			recruit_character = MAD_edmond_rasolomahandry
+		}
+		recruit_character = MAD_andre_andriarijaona
+		recruit_character = MAD_charles_andrianasoavina
+		recruit_character = MAD_lylison_rene
+	}
+}
+
+country_event = {
+	id = MAD_army_roster.8
+	hidden = yes
+	is_triggered_only = yes
+	fire_only_once = yes
+	immediate = {
+		recruit_character = MAD_hyppolite_ramaroson
+	}
+}
+
+country_event = {
+	id = MAD_army_roster.9
+	hidden = yes
+	is_triggered_only = yes
+	fire_only_once = yes
+	immediate = {
+		recruit_character = MAD_dominique_rakotazafy
+	}
+}
+
+country_event = {
+	id = MAD_army_roster.10
+	hidden = yes
+	is_triggered_only = yes
+	fire_only_once = yes
+	immediate = {
+		recruit_character = MAD_beni_xavier_rasolofonirina
+	}
+}
