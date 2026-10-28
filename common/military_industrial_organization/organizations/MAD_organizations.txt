@@ -288,7 +288,7 @@ MAD_DEFENCE_ELECTRONICS = {
 	}
 
 	# Generic AA/AT paths cover MANPADS, ATGMs and mounted ATGMs.
-	# These local branches add the requested C&C and small-arms specialities.
+	# These local branches add C&C, UAV and small-arms specialities.
 	trait = {
 		token = MAD_DEFENCE_ELECTRONICS_cnc_integration
 		name = MAD_DEFENCE_ELECTRONICS_cnc_integration
@@ -305,9 +305,9 @@ MAD_DEFENCE_ELECTRONICS = {
 		token = MAD_DEFENCE_ELECTRONICS_uav
 		name = MAD_DEFENCE_ELECTRONICS_uav
 		icon = GFX_generic_mio_trait_icon_uav_reliability
-		all_parents = { MAD_DEFENCE_ELECTRONICS_cnc_integration }
-		position = { x = 2 y = 1 }
-		relative_position_id = MAD_DEFENCE_ELECTRONICS_cnc_integration
+		all_parents = { generic_mio_at_aa_reass_buff }
+		position = { x = 1 y = 2 }
+		relative_position_id = generic_mio_at_aa_reass_buff
 		limit_to_equipment_type = { mio_cat_eq_only_uav }
 		equipment_bonus = { reliability = 0.05 air_range = 0.05 }
 		on_complete = { expenditure_for_mio_upgrade = yes }
@@ -319,7 +319,7 @@ MAD_DEFENCE_ELECTRONICS = {
 		name = MAD_DEFENCE_ELECTRONICS_cnc_network
 		icon = GFX_generic_mio_trait_icon_task
 		all_parents = { MAD_DEFENCE_ELECTRONICS_cnc_integration }
-		position = { x = 0 y = 1 }
+		position = { x = -1 y = 1 }
 		relative_position_id = MAD_DEFENCE_ELECTRONICS_cnc_integration
 		limit_to_equipment_type = { cnc_equipment_type }
 		equipment_bonus = { max_organisation = 0.08 }
