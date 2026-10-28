@@ -1,0 +1,416 @@
+name: Repair Madagascar leader portraits
+
+on:
+  push:
+    branches:
+      - codex/dahalo-campaign-chain-review-2026-10-25
+    paths:
+      - .github/workflows/mad-portrait-repair.yml
+
+permissions:
+  contents: write
+
+jobs:
+  repair-portraits:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: codex/dahalo-campaign-chain-review-2026-10-25
+          persist-credentials: true
+      - name: Install portrait-processing dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y imagemagick
+          python -m pip install --upgrade pip
+          python -m pip install requests beautifulsoup4 pillow opencv-python-headless pymupdf
+      - name: Retrieve, verify and format portraits
+        run: |
+          python - <<'PY'
+          import io, os, re, json, html, subprocess, hashlib
+          from pathlib import Path
+          from urllib.parse import urljoin, quote_plus
+          import requests, cv2, fitz
+          import numpy as np
+          from PIL import Image, ImageOps
+          from bs4 import BeautifulSoup
+
+          ROOT = Path.cwd()
+          MAIN = ROOT / "gfx/leaders/MAD"
+          SMALL = MAIN / "small"
+          CHAR_FILE = ROOT / "common/characters/MAD.txt"
+          EVENT_FILE = ROOT / "events/MAD_events.txt"
+          SOURCES_FILE = MAIN / "portrait_sources.md"
+          MAIN.mkdir(parents=True, exist_ok=True)
+          SMALL.mkdir(parents=True, exist_ok=True)
+
+          session = requests.Session()
+          session.headers.update({"User-Agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/130 Safari/537.36"})
+          face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_frontalface_default.xml")
+          glasses_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_eye_tree_eyeglasses.xml")
+
+          TARGETS = [
+            {
+              "base":"Andrianome_Ranivo_Dieudonne", "char":"MAD_andrianome_dieudonne", "role":"army",
+              "urls":["https://www.madagate.org/madagascar-informations-politiques/flash-infos/3797-madagascar-general-andrianome-lofficier-superieur-de-la-neutralite-active-est-decede.pdf"],
+              "queries":['"Général Andrianome" Madagascar portrait photo','"Andrianome Ranivo Dieudonné" photo général'],
+              "terms":["andrianome","dieudonne","général"],
+              "credit":"Madagate / image-search candidate", "rights":"Copyright / permission not established"
+            },
+            {
+              "base":"Jules_Mamizara", "char":"MAD_jules_mamizara", "role":"army",
+              "urls":["https://www.lexpress.mg/17/07/2020/deces-du-general-mamizara-un-trois-etoiles-seteint/","https://www.2424.mg/news/disparition-le-general-jules-mamizara-tire-sa-reverence/","https://www1.rfi.fr/actufr/articles/027/article_13290.asp"],
+              "queries":['"Jules Mamizara" général photo Madagascar','"général de division Jules Mamizara" portrait'],
+              "terms":["jules","mamizara"], "credit":"L’Express de Madagascar / image-search candidate",
+              "rights":"Copyright / permission not established"
+            },
+            {
+              "base":"Raonenantsoamampianina", "char":"MAD_raonenantsoamampianina", "role":"army",
+              "urls":["https://www.madonline.com/nouvelles-nominations-au-sommet-de-larmee/","https://www.2424.mg/news/60-ans-de-larmee-malgache-une-stele-pour-rendre-hommage-aux-anciens-chefs-detat-major-general-de-larmee-malagasy/"],
+              "queries":['"Raonenantsoamampianina" photo général','"Raonenantsomampianina" chef état-major photo Madagascar','"CEMGAM" "Raonenantsoamampianina" portrait'],
+              "terms":["raonenantsoamampianina","raonenantsomampianina","cemgam"], "credit":"MadOnline / image-search candidate",
+              "rights":"Copyright / permission not established"
+            },
+            {
+              "base":"Petera_Behajaina", "char":"MAD_petera_behajaina", "role":"army",
+              "urls":["https://www1.rfi.fr/actufr/articles/059/article_31466.asp"],
+              "queries":['"General Peter Bahajaina" Madagascar photo 2002','"Général Petera Behajaina" photo lunettes'],
+              "terms":["petera","behajaina","bahajaina"], "credit":"RFI / Olivier Péguy / image-search candidate",
+              "rights":"Copyright / permission not established; RFI/AFP images may require permission",
+              "prefer_glasses":True
+            },
+            {
+              "base":"Noel_Girardin_Rakotonandrasana", "char":"MAD_noel_rakotonandrasana", "role":"army",
+              "urls":["https://images.ladepeche.fr/api/v1/images/view/5c1cf7e28fe56f701700bc28/large/image.jpg"],
+              "source_page":"https://www.ladepeche.fr/article/2010/11/17/950064-madagascar-appel-a-la-mutinerie-le-jour-du-referendum-constitutionnel.html",
+              "queries":['"Noël Rakotonandrasana" général photo','"Noel Girardin Rakotonandrasana" 2009 portrait'],
+              "terms":["noel","rakotonandrasana"], "credit":"La Dépêche / AFP",
+              "rights":"Copyright / permission not established"
+            },
+            {
+              "base":"Edmond_Rasolomahandry", "char":"MAD_edmond_rasolomahandry", "role":"army",
+              "urls":["https://dkiapcss.edu/wp-content/uploads/2010/PDFs/currents2009-alumni.pdf"],
+              "queries":['"Brigadier General Rasolomahandry Edmond" photo','"Edmond Rasolomahandry" portrait Madagascar'],
+              "terms":["rasolomahandry","edmond"], "credit":"Asia-Pacific Center for Security Studies / image-search candidate",
+              "rights":"Copyright / permission not established"
+            },
+            {
+              "base":"Charles_Andrianasoavina", "char":"MAD_charles_andrianasoavina", "role":"army",
+              "urls":["https://i0.wp.com/www.agencemalagasydepresse.com/media/2023/10/colonel-charles-andrianasoavina.jpg?fit=1024%2C735&ssl=1"],
+              "source_page":"https://www.agencemalagasydepresse.com/politique/raharaham-pirenena-fanambaranny-colonel-charles-andrianasoavina/",
+              "queries":['"Colonel Charles Andrianasoavina" portrait photo'],
+              "terms":["charles","andrianasoavina"], "credit":"Agence Malagasy de Presse",
+              "rights":"Copyright / permission not established"
+            },
+            {
+              "base":"Hyppolite_Rarison_Ramaroson", "char":"MAD_hyppolite_ramaroson", "role":"navy",
+              "urls":["https://latribune.cyber-diego.com/actualites/326-50eme-anniversaire-de-la-creation-de-la-marine-de-madagascar.html"],
+              "queries":['"Hyppolite Rarison Ramaroson" portrait photo','"contre-amiral Hyppolite Rarison Ramaroson" Madagascar photo'],
+              "terms":["hyppolite","ramaroson","r arison"], "credit":"La Tribune de Diego / image-search candidate",
+              "rights":"Copyright / permission not established"
+            },
+          ]
+
+          def get(url):
+            r = session.get(url, timeout=30, allow_redirects=True)
+            r.raise_for_status()
+            return r.content, r.headers.get("content-type","").lower(), r.url
+
+          def faces(img):
+            rgb = ImageOps.exif_transpose(img).convert("RGB")
+            arr = cv2.cvtColor(np.array(rgb), cv2.COLOR_RGB2BGR)
+            gray = cv2.cvtColor(arr, cv2.COLOR_BGR2GRAY)
+            found = face_cascade.detectMultiScale(gray, scaleFactor=1.035, minNeighbors=2, minSize=(12,12))
+            result = []
+            for x,y,w,h in found:
+              score = w*h
+              eyeregion = gray[max(0,y):min(gray.shape[0],y+int(h*.62)), max(0,x):min(gray.shape[1],x+w)]
+              glasses = glasses_cascade.detectMultiScale(eyeregion, scaleFactor=1.05, minNeighbors=2, minSize=(5,5)) if eyeregion.size else []
+              result.append((int(x),int(y),int(w),int(h),score,bool(len(glasses))))
+            if not result:
+              return rgb, []
+            return rgb, sorted(result,key=lambda z:(int(z[5]) if False else 0,z[4]),reverse=True)
+
+          def crop_face(img, box):
+            x,y,w,h = box[:4]
+            ratio = 156/210
+            ch = max(int(h*3.4), 120)
+            cw = int(ch*ratio)
+            cx = x + w//2
+            top = y - int(h*.42)
+            left = cx - cw//2
+            # Expand at borders by shifting the crop rather than shrinking it.
+            left = max(0, min(left, img.width-cw))
+            top = max(0, min(top, img.height-ch))
+            if cw > img.width or ch > img.height:
+              return ImageOps.fit(img,(156,210),method=Image.Resampling.LANCZOS,centering=(.5,.4))
+            return img.crop((left,top,left+cw,top+ch))
+
+          def image_bytes(data):
+            try:
+              im = Image.open(io.BytesIO(data))
+              im.load()
+              if im.width >= 100 and im.height >= 100:
+                return im.convert("RGB")
+            except Exception:
+              pass
+            return None
+
+          def page_candidates(url, terms):
+            out=[]
+            try:
+              data, typ, landed = get(url)
+              if typ.startswith("image/") or data[:4] in (b"\xff\xd8\xff\xe0",b"\xff\xd8\xff\xdb",b"\x89PNG",b"RIFF"):
+                im=image_bytes(data)
+                if im: out.append((url, url, im, 150))
+                return out
+              if data.startswith(b"%PDF") or "application/pdf" in typ or url.lower().endswith(".pdf"):
+                doc=fitz.open(stream=data,filetype="pdf")
+                candidates=[]
+                # Render pages whose text names the officer first; if their page has no face, inspect the rest.
+                text_pages=[]
+                need=[t.casefold() for t in terms if len(t)>4]
+                for n,page in enumerate(doc):
+                  txt=page.get_text("text").casefold()
+                  score=sum(80 for t in need if t in txt)
+                  if score: text_pages.append((n,score))
+                order=[n for n,_ in sorted(text_pages,key=lambda z:z[1],reverse=True)]
+                order += [n for n in range(min(len(doc),15)) if n not in order]
+                for n in order[:15]:
+                  page=doc[n]
+                  pix=page.get_pixmap(matrix=fitz.Matrix(2.5,2.5),alpha=False)
+                  im=Image.open(io.BytesIO(pix.tobytes("png"))).convert("RGB")
+                  _, fs=faces(im)
+                  if fs:
+                    txt=page.get_text("text").casefold()
+                    page_score=sum(80 for t in need if t in txt)
+                    box=fs[0]
+                    candidates.append((score + page_score + box[4]/10000, landed + "#page=" + str(n+1), im, box))
+                for score, src, im, box in sorted(candidates,key=lambda z:z[0],reverse=True):
+                  out.append((src, landed, im, box))
+                return out
+              soup=BeautifulSoup(data,"html.parser")
+              needles=[x.casefold() for x in terms]
+              cand={}
+              def add(u,label,weight=0):
+                if not u: return
+                u=urljoin(landed,u)
+                low=(u+" "+label).casefold()
+                if any(z in low for z in ["logo","avatar","gravatar","placeholder","advert","sprite","icon"]): weight-=300
+                if re.search(r"\.(jpe?g|png|webp)(?:[?#]|$)",u,re.I): weight+=10
+                weight += sum(25 for term in needles if term and term in low)
+                cand[u]=max(cand.get(u,-999),weight)
+              for meta in soup.find_all("meta"):
+                key=(meta.get("property") or meta.get("name") or "").lower()
+                if key in ("og:image","twitter:image","twitter:image:src") and meta.get("content"):
+                  add(meta["content"],meta.get("alt",""),4)
+              for container in soup.select("article, main, .article, .post, .entry-content"):
+                for img in container.find_all("img"):
+                  u=img.get("src") or img.get("data-src") or img.get("data-lazy-src")
+                  if not u and img.get("srcset"): u=img["srcset"].split(",")[0].strip().split(" ")[0]
+                  add(u," ".join(str(img.get(k,"")) for k in ("alt","title","class","id")),30)
+              for img in soup.find_all("img"):
+                u=img.get("src") or img.get("data-src") or img.get("data-lazy-src")
+                if u: add(u," ".join(str(img.get(k,"")) for k in ("alt","title","class","id")),0)
+              for u,sc in sorted(cand.items(),key=lambda z:z[1],reverse=True)[:24]:
+                try:
+                  b,t,_=get(u)
+                  im=image_bytes(b)
+                  if im:
+                    _,fs=faces(im)
+                    if fs: out.append((u,landed,im,fs[0],sc))
+                except Exception: pass
+              out.sort(key=lambda z:(z[4] if len(z)>4 else 0, z[3][4] if isinstance(z[3],tuple) else 0),reverse=True)
+              return out
+            except Exception as exc:
+              print("PAGE FAILED",url,str(exc)[:180])
+              return []
+
+          def bing_candidates(query, terms):
+            try:
+              data,_,landed=get("https://www.bing.com/images/search?q="+quote_plus(query))
+              soup=BeautifulSoup(data,"html.parser")
+              res=[]
+              for item in soup.select("a.iusc"):
+                try: meta=json.loads(html.unescape(item.get("m","{}")))
+                except Exception: continue
+                url=meta.get("murl")
+                label=" ".join(str(meta.get(k,"")) for k in ("t","desc","purl"))
+                if not url: continue
+                score=sum(50 for t in terms if t and t.casefold() in (label+" "+url).casefold())
+                if score < 50: continue
+                if any(z in (label+" "+url).casefold() for z in ["logo","avatar","icon","advert","video game"]): continue
+                res.append((score,url,meta.get("purl") or landed,label))
+              return sorted(res,reverse=True)[:25]
+            except Exception as exc:
+              print("BING SEARCH FAILED",query,str(exc)[:150])
+              return []
+
+          def find_portrait(spec):
+            # Search exact source articles and direct files first.
+            for url in spec.get("urls",[]):
+              for item in page_candidates(url,spec["terms"]):
+                src, page, im, box, *extra = item
+                _, found=faces(im)
+                if isinstance(box,tuple) and len(box)>=4:
+                  chosen=box
+                elif found:
+                  chosen=found[0]
+                else:
+                  continue
+                # For Behajaina, prefer a face with eyewear because the RFI caption identifies him as the man with glasses.
+                if spec.get("prefer_glasses") and found:
+                  gl=[f for f in found if f[5]]
+                  if gl: chosen=gl[0]
+                return im,chosen,src,page
+            # Broader image searches, including French-language titles.
+            for query in spec.get("queries",[]):
+              for score, imgurl, pageurl, label in bing_candidates(query,spec["terms"]):
+                try:
+                  data,typ,landed=get(imgurl)
+                  im=image_bytes(data)
+                  if not im: continue
+                  _,found=faces(im)
+                  if not found: continue
+                  chosen=found[0]
+                  if spec.get("prefer_glasses"):
+                    gl=[f for f in found if f[5]]
+                    if gl: chosen=gl[0]
+                  return im,chosen,landed,pageurl or query
+                except Exception: continue
+            return None
+
+          def write_portrait(spec, img, box):
+            crop=crop_face(img,box)
+            crop=ImageOps.fit(crop,(156,210),method=Image.Resampling.LANCZOS,centering=(.5,.42)).convert("RGB")
+            small=crop.resize((38,51),Image.Resampling.LANCZOS)
+            stem=spec["base"]
+            tmp=ROOT/("tmp_"+stem+".png")
+            tmp_small=ROOT/("tmp_"+stem+"_small.png")
+            crop.save(tmp); small.save(tmp_small)
+            subprocess.run(["convert",str(tmp),"-strip","-colorspace","sRGB","-type","TrueColor","-define","dds:compression=dxt1",str(MAIN/(stem+".dds"))],check=True)
+            subprocess.run(["convert",str(tmp_small),"-strip","-colorspace","sRGB","-type","TrueColor","-define","dds:compression=dxt1",str(SMALL/(stem+"_small.dds"))],check=True)
+            tmp.unlink(missing_ok=True); tmp_small.unlink(missing_ok=True)
+
+          # These existing assets were visually checked and confirmed to be bad:
+          # a PDF text page, site logos, an article excerpt, a text scrap, an advert, or an unverified officer.
+          invalid_if_unreplaced = {
+            "Andrianome_Ranivo_Dieudonne","Jules_Mamizara","Raonenantsoamampianina",
+            "Edmond_Rasolomahandry","Charles_Andrianasoavina","Hyppolite_Rarison_Ramaroson"
+          }
+          chars=CHAR_FILE.read_text(encoding="utf-8-sig")
+          events=EVENT_FILE.read_text(encoding="utf-8-sig")
+          rows={}
+          old=SOURCES_FILE.read_text(encoding="utf-8-sig") if SOURCES_FILE.exists() else ""
+          for spec in TARGETS:
+            print("SEARCHING",spec["base"])
+            found=find_portrait(spec)
+            if found:
+              img,box,source,page=find_portrait_result = found
+              write_portrait(spec,img,box)
+              rows[spec["base"]]=(source,page,spec["credit"],spec["rights"],True)
+              print("IMPORTED",spec["base"],"source",source,"page",page,"image",img.size,"face",box[:4])
+            else:
+              rows[spec["base"]]=("", "", spec["credit"],spec["rights"],False)
+              print("NO VERIFIED FACE CANDIDATE",spec["base"])
+              if spec["base"] in invalid_if_unreplaced:
+                # Remove bad art rather than leave a logo, document excerpt, ad, or misidentified person.
+                (MAIN/(spec["base"]+".dds")).unlink(missing_ok=True)
+                (SMALL/(spec["base"]+"_small.dds")).unlink(missing_ok=True)
+
+          # Remove portrait paths only for assets we failed to replace and know were invalid.
+          failed={base for base, row in rows.items() if not row[4] and base in invalid_if_unreplaced}
+          bybase={
+            "Andrianome_Ranivo_Dieudonne":"MAD_andrianome_dieudonne",
+            "Jules_Mamizara":"MAD_jules_mamizara",
+            "Raonenantsoamampianina":"MAD_raonenantsoamampianina",
+            "Edmond_Rasolomahandry":"MAD_edmond_rasolomahandry",
+            "Charles_Andrianasoavina":"MAD_charles_andrianasoavina",
+            "Hyppolite_Rarison_Ramaroson":"MAD_hyppolite_ramaroson",
+          }
+          def remove_property(block, prop):
+            token=re.search(r"(?m)^\s*"+re.escape(prop)+r"\s*=\s*\{",block)
+            if not token: return block
+            start=token.start(); openpos=block.find("{",token.start()); depth=0; end=None
+            for i in range(openpos,len(block)):
+              if block[i]=="{": depth+=1
+              elif block[i]=="}":
+                depth-=1
+                if depth==0: end=i+1; break
+            if end is not None: return block[:start]+block[end:].lstrip("\n")
+            return block
+          for base in failed:
+            cid=bybase[base]
+            marker="\t"+cid+" = {"
+            s=chars.find(marker)
+            if s>=0:
+              depth=0; end=None
+              for i in range(s,len(chars)):
+                if chars[i]=="{": depth+=1
+                elif chars[i]=="}":
+                  depth-=1
+                  if depth==0: end=i+1; break
+              if end:
+                block=chars[s:end]
+                chars=chars[:s]+remove_property(block,"portraits")+chars[end:]
+            display={"Andrianome_Ranivo_Dieudonne":"Andrianome Ranivo Dieudonné","Jules_Mamizara":"Jules Mamizara",
+                     "Raonenantsoamampianina":"Raonenantsoamampianina","Edmond_Rasolomahandry":"Edmond Rasolomahandry",
+                     "Charles_Andrianasoavina":"Charles Andrianasoavina","Hyppolite_Rarison_Ramaroson":"Hyppolite Rarison Ramaroson"}[base]
+            # Any country-leader image reference that points to a removed image must also be dropped.
+            if display in ("Edmond Rasolomahandry","Noël Girardin Rakotonandrasana"):
+              lines=events.splitlines(True); new=[]; active=False; depth=0
+              for line in lines:
+                if "create_country_leader" in line: active=True; depth=0
+                if active and 'name = "'+display+'"' in line and display=="Edmond Rasolomahandry":
+                  pass
+                if active and "picture = \""+base+".dds\"" in line: continue
+                new.append(line)
+                if active:
+                  depth += line.count("{")-line.count("}")
+                  if depth<=0 and "}" in line: active=False
+              events="".join(new)
+
+          CHAR_FILE.write_text(chars,encoding="utf-8")
+          EVENT_FILE.write_text(events,encoding="utf-8")
+
+          def replace_or_add_row(doc, base, source, page, credit, rights, ok):
+            lines=doc.splitlines()
+            start=next((i for i,l in enumerate(lines) if l.startswith("| "+base+" |")),None)
+            if ok:
+              src=source or page
+              link="["+credit+"]("+src+")"
+              row="| "+base+" | "+link+" | "+rights+" |"
+            else:
+              row="| "+base+" | No verified portrait candidate passed face/source checks | Portrait reference removed; old asset was invalid |"
+            if start is not None: lines[start]=row
+            else:
+              marker=next((i for i,l in enumerate(lines) if l.startswith("|---")),None)
+              if marker is not None: lines.insert(marker+1,row)
+            return "\n".join(lines)+"\n"
+
+          doc=old
+          for base,(source,page,credit,rights,ok) in rows.items():
+            doc=replace_or_add_row(doc,base,source,page,credit,rights,ok)
+          SOURCES_FILE.write_text(doc,encoding="utf-8")
+
+          # Structural checks: every portrait path declared in MAD.txt must exist.
+          txt=CHAR_FILE.read_text(encoding="utf-8")
+          missing=[]
+          for rel in re.findall(r'"(gfx/leaders/MAD/[^"]+\.dds)"',txt):
+            if not (ROOT/rel).exists(): missing.append(rel)
+          if missing:
+            raise SystemExit("Missing referenced DDS files: "+", ".join(missing))
+          print("PORTRAIT REPAIR SUMMARY",json.dumps(rows,ensure_ascii=False))
+          print("All remaining character portrait paths resolve.")
+          PY
+      - name: Commit repaired assets and remove bad imports
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add common/characters/MAD.txt events/MAD_events.txt gfx/leaders/MAD
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+            exit 0
+          fi
+          git commit -m "Repair and validate Madagascar leader portraits"
+          git push origin HEAD:codex/dahalo-campaign-chain-review-2026-10-25
