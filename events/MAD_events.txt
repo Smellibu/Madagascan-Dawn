@@ -2764,6 +2764,7 @@ country_event = {
 		name = mad_political.90.a
 		custom_effect_tooltip = mad_political.90.a_tt
 		log = "[GetDateText]: [This.GetName]: mad_political.90.a selected"
+		# Keep Marcel Ranjeva with the original country: this becomes Ratsiraka's side of the civil war.
 		hidden_effect = {
 			clr_country_flag = MAD_RATSIRAKA_EVENT_QUEUED
 			clr_country_flag = MAD_RATSIRAKA_FIRST_LOSS_PENDING
@@ -2868,6 +2869,8 @@ country_event = {
 	option = {
 		name = mad_political.90.b
 		log = "[GetDateText]: [This.GetName]: mad_political.90.b selected"
+		# Ratsiraka chooses exile instead of civil war; retire Ranjeva when Ratsiraka loses power.
+		if = { limit = { has_character = MAD_marcel_ranjeva } retire_character = MAD_marcel_ranjeva }
 		clr_country_flag = MAD_RATSIRAKA_EVENT_QUEUED
 		clr_country_flag = MAD_RATSIRAKA_FIRST_LOSS_PENDING
 		clr_country_flag = MAD_RATSIRAKA_COALITION_TRACKING
@@ -5292,16 +5295,6 @@ country_event = {
 	fire_only_once = yes
 	immediate = {
 		recruit_character = MAD_sylvain_razafimandimby
-	}
-}
-
-country_event = {
-	id = MAD_army_roster.3
-	hidden = yes
-	is_triggered_only = yes
-	fire_only_once = yes
-	immediate = {
-		retire_character = MAD_marcel_ranjeva
 	}
 }
 
