@@ -1,4 +1,4 @@
-name: Repair Madagascar leader portraits — Group 2
+name: Repair Madagascar leader portraits — Group 3
 
 on:
   push:
@@ -59,31 +59,24 @@ jobs:
 
           TARGETS = [
             {
-              "base":"Jules_Mamizara", "char":"MAD_jules_mamizara", "role":"army",
-              "urls":["https://lexpress.mg/17/07/2020/deces-du-general-mamizara-un-trois-etoiles-seteint/","https://www.2424.mg/news/disparition-le-general-jules-mamizara-tire-sa-reverence/"],
-              "source_page":"https://lexpress.mg/17/07/2020/deces-du-general-mamizara-un-trois-etoiles-seteint/",
-              "terms":["jules","mamizara"],
-              "credit":"L'Express de Madagascar / Garry Fabrice Ranaivoson",
-              "rights":"Copyright / permission not established",
-              "allow_center_crop":True
+              "base":"Andrianome_Ranivo_Dieudonne", "char":"MAD_andrianome_dieudonne", "role":"army",
+              "review_only":True,
+              "credit":"Madagate / archived obituary image",
+              "rights":"Copyright / permission not established"
             },
             {
-              "base":"Edmond_Rasolomahandry", "char":"MAD_edmond_rasolomahandry", "role":"army",
-              "urls":["https://mobile.madagascar-tribune.com/local/cache-vignettes/L235xH211/P1-63-a4726.jpg"],
-              "source_page":"https://mobile.madagascar-tribune.com/Trois-occasions-ratees-selon-le,12736.html",
-              "terms":["edmond","rasolomahandry"],
-              "credit":"Valis / Madagascar Tribune",
-              "rights":"Copyright / reuse permission not established",
-              "allow_center_crop":True
+              "base":"Raonenantsoamampianina", "char":"MAD_raonenantsoamampianina", "role":"army",
+              "review_only":True,
+              "credit":"MadOnline / archived army appointments article",
+              "rights":"Copyright / permission not established"
             },
             {
-              "base":"Andre_Ndriarijaona", "char":"MAD_andre_andriarijaona", "role":"army",
-              "urls":["https://latribune.cyber-diego.com/images/stories/2012/juin/labuse2012_07.jpg"],
-              "source_page":"https://latribune.cyber-diego.com/actualites/677-exercice-de-lutte-contre-la-piraterie-dans-la-baie-de-diego-suarez.html",
-              "terms":["andre","ndriarijaona"],
-              "credit":"La Tribune de Diego",
-              "rights":"Copyright / permission not established",
-              "allow_center_crop":True
+              "base":"Hyppolite_Rarison_Ramaroson", "char":"MAD_hyppolite_ramaroson", "role":"navy",
+              "urls":["https://latribune.cyber-diego.com/images/stories/2011/mar/50-ans-marine-madagascar_01.jpg"],
+              "source_page":"https://latribune.cyber-diego.com/actualites/326-50eme-anniversaire-de-la-creation-de-la-marine-de-madagascar.html",
+              "terms":["hyppolite","ramaroson"],
+              "credit":"La Tribune de Diego (photographer not identified)",
+              "rights":"Copyright / permission not established"
             },
           ]
 
@@ -380,6 +373,11 @@ jobs:
           old=SOURCES_FILE.read_text(encoding="utf-8-sig") if SOURCES_FILE.exists() else ""
           for spec in TARGETS:
             print("SEARCHING",spec["base"])
+            if spec.get("review_only"):
+              # Keep the existing DDS and source register intact unless a better identity-verified photo is found.
+              rows[spec["base"]]=("", "", spec["credit"], spec["rights"], False)
+              print("REVIEW ONLY; retained existing portrait and source entry", spec["base"])
+              continue
             found=find_portrait(spec)
             if found:
               img,box,source,page=find_portrait_result = found
@@ -561,6 +559,9 @@ jobs:
               link="["+credit+"]("+src+")"
               row="| "+base+" | "+link+" | "+rights+" |"
             else:
+              if (MAIN/(base+".dds")).exists() and start is not None:
+                # Retain prior provenance when a grouped review does not establish a better match.
+                return "\n".join(lines)+"\n"
               row="| "+base+" | No verified portrait candidate passed face/source checks | Not imported; no new portrait reference was added |"
             if start is not None: lines[start]=row
             else:
