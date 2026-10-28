@@ -18,6 +18,8 @@ MAD_IVATO_AEROSYSTEMS = {
 		mio_cat_eq_only_light_aircraft
 		medium_plane_airframe
 		large_plane_airframe
+		large_plane_air_transport_airframe
+		mio_cat_eq_only_transport
 		mio_cat_eq_only_uav
 	}
 	research_categories = {
@@ -98,6 +100,22 @@ MAD_IVATO_AEROSYSTEMS = {
 		relative_position_id = MAD_IVATO_AEROSYSTEMS_uav
 		limit_to_equipment_type = { mio_cat_eq_only_uav }
 		production_bonus = { production_capacity_factor = 0.05 production_cost_factor = -0.04 }
+		on_complete = { expenditure_for_mio_upgrade = yes }
+		ai_will_do = { base = 10 }
+	}
+
+	# The generic air tree covers broad transport reliability and industry bonuses.
+	# Keep the former Madagascar-specific 6% transport-aircraft production-cost saving
+	# as a connected branch from its heavy-aircraft cost node.
+	trait = {
+		token = MAD_IVATO_AEROSYSTEMS_airlift_redeployment
+		name = MAD_IVATO_AEROSYSTEMS_airlift_redeployment
+		icon = GFX_generic_mio_trait_icon_build_cost_ic
+		all_parents = { generic_mio_air_trait_heavy_cost }
+		position = { x = 0 y = 1 }
+		relative_position_id = generic_mio_air_trait_heavy_cost
+		limit_to_equipment_type = { large_plane_air_transport_airframe }
+		production_bonus = { production_cost_factor = -0.06 }
 		on_complete = { expenditure_for_mio_upgrade = yes }
 		ai_will_do = { base = 10 }
 	}
@@ -189,6 +207,7 @@ MAD_MALAGASY_MOBILITY = {
 		relative_position_id = MAD_MALAGASY_MOBILITY_apc_ifv
 		limit_to_equipment_type = { medium_tank_amphibious_chassis medium_tank_flame_chassis }
 		production_bonus = { production_capacity_factor = 0.05 production_efficiency_cap_factor = 0.05 }
+		organization_modifier = { military_industrial_organization_funds_gain = 0.03 }
 		on_complete = { expenditure_for_mio_upgrade = yes }
 		ai_will_do = { base = 10 }
 	}
@@ -207,6 +226,7 @@ MAD_DEFENCE_ELECTRONICS = {
 		AA_Equipment
 		L_AT_Equipment
 		H_AT_Equipment
+		mio_cat_eq_only_uav
 	}
 	research_categories = {
 		CAT_small_arms
@@ -215,9 +235,11 @@ MAD_DEFENCE_ELECTRONICS = {
 		CAT_anti_tank
 		CAT_anti_air
 		CAT_missiles
+		CAT_air_drones
 	}
 	tree_header_text = { text = MAD_DEFENCE_ELECTRONICS_header_comms x = 5 }
 	tree_header_text = { text = MAD_DEFENCE_ELECTRONICS_header_recon x = 9 }
+	tree_header_text = { text = MAD_DEFENCE_ELECTRONICS_header_uav x = 7 }
 	initial_trait = {
 		name = MAD_DEFENCE_ELECTRONICS_trait
 		equipment_bonus = { reliability = 0.03 }
@@ -237,6 +259,20 @@ MAD_DEFENCE_ELECTRONICS = {
 		on_complete = { expenditure_for_mio_upgrade = yes }
 		ai_will_do = { base = 10 }
 	}
+
+	trait = {
+		token = MAD_DEFENCE_ELECTRONICS_uav
+		name = MAD_DEFENCE_ELECTRONICS_uav
+		icon = GFX_generic_mio_trait_icon_uav_reliability
+		all_parents = { MAD_DEFENCE_ELECTRONICS_cnc_integration }
+		position = { x = 2 y = 1 }
+		relative_position_id = MAD_DEFENCE_ELECTRONICS_cnc_integration
+		limit_to_equipment_type = { mio_cat_eq_only_uav }
+		equipment_bonus = { reliability = 0.05 air_range = 0.05 }
+		on_complete = { expenditure_for_mio_upgrade = yes }
+		ai_will_do = { base = 10 }
+	}
+
 	trait = {
 		token = MAD_DEFENCE_ELECTRONICS_cnc_network
 		name = MAD_DEFENCE_ELECTRONICS_cnc_network
@@ -369,11 +405,6 @@ MAD_SECREN_shipbuilding = {
 		text = MAD_SECREN_shipbuilding_header_systems
 		x = 6
 	}
-	tree_header_text = {
-		text = MAD_SECREN_shipbuilding_header_production
-		x = 10
-	}
-
 	tree_header_text = {
 		text = mio_header_reseach_and_production
 		x = 8
@@ -773,7 +804,7 @@ MAD_SECREN_shipbuilding = {
 
 		any_parent = { generic_mio_nav_light_trait_light_strength }
 
-		position = { x = 0 y = 1 }
+		position = { x = 1 y = 0 }
 		relative_position_id = generic_mio_nav_light_trait_light_strength
 
 		limit_to_equipment_type = { corvette stealth_corvette frigate stealth_frigate patrol_boat }
@@ -798,7 +829,7 @@ MAD_SECREN_shipbuilding = {
 
 		any_parent = { generic_mio_nav_light_trait_light_cost }
 
-		position = { x = 4 y = 1 }
+		position = { x = 2 y = 1 }
 		relative_position_id = generic_mio_nav_light_trait_light_cost
 
 		limit_to_equipment_type = { corvette stealth_corvette frigate stealth_frigate patrol_boat }
@@ -823,7 +854,7 @@ MAD_SECREN_shipbuilding = {
 
 		any_parent = { generic_mio_nav_light_trait_light_visibility }
 
-		position = { x = 0 y = 1 }
+		position = { x = 0 y = 2 }
 		relative_position_id = generic_mio_nav_light_trait_light_visibility
 
 		limit_to_equipment_type = { corvette stealth_corvette frigate stealth_frigate patrol_boat support_ship_hull }
@@ -878,7 +909,7 @@ MAD_SECREN_shipbuilding = {
 
 		any_parent = { generic_mio_nav_light_trait_light_fuel }
 
-		position = { x = 1 y = 1 }
+		position = { x = 0 y = 1 }
 		relative_position_id = generic_mio_nav_light_trait_light_fuel
 
 		mutually_exclusive = { generic_mio_nav_light_trait_light_detection_2 }
@@ -911,7 +942,7 @@ MAD_SECREN_shipbuilding = {
 			generic_mio_nav_light_trait_light_armor
 		}
 
-		position = { x = 1 y = 1 }
+		position = { x = 0 y = 1 }
 		relative_position_id = generic_mio_nav_light_trait_light_detection_2
 
 		limit_to_equipment_type = { corvette stealth_corvette frigate stealth_frigate }
@@ -959,7 +990,7 @@ MAD_SECREN_shipbuilding = {
 
 		any_parent = { generic_mio_nav_light_trait_ind_research }
 
-		position = { x = 0 y = 1 }
+		position = { x = 1 y = 1 }
 		relative_position_id = generic_mio_nav_light_trait_ind_research
 
 		organization_modifier = { military_industrial_organization_funds_gain = 0.2 }
@@ -1011,7 +1042,7 @@ MAD_SECREN_shipbuilding = {
 
 		any_parent = { generic_mio_nav_light_trait_ind_research }
 
-		position = { x = 1 y = 1 }
+		position = { x = 0 y = 1 }
 		relative_position_id = generic_mio_nav_light_trait_ind_xp
 
 		mutually_exclusive = { generic_mio_nav_light_trait_ind_buffs }
