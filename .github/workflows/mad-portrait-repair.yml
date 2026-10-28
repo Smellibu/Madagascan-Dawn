@@ -61,16 +61,17 @@ jobs:
             {
               "base":"Andrianome_Ranivo_Dieudonne", "char":"MAD_andrianome_dieudonne", "role":"army",
               "urls":["https://anoca.fr/sites/default/files/Bulletin%20n%C2%B02%202014.pdf","https://www.madagate.org/madagascar-informations-politiques/flash-infos/3797-madagascar-general-andrianome-lofficier-superieur-de-la-neutralite-active-est-decede.pdf"],
-              "queries":['"Angelbert Dieudonné Andrianome Ranaivo" photo','"Général Andrianome" Madagascar portrait photo','"Andrianome Ranivo Dieudonné" photo général'],
+              "queries":['"Angelbert Dieudonné Andrianome Ranaivo" portrait photo','"Général Andrianome" Madagascar portrait photo','"Andrianome Ranivo Dieudonné" photo général','"Général Andrianome Ranaivo" chef état major photo'],
               "terms":["andrianome","angelbert","dieudonne","ranaivo"],
               "credit":"Madagate / image-search candidate", "rights":"Copyright / permission not established"
             },
             {
               "base":"Jules_Mamizara", "char":"MAD_jules_mamizara", "role":"army",
-              "urls":["https://www.lexpress.mg/2020/07/deces-du-general-mamizara-un-trois-etoiles-seteint.html","https://www.2424.mg/news/disparition-le-general-jules-mamizara-tire-sa-reverence/","https://www1.rfi.fr/actufr/articles/027/article_13290.asp"],
+              "urls":["https://www.2424.mg/news/disparition-le-general-jules-mamizara-tire-sa-reverence/","https://www1.rfi.fr/actufr/articles/027/article_13290.asp"],
+              "source_page":"https://www.2424.mg/news/disparition-le-general-jules-mamizara-tire-sa-reverence/",
               "queries":['"Jules Mamizara" général photo Madagascar','"général de division Jules Mamizara" portrait'],
-              "terms":["jules","mamizara"], "credit":"L’Express de Madagascar / image-search candidate",
-              "rights":"Copyright / permission not established"
+              "terms":["jules","mamizara"], "credit":"2424.mg / InfoCom Seg",
+              "rights":"Copyright / permission not established", "allow_center_crop":True
             },
             {
               "base":"Raonenantsoamampianina", "char":"MAD_raonenantsoamampianina", "role":"army",
@@ -105,9 +106,9 @@ jobs:
             },
             {
               "base":"Charles_Andrianasoavina", "char":"MAD_charles_andrianasoavina", "role":"army",
-              "urls":["https://www.agencemalagasydepresse.com/media/2023/10/colonel-charles-andrianasoavina.jpg"],
+              "urls":["https://www.agencemalagasydepresse.com/media/2023/10/colonel-charles-andrianasoavina.jpg","https://www.agencemalagasydepresse.com/politique/raharaham-pirenena-fanambanny-colonel-charles-andrianasoavina/","https://www.madagascar-tribune.com/Charles-Andrianasoavina-est-rentre%2C20699.html"],
               "source_page":"https://www.agencemalagasydepresse.com/politique/raharaham-pirenena-fanambanny-colonel-charles-andrianasoavina/",
-              "queries":['"Colonel Charles Andrianasoavina" portrait photo','"Charles Andrianasoavina" Madagascar Tribune photo'],
+              "queries":['"Colonel Charles Andrianasoavina" portrait photo','"Charles Andrianasoavina est rentré" photo'],
               "terms":["charles","andrianasoavina"], "credit":"Agence Malagasy de Presse",
               "allow_center_crop":True,
               "rights":"Copyright / permission not established"
@@ -121,7 +122,7 @@ jobs:
             },
             {
               "base":"Andry_Rajoelina", "char":"MAD_TGV_FORMED", "role":"political",
-              "urls":["https://upload.wikimedia.org/wikipedia/commons/0/08/Andry_Rajoelina_%282023%29.jpg"],
+              "urls":["https://commons.wikimedia.org/wiki/Special:Redirect/file/Andry_Rajoelina_(2023).jpg","https://audiovisual.ec.europa.eu/en/photo-details/P-060421%2F00-40","https://commons.wikimedia.org/wiki/File:Andry_Rajoelina_(2023).jpg","https://upload.wikimedia.org/wikipedia/commons/0/08/Andry_Rajoelina_%282023%29.jpg"],
               "source_page":"https://commons.wikimedia.org/wiki/File:Andry_Rajoelina_(2023).jpg",
               "queries":['"Andry Rajoelina (2023)" Rijasolo European Commission'],
               "terms":["andry","rajoelina"], "credit":"Rijasolo / European Commission",
@@ -137,10 +138,11 @@ jobs:
             },
             {
               "base":"Richard_Andriamanjato", "char":"MAD_akfm_leader", "role":"political",
-              "urls":["https://www.cia.gov/readingroom/docs/CIA-RDP01-00707R000200080040-3.pdf","https://www.assemblee-nationale.mg/wp-content/uploads/2022/05/N%C2%B016-version-finale-compressed-min-compressed.pdf","https://madagate.org/editorial/30-malagasy-people/3264-madagascar-richard-andriamanjato-decede-a-paris-a-lage-de-83-ans.pdf"],
+              "urls":["https://www.madagascar-tribune.com/Un-elu-de-Dieu-pas-comme-les,6141.html","https://www.cia.gov/readingroom/docs/CIA-RDP01-00707R000200080040-3.pdf","https://www.assemblee-nationale.mg/wp-content/uploads/2022/05/N%C2%B016-version-finale-compressed-min-compressed.pdf","https://madagate.org/editorial/30-malagasy-people/3264-madagascar-richard-andriamanjato-decede-a-paris-a-lage-de-83-ans.pdf"],
+              "source_page":"https://www.madagascar-tribune.com/Un-elu-de-Dieu-pas-comme-les,6141.html",
               "queries":['"Richard Andriamanjato" portrait photo','"Richard Andriamanjato" Madagascar photograph'],
-              "terms":["richard","andriamanjato"], "credit":"CIA National Intelligence Survey / National Assembly",
-              "rights":"Copyright / reuse rights not independently verified"
+              "terms":["richard","andriamanjato"], "credit":"Madagascar Tribune",
+              "rights":"Copyright / reuse rights not independently verified", "allow_center_crop":True
             },
             {
               "base":"Herizo_Razafimahaleo", "char":"MAD_fanilo_leader", "role":"political",
@@ -219,7 +221,7 @@ jobs:
               pass
             return None
 
-          def page_candidates(url, terms):
+          def page_candidates(url, terms, allow_center_crop=False):
             out=[]
             try:
               data, typ, landed = get(url)
@@ -286,6 +288,7 @@ jobs:
                   if im:
                     _,fs=faces(im)
                     if fs: out.append((u,landed,im,fs[0],sc))
+                    elif allow_center_crop: out.append((u,landed,im,150,sc))
                 except Exception: pass
               out.sort(key=lambda z:(z[4] if len(z)>4 else 0, z[3][4] if isinstance(z[3],tuple) else 0),reverse=True)
               return out
@@ -304,7 +307,10 @@ jobs:
                 url=meta.get("murl")
                 label=" ".join(str(meta.get(k,"")) for k in ("t","desc","purl"))
                 if not url: continue
-                score=sum(50 for t in terms if t and t.casefold() in (label+" "+url).casefold())
+                joined=(label+" "+url).casefold()
+                identity=[t.casefold() for t in terms if len(t)>=8]
+                if identity and not any(t in joined for t in identity): continue
+                score=sum(50 for t in terms if t and t.casefold() in joined)
                 if score < 50: continue
                 if any(z in (label+" "+url).casefold() for z in ["logo","avatar","icon","advert","video game"]): continue
                 res.append((score,url,meta.get("purl") or landed,label))
@@ -316,7 +322,7 @@ jobs:
           def find_portrait(spec):
             # Search exact source articles and direct files first.
             for url in spec.get("urls",[]):
-              for item in page_candidates(url,spec["terms"]):
+              for item in page_candidates(url,spec["terms"],spec.get("allow_center_crop",False)):
                 src, page, im, box, *extra = item
                 _, found=faces(im)
                 if isinstance(box,tuple) and len(box)>=4:
@@ -473,6 +479,11 @@ jobs:
           failed_political={base for base,row in rows.items() if not row[4] and base in POLITICAL_NAMES}
           for base in failed_political:
             portrait=base+".dds"
+            existing=(MAIN/(base+".dds")).exists()
+            # Preserve known-good portraits on temporary download/rate-limit failures.
+            # Richard's last image was a confirmed wrong-person match and must be discarded.
+            if existing and base != "Richard_Andriamanjato":
+              continue
             leaders=remove_picture_from_named_leaders(leaders,POLITICAL_NAMES[base],portrait)
             events=remove_picture_from_named_leaders(events,POLITICAL_NAMES[base],portrait)
             (MAIN/(base+".dds")).unlink(missing_ok=True)
@@ -500,6 +511,35 @@ jobs:
           for base,row in rows.items():
             if row[4] and base in ADD_PICTURE_ON_SUCCESS:
               leaders=add_picture_to_named_leaders(leaders,ADD_PICTURE_ON_SUCCESS[base],base+".dds")
+
+          CHARACTER_TARGETS = {
+            "Andrianome_Ranivo_Dieudonne":("MAD_andrianome_dieudonne","Andrianome Ranivo Dieudonné","army"),
+            "Jules_Mamizara":("MAD_jules_mamizara","Jules Mamizara","army"),
+            "Raonenantsoamampianina":("MAD_raonenantsoamampianina","Raonenantsoamampianina","army"),
+            "Petera_Behajaina":("MAD_petera_behajaina","Petera Behajaina","army"),
+            "Noel_Girardin_Rakotonandrasana":("MAD_noel_rakotonandrasana","Noël Girardin Rakotonandrasana","army"),
+            "Edmond_Rasolomahandry":("MAD_edmond_rasolomahandry","Edmond Rasolomahandry","army"),
+            "Charles_Andrianasoavina":("MAD_charles_andrianasoavina","Charles Andrianasoavina","army"),
+            "Hyppolite_Rarison_Ramaroson":("MAD_hyppolite_ramaroson","Hyppolite Rarison Ramaroson","navy"),
+          }
+          def ensure_character_portrait(doc, char_id, name, role, base):
+            marker="\t"+char_id+" = {\n\t\tname = \""+name+"\""
+            if marker not in doc: return doc
+            start=doc.find(marker); depth=0; end=None
+            for i in range(start,len(doc)):
+              if doc[i]=="{": depth+=1
+              elif doc[i]=="}":
+                depth-=1
+                if depth==0: end=i+1; break
+            if end is None: return doc
+            block=doc[start:end]
+            if re.search(r'(?m)^\s*portraits\s*=\s*\{',block): return doc
+            portrait="\n\t\tportraits = {\n\t\t\t"+role+" = {\n\t\t\t\tsmall = \"gfx/leaders/MAD/small/"+base+"_small.dds\"\n\t\t\t\tlarge = \"gfx/leaders/MAD/"+base+".dds\"\n\t\t\t}\n\t\t}"
+            return doc[:start]+block.replace(marker,marker+"\n"+portrait,1)+doc[end:]
+          for base,row in rows.items():
+            if row[4] and base in CHARACTER_TARGETS:
+              char_id,name,role=CHARACTER_TARGETS[base]
+              chars=ensure_character_portrait(chars,char_id,name,role,base)
 
           CHAR_FILE.write_text(chars,encoding="utf-8")
           EVENT_FILE.write_text(events,encoding="utf-8")
