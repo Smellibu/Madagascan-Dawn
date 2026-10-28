@@ -5344,8 +5344,6 @@ country_event = {
 		# Noel and Edmond are recruited at start; their commander roles become visible in 2009.
 		# If the command choice retired them earlier, do not recruit them again here.
 		recruit_character = MAD_andre_andriarijaona
-		recruit_character = MAD_charles_andrianasoavina
-		recruit_character = MAD_lylison_rene
 	}
 }
 
@@ -5387,5 +5385,16 @@ country_event = {
 	fire_only_once = yes
 	immediate = {
 		recruit_character = MAD_andre_lucien_rakotoarimasy
+	}
+}
+
+country_event = {
+	id = MAD_army_roster.12
+	hidden = yes
+	is_triggered_only = yes
+	fire_only_once = yes
+	immediate = {
+		recruit_character = MAD_charles_andrianasoavina
+		recruit_character = MAD_lylison_rene
 	}
 }
