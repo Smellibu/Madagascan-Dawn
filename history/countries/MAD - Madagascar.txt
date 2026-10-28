@@ -270,9 +270,8 @@ capital = 267
 	set_variable = { term_limit = 2 }
 	set_variable = { current_term = 1 }
 
-	recruit_character = MAD_beni_xavier_rasolofonirina
-	recruit_character = MAD_lylison_rene
-	recruit_character = MAD_dominique_rakotazafy
+	recruit_character = MAD_marcel_ranjeva
+	recruit_character = MAD_andrianome_dieudonne
 	recruit_character = MAD_alex_patrick_andriamahazoarivo
 
 	add_to_array = { agri_crop_allocation = 0.789 } # Basic = 0
@@ -368,4 +367,17 @@ capital = 267
 	country_event = { id = mad_movie.3 days = 4538 }
 	country_event = { id = mad_movie.4 days = 5439 }
 
+
+	# Dated military-roster additions, based on documented appointments/promotions.
+	# No daily polling is used for historical recruitment.
+	country_event = { id = MAD_army_roster.1 days = 797 }  # 2002-03-09: Jules Mamizara
+	country_event = { id = MAD_army_roster.2 days = 876 }  # 2002-05-27: Sylvain Razafimandimby
+	country_event = { id = MAD_army_roster.3 days = 1031 } # 2002-10-29: retirement of Marcel Ranjeva
+	country_event = { id = MAD_army_roster.4 days = 1334 } # 2003-08-28: Raonenantsoamampianina
+	country_event = { id = MAD_army_roster.5 days = 1491 } # 2004-02-01: Petera Behajaina
+	country_event = { id = MAD_army_roster.6 days = 3344 } # 2009-03-01: Mamy Ranaivoniarivo
+	country_event = { id = MAD_army_roster.7 days = 3351 } # 2009-03-08: CAPSAT/General Staff period
+	country_event = { id = MAD_army_roster.8 days = 3591 } # 2009-11-03: Hyppolite Ramaroson
+	country_event = { id = MAD_army_roster.9 days = 4684 } # 2012-11-01: Dominique Rakotozafy promoted
+	country_event = { id = MAD_army_roster.10 days = 5231 } # 2014-05-02: Beni Xavier Rasolofonirina appointed Army Chief of Staff
 }
