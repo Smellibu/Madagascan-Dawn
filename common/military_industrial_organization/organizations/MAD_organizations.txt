@@ -207,10 +207,51 @@ MAD_MALAGASY_MOBILITY = {
 		relative_position_id = MAD_MALAGASY_MOBILITY_apc_ifv
 		limit_to_equipment_type = { medium_tank_amphibious_chassis medium_tank_flame_chassis }
 		production_bonus = { production_capacity_factor = 0.05 production_efficiency_cap_factor = 0.05 }
+		on_complete = { expenditure_for_mio_upgrade = yes }
+		ai_will_do = { base = 10 }
+	}
+
+	# Restore only utility-vehicle effects not supplied by the generic tree:
+	# armour, production-efficiency gain, and the organisation's small funds bonus.
+	# This branch is connected to the generic utility-vehicle root and avoids duplicating
+	# the defence/efficiency-cap bonuses already present in the included tree.
+	trait = {
+		token = MAD_MALAGASY_MOBILITY_protection
+		name = MAD_MALAGASY_MOBILITY_protection
+		icon = GFX_generic_mio_trait_icon_apc_armor
+		all_parents = { generic_mio_tank_trait_light_veh_rel }
+		position = { x = 0 y = 1 }
+		relative_position_id = generic_mio_tank_trait_light_veh_rel
+		limit_to_equipment_type = { mio_cat_all_utils }
+		equipment_bonus = { armor_value = 0.04 }
+		on_complete = { expenditure_for_mio_upgrade = yes }
+		ai_will_do = { base = 10 }
+	}
+	trait = {
+		token = MAD_MALAGASY_MOBILITY_recovery
+		name = MAD_MALAGASY_MOBILITY_recovery
+		icon = GFX_generic_mio_trait_icon_reliability
+		all_parents = { MAD_MALAGASY_MOBILITY_protection }
+		position = { x = -1 y = 1 }
+		relative_position_id = MAD_MALAGASY_MOBILITY_protection
+		limit_to_equipment_type = { mio_cat_all_utils }
+		production_bonus = { production_efficiency_gain_factor = 0.08 }
+		on_complete = { expenditure_for_mio_upgrade = yes }
+		ai_will_do = { base = 10 }
+	}
+	trait = {
+		token = MAD_MALAGASY_MOBILITY_production
+		name = MAD_MALAGASY_MOBILITY_production
+		icon = GFX_generic_mio_trait_icon_efficiency_cap
+		all_parents = { MAD_MALAGASY_MOBILITY_recovery }
+		position = { x = 1 y = 1 }
+		relative_position_id = MAD_MALAGASY_MOBILITY_recovery
+		limit_to_equipment_type = { mio_cat_all_utils }
 		organization_modifier = { military_industrial_organization_funds_gain = 0.03 }
 		on_complete = { expenditure_for_mio_upgrade = yes }
 		ai_will_do = { base = 10 }
 	}
+
 }
 
 MAD_DEFENCE_ELECTRONICS = {
