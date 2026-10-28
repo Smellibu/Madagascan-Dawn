@@ -67,7 +67,7 @@ jobs:
             },
             {
               "base":"Jules_Mamizara", "char":"MAD_jules_mamizara", "role":"army",
-              "urls":["https://www.2424.mg/news/disparition-le-general-jules-mamizara-tire-sa-reverence/","https://www1.rfi.fr/actufr/articles/027/article_13290.asp"],
+              "urls":["https://www.2424.mg/news/disparition-le-general-jules-mamizara-tire-sa-reverence/","https://web.archive.org/web/20200801000000id_/https://www1.rfi.fr/actufr/articles/027/article_13290.asp","https://www1.rfi.fr/actufr/articles/027/article_13290.asp","https://www1.rfi.fr/actufr/images/027/mamizara.jpg","https://www1.rfi.fr/actufr/images/027/jules_mamizara.jpg","https://www1.rfi.fr/actufr/images/027/madagascar_jules_mamizara.jpg"],
               "source_page":"https://www.2424.mg/news/disparition-le-general-jules-mamizara-tire-sa-reverence/",
               "queries":['"Jules Mamizara" général photo Madagascar','"général de division Jules Mamizara" portrait','"Mamizara" général Madagascar 2020 photo','"Jules Mamizara" armée malgache image'],
               "commons_queries":["Jules Mamizara","General Jules Mamizara","Mamizara Madagascar general"],
@@ -321,8 +321,11 @@ jobs:
             image_lower=(image_url+" "+label).casefold()
             page_lower=(page_url or "").casefold()
             identity=[term.casefold() for term in spec["terms"] if len(term)>=6]
-            # Either the image itself identifies the person, or a trusted named-person article supplied it.
-            return any(domain in page_lower for domain in domains) and any(domain in page_lower for domain in domains) or (bool(identity) and all(term in image_lower for term in identity))
+            image_host_trusted=any(domain in image_lower for domain in domains)
+            source_page_trusted=any(domain in page_lower for domain in domains)
+            # Search results are only accepted if the image itself is on an approved publisher/Commons host,
+            # or the actual image URL/metadata contains every distinctive name token.
+            return (source_page_trusted and image_host_trusted) or (bool(identity) and all(term in image_lower for term in identity))
 
           def commons_candidates(spec):
             found=[]
@@ -364,6 +367,7 @@ jobs:
                   else:
                     continue
                   pageurl="https://commons.wikimedia.org/wiki/"+quote_plus(title.replace(" ","_"))
+                  spec["source_page"]=pageurl
                   license_name=html.unescape(str(meta.get("LicenseShortName",{}).get("value","not stated")))
                   artist=html.unescape(str(meta.get("Artist",{}).get("value","Wikimedia Commons contributor")))
                   spec["credit"]=artist+" / Wikimedia Commons"
