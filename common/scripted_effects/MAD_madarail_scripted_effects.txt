@@ -2423,25 +2423,41 @@ MAD_drought_scheduled_events = {
 		4 = {
 			if = {
 				limit = { any_owned_state = { has_variable = MAD_state_drought_exposure check_variable = { MAD_state_drought < 85 } } }
+				random_owned_state = {
+					limit = { has_variable = MAD_state_drought_exposure check_variable = { MAD_state_drought < 85 } }
+					save_event_target_as = MAD_drought_event_state
+				}
 				country_event = mad_drought.30
 			}
 		}
 		3 = {
-			# a cyclone only matters if there is a coast to hit and something on it to lose
+			# Select the coastal target before firing the popup so the name and consequences match.
 			if = {
 				limit = { any_owned_state = { is_coastal = yes has_variable = MAD_state_drought_exposure } }
+				random_owned_state = {
+					limit = { is_coastal = yes has_variable = MAD_state_drought_exposure }
+					save_event_target_as = MAD_drought_event_state
+				}
 				country_event = mad_drought.31
 			}
 		}
 		2 = {
 			if = {
 				limit = { any_owned_state = { has_variable = MAD_state_drought_exposure check_variable = { MAD_state_drought > 54.99 } } }
+				random_owned_state = {
+					limit = { has_variable = MAD_state_drought_exposure check_variable = { MAD_state_drought > 54.99 } }
+					save_event_target_as = MAD_drought_event_state
+				}
 				country_event = mad_drought.32
 			}
 		}
 		1 = {
 			if = {
 				limit = { any_owned_state = { has_variable = MAD_state_drought_exposure has_state_flag = MAD_STATE_WELLS } }
+				random_owned_state = {
+					limit = { has_variable = MAD_state_drought_exposure has_state_flag = MAD_STATE_WELLS }
+					save_event_target_as = MAD_drought_event_state
+				}
 				country_event = mad_drought.33
 			}
 		}
