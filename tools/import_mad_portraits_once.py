@@ -5,9 +5,9 @@ Creates 156x210 main and 38x51 small DXT1 DDS assets; records credits and rights
 It does not imply that copyrighted photographs are licensed for public redistribution.
 """
 from __future__ import annotations
-import io, re, sys, subprocess
+import io, re, sys, subprocess, json, html
 from pathlib import Path
-from urllib.parse import urljoin
+from urllib.parse import urljoin, quote_plus
 import cv2, numpy as np, requests
 from bs4 import BeautifulSoup
 from PIL import Image, ImageOps
@@ -25,15 +25,15 @@ session.headers.update({"User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) 
 SOURCES=[
  {"base":"Andry_Rajoelina","kind":"direct","url":"https://upload.wikimedia.org/wikipedia/commons/0/08/Andry_Rajoelina_%282023%29.jpg","source":"https://commons.wikimedia.org/wiki/File:Andry_Rajoelina_(2023).jpg","rights":"CC BY 4.0","credit":"Rijasolo / European Union","terms":["andry","rajoelina"]},
  {"base":"Marcel_Ranjeva","kind":"direct","url":"https://commons.wikimedia.org/wiki/Special:Redirect/file/Marcel_Ranjeva,_12th_AU_Summit,_090203-N-0506A-616.jpg","source":"https://commons.wikimedia.org/wiki/File:Marcel_Ranjeva,_12th_AU_Summit,_090203-N-0506A-616.jpg","rights":"Public domain, U.S. Navy official-duty photograph","credit":"MC2 Jesse B. Awalt / U.S. Navy","terms":["marcel","ranjeva"]},
- {"base":"Andrianome_Ranivo_Dieudonne","kind":"pdf_face","page":2,"region":"full","url":"https://madagate.org/madagascar-informations-politiques/flash-infos/3797-madagascar-general-andrianome-lofficier-superieur-de-la-neutralite-active-est-decede.pdf","source":"https://www.madagate.org/madagascar-informations-politiques/flash-infos/3797-madagascar-general-andrianome-lofficier-superieur-de-la-neutralite-active-est-decede.pdf","rights":"Copyright status not established","credit":"Madagate","terms":["andrianome","dieudonne","ranaivo"]},
+ {"base":"Andrianome_Ranivo_Dieudonne","kind":"pdf_face","page":2,"region":"full","url":"https://www.madagate.org/madagascar-informations-politiques/flash-infos/3797-madagascar-general-andrianome-lofficier-superieur-de-la-neutralite-active-est-decede.pdf","source":"https://www.madagate.org/madagascar-informations-politiques/flash-infos/3797-madagascar-general-andrianome-lofficier-superieur-de-la-neutralite-active-est-decede.pdf","rights":"Copyright status not established","credit":"Madagate","terms":["andrianome","dieudonne","ranaivo"]},
  {"base":"Jules_Mamizara","kind":"page","url":"https://www.2424.mg/news/disparition-le-general-jules-mamizara-tire-sa-reverence/","source":"https://www.2424.mg/news/disparition-le-general-jules-mamizara-tire-sa-reverence/","rights":"Copyright / permission not established","credit":"InfoCom Seg / 2424.mg","terms":["jules","mamizara"]},
  {"base":"Sylvain_Razafimandimby","kind":"page","url":"https://www.lexpress.mg/2024/03/deces-le-general-sylvain-razafimandimby.html","source":"https://www.lexpress.mg/2024/03/deces-le-general-sylvain-razafimandimby.html","rights":"Copyright / permission not established","credit":"L’Express de Madagascar","terms":["sylvain","razafimandimby"]},
  {"base":"Raonenantsoamampianina","kind":"page","url":"https://www.madagascar-tribune.com/Deux-autres-ministres,11146.html","fallback":"https://www.2424.mg/news/60-ans-de-larmee-malgache-une-stele-pour-rendre-hommage-aux-anciens-chefs-detat-major-general-de-larmee-malagasy/","source":"https://www.madagascar-tribune.com/Deux-autres-ministres,11146.html","rights":"Copyright / permission not established","credit":"Madagascar-Tribune.com","terms":["raonenantsoamampianina","raonenantsomampianina","cemgam"]},
- {"base":"Petera_Behajaina","kind":"page","url":"https://www.gettyimages.com/photos/malagasy-troops-receive-guidance","source":"https://www.gettyimages.com/photos/malagasy-troops-receive-guidance","rights":"Getty Images editorial copyright; permission required for redistribution","credit":"Getty Images, Malagasy Troops Receive Guidance","terms":["malagasy troops receive guidance","peter bahajaina","petera behajaina"]},
+ {"base":"Petera_Behajaina","kind":"image_search","query":"General Peter Bahajaina Madagascar June 2002","source":"https://www.gettyimages.com/photos/malagasy-troops-receive-guidance","rights":"Copyright / permission not established","credit":"Getty Images or original photo agency; confirm source before redistribution","terms":["peter bahajaina","petera behajaina","malagasy troops receive guidance"]},
  {"base":"Noel_Girardin_Rakotonandrasana","kind":"page","url":"https://www1.rfi.fr/actuen/articles/112/article_3609.asp","source":"https://www1.rfi.fr/actuen/articles/112/article_3609.asp","rights":"AFP/RFI copyright; permission required for redistribution","credit":"AFP via RFI","terms":["noel","rakotonandrasana"]},
  {"base":"Edmond_Rasolomahandry","kind":"pdf_face","page":13,"region":"lower_right","url":"https://dkiapcss.edu/wp-content/uploads/2010/PDFs/currents2009-alumni.pdf","source":"https://dkiapcss.edu/wp-content/uploads/2010/PDFs/currents2009-alumni.pdf","rights":"Copyright / permission not established","credit":"Currents, APCSS Fall 2009 alumni report","terms":["edmond","rasolomahandry"]},
  {"base":"Andre_Ndriarijaona","kind":"direct","url":"https://latribune.cyber-diego.com/images/stories/2012/juin/labuse2012_07.jpg","source":"https://latribune.cyber-diego.com/actualites/677-exercice-de-lutte-contre-la-piraterie-dans-la-baie-de-diego-suarez.html","rights":"Copyright / permission not established","credit":"La Tribune de Diego","terms":["andre","ndriarijaona"]},
- {"base":"Charles_Andrianasoavina","kind":"direct","url":"https://i0.wp.com/www.agencemalagasydepresse.com/media/2023/10/colonel-charles-andrianasoavina.jpg","source":"https://www.agencemalagasydepresse.com/politique/raharaham-pirenena-fanambaranny-colonel-charles-andrianasoavina/","rights":"Copyright / permission not established","credit":"Agence Malagasy de Presse","terms":["charles","andrianasoavina"]},
+ {"base":"Charles_Andrianasoavina","kind":"direct","url":"https://www.agencemalagasydepresse.com/media/2023/10/colonel-charles-andrianasoavina.jpg","source":"https://www.agencemalagasydepresse.com/politique/raharaham-pirenena-fanambaranny-colonel-charles-andrianasoavina/","rights":"Copyright / permission not established","credit":"Agence Malagasy de Presse","terms":["charles","andrianasoavina"]},
  {"base":"Mamy_Solofoniaina_Ranaivoniarivo","kind":"direct","url":"https://commons.wikimedia.org/wiki/Special:Redirect/file/Mamy_Ranaivoniarivo.jpg","source":"https://commons.wikimedia.org/wiki/File:Mamy_Ranaivoniarivo.jpg","rights":"CC BY-SA 3.0","credit":"PixEye","terms":["mamy","ranaivoniarivo"]},
  {"base":"Hyppolite_Rarison_Ramaroson","kind":"direct","url":"https://latribune.cyber-diego.com/images/stories/2011/mar/50-ans-marine-madagascar_04.jpg","source":"https://latribune.cyber-diego.com/actualites/326-50eme-anniversaire-de-la-creation-de-la-marine-de-madagascar.html","rights":"Copyright / permission not established","credit":"La Tribune de Diego","terms":["hyppolite","ramaroson"]},
  {"base":"Andre_Lucien_Rakotoarimasy","kind":"direct","url":"https://ceds-madagascar.com/media/promotions/2-rakoto-ratsimamanga/vignettes/general-de-brigade-rakotoarimasy-andre-lucien.webp","source":"https://ceds-madagascar.com/promotions/2-rakoto-ratsimamanga/","rights":"Copyright / permission not established","credit":"C.E.D.S Madagascar","terms":["andre","lucien","rakotoarimasy"]},
@@ -97,11 +97,44 @@ def pdf_face(src):
     pdf=Path("/tmp")/(src["base"]+".pdf")
     pdf.write_bytes(data)
     prefix=Path("/tmp")/(src["base"]+"_page")
-    subprocess.run(["pdftoppm","-f",str(src["page"]),"-l",str(src["page"]),"-r","260","-png","-singlefile",str(pdf),str(prefix)],check=True)
+    subprocess.run(["pdftoppm","-f",str(src["page"]),"-l",str(src["page"]),"-r","600","-png","-singlefile",str(pdf),str(prefix)],check=True)
     page=Image.open(str(prefix)+".png").convert("RGB")
     cropped,found=crop_face(page,src.get("region","full"))
     if not found: raise RuntimeError("No face found in the requested PDF portrait region")
     buf=io.BytesIO(); cropped.save(buf,format="PNG"); return buf.getvalue()
+def search_image(query, terms):
+    url="https://www.bing.com/images/search?q="+quote_plus(query)
+    page,_=get_bytes(url)
+    soup=BeautifulSoup(page,"html.parser")
+    needles=[x.casefold() for x in terms]
+    candidates=[]
+    for item in soup.select("a.iusc"):
+        try:
+            meta=json.loads(html.unescape(item.get("m","{}")))
+        except Exception:
+            continue
+        imgurl=meta.get("murl")
+        if not imgurl:
+            continue
+        label=" ".join(str(meta.get(k,"")) for k in ("t","desc","purl")).casefold()
+        score=sum(100 for n in needles if n in label)
+        if "bahajaina" in label: score+=300
+        if "gettyimages" in imgurl.casefold(): score+=5
+        candidates.append((score,imgurl,label))
+    candidates.sort(key=lambda row:row[0],reverse=True)
+    for score,imgurl,label in candidates[:10]:
+        if score < 100:
+            continue
+        try:
+            data,ctype=get_bytes(imgurl)
+            im=Image.open(io.BytesIO(data))
+            if im.width>=120 and im.height>=120:
+                print("Image search match: "+label[:160]+" :: "+imgurl)
+                return data
+        except Exception:
+            continue
+    raise RuntimeError("No identifiable image result found for query: "+query)
+
 
 def crop_face(image, region="full"):
     rgb=ImageOps.exif_transpose(image).convert("RGB")
@@ -111,7 +144,7 @@ def crop_face(image, region="full"):
         ox,oy=int(w*.48),int(h*.42); arr=arr[oy:,ox:]
     gray=cv2.cvtColor(arr,cv2.COLOR_BGR2GRAY)
     cascade=cv2.CascadeClassifier(cv2.data.haarcascades+"haarcascade_frontalface_default.xml")
-    faces=cascade.detectMultiScale(gray,scaleFactor=1.08,minNeighbors=3,minSize=(16,16))
+    faces=cascade.detectMultiScale(gray,scaleFactor=1.03,minNeighbors=2,minSize=(10,10))
     if len(faces)==0: return rgb,False
     fx,fy,fw,fh=max(faces,key=lambda f:int(f[2])*int(f[3]))
     fx+=ox; fy+=oy
@@ -178,6 +211,10 @@ def main():
     good=[]; bad=[]
     for src in SOURCES:
         try:
+            if (MAIN/(src["base"]+".dds")).exists() and (SMALL/(src["base"]+"_small.dds")).exists():
+                good.append(src)
+                print("EXISTING "+src["base"]+": reusing committed DDS assets")
+                continue
             if src["kind"]=="direct":
                 data,ctype=get_bytes(src["url"])
                 if "text/html" in ctype or data.lstrip().lower().startswith(b"<!doctype"):
@@ -188,6 +225,7 @@ def main():
                     if not src.get("fallback"): raise
                     data=page_image(src["fallback"],src.get("terms",[])); src["used_fallback"]=True
             elif src["kind"]=="pdf_face": data=pdf_face(src)
+            elif src["kind"]=="image_search": data=search_image(src["query"],src.get("terms",[]))
             else: raise RuntimeError("Unknown source kind")
             im=Image.open(io.BytesIO(data))
             if im.width<80 or im.height<80: raise RuntimeError("source image too small")
