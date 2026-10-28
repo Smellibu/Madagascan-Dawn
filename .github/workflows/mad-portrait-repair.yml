@@ -121,6 +121,7 @@ jobs:
             {
               "base":"Andry_Rajoelina", "char":"MAD_TGV_FORMED", "role":"political",
               "urls":["https://upload.wikimedia.org/wikipedia/commons/0/08/Andry_Rajoelina_%282023%29.jpg"],
+              "source_page":"https://commons.wikimedia.org/wiki/File:Andry_Rajoelina_(2023).jpg",
               "queries":['"Andry Rajoelina (2023)" Rijasolo European Commission'],
               "terms":["andry","rajoelina"], "credit":"Rijasolo / European Commission",
               "rights":"CC BY 4.0", "allow_center_crop":True
@@ -128,6 +129,7 @@ jobs:
             {
               "base":"Marc_Ravalomanana", "char":"MAD_tgv_leader", "role":"political",
               "urls":["https://commons.wikimedia.org/wiki/Special:Redirect/file/Marc_Ravalomanana.jpg"],
+              "source_page":"https://commons.wikimedia.org/wiki/File:Marc_Ravalomanana.jpg",
               "queries":['"Marc Ravalomanana" portrait Wikimedia Commons'],
               "terms":["marc","ravalomanana"], "credit":"Mogens Engelund / Wikimedia Commons",
               "rights":"CC BY-SA 3.0", "allow_center_crop":True
@@ -142,6 +144,7 @@ jobs:
             {
               "base":"Herizo_Razafimahaleo", "char":"MAD_fanilo_leader", "role":"political",
               "urls":["https://commons.wikimedia.org/wiki/Special:Redirect/file/Herizo_Razafimahaleo_(Profile).jpg"],
+              "source_page":"https://commons.wikimedia.org/wiki/File:Herizo_Razafimahaleo_(Profile).jpg",
               "queries":['"Herizo Razafimahaleo" portrait photo'],
               "terms":["herizo","razafimahaleo"], "credit":"Eliana Saxton / U.S. Department of State",
               "rights":"Public domain, U.S. government work", "allow_center_crop":True
@@ -149,8 +152,16 @@ jobs:
             {
               "base":"Dr_Ndriana_Rabarioelina", "char":"MAD_monarchist_leader", "role":"political",
               "urls":["https://1.bp.blogspot.com/-NuLD01o58Mk/XRAiJV2FqgI/AAAAAAAAB0c/ZaOARBk9A5ERpBRb3xmuBOEF9Ve6ezXKACK4BGAYYCw/s1600/HRH%2Bthe%2BPrince%2BDr%2BNdriana%2BRABARIOELINA%2Bof%2BMadagascar.jpg"],
+              "source_page":"https://kingdom-of-madagascar.blogspot.com/2019/",
               "queries":['"Dr Ndriana Rabarioelina" photo Madagascar'],
               "terms":["ndriana","rabarioelina"], "credit":"Kingdom of Madagascar blog",
+              "rights":"Copyright / permission not established", "allow_center_crop":True
+            },
+            {
+              "base":"Remenabila", "char":"MAD_dahalo_leader", "role":"political",
+              "urls":[],
+              "queries":['"Remenabila" Madagascar dahalo leader photo','"Remenabila" chef dahalo portrait Madagascar'],
+              "terms":["remenabila","dahalo"], "credit":"Malagasy press / image-search candidate",
               "rights":"Copyright / permission not established", "allow_center_crop":True
             },
           ]
@@ -356,7 +367,7 @@ jobs:
             if found:
               img,box,source,page=find_portrait_result = found
               write_portrait(spec,img,box)
-              rows[spec["base"]]=(source,page,spec["credit"],spec["rights"],True)
+              rows[spec["base"]]=(source,spec.get("source_page",page),spec["credit"],spec["rights"],True)
               print("IMPORTED",spec["base"],"source",source,"page",page,"image",img.size,"face",box[:4])
             else:
               rows[spec["base"]]=("", "", spec["credit"],spec["rights"],False)
@@ -424,7 +435,9 @@ jobs:
             "Richard_Andriamanjato":["Richard Andriamanjato"],
             "Herizo_Razafimahaleo":["Herizo Razafimahaleo"],
             "Dr_Ndriana_Rabarioelina":["Dr. Ndriana Rabarioelina"],
+            "Remenabila":["Remenabila"],
           }
+          ADD_PICTURE_ON_SUCCESS = {"Remenabila":["Remenabila"]}
           def remove_picture_from_named_leaders(doc, names, picture):
             lines=doc.splitlines(True); out=[]; active=False; depth=0; block=[]
             def flush(b):
@@ -451,6 +464,29 @@ jobs:
             portrait=base+".dds"
             leaders=remove_picture_from_named_leaders(leaders,POLITICAL_NAMES[base],portrait)
             events=remove_picture_from_named_leaders(events,POLITICAL_NAMES[base],portrait)
+          def add_picture_to_named_leaders(doc, names, picture):
+            lines=doc.splitlines(True); out=[]; active=False; depth=0; block=[]
+            def flush(b):
+              txt="".join(b)
+              m=re.search(r'name\s*=\s*"([^"]+)"',txt)
+              if m and m.group(1) in names and not re.search(r'(?m)^\s*picture\s*=',txt):
+                txt=re.sub(r'(?m)^([ \t]*name\s*=\s*"[^"]+"[ \t]*\n)',r'\1'+("            picture = \""+picture+"\"\n"),txt,count=1)
+              return txt
+            for line in lines:
+              if not active and "create_country_leader = {" in line:
+                active=True; depth=0; block=[line]
+                depth += line.count("{")-line.count("}")
+                if depth<=0: out.append(flush(block)); active=False; block=[]
+              elif active:
+                block.append(line); depth += line.count("{")-line.count("}")
+                if depth<=0: out.append(flush(block)); active=False; block=[]
+              else:
+                out.append(line)
+            if block: out.append(flush(block))
+            return "".join(out)
+          for base,row in rows.items():
+            if row[4] and base in ADD_PICTURE_ON_SUCCESS:
+              leaders=add_picture_to_named_leaders(leaders,ADD_PICTURE_ON_SUCCESS[base],base+".dds")
 
           CHAR_FILE.write_text(chars,encoding="utf-8")
           EVENT_FILE.write_text(events,encoding="utf-8")
@@ -460,7 +496,7 @@ jobs:
             lines=doc.splitlines()
             start=next((i for i,l in enumerate(lines) if l.startswith("| "+base+" |")),None)
             if ok:
-              src=source or page
+              src=page or source
               link="["+credit+"]("+src+")"
               row="| "+base+" | "+link+" | "+rights+" |"
             else:
