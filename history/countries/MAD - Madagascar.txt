@@ -358,4 +358,14 @@ capital = 267
 	add_opinion_modifier = { target = SAF modifier = African_Union_Relations }
 	add_opinion_modifier = { target = LBA modifier = African_Union_Relations }
 	add_opinion_modifier = { target = EGY modifier = African_Union_Relations }
+
+	# Exact original US theatrical release dates (fixed delays from 2000.1.1):
+	# Madagascar, 27 May 2005; Escape 2 Africa, 7 November 2008;
+	# Madagascar 3, 8 June 2012; Penguins of Madagascar, 26 November 2014.
+	# HOI4's calendar has no leap days, so these delays land on the listed dates.
+	country_event = { id = mad_movie.1 days = 1971 }
+	country_event = { id = mad_movie.2 days = 3230 }
+	country_event = { id = mad_movie.3 days = 4538 }
+	country_event = { id = mad_movie.4 days = 5439 }
+
 }
