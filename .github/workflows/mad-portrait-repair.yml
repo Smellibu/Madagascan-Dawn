@@ -270,7 +270,7 @@ jobs:
                 if not u: return
                 u=urljoin(landed,u)
                 low=(u+" "+label).casefold()
-                if any(z in low for z in ["favicon","web-app-manifest","/logo","logo-","avatar","gravatar","placeholder","advert","sprite","site-icon","/icons/"]):
+                if any(z in low for z in ["favicon","web-app-manifest","/logo","logo-","avatar","gravatar","placeholder","advert","sprite","site-icon","/icons/","programmes-rfi","generique/img","rfi-langues","banner","banniere"]):
                   return
                 if re.search(r"\.(jpe?g|png|webp)(?:[?#]|$)",u,re.I): weight+=10
                 weight += sum(25 for term in needles if term and term in low)
@@ -293,8 +293,10 @@ jobs:
                   im=image_bytes(b)
                   if im:
                     _,fs=faces(im)
-                    if fs: out.append((u,landed,im,fs[0],sc))
-                    elif allow_center_crop: out.append((u,landed,im,150,sc))
+                    if fs:
+                      out.append((u,landed,im,fs[0],sc))
+                    elif allow_center_crop and im.width >= 180 and im.height >= 140 and 0.45 <= im.width / float(im.height) <= 2.2:
+                      out.append((u,landed,im,150,sc))
                 except Exception: pass
               out.sort(key=lambda z:(z[4] if len(z)>4 else 0, z[3][4] if isinstance(z[3],tuple) else 0),reverse=True)
               return out
