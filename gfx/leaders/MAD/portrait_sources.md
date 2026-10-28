@@ -18,7 +18,7 @@ Copyright notes are not licences. Non-CC photographs require permission before p
 | Raonenantsoamampianina | [MadOnline / image-search candidate](https://www.madonline.com/nouvelles-nominations-au-sommet-de-larmee/) | Copyright / permission not established |
 | Petera_Behajaina | [Olivier Péguy / RFI](https://www1.rfi.fr/actufr/articles/059/article_31466.asp) | Copyright / permission not established; RFI/AFP images may require permission |
 | Noel_Girardin_Rakotonandrasana | [Grégoire Pourtier / AFP / La Dépêche](https://www.ladepeche.fr/article/2010/11/17/950064-madagascar-appel-a-la-mutinerie-le-jour-du-referendum-constitutionnel.html) | AFP / La Dépêche copyright; permission not established |
-| Edmond_Rasolomahandry | [Asia-Pacific Center for Security Studies / image-search candidate](https://dkiapcss.edu/wp-content/uploads/2010/PDFs/currents2009-alumni.pdf) | Copyright / permission not established |
+| Edmond_Rasolomahandry | [Valis / Madagascar Tribune](https://mobile.madagascar-tribune.com/Trois-occasions-ratees-selon-le,12736.html) | Copyright / reuse permission not established |
 | Andre_Ndriarijaona | [La Tribune de Diego](https://latribune.cyber-diego.com/actualites/677-exercice-de-lutte-contre-la-piraterie-dans-la-baie-de-diego-suarez.html) | Copyright / permission not established |
 | Charles_Andrianasoavina | [Bill / Ra Bens (Photos) / Madagascar Tribune](https://www.madagascar-tribune.com/Charles-Andrianasoavina-est-rentre%2C20699.html) | Copyright; reuse permission not established |
 | Mamy_Solofoniaina_Ranaivoniarivo | [PixEye](https://commons.wikimedia.org/wiki/File:Mamy_Ranaivoniarivo.jpg) | CC BY-SA 3.0 |
