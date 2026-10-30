@@ -11585,10 +11585,12 @@ defined_text = {
 	text = { trigger = { original_tag = YAM date > 2010.1.1 } localization_key = YAM.conservatism_1 }
 	text = { trigger = { original_tag = ZAM } localization_key = ZAM.conservatism }
 	text = { trigger = { original_tag = ZIM } localization_key = ZIM.conservatism }
-	text = { trigger = { original_tag = MAD has_country_flag = MAD_HVM_FORMED } localization_key = MAD.conservatism }
-	text = { trigger = { original_tag = MAD NOT = { has_country_flag = MAD_HVM_FORMED } } localization_key = generic.conservatism }
 	text = { localization_key = generic.conservatism }
 }
+
+	text = { trigger = { original_tag = MAD has_country_flag = MAD_HVM_FORMED } localization_key = MAD.conservatism }
+	text = { trigger = { original_tag = MAD NOT = { has_country_flag = MAD_HVM_FORMED } } localization_key = generic.conservatism }
+# Liberalism
 defined_text = {
 	name = liberalism_L
 	text = { trigger = { original_tag = BOL } localization_key = BOL.liberalism }
@@ -11861,10 +11863,11 @@ defined_text = {
 	text = { trigger = { original_tag = YAM } localization_key = YAM.liberalism }
 	text = { trigger = { original_tag = ZAM } localization_key = ZAM.liberalism }
 	text = { trigger = { original_tag = ZIM } localization_key = ZIM.liberalism }
-	text = { trigger = { original_tag = MAD } localization_key = MAD.liberalism }
 	text = { localization_key = generic.liberalism }
 }
-	text = { localization_key = generic.liberalism }
+
+	text = { trigger = { original_tag = MAD } localization_key = MAD.liberalism }
+#Socialism
 defined_text = {
 	name = socialism_L
 	text = { trigger = { original_tag = BAN } localization_key = BAN.socialism }
@@ -12113,16 +12116,13 @@ defined_text = {
 	text = { trigger = { original_tag = YAM date > 2007.1.1 } localization_key = YAM.socialism_1 }
 	text = { trigger = { original_tag = ZAM } localization_key = ZAM.socialism }
 	text = { trigger = { original_tag = ZIM } localization_key = ZIM.socialism }
-	text = { trigger = { original_tag = MAD } localization_key = MAD.socialism }
-	text = { localization_key = generic.socialism }
-}
-	text = { trigger = { original_tag = ZIM } localization_key = ZIM.socialism }
 	text = { localization_key = generic.socialism }
 }
 
 ###########################
 ### Emerging Ideologies ###
 ###########################
+	text = { trigger = { original_tag = MAD } localization_key = MAD.socialism }
 # Communist
 defined_text = {
 	name = communist_state_L
@@ -13272,6 +13272,10 @@ defined_text = {
 	text = { trigger = { original_tag = YEM } localization_key = YEM.Neutral_conservatism }
 	text = { trigger = { original_tag = ZAM } localization_key = ZAM.Neutral_conservatism }
 	text = { trigger = { original_tag = ZIM } localization_key = ZIM.Neutral_conservatism }
+	text = { localization_key = generic.Neutral_conservatism }
+}
+
+# Oligarchic
 defined_text = {
 	name = oligarchism_L
 	text = { trigger = { has_country_flag = USoE_political_parties } localization_key = USoE.oligarchism }
@@ -13401,14 +13405,10 @@ defined_text = {
 	text = { trigger = { original_tag = YAK } localization_key = YAK.oligarchism }
 	text = { trigger = { original_tag = YAM } localization_key = YAM.oligarchism }
 	text = { trigger = { original_tag = SIA } localization_key = SIA.oligarchism }
-	text = { trigger = { original_tag = MAD } localization_key = MAD.oligarchism }
-	text = { localization_key = generic.oligarchism }
-}
-	text = { trigger = { original_tag = YAM } localization_key = YAM.oligarchism }
-	text = { trigger = { original_tag = SIA } localization_key = SIA.oligarchism }
 	text = { localization_key = generic.oligarchism }
 }
 
+	text = { trigger = { original_tag = MAD } localization_key = MAD.oligarchism }
 # Non-Aligned Socialist Democrats
 defined_text = {
 	name = neutral_Social_L
@@ -13680,6 +13680,11 @@ defined_text = {
 	text = { trigger = { original_tag = YAM date > 2020.1.1 } localization_key = YAM.neutral_Social_1 }
 	text = { trigger = { original_tag = YEM } localization_key = YEM.neutral_Social }
 	text = { trigger = { original_tag = ZAM } localization_key = ZAM.neutral_Social }
+	text = { trigger = { original_tag = ZIM } localization_key = ZIM.neutral_Social }
+	text = { localization_key = generic.neutral_Social }
+}
+
+# Libertarian
 defined_text = {
 	name = Neutral_Libertarian_L
 	text = { trigger = { has_country_flag = USoE_political_parties date < 2017.1.1 } localization_key = USoE.Neutral_Libertarian }
@@ -13811,10 +13816,11 @@ defined_text = {
 	text = { trigger = { original_tag = VOJ } localization_key = VOJ.Neutral_Libertarian }
 	text = { trigger = { original_tag = YAK } localization_key = YAK.Neutral_Libertarian }
 	text = { trigger = { original_tag = YAM } localization_key = YAM.Neutral_Libertarian }
-	text = { trigger = { original_tag = MAD } localization_key = MAD.Neutral_Libertarian }
 	text = { localization_key = generic.Neutral_Libertarian }
 }
-	text = { trigger = { original_tag = VOJ } localization_key = VOJ.Neutral_Libertarian }
+
+	text = { trigger = { original_tag = MAD } localization_key = MAD.Neutral_Libertarian }
+# Non-Aligned Autocracy
 defined_text = {
 	name = Neutral_Autocracy_L
 	text = { trigger = { original_tag = SAU } localization_key = SAU.Neutral_Autocracy }
@@ -13922,16 +13928,10 @@ defined_text = {
 	text = { trigger = { original_tag = YAK } localization_key = YAK.Neutral_Autocracy }
 	text = { trigger = { original_tag = YAM } localization_key = YAM.Neutral_Autocracy }
 	text = { trigger = { original_tag = SIA } localization_key = SIA.Neutral_Autocracy }
-	text = { trigger = { original_tag = MAD } localization_key = MAD.Neutral_Autocracy }
-	text = { localization_key = generic.Neutral_Autocracy }
-}
-	text = { trigger = { original_tag = VOJ } localization_key = VOJ.Neutral_Autocracy }
-	text = { trigger = { original_tag = YAK } localization_key = YAK.Neutral_Autocracy }
-	text = { trigger = { original_tag = YAM } localization_key = YAM.Neutral_Autocracy }
-	text = { trigger = { original_tag = SIA } localization_key = SIA.Neutral_Autocracy }
 	text = { localization_key = generic.Neutral_Autocracy }
 }
 
+	text = { trigger = { original_tag = MAD } localization_key = MAD.Neutral_Autocracy }
 # Non-Aligned Communism
 defined_text = {
 	name = Neutral_Communism_L
@@ -14336,6 +14336,13 @@ defined_text = {
 	text = { trigger = { original_tag = YEM } localization_key = YEM.Neutral_Muslim_Brotherhood }
 	text = { trigger = { original_tag = SIA } localization_key = SIA.Neutral_Muslim_Brotherhood }
 	text = { localization_key = generic.Neutral_Muslim_Brotherhood }
+}
+
+##############################
+### Nationalist Ideologies ###
+##############################
+
+# Right Wing Populists
 defined_text = {
 	name = Nat_Populism_L
 	text = { trigger = { has_country_flag = USoE_political_parties date < 2017.1.1 } localization_key = USoE.Nat_Populism }
@@ -14543,18 +14550,11 @@ defined_text = {
 	text = { trigger = { original_tag = YAM } localization_key = YAM.Nat_Populism }
 	text = { trigger = { original_tag = YEM } localization_key = YEM.Nat_Populism }
 	text = { trigger = { original_tag = ZAM } localization_key = ZAM.Nat_Populism }
-	text = { trigger = { original_tag = MAD has_country_flag = MAD_TGV_FORMED } localization_key = MAD.Nat_Populism }
-	text = { trigger = { original_tag = MAD NOT = { has_country_flag = MAD_TGV_FORMED } } localization_key = generic.Nat_Populism }
-	text = { localization_key = generic.Nat_Populism }
-}
-	text = { trigger = { original_tag = WAS } localization_key = WAS.Nat_Populism }
-	text = { trigger = { original_tag = YAK } localization_key = YAK.Nat_Populism }
-	text = { trigger = { original_tag = YAM } localization_key = YAM.Nat_Populism }
-	text = { trigger = { original_tag = YEM } localization_key = YEM.Nat_Populism }
-	text = { trigger = { original_tag = ZAM } localization_key = ZAM.Nat_Populism }
 	text = { localization_key = generic.Nat_Populism }
 }
 
+	text = { trigger = { original_tag = MAD has_country_flag = MAD_TGV_FORMED } localization_key = MAD.Nat_Populism }
+	text = { trigger = { original_tag = MAD NOT = { has_country_flag = MAD_TGV_FORMED } } localization_key = generic.Nat_Populism }
 # Fascists
 defined_text = {
 	name = Nat_Fascism_L
@@ -14705,6 +14705,15 @@ defined_text = {
 	text = { trigger = { original_tag = USB } localization_key = USB.Nat_Fascism }
 	text = { trigger = { original_tag = VEN } localization_key = VEN.Nat_Fascism }
 	text = { trigger = { original_tag = VOJ } localization_key = VOJ.Nat_Fascism }
+	text = { trigger = { original_tag = VTB } localization_key = VTB.Nat_Fascism }
+	text = { trigger = { original_tag = YAK } localization_key = YAK.Nat_Fascism }
+	text = { trigger = { original_tag = YAM } localization_key = YAM.Nat_Fascism }
+	text = { trigger = { original_tag = YEM } localization_key = YEM.Nat_Fascism }
+	text = { trigger = { original_tag = SIA } localization_key = SIA.Nat_Fascism }
+	text = { localization_key = generic.Nat_Fascism }
+}
+
+# Military Junta (dictatorship)
 defined_text = {
 	name = Nat_Autocracy_L
 	text = { trigger = { has_country_flag = USoE_political_parties } localization_key = USoE.Nat_Autocracy }
@@ -14928,8 +14937,8 @@ defined_text = {
 	 text = { trigger = { original_tag = SOV has_country_flag = SOV_wagner_parties } localization_key = SOV.Nat_Autocracy_wagner }
 	text = { localization_key = generic.Nat_Autocracy }
 }
-	text = { trigger = { original_tag = VOJ } localization_key = VOJ.Nat_Autocracy }
-	text = { trigger = { original_tag = VTB has_country_flag = SUB_russ_polit } localization_key = VTB.Nat_Autocracy_sov }
+
+# Monarchists
 defined_text = {
 	name = Monarchist_L
 	text = { trigger = { has_country_flag = USoE_political_parties } localization_key = USoE.Monarchist }
@@ -15063,16 +15072,6 @@ defined_text = {
 	text = { trigger = { original_tag = VIE } localization_key = VIE.Monarchist }
 	text = { trigger = { original_tag = WAS } localization_key = WAS.Monarchist }
 	text = { trigger = { original_tag = YEM } localization_key = YEM.Monarchist }
-        text = { trigger = { original_tag = ZIM } localization_key = ZIM.Monarchist }
-        text = { trigger = { original_tag = MAD } localization_key = MAD.Monarchist }
-        text = { localization_key = generic.Monarchist }
-}
-	text = { trigger = { original_tag = URA } localization_key = URA.Monarchist }
-	text = { trigger = { original_tag = USA } localization_key = USA.Monarchist }
-	text = { trigger = { original_tag = USB } localization_key = USB.Monarchist }
-	text = { trigger = { original_tag = VIE } localization_key = VIE.Monarchist }
-	text = { trigger = { original_tag = WAS } localization_key = WAS.Monarchist }
-	text = { trigger = { original_tag = YEM } localization_key = YEM.Monarchist }
 	text = { trigger = { original_tag = ZIM } localization_key = ZIM.Monarchist }
 	text = { localization_key = generic.Monarchist }
 }
@@ -15086,6 +15085,7 @@ defined_text = {
 ##################################################
 
 ### Western Ideologies ###
+        text = { trigger = { original_tag = MAD } localization_key = MAD.Monarchist }
 # Pro-Western Autocracy
 defined_text = {
 	name = Western_Autocracy_L_desc
@@ -15151,6 +15151,16 @@ defined_text = {
 	text = { trigger = { original_tag = TUR NOT = { has_completed_focus = TUR_beacon_of_islam } } localization_key = TUR.Western_Autocracy_desc }
 	text = { trigger = { original_tag = UKR NOT = { date > 2007.9.30 } } localization_key = UKR.Western_Autocracy_desc }
 	text = { trigger = { original_tag = UKR date > 2007.9.30 NOT = { date > 2014.9.10 } } localization_key = UKR.Western_Autocracy_2007_desc }
+	text = { trigger = { original_tag = UKR date > 2014.9.10 NOT = { date > 2019.3.31 } } localization_key = UKR.Western_Autocracy_2014_desc }
+	text = { trigger = { original_tag = UKR date > 2019.3.31 } localization_key = UKR.Western_Autocracy_2019_desc }
+	text = { trigger = { original_tag = USB } localization_key = USB.Western_Autocracy_desc }
+	text = { trigger = { original_tag = UZB } localization_key = UZB.Western_Autocracy_desc }
+	text = { trigger = { original_tag = VIE } localization_key = VIE.Western_Autocracy_desc }
+	text = { trigger = { original_tag = SIA } localization_key = SIA.Western_Autocracy_desc }
+	text = { localization_key = generic.Western_Autocracy_desc }
+}
+
+# Conservatism
 defined_text = {
 	name = conservatism_L_desc
 	text = { trigger = { has_country_flag = USoE_political_parties date < 2017.1.1 } localization_key = USoE.conservatism_desc }
@@ -15281,11 +15291,13 @@ defined_text = {
 	text = { trigger = { original_tag = USA } localization_key = USA.conservatism_desc }
 	text = { trigger = { original_tag = USB } localization_key = USB.conservatism_desc }
 	text = { trigger = { original_tag = ZAM } localization_key = ZAM.conservatism_desc }
-        text = { trigger = { original_tag = ZIM } localization_key = ZIM.conservatism_desc }
+	text = { trigger = { original_tag = ZIM } localization_key = ZIM.conservatism_desc }
+	text = { localization_key = generic.conservatism_desc }
+}
+
         text = { trigger = { original_tag = MAD has_country_flag = MAD_HVM_FORMED } localization_key = MAD.conservatism_desc }
         text = { trigger = { original_tag = MAD NOT = { has_country_flag = MAD_HVM_FORMED } } localization_key = generic.conservatism_desc }
-        text = { localization_key = generic.conservatism_desc }
-}
+# Liberalism
 defined_text = {
 	name = liberalism_L_desc
 	text = { trigger = { original_tag = BAN } localization_key = BAN.liberalism_desc }
@@ -15443,11 +15455,12 @@ defined_text = {
 	text = { trigger = { original_tag = VEN } localization_key = VEN.liberalism_desc }
 	text = { trigger = { original_tag = VIE } localization_key = VIE.liberalism_desc }
 	text = { trigger = { original_tag = ZAM } localization_key = ZAM.liberalism_desc }
-        text = { trigger = { original_tag = ZIM } localization_key = ZIM.liberalism_desc }
-        text = { trigger = { original_tag = MAD } localization_key = MAD.liberalism_desc }
-        text = { localization_key = generic.liberalism_desc }	
+	text = { trigger = { original_tag = ZIM } localization_key = ZIM.liberalism_desc }
+	text = { localization_key = generic.liberalism_desc }
 }
-	text = { trigger = { original_tag = UKR date > 2012.10.28 NOT = { date > 2014.10.26 } } localization_key = UKR.liberalism_2012_desc }
+
+        text = { trigger = { original_tag = MAD } localization_key = MAD.liberalism_desc }
+# Socialism
 defined_text = {
 	name = socialism_L_desc
 	text = { trigger = { original_tag = BAN } localization_key = BAN.socialism_desc }
@@ -15585,20 +15598,6 @@ defined_text = {
 	text = { trigger = { original_tag = ZAM } localization_key = ZAM.socialism_desc }
 	text = { trigger = { original_tag = ZIM } localization_key = ZIM.socialism_desc }
 	text = { trigger = { original_tag = JAP } localization_key = JAP.socialism_desc }
-	text = { trigger = { original_tag = MAD } localization_key = MAD.socialism_desc }
-	text = { localization_key = generic.socialism_desc }
-}
-	text = { trigger = { original_tag = UKR NOT = { date > 2001.7.1 } } localization_key = UKR.socialism_desc }
-	text = { trigger = { original_tag = UKR date > 2001.7.1 NOT = { date > 2011.11.17 } } localization_key = UKR.socialism_byut_desc }
-	text = { trigger = { original_tag = UKR date > 2011.11.17 } localization_key = UKR.socialism_2012_desc }
-	text = { trigger = { original_tag = USA has_country_flag = public_ignored3 } localization_key = USA.progressives_desc }
-	text = { trigger = { original_tag = USA NOT = { has_country_flag = public_ignored3 } } localization_key = USA.socialism_desc }
-	text = { trigger = { original_tag = USB } localization_key = USB.socialism_desc }
-	text = { trigger = { original_tag = VEN } localization_key = VEN.socialism_desc }
-	text = { trigger = { original_tag = VIE } localization_key = VIE.socialism_desc }
-	text = { trigger = { original_tag = ZAM } localization_key = ZAM.socialism_desc }
-	text = { trigger = { original_tag = ZIM } localization_key = ZIM.socialism_desc }
-	text = { trigger = { original_tag = JAP } localization_key = JAP.socialism_desc }
 	text = { localization_key = generic.socialism_desc }
 }
 
@@ -15606,6 +15605,7 @@ defined_text = {
 ### Emerging Ideologies ###
 ###########################
 
+	text = { trigger = { original_tag = MAD } localization_key = MAD.socialism_desc }
 # Communist
 defined_text = {
 	name = communist_state_L_desc
@@ -15708,6 +15708,20 @@ defined_text = {
 	text = { trigger = { original_tag = SWI } localization_key = SWI.communist_state_desc }
 	text = { trigger = { original_tag = TAI } localization_key = TAI.communist_state_desc }
 	text = { trigger = { original_tag = TUR date < 2015.1.1 } localization_key = TUR.communist_state_desc }
+	text = { trigger = { original_tag = TUR date > 2015.1.1 } localization_key = TUR.communist_state_2015_desc }
+	text = { trigger = { original_tag = TAJ } localization_key = TAJ.communist_state_desc }
+	text = { trigger = { original_tag = UKR NOT = { date > 2022.7.5 } } localization_key = UKR.communist_state_desc }
+	text = { trigger = { original_tag = UKR date > 2022.7.5 } localization_key = UKR.communist_state_banned_desc }
+	text = { trigger = { original_tag = USA } localization_key = USA.communist_state_desc }
+	text = { trigger = { original_tag = USB } localization_key = USB.communist_state_desc }
+	text = { trigger = { original_tag = WAA } localization_key = WAA.communist_state_desc }
+	text = { trigger = { original_tag = VEN } localization_key = VEN.communist_state_desc }
+	text = { trigger = { original_tag = VIE } localization_key = VIE.communist_state_desc }
+	text = { trigger = { original_tag = ZIM } localization_key = ZIM.communist_state_desc }
+	text = { localization_key = generic.communist_state_desc }
+}
+
+# Left-Wing Radicals
 defined_text = {
 	name = anarchist_communism_L_desc
 	text = { trigger = { has_country_flag = USoE_political_parties date < 2017.1.1 } localization_key = USoE.anarchist_communism_desc }
@@ -15823,25 +15837,11 @@ defined_text = {
 	text = { trigger = { original_tag = VEN date > 2007.1.1 } localization_key = VEN.anarchist_communism_alt_desc }
 	text = { trigger = { original_tag = VIE } localization_key = VIE.anarchist_communism_desc }
 	text = { trigger = { original_tag = ZAM } localization_key = ZAM.anarchist_communism_desc }
-        text = { trigger = { original_tag = ZIM } localization_key = ZIM.anarchist_communism_desc }
-        text = { trigger = { original_tag = MAD } localization_key = MAD.anarchist_communism_desc }
-        text = { localization_key = generic.anarchist_communism_desc }
-}
-	text = { trigger = { original_tag = UKR NOT = { date > 2008.1.28 } } localization_key = UKR.anarchist_communism_desc }
-	text = { trigger = { original_tag = UKR date > 2008.1.28 NOT = { date > 2015.5.1 } } localization_key = UKR.anarchist_communism_2008_desc }
-	text = { trigger = { original_tag = UKR date > 2015.5.1 } localization_key = UKR.anarchist_communism_2015_desc }
-	text = { trigger = { original_tag = USA has_country_flag = public_ignored3 NOT = { has_country_flag = USA_the_anarchist_society_collectivizes_victory } } localization_key = USA.shepards_party_desc }
-	text = { trigger = { original_tag = USA NOT = { has_country_flag = public_ignored3 } NOT = { has_country_flag = USA_the_anarchist_society_collectivizes_victory } } localization_key = USA.anarchist_communism_desc }
-	text = { trigger = { original_tag = USA has_country_flag = USA_the_anarchist_society_collectivizes_victory has_country_flag = public_ignored3 } localization_key = USA.American_Anarchist_Society_desc }
-	text = { trigger = { original_tag = USB } localization_key = USB.anarchist_communism_desc }
-	text = { trigger = { original_tag = VEN date < 2007.1.1 } localization_key = VEN.anarchist_communism_desc }
-	text = { trigger = { original_tag = VEN date > 2007.1.1 } localization_key = VEN.anarchist_communism_alt_desc }
-	text = { trigger = { original_tag = VIE } localization_key = VIE.anarchist_communism_desc }
-	text = { trigger = { original_tag = ZAM } localization_key = ZAM.anarchist_communism_desc }
 	text = { trigger = { original_tag = ZIM } localization_key = ZIM.anarchist_communism_desc }
 	text = { localization_key = generic.anarchist_communism_desc }
 }
 
+        text = { trigger = { original_tag = MAD } localization_key = MAD.anarchist_communism_desc }
 # Reactionary
 defined_text = {
 	name = Conservative_L_desc
@@ -16264,6 +16264,21 @@ defined_text = {
 	text = { trigger = { original_tag = USA has_country_flag = public_ignored6 } localization_key = USA.constitutionalist_desc }
 	text = { trigger = { original_tag = USA NOT = { has_country_flag = public_ignored6 } } localization_key = USA.Neutral_conservatism_desc }
 	text = { trigger = { original_tag = USB } localization_key = USB.Neutral_conservatism_desc }
+	text = { trigger = { original_tag = UZB } localization_key = UZB.Neutral_conservatism_desc }
+	text = { trigger = { original_tag = VEN } localization_key = VEN.Neutral_conservatism_desc }
+	text = { trigger = { original_tag = ROM date < 2004.1.1 } localization_key = ROM.Neutral_conservatism_desc }
+	text = { trigger = { original_tag = ROM date > 2004.1.1 date < 2007.1.1 } localization_key = ROM.Neutral_conservatism_pd_desc }
+	text = { trigger = { original_tag = ROM date > 2007.1.1 date < 2014.1.1 } localization_key = ROM.Neutral_conservatism_pdl_desc }
+	text = { trigger = { original_tag = ROM date > 2014.1.1 } localization_key = ROM.Neutral_conservatism_pmp_desc }
+	text = { trigger = { original_tag = SOV date < 2007.1.1 } localization_key = SOV.Neutral_conservatism_desc }
+	text = { trigger = { original_tag = SOV date > 2007.1.1 date < 2011.1.1 } localization_key = SOV.Neutral_conservatism_1_desc }
+	text = { trigger = { original_tag = SOV date > 2011.1.1 } localization_key = SOV.Neutral_conservatism_2_desc }
+	text = { trigger = { original_tag = ZAM } localization_key = ZAM.Neutral_conservatism_desc }
+	text = { trigger = { original_tag = ZIM } localization_key = ZIM.Neutral_conservatism_desc }
+	text = { localization_key = generic.Neutral_conservatism_desc }
+}
+
+# Oligarchic
 defined_text = {
 	name = oligarchism_L_desc
 	text = { trigger = { has_country_flag = USoE_political_parties } localization_key = USoE.oligarchism_desc }
@@ -16339,25 +16354,10 @@ defined_text = {
 	text = { trigger = { original_tag = UZB } localization_key = UZB.oligarchism_desc }
 	text = { trigger = { original_tag = VEN } localization_key = VEN.oligarchism_desc }
 	text = { trigger = { original_tag = SIA } localization_key = SIA.oligarchism_desc }
-	text = { trigger = { original_tag = MAD } localization_key = MAD.oligarchism_desc }
-	text = { localization_key = generic.oligarchism_desc }
-}
-	text = { trigger = { original_tag = SPR } localization_key = SPR.oligarchism_desc }
-	text = { trigger = { original_tag = SWE } localization_key = SWE.oligarchism_desc }
-	text = { trigger = { original_tag = TUR date < 2007.1.1 NOT = { has_completed_focus = TUR_only_getting_started } } localization_key = TUR.oligarchism_desc }
-	text = { trigger = { original_tag = TUR date > 2007.1.1 NOT = { has_completed_focus = TUR_only_getting_started } } localization_key = TUR.oligarchism_2007_desc }
-	text = { trigger = { original_tag = TUR has_completed_focus = TUR_only_getting_started } localization_key = TUR.oligarchism_mafia_desc }
-	text = { trigger = { original_tag = UKR NOT = { date > 2008.3.20 } } localization_key = UKR.oligarchism_desc }
-	text = { trigger = { original_tag = UKR date > 2008.3.20 NOT = { date > 2015.6.5 } } localization_key = UKR.oligarchism_2008_desc }
-	text = { trigger = { original_tag = UKR date > 2015.6.5 NOT = { date > 2019.8.29 } } localization_key = UKR.oligarchism_2015_desc }
-	text = { trigger = { original_tag = UKR date > 2019.8.29 } localization_key = UKR.oligarchism_2019_desc }
-	text = { trigger = { original_tag = USB } localization_key = USB.oligarchism_desc }
-	text = { trigger = { original_tag = UZB } localization_key = UZB.oligarchism_desc }
-	text = { trigger = { original_tag = VEN } localization_key = VEN.oligarchism_desc }
-	text = { trigger = { original_tag = SIA } localization_key = SIA.oligarchism_desc }
 	text = { localization_key = generic.oligarchism_desc }
 }
 
+	text = { trigger = { original_tag = MAD } localization_key = MAD.oligarchism_desc }
 # Non-Aligned Socialist Democrats
 defined_text = {
 	name = neutral_Social_L_desc
@@ -16486,6 +16486,22 @@ defined_text = {
 	text = { trigger = { original_tag = TAJ } localization_key = TAJ.neutral_Social_desc }
 	text = { trigger = { original_tag = TOG date < 2012.1.1 } localization_key = TOG.neutral_Social_desc }
 	text = { trigger = { original_tag = TOG date > 2012.1.1 } localization_key = TOG.neutral_Social_2012_desc }
+	text = { trigger = { original_tag = TUR has_country_flag = TUR_hepar_founded } localization_key = TUR.neutral_Social_desc }
+	text = { trigger = { original_tag = UKR NOT = { date > 2019.5.20 } } localization_key = UKR.neutral_Social_desc }
+	text = { trigger = { original_tag = UKR date > 2019.5.20 } localization_key = UKR.neutral_Social_2019_desc }
+	text = { trigger = { original_tag = USA has_country_flag = public_ignored3 } localization_key = USA.democratic_socialist_desc }
+	text = { trigger = { original_tag = USA NOT = { has_country_flag = public_ignored3 } } localization_key = USA.neutral_Social_desc }
+	text = { trigger = { original_tag = USB } localization_key = USB.neutral_Social_desc }
+	text = { trigger = { original_tag = VEN } localization_key = VEN.neutral_Social_desc }
+	text = { trigger = { original_tag = SOV date < 2020.1.1 } localization_key = SOV.neutral_Social_desc }
+	text = { trigger = { original_tag = SOV date > 2020.1.1 } localization_key = SOV.neutral_Social_1_desc }
+	text = { trigger = { original_tag = YEM } localization_key = YEM.neutral_Social_desc }
+	text = { trigger = { original_tag = ZAM } localization_key = ZAM.neutral_Social_desc }
+	text = { trigger = { original_tag = ZIM } localization_key = ZIM.neutral_Social_desc }
+	text = { localization_key = generic.neutral_Social_desc }
+}
+
+# Libertarian
 defined_text = {
 	name = Neutral_Libertarian_L_desc
 	text = { trigger = { has_country_flag = USoE_political_parties date < 2017.1.1 } localization_key = USoE.Neutral_Libertarian_desc }
@@ -16572,10 +16588,11 @@ defined_text = {
 	text = { trigger = { original_tag = USA } localization_key = USA.Neutral_Libertarian_desc }
 	text = { trigger = { original_tag = USB } localization_key = USB.Neutral_Libertarian_desc }
 	text = { trigger = { original_tag = SOV } localization_key = SOV.Neutral_Libertarian_desc }
-	text = { trigger = { original_tag = MAD } localization_key = MAD.Neutral_Libertarian_desc }
 	text = { localization_key = generic.Neutral_Libertarian_desc }
 }
-	text = { trigger = { original_tag = SPR date < 2009.1.1 } localization_key = SPR.Neutral_Libertarian_desc }
+
+	text = { trigger = { original_tag = MAD } localization_key = MAD.Neutral_Libertarian_desc }
+# Non-Aligned Autocracy
 defined_text = {
 	name = Neutral_Autocracy_L_desc
 	text = { trigger = { original_tag = SAU } localization_key = SAU.Neutral_Autocracy_desc }
@@ -16644,27 +16661,10 @@ defined_text = {
 	text = { trigger = { original_tag = USB } localization_key = USB.Neutral_Autocracy_desc }
 	text = { trigger = { original_tag = UZB } localization_key = UZB.Neutral_Autocracy_desc }
 	text = { trigger = { original_tag = SIA } localization_key = SIA.Neutral_Autocracy_desc }
-	text = { trigger = { original_tag = MAD } localization_key = MAD.Neutral_Autocracy_desc }
-	text = { localization_key = generic.Neutral_Autocracy_desc }
-}
-	text = { trigger = { original_tag = SWI } localization_key = SWI.Neutral_Autocracy_desc }
-	text = { trigger = { original_tag = TAI } localization_key = TAI.Neutral_Autocracy_desc }
-	text = { trigger = { original_tag = TOG date < 2012.1.1 } localization_key = TOG.Neutral_Autocracy_desc }
-	text = { trigger = { original_tag = TOG date > 2012.1.1 } localization_key = TOG.Neutral_Autocracy_2012_desc }
-	text = { trigger = { original_tag = TUR has_completed_focus = TUR_beacon_of_islam } localization_key = TUR.Neutral_Autocracy_reform_desc }
-	text = { trigger = { original_tag = TUR NOT = { has_completed_focus = TUR_beacon_of_islam } } localization_key = TUR.Neutral_Autocracy_desc }
-	text = { trigger = { original_tag = UKR NOT = { date > 2004.1.1 } } localization_key = UKR.Neutral_Autocracy_desc }
-	text = { trigger = { original_tag = UKR date > 2004.1.1 NOT = { date > 2009.11.28 } } localization_key = UKR.Neutral_Autocracy_2004_desc }
-	text = { trigger = { original_tag = UKR date > 2009.11.28 NOT = { date > 2012.3.17 } } localization_key = UKR.Neutral_Autocracy_2010_desc }
-	text = { trigger = { original_tag = UKR date > 2012.3.17 NOT = { date > 2020.10.25 } } localization_key = UKR.Neutral_Autocracy_2012_desc }
-	text = { trigger = { original_tag = UKR date > 2020.10.25 } localization_key = UKR.Neutral_Autocracy_2020_desc }
-	text = { trigger = { original_tag = USA } localization_key = USA.Neutral_Autocracy_desc }
-	text = { trigger = { original_tag = USB } localization_key = USB.Neutral_Autocracy_desc }
-	text = { trigger = { original_tag = UZB } localization_key = UZB.Neutral_Autocracy_desc }
-	text = { trigger = { original_tag = SIA } localization_key = SIA.Neutral_Autocracy_desc }
 	text = { localization_key = generic.Neutral_Autocracy_desc }
 }
 
+	text = { trigger = { original_tag = MAD } localization_key = MAD.Neutral_Autocracy_desc }
 # Non-Aligned Communism
 defined_text = {
 	name = Neutral_Communism_L_desc
@@ -16889,6 +16889,24 @@ defined_text = {
 	text = { trigger = { original_tag = SLV } localization_key = SLV.Neutral_Muslim_Brotherhood_desc }
 	text = { trigger = { original_tag = SER } localization_key = SER.Neutral_Muslim_Brotherhood_desc }
 	text = { trigger = { original_tag = SHB } localization_key = SHB.Neutral_Muslim_Brotherhood_desc }
+	text = { trigger = { original_tag = SUD } localization_key = SUD.Neutral_Muslim_Brotherhood_desc }
+	text = { trigger = { original_tag = TAT } localization_key = TAT.Neutral_Muslim_Brotherhood_desc }
+	text = { trigger = { original_tag = TAJ } localization_key = TAJ.Neutral_Muslim_Brotherhood_desc }
+	text = { trigger = { original_tag = TUR has_country_flag = Turkey_FP_banned } localization_key = TUR.Neutral_Muslim_Brotherhood_akp_desc }
+	text = { trigger = { original_tag = TUR NOT = { has_country_flag = Turkey_FP_banned } } localization_key = TUR.Neutral_Muslim_Brotherhood_desc }
+	text = { trigger = { original_tag = UKR NOT = { date > 2014.3.18 } } localization_key = UKR.Neutral_Muslim_Brotherhood_desc }
+	text = { trigger = { original_tag = UKR date > 2014.3.18 } localization_key = UKR.Neutral_Muslim_Brotherhood_2014_desc }
+	text = { trigger = { original_tag = USA } localization_key = USA.Neutral_Muslim_Brotherhood_desc }
+	text = { trigger = { original_tag = SOV } localization_key = SOV.Neutral_Muslim_Brotherhood_desc }
+	text = { trigger = { original_tag = SIA } localization_key = SIA.Neutral_Muslim_Brotherhood_desc }
+	text = { localization_key = generic.Neutral_Muslim_Brotherhood_desc }
+}
+
+##############################
+### Nationalist Ideologies ###
+##############################
+
+# Right Wing Populists
 defined_text = {
 	name = Nat_Populism_L_desc
 	text = { trigger = { has_country_flag = USoE_political_parties date < 2017.1.1 } localization_key = USoE.Nat_Populism_desc }
@@ -17010,29 +17028,11 @@ defined_text = {
 	text = { trigger = { original_tag = USB } localization_key = USB.Nat_Populism_desc }
 	text = { trigger = { original_tag = UZB } localization_key = UZB.Nat_Populism_desc }
 	text = { trigger = { original_tag = ZAM } localization_key = ZAM.Nat_Populism_desc }
-	text = { trigger = { original_tag = MAD has_country_flag = MAD_TGV_FORMED } localization_key = MAD.Nat_Populism_desc }
-	text = { trigger = { original_tag = MAD NOT = { has_country_flag = MAD_TGV_FORMED } } localization_key = generic.Nat_Populism_desc }
-	text = { localization_key = generic.Nat_Populism_desc }
-}
-	text = { trigger = { original_tag = SPR has_country_flag = SPR_vox_forms } localization_key = SPR.Nat_Populism_2017_desc }
-	text = { trigger = { original_tag = SSU } localization_key = SSU.Nat_Populism_desc }
-	text = { trigger = { original_tag = SWE date < 2017.1.1 } localization_key = SWE.Nat_Populism_desc }
-	text = { trigger = { original_tag = SWE date > 2017.1.1 } localization_key = SWE.Nat_Populism_2017_desc }
-	text = { trigger = { original_tag = SWI } localization_key = SWI.Nat_Populism_desc }
-	text = { trigger = { original_tag = TAI } localization_key = TAI.Nat_Populism_desc }
-	text = { trigger = { original_tag = TAJ NOT = { has_country_flag = TAJ_party_name } } localization_key = TAJ.Nat_Populism_desc }
-	text = { trigger = { original_tag = TAJ has_country_flag = TAJ_party_name } localization_key = TAJ.Nat_Populism2_desc }
-	text = { trigger = { original_tag = TUR } localization_key = TUR.Nat_Populism_desc }
-	text = { trigger = { original_tag = UKR NOT = { date > 2004.2.14 } } localization_key = UKR.Nat_Populism_desc }
-	text = { trigger = { original_tag = UKR date > 2004.2.14 } localization_key = UKR.Nat_Populism_2004_desc }
-	text = { trigger = { original_tag = USA has_country_flag = public_ignored4 } localization_key = USA.nationalist_front_desc }
-	text = { trigger = { original_tag = USA NOT = { has_country_flag = public_ignored4 } } localization_key = USA.Nat_Populism_desc }
-	text = { trigger = { original_tag = USB } localization_key = USB.Nat_Populism_desc }
-	text = { trigger = { original_tag = UZB } localization_key = UZB.Nat_Populism_desc }
-	text = { trigger = { original_tag = ZAM } localization_key = ZAM.Nat_Populism_desc }
 	text = { localization_key = generic.Nat_Populism_desc }
 }
 
+	text = { trigger = { original_tag = MAD has_country_flag = MAD_TGV_FORMED } localization_key = MAD.Nat_Populism_desc }
+	text = { trigger = { original_tag = MAD NOT = { has_country_flag = MAD_TGV_FORMED } } localization_key = generic.Nat_Populism_desc }
 # Fascists
 defined_text = {
 	name = Nat_Fascism_L_desc
@@ -17114,6 +17114,26 @@ defined_text = {
 	text = { trigger = { original_tag = ROM } localization_key = ROM.Nat_Fascism_desc }
 	text = { trigger = { original_tag = SOO } localization_key = SOO.Nat_Fascism_desc }
 	text = { trigger = { original_tag = SOV } localization_key = SOV.Nat_Fascism_desc }
+	text = { trigger = { original_tag = SPR } localization_key = SPR.Nat_Fascism_desc }
+	text = { trigger = { original_tag = SUD } localization_key = SUD.Nat_Fascism_desc }
+	text = { trigger = { original_tag = SWE } localization_key = SWE.Nat_Fascism_desc }
+	text = { trigger = { original_tag = SWI } localization_key = SWI.Nat_Fascism_desc }
+	text = { trigger = { original_tag = TAI date < 2005.1.1 } localization_key = TAI.Nat_Fascism_desc }
+	text = { trigger = { original_tag = TAI date > 2005.1.1 } localization_key = TAI.Nat_Fascism_1_desc }
+	text = { trigger = { original_tag = TUR } localization_key = TUR.Nat_Fascism_desc }
+	text = { trigger = { original_tag = UKR NOT = { date > 2014.3.22 } } localization_key = UKR.Nat_Fascism_desc }
+	text = { trigger = { original_tag = UKR date > 2014.3.22 NOT = { date > 2016.10.14 } } localization_key = UKR.Nat_Fascism_2014_desc }
+	text = { trigger = { original_tag = UKR date > 2016.10.14 } localization_key = UKR.Nat_Fascism_2016_desc }
+	text = { trigger = { original_tag = USA NOT = { has_country_flag = USA_fascist_lead_coalition } } localization_key = USA.Nat_Fascism_desc }
+	text = { trigger = { original_tag = USA has_country_flag = USA_fascist_lead_coalition } localization_key = USA.Naturalist_NFP_Victory_desc }
+	text = { trigger = { original_tag = USB } localization_key = USB.Nat_Fascism_desc }
+	text = { trigger = { original_tag = VEN } localization_key = VEN.Nat_Fascism_desc }
+	text = { trigger = { original_tag = VTB } localization_key = VTB.Nat_Fascism_desc }
+	text = { trigger = { original_tag = SIA } localization_key = SIA.Nat_Fascism_desc }
+	text = { localization_key = generic.Nat_Fascism_desc }
+}
+
+# Military Junta (dictatorship)
 defined_text = {
 	name = Nat_Autocracy_L_desc
 	text = { trigger = { has_country_flag = USoE_political_parties } localization_key = USoE.Nat_Autocracy_desc }
@@ -17231,11 +17251,11 @@ defined_text = {
 	text = { trigger = { original_tag = VEN } localization_key = VEN.Nat_Autocracy_desc }
 	text = { trigger = { original_tag = VIE } localization_key = VIE.Nat_Autocracy_desc }
 	text = { trigger = { original_tag = WAA } localization_key = WAA.Nat_Autocracy_desc }
-        text = { trigger = { original_tag = ZIM } localization_key = ZIM.Nat_Autocracy_desc }
-        text = { trigger = { original_tag = MAD } localization_key = MAD.Nat_Autocracy_desc }
-        text = { localization_key = generic.Nat_Autocracy_desc }
+	text = { trigger = { original_tag = ZIM } localization_key = ZIM.Nat_Autocracy_desc }
+	text = { localization_key = generic.Nat_Autocracy_desc }
 }
-	text = { trigger = { original_tag = SUD } localization_key = SUD.Nat_Autocracy_desc }
+
+# Monarchists
 defined_text = {
 	name = Monarchist_L_desc
 	text = { trigger = { has_country_flag = USoE_political_parties } localization_key = USoE.Monarchist_desc }
@@ -17322,34 +17342,13 @@ defined_text = {
 	text = { trigger = { original_tag = USB } localization_key = USB.Monarchist_desc }
 	text = { trigger = { original_tag = VIE } localization_key = VIE.Monarchist_desc }
 	text = { trigger = { original_tag = WAA } localization_key = WAA.Monarchist_desc }
-        text = { trigger = { original_tag = ZIM } localization_key = ZIM.Monarchist_desc }
-        text = { trigger = { original_tag = MAD } localization_key = MAD.Monarchist_desc }
-        text = { localization_key = generic.Monarchist_desc }
-}
-	text = { trigger = { original_tag = POL } localization_key = POL.Monarchist_desc }
-	text = { trigger = { original_tag = SAF } localization_key = SAF.Monarchist_desc }
-	text = { trigger = { original_tag = RAJ } localization_key = RAJ.Monarchist_desc }
-	text = { trigger = { original_tag = SER } localization_key = SER.Monarchist_desc }
-	text = { trigger = { original_tag = SIA } localization_key = SIA.Monarchist_desc }
-	text = { trigger = { original_tag = SLV } localization_key = SLV.Monarchist_desc }
-	text = { trigger = { original_tag = SMA } localization_key = SMA.Monarchist_desc }
-	text = { trigger = { original_tag = SPR has_country_flag = SPR_carlist_rising } localization_key = SPR.Monarchist_carlists_desc }
-	text = { trigger = { original_tag = SPR NOT = { has_country_flag = SPR_carlist_rising } } localization_key = SPR.Monarchist_desc }
-	text = { trigger = { original_tag = SUD } localization_key = SUD.Monarchist_desc }
-	text = { trigger = { original_tag = SWA } localization_key = SWA.Monarchist_desc }
-	text = { trigger = { original_tag = SWE } localization_key = SWE.Monarchist_desc }
-	text = { trigger = { original_tag = TUR } localization_key = TUR.Monarchist_desc }
-	text = { trigger = { original_tag = UKR } localization_key = UKR.Monarchist_desc }
-	text = { trigger = { original_tag = USA } localization_key = USA.Monarchist_desc }
-	text = { trigger = { original_tag = USB } localization_key = USB.Monarchist_desc }
-	text = { trigger = { original_tag = VIE } localization_key = VIE.Monarchist_desc }
-	text = { trigger = { original_tag = WAA } localization_key = WAA.Monarchist_desc }
 	text = { trigger = { original_tag = ZIM } localization_key = ZIM.Monarchist_desc }
 	text = { localization_key = generic.Monarchist_desc }
 }
 
 #######################
 #### Icons entry ######
+        text = { trigger = { original_tag = MAD } localization_key = MAD.Monarchist_desc }
 #######################
 defined_text = {
 	name = Western_Autocracy_L_icon
@@ -17414,6 +17413,28 @@ defined_text = {
 	text = { trigger = { original_tag = RUS } localization_key = RUS.Western_Autocracy_icon }
 	text = { trigger = { original_tag = SEN } localization_key = SEN.Western_Autocracy_icon }
 	text = { trigger = { original_tag = SER } localization_key = SER.Western_Autocracy_icon }
+	text = { trigger = { original_tag = SLV has_country_flag = SLV_Modern_Centre_Party } localization_key = SLV.Western_Autocracy_Modern_Centre_Party_icon }
+	text = { trigger = { original_tag = SLV has_country_flag = SLV_Konkretno } localization_key = SLV.Western_Autocracy_Konkretno_icon }
+	text = { trigger = { original_tag = SOV has_country_flag = SOV_united_russia } localization_key = SOV.Western_Autocracy_ed_icon }
+	text = { trigger = { original_tag = SOV NOT = { has_country_flag = SOV_united_russia } } localization_key = SOV.Western_Autocracy_icon }
+	text = { trigger = { original_tag = SPR has_country_flag = SPR_carlist_rising } localization_key = SPR.Western_Autocracy_carlist_icon }
+	text = { trigger = { original_tag = SPR NOT = { has_country_flag = SPR_carlist_rising } } localization_key = SPR.Western_Autocracy_icon }
+	text = { trigger = { original_tag = TAT } localization_key = TAT.Western_Autocracy_icon }
+	text = { trigger = { original_tag = TUR NOT = { has_completed_focus = TUR_beacon_of_islam } } localization_key = TUR.Western_Autocracy_icon }
+	text = { trigger = { original_tag = TUV } localization_key = TUV.Western_Autocracy_icon }
+	text = { trigger = { original_tag = UDM } localization_key = UDM.Western_Autocracy_icon }
+	text = { trigger = { original_tag = UKR NOT = { date > 2007.9.30 } } localization_key = UKR.Western_Autocracy_icon }
+	text = { trigger = { original_tag = UKR date > 2007.9.30 NOT = { date > 2014.9.10 } } localization_key = UKR.Western_Autocracy_2007_icon }
+	text = { trigger = { original_tag = UKR date > 2014.9.10 NOT = { date > 2019.3.31 } } localization_key = UKR.Western_Autocracy_2014_icon }
+	text = { trigger = { original_tag = UKR date > 2019.3.31 } localization_key = UKR.Western_Autocracy_2019_icon }
+	text = { trigger = { original_tag = USB } localization_key = USB.Western_Autocracy_icon }
+	text = { trigger = { original_tag = UZB } localization_key = UZB.Western_Autocracy_icon }
+	text = { trigger = { original_tag = VOJ } localization_key = VOJ.Western_Autocracy_icon }
+	text = { trigger = { original_tag = YAK } localization_key = YAK.Western_Autocracy_icon }
+	text = { trigger = { original_tag = YAM } localization_key = YAM.Western_Autocracy_icon }
+	text = { localization_key = generic.Western_Autocracy_icon }
+}
+
 defined_text = {
 	name = conservatism_L_icon
 	text = { trigger = { original_tag = ADY date < 2010.1.1 } localization_key = ADY.conservatism_icon }
@@ -17602,9 +17623,11 @@ defined_text = {
 	text = { trigger = { original_tag = YAK date > 2010.1.1 } localization_key = YAK.conservatism_1_icon }
 	text = { trigger = { original_tag = YAM date < 2010.1.1 } localization_key = YAM.conservatism_icon }
 	text = { trigger = { original_tag = YAM date > 2010.1.1 } localization_key = YAM.conservatism_1_icon }
+	text = { localization_key = generic.conservatism_icon }
+}
 	text = { trigger = { original_tag = MAD has_country_flag = MAD_HVM_FORMED } localization_key = MAD.conservatism_icon }
 	text = { trigger = { original_tag = MAD NOT = { has_country_flag = MAD_HVM_FORMED } } localization_key = generic.conservatism_icon }
-	text = { localization_key = generic.conservatism_icon }
+
 defined_text = {
 	name = liberalism_L_icon
 	text = { trigger = { original_tag = ALB } localization_key = ALB.liberalism_icon }
@@ -17792,9 +17815,10 @@ defined_text = {
 	text = { trigger = { original_tag = VTB has_country_flag = SUB_russ_polit } localization_key = VTB.liberalism_icon }
 	text = { trigger = { original_tag = YAK } localization_key = YAK.liberalism_icon }
 	text = { trigger = { original_tag = YAM } localization_key = YAM.liberalism_icon }
-	text = { trigger = { original_tag = MAD } localization_key = MAD.liberalism_icon }
 	text = { localization_key = generic.liberalism_icon }
 }
+	text = { trigger = { original_tag = MAD } localization_key = MAD.liberalism_icon }
+
 defined_text = {
 	name = socialism_L_icon
 	text = { trigger = { original_tag = BOL date < 2005.12.18 } localization_key = BOL.socialism_icon }
@@ -17966,35 +17990,10 @@ defined_text = {
 	text = { trigger = { original_tag = YAK } localization_key = YAK.socialism_icon }
 	text = { trigger = { original_tag = YAM date < 2007.1.1 } localization_key = YAM.socialism_icon }
 	text = { trigger = { original_tag = YAM date > 2007.1.1 } localization_key = YAM.socialism_1_icon }
+	text = { localization_key = generic.socialism_icon }
+
+}
 	text = { trigger = { original_tag = MAD } localization_key = MAD.socialism_icon }
-	text = { localization_key = generic.socialism_icon }
-
-}
-	text = { trigger = { original_tag = TAT date < 2007.1.1 } localization_key = TAT.socialism_icon }
-	text = { trigger = { original_tag = TAT date > 2007.1.1 } localization_key = TAT.socialism_1_icon }
-	text = { trigger = { original_tag = TRK } localization_key = TRK.socialism_icon }
-	text = { trigger = { original_tag = TUR } localization_key = TUR.socialism_icon }
-	text = { trigger = { original_tag = TUV } localization_key = TUV.socialism_icon }
-	text = { trigger = { original_tag = UDM date < 2007.1.1 } localization_key = UDM.socialism_icon }
-	text = { trigger = { original_tag = UDM date > 2007.1.1 } localization_key = UDM.socialism_1_icon }
-	text = { trigger = { original_tag = UKR NOT = { date > 2001.7.1 } } localization_key = UKR.socialism_icon }
-	text = { trigger = { original_tag = UKR date > 2001.7.1 NOT = { date > 2011.11.17 } } localization_key = UKR.socialism_byut_icon }
-	text = { trigger = { original_tag = UKR date > 2011.11.17 } localization_key = UKR.socialism_2012_icon }
-	text = { trigger = { original_tag = URA NOT = { has_country_flag = SUB_russ_polit } } localization_key = URA.socialism }
-	text = { trigger = { original_tag = URA has_country_flag = SUB_russ_polit date < 2007.1.1 } localization_key = SOV.socialism_icon }
-	text = { trigger = { original_tag = URA has_country_flag = SUB_russ_polit date > 2007.1.1 } localization_key = SOV.socialism_1_icon }
-	text = { trigger = { original_tag = URG } localization_key = URG.socialism_icon }
-	text = { trigger = { original_tag = USA has_country_flag = public_ignored3 } localization_key = USA.progressives_icon }
-	text = { trigger = { original_tag = USA NOT = { has_country_flag = public_ignored3 } } localization_key = USA.socialism_icon }
-	text = { trigger = { original_tag = USB } localization_key = USB.socialism_icon }
-	text = { trigger = { original_tag = VEN } localization_key = VEN.socialism_icon }
-	text = { trigger = { original_tag = VOJ } localization_key = VOJ.socialism_icon }
-	text = { trigger = { original_tag = YAK } localization_key = YAK.socialism_icon }
-	text = { trigger = { original_tag = YAM date < 2007.1.1 } localization_key = YAM.socialism_icon }
-	text = { trigger = { original_tag = YAM date > 2007.1.1 } localization_key = YAM.socialism_1_icon }
-	text = { localization_key = generic.socialism_icon }
-
-}
 
 defined_text = {
 	name = communist_state_L_icon
@@ -18357,6 +18356,21 @@ defined_text = {
 	text = { trigger = { original_tag = URA has_country_flag = SUB_russ_polit } localization_key = SOV.Autocracy_icon }
 	text = { trigger = { original_tag = USA } localization_key = USA.Autocracy_icon }
 	text = { trigger = { original_tag = USB } localization_key = USB.Autocracy_icon }
+	text = { trigger = { original_tag = YAK } localization_key = YAK.Autocracy_icon }
+	text = { trigger = { original_tag = YAM } localization_key = YAM.Autocracy_icon }
+	text = { localization_key = generic.Autocracy_icon }
+}
+
+defined_text = {
+	name = Vilayat_e_Faqih_L_icon
+	text = { trigger = { original_tag = AFG } localization_key = AFG.Vilayat_e_Faqih_icon }
+	text = { trigger = { original_tag = IRQ } localization_key = IRQ.Vilayat_e_Faqih_icon }
+	text = { trigger = { original_tag = PAL } localization_key = PAL.Vilayat_e_Faqih_icon }
+	text = { trigger = { original_tag = RAJ } localization_key = RAJ.Vilayat_e_Faqih_icon }
+	text = { trigger = { original_tag = SAU } localization_key = SAU.Vilayat_e_Faqih_icon }
+	text = { localization_key = generic.Vilayat_e_Faqih_icon }
+}
+
 defined_text = {
 	name = anarchist_communism_L_icon
 	text = { trigger = { OR = { original_tag = AFR original_tag = SIE } } localization_key = SIE.anarchist_communism_icon }
@@ -18533,9 +18547,162 @@ defined_text = {
 	text = { trigger = { original_tag = YAM date < 2006.1.1 } localization_key = YAM.anarchist_communism_icon }
 	text = { trigger = { original_tag = YAM date > 2006.1.1 } localization_key = YAM.anarchist_communism_1_icon }
 	text = { trigger = { original_tag = ZIM } localization_key = ZIM.anarchist_communism_icon }
-	text = { trigger = { original_tag = MAD } localization_key = MAD.anarchist_communism_icon }
 	text = { localization_key = generic.anarchist_communism_icon }
 }
+	text = { trigger = { original_tag = MAD } localization_key = MAD.anarchist_communism_icon }
+
+defined_text = {
+	name = anarchist_communism_L_icon
+	text = { trigger = { OR = { original_tag = AFR original_tag = SIE } } localization_key = SIE.anarchist_communism_icon }
+	text = { trigger = { original_tag = BOL } localization_key = BOL.anarchist_communism_icon }
+	text = { trigger = { OR = { original_tag = CDI original_tag = FNC } } localization_key = CDI.anarchist_communism_icon }
+	text = { trigger = { original_tag = ADY date < 2006.1.1 } localization_key = ADY.anarchist_communism_icon }
+	text = { trigger = { original_tag = ADY date > 2006.1.1 } localization_key = ADY.anarchist_communism_1_icon }
+	text = { trigger = { original_tag = AFG } localization_key = AFG.anarchist_communism_icon }
+	text = { trigger = { original_tag = AGL } localization_key = AGL.anarchist_communism_icon }
+	text = { trigger = { original_tag = ALT date < 2006.10.28 } localization_key = ALT.anarchist_communism_icon }
+	text = { trigger = { original_tag = ALT date > 2006.10.28 } localization_key = ALT.anarchist_communism_1_icon }
+	text = { trigger = { original_tag = ARG } localization_key = ARG.anarchist_communism_icon }
+	text = { trigger = { original_tag = ARM } localization_key = ARM.anarchist_communism_icon }
+	text = { trigger = { original_tag = AST } localization_key = AST.anarchist_communism_icon }
+	text = { trigger = { original_tag = AUS date < 2000.2.17 } localization_key = AUS.anarchist_communism_icon }
+	text = { trigger = { original_tag = AUS date > 2000.2.17 } localization_key = AUS.anarchist_communism_slp_icon }
+	text = { trigger = { original_tag = BLR } localization_key = BLR.anarchist_communism_icon }
+	text = { trigger = { original_tag = BOT NOT = { has_country_flag = BPP_joined_UDC } } localization_key = BOT.anarchist_communism_icon }
+	text = { trigger = { original_tag = BRA } localization_key = BRA.anarchist_communism_icon }
+	text = { trigger = { original_tag = BRY date < 2006.1.1 } localization_key = BRY.anarchist_communism_icon }
+	text = { trigger = { original_tag = BRY date > 2006.1.1 } localization_key = BRY.anarchist_communism_1_icon }
+	text = { trigger = { original_tag = BSH date < 2006.1.1 } localization_key = BSH.anarchist_communism_icon }
+	text = { trigger = { original_tag = BSH date > 2006.1.1 } localization_key = BSH.anarchist_communism_1_icon }
+	text = { trigger = { original_tag = BUL } localization_key = BUL.anarchist_communism_icon }
+	text = { trigger = { original_tag = CAN } localization_key = CAN.anarchist_communism_icon }
+	text = { trigger = { original_tag = CAR } localization_key = CAR.anarchist_communism_icon }
+	text = { trigger = { original_tag = CHI } localization_key = CHI.anarchist_communism_icon }
+	text = { trigger = { original_tag = CHL } localization_key = CHL.anarchist_communism_icon }
+	text = { trigger = { original_tag = CHU date < 2006.1.1 } localization_key = CHU.anarchist_communism_icon }
+	text = { trigger = { original_tag = CHU date > 2006.1.1 } localization_key = CHU.anarchist_communism_1_icon }
+	text = { trigger = { original_tag = CKK date < 2006.1.1 } localization_key = CKK.anarchist_communism_icon }
+	text = { trigger = { original_tag = CKK date > 2006.1.1 } localization_key = CKK.anarchist_communism_1_icon }
+	text = { trigger = { original_tag = CRM date < 2006.1.1 } localization_key = CRM.anarchist_communism_icon }
+	text = { trigger = { original_tag = CRM date > 2006.1.1 } localization_key = CRM.anarchist_communism_1_icon }
+	text = { trigger = { original_tag = CRO } localization_key = CRO.anarchist_communism_icon }
+	text = { trigger = { original_tag = CSA } localization_key = CSA.anarchist_communism_icon }
+	text = { trigger = { original_tag = CSB } localization_key = CSB.anarchist_communism_icon }
+	text = { trigger = { original_tag = DAG date < 2006.1.1 } localization_key = DAG.anarchist_communism_icon }
+	text = { trigger = { original_tag = DAG date > 2006.1.1 } localization_key = DAG.anarchist_communism_1_icon }
+	text = { trigger = { original_tag = DEN } localization_key = DEN.anarchist_communism_icon }
+	text = { trigger = { original_tag = DON } localization_key = DON.anarchist_communism_icon }
+	text = { trigger = { original_tag = DPR has_country_flag = SUB_russ_polit } localization_key = DPR.anarchist_communism_sov_icon }
+	text = { trigger = { original_tag = DPR NOT = { has_country_flag = SUB_russ_polit } } localization_key = DPR.anarchist_communism_icon }
+	text = { trigger = { original_tag = ECU } localization_key = ECU.anarchist_communism_icon }
+	text = { trigger = { original_tag = EGY } localization_key = EGY.anarchist_communism_icon }
+	text = { trigger = { original_tag = ENG } localization_key = ENG.anarchist_communism_icon }
+	text = { trigger = { original_tag = ERI } localization_key = ERI.anarchist_communism_icon }
+	text = { trigger = { original_tag = EST has_country_flag = EST_estonian_united_left_forms } localization_key = EST.anarchist_communism2_icon }
+	text = { trigger = { original_tag = EST NOT = { has_country_flag = EST_estonian_united_left_forms } } localization_key = EST.anarchist_communism_icon }
+	text = { trigger = { original_tag = ESB } localization_key = ESB.anarchist_communism_icon }
+	text = { trigger = { original_tag = ERI ETH = { has_country_flag = ETH_locked_federalisation_FLAG } } localization_key = ETH.anarchist_communism_icon }
+	text = { trigger = { original_tag = ETH } localization_key = ETH.anarchist_communism_icon }
+	text = { trigger = { original_tag = FAR } localization_key = FAR.anarchist_communism_icon }
+	text = { trigger = { original_tag = FRA date < 2009.2.8 } localization_key = FRA.anarchist_communism_icon }
+	text = { trigger = { original_tag = FRA date > 2009.2.7 } localization_key = FRA.anarchist_communism_2017_icon }
+	text = { trigger = { original_tag = FIN has_country_flag = SUB_russ_polit } localization_key = SOV.anarchist_communism_1_icon }
+	text = { trigger = { original_tag = FYR } localization_key = FYR.anarchist_communism_icon }
+	text = { trigger = { original_tag = GAH } localization_key = GAH.anarchist_communism_icon }
+	text = { trigger = { original_tag = GEO } localization_key = GEO.anarchist_communism_icon }
+	text = { trigger = { original_tag = GER } localization_key = GER.anarchist_communism_icon }
+	text = { trigger = { original_tag = GRE } localization_key = GRE.anarchist_communism_icon }
+	text = { trigger = { original_tag = GUB } localization_key = GUB.anarchist_communism_icon }
+	text = { trigger = { original_tag = GUY } localization_key = GUY.anarchist_communism_icon }
+	text = { trigger = { original_tag = HAI } localization_key = HAI.anarchist_communism_icon }
+	text = { trigger = { original_tag = HPR has_country_flag = SUB_russ_polit } localization_key = HPR.anarchist_communism_sov_icon }
+	text = { trigger = { original_tag = ING date < 2006.1.1 } localization_key = ING.anarchist_communism_icon }
+	text = { trigger = { original_tag = ING date > 2006.1.1 } localization_key = ING.anarchist_communism_1_icon }
+	text = { trigger = { original_tag = ISR } localization_key = ISR.anarchist_communism_icon }
+	text = { trigger = { original_tag = ITA check_variable = { anarchist_communism_leader = 0 } } localization_key = ITA.anarchist_communism_icon }
+	text = { trigger = { original_tag = ITA check_variable = { anarchist_communism_leader = 1 } } localization_key = ITA.anarchist_communism_icon }
+	text = { trigger = { original_tag = ITA check_variable = { anarchist_communism_leader = 2 } } localization_key = ITA.m5s2050_loc_key_icon }
+	text = { trigger = { original_tag = ITA check_variable = { anarchist_communism_leader = 3 } } localization_key = ITA.m5s2050_loc_key_icon }
+	text = { trigger = { original_tag = JAP has_country_flag = JAP_reiwa_shinsengumi_flag } localization_key = JAP.anarchist_communism_icon }
+	text = { trigger = { original_tag = KAE date < 2006.1.1 } localization_key = KAE.anarchist_communism_icon }
+	text = { trigger = { original_tag = KAE date > 2006.1.1 } localization_key = KAE.anarchist_communism_1_icon }
+	text = { trigger = { original_tag = KAZ } localization_key = KAZ.anarchist_communism_icon }
+	text = { trigger = { original_tag = KBK date < 2006.1.1 } localization_key = KBK.anarchist_communism_icon }
+	text = { trigger = { original_tag = KBK date > 2006.1.1 } localization_key = KBK.anarchist_communism_1_icon }
+	text = { trigger = { original_tag = KCC date < 2006.1.1 } localization_key = KCC.anarchist_communism_icon }
+	text = { trigger = { original_tag = KCC date > 2006.1.1 } localization_key = KCC.anarchist_communism_1_icon }
+	text = { trigger = { original_tag = KHM date < 2006.1.1 } localization_key = KHM.anarchist_communism_icon }
+	text = { trigger = { original_tag = KHM date > 2006.1.1 } localization_key = KHM.anarchist_communism_1_icon }
+	text = { trigger = { original_tag = KHS date < 2006.1.1 } localization_key = KHS.anarchist_communism_icon }
+	text = { trigger = { original_tag = KHS date > 2006.1.1 } localization_key = KHS.anarchist_communism_1_icon }
+	text = { trigger = { original_tag = KLM date < 2006.1.1 } localization_key = KLM.anarchist_communism_icon }
+	text = { trigger = { original_tag = KLM date > 2006.1.1 } localization_key = KLM.anarchist_communism_1_icon }
+	text = { trigger = { original_tag = KOM date < 2006.1.1 } localization_key = KOM.anarchist_communism_icon }
+	text = { trigger = { original_tag = KOM date > 2006.1.1 } localization_key = KOM.anarchist_communism_1_icon }
+	text = { trigger = { original_tag = KOR date < 2011.12.5 } localization_key = KOR.anarchist_communism_icon }
+	text = { trigger = { original_tag = KOR date > 2011.12.4 date < 2016.2.27 } localization_key = KOR.anarchist_communism_2011_icon }
+	text = { trigger = { original_tag = KOR date > 2016.2.26 } localization_key = KOR.anarchist_communism_2016_icon }
+	text = { trigger = { original_tag = KUB date < 2006.1.1 } localization_key = KUB.anarchist_communism_icon }
+	text = { trigger = { original_tag = KUB date > 2006.1.1 } localization_key = KUB.anarchist_communism_1_icon }
+	text = { trigger = { OR = { original_tag = KUR original_tag = PKK original_tag = IEK original_tag = PUK } } localization_key = KUR.anarchist_communism_icon }
+	text = { trigger = { original_tag = KYR } localization_key = KYR.anarchist_communism_icon }
+	text = { trigger = { original_tag = LAT date < 2004.3.8 } localization_key = LAT.anarchist_communism_icon }
+	text = { trigger = { original_tag = LAT date > 2004.3.8 } localization_key = LAT.anarchist_communism_alt_icon }
+	text = { trigger = { original_tag = LIB } localization_key = LIB.anarchist_communism_icon }
+	text = { trigger = { original_tag = LKT } localization_key = LKT.anarchist_communism_icon }
+	text = { trigger = { original_tag = LPR has_country_flag = SUB_russ_polit } localization_key = LPR.anarchist_communism_sov_icon }
+	text = { trigger = { original_tag = MAC } localization_key = MAC.anarchist_communism_icon }
+	text = { trigger = { original_tag = MAL } localization_key = MAL.anarchist_communism_icon }
+	text = { trigger = { original_tag = MAU } localization_key = MAU.anarchist_communism_icon }
+	text = { trigger = { original_tag = MEL date < 2006.1.1 } localization_key = MEL.anarchist_communism_icon }
+	text = { trigger = { original_tag = MEL date > 2006.1.1 } localization_key = MEL.anarchist_communism_1_icon }
+	text = { trigger = { original_tag = MEX } localization_key = MEX.anarchist_communism_icon }
+	text = { trigger = { original_tag = MLR has_country_flag = SUB_russ_polit } localization_key = MLR.anarchist_communism_sov_icon }
+	text = { trigger = { original_tag = MLV } localization_key = MLV.anarchist_communism_icon }
+	text = { trigger = { original_tag = MOR } localization_key = MOR.anarchist_communism_icon }
+	text = { trigger = { original_tag = MON } localization_key = MON.anarchist_communism_icon }
+	text = { trigger = { original_tag = MOV date < 2006.1.1 } localization_key = MOV.anarchist_communism_icon }
+	text = { trigger = { original_tag = MOV date > 2006.1.1 } localization_key = MOV.anarchist_communism_1_icon }
+	text = { trigger = { original_tag = MOZ } localization_key = MOZ.anarchist_communism_icon }
+	text = { trigger = { original_tag = NAM } localization_key = NAM.anarchist_communism_icon }
+	text = { trigger = { original_tag = NEE date < 2006.1.1 } localization_key = NEE.anarchist_communism_icon }
+	text = { trigger = { original_tag = NEE date > 2006.1.1 } localization_key = NEE.anarchist_communism_1_icon }
+	text = { trigger = { original_tag = NIG } localization_key = NIG.anarchist_communism_icon }
+	text = { trigger = { original_tag = NKO } localization_key = NKO.anarchist_communism_icon }
+	text = { trigger = { original_tag = NRY } localization_key = NRY.anarchist_communism_icon }
+	text = { trigger = { original_tag = NZL } localization_key = NZL.anarchist_communism_icon }
+	text = { trigger = { original_tag = OPR has_country_flag = SUB_russ_polit } localization_key = OPR.anarchist_communism_sov_icon }
+	text = { trigger = { original_tag = PAL } localization_key = PAL.anarchist_communism_icon }
+	text = { trigger = { original_tag = PER } localization_key = PER.anarchist_communism_icon }
+	text = { trigger = { original_tag = PMR has_country_flag = SUB_russ_polit } localization_key = PMR.anarchist_communism_sov_icon }
+	text = { trigger = { original_tag = PMR NOT = { has_country_flag = SUB_russ_polit } } localization_key = PMR.anarchist_communism_icon }
+	text = { trigger = { original_tag = POR } localization_key = POR.anarchist_communism_icon }
+	text = { trigger = { original_tag = PRU } localization_key = PRU.anarchist_communism_icon }
+	text = { trigger = { original_tag = RAJ } localization_key = RAJ.anarchist_communism_icon }
+	text = { trigger = { original_tag = ROJ } localization_key = ROJ.anarchist_communism_icon }
+	text = { trigger = { original_tag = ROM } localization_key = ROM.anarchist_communism_icon }
+	text = { trigger = { original_tag = RUS } localization_key = RUS.anarchist_communism_icon }
+	text = { trigger = { original_tag = SER date < 2010.1.1 } localization_key = SER.anarchist_communism_icon }
+	text = { trigger = { original_tag = SER date > 2010.1.1 } localization_key = SER.anarchist_communism_2017_icon }
+	text = { trigger = { original_tag = SIB } localization_key = SIB.anarchist_communism_icon }
+	text = { trigger = { original_tag = SIN } localization_key = SIN.anarchist_communism_icon }
+	text = { trigger = { original_tag = SLO } localization_key = SLO.anarchist_communism_icon }
+	text = { trigger = { original_tag = SLV has_country_flag = SLV_Initiative_for_Democratic_Socialism } localization_key = SLV.anarchist_communism_IFDS_icon }
+	text = { trigger = { original_tag = SLV has_country_flag = SLV_The_Left } localization_key = SLV.anarchist_communism_The_Left_icon }
+	text = { trigger = { original_tag = SMA } localization_key = SMA.anarchist_communism_icon }
+	text = { trigger = { original_tag = SOO has_country_flag = SUB_russ_polit } localization_key = SOO.anarchist_communism_sov_icon }
+	text = { trigger = { original_tag = SOO NOT = { has_country_flag = SUB_russ_polit } } localization_key = SOO.anarchist_communism_icon }
+	text = { trigger = { original_tag = SOO } localization_key = SOO.anarchist_communism_icon }
+	text = { trigger = { original_tag = SOV date < 2006.1.1 } localization_key = SOV.anarchist_communism_icon }
+	text = { trigger = { original_tag = SOV date > 2006.1.1 } localization_key = SOV.anarchist_communism_1_icon }
+	text = { trigger = { original_tag = SPR } localization_key = SPR.anarchist_communism_icon }
+	text = { trigger = { original_tag = SWE } localization_key = SWE.anarchist_communism_icon }
+	text = { trigger = { original_tag = TAI } localization_key = TAI.anarchist_communism_icon }
+	text = { trigger = { original_tag = TAJ } localization_key = TAJ.anarchist_communism_icon }
+	text = { trigger = { original_tag = TAT date < 2006.1.1 } localization_key = TAT.anarchist_communism_icon }
+	text = { trigger = { original_tag = TAT date > 2006.1.1 } localization_key = TAT.anarchist_communism_1_icon }
+	text = { trigger = { original_tag = TRK } localization_key = TRK.anarchist_communism_icon }
+	text = { trigger = { original_tag = TUR } localization_key = TUR.anarchist_communism_icon }
 	text = { trigger = { original_tag = TUV date < 2006.1.1 } localization_key = TUV.anarchist_communism_icon }
 	text = { trigger = { original_tag = TUV date > 2006.1.1 } localization_key = TUV.anarchist_communism_1_icon }
 	text = { trigger = { original_tag = UDM date < 2006.1.1 } localization_key = UDM.anarchist_communism_icon }
@@ -18737,6 +18904,33 @@ defined_text = {
 	text = { trigger = { original_tag = SOV date > 2007.1.1 date < 2011.1.1 } localization_key = SOV.Neutral_conservatism_1_icon }
 	text = { trigger = { original_tag = SOV date > 2011.1.1 } localization_key = SOV.Neutral_conservatism_2_icon }
 	text = { trigger = { original_tag = SPR has_country_flag = SPR_alternativa_espana_forms } localization_key = SPR.Neutral_conservatism_2017_icon }
+	text = { trigger = { original_tag = SPR NOT = { has_country_flag = SPR_alternativa_espana_forms } } localization_key = SPR.Neutral_conservatism_icon }
+	text = { trigger = { original_tag = SWE } localization_key = SWE.Neutral_conservatism_icon }
+	text = { trigger = { original_tag = SWI } localization_key = SWI.Neutral_conservatism_icon }
+	text = { trigger = { original_tag = TAI } localization_key = TAI.Neutral_conservatism_icon }
+	text = { trigger = { original_tag = TAT date < 2013.1.1 } localization_key = TAT.Neutral_conservatism_icon }
+	text = { trigger = { original_tag = TAT date > 2013.1.1 } localization_key = TAT.Neutral_conservatism_1_icon }
+	text = { trigger = { original_tag = TRK } localization_key = TRK.Neutral_conservatism_icon }
+	text = { trigger = { original_tag = TUR } localization_key = TUR.Neutral_conservatism_icon }
+	text = { trigger = { original_tag = UDM date < 2007.1.1 } localization_key = UDM.Neutral_conservatism_icon }
+	text = { trigger = { original_tag = UDM date > 2007.1.1 date < 2011.1.1 } localization_key = UDM.Neutral_conservatism_1_icon }
+	text = { trigger = { original_tag = UDM date > 2011.1.1 } localization_key = UDM.Neutral_conservatism_2_icon }
+	text = { trigger = { original_tag = UKR NOT = { date > 2001.12.15 } } localization_key = UKR.Neutral_conservatism_icon }
+	text = { trigger = { original_tag = UKR date > 2001.12.15 NOT = { date > 2005.2.11 } } localization_key = UKR.Neutral_conservatism_2001_icon }
+	text = { trigger = { original_tag = UKR date > 2005.2.11 NOT = { date > 2015.10.25 } } localization_key = UKR.Neutral_conservatism_2005_icon }
+	text = { trigger = { original_tag = UKR date > 2015.10.25 NOT = { date > 2020.6.19 } } localization_key = UKR.Neutral_conservatism_2015_icon }
+	text = { trigger = { original_tag = UKR date > 2020.6.19 } localization_key = UKR.Neutral_conservatism_2020_icon }
+	text = { trigger = { original_tag = URA } localization_key = URA.Neutral_conservatism_icon }
+	text = { trigger = { original_tag = USA has_country_flag = public_ignored6 } localization_key = USA.constitutionalist_icon }
+	text = { trigger = { original_tag = USA NOT = { has_country_flag = public_ignored6 } } localization_key = USA.Neutral_conservatism_icon }
+	text = { trigger = { original_tag = USB } localization_key = USB.Neutral_conservatism_icon }
+	text = { trigger = { original_tag = UZB } localization_key = UZB.Neutral_conservatism_icon }
+	text = { trigger = { original_tag = VEN } localization_key = VEN.Neutral_conservatism_icon }
+	text = { trigger = { original_tag = VOJ } localization_key = VOJ.Neutral_conservatism_icon }
+	text = { trigger = { original_tag = YAK } localization_key = YAK.Neutral_conservatism_icon }
+	text = { localization_key = generic.Neutral_conservatism_icon }
+}
+
 defined_text = {
 	name = oligarchism_L_icon
 	text = { trigger = { original_tag = ADY } localization_key = ADY.oligarchism_icon }
@@ -18818,36 +19012,9 @@ defined_text = {
 	text = { trigger = { original_tag = VOJ } localization_key = VOJ.oligarchism_icon }
 	text = { trigger = { original_tag = YAK } localization_key = YAK.oligarchism_icon }
 	text = { trigger = { original_tag = YAM } localization_key = YAM.oligarchism_icon }
+	text = { localization_key = generic.oligarchism_icon }
+}
 	text = { trigger = { original_tag = MAD } localization_key = MAD.oligarchism_icon }
-	text = { localization_key = generic.oligarchism_icon }
-}
-	text = { trigger = { original_tag = POL } localization_key = POL.oligarchism_icon }
-	text = { trigger = { original_tag = PRU } localization_key = PRU.oligarchism_icon }
-	text = { trigger = { original_tag = RAJ } localization_key = RAJ.oligarchism_icon }
-	text = { trigger = { original_tag = SOV has_country_flag = SOV_semibank } localization_key = SOV.oligarchism_council_icon }
-	text = { trigger = { original_tag = SOV has_country_flag = SOV_united_russia } localization_key = SOV.oligarchism_ed_icon }
-	text = { trigger = { original_tag = SOV NOT = { OR = { has_country_flag = SOV_semibank has_country_flag = SOV_united_russia } } } localization_key = SOV.oligarchism_icon }
-	text = { trigger = { original_tag = SWE } localization_key = SWE.oligarchism_icon }
-	text = { trigger = { original_tag = TAT } localization_key = TAT.oligarchism_icon }
-	text = { trigger = { original_tag = TUR date < 2007.1.1 NOT = { has_completed_focus = TUR_only_getting_started } } localization_key = TUR.oligarchism_icon }
-	text = { trigger = { original_tag = TUR date > 2007.1.1 NOT = { has_completed_focus = TUR_only_getting_started } } localization_key = TUR.oligarchism_2007_icon }
-	text = { trigger = { original_tag = TUR has_completed_focus = TUR_only_getting_started } localization_key = TUR.oligarchism_mafia_icon }
-	text = { trigger = { original_tag = TUV } localization_key = TUV.oligarchism_icon }
-	text = { trigger = { original_tag = UDM } localization_key = UDM.oligarchism_icon }
-	text = { trigger = { original_tag = UKR NOT = { date > 2008.3.20 } } localization_key = UKR.oligarchism_icon }
-	text = { trigger = { original_tag = UKR date > 2008.3.20 NOT = { date > 2015.6.5 } } localization_key = UKR.oligarchism_2008_icon }
-	text = { trigger = { original_tag = UKR date > 2015.6.5 NOT = { date > 2019.8.29 } } localization_key = UKR.oligarchism_2015_icon }
-	text = { trigger = { original_tag = UKR date > 2019.8.29 } localization_key = UKR.oligarchism_2019_icon }
-	text = { trigger = { original_tag = URA } localization_key = URA.oligarchism_icon }
-	text = { trigger = { original_tag = URG } localization_key = URG.oligarchism_icon }
-	text = { trigger = { original_tag = USB } localization_key = USB.oligarchism_icon }
-	text = { trigger = { original_tag = UZB } localization_key = UZB.oligarchism_icon }
-	text = { trigger = { original_tag = VEN } localization_key = VEN.oligarchism_icon }
-	text = { trigger = { original_tag = VOJ } localization_key = VOJ.oligarchism_icon }
-	text = { trigger = { original_tag = YAK } localization_key = YAK.oligarchism_icon }
-	text = { trigger = { original_tag = YAM } localization_key = YAM.oligarchism_icon }
-	text = { localization_key = generic.oligarchism_icon }
-}
 
 defined_text = {
 	name = neutral_Social_L_icon
@@ -19010,6 +19177,34 @@ defined_text = {
 	text = { trigger = { original_tag = SWI } localization_key = SWI.neutral_Social_icon }
 	text = { trigger = { original_tag = TAI } localization_key = TAI.neutral_Social_icon }
 	text = { trigger = { original_tag = TAJ } localization_key = TAJ.neutral_Social_icon }
+	text = { trigger = { original_tag = TAT date < 2020.1.1 } localization_key = TAT.neutral_Social_icon }
+	text = { trigger = { original_tag = TAT date > 2020.1.1 } localization_key = TAT.neutral_Social_1_icon }
+	text = { trigger = { original_tag = TRK } localization_key = TRK.neutral_Social_icon }
+	text = { trigger = { original_tag = TUR has_country_flag = TUR_hepar_founded } localization_key = TUR.neutral_Social_icon }
+	text = { trigger = { original_tag = TUR } localization_key = TUR.neutral_Social_icon }
+	text = { trigger = { original_tag = TUV date < 2020.1.1 } localization_key = TUV.neutral_Social_icon }
+	text = { trigger = { original_tag = TUV date > 2020.1.1 } localization_key = TUV.neutral_Social_1_icon }
+	text = { trigger = { original_tag = UDM date < 2020.1.1 } localization_key = UDM.neutral_Social_icon }
+	text = { trigger = { original_tag = UDM date > 2020.1.1 } localization_key = UDM.neutral_Social_1_icon }
+	text = { trigger = { original_tag = UKR NOT = { date > 2019.5.20 } } localization_key = UKR.neutral_Social_icon }
+	text = { trigger = { original_tag = UKR date > 2019.5.20 } localization_key = UKR.neutral_Social_2019_icon }
+	text = { trigger = { original_tag = URA NOT = { has_country_flag = SUB_russ_polit } } localization_key = URA.neutral_Social_icon }
+	text = { trigger = { original_tag = URA has_country_flag = SUB_russ_polit date < 2020.1.1 } localization_key = SOV.neutral_Social_icon }
+	text = { trigger = { original_tag = URA has_country_flag = SUB_russ_polit date > 2020.1.1 } localization_key = SOV.neutral_Social_1_icon }
+	text = { trigger = { original_tag = URG } localization_key = URG.neutral_Social_icon }
+	text = { trigger = { original_tag = USA has_country_flag = public_ignored3 } localization_key = USA.democratic_socialist_icon }
+	text = { trigger = { original_tag = USA NOT = { has_country_flag = public_ignored3 } } localization_key = USA.neutral_Social_icon }
+	text = { trigger = { original_tag = USB } localization_key = USB.neutral_Social_icon }
+	text = { trigger = { original_tag = VEN } localization_key = VEN.neutral_Social_icon }
+	text = { trigger = { original_tag = VOJ } localization_key = VOJ.neutral_Social_icon }
+	text = { trigger = { original_tag = VTB has_country_flag = SUB_russ_polit date > 2020.1.1 } localization_key = VTB.neutral_Social_1_icon }
+	text = { trigger = { original_tag = YAK date < 2020.1.1 } localization_key = YAK.neutral_Social_icon }
+	text = { trigger = { original_tag = YAK date > 2020.1.1 } localization_key = YAK.neutral_Social_1_icon }
+	text = { trigger = { original_tag = YAM date < 2020.1.1 } localization_key = YAM.neutral_Social_icon }
+	text = { trigger = { original_tag = YAM date > 2020.1.1 } localization_key = YAM.neutral_Social_1_icon }
+	text = { localization_key = generic.neutral_Social_icon }
+}
+
 defined_text = {
 	name = Neutral_Libertarian_L_icon
 	text = { trigger = { original_tag = BOL } localization_key = BOL.Neutral_Libertarian_icon }
@@ -19103,9 +19298,10 @@ defined_text = {
 	text = { trigger = { original_tag = USB } localization_key = USB.Neutral_Libertarian_icon }
 	text = { trigger = { original_tag = VOJ } localization_key = VOJ.Neutral_Libertarian_icon }
 	text = { trigger = { original_tag = YAM } localization_key = YAM.Neutral_Libertarian_icon }
-	text = { trigger = { original_tag = MAD } localization_key = MAD.Neutral_Libertarian_icon }
 	text = { localization_key = generic.Neutral_Libertarian_icon }
 }
+	text = { trigger = { original_tag = MAD } localization_key = MAD.Neutral_Libertarian_icon }
+
 defined_text = {
 	name = Neutral_Autocracy_L_icon
 	text = { trigger = { original_tag = SIA } localization_key = SIA.Neutral_Autocracy_icon }
@@ -19171,38 +19367,9 @@ defined_text = {
 	text = { trigger = { original_tag = VOJ } localization_key = VOJ.Neutral_Autocracy_icon }
 	text = { trigger = { original_tag = YAK } localization_key = YAK.Neutral_Autocracy_icon }
 	text = { trigger = { original_tag = YAM } localization_key = YAM.Neutral_Autocracy_icon }
+	text = { localization_key = generic.Neutral_Autocracy_icon }
+}
 	text = { trigger = { original_tag = MAD } localization_key = MAD.Neutral_Autocracy_icon }
-	text = { localization_key = generic.Neutral_Autocracy_icon }
-}
-	text = { trigger = { original_tag = RAJ } localization_key = RAJ.Neutral_Autocracy_icon }
-	text = { trigger = { original_tag = RUS } localization_key = RUS.Neutral_Autocracy_icon }
-	text = { trigger = { original_tag = SEL has_country_flag = SEL_ex_seleka } localization_key = SEL.Neutral_Autocracy_2_icon }
-	text = { trigger = { original_tag = SEL NOT = { has_country_flag = SEL_ex_seleka } } localization_key = SEL.Neutral_Autocracy_1_icon }
-	text = { trigger = { original_tag = SEN has_country_flag = SEN_is_AUTH } localization_key = SEN.neutral_Social_icon }
-	text = { trigger = { original_tag = SER has_country_flag = SER_radical_divided } localization_key = SER.Neutral_Autocracy_alt_icon }
-	text = { trigger = { original_tag = SER NOT = { has_country_flag = SER_radical_divided } } localization_key = SER.Neutral_Autocracy_icon }
-	text = { trigger = { original_tag = SHA } localization_key = SHA.Neutral_Autocracy_icon }
-	text = { trigger = { original_tag = SIN } localization_key = SIN.Neutral_Autocracy_icon }
-	text = { trigger = { original_tag = SLV } localization_key = SLV.Neutral_Autocracy_icon }
-	text = { trigger = { original_tag = SOV } localization_key = SOV.Neutral_Autocracy_icon }
-	text = { trigger = { original_tag = SWI } localization_key = SWI.Neutral_Autocracy_icon }
-	text = { trigger = { original_tag = TRK } localization_key = TRK.Neutral_Autocracy_icon }
-	text = { trigger = { original_tag = TUR has_completed_focus = TUR_beacon_of_islam } localization_key = TUR.Neutral_Autocracy_reform_icon }
-	text = { trigger = { original_tag = TUR NOT = { has_completed_focus = TUR_beacon_of_islam } } localization_key = TUR.Neutral_Autocracy_icon }
-	text = { trigger = { original_tag = UDM } localization_key = UDM.Neutral_Autocracy_icon }
-	text = { trigger = { original_tag = UKR NOT = { date > 2004.1.1 } } localization_key = UKR.Neutral_Autocracy_icon }
-	text = { trigger = { original_tag = UKR date > 2004.1.1 NOT = { date > 2009.11.28 } } localization_key = UKR.Neutral_Autocracy_2004_icon }
-	text = { trigger = { original_tag = UKR date > 2009.11.28 NOT = { date > 2012.3.17 } } localization_key = UKR.Neutral_Autocracy_2010_icon }
-	text = { trigger = { original_tag = UKR date > 2012.3.17 NOT = { date > 2020.10.25 } } localization_key = UKR.Neutral_Autocracy_2012_icon }
-	text = { trigger = { original_tag = UKR date > 2020.10.25 } localization_key = UKR.Neutral_Autocracy_2020_icon }
-	text = { trigger = { original_tag = USA } localization_key = USA.Neutral_Autocracy_icon }
-	text = { trigger = { original_tag = USB } localization_key = USB.Neutral_Autocracy_icon }
-	text = { trigger = { original_tag = UZB } localization_key = UZB.Neutral_Autocracy_icon }
-	text = { trigger = { original_tag = VOJ } localization_key = VOJ.Neutral_Autocracy_icon }
-	text = { trigger = { original_tag = YAK } localization_key = YAK.Neutral_Autocracy_icon }
-	text = { trigger = { original_tag = YAM } localization_key = YAM.Neutral_Autocracy_icon }
-	text = { localization_key = generic.Neutral_Autocracy_icon }
-}
 
 defined_text = {
 	name = Neutral_Communism_L_icon
@@ -19446,6 +19613,36 @@ defined_text = {
 	text = { trigger = { original_tag = GER } localization_key = GER.Neutral_Muslim_Brotherhood_icon }
 	text = { trigger = { original_tag = HAM } localization_key = HAM.Neutral_Muslim_Brotherhood_icon }
 	text = { trigger = { original_tag = HEJ } localization_key = SAU.Neutral_Muslim_Brotherhood_icon }
+	text = { trigger = { original_tag = ING } localization_key = ING.Neutral_Muslim_Brotherhood_icon }
+	text = { trigger = { original_tag = IRQ date > 2016.1.1 } localization_key = IRQ.Neutral_Muslim_Brotherhood_2017_icon }
+	text = { trigger = { original_tag = ISR } localization_key = ISR.Neutral_Muslim_Brotherhood_icon }
+	text = { trigger = { original_tag = KBK } localization_key = KBK.Neutral_Muslim_Brotherhood_icon }
+	text = { trigger = { original_tag = KCC } localization_key = KCC.Neutral_Muslim_Brotherhood_icon }
+	text = { trigger = { OR = { original_tag = KUR original_tag = PKK original_tag = PUK } } localization_key = KUR.Neutral_Muslim_Brotherhood_icon }
+	text = { trigger = { original_tag = LBA OR = { has_country_flag = LBA_democratic_reform has_completed_focus = LBA_work_together_with_brotherhood } } localization_key = LBA.Neutral_Muslim_Brotherhood_icon }
+	text = { trigger = { original_tag = LIB } localization_key = LIB.Neutral_Muslim_Brotherhood_icon }
+	text = { trigger = { original_tag = LKT } localization_key = LKT.Neutral_Muslim_Brotherhood_icon }
+	text = { trigger = { original_tag = MAL } localization_key = MAL.Neutral_Muslim_Brotherhood_icon }
+	text = { trigger = { original_tag = MAU } localization_key = MAU.Neutral_Muslim_Brotherhood_icon }
+	text = { trigger = { original_tag = MOR } localization_key = MOR.Neutral_Muslim_Brotherhood_icon }
+	text = { trigger = { original_tag = PAL } localization_key = PAL.Neutral_Muslim_Brotherhood_icon }
+	text = { trigger = { original_tag = RAJ } localization_key = RAJ.Neutral_Muslim_Brotherhood_icon }
+	text = { trigger = { original_tag = SAF NOT = { has_country_flag = SAF_al_jamaah_founded } } localization_key = SAF.Neutral_Muslim_Brotherhood_AMP_icon }
+	text = { trigger = { original_tag = SAF has_country_flag = SAF_al_jamaah_founded } localization_key = SAF.Neutral_Muslim_Brotherhood_AJ_icon }
+	text = { trigger = { original_tag = SAU date > 2011.02.10 } localization_key = SAU.Neutral_Muslim_Brotherhood_icon }
+	text = { trigger = { original_tag = SER } localization_key = SER.Neutral_Muslim_Brotherhood_icon }
+	text = { trigger = { original_tag = SLV } localization_key = SLV.Neutral_Muslim_Brotherhood_icon }
+	text = { trigger = { original_tag = SOV } localization_key = SOV.Neutral_Muslim_Brotherhood_icon }
+	text = { trigger = { original_tag = TAJ } localization_key = TAJ.Neutral_Muslim_Brotherhood_icon }
+	text = { trigger = { original_tag = TUR has_country_flag = Turkey_FP_banned } localization_key = TUR.Neutral_Muslim_Brotherhood_akp_icon }
+	text = { trigger = { original_tag = TUR NOT = { has_country_flag = Turkey_FP_banned } } localization_key = TUR.Neutral_Muslim_Brotherhood_icon }
+	text = { trigger = { original_tag = UKR NOT = { date > 2014.3.18 } } localization_key = UKR.Neutral_Muslim_Brotherhood_icon }
+	text = { trigger = { original_tag = UKR date > 2014.3.18 } localization_key = UKR.Neutral_Muslim_Brotherhood_2014_icon }
+	text = { trigger = { original_tag = USA } localization_key = USA.Neutral_Muslim_Brotherhood_icon }
+	text = { trigger = { original_tag = VOJ } localization_key = VOJ.Neutral_Muslim_Brotherhood_icon }
+	text = { localization_key = generic.Neutral_Muslim_Brotherhood_icon }
+}
+
 defined_text = {
 	name = Nat_Autocracy_L_icon
 	text = { trigger = { has_country_flag = USoE_political_parties } localization_key = USoE.Nat_Autocracy_icon }
@@ -19583,39 +19780,9 @@ defined_text = {
 	text = { trigger = { original_tag = VOJ } localization_key = VOJ.Nat_Autocracy_icon }
 	text = { trigger = { original_tag = VTB has_country_flag = SUB_russ_polit } localization_key = VTB.Nat_Autocracy_sov_icon }
 	 text = { trigger = { original_tag = SOV has_country_flag = SOV_wagner_parties } localization_key = SOV.Nat_Autocracy_wagner_icon }
+	text = { localization_key = generic.Nat_Autocracy }
+}
 	text = { trigger = { original_tag = MAD } localization_key = MAD.Nat_Autocracy_icon }
-	text = { localization_key = generic.Nat_Autocracy }
-}
-	text = { trigger = { original_tag = SIA date > 2018.1.1 } localization_key = SIA.Nat_Autocracy_alt_icon }
-	text = { trigger = { original_tag = SIB } localization_key = SIB.Nat_Autocracy_icon }
-	text = { trigger = { original_tag = SIN } localization_key = SIN.Nat_Autocracy_icon }
-	text = { trigger = { original_tag = SLO } localization_key = SLO.Nat_Autocracy_icon }
-	text = { trigger = { original_tag = SLV } localization_key = SLV.Nat_Autocracy_icon }
-	text = { trigger = { original_tag = SOO has_country_flag = SUB_russ_polit } localization_key = SOO.Nat_Autocracy_sov_icon }
-	text = { trigger = { original_tag = SOO NOT = { has_country_flag = SUB_russ_polit } } localization_key = SOO.Nat_Autocracy_icon }
-	text = { trigger = { original_tag = SOO } localization_key = SOO.Nat_Autocracy_icon }
-	text = { trigger = { original_tag = SOV has_cosmetic_tag = SOV_kobnod } localization_key = SOV.Nat_Autocracy_alty_icon }
-	text = { trigger = { original_tag = SOV has_cosmetic_tag = SOV_USSR_AUTH_S } localization_key = SOV.Nat_Autocracy_alt_icon }
-	text = { trigger = { original_tag = SOV NOT = { OR = { has_country_flag = SOV_wagner_parties has_cosmetic_tag = SOV_USSR_AUTH_S has_cosmetic_tag = SOV_kobnod } } } localization_key = SOV.Nat_Autocracy_icon }
-	text = { trigger = { original_tag = SPR } localization_key = SPR.Nat_Autocracy_icon }
-	text = { trigger = { original_tag = SWI } localization_key = SWI.Nat_Autocracy_icon }
-	text = { trigger = { original_tag = TAI } localization_key = TAI.Nat_Autocracy_icon }
-	text = { trigger = { original_tag = TRK } localization_key = TRK.Nat_Autocracy_icon }
-	text = { trigger = { original_tag = TUR } localization_key = TUR.Nat_Autocracy_icon }
-	text = { trigger = { original_tag = TUV } localization_key = TUV.Nat_Autocracy_icon }
-	text = { trigger = { original_tag = UDM } localization_key = UDM.Nat_Autocracy_icon }
-	text = { trigger = { original_tag = UKR } localization_key = UKR.Nat_Autocracy_icon }
-	text = { trigger = { original_tag = URA } localization_key = URA.Nat_Autocracy_icon }
-	text = { trigger = { original_tag = URG } localization_key = URG.Nat_Autocracy_icon }
-	text = { trigger = { original_tag = USA NOT = { has_country_flag = USA_militarist_lead_coalition } } localization_key = USA.Nat_Autocracy_icon }
-	text = { trigger = { original_tag = USA has_country_flag = USA_militarist_lead_coalition } localization_key = USA.Militarist_NFP_Victory_icon }
-	text = { trigger = { original_tag = USB } localization_key = USB.Nat_Autocracy_icon }
-	text = { trigger = { original_tag = VEN } localization_key = VEN.Nat_Autocracy_icon }
-	text = { trigger = { original_tag = VOJ } localization_key = VOJ.Nat_Autocracy_icon }
-	text = { trigger = { original_tag = VTB has_country_flag = SUB_russ_polit } localization_key = VTB.Nat_Autocracy_sov_icon }
-	 text = { trigger = { original_tag = SOV has_country_flag = SOV_wagner_parties } localization_key = SOV.Nat_Autocracy_wagner_icon }
-	text = { localization_key = generic.Nat_Autocracy }
-}
 
 defined_text = {
 	name = Nat_Fascism_L_icon
@@ -19697,6 +19864,37 @@ defined_text = {
 	text = { trigger = { original_tag = POR date > 2014.1.1 } localization_key = POR.Nat_Fascism_icon }
 	text = { trigger = { original_tag = RAJ } localization_key = RAJ.Nat_Fascism_icon }
 	text = { trigger = { original_tag = ROM } localization_key = ROM.Nat_Fascism_icon }
+	text = { trigger = { original_tag = RUS } localization_key = RUS.Nat_Fascism_icon }
+	text = { trigger = { original_tag = SER } localization_key = SER.Nat_Fascism_icon }
+	text = { trigger = { original_tag = SLV } localization_key = SLV.Nat_Fascism_icon }
+	text = { trigger = { original_tag = SIB } localization_key = SIB.Nat_Fascism_icon }
+	text = { trigger = { original_tag = SLO } localization_key = SLO.Nat_Fascism_icon }
+	text = { trigger = { original_tag = SOO } localization_key = SOO.Nat_Fascism_icon }
+	text = { trigger = { original_tag = SOV } localization_key = SOV.Nat_Fascism_icon }
+	text = { trigger = { original_tag = SPR } localization_key = SPR.Nat_Fascism_icon }
+	text = { trigger = { original_tag = SWE } localization_key = SWE.Nat_Fascism_icon }
+	text = { trigger = { original_tag = SWI } localization_key = SWI.Nat_Fascism_icon }
+	text = { trigger = { original_tag = TAI } localization_key = TAI.Nat_Fascism_icon }
+	text = { trigger = { original_tag = TAT } localization_key = TAT.Nat_Fascism_icon }
+	text = { trigger = { original_tag = TUR } localization_key = TUR.Nat_Fascism_icon }
+	text = { trigger = { original_tag = TUV } localization_key = TUV.Nat_Fascism_icon }
+	text = { trigger = { original_tag = UDM } localization_key = UDM.Nat_Fascism_icon }
+	text = { trigger = { original_tag = UKR NOT = { date > 2014.3.22 } } localization_key = UKR.Nat_Fascism_icon }
+	text = { trigger = { original_tag = UKR date > 2014.3.22 NOT = { date > 2016.10.14 } } localization_key = UKR.Nat_Fascism_2014_icon }
+	text = { trigger = { original_tag = UKR date > 2016.10.14 } localization_key = UKR.Nat_Fascism_2016_icon }
+	text = { trigger = { original_tag = URA } localization_key = URA.Nat_Fascism_icon }
+	text = { trigger = { original_tag = USA NOT = { has_country_flag = USA_fascist_lead_coalition } } localization_key = USA.Nat_Fascism_icon }
+	text = { trigger = { original_tag = USA has_country_flag = USA_fascist_lead_coalition } localization_key = USA.Naturalist_NFP_Victory_icon }
+	text = { trigger = { original_tag = USB } localization_key = USB.Nat_Fascism_icon }
+	text = { trigger = { original_tag = VEN } localization_key = VEN.Nat_Fascism_icon }
+	text = { trigger = { original_tag = VEN } localization_key = VEN.Nat_Fascism_icon }
+	text = { trigger = { original_tag = VOJ } localization_key = VOJ.Nat_Fascism_icon }
+	text = { trigger = { original_tag = VTB } localization_key = VTB.Nat_Fascism_icon }
+	text = { trigger = { original_tag = YAK } localization_key = YAK.Nat_Fascism_icon }
+	text = { trigger = { original_tag = YAM } localization_key = YAM.Nat_Fascism_icon }
+	text = { localization_key = generic.Nat_Fascism_icon }
+}
+
 defined_text = {
 	name = Nat_Populism_L_icon
 	text = { trigger = { OR = { original_tag = AFR original_tag = SIE } } localization_key = SIE.Nat_Populism_icon }
@@ -19852,9 +20050,11 @@ defined_text = {
 	text = { trigger = { original_tag = VTB has_country_flag = SUB_russ_polit } localization_key = VTB.Nat_Populism_sov_icon }
 	text = { trigger = { original_tag = YAK } localization_key = YAK.Nat_Populism_icon }
 	text = { trigger = { original_tag = YAM } localization_key = YAM.Nat_Populism_icon }
+	text = { localization_key = generic.Nat_Populism_icon }
+}
 	text = { trigger = { original_tag = MAD has_country_flag = MAD_TGV_FORMED } localization_key = MAD.Nat_Populism_icon }
 	text = { trigger = { original_tag = MAD NOT = { has_country_flag = MAD_TGV_FORMED } } localization_key = generic.Nat_Populism_icon }
-	text = { localization_key = generic.Nat_Populism_icon }
+
 defined_text = {
 	name = Monarchist_L_icon
 	text = { trigger = { has_country_flag = USoE_political_parties } localization_key = USoE.Monarchist_icon }
@@ -19937,42 +20137,9 @@ defined_text = {
 	text = { trigger = { original_tag = URA } localization_key = URA.Monarchist_icon }
 	text = { trigger = { original_tag = USA } localization_key = USA.Monarchist_icon }
 	text = { trigger = { original_tag = USB } localization_key = USB.Monarchist_icon }
+	text = { localization_key = generic.Monarchist_icon }
+}
 	text = { trigger = { original_tag = MAD } localization_key = MAD.Monarchist_icon }
-	text = { localization_key = generic.Monarchist_icon }
-}
-	text = { trigger = { original_tag = LAT } localization_key = LAT.Monarchist_icon }
-	text = { trigger = { original_tag = LBA } localization_key = LBA.Monarchist_icon }
-	text = { trigger = { original_tag = LIC } localization_key = LIC.Monarchist_icon }
-	text = { trigger = { original_tag = LKT } localization_key = LKT.Monarchist_icon }
-	text = { trigger = { original_tag = LUX } localization_key = LUX.Monarchist_icon }
-	text = { trigger = { original_tag = MEX } localization_key = MEX.Monarchist_icon }
-	text = { trigger = { original_tag = MNT } localization_key = MNT.Monarchist_icon }
-	text = { trigger = { original_tag = MOR } localization_key = MOR.Monarchist_icon }
-	text = { trigger = { original_tag = NRY } localization_key = NRY.Monarchist_icon }
-	text = { trigger = { original_tag = PER } localization_key = PER.Monarchist_icon }
-	text = { trigger = { original_tag = PER } localization_key = PER.Monarchist_icon }
-	text = { trigger = { original_tag = PHI } localization_key = PHI.Monarchist_icon }
-	text = { trigger = { original_tag = POL } localization_key = POL.Monarchist_icon }
-	text = { trigger = { original_tag = POR } localization_key = POR.Monarchist_icon }
-	text = { trigger = { original_tag = RAJ } localization_key = RAJ.Monarchist_icon }
-	text = { trigger = { original_tag = ROM } localization_key = ROM.Monarchist_icon }
-	text = { trigger = { original_tag = RWA } localization_key = RWA.Monarchist_icon }
-	text = { trigger = { original_tag = SER } localization_key = SER.Monarchist_icon }
-	text = { trigger = { original_tag = SIA } localization_key = SIA.Monarchist_icon }
-	text = { trigger = { original_tag = SIB } localization_key = SIB.Monarchist_icon }
-	text = { trigger = { original_tag = SLV } localization_key = SLV.Monarchist_icon }
-	text = { trigger = { original_tag = SOO } localization_key = SOO.Monarchist_icon }
-	text = { trigger = { original_tag = SOV } localization_key = SOV.Monarchist_icon }
-	text = { trigger = { original_tag = SPR has_country_flag = SPR_carlist_rising } localization_key = SPR.Monarchist_carlists_icon }
-	text = { trigger = { original_tag = SPR NOT = { has_country_flag = SPR_carlist_rising } } localization_key = SPR.Monarchist_icon }
-	text = { trigger = { original_tag = TUR } localization_key = TUR.Monarchist_icon }
-	text = { trigger = { original_tag = SOO } localization_key = SOO.Monarchist_icon }
-	text = { trigger = { original_tag = UKR } localization_key = UKR.Monarchist_icon }
-	text = { trigger = { original_tag = URA } localization_key = URA.Monarchist_icon }
-	text = { trigger = { original_tag = USA } localization_key = USA.Monarchist_icon }
-	text = { trigger = { original_tag = USB } localization_key = USB.Monarchist_icon }
-	text = { localization_key = generic.Monarchist_icon }
-}
 
 defined_text = {
 	name = add_ruling_party_scl
