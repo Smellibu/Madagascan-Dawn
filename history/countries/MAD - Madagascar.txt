@@ -13,10 +13,15 @@ capital = 267
 	set_country_flag = dynamic_rebel_flag
 	set_country_flag = is_getting_ido_subsidies
 	add_dynamic_modifier = { modifier = un_aid_subsidies_modifier }
+	add_dynamic_modifier = { modifier = MAD_economy_modifier }
+	add_dynamic_modifier = { modifier = MAD_power_modifier }
 	add_to_array = { global.unido_recipients = THIS }
 	set_country_flag = is_getting_cdf_subsidies
+
 	add_to_array = { global.uncdf_recipients = THIS }
 	add_ideas = {
+		MAD_FAILING_AIRLINE
+
 		wto_member
 		partially_privatized_healthcare
 		economic_motivated_mining
@@ -56,8 +61,44 @@ capital = 267
 		multi_ethnic_state_idea
 		no_currency_backing
 	}
+	set_variable = { MAD_economy_productivity_growth_modifier = -0.10 }
+	set_variable = { MAD_economy_production_factory_max_efficiency_factor = -0.10 }
+	set_variable = { MAD_economy_civilian_factories_productivity = -0.05 }
+
+	set_variable = { MAD_economy_offices_productivity = -0.10 }
+
+	set_variable = { MAD_economy_production_speed_industrial_complex_factor = -0.10 }
+	set_variable = { MAD_economy_production_speed_offices_factor = -0.10 }
+	set_variable = { MAD_economy_production_speed_energy_infrastructure_factor = -0.15 }
+	set_variable = { MAD_economy_production_speed_industrial_infrastructure_factor = -0.15 }
+
+	set_variable = { MAD_economy_production_speed_infrastructure_factor = -0.15 }
+	set_variable = { MAD_economy_production_speed_rail_way_factor = -0.15 }
+	set_variable = { MAD_economy_supply_node_range = -0.10 }
+
+	set_variable = { MAD_economy_research_speed_factor = -0.15 }
+
+	set_variable = { MAD_economy_return_on_investment_modifier = -0.15 }
+	set_variable = { MAD_economy_receiving_investment_cost_modifier = 0.20 }
+	set_variable = { MAD_economy_receiving_investment_duration_modifier = 0.20 }
+	set_variable = { MAD_economy_international_market_income_modifier = -0.10 }
+	set_variable = { MAD_economy_internal_investments_money_cost_modifier = 0.10 }
+
+	set_variable = { MAD_economy_civ_facs_worker_requirement_modifier = 0.10 }
+	set_variable = { MAD_economy_civilian_industry_tax_modifier = -0.10 }
+
+	set_variable = { MAD_economy_production_speed_rail_terminal_factor = -0.10 }
+	set_variable = { MAD_economy_infrastructure_tax_gain_multiplier_modifier = -0.10 }
+	set_variable = { MAD_economy_infrastructure_cost_multiplier_modifier = 0.15 }
 
 	oob = "MAD_2000"
+
+	set_power_balance = {
+		id = MAD_economy_ownership_bop
+		left_side = MAD_private_ownership
+		right_side = MAD_public_ownership
+		set_value = 0.4
+	}
 
 	set_cosmetic_tag = MAD
 	set_variable = { gdp_per_capita = 1.570 }
@@ -135,20 +176,20 @@ capital = 267
 	reverse_add_opinion_modifier = { target = BEL modifier = french_speaking }
 
 	set_technology = {
-		railway_system_01 = 1
+		integrated_transportation_system = 1
 		util_vehicle_1 = 1
-		railway_system_02 = 1
-		railway_system_03 = 1
+		post_conventional_rail = 1
+		early_freight_locomotive = 1
 
 		infantry_mass_assault = 1
 		#for templates
 		infantry_weapons_1 = 1
 		cnc_equipment_1 = 1
-		Anti_tank_1 = 1
+		Anti_tank_0 = 1
 
 		basic_computing = 1
 		integrated_circuit = 1
-		computing_1 = 1
+		computing1 = 1
 		radar = 1
 		fuel_silos = 1
 
@@ -161,8 +202,8 @@ capital = 267
 	if = {
 		limit = { NOT = { has_dlc = "La Resistance" } }
 		set_technology = {
-			decryption_1 = 1
-			encryption_1 = 1
+			decryption1 = 1
+			encryption1 = 1
 		}
 	}
 	complete_special_project = sp:sp_armoured_vehicle_project
@@ -172,7 +213,7 @@ capital = 267
 		set_technology = {
 			mbt_tech_ops = 1
 			mbt_tech = 1
-			nsb_artillery_1 = 1
+			nsb_artillery_0 = 1
 			nsb_Anti_Air_0 = 1
 		}
 
@@ -188,8 +229,8 @@ capital = 267
 	}
 
 	set_popularities = {
-		democratic = 75.0
-		communism = 14.0
+		democratic = 65.0
+		communism = 24.0
 		fascism = 0.0
 		neutrality = 5.0
 		nationalist = 6.0
@@ -204,10 +245,11 @@ capital = 267
 	start_politics_input = yes
 
 	### Party Popularities
-	set_variable = { party_pop_array^1 = 0.45 } #conservatism
-	set_variable = { party_pop_array^3 = 0.3 } #socialism
+	set_variable = { party_pop_array^1 = 0.15 } #conservatism
+	set_variable = { party_pop_array^2 = 0.45 }
+	set_variable = { party_pop_array^3 = 0.15 } #socialism
 	set_variable = { party_pop_array^4 = 0.05 } #communist_state
-	set_variable = { party_pop_array^5 = 0.09 } #anarchist_communism
+	set_variable = { party_pop_array^5 = 0.19 } #anarchist_communism
 	set_variable = { party_pop_array^14 = 0.05 } #Neutral_conservatism
 	set_variable = { party_pop_array^20 = 0.06 } #Nat_Populism
 
@@ -228,9 +270,12 @@ capital = 267
 	set_variable = { term_limit = 2 }
 	set_variable = { current_term = 1 }
 
-	recruit_character = MAD_beni_xavier_rasolofonirina
-	recruit_character = MAD_lylison_rene
-	recruit_character = MAD_dominique_rakotazafy
+	recruit_character = MAD_marcel_ranjeva
+	recruit_character = MAD_andrianome_dieudonne
+	# Recruit faction chiefs early so the command choice can retire them before 2009.
+	# Their corps-commander roles are hidden until their historical prominence in 2009.
+	recruit_character = MAD_noel_rakotonandrasana
+	recruit_character = MAD_edmond_rasolomahandry
 	recruit_character = MAD_alex_patrick_andriamahazoarivo
 
 	add_to_array = { agri_crop_allocation = 0.789 } # Basic = 0
@@ -242,7 +287,6 @@ capital = 267
 	set_variable = { literacy_rate = 0.707 }
 
 	set_variable = { overall_productivity = 667 }
-
 
 	# Relation Starting Configuration (moved from on_startup)
 	add_opinion_modifier = { target = CUB modifier = sanctions }
@@ -317,4 +361,28 @@ capital = 267
 	add_opinion_modifier = { target = SAF modifier = African_Union_Relations }
 	add_opinion_modifier = { target = LBA modifier = African_Union_Relations }
 	add_opinion_modifier = { target = EGY modifier = African_Union_Relations }
+
+	# Exact original US theatrical release dates (fixed delays from 2000.1.1):
+	# Madagascar, 27 May 2005; Escape 2 Africa, 7 November 2008;
+	# Madagascar 3, 8 June 2012; Penguins of Madagascar, 26 November 2014.
+	# HOI4's calendar has no leap days, so these delays land on the listed dates.
+	country_event = { id = mad_movie.1 days = 1971 }
+	country_event = { id = mad_movie.2 days = 3230 }
+	country_event = { id = mad_movie.3 days = 4538 }
+	country_event = { id = mad_movie.4 days = 5439 }
+
+
+	# Dated military-roster additions, based on documented appointments/promotions.
+	# No daily polling is used for historical recruitment.
+	country_event = { id = MAD_army_roster.1 days = 797 }  # 2002-03-09: Jules Mamizara, timed within the March 2002 crisis
+	country_event = { id = MAD_army_roster.2 days = 876 }  # Approximate 2002 crisis-era availability; exact appointment day unverified
+	country_event = { id = MAD_army_roster.8 days = 898 }  # 2002-06-18: Hyppolite Rarison Ramaroson, a rear admiral in naval command
+	country_event = { id = MAD_army_roster.4 days = 1334 } # 2003-08-28: Raonenantsoamampianina
+	country_event = { id = MAD_army_roster.5 days = 1491 } # February 2004 availability; exact appointment day not confirmed
+	country_event = { id = MAD_army_roster.11 days = 2924 } # 2008-01-05: André Lucien Rakotoarimasy promoted to general and placed in senior command
+	country_event = { id = MAD_army_roster.6 days = 3324 } # 2009-02-09: Mamy Solofoniaina Ranaivoniarivo appointed Vice-Admiral
+	country_event = { id = MAD_army_roster.7 days = 3351 } # 2009-03-08: CAPSAT/General Staff period
+	country_event = { id = MAD_army_roster.12 days = 3531 } # 2009-09-04: Charles Andrianasoavina and Lylison Rene promoted lieutenant-colonels
+	country_event = { id = MAD_army_roster.9 days = 4684 } # 2012-11-01: Dominique Rakotozafy promoted
+	country_event = { id = MAD_army_roster.10 days = 5231 } # 2014-05-02: Beni Xavier Rasolofonirina appointed Army Chief of Staff
 }

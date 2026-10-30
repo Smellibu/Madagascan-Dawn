@@ -1,21 +1,283 @@
 set_leader_MAD = {
+	# Madagascar-specific party names are defined in MD_politics_view_parties_l_english.yml.
+	# These are the only 11 labelled MAD party indices; do not fill unrelated generic MD slots.
 
-	if = { limit = { check_variable = { ruling_party = 14 } }
-
-		if = { limit = { check_variable = { Neutral_conservatism_leader = 0 } }
-			add_to_variable = { Neutral_conservatism_leader = 1 }
+	# 1 — HVM (Conservatism). HVM only receives its named leader after the formation event.
+	if = {
+		limit = { check_variable = { ruling_party = 1 } }
+		if = {
+			limit = {
+				has_country_flag = MAD_HVM_FORMED
+				check_variable = { conservatism_leader = 0 }
+			}
+			add_to_variable = { conservatism_leader = 1 }
 			hidden_effect = { kill_country_leader = yes }
-
 			create_country_leader = {
 				name = "Hery Rajaonarimampianina"
 				picture = "Hery_Rajaonarimampianina.dds"
-				ideology = Neutral_conservatism
+				ideology = conservatism
 				traits = {
-					neutrality_Neutral_conservatism
+					western_conservatism
+					career_politician
 				}
 			}
-
-			if = { limit = { has_country_flag = do_not_retire } subtract_from_variable = { Neutral_conservatism_leader = 1 } }
+			if = { limit = { has_country_flag = do_not_retire } subtract_from_variable = { conservatism_leader = 1 } }
+			set_temp_variable = { b = 1 }
+		}
+	}
+	# 2 — TIM (Liberalism).
+	else_if = {
+		limit = { check_variable = { ruling_party = 2 } }
+		if = { limit = { check_variable = { liberalism_leader = 0 } }
+			add_to_variable = { liberalism_leader = 1 }
+			hidden_effect = { kill_country_leader = yes }
+			create_country_leader = {
+				name = "Marc Ravalomanana"
+				picture = "Marc_Ravalomanana.dds"
+				ideology = liberalism
+				traits = {
+					western_liberalism
+					career_politician
+				}
+			}
+			if = { limit = { has_country_flag = do_not_retire } subtract_from_variable = { liberalism_leader = 1 } }
+			set_temp_variable = { b = 1 }
+		}
+	}
+	# 3 — PSD (Socialism). Collective name avoids assigning an unverified contemporary individual.
+	else_if = {
+		limit = { check_variable = { ruling_party = 3 } }
+		if = { limit = { check_variable = { socialism_leader = 0 } }
+			add_to_variable = { socialism_leader = 1 }
+			hidden_effect = { kill_country_leader = yes }
+			create_country_leader = {
+				name = "PSD National Leadership"
+				ideology = socialism
+				traits = {
+					western_socialism
+				}
+			}
+			if = { limit = { has_country_flag = do_not_retire } subtract_from_variable = { socialism_leader = 1 } }
+			set_temp_variable = { b = 1 }
+		}
+	}
+	# 4 — AKFM (Communist State).
+	else_if = {
+		limit = { check_variable = { ruling_party = 4 } }
+		if = { limit = { check_variable = { communist_state_leader = 0 } }
+			add_to_variable = { communist_state_leader = 1 }
+			hidden_effect = { kill_country_leader = yes }
+			create_country_leader = {
+				name = "Richard Andriamanjato"
+				picture = "Richard_Andriamanjato.dds"
+				ideology = communist_state
+				traits = {
+					emerging_communist_state
+					career_politician
+				}
+			}
+			if = { limit = { has_country_flag = do_not_retire } subtract_from_variable = { communist_state_leader = 1 } }
+			set_temp_variable = { b = 1 }
+		}
+	}
+	# 5 — AREMA (Anarchist Communism). Respect its existing leadership decisions.
+	else_if = {
+		limit = { check_variable = { ruling_party = 5 } }
+		if = { limit = { check_variable = { anarchist_communism_leader = 0 } }
+			add_to_variable = { anarchist_communism_leader = 1 }
+			hidden_effect = { kill_country_leader = yes }
+			if = {
+				limit = { has_country_flag = MAD_AREMA_RENEWAL }
+				create_country_leader = {
+					name = "Pierrot Rajaonarivelo"
+					picture = "Pierrot_Rajaonarivelo.dds"
+					ideology = anarchist_communism
+					traits = {
+						emerging_anarchist_communism
+						career_politician
+					}
+				}
+			}
+			else_if = {
+				limit = { has_country_flag = MAD_AREMA_RECONCILIATION }
+				create_country_leader = {
+					name = "Pierre Raharijaona"
+					picture = "Pierre_Raharijaona.dds"
+					ideology = anarchist_communism
+					traits = {
+						emerging_anarchist_communism
+						career_politician
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					has_country_flag = MAD_RATSIRAKA_RETURN_DENIED
+					has_country_flag = MAD_AREMA_OLD_GUARD_LOCKED
+				}
+				create_country_leader = {
+					name = "Pierre Raharijaona"
+					picture = "Pierre_Raharijaona.dds"
+					ideology = anarchist_communism
+					traits = {
+						emerging_anarchist_communism
+						career_politician
+					}
+				}
+			}
+			else = {
+				create_country_leader = {
+					name = "Didier Ratsiraka"
+					picture = "Didier_Ratsiraka.dds"
+					ideology = anarchist_communism
+					traits = {
+						emerging_anarchist_communism
+						career_politician
+					}
+				}
+			}
+			if = { limit = { has_country_flag = do_not_retire } subtract_from_variable = { anarchist_communism_leader = 1 } }
+			set_temp_variable = { b = 1 }
+		}
+	}
+	# 13 — Dahalo / Remenabila's Syndicates (Neutral Autocracy), Madagascar only.
+	else_if = {
+		limit = { check_variable = { ruling_party = 13 } }
+		if = { limit = { check_variable = { Neutral_Autocracy_leader = 0 } }
+			add_to_variable = { Neutral_Autocracy_leader = 1 }
+			hidden_effect = { kill_country_leader = yes }
+			create_country_leader = {
+				name = "Remenabila"
+            picture = "Remenabila.dds"
+				ideology = Neutral_Autocracy
+				traits = {
+					neutrality_Neutral_Autocracy
+				}
+			}
+			if = { limit = { has_country_flag = do_not_retire } subtract_from_variable = { Neutral_Autocracy_leader = 1 } }
+			set_temp_variable = { b = 1 }
+		}
+	}
+	# 15 — TAMIMA (Oligarchism), represented as a council rather than an invented individual.
+	else_if = {
+		limit = { check_variable = { ruling_party = 15 } }
+		if = { limit = { check_variable = { oligarchism_leader = 0 } }
+			add_to_variable = { oligarchism_leader = 1 }
+			hidden_effect = { kill_country_leader = yes }
+			create_country_leader = {
+				name = "TAMIMA Council of the Houses"
+				ideology = oligarchism
+				traits = {
+					neutrality_oligarchism
+				}
+			}
+			if = { limit = { has_country_flag = do_not_retire } subtract_from_variable = { oligarchism_leader = 1 } }
+			set_temp_variable = { b = 1 }
+		}
+	}
+	# 16 — LEADER-Fanilo (Neutral Libertarian).
+	else_if = {
+		limit = { check_variable = { ruling_party = 16 } }
+		if = { limit = { check_variable = { Neutral_Libertarian_leader = 0 } }
+			add_to_variable = { Neutral_Libertarian_leader = 1 }
+			hidden_effect = { kill_country_leader = yes }
+			create_country_leader = {
+				name = "Herizo Razafimahaleo"
+				picture = "Herizo_Razafimahaleo.dds"
+				ideology = Neutral_Libertarian
+				traits = {
+					neutrality_Neutral_Libertarian
+					career_politician
+				}
+			}
+			if = { limit = { has_country_flag = do_not_retire } subtract_from_variable = { Neutral_Libertarian_leader = 1 } }
+			set_temp_variable = { b = 1 }
+		}
+	}
+	# 20 — TGV (Nationalist Populism), only after the formation latch is set.
+	else_if = {
+		limit = { check_variable = { ruling_party = 20 } }
+		if = {
+			limit = {
+				has_country_flag = MAD_TGV_FORMED
+				check_variable = { Nat_Populism_leader = 0 }
+			}
+			add_to_variable = { Nat_Populism_leader = 1 }
+			hidden_effect = { kill_country_leader = yes }
+			create_country_leader = {
+				name = "Andry Rajoelina"
+            picture = "Andry_Rajoelina.dds"
+				ideology = Nat_Populism
+				traits = {
+					nationalist_Nat_Populism
+					career_politician
+				}
+			}
+			if = { limit = { has_country_flag = do_not_retire } subtract_from_variable = { Nat_Populism_leader = 1 } }
+			set_temp_variable = { b = 1 }
+		}
+	}
+	# 22 — FPA / Malagasy Armed Forces (National Autocracy). Preserve command choice.
+	else_if = {
+		limit = { check_variable = { ruling_party = 22 } }
+		if = { limit = { check_variable = { Nat_Autocracy_leader = 0 } }
+			add_to_variable = { Nat_Autocracy_leader = 1 }
+			hidden_effect = { kill_country_leader = yes }
+			if = {
+				limit = { has_country_flag = MAD_MIL_PARTY_LEADER_GENERAL_STAFF }
+				create_country_leader = {
+					name = "Edmond Rasolomahandry"
+            picture = "Edmond_Rasolomahandry.dds"
+					ideology = Nat_Autocracy
+					traits = {
+						nationalist_Nat_Autocracy
+						military_career
+					}
+				}
+			}
+			else = {
+				create_country_leader = {
+					name = "Noël Girardin Rakotonandrasana"
+            picture = "Noel_Girardin_Rakotonandrasana.dds"
+					ideology = Nat_Autocracy
+					traits = {
+						nationalist_Nat_Autocracy
+						military_career
+					}
+				}
+			}
+			if = { limit = { has_country_flag = do_not_retire } subtract_from_variable = { Nat_Autocracy_leader = 1 } }
+			set_temp_variable = { b = 1 }
+		}
+	}
+	# 23 — CRPM (Monarchist). Rabarioelina only leads after the personal-crown choice.
+	else_if = {
+		limit = { check_variable = { ruling_party = 23 } }
+		if = { limit = { check_variable = { Monarchist_leader = 0 } }
+			add_to_variable = { Monarchist_leader = 1 }
+			hidden_effect = { kill_country_leader = yes }
+			if = {
+				limit = { has_country_flag = MAD_RABARIOELINA_ABSOLUTE }
+				create_country_leader = {
+					name = "Dr. Ndriana Rabarioelina"
+					picture = "Dr_Ndriana_Rabarioelina.dds"
+					ideology = Monarchist
+					traits = {
+						nationalist_Monarchist
+						career_politician
+					}
+				}
+			}
+			else = {
+				create_country_leader = {
+					name = "CRPM Council of Kings and Princes"
+					ideology = Monarchist
+					traits = {
+						nationalist_Monarchist
+					}
+				}
+			}
+			if = { limit = { has_country_flag = do_not_retire } subtract_from_variable = { Monarchist_leader = 1 } }
 			set_temp_variable = { b = 1 }
 		}
 	}

@@ -1,0 +1,140 @@
+# common/on_actions/MAD_drought_on_actions.txt
+# Madagascar startup and periodic mechanics.
+# Tag-specific daily/monthly hooks prevent MAD effects from being run once for every country.
+
+on_actions = {
+	on_startup = {
+		effect = {
+			if = {
+				limit = { country_exists = MAD }
+				MAD = {
+					MAD_dahalo_init = yes
+					MAD_rural_cooperation_initialize = yes
+					# Mark the first eligible monthly tick independently of when the drought focus starts.
+					if = {
+						limit = { NOT = { has_country_flag = MAD_DROUGHT_CALENDAR_CLOCK_STARTED } }
+						set_country_flag = MAD_DROUGHT_CALENDAR_CLOCK_STARTED
+					}
+					if = {
+						limit = {
+							NOT = { has_idea = MAD_ARMY_INHERITED_BURDEN }
+						NOT = { has_completed_focus = MAD_ARMY_LAND_FORCES_MODERNISATION_PLAN }
+						}
+						add_ideas = MAD_ARMY_INHERITED_BURDEN
+					}
+					if = {
+						limit = { NOT = { has_country_flag = MAD_DROUGHT_STARTED } }
+						MAD_drought_init = yes
+						country_event = { id = mad_drought.2 days = 30 }
+					}
+					clamp_variable = { var = MAD_drought_prevention_count min = 0 max = 7 }
+					# Clear any stale displacement penalty and evaluate per-origin totals on startup.
+					MAD_drought_update_displacement_overload = yes
+					# The hidden event synchronises party ideas first, then constitutional policy and the Rural Cooperation readout.
+					country_event = mad_political.8
+					# Arm the first-loss monitor once; it waits for the new government to form.
+					if = {
+						limit = {
+							original_tag = MAD
+							NOT = { has_country_flag = MAD_RATSIRAKA_FIRST_LOSS_DONE }
+							NOT = { has_country_flag = MAD_RATSIRAKA_SUCCESSOR_SELECTED }
+							NOT = { has_country_flag = MAD_AREMA_RENEWAL }
+							NOT = { has_country_flag = MAD_AREMA_RECONCILIATION }
+							NOT = { has_country_flag = MAD_RATSIRAKA_FIRST_LOSS_PENDING }
+						}
+						set_country_flag = MAD_RATSIRAKA_FIRST_LOSS_PENDING
+						set_variable = { MAD_RATSIRAKA_FORMATION_STABLE_DAYS = 0 }
+					}
+				}
+			}
+		}
+	}
+
+	# This fires once per in-game day for MAD, not once per country worldwide.
+	on_daily_MAD = {
+		effect = {
+			MAD_dahalo_daily_tick = yes
+			MAD_drought_containment_daily_tick = yes
+			MAD_autocomplete_forced_outcome_foci = yes
+			MAD_JIRAMA_GENERATION_RECOVERY_DAILY = yes
+			MAD_ratsiraka_check_government_formed = yes
+			# When the player manually allows AREMA again, detect that party index 5 is no longer banned.
+			if = {
+				limit = {
+					original_tag = MAD
+					has_country_flag = MAD_AREMA_BANNED
+					NOT = { has_country_flag = MAD_RATSIRAKA_RETURN_PENDING }
+					NOT = { has_country_flag = MAD_RATSIRAKA_RETURN_RESOLVED }
+					NOT = { check_variable = { party_banned_array^5 = 1 } }
+				}
+				clr_country_flag = MAD_AREMA_BANNED
+				set_country_flag = MAD_RATSIRAKA_RETURN_PENDING
+				country_event = mad_political.92
+			}
+			# RC readout is refreshed monthly and on ruling-party changes; avoid a daily recalculation.
+		}
+	}
+
+	# General monthly hook: only the current MAD country passes the tag gate.
+	on_monthly = {
+		effect = {
+			if = {
+				limit = { tag = MAD }
+				MAD = {
+					# TGV formation/reveal is checked monthly for performance.
+					if = {
+						limit = {
+							original_tag = MAD
+							date > 2007.11.30
+							NOT = { has_country_flag = MAD_TGV_FORMED }
+							NOT = { has_country_flag = MAD_TGV_FORMATION_PENDING }
+						}
+						country_event = mad_political.96
+					}
+					# Passive Dahalo pressure is handled by MAD_dahalo_monthly_tick under on_monthly_MAD.
+					# Do not call it from this generic monthly hook.
+				}
+			}
+		}
+	}
+
+	# Tag-specific monthly hook: this is the only active hook advancing the displacement calendar.
+	on_monthly_MAD = {
+		effect = {
+			MAD_dahalo_monthly_tick = yes
+			MAD_rural_cooperation_monthly_tick = yes
+			if = {
+				limit = { has_country_flag = MAD_DROUGHT_STARTED }
+				if = {
+					limit = { has_country_flag = MAD_DROUGHT_CALENDAR_CLOCK_STARTED }
+					clr_country_flag = MAD_DROUGHT_CALENDAR_CLOCK_STARTED
+					# At 2000-01-01 new-game pulse, January has not elapsed yet.
+					if = {
+						limit = { date > 1999.12.31 date < 2000.1.2 }
+						set_country_flag = MAD_DROUGHT_SKIP_INITIAL_DISPLACEMENT_PULSE
+					}
+				}
+				if = {
+					limit = { NOT = { has_country_flag = MAD_DROUGHT_SKIP_INITIAL_DISPLACEMENT_PULSE } }
+					MAD_drought_displacement_monthly_tick = yes
+					MAD_drought_update_displacement_overload = yes
+				}
+				if = {
+					limit = { has_country_flag = MAD_DROUGHT_SKIP_INITIAL_DISPLACEMENT_PULSE }
+					clr_country_flag = MAD_DROUGHT_SKIP_INITIAL_DISPLACEMENT_PULSE
+				}
+			}
+		}
+	}
+
+	on_ruling_party_change = {
+		effect = {
+			if = {
+				limit = { original_tag = MAD }
+				# Reconcile party ideas first; the event applies the final constitutional model and refreshes Rural Cooperation.
+				country_event = { id = mad_political.8 hours = 1 }
+				set_variable = { MAD_RATSIRAKA_FORMATION_STABLE_DAYS = 0 }
+			}
+		}
+	}
+}

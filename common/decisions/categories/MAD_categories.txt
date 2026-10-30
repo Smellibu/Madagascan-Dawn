@@ -1,0 +1,113 @@
+# ================================================================
+# FILE: common/decisions/categories/MAD_categories.txt
+# ================================================================
+MAD_AMBATOVY_FORMING = {
+	allowed = { tag = MAD }
+	priority = 95
+}
+MAD_AIR_STATE_CONTROL_MISSIONS = {
+	allowed = { tag = MAD }
+	priority = 95
+}
+MAD_madarail_category = {
+	allowed = { tag = MAD }
+	priority = 95
+}
+MAD_daewoo_category = {
+	allowed = { tag = MAD }
+		priority = 98
+}
+MAD_JIRAMA_PROJECTS = {
+	allowed = { tag = MAD }
+	priority = 95
+}
+MAD_dahalo_category = {
+	allowed = { tag = MAD }
+	priority = 99
+	visible = {
+		NOT = { has_country_flag = MAD_DAHALO_DEFEATED }
+		NOT = { has_country_flag = MAD_DAHALO_SECURITY_ENDING }
+		NOT = { has_country_flag = MAD_DAHALO_ACCOMMODATION_ENDING }
+		NOT = { has_country_flag = MAD_REMENABILA_IN_POWER }
+	}
+
+	visible_when_empty = yes
+}
+# Drought and Famine: one panel containing the embedded severity map,
+# countrywide preventative programmes, and four-state relief decisions.
+MAD_drought_category = {
+	icon = generic_political_discourse
+	priority = 99
+	allowed = { tag = MAD }
+	visible = {
+		NOT = { has_completed_focus = MAD_Thriving_south }
+	}
+	visible_when_empty = yes
+	scripted_gui = MAD_drought_map_gui
+}
+
+MAD_OWNERSHIP_BOP = {
+	icon = generic_bank
+	priority = 95
+	visible_when_empty = no
+	allowed = {
+		tag = MAD
+	}
+	visible = {
+		has_power_balance = { id = MAD_economy_ownership_bop }
+	}
+}
+MAD_military_refoundation_category = {
+	allowed = {
+		MAD_MIL_IN_POWER = yes
+	}
+	visible = {
+		MAD_MIL_IN_POWER = yes
+	}
+	priority = 95
+	visible_when_empty = no
+}
+MAD_royal_political_category = {
+	# Allowed is evaluated at game start/load: register the category for MAD regardless of its starting government.
+	# The dynamic royal/TAMIMA government check belongs in visible.
+	icon = generic_political_discourse
+	allowed = { tag = MAD }
+	visible = {
+		OR = {
+			MAD_ROY_IN_POWER = yes
+			MAD_TAMIMA_IN_POWER = yes
+		}
+	}
+	priority = 95
+	visible_when_empty = no
+}
+MAD_HVM_PROJECT_REVIEW_CATEGORY = {
+	icon = generic_political_discourse
+	allowed = {
+	MAD_HVM_IN_POWER = yes
+	}
+	visible = { MAD_HVM_PROJECT_REVIEW_READY = yes }
+	priority = 95
+	visible_when_empty = no
+
+}
+MAD_TGV_VELIRANO_CATEGORY = {
+	icon = generic_political_discourse
+	allowed = {
+		MAD_TGV_IN_POWER = yes
+	}
+	visible = {
+		MAD_TGV_VELIRANO_ACTIVE = yes
+		MAD_TGV_IN_POWER = yes
+	}
+	priority = 95
+	visible_when_empty = no
+}
+MAD_rural_cooperation_category = {
+	icon = generic_political_discourse
+	priority = 99
+	allowed = { tag = MAD }
+	visible_when_empty = yes
+	# Native HOI4 scripted-GUI panel embedded directly beneath this category's description.
+	scripted_gui = MAD_rural_cooperation_gui
+}

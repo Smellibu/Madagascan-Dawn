@@ -3,7 +3,7 @@ characters = {
 		name = "Beni Xavier Rasolofonirina"
 		portraits = {
 			army = {
-				large = "gfx/leaders/MAD/small/Beni_Xavier_Rasolofonirina_small.dds"
+				small = "gfx/leaders/MAD/small/Beni_Xavier_Rasolofonirina_small.dds"
 				large = "gfx/leaders/MAD/Beni_Xavier_Rasolofonirina.dds"
 			}
 		}
@@ -31,7 +31,7 @@ characters = {
 		name = "Lylison Rene"
 		portraits = {
 			army = {
-				large = "gfx/leaders/MAD/small/Lylison_Rene_small.dds"
+				small = "gfx/leaders/MAD/small/Lylison_Rene_small.dds"
 				large = "gfx/leaders/MAD/Lylison_Rene.dds"
 			}
 		}
@@ -48,7 +48,7 @@ characters = {
 		name = "Dominique Rakotazafy"
 		portraits = {
 			army = {
-				large = "gfx/leaders/MAD/small/Dominique_Rakotazafy_small.dds"
+				small = "gfx/leaders/MAD/small/Dominique_Rakotazafy_small.dds"
 				large = "gfx/leaders/MAD/Dominique_Rakotazafy.dds"
 			}
 		}
@@ -65,7 +65,7 @@ characters = {
 		name = "Alex Patrick Andriamahazoarivo"
 		portraits = {
 			army = {
-				large = "gfx/leaders/MAD/small/Alex_Patrick_Andriamahazoarivo_small.dds"
+				small = "gfx/leaders/MAD/small/Alex_Patrick_Andriamahazoarivo_small.dds"
 				large = "gfx/leaders/MAD/Alex_Patrick_Andriamahazoarivo.dds"
 			}
 		}
@@ -81,4 +81,232 @@ characters = {
 			}
 		}
 	}
+
+
+	# Historical Army leadership available from the 2000 start.
+	# Portraits are intentionally omitted where a verified, usable asset is not yet in the mod;
+	# Hearts of Iron IV can fall back to its generated portrait pool.
+	MAD_marcel_ranjeva = {
+		name = "Marcel Ranjeva"
+		portraits = {
+			army = {
+				small = "gfx/leaders/MAD/small/Marcel_Ranjeva_small.dds"
+				large = "gfx/leaders/MAD/Marcel_Ranjeva.dds"
+			}
+		}
+		field_marshal = {
+			traits = { old_guard expert_delegator }
+			skill = 3
+			attack_skill = 3
+			defense_skill = 3
+			planning_skill = 2
+			logistics_skill = 2
+		}
+	}
+	MAD_andrianome_dieudonne = {
+		name = "Andrianome Ranivo Dieudonné"
+
+		portraits = {
+			army = {
+				small = "gfx/leaders/MAD/small/Andrianome_Ranivo_Dieudonne_small.dds"
+				large = "gfx/leaders/MAD/Andrianome_Ranivo_Dieudonne.dds"
+			}
+		}
+		corps_commander = {
+			traits = { old_guard }
+			skill = 2
+			attack_skill = 2
+			defense_skill = 2
+			planning_skill = 1
+			logistics_skill = 2
+		}
+	}
+	MAD_jules_mamizara = {
+		name = "Jules Mamizara"
+		corps_commander = {
+			traits = { media_personality }
+			skill = 2
+			attack_skill = 2
+			defense_skill = 2
+			planning_skill = 1
+			logistics_skill = 2
+		}
+	}
+	MAD_sylvain_razafimandimby = {
+		name = "Sylvain Razafimandimby"
+		portraits = {
+			army = {
+				small = "gfx/leaders/MAD/small/Sylvain_Razafimandimby_small.dds"
+				large = "gfx/leaders/MAD/Sylvain_Razafimandimby.dds"
+			}
+		}
+		corps_commander = {
+			traits = { expert_delegator }
+			skill = 3
+			attack_skill = 2
+			defense_skill = 3
+			planning_skill = 3
+			logistics_skill = 2
+		}
+	}
+	MAD_raonenantsoamampianina = {
+		name = "Raonenantsoamampianina"
+		portraits = {
+			army = {
+				small = "gfx/leaders/MAD/small/Raonenantsoamampianina_small.dds"
+				large = "gfx/leaders/MAD/Raonenantsoamampianina.dds"
+			}
+		}
+		corps_commander = {
+			traits = { old_guard expert_delegator }
+			skill = 2
+			attack_skill = 2
+			defense_skill = 2
+			planning_skill = 1
+			logistics_skill = 2
+		}
+	}
+	MAD_petera_behajaina = {
+		name = "Petera Behajaina"
+		portraits = {
+			army = {
+				small = "gfx/leaders/MAD/small/Petera_Behajaina_small.dds"
+				large = "gfx/leaders/MAD/Petera_Behajaina.dds"
+			}
+		}
+		corps_commander = {
+			traits = { old_guard }
+			skill = 2
+			attack_skill = 2
+			defense_skill = 2
+			planning_skill = 2
+			logistics_skill = 1
+		}
+	}
+	MAD_noel_rakotonandrasana = {
+		name = "Noël Girardin Rakotonandrasana"
+		portraits = {
+			army = {
+				small = "gfx/leaders/MAD/small/Noel_Girardin_Rakotonandrasana_small.dds"
+				large = "gfx/leaders/MAD/Noel_Girardin_Rakotonandrasana.dds"
+			}
+		}
+		corps_commander = {
+			visible = { date > 2009.11.2 }
+			traits = { trait_reckless }
+			skill = 2
+			attack_skill = 3
+			defense_skill = 2
+			planning_skill = 1
+			logistics_skill = 1
+		}
+	}
+	MAD_edmond_rasolomahandry = {
+		name = "Edmond Rasolomahandry"
+		portraits = {
+			army = {
+				small = "gfx/leaders/MAD/small/Edmond_Rasolomahandry_small.dds"
+				large = "gfx/leaders/MAD/Edmond_Rasolomahandry.dds"
+			}
+		}
+		corps_commander = {
+			visible = { date > 2009.2.10 }
+			traits = { old_guard expert_delegator }
+			skill = 3
+			attack_skill = 3
+			defense_skill = 3
+			planning_skill = 2
+			logistics_skill = 2
+		}
+	}
+	MAD_andre_andriarijaona = {
+		name = "André Ndriarijaona"
+		portraits = {
+			army = {
+				small = "gfx/leaders/MAD/small/Andre_Ndriarijaona_small.dds"
+				large = "gfx/leaders/MAD/Andre_Ndriarijaona.dds"
+			}
+		}
+		corps_commander = {
+			visible = { date > 2009.11.2 }
+			traits = { adaptable }
+			skill = 2
+			attack_skill = 2
+			defense_skill = 2
+			planning_skill = 1
+			logistics_skill = 2
+		}
+	}
+	MAD_charles_andrianasoavina = {
+		name = "Charles Andrianasoavina"
+
+		portraits = {
+			army = {
+				small = "gfx/leaders/MAD/small/Charles_Andrianasoavina_small.dds"
+				large = "gfx/leaders/MAD/Charles_Andrianasoavina.dds"
+			}
+		}
+		corps_commander = {
+			traits = { trait_reckless adaptable }
+			skill = 2
+			attack_skill = 3
+			defense_skill = 1
+			planning_skill = 1
+			logistics_skill = 2
+		}
+	}
+	MAD_mamy_ranaivoniarivo = {
+		name = "Mamy Solofoniaina Ranaivoniarivo"
+		portraits = {
+			navy = {
+				small = "gfx/leaders/MAD/small/Mamy_Solofoniaina_Ranaivoniarivo_small.dds"
+				large = "gfx/leaders/MAD/Mamy_Solofoniaina_Ranaivoniarivo.dds"
+			}
+		}
+		navy_leader = {
+			traits = { old_guard_navy }
+			skill = 2
+			attack_skill = 2
+			defense_skill = 1
+			maneuvering_skill = 2
+			coordination_skill = 2
+		}
+	}
+	MAD_hyppolite_ramaroson = {
+		name = "Hyppolite Rarison Ramaroson"
+		portraits = {
+			navy = {
+				small = "gfx/leaders/MAD/small/Hyppolite_Rarison_Ramaroson_small.dds"
+				large = "gfx/leaders/MAD/Hyppolite_Rarison_Ramaroson.dds"
+			}
+		}
+		navy_leader = {
+			traits = { superior_tactician blockade_runner }
+			skill = 3
+			attack_skill = 3
+			defense_skill = 2
+			maneuvering_skill = 3
+			coordination_skill = 2
+		}
+	}
+
+
+	MAD_andre_lucien_rakotoarimasy = {
+		name = "André Lucien Rakotoarimasy"
+		portraits = {
+			army = {
+				small = "gfx/leaders/MAD/small/Andre_Lucien_Rakotoarimasy_small.dds"
+				large = "gfx/leaders/MAD/Andre_Lucien_Rakotoarimasy.dds"
+			}
+		}
+		corps_commander = {
+			traits = { old_guard expert_delegator }
+			skill = 3
+			attack_skill = 2
+			defense_skill = 3
+			planning_skill = 2
+			logistics_skill = 3
+		}
+	}
+
 }

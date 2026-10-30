@@ -1,0 +1,198 @@
+# common/scripted_triggers/MAD_madarail_scripted_triggers.txt
+#
+# Shared MAD scripted triggers for the drought, JIRAMA, political and transport systems.
+
+########################################################################
+########################################################################
+# DROUGHT / FAMINE PANEL AND DAEWOO OUTCOMES
+########################################################################
+
+# Drought / famine panel and Daewoo outcomes. The two that lean on how Millennium Dawn names things
+# (corruption, popularity) are each written once here, so if a name is wrong this is the only place to change.
+
+# The drought exists from game start until its severity has been brought down to 0 (see MAD_drought_finish).
+MAD_drought_exists = {
+	check_variable = { MAD_drought_severity > 0 }
+	NOT = { has_country_flag = MAD_DROUGHT_OVER }
+}
+
+# Hang this on any "further agricultural" focus that should wait until the drought is over,
+# on either path (won: severity ran down to 0; failed: the decisions carried on until it hit 0).
+MAD_drought_resolved = {
+	OR = {
+		has_country_flag = MAD_DROUGHT_OVER
+		check_variable = { MAD_drought_severity < 0.001 }
+	}
+}
+
+# A region counts as food-secure only when it is below the dry-spell threshold
+# and its local hunger meter is also low. This lets historical drought events
+# stop applying to a region the player has genuinely stabilised, without
+# suppressing the historical shocks at game start when Toliara is still dry.
+# State scope: use on a specific state such as 268 (Toliara).
+MAD_state_food_secure = {
+	check_variable = { MAD_state_drought < 15.01 }
+	check_variable = { MAD_state_famine < 15.01 }
+}
+
+# Country scope. Historical drought events should only fire while the drought
+# system is active AND the Grand Sud/target region is not food-secure.
+MAD_historical_drought_should_fire = {
+	MAD_drought_exists = yes
+	NOT = {
+		268 = { MAD_state_food_secure = yes }
+	}
+}
+
+# "Corruption 4 or below" = the four cleanest corruption levels (MD ideas corruption_level_01 .. 04, 01 = cleanest).
+# ASSUMPTION: level 01 is the lowest corruption and the ladder continues 02, 03, 04, ... If yours runs the other way, edit here.
+MAD_corruption_at_most_4 = {
+	OR = {
+		has_idea = corruption_level_01
+		has_idea = corruption_level_02
+		has_idea = corruption_level_03
+		has_idea = corruption_level_04
+	}
+}
+
+# Country-scope prerequisite for the food-aid relief decision's custom tooltip.
+MAD_drought_food_programme_available = {
+	NOT = { has_country_flag = MAD_DROUGHT_FOOD_AID_ACTIVE }
+}
+
+########################################################################
+# THE DROUGHT MAP
+########################################################################
+
+#
+# MADAGASCAR JIRAMA RECOVERY - SCRIPTED TRIGGERS ONLY
+# Place in common/scripted_triggers/
+#
+# No recovery score/counter is stored. The six existing project-built flags are
+# evaluated directly, and the three-year mission supplies the timer.
+
+########################################################################
+# AT LEAST TWO GENERATION PROJECTS HAVE BEEN COMPLETED
+########################################################################
+
+MAD_JIRAMA_HAS_TWO_GENERATION_PROJECTS = {
+	OR = {
+		AND = { has_country_flag = MAD_JIRAMA_MANDROSEZA_BUILT has_country_flag = MAD_JIRAMA_ANDEKALEKA_BUILT }
+		AND = { has_country_flag = MAD_JIRAMA_MANDROSEZA_BUILT has_country_flag = MAD_JIRAMA_SAHOFIKA_BUILT }
+		AND = { has_country_flag = MAD_JIRAMA_MANDROSEZA_BUILT has_country_flag = MAD_JIRAMA_VOLOBE_BUILT }
+		AND = { has_country_flag = MAD_JIRAMA_MANDROSEZA_BUILT has_country_flag = MAD_JIRAMA_DECIM_SOLAR_BUILT }
+		AND = { has_country_flag = MAD_JIRAMA_MANDROSEZA_BUILT has_country_flag = MAD_JIRAMA_OFFSHORE_WIND_BUILT }
+		AND = { has_country_flag = MAD_JIRAMA_ANDEKALEKA_BUILT has_country_flag = MAD_JIRAMA_SAHOFIKA_BUILT }
+		AND = { has_country_flag = MAD_JIRAMA_ANDEKALEKA_BUILT has_country_flag = MAD_JIRAMA_VOLOBE_BUILT }
+		AND = { has_country_flag = MAD_JIRAMA_ANDEKALEKA_BUILT has_country_flag = MAD_JIRAMA_DECIM_SOLAR_BUILT }
+		AND = { has_country_flag = MAD_JIRAMA_ANDEKALEKA_BUILT has_country_flag = MAD_JIRAMA_OFFSHORE_WIND_BUILT }
+		AND = { has_country_flag = MAD_JIRAMA_SAHOFIKA_BUILT has_country_flag = MAD_JIRAMA_VOLOBE_BUILT }
+		AND = { has_country_flag = MAD_JIRAMA_SAHOFIKA_BUILT has_country_flag = MAD_JIRAMA_DECIM_SOLAR_BUILT }
+		AND = { has_country_flag = MAD_JIRAMA_SAHOFIKA_BUILT has_country_flag = MAD_JIRAMA_OFFSHORE_WIND_BUILT }
+		AND = { has_country_flag = MAD_JIRAMA_VOLOBE_BUILT has_country_flag = MAD_JIRAMA_DECIM_SOLAR_BUILT }
+		AND = { has_country_flag = MAD_JIRAMA_VOLOBE_BUILT has_country_flag = MAD_JIRAMA_OFFSHORE_WIND_BUILT }
+		AND = { has_country_flag = MAD_JIRAMA_DECIM_SOLAR_BUILT has_country_flag = MAD_JIRAMA_OFFSHORE_WIND_BUILT }
+	}
+}
+
+########################################################################
+# LIVE GENERATION >= 140% OF LIVE CONSUMPTION
+########################################################################
+# MD computes energy_balance = energy_sum - energy_consumption BEFORE its
+# storage-discharge and fossil-curtailment/display adjustments. Because energy_sum
+# is total generation across all sources, generation >= 140% of consumption is
+# equivalent to energy_balance >= 40% of energy_consumption. The daily effect
+# caches that threshold in MAD_JIRAMA_required_surplus.
+
+MAD_JIRAMA_GENERATION_AT_LEAST_140_PERCENT = {
+	has_variable = MAD_JIRAMA_required_surplus
+	check_variable = { energy_consumption > 0.001 }
+	check_variable = {
+		var = energy_balance
+		value = MAD_JIRAMA_required_surplus
+		compare = greater_than_or_equals
+	}
+}
+
+########################################################################
+# COMBINED SUCCESS REQUIREMENT
+########################################################################
+
+MAD_JIRAMA_RECOVERY_REQUIREMENTS_MET = {
+	MAD_JIRAMA_HAS_TWO_GENERATION_PROJECTS = yes
+	MAD_JIRAMA_GENERATION_AT_LEAST_140_PERCENT = yes
+}
+MAD_ROY_IN_POWER = {
+		check_variable = { ruling_party = 23 }
+	}
+	MAD_TAMIMA_IN_POWER = {
+		check_variable = { ruling_party = 15 }
+	}
+	MAD_MIL_IN_POWER = {
+		check_variable = { ruling_party = 22 }
+	}
+	MAD_AREMA_IN_POWER = {
+		check_variable = { ruling_party = 5 }
+	}
+	MAD_TIM_IN_POWER = {
+		check_variable = { ruling_party = 2 }
+	}
+	MAD_TGV_IN_POWER = {
+		check_variable = { ruling_party = 20 }
+	}
+	MAD_HVM_IN_POWER = {
+		check_variable = { ruling_party = 1 }
+	}
+	MAD_REMENABILA_IN_POWER = {
+		check_variable = { ruling_party = 13 }
+	}
+
+	# The only valid sources for mad_political.2.
+	MAD_DAEWOO_POLITICAL_FAILURE = {
+		OR = {
+			has_country_flag = MAD_DAEWOO_BROKEN
+			has_country_flag = MAD_DAEWOO_OUTCOME_FAILED
+			has_country_flag = MAD_DAEWOO_REVIEW_FAILED
+		}
+	}
+
+	MAD_HVM_FISANDRATANA_FULL_TRIGGER = {
+		has_completed_focus = MAD_JIRAMA_RECOVERY_SUCCEEDS
+		has_completed_focus = MAD_Agricultural_reforms
+		has_completed_focus = MAD_mining_code_reform
+		has_completed_focus = MAD_BIANCO_INDEPENDENT
+		has_completed_focus = MAD_TOAMASINA_JICA_EXPANSION
+	}
+
+	MAD_HVM_FISANDRATANA_PARTIAL_TRIGGER = {
+		NOT = { MAD_HVM_FISANDRATANA_FULL_TRIGGER = yes }
+		OR = {
+			AND = {
+				has_completed_focus = MAD_JIRAMA_RECOVERY_SUCCEEDS
+				has_completed_focus = MAD_Agricultural_reforms
+				has_completed_focus = MAD_mining_code_reform
+			}
+			AND = {
+				has_completed_focus = MAD_JIRAMA_RECOVERY_SUCCEEDS
+				has_completed_focus = MAD_BIANCO_INDEPENDENT
+				has_completed_focus = MAD_TOAMASINA_JICA_EXPANSION
+			}
+			AND = {
+				has_completed_focus = MAD_Agricultural_reforms
+				has_completed_focus = MAD_mining_code_reform
+				has_completed_focus = MAD_BIANCO_INDEPENDENT
+			}
+		}
+	}
+
+	MAD_HVM_PROJECT_REVIEW_READY = {
+		MAD_HVM_IN_POWER = yes
+		has_completed_focus = MAD_POL_HVM_PROJECT_REVIEW
+		NOT = { has_country_flag = MAD_HVM_PROJECT_REVIEW_DECIDED }
+		NOT = { has_country_flag = MAD_HVM_PROJECT_REVIEW_CANCELLED }
+	}
+
+	MAD_TGV_VELIRANO_ACTIVE = {
+		MAD_TGV_IN_POWER = yes
+		has_completed_focus = MAD_POL_TGV_THIRTEEN_VELIRANO
+	}

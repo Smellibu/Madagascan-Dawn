@@ -1,0 +1,94 @@
+guiTypes = {
+	containerWindowType = {
+		name = "MAD_rural_cooperation_gui_window"
+		# Independent top-level windows need an explicit position to be registered by HOI4.
+		position = { x = 0 y = 0 }
+		size = { width = 500 height = 166 }
+		margin = { left = 8 top = 8 }
+		background = {
+			name = "Background"
+			quadTextureSprite = "GFX_MD_tiled_window1"
+		}
+
+		instantTextBoxType = {
+			name = "MAD_rural_cooperation_gui_title"
+			position = { x = 18 y = 8 }
+			font = "hoi_24header"
+			text = "MAD_RURAL_COOPERATION_GUI_TITLE"
+			maxWidth = 300
+			maxHeight = 24
+			format = left
+			fixedsize = yes
+			alwaystransparent = yes
+		}
+		instantTextBoxType = {
+			name = "MAD_rural_cooperation_gui_value"
+			position = { x = 370 y = 9 }
+			font = "hoi_24header"
+			text = "MAD_RURAL_COOPERATION_GUI_VALUE"
+			maxWidth = 100
+			maxHeight = 24
+			format = right
+			fixedsize = yes
+			alwaystransparent = yes
+		}
+		instantTextBoxType = {
+			name = "MAD_rural_cooperation_gui_subtitle"
+			position = { x = 20 y = 31 }
+			font = "hoi_16mbs"
+			text = "MAD_RURAL_COOPERATION_GUI_SUBTITLE"
+			maxWidth = 455
+			maxHeight = 20
+			format = left
+			fixedsize = yes
+			alwaystransparent = yes
+		}
+
+		# Real progress-bar sprite; its frame is bound to MAD_rural_cooperation in scripted GUI.
+		iconType = {
+			name = "MAD_rural_cooperation_bar"
+			spriteType = "GFX_MAD_rural_cooperation_progress"
+			position = { x = 20 y = 53 }
+			pdx_tooltip = "MAD_RURAL_COOPERATION_GUI_BAR_TT"
+		}
+		# Fixed threshold markers overlaid on the live 0-100 fill.
+		iconType = {
+			name = "MAD_rural_cooperation_marker_35"
+			spriteType = "GFX_MAD_rural_cooperation_marker_threshold"
+			position = { x = 175 y = 53 }
+			alwaystransparent = yes
+		}
+		iconType = {
+			name = "MAD_rural_cooperation_marker_60"
+			spriteType = "GFX_MAD_rural_cooperation_marker_threshold"
+			position = { x = 288 y = 53 }
+			alwaystransparent = yes
+		}
+		iconType = {
+			name = "MAD_rural_cooperation_marker_80"
+			spriteType = "GFX_MAD_rural_cooperation_marker"
+			position = { x = 378 y = 53 }
+			alwaystransparent = yes
+		}
+
+		# Numerical scale and short, legible band labels.
+		instantTextBoxType = { name = "MAD_rural_cooperation_scale_0" position = { x = 10 y = 78 } font = "hoi_16mbs" text = "MAD_RURAL_COOPERATION_GUI_ZERO" maxWidth = 30 maxHeight = 18 format = center fixedsize = yes alwaystransparent = yes }
+		instantTextBoxType = { name = "MAD_rural_cooperation_scale_35" position = { x = 160 y = 78 } font = "hoi_16mbs" text = "MAD_RURAL_COOPERATION_GUI_35" maxWidth = 34 maxHeight = 18 format = center fixedsize = yes alwaystransparent = yes }
+		instantTextBoxType = { name = "MAD_rural_cooperation_scale_60" position = { x = 273 y = 78 } font = "hoi_16mbs" text = "MAD_RURAL_COOPERATION_GUI_60" maxWidth = 34 maxHeight = 18 format = center fixedsize = yes alwaystransparent = yes }
+		instantTextBoxType = { name = "MAD_rural_cooperation_scale_80" position = { x = 363 y = 78 } font = "hoi_16mbs" text = "MAD_RURAL_COOPERATION_GUI_80" maxWidth = 34 maxHeight = 18 format = center fixedsize = yes alwaystransparent = yes }
+		instantTextBoxType = { name = "MAD_rural_cooperation_scale_100" position = { x = 428 y = 78 } font = "hoi_16mbs" text = "MAD_RURAL_COOPERATION_GUI_100" maxWidth = 42 maxHeight = 18 format = right fixedsize = yes alwaystransparent = yes }
+
+		instantTextBoxType = { name = "MAD_rural_cooperation_band_fragile" position = { x = 8 y = 96 } font = "hoi_16mbs" text = "MAD_RURAL_COOPERATION_GUI_FRAGILE" maxWidth = 105 maxHeight = 18 format = left fixedsize = yes alwaystransparent = yes }
+		instantTextBoxType = { name = "MAD_rural_cooperation_band_recovery" position = { x = 188 y = 96 } font = "hoi_16mbs" text = "MAD_RURAL_COOPERATION_GUI_RECOVERY" maxWidth = 92 maxHeight = 18 format = center fixedsize = yes alwaystransparent = yes }
+		instantTextBoxType = { name = "MAD_rural_cooperation_band_resilient" position = { x = 290 y = 96 } font = "hoi_16mbs" text = "MAD_RURAL_COOPERATION_GUI_RESILIENT" maxWidth = 90 maxHeight = 18 format = center fixedsize = yes alwaystransparent = yes }
+		instantTextBoxType = { name = "MAD_rural_cooperation_band_strong" position = { x = 390 y = 96 } font = "hoi_16mbs" text = "MAD_RURAL_COOPERATION_GUI_STRONG" maxWidth = 70 maxHeight = 18 format = center fixedsize = yes alwaystransparent = yes }
+
+		instantTextBoxType = { name = "MAD_rural_cooperation_gui_standing_label" position = { x = 18 y = 126 } font = "hoi_18mbs" text = "MAD_RURAL_COOPERATION_GUI_STANDING" maxWidth = 82 maxHeight = 20 format = left fixedsize = yes alwaystransparent = yes }
+		instantTextBoxType = { name = "MAD_rural_cooperation_status_fragile" position = { x = 104 y = 126 } font = "hoi_18mbs" text = "MAD_RURAL_COOPERATION_GUI_STATUS_FRAGILE" maxWidth = 176 maxHeight = 20 format = left fixedsize = yes alwaystransparent = yes }
+		instantTextBoxType = { name = "MAD_rural_cooperation_status_recovery" position = { x = 104 y = 126 } font = "hoi_18mbs" text = "MAD_RURAL_COOPERATION_GUI_STATUS_RECOVERY" maxWidth = 176 maxHeight = 20 format = left fixedsize = yes alwaystransparent = yes }
+		instantTextBoxType = { name = "MAD_rural_cooperation_status_resilient" position = { x = 104 y = 126 } font = "hoi_18mbs" text = "MAD_RURAL_COOPERATION_GUI_STATUS_RESILIENT" maxWidth = 176 maxHeight = 20 format = left fixedsize = yes alwaystransparent = yes }
+		instantTextBoxType = { name = "MAD_rural_cooperation_status_strong" position = { x = 104 y = 126 } font = "hoi_18mbs" text = "MAD_RURAL_COOPERATION_GUI_STATUS_STRONG" maxWidth = 176 maxHeight = 20 format = left fixedsize = yes alwaystransparent = yes }
+		instantTextBoxType = { name = "MAD_rural_cooperation_gui_monthly_label" position = { x = 286 y = 126 } font = "hoi_18mbs" text = "MAD_RURAL_COOPERATION_GUI_MONTHLY_LABEL" maxWidth = 78 maxHeight = 20 format = right fixedsize = yes alwaystransparent = yes }
+		instantTextBoxType = { name = "MAD_rural_cooperation_gui_monthly_value" position = { x = 365 y = 126 } font = "hoi_18mbs" text = "MAD_RURAL_COOPERATION_GUI_MONTHLY_VALUE" maxWidth = 105 maxHeight = 20 format = left fixedsize = yes alwaystransparent = yes }
+	}
+}
