@@ -449,6 +449,7 @@ v2.0.0
 
 ### Bugfix
 
+- [MAD] Final Push now completes drought cleanup immediately at zero severity, starting drought values match the four-state average, and wells speed famine recovery.
 - [HOL] Fixed the New Age of Social Democracy focus handing out a PvdA leader that contradicted the party's balance of power: every green and modernising focus and decision pushed the bar toward the Traditional Labor Base while every welfare and union one pushed it toward the Progressive Reformists, and a balance resting in the Progressive Leaning band completed no leader at all, dead-ending the branch. Asscher is now the traditional-labour outcome and Bos the centre one (Issue #3500)
 - Fixed the Renewable Energy Hotspot readout overlapping the bottom row of the state view building-slot grid whenever a state's grid is full
 - Fixed the under-construction badge in the state view covering the whole building slot; consolidating the building sprites removed the smaller state building icon strip and repointed the slot's status overlay at the full-size strip without its scale, so a 16px corner badge became a 27px image sitting on top of the slot's own building icon

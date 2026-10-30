@@ -1,0 +1,54 @@
+# common/scripted_guis/MAD_drought_map_gui.txt
+# Dynamic mini-map shown inside the Drought and Famine decision category.
+# The four overlay sprites each read a country-level frame variable (0..4),
+# so the colours update whenever the per-state drought values change.
+scripted_gui = {
+	MAD_drought_map_gui = {
+		context_type = decision_category
+		window_name = "MAD_drought_map_container"
+		visible = { always = yes }
+		dirty = MAD_drought_display_refresh
+		properties = {
+			MAD_drought_state_266 = {
+				frame = MAD_drought_266_map_frame
+			}
+			MAD_drought_state_267 = {
+				frame = MAD_drought_267_map_frame
+			}
+			MAD_drought_state_268 = {
+				frame = MAD_drought_268_map_frame
+			}
+			MAD_drought_state_487 = {
+				frame = MAD_drought_487_map_frame
+			}
+		}
+	}
+	MAD_rural_cooperation_gui = {
+		context_type = decision_category
+		window_name = "MAD_rural_cooperation_gui_window"
+		triggers = {
+			MAD_rural_cooperation_status_fragile_visible = {
+				check_variable = { MAD_rural_cooperation < 35 }
+			}
+			MAD_rural_cooperation_status_recovery_visible = {
+				check_variable = { MAD_rural_cooperation > 34.99 }
+				check_variable = { MAD_rural_cooperation < 60 }
+			}
+			MAD_rural_cooperation_status_resilient_visible = {
+				check_variable = { MAD_rural_cooperation > 59.99 }
+				check_variable = { MAD_rural_cooperation < 80 }
+			}
+			MAD_rural_cooperation_status_strong_visible = {
+				check_variable = { MAD_rural_cooperation > 79.99 }
+			}
+		}
+		properties = {
+			MAD_rural_cooperation_bar = {
+				# The progress-bar sprite has 100 steps; frame 0-100 is the live meter.
+				frame = MAD_rural_cooperation
+			}
+		}
+		ai_enabled = { always = no }
+	}
+
+}

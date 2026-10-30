@@ -1,0 +1,220 @@
+# ================================================================
+# FILE: common/bop/MAD_ownership_bop.txt
+# Rudimentary public/private ownership balance of power for Madagascar.
+# Left side  = MAD_private_ownership  (privatised, foreign/private capital)
+# Right side = MAD_public_ownership   (state-owned, nationalised)
+# ================================================================
+MAD_economy_ownership_bop = {
+	initial_value = 0		# starts perfectly mixed
+	left_side = MAD_private_ownership
+	right_side = MAD_public_ownership
+	decision_category = MAD_OWNERSHIP_BOP
+
+	# Stays visible regardless of which side is active - rewards NOT
+	# lurching to an extreme. Mixed-economy stability bonus.
+	range = {
+		id = MAD_mixed_economy_range
+		min = -0.10
+		max = 0.10
+		modifier = {
+			stability_factor = 0.03
+		}
+	}
+
+	side = {
+		id = MAD_private_ownership
+		icon = GFX_idea_generic_free_market_reforms	# placeholder, swap for a real sprite
+
+				range = {
+			id = MAD_privatised_range
+			min = -1
+			max = -0.70
+			modifier = {
+				# --- efficiency / private-capital stats: positive here ---
+				productivity_growth_modifier = 0.10
+				production_factory_max_efficiency_factor = 0.05
+				research_speed_factor = 0.10
+				return_on_investment_modifier = 0.03
+				trade_opinion_factor = 0.10
+				production_speed_infrastructure_factor = 0.03
+				production_speed_offices_factor = 0.15
+
+				# --- cost/friction stats: cheaper & faster under private capital ---
+				receiving_investment_cost_modifier = -0.25
+				receiving_investment_duration_modifier = -0.25
+				civilian_industry_tax_modifier = -0.08
+				office_park_income_tax_modifier = -0.08
+				civ_facs_worker_requirement_modifier = -0.08
+
+				# --- state-mobilisation stats: worse under private control ---
+				production_speed_industrial_complex_factor = -0.15
+				production_speed_industrial_infrastructure_factor = -0.15
+				internal_investments_money_cost_modifier = 0.15
+				local_resources_tungsten_factor = -0.15
+				infrastructure_tax_gain_multiplier_modifier = -0.15
+
+				# --- welfare / demographics: worse under pure private extreme ---
+				monthly_population = -0.08
+
+				# stability penalty for full privatisation only - the public
+				# side is left neutral rather than symmetric (see below)
+				stability_factor = -0.03
+			}
+		}
+		range = {
+			id = MAD_mostly_privatised_range
+			min = -0.70
+			max = -0.40
+			modifier = {
+				# ~60% of full-privatisation strength
+				productivity_growth_modifier = 0.06
+				production_factory_max_efficiency_factor = 0.03
+				research_speed_factor = 0.06
+				return_on_investment_modifier = 0.02
+				trade_opinion_factor = 0.06
+				production_speed_infrastructure_factor = 0.02
+				production_speed_offices_factor = 0.09
+
+				receiving_investment_cost_modifier = -0.15
+				receiving_investment_duration_modifier = -0.15
+				civilian_industry_tax_modifier = -0.05
+				office_park_income_tax_modifier = -0.05
+				civ_facs_worker_requirement_modifier = -0.05
+
+				production_speed_industrial_complex_factor = -0.09
+				production_speed_industrial_infrastructure_factor = -0.09
+				internal_investments_money_cost_modifier = 0.09
+				local_resources_tungsten_factor = -0.09
+				infrastructure_tax_gain_multiplier_modifier = -0.09
+
+				monthly_population = -0.05
+			}
+		}
+		range = {
+			id = MAD_partially_privatised_range
+			min = -0.4
+			max = -0.1
+			modifier = {
+				# ~25% of full-privatisation strength
+				productivity_growth_modifier = 0.03
+				production_factory_max_efficiency_factor = 0.01
+				research_speed_factor = 0.03
+				return_on_investment_modifier = 0.01
+				trade_opinion_factor = 0.03
+				production_speed_infrastructure_factor = 0.01
+				production_speed_offices_factor = 0.04
+
+				receiving_investment_cost_modifier = -0.06
+				receiving_investment_duration_modifier = -0.06
+				civilian_industry_tax_modifier = -0.02
+				office_park_income_tax_modifier = -0.02
+				civ_facs_worker_requirement_modifier = -0.02
+
+				production_speed_industrial_complex_factor = -0.04
+				production_speed_industrial_infrastructure_factor = -0.04
+				internal_investments_money_cost_modifier = 0.04
+				local_resources_tungsten_factor = -0.04
+				infrastructure_tax_gain_multiplier_modifier = -0.04
+
+				monthly_population = -0.02
+			}
+		}
+	}
+
+	side = {
+		id = MAD_public_ownership
+		icon = GFX_idea_generic_socialist_reforms	# placeholder, swap for a real sprite
+
+		range = {
+			id = MAD_partially_nationalised_range
+			min = 0.1
+			max = 0.4
+			modifier = {
+				# ~25% of full-nationalisation strength — mirror of MAD_partially_privatised_range
+				productivity_growth_modifier = -0.03
+				production_factory_max_efficiency_factor = -0.01
+				research_speed_factor = -0.03
+				return_on_investment_modifier = -0.01
+				trade_opinion_factor = -0.03
+				production_speed_infrastructure_factor = -0.01
+				production_speed_offices_factor = -0.04
+
+				receiving_investment_cost_modifier = 0.06
+				receiving_investment_duration_modifier = 0.06
+				civilian_industry_tax_modifier = 0.02
+				office_park_income_tax_modifier = 0.02
+				civ_facs_worker_requirement_modifier = 0.02
+
+				production_speed_industrial_complex_factor = 0.04
+				production_speed_industrial_infrastructure_factor = 0.04
+				internal_investments_money_cost_modifier = -0.04
+				local_resources_tungsten_factor = 0.04
+				infrastructure_tax_gain_multiplier_modifier = 0.04
+
+				monthly_population = 0.02
+			}
+		}
+		range = {
+			id = MAD_mostly_nationalised_range
+			min = 0.4
+			max = 0.7
+			modifier = {
+				# ~60% of full-nationalisation strength — mirror of MAD_mostly_privatised_range
+				productivity_growth_modifier = -0.06
+				production_factory_max_efficiency_factor = -0.03
+				research_speed_factor = -0.06
+				return_on_investment_modifier = -0.02
+				trade_opinion_factor = -0.06
+				production_speed_infrastructure_factor = -0.02
+				production_speed_offices_factor = -0.09
+
+				receiving_investment_cost_modifier = 0.15
+				receiving_investment_duration_modifier = 0.15
+				civilian_industry_tax_modifier = 0.05
+				office_park_income_tax_modifier = 0.05
+				civ_facs_worker_requirement_modifier = 0.05
+
+				production_speed_industrial_complex_factor = 0.09
+				production_speed_industrial_infrastructure_factor = 0.09
+				internal_investments_money_cost_modifier = -0.09
+				local_resources_tungsten_factor = 0.09
+				infrastructure_tax_gain_multiplier_modifier = 0.09
+
+				monthly_population = 0.05
+			}
+		}
+		range = {
+			id = MAD_nationalised_range
+			min = 0.7
+			max = 1
+			modifier = {
+				# full mirror of MAD_privatised_range, opposite sign, same magnitude
+				productivity_growth_modifier = -0.10
+				production_factory_max_efficiency_factor = -0.05
+				research_speed_factor = -0.10
+				return_on_investment_modifier = -0.03
+				trade_opinion_factor = -0.10
+				production_speed_infrastructure_factor = -0.03
+				production_speed_offices_factor = -0.15
+
+				receiving_investment_cost_modifier = 0.25
+				receiving_investment_duration_modifier = 0.25
+				civilian_industry_tax_modifier = 0.08
+				office_park_income_tax_modifier = 0.08
+				civ_facs_worker_requirement_modifier = 0.08
+
+				production_speed_industrial_complex_factor = 0.15
+				production_speed_industrial_infrastructure_factor = 0.15
+				internal_investments_money_cost_modifier = -0.15
+				local_resources_tungsten_factor = 0.15
+				infrastructure_tax_gain_multiplier_modifier = 0.15
+
+				monthly_population = 0.08
+
+				# no stability_factor here on purpose — mirrors your note that the
+				# full-privatisation stability hit isn't symmetric with the public side
+			}
+		}
+	}
+
+	}

@@ -1,0 +1,31 @@
+# Rural Cooperation dashboard embedded in MAD_rural_cooperation_category.
+# The GUI is display-only and does not alter the underlying cooperation mechanic.
+scripted_gui = {
+	MAD_rural_cooperation_gui = {
+		context_type = decision_category
+		window_name = "MAD_rural_cooperation_gui_window"
+		triggers = {
+			MAD_rural_cooperation_status_fragile_visible = {
+				check_variable = { MAD_rural_cooperation < 35 }
+			}
+			MAD_rural_cooperation_status_recovery_visible = {
+				check_variable = { MAD_rural_cooperation > 34.99 }
+				check_variable = { MAD_rural_cooperation < 60 }
+			}
+			MAD_rural_cooperation_status_resilient_visible = {
+				check_variable = { MAD_rural_cooperation > 59.99 }
+				check_variable = { MAD_rural_cooperation < 80 }
+			}
+			MAD_rural_cooperation_status_strong_visible = {
+				check_variable = { MAD_rural_cooperation > 79.99 }
+			}
+		}
+		properties = {
+			MAD_rural_cooperation_bar = {
+				# The progress-bar sprite has 100 steps; frame 0-100 is the live meter.
+				frame = MAD_rural_cooperation
+			}
+		}
+		ai_enabled = { always = no }
+	}
+}
