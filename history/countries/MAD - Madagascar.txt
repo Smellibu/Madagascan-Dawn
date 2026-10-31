@@ -272,6 +272,19 @@ capital = 267
 
 	recruit_character = MAD_marcel_ranjeva
 	recruit_character = MAD_andrianome_dieudonne
+	# Military personnel are recruited at game start; their roles are date-gated in common/characters/MAD.txt.
+	recruit_character = MAD_jules_mamizara
+	recruit_character = MAD_sylvain_razafimandimby
+	recruit_character = MAD_hyppolite_ramaroson
+	recruit_character = MAD_raonenantsoamampianina
+	recruit_character = MAD_petera_behajaina
+	recruit_character = MAD_andre_lucien_rakotoarimasy
+	recruit_character = MAD_mamy_ranaivoniarivo
+	recruit_character = MAD_andre_andriarijaona
+	recruit_character = MAD_charles_andrianasoavina
+	recruit_character = MAD_lylison_rene
+	recruit_character = MAD_dominique_rakotazafy
+	recruit_character = MAD_beni_xavier_rasolofonirina
 	# Recruit faction chiefs early so the command choice can retire them before 2009.
 	# Their corps-commander roles are hidden until their historical prominence in 2009.
 	recruit_character = MAD_noel_rakotonandrasana
@@ -370,19 +383,4 @@ capital = 267
 	country_event = { id = mad_movie.2 days = 3230 }
 	country_event = { id = mad_movie.3 days = 4538 }
 	country_event = { id = mad_movie.4 days = 5439 }
-
-
-	# Dated military-roster additions, based on documented appointments/promotions.
-	# No daily polling is used for historical recruitment.
-	country_event = { id = MAD_army_roster.1 days = 797 }  # 2002-03-09: Jules Mamizara, timed within the March 2002 crisis
-	country_event = { id = MAD_army_roster.2 days = 876 }  # Approximate 2002 crisis-era availability; exact appointment day unverified
-	country_event = { id = MAD_army_roster.8 days = 898 }  # 2002-06-18: Hyppolite Rarison Ramaroson, a rear admiral in naval command
-	country_event = { id = MAD_army_roster.4 days = 1334 } # 2003-08-28: Raonenantsoamampianina
-	country_event = { id = MAD_army_roster.5 days = 1491 } # February 2004 availability; exact appointment day not confirmed
-	country_event = { id = MAD_army_roster.11 days = 2924 } # 2008-01-05: André Lucien Rakotoarimasy promoted to general and placed in senior command
-	country_event = { id = MAD_army_roster.6 days = 3324 } # 2009-02-09: Mamy Solofoniaina Ranaivoniarivo appointed Vice-Admiral
-	country_event = { id = MAD_army_roster.7 days = 3351 } # 2009-03-08: CAPSAT/General Staff period
-	country_event = { id = MAD_army_roster.12 days = 3531 } # 2009-09-04: Charles Andrianasoavina and Lylison Rene promoted lieutenant-colonels
-	country_event = { id = MAD_army_roster.9 days = 4684 } # 2012-11-01: Dominique Rakotozafy promoted
-	country_event = { id = MAD_army_roster.10 days = 5231 } # 2014-05-02: Beni Xavier Rasolofonirina appointed Army Chief of Staff
 }
