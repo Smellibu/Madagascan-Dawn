@@ -658,7 +658,7 @@
  MAD_DROUGHT_FOOD_AID_APPEAL: "Food Aid Appeal for [FROM.GetName]"
  MAD_DROUGHT_FOOD_AID_APPEAL_desc: "A 30-day food-aid programme for §Y[FROM.GetName]§!. It reduces local drought and hunger; while it runs, no other food-aid programme can start.\n\nCooperation changes relief effectiveness: below 35, reductions are 50% weaker; 35-59.99, 20% weaker; 60-79.99, unchanged; 80+, 20% stronger."
  MAD_DROUGHT_SEED: "Distribute Drought-Tolerant Seed"
- MAD_DROUGHT_SEED_desc: "Sorghum, cassava and short-cycle rice for farmers in the south.\n\nA permanent measure."
+ MAD_DROUGHT_SEED_desc: "Sorghum, cassava and short-cycle rice for farmers in the south.\n\nOnly one seed programme can operate at a time. A permanent measure."
  MAD_DROUGHT_EARLY_WARNING: "Build an Early-Warning System"
  MAD_DROUGHT_EARLY_WARNING_desc: "Rainfall monitoring and food-security forecasts, so the government moves before the harvest fails. Establish a warning network.\n\nA permanent measure; the coming droughts hit less hard."
  MAD_DROUGHT_BOREHOLES: "Drill Boreholes in the Grand Sud"
@@ -859,6 +859,8 @@
  MAD_DROUGHT_MAP_TOAMASINA_tt: "Toamasina: §Y[?MAD_drought_487_display|0]§!/100 drought, §Y[?MAD_famine_487_display|0]§!/100 hunger"
  MAD_DROUGHT_MAP_TOLIARA_tt: "Toliara: §Y[?MAD_drought_268_display|0]§!/100 drought, §Y[?MAD_famine_268_display|0]§!/100 hunger"
  MAD_DROUGHT_NO_FOOD_tt: "No food-aid programme is already running"
+ MAD_DROUGHT_NO_WATER_tt: "No other water programme is already running"
+ MAD_DROUGHT_NO_SEED_tt: "No other seed programme is already running"
  MAD_DROUGHT_STATE_NO_WATER_RELIEF_tt: "This state has no water-truck relief currently active"
  agricolture_productivity_modifier_tt: "Agriculture district productivity: [?MAD_agri_productivity|%1]"
  agriculture_district_income_tax_modifier_tt: "Agriculture district income tax: [?MAD_agri_income_tax|%1]"
@@ -2743,7 +2745,7 @@
  MAD_dr_state_famine_tt: "§YFamine§!: [?MAD_dr_state_famine|-]\n"
  MAD_dr_state_change_tt: "§YDrought§!: [?MAD_dr_state_change|-]\n"
 
- MAD_DROUGHT_EMERGENCY_WATER_desc: "The programme provides six months of emergency-water relief to §Y[FROM.GetName]§!, helping reduce the pressure that drought places on local communities. Only one national emergency-water programme can operate at a time. Relief effectiveness depends on Rural Cooperation: below 35, §Y50%§!; 35–59.99, §Y80%§!; 60–79.99, §Y100%§!; and 80+, §Y120%§!. Dahalo interference can weaken delivery but does not change the six-month duration."
+ MAD_DROUGHT_EMERGENCY_WATER_desc: "The programme provides six months of emergency-water relief to §Y[FROM.GetName]§!, helping reduce the pressure that drought places on local communities. Only one water programme can operate at a time. Relief effectiveness depends on Rural Cooperation: below 35, §Y50%§!; 35–59.99, §Y80%§!; 60–79.99, §Y100%§!; and 80+, §Y120%§!. Dahalo interference can weaken delivery but does not change the six-month duration."
 
  MAD_DROUGHT_EMERGENCY_WATER_EFFECT_tt: "§Y[FROM.GetName]§! receives §Y6 months§! of emergency-water relief immediately."
 
