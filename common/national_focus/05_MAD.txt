@@ -15974,3 +15974,136 @@ focus_tree = {
 		}
 	}
 }
+
+	focus = {
+		id = MAD_ARMY_REESTABLISH_DGIDIE
+		icon = intelligence_exchange
+		x = 91
+		y = 20
+		cost = 3
+		prerequisite = { focus = MAD_ARMY_SIGNALS_INTELLIGENCE_SCHOOL }
+		visible = { has_dlc = "La Resistance" }
+		search_filters = { FOCUS_FILTER_MILITARY }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_ARMY_REESTABLISH_DGIDIE"
+			if = {
+				limit = { has_intelligence_agency = no }
+				create_intelligence_agency = {
+					name = "Direction Générale d'Investigations et de Documentation Intérieure et Extérieure (DGIDIE)"
+					icon = "GFX_intelligence_agency_logo_generic_3"
+				}
+			}
+			if = {
+				limit = {
+					has_intelligence_agency = yes
+					NOT = { has_done_agency_upgrade = upgrade_form_department }
+				}
+				upgrade_intelligence_agency = upgrade_form_department
+			}
+			army_experience = 10
+			add_to_variable = { decryption_power_factor = 0.01 }
+		}
+
+		ai_will_do = { base = 1 }
+	}
+
+	focus = {
+		id = MAD_ARMY_COORDINATE_INTELLIGENCE_SERVICES
+		icon = intelligence_exchange2
+		x = 91
+		y = 21
+		cost = 3
+		prerequisite = { focus = MAD_ARMY_REESTABLISH_DGIDIE }
+		visible = { has_dlc = "La Resistance" }
+		search_filters = { FOCUS_FILTER_MILITARY }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_ARMY_COORDINATE_INTELLIGENCE_SERVICES"
+			if = {
+				limit = {
+					has_intelligence_agency = yes
+					NOT = { has_done_agency_upgrade = upgrade_passive_defense }
+				}
+				upgrade_intelligence_agency = upgrade_passive_defense
+			}
+			add_to_variable = { encryption_factor = 0.02 }
+			add_stability = 0.01
+			army_experience = 10
+		}
+
+		ai_will_do = { base = 1 }
+	}
+
+	focus = {
+		id = MAD_ARMY_EXPAND_FOREIGN_LIAISONS
+		icon = seek_foreign_intelligence_support
+		x = 91
+		y = 22
+		cost = 3
+		prerequisite = { focus = MAD_ARMY_COORDINATE_INTELLIGENCE_SERVICES }
+		visible = { has_dlc = "La Resistance" }
+		search_filters = { FOCUS_FILTER_MILITARY FOCUS_FILTER_DIPLOMACY }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_ARMY_EXPAND_FOREIGN_LIAISONS"
+			if = {
+				limit = {
+					has_intelligence_agency = yes
+					NOT = { has_done_agency_upgrade = upgrade_diplo_training }
+				}
+				upgrade_intelligence_agency = upgrade_diplo_training
+			}
+			add_to_variable = { decryption_power_factor = 0.02 }
+			add_tech_bonus = {
+				name = MAD_ARMY_EXPAND_FOREIGN_LIAISONS
+				category = CAT_computing
+				uses = 1
+				bonus = 0.35
+			}
+			army_experience = 10
+		}
+
+		ai_will_do = { base = 1 }
+	}
+
+	focus = {
+		id = MAD_ARMY_BUILD_SIGNALS_CRYPTANALYSIS
+		icon = intelligence_exchange
+		x = 91
+		y = 23
+		cost = 3
+		prerequisite = { focus = MAD_ARMY_EXPAND_FOREIGN_LIAISONS }
+		visible = { has_dlc = "La Resistance" }
+		search_filters = { FOCUS_FILTER_MILITARY }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_ARMY_BUILD_SIGNALS_CRYPTANALYSIS"
+			if = {
+				limit = {
+					has_intelligence_agency = yes
+					NOT = { has_done_agency_upgrade = upgrade_crypto_strength }
+				}
+				upgrade_intelligence_agency = upgrade_crypto_strength
+			}
+			if = {
+				limit = {
+					has_intelligence_agency = yes
+					NOT = { has_done_agency_upgrade = upgrade_decryption_boost }
+				}
+				upgrade_intelligence_agency = upgrade_decryption_boost
+			}
+			add_to_variable = { decryption_power_factor = 0.03 }
+			add_to_variable = { encryption_factor = 0.03 }
+			add_tech_bonus = {
+				name = MAD_ARMY_BUILD_SIGNALS_CRYPTANALYSIS
+				category = CAT_computing
+				category = CAT_internet
+				uses = 2
+				bonus = 0.40
+			}
+			army_experience = 15
+		}
+
+		ai_will_do = { base = 1 }
+	}
