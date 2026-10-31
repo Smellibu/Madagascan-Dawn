@@ -60,6 +60,16 @@ MAD_drought_food_programme_available = {
 	NOT = { has_country_flag = MAD_DROUGHT_FOOD_AID_ACTIVE }
 }
 
+# Country-scope availability checks for the water and seed programme families.
+# These use the same plain-flag lifecycle as food aid: start on complete, clear on remove.
+MAD_drought_water_programme_available = {
+	NOT = { has_country_flag = MAD_DROUGHT_WATER_PROGRAMME_ACTIVE }
+}
+
+MAD_drought_seed_programme_available = {
+	NOT = { has_country_flag = MAD_DROUGHT_SEED_PROGRAMME_ACTIVE }
+}
+
 ########################################################################
 # THE DROUGHT MAP
 ########################################################################
