@@ -1,6 +1,6 @@
 set_leader_MAD = {
 	# Madagascar-specific party names are defined in MD_politics_view_parties_l_english.yml.
-	# These are the only 11 labelled MAD party indices; do not fill unrelated generic MD slots.
+	# These are the only 10 labelled MAD party indices; do not fill unrelated generic MD slots.
 
 	# 1 — HVM (Conservatism). HVM only receives its named leader after the formation event.
 	if = {
@@ -58,25 +58,6 @@ set_leader_MAD = {
 				}
 			}
 			if = { limit = { has_country_flag = do_not_retire } subtract_from_variable = { socialism_leader = 1 } }
-			set_temp_variable = { b = 1 }
-		}
-	}
-	# 4 — AKFM (Communist State).
-	else_if = {
-		limit = { check_variable = { ruling_party = 4 } }
-		if = { limit = { check_variable = { communist_state_leader = 0 } }
-			add_to_variable = { communist_state_leader = 1 }
-			hidden_effect = { kill_country_leader = yes }
-			create_country_leader = {
-				name = "Richard Andriamanjato"
-				picture = "Richard_Andriamanjato.dds"
-				ideology = communist_state
-				traits = {
-					emerging_communist_state
-					career_politician
-				}
-			}
-			if = { limit = { has_country_flag = do_not_retire } subtract_from_variable = { communist_state_leader = 1 } }
 			set_temp_variable = { b = 1 }
 		}
 	}
