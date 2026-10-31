@@ -2863,11 +2863,6 @@ country_event = {
 					emerging_anarchist_communism
 				}
 			}
-			# Keep Ranjeva active under the original MAD tag, which is Ratsiraka's side after the split.
-			if = {
-				limit = { NOT = { has_character = MAD_marcel_ranjeva } }
-				recruit_character = MAD_marcel_ranjeva
-			}
 		}
 	}
 
@@ -4859,7 +4854,7 @@ country_event = {
 			limit = {
 				has_navy_size = {
 					size > 1
-					type = corvette
+					unit = corvette
 				}
 			}
 
@@ -5279,126 +5274,5 @@ country_event = {
 		name = mad_movie.4.a
 		add_timed_idea = { idea = MAD_MADAGASCAR_4_RELEASED days = 365 }
 		log = "[GetDateText]: [This.GetName]: Penguins of Madagascar released — timed movie idea applied"
-	}
-}
-
-
-# ============================================================================
-# MADAGASCAR — historical military roster entries
-# Events are scheduled in MAD country history on fixed dates; no on_daily hook.
-# ============================================================================
-add_namespace = MAD_army_roster
-
-country_event = {
-	id = MAD_army_roster.1
-	hidden = yes
-	is_triggered_only = yes
-	fire_only_once = yes
-	immediate = {
-		recruit_character = MAD_jules_mamizara
-	}
-}
-
-country_event = {
-	id = MAD_army_roster.2
-	hidden = yes
-	is_triggered_only = yes
-	fire_only_once = yes
-	immediate = {
-		recruit_character = MAD_sylvain_razafimandimby
-	}
-}
-
-country_event = {
-	id = MAD_army_roster.4
-	hidden = yes
-	is_triggered_only = yes
-	fire_only_once = yes
-	immediate = {
-		recruit_character = MAD_raonenantsoamampianina
-	}
-}
-
-country_event = {
-	id = MAD_army_roster.5
-	hidden = yes
-	is_triggered_only = yes
-	fire_only_once = yes
-	immediate = {
-		recruit_character = MAD_petera_behajaina
-	}
-}
-
-country_event = {
-	id = MAD_army_roster.6
-	hidden = yes
-	is_triggered_only = yes
-	fire_only_once = yes
-	immediate = {
-		recruit_character = MAD_mamy_ranaivoniarivo
-	}
-}
-
-country_event = {
-	id = MAD_army_roster.7
-	hidden = yes
-	is_triggered_only = yes
-	fire_only_once = yes
-	immediate = {
-		# Noel and Edmond are recruited at start; their commander roles become visible in 2009.
-		# If the command choice retired them earlier, do not recruit them again here.
-		recruit_character = MAD_andre_andriarijaona
-	}
-}
-
-country_event = {
-	id = MAD_army_roster.8
-	hidden = yes
-	is_triggered_only = yes
-	fire_only_once = yes
-	immediate = {
-		recruit_character = MAD_hyppolite_ramaroson
-	}
-}
-
-country_event = {
-	id = MAD_army_roster.9
-	hidden = yes
-	is_triggered_only = yes
-	fire_only_once = yes
-	immediate = {
-		recruit_character = MAD_dominique_rakotazafy
-	}
-}
-
-country_event = {
-	id = MAD_army_roster.10
-	hidden = yes
-	is_triggered_only = yes
-	fire_only_once = yes
-	immediate = {
-		recruit_character = MAD_beni_xavier_rasolofonirina
-	}
-}
-
-
-country_event = {
-	id = MAD_army_roster.11
-	hidden = yes
-	is_triggered_only = yes
-	fire_only_once = yes
-	immediate = {
-		recruit_character = MAD_andre_lucien_rakotoarimasy
-	}
-}
-
-country_event = {
-	id = MAD_army_roster.12
-	hidden = yes
-	is_triggered_only = yes
-	fire_only_once = yes
-	immediate = {
-		recruit_character = MAD_charles_andrianasoavina
-		recruit_character = MAD_lylison_rene
 	}
 }
