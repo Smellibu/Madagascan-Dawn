@@ -3363,11 +3363,6 @@ country_event = {
 		set_country_flag = MAD_ARMY_COMMAND_GENERAL_STAFF
 		clr_country_flag = MAD_ARMY_COMMAND_CAPSAT
 		clr_country_flag = MAD_TGV_COMMAND_FORCE_CAPSAT
-		if = {
-			limit = { has_country_flag = MAD_TGV_COMMAND_FORCE_GENERAL_STAFF }
-			set_country_flag = MAD_TGV_CAPSAT_REJECTION
-			country_event = { id = MAD_military_command.5 days = 1825 }
-		}
 		clr_country_flag = MAD_TGV_COMMAND_FORCE_GENERAL_STAFF
 		clr_country_flag = MAD_TGV_COMMAND_FORCE_CAPSAT
 		# Store the General Staff leader for party 22 only while it is outside government.
