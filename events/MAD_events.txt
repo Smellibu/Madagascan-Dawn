@@ -3280,16 +3280,15 @@ country_event = {
 		clr_country_flag = MAD_TGV_COMMAND_FORCE_CAPSAT
 		clr_country_flag = MAD_TGV_COMMAND_FORCE_GENERAL_STAFF
 		
-		clr_country_flag = MAD_MIL_PARTY_LEADER_GENERAL_STAFF
-		MAD_SELECT_CAPSAT_PARTY_LEADER = yes
+		# Only refresh party 22's stored leader while the military party is outside government.
+		# If it is already ruling or a coalition partner, preserve its incumbent leader.
 		if = {
-			limit = { check_variable = { ruling_party = 22 } }
-			hidden_effect = { kill_country_leader = yes }
-			set_variable = { Nat_Autocracy_leader = 0 }
-			MAD_CREATE_CAPSAT_PARTY_LEADER = yes
-			set_variable = { Nat_Autocracy_leader = 1 }
-		}
-		else = {
+			limit = {
+				NOT = { check_variable = { ruling_party = 22 } }
+				NOT = { is_in_array = { array = gov_coalition_array value = 22 } }
+			}
+			clr_country_flag = MAD_MIL_PARTY_LEADER_GENERAL_STAFF
+			MAD_SELECT_CAPSAT_PARTY_LEADER = yes
 			set_variable = { Nat_Autocracy_leader = 0 }
 		}
 		# Legacy-spirit cleanup: these bonuses now live in MAD_ARMY_COMMAND_SYSTEM.
@@ -3367,17 +3366,15 @@ country_event = {
 		}
 		clr_country_flag = MAD_TGV_COMMAND_FORCE_GENERAL_STAFF
 		clr_country_flag = MAD_TGV_COMMAND_FORCE_CAPSAT
-		# This records the choice for when party 22 is out of government.
-		set_country_flag = MAD_MIL_PARTY_LEADER_GENERAL_STAFF
-		MAD_SELECT_GENERAL_STAFF_PARTY_LEADER = yes
+		# Store the General Staff leader for party 22 only while it is outside government.
+		# Do not replace its incumbent leader while it rules or participates in the coalition.
 		if = {
-			limit = { check_variable = { ruling_party = 22 } }
-			hidden_effect = { kill_country_leader = yes }
-			set_variable = { Nat_Autocracy_leader = 0 }
-			MAD_CREATE_GENERAL_STAFF_PARTY_LEADER = yes
-			set_variable = { Nat_Autocracy_leader = 1 }
-		}
-		else = {
+			limit = {
+				NOT = { check_variable = { ruling_party = 22 } }
+				NOT = { is_in_array = { array = gov_coalition_array value = 22 } }
+			}
+			set_country_flag = MAD_MIL_PARTY_LEADER_GENERAL_STAFF
+			MAD_SELECT_GENERAL_STAFF_PARTY_LEADER = yes
 			set_variable = { Nat_Autocracy_leader = 0 }
 		}
 		
@@ -3517,26 +3514,36 @@ country_event = {
 		}
 		if = { limit = { has_idea = MAD_ARMY_CAPSAT_COMMAND } remove_ideas = MAD_ARMY_CAPSAT_COMMAND }
 		if = { limit = { has_idea = MAD_ARMY_CAPSAT_CONCESSIONS } remove_ideas = MAD_ARMY_CAPSAT_CONCESSIONS }
-		set_country_flag = MAD_ARMY_COMMAND_DECIDED
-		set_country_flag = MAD_ARMY_COMMAND_CAPSAT
-		clr_country_flag = MAD_ARMY_COMMAND_GENERAL_STAFF
+		# The agreement gives CAPSAT a place in government, but does not settle army command.
 		clr_country_flag = MAD_TGV_COMMAND_FORCE_CAPSAT
 		clr_country_flag = MAD_TGV_COMMAND_FORCE_GENERAL_STAFF
-		
-		clr_country_flag = MAD_MIL_PARTY_LEADER_GENERAL_STAFF
-		MAD_SELECT_CAPSAT_PARTY_LEADER = yes
+
+		# Select the relevant CAPSAT party leader before adding party 22 to the coalition.
+		# If party 22 is already in government, preserve its incumbent party leader.
 		if = {
-			limit = { check_variable = { ruling_party = 22 } }
-			hidden_effect = { kill_country_leader = yes }
+			limit = {
+				NOT = { check_variable = { ruling_party = 22 } }
+				NOT = { is_in_array = { array = gov_coalition_array value = 22 } }
+			}
+			clr_country_flag = MAD_MIL_PARTY_LEADER_GENERAL_STAFF
+			MAD_SELECT_CAPSAT_PARTY_LEADER = yes
 			set_variable = { Nat_Autocracy_leader = 0 }
-			MAD_CREATE_CAPSAT_PARTY_LEADER = yes
-			set_variable = { Nat_Autocracy_leader = 1 }
 		}
-		else = {
-			set_variable = { Nat_Autocracy_leader = 0 }
-		}
+
+		# Millennium Dawn's politics-view coalition API adds party 22 as a junior partner
+		# without changing the ruling party or replacing the sitting national leader.
+		set_temp_variable = { add_col_one = 22 }
+		add_coalition_members_effect = yes
+
 		set_country_flag = MAD_CAPSAT_REVOLT_RESOLVED
 		clr_country_flag = MAD_TGV_CAPSAT_REJECTION
+
+		# Re-open the command question: either CAPSAT or General Staff can now be selected.
+		clr_country_flag = MAD_ARMY_COMMAND_DECIDED
+		clr_country_flag = MAD_ARMY_COMMAND_CAPSAT
+		clr_country_flag = MAD_ARMY_COMMAND_GENERAL_STAFF
+		country_event = { id = MAD_military_command.1 days = 1 }
+
 		add_stability = -0.04
 		army_experience = 20
 	}
