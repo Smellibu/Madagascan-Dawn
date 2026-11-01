@@ -5278,3 +5278,133 @@ country_event = {
 		log = "[GetDateText]: [This.GetName]: Penguins of Madagascar released — timed movie idea applied"
 	}
 }
+
+# ============================================================================
+# Madagascar: Policy Development Programme outcome events
+# ============================================================================
+
+add_namespace = mad_policy_programmes
+
+country_event = {
+	id = mad_policy_programmes.1
+	title = mad_policy_programmes.1.t
+	desc = mad_policy_programmes.1.d
+	is_triggered_only = yes
+
+	option = {
+		name = mad_policy_programmes.1.a
+		add_timed_idea = { idea = MAD_POLICY_ROAD_PUBLIC days = 180 }
+		add_power_balance_value = { id = MAD_economy_ownership_bop value = 0.006 tooltip_side = MAD_public_ownership }
+		if = { limit = { has_idea = labour_unions } set_temp_variable = { temp_opinion = 5 } change_labour_unions_opinion = yes }
+	}
+	option = {
+		name = mad_policy_programmes.1.b
+		add_timed_idea = { idea = MAD_POLICY_ROAD_PRIVATE days = 180 }
+		add_power_balance_value = { id = MAD_economy_ownership_bop value = -0.006 tooltip_side = MAD_private_ownership }
+		if = { limit = { has_idea = small_medium_business_owners } set_temp_variable = { temp_opinion = 5 } change_small_medium_business_owners_opinion = yes }
+	}
+}
+
+country_event = {
+	id = mad_policy_programmes.2
+	title = mad_policy_programmes.2.t
+	desc = mad_policy_programmes.2.d
+	is_triggered_only = yes
+
+	option = {
+		name = mad_policy_programmes.2.a
+		add_timed_idea = { idea = MAD_POLICY_FISHERIES_PUBLIC days = 180 }
+		add_power_balance_value = { id = MAD_economy_ownership_bop value = 0.006 tooltip_side = MAD_public_ownership }
+		if = { limit = { has_idea = labour_unions } set_temp_variable = { temp_opinion = 5 } change_labour_unions_opinion = yes }
+	}
+	option = {
+		name = mad_policy_programmes.2.b
+		add_timed_idea = { idea = MAD_POLICY_FISHERIES_PRIVATE days = 180 }
+		add_power_balance_value = { id = MAD_economy_ownership_bop value = -0.006 tooltip_side = MAD_private_ownership }
+		if = { limit = { has_idea = small_medium_business_owners } set_temp_variable = { temp_opinion = 5 } change_small_medium_business_owners_opinion = yes }
+	}
+}
+
+country_event = {
+	id = mad_policy_programmes.3
+	title = mad_policy_programmes.3.t
+	desc = mad_policy_programmes.3.d
+	is_triggered_only = yes
+
+	option = {
+		name = mad_policy_programmes.3.a
+		add_timed_idea = { idea = MAD_POLICY_VANILLA_PUBLIC days = 180 }
+		add_power_balance_value = { id = MAD_economy_ownership_bop value = 0.006 tooltip_side = MAD_public_ownership }
+		if = { limit = { has_idea = farmers } set_temp_variable = { temp_opinion = 5 } change_farmers_opinion = yes }
+	}
+	option = {
+		name = mad_policy_programmes.3.b
+		add_timed_idea = { idea = MAD_POLICY_VANILLA_PRIVATE days = 180 }
+		add_power_balance_value = { id = MAD_economy_ownership_bop value = -0.006 tooltip_side = MAD_private_ownership }
+		if = { limit = { has_idea = landowners } set_temp_variable = { temp_opinion = 5 } change_landowners_opinion = yes }
+	}
+}
+
+country_event = {
+	id = mad_policy_programmes.4
+	title = mad_policy_programmes.4.t
+	desc = mad_policy_programmes.4.d
+	is_triggered_only = yes
+
+	option = {
+		name = mad_policy_programmes.4.a
+		add_timed_idea = { idea = MAD_POLICY_APPRENTICESHIP_PUBLIC days = 180 }
+		add_power_balance_value = { id = MAD_economy_ownership_bop value = 0.006 tooltip_side = MAD_public_ownership }
+		if = { limit = { has_idea = labour_unions } set_temp_variable = { temp_opinion = 5 } change_labour_unions_opinion = yes }
+	}
+	option = {
+		name = mad_policy_programmes.4.b
+		add_timed_idea = { idea = MAD_POLICY_APPRENTICESHIP_PRIVATE days = 180 }
+		add_power_balance_value = { id = MAD_economy_ownership_bop value = -0.006 tooltip_side = MAD_private_ownership }
+		if = { limit = { has_idea = small_medium_business_owners } set_temp_variable = { temp_opinion = 5 } change_small_medium_business_owners_opinion = yes }
+	}
+}
+
+country_event = {
+	id = mad_policy_programmes.5
+	title = mad_policy_programmes.5.t
+	desc = mad_policy_programmes.5.d
+	is_triggered_only = yes
+
+	option = {
+		name = mad_policy_programmes.5.a
+		add_timed_idea = { idea = MAD_POLICY_DEFENCE_PUBLIC days = 180 }
+		add_power_balance_value = { id = MAD_economy_ownership_bop value = 0.006 tooltip_side = MAD_public_ownership }
+		if = { limit = { has_idea = the_military } set_temp_variable = { temp_opinion = 5 } change_the_military_opinion = yes }
+	}
+	option = {
+		name = mad_policy_programmes.5.b
+		add_timed_idea = { idea = MAD_POLICY_DEFENCE_PRIVATE days = 180 }
+		add_power_balance_value = { id = MAD_economy_ownership_bop value = -0.006 tooltip_side = MAD_private_ownership }
+		if = { limit = { has_idea = small_medium_business_owners } set_temp_variable = { temp_opinion = 5 } change_small_medium_business_owners_opinion = yes }
+	}
+}
+
+country_event = {
+	id = mad_policy_programmes.6
+	title = mad_policy_programmes.6.t
+	desc = mad_policy_programmes.6.d
+	is_triggered_only = yes
+
+	option = {
+		name = mad_policy_programmes.6.a
+		add_ideas = MAD_POLICY_GRAZING_TRIBUNAL_PUBLIC_IDEA
+		add_power_balance_value = { id = MAD_economy_ownership_bop value = 0.015 tooltip_side = MAD_public_ownership }
+		if = { limit = { has_idea = farmers } set_temp_variable = { temp_opinion = 5 } change_farmers_opinion = yes }
+		add_stability = 0.02
+		set_country_flag = MAD_POLICY_GRAZING_TRIBUNAL_PUBLIC
+	}
+	option = {
+		name = mad_policy_programmes.6.b
+		add_ideas = MAD_POLICY_GRAZING_TRIBUNAL_PRIVATE_IDEA
+		add_power_balance_value = { id = MAD_economy_ownership_bop value = -0.015 tooltip_side = MAD_private_ownership }
+		if = { limit = { has_idea = landowners } set_temp_variable = { temp_opinion = 5 } change_landowners_opinion = yes }
+		add_stability = 0.01
+		set_country_flag = MAD_POLICY_GRAZING_TRIBUNAL_PRIVATE
+	}
+}

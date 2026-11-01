@@ -5588,3 +5588,619 @@ MAD_rural_cooperation_category = {
 		ai_will_do = { base = 0 }
 	}
 }
+
+# ============================================================================
+# Madagascar: Policy Development Programmes
+# Add-on file for codex/dahalo-2.0.3-beta-corrected-2026-10-30
+# Five recurring programmes and ten single-use policy decisions.
+# Recurring programme bonuses are applied by timed ideas only (180 days).
+# ============================================================================
+
+MAD_policy_development_category = {
+
+	# ------------------------------------------------------------------------
+	# REPEATABLE PROGRAMMES
+	# Three cycles maximum per programme. Each cycle consumes RC and treasury.
+	# The completion event lets the player choose a public or private delivery
+	# model. Only the ownership BOP adjustment persists; the programme bonus is
+	# a timed idea lasting 180 days.
+	# GDP per capita is expressed in thousands of USD in Millennium Dawn.
+	# ------------------------------------------------------------------------
+
+	MAD_POLICY_ROAD_MAINTENANCE = {
+		icon = generic_construction
+		visible = {
+			NOT = { has_country_flag = MAD_POLICY_ROAD_CYCLE_3 }
+			check_variable = { gdp_per_capita < 15.001 }
+		}
+		available = {
+			check_variable = { gdp_per_capita < 15.001 }
+			NOT = { has_country_flag = MAD_POLICY_ROAD_CYCLE_3 }
+			NOT = { has_country_flag = MAD_POLICY_ROAD_MAINTENANCE_ACTIVE }
+			check_variable = { MAD_rural_cooperation > 1.99 }
+			check_variable = { treasury > 0.079 }
+			custom_trigger_tooltip = {
+				tooltip = MAD_POLICY_RC_REQUIRE_2_TT
+				check_variable = { MAD_rural_cooperation > 1.99 }
+			}
+		}
+		cost = 35
+		fire_only_once = no
+		days_remove = 120
+		days_re_enable = 365
+		custom_cost_trigger = { check_variable = { treasury > 0.079 } }
+		custom_cost_text = MAD_POLICY_COST_0_08_TT
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Regional road maintenance programme launched"
+			set_country_flag = MAD_POLICY_ROAD_MAINTENANCE_ACTIVE
+			set_temp_variable = { treasury_change = -0.08 }
+			modify_treasury_effect = yes
+			set_temp_variable = { MAD_rc_delta = -2 }
+			MAD_rural_cooperation_adjust = yes
+			if = {
+				limit = { NOT = { has_country_flag = MAD_POLICY_ROAD_CYCLE_1 } }
+				set_country_flag = MAD_POLICY_ROAD_CYCLE_1
+			}
+			else_if = {
+				limit = { NOT = { has_country_flag = MAD_POLICY_ROAD_CYCLE_2 } }
+				set_country_flag = MAD_POLICY_ROAD_CYCLE_2
+			}
+			else = { set_country_flag = MAD_POLICY_ROAD_CYCLE_3 }
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Regional road maintenance programme completed"
+			clr_country_flag = MAD_POLICY_ROAD_MAINTENANCE_ACTIVE
+			country_event = { id = mad_policy_programmes.1 days = 1 }
+		}
+		ai_will_do = { base = 0 }
+	}
+
+	MAD_POLICY_FISHERIES_COLD_CHAIN = {
+		icon = generic_industry
+		visible = {
+			NOT = { has_country_flag = MAD_POLICY_FISHERIES_CYCLE_3 }
+			check_variable = { gdp_per_capita > 14.999 }
+			check_variable = { gdp_per_capita < 30.001 }
+			has_completed_focus = MAD_SPAT_STRENGTHEN_AUTHORITY
+			OR = {
+				has_completed_focus = MAD_TOAMASINA
+				has_completed_focus = MAD_EHOALA_PORT
+				has_completed_focus = MAD_ICTSI_CONCESSION
+			}
+		}
+		available = {
+			check_variable = { gdp_per_capita > 14.999 }
+			check_variable = { gdp_per_capita < 30.001 }
+			NOT = { has_country_flag = MAD_POLICY_FISHERIES_CYCLE_3 }
+			NOT = { has_country_flag = MAD_POLICY_FISHERIES_ACTIVE }
+			check_variable = { MAD_rural_cooperation > 0.99 }
+			check_variable = { treasury > 0.059 }
+			custom_trigger_tooltip = {
+				tooltip = MAD_POLICY_RC_REQUIRE_1_TT
+				check_variable = { MAD_rural_cooperation > 0.99 }
+			}
+		}
+		cost = 40
+		fire_only_once = no
+		days_remove = 180
+		days_re_enable = 365
+		custom_cost_trigger = { check_variable = { treasury > 0.059 } }
+		custom_cost_text = MAD_POLICY_COST_0_06_TT
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Coastal fisheries cold-chain programme launched"
+			set_country_flag = MAD_POLICY_FISHERIES_ACTIVE
+			set_temp_variable = { treasury_change = -0.06 }
+			modify_treasury_effect = yes
+			set_temp_variable = { MAD_rc_delta = -1 }
+			MAD_rural_cooperation_adjust = yes
+			if = {
+				limit = { NOT = { has_country_flag = MAD_POLICY_FISHERIES_CYCLE_1 } }
+				set_country_flag = MAD_POLICY_FISHERIES_CYCLE_1
+			}
+			else_if = {
+				limit = { NOT = { has_country_flag = MAD_POLICY_FISHERIES_CYCLE_2 } }
+				set_country_flag = MAD_POLICY_FISHERIES_CYCLE_2
+			}
+			else = { set_country_flag = MAD_POLICY_FISHERIES_CYCLE_3 }
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Coastal fisheries cold-chain programme completed"
+			clr_country_flag = MAD_POLICY_FISHERIES_ACTIVE
+			country_event = { id = mad_policy_programmes.2 days = 1 }
+		}
+		ai_will_do = { base = 0 }
+	}
+
+	MAD_POLICY_VANILLA_WAREHOUSE_SCHEME = {
+		icon = generic_agriculture
+		visible = {
+			NOT = { has_country_flag = MAD_POLICY_VANILLA_CYCLE_3 }
+			date > 2023.5.1
+			check_variable = { gdp_per_capita > 29.999 }
+			check_variable = { gdp_per_capita < 45.001 }
+			has_completed_focus = MAD_VANILLA_PRICE_STABILITY
+		}
+		available = {
+			check_variable = { gdp_per_capita > 29.999 }
+			check_variable = { gdp_per_capita < 45.001 }
+			NOT = { has_country_flag = MAD_POLICY_VANILLA_CYCLE_3 }
+			NOT = { has_country_flag = MAD_POLICY_VANILLA_ACTIVE }
+			check_variable = { MAD_rural_cooperation > 0.99 }
+			check_variable = { treasury > 0.049 }
+			custom_trigger_tooltip = {
+				tooltip = MAD_POLICY_RC_REQUIRE_1_TT
+				check_variable = { MAD_rural_cooperation > 0.99 }
+			}
+		}
+		cost = 45
+		fire_only_once = no
+		days_remove = 90
+		days_re_enable = 365
+		custom_cost_trigger = { check_variable = { treasury > 0.049 } }
+		custom_cost_text = MAD_POLICY_COST_0_05_TT
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Vanilla and clove warehouse-receipt programme launched"
+			set_country_flag = MAD_POLICY_VANILLA_ACTIVE
+			set_temp_variable = { treasury_change = -0.05 }
+			modify_treasury_effect = yes
+			set_temp_variable = { MAD_rc_delta = -1 }
+			MAD_rural_cooperation_adjust = yes
+			if = {
+				limit = { NOT = { has_country_flag = MAD_POLICY_VANILLA_CYCLE_1 } }
+				set_country_flag = MAD_POLICY_VANILLA_CYCLE_1
+			}
+			else_if = {
+				limit = { NOT = { has_country_flag = MAD_POLICY_VANILLA_CYCLE_2 } }
+				set_country_flag = MAD_POLICY_VANILLA_CYCLE_2
+			}
+			else = { set_country_flag = MAD_POLICY_VANILLA_CYCLE_3 }
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Vanilla and clove warehouse-receipt programme completed"
+			clr_country_flag = MAD_POLICY_VANILLA_ACTIVE
+			country_event = { id = mad_policy_programmes.3 days = 1 }
+		}
+		ai_will_do = { base = 0 }
+	}
+
+	MAD_POLICY_APPRENTICESHIP_COMPACT = {
+		icon = generic_industry
+		visible = {
+			NOT = { has_country_flag = MAD_POLICY_APPRENTICESHIP_CYCLE_3 }
+			check_variable = { gdp_per_capita > 29.999 }
+			check_variable = { gdp_per_capita < 45.001 }
+			OR = {
+				has_completed_focus = MAD_POL_HVM_VOCATIONAL_TRAINING
+				has_completed_focus = MAD_POL_TGV_YOUTH_INDUSTRIALISATION
+				has_completed_focus = MAD_POL_AREMA_WORKERS_FARMERS
+				has_completed_focus = MAD_POL_TIM_GREEN_REVOLUTION
+			}
+		}
+		available = {
+			check_variable = { gdp_per_capita > 29.999 }
+			check_variable = { gdp_per_capita < 45.001 }
+			NOT = { has_country_flag = MAD_POLICY_APPRENTICESHIP_CYCLE_3 }
+			NOT = { has_country_flag = MAD_POLICY_APPRENTICESHIP_ACTIVE }
+			check_variable = { MAD_rural_cooperation > 0.99 }
+			check_variable = { treasury > 0.099 }
+			custom_trigger_tooltip = {
+				tooltip = MAD_POLICY_RC_REQUIRE_1_TT
+				check_variable = { MAD_rural_cooperation > 0.99 }
+			}
+		}
+		cost = 45
+		fire_only_once = no
+		days_remove = 180
+		days_re_enable = 730
+		custom_cost_trigger = { check_variable = { treasury > 0.099 } }
+		custom_cost_text = MAD_POLICY_COST_0_10_TT
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Industrial apprenticeship compact launched"
+			set_country_flag = MAD_POLICY_APPRENTICESHIP_ACTIVE
+			set_temp_variable = { treasury_change = -0.10 }
+			modify_treasury_effect = yes
+			set_temp_variable = { MAD_rc_delta = -1 }
+			MAD_rural_cooperation_adjust = yes
+			if = {
+				limit = { NOT = { has_country_flag = MAD_POLICY_APPRENTICESHIP_CYCLE_1 } }
+				set_country_flag = MAD_POLICY_APPRENTICESHIP_CYCLE_1
+			}
+			else_if = {
+				limit = { NOT = { has_country_flag = MAD_POLICY_APPRENTICESHIP_CYCLE_2 } }
+				set_country_flag = MAD_POLICY_APPRENTICESHIP_CYCLE_2
+			}
+			else = { set_country_flag = MAD_POLICY_APPRENTICESHIP_CYCLE_3 }
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Industrial apprenticeship compact completed"
+			clr_country_flag = MAD_POLICY_APPRENTICESHIP_ACTIVE
+			country_event = { id = mad_policy_programmes.4 days = 1 }
+		}
+		ai_will_do = { base = 0 }
+	}
+
+	MAD_POLICY_DEFENCE_MAINTENANCE = {
+		icon = generic_military
+		visible = {
+			NOT = { has_country_flag = MAD_POLICY_DEFENCE_CYCLE_3 }
+			check_variable = { gdp_per_capita > 44.999 }
+			has_completed_focus = MAD_ARMY_DEFENCE_INDUSTRIAL_PLANNING
+			OR = {
+				has_completed_focus = MAD_ARMY_FIELD_ENGINEERING_STANDARDS
+				has_completed_focus = MAD_SECREN_TECHNICAL_TRAINING
+				has_completed_focus = MAD_ARMY_IVATO_AEROSPACE_WORKS
+			}
+		}
+		available = {
+			check_variable = { gdp_per_capita > 44.999 }
+			NOT = { has_country_flag = MAD_POLICY_DEFENCE_CYCLE_3 }
+			NOT = { has_country_flag = MAD_POLICY_DEFENCE_ACTIVE }
+			check_variable = { MAD_rural_cooperation > 1.99 }
+			check_variable = { treasury > 0.149 }
+			custom_trigger_tooltip = {
+				tooltip = MAD_POLICY_RC_REQUIRE_2_TT
+				check_variable = { MAD_rural_cooperation > 1.99 }
+			}
+		}
+		cost = 50
+		fire_only_once = no
+		days_remove = 180
+		days_re_enable = 730
+		custom_cost_trigger = { check_variable = { treasury > 0.149 } }
+		custom_cost_text = MAD_POLICY_COST_0_15_TT
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Defence depot and equipment maintenance programme launched"
+			set_country_flag = MAD_POLICY_DEFENCE_ACTIVE
+			set_temp_variable = { treasury_change = -0.15 }
+			modify_treasury_effect = yes
+			set_temp_variable = { MAD_rc_delta = -2 }
+			MAD_rural_cooperation_adjust = yes
+			if = {
+				limit = { NOT = { has_country_flag = MAD_POLICY_DEFENCE_CYCLE_1 } }
+				set_country_flag = MAD_POLICY_DEFENCE_CYCLE_1
+			}
+			else_if = {
+				limit = { NOT = { has_country_flag = MAD_POLICY_DEFENCE_CYCLE_2 } }
+				set_country_flag = MAD_POLICY_DEFENCE_CYCLE_2
+			}
+			else = { set_country_flag = MAD_POLICY_DEFENCE_CYCLE_3 }
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Defence depot and equipment maintenance programme completed"
+			clr_country_flag = MAD_POLICY_DEFENCE_ACTIVE
+			country_event = { id = mad_policy_programmes.5 days = 1 }
+		}
+		ai_will_do = { base = 0 }
+	}
+
+	# ------------------------------------------------------------------------
+	# SINGLE-USE PARTY POLICY DECISIONS
+	# None of these has a GDP-per-capita gate.
+	# ------------------------------------------------------------------------
+
+	MAD_POLICY_ROYAL_BONDS = {
+		icon = GFX_decision_generic_political_reform
+		visible = {
+			MAD_ROY_IN_POWER = yes
+			has_completed_focus = MAD_POL_ROY_NATIONAL_TRUST
+			OR = {
+				has_completed_focus = MAD_POL_ROY_FIHAVANANA
+				has_completed_focus = MAD_POL_ROY_FOKONOLONA
+			}
+		}
+		available = {
+			MAD_ROY_IN_POWER = yes
+			check_variable = { treasury > 0.149 }
+		}
+		cost = 50
+		fire_only_once = yes
+		days_remove = 1
+		custom_cost_trigger = { check_variable = { treasury > 0.149 } }
+		custom_cost_text = MAD_POLICY_COST_0_15_TT
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Crown-backed regional development bonds issued"
+			set_temp_variable = { treasury_change = -0.15 }
+			modify_treasury_effect = yes
+			set_temp_variable = { MAD_rc_delta = 3 }
+			MAD_rural_cooperation_adjust = yes
+			add_power_balance_value = { id = MAD_economy_ownership_bop value = 0.02 tooltip_side = MAD_public_ownership }
+			if = { limit = { has_idea = landowners } set_temp_variable = { temp_opinion = 5 } change_landowners_opinion = yes }
+			add_ideas = MAD_POLICY_ROYAL_BONDS_IDEA
+		}
+		ai_will_do = { base = 0 }
+	}
+
+	MAD_POLICY_TAMIMA_EXPORT_SYNDICATES = {
+		icon = generic_industry
+		visible = {
+			MAD_TAMIMA_IN_POWER = yes
+			has_completed_focus = MAD_POL_ROY_TAMIMA_COUNCIL_GOVERNMENT
+			has_completed_focus = MAD_POL_ROY_NATIONAL_WEALTH
+		}
+		available = {
+			MAD_TAMIMA_IN_POWER = yes
+			check_variable = { treasury > 0.199 }
+			check_variable = { MAD_rural_cooperation > 2.99 }
+		}
+		cost = 50
+		fire_only_once = yes
+		days_remove = 1
+		custom_cost_trigger = { check_variable = { treasury > 0.199 } }
+		custom_cost_text = MAD_POLICY_COST_0_20_TT
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: TAMIMA chartered export syndicates established"
+			set_temp_variable = { treasury_change = -0.20 }
+			modify_treasury_effect = yes
+			set_temp_variable = { MAD_rc_delta = -3 }
+			MAD_rural_cooperation_adjust = yes
+			add_power_balance_value = { id = MAD_economy_ownership_bop value = -0.03 tooltip_side = MAD_private_ownership }
+			if = { limit = { has_idea = small_medium_business_owners } set_temp_variable = { temp_opinion = 10 } change_small_medium_business_owners_opinion = yes }
+			if = { limit = { has_idea = international_bankers } set_temp_variable = { temp_opinion = 5 } change_international_bankers_opinion = yes }
+			add_ideas = MAD_POLICY_TAMIMA_EXPORT_SYNDICATES_IDEA
+		}
+		ai_will_do = { base = 0 }
+	}
+
+	MAD_POLICY_MILITARY_ENGINEER_MANDATE = {
+		icon = generic_construction
+		visible = {
+			MAD_MIL_IN_POWER = yes
+			has_completed_focus = MAD_POL_MIL_TAKES_RESPONSIBILITY
+			has_completed_focus = MAD_POL_MIL_ENGINEERS
+		}
+		available = {
+			MAD_MIL_IN_POWER = yes
+			check_variable = { treasury > 0.219 }
+			check_variable = { MAD_rural_cooperation > 1.99 }
+		}
+		cost = 50
+		fire_only_once = yes
+		days_remove = 1
+		custom_cost_trigger = { check_variable = { treasury > 0.219 } }
+		custom_cost_text = MAD_POLICY_COST_0_22_TT
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Military Engineer Corps national works mandate adopted"
+			set_temp_variable = { treasury_change = -0.22 }
+			modify_treasury_effect = yes
+			set_temp_variable = { MAD_rc_delta = -2 }
+			MAD_rural_cooperation_adjust = yes
+			add_power_balance_value = { id = MAD_economy_ownership_bop value = 0.02 tooltip_side = MAD_public_ownership }
+			if = { limit = { has_idea = the_military } set_temp_variable = { temp_opinion = 10 } change_the_military_opinion = yes }
+			add_ideas = MAD_POLICY_MILITARY_ENGINEER_MANDATE_IDEA
+		}
+		ai_will_do = { base = 0 }
+	}
+
+	MAD_POLICY_AREMA_MILLING_BOARD = {
+		icon = generic_industry
+		visible = {
+			MAD_AREMA_IN_POWER = yes
+			has_country_flag = MAD_RATSIRAKA_EXILE_RESOLVED
+			has_completed_focus = MAD_POL_AREMA_REBUILD
+			has_completed_focus = MAD_POL_AREMA_FOOD_FIRST
+			has_completed_focus = MAD_POL_AREMA_STATE_LEADS
+		}
+		available = {
+			MAD_AREMA_IN_POWER = yes
+			has_country_flag = MAD_RATSIRAKA_EXILE_RESOLVED
+			check_variable = { treasury > 0.299 }
+		}
+		cost = 50
+		fire_only_once = yes
+		days_remove = 1
+		custom_cost_trigger = { check_variable = { treasury > 0.299 } }
+		custom_cost_text = MAD_POLICY_COST_0_30_TT
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: AREMA public milling and storage board funded"
+			set_temp_variable = { treasury_change = -0.30 }
+			modify_treasury_effect = yes
+			set_temp_variable = { MAD_rc_delta = 3 }
+			MAD_rural_cooperation_adjust = yes
+			add_power_balance_value = { id = MAD_economy_ownership_bop value = 0.03 tooltip_side = MAD_public_ownership }
+			if = { limit = { has_idea = farmers } set_temp_variable = { temp_opinion = 10 } change_farmers_opinion = yes }
+			if = { limit = { has_idea = labour_unions } set_temp_variable = { temp_opinion = 5 } change_labour_unions_opinion = yes }
+			add_ideas = MAD_POLICY_AREMA_MILLING_BOARD_IDEA
+		}
+		ai_will_do = { base = 0 }
+	}
+
+	MAD_POLICY_TIM_EXPORT_CREDIT = {
+		icon = generic_industry
+		visible = {
+			MAD_TIM_IN_POWER = yes
+			date > 2008.12.1
+			OR = {
+				has_completed_focus = MAD_POL_TIM_INFRASTRUCTURE_FINANCE
+				has_completed_focus = MAD_POL_TIM_OPEN_ECONOMY
+			}
+		}
+		available = {
+			MAD_TIM_IN_POWER = yes
+			date > 2008.12.1
+			check_variable = { treasury > 0.249 }
+		}
+		cost = 50
+		fire_only_once = yes
+		days_remove = 1
+		custom_cost_trigger = { check_variable = { treasury > 0.249 } }
+		custom_cost_text = MAD_POLICY_COST_0_25_TT
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Export credit and supply-chain guarantee approved after the global financial crisis"
+			set_temp_variable = { treasury_change = -0.25 }
+			modify_treasury_effect = yes
+			set_temp_variable = { MAD_rc_delta = 1 }
+			MAD_rural_cooperation_adjust = yes
+			add_power_balance_value = { id = MAD_economy_ownership_bop value = -0.025 tooltip_side = MAD_private_ownership }
+			if = { limit = { has_idea = international_bankers } set_temp_variable = { temp_opinion = 10 } change_international_bankers_opinion = yes }
+			if = { limit = { has_idea = small_medium_business_owners } set_temp_variable = { temp_opinion = 5 } change_small_medium_business_owners_opinion = yes }
+			add_ideas = MAD_POLICY_TIM_EXPORT_CREDIT_IDEA
+		}
+		ai_will_do = { base = 0 }
+	}
+
+	MAD_POLICY_TGV_VELIRANO_BONDS = {
+		icon = generic_construction
+		visible = {
+			MAD_TGV_IN_POWER = yes
+			date > 2009.1.1
+			has_completed_focus = MAD_POL_TGV_2009_LEGACY
+			has_completed_focus = MAD_POL_TGV_PROJECT_FINANCE
+			OR = {
+				has_completed_focus = MAD_POL_TGV_INFRASTRUCTURE_FIRST
+				has_completed_focus = MAD_POL_TGV_JIRAMA_DELIVERY
+			}
+		}
+		available = {
+			MAD_TGV_IN_POWER = yes
+			check_variable = { treasury > 0.399 }
+		}
+		cost = 75
+		fire_only_once = yes
+		days_remove = 1
+		custom_cost_trigger = { check_variable = { treasury > 0.399 } }
+		custom_cost_text = MAD_POLICY_COST_0_40_TT
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Velirano infrastructure delivery bonds issued"
+			set_temp_variable = { treasury_change = -0.40 }
+			modify_treasury_effect = yes
+			set_temp_variable = { MAD_rc_delta = 2 }
+			MAD_rural_cooperation_adjust = yes
+			add_power_balance_value = { id = MAD_economy_ownership_bop value = 0.02 tooltip_side = MAD_public_ownership }
+			if = { limit = { has_idea = labour_unions } set_temp_variable = { temp_opinion = 10 } change_labour_unions_opinion = yes }
+			if = { limit = { has_idea = small_medium_business_owners } set_temp_variable = { temp_opinion = 5 } change_small_medium_business_owners_opinion = yes }
+			add_ideas = MAD_POLICY_TGV_VELIRANO_BONDS_IDEA
+		}
+		ai_will_do = { base = 0 }
+	}
+
+	MAD_POLICY_HVM_SME_COINVESTMENT = {
+		icon = generic_industry
+		visible = {
+			MAD_HVM_IN_POWER = yes
+			has_completed_focus = MAD_POL_HVM_INVESTMENT_FRIENDLY
+			has_completed_focus = MAD_POL_HVM_PROJECT_REVIEW
+		}
+		available = {
+			MAD_HVM_IN_POWER = yes
+			check_variable = { treasury > 0.199 }
+		}
+		cost = 50
+		fire_only_once = yes
+		days_remove = 1
+		custom_cost_trigger = { check_variable = { treasury > 0.199 } }
+		custom_cost_text = MAD_POLICY_COST_0_20_TT
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Malagasy SME co-investment window established"
+			set_temp_variable = { treasury_change = -0.20 }
+			modify_treasury_effect = yes
+			set_temp_variable = { MAD_rc_delta = 1 }
+			MAD_rural_cooperation_adjust = yes
+			add_power_balance_value = { id = MAD_economy_ownership_bop value = -0.02 tooltip_side = MAD_private_ownership }
+			if = { limit = { has_idea = small_medium_business_owners } set_temp_variable = { temp_opinion = 10 } change_small_medium_business_owners_opinion = yes }
+			if = { limit = { has_idea = international_bankers } set_temp_variable = { temp_opinion = 5 } change_international_bankers_opinion = yes }
+			add_ideas = MAD_POLICY_HVM_SME_COINVESTMENT_IDEA
+		}
+		ai_will_do = { base = 0 }
+	}
+
+	# ------------------------------------------------------------------------
+	# SINGLE-USE NATIONAL / EVENT POLICY DECISIONS
+	# ------------------------------------------------------------------------
+
+	MAD_POLICY_GRAZING_RESTITUTION = {
+		icon = generic_political_discourse
+		visible = {
+			has_idea = MAD_DAHALO_DEFEATED
+			has_completed_focus = MAD_FAHALEMANA
+		}
+		available = {
+			has_idea = MAD_DAHALO_DEFEATED
+			has_completed_focus = MAD_FAHALEMANA
+			check_variable = { treasury > 0.179 }
+			check_variable = { MAD_rural_cooperation > 1.99 }
+		}
+		cost = 50
+		fire_only_once = yes
+		days_remove = 1
+		custom_cost_trigger = { check_variable = { treasury > 0.179 } }
+		custom_cost_text = MAD_POLICY_COST_0_18_TT
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Southern grazing claims and restitution tribunal launched"
+			set_temp_variable = { treasury_change = -0.18 }
+			modify_treasury_effect = yes
+			set_temp_variable = { MAD_rc_delta = -2 }
+			MAD_rural_cooperation_adjust = yes
+			country_event = { id = mad_policy_programmes.6 days = 1 }
+		}
+		ai_will_do = { base = 0 }
+	}
+
+	MAD_POLICY_PLAGUE_SURVEILLANCE = {
+		icon = generic_political_discourse
+		visible = {
+			date > 2017.9.1
+			OR = {
+				has_completed_focus = MAD_POL_TGV_HEALTH_FOR_ALL
+				has_completed_focus = MAD_POL_HVM_HEALTH_NUTRITION
+				has_completed_focus = MAD_POL_TIM_HEALTH
+			}
+			NOT = { has_country_flag = MAD_POLICY_PLAGUE_SURVEILLANCE_ENACTED }
+		}
+		available = {
+			date > 2017.9.1
+			check_variable = { treasury > 0.099 }
+		}
+		cost = 50
+		fire_only_once = yes
+		days_remove = 1
+		custom_cost_trigger = { check_variable = { treasury > 0.099 } }
+		custom_cost_text = MAD_POLICY_COST_0_10_TT
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: District epidemic surveillance charter adopted"
+			set_temp_variable = { treasury_change = -0.10 }
+			modify_treasury_effect = yes
+			set_temp_variable = { MAD_rc_delta = 3 }
+			MAD_rural_cooperation_adjust = yes
+			set_country_flag = MAD_POLICY_PLAGUE_SURVEILLANCE_ENACTED
+			add_power_balance_value = { id = MAD_economy_ownership_bop value = 0.015 tooltip_side = MAD_public_ownership }
+			add_ideas = MAD_POLICY_PLAGUE_SURVEILLANCE_IDEA
+		}
+		ai_will_do = { base = 0 }
+	}
+
+	MAD_POLICY_STRATEGIC_SUPPLY_RESERVE = {
+		icon = generic_industry
+		visible = {
+			date > 2020.3.1
+			OR = {
+				has_completed_focus = MAD_POL_AREMA_STRATEGIC_ENTERPRISES
+				has_completed_focus = MAD_POL_TIM_NATIONAL_CHAMPION
+				has_completed_focus = MAD_POL_TGV_INDUSTRIAL_MADAGASCAR
+				has_completed_focus = MAD_POL_HVM_LIGHT_INDUSTRY
+			}
+			NOT = { has_country_flag = MAD_POLICY_STRATEGIC_SUPPLY_RESERVE_ENACTED }
+		}
+		available = {
+			date > 2020.3.1
+			check_variable = { treasury > 0.149 }
+		}
+		cost = 50
+		fire_only_once = yes
+		days_remove = 1
+		custom_cost_trigger = { check_variable = { treasury > 0.149 } }
+		custom_cost_text = MAD_POLICY_COST_0_15_TT
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Strategic supplier and domestic production reserve established"
+			set_temp_variable = { treasury_change = -0.15 }
+			modify_treasury_effect = yes
+			set_temp_variable = { MAD_rc_delta = 2 }
+			MAD_rural_cooperation_adjust = yes
+			set_country_flag = MAD_POLICY_STRATEGIC_SUPPLY_RESERVE_ENACTED
+			add_power_balance_value = { id = MAD_economy_ownership_bop value = 0.02 tooltip_side = MAD_public_ownership }
+			if = { limit = { has_idea = labour_unions } set_temp_variable = { temp_opinion = 5 } change_labour_unions_opinion = yes }
+			if = { limit = { has_idea = small_medium_business_owners } set_temp_variable = { temp_opinion = 5 } change_small_medium_business_owners_opinion = yes }
+			add_ideas = MAD_POLICY_STRATEGIC_SUPPLY_RESERVE_IDEA
+		}
+		ai_will_do = { base = 0 }
+	}
+}

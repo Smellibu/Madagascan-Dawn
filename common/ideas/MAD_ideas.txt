@@ -3193,6 +3193,292 @@ MAD_MADAGASCAR_4_RELEASED = {
 	}
 }
 
-	}
+# --------------------------------------------------------------------
+		# REPEATABLE PROGRAMMES: 180-DAY IDEAS ONLY
+		# --------------------------------------------------------------------
+
+		MAD_POLICY_ROAD_PUBLIC = {
+			name = MAD_POLICY_ROAD_PUBLIC
+			picture = GFX_idea_generic
+			allowed_civil_war = { always = yes }
+			cost = 0
+			removal_cost = -1
+			modifier = {
+				stability_factor = 0.01
+				productivity_growth_modifier = 0.02
+				police_cost_multiplier_modifier = -0.02
+			}
+		}
+
+		MAD_POLICY_ROAD_PRIVATE = {
+			name = MAD_POLICY_ROAD_PRIVATE
+			picture = GFX_idea_generic
+			allowed_civil_war = { always = yes }
+			cost = 0
+			removal_cost = -1
+			modifier = {
+				productivity_growth_modifier = 0.02
+				receiving_investment_cost_modifier = -0.02
+				stability_factor = 0.005
+			}
+		}
+
+		MAD_POLICY_FISHERIES_PUBLIC = {
+			name = MAD_POLICY_FISHERIES_PUBLIC
+			picture = GFX_idea_generic
+			allowed_civil_war = { always = yes }
+			cost = 0
+			removal_cost = -1
+			modifier = {
+				resource_export_multiplier_modifier = 0.03
+				trade_opinion_factor = 0.02
+				police_cost_multiplier_modifier = -0.01
+			}
+		}
+
+		MAD_POLICY_FISHERIES_PRIVATE = {
+			name = MAD_POLICY_FISHERIES_PRIVATE
+			picture = GFX_idea_generic
+			allowed_civil_war = { always = yes }
+			cost = 0
+			removal_cost = -1
+			modifier = {
+				resource_export_multiplier_modifier = 0.03
+				productivity_growth_modifier = 0.02
+				receiving_investment_cost_modifier = -0.02
+			}
+		}
+
+		MAD_POLICY_VANILLA_PUBLIC = {
+			name = MAD_POLICY_VANILLA_PUBLIC
+			picture = GFX_idea_generic
+			allowed_civil_war = { always = yes }
+			cost = 0
+			removal_cost = -1
+			modifier = {
+				agricolture_productivity_modifier = 0.04
+				agriculture_district_income_tax_modifier = 0.02
+				stability_factor = 0.01
+			}
+		}
+
+		MAD_POLICY_VANILLA_PRIVATE = {
+			name = MAD_POLICY_VANILLA_PRIVATE
+			picture = GFX_idea_generic
+			allowed_civil_war = { always = yes }
+			cost = 0
+			removal_cost = -1
+			modifier = {
+				agricolture_productivity_modifier = 0.04
+				resource_export_multiplier_modifier = 0.03
+				corporate_tax_income_multiplier_modifier = 0.01
+			}
+		}
+
+		MAD_POLICY_APPRENTICESHIP_PUBLIC = {
+			name = MAD_POLICY_APPRENTICESHIP_PUBLIC
+			picture = GFX_idea_generic
+			allowed_civil_war = { always = yes }
+			cost = 0
+			removal_cost = -1
+			modifier = {
+				research_speed_factor = 0.02
+				total_workforce_modifier = 0.015
+				education_cost_multiplier_modifier = -0.03
+			}
+		}
+
+		MAD_POLICY_APPRENTICESHIP_PRIVATE = {
+			name = MAD_POLICY_APPRENTICESHIP_PRIVATE
+			picture = GFX_idea_generic
+			allowed_civil_war = { always = yes }
+			cost = 0
+			removal_cost = -1
+			modifier = {
+				training_time_factor = -0.05
+				production_speed_industrial_complex_factor = 0.03
+				total_workforce_modifier = 0.01
+			}
+		}
+
+		MAD_POLICY_DEFENCE_PUBLIC = {
+			name = MAD_POLICY_DEFENCE_PUBLIC
+			picture = GFX_idea_generic
+			allowed_civil_war = { always = yes }
+			cost = 0
+			removal_cost = -1
+			modifier = {
+				military_spending_cost_factor = -0.03
+				military_industrial_organization_research_bonus = 0.02
+				army_org_factor = 0.02
+			}
+		}
+
+		MAD_POLICY_DEFENCE_PRIVATE = {
+			name = MAD_POLICY_DEFENCE_PRIVATE
+			picture = GFX_idea_generic
+			allowed_civil_war = { always = yes }
+			cost = 0
+			removal_cost = -1
+			modifier = {
+				equipment_cost_multiplier_modifier = -0.02
+				army_speed_factor = 0.02
+				military_industrial_organization_research_bonus = 0.02
+			}
+		}
+
+		# --------------------------------------------------------------------
+		# SINGLE-USE PARTY AND EVENT POLICIES
+		# These are persistent policy choices, unlike the repeatable ideas.
+		# --------------------------------------------------------------------
+
+		MAD_POLICY_ROYAL_BONDS_IDEA = {
+			name = MAD_POLICY_ROYAL_BONDS_IDEA
+			picture = GFX_idea_generic
+			allowed_civil_war = { always = yes }
+			cost = 0
+			removal_cost = -1
+			modifier = {
+				stability_factor = 0.02
+				productivity_growth_modifier = 0.03
+				political_power_factor = 0.02
+			}
+		}
+
+		MAD_POLICY_TAMIMA_EXPORT_SYNDICATES_IDEA = {
+			name = MAD_POLICY_TAMIMA_EXPORT_SYNDICATES_IDEA
+			picture = GFX_idea_generic
+			allowed_civil_war = { always = yes }
+			cost = 0
+			removal_cost = -1
+			modifier = {
+				resource_export_multiplier_modifier = 0.05
+				corporate_tax_income_multiplier_modifier = 0.02
+				foreign_influence_modifier = 0.03
+				stability_factor = -0.01
+			}
+		}
+
+		MAD_POLICY_MILITARY_ENGINEER_MANDATE_IDEA = {
+			name = MAD_POLICY_MILITARY_ENGINEER_MANDATE_IDEA
+			picture = GFX_idea_generic
+			allowed_civil_war = { always = yes }
+			cost = 0
+			removal_cost = -1
+			modifier = {
+				production_speed_infrastructure_factor = 0.05
+				army_org_factor = 0.02
+				military_industrial_organization_research_bonus = 0.03
+			}
+		}
+
+		MAD_POLICY_AREMA_MILLING_BOARD_IDEA = {
+			name = MAD_POLICY_AREMA_MILLING_BOARD_IDEA
+			picture = GFX_idea_generic
+			allowed_civil_war = { always = yes }
+			cost = 0
+			removal_cost = -1
+			modifier = {
+				agricolture_productivity_modifier = 0.05
+				agriculture_district_income_tax_modifier = 0.03
+				production_speed_industrial_complex_factor = 0.03
+			}
+		}
+
+		MAD_POLICY_TIM_EXPORT_CREDIT_IDEA = {
+			name = MAD_POLICY_TIM_EXPORT_CREDIT_IDEA
+			picture = GFX_idea_generic
+			allowed_civil_war = { always = yes }
+			cost = 0
+			removal_cost = -1
+			modifier = {
+				receiving_investment_cost_modifier = -0.05
+				productivity_growth_modifier = 0.03
+				trade_opinion_factor = 0.03
+				foreign_influence_modifier = 0.02
+			}
+		}
+
+		MAD_POLICY_TGV_VELIRANO_BONDS_IDEA = {
+			name = MAD_POLICY_TGV_VELIRANO_BONDS_IDEA
+			picture = GFX_idea_generic
+			allowed_civil_war = { always = yes }
+			cost = 0
+			removal_cost = -1
+			modifier = {
+				production_speed_infrastructure_factor = 0.06
+				projects_cost_modifier = -0.05
+				interest_rate_multiplier_modifier = 1
+				stability_factor = -0.01
+			}
+		}
+
+		MAD_POLICY_HVM_SME_COINVESTMENT_IDEA = {
+			name = MAD_POLICY_HVM_SME_COINVESTMENT_IDEA
+			picture = GFX_idea_generic
+			allowed_civil_war = { always = yes }
+			cost = 0
+			removal_cost = -1
+			modifier = {
+				receiving_investment_cost_modifier = -0.05
+				productivity_growth_modifier = 0.03
+				corporate_tax_income_multiplier_modifier = 0.02
+				foreign_influence_modifier = 0.02
+			}
+		}
+
+		MAD_POLICY_GRAZING_TRIBUNAL_PUBLIC_IDEA = {
+			name = MAD_POLICY_GRAZING_TRIBUNAL_PUBLIC_IDEA
+			picture = GFX_idea_generic
+			allowed_civil_war = { always = yes }
+			cost = 0
+			removal_cost = -1
+			modifier = {
+				stability_factor = 0.03
+				agricolture_productivity_modifier = 0.03
+				police_cost_multiplier_modifier = -0.02
+			}
+		}
+
+		MAD_POLICY_GRAZING_TRIBUNAL_PRIVATE_IDEA = {
+			name = MAD_POLICY_GRAZING_TRIBUNAL_PRIVATE_IDEA
+			picture = GFX_idea_generic
+			allowed_civil_war = { always = yes }
+			cost = 0
+			removal_cost = -1
+			modifier = {
+				stability_factor = 0.02
+				productivity_growth_modifier = 0.03
+				agricolture_productivity_modifier = 0.02
+			}
+		}
+
+		MAD_POLICY_PLAGUE_SURVEILLANCE_IDEA = {
+			name = MAD_POLICY_PLAGUE_SURVEILLANCE_IDEA
+			picture = GFX_idea_generic
+			allowed_civil_war = { always = yes }
+			cost = 0
+			removal_cost = -1
+			modifier = {
+				health_cost_multiplier_modifier = -0.05
+				stability_factor = 0.02
+				research_speed_factor = 0.01
+			}
+		}
+
+		MAD_POLICY_STRATEGIC_SUPPLY_RESERVE_IDEA = {
+			name = MAD_POLICY_STRATEGIC_SUPPLY_RESERVE_IDEA
+			picture = GFX_idea_generic
+			allowed_civil_war = { always = yes }
+			cost = 0
+			removal_cost = -1
+			modifier = {
+				productivity_growth_modifier = 0.03
+				production_speed_industrial_complex_factor = 0.03
+				consumer_goods_expected_value = -0.01
+				stability_factor = 0.02
+			}
+		}
+}
 
 }
