@@ -5614,11 +5614,16 @@ MAD_policy_development_category = {
 			check_variable = { gdp_per_capita < 15.001 }
 		}
 		available = {
-			check_variable = { gdp_per_capita < 15.001 }
+			custom_trigger_tooltip = {
+				tooltip = MAD_POLICY_GDP_MAX_15000_TT
+				check_variable = { gdp_per_capita < 15.001 }
+			}
 			NOT = { has_country_flag = MAD_POLICY_ROAD_CYCLE_3 }
 			NOT = { has_country_flag = MAD_POLICY_ROAD_MAINTENANCE_ACTIVE }
-			check_variable = { MAD_rural_cooperation > 1.99 }
-			check_variable = { treasury > 0.079 }
+			custom_trigger_tooltip = {
+				tooltip = MAD_POLICY_TREASURY_REQUIRE_0_08_TT
+				check_variable = { treasury > 0.079 }
+			}
 			custom_trigger_tooltip = {
 				tooltip = MAD_POLICY_RC_REQUIRE_2_TT
 				check_variable = { MAD_rural_cooperation > 1.99 }
@@ -5669,12 +5674,20 @@ MAD_policy_development_category = {
 			}
 		}
 		available = {
-			check_variable = { gdp_per_capita > 14.999 }
-			check_variable = { gdp_per_capita < 30.001 }
+			custom_trigger_tooltip = {
+				tooltip = MAD_POLICY_GDP_MIN_15000_TT
+				check_variable = { gdp_per_capita > 14.999 }
+			}
+			custom_trigger_tooltip = {
+				tooltip = MAD_POLICY_GDP_MAX_30000_TT
+				check_variable = { gdp_per_capita < 30.001 }
+			}
 			NOT = { has_country_flag = MAD_POLICY_FISHERIES_CYCLE_3 }
 			NOT = { has_country_flag = MAD_POLICY_FISHERIES_ACTIVE }
-			check_variable = { MAD_rural_cooperation > 0.99 }
-			check_variable = { treasury > 0.059 }
+			custom_trigger_tooltip = {
+				tooltip = MAD_POLICY_TREASURY_REQUIRE_0_06_TT
+				check_variable = { treasury > 0.059 }
+			}
 			custom_trigger_tooltip = {
 				tooltip = MAD_POLICY_RC_REQUIRE_1_TT
 				check_variable = { MAD_rural_cooperation > 0.99 }
@@ -5721,12 +5734,20 @@ MAD_policy_development_category = {
 			has_completed_focus = MAD_VANILLA_PRICE_STABILITY
 		}
 		available = {
-			check_variable = { gdp_per_capita > 29.999 }
-			check_variable = { gdp_per_capita < 45.001 }
+			custom_trigger_tooltip = {
+				tooltip = MAD_POLICY_GDP_MIN_30000_TT
+				check_variable = { gdp_per_capita > 29.999 }
+			}
+			custom_trigger_tooltip = {
+				tooltip = MAD_POLICY_GDP_MAX_45000_TT
+				check_variable = { gdp_per_capita < 45.001 }
+			}
 			NOT = { has_country_flag = MAD_POLICY_VANILLA_CYCLE_3 }
 			NOT = { has_country_flag = MAD_POLICY_VANILLA_ACTIVE }
-			check_variable = { MAD_rural_cooperation > 0.99 }
-			check_variable = { treasury > 0.049 }
+			custom_trigger_tooltip = {
+				tooltip = MAD_POLICY_TREASURY_REQUIRE_0_05_TT
+				check_variable = { treasury > 0.049 }
+			}
 			custom_trigger_tooltip = {
 				tooltip = MAD_POLICY_RC_REQUIRE_1_TT
 				check_variable = { MAD_rural_cooperation > 0.99 }
@@ -5777,12 +5798,20 @@ MAD_policy_development_category = {
 			}
 		}
 		available = {
-			check_variable = { gdp_per_capita > 29.999 }
-			check_variable = { gdp_per_capita < 45.001 }
+			custom_trigger_tooltip = {
+				tooltip = MAD_POLICY_GDP_MIN_30000_TT
+				check_variable = { gdp_per_capita > 29.999 }
+			}
+			custom_trigger_tooltip = {
+				tooltip = MAD_POLICY_GDP_MAX_45000_TT
+				check_variable = { gdp_per_capita < 45.001 }
+			}
 			NOT = { has_country_flag = MAD_POLICY_APPRENTICESHIP_CYCLE_3 }
 			NOT = { has_country_flag = MAD_POLICY_APPRENTICESHIP_ACTIVE }
-			check_variable = { MAD_rural_cooperation > 0.99 }
-			check_variable = { treasury > 0.099 }
+			custom_trigger_tooltip = {
+				tooltip = MAD_POLICY_TREASURY_REQUIRE_0_10_TT
+				check_variable = { treasury > 0.099 }
+			}
 			custom_trigger_tooltip = {
 				tooltip = MAD_POLICY_RC_REQUIRE_1_TT
 				check_variable = { MAD_rural_cooperation > 0.99 }
@@ -5832,11 +5861,16 @@ MAD_policy_development_category = {
 			}
 		}
 		available = {
-			check_variable = { gdp_per_capita > 44.999 }
+			custom_trigger_tooltip = {
+				tooltip = MAD_POLICY_GDP_MIN_45000_TT
+				check_variable = { gdp_per_capita > 44.999 }
+			}
 			NOT = { has_country_flag = MAD_POLICY_DEFENCE_CYCLE_3 }
 			NOT = { has_country_flag = MAD_POLICY_DEFENCE_ACTIVE }
-			check_variable = { MAD_rural_cooperation > 1.99 }
-			check_variable = { treasury > 0.149 }
+			custom_trigger_tooltip = {
+				tooltip = MAD_POLICY_TREASURY_REQUIRE_0_15_TT
+				check_variable = { treasury > 0.149 }
+			}
 			custom_trigger_tooltip = {
 				tooltip = MAD_POLICY_RC_REQUIRE_2_TT
 				check_variable = { MAD_rural_cooperation > 1.99 }
@@ -5890,7 +5924,10 @@ MAD_policy_development_category = {
 		}
 		available = {
 			MAD_ROY_IN_POWER = yes
-			check_variable = { treasury > 0.149 }
+			custom_trigger_tooltip = {
+				tooltip = MAD_POLICY_TREASURY_REQUIRE_0_15_TT
+				check_variable = { treasury > 0.149 }
+			}
 		}
 		cost = 50
 		fire_only_once = yes
@@ -5904,7 +5941,11 @@ MAD_policy_development_category = {
 			set_temp_variable = { MAD_rc_delta = 3 }
 			MAD_rural_cooperation_adjust = yes
 			add_power_balance_value = { id = MAD_economy_ownership_bop value = 0.02 tooltip_side = MAD_public_ownership }
-			if = { limit = { has_idea = landowners } set_temp_variable = { temp_opinion = 5 } change_landowners_opinion = yes }
+			if = {
+				limit = { has_idea = landowners }
+				set_temp_variable = { temp_opinion = 5 }
+				change_landowners_opinion = yes
+			}
 			add_ideas = MAD_POLICY_ROYAL_BONDS_IDEA
 		}
 		ai_will_do = { base = 0 }
@@ -5919,8 +5960,14 @@ MAD_policy_development_category = {
 		}
 		available = {
 			MAD_TAMIMA_IN_POWER = yes
-			check_variable = { treasury > 0.199 }
-			check_variable = { MAD_rural_cooperation > 2.99 }
+			custom_trigger_tooltip = {
+				tooltip = MAD_POLICY_TREASURY_REQUIRE_0_20_TT
+				check_variable = { treasury > 0.199 }
+			}
+			custom_trigger_tooltip = {
+				tooltip = MAD_POLICY_RC_REQUIRE_3_TT
+				check_variable = { MAD_rural_cooperation > 2.99 }
+			}
 		}
 		cost = 50
 		fire_only_once = yes
@@ -5934,8 +5981,16 @@ MAD_policy_development_category = {
 			set_temp_variable = { MAD_rc_delta = -3 }
 			MAD_rural_cooperation_adjust = yes
 			add_power_balance_value = { id = MAD_economy_ownership_bop value = -0.03 tooltip_side = MAD_private_ownership }
-			if = { limit = { has_idea = small_medium_business_owners } set_temp_variable = { temp_opinion = 10 } change_small_medium_business_owners_opinion = yes }
-			if = { limit = { has_idea = international_bankers } set_temp_variable = { temp_opinion = 5 } change_international_bankers_opinion = yes }
+			if = {
+				limit = { has_idea = small_medium_business_owners }
+				set_temp_variable = { temp_opinion = 10 }
+				change_small_medium_business_owners_opinion = yes
+			}
+			if = {
+				limit = { has_idea = international_bankers }
+				set_temp_variable = { temp_opinion = 5 }
+				change_international_bankers_opinion = yes
+			}
 			add_ideas = MAD_POLICY_TAMIMA_EXPORT_SYNDICATES_IDEA
 		}
 		ai_will_do = { base = 0 }
@@ -5950,8 +6005,14 @@ MAD_policy_development_category = {
 		}
 		available = {
 			MAD_MIL_IN_POWER = yes
-			check_variable = { treasury > 0.219 }
-			check_variable = { MAD_rural_cooperation > 1.99 }
+			custom_trigger_tooltip = {
+				tooltip = MAD_POLICY_TREASURY_REQUIRE_0_22_TT
+				check_variable = { treasury > 0.219 }
+			}
+			custom_trigger_tooltip = {
+				tooltip = MAD_POLICY_RC_REQUIRE_2_TT
+				check_variable = { MAD_rural_cooperation > 1.99 }
+			}
 		}
 		cost = 50
 		fire_only_once = yes
@@ -5965,7 +6026,11 @@ MAD_policy_development_category = {
 			set_temp_variable = { MAD_rc_delta = -2 }
 			MAD_rural_cooperation_adjust = yes
 			add_power_balance_value = { id = MAD_economy_ownership_bop value = 0.02 tooltip_side = MAD_public_ownership }
-			if = { limit = { has_idea = the_military } set_temp_variable = { temp_opinion = 10 } change_the_military_opinion = yes }
+			if = {
+				limit = { has_idea = the_military }
+				set_temp_variable = { temp_opinion = 10 }
+				change_the_military_opinion = yes
+			}
 			add_ideas = MAD_POLICY_MILITARY_ENGINEER_MANDATE_IDEA
 		}
 		ai_will_do = { base = 0 }
@@ -5983,7 +6048,10 @@ MAD_policy_development_category = {
 		available = {
 			MAD_AREMA_IN_POWER = yes
 			has_country_flag = MAD_RATSIRAKA_EXILE_RESOLVED
-			check_variable = { treasury > 0.299 }
+			custom_trigger_tooltip = {
+				tooltip = MAD_POLICY_TREASURY_REQUIRE_0_30_TT
+				check_variable = { treasury > 0.299 }
+			}
 		}
 		cost = 50
 		fire_only_once = yes
@@ -5997,8 +6065,16 @@ MAD_policy_development_category = {
 			set_temp_variable = { MAD_rc_delta = 3 }
 			MAD_rural_cooperation_adjust = yes
 			add_power_balance_value = { id = MAD_economy_ownership_bop value = 0.03 tooltip_side = MAD_public_ownership }
-			if = { limit = { has_idea = farmers } set_temp_variable = { temp_opinion = 10 } change_farmers_opinion = yes }
-			if = { limit = { has_idea = labour_unions } set_temp_variable = { temp_opinion = 5 } change_labour_unions_opinion = yes }
+			if = {
+				limit = { has_idea = farmers }
+				set_temp_variable = { temp_opinion = 10 }
+				change_farmers_opinion = yes
+			}
+			if = {
+				limit = { has_idea = labour_unions }
+				set_temp_variable = { temp_opinion = 5 }
+				change_labour_unions_opinion = yes
+			}
 			add_ideas = MAD_POLICY_AREMA_MILLING_BOARD_IDEA
 		}
 		ai_will_do = { base = 0 }
@@ -6017,7 +6093,10 @@ MAD_policy_development_category = {
 		available = {
 			MAD_TIM_IN_POWER = yes
 			date > 2008.12.1
-			check_variable = { treasury > 0.249 }
+			custom_trigger_tooltip = {
+				tooltip = MAD_POLICY_TREASURY_REQUIRE_0_25_TT
+				check_variable = { treasury > 0.249 }
+			}
 		}
 		cost = 50
 		fire_only_once = yes
@@ -6031,8 +6110,16 @@ MAD_policy_development_category = {
 			set_temp_variable = { MAD_rc_delta = 1 }
 			MAD_rural_cooperation_adjust = yes
 			add_power_balance_value = { id = MAD_economy_ownership_bop value = -0.025 tooltip_side = MAD_private_ownership }
-			if = { limit = { has_idea = international_bankers } set_temp_variable = { temp_opinion = 10 } change_international_bankers_opinion = yes }
-			if = { limit = { has_idea = small_medium_business_owners } set_temp_variable = { temp_opinion = 5 } change_small_medium_business_owners_opinion = yes }
+			if = {
+				limit = { has_idea = international_bankers }
+				set_temp_variable = { temp_opinion = 10 }
+				change_international_bankers_opinion = yes
+			}
+			if = {
+				limit = { has_idea = small_medium_business_owners }
+				set_temp_variable = { temp_opinion = 5 }
+				change_small_medium_business_owners_opinion = yes
+			}
 			add_ideas = MAD_POLICY_TIM_EXPORT_CREDIT_IDEA
 		}
 		ai_will_do = { base = 0 }
@@ -6052,7 +6139,10 @@ MAD_policy_development_category = {
 		}
 		available = {
 			MAD_TGV_IN_POWER = yes
-			check_variable = { treasury > 0.399 }
+			custom_trigger_tooltip = {
+				tooltip = MAD_POLICY_TREASURY_REQUIRE_0_40_TT
+				check_variable = { treasury > 0.399 }
+			}
 		}
 		cost = 75
 		fire_only_once = yes
@@ -6066,8 +6156,16 @@ MAD_policy_development_category = {
 			set_temp_variable = { MAD_rc_delta = 2 }
 			MAD_rural_cooperation_adjust = yes
 			add_power_balance_value = { id = MAD_economy_ownership_bop value = 0.02 tooltip_side = MAD_public_ownership }
-			if = { limit = { has_idea = labour_unions } set_temp_variable = { temp_opinion = 10 } change_labour_unions_opinion = yes }
-			if = { limit = { has_idea = small_medium_business_owners } set_temp_variable = { temp_opinion = 5 } change_small_medium_business_owners_opinion = yes }
+			if = {
+				limit = { has_idea = labour_unions }
+				set_temp_variable = { temp_opinion = 10 }
+				change_labour_unions_opinion = yes
+			}
+			if = {
+				limit = { has_idea = small_medium_business_owners }
+				set_temp_variable = { temp_opinion = 5 }
+				change_small_medium_business_owners_opinion = yes
+			}
 			add_ideas = MAD_POLICY_TGV_VELIRANO_BONDS_IDEA
 		}
 		ai_will_do = { base = 0 }
@@ -6082,7 +6180,10 @@ MAD_policy_development_category = {
 		}
 		available = {
 			MAD_HVM_IN_POWER = yes
-			check_variable = { treasury > 0.199 }
+			custom_trigger_tooltip = {
+				tooltip = MAD_POLICY_TREASURY_REQUIRE_0_20_TT
+				check_variable = { treasury > 0.199 }
+			}
 		}
 		cost = 50
 		fire_only_once = yes
@@ -6096,8 +6197,16 @@ MAD_policy_development_category = {
 			set_temp_variable = { MAD_rc_delta = 1 }
 			MAD_rural_cooperation_adjust = yes
 			add_power_balance_value = { id = MAD_economy_ownership_bop value = -0.02 tooltip_side = MAD_private_ownership }
-			if = { limit = { has_idea = small_medium_business_owners } set_temp_variable = { temp_opinion = 10 } change_small_medium_business_owners_opinion = yes }
-			if = { limit = { has_idea = international_bankers } set_temp_variable = { temp_opinion = 5 } change_international_bankers_opinion = yes }
+			if = {
+				limit = { has_idea = small_medium_business_owners }
+				set_temp_variable = { temp_opinion = 10 }
+				change_small_medium_business_owners_opinion = yes
+			}
+			if = {
+				limit = { has_idea = international_bankers }
+				set_temp_variable = { temp_opinion = 5 }
+				change_international_bankers_opinion = yes
+			}
 			add_ideas = MAD_POLICY_HVM_SME_COINVESTMENT_IDEA
 		}
 		ai_will_do = { base = 0 }
@@ -6116,8 +6225,14 @@ MAD_policy_development_category = {
 		available = {
 			has_idea = MAD_DAHALO_DEFEATED
 			has_completed_focus = MAD_FAHALEMANA
-			check_variable = { treasury > 0.179 }
-			check_variable = { MAD_rural_cooperation > 1.99 }
+			custom_trigger_tooltip = {
+				tooltip = MAD_POLICY_TREASURY_REQUIRE_0_18_TT
+				check_variable = { treasury > 0.179 }
+			}
+			custom_trigger_tooltip = {
+				tooltip = MAD_POLICY_RC_REQUIRE_2_TT
+				check_variable = { MAD_rural_cooperation > 1.99 }
+			}
 		}
 		cost = 50
 		fire_only_once = yes
@@ -6148,7 +6263,10 @@ MAD_policy_development_category = {
 		}
 		available = {
 			date > 2017.9.1
-			check_variable = { treasury > 0.099 }
+			custom_trigger_tooltip = {
+				tooltip = MAD_POLICY_TREASURY_REQUIRE_0_10_TT
+				check_variable = { treasury > 0.099 }
+			}
 		}
 		cost = 50
 		fire_only_once = yes
@@ -6182,7 +6300,10 @@ MAD_policy_development_category = {
 		}
 		available = {
 			date > 2020.3.1
-			check_variable = { treasury > 0.149 }
+			custom_trigger_tooltip = {
+				tooltip = MAD_POLICY_TREASURY_REQUIRE_0_15_TT
+				check_variable = { treasury > 0.149 }
+			}
 		}
 		cost = 50
 		fire_only_once = yes
@@ -6197,8 +6318,16 @@ MAD_policy_development_category = {
 			MAD_rural_cooperation_adjust = yes
 			set_country_flag = MAD_POLICY_STRATEGIC_SUPPLY_RESERVE_ENACTED
 			add_power_balance_value = { id = MAD_economy_ownership_bop value = 0.02 tooltip_side = MAD_public_ownership }
-			if = { limit = { has_idea = labour_unions } set_temp_variable = { temp_opinion = 5 } change_labour_unions_opinion = yes }
-			if = { limit = { has_idea = small_medium_business_owners } set_temp_variable = { temp_opinion = 5 } change_small_medium_business_owners_opinion = yes }
+			if = {
+				limit = { has_idea = labour_unions }
+				set_temp_variable = { temp_opinion = 5 }
+				change_labour_unions_opinion = yes
+			}
+			if = {
+				limit = { has_idea = small_medium_business_owners }
+				set_temp_variable = { temp_opinion = 5 }
+				change_small_medium_business_owners_opinion = yes
+			}
 			add_ideas = MAD_POLICY_STRATEGIC_SUPPLY_RESERVE_IDEA
 		}
 		ai_will_do = { base = 0 }

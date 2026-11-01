@@ -530,236 +530,236 @@ defined_text = {
 }
 
 defined_text = {
-	name = MAD_RC_MOD_BASE
+	name = mad_rc_mod_base
 	text = { localization_key = MAD_RC_LINE_BASE }
 }
 
 defined_text = {
-	name = MAD_RC_MOD_SECULAR
+	name = mad_rc_mod_secular
 	text = { trigger = { has_idea = MAD_POL_SECULAR_GOVERNMENT } localization_key = MAD_RC_LINE_SECULAR }
 	text = { localization_key = MAD_RC_EMPTY }
 }
 
 defined_text = {
-	name = MAD_RC_MOD_UNSECULAR
+	name = mad_rc_mod_unsecular
 	text = { trigger = { has_idea = MAD_POL_UNSECULAR_GOVERNMENT } localization_key = MAD_RC_LINE_UNSECULAR }
 	text = { localization_key = MAD_RC_EMPTY }
 }
 
 defined_text = {
-	name = MAD_RC_MOD_HERITAGE
+	name = mad_rc_mod_heritage
 	text = { trigger = { has_idea = MAD_POL_ANDRIANA_HERITAGE_RECOGNISED } localization_key = MAD_RC_LINE_HERITAGE }
 	text = { localization_key = MAD_RC_EMPTY }
 }
 
 defined_text = {
-	name = MAD_RC_MOD_NON_RECOGNITION
+	name = mad_rc_mod_non_recognition
 	text = { trigger = { has_idea = MAD_POL_ANDRIANA_NON_RECOGNITION } localization_key = MAD_RC_LINE_NON_RECOGNITION }
 	text = { localization_key = MAD_RC_EMPTY }
 }
 
 defined_text = {
-	name = MAD_RC_MOD_INFLATION_25
+	name = mad_rc_mod_inflation_25
 	text = { trigger = { AND = { has_variable = inflation_rate_var NOT = { check_variable = { inflation_rate_var < 0.25 } } check_variable = { inflation_rate_var < 0.50 } } } localization_key = MAD_RC_LINE_INFLATION_25 }
 	text = { localization_key = MAD_RC_EMPTY }
 }
 
 defined_text = {
-	name = MAD_RC_MOD_INFLATION_50
+	name = mad_rc_mod_inflation_50
 	text = { trigger = { AND = { has_variable = inflation_rate_var NOT = { check_variable = { inflation_rate_var < 0.50 } } check_variable = { inflation_rate_var < 0.75 } } } localization_key = MAD_RC_LINE_INFLATION_50 }
 	text = { localization_key = MAD_RC_EMPTY }
 }
 
 defined_text = {
-	name = MAD_RC_MOD_INFLATION_75
+	name = mad_rc_mod_inflation_75
 	text = { trigger = { AND = { has_variable = inflation_rate_var NOT = { check_variable = { inflation_rate_var < 0.75 } } } } localization_key = MAD_RC_LINE_INFLATION_75 }
 	text = { localization_key = MAD_RC_EMPTY }
 }
 
 defined_text = {
-	name = MAD_RC_MOD_STABILITY_50
+	name = mad_rc_mod_stability_50
 	# Show the 50% tier only until the cumulative 65% tier is reached.
 	text = { trigger = { AND = { has_stability > 0.499 NOT = { has_stability > 0.649 } } } localization_key = MAD_RC_LINE_STABILITY_50 }
 	text = { localization_key = MAD_RC_EMPTY }
 }
 
 defined_text = {
-	name = MAD_RC_MOD_STABILITY_65
+	name = mad_rc_mod_stability_65
 	text = { trigger = { has_stability > 0.649 } localization_key = MAD_RC_LINE_STABILITY_65 }
 	text = { localization_key = MAD_RC_EMPTY }
 }
 
 defined_text = {
-	name = MAD_RC_MOD_GOVERNMENT_50
+	name = mad_rc_mod_government_50
 	# Show the 50% tier only until the cumulative 60% tier is reached.
 	text = { trigger = { OR = { AND = { has_government = democratic democratic > 0.499 NOT = { democratic > 0.599 } } AND = { has_government = communism communism > 0.499 NOT = { communism > 0.599 } } AND = { has_government = fascism fascism > 0.499 NOT = { fascism > 0.599 } } AND = { has_government = neutrality neutrality > 0.499 NOT = { neutrality > 0.599 } } } } localization_key = MAD_RC_LINE_GOVERNMENT_50 }
 	text = { localization_key = MAD_RC_EMPTY }
 }
 
 defined_text = {
-	name = MAD_RC_MOD_GOVERNMENT_60
+	name = mad_rc_mod_government_60
 	text = { trigger = { OR = { AND = { has_government = democratic democratic > 0.599 } AND = { has_government = communism communism > 0.599 } AND = { has_government = fascism fascism > 0.599 } AND = { has_government = neutrality neutrality > 0.599 } } } localization_key = MAD_RC_LINE_GOVERNMENT_60 }
 	text = { localization_key = MAD_RC_EMPTY }
 }
 
 defined_text = {
-	name = MAD_RC_MOD_DROUGHT_50
+	name = mad_rc_mod_drought_50
 	text = { trigger = { check_variable = { MAD_drought_severity < 50 } check_variable = { MAD_drought_severity > 20 } } localization_key = MAD_RC_LINE_DROUGHT_50 }
 	text = { localization_key = MAD_RC_EMPTY }
 }
 
 defined_text = {
-	name = MAD_RC_MOD_DROUGHT_20
+	name = mad_rc_mod_drought_20
 	text = { trigger = { check_variable = { MAD_drought_severity < 20 } } localization_key = MAD_RC_LINE_DROUGHT_20 }
 	text = { localization_key = MAD_RC_EMPTY }
 }
 
 defined_text = {
-	name = MAD_RC_MOD_DAHALO_50
+	name = mad_rc_mod_dahalo_50
 	text = { trigger = { check_variable = { MAD_dahalo_threat < 50 } check_variable = { MAD_dahalo_threat > 25 }} localization_key = MAD_RC_LINE_DAHALO_50 }
 	text = { localization_key = MAD_RC_EMPTY }
 }
 
 defined_text = {
-	name = MAD_RC_MOD_DAHALO_25
+	name = mad_rc_mod_dahalo_25
 	text = { trigger = { check_variable = { MAD_dahalo_threat < 25 } } localization_key = MAD_RC_LINE_DAHALO_25 }
 	text = { localization_key = MAD_RC_EMPTY }
 }
 
 defined_text = {
-	name = MAD_RC_MOD_FOCUS_CROWN_WITHOUT_KING
+	name = mad_rc_mod_focus_crown_without_king
 	text = { trigger = { has_completed_focus = MAD_POL_ROY_CROWN_WITHOUT_KING } localization_key = MAD_RC_LINE_FOCUS_CROWN_WITHOUT_KING }
 	text = { localization_key = MAD_RC_EMPTY }
 }
 
 defined_text = {
-	name = MAD_RC_MOD_FOCUS_ROY_FOKONOLONA
+	name = mad_rc_mod_focus_roy_fokonolona
 	text = { trigger = { has_completed_focus = MAD_POL_ROY_FOKONOLONA } localization_key = MAD_RC_LINE_FOCUS_ROY_FOKONOLONA }
 	text = { localization_key = MAD_RC_EMPTY }
 }
 
 defined_text = {
-	name = MAD_RC_MOD_FOCUS_CUSTOMARY_JUSTICE
+	name = mad_rc_mod_focus_customary_justice
 	text = { trigger = { has_completed_focus = MAD_POL_ROY_CUSTOMARY_JUSTICE } localization_key = MAD_RC_LINE_FOCUS_CUSTOMARY_JUSTICE }
 	text = { localization_key = MAD_RC_EMPTY }
 }
 
 defined_text = {
-	name = MAD_RC_MOD_FOCUS_MANY_HOUSES
+	name = mad_rc_mod_focus_many_houses
 	text = { trigger = { has_completed_focus = MAD_POL_ROY_ONE_MADAGASCAR_MANY_HOUSES } localization_key = MAD_RC_LINE_FOCUS_MANY_HOUSES }
 	text = { localization_key = MAD_RC_EMPTY }
 }
 
 defined_text = {
-	name = MAD_RC_MOD_FOCUS_AREMA_FOKONOLONA
+	name = mad_rc_mod_focus_arema_fokonolona
 	text = { trigger = { has_completed_focus = MAD_POL_AREMA_FOKONOLONA } localization_key = MAD_RC_LINE_FOCUS_AREMA_FOKONOLONA }
 	text = { localization_key = MAD_RC_EMPTY }
 }
 
 defined_text = {
-	name = MAD_RC_MOD_FOCUS_AREMA_FOOD
+	name = mad_rc_mod_focus_arema_food
 	text = { trigger = { has_completed_focus = MAD_POL_AREMA_FOOD_FIRST } localization_key = MAD_RC_LINE_FOCUS_AREMA_FOOD }
 	text = { localization_key = MAD_RC_EMPTY }
 }
 
 defined_text = {
-	name = MAD_RC_MOD_FOCUS_AREMA_PROVINCES
+	name = mad_rc_mod_focus_arema_provinces
 	text = { trigger = { has_completed_focus = MAD_POL_AREMA_PROVINCES } localization_key = MAD_RC_LINE_FOCUS_AREMA_PROVINCES }
 	text = { localization_key = MAD_RC_EMPTY }
 }
 
 defined_text = {
-	name = MAD_RC_MOD_FOCUS_SOUTHERN_SECURITY
+	name = mad_rc_mod_focus_southern_security
 	text = { trigger = { has_completed_focus = MAD_POL_MIL_SOUTHERN_SECURITY } localization_key = MAD_RC_LINE_FOCUS_SOUTHERN_SECURITY }
 	text = { localization_key = MAD_RC_EMPTY }
 }
 
 defined_text = {
-	name = MAD_RC_MOD_FOCUS_GENDARMERIE
+	name = mad_rc_mod_focus_gendarmerie
 	text = { trigger = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM } localization_key = MAD_RC_LINE_FOCUS_GENDARMERIE }
 	text = { localization_key = MAD_RC_EMPTY }
 }
 
 defined_text = {
-	name = MAD_RC_MOD_FOCUS_ENGINEERS
+	name = mad_rc_mod_focus_engineers
 	text = { trigger = { has_completed_focus = MAD_POL_MIL_ENGINEERS } localization_key = MAD_RC_LINE_FOCUS_ENGINEERS }
 	text = { localization_key = MAD_RC_EMPTY }
 }
 
 defined_text = {
-	name = MAD_RC_MOD_FOCUS_TGV_INFRA
+	name = mad_rc_mod_focus_tgv_infra
 	text = { trigger = { has_completed_focus = MAD_POL_TGV_INFRASTRUCTURE_FIRST } localization_key = MAD_RC_LINE_FOCUS_TGV_INFRA }
 	text = { localization_key = MAD_RC_EMPTY }
 }
 
 defined_text = {
-	name = MAD_RC_MOD_FOCUS_TGV_HEALTH
+	name = mad_rc_mod_focus_tgv_health
 	text = { trigger = { has_completed_focus = MAD_POL_TGV_HEALTH_FOR_ALL } localization_key = MAD_RC_LINE_FOCUS_TGV_HEALTH }
 	text = { localization_key = MAD_RC_EMPTY }
 }
 
 defined_text = {
-	name = MAD_RC_MOD_FOCUS_TGV_JIRAMA
+	name = mad_rc_mod_focus_tgv_jirama
 	text = { trigger = { has_completed_focus = MAD_POL_TGV_JIRAMA_DELIVERY } localization_key = MAD_RC_LINE_FOCUS_TGV_JIRAMA }
 	text = { localization_key = MAD_RC_EMPTY }
 }
 
 defined_text = {
-	name = MAD_RC_MOD_FOCUS_TGV_FOOD
+	name = mad_rc_mod_focus_tgv_food
 	text = { trigger = { has_completed_focus = MAD_POL_TGV_FOOD_SOVEREIGNTY } localization_key = MAD_RC_LINE_FOCUS_TGV_FOOD }
 	text = { localization_key = MAD_RC_EMPTY }
 }
 
 defined_text = {
-	name = MAD_RC_MOD_FOCUS_THRIVING_SOUTH
+	name = mad_rc_mod_focus_thriving_south
 	text = { trigger = { has_completed_focus = MAD_Thriving_south } localization_key = MAD_RC_LINE_FOCUS_THRIVING_SOUTH }
 	text = { localization_key = MAD_RC_EMPTY }
 }
 
 defined_text = {
-	name = MAD_RC_MOD_GRID
+	name = mad_rc_mod_grid
 	text = { trigger = { has_country_flag = MAD_JIRAMA_RURAL_GRID_BUILT } localization_key = MAD_RC_LINE_GRID }
 	text = { localization_key = MAD_RC_EMPTY }
 }
 
 defined_text = {
-	name = MAD_RC_MOD_LEAD
+	name = mad_rc_mod_lead
 	text = { trigger = { has_country_flag = MAD_LEAD_ACCESS_BUILT } localization_key = MAD_RC_LINE_LEAD }
 	text = { localization_key = MAD_RC_EMPTY }
 }
 
 defined_text = {
-	name = MAD_RC_MOD_DECIM
+	name = mad_rc_mod_decim
 	text = { trigger = { has_country_flag = MAD_JIRAMA_DECIM_SOLAR_BUILT } localization_key = MAD_RC_LINE_DECIM }
 	text = { localization_key = MAD_RC_EMPTY }
 }
 
 defined_text = {
-	name = MAD_RC_MOD_DAEWOO
+	name = mad_rc_mod_daewoo
 	text = { trigger = { has_country_flag = MAD_DAEWOO_OUTCOME_WELL } localization_key = MAD_RC_LINE_DAEWOO }
 	text = { localization_key = MAD_RC_EMPTY }
 }
 
 defined_text = {
-	name = MAD_RC_MOD_COMAZAR
+	name = mad_rc_mod_comazar
 	text = { trigger = { has_idea = MAD_MADARAIL_COMAZAR_FREIGHT_CONCESSION } localization_key = MAD_RC_LINE_COMAZAR }
 	text = { localization_key = MAD_RC_EMPTY }
 }
 
 defined_text = {
-	name = MAD_RC_MOD_CAP
+	name = mad_rc_mod_cap
 	text = { trigger = { check_variable = { MAD_rural_cooperation_cap_adjustment > 0.001 } } localization_key = MAD_RC_LINE_CAP }
 	text = { localization_key = MAD_RC_EMPTY }
 }
 
 defined_text = {
-	name = MAD_RC_MOD_METER_UPPER
+	name = mad_rc_mod_meter_upper
 	text = { trigger = { check_variable = { MAD_rural_cooperation_meter_upper_adjustment > 0.001 } } localization_key = MAD_RC_LINE_METER_UPPER }
 	text = { localization_key = MAD_RC_EMPTY }
 }
 
 defined_text = {
-	name = MAD_RC_MOD_METER_LOWER
+	name = mad_rc_mod_meter_lower
 	text = { trigger = { check_variable = { MAD_rural_cooperation_meter_lower_adjustment > 0.001 } } localization_key = MAD_RC_LINE_METER_LOWER }
 	text = { localization_key = MAD_RC_EMPTY }
 }
