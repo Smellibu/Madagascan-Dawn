@@ -134,6 +134,7 @@ characters = {
 
 		# No verified portrait is available; use the generic commander portrait.
 		corps_commander = {
+			visible = { date > 1999.12.31 }
 			traits = { old_guard }
 			skill = 2
 			attack_skill = 2
@@ -143,6 +144,7 @@ characters = {
 		}
 	
 		advisor = {
+			visible = { date > 1999.12.31 }
 			slot = army_chief
 			idea_token = andrianome_ranivo_dieudonne
 			traits = { army_chief_planning_1 }

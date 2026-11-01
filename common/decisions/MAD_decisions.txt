@@ -97,7 +97,7 @@ MAD_AMBATOVY_FORMING = {
 			NOT = { has_country_flag = MAD_ambatovy_mission_done }
 			NOT = { check_variable = { MAD_AMBATOVY_TOTAL > 99 } }
 		}
-		custom_cost_trigger = { check_variable = { treasury > 7.499 } }
+		custom_cost_trigger = { always = yes }
 		custom_cost_text = cost_7_5
 		available = {
 			NOT = { has_decision = MAD_INVITE_KOREANS }
@@ -557,7 +557,7 @@ MAD_madarail_category = {
 			}
 		}
 
-		custom_cost_trigger = { check_variable = { treasury > 14.999 } }
+		custom_cost_trigger = { always = yes }
 		custom_cost_text = cost_15_0
 
 		fire_only_once = yes
@@ -622,7 +622,7 @@ MAD_madarail_category = {
 			}
 		}
 
-		custom_cost_trigger = { check_variable = { treasury > 14.999 } }
+		custom_cost_trigger = { always = yes }
 		custom_cost_text = cost_15_0
 
 		fire_only_once = yes
@@ -677,7 +677,7 @@ MAD_madarail_category = {
 			}
 		}
 
-		custom_cost_trigger = { check_variable = { treasury > 14.999 } }
+		custom_cost_trigger = { always = yes }
 		custom_cost_text = cost_15_0
 
 		fire_only_once = yes
@@ -733,7 +733,7 @@ MAD_madarail_category = {
 			}
 		}
 
-		custom_cost_trigger = { check_variable = { treasury > 14.999 } }
+		custom_cost_trigger = { always = yes }
 		custom_cost_text = cost_15_0
 
 		fire_only_once = yes
@@ -788,7 +788,7 @@ MAD_madarail_category = {
 			}
 		}
 
-		custom_cost_trigger = { check_variable = { treasury > 14.999 } }
+		custom_cost_trigger = { always = yes }
 		custom_cost_text = cost_15_0
 
 		fire_only_once = yes
@@ -1046,7 +1046,7 @@ MAD_daewoo_category = {
 		cost = 25
 		fire_only_once = yes
 		days_remove = 75
-		custom_cost_trigger = { check_variable = { treasury > 1.999 } }
+		custom_cost_trigger = { always = yes }
 		custom_cost_text = cost_2_0
 
 		complete_effect = {
@@ -1092,7 +1092,7 @@ MAD_daewoo_category = {
 		cost = 25
 		fire_only_once = yes
 		days_remove = 75
-		custom_cost_trigger = { check_variable = { treasury > 1.999 } }
+		custom_cost_trigger = { always = yes }
 		custom_cost_text = cost_2_0
 
 		complete_effect = {
@@ -1220,11 +1220,7 @@ MAD_drought_category = {
 		days_remove = 180
 		fire_only_once = no
 
-		custom_cost_trigger = {
-			check_variable = {
-				treasury > 0.499
-			}
-		}
+		custom_cost_trigger = { always = yes }
 
 		custom_cost_text = cost_0_5
 
@@ -1300,7 +1296,7 @@ MAD_drought_category = {
 		cost = 70
 		days_remove = 60
 		fire_only_once = no
-		custom_cost_trigger = { check_variable = { treasury > 0.499 } }
+		custom_cost_trigger = { always = yes }
 		custom_cost_text = cost_0_5
 
 		complete_effect = {
@@ -1378,7 +1374,7 @@ visible = {
 		
 		cost = 20
 		days_remove = 90
-		custom_cost_trigger = { check_variable = { treasury > 0.599 } }
+		custom_cost_trigger = { always = yes }
 		custom_cost_text = cost_0_6
 
 		complete_effect = {
@@ -1453,7 +1449,7 @@ visible = {
 				}
 			}
 		}
-		custom_cost_trigger = { check_variable = { treasury > 0.399 } }
+		custom_cost_trigger = { always = yes }
 		custom_cost_text = cost_0_4
 
 		complete_effect = {
@@ -1531,7 +1527,7 @@ visible = {
 			}
 		}
 
-		custom_cost_trigger = { check_variable = { treasury > 1.249 } }
+		custom_cost_trigger = { always = yes }
 		custom_cost_text = cost_1_25
 
 		complete_effect = {
@@ -1608,7 +1604,7 @@ visible = {
 		}
 		cost = 30
 		days_remove = 180
-		custom_cost_trigger = { check_variable = { treasury > 0.799 } }
+		custom_cost_trigger = { always = yes }
 		custom_cost_text = cost_0_8
 
 		complete_effect = {
@@ -1684,7 +1680,7 @@ visible = {
 				}
 			}
 		}
-		custom_cost_trigger = { check_variable = { treasury > 1.999 } }
+		custom_cost_trigger = { always = yes }
 		custom_cost_text = cost_2_0
 
 		complete_effect = {
@@ -1718,7 +1714,7 @@ visible = {
 		cost = 60
 		fire_only_once = yes
 		days_remove = 120
-		custom_cost_trigger = { check_variable = { treasury > 1.499 } }
+		custom_cost_trigger = { always = yes }
 		custom_cost_text = cost_1_5
 
 		complete_effect = {
@@ -1757,7 +1753,7 @@ visible = {
 		cost = 75
 		fire_only_once = yes
 		days_remove = 270
-		custom_cost_trigger = { check_variable = { treasury > 3.999 } }
+		custom_cost_trigger = { always = yes }
 		custom_cost_text = cost_4_0
 
 		complete_effect = {
@@ -1801,7 +1797,7 @@ visible = {
 		cost = 75
 		fire_only_once = yes
 		days_remove = 180
-		custom_cost_trigger = { check_variable = { treasury > 3.999 } }
+		custom_cost_trigger = { always = yes }
 		custom_cost_text = cost_4_0
 
 		complete_effect = {
@@ -1834,7 +1830,7 @@ visible = {
 		cost = 90
 		fire_only_once = yes
 		days_remove = 365
-		custom_cost_trigger = { check_variable = { treasury > 4.999 } }
+		custom_cost_trigger = { always = yes }
 		custom_cost_text = cost_5_0
 
 		complete_effect = {
@@ -1865,7 +1861,7 @@ visible = {
 		cost = 60
 		fire_only_once = yes
 		days_remove = 180
-		custom_cost_trigger = { check_variable = { treasury > 2.499 } }
+		custom_cost_trigger = { always = yes }
 		custom_cost_text = cost_2_5
 
 		complete_effect = {
@@ -1897,7 +1893,7 @@ visible = {
 		cost = 50
 		fire_only_once = yes
 		days_remove = 90
-		custom_cost_trigger = { check_variable = { treasury > 1.499 } }
+		custom_cost_trigger = { always = yes }
 		custom_cost_text = cost_1_5
 
 		complete_effect = {
@@ -1943,7 +1939,7 @@ visible = {
 		}
 		cost = 50
 		days_remove = 90
-		custom_cost_trigger = { check_variable = { treasury > 0.999 } }
+		custom_cost_trigger = { always = yes }
 		custom_cost_text = cost_1_0
 
 		complete_effect = {
@@ -1983,7 +1979,7 @@ visible = {
 		}
 		cost = 35
 		days_remove = 180
-		custom_cost_trigger = { check_variable = { treasury > 1.999 } }
+		custom_cost_trigger = { always = yes }
 		custom_cost_text = cost_2_0
 
 		complete_effect = {
@@ -2012,7 +2008,7 @@ visible = {
 		}
 		cost = 40
 		fire_only_once = yes
-		custom_cost_trigger = { check_variable = { treasury > 1.999 } }
+		custom_cost_trigger = { always = yes }
 		custom_cost_text = cost_2_0
 
 		complete_effect = {
@@ -2096,7 +2092,7 @@ MAD_JIRAMA_PROJECTS = {
 			has_completed_focus = MAD_JIRAMA_GRID_REINFORCEMENT
 			NOT = { has_country_flag = MAD_JIRAMA_GRID_BUILT }
 		}
-		custom_cost_trigger = { check_variable = { treasury > 9.749 } }
+		custom_cost_trigger = { always = yes }
 		custom_cost_text = cost_9_75
 		fire_only_once = yes
 		days_remove = 540
@@ -2144,7 +2140,7 @@ MAD_JIRAMA_PROJECTS = {
 			has_completed_focus = MAD_RURAL_ENERGY
 			NOT = { has_country_flag = MAD_JIRAMA_RURAL_GRID_BUILT }
 		}
-		custom_cost_trigger = { check_variable = { treasury > 6.499 } }
+		custom_cost_trigger = { always = yes }
 		custom_cost_text = cost_6_5
 		fire_only_once = yes
 		days_remove = 365
@@ -2197,7 +2193,7 @@ MAD_JIRAMA_PROJECTS = {
 			has_completed_focus = MAD_Mandroseza_PLANT
 			NOT = { has_country_flag = MAD_JIRAMA_MANDROSEZA_BUILT }
 		}
-		custom_cost_trigger = { check_variable = { treasury > 6.499 } }
+		custom_cost_trigger = { always = yes }
 		custom_cost_text = cost_6_5
 		fire_only_once = yes
 		days_remove = 540
@@ -2242,7 +2238,7 @@ MAD_JIRAMA_PROJECTS = {
 			has_completed_focus = MAD_JIRAMA_ANDEKALEKA
 			NOT = { has_country_flag = MAD_JIRAMA_ANDEKALEKA_BUILT }
 		}
-		custom_cost_trigger = { check_variable = { treasury > 12.999 } }
+		custom_cost_trigger = { always = yes }
 		custom_cost_text = cost_13_0
 		fire_only_once = yes
 		days_remove = 730
@@ -2293,7 +2289,7 @@ MAD_JIRAMA_PROJECTS = {
 			has_completed_focus = MAD_Sahofika_DAM
 			NOT = { has_country_flag = MAD_JIRAMA_SAHOFIKA_BUILT }
 		}
-		custom_cost_trigger = { check_variable = { treasury > 12.999 } }
+		custom_cost_trigger = { always = yes }
 		custom_cost_text = cost_13_0
 		fire_only_once = yes
 		days_remove = 730
@@ -2345,7 +2341,7 @@ MAD_JIRAMA_PROJECTS = {
 			has_completed_focus = MAD_Volobe_Amont_DAM
 			NOT = { has_country_flag = MAD_JIRAMA_VOLOBE_BUILT }
 		}
-		custom_cost_trigger = { check_variable = { treasury > 6.499 } }
+		custom_cost_trigger = { always = yes }
 		custom_cost_text = cost_6_5
 		fire_only_once = yes
 		days_remove = 1460
@@ -2399,7 +2395,7 @@ MAD_JIRAMA_PROJECTS = {
 			has_completed_focus = MAD_LEAD_PROJECT
 			NOT = { has_country_flag = MAD_LEAD_ACCESS_BUILT }
 		}
-		custom_cost_trigger = { check_variable = { treasury > 14.999 } }
+		custom_cost_trigger = { always = yes }
 		custom_cost_text = cost_15_0
 		fire_only_once = yes
 		days_remove = 730
@@ -2455,7 +2451,7 @@ MAD_JIRAMA_PROJECTS = {
 			has_completed_focus = MAD_ADDED_SOLAR
 			NOT = { has_country_flag = MAD_JIRAMA_DECIM_SOLAR_BUILT }
 		}
-		custom_cost_trigger = { check_variable = { treasury > 16.999 } }
+		custom_cost_trigger = { always = yes }
 		custom_cost_text = cost_17_0
 		fire_only_once = yes
 		days_remove = 730
@@ -2508,7 +2504,7 @@ MAD_JIRAMA_PROJECTS = {
 			has_completed_focus = MAD_DECIM_SMART_GRID
 			NOT = { has_country_flag = MAD_JIRAMA_SMART_GRID_BUILT }
 		}
-		custom_cost_trigger = { check_variable = { treasury > 6.499 } }
+		custom_cost_trigger = { always = yes }
 		custom_cost_text = cost_6_5
 		fire_only_once = yes
 		days_remove = 365
@@ -2592,7 +2588,7 @@ MAD_JIRAMA_PROJECTS = {
 			has_completed_focus = MAD_offshore_wind
 			NOT = { has_country_flag = MAD_JIRAMA_OFFSHORE_WIND_BUILT }
 		}
-		custom_cost_trigger = { check_variable = { treasury > 16.999 } }
+		custom_cost_trigger = { always = yes }
 		custom_cost_text = cost_17_0
 		fire_only_once = yes
 		days_remove = 730
@@ -2643,7 +2639,7 @@ MAD_JIRAMA_PROJECTS = {
 			has_completed_focus = MAD_RURAL_SMART_METER_CONNECTION
 			NOT = { has_country_flag = MAD_JIRAMA_SMART_METERS_BUILT }
 		}
-		custom_cost_trigger = { check_variable = { treasury > 2.999 } }
+		custom_cost_trigger = { always = yes }
 		custom_cost_text = cost_3_0
 		fire_only_once = yes
 		days_remove = 365
@@ -2698,7 +2694,7 @@ MAD_JIRAMA_PROJECTS = {
 			has_completed_focus = MAD_EDF_JOINS_VOLOBE
 			NOT = { has_country_flag = MAD_EDF_ENGINEERING_COMPLETE }
 		}
-		custom_cost_trigger = { check_variable = { treasury > 4.999 } }
+		custom_cost_trigger = { always = yes }
 		custom_cost_text = cost_5_0
 		fire_only_once = yes
 		days_remove = 365
@@ -2766,7 +2762,7 @@ MAD_dahalo_category = {
 		cost = 35
 		days_remove = 45
 		days_re_enable = 0
-		custom_cost_trigger = { check_variable = { treasury > 0.199 } }
+		custom_cost_trigger = { always = yes }
 		custom_cost_text = cost_0_2
 
 		complete_effect = {
@@ -2817,7 +2813,7 @@ MAD_dahalo_category = {
 		}
 		cost = 60
 		fire_only_once = yes
-		custom_cost_trigger = { check_variable = { treasury > 1.249 } }
+		custom_cost_trigger = { always = yes }
 		custom_cost_text = cost_1_25
 
 		complete_effect = {
@@ -2862,7 +2858,7 @@ MAD_dahalo_category = {
 		}
 		cost = 75
 		fire_only_once = yes
-		custom_cost_trigger = { check_variable = { treasury > 1.499 } }
+		custom_cost_trigger = { always = yes }
 		custom_cost_text = cost_1_5
 
 		complete_effect = {
@@ -2908,7 +2904,7 @@ MAD_dahalo_category = {
 		cost = 60
 		days_remove = 45
 		days_re_enable = 270
-		custom_cost_trigger = { check_variable = { treasury > 1.499 } }
+		custom_cost_trigger = { always = yes }
 		custom_cost_text = cost_1_5
 
 		complete_effect = {
@@ -2956,7 +2952,7 @@ MAD_dahalo_category = {
 		fire_only_once = yes
 		days_remove = 120
 		days_re_enable = 0
-		custom_cost_trigger = { check_variable = { treasury > 1.499 } }
+		custom_cost_trigger = { always = yes }
 		custom_cost_text = cost_1_5
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAHALO_TANDROKA_OPERATION started"
@@ -3011,7 +3007,7 @@ MAD_dahalo_category = {
 		}
 		cost = 80
 		fire_only_once = yes
-		custom_cost_trigger = { check_variable = { treasury > 1.999 } }
+		custom_cost_trigger = { always = yes }
 		custom_cost_text = cost_2_0
 
 		complete_effect = {
@@ -3057,7 +3053,7 @@ MAD_dahalo_category = {
 		}
 		cost = 70
 		fire_only_once = yes
-		custom_cost_trigger = { check_variable = { treasury > 1.249 } }
+		custom_cost_trigger = { always = yes }
 		custom_cost_text = cost_1_25
 
 		complete_effect = {
@@ -3108,7 +3104,7 @@ MAD_dahalo_category = {
 		}
 		cost = 100
 		fire_only_once = yes
-		custom_cost_trigger = { check_variable = { treasury > 1.999 } }
+		custom_cost_trigger = { always = yes }
 		custom_cost_text = cost_2_0
 
 		complete_effect = {
@@ -3160,7 +3156,7 @@ MAD_dahalo_category = {
 		}
 		cost = 120
 		fire_only_once = yes
-		custom_cost_trigger = { check_variable = { treasury > 2.499 } }
+		custom_cost_trigger = { always = yes }
 		custom_cost_text = cost_2_5
 
 		complete_effect = {
@@ -3212,7 +3208,7 @@ MAD_dahalo_category = {
 		}
 		cost = 140
 		fire_only_once = yes
-		custom_cost_trigger = { check_variable = { treasury > 2.999 } }
+		custom_cost_trigger = { always = yes }
 		custom_cost_text = cost_3_0
 
 		complete_effect = {
@@ -3277,7 +3273,7 @@ MAD_dahalo_category = {
 		}
 		cost = 100
 		fire_only_once = yes
-		custom_cost_trigger = { check_variable = { treasury > 1.999 } }
+		custom_cost_trigger = { always = yes }
 		custom_cost_text = cost_2_0
 
 		complete_effect = {
@@ -3332,7 +3328,7 @@ MAD_dahalo_category = {
 		cost = 100
 		fire_only_once = yes
 		days_remove = 180
-		custom_cost_trigger = { check_variable = { treasury > 2.999 } }
+		custom_cost_trigger = { always = yes }
 		custom_cost_text = cost_3_0
 
 		complete_effect = {
@@ -3389,7 +3385,7 @@ MAD_dahalo_category = {
 		cost = 120
 		fire_only_once = yes
 		days_remove = 180
-		custom_cost_trigger = { check_variable = { treasury > 2.499 } }
+		custom_cost_trigger = { always = yes }
 		custom_cost_text = cost_2_5
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAHALO_FAHALEMANA started"
@@ -3437,7 +3433,7 @@ MAD_dahalo_category = {
 		}
 		cost = 100
 		fire_only_once = yes
-		custom_cost_trigger = { check_variable = { treasury > 1.999 } }
+		custom_cost_trigger = { always = yes }
 		custom_cost_text = cost_2_0
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAHALO_ESTABLISH_USAD"
@@ -3466,14 +3462,11 @@ MAD_dahalo_category = {
 			has_country_flag = MAD_USAD_ESTABLISHED
 			NOT = { has_country_flag = MAD_DAHALO_OPERATION_ACTIVE }
 			NOT = { has_civil_war = yes }
-			custom_trigger_tooltip = {
-				tooltip = MAD_TREASURY_REQUIRE_1_25_TT
-				check_variable = { treasury > 1.249 }
-			}
+
 		}
 		cost = 50
 		fire_only_once = yes
-		custom_cost_trigger = { check_variable = { treasury > 1.249 } }
+		custom_cost_trigger = { always = yes }
 		custom_cost_text = cost_1_25
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_USAD_TRAINING_CADRE"
@@ -3493,14 +3486,11 @@ MAD_dahalo_category = {
 			has_country_flag = MAD_USAD_ESTABLISHED
 			NOT = { has_country_flag = MAD_DAHALO_OPERATION_ACTIVE }
 			NOT = { has_civil_war = yes }
-			custom_trigger_tooltip = {
-				tooltip = MAD_TREASURY_REQUIRE_2_00_TT
-				check_variable = { treasury > 1.999 }
-			}
+
 		}
 		cost = 65
 		fire_only_once = yes
-		custom_cost_trigger = { check_variable = { treasury > 1.999 } }
+		custom_cost_trigger = { always = yes }
 		custom_cost_text = cost_2_0
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_USAD_GROUND_LOGISTICS"
@@ -3521,14 +3511,11 @@ MAD_dahalo_category = {
 			has_country_flag = MAD_USAD_ESTABLISHED
 			NOT = { has_country_flag = MAD_DAHALO_OPERATION_ACTIVE }
 			NOT = { has_civil_war = yes }
-			custom_trigger_tooltip = {
-				tooltip = MAD_TREASURY_REQUIRE_0_75_TT
-				check_variable = { treasury > 0.749 }
-			}
+
 		}
 		cost = 45
 		fire_only_once = yes
-		custom_cost_trigger = { check_variable = { treasury > 0.749 } }
+		custom_cost_trigger = { always = yes }
 		custom_cost_text = cost_0_75
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_USAD_COMMUNITY_LIAISON"
@@ -3570,7 +3557,7 @@ MAD_dahalo_category = {
 		cost = 90
 		fire_only_once = yes
 		days_remove = 90
-		custom_cost_trigger = { check_variable = { treasury > 2.499 } }
+		custom_cost_trigger = { always = yes }
 		custom_cost_text = cost_2_5
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAHALO_OPERATION_MAZAVA_GROUND started"
@@ -3624,7 +3611,7 @@ MAD_dahalo_category = {
 		cost = 75
 		fire_only_once = yes
 		days_remove = 60
-		custom_cost_trigger = { check_variable = { treasury > 1.499 } }
+		custom_cost_trigger = { always = yes }
 		custom_cost_text = cost_1_5
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAHALO_OPERATION_MAZAVA started"
@@ -3691,7 +3678,7 @@ MAD_dahalo_category = {
 		cost = 50
 		fire_only_once = yes
 		days_remove = 90
-		custom_cost_trigger = { check_variable = { treasury > 0.749 } }
+		custom_cost_trigger = { always = yes }
 		custom_cost_text = cost_0_75
 
 		complete_effect = {
@@ -3749,7 +3736,7 @@ MAD_dahalo_category = {
 		cost = 65
 		fire_only_once = yes
 		days_remove = 120
-		custom_cost_trigger = { check_variable = { treasury > 0.999 } }
+		custom_cost_trigger = { always = yes }
 		custom_cost_text = cost_1_0
 
 		complete_effect = {
@@ -3807,7 +3794,7 @@ MAD_dahalo_category = {
 		cost = 80
 		fire_only_once = yes
 		days_remove = 180
-		custom_cost_trigger = { check_variable = { treasury > 1.499 } }
+		custom_cost_trigger = { always = yes }
 		custom_cost_text = cost_1_5
 
 		complete_effect = {
@@ -3871,7 +3858,7 @@ MAD_dahalo_category = {
 		cost = 150
 		fire_only_once = yes
 		days_remove = 365
-		custom_cost_trigger = { check_variable = { treasury > 3.999 } }
+		custom_cost_trigger = { always = yes }
 		custom_cost_text = cost_4_0
 
 		complete_effect = {
@@ -3950,7 +3937,7 @@ MAD_dahalo_category = {
 		cost = 45
 		days_remove = 60
 		days_re_enable = 180
-		custom_cost_trigger = { check_variable = { treasury > 1.249 } }
+		custom_cost_trigger = { always = yes }
 		custom_cost_text = cost_1_25
 
 		complete_effect = {
@@ -4016,7 +4003,7 @@ MAD_dahalo_category = {
 		}
 		cost = 35
 		days_remove = 180
-		custom_cost_trigger = { check_variable = { treasury > 0.749 } }
+		custom_cost_trigger = { always = yes }
 		custom_cost_text = cost_0_75
 
 		complete_effect = {
@@ -4075,7 +4062,7 @@ MAD_dahalo_category = {
 		}
 		cost = 40
 		days_re_enable = 365
-		custom_cost_trigger = { check_variable = { treasury > 0.499 } }
+		custom_cost_trigger = { always = yes }
 		custom_cost_text = cost_0_5
 
 		complete_effect = {
@@ -4485,10 +4472,7 @@ MAD_OWNERSHIP_BOP = {
 			}
 			NOT = { has_country_flag = MAD_POLICY_ROAD_CYCLE_3 }
 			NOT = { has_country_flag = MAD_POLICY_ROAD_MAINTENANCE_ACTIVE }
-			custom_trigger_tooltip = {
-				tooltip = MAD_POLICY_TREASURY_REQUIRE_0_08_TT
-				check_variable = { treasury > 0.079 }
-			}
+
 			custom_trigger_tooltip = {
 				tooltip = MAD_POLICY_RC_REQUIRE_2_TT
 				check_variable = { MAD_rural_cooperation > 1.99 }
@@ -4498,7 +4482,7 @@ MAD_OWNERSHIP_BOP = {
 		fire_only_once = no
 		days_remove = 120
 		days_re_enable = 365
-		custom_cost_trigger = { check_variable = { treasury > 0.079 } }
+		custom_cost_trigger = { always = yes }
 		custom_cost_text = MAD_POLICY_COST_0_08_TT
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Regional road maintenance programme launched"
@@ -4550,10 +4534,7 @@ MAD_OWNERSHIP_BOP = {
 			}
 			NOT = { has_country_flag = MAD_POLICY_FISHERIES_CYCLE_3 }
 			NOT = { has_country_flag = MAD_POLICY_FISHERIES_ACTIVE }
-			custom_trigger_tooltip = {
-				tooltip = MAD_POLICY_TREASURY_REQUIRE_0_06_TT
-				check_variable = { treasury > 0.059 }
-			}
+
 			custom_trigger_tooltip = {
 				tooltip = MAD_POLICY_RC_REQUIRE_1_TT
 				check_variable = { MAD_rural_cooperation > 0.99 }
@@ -4563,7 +4544,7 @@ MAD_OWNERSHIP_BOP = {
 		fire_only_once = no
 		days_remove = 180
 		days_re_enable = 365
-		custom_cost_trigger = { check_variable = { treasury > 0.059 } }
+		custom_cost_trigger = { always = yes }
 		custom_cost_text = MAD_POLICY_COST_0_06_TT
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Coastal fisheries cold-chain programme launched"
@@ -4611,10 +4592,7 @@ MAD_OWNERSHIP_BOP = {
 			}
 			NOT = { has_country_flag = MAD_POLICY_VANILLA_CYCLE_3 }
 			NOT = { has_country_flag = MAD_POLICY_VANILLA_ACTIVE }
-			custom_trigger_tooltip = {
-				tooltip = MAD_POLICY_TREASURY_REQUIRE_0_05_TT
-				check_variable = { treasury > 0.049 }
-			}
+
 			custom_trigger_tooltip = {
 				tooltip = MAD_POLICY_RC_REQUIRE_1_TT
 				check_variable = { MAD_rural_cooperation > 0.99 }
@@ -4624,7 +4602,7 @@ MAD_OWNERSHIP_BOP = {
 		fire_only_once = no
 		days_remove = 90
 		days_re_enable = 365
-		custom_cost_trigger = { check_variable = { treasury > 0.049 } }
+		custom_cost_trigger = { always = yes }
 		custom_cost_text = MAD_POLICY_COST_0_05_TT
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Vanilla and clove warehouse-receipt programme launched"
@@ -4676,10 +4654,7 @@ MAD_OWNERSHIP_BOP = {
 			}
 			NOT = { has_country_flag = MAD_POLICY_APPRENTICESHIP_CYCLE_3 }
 			NOT = { has_country_flag = MAD_POLICY_APPRENTICESHIP_ACTIVE }
-			custom_trigger_tooltip = {
-				tooltip = MAD_POLICY_TREASURY_REQUIRE_0_10_TT
-				check_variable = { treasury > 0.099 }
-			}
+
 			custom_trigger_tooltip = {
 				tooltip = MAD_POLICY_RC_REQUIRE_1_TT
 				check_variable = { MAD_rural_cooperation > 0.99 }
@@ -4689,7 +4664,7 @@ MAD_OWNERSHIP_BOP = {
 		fire_only_once = no
 		days_remove = 180
 		days_re_enable = 730
-		custom_cost_trigger = { check_variable = { treasury > 0.099 } }
+		custom_cost_trigger = { always = yes }
 		custom_cost_text = MAD_POLICY_COST_0_10_TT
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Industrial apprenticeship compact launched"
@@ -4736,10 +4711,7 @@ MAD_OWNERSHIP_BOP = {
 			}
 			NOT = { has_country_flag = MAD_POLICY_DEFENCE_CYCLE_3 }
 			NOT = { has_country_flag = MAD_POLICY_DEFENCE_ACTIVE }
-			custom_trigger_tooltip = {
-				tooltip = MAD_POLICY_TREASURY_REQUIRE_0_15_TT
-				check_variable = { treasury > 0.149 }
-			}
+
 			custom_trigger_tooltip = {
 				tooltip = MAD_POLICY_RC_REQUIRE_2_TT
 				check_variable = { MAD_rural_cooperation > 1.99 }
@@ -4749,7 +4721,7 @@ MAD_OWNERSHIP_BOP = {
 		fire_only_once = no
 		days_remove = 180
 		days_re_enable = 730
-		custom_cost_trigger = { check_variable = { treasury > 0.149 } }
+		custom_cost_trigger = { always = yes }
 		custom_cost_text = MAD_POLICY_COST_0_15_TT
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Defence depot and equipment maintenance programme launched"
@@ -4794,15 +4766,12 @@ MAD_OWNERSHIP_BOP = {
 		}
 		available = {
 			MAD_ROY_IN_POWER = yes
-			custom_trigger_tooltip = {
-				tooltip = MAD_POLICY_TREASURY_REQUIRE_0_15_TT
-				check_variable = { treasury > 0.149 }
-			}
+
 		}
 		cost = 50
 		fire_only_once = yes
 		days_remove = 1
-		custom_cost_trigger = { check_variable = { treasury > 0.149 } }
+		custom_cost_trigger = { always = yes }
 		custom_cost_text = MAD_POLICY_COST_0_15_TT
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Crown-backed regional development bonds issued"
@@ -4831,10 +4800,7 @@ MAD_OWNERSHIP_BOP = {
 		}
 		available = {
 			MAD_TAMIMA_IN_POWER = yes
-			custom_trigger_tooltip = {
-				tooltip = MAD_POLICY_TREASURY_REQUIRE_0_20_TT
-				check_variable = { treasury > 0.199 }
-			}
+
 			custom_trigger_tooltip = {
 				tooltip = MAD_POLICY_RC_REQUIRE_3_TT
 				check_variable = { MAD_rural_cooperation > 2.99 }
@@ -4843,7 +4809,7 @@ MAD_OWNERSHIP_BOP = {
 		cost = 50
 		fire_only_once = yes
 		days_remove = 1
-		custom_cost_trigger = { check_variable = { treasury > 0.199 } }
+		custom_cost_trigger = { always = yes }
 		custom_cost_text = MAD_POLICY_COST_0_20_TT
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: TAMIMA chartered export syndicates established"
@@ -4877,10 +4843,7 @@ MAD_OWNERSHIP_BOP = {
 		}
 		available = {
 			MAD_MIL_IN_POWER = yes
-			custom_trigger_tooltip = {
-				tooltip = MAD_POLICY_TREASURY_REQUIRE_0_22_TT
-				check_variable = { treasury > 0.219 }
-			}
+
 			custom_trigger_tooltip = {
 				tooltip = MAD_POLICY_RC_REQUIRE_2_TT
 				check_variable = { MAD_rural_cooperation > 1.99 }
@@ -4889,7 +4852,7 @@ MAD_OWNERSHIP_BOP = {
 		cost = 50
 		fire_only_once = yes
 		days_remove = 1
-		custom_cost_trigger = { check_variable = { treasury > 0.219 } }
+		custom_cost_trigger = { always = yes }
 		custom_cost_text = MAD_POLICY_COST_0_22_TT
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Military Engineer Corps national works mandate adopted"
@@ -4921,15 +4884,12 @@ MAD_OWNERSHIP_BOP = {
 		available = {
 			MAD_AREMA_IN_POWER = yes
 			has_country_flag = MAD_RATSIRAKA_EXILE_RESOLVED
-			custom_trigger_tooltip = {
-				tooltip = MAD_POLICY_TREASURY_REQUIRE_0_30_TT
-				check_variable = { treasury > 0.299 }
-			}
+
 		}
 		cost = 50
 		fire_only_once = yes
 		days_remove = 1
-		custom_cost_trigger = { check_variable = { treasury > 0.299 } }
+		custom_cost_trigger = { always = yes }
 		custom_cost_text = MAD_POLICY_COST_0_30_TT
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: AREMA public milling and storage board funded"
@@ -4967,15 +4927,12 @@ MAD_OWNERSHIP_BOP = {
 		available = {
 			MAD_TIM_IN_POWER = yes
 			date > 2008.12.1
-			custom_trigger_tooltip = {
-				tooltip = MAD_POLICY_TREASURY_REQUIRE_0_25_TT
-				check_variable = { treasury > 0.249 }
-			}
+
 		}
 		cost = 50
 		fire_only_once = yes
 		days_remove = 1
-		custom_cost_trigger = { check_variable = { treasury > 0.249 } }
+		custom_cost_trigger = { always = yes }
 		custom_cost_text = MAD_POLICY_COST_0_25_TT
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Export credit and supply-chain guarantee approved after the global financial crisis"
@@ -5014,15 +4971,12 @@ MAD_OWNERSHIP_BOP = {
 		}
 		available = {
 			MAD_TGV_IN_POWER = yes
-			custom_trigger_tooltip = {
-				tooltip = MAD_POLICY_TREASURY_REQUIRE_0_40_TT
-				check_variable = { treasury > 0.399 }
-			}
+
 		}
 		cost = 75
 		fire_only_once = yes
 		days_remove = 1
-		custom_cost_trigger = { check_variable = { treasury > 0.399 } }
+		custom_cost_trigger = { always = yes }
 		custom_cost_text = MAD_POLICY_COST_0_40_TT
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Velirano infrastructure delivery bonds issued"
@@ -5056,15 +5010,12 @@ MAD_OWNERSHIP_BOP = {
 		}
 		available = {
 			MAD_HVM_IN_POWER = yes
-			custom_trigger_tooltip = {
-				tooltip = MAD_POLICY_TREASURY_REQUIRE_0_20_TT
-				check_variable = { treasury > 0.199 }
-			}
+
 		}
 		cost = 50
 		fire_only_once = yes
 		days_remove = 1
-		custom_cost_trigger = { check_variable = { treasury > 0.199 } }
+		custom_cost_trigger = { always = yes }
 		custom_cost_text = MAD_POLICY_COST_0_20_TT
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Malagasy SME co-investment window established"
@@ -5102,10 +5053,7 @@ MAD_OWNERSHIP_BOP = {
 		available = {
 			has_idea = MAD_DAHALO_DEFEATED
 			has_completed_focus = MAD_FAHALEMANA
-			custom_trigger_tooltip = {
-				tooltip = MAD_POLICY_TREASURY_REQUIRE_0_18_TT
-				check_variable = { treasury > 0.179 }
-			}
+
 			custom_trigger_tooltip = {
 				tooltip = MAD_POLICY_RC_REQUIRE_2_TT
 				check_variable = { MAD_rural_cooperation > 1.99 }
@@ -5114,7 +5062,7 @@ MAD_OWNERSHIP_BOP = {
 		cost = 50
 		fire_only_once = yes
 		days_remove = 1
-		custom_cost_trigger = { check_variable = { treasury > 0.179 } }
+		custom_cost_trigger = { always = yes }
 		custom_cost_text = MAD_POLICY_COST_0_18_TT
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Southern grazing claims and restitution tribunal launched"
@@ -5141,15 +5089,12 @@ MAD_OWNERSHIP_BOP = {
 		}
 		available = {
 			date > 2017.9.1
-			custom_trigger_tooltip = {
-				tooltip = MAD_POLICY_TREASURY_REQUIRE_0_10_TT
-				check_variable = { treasury > 0.099 }
-			}
+
 		}
 		cost = 50
 		fire_only_once = yes
 		days_remove = 1
-		custom_cost_trigger = { check_variable = { treasury > 0.099 } }
+		custom_cost_trigger = { always = yes }
 		custom_cost_text = MAD_POLICY_COST_0_10_TT
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: District epidemic surveillance charter adopted"
@@ -5179,15 +5124,12 @@ MAD_OWNERSHIP_BOP = {
 		}
 		available = {
 			date > 2020.3.1
-			custom_trigger_tooltip = {
-				tooltip = MAD_POLICY_TREASURY_REQUIRE_0_15_TT
-				check_variable = { treasury > 0.149 }
-			}
+
 		}
 		cost = 50
 		fire_only_once = yes
 		days_remove = 1
-		custom_cost_trigger = { check_variable = { treasury > 0.149 } }
+		custom_cost_trigger = { always = yes }
 		custom_cost_text = MAD_POLICY_COST_0_15_TT
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Strategic supplier and domestic production reserve established"
@@ -5230,15 +5172,10 @@ MAD_royal_political_category = {
 		}
 		available = {
 			MAD_ROY_IN_POWER = yes
-			custom_trigger_tooltip = {
-				tooltip = MAD_TREASURY_REQUIRE_1_00_TT
-				check_variable = {
-					treasury > 0.999
-				}
-			}
+
 			NOT = { has_country_flag = MAD_ROY_CROWN_ADMINISTRATION_ASSERTED }
 		}
-		custom_cost_trigger = { check_variable = { treasury > 0.999 } }
+		custom_cost_trigger = { always = yes }
 		custom_cost_text = cost_1_0
 
 		complete_effect = {
@@ -5295,15 +5232,10 @@ MAD_royal_political_category = {
 		}
 		available = {
 			MAD_ROY_IN_POWER = yes
-			custom_trigger_tooltip = {
-				tooltip = MAD_TREASURY_REQUIRE_8_00_TT
-				check_variable = {
-					treasury > 7.999
-				}
-			}
+
 			NOT = { has_country_flag = MAD_ROY_ROVA_RESTORED }
 		}
-		custom_cost_trigger = { check_variable = { treasury > 7.999 } }
+		custom_cost_trigger = { always = yes }
 		custom_cost_text = cost_8_0
 
 		complete_effect = {
@@ -5408,16 +5340,11 @@ MAD_royal_political_category = {
 		}
 		available = {
 			MAD_ROY_IN_POWER = yes
-			custom_trigger_tooltip = {
-				tooltip = MAD_TREASURY_REQUIRE_12_00_TT
-				check_variable = {
-					treasury > 11.999
-				}
-			}
+
 			268 = { is_core_of = ROOT offices < 2 }
 			NOT = { has_country_flag = MAD_ROY_CUSTOMARY_GOVERNANCE_IMPLEMENTED }
 		}
-		custom_cost_trigger = { check_variable = { treasury > 11.999 } }
+		custom_cost_trigger = { always = yes }
 		custom_cost_text = cost_12_0
 
 		complete_effect = {
@@ -5781,7 +5708,7 @@ MAD_TGV_VELIRANO_CATEGORY = {
 		icon = GFX_decision_generic_construction
 		cost = 50
 		fire_only_once = yes
-		custom_cost_trigger = { check_variable = { treasury > 2.499 } }
+		custom_cost_trigger = { always = yes }
 		custom_cost_text = cost_2_5
 		allowed = { MAD_TGV_IN_POWER = yes }
 		visible = { MAD_TGV_IN_POWER = yes has_country_flag = MAD_TGV_PROMISED_WATER has_completed_focus = MAD_POL_TGV_WATER_PROGRAMME NOT = { has_country_flag = MAD_TGV_DELIVERED_WATER } }
@@ -5806,7 +5733,7 @@ MAD_TGV_VELIRANO_CATEGORY = {
 		icon = GFX_decision_generic_construction
 		cost = 50
 		fire_only_once = yes
-		custom_cost_trigger = { check_variable = { treasury > 3.999 } }
+		custom_cost_trigger = { always = yes }
 		custom_cost_text = cost_4_0
 		allowed = { MAD_TGV_IN_POWER = yes }
 		visible = { MAD_TGV_IN_POWER = yes has_country_flag = MAD_TGV_PROMISED_INFRASTRUCTURE has_completed_focus = MAD_POL_TGV_INFRASTRUCTURE_FIRST has_completed_focus = MAD_POL_TGV_PROJECT_FINANCE NOT = { has_country_flag = MAD_TGV_DELIVERED_INFRASTRUCTURE } }
@@ -5831,7 +5758,7 @@ MAD_TGV_VELIRANO_CATEGORY = {
 		icon = GFX_decision_generic_construction
 		cost = 50
 		fire_only_once = yes
-		custom_cost_trigger = { check_variable = { treasury > 1.499 } }
+		custom_cost_trigger = { always = yes }
 		custom_cost_text = cost_1_5
 		allowed = { MAD_TGV_IN_POWER = yes }
 		visible = { MAD_TGV_IN_POWER = yes has_country_flag = MAD_TGV_PROMISED_DIGITAL has_completed_focus = MAD_POL_TGV_DIGITAL_MADAGASCAR NOT = { has_country_flag = MAD_TGV_DELIVERED_DIGITAL } }
@@ -5856,7 +5783,7 @@ MAD_TGV_VELIRANO_CATEGORY = {
 		icon = GFX_decision_generic_construction
 		cost = 50
 		fire_only_once = yes
-		custom_cost_trigger = { check_variable = { treasury > 1.499 } }
+		custom_cost_trigger = { always = yes }
 		custom_cost_text = cost_1_5
 		allowed = { MAD_TGV_IN_POWER = yes }
 		visible = { MAD_TGV_IN_POWER = yes has_country_flag = MAD_TGV_PROMISED_JOBS has_completed_focus = MAD_POL_TGV_YOUTH_INDUSTRIALISATION NOT = { has_country_flag = MAD_TGV_DELIVERED_JOBS } }
@@ -5881,7 +5808,7 @@ MAD_TGV_VELIRANO_CATEGORY = {
 		icon = GFX_decision_generic_construction
 		cost = 50
 		fire_only_once = yes
-		custom_cost_trigger = { check_variable = { treasury > 1.999 } }
+		custom_cost_trigger = { always = yes }
 		custom_cost_text = cost_2_0
 		allowed = { MAD_TGV_IN_POWER = yes }
 		visible = { MAD_TGV_IN_POWER = yes has_country_flag = MAD_TGV_PROMISED_FOOD has_completed_focus = MAD_POL_TGV_FOOD_SOVEREIGNTY NOT = { has_country_flag = MAD_TGV_DELIVERED_FOOD } }
@@ -5911,7 +5838,7 @@ MAD_HVM_PROJECT_REVIEW_CATEGORY = {
 		icon = GFX_decision_generic_construction
 		cost = 75
 		fire_only_once = yes
-		custom_cost_trigger = { check_variable = { treasury > 2.999 } }
+		custom_cost_trigger = { always = yes }
 		custom_cost_text = cost_3_0
 		allowed = { MAD_HVM_IN_POWER = yes }
 		visible = { MAD_HVM_PROJECT_REVIEW_READY = yes }
@@ -5937,7 +5864,7 @@ MAD_HVM_PROJECT_REVIEW_CATEGORY = {
 		icon = GFX_decision_generic_political_reform
 		cost = 50
 		fire_only_once = yes
-		custom_cost_trigger = { check_variable = { treasury > 0.999 } }
+		custom_cost_trigger = { always = yes }
 		custom_cost_text = cost_1_0
 		allowed = { MAD_HVM_IN_POWER = yes }
 		visible = { MAD_HVM_PROJECT_REVIEW_READY = yes }
@@ -6139,7 +6066,7 @@ MAD_rural_cooperation_category = {
 		cost = 35
 		days_remove = 60
 		days_re_enable = 180
-		custom_cost_trigger = { check_variable = { treasury > 0.249 } }
+		custom_cost_trigger = { always = yes }
 		custom_cost_text = cost_0_25
 
 		complete_effect = {
@@ -6204,7 +6131,7 @@ MAD_rural_cooperation_category = {
 		cost = 50
 		fire_only_once = yes
 		days_remove = 180
-		custom_cost_trigger = { check_variable = { treasury > 1.999 } }
+		custom_cost_trigger = { always = yes }
 		custom_cost_text = cost_2_0
 
 		complete_effect = {
@@ -6242,7 +6169,7 @@ MAD_rural_cooperation_category = {
 		cost = 50
 		days_remove = 120
 		days_re_enable = 180
-		custom_cost_trigger = { check_variable = { treasury > 0.999 } }
+		custom_cost_trigger = { always = yes }
 		custom_cost_text = cost_1_0
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Local development grants launched"
@@ -6285,7 +6212,7 @@ MAD_rural_cooperation_category = {
 		cost = 50
 		days_remove = 90
 		days_re_enable = 365
-		custom_cost_trigger = { check_variable = { treasury > 0.749 } }
+		custom_cost_trigger = { always = yes }
 		custom_cost_text = cost_0_75
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Mining revenue distribution audit launched"
@@ -6320,7 +6247,7 @@ MAD_rural_cooperation_category = {
 		cost = 35
 		days_remove = 90
 		days_re_enable = 180
-		custom_cost_trigger = { check_variable = { treasury > 0.749 } }
+		custom_cost_trigger = { always = yes }
 		custom_cost_text = cost_0_75
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Agricultural relief coordination launched"
