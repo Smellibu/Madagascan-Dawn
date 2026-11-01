@@ -4021,7 +4021,7 @@ MAD_dahalo_category = {
 
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Herdmaster relief corridors negotiation started"
-			set_country_flag = { flag = MAD_DAHALO_OPERATION_ACTIVE days = 180 }
+			set_country_flag = { flag = MAD_DAHALO_OPERATION_ACTIVE days = 180 value = 1 }
 			set_temp_variable = { treasury_change = -0.75 }
 			modify_treasury_effect = yes
 		}
