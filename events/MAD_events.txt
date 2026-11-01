@@ -3491,6 +3491,7 @@ country_event = {
 		if = {
 			limit = { NOT = { has_country_flag = MAD_MIL_PARTY_LEADER_GENERAL_STAFF_SELECTED } }
 			MAD_SELECT_GENERAL_STAFF_PARTY_LEADER = yes
+			set_variable = { Nat_Autocracy_leader = 0 }
 		}
 		
 		add_stability = -0.08
