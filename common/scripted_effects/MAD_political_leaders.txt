@@ -483,8 +483,27 @@ set_leader_MAD = {
 	# 22 — FPA / Malagasy Armed Forces (National Autocracy). Preserve command choice.
 	else_if = {
 		limit = { check_variable = { ruling_party = 22 } }
-		if = { limit = { check_variable = { Nat_Autocracy_leader = 0 } }
-			add_to_variable = { Nat_Autocracy_leader = 1 }
+		if = {
+			limit = {
+				OR = {
+					check_variable = { Nat_Autocracy_leader = 0 }
+					AND = {
+						has_country_flag = MAD_MIL_PARTY_LEADER_GENERAL_STAFF
+						NOT = { has_country_flag = MAD_MIL_PARTY_LEADER_GENERAL_STAFF_SELECTED }
+					}
+					AND = {
+						NOT = { has_country_flag = MAD_MIL_PARTY_LEADER_GENERAL_STAFF }
+						NOT = { has_country_flag = MAD_MIL_PARTY_LEADER_CAPSAT_SELECTED }
+					}
+				}
+			}
+			if = {
+				limit = { check_variable = { Nat_Autocracy_leader = 0 } }
+				add_to_variable = { Nat_Autocracy_leader = 1 }
+			}
+			else = {
+				set_variable = { Nat_Autocracy_leader = 1 }
+			}
 			hidden_effect = { kill_country_leader = yes }
 			if = {
 				limit = { has_country_flag = MAD_MIL_PARTY_LEADER_GENERAL_STAFF }
