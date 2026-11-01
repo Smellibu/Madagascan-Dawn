@@ -2294,7 +2294,6 @@ country_event = {
 		# Reproduce MD's party-specific revolt/civil-war pattern, using the
 		# largest eligible opposition party found above instead of a GUI slot.
 		set_temp_variable = { v = MAD_DAEWOO_NEXT_PARTY }
-		set_temp_variable = { party_index = v }
 		start_civil_war_with_no_leader_change = yes
 
 		random_other_country = {
