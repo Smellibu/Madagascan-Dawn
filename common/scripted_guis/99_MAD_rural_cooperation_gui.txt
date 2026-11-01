@@ -9,16 +9,12 @@ scripted_gui = {
 				check_variable = { MAD_rural_cooperation < 35 }
 			}
 			MAD_rural_cooperation_status_recovery_visible = {
-				AND = {
-					check_variable = { MAD_rural_cooperation > 34.99 }
-					check_variable = { MAD_rural_cooperation < 60 }
-				}
+				check_variable = { MAD_rural_cooperation > 34.99 }
+				check_variable = { MAD_rural_cooperation < 60 }
 			}
 			MAD_rural_cooperation_status_resilient_visible = {
-				AND = {
-					check_variable = { MAD_rural_cooperation > 59.99 }
-					check_variable = { MAD_rural_cooperation < 80 }
-				}
+				check_variable = { MAD_rural_cooperation > 59.99 }
+				check_variable = { MAD_rural_cooperation < 80 }
 			}
 			MAD_rural_cooperation_status_strong_visible = {
 				check_variable = { MAD_rural_cooperation > 79.99 }

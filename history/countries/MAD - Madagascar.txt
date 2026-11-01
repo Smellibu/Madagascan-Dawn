@@ -17,20 +17,18 @@ capital = 267
 	add_dynamic_modifier = { modifier = MAD_power_modifier }
 	add_to_array = { global.unido_recipients = THIS }
 	set_country_flag = is_getting_cdf_subsidies
-	
 
-	
 	add_to_array = { global.uncdf_recipients = THIS }
 	add_ideas = {
 		MAD_FAILING_AIRLINE
-		
+
 		wto_member
 		partially_privatized_healthcare
 		economic_motivated_mining
 		standard_maintenance
 		us_dollar
 		light_regulations
-		
+
 		corruption_level_09
 		christian
 		stagnation
@@ -67,7 +65,6 @@ capital = 267
 	set_variable = { MAD_economy_production_factory_max_efficiency_factor = -0.10 }
 	set_variable = { MAD_economy_civilian_factories_productivity = -0.05 }
 
-
 	set_variable = { MAD_economy_offices_productivity = -0.10 }
 
 	set_variable = { MAD_economy_production_speed_industrial_complex_factor = -0.10 }
@@ -93,16 +90,16 @@ capital = 267
 	set_variable = { MAD_economy_production_speed_rail_terminal_factor = -0.10 }
 	set_variable = { MAD_economy_infrastructure_tax_gain_multiplier_modifier = -0.10 }
 	set_variable = { MAD_economy_infrastructure_cost_multiplier_modifier = 0.15 }
-	
+
 	oob = "MAD_2000"
-	
+
 	set_power_balance = {
 		id = MAD_economy_ownership_bop
 		left_side = MAD_private_ownership
 		right_side = MAD_public_ownership
 		set_value = 0.4
 	}
-	
+
 	set_cosmetic_tag = MAD
 	set_variable = { gdp_per_capita = 1.570 }
 
@@ -249,9 +246,8 @@ capital = 267
 
 	### Party Popularities
 	set_variable = { party_pop_array^1 = 0.15 } #conservatism
-	set_variable = { party_pop_array^2 = 0.45 } 
+	set_variable = { party_pop_array^2 = 0.45 }
 	set_variable = { party_pop_array^3 = 0.15 } #socialism
-	set_variable = { party_pop_array^4 = 0.05 } #communist_state
 	set_variable = { party_pop_array^5 = 0.19 } #anarchist_communism
 	set_variable = { party_pop_array^14 = 0.05 } #Neutral_conservatism
 	set_variable = { party_pop_array^20 = 0.06 } #Nat_Populism
@@ -273,9 +269,25 @@ capital = 267
 	set_variable = { term_limit = 2 }
 	set_variable = { current_term = 1 }
 
-	recruit_character = MAD_beni_xavier_rasolofonirina
+	recruit_character = MAD_marcel_ranjeva
+	recruit_character = MAD_andrianome_dieudonne
+	# Military personnel are recruited at game start; their roles are date-gated in common/characters/MAD.txt.
+	recruit_character = MAD_jules_mamizara
+	recruit_character = MAD_sylvain_razafimandimby
+	recruit_character = MAD_hyppolite_ramaroson
+	recruit_character = MAD_raonenantsoamampianina
+	recruit_character = MAD_petera_behajaina
+	recruit_character = MAD_andre_lucien_rakotoarimasy
+	recruit_character = MAD_mamy_ranaivoniarivo
+	recruit_character = MAD_andre_andriarijaona
+	recruit_character = MAD_charles_andrianasoavina
 	recruit_character = MAD_lylison_rene
 	recruit_character = MAD_dominique_rakotazafy
+	recruit_character = MAD_beni_xavier_rasolofonirina
+	# Recruit faction chiefs early so the command choice can retire them before 2009.
+	# Their corps-commander roles are hidden until their historical prominence in 2009.
+	recruit_character = MAD_noel_rakotonandrasana
+	recruit_character = MAD_edmond_rasolomahandry
 	recruit_character = MAD_alex_patrick_andriamahazoarivo
 
 	add_to_array = { agri_crop_allocation = 0.789 } # Basic = 0
@@ -287,7 +299,6 @@ capital = 267
 	set_variable = { literacy_rate = 0.707 }
 
 	set_variable = { overall_productivity = 667 }
-
 
 	# Relation Starting Configuration (moved from on_startup)
 	add_opinion_modifier = { target = CUB modifier = sanctions }
@@ -362,4 +373,13 @@ capital = 267
 	add_opinion_modifier = { target = SAF modifier = African_Union_Relations }
 	add_opinion_modifier = { target = LBA modifier = African_Union_Relations }
 	add_opinion_modifier = { target = EGY modifier = African_Union_Relations }
+
+	# Exact original US theatrical release dates (fixed delays from 2000.1.1):
+	# Madagascar, 27 May 2005; Escape 2 Africa, 7 November 2008;
+	# Madagascar 3, 8 June 2012; Penguins of Madagascar, 26 November 2014.
+	# HOI4's calendar has no leap days, so these delays land on the listed dates.
+	country_event = { id = mad_movie.1 days = 1971 }
+	country_event = { id = mad_movie.2 days = 3230 }
+	country_event = { id = mad_movie.3 days = 4538 }
+	country_event = { id = mad_movie.4 days = 5439 }
 }

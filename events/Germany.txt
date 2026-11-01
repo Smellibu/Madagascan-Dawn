@@ -4740,7 +4740,7 @@ country_event = {
 		set_variable = { bundeswehr_recovery_status = 0 }
 		set_country_flag = GER_bundeswehr_in_need_of_reform
 		newline = yes
-		custom_effect_tooltip = GER_bundeswehr_reform_decisions_TT
+		unlock_decision_category_tooltip = GER_bundeswehr_reforms_decisions
 		ai_chance = { base = 5 }
 	}
 }
@@ -4773,7 +4773,7 @@ country_event = {
 		name = germany.234.a
 		log = "[GetDateText]: [This.GetName]: germany.234.a executed"
 		set_country_flag = GER_incoming_disaster
-		custom_effect_tooltip = GER_the_end_of_republic_TT
+		unlock_decision_category_tooltip = GER_civil_war_mission
 		ai_chance = { base = 5 }
 	}
 }
@@ -6631,8 +6631,18 @@ country_event = {
 	option = {
 		name = germany_yearly.17.b
 		log = "[GetDateText]: [This.GetName]: germany_yearly.17.b executed"
-		add_to_variable = { GER_interest_cost = 0.001 tooltip = interest_rate_multiplier_modifier_tt }
+		custom_effect_tooltip = {
+			localization_key = modifies_dynamic_modifier_tt
+			MODIFIER = GER_generic_spending_laws
+		}
+		add_to_variable = { GER_interest_cost = 0.01 tooltip = interest_rate_multiplier_modifier_tt }
 		random_owned_state = {
+			limit = {
+				free_building_slots = {
+					building = offices
+					size > 3
+				}
+			}
 			add_extra_state_shared_building_slots = 3
 			add_building_construction = {
 				type = offices
@@ -7430,7 +7440,7 @@ country_event = {
 				add_equipment_to_stockpile = {
 					type = small_plane_airframe_2
 					amount = 40
-					variant_name = "MiG-29 Fulcrum"
+					variant_name = "MiG-29"
 					producer = SOV
 				}
 			}
@@ -7441,7 +7451,7 @@ country_event = {
 				add_equipment_to_stockpile = {
 					type = small_plane_airframe_2
 					amount = -40
-					variant_name = "MiG-29 Fulcrum"
+					variant_name = "MiG-29"
 					producer = SOV
 				}
 			}
@@ -7485,7 +7495,7 @@ country_event = {
 				add_equipment_to_stockpile = {
 					type = small_plane_airframe_2
 					amount = 50
-					variant_name = "MiG-29 Fulcrum"
+					variant_name = "MiG-29"
 					producer = SOV
 				}
 			}
@@ -7496,7 +7506,7 @@ country_event = {
 				add_equipment_to_stockpile = {
 					type = small_plane_airframe_2
 					amount = -20
-					variant_name = "MiG-29 Fulcrum"
+					variant_name = "MiG-29"
 					producer = SOV
 				}
 			}
@@ -7507,7 +7517,7 @@ country_event = {
 				add_equipment_to_stockpile = {
 					type = small_plane_airframe_2
 					amount = -10
-					variant_name = "MiG-29 Fulcrum"
+					variant_name = "MiG-29"
 					producer = SOV
 				}
 			}
@@ -7518,7 +7528,7 @@ country_event = {
 				add_equipment_to_stockpile = {
 					type = small_plane_airframe_2
 					amount = -20
-					variant_name = "MiG-29 Fulcrum"
+					variant_name = "MiG-29"
 					producer = SOV
 				}
 			}
@@ -7582,7 +7592,7 @@ country_event = {
 				add_equipment_to_stockpile = {
 					type = small_plane_airframe_2
 					amount = 35
-					variant_name = "MiG-29 Fulcrum"
+					variant_name = "MiG-29"
 					producer = SOV
 				}
 			}
@@ -7593,7 +7603,7 @@ country_event = {
 				add_equipment_to_stockpile = {
 					type = small_plane_airframe_2
 					amount = -35
-					variant_name = "MiG-29 Fulcrum"
+					variant_name = "MiG-29"
 					producer = SOV
 				}
 			}
@@ -7646,7 +7656,7 @@ country_event = {
 				add_equipment_to_stockpile = {
 					type = small_plane_airframe_2
 					amount = -25
-					variant_name = "MiG-29 Fulcrum"
+					variant_name = "MiG-29"
 					producer = SOV
 				}
 			}
@@ -7657,7 +7667,7 @@ country_event = {
 				add_equipment_to_stockpile = {
 					type = small_plane_airframe_2
 					amount = 25
-					variant_name = "MiG-29 Fulcrum"
+					variant_name = "MiG-29"
 					producer = SOV
 				}
 			}
@@ -7701,7 +7711,7 @@ country_event = {
 				add_equipment_to_stockpile = {
 					type = small_plane_airframe_2
 					amount = -25
-					variant_name = "MiG-29 Fulcrum"
+					variant_name = "MiG-29"
 					producer = SOV
 				}
 			}
@@ -7735,7 +7745,7 @@ country_event = {
 				add_equipment_to_stockpile = {
 					type = small_plane_airframe_2
 					amount = -25
-					variant_name = "MiG-29 Fulcrum"
+					variant_name = "MiG-29"
 					producer = SOV
 				}
 			}
@@ -7746,7 +7756,7 @@ country_event = {
 				add_equipment_to_stockpile = {
 					type = small_plane_airframe_2
 					amount = 10
-					variant_name = "MiG-29 Fulcrum"
+					variant_name = "MiG-29"
 					producer = SOV
 				}
 			}
@@ -7757,7 +7767,7 @@ country_event = {
 				add_equipment_to_stockpile = {
 					type = small_plane_airframe_2
 					amount = 5
-					variant_name = "MiG-29 Fulcrum"
+					variant_name = "MiG-29"
 					producer = SOV
 				}
 			}
@@ -7768,7 +7778,7 @@ country_event = {
 				add_equipment_to_stockpile = {
 					type = small_plane_airframe_2
 					amount = 10
-					variant_name = "MiG-29 Fulcrum"
+					variant_name = "MiG-29"
 					producer = SOV
 				}
 			}
@@ -7887,7 +7897,7 @@ country_event = {
 				multiply_temp_variable = { treasury_change = -0.14 }
 				modify_treasury_effect = yes
 				create_equipment_variant = {
-					name = "MiG-29 Fulcrum G"
+					name = "MiG-29G"
 					type = small_plane_strike_airframe_2
 					parent_version = 1
 					modules = {
@@ -7899,7 +7909,7 @@ country_event = {
 						wingform_type_slot = wing_swept
 						special_slot_type_1 = spec_countermeasures_2
 					}
-					icon = "gfx/interface/technologies/SOV/AIR/MR2.dds"
+					icon = "GFX_SOV_AIR_MR2"
 					model = "SOV_small_plane_airframe_2_entity"
 				}
 			}
@@ -7911,7 +7921,7 @@ country_event = {
 				multiply_temp_variable = { treasury_change = -0.14 }
 				modify_treasury_effect = yes
 				create_equipment_variant = {
-				name = "MiG-29 Fulcrum G"
+				name = "MiG-29G"
 				type = MR_Fighter2
 				parent_version = 1
 				upgrades = {
@@ -7920,7 +7930,7 @@ country_event = {
 					plane_engine_upgrade = 1
 					plane_reliability_upgrade = 1
 				}
-				icon = "gfx/interface/technologies/SOV/AIR/MR2.dds"
+				icon = "GFX_SOV_AIR_MR2"
 				model = "SOV_small_plane_airframe_2_entity"
 				}
 			}
@@ -7939,7 +7949,7 @@ country_event = {
 				multiply_temp_variable = { treasury_change = -0.11 }
 				modify_treasury_effect = yes
 				create_equipment_variant = {
-					name = "MiG-29 Fulcrum G"
+					name = "MiG-29G"
 					type = small_plane_strike_airframe_2
 					parent_version = 1
 					modules = {
@@ -7951,7 +7961,7 @@ country_event = {
 						wingform_type_slot = wing_swept
 						special_slot_type_1 = spec_countermeasures_2
 					}
-					icon = "gfx/interface/technologies/SOV/AIR/MR2.dds"
+					icon = "GFX_SOV_AIR_MR2"
 					model = "SOV_small_plane_airframe_2_entity"
 				}
 			}
@@ -7960,7 +7970,7 @@ country_event = {
 				multiply_temp_variable = { treasury_change = -0.11 }
 				modify_treasury_effect = yes
 				create_equipment_variant = {
-					name = "MiG-29 Fulcrum G"
+					name = "MiG-29G"
 					type = small_plane_strike_airframe_2
 					parent_version = 1
 					modules = {
@@ -7972,7 +7982,7 @@ country_event = {
 						wingform_type_slot = wing_swept
 						special_slot_type_1 = spec_countermeasures_2
 					}
-					icon = "gfx/interface/technologies/SOV/AIR/MR2.dds"
+					icon = "GFX_SOV_AIR_MR2"
 					model = "SOV_small_plane_airframe_2_entity"
 				}
 			}
@@ -7984,7 +7994,7 @@ country_event = {
 				multiply_temp_variable = { treasury_change = -0.14 }
 				modify_treasury_effect = yes
 				create_equipment_variant = {
-				name = "MiG-29 Fulcrum G"
+				name = "MiG-29G"
 				type = MR_Fighter2
 				parent_version = 1
 				upgrades = {
@@ -7993,7 +8003,7 @@ country_event = {
 					plane_engine_upgrade = 1
 					plane_reliability_upgrade = 1
 				}
-				icon = "gfx/interface/technologies/SOV/AIR/MR2.dds"
+				icon = "GFX_SOV_AIR_MR2"
 				model = "SOV_small_plane_airframe_2_entity"
 				}
 			}
@@ -8002,7 +8012,7 @@ country_event = {
 				multiply_temp_variable = { treasury_change = -0.14 }
 				modify_treasury_effect = yes
 				create_equipment_variant = {
-				name = "MiG-29 Fulcrum G"
+				name = "MiG-29G"
 				type = MR_Fighter2
 				parent_version = 1
 				upgrades = {
@@ -8011,7 +8021,7 @@ country_event = {
 					plane_engine_upgrade = 1
 					plane_reliability_upgrade = 1
 				}
-				icon = "gfx/interface/technologies/SOV/AIR/MR2.dds"
+				icon = "GFX_SOV_AIR_MR2"
 				model = "SOV_small_plane_airframe_2_entity"
 				}
 			}
@@ -11075,7 +11085,7 @@ country_event = {
 		POL = {
 			add_equipment_to_stockpile = {
 				type = medium_tank_aa_chassis_1
-				variant_name = "NASAM 1"
+				variant_name = "NASAMS"
 				amount = 6
 				producer = USA
 			}
@@ -11560,7 +11570,7 @@ country_event = {
 				upgrades = {
 					tank_nsb_armor_upgrade = 2
 				}
-				icon = "gfx/interface/technologies/GER/LAND/GER_Luchs.dds"
+				icon = "GFX_GER_LAND_GER_Luchs"
 			}
 		}
 	}
@@ -11590,7 +11600,7 @@ country_event = {
 				upgrades = {
 					tank_nsb_armor_upgrade = 2
 				}
-				icon = "gfx/interface/technologies/GER/LAND/GER_Luchs.dds"
+				icon = "GFX_GER_LAND_GER_Luchs"
 			}
 		}
 	}
@@ -11611,7 +11621,11 @@ country_event = {
 		set_temp_variable = { treasury_change = GER.gdp_per_capita }
 		multiply_temp_variable = { treasury_change = -0.25 }
 		modify_treasury_effect = yes
-		set_technology = { GLCM5 = 1 }
+		if = {
+			limit = { has_dlc = "Gotterdammerung" }
+			set_technology = { GLCM5 = 1 }
+		}
+		else = { set_technology = { GLCM5_non_got = 1 } }
 		add_equipment_to_stockpile = {
 			type = guided_missile_equipment_5
 			amount = 40
@@ -11706,7 +11720,7 @@ country_event = {
 				fixed_auxiliary_weapon_slot_1 = weap_mp_light_hardpoint_2
 				fixed_auxiliary_weapon_slot_2 = weap_as_hardpoint_2
 			}
-			icon = "gfx/interface/technologies/GER/AIR/E2000.dds"
+			icon = "GFX_GER_AIR_E2000"
 			model = "GER_medium_plane_airframe_2_entity"
 		}
 	}
@@ -11731,7 +11745,7 @@ country_event = {
 				fixed_auxiliary_weapon_slot_1 = weap_mp_light_hardpoint_2
 				fixed_auxiliary_weapon_slot_2 = weap_as_hardpoint_2
 			}
-			icon = "gfx/interface/technologies/GER/AIR/E2000.dds"
+			icon = "GFX_GER_AIR_E2000"
 			model = "GER_medium_plane_airframe_2_entity"
 		}
 	}
@@ -11988,7 +12002,7 @@ country_event = {
 					helicopter_nsb_upgrade = 4
 				}
 				design_team = mio:GER_Eurocopter_helicopters_tank_manufacturer
-				icon = "gfx/interface/technologies/GER/AIR/AH3.dds"
+				icon = "GFX_GER_AIR_AH3"
 			}
 		}
 		else = {
@@ -12359,13 +12373,13 @@ country_event = {
 				producer = GER
 			}
 			add_equipment_to_stockpile = {
-				type = util_vehicle_4 #Dingo 2
+				type = util_vehicle_5 #Dingo 2
 				variant_name = "Dingo 1"
 				amount = 400
 				producer = GER
 			}
 			add_equipment_to_stockpile = {
-				type = medium_tank_aa_chassis_2 #Ozelot
+				type = medium_tank_aa_chassis_1 #Ozelot
 				variant_name = "LeFlaSys Ozelot"
 				amount = 400
 				producer = GER
@@ -12425,7 +12439,7 @@ country_event = {
 			}
 			newline = yes
 			add_equipment_to_stockpile = {
-				type = medium_tank_artillery_chassis_1
+				type = medium_tank_artillery_chassis_2
 				variant_name = "PzH 2000"
 				amount = 36
 				producer = GER
@@ -12520,7 +12534,7 @@ country_event = {
 					SP_Arty_Bat = { x = 0 y = 3 }
 					Arm_Inf_Bat = { x = 1 y = 0 }
 					Arm_Inf_Bat = { x = 1 y = 1 }
-					Mech_Inf_Bat = { x = 0 y = 2 }
+					Mech_Inf_Bat = { x = 1 y = 2 }
 				}
 				support = {
 					H_Engi_Comp = { x = 0 y = 0 }
@@ -12568,7 +12582,7 @@ country_event = {
 					SP_Arty_Bat = { x = 0 y = 3 }
 					armor_Bat = { x = 1 y = 0 }
 					Mech_Inf_Bat = { x = 1 y = 1 }
-					Arm_Inf_Bat = { x = 0 y = 2 }
+					Arm_Inf_Bat = { x = 1 y = 2 }
 				}
 				support = {
 					H_Engi_Comp = { x = 0 y = 0 }
@@ -12646,7 +12660,7 @@ country_event = {
 		HOL = {
 			add_equipment_to_stockpile = {
 				type = medium_tank_aa_chassis_1
-				variant_name = "NASAM 1"
+				variant_name = "NASAMS"
 				amount = 36
 				producer = USA
 			}
@@ -15354,31 +15368,75 @@ country_event = {
 		multiply_temp_variable = { treasury_change = -0.18 }
 		modify_treasury_effect = yes
 		GER = {
-			create_equipment_variant = {
-				name = "Leopard 2KWS3"
-				design_team = mio:GER_krauss_maffei_tank_manufacturer
-				type = medium_tank_chassis_1
-				parent_version = 3
-				modules = {
-					main_armament_slot = tank_large_cannon
-					ammunition_load_slot = anti_armor_main_ammo_3
-					turret_type_slot = tank_base_tank_turret
-					suspension_type_slot = tank_torsion_bar_suspension_medium
-					armor_type_slot = tank_composite_armor_gen2
-					engine_type_slot = tank_diesel_engine_gen4
-					reload_type_slot = automatic_loading
-					special_type_slot_1 = smoke_launchers_2
-					special_type_slot_2 = wet_ammo_storage
-					special_type_slot_3 = empty
-					special_type_slot_4 = tank_battlestation_3 #Battlestation
-					special_type_slot_6 = spaced_armor_gen2 #ERA/Spaced
+			if = {
+				limit = { has_dlc = "No Step Back" }
+				create_equipment_variant = {
+					name = "Leopard 2A8"
+					type = medium_tank_chassis_2
+					parent_version = 0
+					modules = {
+						main_armament_slot = tank_medium_cannon_3
+						secondary_armament_slot = afv_coax_machine_gun_2
+						ammunition_load_slot = anti_armor_main_ammo_4
+						turret_type_slot = tank_base_tank_turret
+						suspension_type_slot = tank_torsion_bar_suspension_medium
+						armor_type_slot = nera_armor_gen3
+						engine_type_slot = tank_diesel_engine_gen4
+						reload_type_slot = manual_loading
+						special_type_slot_1 = hardkill_system_gen2
+						special_type_slot_2 = wet_ammo_storage
+						special_type_slot_3 = tank_longer_gun
+						special_type_slot_4 = tank_battlestation_4
+						special_type_slot_6 = spaced_armor_gen3
+					}
+					upgrades = {
+						tank_nsb_armor_upgrade = 0
+					}
+					icon = "GFX_GER_LAND_Leopard_2A8"
+					model = "GER_medium_tank_Leopard_2A6_entity"
+					design_team = mio:GER_krauss_maffei_tank_manufacturer
 				}
-				upgrades = {
-					tank_nsb_armor_upgrade = 4
+				create_equipment_variant = {
+					name = "Leopard 2KWS3"
+					design_team = mio:GER_krauss_maffei_tank_manufacturer
+					type = medium_tank_chassis_1
+					parent_version = 3
+					modules = {
+						main_armament_slot = tank_large_cannon
+						ammunition_load_slot = anti_armor_main_ammo_3
+						turret_type_slot = tank_base_tank_turret
+						suspension_type_slot = tank_torsion_bar_suspension_medium
+						armor_type_slot = tank_composite_armor_gen2
+						engine_type_slot = tank_diesel_engine_gen4
+						reload_type_slot = automatic_loading
+						special_type_slot_1 = smoke_launchers_2
+						special_type_slot_2 = wet_ammo_storage
+						special_type_slot_3 = empty
+						special_type_slot_4 = tank_battlestation_3 #Battlestation
+						special_type_slot_6 = spaced_armor_gen2 #ERA/Spaced
+					}
+					upgrades = {
+						tank_nsb_armor_upgrade = 4
+					}
+					icon = "GFX_GER_MBT_4"
 				}
-				icon = "GFX_GER_MBT_4"
+			}
+			else = {
+				create_equipment_variant = {
+					name = "Leopard 2KWS3"
+					type = MBT_4
+					upgrades = {
+					}
+				}
+				create_equipment_variant = {
+					name = "Leopard 2A8"
+					type = MBT_5
+					upgrades = {
+					}
+				}
 			}
 		}
+		set_country_flag = GER_leopard_2a8_ordered
 		ai_chance = {
 			base = 5
 			modifier = { factor = 0.25 has_active_mission = bankruptcy_incoming_collapse }
@@ -16355,7 +16413,7 @@ country_event = {
 				wingform_type_slot = wing_straight
 				special_slot_type_2 = spec_recon_1
 			}
-			icon = "gfx/interface/technologies/FRA/AIR/UAV2.dds"
+			icon = "GFX_FRA_AIR_UAV2"
 			model = "USA_small_plane_suicide_airframe_1_entity"
 		}
 		ai_chance = {
@@ -16386,7 +16444,7 @@ country_event = {
 				wingform_type_slot = wing_straight
 				special_slot_type_2 = spec_recon_1
 			}
-			icon = "gfx/interface/technologies/FRA/AIR/UAV2.dds"
+			icon = "GFX_FRA_AIR_UAV2"
 			model = "USA_small_plane_suicide_airframe_1_entity"
 		}
 		add_equipment_to_stockpile = {

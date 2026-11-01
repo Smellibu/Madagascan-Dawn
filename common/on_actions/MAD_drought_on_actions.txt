@@ -10,20 +10,18 @@ on_actions = {
 				MAD = {
 					MAD_dahalo_init = yes
 					MAD_rural_cooperation_initialize = yes
-					# Initialise the displacement calendar independently of the drought focus.
+					# Mark the first eligible monthly tick independently of when the drought focus starts.
 					if = {
 						limit = { NOT = { has_country_flag = MAD_DROUGHT_CALENDAR_CLOCK_STARTED } }
-						set_variable = { MAD_drought_calendar_month = 1 }
 						set_country_flag = MAD_DROUGHT_CALENDAR_CLOCK_STARTED
 					}
 					if = {
 						limit = {
 							NOT = { has_idea = MAD_ARMY_INHERITED_BURDEN }
-						NOT = { has_country_flag = MAD_ARMY_BURDEN_REMOVED }
+						NOT = { has_completed_focus = MAD_ARMY_LAND_FORCES_MODERNISATION_PLAN }
 						}
 						add_ideas = MAD_ARMY_INHERITED_BURDEN
 					}
-					set_country_flag = MAD_MIL_PARTY_LEADER_CAPSAT
 					if = {
 						limit = { NOT = { has_country_flag = MAD_DROUGHT_STARTED } }
 						MAD_drought_init = yes
@@ -32,12 +30,8 @@ on_actions = {
 					clamp_variable = { var = MAD_drought_prevention_count min = 0 max = 7 }
 					# Clear any stale displacement penalty and evaluate per-origin totals on startup.
 					MAD_drought_update_displacement_overload = yes
-					# Party-idea entitlement setup is event-driven; no daily/weekly/monthly polling is used.
-					MAD_seed_party_idea_entitlements = yes
-					MAD_rural_governance_policy_sync = yes
-					MAD_rural_constitution_initialize = yes
-					MAD_rural_cooperation_calculate_monthly_change = yes
-					country_event = { id = mad_political.8 hours = 1 }
+					# The hidden event synchronises party ideas first, then constitutional policy and the Rural Cooperation readout.
+					country_event = mad_political.8
 					# Arm the first-loss monitor once; it waits for the new government to form.
 					if = {
 						limit = {
@@ -62,7 +56,6 @@ on_actions = {
 			MAD_dahalo_daily_tick = yes
 			MAD_drought_containment_daily_tick = yes
 			MAD_autocomplete_forced_outcome_foci = yes
-			MAD_daewoo_election_daily_tick = yes
 			MAD_JIRAMA_GENERATION_RECOVERY_DAILY = yes
 			MAD_ratsiraka_check_government_formed = yes
 			# When the player manually allows AREMA again, detect that party index 5 is no longer banned.
@@ -76,7 +69,7 @@ on_actions = {
 				}
 				clr_country_flag = MAD_AREMA_BANNED
 				set_country_flag = MAD_RATSIRAKA_RETURN_PENDING
-				country_event = { id = mad_political.92 }
+				country_event = mad_political.92
 			}
 			# RC readout is refreshed monthly and on ruling-party changes; avoid a daily recalculation.
 		}
@@ -96,7 +89,7 @@ on_actions = {
 							NOT = { has_country_flag = MAD_TGV_FORMED }
 							NOT = { has_country_flag = MAD_TGV_FORMATION_PENDING }
 						}
-						country_event = { id = mad_political.96 }
+						country_event = mad_political.96
 					}
 					# Passive Dahalo pressure is handled by MAD_dahalo_monthly_tick under on_monthly_MAD.
 					# Do not call it from this generic monthly hook.
@@ -138,10 +131,7 @@ on_actions = {
 		effect = {
 			if = {
 				limit = { original_tag = MAD }
-				# Reconcile party-conditioned constitutional policies immediately when power changes.
-				MAD_rural_governance_policy_sync = yes
-				MAD_rural_cooperation_calculate_monthly_change = yes
-				# Keep party-idea reconciliation and restart the government-stability check.
+				# Reconcile party ideas first; the event applies the final constitutional model and refreshes Rural Cooperation.
 				country_event = { id = mad_political.8 hours = 1 }
 				set_variable = { MAD_RATSIRAKA_FORMATION_STABLE_DAYS = 0 }
 			}

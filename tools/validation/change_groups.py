@@ -44,6 +44,8 @@ GROUP_PATTERNS = {
         "common/resistance_compliance_modifiers/**",
         "common/scripted_guis/**",
         "common/ideas/**",
+        "common/defines/**",
+        "common/doctrines/**",
     ],
     "decisions": [
         "common/**/*.txt",
@@ -55,6 +57,8 @@ GROUP_PATTERNS = {
     "scripted-loc": ["common/scripted_localisation/**"],
     "scripted-guis": ["common/scripted_guis/**"],
     "interface": ["interface/**"],
+    "graphic-db": ["gfx/interface/equipmentdesigner/graphic_db/**"],
+    "music": ["music/**/*.txt"],
     "national-focus": ["common/national_focus/**"],
     "on-actions": ["common/on_actions/**"],
     "mios": [
@@ -82,6 +86,7 @@ GROUP_PATTERNS = {
         "localisation/**",
         "interface/**",
         "gfx/interface/decisions/**",
+        "gfx/interface/equipmentdesigner/graphic_db/**",
         "music/**",
         "map/adjacency_rules.txt",
         "*.mod",
@@ -103,6 +108,7 @@ _FULL_SUITE_PREFIXES = (
     "resources/documentation/",
     ".github/actions/",
     ".github/workflows/test-suite.yml",
+    ".github/workflows/validation-report.yml",
     ".github/workflows/nightly-pr-validation.yml",
     ".github/workflows/pr-cache-cleanup.yml",
     ".github/workflows/validator-cache.yml",

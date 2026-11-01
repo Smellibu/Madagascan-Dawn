@@ -238,6 +238,7 @@ focus_tree = {
 			log = "[GetDateText]: [Root.GetName]: Focus SYR_healthcare_reform"
 			add_ideas = syrian_health_care_reform
 			increase_healthcare_budget = yes
+			grant_reform_mandate = yes
 		}
 
 		ai_will_do = {
@@ -1663,6 +1664,7 @@ focus_tree = {
 			increase_economic_growth = yes
 			set_temp_variable = { corp_change = -5 }
 			modify_corporate_tax_rate_effect = yes
+			grant_reform_mandate = yes
 		}
 
 		ai_will_do = {
@@ -9906,6 +9908,7 @@ focus_tree = {
 			add_ideas = SYR_idea_refoming_education
 			set_temp_variable = { desire_change = 0.5 }
 			change_expected_education_spending = yes
+			grant_reform_mandate = yes
 		}
 
 		ai_will_do = { base = 1 }
@@ -10068,6 +10071,7 @@ shared_focus = {
 		set_cosmetic_tag = SYR_AUTH_SS
 		set_variable = { dynamic_flag_variant = 4 }
 		clr_country_flag = dynamic_flag
+		unlock_decision_category_tooltip = Syria_greater_syria_decisions
 		hidden_effect = { news_event = { id = SyriaFocusNews.19 hours = 6 } }
 	}
 
@@ -12214,7 +12218,7 @@ shared_focus = {
 				limit = { has_dlc = "No Step Back" }
 				add_equipment_to_stockpile = {
 					type = medium_tank_chassis_2
-					variant_name = "Leclerc 2"
+					variant_name = "Leclerc S2"
 					amount = 42
 					producer = FRA
 				}
@@ -12294,13 +12298,13 @@ shared_focus = {
 				limit = { has_dlc = "No Step Back" }
 				add_equipment_to_stockpile = {
 					type = medium_tank_chassis_1
-					variant_name = "Type-96A"
+					variant_name = "ZTZ-96"
 					amount = 42
 					producer = CHI
 				}
 				add_equipment_to_stockpile = {
 					type = medium_tank_flame_chassis_1
-					variant_name = "WZ-551"
+					variant_name = "ZSL-92"
 					amount = 110
 					producer = CHI
 				}
@@ -12450,7 +12454,7 @@ shared_focus = {
 					producer = FRA
 				}
 				add_equipment_to_stockpile = {
-					type = small_plane_strike_airframe_2 #Rafale G
+					type = small_plane_cas_airframe_2 #Mirage 2000D
 					variant_name = "Mirage 2000D"
 					amount = 24
 					producer = FRA
@@ -12462,7 +12466,7 @@ shared_focus = {
 					producer = FRA
 				}
 				add_equipment_to_stockpile = {
-					type = Strike_fighter3 #Rafale G
+					type = Strike_fighter2 #Mirage 2000D
 					amount = 24
 					producer = FRA
 				}
@@ -12478,13 +12482,13 @@ shared_focus = {
 			if = {
 				limit = { has_dlc = "By Blood Alone" }
 				add_equipment_to_stockpile = {
-					type = medium_plane_fighter_airframe_2 #MiG-35
-					variant_name = "MiG-31 Foxhound"
+					type = small_plane_strike_airframe_2 #MiG-35
+					variant_name = "MiG-29M"
 					amount = 24
 					producer = SOV
 				}
 				add_equipment_to_stockpile = {
-					type = medium_plane_airframe_2 #Su-24
+					type = medium_plane_cas_airframe_1 #Su-24
 					variant_name = "Su-24M"
 					amount = 24
 					producer = SOV
@@ -12513,7 +12517,7 @@ shared_focus = {
 				limit = { has_dlc = "By Blood Alone" }
 				add_equipment_to_stockpile = {
 					type = small_plane_strike_airframe_1 #Chengu J-7
-					variant_name = "J-7"
+					variant_name = "J-7E"
 					amount = 24
 					producer = CHI
 				}
@@ -12552,7 +12556,7 @@ shared_focus = {
 					producer = FRA
 				}
 				add_equipment_to_stockpile = {
-					type = small_plane_strike_airframe_2 #Rafale G
+					type = small_plane_cas_airframe_2 #Mirage 2000D
 					variant_name = "Mirage 2000D"
 					amount = 24
 					producer = FRA
@@ -12564,7 +12568,7 @@ shared_focus = {
 					producer = FRA
 				}
 				add_equipment_to_stockpile = {
-					type = Strike_fighter3 #Rafale G
+					type = Strike_fighter2 #Mirage 2000D
 					amount = 24
 					producer = FRA
 				}
@@ -12580,13 +12584,13 @@ shared_focus = {
 			if = {
 				limit = { has_dlc = "By Blood Alone" }
 				add_equipment_to_stockpile = {
-					type = medium_plane_fighter_airframe_2 #MiG-35
-					variant_name = "MiG-31 Foxhound"
+					type = small_plane_strike_airframe_2 #MiG-35
+					variant_name = "MiG-29M"
 					amount = 24
 					producer = SOV
 				}
 				add_equipment_to_stockpile = {
-					type = medium_plane_airframe_2 #Su-24
+					type = medium_plane_cas_airframe_1 #Su-24
 					variant_name = "Su-24M"
 					amount = 24
 					producer = SOV

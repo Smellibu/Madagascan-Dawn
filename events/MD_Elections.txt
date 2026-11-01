@@ -100,6 +100,10 @@ country_event = {
 		custom_effect_tooltip = coalition_pass_pol_change_0_tt
 		set_variable = { current_term = 0 }
 		clear_coalition_count_ideas = yes
+		ai_chance = {
+			base = 1
+			modifier = { factor = 0.25 has_active_mission = bankruptcy_incoming_collapse }
+		}
 	}
 
 	option = {
@@ -131,6 +135,10 @@ country_event = {
 		custom_effect_tooltip = coalition_pass_pol_change_1_tt
 		set_variable = { current_term = 0 }
 		clear_coalition_count_ideas = yes
+		ai_chance = {
+			base = 1
+			modifier = { factor = 0.25 has_active_mission = bankruptcy_incoming_collapse }
+		}
 	}
 
 	option = {
@@ -2337,6 +2345,7 @@ country_event = {
 		#trigger mission desicion
 		set_country_flag = coalition_forming
 		activate_mission = coalition_countdown
+		unlock_decision_category_tooltip = coalition_decisions
 	}
 }
 
@@ -2407,6 +2416,7 @@ country_event = {
 		#trigger mission decision
 		set_country_flag = coalition_forming
 		activate_mission = coalition_countdown
+		unlock_decision_category_tooltip = coalition_decisions
 	}
 }
 
@@ -2438,6 +2448,7 @@ country_event = {
 		#trigger mission desicion
 		set_country_flag = coalition_forming
 		activate_mission = coalition_countdown
+		unlock_decision_category_tooltip = coalition_decisions
 	}
 
 	option = {
@@ -2457,6 +2468,7 @@ country_event = {
 		#trigger mission desicion
 		set_country_flag = coalition_forming
 		activate_mission = coalition_countdown
+		unlock_decision_category_tooltip = coalition_decisions
 	}
 }
 

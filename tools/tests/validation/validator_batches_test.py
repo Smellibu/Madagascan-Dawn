@@ -24,7 +24,7 @@ def reuse_repository_import_graph(monkeypatch, repository_import_graph):
 
 
 def test_every_batch_spec_script_exists():
-    assert len(vb.ALL_SPECS) == 43
+    assert len(vb.ALL_SPECS) == 45
     assert not {spec.name for spec in vb.ALL_SPECS} & {
         spec.name for spec in vb.IMPACT_ONLY_SPECS
     }
@@ -45,13 +45,28 @@ def test_batches_cover_every_ci_validator_exactly_once():
 
 def test_core_batch_selects_from_the_core_groups():
     for spec in vb.BATCHES["core"]:
-        assert set(spec.groups) == set(vb._CORE_GROUPS)
+        # Only common-mistakes also scans the music tree.
+        extra = {"music"} if spec.name == "common-mistakes" else set()
+        assert set(spec.groups) == set(vb._CORE_GROUPS) | extra
 
 
-def test_variables_spec_carries_the_redundant_focus_flag_scan():
-    spec = next(spec for spec in vb.ALL_SPECS if spec.name == "variables")
-    assert spec.args == ("--redundant-focus-flags",)
-    assert spec.strict is True
+def test_specs_carry_their_opt_in_checks():
+    # PR batches and the main baseline both read args; baseline_args widen a
+    # diff-scoped check on main only.
+    assert {
+        spec.name: (spec.args, spec.baseline_args, spec.strict)
+        for spec in vb.ALL_SPECS
+        if spec.args or spec.baseline_args
+    } == {
+        "bonus-names": (("--name-not-owner-id",), (), True),
+        "decisions": (("--unannounced-categories",), (), True),
+        "events": (("--check-ai-chance-costs",), (), True),
+        "focus-tree": (("--missing-icons",), (), True),
+        "ideas": (("--missing-name-loc",), (), True),
+        "math-expressions": (("--clamp-bounds",), (), True),
+        "party-loc": ((), ("--all",), True),
+        "variables": (("--redundant-focus-flags",), (), True),
+    }
 
 
 def test_selected_specs_filters_by_changed_groups():
@@ -61,9 +76,26 @@ def test_selected_specs_filters_by_changed_groups():
         if spec.name
         in {s.name for s in rvb.selected_specs("targeted-a", {"localisation"})}
     }
-    assert selected == {"decisions", "mios"}
+    assert selected == {"decisions", "mios", "oob-units"}
     # An unknown or empty group list selects the whole batch (dispatch flow).
     assert len(rvb.selected_specs("targeted-a", None)) == len(vb.BATCHES["targeted-a"])
+
+
+def test_graphic_db_group_selects_gfx_references():
+    selected = {spec.name for spec in rvb.selected_specs("targeted-b", {"graphic-db"})}
+    assert selected == {"gfx-references"}
+
+
+def test_common_group_selects_graphical_culture_registration():
+    selected = {spec.name for spec in rvb.selected_specs("targeted-b", {"common"})}
+    assert "graphical-cultures" in selected
+    spec = next(spec for spec in vb.ALL_SPECS if spec.name == "graphical-cultures")
+    assert spec.strict is False
+
+
+def test_music_group_selects_only_common_mistakes():
+    selected = {spec.name for spec in rvb.selected_specs("core", {"music"})}
+    assert selected == {"common-mistakes"}
 
 
 def test_selected_specs_rejects_unknown_batch():
@@ -93,7 +125,8 @@ def test_shared_module_change_selects_its_transitive_consumers():
 
 @pytest.mark.usefixtures("reuse_repository_import_graph")
 def test_linting_wrapper_change_selects_the_validator_it_wraps():
-    # Both validate_common_mistakes and validate_decisions import this scanner.
+    # validate_common_mistakes, validate_decisions, validate_equipment_variants,
+    # validate_history and its DLC-guard consumer also use the shared parser.
     batch, adhoc = vb.select_for_changed_files(
         ["tools/linting/check_common_mistakes.py"]
     )
@@ -101,6 +134,9 @@ def test_linting_wrapper_change_selects_the_validator_it_wraps():
         "common-mistakes",
         "decisions",
         "equipment-variants",
+        "events",
+        "history",
+        "dlc-guards",
     }
     assert adhoc == []
 
@@ -386,3 +422,11 @@ def test_import_graph_is_built_once_per_selection_not_cached_across_calls(
     assert {spec.name for spec in batch} == {"tech-categories", "bonus-names", "ideas"}
     assert adhoc == []
     assert len(calls) == 3
+
+
+def test_country_history_selects_history_validator():
+    from change_groups import classify
+
+    groups = classify(["history/countries/JAP - Japan.txt"])
+    assert groups["history"]
+    assert "history" in {spec.name for spec in rvb.selected_specs("core", {"history"})}

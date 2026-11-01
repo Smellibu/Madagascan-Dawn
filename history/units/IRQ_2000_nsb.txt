@@ -1731,7 +1731,7 @@ instant_effect = {
 	}
 	add_equipment_to_stockpile = {
 		type = medium_tank_amphibious_chassis_0
-		variant_name = "ZSD63"
+		variant_name = "ZSD-63"
 		amount = 400
 		producer = CHI
 	}
@@ -1837,28 +1837,31 @@ instant_effect = {
 	}
 	add_equipment_to_stockpile = {
 		type = infantry_weapons_1 #Tabuk AKM
+		variant_name = "Tabuk"
 		amount = 60000
 		producer = IRQ
 	}
 	add_equipment_to_stockpile = {
 		type = infantry_weapons_1 #AKM
+		variant_name = "AKM"		
 		amount = 80000
-		variant_name = "AKM"
 		producer = SOV
 	}
 	add_equipment_to_stockpile = {
-		type = infantry_weapons_1 #Z70
+		type = infantry_weapons_1
+		variant_name = "Zastava M70"
 		amount = 1600
 		producer = SER
 	}
 	add_equipment_to_stockpile = {
 		type = infantry_weapons_1
+		variant_name = "PM md. 65"
 		amount = 20000
 		producer = ROM
 	}
 	add_equipment_to_stockpile = {
 		type = infantry_weapons_1
-		variant_name = "Type-56"
+		variant_name = "Type 56"
 		producer = CHI
 		amount = 1000
 	}
@@ -1921,14 +1924,20 @@ instant_effect = {
 		producer = FRA
 	}
 	add_equipment_to_stockpile = {
-		type = Heavy_Anti_tank_1	#AT-3
-		amount = 350
+		type = Heavy_Anti_tank_1	#9P133 Malyutka
+		amount = 30
 		producer = SOV
 	}
 	add_equipment_to_stockpile = {
-		type = Heavy_Anti_tank_2	#HOT
-		amount = 100
-		variant_name = "VAB-VCAC MILAN"
+		type = Heavy_Anti_tank_2
+		variant_name = "9P148 Konkurs"
+		amount = 10
+		producer = SOV
+	}
+	add_equipment_to_stockpile = {
+		type = medium_tank_amphibious_chassis_1	#VAB Milan
+		amount = 40
+		variant_name = "VAB Milan"
 		producer = FRA
 	}
 

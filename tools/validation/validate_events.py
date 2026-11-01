@@ -14,18 +14,28 @@ from pathlib import Path
 from typing import Callable, Dict, Iterable, Iterator, List, Optional, Set, Tuple
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "linting"))
 
 import disk_cache
+from check_common_mistakes import _iter_event_log_mismatches
 from image_size import read_image_size
 from shared_utils import (
+    IS_AI_NO_RE,
     blank_quoted_strings,
     extract_block_from_text,
+    find_unquoted_brace_close,
+    first_flat_match,
     get_staged_files,
+    iter_statements,
     strip_comments,
     strip_inline_comment,
     validation_config,
 )
+from shared_utils import MODIFIER_OPEN_RE as _AI_CHANCE_MODIFIER_RE
+from shared_utils import OPTION_OPEN_RE as _OPTION_OPEN_RE
+from shared_utils import TRIGGER_OPEN_RE as _TRIGGER_OPEN_RE
 from sprite_index import build_sprite_index, build_sprite_texture_index
+from validator_common import BANKRUPTCY_GUARD_RE as _BANKRUPTCY_GUARD_RE
 from validator_common import (
     DEFAULT_EXTRA_SKIP_PATTERNS,
     BaseValidator,
@@ -33,6 +43,7 @@ from validator_common import (
     Severity,
     run_validator_main,
     should_skip_file,
+    weight_stays_zero,
 )
 
 EXTRA_SKIP_PATTERNS = DEFAULT_EXTRA_SKIP_PATTERNS
@@ -264,6 +275,32 @@ def _extract_option_logs_without_effects(
     ]
 
 
+def _extract_event_log_id_mismatches(
+    filename: str, *, mod_path: Optional[str] = None
+) -> List[Tuple[str, str, int]]:
+    """Pool worker: (message, filename, line) for option logs citing the wrong id."""
+    if _should_skip(filename, mod_path=mod_path):
+        return []
+    try:
+        lines = (
+            Path(filename)
+            .read_text(encoding="utf-8-sig", errors="replace")
+            .splitlines(keepends=True)
+        )
+    except OSError:
+        return []
+    results: List[Tuple[str, str, int]] = []
+    for row, _s, _e, _repl, token, own_name, kind in _iter_event_log_mismatches(lines):
+        if own_name in _OPTION_LOG_ID_EXEMPT:
+            continue
+        if kind == "letter":
+            message = f"{own_name} log says Option {token}"
+        else:
+            message = f"{own_name} log cites {token}"
+        results.append((message, filename, row + 1))
+    return results
+
+
 _ALL_GATED_NOTE = " (every option has a trigger; check the AI sees more than one)"
 
 # Per-worker copies of costly_scripted_effects and stored_variable_signs, set
@@ -288,19 +325,43 @@ def _scan_stored_variable_signs(
     return stored_variable_signs([text])
 
 
+def load_cost_lookups(
+    validator: BaseValidator,
+) -> Tuple[Dict[str, str], Dict[str, int]]:
+    """(costly_scripted_effects, stored_variable_signs) read from the whole mod."""
+    effect_texts = (
+        _read_cleaned_text(path, mod_path=validator.mod_path)
+        for path in validator._collect_files(
+            ["common/scripted_effects/**/*.txt"], ignore_staged=True
+        )
+    )
+    effects = costly_scripted_effects(text for text in effect_texts if text)
+    stored: Dict[str, int] = {}
+    script_files = validator._collect_files(
+        ["common/**/*.txt", "events/**/*.txt", "history/**/*.txt"],
+        ignore_staged=True,
+    )
+    for found in validator._pool_map(
+        partial(_scan_stored_variable_signs, mod_path=validator.mod_path), script_files
+    ):
+        for name, signs in found.items():
+            stored[name] = stored.get(name, 0) | signs
+    return effects, stored
+
+
 def _extract_cost_blind_options(
     filename: str, *, mod_path: Optional[str] = None
 ) -> List[Tuple[str, str, int]]:
-    """Pool worker: (message, basename, line) for options whose AI weight ignores a cost."""
+    """Pool worker: (message, path, line) for options whose AI weight ignores a cost."""
     text = _read_cleaned_text(filename, mod_path=mod_path)
     if text is None:
         return []
-    basename = os.path.basename(filename)
+    path = os.path.relpath(filename, mod_path)
     return [
         (
-            f"{name} - flat ai_chance ignores the {costs} cost"
+            f"{name} - ai_chance ignores the {costs} cost"
             + (_ALL_GATED_NOTE if all_gated else ""),
-            basename,
+            path,
             line,
         )
         for name, line, costs, all_gated in find_cost_blind_options(
@@ -309,28 +370,33 @@ def _extract_cost_blind_options(
     ]
 
 
+def _extract_corruption_pp_cost_options(
+    filename: str, *, mod_path: Optional[str] = None
+) -> List[Tuple[str, str, int]]:
+    """Pool worker: options that charge PP while decreasing corruption unguarded."""
+    if _should_skip(filename, mod_path=mod_path):
+        return []
+    text = FileOpener.open_text_file(filename)
+    path = os.path.relpath(filename, mod_path)
+    return [
+        (
+            f"{name} - PP charge above the {_MIN_CORRUPTION_REFUND} PP refund per "
+            f"decrease_corruption; no recognized local guard against "
+            f"{_MIN_CORRUPTION_ID}",
+            path,
+            line,
+        )
+        for name, line in find_corruption_pp_cost_options(text)
+    ]
+
+
 _ID_TOKEN_PATTERN = re.compile(r"[A-Za-z0-9_.]+")
 
 
 def _scan_event_id_counts_text(cleaned: str, tracked_ids: frozenset) -> Dict[str, int]:
+    """Whole-token counts: `foo.1` and its loc key `foo.1.t` are distinct tokens."""
     counts = Counter(_ID_TOKEN_PATTERN.findall(cleaned))
     return {eid: counts[eid] for eid in tracked_ids.intersection(counts)}
-
-
-def count_event_ids_in_file(args: Tuple[str, frozenset]) -> Dict[str, int]:
-    """Pool worker: count occurrences of each tracked event ID in one file.
-
-    Tokenizes the file body ONCE and counts whole-token matches against the
-    tracked-ID set, rather than scanning the file once per tracked ID. The `.`
-    is part of an identifier token, so `ALG_civilwar.1` and its loc keys
-    `ALG_civilwar.1.t` / `.d` / `.a` tokenize as distinct tokens and don't
-    inflate each other's counts.
-    """
-    filename, tracked_ids = args
-    cleaned = _read_cleaned_text(filename)
-    if cleaned is None:
-        return {}
-    return _scan_event_id_counts_text(cleaned, tracked_ids)
 
 
 # Event IDs built at runtime by string interpolation never appear as a literal
@@ -371,19 +437,6 @@ _MISSING_EVENT_CALL_EQUALS_RE = re.compile(
 )
 
 
-def _matching_brace(text: str, open_pos: int) -> int:
-    depth = 0
-    pos = open_pos
-    while True:
-        close = text.find("}", pos)
-        if close == -1:
-            return -1
-        depth += text.count("{", pos, close) - 1
-        if depth == 0:
-            return close
-        pos = close + 1
-
-
 _ID_OR_BRACE_RE = re.compile(r"[{}]|\bid\s*=\s*([A-Za-z_][\w.]*)")
 
 
@@ -416,7 +469,7 @@ def _iter_typed_event_bodies(cleaned: str, *, require_id: bool = True):
     """
     for m in _keyword_matches(_EVENT_BLOCK_OPEN_RE, cleaned):
         ob = cleaned.index("{", m.end() - 1)
-        end = _matching_brace(cleaned, ob)
+        end = find_unquoted_brace_close(cleaned, ob)
         if end == -1:
             continue
         body = cleaned[ob + 1 : end]
@@ -432,15 +485,6 @@ def _iter_event_bodies(cleaned: str):
     """Yield (event_id, body, match_start) for defined events."""
     for eid, _event_type, body, start in _iter_typed_event_bodies(cleaned):
         yield eid, body, start
-
-
-def scan_event_definitions(args: Tuple[str, frozenset]) -> Set[str]:
-    """Pool worker: event IDs *defined* in one file."""
-    filename = args[0]
-    cleaned = _read_cleaned_text(filename, skip=False)
-    if cleaned is None:
-        return set()
-    return {eid for eid, _body, _start in _iter_event_bodies(cleaned) if eid}
 
 
 def scan_event_definition_types(
@@ -485,24 +529,6 @@ def _iter_fired_ids(text: str):
         yield eid, pos
 
 
-def _scan_fires_text(cleaned: str, filename: str) -> List[Tuple[str, str, int]]:
-    line = _line_lookup(cleaned)
-    return [(eid, filename, line(pos)) for eid, pos in _iter_fired_ids(cleaned)]
-
-
-def scan_event_fires(args: Tuple[str, frozenset]) -> List[Tuple[str, str, int]]:
-    """Pool worker: every event ID fired from one file, as (id, file, line).
-
-    Only literal IDs are returned. An ID assembled at runtime (`UN.[ID]`) has no
-    literal form to resolve, so it is skipped rather than guessed at.
-    """
-    filename = args[0]
-    cleaned = _read_cleaned_text(filename)
-    if cleaned is None:
-        return []
-    return _scan_fires_text(cleaned, filename)
-
-
 def _scan_typed_fires_text(
     cleaned: str, filename: str
 ) -> List[Tuple[str, str, str, int]]:
@@ -511,17 +537,6 @@ def _scan_typed_fires_text(
         (eid, call_type, filename, line(pos))
         for eid, call_type, pos in _iter_typed_fires(cleaned)
     ]
-
-
-def scan_typed_event_fires(
-    args: Tuple[str, frozenset],
-) -> List[Tuple[str, str, str, int]]:
-    """Pool worker: literal event fires with their call keywords."""
-    filename = args[0]
-    cleaned = _read_cleaned_text(filename)
-    if cleaned is None:
-        return []
-    return _scan_typed_fires_text(cleaned, filename)
 
 
 def _scan_invalid_calls_text(
@@ -549,36 +564,8 @@ def _scan_invalid_calls_text(
     return results
 
 
-def scan_invalid_event_calls(
-    args: Tuple[str, frozenset],
-) -> List[Tuple[str, str, str, str, int]]:
-    """Pool worker: reversed keywords and event calls missing ``=``."""
-    filename = args[0]
-    if _should_skip(filename):
-        return []
-    try:
-        text = Path(filename).read_text(encoding="utf-8-sig", errors="replace")
-    except Exception:
-        return []
-    cleaned = blank_quoted_strings(strip_comments(text))
-    return _scan_invalid_calls_text(cleaned, filename)
-
-
 def _scan_dynamic_namespaces_text(cleaned: str) -> Set[str]:
     return {m.group(1) for m in _keyword_matches(_DYNAMIC_EVENT_NS_PATTERN, cleaned)}
-
-
-def scan_dynamic_event_namespaces(args: Tuple[str, frozenset]) -> Set[str]:
-    """Pool worker: namespaces fired via string-interpolated event IDs in a file.
-
-    Any triggered-only event in a returned namespace is reachable through dynamic
-    dispatch and must not be reported as unreferenced.
-    """
-    filename = args[0]
-    cleaned = _read_cleaned_text(filename)
-    if cleaned is None:
-        return set()
-    return _scan_dynamic_namespaces_text(cleaned)
 
 
 # --- date-gated events and the event fire graph ---
@@ -589,7 +576,6 @@ def scan_dynamic_event_namespaces(args: Tuple[str, frozenset]) -> Set[str]:
 _DATE_LOWER_BOUND_RE = re.compile(r"\bdate\s*>\s*\d{4}\.\d{1,2}\.\d{1,2}")
 # Any bound is redundant on an event the yearly effects already schedule.
 _DATE_BOUND_RE = re.compile(r"\bdate\s*[<>]=?\s*\d{4}\.\d{1,2}\.\d{1,2}")
-_TRIGGER_OPEN_RE = re.compile(r"\btrigger\s*=\s*\{")
 
 
 def _event_trigger_body(body: str) -> Optional[str]:
@@ -609,7 +595,7 @@ def _event_trigger_body(body: str) -> Optional[str]:
         if depth != 0:
             continue
         ob = body.index("{", m.end() - 1)
-        end = _matching_brace(body, ob)
+        end = find_unquoted_brace_close(body, ob)
         return None if end == -1 else body[ob + 1 : end]
     return None
 
@@ -841,33 +827,6 @@ def _scan_in_loop_text(
     return fof, major
 
 
-def _scan_in_loop_file(
-    filename: str, mod_path: str, fof_ids: frozenset, major_ids: frozenset
-) -> Tuple[List[str], List[str]]:
-    if not (fof_ids or major_ids) or _should_skip(filename, mod_path=mod_path):
-        return [], []
-    try:
-        text = Path(filename).read_text(encoding="utf-8-sig", errors="replace")
-    except Exception:
-        return [], []
-    if not _has_event_call(text) or not any(opener in text for opener in _LOOP_OPENERS):
-        return [], []
-    cleaned = blank_quoted_strings(strip_comments(text))
-    return _scan_in_loop_text(cleaned, filename, mod_path, fof_ids, major_ids)
-
-
-def scan_fire_only_once_in_loop(args: Tuple[str, frozenset, str]) -> List[str]:
-    """Pool worker: flag fire_only_once events fired inside an iterator."""
-    filename, tracked_ids, mod_path = args
-    return _scan_in_loop_file(filename, mod_path, tracked_ids, frozenset())[0]
-
-
-def scan_major_event_in_loop(args: Tuple[str, frozenset, str]) -> List[str]:
-    """Pool worker: flag major events fired inside an iterator."""
-    filename, tracked_ids, mod_path = args
-    return _scan_in_loop_file(filename, mod_path, frozenset(), tracked_ids)[1]
-
-
 def _scan_long_form_text(cleaned: str, filename: str, mod_path: str) -> List[str]:
     rel = os.path.relpath(filename, mod_path)
     results = []
@@ -883,19 +842,6 @@ def _scan_long_form_text(cleaned: str, filename: str, mod_path: str) -> List[str
             f"{rel}:{line} - {m.group(1)} = {{ id = {m.group(2)} }} → use shorthand `{m.group(1)} = {m.group(2)}`"
         )
     return results
-
-
-def process_txt_for_long_form_events(args: Tuple[str, str]) -> List[str]:
-    """Pool worker: find id-only long-form event calls in one .txt file."""
-    filename, mod_path = args
-    if _should_skip(filename, mod_path=mod_path):
-        return []
-    try:
-        text = Path(filename).read_text(encoding="utf-8-sig", errors="replace")
-    except Exception:
-        return []
-    cleaned = re.sub(r"#[^\n]*", "", text)
-    return _scan_long_form_text(cleaned, filename, mod_path)
 
 
 _C_LONGFORM = 1
@@ -914,10 +860,9 @@ def _scan_shared_call_site_file(args) -> Tuple:
 
     Reads the file once and shares the naive-stripped and quote-aware artifacts
     across long-form, invalid-call, typed-fire, count, dynamic-namespace, and
-    in-loop scans instead of one read plus strip pass per check. Each scan calls
-    the same ``_scan_*_text`` helper its standalone worker uses, gated by ``mask``
-    so the file set per check is unchanged. Typed fires and dynamic namespaces
-    keep their existing disk-cache namespaces.
+    in-loop scans instead of one read plus strip pass per check. Each scan is
+    gated by ``mask`` so the file set per check is unchanged. Typed fires and
+    dynamic namespaces keep their disk-cache namespaces.
     Returns (longform, invalid, typed, counts, dynamic, fof, major).
     """
     filename, mod_path, mask, count_tracked, fof_ids, major_ids = args
@@ -999,13 +944,15 @@ def _scan_shared_call_site_file(args) -> Tuple:
 _ADD_NAMESPACE_PATTERN = re.compile(r"^\s*add_namespace\s*=\s*(\S+)", re.MULTILINE)
 _RANDOM_EVENTS_PATTERN = re.compile(r"\brandom_events\s*=\s*\{")
 _RANDOM_EVENT_ID_PATTERN = re.compile(r"=\s*([A-Za-z_]\w*\.[\w.]+)")
-_OPTION_BLOCK_PATTERN = re.compile(r"\boption\s*=\s*\{")
 
 # Statements an option can carry that change no game state. `trigger` gates the
 # option's visibility and `ai_chance` weights the AI's pick; neither runs an effect.
 # Triggered-only events the engine dispatches with no script reference to find.
 _EXEMPT_UNREFERENCED_EVENT_IDS = frozenset(
     validation_config("validate_events", "exempt_unreferenced_event_ids")
+)
+_OPTION_LOG_ID_EXEMPT = frozenset(
+    validation_config("validate_events", "option_log_id_exempt")
 )
 
 _OPTION_NON_EFFECT_KEYS = frozenset({"name", "log", "ai_chance", "trigger"})
@@ -1016,7 +963,6 @@ _OPTION_NON_EFFECT_KEYS = frozenset({"name", "log", "ai_chance", "trigger"})
 _OPTION_STATEMENT_RE = re.compile(r'([A-Za-z_]\w*|\d+|"[^"]*")\s*=')
 _OPTION_TOKEN_RE = re.compile(r"[{}]|" + _OPTION_STATEMENT_RE.pattern)
 _BRACE_RE = re.compile(r"[{}]")
-_OPTION_OPEN_RE = re.compile(r"\boption\s*=\s*\{")
 
 # Event-level (depth-1) title/desc fields — option-level name fields are
 # nested deeper and are not matched.
@@ -1100,7 +1046,6 @@ _OWN_SCOPE_BLOCKS = frozenset(
         "else",
         "else_if",
         "hidden_effect",
-        "effect_tooltip",
         "random",
         "random_list",
         "meta_effect",
@@ -1114,12 +1059,34 @@ _VARIABLE_OPS = ("set", "add_to", "subtract_from", "multiply", "divide")
 _VARIABLE_EFFECTS = frozenset(
     f"{op}_{temp}variable" for op in _VARIABLE_OPS for temp in ("", "temp_")
 )
+_IDEA_MUTATION_BLOCKS = frozenset(
+    {"add_ideas", "remove_ideas", "add_timed_idea", "remove_timed_idea", "swap_ideas"}
+)
 _BLOCK_TOKEN_RE = re.compile(r"(?:([\w.:@^]+)\s*=\s*)?\{|\}")
 _OPTION_NAME_RE = re.compile(r'\bname\s*=\s*"?([\w.]+)')
-_AI_CHANCE_MODIFIER_RE = re.compile(r"\bmodifier\s*=\s*\{")
+_AI_WEIGHT_LITERAL_RE = re.compile(r"[+-]?(?:\d+(?:\.\d*)?|\.\d+)")
+_FINANCIAL_GUARD_RE = re.compile(
+    _BANKRUPTCY_GUARD_RE.pattern + r"|\bai_has_high_deficit\s*=\s*(?:yes|no)\b"
+    r"|\bcheck_variable\s*=\s*\{\s*(?:var\s*=\s*)?(?:ROOT\.|THIS\.)?"
+    r"(?:treasury|debt|int_investments|treasury_rate|budget_balance_ratio|"
+    r"corporate_tax_rate|population_tax_rate)\b"
+)
+_COST_GUARDS = {
+    "treasury": _FINANCIAL_GUARD_RE,
+    "debt": _FINANCIAL_GUARD_RE,
+    "international investment": _FINANCIAL_GUARD_RE,
+    "tax rate": _FINANCIAL_GUARD_RE,
+    "political power": _BANKRUPTCY_GUARD_RE,
+    "stability": re.compile(r"\bhas_stability\s*[<>=]"),
+    "war support": re.compile(r"\bhas_war_support\s*[<>=]"),
+}
+_TRIGGER_SCOPE_BLOCKS = frozenset(
+    {"AND", "OR", "NOT", "hidden_trigger", "custom_trigger_tooltip"}
+)
 
 # Signs a value can have, as bits. Zero has neither, so a zero change costs nothing.
 _NEG, _POS = 1, 2
+_EQUIPMENT_COSTS = {"add_equipment_to_stockpile": _NEG, "send_equipment": _POS}
 
 # Stored variable -> (signs of a change that cost the country, label). Debt is the
 # odd one out: adding to it is what hurts. A tax rate change costs either way.
@@ -1134,17 +1101,21 @@ _STAT_COSTS = {
     "add_political_power": "political power",
     "add_stability": "stability",
     "add_war_support": "war support",
+    "add_command_power": "command power",
+    "add_manpower": "manpower",
 }
-_COST_ORDER = (
-    *dict.fromkeys(kind for _cost_signs, kind in _COST_VARIABLES.values()),
-    *_STAT_COSTS.values(),
-)
+_COST_ORDER = tuple(_COST_GUARDS)
+_MIN_CORRUPTION_ID = "corruption_level_01"
+_MIN_CORRUPTION_REFUND = 150
+_CORRUPTION_LEVEL_RE = re.compile(r"corruption_level_(0[1-9]|10)")
+_CORRUPTION_ID_RE = re.compile(r"(?<![\w])corruption_level_(?:0[1-9]|10)(?![\w])")
+_NEGATIVE_NUMBER_RE = re.compile(r"-(?:\d+(?:\.\d*)?|\.\d+)")
 # `{ x = operand }` or the long form `{ var = x value = operand }`.
 _VARIABLE_ARGS = (
     r"\s*=\s*\{\s*(?:var\s*=\s*(?P<long>[^\s={}]+)\s+value\s*=\s*"
-    r"|(?P<short>[^\s={}]+)\s*=\s*)(?P<operand>\{[^{}]*\}|[^\s{}]+)"
+    r"|(?P<short>[^\s={}]+)\s*=\s*)(?P<operand>\{|[^\s{}]+)"
 )
-_STAT_COST = r"\b(?P<stat>add_political_power|add_stability|add_war_support)\s*=\s*-"
+_STAT_COST = r"\b(?P<stat>" + "|".join(_STAT_COSTS) + r")\s*=\s*"
 _COST_STEP_RE = re.compile(
     r"\b(?P<op>"
     + "|".join(_VARIABLE_OPS)
@@ -1152,22 +1123,30 @@ _COST_STEP_RE = re.compile(
     + _VARIABLE_ARGS
     + "|"
     + _STAT_COST
+    + r"(?P<stat_operand>[^\s{}]+)"
+    + r"|\b(?P<equipment>"
+    + "|".join(_EQUIPMENT_COSTS)
+    + r")\s*=\s*\{"
     + r"|\b(?P<call>[A-Za-z_]\w*)\s*=\s*yes\b"
-    r"|\b(?P<branch>if|else_if|else|random|\d+)\s*=\s*\{"
+    r"|\b(?P<branch>if|else_if|else|random_list|random|\d+)\s*=\s*\{"
 )
 _DIRECT_COST_RE = re.compile(
     r"\b(?:add_to|subtract_from)_variable\s*=\s*\{\s*(?:var\s*=\s*)?(?:"
     + "|".join(_COST_VARIABLES)
     + r")\b|"
     + _STAT_COST
+    + r"(?:-|[A-Za-z_])|\b(?:"
+    + "|".join(_EQUIPMENT_COSTS)
+    + r")\s*=\s*\{"
 )
 _EFFECT_CALL_RE = re.compile(r"\b([A-Za-z_]\w*)\s*=\s*yes\b")
 _SCRIPTED_EFFECT_DEF_RE = re.compile(r"^([A-Za-z_][\w.]*)\s*=\s*\{", re.MULTILINE)
-_MATH_TERM_RE = re.compile(r"\b(value|add|subtract|multiply|divide)\s*=\s*([^\s{}]+)")
 _STORED_LITERAL_RE = re.compile(
     r"\bset_variable\s*=\s*\{\s*(?:var\s*=\s*([^\s={}]+)\s+value\s*=\s*"
     r"|([^\s={}]+)\s*=\s*)(-?[\d.]+)\s*\}"
 )
+_VARIABLE_REFERENCE_RE = re.compile(r"[A-Za-z_][\w.:@^]*")
+_RANDOM_LIST_BUCKET_RE = re.compile(r"\b[\d.]+\s*=\s*\{")
 
 
 def _flip(signs: int) -> int:
@@ -1189,9 +1168,42 @@ def _combine(op: str, signs: int, term: int) -> int:
     return signs or (_flip(term) if op.startswith("subtract") else term)
 
 
+def _guaranteed_cost(signs: int, cost_signs: int) -> bool:
+    """Whether every possible nonzero sign represents a charge."""
+    return bool(signs) and not signs & ~cost_signs
+
+
 def _stored_name(variable: str) -> str:
     """`FROM.LBA_cost^2` -> `LBA_cost`: the name a stored variable is set under."""
     return variable.rsplit(".", 1)[-1].split("^", 1)[0]
+
+
+def _uses_conditional_variable(operand: str, conditional_variables: Set[str]) -> bool:
+    return any(
+        _stored_name(variable) in conditional_variables
+        for variable in _VARIABLE_REFERENCE_RE.findall(operand)
+    )
+
+
+def _skip_switch(limit: str) -> Optional[str]:
+    """The charge-skip switch a limit checks, when that is all it checks.
+
+    MD_skip_treasury_cost is set only around history-file setup. skip_payment is
+    a temp variable callers set to 1 for a free build.
+    """
+    guards = list(iter_statements(limit))
+    if len(guards) != 1 or guards[0][0] != "NOT" or guards[0][2] is None:
+        return None
+    skip = list(iter_statements(guards[0][2]))
+    if skip == [("has_country_flag", "MD_skip_treasury_cost", None)]:
+        return "MD_skip_treasury_cost"
+    if (
+        len(skip) == 1
+        and skip[0][0] == "check_variable"
+        and list(iter_statements(skip[0][2] or "")) == [("skip_payment", "1", None)]
+    ):
+        return "skip_payment"
+    return None
 
 
 def _signs(operand: str, known: Dict[str, int], stored: Dict[str, int]) -> int:
@@ -1202,8 +1214,11 @@ def _signs(operand: str, known: Dict[str, int], stored: Dict[str, int]) -> int:
     """
     if operand.startswith("{"):
         signs = 0
-        for op, term in _MATH_TERM_RE.findall(operand):
-            signs = _combine(op, signs, _signs(term, known, stored))
+        for op, value, block in iter_statements(operand[1:-1]):
+            if op in {"value", "add", "subtract", "multiply", "divide"}:
+                term = "{" + block + "}" if block is not None else value
+                if term is not None:
+                    signs = _combine(op, signs, _signs(term, known, stored))
         return signs
     if operand[0] in "-.0123456789":
         if not operand.strip("-.0"):
@@ -1214,14 +1229,38 @@ def _signs(operand: str, known: Dict[str, int], stored: Dict[str, int]) -> int:
     return stored.get(_stored_name(operand), _POS)
 
 
+def _branch_costs(
+    body: str,
+    start: Dict[str, int],
+    known: Dict[str, int],
+    conditional_variables: Set[str],
+    effects: Dict[str, str],
+    stored: Dict[str, int],
+    stack: Tuple[str, ...],
+) -> Tuple[Set[str], Set[str]]:
+    """Costs of a branch run from `start`; its variable changes merge into `known`."""
+    branch = dict(start)
+    branch_conditional = set(conditional_variables)
+    costs, guaranteed = _effect_costs(
+        body, effects, branch, stored, stack, branch_conditional
+    )
+    conditional_variables.update(branch_conditional)
+    for variable, signs in branch.items():
+        if signs != start.get(variable):
+            conditional_variables.add(variable)
+        known[variable] = signs | known.get(variable, 0)
+    return costs, guaranteed
+
+
 def _effect_costs(
     text: str,
     effects: Dict[str, str],
     known: Dict[str, int],
     stored: Dict[str, int],
     stack: Tuple[str, ...] = (),
-) -> Set[str]:
-    """What these effects cost the country running them, read in script order.
+    conditional_variables: Optional[Set[str]] = None,
+) -> Tuple[Set[str], Set[str]]:
+    """Possible and guaranteed costs to the country running these effects.
 
     Charges are rarely a plain negative literal: `treasury_change` is often set to
     a GDP variable and negated by `multiply_temp_variable`, or built in one math
@@ -1229,47 +1268,159 @@ def _effect_costs(
     effect. So this tracks the signs every variable can have and follows calls
     into `effects` (see costly_scripted_effects), which share the caller's temp
     variables the way the game does. A branch (`if`, `random`, a `random_list`
-    bucket) may or may not run, so what it sets is added to what was possible
-    before it, and an `else` starts from what held before its `if`. The cost
-    itself is always a write to a stored variable in _COST_VARIABLES or a negative
-    stat effect.
+    bucket) may or may not run, so its costs are possible but not guaranteed, and
+    its variable changes are added to what was possible before it. A cost every
+    arm of an `if`/`else` chain or every `random_list` bucket guarantees is
+    guaranteed, and so is an `if` that only checks a charge-skip switch this run
+    leaves off. An `else` starts from what held before its `if`. The cost itself
+    is a write to a stored variable in _COST_VARIABLES, a negative stat effect, or
+    equipment leaving the stockpile.
     """
+    # Sign unions omit zero, so retain conditional writes separately.
+    if conditional_variables is None:
+        conditional_variables = set()
     costs: Set[str] = set()
+    guaranteed: Set[str] = set()
     # Also right for the old `if = { ... else = { ... } }` form: this call is the `if`.
     before_if = dict(known)
+    # What every arm of the open `if`/`else_if` chain guarantees so far.
+    chain: Optional[Set[str]] = None
     pos = 0
     while True:
         m = _COST_STEP_RE.search(text, pos)
         if m is None:
-            return costs
+            return costs, guaranteed
         pos = m.end()
-        end = _matching_brace(text, pos - 1) if m["branch"] else -1
+        branch_key = m["branch"]
+        if branch_key not in ("else_if", "else"):
+            chain = None
+        end = find_unquoted_brace_close(text, pos - 1) if branch_key else -1
         if end != -1:
-            if m["branch"] == "if":
-                before_if = dict(known)
-            branch = dict(before_if if m["branch"].startswith("else") else known)
-            costs |= _effect_costs(text[pos:end], effects, branch, stored, stack)
-            for variable, signs in branch.items():
-                known[variable] = signs | known.get(variable, 0)
+            body = text[pos:end]
             pos = end
+            limit = (
+                next((b for k, _v, b in iter_statements(body) if k == "limit"), None)
+                if branch_key == "if"
+                else None
+            )
+            switch = _skip_switch(limit or "")
+            # Off unless this run set it: the flag is never set by an event or decision.
+            if switch and not known.get(switch):
+                body_costs, body_guaranteed = _effect_costs(
+                    body, effects, known, stored, stack, conditional_variables
+                )
+                costs |= body_costs
+                guaranteed |= body_guaranteed
+            elif branch_key == "random_list":
+                start = dict(known)
+                bucket_guaranteed: List[Set[str]] = []
+                bucket = _RANDOM_LIST_BUCKET_RE.search(body)
+                while bucket is not None:
+                    bucket_end = find_unquoted_brace_close(body, bucket.end() - 1)
+                    if bucket_end == -1:
+                        break
+                    bucket_costs, bucket_kinds = _branch_costs(
+                        body[bucket.end() : bucket_end],
+                        start,
+                        known,
+                        conditional_variables,
+                        effects,
+                        stored,
+                        stack,
+                    )
+                    costs |= bucket_costs
+                    bucket_guaranteed.append(bucket_kinds)
+                    bucket = _RANDOM_LIST_BUCKET_RE.search(body, bucket_end)
+                if bucket_guaranteed:
+                    guaranteed |= set.intersection(*bucket_guaranteed)
+            else:
+                if branch_key == "if":
+                    before_if = dict(known)
+                branch_costs, branch_guaranteed = _branch_costs(
+                    body,
+                    before_if if branch_key.startswith("else") else known,
+                    known,
+                    conditional_variables,
+                    effects,
+                    stored,
+                    stack,
+                )
+                costs |= branch_costs
+                if branch_key == "if":
+                    chain = branch_guaranteed
+                elif chain is not None and branch_key.startswith("else"):
+                    chain &= branch_guaranteed
+                    if branch_key == "else":
+                        guaranteed |= chain
+                        chain = None
         elif m["stat"]:
-            costs.add(_STAT_COSTS[m["stat"]])
+            signs = _signs(m["stat_operand"], known, stored)
+            if signs & _NEG:
+                costs.add(_STAT_COSTS[m["stat"]])
+                if _guaranteed_cost(signs, _NEG) and not _uses_conditional_variable(
+                    m["stat_operand"], conditional_variables
+                ):
+                    guaranteed.add(_STAT_COSTS[m["stat"]])
+        elif m["equipment"]:
+            end = find_unquoted_brace_close(text, pos - 1)
+            if end == -1:
+                return costs, guaranteed
+            for key, value, block in iter_statements(text[pos:end]):
+                if key == "amount":
+                    operand = "{" + block + "}" if block is not None else value
+                    if operand:
+                        signs = _signs(operand, known, stored)
+                        cost_signs = _EQUIPMENT_COSTS[m["equipment"]]
+                        if signs & cost_signs:
+                            costs.add("equipment")
+                            if _guaranteed_cost(
+                                signs, cost_signs
+                            ) and not _uses_conditional_variable(
+                                operand, conditional_variables
+                            ):
+                                guaranteed.add("equipment")
+            pos = end + 1
         elif m["call"]:
             call = m["call"]
             if call in effects and call not in stack:
-                costs |= _effect_costs(
-                    effects[call], effects, known, stored, (*stack, call)
+                call_costs, call_guaranteed = _effect_costs(
+                    effects[call],
+                    effects,
+                    known,
+                    stored,
+                    (*stack, call),
+                    conditional_variables,
                 )
+                costs |= call_costs
+                guaranteed |= call_guaranteed
         elif m["op"]:
             target = m["long"] or m["short"]
-            term = _signs(m["operand"], known, stored)
+            operand = m["operand"]
+            if operand == "{":
+                end = find_unquoted_brace_close(text, pos - 1)
+                if end == -1:
+                    return costs, guaranteed
+                operand = text[pos - 1 : end + 1]
+                pos = end + 1
+            term = _signs(operand, known, stored)
             if target not in _COST_VARIABLES or m["temp"]:
                 current = 0 if m["op"] == "set" else _signs(target, known, stored)
                 known[target] = _combine(m["op"], current, term)
+                if _uses_conditional_variable(operand, conditional_variables):
+                    conditional_variables.add(target)
+                elif m["op"] == "set":
+                    conditional_variables.discard(target)
             elif m["op"] in ("add_to", "subtract_from"):
                 cost_signs, kind = _COST_VARIABLES[target]
-                if _combine(m["op"], 0, term) & cost_signs:
+                signs = _combine(m["op"], 0, term)
+                if signs & cost_signs:
                     costs.add(kind)
+                    if _guaranteed_cost(
+                        signs, cost_signs
+                    ) and not _uses_conditional_variable(
+                        operand, conditional_variables
+                    ):
+                        guaranteed.add(kind)
 
 
 def stored_variable_signs(texts: Iterable[str]) -> Dict[str, int]:
@@ -1300,7 +1451,7 @@ def costly_scripted_effects(texts: Iterable[str]) -> Dict[str, str]:
         pos = 0
         while True:
             m = _SCRIPTED_EFFECT_DEF_RE.search(code, pos)
-            end = _matching_brace(code, m.end() - 1) if m else -1
+            end = find_unquoted_brace_close(code, m.end() - 1) if m else -1
             if m is None or end == -1:
                 break
             bodies[m.group(1)] = _split_option(code[m.end() : end])[0]
@@ -1318,37 +1469,193 @@ def costly_scripted_effects(texts: Iterable[str]) -> Dict[str, str]:
         costly |= callers
 
 
-def _split_option(body: str) -> Tuple[str, Dict[Optional[str], Tuple[int, str]]]:
-    """(own-scope effects, option-level blocks left out of them as key -> (offset, body))."""
+def _disabled_cost_branch(key: str, body: str) -> bool:
+    for name, value, block in iter_statements(body):
+        if key == "random" and name == "chance" and value:
+            return _signs(value, {}, {}) == 0
+        if name == "limit" and block is not None:
+            return ("always", "no", None) in iter_statements(block)
+    return False
+
+
+def _split_option(
+    body: str,
+    country: Optional[str] = None,
+    *,
+    triggers: bool = False,
+    preserve_limits: bool = False,
+    numeric_state_scopes: bool = False,
+    preserve_idea_effects: bool = False,
+    preserve_root_reentry: bool = False,
+) -> Tuple[str, Dict[Optional[str], Tuple[int, str]]]:
+    """(own-scope text, excluded option-level blocks as key -> (offset, body))."""
+    scope_blocks = _OWN_SCOPE_BLOCKS
+    if triggers:
+        scope_blocks |= _TRIGGER_SCOPE_BLOCKS
     own: List[str] = []
     blocks: Dict[Optional[str], Tuple[int, str]] = {}
     depth = 0
     cursor = 0
     kept_whole = 0
-    skip: Optional[Tuple[int, int, Optional[str]]] = None
+    stack: List[Optional[str]] = []
+    skip: Optional[Tuple[int, int, Optional[str], Optional[str]]] = None
     for m in _BLOCK_TOKEN_RE.finditer(body):
         if m.group(0) != "}":
+            parent_key = stack[-1] if stack else None
             depth += 1
             key = m.group(1)
+            stack.append(key)
             if skip is not None or kept_whole:
                 continue
-            if key in _VARIABLE_EFFECTS:
+            if (
+                (
+                    key == "limit"
+                    and _skip_switch(
+                        body[m.end() : find_unquoted_brace_close(body, m.end() - 1)]
+                    )
+                )
+                or key in _VARIABLE_EFFECTS
+                or key in _EQUIPMENT_COSTS
+                or (triggers and key == "check_variable")
+                or (preserve_limits and key == "limit")
+                or (preserve_idea_effects and key in _IDEA_MUTATION_BLOCKS)
+            ):
                 kept_whole = depth
-            elif key not in _OWN_SCOPE_BLOCKS and not (key or "").isdigit():
-                own.append(body[cursor : m.start()])
-                skip = (depth, m.end(), key)
+            else:
+                excluded = (
+                    key not in scope_blocks
+                    and (country is None or key != country)
+                    and not (
+                        (key or "").isdigit()
+                        and (not numeric_state_scopes or parent_key == "random_list")
+                    )
+                )
+                if not triggers and key in {"if", "else_if", "random"}:
+                    end = find_unquoted_brace_close(body, m.end() - 1)
+                    excluded = _disabled_cost_branch(key, body[m.end() : end])
+                if excluded:
+                    own.append(body[cursor : m.start()])
+                    skip = (depth, m.end(), key, parent_key)
             continue
         if kept_whole == depth:
             kept_whole = 0
         if skip is not None and skip[0] == depth:
             if depth == 1:
                 blocks[skip[2]] = (skip[1], body[skip[1] : m.start()])
+            if (
+                preserve_root_reentry
+                and skip[2] not in {"limit", "trigger"}
+                and not ((skip[2] or "").isdigit() and skip[3] == "random_list")
+            ):
+                own.append(
+                    _root_reentry_effects(
+                        body[skip[1] : m.start()],
+                        country,
+                        preserve_limits=preserve_limits,
+                    )
+                )
             cursor = m.end()
             skip = None
         depth -= 1
+        if stack:
+            stack.pop()
     if skip is None:
         own.append(body[cursor:])
     return " ".join(own), blocks
+
+
+def _root_reentry_effects(
+    body: str, country: Optional[str], *, preserve_limits: bool
+) -> str:
+    """Keep only ROOT effects reached while executing in a foreign scope."""
+    effects: List[str] = []
+    for key, _value, block in iter_statements(body):
+        if (
+            block is None
+            or key in {"limit", "trigger"}
+            or key in _VARIABLE_EFFECTS
+            or key in _EQUIPMENT_COSTS
+            or key in _IDEA_MUTATION_BLOCKS
+        ):
+            continue
+        if key == "ROOT":
+            own, _blocks = _split_option(
+                block,
+                country,
+                preserve_limits=preserve_limits,
+                numeric_state_scopes=True,
+                preserve_idea_effects=True,
+                preserve_root_reentry=True,
+            )
+            if own.strip():
+                effects.append(f"ROOT = {{ {own} }}")
+        else:
+            effects.append(
+                _root_reentry_effects(block, country, preserve_limits=preserve_limits)
+            )
+    return " ".join(effect for effect in effects if effect)
+
+
+def _cost_sensitive_kinds(ai_chance: str, country: Optional[str]) -> Set[str]:
+    covered: Set[str] = set()
+    pos = 0
+    while True:
+        match = _AI_CHANCE_MODIFIER_RE.search(ai_chance, pos)
+        if match is None:
+            return covered
+        end = find_unquoted_brace_close(ai_chance, match.end() - 1)
+        if end == -1:
+            return covered
+        own, _blocks = _split_option(
+            ai_chance[match.end() : end], country, triggers=True
+        )
+        pos = end + 1
+        if not any(
+            float(value) != (1 if key == "factor" else 0)
+            for key, value, block in iter_statements(own)
+            if key in {"factor", "add"}
+            and block is None
+            and value is not None
+            and _AI_WEIGHT_LITERAL_RE.fullmatch(value)
+        ):
+            continue
+        covered.update(
+            kind for kind, guard in _COST_GUARDS.items() if guard.search(own)
+        )
+
+
+def effect_costs(
+    effect_text: str, effects: Dict[str, str], stored: Dict[str, int]
+) -> Set[str]:
+    """Costs an effect block body charges its own country.
+
+    The body has comments already stripped. `effects` and `stored` come from
+    load_cost_lookups.
+    """
+    own = _split_option(blank_quoted_strings(effect_text))[0]
+    return _effect_costs(own, effects, {}, stored)[0]
+
+
+def uncovered_costs(
+    effect_text: str, ai_weights: str, effects: Dict[str, str], stored: Dict[str, int]
+) -> Set[str]:
+    """Costs an effect block charges its own country that an AI weight block ignores."""
+    return effect_costs(effect_text, effects, stored) - _cost_sensitive_kinds(
+        ai_weights, None
+    )
+
+
+def _receiver_tag(trigger: str) -> Optional[str]:
+    """A literal tag required on every trigger path, not just mentioned in one."""
+    tags = set()
+    for key, value, block in iter_statements(trigger):
+        if key == "tag" and value and re.fullmatch(r"[A-Z0-9]{3}", value):
+            tags.add(value)
+        elif key in {"AND", "hidden_trigger", "ROOT", "THIS"} and block is not None:
+            tag = _receiver_tag(block)
+            if tag:
+                tags.add(tag)
+    return next(iter(tags)) if len(tags) == 1 else None
 
 
 def find_cost_blind_options(
@@ -1356,13 +1663,19 @@ def find_cost_blind_options(
 ) -> List[Tuple[str, int, str, bool]]:
     """(option name, 1-based line, costs, all gated) for AI weights that ignore a cost.
 
-    Reports an option of a multi-option event when it charges its own country and
-    its `ai_chance` has no `modifier`, so the AI pays as readily broke as flush.
+    Reports each cost not covered by a relevant, non-neutral AI modifier in the
+    choosing country's scope. Opinion and path modifiers do not cover costs.
     A missing `ai_chance` is the flat default weight. The line is the `ai_chance`
     when there is one, since that is where the fix goes. `all gated` marks an event
     where every option has a `trigger`: those may be variants the AI never chooses
     between, so the finding needs a look before it is fixed. `effects` comes from
     costly_scripted_effects and `stored` from stored_variable_signs.
+
+    Skipped: an event whose own trigger requires `is_ai = no`, an option the AI
+    never picks (`base = 0`, no `add`) while another option can win, and a cost
+    every option always pays, or every option pays only sometimes, since a guard
+    on each one scales them all alike. Tax rate is never shared: options can move
+    it apart.
     """
     code = blank_quoted_strings(text)
     line = _line_lookup(code)
@@ -1370,20 +1683,42 @@ def find_cost_blind_options(
     for _eid, body, start in _iter_event_bodies(code):
         base = code.index("{", start) + 1
         options = [
-            (match.end(), _matching_brace(body, match.end() - 1))
+            (match.end(), find_unquoted_brace_close(body, match.end() - 1))
             for match in _OPTION_OPEN_RE.finditer(body)
         ]
-        if len(options) < 2:
+        trigger = _event_trigger_body(body) or ""
+        if len(options) < 2 or first_flat_match(trigger, IS_AI_NO_RE):
             continue
+        country = _receiver_tag(trigger)
         splits = [
-            _split_option(body[opt_start:opt_end]) for opt_start, opt_end in options
+            _split_option(body[opt_start:opt_end], country)
+            for opt_start, opt_end in options
         ]
         all_gated = all("trigger" in blocks for _own, blocks in splits)
-        for (opt_start, opt_end), (own, blocks) in zip(options, splits):
-            ai_offset, ai_chance = blocks.get("ai_chance", (0, ""))
-            if _AI_CHANCE_MODIFIER_RE.search(ai_chance):
+        option_effect_costs = [
+            _effect_costs(own, effects, {}, stored) for own, _b in splits
+        ]
+        option_costs = [costs for costs, _guaranteed in option_effect_costs]
+        guaranteed_costs = [guaranteed for _costs, guaranteed in option_effect_costs]
+        # Shared when every option pays it always, or every option only sometimes.
+        always_somewhere: Set[str] = set().union(*guaranteed_costs)
+        shared = (
+            set.intersection(*guaranteed_costs)
+            | set.intersection(*option_costs) - always_somewhere
+        ) - {"tax rate"}
+        never_picked = [
+            weight_stays_zero(blocks.get("ai_chance", (0, ""))[1])
+            for _own, blocks in splits
+        ]
+        for (opt_start, opt_end), (_own, blocks), costs, never in zip(
+            options, splits, option_costs, never_picked
+        ):
+            if never and not all(never_picked):
                 continue
-            costs = _effect_costs(own, effects, {}, stored)
+            ai_offset, ai_chance = blocks.get("ai_chance", (0, ""))
+            costs = (
+                costs - shared - _cost_sensitive_kinds(ai_chance, country)
+            ) & _COST_GUARDS.keys()
             if not costs:
                 continue
             name = _OPTION_NAME_RE.search(text, base + opt_start, base + opt_end)
@@ -1393,6 +1728,295 @@ def find_cost_blind_options(
                     line(base + opt_start + ai_offset),
                     ", ".join(kind for kind in _COST_ORDER if kind in costs),
                     all_gated,
+                )
+            )
+    return out
+
+
+def _statement_corruption_level_bound(
+    key: str,
+    value: Optional[str],
+    block: Optional[str],
+    country: Optional[str] = None,
+) -> Optional[int]:
+    """Minimum corruption level implied by one trigger statement, if known.
+
+    A level-1 exclusion supplies a floor of 2. Repeated decreases can still
+    reach the level-1 PP refund branch.
+    """
+    if key == "NOT" and block is not None:
+        statements = list(iter_statements(block))
+        if len(statements) == 1:
+            child_key, child_value, child_block = statements[0]
+            if (
+                child_key == "has_idea"
+                and child_value == _MIN_CORRUPTION_ID
+                and child_block is None
+            ):
+                return 2
+            if child_key == "OR" and child_block is not None:
+                excludes = any(
+                    branch_key == "has_idea"
+                    and branch_value == _MIN_CORRUPTION_ID
+                    and branch_block is None
+                    for branch_key, branch_value, branch_block in iter_statements(
+                        child_block
+                    )
+                )
+                return 2 if excludes else None
+        return None
+    if key == "has_idea" and value is not None and block is None:
+        match = _CORRUPTION_LEVEL_RE.fullmatch(value)
+        return int(match.group(1)) if match else None
+    if block is None:
+        return None
+    statements = list(iter_statements(block))
+    if key == "OR":
+        bounds = [
+            _statement_corruption_level_bound(*branch, country=country)
+            for branch in statements
+        ]
+        return (
+            min(bounds)
+            if bounds and all(bound is not None for bound in bounds)
+            else None
+        )
+    if (
+        key in {"AND", "ROOT", "THIS", "hidden_trigger", "custom_trigger_tooltip"}
+        or key == country
+    ):
+        bounds = [
+            _statement_corruption_level_bound(*statement, country=country)
+            for statement in statements
+        ]
+        proven = [bound for bound in bounds if bound is not None]
+        return max(proven) if proven else None
+    return None
+
+
+def _trigger_corruption_level_bound(
+    trigger: str, country: Optional[str] = None
+) -> Optional[int]:
+    """Minimum corruption level implied by a trigger's conjunctive conditions."""
+    bounds = [
+        _statement_corruption_level_bound(key, value, block, country)
+        for key, value, block in iter_statements(trigger)
+    ]
+    proven = [bound for bound in bounds if bound is not None]
+    return max(proven) if proven else None
+
+
+def _negative_pp_cost(value: Optional[str]) -> bool:
+    return bool(
+        value is not None
+        and _NEGATIVE_NUMBER_RE.fullmatch(value)
+        and any(character in "123456789" for character in value)
+    )
+
+
+def _effect_presence(body: str) -> Tuple[float, int]:
+    """Total literal negative PP charge and count of decrease_corruption calls."""
+    pp_charge = 0.0
+    decreases_corruption = 0
+    for key, value, block in iter_statements(body):
+        if (
+            key in {"limit", "trigger"}
+            or key in _VARIABLE_EFFECTS
+            or key in _EQUIPMENT_COSTS
+        ):
+            continue
+        if key == "add_political_power" and _negative_pp_cost(value):
+            pp_charge -= float(value or 0)
+        elif key == "decrease_corruption" and value == "yes":
+            decreases_corruption += 1
+        if block is not None:
+            nested_charge, nested_decrease = _effect_presence(block)
+            pp_charge += nested_charge
+            decreases_corruption += nested_decrease
+    return pp_charge, decreases_corruption
+
+
+def _guard_prevents_min_corruption_refund(
+    bound: Optional[int], decrease_calls: int
+) -> bool:
+    return bound is not None and decrease_calls < bound
+
+
+def _has_corruption_level_mutation(body: str) -> bool:
+    """Whether own-scope effects can invalidate a previously checked level bound."""
+    for key, value, block in iter_statements(body):
+        if key == "decrease_corruption" and value == "yes":
+            return True
+        if key in _IDEA_MUTATION_BLOCKS and _CORRUPTION_ID_RE.search(
+            value or block or ""
+        ):
+            return True
+        if (
+            block is not None
+            and key not in {"limit", "trigger"}
+            and key not in _VARIABLE_EFFECTS
+            and key not in _EQUIPMENT_COSTS
+            and _has_corruption_level_mutation(block)
+        ):
+            return True
+    return False
+
+
+def _idea_mutation_before_decrease(
+    body: str, changed_idea: bool = False
+) -> Tuple[bool, bool]:
+    """Whether an idea change precedes a decrease, and whether one remains pending."""
+    for key, value, block in iter_statements(body):
+        if key == "decrease_corruption" and value == "yes":
+            if changed_idea:
+                return True, True
+            continue
+        if key in _IDEA_MUTATION_BLOCKS and _CORRUPTION_ID_RE.search(
+            value or block or ""
+        ):
+            changed_idea = True
+            continue
+        if (
+            block is not None
+            and key not in {"limit", "trigger"}
+            and key not in _VARIABLE_EFFECTS
+            and key not in _EQUIPMENT_COSTS
+        ):
+            invalidated, nested_change = _idea_mutation_before_decrease(
+                block, changed_idea
+            )
+            if invalidated:
+                return True, True
+            changed_idea = nested_change
+    return False, changed_idea
+
+
+def _all_corruption_operations_guarded(
+    body: str, country: Optional[str] = None
+) -> bool:
+    """Require every relevant operation to sit in a guarded paid-decrease block."""
+    for key, value, block in iter_statements(body):
+        if (key == "add_political_power" and _negative_pp_cost(value)) or (
+            key == "decrease_corruption" and value == "yes"
+        ):
+            return False
+        if (
+            block is None
+            or key in {"limit", "trigger"}
+            or key in _VARIABLE_EFFECTS
+            or key in _EQUIPMENT_COSTS
+        ):
+            continue
+        if key in {"if", "else_if"}:
+            limit = next(
+                (
+                    nested
+                    for nested_key, _nested_value, nested in iter_statements(block)
+                    if nested_key == "limit" and nested is not None
+                ),
+                None,
+            )
+            bound = _trigger_corruption_level_bound(limit, country) if limit else None
+            if bound is not None:
+                pp_charge, decreases_corruption = _effect_presence(block)
+                idea_bound_invalidated, _idea_change_remains = (
+                    _idea_mutation_before_decrease(block)
+                )
+                if (
+                    pp_charge
+                    and decreases_corruption
+                    and not idea_bound_invalidated
+                    and _guard_prevents_min_corruption_refund(
+                        bound, decreases_corruption
+                    )
+                ):
+                    continue
+        if not _all_corruption_operations_guarded(block, country):
+            return False
+    return True
+
+
+def find_corruption_pp_cost_options(text: str) -> List[Tuple[str, int]]:
+    """Return event options charging literal PP while decreasing corruption unguarded.
+
+    Only a charge above the 150 PP each decrease refunds at level 1 can lose PP.
+    A level-1 exclusion must gate the event, the option, or an effect block that
+    contains both operations. Dynamic PP values and unrelated country scopes are
+    left to manual review.
+    """
+    source = strip_comments(text)
+    code = blank_quoted_strings(source)
+    line = _line_lookup(code)
+    out: List[Tuple[str, int]] = []
+    for _event_id, body, start in _iter_event_bodies(code):
+        event_trigger = _event_trigger_body(body) or ""
+        country = _receiver_tag(event_trigger)
+        event_bound = _trigger_corruption_level_bound(event_trigger, country)
+        event_immediate = next(
+            (
+                block
+                for key, _value, block in iter_statements(body)
+                if key == "immediate" and block is not None
+            ),
+            "",
+        )
+        immediate_effects, _immediate_blocks = _split_option(
+            event_immediate,
+            country,
+            numeric_state_scopes=True,
+            preserve_idea_effects=True,
+            preserve_root_reentry=True,
+        )
+        if _has_corruption_level_mutation(immediate_effects):
+            event_bound = None
+        base = code.index("{", start) + 1
+        for match in _OPTION_OPEN_RE.finditer(body):
+            end = find_unquoted_brace_close(body, match.end() - 1)
+            if end == -1:
+                continue
+            option = body[match.end() : end]
+            own_effects, blocks = _split_option(
+                option,
+                country,
+                preserve_limits=True,
+                numeric_state_scopes=True,
+                preserve_idea_effects=True,
+                preserve_root_reentry=True,
+            )
+            option_trigger = blocks.get("trigger", (0, ""))[1]
+            option_bound = _trigger_corruption_level_bound(option_trigger, country)
+            idea_bound_invalidated, _idea_change_remains = (
+                _idea_mutation_before_decrease(own_effects)
+            )
+            if idea_bound_invalidated:
+                bound = None
+            else:
+                bound = max(
+                    (
+                        value
+                        for value in (event_bound, option_bound)
+                        if value is not None
+                    ),
+                    default=None,
+                )
+            pp_charge, decreases_corruption = _effect_presence(own_effects)
+            # At level 1 each decrease refunds this much, so a smaller charge loses nothing.
+            if (
+                not decreases_corruption
+                or pp_charge <= _MIN_CORRUPTION_REFUND * decreases_corruption
+            ):
+                continue
+            if _guard_prevents_min_corruption_refund(bound, decreases_corruption):
+                continue
+            if _all_corruption_operations_guarded(own_effects, country):
+                continue
+            option_name = _OPTION_NAME_RE.search(
+                source, base + match.start(), base + end
+            )
+            out.append(
+                (
+                    option_name.group(1) if option_name else "unnamed option",
+                    line(base + match.start()),
                 )
             )
     return out
@@ -1491,7 +2115,7 @@ def _parse_event_metadata(text: str, basename: str) -> Tuple[List[dict], Set[str
                 "fire_only_once": "fire_only_once = yes" in body_nc,
                 "is_major": bool(_RE_MAJOR_YES.search(body_nc)),
                 "has_mtth": "mean_time_to_happen" in body_nc,
-                "option_count": len(_OPTION_BLOCK_PATTERN.findall(body)),
+                "option_count": len(_OPTION_OPEN_RE.findall(body)),
                 "title_desc_refs": [
                     v.strip() for v in _EVENT_TITLEDESC_PATTERN.findall(body)
                 ],
@@ -1504,9 +2128,16 @@ class Validator(BaseValidator):
     TITLE = "EVENT VALIDATION"
     STAGED_EXTENSIONS = [".txt"]
 
-    def __init__(self, *args, check_ai_chance_costs: bool = False, **kwargs):
+    def __init__(
+        self,
+        *args,
+        check_ai_chance_costs: bool = False,
+        check_corruption_pp_costs: bool = False,
+        **kwargs,
+    ):
         super().__init__(*args, **kwargs)
         self.check_ai_chance_costs = check_ai_chance_costs
+        self.check_corruption_pp_costs = check_corruption_pp_costs
         self._meta_cache: Optional[Tuple[List[dict], set]] = None
         self._parsed_event_files: Dict[str, Tuple[List[dict], Set[str]]] = {}
         self._random_events_cache: Optional[set] = None
@@ -1516,15 +2147,14 @@ class Validator(BaseValidator):
         self._fire_scan_args_cache: Optional[List[Tuple[str, frozenset]]] = None
         self._fires_cache: Optional[List[Tuple[str, str, int]]] = None
         self._fire_sources_cache: Optional[Dict[str, Set[str]]] = None
-        self._typed_fires_cache: Optional[List[Tuple[str, str, str, int]]] = None
         self._definition_types_cache: Optional[Dict[str, str]] = None
         self._full_call_site_scan_cache: Optional[bool] = None
 
     def _get_event_metadata(self) -> Tuple[List[dict], set]:
         """Parse all event files and return (event_metadata_list, declared_namespaces).
 
-        Each metadata dict has: id (or None for malformed blocks), type, file,
-        is_hidden, picture_refs, is_triggered_only, fire_only_once,
+        Each metadata dict has: id (or None for malformed blocks), type, file
+        (basename), path (mod-relative), line, is_hidden, picture_refs, is_triggered_only, fire_only_once,
         is_major, has_mtth, option_count, title_desc_refs.
         """
         if self._meta_cache is None:
@@ -1559,6 +2189,9 @@ class Validator(BaseValidator):
                     if text
                     else ([], set())
                 )
+                rel = self._rel_posix(filepath)
+                for ev in parsed[0]:
+                    ev["path"] = rel
                 self._parsed_event_files[filepath] = parsed
             meta.extend(parsed[0])
             namespaces |= parsed[1]
@@ -1644,9 +2277,8 @@ class Validator(BaseValidator):
         Reads each candidate file once and shares the naive-stripped and
         quote-aware artifacts across long-form, invalid-call, typed-fire,
         count, dynamic-namespace, and in-loop scans. Each file runs exactly the
-        scans its own check file list would have run (via ``mask``), and each
-        scan calls the same ``_scan_*_text`` helper its standalone worker uses,
-        so findings are unchanged. Typed fires derive untyped fires parent-side,
+        scans its own check file list selects (via ``mask``). Typed fires derive
+        untyped fires parent-side,
         and the two disk-cache namespaces are kept. Events-only passes (pictures,
         option logs, date gates, fire graph, definitions) and on_actions lookups
         keep their own file sets and stay separate.
@@ -1747,13 +2379,6 @@ class Validator(BaseValidator):
             self._fire_sources_cache = sources
         return self._fire_sources_cache
 
-    def _get_typed_event_fires(self) -> List[Tuple[str, str, str, int]]:
-        """Every literal event fire with its call keyword."""
-        if self._typed_fires_cache is not None:
-            return self._typed_fires_cache
-        self._typed_fires_cache = list(self._get_shared_call_site_scan()["typed"])
-        return self._typed_fires_cache
-
     def _get_event_definition_types(self) -> Dict[str, str]:
         """Return event declaration keywords from the full events tree."""
         if self._definition_types_cache is not None:
@@ -1761,14 +2386,13 @@ class Validator(BaseValidator):
         event_files = self._collect_files(["events/**/*.txt"], ignore_staged=True)
 
         def _build() -> Dict[str, str]:
-            definitions: Dict[str, str] = {}
-            for result in self._pool_map(
-                scan_event_definition_types,
-                [(f, frozenset()) for f in event_files],
-                chunksize=20,
-            ):
-                definitions.update(result)
-            return definitions
+            return dict(
+                self._pool_flat_map(
+                    scan_event_definition_types,
+                    [(f, frozenset()) for f in event_files],
+                    chunksize=20,
+                )
+            )
 
         definitions = disk_cache.aggregate_cached(
             self.mod_path,
@@ -1828,13 +2452,13 @@ class Validator(BaseValidator):
         # Lookup pass: must scan full repo even in staged mode, mirroring
         # `_get_random_event_ids`.
         files = self._collect_files(["common/on_actions/**/*.txt"], ignore_staged=True)
-        ids: set = set()
-        for result in self._pool_map(
-            partial(scan_probability_rolled_fires, mod_path=self.mod_path),
-            [(f, frozenset()) for f in files],
-            chunksize=30,
-        ):
-            ids.update(result)
+        ids = set(
+            self._pool_flat_map(
+                partial(scan_probability_rolled_fires, mod_path=self.mod_path),
+                [(f, frozenset()) for f in files],
+                chunksize=30,
+            )
+        )
 
         self._probability_rolled_cache = ids
         return ids
@@ -1965,7 +2589,9 @@ class Validator(BaseValidator):
             eid = ev["id"] or "unknown"
             for key in _LOC_REF_PATTERN.findall(ev["body"]):
                 if "." in key and key not in loc_keys:
-                    results.append(f"{eid} - {ev['file']}: missing loc key '{key}'")
+                    results.append(
+                        (f"{eid}: missing loc key '{key}'", ev["path"], ev["line"])
+                    )
 
         self._report(
             results,
@@ -1981,8 +2607,8 @@ class Validator(BaseValidator):
         )
 
         meta, _ = self._get_event_metadata()
-        triggered_only_ids: Dict[str, str] = {
-            ev["id"]: ev["file"]
+        triggered_only_ids: Dict[str, dict] = {
+            ev["id"]: ev
             for ev in meta
             if ev["id"] is not None
             and ev["is_triggered_only"]
@@ -2027,7 +2653,8 @@ class Validator(BaseValidator):
             ns = eid[:last_dot] if last_dot >= 0 else eid
             if ns in dynamic_namespaces:
                 continue
-            results.append(f"{eid} - {triggered_only_ids[eid]}")
+            ev = triggered_only_ids[eid]
+            results.append((f"{eid}: no references found", ev["path"], ev["line"]))
 
         self._report(
             results,
@@ -2062,13 +2689,11 @@ class Validator(BaseValidator):
         gated_args = [
             (f, frozenset()) for f in self._collect_files(["events/**/*.txt"])
         ]
-        gated: List[Tuple[str, str, int]] = []
-        for result in self._pool_map(
+        gated: List[Tuple[str, str, int]] = self._pool_flat_map(
             partial(scan_date_gated_events, mod_path=self.mod_path),
             gated_args,
             chunksize=10,
-        ):
-            gated.extend(result)
+        )
         self.log(f"  Found {len(gated)} events with a date > guard")
 
         results = []
@@ -2153,13 +2778,11 @@ class Validator(BaseValidator):
         bounded_args = [
             (f, frozenset()) for f in self._collect_files(["events/**/*.txt"])
         ]
-        bounded: List[Tuple[str, str, int]] = []
-        for result in self._pool_map(
+        bounded: List[Tuple[str, str, int]] = self._pool_flat_map(
             partial(scan_date_bounded_events, mod_path=self.mod_path),
             bounded_args,
             chunksize=10,
-        ):
-            bounded.extend(result)
+        )
         self.log(f"  Found {len(bounded)} events with a date bound")
         if not bounded:
             self._report(
@@ -2335,7 +2958,7 @@ class Validator(BaseValidator):
             results,
             "✓ No hidden events with pictures",
             "Hidden events declaring a picture (hidden events display nothing — remove the field):",
-            Severity.WARNING,
+            Severity.ERROR,
             category="hidden-event-picture",
         )
 
@@ -2783,16 +3406,38 @@ class Validator(BaseValidator):
             "✓ No event option logs without effects",
             "Event options with a log but no effects (the option changes nothing"
             " — remove the log line):",
-            Severity.WARNING,
+            Severity.ERROR,
             category="event-option-log-without-effect",
         )
 
-    def validate_ai_chance_ignores_cost(self):
-        """Flag options whose flat `ai_chance` ignores what the option costs.
+    def validate_option_log_id(self):
+        """Flag option logs that cite another option's id.
 
-        Off unless `--check-ai-chance-costs` is passed: the backlog is mod-wide
-        (#5096), so the check stays out of CI until it is worked down.
+        Shares detection with check_common_mistakes._iter_event_log_mismatches
+        and tools/linting/fix_log_ids.py.
         """
+        self._log_section("Checking event option logs for copied ids...")
+        files = self._collect_files(["events/**/*.txt"])
+        if not files:
+            self.log("  No event files in scope — skipping")
+            return
+        results: List[str] = []
+        for sub in self._pool_map(
+            partial(_extract_event_log_id_mismatches, mod_path=self.mod_path), files
+        ):
+            for message, filename, line in sub:
+                results.append(f"{os.path.basename(filename)}:{line} - {message}")
+        self._report(
+            sorted(results),
+            "✓ No event option logs citing another option's id",
+            "Event options whose log cites another option's id"
+            " (likely copy-paste — fix the log id):",
+            Severity.ERROR,
+            category="event-option-log-id",
+        )
+
+    def validate_ai_chance_ignores_cost(self):
+        """Warn on cost-insensitive AI weights when enabled by CLI or the CI batch."""
         if not self.check_ai_chance_costs:
             self._log_section(
                 "Skipping AI weight cost check (pass --check-ai-chance-costs to enable)"
@@ -2803,23 +3448,7 @@ class Validator(BaseValidator):
         if not files:
             self.log("  No event files in scope — skipping")
             return
-        effect_texts = (
-            _read_cleaned_text(path, mod_path=self.mod_path)
-            for path in self._collect_files(
-                ["common/scripted_effects/**/*.txt"], ignore_staged=True
-            )
-        )
-        effects = costly_scripted_effects(text for text in effect_texts if text)
-        stored: Dict[str, int] = {}
-        script_files = self._collect_files(
-            ["common/**/*.txt", "events/**/*.txt", "history/**/*.txt"],
-            ignore_staged=True,
-        )
-        for found in self._pool_map(
-            partial(_scan_stored_variable_signs, mod_path=self.mod_path), script_files
-        ):
-            for name, signs in found.items():
-                stored[name] = stored.get(name, 0) | signs
+        effects, stored = load_cost_lookups(self)
         results: List[Tuple[str, str, int]] = []
         for sub in self._pool_map_init(
             partial(_extract_cost_blind_options, mod_path=self.mod_path),
@@ -2831,10 +3460,39 @@ class Validator(BaseValidator):
         self._report(
             sorted(results, key=lambda r: (r[1], r[2])),
             "✓ No event AI weights ignoring option costs",
-            "Event options with a cost and a flat ai_chance (add a modifier for"
-            " affordability or for the situation the cost solves):",
+            "Event options whose ai_chance ignores a cost (add a relevant modifier"
+            " in the choosing country's scope):",
             Severity.WARNING,
             category="event-ai-chance-ignores-cost",
+        )
+
+    def validate_corruption_pp_cost(self):
+        """Warn when paid event options can waste PP at the minimum corruption level."""
+        if not self.check_corruption_pp_costs:
+            self._log_section(
+                "Skipping event corruption PP cost check "
+                "(pass --check-corruption-pp-costs to enable)"
+            )
+            return
+        self._log_section(
+            "Checking event options for paid corruption decreases without a level-1 guard..."
+        )
+        files = self._collect_files(["events/**/*.txt"])
+        if not files:
+            self.log("  No event files in scope — skipping")
+            return
+        results: List[Tuple[str, str, int]] = []
+        for sub in self._pool_map(
+            partial(_extract_corruption_pp_cost_options, mod_path=self.mod_path), files
+        ):
+            results.extend(sub)
+        self._report(
+            sorted(results, key=lambda result: (result[1], result[2])),
+            "✓ No charged event corruption decreases omit a level-1 guard",
+            "Event options needing review for a PP charge with decrease_corruption "
+            "and no recognized local minimum-corruption guard:",
+            Severity.WARNING,
+            category="event-corruption-pp-cost",
         )
 
     def run_validations(self):
@@ -2860,6 +3518,8 @@ class Validator(BaseValidator):
         self.validate_fire_only_once_in_loop()
         self.validate_major_event_in_loop()
         self.validate_option_log_without_effect()
+        self.validate_option_log_id()
+        self.validate_corruption_pp_cost()
         self.validate_ai_chance_ignores_cost()
 
 
@@ -2868,7 +3528,16 @@ def _add_extra_args(parser):
         "--check-ai-chance-costs",
         action="store_true",
         dest="check_ai_chance_costs",
-        help="Report event options whose flat ai_chance ignores the option's cost",
+        help="Report event options whose ai_chance ignores the option's cost",
+    )
+    parser.add_argument(
+        "--check-corruption-pp-costs",
+        action="store_true",
+        dest="check_corruption_pp_costs",
+        help=(
+            "Warn on event options that charge political power to decrease "
+            "corruption without a minimum-corruption guard"
+        ),
     )
 
 

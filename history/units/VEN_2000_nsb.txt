@@ -7,12 +7,12 @@ division_template = {
 		armor_Bat = { x = 0 y = 0 }
 		armor_Bat = { x = 0 y = 1 }
 		armor_Bat = { x = 0 y = 2 }
-		Arm_Inf_Bat = { x = 0 y = 2 }
+		Arm_Inf_Bat = { x = 1 y = 0 }
 	}
 
 	support = {
 		SP_AA_Battery = { x = 0 y = 0 }
-		SP_arty_battery = { x = 0 y = 0 }
+		SP_arty_battery = { x = 0 y = 1 }
 	}
 }
 
@@ -238,11 +238,6 @@ instant_effect = {
 		producer = SOV
 	}
 	add_equipment_to_stockpile = {
-		type = Heavy_Anti_tank_1
-		amount = 100
-		producer = SOV
-	}
-	add_equipment_to_stockpile = {
 		type = Anti_Air_0
 		amount = 300
 		producer = SOV
@@ -309,23 +304,22 @@ instant_effect = {
 		producer = FRA
 	}
 	add_equipment_to_stockpile = {
-		type = medium_tank_artillery_chassis_0
+		type = medium_tank_rocket_chassis_0
 		variant_name = "MAR-290"
 		amount = 20
 		producer = ISR
 	}
 	add_equipment_to_stockpile = {
 		type = medium_tank_amphibious_chassis_1
-		variant_name = "TPZ-1 Fuchs"
+		variant_name = "Tpz-1 Fuchs"
 		amount = 10
 		producer = GER
 	}
 	add_equipment_to_stockpile = {
-		type = medium_tank_amphibious_chassis_1 #"Henschel UR-416
+		type = medium_tank_amphibious_chassis_0 #"Henschel UR-416
 		variant_name = "UR-416"
 		amount = 20
 		producer = GER
-		#version_name = "Henschel UR-416"
 	}
 	add_equipment_to_stockpile = {
 		type = medium_tank_amphibious_chassis_1 #Type 6614

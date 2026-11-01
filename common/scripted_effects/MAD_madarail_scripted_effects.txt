@@ -23,7 +23,6 @@ MAD_madarail_clear_concessions = {
 	clr_country_flag = MAD_MADARAIL_OFFER_2
 	clr_country_flag = MAD_MADARAIL_OFFER_3
 	# The Comazar freight penalty only applies while that committed concession remains active.
-	clr_country_flag = MAD_MADARAIL_COMAZAR_FREIGHT_CONCESSION_ACCEPTED
 	remove_ideas = MAD_MADARAIL_COMAZAR_FREIGHT_CONCESSION
 	MAD_rural_cooperation_calculate_monthly_change = yes
 }
@@ -53,7 +52,7 @@ MAD_madarail_enact_concessions = {
 			set_temp_variable = { treasury_change = -5.00 }
 			modify_treasury_effect = yes
 		}
-		
+
 		if = {
 			limit = { has_country_flag = MAD_MADARAIL_OFFER_3 }
 			add_to_variable = { MAD_comazar_infrastructure_tax_gain_multiplier_modifier = -0.05 tooltip = infrastructure_tax_gain_multiplier_modifier_tt }
@@ -186,7 +185,6 @@ MAD_madarail_apply_stay_outcome = {
 			has_country_flag = MAD_MADARAIL_SEATED_COMAZAR
 			has_country_flag = MAD_MADARAIL_OFFER_3
 		}
-		set_country_flag = MAD_MADARAIL_COMAZAR_FREIGHT_CONCESSION_ACCEPTED
 		add_ideas = MAD_MADARAIL_COMAZAR_FREIGHT_CONCESSION
 		custom_effect_tooltip = MAD_RC_MONTHLY_NEG_025_TT
 	}
@@ -210,8 +208,6 @@ MAD_madarail_apply_desist_outcome = {
 	add_ideas = MAD_MADARAIL_INVESTOR_EXODUS
 	custom_effect_tooltip = MAD_madarail_desist_unlocked_tt
 }
-
-# common/scripted_effects/MAD_daewoo_scripted_effects.txt
 
 # Apply one Daewoo review delta and keep viability within its 0-100 range.
 # Caller sets MAD_daewoo_viability_delta immediately before invoking this effect.
@@ -252,19 +248,17 @@ MAD_daewoo_update_tier = {
 }
 
 MAD_daewoo_clear_tiers = {
-	if = { limit = { has_idea = MAD_DAEWOO_LEASE_TOXIC } remove_ideas = MAD_DAEWOO_LEASE_TOXIC }
-	if = { limit = { has_idea = MAD_DAEWOO_LEASE_TROUBLED } remove_ideas = MAD_DAEWOO_LEASE_TROUBLED }
-	if = { limit = { has_idea = MAD_DAEWOO_LEASE_SOUND } remove_ideas = MAD_DAEWOO_LEASE_SOUND }
+	remove_ideas = MAD_DAEWOO_LEASE_TOXIC
+	remove_ideas = MAD_DAEWOO_LEASE_TROUBLED
+	remove_ideas = MAD_DAEWOO_LEASE_SOUND
 }
 
 ########################################################################
-# common/scripted_effects/MAD_daewoo_outcome_scripted_effects.txt
+# Daewoo lease outcomes
 ########################################################################
 
-# common/scripted_effects/MAD_daewoo_outcome_scripted_effects.txt
-#
-# Shared effects for the Daewoo outcomes: cancelled (MAD_DEAL_BROKEN), collapsed (event mad_daewoo.3 + focus MAD_DEAL_KEPT_FAILED)
-# and signed off (MAD_DEAL_KEPT_MANAGED_WELL). Uses MAD_daewoo_clear_tiers from MAD_madarail_scripted_effects.txt.
+# Shared lease-ending effects for collapse and managed sign-off.
+# The cancellation focus keeps its outcome effects in the focus tree.
 
 # The concession is gone, whichever way it went: its cash crops stop feeding the drought and every agricultural
 # complex needs more hands again.
@@ -275,12 +269,36 @@ MAD_daewoo_break_effects = {
 			add_to_variable = { MAD_agri_productivity = -0.05 }
 			add_to_variable = { MAD_agri_income_tax = -0.02 }
 
+			# The initial deal adds one district in state 268. Keeping the lease
+			# adds another in 268 and one in 266. When the kept lease collapses,
+			# remove both state-268 levels and the state-266 level.
 			268 = {
 				if = {
-					limit = { agriculture_district > 0 }
+					limit = { agriculture_district > 1 }
 					remove_building = {
 						type = agriculture_district
-						level = 1
+						level = 2
+					}
+				}
+				else = {
+					if = {
+						limit = { agriculture_district > 0 }
+						remove_building = {
+							type = agriculture_district
+							level = 1
+						}
+					}
+				}
+			}
+			if = {
+				limit = { has_completed_focus = MAD_DEAL_KEPT }
+				266 = {
+					if = {
+						limit = { agriculture_district > 0 }
+						remove_building = {
+							type = agriculture_district
+							level = 1
+						}
 					}
 				}
 			}
@@ -302,38 +320,6 @@ MAD_daewoo_end_lease = {
 	MAD_daewoo_break_effects = yes
 }
 
-
-########################################################################
-# DAEWOO ELECTION DISPATCHER
-# The MD election campaign is deliberately queued from the daily tick rather than from a focus reward.
-# This keeps MD4_election_campaign.0 out of the focus tooltip/effect evaluation path.
-########################################################################
-
-MAD_daewoo_election_daily_tick = {
-	# Deal Broken: only call the election campaign when the government is below 50%.
-	if = {
-		limit = {
-			has_country_flag = MAD_DAEWOO_ELECTION_PENDING_BROKEN
-		}
-		clr_country_flag = MAD_DAEWOO_ELECTION_PENDING_BROKEN
-		if = {
-			limit = { MAD_government_popularity_below_half = yes }
-			set_politics = { elections_allowed = yes }
-			hidden_effect = { country_event = { id = MD4_election_campaign.0 days = 0 } }
-		}
-	}
-
-	# Deal Collapses: always start the full Millennium Dawn election campaign.
-	if = {
-		limit = {
-			has_country_flag = MAD_DAEWOO_ELECTION_PENDING_COLLAPSE
-		}
-		clr_country_flag = MAD_DAEWOO_ELECTION_PENDING_COLLAPSE
-		set_politics = { elections_allowed = yes }
-		hidden_effect = { country_event = { id = MD4_election_campaign.0 days = 0 } }
-	}
-}
-
 ########################################################################
 # FORCED OUTCOME FOCUSES
 # These branches are consequences of the systems, not player choices.
@@ -352,7 +338,6 @@ MAD_autocomplete_forced_outcome_foci = {
 		complete_national_focus = MAD_DEAL_KEPT_FAILED
 	}
 }
-
 
 # --- the drought hooks -------------------------------------------------------------------------------------------
 # Korean cash crops feed the drought, but only while the drought exists. The monthly tick adds MAD_drought_daewoo_pressure
@@ -381,17 +366,14 @@ MAD_daewoo_drought_well = {
 	}
 }
 
-
 ########################################################################
-# common/scripted_effects/MAD_drought_scripted_effects.txt
+# DROUGHT AND FAMINE SYSTEM
 ########################################################################
 
-# common/scripted_effects/MAD_drought_scripted_effects.txt
-#
 # THE DROUGHT AND FAMINE PANEL
 #
-# One stat: MAD_drought_severity (0-100). It exists from game start (event mad_drought.1) and is moved once a month by
-# MAD_drought_monthly_tick (event mad_drought.2 re-fires itself every 30 days until the drought is over).
+# One stat: MAD_drought_severity (0-100). Startup and the guarded MAD_Drought_and_famine focus initialise it;
+# event mad_drought.2 calls MAD_drought_monthly_tick every 30 days until the drought is over.
 #
 # Every month:   severity += base pressure (creeps up every year)
 #                          + Grand Sud term  (0.30, cut by up to 45% by infrastructure in the Toliara state, never to 0)
@@ -404,14 +386,14 @@ MAD_daewoo_drought_well = {
 #   Emergency water supply cuts a POSITIVE monthly rise to 30% for 6 months, then a +4 rebound.
 #
 # Phases:
-#   MAD_DROUGHT_CONTAINED_STATE  set automatically: all 7 preventative measures and severity <= 15 for one full year -> Winning The Fight opens
+#   MAD_DROUGHT_CONTAINED_STATE  set automatically: all 7 preventative measures and severity < 10.01 for one full year -> Winning The Fight opens
 #   MAD_DROUGHT_WON              set by Winning The Fight
 #   MAD_DROUGHT_OVER             severity reached 0 -> MAD_drought_resolved unlocks the further agricultural focuses
 # Until containment or victory, severity cannot be pushed below 5; neglect leaves the drought active.
 
 MAD_drought_init = {
 	set_country_flag = MAD_DROUGHT_STARTED
-	set_variable = { MAD_drought_severity = 15 }
+	set_variable = { MAD_drought_severity = 23.5 }
 	set_variable = { MAD_drought_base_pressure = 0.35 }
 	set_variable = { MAD_drought_prevention_total = 0 }
 	set_variable = { MAD_drought_prevention_count = 0 }
@@ -462,16 +444,12 @@ MAD_drought_init = {
 	set_variable = { MAD_drought_transfer_negative_people_487 = 0 }
 	set_variable = { MAD_drought_transfer_survivors_people = 0 }
 	set_variable = { MAD_drought_transfer_deaths_people = 0 }
-	set_variable = { MAD_drought_transfer_negative_people = 0 }
 	set_variable = { MAD_drought_return_people_shared = 0 }
 	set_variable = { MAD_drought_return_negative_people_shared = 0 }
 	set_variable = { MAD_drought_transfer_source_id = 0 }
 	set_variable = { MAD_drought_transfer_destination_id = 0 }
 	set_variable = { MAD_drought_transfer_abroad = 0 }
 	set_variable = { MAD_drought_transfer_famine_relief = 0 }
-	set_variable = { MAD_drought_historical_departure_people = 0 }
-	set_variable = { MAD_drought_migration_amount = 0 } # retained at zero for save compatibility
-	set_variable = { MAD_drought_migration_force = 0 } # retained at zero for save compatibility
 	set_variable = { MAD_drought_idp_266_267 = 0 }
 	set_variable = { MAD_drought_idp_266_268 = 0 }
 	set_variable = { MAD_drought_idp_266_487 = 0 }
@@ -494,8 +472,7 @@ MAD_drought_init = {
 	set_variable = { MAD_drought_abroad_in_SAF = 0 }
 	set_variable = { MAD_drought_abroad_in_COM_before = 0 }
 	set_variable = { MAD_drought_abroad_in_MOZ_before = 0 }
-	set_variable = { MAD_drought_abroad_in_SAF_before = 0 }
-	set_variable = { MAD_drought_transfer_abroad_country = 0 }
+		set_variable = { MAD_drought_transfer_abroad_country = 0 }
 	set_variable = { MAD_drought_report_net_266 = 0 }
 	set_variable = { MAD_drought_report_net_267 = 0 }
 	set_variable = { MAD_drought_report_net_268 = 0 }
@@ -512,15 +489,8 @@ MAD_drought_init = {
 	set_variable = { MAD_drought_mig_d_487 = 0 }
 	set_variable = { MAD_drought_lowest_safe_id = 0 }
 	set_variable = { MAD_drought_lowest_safe_severity = 101 }
-	set_variable = { MAD_drought_lowest_other_id = 0 }
-	set_variable = { MAD_drought_lowest_other_severity = 101 }
-	set_variable = { MAD_drought_months = 0 }
+			set_variable = { MAD_drought_months = 0 }
 	set_variable = { MAD_drought_calendar_months = 0 }
-	# Keep historical drought-event timing separate from the monthly displacement accumulator.
-	set_variable = { MAD_drought_hosted_266 = 0 }
-	set_variable = { MAD_drought_hosted_267 = 0 }
-	set_variable = { MAD_drought_hosted_268 = 0 }
-	set_variable = { MAD_drought_hosted_487 = 0 }
 	set_variable = { MAD_agri_war_support = 0 }
 	add_dynamic_modifier = { modifier = MAD_agriculture_modifier }
 	set_variable = { MAD_drought_containment_days = 0 }
@@ -627,8 +597,7 @@ MAD_drought_state_apply_change = {
 	add_to_variable = { MAD_state_drought = MAD_dr_state_change }
 	MAD_drought_state_clamp = yes
 	MAD_drought_state_update_tier = yes
-	
-	
+
 	custom_effect_tooltip = MAD_dr_state_change_tt
 }
 
@@ -637,7 +606,7 @@ MAD_drought_state_apply_famine = {
 	add_to_variable = { MAD_state_famine = MAD_dr_state_famine }
 	clamp_variable = { var = MAD_state_famine min = 0 max = 100 }
 	MAD_drought_state_update_tier = yes
-	
+
 	custom_effect_tooltip = MAD_dr_state_famine_tt
 }
 
@@ -657,7 +626,7 @@ MAD_drought_clamp = {
 # and the number drops a little at once. Set MAD_dr_prevent_amount right before calling this (see note above on why
 # HOI4 scripted effects use a temp variable here instead of a parameter).
 MAD_drought_add_prevention = {
-	# Only the seven formal drought decisions count toward the 5/7 containment gate. CNA measures have
+	# Only the seven formal drought decisions count toward the 7/7 containment gate. CNA measures have
 	# their own continuing pressure-reduction pool so they cannot produce 10/7 again.
 	if = {
 		limit = { check_variable = { MAD_drought_prevention_count < 7 } }
@@ -784,6 +753,7 @@ MAD_drought_south_shock = {
 # DROUGHT DISPLACEMENT
 ########################################################################
 # The four modeled states use state_population_k (in thousands) to calculate population-proportional movement.
+# Historical drought events alter drought/famine severity; departures arise only from this monthly severity check.
 # Every qualifying calendar month contributes its own population fraction to that month's report:
 #   state drought 60-79: 1/2000 of state population per qualifying month
 #   state drought 80+:   1/500 of state population per qualifying month
@@ -809,7 +779,6 @@ MAD_drought_displacement_snapshot = {
 MAD_drought_state_displacement_tick = {
 	if = {
 		limit = { check_variable = { MAD_state_drought > 59.99 } }
-		add_to_variable = { MAD_state_displacement_months = 1 }
 		set_temp_variable = { MAD_disp_gross_people = state_population_k }
 		multiply_temp_variable = { MAD_disp_gross_people = 1000 }
 		if = {
@@ -820,10 +789,6 @@ MAD_drought_state_displacement_tick = {
 			divide_temp_variable = { MAD_disp_gross_people = 2000 }
 		}
 		add_to_variable = { MAD_state_displacement_accumulator = MAD_disp_gross_people }
-	}
-	else = {
-		# A non-qualifying month adds no departures, but does not erase earlier departures in this report window.
-		set_variable = { MAD_state_displacement_months = 0 }
 	}
 }
 
@@ -888,19 +853,6 @@ MAD_drought_stage_displacement_period = {
 		}
 	}
 	set_variable = { MAD_state_displacement_accumulator = 0 }
-	set_variable = { MAD_state_displacement_months = 0 }
-}
-
-# Dated historical shocks contribute their specific modeled departure estimate to the next monthly report.
-# Source is the modeled Grand Sud state (268); the report later handles the population transfer and survival accounting.
-MAD_drought_historical_displacement = {
-	if = {
-		limit = { check_variable = { MAD_drought_historical_departure_people > 0.5 } }
-		268 = {
-			add_to_variable = { MAD_state_displacement_accumulator = ROOT.MAD_drought_historical_departure_people }
-		}
-	}
-	set_variable = { MAD_drought_historical_departure_people = 0 }
 }
 
 MAD_drought_execute_displacement = {
@@ -946,10 +898,87 @@ MAD_drought_execute_displacement = {
 			set_variable = { MAD_drought_transfer_destination_id = MAD_drought_lowest_safe_id }
 		}
 		else = {
-			# No other state is below 60: do not send people into another unsafe state.
-			# Use the established international destinations instead of creating reciprocal
-			# Antananarivo <-> Toliara flows while the whole island is severely affected.
+			# No other state is below 60. Prefer one of the established international destinations,
+			# but never select a country that no longer owns any states.
 			set_variable = { MAD_drought_transfer_abroad = 1 }
+			random_list = { 34 = { set_variable = { MAD_drought_transfer_abroad_country = 1 } } 33 = { set_variable = { MAD_drought_transfer_abroad_country = 2 } } 33 = { set_variable = { MAD_drought_transfer_abroad_country = 3 } } }
+			if = {
+				limit = { check_variable = { MAD_drought_transfer_abroad_country = 1 } }
+				if = {
+					limit = { NOT = { country_exists = COM } }
+					set_variable = { MAD_drought_transfer_abroad_country = 0 }
+				}
+				else_if = {
+					limit = { NOT = { COM = { any_owned_state = { always = yes } } } }
+					set_variable = { MAD_drought_transfer_abroad_country = 0 }
+				}
+			}
+			if = {
+				limit = { check_variable = { MAD_drought_transfer_abroad_country = 2 } }
+				if = {
+					limit = { NOT = { country_exists = MOZ } }
+					set_variable = { MAD_drought_transfer_abroad_country = 0 }
+				}
+				else_if = {
+					limit = { NOT = { MOZ = { any_owned_state = { always = yes } } } }
+					set_variable = { MAD_drought_transfer_abroad_country = 0 }
+				}
+			}
+			if = {
+				limit = { check_variable = { MAD_drought_transfer_abroad_country = 3 } }
+				if = {
+					limit = { NOT = { country_exists = SAF } }
+					set_variable = { MAD_drought_transfer_abroad_country = 0 }
+				}
+				else_if = {
+					limit = { NOT = { SAF = { any_owned_state = { always = yes } } } }
+					set_variable = { MAD_drought_transfer_abroad_country = 0 }
+				}
+			}
+			if = {
+				limit = { check_variable = { MAD_drought_transfer_abroad_country < 0.5 } }
+				# The random pick was unavailable. Try the preferred destinations in order.
+				if = {
+					limit = { country_exists = COM COM = { any_owned_state = { always = yes } } }
+					set_variable = { MAD_drought_transfer_abroad_country = 1 }
+				}
+				else_if = {
+					limit = { country_exists = MOZ MOZ = { any_owned_state = { always = yes } } }
+					set_variable = { MAD_drought_transfer_abroad_country = 2 }
+				}
+				else_if = {
+					limit = { country_exists = SAF SAF = { any_owned_state = { always = yes } } }
+					set_variable = { MAD_drought_transfer_abroad_country = 3 }
+				}
+				else = {
+					# None of the preferred foreign destinations owns a state. As a last resort,
+					# use the least drought-affected other modeled state so population remains tracked.
+					set_variable = { MAD_drought_lowest_safe_id = 0 }
+					set_variable = { MAD_drought_lowest_safe_severity = 101 }
+					if = {
+						limit = { NOT = { check_variable = { MAD_drought_transfer_source_id = 266 } } check_variable = { MAD_drought_mig_d_266 < MAD_drought_lowest_safe_severity } }
+						set_variable = { MAD_drought_lowest_safe_id = 266 }
+						set_variable = { MAD_drought_lowest_safe_severity = MAD_drought_mig_d_266 }
+					}
+					if = {
+						limit = { NOT = { check_variable = { MAD_drought_transfer_source_id = 267 } } check_variable = { MAD_drought_mig_d_267 < MAD_drought_lowest_safe_severity } }
+						set_variable = { MAD_drought_lowest_safe_id = 267 }
+						set_variable = { MAD_drought_lowest_safe_severity = MAD_drought_mig_d_267 }
+					}
+					if = {
+						limit = { NOT = { check_variable = { MAD_drought_transfer_source_id = 268 } } check_variable = { MAD_drought_mig_d_268 < MAD_drought_lowest_safe_severity } }
+						set_variable = { MAD_drought_lowest_safe_id = 268 }
+						set_variable = { MAD_drought_lowest_safe_severity = MAD_drought_mig_d_268 }
+					}
+					if = {
+						limit = { NOT = { check_variable = { MAD_drought_transfer_source_id = 487 } } check_variable = { MAD_drought_mig_d_487 < MAD_drought_lowest_safe_severity } }
+						set_variable = { MAD_drought_lowest_safe_id = 487 }
+						set_variable = { MAD_drought_lowest_safe_severity = MAD_drought_mig_d_487 }
+					}
+					set_variable = { MAD_drought_transfer_destination_id = MAD_drought_lowest_safe_id }
+					set_variable = { MAD_drought_transfer_abroad = 0 }
+				}
+			}
 		}
 
 		# Save a destination scope under the unique report slot. Nothing is moved until the report option.
@@ -985,7 +1014,6 @@ MAD_drought_execute_displacement = {
 		}
 		}
 		else = {
-			random_list = { 34 = { set_variable = { MAD_drought_transfer_abroad_country = 1 } } 33 = { set_variable = { MAD_drought_transfer_abroad_country = 2 } } 33 = { set_variable = { MAD_drought_transfer_abroad_country = 3 } } }
 		if = {
 			limit = { check_variable = { MAD_drought_transfer_abroad_country = 1 } }
 			if = { limit = { check_variable = { MAD_drought_transfer_source_id = 266 } } COM = { save_event_target_as = MAD_drought_transfer_destination_266 } }
@@ -1009,7 +1037,6 @@ MAD_drought_execute_displacement = {
 		}
 		}
 
-		
 		# Record this departure in its source-state slot; the monthly report commits all slots together.
 		if = {
 			limit = {
@@ -1063,7 +1090,7 @@ MAD_drought_execute_displacement = {
 	}
 }
 
-# The regular report commits all four staged state slots together, including departures contributed by historical drought shocks.
+# The regular report commits the staged monthly departure slots for all four modeled states.
 
 MAD_drought_commit_displacement_266 = {
 	if = {
@@ -1261,8 +1288,6 @@ MAD_drought_commit_displacement_487 = {
 	}
 }
 
-
-
 MAD_drought_clear_regular_transfer_slots = {
 	set_variable = { MAD_drought_transfer_gross_266 = 0 }
 	set_variable = { MAD_drought_transfer_survivors_266 = 0 }
@@ -1305,7 +1330,6 @@ MAD_drought_clear_regular_transfer_slots = {
 	set_variable = { MAD_drought_report_arrivals_MOZ = 0 }
 	set_variable = { MAD_drought_report_arrivals_SAF = 0 }
 }
-
 
 # Build display totals by destination for the event option tooltip. The underlying
 # transfers remain stored per source state so each source can still lose manpower correctly.
@@ -1377,7 +1401,6 @@ MAD_drought_prepare_displacement_report_summary = {
 # Each monthly tick collects that month's departure estimate, stages all four origins,
 # and opens ONE report only when at least one origin has a positive staged departure.
 # Empty months are silent: no event is queued and the regular transfer slots remain zero.
-# Historical displacement estimates are included because they share each state's accumulator.
 MAD_drought_displacement_monthly_tick = {
 	MAD_drought_collect_displacement_month = yes
 	if = {
@@ -1461,12 +1484,21 @@ MAD_drought_update_displacement_overload = {
 				# This avoids evaluating another state's threshold while in state scope.
 				set_variable = { MAD_drought_origin_displaced = ROOT.MAD_drought_origin_displaced_266 }
 				if = {
-					limit = { check_variable = { var = MAD_drought_origin_displaced value = 50000 compare = greater_than_or_equals } NOT = { has_dynamic_modifier = MAD_DROUGHT_DISPLACEMENT_OVERLOAD } }
+					limit = { check_variable = { var = MAD_drought_origin_displaced value = 50000 compare = greater_than_or_equals } NOT = { has_dynamic_modifier = { modifier = MAD_DROUGHT_DISPLACEMENT_OVERLOAD } } }
 					add_dynamic_modifier = { modifier = MAD_DROUGHT_DISPLACEMENT_OVERLOAD }
 				}
 				else_if = {
-					limit = { check_variable = { var = MAD_drought_origin_displaced value = 50000 compare = less_than } has_dynamic_modifier = MAD_DROUGHT_DISPLACEMENT_OVERLOAD }
-					remove_dynamic_modifier = { modifier = MAD_DROUGHT_DISPLACEMENT_OVERLOAD }
+					limit = {
+						check_variable = {
+							var = MAD_drought_origin_displaced
+							value = 50000
+							compare = less_than
+						}
+					}
+					if = {
+						limit = { has_dynamic_modifier = { modifier = MAD_DROUGHT_DISPLACEMENT_OVERLOAD } }
+						remove_dynamic_modifier = { modifier = MAD_DROUGHT_DISPLACEMENT_OVERLOAD }
+					}
 				}
 			}
 			267 = {
@@ -1474,12 +1506,21 @@ MAD_drought_update_displacement_overload = {
 				# This avoids evaluating another state's threshold while in state scope.
 				set_variable = { MAD_drought_origin_displaced = ROOT.MAD_drought_origin_displaced_267 }
 				if = {
-					limit = { check_variable = { var = MAD_drought_origin_displaced value = 50000 compare = greater_than_or_equals } NOT = { has_dynamic_modifier = MAD_DROUGHT_DISPLACEMENT_OVERLOAD } }
+					limit = { check_variable = { var = MAD_drought_origin_displaced value = 50000 compare = greater_than_or_equals } NOT = { has_dynamic_modifier = { modifier = MAD_DROUGHT_DISPLACEMENT_OVERLOAD } } }
 					add_dynamic_modifier = { modifier = MAD_DROUGHT_DISPLACEMENT_OVERLOAD }
 				}
 				else_if = {
-					limit = { check_variable = { var = MAD_drought_origin_displaced value = 50000 compare = less_than } has_dynamic_modifier = MAD_DROUGHT_DISPLACEMENT_OVERLOAD }
-					remove_dynamic_modifier = { modifier = MAD_DROUGHT_DISPLACEMENT_OVERLOAD }
+					limit = {
+						check_variable = {
+							var = MAD_drought_origin_displaced
+							value = 50000
+							compare = less_than
+						}
+					}
+					if = {
+						limit = { has_dynamic_modifier = { modifier = MAD_DROUGHT_DISPLACEMENT_OVERLOAD } }
+						remove_dynamic_modifier = { modifier = MAD_DROUGHT_DISPLACEMENT_OVERLOAD }
+					}
 				}
 			}
 			268 = {
@@ -1487,12 +1528,21 @@ MAD_drought_update_displacement_overload = {
 				# This avoids evaluating another state's threshold while in state scope.
 				set_variable = { MAD_drought_origin_displaced = ROOT.MAD_drought_origin_displaced_268 }
 				if = {
-					limit = { check_variable = { var = MAD_drought_origin_displaced value = 50000 compare = greater_than_or_equals } NOT = { has_dynamic_modifier = MAD_DROUGHT_DISPLACEMENT_OVERLOAD } }
+					limit = { check_variable = { var = MAD_drought_origin_displaced value = 50000 compare = greater_than_or_equals } NOT = { has_dynamic_modifier = { modifier = MAD_DROUGHT_DISPLACEMENT_OVERLOAD } } }
 					add_dynamic_modifier = { modifier = MAD_DROUGHT_DISPLACEMENT_OVERLOAD }
 				}
 				else_if = {
-					limit = { check_variable = { var = MAD_drought_origin_displaced value = 50000 compare = less_than } has_dynamic_modifier = MAD_DROUGHT_DISPLACEMENT_OVERLOAD }
-					remove_dynamic_modifier = { modifier = MAD_DROUGHT_DISPLACEMENT_OVERLOAD }
+					limit = {
+						check_variable = {
+							var = MAD_drought_origin_displaced
+							value = 50000
+							compare = less_than
+						}
+					}
+					if = {
+						limit = { has_dynamic_modifier = { modifier = MAD_DROUGHT_DISPLACEMENT_OVERLOAD } }
+						remove_dynamic_modifier = { modifier = MAD_DROUGHT_DISPLACEMENT_OVERLOAD }
+					}
 				}
 			}
 			487 = {
@@ -1500,12 +1550,21 @@ MAD_drought_update_displacement_overload = {
 				# This avoids evaluating another state's threshold while in state scope.
 				set_variable = { MAD_drought_origin_displaced = ROOT.MAD_drought_origin_displaced_487 }
 				if = {
-					limit = { check_variable = { var = MAD_drought_origin_displaced value = 50000 compare = greater_than_or_equals } NOT = { has_dynamic_modifier = MAD_DROUGHT_DISPLACEMENT_OVERLOAD } }
+					limit = { check_variable = { var = MAD_drought_origin_displaced value = 50000 compare = greater_than_or_equals } NOT = { has_dynamic_modifier = { modifier = MAD_DROUGHT_DISPLACEMENT_OVERLOAD } } }
 					add_dynamic_modifier = { modifier = MAD_DROUGHT_DISPLACEMENT_OVERLOAD }
 				}
 				else_if = {
-					limit = { check_variable = { var = MAD_drought_origin_displaced value = 50000 compare = less_than } has_dynamic_modifier = MAD_DROUGHT_DISPLACEMENT_OVERLOAD }
-					remove_dynamic_modifier = { modifier = MAD_DROUGHT_DISPLACEMENT_OVERLOAD }
+					limit = {
+						check_variable = {
+							var = MAD_drought_origin_displaced
+							value = 50000
+							compare = less_than
+						}
+					}
+					if = {
+						limit = { has_dynamic_modifier = { modifier = MAD_DROUGHT_DISPLACEMENT_OVERLOAD } }
+						remove_dynamic_modifier = { modifier = MAD_DROUGHT_DISPLACEMENT_OVERLOAD }
+					}
 				}
 			}
 	}
@@ -1516,7 +1575,7 @@ MAD_drought_update_displacement_overload = {
 		every_owned_state = {
 			set_variable = { MAD_drought_origin_displaced = 0 }
 			if = {
-				limit = { has_dynamic_modifier = MAD_DROUGHT_DISPLACEMENT_OVERLOAD }
+				limit = { has_dynamic_modifier = { modifier = MAD_DROUGHT_DISPLACEMENT_OVERLOAD } }
 				remove_dynamic_modifier = { modifier = MAD_DROUGHT_DISPLACEMENT_OVERLOAD }
 			}
 		}
@@ -1903,7 +1962,7 @@ MAD_drought_resettle = {
 	MAD_drought_return_route_487_266 = yes
 	MAD_drought_return_route_487_267 = yes
 	MAD_drought_return_route_487_268 = yes
-	# Re-evaluate the host-state construction penalty immediately after returns change route counters.
+	# Re-evaluate the origin-state construction penalty immediately after returns change route counters.
 	MAD_drought_update_displacement_overload = yes
 	clamp_variable = { var = MAD_drought_resettle_remaining min = 0 }
 	set_temp_variable = { MAD_drought_people_resettled = 20000 }
@@ -1937,8 +1996,7 @@ MAD_drought_return_expats = {
 		set_variable = { MAD_drought_expat_country_remaining = MAD_drought_expat_return_target }
 		set_variable = { MAD_drought_abroad_in_COM_before = MAD_drought_abroad_in_COM }
 		set_variable = { MAD_drought_abroad_in_MOZ_before = MAD_drought_abroad_in_MOZ }
-		set_variable = { MAD_drought_abroad_in_SAF_before = MAD_drought_abroad_in_SAF }
-		MAD_drought_return_expats_from_COM = yes
+				MAD_drought_return_expats_from_COM = yes
 		MAD_drought_return_expats_from_MOZ = yes
 		MAD_drought_return_expats_from_SAF = yes
 		set_variable = { MAD_drought_expat_return_remaining = MAD_drought_expat_return_target }
@@ -1950,6 +2008,7 @@ MAD_drought_return_expats = {
 		MAD_drought_return_expats_to_267 = yes
 		MAD_drought_return_expats_to_268 = yes
 		MAD_drought_return_expats_to_487 = yes
+		MAD_drought_update_displacement_overload = yes
 		clamp_variable = { var = MAD_drought_expat_return_remaining min = 0 }
 		add_timed_idea = { idea = MAD_DROUGHT_RESETTLED days = 730 }
 	}
@@ -2269,8 +2328,7 @@ MAD_drought_monthly_tick = {
 		# Regular displacement is handled by the separate calendar-month on_action.
 		# Keep this 30-day climate/severity tick separate from the monthly displacement report tick.
 
-		MAD_drought_update_tier = yes
-		# over?
+		# Finish as soon as severity reaches zero.
 		if = {
 			limit = { check_variable = { MAD_drought_severity < 0.001 } }
 			MAD_drought_finish = yes
@@ -2279,21 +2337,24 @@ MAD_drought_monthly_tick = {
 }
 
 MAD_drought_finish = {
-	set_country_flag = MAD_DROUGHT_OVER
-	set_variable = { MAD_drought_severity = 0 }
-	set_variable = { MAD_drought_relief_months = 0 }
-	MAD_drought_clear_tiers = yes
-	# the map goes green too
-	266 = { set_variable = { MAD_state_drought = 0 } set_variable = { MAD_state_famine = 0 } set_variable = { MAD_state_drought_tier = 0 } set_variable = { MAD_state_relief_months = 0 } MAD_drought_state_clear_tiers = yes if = { limit = { has_dynamic_modifier = { modifier = MAD_STATE_FAMINE } } remove_dynamic_modifier = { modifier = MAD_STATE_FAMINE } } }
-	267 = { set_variable = { MAD_state_drought = 0 } set_variable = { MAD_state_famine = 0 } set_variable = { MAD_state_drought_tier = 0 } set_variable = { MAD_state_relief_months = 0 } MAD_drought_state_clear_tiers = yes if = { limit = { has_dynamic_modifier = { modifier = MAD_STATE_FAMINE } } remove_dynamic_modifier = { modifier = MAD_STATE_FAMINE } } }
-	268 = { set_variable = { MAD_state_drought = 0 } set_variable = { MAD_state_famine = 0 } set_variable = { MAD_state_drought_tier = 0 } set_variable = { MAD_state_relief_months = 0 } MAD_drought_state_clear_tiers = yes if = { limit = { has_dynamic_modifier = { modifier = MAD_STATE_FAMINE } } remove_dynamic_modifier = { modifier = MAD_STATE_FAMINE } } }
-	487 = { set_variable = { MAD_state_drought = 0 } set_variable = { MAD_state_famine = 0 } set_variable = { MAD_state_drought_tier = 0 } set_variable = { MAD_state_relief_months = 0 } MAD_drought_state_clear_tiers = yes if = { limit = { has_dynamic_modifier = { modifier = MAD_STATE_FAMINE } } remove_dynamic_modifier = { modifier = MAD_STATE_FAMINE } } }
 	if = {
-		limit = { has_idea = MAD_DROUGHT_EVACUATIONS }
-		remove_ideas = MAD_DROUGHT_EVACUATIONS
+		limit = { NOT = { has_country_flag = MAD_DROUGHT_OVER } }
+		set_country_flag = MAD_DROUGHT_OVER
+		set_variable = { MAD_drought_severity = 0 }
+		set_variable = { MAD_drought_relief_months = 0 }
+		MAD_drought_clear_tiers = yes
+		# the map goes green too
+		266 = { set_variable = { MAD_state_drought = 0 } set_variable = { MAD_state_famine = 0 } set_variable = { MAD_state_drought_tier = 0 } set_variable = { MAD_state_relief_months = 0 } MAD_drought_state_clear_tiers = yes if = { limit = { has_dynamic_modifier = { modifier = MAD_STATE_FAMINE } } remove_dynamic_modifier = { modifier = MAD_STATE_FAMINE } } }
+		267 = { set_variable = { MAD_state_drought = 0 } set_variable = { MAD_state_famine = 0 } set_variable = { MAD_state_drought_tier = 0 } set_variable = { MAD_state_relief_months = 0 } MAD_drought_state_clear_tiers = yes if = { limit = { has_dynamic_modifier = { modifier = MAD_STATE_FAMINE } } remove_dynamic_modifier = { modifier = MAD_STATE_FAMINE } } }
+		268 = { set_variable = { MAD_state_drought = 0 } set_variable = { MAD_state_famine = 0 } set_variable = { MAD_state_drought_tier = 0 } set_variable = { MAD_state_relief_months = 0 } MAD_drought_state_clear_tiers = yes if = { limit = { has_dynamic_modifier = { modifier = MAD_STATE_FAMINE } } remove_dynamic_modifier = { modifier = MAD_STATE_FAMINE } } }
+		487 = { set_variable = { MAD_state_drought = 0 } set_variable = { MAD_state_famine = 0 } set_variable = { MAD_state_drought_tier = 0 } set_variable = { MAD_state_relief_months = 0 } MAD_drought_state_clear_tiers = yes if = { limit = { has_dynamic_modifier = { modifier = MAD_STATE_FAMINE } } remove_dynamic_modifier = { modifier = MAD_STATE_FAMINE } } }
+		if = {
+			limit = { has_idea = MAD_DROUGHT_EVACUATIONS }
+			remove_ideas = MAD_DROUGHT_EVACUATIONS
+		}
+		MAD_drought_sync_display = yes
+		country_event = mad_drought.20
 	}
-	MAD_drought_sync_display = yes
-	country_event = { id = mad_drought.20 }
 }
 
 # Historical droughts (dates are when the real ones hit) and a little chance every month.
@@ -2304,110 +2365,122 @@ MAD_drought_scheduled_events = {
 		limit = { check_variable = { MAD_drought_calendar_months > 3.99 } NOT = { has_country_flag = MAD_DROUGHT_EVENT_2000 } }
 		set_country_flag = MAD_DROUGHT_EVENT_2000
 		# Record the historical date once even if recovery suppresses this shock.
-		if = { limit = { MAD_historical_drought_should_fire = yes } country_event = { id = mad_drought.15 } }
+		if = { limit = { MAD_historical_drought_should_fire = yes } country_event = mad_drought.15 }
 	}
 	if = {
 		limit = { check_variable = { MAD_drought_calendar_months > 39.99 } NOT = { has_country_flag = MAD_DROUGHT_EVENT_2003 } }
 		set_country_flag = MAD_DROUGHT_EVENT_2003
 		# Record the historical date once even if recovery suppresses this shock.
-		if = { limit = { MAD_historical_drought_should_fire = yes } country_event = { id = mad_drought.16 } }
+		if = { limit = { MAD_historical_drought_should_fire = yes } country_event = mad_drought.16 }
 	}
 	if = {
 		limit = { check_variable = { MAD_drought_calendar_months > 55.99 } NOT = { has_country_flag = MAD_DROUGHT_EVENT_2005 } }
 		set_country_flag = MAD_DROUGHT_EVENT_2005
 		# Record the historical date once even if recovery suppresses this shock.
-		if = { limit = { MAD_historical_drought_should_fire = yes } country_event = { id = mad_drought.17 } }
+		if = { limit = { MAD_historical_drought_should_fire = yes } country_event = mad_drought.17 }
 	}
 	if = {
 		limit = { check_variable = { MAD_drought_calendar_months > 111.99 } NOT = { has_country_flag = MAD_DROUGHT_EVENT_2009 } }
 		set_country_flag = MAD_DROUGHT_EVENT_2009
 		# Record the historical date once even if recovery suppresses this shock.
-		if = { limit = { MAD_historical_drought_should_fire = yes } country_event = { id = mad_drought.18 } }
+		if = { limit = { MAD_historical_drought_should_fire = yes } country_event = mad_drought.18 }
 	}
 	if = {
 		limit = { check_variable = { MAD_drought_calendar_months > 125.99 } NOT = { has_country_flag = MAD_DROUGHT_EVENT_2010 } }
 		set_country_flag = MAD_DROUGHT_EVENT_2010
 		# Record the historical date once even if recovery suppresses this shock.
-		if = { limit = { MAD_historical_drought_should_fire = yes } country_event = { id = mad_drought.19 } }
+		if = { limit = { MAD_historical_drought_should_fire = yes } country_event = mad_drought.19 }
 	}
 	if = {
 		limit = { check_variable = { MAD_drought_calendar_months > 146.99 } NOT = { has_country_flag = MAD_DROUGHT_EVENT_LOCUSTS } }
 		set_country_flag = MAD_DROUGHT_EVENT_LOCUSTS
 		# Record the historical date once even if recovery suppresses this shock.
-		if = { limit = { MAD_historical_drought_should_fire = yes } country_event = { id = mad_drought.12 } }
+		if = { limit = { MAD_historical_drought_should_fire = yes } country_event = mad_drought.12 }
 	}
 	if = {
 		limit = { check_variable = { MAD_drought_calendar_months > 188.99 } NOT = { has_country_flag = MAD_DROUGHT_EVENT_ELNINO } }
 		set_country_flag = MAD_DROUGHT_EVENT_ELNINO
 		# Record the historical date once even if recovery suppresses this shock.
-		if = { limit = { MAD_historical_drought_should_fire = yes } country_event = { id = mad_drought.13 } }
+		if = { limit = { MAD_historical_drought_should_fire = yes } country_event = mad_drought.13 }
 	}
 	if = {
 		limit = { check_variable = { MAD_drought_calendar_months > 244.99 } NOT = { has_country_flag = MAD_DROUGHT_EVENT_KERE } }
 		set_country_flag = MAD_DROUGHT_EVENT_KERE
 		# Record the historical date once even if recovery suppresses this shock.
-		if = { limit = { MAD_historical_drought_should_fire = yes } country_event = { id = mad_drought.14 } }
+		if = { limit = { MAD_historical_drought_should_fire = yes } country_event = mad_drought.14 }
 	}
 
 	random_list = {
 		84 = { }
-		4 = { country_event = { id = mad_drought.10 } }
+		4 = { country_event = mad_drought.10 }
 		2 = {
 			if = {
 				limit = { check_variable = { MAD_drought_severity > 25 } }
-				country_event = { id = mad_drought.11 }
+				country_event = mad_drought.11
 			}
 		}
 		# --- the regional ones: these are what make the map uneven ---
 		4 = {
 			if = {
-				limit = { any_owned_state = { check_variable = { MAD_state_drought_exposure > 0.001 } check_variable = { MAD_state_drought < 85 } } }
-				country_event = { id = mad_drought.30 }
+				limit = { any_owned_state = { has_variable = MAD_state_drought_exposure check_variable = { MAD_state_drought < 85 } } }
+				random_owned_state = {
+					limit = { has_variable = MAD_state_drought_exposure check_variable = { MAD_state_drought < 85 } }
+					save_event_target_as = MAD_drought_event_state
+				}
+				country_event = mad_drought.30
 			}
 		}
 		3 = {
-			# a cyclone only matters if there is a coast to hit and something on it to lose
+			# Select the coastal target before firing the popup so the name and consequences match.
 			if = {
-				limit = { any_owned_state = { is_coastal = yes check_variable = { MAD_state_drought_exposure > 0.001 } } }
-				country_event = { id = mad_drought.31 }
+				limit = { any_owned_state = { is_coastal = yes has_variable = MAD_state_drought_exposure } }
+				random_owned_state = {
+					limit = { is_coastal = yes has_variable = MAD_state_drought_exposure }
+					save_event_target_as = MAD_drought_event_state
+				}
+				country_event = mad_drought.31
 			}
 		}
 		2 = {
 			if = {
-				limit = { any_owned_state = { check_variable = { MAD_state_drought_exposure > 0.001 } check_variable = { MAD_state_drought > 54.99 } } }
-				country_event = { id = mad_drought.32 }
+				limit = { any_owned_state = { has_variable = MAD_state_drought_exposure check_variable = { MAD_state_drought > 54.99 } } }
+				random_owned_state = {
+					limit = { has_variable = MAD_state_drought_exposure check_variable = { MAD_state_drought > 54.99 } }
+					save_event_target_as = MAD_drought_event_state
+				}
+				country_event = mad_drought.32
 			}
 		}
 		1 = {
 			if = {
-				limit = { any_owned_state = { check_variable = { MAD_state_drought_exposure > 0.001 } has_state_flag = MAD_STATE_WELLS } }
-				country_event = { id = mad_drought.33 }
+				limit = { any_owned_state = { has_variable = MAD_state_drought_exposure has_state_flag = MAD_STATE_WELLS } }
+				random_owned_state = {
+					limit = { has_variable = MAD_state_drought_exposure has_state_flag = MAD_STATE_WELLS }
+					save_event_target_as = MAD_drought_event_state
+				}
+				country_event = mad_drought.33
 			}
 		}
 	}
 }
 
 ########################################################################
-# RESETTLEMENT
-########################################################################
-
-########################################################################
 # THE DROUGHT MAP - one drought number and one famine number per STATE
 ########################################################################
 #
-# The national MAD_drought_severity you already had is now the AVERAGE of the states, so nothing above changes:
-# national decisions, events and focuses still set MAD_dr_change and still work. What is new:
+# MAD_drought_severity is the AVERAGE of these four states. National decisions, events and focuses still set
+# MAD_dr_change and work through the state model. The starting state offsets below also affect that average.
 #
 #   MAD_state_drought           0-100, per state. The map decisions show it and colour the state.
 #   MAD_state_famine            0-100, per state. Follows the drought with a lag; fed by food, not by water.
-#   MAD_state_drought_exposure  how hard a countrywide shock lands here. 1.35 in the Grand Sud, 0.85 elsewhere.
+#   MAD_state_drought_exposure  shock multiplier: 1.35 in Grand Sud (268), 1.05 in Mahajanga (266), 0.85 in Antananarivo (267) and Toamasina (487).
 #   MAD_drought_states          array of the states, used as target_array by the map decisions.
 #
 # ===================== THE ONLY PLACE YOU NEED TO EDIT FOR STATE IDs =====================
 # MAD_drought_state_init below marks two groups of states by flag. Everything else reads the flags, so you never
 # have to hunt state IDs through the rest of the mod:
 #
-#   MAD_GRAND_SUD_STATE  - the drought south. Exposure 1.35 and starts 10 points worse. Currently: 268 (Toliara).
+#   MAD_GRAND_SUD_STATE  - the Grand Sud: state 268 (Toliara), starting drought value 45.
 #   MAD_REFUGE_STATE     - where people go when the south empties: 267 (Antananarivo) and 487 (Toamasina).
 #
 # The four Madagascar states, taken from the railway comment in MAD_decisions.txt:
@@ -2418,52 +2491,46 @@ MAD_drought_state_init = {
 	clear_array = MAD_drought_states
 
 	# ONLY these four states belong to the drought model/readout.
-	# The national average is calculated from the same four states.
+	# Starting values are fixed at 19 / 15 / 45 / 15 (266 / 267 / 268 / 487), so the national average is 23.5 immediately.
 	266 = {
-		set_variable = { MAD_state_drought = ROOT.MAD_drought_severity }
+		set_variable = { MAD_state_drought = 19 }
 		set_variable = { MAD_state_famine = 0 }
 		set_variable = { MAD_state_drought_exposure = 1.05 }
 		set_variable = { MAD_state_drought_tier = 0 }
 		set_variable = { MAD_state_relief_months = 0 }
-		set_variable = { MAD_state_displacement_months = 0 }
 		set_variable = { MAD_state_displacement_accumulator = 0 }
 		clr_state_flag = MAD_GRAND_SUD_STATE
 		clr_state_flag = MAD_REFUGE_STATE
 		add_to_array = { array = ROOT.MAD_drought_states value = THIS }
-		add_to_variable = { MAD_state_drought = 4 }
 	}
 	267 = {
-		set_variable = { MAD_state_drought = ROOT.MAD_drought_severity }
+		set_variable = { MAD_state_drought = 15 }
 		set_variable = { MAD_state_famine = 0 }
 		set_variable = { MAD_state_drought_exposure = 0.85 }
 		set_variable = { MAD_state_drought_tier = 0 }
 		set_variable = { MAD_state_relief_months = 0 }
-		set_variable = { MAD_state_displacement_months = 0 }
 		set_variable = { MAD_state_displacement_accumulator = 0 }
 		clr_state_flag = MAD_GRAND_SUD_STATE
 		set_state_flag = MAD_REFUGE_STATE
 		add_to_array = { array = ROOT.MAD_drought_states value = THIS }
 	}
 	268 = {
-		set_variable = { MAD_state_drought = ROOT.MAD_drought_severity }
+		set_variable = { MAD_state_drought = 45 }
 		set_variable = { MAD_state_famine = 0 }
 		set_variable = { MAD_state_drought_exposure = 1.35 }
 		set_variable = { MAD_state_drought_tier = 0 }
 		set_variable = { MAD_state_relief_months = 0 }
-		set_variable = { MAD_state_displacement_months = 0 }
 		set_variable = { MAD_state_displacement_accumulator = 0 }
 		set_state_flag = MAD_GRAND_SUD_STATE
 		clr_state_flag = MAD_REFUGE_STATE
 		add_to_array = { array = ROOT.MAD_drought_states value = THIS }
-		add_to_variable = { MAD_state_drought = 30 }
 	}
 	487 = {
-		set_variable = { MAD_state_drought = ROOT.MAD_drought_severity }
+		set_variable = { MAD_state_drought = 15 }
 		set_variable = { MAD_state_famine = 0 }
 		set_variable = { MAD_state_drought_exposure = 0.85 }
 		set_variable = { MAD_state_drought_tier = 0 }
 		set_variable = { MAD_state_relief_months = 0 }
-		set_variable = { MAD_state_displacement_months = 0 }
 		set_variable = { MAD_state_displacement_accumulator = 0 }
 		clr_state_flag = MAD_GRAND_SUD_STATE
 		set_state_flag = MAD_REFUGE_STATE
@@ -2621,7 +2688,7 @@ MAD_drought_containment_daily_tick = {
 		if = {
 			limit = { check_variable = { MAD_drought_containment_days > 364.99 } }
 			set_country_flag = MAD_DROUGHT_CONTAINED_STATE
-			country_event = { id = mad_drought.22 }
+			country_event = mad_drought.22
 		}
 	}
 	else = {
@@ -2698,8 +2765,8 @@ MAD_drought_states_update_tiers = {
 ########################################################################
 # THE PER-STATE MONTHLY STEP (called from MAD_drought_monthly_tick)
 ########################################################################
-# Famine follows the drought with a lag: above 45 people start going hungry, below 45 they recover.
-# A state that has had wells sunk (MAD_STATE_WELLS) recovers faster; one cut off from the network suffers more.
+# Famine follows the drought with a lag: above 45 the meter rises, below 45 it recovers.
+# Wells (MAD_STATE_WELLS) reduce famine growth above 45 and accelerate recovery below 45.
 
 MAD_drought_state_monthly_one = {
 	if = {
@@ -2721,6 +2788,13 @@ MAD_drought_state_monthly_one = {
 		}
 		multiply_temp_variable = { MAD_fam_t = 0.6 }
 	}
+	if = {
+		limit = {
+			has_state_flag = MAD_STATE_WELLS
+			check_variable = { MAD_fam_t < 0 }
+		}
+		multiply_temp_variable = { MAD_fam_t = 1.4 }
+	}
 	add_to_variable = { MAD_state_famine = MAD_fam_t }
 	clamp_variable = { var = MAD_state_famine min = 0 max = 100 }
 	MAD_drought_state_update_tier = yes
@@ -2737,126 +2811,10 @@ MAD_drought_state_monthly = {
 # THE CNA AND THE LOCUSTS
 ########################################################################
 # Centre National Antiacridien - Madagascar's real anti-locust agency, refounded after the 1997-2000 plague.
-# The branch is: CNA -> (Continue The Path | Become The Locust) -> Map Infestations / Biopesticides ->
-# Locust Invasion Response / Preventative Measures. Everything here needs Agricultural Reforms first, because it
-# all runs on the agriculture modifier that focus creates.
-
-MAD_cna_establish = {
-	set_country_flag = MAD_CNA_FOUNDED
-	add_ideas = MAD_CNA_AGENCY
-	set_temp_variable = { treasury_change = -1.50 }
-	modify_treasury_effect = yes
-	custom_effect_tooltip = {
-		localization_key = modifies_dynamic_modifier_tt
-		MODIFIER = MAD_agriculture_modifier
-	}
-	add_to_variable = { MAD_agri_productivity = 0.05 tooltip = agricolture_productivity_modifier_tt }
-
-	# A standing survey service reduces ongoing drought pressure, but is not one of the seven formal measures.
-	add_to_variable = { MAD_drought_cna_pressure_reduction = 0.10 }
-	set_temp_variable = { MAD_dr_change = -2 }
-	MAD_drought_apply_change = yes
-}
-
-# CONTINUE THE PATH - keep the FAO/CNA survey-and-spray programme running as it was designed.
-# Slow, unglamorous, and it works: every locust event lands softer from here on.
-MAD_cna_continue_the_path = {
-	set_country_flag = MAD_CNA_SURVEY_PROGRAMME
-	set_temp_variable = { treasury_change = -1.00 }
-	modify_treasury_effect = yes
-	custom_effect_tooltip = {
-		localization_key = modifies_dynamic_modifier_tt
-		MODIFIER = MAD_agriculture_modifier
-	}
-	add_to_variable = { MAD_agri_worker_req = -0.01 tooltip = agriculture_district_worker_requirement_modifier_tt }
-	add_to_variable = { MAD_agri_productivity = 0.05 tooltip = agricolture_productivity_modifier_tt }
-
-	add_stability = 0.02
-}
-
-# BECOME THE LOCUST - if you cannot beat the swarm, harvest it. Locust flour is a real Malagasy famine food and a
-# real export; it feeds the south off the thing that was eating it, but it makes the agency dependent on the plague.
-MAD_cna_become_the_locust = {
-	set_country_flag = MAD_CNA_HARVEST_PROGRAMME
-	set_temp_variable = { treasury_change = -0.50 }
-	modify_treasury_effect = yes
-	custom_effect_tooltip = {
-		localization_key = modifies_dynamic_modifier_tt
-		MODIFIER = MAD_agriculture_modifier
-	}
-	add_to_variable = { MAD_agri_income_tax = 0.03 tooltip = agriculture_district_income_tax_modifier_tt }
-	add_to_variable = { MAD_agri_productivity = 0.05 tooltip = agricolture_productivity_modifier_tt }
-
-	# Protein in the worst-hit state(s) right now.
-	every_owned_state = {
-		limit = { has_state_flag = MAD_GRAND_SUD_STATE }
-		set_temp_variable = { MAD_dr_state_famine = -12 }
-		MAD_drought_state_apply_famine = yes
-	}
-	add_war_support = 0.02
-}
-
-# MAP INFESTATIONS - the survey grid. Already unlocked the Locust Monitoring Network decision; now it also makes
-# every locust event cheaper because you see the swarm forming.
-MAD_cna_map_infestations = {
-	custom_effect_tooltip = MAD_drought_unlock_locust_tt
-	set_country_flag = MAD_DROUGHT_LOCUST_WATCH
-	custom_effect_tooltip = {
-		localization_key = modifies_dynamic_modifier_tt
-		MODIFIER = MAD_agriculture_modifier
-	}
-	add_to_variable = { MAD_agri_productivity = 0.05 tooltip = agricolture_productivity_modifier_tt }
-
-}
-
-# BIOPESTICIDES - Metarhizium acridum instead of fenitrothion. Slower to kill, but it does not poison the zebu,
-# the bees or the rice paddies, so the farmland keeps working.
-MAD_cna_biopesticides = {
-	set_country_flag = MAD_CNA_BIOPESTICIDES
-	set_temp_variable = { treasury_change = -2.00 }
-	modify_treasury_effect = yes
-	custom_effect_tooltip = {
-		localization_key = modifies_dynamic_modifier_tt
-		MODIFIER = MAD_agriculture_modifier
-	}
-	add_to_variable = { MAD_agri_productivity = 0.05 tooltip = agricolture_productivity_modifier_tt }
-	add_to_variable = { MAD_agri_worker_req = -0.01 tooltip = agriculture_district_worker_requirement_modifier_tt }
-
-	add_to_variable = { MAD_drought_cna_pressure_reduction = 0.20 }
-	set_temp_variable = { MAD_dr_change = -2 }
-	MAD_drought_apply_change = yes
-}
-
-# LOCUST INVASION RESPONSE - the standing emergency plan: aircraft on contract, stockpiled product, trained teams.
-# Unlocks the per-state spraying decision.
-MAD_cna_invasion_response = {
-	custom_effect_tooltip = MAD_cna_invasion_response_tt
-	set_country_flag = MAD_CNA_RAPID_RESPONSE
-	set_temp_variable = { treasury_change = -2.50 }
-	modify_treasury_effect = yes
-	add_political_power = 25
-	add_to_variable = { MAD_drought_cna_pressure_reduction = 0.25 }
-	set_temp_variable = { MAD_dr_change = -2 }
-	MAD_drought_apply_change = yes
-}
-
-# PREVENTATIVE MEASURES - the whole thing made permanent: the CNA is funded out of the budget rather than by appeal.
-MAD_cna_preventative_measures = {
-	set_country_flag = MAD_CNA_PERMANENT
-	set_temp_variable = { treasury_change = -3.00 }
-	modify_treasury_effect = yes
-	custom_effect_tooltip = {
-		localization_key = modifies_dynamic_modifier_tt
-		MODIFIER = MAD_agriculture_modifier
-	}
-	add_to_variable = { MAD_agri_productivity = 0.05 tooltip = agricolture_productivity_modifier_tt }
-	add_to_variable = { MAD_agri_worker_req = -0.02 tooltip = agriculture_district_worker_requirement_modifier_tt }
-
-	add_to_variable = { MAD_drought_cna_pressure_reduction = 0.30 }
-	set_temp_variable = { MAD_dr_change = -2 }
-	MAD_drought_apply_change = yes
-	add_stability = 0.02
-}
+# The two CNA routes are complementary, not mutually exclusive: both can be completed and their benefits stack.
+# Continue the Path -> Map Infestations -> Locust Invasion Response.
+# Become the Locust -> Biopesticides -> Preventative Measures.
+# Focus rewards are implemented inline; the shared swarm calculation applies their flags to locust events.
 
 ########################################################################
 # A LOCUST SWARM ON THE MAP (used by the locust events)
@@ -2866,9 +2824,9 @@ MAD_cna_preventative_measures = {
 
 MAD_drought_locust_swarm = {
 	set_variable = { MAD_dr_swarm_v = MAD_dr_swarm_base }
-	if = { limit = { has_country_flag = MAD_CNA_SURVEY_PROGRAMME } multiply_variable = { MAD_dr_swarm_v = 0.75 } }
-	if = { limit = { has_country_flag = MAD_CNA_BIOPESTICIDES } multiply_variable = { MAD_dr_swarm_v = 0.75 } }
-	if = { limit = { has_country_flag = MAD_CNA_RAPID_RESPONSE } multiply_variable = { MAD_dr_swarm_v = 0.70 } }
+	if = { limit = { has_completed_focus = MAD_Continue_the_path } multiply_variable = { MAD_dr_swarm_v = 0.75 } }
+	if = { limit = { has_completed_focus = MAD_biopesticides } multiply_variable = { MAD_dr_swarm_v = 0.75 } }
+	if = { limit = { has_completed_focus = MAD_locust_invasion_response } multiply_variable = { MAD_dr_swarm_v = 0.70 } }
 	266 = {
 		set_temp_variable = { MAD_dr_state_change = ROOT.MAD_dr_swarm_v }
 		multiply_temp_variable = { MAD_dr_state_change = MAD_state_drought_exposure }
@@ -2905,8 +2863,8 @@ MAD_drought_locust_swarm = {
 
 ########################################################################
 # STARTER EFFECT
-# Called by the six generation-project UNLOCK focuses.
-# The first unlock starts one 1095-day mission; later unlocks do nothing.
+# Called by generation-project unlock focuses and the related DECIM programme focus.
+# The first valid call starts one 1095-day mission; later calls do nothing.
 ########################################################################
 
 MAD_JIRAMA_START_GENERATION_RECOVERY = {
@@ -2976,7 +2934,7 @@ MAD_JIRAMA_GENERATION_RECOVERY_DAILY = {
 		remove_mission = MAD_JIRAMA_GENERATION_RECOVERY_MISSION
 	}
 }
-# common/scripted_effects/MAD_dahalo_scripted_effects.txt
+# DAHALO CAMPAIGN SYSTEM
 #
 # The Dahalo system is a permanent pressure mechanic, not a temporary chain of generic bonuses.
 # MAD_dahalo_threat runs from 100 (maximum severe insecurity) to 0 (security restored); new games start at 65.
@@ -3002,8 +2960,14 @@ MAD_dahalo_init = {
 }
 
 MAD_dahalo_update_modifier = {
+	# Only create the modifier while there is an active insecurity penalty.
+	# At zero threat the later branch removes it, so adding it here would be redundant.
 	if = {
-		limit = { NOT = { has_dynamic_modifier = { modifier = MAD_dahalo_modifier } } }
+		limit = {
+			NOT = { has_country_flag = MAD_REMENABILA_IN_POWER }
+			check_variable = { MAD_dahalo_threat > 0.001 }
+			NOT = { has_dynamic_modifier = { modifier = MAD_dahalo_modifier } }
+		}
 		add_dynamic_modifier = { modifier = MAD_dahalo_modifier }
 	}
 
@@ -3083,7 +3047,7 @@ MAD_dahalo_update_modifier = {
 	}
 	else_if = {
 		limit = { check_variable = { MAD_dahalo_threat > 0 } }
-		set_variable = { MAD_dahalo_agri_productivity = -0.05 }
+		set_variable = { MAD_dahalo_agri_productivity = -0.01 }
 		set_variable = { MAD_dahalo_agri_income_tax = -0.01 }
 		set_variable = { MAD_dahalo_agri_worker_req = 0.01 }
 		set_variable = { MAD_dahalo_productivity_growth = 0 }
@@ -3114,13 +3078,6 @@ MAD_dahalo_update_modifier = {
 		}
 	}
 
-	if = {
-		limit = {
-			NOT = { has_country_flag = MAD_DAHALO_DEFEATED }
-			NOT = { has_country_flag = MAD_REMENABILA_IN_POWER }
-		}
-
-	}
 	MAD_rural_cooperation_calculate_monthly_change = yes
 }
 
@@ -3129,7 +3086,272 @@ MAD_dahalo_switch_to_remenabila = {
 	MAD_dahalo_update_modifier = yes
 }
 
+# Resolve the time-limited campaigns only when their operation timer expires.
+# Prepared institutions improve outcomes; each route still has a useful, but costly, partial result.
 
+# Readiness affects probability, but does not guarantee success. Probability is capped at 80%.
+MAD_dahalo_campaign_reset = {
+	clr_country_flag = MAD_DAHALO_CAMPAIGN_COMMUNITY_APPROACH
+	clr_country_flag = MAD_DAHALO_CAMPAIGN_COERCIVE_APPROACH
+	clr_country_flag = MAD_DAHALO_CAMPAIGN_CAPSAT_STYLE
+	clr_country_flag = MAD_DAHALO_CAMPAIGN_GENERAL_STAFF_STYLE
+	clr_country_flag = MAD_DAHALO_CAMPAIGN_ROLL_SUCCESS
+	clr_country_flag = MAD_MAZAVA_GROUND_OPERATION
+}
+MAD_dahalo_campaign_add_readiness = {
+	if = { limit = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM } add_to_variable = { MAD_dahalo_campaign_success_chance = 10 } }
+	if = { limit = { has_country_flag = MAD_DAHALO_TRACKER_NETWORK_ESTABLISHED } add_to_variable = { MAD_dahalo_campaign_success_chance = 6 } }
+	if = {
+		limit = { check_variable = { MAD_rural_cooperation > 69.99 } }
+		add_to_variable = { MAD_dahalo_campaign_success_chance = 7 }
+	}
+	else_if = {
+		limit = { check_variable = { MAD_rural_cooperation > 54.99 } }
+		add_to_variable = { MAD_dahalo_campaign_success_chance = 5 }
+	}
+	else_if = {
+		limit = { check_variable = { MAD_rural_cooperation > 34.99 } }
+		add_to_variable = { MAD_dahalo_campaign_success_chance = 3 }
+	}
+	else = {
+		add_to_variable = { MAD_dahalo_campaign_success_chance = -6 }
+	}
+	if = {
+		limit = { has_country_flag = MAD_ARMY_COMMAND_CAPSAT }
+		set_country_flag = MAD_DAHALO_CAMPAIGN_CAPSAT_STYLE
+		add_to_variable = { MAD_dahalo_campaign_success_chance = 8 }
+		if = { limit = { has_completed_focus = MAD_ARMY_CAPSAT_LOCAL_INITIATIVE } add_to_variable = { MAD_dahalo_campaign_success_chance = 3 } }
+	}
+	else_if = {
+		limit = { has_country_flag = MAD_ARMY_COMMAND_GENERAL_STAFF }
+		set_country_flag = MAD_DAHALO_CAMPAIGN_GENERAL_STAFF_STYLE
+		add_to_variable = { MAD_dahalo_campaign_success_chance = 6 }
+		if = { limit = { has_completed_focus = MAD_ARMY_CENTRALISED_PROCUREMENT } add_to_variable = { MAD_dahalo_campaign_success_chance = 3 } }
+	}
+}
+MAD_dahalo_campaign_add_threat_modifier = {
+	if = { limit = { check_variable = { MAD_dahalo_threat < 30.01 } } add_to_variable = { MAD_dahalo_campaign_success_chance = 6 } }
+	else_if = { limit = { check_variable = { MAD_dahalo_threat < 50.01 } } add_to_variable = { MAD_dahalo_campaign_success_chance = 4 } }
+	else_if = { limit = { check_variable = { MAD_dahalo_threat < 70.01 } } add_to_variable = { MAD_dahalo_campaign_success_chance = 2 } }
+	else_if = { limit = { check_variable = { MAD_dahalo_threat > 80 } } add_to_variable = { MAD_dahalo_campaign_success_chance = -8 } }
+	else_if = { limit = { check_variable = { MAD_dahalo_threat > 70 } } add_to_variable = { MAD_dahalo_campaign_success_chance = -4 } }
+}
+MAD_dahalo_campaign_add_fahalemana_threat_modifier = {
+	if = { limit = { check_variable = { MAD_dahalo_threat < 30.01 } } add_to_variable = { MAD_dahalo_campaign_success_chance = 8 } }
+	else_if = { limit = { check_variable = { MAD_dahalo_threat < 50.01 } } add_to_variable = { MAD_dahalo_campaign_success_chance = 6 } }
+	else_if = { limit = { check_variable = { MAD_dahalo_threat < 70.01 } } add_to_variable = { MAD_dahalo_campaign_success_chance = 3 } }
+	else_if = { limit = { check_variable = { MAD_dahalo_threat > 80 } } add_to_variable = { MAD_dahalo_campaign_success_chance = -10 } }
+	else_if = { limit = { check_variable = { MAD_dahalo_threat > 65 } } add_to_variable = { MAD_dahalo_campaign_success_chance = -6 } }
+}
+MAD_dahalo_campaign_finalize_odds = {
+	clamp_variable = { var = MAD_dahalo_campaign_success_chance min = 5 max = 80 }
+	set_variable = { MAD_dahalo_campaign_failure_chance = { value = 100 subtract = MAD_dahalo_campaign_success_chance } }
+}
+MAD_dahalo_campaign_roll = {
+	clr_country_flag = MAD_DAHALO_CAMPAIGN_ROLL_SUCCESS
+	random_list = {
+		MAD_dahalo_campaign_success_chance = { set_country_flag = MAD_DAHALO_CAMPAIGN_ROLL_SUCCESS }
+		# Failure is represented by the absence of the success flag; keep its weight in the roll.
+		MAD_dahalo_campaign_failure_chance = { }
+	}
+}
+MAD_dahalo_campaign_apply_success_rc = {
+	if = { limit = { has_country_flag = MAD_DAHALO_CAMPAIGN_COMMUNITY_APPROACH } add_to_temp_variable = { MAD_rc_delta = 2 } }
+	MAD_rural_cooperation_adjust = yes
+	if = { limit = { has_country_flag = MAD_DAHALO_CAMPAIGN_GENERAL_STAFF_STYLE } army_experience = 5 }
+}
+MAD_dahalo_campaign_apply_failure_rc = {
+	if = { limit = { has_country_flag = MAD_DAHALO_CAMPAIGN_COMMUNITY_APPROACH } add_to_temp_variable = { MAD_rc_delta = 2 } }
+	if = { limit = { has_country_flag = MAD_DAHALO_CAMPAIGN_COERCIVE_APPROACH } add_to_temp_variable = { MAD_rc_delta = -3 } }
+	if = { limit = { has_country_flag = MAD_DAHALO_CAMPAIGN_CAPSAT_STYLE } add_to_temp_variable = { MAD_rc_delta = -2 } }
+	if = { limit = { has_country_flag = MAD_DAHALO_CAMPAIGN_GENERAL_STAFF_STYLE } add_to_temp_variable = { MAD_rc_delta = 2 } }
+	if = { limit = { has_country_flag = MAD_USAD_COMMUNITY_LIAISON } add_to_temp_variable = { MAD_rc_delta = 2 } }
+	MAD_rural_cooperation_adjust = yes
+}
+MAD_dahalo_campaign_clear_after_resolution = {
+	clr_country_flag = MAD_DAHALO_CAMPAIGN_ROLL_SUCCESS
+	clr_country_flag = MAD_DAHALO_CAMPAIGN_COMMUNITY_APPROACH
+	clr_country_flag = MAD_DAHALO_CAMPAIGN_COERCIVE_APPROACH
+	clr_country_flag = MAD_DAHALO_CAMPAIGN_CAPSAT_STYLE
+	clr_country_flag = MAD_DAHALO_CAMPAIGN_GENERAL_STAFF_STYLE
+	clr_country_flag = MAD_MAZAVA_GROUND_OPERATION
+}
+MAD_dahalo_resolve_tandroka = {
+	set_country_flag = MAD_DAHALO_TANDROKA_RESOLVED
+	MAD_dahalo_campaign_roll = yes
+	if = {
+		limit = { has_country_flag = MAD_DAHALO_CAMPAIGN_ROLL_SUCCESS }
+		set_country_flag = MAD_DAHALO_TANDROKA_SUCCESS
+		add_to_variable = { MAD_dahalo_threat = -18 tooltip = MAD_DAHALO_THREAT_MINUS_18_TT }
+		set_temp_variable = { MAD_rc_delta = 4 }
+		MAD_dahalo_campaign_apply_success_rc = yes
+		add_stability = 0.01
+	}
+	else = {
+		set_country_flag = MAD_DAHALO_TANDROKA_CONTESTED
+		add_to_variable = { MAD_dahalo_threat = -6 tooltip = MAD_DAHALO_THREAT_MINUS_6_TT }
+		set_temp_variable = { MAD_rc_delta = -10 }
+		MAD_dahalo_campaign_apply_failure_rc = yes
+		add_stability = -0.02
+	}
+	MAD_dahalo_update_modifier = yes
+	MAD_dahalo_campaign_clear_after_resolution = yes
+}
+MAD_dahalo_resolve_coup_d_arret = {
+	set_country_flag = MAD_DAHALO_COUP_D_ARRET_COMPLETE
+	MAD_dahalo_campaign_roll = yes
+	if = {
+		limit = { has_country_flag = MAD_DAHALO_CAMPAIGN_ROLL_SUCCESS }
+		set_country_flag = MAD_DAHALO_COUP_D_ARRET_SUCCESS
+		add_to_variable = { MAD_dahalo_threat = -25 tooltip = MAD_DAHALO_THREAT_MINUS_25_TT }
+		set_temp_variable = { MAD_rc_delta = 5 }
+		MAD_dahalo_campaign_apply_success_rc = yes
+		add_stability = 0.01
+		army_experience = 10
+		add_war_support = 0.02
+	}
+	else = {
+		set_country_flag = MAD_DAHALO_COUP_D_ARRET_CONTESTED
+		add_to_variable = { MAD_dahalo_threat = -12 tooltip = MAD_DAHALO_THREAT_MINUS_12_TT }
+		set_temp_variable = { MAD_rc_delta = -8 }
+		MAD_dahalo_campaign_apply_failure_rc = yes
+		add_stability = -0.02
+		army_experience = 5
+	}
+	MAD_dahalo_update_modifier = yes
+	MAD_dahalo_campaign_clear_after_resolution = yes
+}
+MAD_dahalo_resolve_fahalemana = {
+	set_country_flag = MAD_DAHALO_FAHALEMANA_RESOLVED
+	set_country_flag = MAD_DAHALO_FAHALEMANA_AFTERCARE_RESOLVED
+	MAD_dahalo_campaign_roll = yes
+	if = {
+		limit = { has_country_flag = MAD_DAHALO_CAMPAIGN_ROLL_SUCCESS }
+		set_country_flag = MAD_DAHALO_FAHALEMANA_SUCCESS
+		if = {
+			limit = { check_variable = { MAD_dahalo_threat > 79.99 } }
+			add_to_variable = { MAD_dahalo_threat = -18 tooltip = MAD_DAHALO_THREAT_MINUS_18_TT }
+			set_temp_variable = { MAD_rc_delta = 3 }
+		}
+		else_if = {
+			limit = { check_variable = { MAD_dahalo_threat > 59.99 } }
+			add_to_variable = { MAD_dahalo_threat = -23 tooltip = MAD_DAHALO_THREAT_MINUS_23_TT }
+			set_temp_variable = { MAD_rc_delta = 5 }
+		}
+		else = {
+			add_to_variable = { MAD_dahalo_threat = -28 tooltip = MAD_DAHALO_THREAT_MINUS_28_TT }
+			set_temp_variable = { MAD_rc_delta = 8 }
+		}
+		MAD_dahalo_campaign_apply_success_rc = yes
+		add_stability = 0.02
+		army_experience = 10
+	}
+	else = {
+		set_country_flag = MAD_DAHALO_FAHALEMANA_CONTESTED
+		if = {
+			limit = { check_variable = { MAD_dahalo_threat > 79.99 } }
+			add_to_variable = { MAD_dahalo_threat = -8 tooltip = MAD_DAHALO_THREAT_MINUS_8_TT }
+			set_temp_variable = { MAD_rc_delta = -11 }
+		}
+		else_if = {
+			limit = { check_variable = { MAD_dahalo_threat > 59.99 } }
+			add_to_variable = { MAD_dahalo_threat = -11 tooltip = MAD_DAHALO_THREAT_MINUS_11_TT }
+			set_temp_variable = { MAD_rc_delta = -9 }
+		}
+		else = {
+			add_to_variable = { MAD_dahalo_threat = -14 tooltip = MAD_DAHALO_THREAT_MINUS_14_TT }
+			set_temp_variable = { MAD_rc_delta = -8 }
+		}
+		MAD_dahalo_campaign_apply_failure_rc = yes
+		add_stability = -0.02
+	}
+	MAD_dahalo_update_modifier = yes
+	MAD_dahalo_campaign_clear_after_resolution = yes
+}
+MAD_dahalo_resolve_mazava = {
+	set_country_flag = MAD_MAZAVA_RESOLVED
+	MAD_dahalo_campaign_roll = yes
+	if = {
+		limit = { has_country_flag = MAD_DAHALO_CAMPAIGN_ROLL_SUCCESS }
+		set_country_flag = MAD_MAZAVA_SUCCESS
+		if = {
+			limit = { has_country_flag = MAD_MAZAVA_GROUND_OPERATION }
+			add_to_variable = { MAD_dahalo_threat = -12 tooltip = MAD_DAHALO_THREAT_MINUS_12_TT }
+			set_temp_variable = { MAD_rc_delta = 4 }
+		}
+		else = {
+			add_to_variable = { MAD_dahalo_threat = -14 tooltip = MAD_DAHALO_THREAT_MINUS_14_TT }
+			set_temp_variable = { MAD_rc_delta = 5 }
+		}
+		if = { limit = { has_country_flag = MAD_USAD_COMMUNITY_LIAISON } add_to_temp_variable = { MAD_rc_delta = 2 } }
+		MAD_dahalo_campaign_apply_success_rc = yes
+		add_stability = 0.01
+		army_experience = 10
+		add_war_support = 0.01
+		if = {
+			limit = { has_completed_focus = MAD_Drought_and_famine }
+			268 = {
+				if = {
+					limit = { ROOT = { has_country_flag = MAD_MAZAVA_GROUND_OPERATION } }
+					if = {
+						limit = { ROOT = { has_country_flag = MAD_USAD_GROUND_LOGISTICS_READY } }
+						set_temp_variable = { MAD_dr_state_famine = -8 }
+						add_to_variable = { MAD_state_relief_months = 3 }
+					}
+					else = {
+						set_temp_variable = { MAD_dr_state_famine = -6 }
+						add_to_variable = { MAD_state_relief_months = 2 }
+					}
+				}
+				else = {
+					set_temp_variable = { MAD_dr_state_famine = -8 }
+					add_to_variable = { MAD_state_relief_months = 3 }
+				}
+				MAD_drought_state_apply_famine = yes
+			}
+			MAD_drought_recalc_national = yes
+		}
+	}
+	else = {
+		set_country_flag = MAD_MAZAVA_CONTESTED
+		if = {
+			limit = { has_country_flag = MAD_MAZAVA_GROUND_OPERATION }
+			add_to_variable = { MAD_dahalo_threat = -5 tooltip = MAD_DAHALO_THREAT_MINUS_5_TT }
+			set_temp_variable = { MAD_rc_delta = -9 }
+		}
+		else = {
+			add_to_variable = { MAD_dahalo_threat = -8 tooltip = MAD_DAHALO_THREAT_MINUS_8_TT }
+			set_temp_variable = { MAD_rc_delta = -7 }
+		}
+		MAD_dahalo_campaign_apply_failure_rc = yes
+		add_stability = -0.01
+		if = {
+			limit = { has_completed_focus = MAD_Drought_and_famine }
+			268 = {
+				if = {
+					limit = { ROOT = { has_country_flag = MAD_MAZAVA_GROUND_OPERATION } }
+					if = {
+						limit = { ROOT = { has_country_flag = MAD_USAD_GROUND_LOGISTICS_READY } }
+						set_temp_variable = { MAD_dr_state_famine = -4 }
+						add_to_variable = { MAD_state_relief_months = 2 }
+					}
+					else = {
+						set_temp_variable = { MAD_dr_state_famine = -2 }
+						add_to_variable = { MAD_state_relief_months = 1 }
+					}
+				}
+				else = {
+					set_temp_variable = { MAD_dr_state_famine = -4 }
+					add_to_variable = { MAD_state_relief_months = 1 }
+				}
+				MAD_drought_state_apply_famine = yes
+			}
+			MAD_drought_recalc_national = yes
+		}
+	}
+	MAD_dahalo_update_modifier = yes
+	MAD_dahalo_campaign_clear_after_resolution = yes
+}
 MAD_dahalo_southern_supply_interference = {
 	# This is deliberately limited to the Grand Sud and to physical relief/supply operations.
 	# Cash transfers and locally-built wells are not penalised here: the problem is getting
@@ -3190,15 +3412,15 @@ MAD_dahalo_southern_supply_interference = {
 }
 
 MAD_dahalo_southern_water_relief_interference = {
-    # Emergency-water relief always lasts six months.
-    # Rural Cooperation affects relief effectiveness, not duration.
-    set_temp_variable = {
-        MAD_dahalo_water_relief_months = 6
-    }
+	# Emergency-water relief always lasts six months.
+	# Rural Cooperation affects relief effectiveness, not duration.
+	set_temp_variable = {
+		MAD_dahalo_water_relief_months = 6
+	}
 
-    add_to_variable = {
-        MAD_state_relief_months = MAD_dahalo_water_relief_months
-    }
+	add_to_variable = {
+		MAD_state_relief_months = MAD_dahalo_water_relief_months
+	}
 }
 
 ########################################################################
@@ -3222,8 +3444,9 @@ MAD_dahalo_random_event_tick = {
 		}
 		subtract_from_variable = { MAD_dahalo_event_cooldown = 1 }
 	}
-	else_if = {
+	if = {
 		limit = {
+			check_variable = { MAD_dahalo_event_cooldown < 0.001 }
 			NOT = { has_country_flag = MAD_DAHALO_DEFEATED }
 			NOT = { has_country_flag = MAD_REMENABILA_IN_POWER }
 			NOT = { has_civil_war = yes }
@@ -3263,15 +3486,15 @@ MAD_dahalo_random_event_tick = {
 		}
 		random_list = {
 			55 = { }
-			17 = { country_event = { id = mad_dahalo.10 } }
-			10 = { country_event = { id = mad_dahalo.11 } }
+			17 = { country_event = mad_dahalo.10 }
+			10 = { country_event = mad_dahalo.11 }
 			8 = {
 				if = {
 					limit = {
 						has_completed_focus = MAD_dahalo_military_ops
 						check_variable = { MAD_dahalo_threat > 59.99 }
 					}
-					country_event = { id = mad_dahalo.15 }
+					country_event = mad_dahalo.15
 				}
 			}
 			4 = {
@@ -3280,7 +3503,7 @@ MAD_dahalo_random_event_tick = {
 						NOT = { has_country_flag = MAD_DAHALO_LOCAL_DEFENCE_RESOLVED }
 						check_variable = { MAD_dahalo_threat > 34.99 }
 					}
-					country_event = { id = mad_dahalo.12 }
+					country_event = mad_dahalo.12
 				}
 			}
 			4 = {
@@ -3290,7 +3513,7 @@ MAD_dahalo_random_event_tick = {
 						NOT = { has_country_flag = MAD_DAHALO_PRIVATE_SECURITY_RESOLVED }
 						check_variable = { MAD_dahalo_threat > 44.99 }
 					}
-					country_event = { id = mad_dahalo.13 }
+					country_event = mad_dahalo.13
 				}
 			}
 			2 = {
@@ -3305,7 +3528,7 @@ MAD_dahalo_random_event_tick = {
 							has_completed_focus = MAD_Toliara_rare_earths
 						}
 					}
-					country_event = { id = mad_dahalo.14 }
+					country_event = mad_dahalo.14
 				}
 			}
 			3 = {
@@ -3317,7 +3540,7 @@ MAD_dahalo_random_event_tick = {
 						NOT = { has_country_flag = MAD_DAHALO_REMENABILA_LEAD_RESOLVED }
 						check_variable = { MAD_dahalo_threat > 29.99 }
 					}
-					country_event = { id = mad_dahalo.16 }
+					country_event = mad_dahalo.16
 				}
 			}
 		}
@@ -3338,7 +3561,7 @@ MAD_dahalo_daily_tick = {
 			NOT = { has_country_flag = MAD_DAHALO_CIVIL_WAR_PENDING }
 			NOT = { has_civil_war = yes }
 		}
-		
+
 		clamp_variable = { var = MAD_dahalo_threat min = 0 max = 100 }
 		MAD_dahalo_update_modifier = yes
 	}
@@ -3355,26 +3578,26 @@ MAD_dahalo_daily_tick = {
 			check_variable = { MAD_dahalo_threat > 99.99 }
 		}
 		set_country_flag = MAD_DAHALO_CIVIL_WAR_PENDING
-		country_event = { id = mad_dahalo.1 }
+		country_event = mad_dahalo.1
 	}
 	MAD_dahalo_random_event_tick = yes
 }
 MAD_dahalo_monthly_tick = {
-    if = {
-        limit = {
-            NOT = { has_country_flag = MAD_DAHALO_DEFEATED }
-            NOT = { has_country_flag = MAD_REMENABILA_IN_POWER }
-            NOT = { has_country_flag = MAD_REMENABILA_KILLED }
-            NOT = { has_country_flag = MAD_DAHALO_SECURITY_ENDING }
-            NOT = { has_country_flag = MAD_DAHALO_ACCOMMODATION_ENDING }
-            NOT = { has_country_flag = MAD_DAHALO_CIVIL_WAR_STARTED }
-            NOT = { has_country_flag = MAD_DAHALO_CIVIL_WAR_PENDING }
-            NOT = { has_civil_war = yes }
-        }
-        add_to_variable = { MAD_dahalo_threat = 2 }
-        clamp_variable = { var = MAD_dahalo_threat min = 0 max = 100 }
-        MAD_dahalo_update_modifier = yes
-    }
+	if = {
+		limit = {
+			NOT = { has_country_flag = MAD_DAHALO_DEFEATED }
+			NOT = { has_country_flag = MAD_REMENABILA_IN_POWER }
+			NOT = { has_country_flag = MAD_REMENABILA_KILLED }
+			NOT = { has_country_flag = MAD_DAHALO_SECURITY_ENDING }
+			NOT = { has_country_flag = MAD_DAHALO_ACCOMMODATION_ENDING }
+			NOT = { has_country_flag = MAD_DAHALO_CIVIL_WAR_STARTED }
+			NOT = { has_country_flag = MAD_DAHALO_CIVIL_WAR_PENDING }
+			NOT = { has_civil_war = yes }
+		}
+		add_to_variable = { MAD_dahalo_threat = 2 }
+		clamp_variable = { var = MAD_dahalo_threat min = 0 max = 100 }
+		MAD_dahalo_update_modifier = yes
+	}
 }
 MAD_dahalo_prepare_for_civil_war = {
 	set_country_flag = MAD_DAHALO_CIVIL_WAR_STARTED
@@ -3384,7 +3607,6 @@ MAD_dahalo_prepare_for_civil_war = {
 	MAD_dahalo_update_modifier = yes
 }
 
-
 MAD_cancel_TGV_velirano_commitments = {
 	# Unfulfilled promises are cancelled when TGV leaves office. Completed delivery flags are permanent records:
 	# the ideas are removed by party synchronisation, but the decisions must not become repeatable.
@@ -3393,7 +3615,7 @@ MAD_cancel_TGV_velirano_commitments = {
 	clr_country_flag = MAD_TGV_PROMISED_DIGITAL
 	clr_country_flag = MAD_TGV_PROMISED_JOBS
 	clr_country_flag = MAD_TGV_PROMISED_FOOD
-	clr_country_flag = MAD_TGV_PROMISES_OPEN
+	
 }
 
 	MAD_cancel_HVM_project_review = {
@@ -4392,7 +4614,6 @@ MAD_build_nuclear_facility_in_available_state = {
 	}
 }
 
-
 ########################################################################
 # ARMY COMMAND EVENT BASELINES — now applied through MAD_ARMY_COMMAND_SYSTEM
 ########################################################################
@@ -4469,7 +4690,7 @@ MAD_rural_cooperation_initialize = {
 	clamp_variable = { var = MAD_rural_cooperation min = 0 max = 100 }
 }
 
-# Ensure a single constitutional model exists on startup. Party-conditioned overrides are event-driven.
+# Ensure a single constitutional model exists after party-idea synchronisation. Party-conditioned overrides are event-driven.
 MAD_rural_constitution_initialize = {
 	if = {
 		limit = { has_idea = MAD_POL_CHRISTOCRATIC_STATE }
@@ -4657,28 +4878,32 @@ MAD_rural_cooperation_calculate_monthly_change = {
 	# Popularity tiers deliberately stack: above 60%, both +0.25 effects apply (= +0.50 total).
 	# Scripted localisation hides the lower-tier row when the cumulative higher tier is active.
 	if = {
-		limit = { OR = {
+		limit = {
+			OR = {
 			AND = { has_government = democratic democratic > 0.499 }
 			AND = { has_government = communism communism > 0.499 }
 			AND = { has_government = fascism fascism > 0.499 }
 			AND = { has_government = neutrality neutrality > 0.499 }
-		} }
+			}
+		}
 		add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 }
 	}
 	if = {
-		limit = { OR = {
+		limit = {
+			OR = {
 			AND = { has_government = democratic democratic > 0.599 }
 			AND = { has_government = communism communism > 0.599 }
 			AND = { has_government = fascism fascism > 0.599 }
 			AND = { has_government = neutrality neutrality > 0.599 }
-		} }
+			}
+		}
 		add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 }
 	}
 
 	if = { limit = { check_variable = { MAD_drought_severity < 50 } check_variable = { MAD_drought_severity > 20 } } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
-	if = { limit = { check_variable = { MAD_drought_severity < 20 } } add_to_temp_variable = { MAD_rc_monthly_gain = 0.5 } }
+	if = { limit = { NOT = { check_variable = { MAD_drought_severity > 20 } } } add_to_temp_variable = { MAD_rc_monthly_gain = 0.5 } }
 	if = { limit = { check_variable = { MAD_dahalo_threat < 50 } check_variable = { MAD_dahalo_threat > 25 }  } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
-	if = { limit = { check_variable = { MAD_dahalo_threat < 25 } } add_to_temp_variable = { MAD_rc_monthly_gain = 0.50 } }
+	if = { limit = { NOT = { check_variable = { MAD_dahalo_threat > 25 } } } add_to_temp_variable = { MAD_rc_monthly_gain = 0.50 } }
 
 	# Governance paths provide lasting institutional memory. Milestones stack, subject to the +3 cap.
 	if = { limit = { has_completed_focus = MAD_POL_ROY_CROWN_WITHOUT_KING } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }

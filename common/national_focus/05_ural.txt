@@ -1763,7 +1763,7 @@ focus_tree = {
 					name = "Revoult Brigade"
 					regiments = {
 						Special_Forces = { x = 0 y = 0 }
-						Special_Forces = { x = 0 y = 0 }
+						Special_Forces = { x = 0 y = 2 }
 						Special_Forces = { x = 0 y = 1 }
 					}
 					support = {
@@ -2852,7 +2852,6 @@ focus_tree = {
 					instant_build = yes
 				}
 			}
-			add_to_temp_variable = { treasury_change = -2.5 }
 		}
 
 		ai_will_do = { base = 355 }
@@ -4280,7 +4279,7 @@ focus_tree = {
 					name = "Revoult Brigade"
 					regiments = {
 						Special_Forces = { x = 0 y = 0 }
-						Special_Forces = { x = 0 y = 0 }
+						Special_Forces = { x = 0 y = 2 }
 						Special_Forces = { x = 0 y = 1 }
 					}
 					support = {
@@ -6811,7 +6810,7 @@ focus_tree = {
 					name = "Revoult Brigade"
 					regiments = {
 						Special_Forces = { x = 0 y = 0 }
-						Special_Forces = { x = 0 y = 0 }
+						Special_Forces = { x = 0 y = 2 }
 						Special_Forces = { x = 0 y = 1 }
 					}
 					support = {
@@ -9062,6 +9061,7 @@ focus_tree = {
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus URA_monarchy_education"
 			add_ideas = URA_monarchy_education_reform_idea
+			grant_reform_mandate = yes
 		}
 
 		ai_will_do = { base = 355 }
@@ -9089,6 +9089,7 @@ focus_tree = {
 			if = { limit = { NOT = { has_idea = health_06 } }
 				block_health_change = yes
 			}
+			grant_reform_mandate = yes
 		}
 
 		ai_will_do = { base = 355 }
