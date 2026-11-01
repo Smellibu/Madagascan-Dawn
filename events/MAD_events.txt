@@ -3454,6 +3454,19 @@ country_event = {
 		if = { limit = { has_character = MAD_noel_rakotonandrasana } retire_character = MAD_noel_rakotonandrasana }
 		if = { limit = { has_character = MAD_edmond_rasolomahandry } retire_character = MAD_edmond_rasolomahandry }
 		clr_country_flag = MAD_MIL_PARTY_LEADER_GENERAL_STAFF
+
+		# Move both the politics-view party and the government to the military party.
+		set_party_index_to_ruling_party = yes
+		set_temp_variable = { party_popularity_increase = -0.15 }
+		change_relative_party_popularity = yes
+		set_temp_variable = { rul_party_temp = 22 }
+		set_temp_variable = { disable_elections = 1 }
+		change_ruling_party_effect = yes
+		set_temp_variable = { party_index = 22 }
+		set_temp_variable = { party_popularity_increase = 0.15 }
+		change_relative_party_popularity = yes
+
+		# Keep the explicit CAPSAT leader even if the party's leader counter was used before.
 		hidden_effect = { kill_country_leader = yes }
 		create_country_leader = {
 			name = "Noël Girardin Rakotonandrasana"
@@ -3463,7 +3476,6 @@ country_event = {
 			expire = "2099.1.1"
 		}
 		set_country_flag = MAD_MILITARY_RULE_PATH
-		if = { limit = { has_elections = yes } set_politics = { ruling_party = nationalist elections_allowed = no } }
 		# As above, migrate old static spirits without subtracting a baseline which
 		# was never written to variables in pre-patch saves.
 		if = {
