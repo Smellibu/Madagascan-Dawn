@@ -3255,9 +3255,8 @@ country_event = {
 		clr_country_flag = MAD_TGV_COMMAND_FORCE_CAPSAT
 		clr_country_flag = MAD_TGV_COMMAND_FORCE_GENERAL_STAFF
 		
-		# These faction chiefs leave the field-command roster once a command is selected.
+		# CAPSAT choice: retire only its chief from the field-command roster.
 		if = { limit = { has_character = MAD_noel_rakotonandrasana } retire_character = MAD_noel_rakotonandrasana }
-		if = { limit = { has_character = MAD_edmond_rasolomahandry } retire_character = MAD_edmond_rasolomahandry }
 		if = {
 			limit = {
 				has_country_flag = MAD_MIL_PARTY_LEADER_GENERAL_STAFF
@@ -3325,8 +3324,7 @@ country_event = {
 			clr_country_flag = MAD_TGV_COMMAND_FORCE_GENERAL_STAFF
 			country_event = { id = MAD_military_command.5 days = 1825 }
 		}
-		# These faction chiefs leave the field-command roster once a command is selected.
-		if = { limit = { has_character = MAD_noel_rakotonandrasana } retire_character = MAD_noel_rakotonandrasana }
+		# General Staff choice: retire only its chief from the field-command roster.
 		if = { limit = { has_character = MAD_edmond_rasolomahandry } retire_character = MAD_edmond_rasolomahandry }
 		if = {
 			limit = {
