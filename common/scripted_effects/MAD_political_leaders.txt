@@ -1,12 +1,103 @@
-# Select and retire the most relevant CAPSAT political leader for the current date.
-# This prevents a serving country leader from also remaining on the general roster.
-MAD_CREATE_CAPSAT_PARTY_LEADER = {
+# Date-aware selection for the military party's leader.
+# Selection is stored separately from character availability so the same person
+# remains party leader after their general character has been retired.
+MAD_SELECT_CAPSAT_PARTY_LEADER = {
+	clr_country_flag = MAD_MIL_PARTY_LEADER_CAPSAT_SELECTED
+	clr_country_flag = MAD_MIL_PARTY_LEADER_GENERAL_STAFF_SELECTED
+	clr_country_flag = MAD_MIL_PARTY_LEADER_CAPSAT_MICHAEL
+	clr_country_flag = MAD_MIL_PARTY_LEADER_CAPSAT_NOEL
+	clr_country_flag = MAD_MIL_PARTY_LEADER_CAPSAT_LYLISON
+	clr_country_flag = MAD_MIL_PARTY_LEADER_CAPSAT_CHARLES
+	clr_country_flag = MAD_MIL_PARTY_LEADER_CAPSAT_ANDRE
+	clr_country_flag = MAD_MIL_PARTY_LEADER_GENERAL_STAFF_BENI
+	clr_country_flag = MAD_MIL_PARTY_LEADER_GENERAL_STAFF_EDMOND
+	clr_country_flag = MAD_MIL_PARTY_LEADER_GENERAL_STAFF_PETERA
+	clr_country_flag = MAD_MIL_PARTY_LEADER_GENERAL_STAFF_ANDRIANOME
 	if = {
 		limit = {
 			date > 2022.1.1
 			has_character = MAD_michael_randrianirina
 		}
-		retire_character = MAD_michael_randrianirina
+		set_country_flag = MAD_MIL_PARTY_LEADER_CAPSAT_MICHAEL
+	}
+	else_if = {
+		limit = { has_character = MAD_noel_rakotonandrasana }
+		set_country_flag = MAD_MIL_PARTY_LEADER_CAPSAT_NOEL
+	}
+	else_if = {
+		limit = {
+			date > 2009.9.3
+			has_character = MAD_lylison_rene
+		}
+		set_country_flag = MAD_MIL_PARTY_LEADER_CAPSAT_LYLISON
+	}
+	else_if = {
+		limit = {
+			date > 2009.9.3
+			has_character = MAD_charles_andrianasoavina
+		}
+		set_country_flag = MAD_MIL_PARTY_LEADER_CAPSAT_CHARLES
+	}
+	else_if = {
+		limit = {
+			date > 2009.3.10
+			has_character = MAD_andre_andriarijaona
+		}
+		set_country_flag = MAD_MIL_PARTY_LEADER_CAPSAT_ANDRE
+	}
+	else = {
+		set_country_flag = MAD_MIL_PARTY_LEADER_CAPSAT_NOEL
+	}
+	set_country_flag = MAD_MIL_PARTY_LEADER_CAPSAT_SELECTED
+}
+
+MAD_SELECT_GENERAL_STAFF_PARTY_LEADER = {
+	clr_country_flag = MAD_MIL_PARTY_LEADER_CAPSAT_SELECTED
+	clr_country_flag = MAD_MIL_PARTY_LEADER_GENERAL_STAFF_SELECTED
+	clr_country_flag = MAD_MIL_PARTY_LEADER_CAPSAT_MICHAEL
+	clr_country_flag = MAD_MIL_PARTY_LEADER_CAPSAT_NOEL
+	clr_country_flag = MAD_MIL_PARTY_LEADER_CAPSAT_LYLISON
+	clr_country_flag = MAD_MIL_PARTY_LEADER_CAPSAT_CHARLES
+	clr_country_flag = MAD_MIL_PARTY_LEADER_CAPSAT_ANDRE
+	clr_country_flag = MAD_MIL_PARTY_LEADER_GENERAL_STAFF_BENI
+	clr_country_flag = MAD_MIL_PARTY_LEADER_GENERAL_STAFF_EDMOND
+	clr_country_flag = MAD_MIL_PARTY_LEADER_GENERAL_STAFF_PETERA
+	clr_country_flag = MAD_MIL_PARTY_LEADER_GENERAL_STAFF_ANDRIANOME
+	if = {
+		limit = {
+			date > 2014.5.1
+			has_character = MAD_beni_xavier_rasolofonirina
+		}
+		set_country_flag = MAD_MIL_PARTY_LEADER_GENERAL_STAFF_BENI
+	}
+	else_if = {
+		limit = {
+			date > 2009.2.10
+			has_character = MAD_edmond_rasolomahandry
+		}
+		set_country_flag = MAD_MIL_PARTY_LEADER_GENERAL_STAFF_EDMOND
+	}
+	else_if = {
+		limit = {
+			date > 2004.1.31
+			has_character = MAD_petera_behajaina
+		}
+		set_country_flag = MAD_MIL_PARTY_LEADER_GENERAL_STAFF_PETERA
+	}
+	else_if = {
+		limit = { has_character = MAD_andrianome_dieudonne }
+		set_country_flag = MAD_MIL_PARTY_LEADER_GENERAL_STAFF_ANDRIANOME
+	}
+	else = {
+		set_country_flag = MAD_MIL_PARTY_LEADER_GENERAL_STAFF_EDMOND
+	}
+	set_country_flag = MAD_MIL_PARTY_LEADER_GENERAL_STAFF_SELECTED
+}
+
+MAD_CREATE_CAPSAT_PARTY_LEADER = {
+	if = {
+		limit = { has_country_flag = MAD_MIL_PARTY_LEADER_CAPSAT_MICHAEL }
+		if = { limit = { has_character = MAD_michael_randrianirina } retire_character = MAD_michael_randrianirina }
 		create_country_leader = {
 			name = "Michael Randrianirina"
 			ideology = Nat_Autocracy
@@ -15,8 +106,8 @@ MAD_CREATE_CAPSAT_PARTY_LEADER = {
 		}
 	}
 	else_if = {
-		limit = { has_character = MAD_noel_rakotonandrasana }
-		retire_character = MAD_noel_rakotonandrasana
+		limit = { has_country_flag = MAD_MIL_PARTY_LEADER_CAPSAT_NOEL }
+		if = { limit = { has_character = MAD_noel_rakotonandrasana } retire_character = MAD_noel_rakotonandrasana }
 		create_country_leader = {
 			name = "Noël Girardin Rakotonandrasana"
 			picture = "Noel_Girardin_Rakotonandrasana.dds"
@@ -26,11 +117,8 @@ MAD_CREATE_CAPSAT_PARTY_LEADER = {
 		}
 	}
 	else_if = {
-		limit = {
-			date > 2009.9.3
-			has_character = MAD_lylison_rene
-		}
-		retire_character = MAD_lylison_rene
+		limit = { has_country_flag = MAD_MIL_PARTY_LEADER_CAPSAT_LYLISON }
+		if = { limit = { has_character = MAD_lylison_rene } retire_character = MAD_lylison_rene }
 		create_country_leader = {
 			name = "Lylison Rene"
 			picture = "Lylison_Rene.dds"
@@ -40,11 +128,8 @@ MAD_CREATE_CAPSAT_PARTY_LEADER = {
 		}
 	}
 	else_if = {
-		limit = {
-			date > 2009.9.3
-			has_character = MAD_charles_andrianasoavina
-		}
-		retire_character = MAD_charles_andrianasoavina
+		limit = { has_country_flag = MAD_MIL_PARTY_LEADER_CAPSAT_CHARLES }
+		if = { limit = { has_character = MAD_charles_andrianasoavina } retire_character = MAD_charles_andrianasoavina }
 		create_country_leader = {
 			name = "Charles Andrianasoavina"
 			picture = "Charles_Andrianasoavina.dds"
@@ -54,11 +139,8 @@ MAD_CREATE_CAPSAT_PARTY_LEADER = {
 		}
 	}
 	else_if = {
-		limit = {
-			date > 2009.3.10
-			has_character = MAD_andre_andriarijaona
-		}
-		retire_character = MAD_andre_andriarijaona
+		limit = { has_country_flag = MAD_MIL_PARTY_LEADER_CAPSAT_ANDRE }
+		if = { limit = { has_character = MAD_andre_andriarijaona } retire_character = MAD_andre_andriarijaona }
 		create_country_leader = {
 			name = "André Ndriarijaona"
 			picture = "Andre_Ndriarijaona.dds"
@@ -78,15 +160,10 @@ MAD_CREATE_CAPSAT_PARTY_LEADER = {
 	}
 }
 
-# General Staff succession uses the senior active officer for the period.
-# If a dated officer is absent from an older save, the next historical fallback is used.
 MAD_CREATE_GENERAL_STAFF_PARTY_LEADER = {
 	if = {
-		limit = {
-			date > 2014.5.1
-			has_character = MAD_beni_xavier_rasolofonirina
-		}
-		retire_character = MAD_beni_xavier_rasolofonirina
+		limit = { has_country_flag = MAD_MIL_PARTY_LEADER_GENERAL_STAFF_BENI }
+		if = { limit = { has_character = MAD_beni_xavier_rasolofonirina } retire_character = MAD_beni_xavier_rasolofonirina }
 		create_country_leader = {
 			name = "Beni Xavier Rasolofonirina"
 			picture = "Beni_Xavier_Rasolofonirina.dds"
@@ -96,11 +173,8 @@ MAD_CREATE_GENERAL_STAFF_PARTY_LEADER = {
 		}
 	}
 	else_if = {
-		limit = {
-			date > 2009.2.10
-			has_character = MAD_edmond_rasolomahandry
-		}
-		retire_character = MAD_edmond_rasolomahandry
+		limit = { has_country_flag = MAD_MIL_PARTY_LEADER_GENERAL_STAFF_EDMOND }
+		if = { limit = { has_character = MAD_edmond_rasolomahandry } retire_character = MAD_edmond_rasolomahandry }
 		create_country_leader = {
 			name = "Edmond Rasolomahandry"
 			picture = "Edmond_Rasolomahandry.dds"
@@ -110,11 +184,8 @@ MAD_CREATE_GENERAL_STAFF_PARTY_LEADER = {
 		}
 	}
 	else_if = {
-		limit = {
-			date > 2004.1.31
-			has_character = MAD_petera_behajaina
-		}
-		retire_character = MAD_petera_behajaina
+		limit = { has_country_flag = MAD_MIL_PARTY_LEADER_GENERAL_STAFF_PETERA }
+		if = { limit = { has_character = MAD_petera_behajaina } retire_character = MAD_petera_behajaina }
 		create_country_leader = {
 			name = "Petera Behajaina"
 			picture = "Petera_Behajaina.dds"
@@ -124,8 +195,8 @@ MAD_CREATE_GENERAL_STAFF_PARTY_LEADER = {
 		}
 	}
 	else_if = {
-		limit = { has_character = MAD_andrianome_dieudonne }
-		retire_character = MAD_andrianome_dieudonne
+		limit = { has_country_flag = MAD_MIL_PARTY_LEADER_GENERAL_STAFF_ANDRIANOME }
+		if = { limit = { has_character = MAD_andrianome_dieudonne } retire_character = MAD_andrianome_dieudonne }
 		create_country_leader = {
 			name = "Andrianome Ranivo Dieudonné"
 			ideology = Nat_Autocracy
@@ -352,10 +423,18 @@ set_leader_MAD = {
 			hidden_effect = { kill_country_leader = yes }
 			if = {
 				limit = { has_country_flag = MAD_MIL_PARTY_LEADER_GENERAL_STAFF }
-				MAD_CREATE_GENERAL_STAFF_PARTY_LEADER = yes
+				if = {
+				limit = { NOT = { has_country_flag = MAD_MIL_PARTY_LEADER_GENERAL_STAFF_SELECTED } }
+				MAD_SELECT_GENERAL_STAFF_PARTY_LEADER = yes
+			}
+			MAD_CREATE_GENERAL_STAFF_PARTY_LEADER = yes
 			}
 			else = {
-				MAD_CREATE_CAPSAT_PARTY_LEADER = yes
+				if = {
+				limit = { NOT = { has_country_flag = MAD_MIL_PARTY_LEADER_CAPSAT_SELECTED } }
+				MAD_SELECT_CAPSAT_PARTY_LEADER = yes
+			}
+			MAD_CREATE_CAPSAT_PARTY_LEADER = yes
 			}
 			if = { limit = { has_country_flag = do_not_retire } subtract_from_variable = { Nat_Autocracy_leader = 1 } }
 			set_temp_variable = { b = 1 }
