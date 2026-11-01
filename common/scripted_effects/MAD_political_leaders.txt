@@ -23,16 +23,20 @@ MAD_SELECT_CAPSAT_PARTY_LEADER = {
 		set_country_flag = MAD_MIL_PARTY_LEADER_CAPSAT_MICHAEL
 	}
 	else_if = {
-		limit = { date > 2010.1.1 has_character = MAD_lylison_rene }
+		limit = { date > 2010.5.1 has_character = MAD_lylison_rene }
 		set_country_flag = MAD_MIL_PARTY_LEADER_CAPSAT_LYLISON
+	}
+	else_if = {
+		limit = {
+			date > 2009.3.10
+			date < 2010.5.1
+			has_character = MAD_noel_rakotonandrasana
+		}
+		set_country_flag = MAD_MIL_PARTY_LEADER_CAPSAT_NOEL
 	}
 	else_if = {
 		limit = { date > 2009.9.3 has_character = MAD_charles_andrianasoavina }
 		set_country_flag = MAD_MIL_PARTY_LEADER_CAPSAT_CHARLES
-	}
-	else_if = {
-		limit = { date > 2009.3.10 has_character = MAD_noel_rakotonandrasana }
-		set_country_flag = MAD_MIL_PARTY_LEADER_CAPSAT_NOEL
 	}
 	else_if = {
 		limit = { date > 2008.1.4 has_character = MAD_andre_lucien_rakotoarimasy }
