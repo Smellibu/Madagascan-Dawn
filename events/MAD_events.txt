@@ -3419,6 +3419,12 @@ country_event = {
 			clr_country_flag = MAD_TGV_COMMAND_FORCE_GENERAL_STAFF
 			clr_country_flag = MAD_MIL_PARTY_LEADER_GENERAL_STAFF
 			clr_country_flag = MAD_MIL_PARTY_LEADER_GENERAL_STAFF_SELECTED
+			clr_country_flag = MAD_MIL_PARTY_LEADER_GENERAL_STAFF_BENI
+			clr_country_flag = MAD_MIL_PARTY_LEADER_GENERAL_STAFF_EDMOND
+			clr_country_flag = MAD_MIL_PARTY_LEADER_GENERAL_STAFF_ANDRE_LUCIEN
+			clr_country_flag = MAD_MIL_PARTY_LEADER_GENERAL_STAFF_PETERA
+			clr_country_flag = MAD_MIL_PARTY_LEADER_GENERAL_STAFF_JULES
+			clr_country_flag = MAD_MIL_PARTY_LEADER_GENERAL_STAFF_ANDRIANOME
 			clr_country_flag = MAD_MIL_PARTY_LEADER_CAPSAT_SELECTED
 			clr_country_flag = MAD_MIL_PARTY_LEADER_CAPSAT_MICHAEL
 			clr_country_flag = MAD_MIL_PARTY_LEADER_CAPSAT_LYLISON
@@ -3457,6 +3463,10 @@ country_event = {
 		set_country_flag = MAD_CAPSAT_REVOLT_RESOLVED
 		clr_country_flag = MAD_TGV_CAPSAT_REJECTION
 		set_country_flag = MAD_MIL_PARTY_LEADER_GENERAL_STAFF
+		if = {
+			limit = { NOT = { has_country_flag = MAD_MIL_PARTY_LEADER_GENERAL_STAFF_SELECTED } }
+			MAD_SELECT_GENERAL_STAFF_PARTY_LEADER = yes
+		}
 		
 		add_stability = -0.08
 		army_experience = 35
