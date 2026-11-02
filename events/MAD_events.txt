@@ -5533,7 +5533,7 @@ country_event = {
 			limit = { NOT = { state = 267 } }
 			add_extra_state_shared_building_slots = 1
 		}
-		add_power_balance_value = { id = MAD_economy_ownership_bop value = 0.006 tooltip_side = MAD_public_ownership }
+		add_power_balance_value = { id = MAD_economy_ownership_bop value = 0.04 tooltip_side = MAD_public_ownership }
 		if = {
 			limit = { has_idea = labour_unions }
 			set_temp_variable = { temp_opinion = 5 }
@@ -5547,7 +5547,7 @@ country_event = {
 			limit = { NOT = { state = 267 } }
 			add_extra_state_shared_building_slots = 1
 		}
-		add_power_balance_value = { id = MAD_economy_ownership_bop value = -0.006 tooltip_side = MAD_private_ownership }
+		add_power_balance_value = { id = MAD_economy_ownership_bop value = -0.04 tooltip_side = MAD_private_ownership }
 		if = {
 			limit = { has_idea = small_medium_business_owners }
 			set_temp_variable = { temp_opinion = 5 }
