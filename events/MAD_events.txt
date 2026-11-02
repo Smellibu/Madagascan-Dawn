@@ -5712,27 +5712,18 @@ country_event = {
 		add_ideas = MAD_dip_strategic_autonomy
 		if = {
 			limit = { has_idea = the_military }
-			if = {
-				limit = { has_idea = the_military }
-				set_temp_variable = { temp_opinion = 5 }
-				change_the_military_opinion = yes
-			}
+			set_temp_variable = { temp_opinion = 5 }
+			change_the_military_opinion = yes
 		}
 		if = {
 			limit = { has_idea = labour_unions }
-			if = {
-				limit = { has_idea = labour_unions }
-				set_temp_variable = { temp_opinion = 5 }
-				change_labour_unions_opinion = yes
-			}
+			set_temp_variable = { temp_opinion = 5 }
+			change_labour_unions_opinion = yes
 		}
 		if = {
 			limit = { has_idea = international_bankers }
-			if = {
-				limit = { has_idea = international_bankers }
-				set_temp_variable = { temp_opinion = -5 }
-				change_international_bankers_opinion = yes
-			}
+			set_temp_variable = { temp_opinion = -5 }
+			change_international_bankers_opinion = yes
 		}
 	}
 
@@ -5746,27 +5737,18 @@ country_event = {
 		add_ideas = MAD_dip_development_first
 		if = {
 			limit = { has_idea = international_bankers }
-			if = {
-				limit = { has_idea = international_bankers }
-				set_temp_variable = { temp_opinion = 5 }
-				change_international_bankers_opinion = yes
-			}
+			set_temp_variable = { temp_opinion = 5 }
+			change_international_bankers_opinion = yes
 		}
 		if = {
 			limit = { has_idea = small_medium_business_owners }
-			if = {
-				limit = { has_idea = small_medium_business_owners }
-				set_temp_variable = { temp_opinion = 5 }
-				change_small_medium_business_owners_opinion = yes
-			}
+			set_temp_variable = { temp_opinion = 5 }
+			change_small_medium_business_owners_opinion = yes
 		}
 		if = {
 			limit = { has_idea = labour_unions }
-			if = {
-				limit = { has_idea = labour_unions }
-				set_temp_variable = { temp_opinion = -3 }
-				change_labour_unions_opinion = yes
-			}
+			set_temp_variable = { temp_opinion = -3 }
+			change_labour_unions_opinion = yes
 		}
 	}
 
@@ -5805,19 +5787,13 @@ country_event = {
 		}
 		if = {
 			limit = { has_idea = farmers }
-			if = {
-				limit = { has_idea = farmers }
-				set_temp_variable = { temp_opinion = 5 }
-				change_farmers_opinion = yes
-			}
+			set_temp_variable = { temp_opinion = 5 }
+			change_farmers_opinion = yes
 		}
 		if = {
 			limit = { has_idea = small_medium_business_owners }
-			if = {
-				limit = { has_idea = small_medium_business_owners }
-				set_temp_variable = { temp_opinion = 5 }
-				change_small_medium_business_owners_opinion = yes
-			}
+			set_temp_variable = { temp_opinion = 5 }
+			change_small_medium_business_owners_opinion = yes
 		}
 	}
 }
@@ -6133,19 +6109,13 @@ country_event = {
 			}
 			if = {
 				limit = { has_idea = international_bankers }
-				if = {
-					limit = { has_idea = international_bankers }
-					set_temp_variable = { temp_opinion = 3 }
-					change_international_bankers_opinion = yes
-				}
+				set_temp_variable = { temp_opinion = 3 }
+				change_international_bankers_opinion = yes
 			}
 			if = {
 				limit = { has_idea = the_military }
-				if = {
-					limit = { has_idea = the_military }
-					set_temp_variable = { temp_opinion = -3 }
-					change_the_military_opinion = yes
-				}
+				set_temp_variable = { temp_opinion = -3 }
+				change_the_military_opinion = yes
 			}
 		}
 	}
@@ -6219,27 +6189,18 @@ country_event = {
 		}
 		if = {
 			limit = { has_idea = the_military }
-			if = {
-				limit = { has_idea = the_military }
-				set_temp_variable = { temp_opinion = 5 }
-				change_the_military_opinion = yes
-			}
+			set_temp_variable = { temp_opinion = 5 }
+			change_the_military_opinion = yes
 		}
 		if = {
 			limit = { has_idea = labour_unions }
-			if = {
-				limit = { has_idea = labour_unions }
-				set_temp_variable = { temp_opinion = 5 }
-				change_labour_unions_opinion = yes
-			}
+			set_temp_variable = { temp_opinion = 5 }
+			change_labour_unions_opinion = yes
 		}
 		if = {
 			limit = { has_idea = international_bankers }
-			if = {
-				limit = { has_idea = international_bankers }
-				set_temp_variable = { temp_opinion = -3 }
-				change_international_bankers_opinion = yes
-			}
+			set_temp_variable = { temp_opinion = -3 }
+			change_international_bankers_opinion = yes
 		}
 	}
 }
@@ -6370,27 +6331,18 @@ country_event = {
 		add_timed_idea = { idea = MAD_dip_china_local_content days = 1825 }
 		if = {
 			limit = { has_idea = small_medium_business_owners }
-			if = {
-				limit = { has_idea = small_medium_business_owners }
-				set_temp_variable = { temp_opinion = 5 }
-				change_small_medium_business_owners_opinion = yes
-			}
+			set_temp_variable = { temp_opinion = 5 }
+			change_small_medium_business_owners_opinion = yes
 		}
 		if = {
 			limit = { has_idea = industrial_conglomerates }
-			if = {
-				limit = { has_idea = industrial_conglomerates }
-				set_temp_variable = { temp_opinion = 5 }
-				change_industrial_conglomerates_opinion = yes
-			}
+			set_temp_variable = { temp_opinion = 5 }
+			change_industrial_conglomerates_opinion = yes
 		}
 		if = {
 			limit = { has_idea = labour_unions }
-			if = {
-				limit = { has_idea = labour_unions }
-				set_temp_variable = { temp_opinion = -5 }
-				change_labour_unions_opinion = yes
-			}
+			set_temp_variable = { temp_opinion = -5 }
+			change_labour_unions_opinion = yes
 		}
 	}
 
@@ -6418,19 +6370,13 @@ country_event = {
 		add_timed_idea = { idea = MAD_dip_china_technical_training days = 1825 }
 		if = {
 			limit = { has_idea = labour_unions }
-			if = {
-				limit = { has_idea = labour_unions }
-				set_temp_variable = { temp_opinion = 5 }
-				change_labour_unions_opinion = yes
-			}
+			set_temp_variable = { temp_opinion = 5 }
+			change_labour_unions_opinion = yes
 		}
 		if = {
 			limit = { has_idea = small_medium_business_owners }
-			if = {
-				limit = { has_idea = small_medium_business_owners }
-				set_temp_variable = { temp_opinion = 5 }
-				change_small_medium_business_owners_opinion = yes
-			}
+			set_temp_variable = { temp_opinion = 5 }
+			change_small_medium_business_owners_opinion = yes
 		}
 	}
 
@@ -6474,27 +6420,18 @@ country_event = {
 			change_influence_percentage = yes
 			if = {
 				limit = { has_idea = farmers }
-				if = {
-					limit = { has_idea = farmers }
-					set_temp_variable = { temp_opinion = 5 }
-					change_farmers_opinion = yes
-				}
+				set_temp_variable = { temp_opinion = 5 }
+				change_farmers_opinion = yes
 			}
 			if = {
 				limit = { has_idea = small_medium_business_owners }
-				if = {
-					limit = { has_idea = small_medium_business_owners }
-					set_temp_variable = { temp_opinion = 5 }
-					change_small_medium_business_owners_opinion = yes
-				}
+				set_temp_variable = { temp_opinion = 5 }
+				change_small_medium_business_owners_opinion = yes
 			}
 			if = {
 				limit = { has_idea = industrial_conglomerates }
-				if = {
-					limit = { has_idea = industrial_conglomerates }
-					set_temp_variable = { temp_opinion = -3 }
-					change_industrial_conglomerates_opinion = yes
-				}
+				set_temp_variable = { temp_opinion = -3 }
+				change_industrial_conglomerates_opinion = yes
 			}
 		}
 	}
@@ -6531,27 +6468,18 @@ country_event = {
 		add_timed_idea = { idea = MAD_dip_eu_harmonisation days = 1825 }
 		if = {
 			limit = { has_idea = international_bankers }
-			if = {
-				limit = { has_idea = international_bankers }
-				set_temp_variable = { temp_opinion = 5 }
-				change_international_bankers_opinion = yes
-			}
+			set_temp_variable = { temp_opinion = 5 }
+			change_international_bankers_opinion = yes
 		}
 		if = {
 			limit = { has_idea = industrial_conglomerates }
-			if = {
-				limit = { has_idea = industrial_conglomerates }
-				set_temp_variable = { temp_opinion = 5 }
-				change_industrial_conglomerates_opinion = yes
-			}
+			set_temp_variable = { temp_opinion = 5 }
+			change_industrial_conglomerates_opinion = yes
 		}
 		if = {
 			limit = { has_idea = small_medium_business_owners }
-			if = {
-				limit = { has_idea = small_medium_business_owners }
-				set_temp_variable = { temp_opinion = -5 }
-				change_small_medium_business_owners_opinion = yes
-			}
+			set_temp_variable = { temp_opinion = -5 }
+			change_small_medium_business_owners_opinion = yes
 		}
 	}
 
@@ -6562,27 +6490,18 @@ country_event = {
 		add_timed_idea = { idea = MAD_dip_eu_safeguards days = 1825 }
 		if = {
 			limit = { has_idea = small_medium_business_owners }
-			if = {
-				limit = { has_idea = small_medium_business_owners }
-				set_temp_variable = { temp_opinion = 5 }
-				change_small_medium_business_owners_opinion = yes
-			}
+			set_temp_variable = { temp_opinion = 5 }
+			change_small_medium_business_owners_opinion = yes
 		}
 		if = {
 			limit = { has_idea = farmers }
-			if = {
-				limit = { has_idea = farmers }
-				set_temp_variable = { temp_opinion = 5 }
-				change_farmers_opinion = yes
-			}
+			set_temp_variable = { temp_opinion = 5 }
+			change_farmers_opinion = yes
 		}
 		if = {
 			limit = { has_idea = international_bankers }
-			if = {
-				limit = { has_idea = international_bankers }
-				set_temp_variable = { temp_opinion = -5 }
-				change_international_bankers_opinion = yes
-			}
+			set_temp_variable = { temp_opinion = -5 }
+			change_international_bankers_opinion = yes
 		}
 	}
 }
@@ -6601,19 +6520,13 @@ country_event = {
 		add_timed_idea = { idea = MAD_dip_fisheries_licensing days = 1825 }
 		if = {
 			limit = { has_idea = international_bankers }
-			if = {
-				limit = { has_idea = international_bankers }
-				set_temp_variable = { temp_opinion = 5 }
-				change_international_bankers_opinion = yes
-			}
+			set_temp_variable = { temp_opinion = 5 }
+			change_international_bankers_opinion = yes
 		}
 		if = {
 			limit = { has_idea = small_medium_business_owners }
-			if = {
-				limit = { has_idea = small_medium_business_owners }
-				set_temp_variable = { temp_opinion = -5 }
-				change_small_medium_business_owners_opinion = yes
-			}
+			set_temp_variable = { temp_opinion = -5 }
+			change_small_medium_business_owners_opinion = yes
 		}
 	}
 
@@ -6634,19 +6547,13 @@ country_event = {
 		add_timed_idea = { idea = MAD_dip_domestic_fisheries days = 1825 }
 		if = {
 			limit = { has_idea = small_medium_business_owners }
-			if = {
-				limit = { has_idea = small_medium_business_owners }
-				set_temp_variable = { temp_opinion = 5 }
-				change_small_medium_business_owners_opinion = yes
-			}
+			set_temp_variable = { temp_opinion = 5 }
+			change_small_medium_business_owners_opinion = yes
 		}
 		if = {
 			limit = { has_idea = labour_unions }
-			if = {
-				limit = { has_idea = labour_unions }
-				set_temp_variable = { temp_opinion = 5 }
-				change_labour_unions_opinion = yes
-			}
+			set_temp_variable = { temp_opinion = 5 }
+			change_labour_unions_opinion = yes
 		}
 	}
 }
@@ -6676,11 +6583,8 @@ country_event = {
 			add_opinion_modifier = { target = ROOT modifier = diplomatic_support }
 			if = {
 				limit = { has_idea = the_military }
-				if = {
-					limit = { has_idea = the_military }
-					set_temp_variable = { temp_opinion = 3 }
-					change_the_military_opinion = yes
-				}
+				set_temp_variable = { temp_opinion = 3 }
+				change_the_military_opinion = yes
 			}
 		}
 	}
