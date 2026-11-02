@@ -4530,10 +4530,6 @@ MAD_OWNERSHIP_BOP = {
 		allowed = { tag = MAD }
 		icon = generic_construction
 		visible = {
-			OR = {
-				NOT = { has_country_flag = MAD_POLICY_ROAD_CYCLE_3 }
-				has_country_flag = MAD_POLICY_ROAD_MAINTENANCE_ACTIVE
-			}
 			check_variable = { gdp_per_capita < 15.001 }
 		}
 		available = {
@@ -4542,7 +4538,8 @@ MAD_OWNERSHIP_BOP = {
 				check_variable = { gdp_per_capita < 15.001 }
 			}
 			NOT = { has_country_flag = MAD_POLICY_ROAD_CYCLE_3 }
-			NOT = { has_country_flag = MAD_POLICY_ROAD_MAINTENANCE_ACTIVE }
+			NOT = { has_idea = MAD_POLICY_ROAD_PUBLIC }
+			NOT = { has_idea = MAD_POLICY_ROAD_PRIVATE }
 
 			custom_trigger_tooltip = {
 				tooltip = MAD_POLICY_RC_REQUIRE_2_TT
@@ -4551,13 +4548,11 @@ MAD_OWNERSHIP_BOP = {
 		}
 		cost = 35
 		fire_only_once = no
-		days_remove = 120
-		days_re_enable = 120
+		# Keep the decision visible; the selected 180-day crew idea controls when it can be repeated.
 		custom_cost_trigger = { always = yes }
 		custom_cost_text = cost_0_08
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Regional road maintenance programme launched"
-			set_country_flag = MAD_POLICY_ROAD_MAINTENANCE_ACTIVE
 			set_temp_variable = { treasury_change = -0.08 }
 			modify_treasury_effect = yes
 			set_temp_variable = { MAD_rc_delta = -2 }
@@ -4572,10 +4567,6 @@ MAD_OWNERSHIP_BOP = {
 			}
 			else = { set_country_flag = MAD_POLICY_ROAD_CYCLE_3 }
 			country_event = { id = mad_policy_programmes.1 }
-		}
-		remove_effect = {
-			log = "[GetDateText]: [Root.GetName]: Regional road maintenance programme completed"
-			clr_country_flag = MAD_POLICY_ROAD_MAINTENANCE_ACTIVE
 		}
 		ai_will_do = { base = 0 }
 	}

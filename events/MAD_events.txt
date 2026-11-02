@@ -5497,6 +5497,10 @@ country_event = {
 	option = {
 		name = mad_policy_programmes.1.a
 		add_timed_idea = { idea = MAD_POLICY_ROAD_PUBLIC days = 180 }
+		random_owned_controlled_state = {
+			limit = { NOT = { state = 267 } }
+			add_extra_state_shared_building_slots = 1
+		}
 		add_power_balance_value = { id = MAD_economy_ownership_bop value = 0.006 tooltip_side = MAD_public_ownership }
 		if = {
 			limit = { has_idea = labour_unions }
@@ -5507,6 +5511,10 @@ country_event = {
 	option = {
 		name = mad_policy_programmes.1.b
 		add_timed_idea = { idea = MAD_POLICY_ROAD_PRIVATE days = 180 }
+		random_owned_controlled_state = {
+			limit = { NOT = { state = 267 } }
+			add_extra_state_shared_building_slots = 1
+		}
 		add_power_balance_value = { id = MAD_economy_ownership_bop value = -0.006 tooltip_side = MAD_private_ownership }
 		if = {
 			limit = { has_idea = small_medium_business_owners }
