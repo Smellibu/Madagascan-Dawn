@@ -1518,12 +1518,8 @@ focus_tree = {
 			can_staff_an_offices = no
 			}
 			modifier = {
-			factor = 0
-			NOT = {
-			check_variable = {
-			
-			}
-			}
+				factor = 0
+				check_variable = { treasury < 15.5 }
 			}
 			modifier = {
 			factor = 0
@@ -1568,12 +1564,8 @@ focus_tree = {
 			can_staff_an_offices = no
 			}
 			modifier = {
-			factor = 0
-			NOT = {
-			check_variable = {
-			
-			}
-			}
+				factor = 0
+				check_variable = { treasury < 12 }
 			}
 			modifier = {
 			factor = 0
@@ -2861,12 +2853,8 @@ focus_tree = {
 			can_staff_an_offices = no
 			}
 			modifier = {
-			factor = 0
-			NOT = {
-			check_variable = {
-			
-			}
-			}
+				factor = 0
+				check_variable = { treasury < 16 }
 			}
 			modifier = {
 			factor = 0
@@ -4767,12 +4755,8 @@ focus_tree = {
 			can_staff_an_offices = no
 			}
 			modifier = {
-			factor = 0
-			NOT = {
-			check_variable = {
-			
-			}
-			}
+				factor = 0
+				check_variable = { treasury < 8 }
 			}
 			modifier = {
 			factor = 0
@@ -5587,12 +5571,8 @@ focus_tree = {
 			can_staff_an_offices = no
 			}
 			modifier = {
-			factor = 0
-			NOT = {
-			check_variable = {
-			
-			}
-			}
+				factor = 0
+				check_variable = { treasury < 12 }
 			}
 			modifier = {
 			factor = 0
@@ -6893,6 +6873,10 @@ focus_tree = {
 
 		ai_will_do = {
 			base = 1
+			modifier = {
+				factor = 0
+				check_variable = { treasury < 5 }
+			}
 		}
 	}
 
@@ -7454,6 +7438,14 @@ focus_tree = {
 
 		ai_will_do = {
 			base = 1
+			modifier = {
+				factor = 0
+				check_variable = { treasury < 3.75 }
+			}
+			modifier = {
+				factor = 0
+				GER = { check_variable = { treasury < 3.75 } }
+			}
 		}
 	}
 
@@ -7537,12 +7529,8 @@ focus_tree = {
 			can_staff_an_offices = no
 			}
 			modifier = {
-			factor = 0
-			NOT = {
-			check_variable = {
-			
-			}
-			}
+				factor = 0
+				check_variable = { treasury < 12 }
 			}
 			modifier = {
 			factor = 0
@@ -7664,12 +7652,8 @@ focus_tree = {
 			can_staff_an_offices = no
 			}
 			modifier = {
-			factor = 0
-			NOT = {
-			check_variable = {
-			
-			}
-			}
+				factor = 0
+				check_variable = { treasury < 15 }
 			}
 			modifier = {
 			factor = 0
@@ -7754,12 +7738,8 @@ focus_tree = {
 			can_staff_an_offices = no
 			}
 			modifier = {
-			factor = 0
-			NOT = {
-			check_variable = {
-			
-			}
-			}
+				factor = 0
+				check_variable = { treasury < 15 }
 			}
 		}
 	}
@@ -7960,12 +7940,8 @@ focus_tree = {
 			can_staff_an_offices = no
 			}
 			modifier = {
-			factor = 0
-			NOT = {
-			check_variable = {
-			
-			}
-			}
+				factor = 0
+				check_variable = { treasury < 12 }
 			}
 			modifier = {
 			factor = 0
@@ -8498,12 +8474,8 @@ focus_tree = {
 			can_staff_an_offices = no
 			}
 			modifier = {
-			factor = 0
-			NOT = {
-			check_variable = {
-			
-			}
-			}
+				factor = 0
+				check_variable = { treasury < 12 }
 			}
 			modifier = {
 			factor = 0
@@ -8692,12 +8664,8 @@ focus_tree = {
 			can_staff_an_offices = no
 			}
 			modifier = {
-			factor = 0
-			NOT = {
-			check_variable = {
-			
-			}
-			}
+				factor = 0
+				check_variable = { treasury < 12 }
 			}
 			modifier = {
 			factor = 0
@@ -9344,12 +9312,8 @@ focus_tree = {
 			can_staff_an_offices = no
 			}
 			modifier = {
-			factor = 0
-			NOT = {
-			check_variable = {
-			
-			}
-			}
+				factor = 0
+				check_variable = { treasury < 2.5 }
 			}
 		}
 	}
@@ -9412,12 +9376,8 @@ focus_tree = {
 			can_staff_an_offices = no
 			}
 			modifier = {
-			factor = 0
-			NOT = {
-			check_variable = {
-			
-			}
-			}
+				factor = 0
+				check_variable = { treasury < 12 }
 			}
 			modifier = {
 			factor = 0
@@ -9472,12 +9432,8 @@ focus_tree = {
 			can_staff_an_offices = no
 			}
 			modifier = {
-			factor = 0
-			NOT = {
-			check_variable = {
-			
-			}
-			}
+				factor = 0
+				check_variable = { treasury < 4 }
 			}
 		}
 	}
