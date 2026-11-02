@@ -1438,7 +1438,7 @@ visible = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_DROUGHT_NO_SEED_tt
-				MAD_drought_seed_programme_available = yes
+				MAD_drought_local_seed_programme_available = yes
 			}
 			custom_trigger_tooltip = {
 				tooltip = MAD_RC_REQUIRE_1_TT
@@ -1452,7 +1452,7 @@ visible = {
 
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Local drought-tolerant seed distribution started"
-			set_country_flag = MAD_DROUGHT_SEED_PROGRAMME_ACTIVE
+			set_country_flag = MAD_DROUGHT_LOCAL_SEED_PROGRAMME_ACTIVE
 			set_temp_variable = { treasury_change = -0.40 }
 			modify_treasury_effect = yes
 		}
@@ -1475,7 +1475,7 @@ visible = {
 			MAD_rural_cooperation_adjust = yes
 			custom_effect_tooltip = MAD_RC_LOCAL_SEED_COST_TT
 			MAD_drought_recalc_national = yes
-			clr_country_flag = MAD_DROUGHT_SEED_PROGRAMME_ACTIVE
+			clr_country_flag = MAD_DROUGHT_LOCAL_SEED_PROGRAMME_ACTIVE
 		}
 
 		ai_will_do = { base = 8 }
@@ -1521,7 +1521,7 @@ visible = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_DROUGHT_NO_WATER_tt
-				MAD_drought_water_programme_available = yes
+				MAD_drought_wells_programme_available = yes
 			}
 		}
 
@@ -1530,7 +1530,7 @@ visible = {
 
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_DROUGHT_LOCAL_WELLS started"
-			set_country_flag = MAD_DROUGHT_WATER_PROGRAMME_ACTIVE
+			set_country_flag = MAD_DROUGHT_WELLS_PROGRAMME_ACTIVE
 			set_temp_variable = { treasury_change = -1.25 }
 			modify_treasury_effect = yes
 			custom_effect_tooltip = MAD_drought_local_wells_tt
@@ -1549,7 +1549,7 @@ visible = {
 			MAD_drought_recalc_national = yes
 			set_temp_variable = { MAD_rc_delta = 2 }
 			MAD_rural_cooperation_adjust = yes
-			clr_country_flag = MAD_DROUGHT_WATER_PROGRAMME_ACTIVE
+			clr_country_flag = MAD_DROUGHT_WELLS_PROGRAMME_ACTIVE
 
 		}
 
@@ -1745,7 +1745,7 @@ visible = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_DROUGHT_NO_WATER_tt
-				MAD_drought_water_programme_available = yes
+				MAD_drought_boreholes_programme_available = yes
 			}
 		}
 		cost = 75
@@ -1756,7 +1756,7 @@ visible = {
 
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_DROUGHT_BOREHOLES started"
-			set_country_flag = MAD_DROUGHT_WATER_PROGRAMME_ACTIVE
+			set_country_flag = MAD_DROUGHT_BOREHOLES_PROGRAMME_ACTIVE
 			set_temp_variable = { treasury_change = -4.00 }
 			modify_treasury_effect = yes
 		}
@@ -1768,7 +1768,7 @@ visible = {
 			MAD_drought_add_prevention = yes
 			set_temp_variable = { MAD_rc_delta = 2 }
 			MAD_rural_cooperation_adjust = yes
-			clr_country_flag = MAD_DROUGHT_WATER_PROGRAMME_ACTIVE
+			clr_country_flag = MAD_DROUGHT_BOREHOLES_PROGRAMME_ACTIVE
 		}
 
 		ai_will_do = { base = 1 }
@@ -1785,7 +1785,7 @@ visible = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_DROUGHT_NO_WATER_tt
-				MAD_drought_water_programme_available = yes
+				MAD_drought_sud_est_programme_available = yes
 			}
 			custom_trigger_tooltip = {
 				tooltip = MAD_DROUGHT_SOUTH_RAIL_tt
@@ -1800,7 +1800,7 @@ visible = {
 
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_DROUGHT_SUD_EST started"
-			set_country_flag = MAD_DROUGHT_WATER_PROGRAMME_ACTIVE
+			set_country_flag = MAD_DROUGHT_SUD_EST_PROGRAMME_ACTIVE
 			set_temp_variable = { treasury_change = -4.00 }
 			modify_treasury_effect = yes
 		}
@@ -1812,7 +1812,7 @@ visible = {
 			MAD_drought_add_prevention = yes
 			set_temp_variable = { MAD_rc_delta = 1 }
 			MAD_rural_cooperation_adjust = yes
-			clr_country_flag = MAD_DROUGHT_WATER_PROGRAMME_ACTIVE
+			clr_country_flag = MAD_DROUGHT_SUD_EST_PROGRAMME_ACTIVE
 		}
 
 		ai_will_do = { base = 1 }
