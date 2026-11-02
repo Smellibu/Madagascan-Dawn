@@ -1184,15 +1184,6 @@ MAD_drought_category = {
 			has_completed_focus = MAD_Drought_and_famine
 		}
 
-		target_trigger = {
-			FROM = {
-				custom_trigger_tooltip = {
-					tooltip = MAD_DROUGHT_STATE_NO_WATER_RELIEF_tt
-					check_variable = { MAD_state_relief_months < 0.001 }
-				}
-			}
-		}
-
 		highlight_states = {
 			highlight_state_targets = {
 				state = FROM
@@ -1208,6 +1199,13 @@ MAD_drought_category = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_DROUGHT_FOCUS_REQ_tt
 				has_completed_focus = MAD_Drought_and_famine
+			}
+
+			custom_trigger_tooltip = {
+				tooltip = MAD_DROUGHT_STATE_NO_WATER_RELIEF_tt
+				FROM = {
+					check_variable = { MAD_state_relief_months < 0.001 }
+				}
 			}
 
 			custom_trigger_tooltip = {
