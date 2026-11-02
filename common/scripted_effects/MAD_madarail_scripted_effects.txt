@@ -4836,7 +4836,11 @@ MAD_rural_cooperation_calculate_monthly_change = {
 	# This only updates the displayed/cached rate; it does not apply a monthly meter change.
 	# Source scripts call this immediately after changing an input to the monthly-rate calculation.
 	# There is no election, government-transition, or daily polling hook.
-	set_temp_variable = { MAD_rc_monthly_gain = 0.50 }
+	set_temp_variable = { MAD_rc_monthly_gain = 0 }
+	if = {
+		limit = { NOT = { check_variable = { MAD_rural_cooperation > 35 } } }
+		set_temp_variable = { MAD_rc_monthly_gain = 0.50 }
+	}
 	set_variable = { MAD_rural_cooperation_cap_adjustment = 0 }
 	set_variable = { MAD_rural_cooperation_meter_upper_adjustment = 0 }
 	set_variable = { MAD_rural_cooperation_meter_lower_adjustment = 0 }
