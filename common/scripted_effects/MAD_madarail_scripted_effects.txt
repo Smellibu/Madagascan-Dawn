@@ -529,6 +529,27 @@ MAD_drought_init = {
 # MAD_drought_severity is their average - so a countrywide change is pushed into every state (scaled by that
 # state's exposure: the Grand Sud feels everything harder) and then the national number is recomputed.
 # Every existing national decision, event and focus that sets MAD_dr_change keeps working unchanged.
+# State-scope protection for positive drought changes. If ordinary relief and Emergency Water overlap,
+# apply the stronger protection only; do not multiply both benefits together.
+MAD_drought_state_apply_growth_protection = {
+	if = {
+		limit = { check_variable = { MAD_dr_st > 0.001 } }
+		set_temp_variable = { MAD_dr_relief_growth_factor = 1 }
+		if = {
+			limit = { check_variable = { MAD_state_relief_months > 0.001 } }
+			set_temp_variable = { MAD_dr_relief_growth_factor = 0.3 }
+		}
+		if = {
+			limit = { check_variable = { MAD_state_water_relief_months > 0.001 } }
+			if = {
+				limit = { check_variable = { MAD_state_water_relief_growth_factor < MAD_dr_relief_growth_factor } }
+				set_temp_variable = { MAD_dr_relief_growth_factor = MAD_state_water_relief_growth_factor }
+			}
+		}
+		multiply_temp_variable = { MAD_dr_st = MAD_dr_relief_growth_factor }
+	}
+}
+
 MAD_drought_apply_change = {
 	# temp variables do not survive a scope change, so hand it over on a real country variable
 	set_variable = { MAD_dr_change_v = MAD_dr_change }
@@ -538,52 +559,28 @@ MAD_drought_apply_change = {
 	266 = {
 		set_temp_variable = { MAD_dr_st = ROOT.MAD_dr_change_v }
 		multiply_temp_variable = { MAD_dr_st = MAD_state_drought_exposure }
-		if = {
-			limit = {
-				check_variable = { MAD_state_relief_months > 0 }
-				check_variable = { MAD_dr_st > 0 }
-			}
-			multiply_temp_variable = { MAD_dr_st = 0.3 }
-		}
+		MAD_drought_state_apply_growth_protection = yes
 		add_to_variable = { MAD_state_drought = MAD_dr_st }
 		MAD_drought_state_clamp = yes
 	}
 	267 = {
 		set_temp_variable = { MAD_dr_st = ROOT.MAD_dr_change_v }
 		multiply_temp_variable = { MAD_dr_st = MAD_state_drought_exposure }
-		if = {
-			limit = {
-				check_variable = { MAD_state_relief_months > 0 }
-				check_variable = { MAD_dr_st > 0 }
-			}
-			multiply_temp_variable = { MAD_dr_st = 0.3 }
-		}
+		MAD_drought_state_apply_growth_protection = yes
 		add_to_variable = { MAD_state_drought = MAD_dr_st }
 		MAD_drought_state_clamp = yes
 	}
 	268 = {
 		set_temp_variable = { MAD_dr_st = ROOT.MAD_dr_change_v }
 		multiply_temp_variable = { MAD_dr_st = MAD_state_drought_exposure }
-		if = {
-			limit = {
-				check_variable = { MAD_state_relief_months > 0 }
-				check_variable = { MAD_dr_st > 0 }
-			}
-			multiply_temp_variable = { MAD_dr_st = 0.3 }
-		}
+		MAD_drought_state_apply_growth_protection = yes
 		add_to_variable = { MAD_state_drought = MAD_dr_st }
 		MAD_drought_state_clamp = yes
 	}
 	487 = {
 		set_temp_variable = { MAD_dr_st = ROOT.MAD_dr_change_v }
 		multiply_temp_variable = { MAD_dr_st = MAD_state_drought_exposure }
-		if = {
-			limit = {
-				check_variable = { MAD_state_relief_months > 0 }
-				check_variable = { MAD_dr_st > 0 }
-			}
-			multiply_temp_variable = { MAD_dr_st = 0.3 }
-		}
+		MAD_drought_state_apply_growth_protection = yes
 		add_to_variable = { MAD_state_drought = MAD_dr_st }
 		MAD_drought_state_clamp = yes
 	}
@@ -2400,10 +2397,10 @@ MAD_drought_finish = {
 		set_variable = { MAD_drought_relief_months = 0 }
 		MAD_drought_clear_tiers = yes
 		# the map goes green too
-		266 = { set_variable = { MAD_state_drought = 0 } set_variable = { MAD_state_famine = 0 } set_variable = { MAD_state_drought_tier = 0 } set_variable = { MAD_state_relief_months = 0 } MAD_drought_state_clear_tiers = yes MAD_drought_state_clear_famine_tiers = yes if = { limit = { has_dynamic_modifier = { modifier = MAD_STATE_FAMINE } } remove_dynamic_modifier = { modifier = MAD_STATE_FAMINE } } }
-		267 = { set_variable = { MAD_state_drought = 0 } set_variable = { MAD_state_famine = 0 } set_variable = { MAD_state_drought_tier = 0 } set_variable = { MAD_state_relief_months = 0 } MAD_drought_state_clear_tiers = yes MAD_drought_state_clear_famine_tiers = yes if = { limit = { has_dynamic_modifier = { modifier = MAD_STATE_FAMINE } } remove_dynamic_modifier = { modifier = MAD_STATE_FAMINE } } }
-		268 = { set_variable = { MAD_state_drought = 0 } set_variable = { MAD_state_famine = 0 } set_variable = { MAD_state_drought_tier = 0 } set_variable = { MAD_state_relief_months = 0 } MAD_drought_state_clear_tiers = yes MAD_drought_state_clear_famine_tiers = yes if = { limit = { has_dynamic_modifier = { modifier = MAD_STATE_FAMINE } } remove_dynamic_modifier = { modifier = MAD_STATE_FAMINE } } }
-		487 = { set_variable = { MAD_state_drought = 0 } set_variable = { MAD_state_famine = 0 } set_variable = { MAD_state_drought_tier = 0 } set_variable = { MAD_state_relief_months = 0 } MAD_drought_state_clear_tiers = yes MAD_drought_state_clear_famine_tiers = yes if = { limit = { has_dynamic_modifier = { modifier = MAD_STATE_FAMINE } } remove_dynamic_modifier = { modifier = MAD_STATE_FAMINE } } }
+		266 = { set_variable = { MAD_state_drought = 0 } set_variable = { MAD_state_famine = 0 } set_variable = { MAD_state_drought_tier = 0 } set_variable = { MAD_state_relief_months = 0 } set_variable = { MAD_state_water_relief_months = 0 } set_variable = { MAD_state_water_relief_growth_factor = 1 } MAD_drought_state_clear_tiers = yes MAD_drought_state_clear_famine_tiers = yes if = { limit = { has_dynamic_modifier = { modifier = MAD_STATE_FAMINE } } remove_dynamic_modifier = { modifier = MAD_STATE_FAMINE } } }
+		267 = { set_variable = { MAD_state_drought = 0 } set_variable = { MAD_state_famine = 0 } set_variable = { MAD_state_drought_tier = 0 } set_variable = { MAD_state_relief_months = 0 } set_variable = { MAD_state_water_relief_months = 0 } set_variable = { MAD_state_water_relief_growth_factor = 1 } MAD_drought_state_clear_tiers = yes MAD_drought_state_clear_famine_tiers = yes if = { limit = { has_dynamic_modifier = { modifier = MAD_STATE_FAMINE } } remove_dynamic_modifier = { modifier = MAD_STATE_FAMINE } } }
+		268 = { set_variable = { MAD_state_drought = 0 } set_variable = { MAD_state_famine = 0 } set_variable = { MAD_state_drought_tier = 0 } set_variable = { MAD_state_relief_months = 0 } set_variable = { MAD_state_water_relief_months = 0 } set_variable = { MAD_state_water_relief_growth_factor = 1 } MAD_drought_state_clear_tiers = yes MAD_drought_state_clear_famine_tiers = yes if = { limit = { has_dynamic_modifier = { modifier = MAD_STATE_FAMINE } } remove_dynamic_modifier = { modifier = MAD_STATE_FAMINE } } }
+		487 = { set_variable = { MAD_state_drought = 0 } set_variable = { MAD_state_famine = 0 } set_variable = { MAD_state_drought_tier = 0 } set_variable = { MAD_state_relief_months = 0 } set_variable = { MAD_state_water_relief_months = 0 } set_variable = { MAD_state_water_relief_growth_factor = 1 } MAD_drought_state_clear_tiers = yes MAD_drought_state_clear_famine_tiers = yes if = { limit = { has_dynamic_modifier = { modifier = MAD_STATE_FAMINE } } remove_dynamic_modifier = { modifier = MAD_STATE_FAMINE } } }
 		if = {
 			limit = { has_idea = MAD_DROUGHT_EVACUATIONS }
 			remove_ideas = MAD_DROUGHT_EVACUATIONS
@@ -2554,6 +2551,8 @@ MAD_drought_state_init = {
 		set_variable = { MAD_state_drought_exposure = 1.05 }
 		set_variable = { MAD_state_drought_tier = 0 }
 		set_variable = { MAD_state_relief_months = 0 }
+		set_variable = { MAD_state_water_relief_months = 0 }
+		set_variable = { MAD_state_water_relief_growth_factor = 1 }
 		set_variable = { MAD_state_displacement_accumulator = 0 }
 		clr_state_flag = MAD_GRAND_SUD_STATE
 		clr_state_flag = MAD_REFUGE_STATE
@@ -2565,6 +2564,8 @@ MAD_drought_state_init = {
 		set_variable = { MAD_state_drought_exposure = 0.85 }
 		set_variable = { MAD_state_drought_tier = 0 }
 		set_variable = { MAD_state_relief_months = 0 }
+		set_variable = { MAD_state_water_relief_months = 0 }
+		set_variable = { MAD_state_water_relief_growth_factor = 1 }
 		set_variable = { MAD_state_displacement_accumulator = 0 }
 		clr_state_flag = MAD_GRAND_SUD_STATE
 		set_state_flag = MAD_REFUGE_STATE
@@ -2576,6 +2577,8 @@ MAD_drought_state_init = {
 		set_variable = { MAD_state_drought_exposure = 1.35 }
 		set_variable = { MAD_state_drought_tier = 0 }
 		set_variable = { MAD_state_relief_months = 0 }
+		set_variable = { MAD_state_water_relief_months = 0 }
+		set_variable = { MAD_state_water_relief_growth_factor = 1 }
 		set_variable = { MAD_state_displacement_accumulator = 0 }
 		set_state_flag = MAD_GRAND_SUD_STATE
 		clr_state_flag = MAD_REFUGE_STATE
@@ -2587,6 +2590,8 @@ MAD_drought_state_init = {
 		set_variable = { MAD_state_drought_exposure = 0.85 }
 		set_variable = { MAD_state_drought_tier = 0 }
 		set_variable = { MAD_state_relief_months = 0 }
+		set_variable = { MAD_state_water_relief_months = 0 }
+		set_variable = { MAD_state_water_relief_growth_factor = 1 }
 		set_variable = { MAD_state_displacement_accumulator = 0 }
 		clr_state_flag = MAD_GRAND_SUD_STATE
 		set_state_flag = MAD_REFUGE_STATE
@@ -2643,10 +2648,10 @@ MAD_drought_recalc_national = {
 	}
 
 	set_variable = { MAD_drought_relief_months = 0 }
-	266 = { if = { limit = { check_variable = { MAD_state_relief_months > 0 } } ROOT = { add_to_variable = { MAD_drought_relief_months = 1 } } } }
-	267 = { if = { limit = { check_variable = { MAD_state_relief_months > 0 } } ROOT = { add_to_variable = { MAD_drought_relief_months = 1 } } } }
-	268 = { if = { limit = { check_variable = { MAD_state_relief_months > 0 } } ROOT = { add_to_variable = { MAD_drought_relief_months = 1 } } } }
-	487 = { if = { limit = { check_variable = { MAD_state_relief_months > 0 } } ROOT = { add_to_variable = { MAD_drought_relief_months = 1 } } } }
+	266 = { if = { limit = { OR = { check_variable = { MAD_state_relief_months > 0 } check_variable = { MAD_state_water_relief_months > 0 } } } ROOT = { add_to_variable = { MAD_drought_relief_months = 1 } } } }
+	267 = { if = { limit = { OR = { check_variable = { MAD_state_relief_months > 0 } check_variable = { MAD_state_water_relief_months > 0 } } } ROOT = { add_to_variable = { MAD_drought_relief_months = 1 } } } }
+	268 = { if = { limit = { OR = { check_variable = { MAD_state_relief_months > 0 } check_variable = { MAD_state_water_relief_months > 0 } } } ROOT = { add_to_variable = { MAD_drought_relief_months = 1 } } } }
+	487 = { if = { limit = { OR = { check_variable = { MAD_state_relief_months > 0 } check_variable = { MAD_state_water_relief_months > 0 } } } ROOT = { add_to_variable = { MAD_drought_relief_months = 1 } } } }
 
 	MAD_drought_clamp = yes
 	MAD_drought_update_tier = yes
@@ -2859,14 +2864,32 @@ MAD_drought_states_update_tiers = {
 
 
 MAD_drought_state_monthly_one = {
+	set_temp_variable = { MAD_dr_relief_ended = 0 }
 	if = {
 		limit = { check_variable = { MAD_state_relief_months > 0 } }
 		subtract_from_variable = { MAD_state_relief_months = 1 }
 		if = {
 			limit = { check_variable = { MAD_state_relief_months < 0.001 } }
-			add_to_variable = { MAD_state_drought = 4 }
-			MAD_drought_state_clamp = yes
+			set_temp_variable = { MAD_dr_relief_ended = 1 }
 		}
+	}
+	if = {
+		limit = { check_variable = { MAD_state_water_relief_months > 0 } }
+		subtract_from_variable = { MAD_state_water_relief_months = 1 }
+		if = {
+			limit = { check_variable = { MAD_state_water_relief_months < 0.001 } }
+			set_variable = { MAD_state_water_relief_growth_factor = 1 }
+			set_temp_variable = { MAD_dr_relief_ended = 1 }
+		}
+	}
+	if = {
+		limit = {
+			check_variable = { MAD_dr_relief_ended > 0.5 }
+			check_variable = { MAD_state_relief_months < 0.001 }
+			check_variable = { MAD_state_water_relief_months < 0.001 }
+		}
+		add_to_variable = { MAD_state_drought = 4 }
+		MAD_drought_state_clamp = yes
 	}
 	set_temp_variable = { MAD_fam_t = MAD_state_drought }
 	subtract_from_temp_variable = { MAD_fam_t = 45 }
@@ -3553,15 +3576,65 @@ MAD_dahalo_southern_supply_interference = {
 }
 
 MAD_dahalo_southern_water_relief_interference = {
-	# Emergency-water relief always lasts six months.
-	# Rural Cooperation affects relief effectiveness, not duration.
-	set_temp_variable = {
-		MAD_dahalo_water_relief_months = 6
+	# Emergency-water protection lasts six months. Its strength is locked in when selected.
+	# Rural Cooperation uses the same bands as Food Aid.
+	set_temp_variable = { MAD_water_rural_cooperation_factor = 0.50 }
+	if = {
+		limit = { ROOT = { check_variable = { MAD_rural_cooperation > 79.99 } } }
+		set_temp_variable = { MAD_water_rural_cooperation_factor = 1.20 }
+	}
+	else_if = {
+		limit = { ROOT = { check_variable = { MAD_rural_cooperation > 59.99 } } }
+		set_temp_variable = { MAD_water_rural_cooperation_factor = 1.00 }
+	}
+	else_if = {
+		limit = { ROOT = { check_variable = { MAD_rural_cooperation > 34.99 } } }
+		set_temp_variable = { MAD_water_rural_cooperation_factor = 0.80 }
 	}
 
-	add_to_variable = {
-		MAD_state_relief_months = MAD_dahalo_water_relief_months
+	# Dahalo supply interference applies only in the Grand Sud and follows Food Aid's rules.
+	set_temp_variable = { MAD_water_dahalo_factor = 1.00 }
+	if = {
+		limit = {
+			has_state_flag = MAD_GRAND_SUD_STATE
+			NOT = { ROOT = { has_country_flag = MAD_DAHALO_DEFEATED } }
+			NOT = { ROOT = { has_country_flag = MAD_REMENABILA_IN_POWER } }
+			check_variable = { ROOT.MAD_dahalo_threat > 39.99 }
+		}
+		set_temp_variable = { MAD_water_dahalo_factor = 0.80 }
+		if = {
+			limit = { ROOT = { has_country_flag = MAD_DAHALO_ESCORT_RELIEF_ACTIVE } }
+			set_temp_variable = { MAD_water_dahalo_factor = 1.00 }
+		}
+		else_if = {
+			limit = { check_variable = { ROOT.MAD_dahalo_threat > 79.99 } }
+			set_temp_variable = { MAD_water_dahalo_factor = 0.50 }
+		}
+		else_if = {
+			limit = { check_variable = { ROOT.MAD_dahalo_threat > 59.99 } }
+			set_temp_variable = { MAD_water_dahalo_factor = 0.65 }
+		}
+		if = {
+			limit = { ROOT = { has_country_flag = MAD_DROUGHT_SUD_EST_COMPLETED } }
+			add_to_temp_variable = { MAD_water_dahalo_factor = 0.15 }
+			if = {
+				limit = { check_variable = { MAD_water_dahalo_factor > 1.00 } }
+				set_temp_variable = { MAD_water_dahalo_factor = 1.00 }
+			}
+		}
 	}
+
+	# The base programme prevents 70% of positive drought growth. The two effectiveness
+	# factors multiply; convert the result into the remaining growth multiplier.
+	set_temp_variable = { MAD_water_effectiveness = MAD_water_rural_cooperation_factor }
+	multiply_temp_variable = { MAD_water_effectiveness = MAD_water_dahalo_factor }
+	set_temp_variable = { MAD_water_growth_reduction = MAD_water_effectiveness }
+	multiply_temp_variable = { MAD_water_growth_reduction = 0.70 }
+	set_temp_variable = { MAD_water_growth_factor = 1.00 }
+	subtract_from_temp_variable = { MAD_water_growth_factor = MAD_water_growth_reduction }
+
+	set_variable = { MAD_state_water_relief_months = 6 }
+	set_variable = { MAD_state_water_relief_growth_factor = MAD_water_growth_factor }
 }
 
 ########################################################################
