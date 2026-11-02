@@ -6279,44 +6279,7 @@ MAD_rural_cooperation_category = {
 	}
 
 	# Targeted drought relief acts directly on the modeled Grand Sud state, then refreshes the national average.
-	MAD_RURAL_COORDINATE_AGRICULTURAL_RELIEF = {
-		icon = generic_political_discourse
-
-		visible = { has_completed_focus = MAD_Drought_and_famine }
-		available = {
-			NOT = { has_country_flag = MAD_RURAL_AGRICULTURAL_RELIEF_ACTIVE }
-			custom_trigger_tooltip = { tooltip = MAD_DROUGHT_SEVERITY_ABOVE_25_TT
-						check_variable = { MAD_drought_severity > 24.99 }
-
-				}
-		}
-		cost = 35
-		days_remove = 90
-		days_re_enable = 180
-		custom_cost_trigger = { always = yes }
-		custom_cost_text = cost_0_75
-		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Agricultural relief coordination launched"
-			set_temp_variable = { treasury_change = -0.75 }
-			modify_treasury_effect = yes
-			set_country_flag = MAD_RURAL_AGRICULTURAL_RELIEF_ACTIVE
-		}
-		remove_effect = {
-			log = "[GetDateText]: [Root.GetName]: Agricultural relief coordination completed"
-			clr_country_flag = MAD_RURAL_AGRICULTURAL_RELIEF_ACTIVE
-			268 = {
-				set_temp_variable = { MAD_dr_state_change = -8 }
-				MAD_drought_state_apply_change = yes
-				set_temp_variable = { MAD_dr_state_famine = -6 }
-				MAD_drought_state_apply_famine = yes
-			}
-			MAD_drought_recalc_national = yes
-			set_temp_variable = { MAD_rc_delta = 4 }
-			MAD_rural_cooperation_adjust = yes
-			custom_effect_tooltip = MAD_RURAL_AGRICULTURAL_RELIEF_REWARD_TT
-		}
-		ai_will_do = { base = 0 }
-	}
+	
 }
 
 

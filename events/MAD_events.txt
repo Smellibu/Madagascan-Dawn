@@ -1219,7 +1219,11 @@ country_event = {
 		set_temp_variable = { tag_index = KOR }
 		set_temp_variable = { influence_target = MAD }
 		change_influence_percentage = yes
-		MAD = { country_event = { id = mad_foreign_investment.2 days = 1 } }
+		MAD = {
+			set_temp_variable = { treasury_change = -2.50 }
+			modify_treasury_effect = yes
+			country_event = { id = mad_foreign_investment.2 days = 1 }
+		}
 	}
 	option = {
 		name = mad_foreign_investment.1.b
@@ -1288,7 +1292,11 @@ country_event = {
 		set_temp_variable = { tag_index = USA }
 		set_temp_variable = { influence_target = MAD }
 		change_influence_percentage = yes
-		MAD = { country_event = { id = mad_foreign_investment.12 days = 1 } }
+		MAD = {
+			set_temp_variable = { treasury_change = -2.50 }
+			modify_treasury_effect = yes
+			country_event = { id = mad_foreign_investment.12 days = 1 }
+		}
 	}
 	option = {
 		name = mad_foreign_investment.11.b
@@ -1354,7 +1362,11 @@ country_event = {
 		set_temp_variable = { tag_index = GER }
 		set_temp_variable = { influence_target = MAD }
 		change_influence_percentage = yes
-		MAD = { country_event = { id = mad_foreign_investment.22 days = 1 } }
+		MAD = {
+			set_temp_variable = { treasury_change = -2.50 }
+			modify_treasury_effect = yes
+			country_event = { id = mad_foreign_investment.22 days = 1 }
+		}
 	}
 	option = {
 		name = mad_foreign_investment.21.b
@@ -4602,6 +4614,8 @@ country_event = {
 				modify_international_investment_effect = yes
 				add_opinion_modifier = { target = MAD modifier = large_commercial_relations }
 			}
+			set_temp_variable = { treasury_change = -8.00 }
+			modify_treasury_effect = yes
 			# Preserve the old diplomatic choice's mutual declaration of loyalty.
 			add_opinion_modifier = { target = ISR modifier = has_expressed_loyalty }
 			ISR = {
@@ -4638,6 +4652,8 @@ country_event = {
 				set_temp_variable = { int_investment_change = 5 }
 				modify_international_investment_effect = yes
 			}
+			set_temp_variable = { treasury_change = -5.00 }
+			modify_treasury_effect = yes
 		}
 		one_random_agriculture_district = yes
 		set_country_flag = MAD_ROY_ISRAEL_PILGRIM_TIES
