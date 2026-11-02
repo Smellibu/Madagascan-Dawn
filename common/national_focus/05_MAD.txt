@@ -16121,7 +16121,7 @@ focus_tree = {
 		relative_position_id = MAD_dip_multipolar_policy
 		cost = 3
 		prerequisite = { focus = MAD_dip_multipolar_policy }
-		search_filters = { FOCUS_FILTER_FOREIGN_POLICY }
+		search_filters = { FOCUS_FILTER_FOREIGN_POLICY FOCUS_FILTER_INFLUENCE }
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_dip_ioc_cooperation"
 			add_political_power = 20
@@ -16154,7 +16154,7 @@ focus_tree = {
 		relative_position_id = MAD_dip_multipolar_policy
 		cost = 3
 		prerequisite = { focus = MAD_dip_multipolar_policy }
-		search_filters = { FOCUS_FILTER_FOREIGN_POLICY FOCUS_FILTER_INFLUENCE }
+		search_filters = { FOCUS_FILTER_FOREIGN_POLICY FOCUS_FILTER_TRADE }
 		available = {
 			date > 2008.1.1
 			country_exists = SAF
@@ -16185,7 +16185,7 @@ focus_tree = {
 		relative_position_id = MAD_dip_multipolar_policy
 		cost = 3
 		prerequisite = { focus = MAD_dip_multipolar_policy }
-		search_filters = { FOCUS_FILTER_FOREIGN_POLICY }
+		search_filters = { FOCUS_FILTER_FOREIGN_POLICY FOCUS_FILTER_DIPLOMACY }
 		available = {
 			country_exists = FRA
 			NOT = { has_war_with = FRA }
@@ -16209,7 +16209,7 @@ focus_tree = {
 		relative_position_id = MAD_dip_multipolar_policy
 		cost = 3
 		prerequisite = { focus = MAD_dip_multipolar_policy }
-		search_filters = { FOCUS_FILTER_FOREIGN_POLICY }
+		search_filters = { FOCUS_FILTER_FOREIGN_POLICY FOCUS_FILTER_RESEARCH }
 		available = {
 			date > 2018.1.1
 			country_exists = RAJ
@@ -16245,7 +16245,7 @@ focus_tree = {
 		relative_position_id = MAD_dip_multipolar_policy
 		cost = 3
 		prerequisite = { focus = MAD_dip_multipolar_policy }
-		search_filters = { FOCUS_FILTER_FOREIGN_POLICY FOCUS_FILTER_INDUSTRY }
+		search_filters = { FOCUS_FILTER_FOREIGN_POLICY FOCUS_FILTER_FOREIGN_INVESTMENTS }
 		available = {
 			date > 2013.1.1
 			country_exists = CHI
@@ -16272,7 +16272,7 @@ focus_tree = {
 		relative_position_id = MAD_dip_multipolar_policy
 		cost = 3
 		prerequisite = { focus = MAD_dip_multipolar_policy }
-		search_filters = { FOCUS_FILTER_INFLUENCE FOCUS_FILTER_ECONOMY }
+		search_filters = { FOCUS_FILTER_FOREIGN_POLICY FOCUS_FILTER_TRADE }
 		available = {
 			date > 2012.1.1
 			any_of_scopes = {
@@ -16295,7 +16295,7 @@ focus_tree = {
 		relative_position_id = MAD_dip_ioc_cooperation
 		cost = 3
 		prerequisite = { focus = MAD_dip_ioc_cooperation }
-		search_filters = { FOCUS_FILTER_FOREIGN_POLICY FOCUS_FILTER_ECONOMY }
+		search_filters = { FOCUS_FILTER_FOREIGN_POLICY FOCUS_FILTER_TRADE }
 		available = {
 			country_exists = MRT
 			NOT = { has_war_with = MRT }
@@ -16342,7 +16342,7 @@ focus_tree = {
 		relative_position_id = MAD_dip_franco_malagasy_dialogue
 		cost = 3
 		prerequisite = { focus = MAD_dip_franco_malagasy_dialogue }
-		search_filters = { FOCUS_FILTER_FOREIGN_POLICY }
+		search_filters = { FOCUS_FILTER_FOREIGN_POLICY FOCUS_FILTER_DIPLOMACY }
 		available = {
 			country_exists = FRA
 			NOT = { has_war_with = FRA }
@@ -16410,7 +16410,7 @@ focus_tree = {
 		relative_position_id = MAD_dip_eu_epa
 		cost = 3
 		prerequisite = { focus = MAD_dip_eu_epa }
-		search_filters = { FOCUS_FILTER_ECONOMY FOCUS_FILTER_FOREIGN_POLICY }
+		search_filters = { FOCUS_FILTER_ECONOMY FOCUS_FILTER_TRADE }
 		available = { date > 2023.1.1 }
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_dip_sustainable_fisheries"
@@ -16427,7 +16427,7 @@ focus_tree = {
 		relative_position_id = MAD_dip_sustainable_fisheries
 		cost = 3
 		prerequisite = { focus = MAD_dip_sustainable_fisheries }
-		search_filters = { FOCUS_FILTER_ECONOMY }
+		search_filters = { FOCUS_FILTER_ECONOMY FOCUS_FILTER_INDUSTRY }
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_dip_blue_economy"
 			add_ideas = MAD_dip_blue_economy_spirit
