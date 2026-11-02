@@ -1104,6 +1104,10 @@ country_event = {
 			event_target:MAD_drought_event_state = {
 				clr_state_flag = MAD_STATE_WELLS
 				set_temp_variable = { MAD_dr_state_change = 8 }
+				if = {
+					limit = { ROOT = { has_country_flag = MAD_DROUGHT_EARLY_WARNING } }
+					multiply_temp_variable = { MAD_dr_state_change = 0.75 }
+				}
 				MAD_drought_state_apply_change = yes
 				add_to_variable = { MAD_state_drought_exposure = 0.15 }
 				clamp_variable = { var = MAD_state_drought_exposure min = 0.4 max = 2 }
