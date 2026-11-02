@@ -1202,14 +1202,7 @@ MAD_drought_category = {
 			}
 
 			custom_trigger_tooltip = {
-				tooltip = MAD_DROUGHT_STATE_NO_WATER_RELIEF_tt
-				FROM = {
-					check_variable = { MAD_state_relief_months < 0.001 }
-				}
-			}
-
-			custom_trigger_tooltip = {
-				tooltip = MAD_DROUGHT_NO_WATER_tt
+				tooltip = MAD_DROUGHT_NO_EMERGENCY_WATER_tt
 				MAD_drought_water_programme_available = yes
 			}
 		}
