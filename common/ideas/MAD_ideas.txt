@@ -3204,9 +3204,9 @@ MAD_MADAGASCAR_4_RELEASED = {
 			cost = 0
 			removal_cost = -1
 			modifier = {
-				stability_factor = 0.01
-				productivity_growth_modifier = 0.02
-				police_cost_multiplier_modifier = -0.02
+				stability_factor = 0.005
+				productivity_growth_modifier = 0.01
+				supply_node_range = 0.02
 			}
 		}
 
@@ -3217,9 +3217,9 @@ MAD_MADAGASCAR_4_RELEASED = {
 			cost = 0
 			removal_cost = -1
 			modifier = {
-				productivity_growth_modifier = 0.02
+				productivity_growth_modifier = 0.01
 				receiving_investment_cost_modifier = -0.02
-				stability_factor = 0.005
+				supply_node_range = 0.02
 			}
 		}
 
@@ -3232,7 +3232,6 @@ MAD_MADAGASCAR_4_RELEASED = {
 			modifier = {
 				resource_export_multiplier_modifier = 0.03
 				trade_opinion_factor = 0.02
-				police_cost_multiplier_modifier = -0.01
 			}
 		}
 
@@ -3308,7 +3307,7 @@ MAD_MADAGASCAR_4_RELEASED = {
 			cost = 0
 			removal_cost = -1
 			modifier = {
-				military_spending_cost_factor = -0.03
+				military_spending_cost_multiplier_modifier = -0.03
 				military_industrial_organization_research_bonus = 0.02
 				army_org_factor = 0.02
 			}
@@ -3477,6 +3476,7 @@ MAD_MADAGASCAR_4_RELEASED = {
 				production_speed_industrial_complex_factor = 0.03
 				consumer_goods_expected_value = -0.01
 				stability_factor = 0.02
+				resource_export_multiplier_modifier = -0.02
 			}
 		}
 }
