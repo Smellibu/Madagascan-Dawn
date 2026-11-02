@@ -5930,10 +5930,10 @@ country_event = {
 			modifier = { factor = 0 has_war = yes }
 		}
 		add_opinion_modifier = { target = FROM modifier = improve_trade }
+		set_temp_variable = { receiver_nation = ROOT.id }
+		set_temp_variable = { sender_nation = FROM.id }
+		set_improved_trade_agreement = yes
 		FROM = {
-			set_temp_variable = { receiver_nation = THIS.id }
-			set_temp_variable = { sender_nation = ROOT.id }
-			set_improved_trade_agreement = yes
 			add_opinion_modifier = { target = ROOT modifier = improve_trade }
 			add_timed_idea = { idea = MAD_dip_mauritius_trade_spirit days = 1825 }
 			set_temp_variable = { percent_change = 2 }
@@ -6318,10 +6318,10 @@ country_event = {
 			modifier = { factor = 0 has_war = yes }
 		}
 		add_opinion_modifier = { target = FROM modifier = improve_trade }
+		set_temp_variable = { receiver_nation = ROOT.id }
+		set_temp_variable = { sender_nation = FROM.id }
+		set_improved_trade_agreement = yes
 		FROM = {
-			set_temp_variable = { receiver_nation = THIS.id }
-			set_temp_variable = { sender_nation = ROOT.id }
-			set_improved_trade_agreement = yes
 			add_opinion_modifier = { target = ROOT modifier = improve_trade }
 			set_country_flag = MAD_dip_sadc_agreement
 			add_timed_idea = { idea = MAD_dip_sadc_linkages days = 1825 }
