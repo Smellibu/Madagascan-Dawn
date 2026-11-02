@@ -1799,6 +1799,10 @@ visible = {
 		days_remove = 180
 		available = {
 			custom_trigger_tooltip = {
+				tooltip = MAD_DROUGHT_PREVENTION_PROJECT_BUSY_TT
+				NOT = { has_country_flag = MAD_DROUGHT_PREVENTION_PROJECT_ACTIVE }
+			}
+			custom_trigger_tooltip = {
 				tooltip = MAD_DROUGHT_NO_SEED_tt
 				MAD_drought_seed_programme_available = yes
 			}
@@ -1814,52 +1818,53 @@ visible = {
 
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_DROUGHT_SEED started"
+			set_country_flag = MAD_DROUGHT_PREVENTION_PROJECT_ACTIVE
+			custom_effect_tooltip = MAD_drought_seed_initial_relief_tt
 			set_country_flag = MAD_DROUGHT_SEED_PROGRAMME_ACTIVE
 			set_temp_variable = { treasury_change = -2.00 }
 			modify_treasury_effect = yes
 			set_temp_variable = { MAD_rc_delta = -3 }
 			MAD_rural_cooperation_adjust = yes
 			custom_effect_tooltip = MAD_RC_DROUGHT_SEED_COST_TT
+		
+			266 = { set_temp_variable = { MAD_dr_state_famine = -4 } MAD_drought_state_apply_famine = yes }
+			267 = { set_temp_variable = { MAD_dr_state_famine = -4 } MAD_drought_state_apply_famine = yes }
+			268 = { set_temp_variable = { MAD_dr_state_famine = -4 } MAD_drought_state_apply_famine = yes }
+			487 = { set_temp_variable = { MAD_dr_state_famine = -4 } MAD_drought_state_apply_famine = yes }
 		}
 
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Drought-resistant seed programme completed"
 			custom_effect_tooltip = MAD_drought_prevention_tt
 			custom_effect_tooltip = MAD_drought_seed_resilience_tt
-			set_temp_variable = { MAD_dr_prevent_amount = 0.18 }
+			set_temp_variable = { MAD_dr_prevent_amount = 0.10 }
 			MAD_drought_add_prevention = yes
 			# Nationwide seed support improves food security and agricultural resilience.
 			266 = {
 				set_state_flag = MAD_STATE_SEED_RESILIENCE
-				set_temp_variable = { MAD_dr_state_famine = -4 }
-				MAD_drought_state_apply_famine = yes
 				subtract_from_variable = { MAD_state_drought_exposure = 0.05 }
 				clamp_variable = { var = MAD_state_drought_exposure min = 0.4 max = 2 }
 			}
 			267 = {
 				set_state_flag = MAD_STATE_SEED_RESILIENCE
-				set_temp_variable = { MAD_dr_state_famine = -4 }
-				MAD_drought_state_apply_famine = yes
 				subtract_from_variable = { MAD_state_drought_exposure = 0.05 }
 				clamp_variable = { var = MAD_state_drought_exposure min = 0.4 max = 2 }
 			}
 			268 = {
 				set_state_flag = MAD_STATE_SEED_RESILIENCE
-				set_temp_variable = { MAD_dr_state_famine = -4 }
-				MAD_drought_state_apply_famine = yes
 				subtract_from_variable = { MAD_state_drought_exposure = 0.05 }
 				clamp_variable = { var = MAD_state_drought_exposure min = 0.4 max = 2 }
 			}
 			487 = {
 				set_state_flag = MAD_STATE_SEED_RESILIENCE
-				set_temp_variable = { MAD_dr_state_famine = -4 }
-				MAD_drought_state_apply_famine = yes
 				subtract_from_variable = { MAD_state_drought_exposure = 0.05 }
 				clamp_variable = { var = MAD_state_drought_exposure min = 0.4 max = 2 }
 			}
 			MAD_drought_recalc_national = yes
 			set_country_flag = MAD_DROUGHT_SEED_PROGRAMME_COMPLETED
 			clr_country_flag = MAD_DROUGHT_SEED_PROGRAMME_ACTIVE
+		
+			clr_country_flag = MAD_DROUGHT_PREVENTION_PROJECT_ACTIVE
 		}
 
 		ai_will_do = { base = 1 }
@@ -1874,12 +1879,19 @@ visible = {
 		}
 		cost = 60
 		fire_only_once = yes
-		days_remove = 120
+		days_remove = 180
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_DROUGHT_PREVENTION_PROJECT_BUSY_TT
+				NOT = { has_country_flag = MAD_DROUGHT_PREVENTION_PROJECT_ACTIVE }
+			}
+		}
 		custom_cost_trigger = { always = yes }
 		custom_cost_text = cost_1_5
 
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_DROUGHT_EARLY_WARNING started"
+			set_country_flag = MAD_DROUGHT_PREVENTION_PROJECT_ACTIVE
 			set_temp_variable = { treasury_change = -1.50 }
 			modify_treasury_effect = yes
 		}
@@ -1889,10 +1901,12 @@ visible = {
 			custom_effect_tooltip = MAD_drought_prevention_tt
 			custom_effect_tooltip = MAD_drought_early_warning_tt
 			set_country_flag = MAD_DROUGHT_EARLY_WARNING
-			set_temp_variable = { MAD_dr_prevent_amount = 0.12 }
+			set_temp_variable = { MAD_dr_prevent_amount = 0.07 }
 			MAD_drought_add_prevention = yes
 			set_temp_variable = { MAD_rc_delta = 1 }
 			MAD_rural_cooperation_adjust = yes
+		
+			clr_country_flag = MAD_DROUGHT_PREVENTION_PROJECT_ACTIVE
 		}
 
 		ai_will_do = { base = 1 }
@@ -1907,6 +1921,10 @@ visible = {
 		}
 		available = {
 			custom_trigger_tooltip = {
+				tooltip = MAD_DROUGHT_PREVENTION_PROJECT_BUSY_TT
+				NOT = { has_country_flag = MAD_DROUGHT_PREVENTION_PROJECT_ACTIVE }
+			}
+			custom_trigger_tooltip = {
 				tooltip = MAD_DROUGHT_NO_WATER_tt
 				MAD_drought_boreholes_programme_available = yes
 			}
@@ -1919,24 +1937,29 @@ visible = {
 
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_DROUGHT_BOREHOLES started"
+			set_country_flag = MAD_DROUGHT_PREVENTION_PROJECT_ACTIVE
+			custom_effect_tooltip = MAD_drought_boreholes_initial_relief_tt
 			set_country_flag = MAD_DROUGHT_BOREHOLES_PROGRAMME_ACTIVE
 			set_temp_variable = { treasury_change = -4.00 }
 			modify_treasury_effect = yes
+		
+			268 = {
+				set_temp_variable = { MAD_dr_state_change = -8 }
+				set_temp_variable = { MAD_dr_state_famine = -16 }
+				MAD_rural_cooperation_boost_state_relief = yes
+				MAD_drought_state_apply_change = yes
+				MAD_drought_state_apply_famine = yes
+			}
 		}
 
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Borehole programme completed"
 			custom_effect_tooltip = MAD_drought_prevention_tt
 			custom_effect_tooltip = MAD_drought_boreholes_tt
-			set_temp_variable = { MAD_dr_prevent_amount = 0.24 }
+			set_temp_variable = { MAD_dr_prevent_amount = 0.13 }
 			MAD_drought_add_prevention = yes
 			268 = {
 				set_state_flag = MAD_STATE_WELLS
-				set_temp_variable = { MAD_dr_state_change = -8 }
-				set_temp_variable = { MAD_dr_state_famine = -16 }
-				MAD_rural_cooperation_boost_state_relief = yes
-				MAD_drought_state_apply_change = yes
-				MAD_drought_state_apply_famine = yes
 				subtract_from_variable = { MAD_state_drought_exposure = 0.15 }
 				clamp_variable = { var = MAD_state_drought_exposure min = 0.4 max = 2 }
 			}
@@ -1944,6 +1967,8 @@ visible = {
 			set_temp_variable = { MAD_rc_delta = 2 }
 			MAD_rural_cooperation_adjust = yes
 			clr_country_flag = MAD_DROUGHT_BOREHOLES_PROGRAMME_ACTIVE
+		
+			clr_country_flag = MAD_DROUGHT_PREVENTION_PROJECT_ACTIVE
 		}
 
 		ai_will_do = { base = 1 }
@@ -1958,6 +1983,10 @@ visible = {
 			has_completed_focus = MAD_Grand_sud_est_program
 		}
 		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_DROUGHT_PREVENTION_PROJECT_BUSY_TT
+				NOT = { has_country_flag = MAD_DROUGHT_PREVENTION_PROJECT_ACTIVE }
+			}
 			custom_trigger_tooltip = {
 				tooltip = MAD_DROUGHT_NO_WATER_tt
 				MAD_drought_sud_est_programme_available = yes
@@ -1975,6 +2004,7 @@ visible = {
 
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_DROUGHT_SUD_EST started"
+			set_country_flag = MAD_DROUGHT_PREVENTION_PROJECT_ACTIVE
 			set_country_flag = MAD_DROUGHT_SUD_EST_PROGRAMME_ACTIVE
 			set_temp_variable = { treasury_change = -4.00 }
 			modify_treasury_effect = yes
@@ -1984,12 +2014,14 @@ visible = {
 			log = "[GetDateText]: [Root.GetName]: Southern logistics programme completed"
 			custom_effect_tooltip = MAD_drought_prevention_tt
 			custom_effect_tooltip = MAD_drought_sud_est_tt
-			set_temp_variable = { MAD_dr_prevent_amount = 0.21 }
+			set_temp_variable = { MAD_dr_prevent_amount = 0.12 }
 			MAD_drought_add_prevention = yes
 			set_country_flag = MAD_DROUGHT_SUD_EST_COMPLETED
 			set_temp_variable = { MAD_rc_delta = 1 }
 			MAD_rural_cooperation_adjust = yes
 			clr_country_flag = MAD_DROUGHT_SUD_EST_PROGRAMME_ACTIVE
+		
+			clr_country_flag = MAD_DROUGHT_PREVENTION_PROJECT_ACTIVE
 		}
 
 		ai_will_do = { base = 1 }
@@ -2005,11 +2037,18 @@ visible = {
 		cost = 90
 		fire_only_once = yes
 		days_remove = 365
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_DROUGHT_PREVENTION_PROJECT_BUSY_TT
+				NOT = { has_country_flag = MAD_DROUGHT_PREVENTION_PROJECT_ACTIVE }
+			}
+		}
 		custom_cost_trigger = { always = yes }
 		custom_cost_text = cost_5_0
 
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_DROUGHT_CLIMATE_ADAPTATION started"
+			set_country_flag = MAD_DROUGHT_PREVENTION_PROJECT_ACTIVE
 			set_temp_variable = { treasury_change = -5.00 }
 			modify_treasury_effect = yes
 		}
@@ -2018,13 +2057,15 @@ visible = {
 			log = "[GetDateText]: [Root.GetName]: Climate adaptation programme completed"
 			custom_effect_tooltip = MAD_drought_prevention_tt
 			custom_effect_tooltip = MAD_drought_climate_adaptation_tt
-			set_temp_variable = { MAD_dr_prevent_amount = 0.21 }
+			set_temp_variable = { MAD_dr_prevent_amount = 0.12 }
 			MAD_drought_add_prevention = yes
 			set_country_flag = MAD_DROUGHT_CLIMATE_ADAPTATION
 			subtract_from_variable = { MAD_drought_base_pressure = 0.05 }
 			clamp_variable = { var = MAD_drought_base_pressure min = 0.25 max = 0.65 }
 			set_temp_variable = { MAD_rc_delta = 2 }
 			MAD_rural_cooperation_adjust = yes
+		
+			clr_country_flag = MAD_DROUGHT_PREVENTION_PROJECT_ACTIVE
 		}
 
 		ai_will_do = { base = 1 }
@@ -2040,13 +2081,31 @@ visible = {
 		cost = 60
 		fire_only_once = yes
 		days_remove = 180
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_DROUGHT_PREVENTION_PROJECT_BUSY_TT
+				NOT = { has_country_flag = MAD_DROUGHT_PREVENTION_PROJECT_ACTIVE }
+			}
+		}
 		custom_cost_trigger = { always = yes }
 		custom_cost_text = cost_2_5
 
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_DROUGHT_GRAIN_RESERVE started"
+			set_country_flag = MAD_DROUGHT_PREVENTION_PROJECT_ACTIVE
+			custom_effect_tooltip = MAD_drought_grain_reserve_initial_relief_tt
 			set_temp_variable = { treasury_change = -2.50 }
 			modify_treasury_effect = yes
+		
+			266 = { set_temp_variable = { MAD_dr_state_famine = -20 } MAD_drought_state_apply_famine = yes }
+			267 = { set_temp_variable = { MAD_dr_state_famine = -20 } MAD_drought_state_apply_famine = yes }
+			268 = {
+				set_temp_variable = { MAD_dr_state_famine = -40 }
+				MAD_rural_cooperation_boost_state_relief = yes
+				MAD_dahalo_southern_supply_interference = yes
+				MAD_drought_state_apply_famine = yes
+			}
+			487 = { set_temp_variable = { MAD_dr_state_famine = -20 } MAD_drought_state_apply_famine = yes }
 		}
 
 		remove_effect = {
@@ -2054,33 +2113,25 @@ visible = {
 			custom_effect_tooltip = MAD_drought_prevention_tt
 			custom_effect_tooltip = MAD_drought_grain_reserve_tt
 			add_stability = 0.01
-			set_temp_variable = { MAD_dr_prevent_amount = 0.15 }
+			set_temp_variable = { MAD_dr_prevent_amount = 0.08 }
 			MAD_drought_add_prevention = yes
 			# Release stored food in all affected regions, with the largest allocation in the Grand Sud.
 			266 = {
 				set_state_flag = MAD_STATE_GRAIN_RESERVE
-				set_temp_variable = { MAD_dr_state_famine = -20 }
-				MAD_drought_state_apply_famine = yes
 			}
 			267 = {
 				set_state_flag = MAD_STATE_GRAIN_RESERVE
-				set_temp_variable = { MAD_dr_state_famine = -20 }
-				MAD_drought_state_apply_famine = yes
 			}
 			268 = {
 				set_state_flag = MAD_STATE_GRAIN_RESERVE
-				set_temp_variable = { MAD_dr_state_famine = -40 }
-				MAD_rural_cooperation_boost_state_relief = yes
-				MAD_dahalo_southern_supply_interference = yes
-				MAD_drought_state_apply_famine = yes
 			}
 			487 = {
 				set_state_flag = MAD_STATE_GRAIN_RESERVE
-				set_temp_variable = { MAD_dr_state_famine = -20 }
-				MAD_drought_state_apply_famine = yes
 			}
 			set_temp_variable = { MAD_rc_delta = 1 }
 			MAD_rural_cooperation_adjust = yes
+		
+			clr_country_flag = MAD_DROUGHT_PREVENTION_PROJECT_ACTIVE
 		}
 
 		ai_will_do = { base = 1 }
@@ -2095,12 +2146,19 @@ visible = {
 		}
 		cost = 50
 		fire_only_once = yes
-		days_remove = 90
+		days_remove = 180
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_DROUGHT_PREVENTION_PROJECT_BUSY_TT
+				NOT = { has_country_flag = MAD_DROUGHT_PREVENTION_PROJECT_ACTIVE }
+			}
+		}
 		custom_cost_trigger = { always = yes }
 		custom_cost_text = cost_1_5
 
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_DROUGHT_LOCUST_WATCH started"
+			set_country_flag = MAD_DROUGHT_PREVENTION_PROJECT_ACTIVE
 			set_temp_variable = { treasury_change = -1.50 }
 			modify_treasury_effect = yes
 		}
@@ -2110,10 +2168,12 @@ visible = {
 			custom_effect_tooltip = MAD_drought_prevention_tt
 			custom_effect_tooltip = MAD_drought_locust_watch_tt
 			set_country_flag = MAD_DROUGHT_LOCUST_WATCH
-			set_temp_variable = { MAD_dr_prevent_amount = 0.09 }
+			set_temp_variable = { MAD_dr_prevent_amount = 0.05 }
 			MAD_drought_add_prevention = yes
 			set_temp_variable = { MAD_rc_delta = 1 }
 			MAD_rural_cooperation_adjust = yes
+		
+			clr_country_flag = MAD_DROUGHT_PREVENTION_PROJECT_ACTIVE
 		}
 
 		ai_will_do = { base = 1 }

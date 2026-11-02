@@ -2320,7 +2320,7 @@ MAD_drought_monthly_tick = {
 			limit = { check_variable = { MAD_drought_prevention_count > 4.99 } }
 			set_temp_variable = { MAD_dr_term = MAD_drought_prevention_count }
 			subtract_from_temp_variable = { MAD_dr_term = 4 }
-			multiply_temp_variable = { MAD_dr_term = 0.15 }
+			multiply_temp_variable = { MAD_dr_term = 0.06 }
 			subtract_from_temp_variable = { MAD_dr_delta = MAD_dr_term }
 		}
 		if = {
