@@ -68,7 +68,7 @@ MAD_dip_cyclone_decisions = {
 	}
 
 	MAD_dip_regional_response_exercise = {
-		icon = army_marching
+		icon = generic_political_discourse
 		visible = { has_completed_focus = MAD_dip_cyclone_network }
 		available = {
 			check_variable = { treasury > 0.25 }
@@ -97,7 +97,7 @@ MAD_dip_cyclone_decisions = {
 	}
 
 	MAD_dip_maritime_safety_drill = {
-		icon = naval_doctrine
+		icon = generic_political_discourse
 		visible = { has_completed_focus = MAD_dip_swio_maritime_safety }
 		available = {
 			check_variable = { treasury > 0.25 }
@@ -128,7 +128,7 @@ MAD_dip_cyclone_decisions = {
 
 MAD_dip_blue_economy_decisions = {
 	allowed = { tag = MAD }
-	icon = maritime_trade
+	icon = generic_construction
 	visible = {
 		has_completed_focus = MAD_dip_blue_economy
 	}
