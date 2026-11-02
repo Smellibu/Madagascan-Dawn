@@ -1640,25 +1640,6 @@ visible = {
 	# Boreholes and a solar pump for this state. Needs the Grand Sud programme. Permanently softens the drought here
 	# and halves how fast hunger builds, because the water is local and does not have to be driven in.
 	MAD_DROUGHT_LOCAL_WELLS = {
-		on_map_mode = decision_view_only
-		icon = {
-			key = GFX_decision_com_rebel_highest
-			trigger = { FROM = { check_variable = { MAD_state_drought > 74.99 } } }
-		}
-		icon = {
-			key = GFX_decision_com_rebel_high
-			trigger = { FROM = { check_variable = { MAD_state_drought > 54.99 } } }
-		}
-		icon = {
-			key = GFX_decision_com_rebel_medium
-			trigger = { FROM = { check_variable = { MAD_state_drought > 34.99 } } }
-		}
-		icon = {
-			key = GFX_decision_com_rebel_moderat
-			trigger = { FROM = { check_variable = { MAD_state_drought > 14.99 } } }
-		}
-		icon = GFX_decision_com_rebel_weak
-
 		state_target = yes
 		targets = { 266 267 268 487 }					# Mahajanga, Antananarivo, Toliara, Toamasina
 		target_root_trigger = {
