@@ -40,8 +40,14 @@ MAD_state_food_secure = {
 
 # Country scope. Historical drought events should only fire while the drought
 # system is active AND the Grand Sud/target region is not food-secure.
-MAD_historical_drought_should_fire = {
+MAD_drought_shocks_allowed = {
 	MAD_drought_exists = yes
+	NOT = { has_country_flag = MAD_DROUGHT_WON }
+}
+
+# Historical shocks additionally require that Grand Sud food security has not yet been restored.
+MAD_historical_drought_should_fire = {
+	MAD_drought_shocks_allowed = yes
 	NOT = {
 		268 = { MAD_state_food_secure = yes }
 	}
