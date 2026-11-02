@@ -16209,7 +16209,7 @@ focus_tree = {
 		relative_position_id = MAD_dip_multipolar_policy
 		cost = 3
 		prerequisite = { focus = MAD_dip_multipolar_policy }
-		search_filters = { FOCUS_FILTER_FOREIGN_POLICY FOCUS_FILTER_RESEARCH }
+		search_filters = { FOCUS_FILTER_FOREIGN_POLICY }
 		available = {
 			date > 2018.1.1
 			country_exists = RAJ
@@ -16365,22 +16365,24 @@ focus_tree = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_dip_swio_maritime_safety"
 			add_timed_idea = { idea = MAD_dip_swio_safety days = 1825 }
 			if = {
+				limit = { country_exists = FRA NOT = { has_war_with = FRA } }
+				FRA = { country_event = { id = mad_diplomacy.35 days = 1 } }
+				custom_effect_tooltip = TT_IF_THEY_ACCEPT
+			}
+			if = {
 				limit = { has_country_flag = MAD_dip_mrt_ioc_accepted }
-				add_opinion_modifier = { target = MRT modifier = trade_mission }
 				set_temp_variable = { percent_change = 1 }
 				set_temp_variable = { influence_target = MRT.id }
 				change_influence_percentage = yes
 			}
 			if = {
 				limit = { has_country_flag = MAD_dip_com_ioc_accepted }
-				add_opinion_modifier = { target = COM modifier = trade_mission }
 				set_temp_variable = { percent_change = 1 }
 				set_temp_variable = { influence_target = COM.id }
 				change_influence_percentage = yes
 			}
 			if = {
 				limit = { has_country_flag = MAD_dip_sey_ioc_accepted }
-				add_opinion_modifier = { target = SEY modifier = trade_mission }
 				set_temp_variable = { percent_change = 1 }
 				set_temp_variable = { influence_target = SEY.id }
 				change_influence_percentage = yes
