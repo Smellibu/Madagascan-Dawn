@@ -5935,7 +5935,7 @@ country_event = {
 			set_temp_variable = { sender_nation = ROOT.id }
 			set_improved_trade_agreement = yes
 			add_opinion_modifier = { target = ROOT modifier = improve_trade }
-			add_timed_idea = { idea = MAD_dip_mauritius_trade days = 1825 }
+			add_timed_idea = { idea = MAD_dip_mauritius_trade_spirit days = 1825 }
 			set_temp_variable = { percent_change = 2 }
 			set_temp_variable = { tag_index = THIS.id }
 			set_temp_variable = { influence_target = ROOT.id }
@@ -6154,7 +6154,7 @@ country_event = {
 			add_opinion_modifier = { target = ROOT modifier = diplomatic_support }
 			add_to_tech_sharing_group = mad_indian_ocean_research
 			set_country_flag = MAD_dip_india_geomatics_accepted
-			add_timed_idea = { idea = MAD_dip_indian_geomatics days = 1825 }
+			add_timed_idea = { idea = MAD_dip_indian_geomatics_spirit days = 1825 }
 			add_tech_bonus = {
 				name = MAD_dip_indian_geospatial_research
 				category = CAT_infrastructure
