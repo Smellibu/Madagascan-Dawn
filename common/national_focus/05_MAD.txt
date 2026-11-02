@@ -1363,6 +1363,11 @@ focus_tree = {
 			add_stability = 0.02
 			decrease_corruption = yes
 			if = {
+				limit = { check_variable = { MAD_dahalo_threat > 0.001 } }
+				add_to_variable = { MAD_dahalo_threat = -5 tooltip = MAD_DAHALO_THREAT_MINUS_5_TT }
+				MAD_dahalo_update_modifier = yes
+			}
+			if = {
 				limit = { has_completed_focus = MAD_TOURISM_INCOME_BOOST }
 				custom_effect_tooltip = {
 					localization_key = modifies_dynamic_modifier_tt
@@ -2357,10 +2362,10 @@ focus_tree = {
 			JAP = {
 				set_temp_variable = { treasury_change = -2.00 }
 				modify_treasury_effect = yes
-				set_temp_variable = { int_investment_change = 10 }
+				set_temp_variable = { int_investment_change = 5 }
 				modify_international_investment_effect = yes
 			}
-			set_temp_variable = { treasury_change = -8.00 }
+			set_temp_variable = { treasury_change = -3.00 }
 			modify_treasury_effect = yes
 			set_temp_variable = { percent_change = 10 }
 			set_temp_variable = { tag_index = JAP }
@@ -2808,10 +2813,10 @@ focus_tree = {
 						add_to_variable = { MAD_economy_internal_investments_money_cost_modifier = -0.10 tooltip = internal_investments_money_cost_modifier_tt }
 					267 = {
 						add_resource = {
-						type = tungsten
-						amount = 35
-							}
+							type = tungsten
+							amount = 18
 						}
+					}
 		}
 
 		ai_will_do = {
@@ -4091,6 +4096,7 @@ focus_tree = {
 				MODIFIER = MAD_economy_modifier
 			}
 			add_to_variable = { MAD_economy_infrastructure_tax_gain_multiplier_modifier = 0.03 tooltip = infrastructure_tax_gain_multiplier_modifier_tt }
+			add_to_variable = { MAD_economy_resource_sector_workers_modifier = 0.05 tooltip = resource_sector_workers_modifier_tt }
 			add_stability = 0.03
 			set_party_index_to_ruling_party = yes
 			set_temp_variable = { party_popularity_increase = 0.05 }
@@ -4556,8 +4562,6 @@ focus_tree = {
 				set_temp_variable = { int_investment_change = 10 }
 				modify_international_investment_effect = yes
 			}
-			set_temp_variable = { treasury_change = -10.00 }
-			modify_treasury_effect = yes
 			
 			if = {
 				limit = { has_idea = small_medium_business_owners }
@@ -5007,6 +5011,7 @@ focus_tree = {
 			}
 			set_temp_variable = { treasury_change = -3.50 }
 			modify_treasury_effect = yes
+			country_event = { id = mad_austral.1 days = 180 }
 		}
 
 		ai_will_do = {
@@ -6859,9 +6864,6 @@ focus_tree = {
 		cost = 3
 		prerequisite = { focus = MAD_Austral_deal_falls_through }
 		search_filters = { FOCUS_FILTER_ECONOMY FOCUS_FILTER_AIRCRAFT }
-		available = {
-			NOT = { has_idea = MAD_AUSTRAL_DEAL_FAILED }
-		}
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MADAGASCAR_AIRLINES"
@@ -6882,8 +6884,17 @@ focus_tree = {
 				uses = 1
 				bonus = 0.25
 			}
-			set_temp_variable = { treasury_change = -5.00 }
+			set_temp_variable = { treasury_change = -2.00 }
 			modify_treasury_effect = yes
+			set_temp_variable = { percent_change = 10 }
+			set_temp_variable = { tag_index = FRA }
+			set_temp_variable = { influence_target = MAD }
+			change_influence_percentage = yes
+			add_power_balance_value = {
+				id = MAD_economy_ownership_bop
+				value = -0.06
+				tooltip_side = MAD_private_ownership
+			}
 		}
 
 		ai_will_do = {

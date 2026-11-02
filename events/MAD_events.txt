@@ -4,6 +4,23 @@
 ### early ACTIVATION, not TIMEOUT_EFFECT.
 ### ==============================================================
 add_namespace = mad_ambatovy
+add_namespace = mad_austral
+
+country_event = {
+	id = mad_austral.1
+	hidden = yes
+	is_triggered_only = yes
+	fire_only_once = yes
+	immediate = {
+		if = {
+			limit = {
+				has_completed_focus = MAD_Austral_offer
+				NOT = { has_completed_focus = MAD_Austral_deal_falls_through }
+			}
+			complete_national_focus = MAD_Austral_deal_falls_through
+		}
+	}
+}
 
 ### ==============================================================
 ### EVENT - fired from MAD_AMBATOVY_MISSION's remove_effect
@@ -4610,11 +4627,11 @@ country_event = {
 			ISR = {
 				set_temp_variable = { treasury_change = -2.00 }
 				modify_treasury_effect = yes
-				set_temp_variable = { int_investment_change = 10 }
+				set_temp_variable = { int_investment_change = 5 }
 				modify_international_investment_effect = yes
 				add_opinion_modifier = { target = MAD modifier = large_commercial_relations }
 			}
-			set_temp_variable = { treasury_change = -8.00 }
+			set_temp_variable = { treasury_change = -3.00 }
 			modify_treasury_effect = yes
 			# Preserve the old diplomatic choice's mutual declaration of loyalty.
 			add_opinion_modifier = { target = ISR modifier = has_expressed_loyalty }
@@ -4652,8 +4669,6 @@ country_event = {
 				set_temp_variable = { int_investment_change = 5 }
 				modify_international_investment_effect = yes
 			}
-			set_temp_variable = { treasury_change = -5.00 }
-			modify_treasury_effect = yes
 		}
 		one_random_agriculture_district = yes
 		set_country_flag = MAD_ROY_ISRAEL_PILGRIM_TIES

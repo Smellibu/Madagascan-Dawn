@@ -3132,6 +3132,7 @@ MAD_dahalo_update_modifier = {
 		set_variable = { MAD_dahalo_agri_income_tax = 0 }
 		set_variable = { MAD_dahalo_agri_worker_req = 0 }
 		set_variable = { MAD_dahalo_productivity_growth = 0 }
+		set_variable = { MAD_dahalo_corporate_tax = 0 }
 		set_variable = { MAD_dahalo_receiving_investment_cost = 0 }
 		set_variable = { MAD_dahalo_receiving_investment_duration = 0 }
 		set_variable = { MAD_dahalo_stability = 0 }
@@ -3145,67 +3146,72 @@ MAD_dahalo_update_modifier = {
 	}
 	else_if = {
 		limit = { check_variable = { MAD_dahalo_threat > 79.99 } }
-		set_variable = { MAD_dahalo_agri_productivity = -0.08 }
+		set_variable = { MAD_dahalo_agri_productivity = -0.10 }
 		set_variable = { MAD_dahalo_agri_income_tax = -0.08 }
-		set_variable = { MAD_dahalo_agri_worker_req = 0.05 }
-		set_variable = { MAD_dahalo_productivity_growth = -0.05 }
+		set_variable = { MAD_dahalo_agri_worker_req = 0.10 }
+		set_variable = { MAD_dahalo_productivity_growth = -0.20 }
 		set_variable = { MAD_dahalo_receiving_investment_cost = 0.08 }
 		set_variable = { MAD_dahalo_receiving_investment_duration = 0.08 }
-		set_variable = { MAD_dahalo_stability = -0.06 }
+		set_variable = { MAD_dahalo_stability = -0.10 }
 		set_variable = { MAD_dahalo_expected_police = 1.0 }
-		set_variable = { MAD_dahalo_civilian_tax = -0.02 }
+		set_variable = { MAD_dahalo_civilian_tax = -0.05 }
+		set_variable = { MAD_dahalo_corporate_tax = -0.10 }
 		set_variable = { MAD_dahalo_infrastructure_tax = -0.04 }
 	}
 	else_if = {
 		limit = { check_variable = { MAD_dahalo_threat > 59.99 } }
-		set_variable = { MAD_dahalo_agri_productivity = -0.06 }
+		set_variable = { MAD_dahalo_agri_productivity = -0.08 }
 		set_variable = { MAD_dahalo_agri_income_tax = -0.06 }
-		set_variable = { MAD_dahalo_agri_worker_req = 0.04 }
-		set_variable = { MAD_dahalo_productivity_growth = -0.05 }
+		set_variable = { MAD_dahalo_agri_worker_req = 0.08 }
+		set_variable = { MAD_dahalo_productivity_growth = -0.16 }
 		set_variable = { MAD_dahalo_receiving_investment_cost = 0.06 }
 		set_variable = { MAD_dahalo_receiving_investment_duration = 0.06 }
-		set_variable = { MAD_dahalo_stability = -0.05 }
+		set_variable = { MAD_dahalo_stability = -0.08 }
 		set_variable = { MAD_dahalo_expected_police = 1.0 }
-		set_variable = { MAD_dahalo_civilian_tax = -0.015 }
+		set_variable = { MAD_dahalo_civilian_tax = -0.04 }
+		set_variable = { MAD_dahalo_corporate_tax = -0.08 }
 		set_variable = { MAD_dahalo_infrastructure_tax = -0.03 }
 	}
 	else_if = {
 		limit = { check_variable = { MAD_dahalo_threat > 39.99 } }
-		set_variable = { MAD_dahalo_agri_productivity = -0.05 }
+		set_variable = { MAD_dahalo_agri_productivity = -0.06 }
 		set_variable = { MAD_dahalo_agri_income_tax = -0.04 }
-		set_variable = { MAD_dahalo_agri_worker_req = 0.03 }
-		set_variable = { MAD_dahalo_productivity_growth = -0.05 }
+		set_variable = { MAD_dahalo_agri_worker_req = 0.06 }
+		set_variable = { MAD_dahalo_productivity_growth = -0.12 }
 		set_variable = { MAD_dahalo_receiving_investment_cost = 0.04 }
 		set_variable = { MAD_dahalo_receiving_investment_duration = 0.04 }
-		set_variable = { MAD_dahalo_stability = -0.03 }
+		set_variable = { MAD_dahalo_stability = -0.06 }
 		set_variable = { MAD_dahalo_expected_police = 0.5 }
-		set_variable = { MAD_dahalo_civilian_tax = -0.01 }
+		set_variable = { MAD_dahalo_civilian_tax = -0.03 }
+		set_variable = { MAD_dahalo_corporate_tax = -0.06 }
 		set_variable = { MAD_dahalo_infrastructure_tax = -0.02 }
 	}
 	else_if = {
 		limit = { check_variable = { MAD_dahalo_threat > 19.99 } }
-		set_variable = { MAD_dahalo_agri_productivity = -0.05 }
+		set_variable = { MAD_dahalo_agri_productivity = -0.04 }
 		set_variable = { MAD_dahalo_agri_income_tax = -0.02 }
-		set_variable = { MAD_dahalo_agri_worker_req = 0.02 }
-		set_variable = { MAD_dahalo_productivity_growth = -0.05 }
+		set_variable = { MAD_dahalo_agri_worker_req = 0.04 }
+		set_variable = { MAD_dahalo_productivity_growth = -0.08 }
 		set_variable = { MAD_dahalo_receiving_investment_cost = 0.02 }
 		set_variable = { MAD_dahalo_receiving_investment_duration = 0.02 }
-		set_variable = { MAD_dahalo_stability = -0.015 }
+		set_variable = { MAD_dahalo_stability = -0.04 }
 		set_variable = { MAD_dahalo_expected_police = 0.5 }
-		set_variable = { MAD_dahalo_civilian_tax = 0 }
+		set_variable = { MAD_dahalo_civilian_tax = -0.02 }
+		set_variable = { MAD_dahalo_corporate_tax = -0.04 }
 		set_variable = { MAD_dahalo_infrastructure_tax = -0.01 }
 	}
 	else_if = {
 		limit = { check_variable = { MAD_dahalo_threat > 0 } }
-		set_variable = { MAD_dahalo_agri_productivity = -0.01 }
+		set_variable = { MAD_dahalo_agri_productivity = -0.02 }
 		set_variable = { MAD_dahalo_agri_income_tax = -0.01 }
-		set_variable = { MAD_dahalo_agri_worker_req = 0.01 }
-		set_variable = { MAD_dahalo_productivity_growth = 0 }
+		set_variable = { MAD_dahalo_agri_worker_req = 0.02 }
+		set_variable = { MAD_dahalo_productivity_growth = -0.04 }
 		set_variable = { MAD_dahalo_receiving_investment_cost = 0.01 }
 		set_variable = { MAD_dahalo_receiving_investment_duration = 0.01 }
-		set_variable = { MAD_dahalo_stability = -0.01 }
+		set_variable = { MAD_dahalo_stability = -0.02 }
 		set_variable = { MAD_dahalo_expected_police = 0.5 }
-		set_variable = { MAD_dahalo_civilian_tax = 0 }
+		set_variable = { MAD_dahalo_civilian_tax = -0.01 }
+		set_variable = { MAD_dahalo_corporate_tax = -0.02 }
 		set_variable = { MAD_dahalo_infrastructure_tax = 0 }
 	}
 	else = {
@@ -3213,6 +3219,7 @@ MAD_dahalo_update_modifier = {
 		set_variable = { MAD_dahalo_agri_income_tax = 0 }
 		set_variable = { MAD_dahalo_agri_worker_req = 0 }
 		set_variable = { MAD_dahalo_productivity_growth = 0 }
+		set_variable = { MAD_dahalo_corporate_tax = 0 }
 		set_variable = { MAD_dahalo_receiving_investment_cost = 0 }
 		set_variable = { MAD_dahalo_receiving_investment_duration = 0 }
 		set_variable = { MAD_dahalo_stability = 0 }
