@@ -6432,3 +6432,39 @@ country_event = {
 	}
 }
 
+country_event = {
+	id = mad_diplomacy.35
+	title = mad_diplomacy.35.t
+	desc = mad_diplomacy.35.d
+	picture = GFX_paris_convention
+	is_triggered_only = yes
+
+	option = {
+		name = mad_diplomacy.35.a
+		log = "[GetDateText]: [This.GetName]: mad_diplomacy.35.a executed"
+		trigger = {
+			NOT = { has_war_with = FROM }
+			has_opinion = { target = FROM value > -10 }
+			FROM = { has_country_flag = MAD_dip_france_dialogue_accepted }
+		}
+		ai_chance = {
+			base = 60
+			modifier = { add = 25 has_opinion = { target = FROM value > 50 } }
+			modifier = { factor = 0 has_war = yes }
+		}
+		add_opinion_modifier = { target = FROM modifier = diplomatic_support }
+		FROM = {
+			add_opinion_modifier = { target = ROOT modifier = diplomatic_support }
+			set_temp_variable = { temp_opinion = 3 }
+			change_the_military_opinion = yes
+		}
+	}
+
+	option = {
+		name = mad_diplomacy.35.b
+		log = "[GetDateText]: [This.GetName]: mad_diplomacy.35.b executed"
+		ai_chance = { base = 40 }
+	}
+}
+
+
