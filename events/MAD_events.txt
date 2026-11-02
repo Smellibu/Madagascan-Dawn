@@ -6155,6 +6155,16 @@ country_event = {
 			add_to_tech_sharing_group = mad_indian_ocean_research
 			set_country_flag = MAD_dip_india_geomatics_accepted
 			add_timed_idea = { idea = MAD_dip_indian_geomatics_spirit days = 1825 }
+			if = {
+				limit = {
+					country_exists = JAP
+					OR = {
+						has_completed_focus = MAD_TOAMASINA_JICA_EXPANSION
+						has_completed_focus = MAD_Japanese_bypass
+					}
+				}
+				JAP = { add_to_tech_sharing_group = mad_indian_ocean_research }
+			}
 			add_tech_bonus = {
 				name = MAD_dip_indian_geospatial_research
 				category = CAT_infrastructure
