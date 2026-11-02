@@ -531,7 +531,11 @@ defined_text = {
 
 defined_text = {
 	name = mad_rc_mod_base
-	text = { localization_key = MAD_RC_LINE_BASE }
+	text = {
+		trigger = { NOT = { check_variable = { MAD_rural_cooperation > 35 } } }
+		localization_key = MAD_RC_LINE_BASE
+	}
+	text = { localization_key = MAD_RC_EMPTY }
 }
 
 defined_text = {

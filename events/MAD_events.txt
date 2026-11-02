@@ -5496,7 +5496,7 @@ country_event = {
 
 	option = {
 		name = mad_policy_programmes.1.a
-		add_timed_idea = { idea = MAD_POLICY_ROAD_PUBLIC days = 180 }
+		add_timed_idea = { idea = MAD_POLICY_ROAD_PUBLIC days = 120 }
 		random_owned_controlled_state = {
 			limit = { NOT = { state = 267 } }
 			add_extra_state_shared_building_slots = 1
@@ -5510,7 +5510,7 @@ country_event = {
 	}
 	option = {
 		name = mad_policy_programmes.1.b
-		add_timed_idea = { idea = MAD_POLICY_ROAD_PRIVATE days = 180 }
+		add_timed_idea = { idea = MAD_POLICY_ROAD_PRIVATE days = 120 }
 		random_owned_controlled_state = {
 			limit = { NOT = { state = 267 } }
 			add_extra_state_shared_building_slots = 1
@@ -5663,5 +5663,17 @@ country_event = {
 			change_landowners_opinion = yes
 		}
 		add_stability = 0.01
+	}
+}
+ 
+# Releases the regional road-maintenance lock after the full 365-day programme.
+# The outcome idea itself expires after 120 days.
+country_event = {
+	id = mad_policy_programmes.7
+	hidden = yes
+	is_triggered_only = yes
+	immediate = {
+		log = "[GetDateText]: [Root.GetName]: Regional road maintenance programme completed"
+		clr_country_flag = MAD_POLICY_ROAD_MAINTENANCE_ACTIVE
 	}
 }

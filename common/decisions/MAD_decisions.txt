@@ -1393,23 +1393,8 @@ visible = {
 
 	# Drought-tolerant seed for this state's planting season. Needs the focus that unlocks the national programme.
 	MAD_DROUGHT_LOCAL_SEED_DISTRIBUTION = {
-		icon = {
-			key = GFX_decision_com_rebel_highest
-			trigger = { FROM = { check_variable = { MAD_state_drought > 74.99 } } }
-		}
-		icon = {
-			key = GFX_decision_com_rebel_high
-			trigger = { FROM = { check_variable = { MAD_state_drought > 54.99 } } }
-		}
-		icon = {
-			key = GFX_decision_com_rebel_medium
-			trigger = { FROM = { check_variable = { MAD_state_drought > 34.99 } } }
-		}
-		icon = {
-			key = GFX_decision_com_rebel_moderat
-			trigger = { FROM = { check_variable = { MAD_state_drought > 14.99 } } }
-		}
-		icon = GFX_decision_com_rebel_weak
+		icon = GFX_decision_com_rebel_highest
+		on_map_mode = decision_view_only
 
 		state_target = yes
 		targets = { 266 267 268 487 }					# Mahajanga, Antananarivo, Toliara, Toamasina
@@ -1557,23 +1542,8 @@ visible = {
 
 	# Aerial and ground spraying of this state. Needs the biopesticide focus, so it does not wreck the farmland.
 	MAD_DROUGHT_LOCAL_LOCUST_SPRAY = {
-		icon = {
-			key = GFX_decision_com_rebel_highest
-			trigger = { FROM = { check_variable = { MAD_state_drought > 74.99 } } }
-		}
-		icon = {
-			key = GFX_decision_com_rebel_high
-			trigger = { FROM = { check_variable = { MAD_state_drought > 54.99 } } }
-		}
-		icon = {
-			key = GFX_decision_com_rebel_medium
-			trigger = { FROM = { check_variable = { MAD_state_drought > 34.99 } } }
-		}
-		icon = {
-			key = GFX_decision_com_rebel_moderat
-			trigger = { FROM = { check_variable = { MAD_state_drought > 14.99 } } }
-		}
-		icon = GFX_decision_com_rebel_weak
+		icon = GFX_decision_com_rebel_highest
+		on_map_mode = decision_view_only
 
 		state_target = yes
 		targets = { 266 267 268 487 }					# Mahajanga, Antananarivo, Toliara, Toamasina
@@ -1589,6 +1559,10 @@ visible = {
 		}
 		available = {
 			custom_trigger_tooltip = {
+				tooltip = MAD_DROUGHT_LOCAL_SPRAY_EXCLUSION_TT
+				NOT = { has_country_flag = MAD_DROUGHT_LOCAL_SPRAY_PROGRAMME_ACTIVE }
+			}
+			custom_trigger_tooltip = {
 				tooltip = MAD_RC_LOCUST_SPRAY_REQUIRE_TT
 				OR = {
 					has_completed_focus = MAD_biopesticides
@@ -1603,6 +1577,7 @@ visible = {
 
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Local locust spraying started"
+			set_country_flag = MAD_DROUGHT_LOCAL_SPRAY_PROGRAMME_ACTIVE
 			set_temp_variable = { treasury_change = -0.80 }
 			modify_treasury_effect = yes
 		}
@@ -1638,6 +1613,7 @@ visible = {
 				MAD_rural_cooperation_adjust = yes
 				custom_effect_tooltip = MAD_RC_DROUGHT_DIRTY_SPRAY_TT
 			}
+			clr_country_flag = MAD_DROUGHT_LOCAL_SPRAY_PROGRAMME_ACTIVE
 		}
 
 		ai_will_do = { base = 7 }
@@ -4537,35 +4513,30 @@ MAD_OWNERSHIP_BOP = {
 				tooltip = MAD_POLICY_GDP_MAX_15000_TT
 				check_variable = { gdp_per_capita < 15.001 }
 			}
-			NOT = { has_country_flag = MAD_POLICY_ROAD_CYCLE_3 }
+			custom_trigger_tooltip = {
+				tooltip = MAD_POLICY_ROAD_MAINTENANCE_ACTIVE
+				NOT = { has_country_flag = MAD_POLICY_ROAD_MAINTENANCE_ACTIVE }
+			}
 			NOT = { has_idea = MAD_POLICY_ROAD_PUBLIC }
 			NOT = { has_idea = MAD_POLICY_ROAD_PRIVATE }
-
 			custom_trigger_tooltip = {
-				tooltip = MAD_POLICY_RC_REQUIRE_2_TT
-				check_variable = { MAD_rural_cooperation > 1.99 }
+				tooltip = MAD_POLICY_RC_REQUIRE_4_TT
+				check_variable = { MAD_rural_cooperation > 3.99 }
 			}
 		}
 		cost = 35
 		fire_only_once = no
-		# Keep the decision visible; the selected 180-day crew idea controls when it can be repeated.
+		# The decision remains visible; a country flag holds it unavailable for the 365-day programme.
 		custom_cost_trigger = { always = yes }
-		custom_cost_text = cost_0_08
+		custom_cost_text = cost_0_2
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Regional road maintenance programme launched"
-			set_temp_variable = { treasury_change = -0.08 }
+			set_country_flag = MAD_POLICY_ROAD_MAINTENANCE_ACTIVE
+			country_event = { id = mad_policy_programmes.7 days = 365 }
+			set_temp_variable = { treasury_change = -0.20 }
 			modify_treasury_effect = yes
-			set_temp_variable = { MAD_rc_delta = -2 }
+			set_temp_variable = { MAD_rc_delta = -4 }
 			MAD_rural_cooperation_adjust = yes
-			if = {
-				limit = { NOT = { has_country_flag = MAD_POLICY_ROAD_CYCLE_1 } }
-				set_country_flag = MAD_POLICY_ROAD_CYCLE_1
-			}
-			else_if = {
-				limit = { NOT = { has_country_flag = MAD_POLICY_ROAD_CYCLE_2 } }
-				set_country_flag = MAD_POLICY_ROAD_CYCLE_2
-			}
-			else = { set_country_flag = MAD_POLICY_ROAD_CYCLE_3 }
 			country_event = { id = mad_policy_programmes.1 }
 		}
 		ai_will_do = { base = 0 }
