@@ -2382,16 +2382,24 @@ MAD_drought_monthly_tick = {
 
 MAD_drought_finish = {
 	if = {
-		limit = { NOT = { has_country_flag = MAD_DROUGHT_OVER } }
+		limit = {
+			NOT = { has_country_flag = MAD_DROUGHT_OVER }
+			# Never wipe the state hunger meters simply because the national drought average reached zero.
+			# The whole island must be back below the local food-security thresholds before closure.
+			266 = { MAD_state_food_secure = yes }
+			267 = { MAD_state_food_secure = yes }
+			268 = { MAD_state_food_secure = yes }
+			487 = { MAD_state_food_secure = yes }
+		}
 		set_country_flag = MAD_DROUGHT_OVER
 		set_variable = { MAD_drought_severity = 0 }
 		set_variable = { MAD_drought_relief_months = 0 }
 		MAD_drought_clear_tiers = yes
 		# the map goes green too
-		266 = { set_variable = { MAD_state_drought = 0 } set_variable = { MAD_state_famine = 0 } set_variable = { MAD_state_drought_tier = 0 } set_variable = { MAD_state_relief_months = 0 } MAD_drought_state_clear_tiers = yes if = { limit = { has_dynamic_modifier = { modifier = MAD_STATE_FAMINE } } remove_dynamic_modifier = { modifier = MAD_STATE_FAMINE } } }
-		267 = { set_variable = { MAD_state_drought = 0 } set_variable = { MAD_state_famine = 0 } set_variable = { MAD_state_drought_tier = 0 } set_variable = { MAD_state_relief_months = 0 } MAD_drought_state_clear_tiers = yes if = { limit = { has_dynamic_modifier = { modifier = MAD_STATE_FAMINE } } remove_dynamic_modifier = { modifier = MAD_STATE_FAMINE } } }
-		268 = { set_variable = { MAD_state_drought = 0 } set_variable = { MAD_state_famine = 0 } set_variable = { MAD_state_drought_tier = 0 } set_variable = { MAD_state_relief_months = 0 } MAD_drought_state_clear_tiers = yes if = { limit = { has_dynamic_modifier = { modifier = MAD_STATE_FAMINE } } remove_dynamic_modifier = { modifier = MAD_STATE_FAMINE } } }
-		487 = { set_variable = { MAD_state_drought = 0 } set_variable = { MAD_state_famine = 0 } set_variable = { MAD_state_drought_tier = 0 } set_variable = { MAD_state_relief_months = 0 } MAD_drought_state_clear_tiers = yes if = { limit = { has_dynamic_modifier = { modifier = MAD_STATE_FAMINE } } remove_dynamic_modifier = { modifier = MAD_STATE_FAMINE } } }
+		266 = { set_variable = { MAD_state_drought = 0 } set_variable = { MAD_state_famine = 0 } set_variable = { MAD_state_drought_tier = 0 } set_variable = { MAD_state_relief_months = 0 } MAD_drought_state_clear_tiers = yes MAD_drought_state_clear_famine_tiers = yes if = { limit = { has_dynamic_modifier = { modifier = MAD_STATE_FAMINE } } remove_dynamic_modifier = { modifier = MAD_STATE_FAMINE } } }
+		267 = { set_variable = { MAD_state_drought = 0 } set_variable = { MAD_state_famine = 0 } set_variable = { MAD_state_drought_tier = 0 } set_variable = { MAD_state_relief_months = 0 } MAD_drought_state_clear_tiers = yes MAD_drought_state_clear_famine_tiers = yes if = { limit = { has_dynamic_modifier = { modifier = MAD_STATE_FAMINE } } remove_dynamic_modifier = { modifier = MAD_STATE_FAMINE } } }
+		268 = { set_variable = { MAD_state_drought = 0 } set_variable = { MAD_state_famine = 0 } set_variable = { MAD_state_drought_tier = 0 } set_variable = { MAD_state_relief_months = 0 } MAD_drought_state_clear_tiers = yes MAD_drought_state_clear_famine_tiers = yes if = { limit = { has_dynamic_modifier = { modifier = MAD_STATE_FAMINE } } remove_dynamic_modifier = { modifier = MAD_STATE_FAMINE } } }
+		487 = { set_variable = { MAD_state_drought = 0 } set_variable = { MAD_state_famine = 0 } set_variable = { MAD_state_drought_tier = 0 } set_variable = { MAD_state_relief_months = 0 } MAD_drought_state_clear_tiers = yes MAD_drought_state_clear_famine_tiers = yes if = { limit = { has_dynamic_modifier = { modifier = MAD_STATE_FAMINE } } remove_dynamic_modifier = { modifier = MAD_STATE_FAMINE } } }
 		if = {
 			limit = { has_idea = MAD_DROUGHT_EVACUATIONS }
 			remove_ideas = MAD_DROUGHT_EVACUATIONS
