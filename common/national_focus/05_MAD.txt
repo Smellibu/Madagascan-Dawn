@@ -16094,4 +16094,348 @@ focus_tree = {
 		}
 	}
 
+
+	focus = {
+		id = MAD_dip_multipolar_policy
+		icon = diplomatic_treaty
+		x = 58
+		y = 11
+		cost = 3
+		prerequisite = { focus = MAD_POL_PARTIES }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_FOREIGN_POLICY }
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_dip_multipolar_policy"
+			add_political_power = 25
+			country_event = { id = mad_diplomacy.1 days = 1 }
+		}
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_dip_ioc_cooperation
+		icon = diplomatic_treaty
+		x = -1
+		y = 1
+		relative_position_id = MAD_dip_multipolar_policy
+		cost = 3
+		prerequisite = { focus = MAD_dip_multipolar_policy }
+		search_filters = { FOCUS_FILTER_FOREIGN_POLICY }
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_dip_ioc_cooperation"
+			add_political_power = 20
+			if = {
+				limit = { country_exists = MRT NOT = { has_war_with = MRT } }
+				MRT = { country_event = { id = mad_diplomacy.10 days = 1 } }
+			}
+			if = {
+				limit = { country_exists = COM NOT = { has_war_with = COM } }
+				COM = { country_event = { id = mad_diplomacy.11 days = 1 } }
+			}
+			if = {
+				limit = { country_exists = SEY NOT = { has_war_with = SEY } }
+				SEY = { country_event = { id = mad_diplomacy.12 days = 1 } }
+			}
+			custom_effect_tooltip = TT_IF_THEY_ACCEPT
+			effect_tooltip = {
+				add_ideas = MAD_dip_ioc_network
+				add_ideas = MAD_dip_ioc_active
+			}
+		}
+		ai_will_do = { base = 1 }
+	}
+
+	focus = {
+		id = MAD_dip_sadc_trade
+		icon = align_to_south_africa
+		x = 1
+		y = 1
+		relative_position_id = MAD_dip_multipolar_policy
+		cost = 3
+		prerequisite = { focus = MAD_dip_multipolar_policy }
+		search_filters = { FOCUS_FILTER_FOREIGN_POLICY FOCUS_FILTER_INFLUENCE }
+		available = {
+			date > 2008.1.1
+			country_exists = SAF
+			NOT = { has_war_with = SAF }
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_dip_sadc_trade"
+			SAF = { country_event = { id = mad_diplomacy.60 days = 1 } }
+			custom_effect_tooltip = TT_IF_THEY_ACCEPT
+			effect_tooltip = {
+				add_timed_idea = { idea = MAD_dip_sadc_linkages days = 1825 }
+				set_improved_trade_agreement = yes
+			}
+		}
+		ai_will_do = {
+			base = 1
+			modifier = { factor = 0 has_active_mission = bankruptcy_incoming_collapse }
+		}
+	}
+
+	focus = {
+		id = MAD_dip_franco_malagasy_dialogue
+		icon = diplomatic_treaty
+		x = 3
+		y = 1
+		relative_position_id = MAD_dip_multipolar_policy
+		cost = 3
+		prerequisite = { focus = MAD_dip_multipolar_policy }
+		search_filters = { FOCUS_FILTER_FOREIGN_POLICY }
+		available = {
+			country_exists = FRA
+			NOT = { has_war_with = FRA }
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_dip_franco_malagasy_dialogue"
+			FRA = { country_event = { id = mad_diplomacy.30 days = 1 } }
+			custom_effect_tooltip = TT_IF_THEY_ACCEPT
+			effect_tooltip = {
+				add_timed_idea = { idea = MAD_dip_franco_dialogue days = 1095 }
+			}
+		}
+		ai_will_do = { base = 1 }
+	}
+
+	focus = {
+		id = MAD_dip_indian_geomatics
+		icon = align_to_india
+		x = 5
+		y = 1
+		relative_position_id = MAD_dip_multipolar_policy
+		cost = 3
+		prerequisite = { focus = MAD_dip_multipolar_policy }
+		search_filters = { FOCUS_FILTER_FOREIGN_POLICY FOCUS_FILTER_RESEARCH }
+		available = {
+			date > 2018.1.1
+			country_exists = RAJ
+			NOT = { has_war_with = RAJ }
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_dip_indian_geomatics"
+			RAJ = { country_event = { id = mad_diplomacy.40 days = 1 } }
+			custom_effect_tooltip = TT_IF_THEY_ACCEPT
+			effect_tooltip = {
+				add_timed_idea = { idea = MAD_dip_indian_geomatics days = 1825 }
+				add_to_tech_sharing_group = mad_indian_ocean_research
+			}
+		}
+		ai_will_do = { base = 1 }
+	}
+
+	focus = {
+		id = MAD_dip_china_industrial_partnership
+		icon = prc_sign
+		x = 7
+		y = 1
+		relative_position_id = MAD_dip_multipolar_policy
+		cost = 3
+		prerequisite = { focus = MAD_dip_multipolar_policy }
+		search_filters = { FOCUS_FILTER_FOREIGN_POLICY FOCUS_FILTER_INDUSTRY }
+		available = {
+			date > 2013.1.1
+			country_exists = CHI
+			NOT = { has_war_with = CHI }
+			CHI = { has_opinion = { target = MAD value > 10 } }
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_dip_china_industrial_partnership"
+			CHI = { country_event = { id = mad_diplomacy.50 days = 1 } }
+			custom_effect_tooltip = TT_IF_THEY_ACCEPT
+			effect_tooltip = {
+				add_timed_idea = { idea = MAD_dip_china_local_content days = 1825 }
+				add_timed_idea = { idea = MAD_dip_china_technical_training days = 1825 }
+			}
+		}
+		ai_will_do = { base = 1 }
+	}
+
+	focus = {
+		id = MAD_dip_eu_epa
+		icon = trade_with_europe
+		x = 9
+		y = 1
+		relative_position_id = MAD_dip_multipolar_policy
+		cost = 3
+		prerequisite = { focus = MAD_dip_multipolar_policy }
+		search_filters = { FOCUS_FILTER_INFLUENCE FOCUS_FILTER_ECONOMY }
+		available = {
+			date > 2012.1.1
+			any_of_scopes = {
+				array = global.EU_member
+				NOT = { tag = ROOT }
+			}
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_dip_eu_epa"
+			country_event = { id = mad_diplomacy.70 days = 1 }
+		}
+		ai_will_do = { base = 1 }
+	}
+
+	focus = {
+		id = MAD_dip_mauritius_trade
+		icon = trade_with_india
+		x = -1
+		y = 1
+		relative_position_id = MAD_dip_ioc_cooperation
+		cost = 3
+		prerequisite = { focus = MAD_dip_ioc_cooperation }
+		search_filters = { FOCUS_FILTER_FOREIGN_POLICY FOCUS_FILTER_ECONOMY }
+		available = {
+			country_exists = MRT
+			NOT = { has_war_with = MRT }
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_dip_mauritius_trade"
+			MRT = { country_event = { id = mad_diplomacy.20 days = 1 } }
+			custom_effect_tooltip = TT_IF_THEY_ACCEPT
+			effect_tooltip = {
+				add_timed_idea = { idea = MAD_dip_mauritius_trade days = 1825 }
+				set_improved_trade_agreement = yes
+			}
+		}
+		ai_will_do = {
+			base = 1
+			modifier = { factor = 0 has_active_mission = bankruptcy_incoming_collapse }
+		}
+	}
+
+	focus = {
+		id = MAD_dip_cyclone_network
+		icon = maritime_trade
+		x = 1
+		y = 1
+		relative_position_id = MAD_dip_ioc_cooperation
+		cost = 3
+		prerequisite = { focus = MAD_dip_ioc_cooperation }
+		search_filters = { FOCUS_FILTER_ECONOMY FOCUS_FILTER_FOREIGN_POLICY }
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_dip_cyclone_network"
+			add_ideas = MAD_dip_cyclone_warning
+			unlock_decision_category_tooltip = MAD_dip_cyclone_decisions
+		}
+		ai_will_do = { base = 1 }
+	}
+
+	focus = {
+		id = MAD_dip_iles_eparses
+		icon = diplomatic_treaty
+		x = -1
+		y = 1
+		relative_position_id = MAD_dip_franco_malagasy_dialogue
+		cost = 3
+		prerequisite = { focus = MAD_dip_franco_malagasy_dialogue }
+		search_filters = { FOCUS_FILTER_FOREIGN_POLICY }
+		available = {
+			country_exists = FRA
+			NOT = { has_war_with = FRA }
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_dip_iles_eparses"
+			country_event = { id = mad_diplomacy.31 days = 1 }
+		}
+		ai_will_do = { base = 1 }
+	}
+
+	focus = {
+		id = MAD_dip_swio_maritime_safety
+		icon = naval_doctrine
+		x = 1
+		y = 1
+		relative_position_id = MAD_dip_franco_malagasy_dialogue
+		cost = 3
+		prerequisite = { focus = MAD_dip_franco_malagasy_dialogue focus = MAD_dip_ioc_cooperation }
+		search_filters = { FOCUS_FILTER_FOREIGN_POLICY FOCUS_FILTER_NAVY }
+		available = {
+			has_country_flag = MAD_dip_france_dialogue_accepted
+			OR = {
+				has_country_flag = MAD_dip_mrt_ioc_accepted
+				has_country_flag = MAD_dip_com_ioc_accepted
+				has_country_flag = MAD_dip_sey_ioc_accepted
+			}
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_dip_swio_maritime_safety"
+			add_timed_idea = { idea = MAD_dip_swio_safety days = 1825 }
+			if = {
+				limit = { has_country_flag = MAD_dip_mrt_ioc_accepted }
+				add_opinion_modifier = { target = MRT modifier = trade_mission }
+				set_temp_variable = { percent_change = 1 }
+				set_temp_variable = { influence_target = MRT.id }
+				change_influence_percentage = yes
+			}
+			if = {
+				limit = { has_country_flag = MAD_dip_com_ioc_accepted }
+				add_opinion_modifier = { target = COM modifier = trade_mission }
+				set_temp_variable = { percent_change = 1 }
+				set_temp_variable = { influence_target = COM.id }
+				change_influence_percentage = yes
+			}
+			if = {
+				limit = { has_country_flag = MAD_dip_sey_ioc_accepted }
+				add_opinion_modifier = { target = SEY modifier = trade_mission }
+				set_temp_variable = { percent_change = 1 }
+				set_temp_variable = { influence_target = SEY.id }
+				change_influence_percentage = yes
+			}
+			add_political_power = 15
+		}
+		ai_will_do = { base = 1 }
+	}
+
+	focus = {
+		id = MAD_dip_sustainable_fisheries
+		icon = maritime_trade
+		x = 0
+		y = 1
+		relative_position_id = MAD_dip_eu_epa
+		cost = 3
+		prerequisite = { focus = MAD_dip_eu_epa }
+		search_filters = { FOCUS_FILTER_ECONOMY FOCUS_FILTER_FOREIGN_POLICY }
+		available = { date > 2023.1.1 }
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_dip_sustainable_fisheries"
+			country_event = { id = mad_diplomacy.80 days = 1 }
+		}
+		ai_will_do = { base = 1 }
+	}
+
+	focus = {
+		id = MAD_dip_blue_economy
+		icon = maritime_trade
+		x = 0
+		y = 1
+		relative_position_id = MAD_dip_sustainable_fisheries
+		cost = 3
+		prerequisite = { focus = MAD_dip_sustainable_fisheries }
+		search_filters = { FOCUS_FILTER_ECONOMY }
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_dip_blue_economy"
+			add_ideas = MAD_dip_blue_economy
+			unlock_decision_category_tooltip = MAD_dip_blue_economy_decisions
+		}
+		ai_will_do = { base = 1 }
+	}
+
+	focus = {
+		id = MAD_dip_continental_shelf
+		icon = focus_generic_court
+		x = 1
+		y = 3
+		relative_position_id = MAD_dip_multipolar_policy
+		cost = 3
+		prerequisite = { focus = MAD_dip_multipolar_policy }
+		search_filters = { FOCUS_FILTER_FOREIGN_POLICY FOCUS_FILTER_RESEARCH }
+		available = { date > 2010.1.1 }
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_dip_continental_shelf"
+			add_political_power = 25
+			unlock_decision_category_tooltip = MAD_dip_shelf_decisions
+		}
+		ai_will_do = { base = 1 }
+	}
+
 }
