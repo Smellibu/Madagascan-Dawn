@@ -1827,10 +1827,22 @@ visible = {
 			MAD_rural_cooperation_adjust = yes
 			custom_effect_tooltip = MAD_RC_DROUGHT_SEED_COST_TT
 		
-			266 = { set_temp_variable = { MAD_dr_state_famine = -4 } MAD_drought_state_apply_famine = yes }
-			267 = { set_temp_variable = { MAD_dr_state_famine = -4 } MAD_drought_state_apply_famine = yes }
-			268 = { set_temp_variable = { MAD_dr_state_famine = -4 } MAD_drought_state_apply_famine = yes }
-			487 = { set_temp_variable = { MAD_dr_state_famine = -4 } MAD_drought_state_apply_famine = yes }
+			266 = {
+				set_temp_variable = { MAD_dr_state_famine = -4 }
+				MAD_drought_state_apply_famine = yes
+			}
+			267 = {
+				set_temp_variable = { MAD_dr_state_famine = -4 }
+				MAD_drought_state_apply_famine = yes
+			}
+			268 = {
+				set_temp_variable = { MAD_dr_state_famine = -4 }
+				MAD_drought_state_apply_famine = yes
+			}
+			487 = {
+				set_temp_variable = { MAD_dr_state_famine = -4 }
+				MAD_drought_state_apply_famine = yes
+			}
 		}
 
 		remove_effect = {
@@ -2097,15 +2109,24 @@ visible = {
 			set_temp_variable = { treasury_change = -2.50 }
 			modify_treasury_effect = yes
 		
-			266 = { set_temp_variable = { MAD_dr_state_famine = -20 } MAD_drought_state_apply_famine = yes }
-			267 = { set_temp_variable = { MAD_dr_state_famine = -20 } MAD_drought_state_apply_famine = yes }
+			266 = {
+				set_temp_variable = { MAD_dr_state_famine = -20 }
+				MAD_drought_state_apply_famine = yes
+			}
+			267 = {
+				set_temp_variable = { MAD_dr_state_famine = -20 }
+				MAD_drought_state_apply_famine = yes
+			}
 			268 = {
 				set_temp_variable = { MAD_dr_state_famine = -40 }
 				MAD_rural_cooperation_boost_state_relief = yes
 				MAD_dahalo_southern_supply_interference = yes
 				MAD_drought_state_apply_famine = yes
 			}
-			487 = { set_temp_variable = { MAD_dr_state_famine = -20 } MAD_drought_state_apply_famine = yes }
+			487 = {
+				set_temp_variable = { MAD_dr_state_famine = -20 }
+				MAD_drought_state_apply_famine = yes
+			}
 		}
 
 		remove_effect = {
@@ -2115,7 +2136,7 @@ visible = {
 			add_stability = 0.01
 			set_temp_variable = { MAD_dr_prevent_amount = 0.08 }
 			MAD_drought_add_prevention = yes
-			# Release stored food in all affected regions, with the largest allocation in the Grand Sud.
+			# Activate the lasting grain-reserve protection in all affected regions after implementation.
 			266 = {
 				set_state_flag = MAD_STATE_GRAIN_RESERVE
 			}
