@@ -223,10 +223,16 @@ MAD_dip_blue_economy_decisions = {
 				MODIFIER = MAD_economy_modifier
 			}
 			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.02 tooltip = productivity_growth_modifier_tt }
-			set_temp_variable = { temp_opinion = 5 }
-			change_small_medium_business_owners_opinion = yes
-			set_temp_variable = { temp_opinion = 3 }
-			change_labour_unions_opinion = yes
+			if = {
+				limit = { has_idea = small_medium_business_owners }
+				set_temp_variable = { temp_opinion = 5 }
+				change_small_medium_business_owners_opinion = yes
+			}
+			if = {
+				limit = { has_idea = labour_unions }
+				set_temp_variable = { temp_opinion = 3 }
+				change_labour_unions_opinion = yes
+			}
 		}
 		ai_will_do = {
 			base = 3
