@@ -6010,7 +6010,7 @@ country_event = {
 		name = mad_diplomacy.20.b
 		log = "[GetDateText]: [This.GetName]: mad_diplomacy.20.b executed"
 		ai_chance = { base = 35 }
-		FROM = { set_country_flag = MAD_dip_mauritius_trade_refused }
+		FROM = { add_opinion_modifier = { target = ROOT modifier = diplomatic_distance } }
 	}
 }
 
@@ -6045,7 +6045,7 @@ country_event = {
 		name = mad_diplomacy.30.b
 		log = "[GetDateText]: [This.GetName]: mad_diplomacy.30.b executed"
 		ai_chance = { base = 40 }
-		FROM = { set_country_flag = MAD_dip_france_dialogue_refused }
+		FROM = { add_opinion_modifier = { target = ROOT modifier = diplomatic_distance } }
 	}
 }
 
@@ -6257,7 +6257,7 @@ country_event = {
 		name = mad_diplomacy.40.b
 		log = "[GetDateText]: [This.GetName]: mad_diplomacy.40.b executed"
 		ai_chance = { base = 40 }
-		FROM = { set_country_flag = MAD_dip_india_geomatics_refused }
+		FROM = { add_opinion_modifier = { target = ROOT modifier = diplomatic_distance } }
 	}
 }
 
@@ -6300,7 +6300,7 @@ country_event = {
 		name = mad_diplomacy.50.b
 		log = "[GetDateText]: [This.GetName]: mad_diplomacy.50.b executed"
 		ai_chance = { base = 40 }
-		FROM = { add_political_power = 10 set_country_flag = MAD_dip_china_offer_refused }
+		FROM = { add_political_power = 10 add_opinion_modifier = { target = ROOT modifier = diplomatic_distance } }
 	}
 }
 
@@ -6440,7 +6440,7 @@ country_event = {
 		name = mad_diplomacy.60.b
 		log = "[GetDateText]: [This.GetName]: mad_diplomacy.60.b executed"
 		ai_chance = { base = 40 }
-		FROM = { set_country_flag = MAD_dip_sadc_refused }
+		FROM = { add_opinion_modifier = { target = ROOT modifier = diplomatic_distance } }
 	}
 }
 
