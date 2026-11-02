@@ -69,7 +69,8 @@ characters = {
 			}
 		}
 		corps_commander = {
-			visible = { date > 2012.10.31 }
+			# Brigadier General from 16 December 2010; do not wait for the 2012 divisional promotion.
+			visible = { date > 2010.12.15 }
 			traits = { swamp_fox }
 			skill = 2
 			attack_skill = 1
@@ -87,6 +88,8 @@ characters = {
 			}
 		}
 		advisor = {
+			# Listed as Chief of Staff in the 2010–2011 academic-year roster; exact appointment day is not published.
+			visible = { date > 2010.1.1 }
 			slot = air_chief
 			idea_token = alex_patrick_andriamahazoarivo
 			traits = {
@@ -210,7 +213,7 @@ characters = {
 			}
 		}
 		corps_commander = {
-			# February 2004 availability; exact appointment day unconfirmed.
+			# Brigadier General in the 2000 military roster; available from the 2000 start.
 			traits = { old_guard }
 			skill = 2
 			attack_skill = 2
@@ -311,7 +314,8 @@ characters = {
 			}
 		}
 		navy_leader = {
-			visible = { date > 2009.2.8 }
+			# Vice-Admiral and Director of the President's Military Cabinet by 9 March 2006.
+			visible = { date > 2006.3.8 }
 			traits = { old_guard_navy }
 			skill = 2
 			attack_skill = 2
