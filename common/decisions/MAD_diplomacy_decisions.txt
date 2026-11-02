@@ -1,0 +1,291 @@
+MAD_dip_cyclone_decisions = {
+	allowed = { tag = MAD }
+	icon = generic_construction
+	visible = {
+		has_completed_focus = MAD_dip_cyclone_network
+	}
+
+	MAD_dip_shared_forecasting = {
+		icon = generic_political_discourse
+		visible = { has_completed_focus = MAD_dip_cyclone_network }
+		available = {
+			check_variable = { treasury > 0.25 }
+			NOT = { has_active_mission = bankruptcy_incoming_collapse }
+		}
+		cost = 25
+		fire_only_once = yes
+		days_remove = 60
+		custom_cost_trigger = { always = yes }
+		custom_cost_text = cost_0_25
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_dip_shared_forecasting started"
+			set_temp_variable = { treasury_change = -0.25 }
+			modify_treasury_effect = yes
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_dip_shared_forecasting completed"
+			add_tech_bonus = {
+				name = MAD_dip_cyclone_forecasting_research
+				category = CAT_information_technology
+				uses = 2
+				bonus = 0.10
+			}
+			add_timed_idea = { idea = MAD_dip_cyclone_stockpiles days = 365 }
+		}
+		ai_will_do = {
+			base = 4
+			modifier = { factor = 0.5 ai_has_high_deficit = yes }
+			modifier = { factor = 0 has_active_mission = bankruptcy_incoming_collapse }
+		}
+	}
+
+	MAD_dip_preposition_supplies = {
+		icon = generic_construction
+		visible = { has_completed_focus = MAD_dip_cyclone_network }
+		available = {
+			check_variable = { treasury > 0.75 }
+			NOT = { has_active_mission = bankruptcy_incoming_collapse }
+		}
+		cost = 35
+		fire_only_once = yes
+		days_remove = 60
+		custom_cost_trigger = { always = yes }
+		custom_cost_text = cost_0_75
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_dip_preposition_supplies started"
+			set_temp_variable = { treasury_change = -0.75 }
+			modify_treasury_effect = yes
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_dip_preposition_supplies completed"
+			add_timed_idea = { idea = MAD_dip_cyclone_stockpiles days = 365 }
+			add_command_power = 10
+		}
+		ai_will_do = {
+			base = 3
+			modifier = { factor = 0.5 ai_has_high_deficit = yes }
+			modifier = { factor = 0 has_active_mission = bankruptcy_incoming_collapse }
+		}
+	}
+
+	MAD_dip_regional_response_exercise = {
+		icon = army_marching
+		visible = { has_completed_focus = MAD_dip_cyclone_network }
+		available = {
+			check_variable = { treasury > 0.25 }
+			NOT = { has_active_mission = bankruptcy_incoming_collapse }
+		}
+		cost = 25
+		fire_only_once = yes
+		days_remove = 60
+		custom_cost_trigger = { always = yes }
+		custom_cost_text = cost_0_25
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_dip_regional_response_exercise started"
+			set_temp_variable = { treasury_change = -0.25 }
+			modify_treasury_effect = yes
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_dip_regional_response_exercise completed"
+			army_experience = 5
+			add_command_power = 10
+		}
+		ai_will_do = {
+			base = 2
+			modifier = { factor = 0.5 ai_has_high_deficit = yes }
+			modifier = { factor = 0 has_active_mission = bankruptcy_incoming_collapse }
+		}
+	}
+
+	MAD_dip_maritime_safety_drill = {
+		icon = naval_doctrine
+		visible = { has_completed_focus = MAD_dip_swio_maritime_safety }
+		available = {
+			check_variable = { treasury > 0.25 }
+			NOT = { has_active_mission = bankruptcy_incoming_collapse }
+		}
+		cost = 35
+		fire_only_once = yes
+		days_remove = 60
+		custom_cost_trigger = { always = yes }
+		custom_cost_text = cost_0_25
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_dip_maritime_safety_drill started"
+			set_temp_variable = { treasury_change = -0.25 }
+			modify_treasury_effect = yes
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_dip_maritime_safety_drill completed"
+			navy_experience = 5
+			add_command_power = 10
+		}
+		ai_will_do = {
+			base = 2
+			modifier = { factor = 0.5 ai_has_high_deficit = yes }
+			modifier = { factor = 0 has_active_mission = bankruptcy_incoming_collapse }
+		}
+	}
+}
+
+MAD_dip_blue_economy_decisions = {
+	allowed = { tag = MAD }
+	icon = maritime_trade
+	visible = {
+		has_completed_focus = MAD_dip_blue_economy
+	}
+
+	MAD_dip_marine_resource_survey = {
+		icon = generic_political_discourse
+		visible = { has_completed_focus = MAD_dip_blue_economy }
+		available = {
+			check_variable = { treasury > 0.50 }
+			NOT = { has_active_mission = bankruptcy_incoming_collapse }
+		}
+		cost = 25
+		fire_only_once = yes
+		days_remove = 60
+		custom_cost_trigger = { always = yes }
+		custom_cost_text = cost_0_5
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_dip_marine_resource_survey started"
+			set_temp_variable = { treasury_change = -0.50 }
+			modify_treasury_effect = yes
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_dip_marine_resource_survey completed"
+			add_tech_bonus = {
+				name = MAD_dip_marine_survey_research
+				category = CAT_naval
+				uses = 2
+				bonus = 0.10
+			}
+		}
+		ai_will_do = {
+			base = 3
+			modifier = { factor = 0.5 ai_has_high_deficit = yes }
+			modifier = { factor = 0 has_active_mission = bankruptcy_incoming_collapse }
+		}
+	}
+
+	MAD_dip_coastal_cold_chain = {
+		icon = generic_construction
+		visible = { has_completed_focus = MAD_dip_blue_economy }
+		available = {
+			check_variable = { treasury > 0.75 }
+			NOT = { has_active_mission = bankruptcy_incoming_collapse }
+		}
+		cost = 35
+		fire_only_once = yes
+		days_remove = 90
+		custom_cost_trigger = { always = yes }
+		custom_cost_text = cost_0_75
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_dip_coastal_cold_chain started"
+			set_temp_variable = { treasury_change = -0.75 }
+			modify_treasury_effect = yes
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_dip_coastal_cold_chain completed"
+			custom_effect_tooltip = {
+				localization_key = modifies_dynamic_modifier_tt
+				MODIFIER = MAD_economy_modifier
+			}
+			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.02 tooltip = productivity_growth_modifier_tt }
+			add_to_variable = { MAD_economy_international_market_income_modifier = 0.01 tooltip = international_market_income_modifier_tt }
+		}
+		ai_will_do = {
+			base = 3
+			modifier = { factor = 0.5 ai_has_high_deficit = yes }
+			modifier = { factor = 0 has_active_mission = bankruptcy_incoming_collapse }
+		}
+	}
+
+	MAD_dip_local_fish_processors = {
+		icon = generic_construction
+		visible = { has_completed_focus = MAD_dip_blue_economy }
+		available = {
+			check_variable = { treasury > 0.50 }
+			NOT = { has_active_mission = bankruptcy_incoming_collapse }
+		}
+		cost = 25
+		fire_only_once = yes
+		days_remove = 60
+		custom_cost_trigger = { always = yes }
+		custom_cost_text = cost_0_5
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_dip_local_fish_processors started"
+			set_temp_variable = { treasury_change = -0.50 }
+			modify_treasury_effect = yes
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_dip_local_fish_processors completed"
+			custom_effect_tooltip = {
+				localization_key = modifies_dynamic_modifier_tt
+				MODIFIER = MAD_economy_modifier
+			}
+			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.02 tooltip = productivity_growth_modifier_tt }
+			set_temp_variable = { temp_opinion = 5 }
+			change_small_medium_business_owners_opinion = yes
+			set_temp_variable = { temp_opinion = 3 }
+			change_labour_unions_opinion = yes
+		}
+		ai_will_do = {
+			base = 3
+			modifier = { factor = 0.5 ai_has_high_deficit = yes }
+			modifier = { factor = 0 has_active_mission = bankruptcy_incoming_collapse }
+		}
+	}
+}
+
+MAD_dip_shelf_decisions = {
+	allowed = { tag = MAD }
+	icon = generic_political_discourse
+	visible = {
+		has_completed_focus = MAD_dip_continental_shelf
+	}
+
+	MAD_dip_submit_continental_shelf = {
+		icon = generic_political_discourse
+		visible = {
+			has_completed_focus = MAD_dip_continental_shelf
+			date > 2011.4.28
+			NOT = { has_country_flag = MAD_dip_continental_shelf_submitted }
+		}
+		available = {
+			check_variable = { treasury > 0.50 }
+			NOT = { has_active_mission = bankruptcy_incoming_collapse }
+		}
+		cost = 50
+		fire_only_once = yes
+		days_remove = 180
+		custom_cost_trigger = { always = yes }
+		custom_cost_text = cost_0_5
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_dip_submit_continental_shelf started"
+			set_temp_variable = { treasury_change = -0.50 }
+			modify_treasury_effect = yes
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_dip_submit_continental_shelf completed"
+			set_country_flag = MAD_dip_continental_shelf_submitted
+			add_timed_idea = { idea = MAD_dip_continental_shelf_dossier days = 1825 }
+			add_tech_bonus = {
+				name = MAD_dip_continental_shelf_science
+				category = CAT_naval
+				uses = 2
+				bonus = 0.10
+			}
+			add_tech_bonus = {
+				name = MAD_dip_continental_shelf_geodesy
+				category = CAT_information_technology
+				uses = 2
+				bonus = 0.10
+			}
+		}
+		ai_will_do = {
+			base = 1
+			modifier = { factor = 0.5 ai_has_high_deficit = yes }
+			modifier = { factor = 0 has_active_mission = bankruptcy_incoming_collapse }
+		}
+	}
+}
