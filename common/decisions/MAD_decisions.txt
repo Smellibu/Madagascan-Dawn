@@ -1300,11 +1300,9 @@ MAD_drought_category = {
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_DROUGHT_FOOD_AID_APPEAL complete"
 			FROM = {
-				set_temp_variable = { MAD_dr_state_change = -8 }
 				set_temp_variable = { MAD_dr_state_famine = -20 }
 				MAD_rural_cooperation_boost_state_relief = yes
 				MAD_dahalo_southern_supply_interference = yes
-				MAD_drought_state_apply_change = yes
 				MAD_drought_state_apply_famine = yes
 			}
 			MAD_drought_recalc_national = yes
@@ -1455,8 +1453,9 @@ visible = {
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Local drought-tolerant seed distribution completed"
 			FROM = {
-				set_temp_variable = { MAD_dr_state_change = -5 }
+				set_temp_variable = { MAD_dr_state_change = -3 }
 				set_temp_variable = { MAD_dr_state_famine = -6 }
+				set_state_flag = MAD_STATE_SEED_RESILIENCE
 				# Calculate relief strength using Rural Cooperation before paying its cost.
 				MAD_rural_cooperation_boost_state_relief = yes
 				MAD_dahalo_southern_supply_interference = yes
@@ -1536,8 +1535,10 @@ visible = {
 			FROM = {
 				set_state_flag = MAD_STATE_WELLS
 				set_temp_variable = { MAD_dr_state_change = -10 }
+				set_temp_variable = { MAD_dr_state_famine = -20 }
 				MAD_rural_cooperation_boost_state_relief = yes
 				MAD_drought_state_apply_change = yes
+				MAD_drought_state_apply_famine = yes
 				subtract_from_variable = { MAD_state_drought_exposure = 0.15 }
 				clamp_variable = { var = MAD_state_drought_exposure min = 0.4 max = 2 }
 			}
@@ -1609,7 +1610,7 @@ visible = {
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Local locust spraying completed"
 			FROM = {
-				set_temp_variable = { MAD_dr_state_change = -7 }
+				set_temp_variable = { MAD_dr_state_change = -4 }
 				set_temp_variable = { MAD_dr_state_famine = -8 }
 				MAD_rural_cooperation_boost_state_relief = yes
 				MAD_dahalo_southern_supply_interference = yes
@@ -1689,8 +1690,39 @@ visible = {
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Drought-resistant seed programme completed"
 			custom_effect_tooltip = MAD_drought_prevention_tt
-			set_temp_variable = { MAD_dr_prevent_amount = 0.30 }
+			custom_effect_tooltip = MAD_drought_seed_resilience_tt
+			set_temp_variable = { MAD_dr_prevent_amount = 0.18 }
 			MAD_drought_add_prevention = yes
+			# Nationwide seed support improves food security and agricultural resilience.
+			266 = {
+				set_state_flag = MAD_STATE_SEED_RESILIENCE
+				set_temp_variable = { MAD_dr_state_famine = -4 }
+				MAD_drought_state_apply_famine = yes
+				subtract_from_variable = { MAD_state_drought_exposure = 0.05 }
+				clamp_variable = { var = MAD_state_drought_exposure min = 0.4 max = 2 }
+			}
+			267 = {
+				set_state_flag = MAD_STATE_SEED_RESILIENCE
+				set_temp_variable = { MAD_dr_state_famine = -4 }
+				MAD_drought_state_apply_famine = yes
+				subtract_from_variable = { MAD_state_drought_exposure = 0.05 }
+				clamp_variable = { var = MAD_state_drought_exposure min = 0.4 max = 2 }
+			}
+			268 = {
+				set_state_flag = MAD_STATE_SEED_RESILIENCE
+				set_temp_variable = { MAD_dr_state_famine = -4 }
+				MAD_drought_state_apply_famine = yes
+				subtract_from_variable = { MAD_state_drought_exposure = 0.05 }
+				clamp_variable = { var = MAD_state_drought_exposure min = 0.4 max = 2 }
+			}
+			487 = {
+				set_state_flag = MAD_STATE_SEED_RESILIENCE
+				set_temp_variable = { MAD_dr_state_famine = -4 }
+				MAD_drought_state_apply_famine = yes
+				subtract_from_variable = { MAD_state_drought_exposure = 0.05 }
+				clamp_variable = { var = MAD_state_drought_exposure min = 0.4 max = 2 }
+			}
+			MAD_drought_recalc_national = yes
 			set_country_flag = MAD_DROUGHT_SEED_PROGRAMME_COMPLETED
 			clr_country_flag = MAD_DROUGHT_SEED_PROGRAMME_ACTIVE
 		}
@@ -1722,7 +1754,7 @@ visible = {
 			custom_effect_tooltip = MAD_drought_prevention_tt
 			custom_effect_tooltip = MAD_drought_early_warning_tt
 			set_country_flag = MAD_DROUGHT_EARLY_WARNING
-			set_temp_variable = { MAD_dr_prevent_amount = 0.20 }
+			set_temp_variable = { MAD_dr_prevent_amount = 0.12 }
 			MAD_drought_add_prevention = yes
 			set_temp_variable = { MAD_rc_delta = 1 }
 			MAD_rural_cooperation_adjust = yes
@@ -1760,8 +1792,20 @@ visible = {
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Borehole programme completed"
 			custom_effect_tooltip = MAD_drought_prevention_tt
-			set_temp_variable = { MAD_dr_prevent_amount = 0.40 }
+			custom_effect_tooltip = MAD_drought_boreholes_tt
+			set_temp_variable = { MAD_dr_prevent_amount = 0.24 }
 			MAD_drought_add_prevention = yes
+			268 = {
+				set_state_flag = MAD_STATE_WELLS
+				set_temp_variable = { MAD_dr_state_change = -8 }
+				set_temp_variable = { MAD_dr_state_famine = -16 }
+				MAD_rural_cooperation_boost_state_relief = yes
+				MAD_drought_state_apply_change = yes
+				MAD_drought_state_apply_famine = yes
+				subtract_from_variable = { MAD_state_drought_exposure = 0.15 }
+				clamp_variable = { var = MAD_state_drought_exposure min = 0.4 max = 2 }
+			}
+			MAD_drought_recalc_national = yes
 			set_temp_variable = { MAD_rc_delta = 2 }
 			MAD_rural_cooperation_adjust = yes
 			clr_country_flag = MAD_DROUGHT_BOREHOLES_PROGRAMME_ACTIVE
@@ -1804,8 +1848,10 @@ visible = {
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Southern logistics programme completed"
 			custom_effect_tooltip = MAD_drought_prevention_tt
-			set_temp_variable = { MAD_dr_prevent_amount = 0.35 }
+			custom_effect_tooltip = MAD_drought_sud_est_tt
+			set_temp_variable = { MAD_dr_prevent_amount = 0.21 }
 			MAD_drought_add_prevention = yes
+			set_country_flag = MAD_DROUGHT_SUD_EST_COMPLETED
 			set_temp_variable = { MAD_rc_delta = 1 }
 			MAD_rural_cooperation_adjust = yes
 			clr_country_flag = MAD_DROUGHT_SUD_EST_PROGRAMME_ACTIVE
@@ -1836,8 +1882,12 @@ visible = {
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Climate adaptation programme completed"
 			custom_effect_tooltip = MAD_drought_prevention_tt
-			set_temp_variable = { MAD_dr_prevent_amount = 0.35 }
+			custom_effect_tooltip = MAD_drought_climate_adaptation_tt
+			set_temp_variable = { MAD_dr_prevent_amount = 0.21 }
 			MAD_drought_add_prevention = yes
+			set_country_flag = MAD_DROUGHT_CLIMATE_ADAPTATION
+			subtract_from_variable = { MAD_drought_base_pressure = 0.05 }
+			clamp_variable = { var = MAD_drought_base_pressure min = 0.25 max = 0.65 }
 			set_temp_variable = { MAD_rc_delta = 2 }
 			MAD_rural_cooperation_adjust = yes
 		}
@@ -1867,9 +1917,33 @@ visible = {
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: National grain reserve completed"
 			custom_effect_tooltip = MAD_drought_prevention_tt
+			custom_effect_tooltip = MAD_drought_grain_reserve_tt
 			add_stability = 0.01
-			set_temp_variable = { MAD_dr_prevent_amount = 0.25 }
+			set_temp_variable = { MAD_dr_prevent_amount = 0.15 }
 			MAD_drought_add_prevention = yes
+			# Release stored food in all affected regions, with the largest allocation in the Grand Sud.
+			266 = {
+				set_state_flag = MAD_STATE_GRAIN_RESERVE
+				set_temp_variable = { MAD_dr_state_famine = -15 }
+				MAD_drought_state_apply_famine = yes
+			}
+			267 = {
+				set_state_flag = MAD_STATE_GRAIN_RESERVE
+				set_temp_variable = { MAD_dr_state_famine = -15 }
+				MAD_drought_state_apply_famine = yes
+			}
+			268 = {
+				set_state_flag = MAD_STATE_GRAIN_RESERVE
+				set_temp_variable = { MAD_dr_state_famine = -30 }
+				MAD_rural_cooperation_boost_state_relief = yes
+				MAD_dahalo_southern_supply_interference = yes
+				MAD_drought_state_apply_famine = yes
+			}
+			487 = {
+				set_state_flag = MAD_STATE_GRAIN_RESERVE
+				set_temp_variable = { MAD_dr_state_famine = -15 }
+				MAD_drought_state_apply_famine = yes
+			}
 			set_temp_variable = { MAD_rc_delta = 1 }
 			MAD_rural_cooperation_adjust = yes
 		}
@@ -1901,7 +1975,7 @@ visible = {
 			custom_effect_tooltip = MAD_drought_prevention_tt
 			custom_effect_tooltip = MAD_drought_locust_watch_tt
 			set_country_flag = MAD_DROUGHT_LOCUST_WATCH
-			set_temp_variable = { MAD_dr_prevent_amount = 0.15 }
+			set_temp_variable = { MAD_dr_prevent_amount = 0.09 }
 			MAD_drought_add_prevention = yes
 			set_temp_variable = { MAD_rc_delta = 1 }
 			MAD_rural_cooperation_adjust = yes

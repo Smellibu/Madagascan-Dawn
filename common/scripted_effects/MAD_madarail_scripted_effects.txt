@@ -610,6 +610,42 @@ MAD_drought_state_apply_famine = {
 	custom_effect_tooltip = MAD_dr_state_famine_tt
 }
 
+# Early Warning mitigates positive local shock damage, not the relief that follows.
+MAD_drought_state_apply_shock = {
+	if = {
+		limit = { ROOT = { has_country_flag = MAD_DROUGHT_EARLY_WARNING } }
+		if = {
+			limit = { check_variable = { MAD_dr_state_change > 0 } }
+			multiply_temp_variable = { MAD_dr_state_change = 0.75 }
+		}
+		if = {
+			limit = { check_variable = { MAD_dr_state_famine > 0 } }
+			multiply_temp_variable = { MAD_dr_state_famine = 0.75 }
+		}
+	}
+	MAD_drought_state_apply_change = yes
+	MAD_drought_state_apply_famine = yes
+}
+
+MAD_drought_apply_shock_change = {
+	if = {
+		limit = {
+			has_country_flag = MAD_DROUGHT_EARLY_WARNING
+			check_variable = { MAD_dr_change > 0 }
+		}
+		multiply_temp_variable = { MAD_dr_change = 0.75 }
+	}
+	MAD_drought_apply_change = yes
+}
+
+MAD_drought_add_warning_shock_pressure = {
+	if = {
+		limit = { has_country_flag = MAD_DROUGHT_EARLY_WARNING }
+		multiply_temp_variable = { MAD_dr_shock_pressure = 0.75 }
+	}
+	add_to_variable = { MAD_drought_shock_pressure = MAD_dr_shock_pressure }
+}
+
 MAD_drought_clamp = {
 	clamp_variable = { var = MAD_drought_severity min = 0 max = 100 }
 	# If it is not contained or won, the drought remains active at a minimum severity of 5.
@@ -632,7 +668,7 @@ MAD_drought_add_prevention = {
 		limit = { check_variable = { MAD_drought_prevention_count < 7 } }
 		add_to_variable = { MAD_drought_prevention_total = MAD_dr_prevent_amount }
 		add_to_variable = { MAD_drought_prevention_count = 1 }
-		set_temp_variable = { MAD_dr_change = -3 }
+		set_temp_variable = { MAD_dr_change = -2 }
 		MAD_drought_apply_change = yes
 
 	}
@@ -739,14 +775,16 @@ MAD_drought_add_west_term = {
 
 # A drought that hits the Grand Sud: the temp variable MAD_dr_shock_base sets its severity, cut by infrastructure in
 # the Toliara state (never to 0), and it lingers. Set MAD_dr_shock_base right before calling this.
+
 MAD_drought_south_shock = {
 	MAD_drought_read_infrastructure = yes
 	set_temp_variable = { MAD_dr_change = MAD_drought_infra_south }
 	multiply_temp_variable = { MAD_dr_change = -0.15 }
 	add_to_temp_variable = { MAD_dr_change = 1 }
 	multiply_temp_variable = { MAD_dr_change = MAD_dr_shock_base }
-	MAD_drought_apply_change = yes
-	add_to_variable = { MAD_drought_shock_pressure = 0.4 }
+	MAD_drought_apply_shock_change = yes
+	set_temp_variable = { MAD_dr_shock_pressure = 0.4 }
+	MAD_drought_add_warning_shock_pressure = yes
 }
 
 ########################################################################
@@ -2227,7 +2265,7 @@ MAD_drought_monthly_tick = {
 	if = {
 		limit = { MAD_drought_exists = yes }
 
-		# the climate creeps: every twelve months the base pressure rises (until it is won)
+		# Recurring climate pressure rises annually; Climate Adaptation halves that increase.
 		add_to_variable = { MAD_drought_months = 1 }
 		add_to_variable = { MAD_drought_calendar_months = 1 }
 		if = {
@@ -2238,7 +2276,13 @@ MAD_drought_monthly_tick = {
 					check_variable = { MAD_drought_base_pressure < 0.65 }
 					NOT = { has_country_flag = MAD_DROUGHT_WON }
 				}
-				add_to_variable = { MAD_drought_base_pressure = 0.03 }
+				if = {
+					limit = { has_country_flag = MAD_DROUGHT_CLIMATE_ADAPTATION }
+					add_to_variable = { MAD_drought_base_pressure = 0.015 }
+				}
+				else = {
+					add_to_variable = { MAD_drought_base_pressure = 0.03 }
+				}
 			}
 		}
 
@@ -2275,7 +2319,7 @@ MAD_drought_monthly_tick = {
 			limit = { check_variable = { MAD_drought_prevention_count > 4.99 } }
 			set_temp_variable = { MAD_dr_term = MAD_drought_prevention_count }
 			subtract_from_temp_variable = { MAD_dr_term = 4 }
-			multiply_temp_variable = { MAD_dr_term = 0.2 }
+			multiply_temp_variable = { MAD_dr_term = 0.15 }
 			subtract_from_temp_variable = { MAD_dr_delta = MAD_dr_term }
 		}
 		if = {
@@ -2660,9 +2704,10 @@ MAD_drought_sync_display = {
 # A full consecutive-year containment qualification. The daily tick resets the counter to zero as soon as any
 # requirement fails, so every one of the 365 days must remain valid. Once completed the flag/event is one-shot for
 # that containment cycle; later deterioration clears the flag and allows another 365-day qualification.
+
 MAD_drought_containment_daily_tick = {
-	# A successful containment is not permanent: if the drought later breaks the containment conditions,
-	# clear the cycle flag and make the player qualify for another full consecutive year.
+	# National severity must be low and the Grand Sud must be genuinely food-secure.
+	# Losing either condition resets the full consecutive-year qualification.
 	if = {
 		limit = {
 			has_country_flag = MAD_DROUGHT_CONTAINED_STATE
@@ -2671,18 +2716,19 @@ MAD_drought_containment_daily_tick = {
 			OR = {
 				check_variable = { MAD_drought_prevention_count < 7 }
 				check_variable = { MAD_drought_severity > 10 }
+				NOT = { 268 = { MAD_state_food_secure = yes } }
 			}
 		}
 		clr_country_flag = MAD_DROUGHT_CONTAINED_STATE
 		set_variable = { MAD_drought_containment_days = 0 }
 	}
-
 	if = {
 		limit = {
 			MAD_drought_exists = yes
 			NOT = { has_country_flag = MAD_DROUGHT_CONTAINED_STATE }
 			check_variable = { MAD_drought_prevention_count > 6.99 }
 			check_variable = { MAD_drought_severity < 10.01 }
+			268 = { MAD_state_food_secure = yes }
 		}
 		add_to_variable = { MAD_drought_containment_days = 1 }
 		if = {
@@ -2697,10 +2743,7 @@ MAD_drought_containment_daily_tick = {
 			set_variable = { MAD_drought_containment_days = 0 }
 		}
 	}
-
-	# Keep the four stored map-frame variables synchronized daily as well as on monthly recalculation.
-	# This makes existing saves update the mini-map immediately after the next daily tick instead of
-	# waiting for the next 30-day drought tick.
+	# Keep the map display synchronised on the daily tick.
 	if = {
 		limit = { MAD_drought_exists = yes }
 		MAD_drought_sync_display = yes
@@ -2720,7 +2763,16 @@ MAD_drought_state_clear_tiers = {
 	if = { limit = { has_dynamic_modifier = { modifier = MAD_STATE_DROUGHT_4 } } remove_dynamic_modifier = { modifier = MAD_STATE_DROUGHT_4 } }
 }
 
+MAD_drought_state_clear_famine_tiers = {
+	if = { limit = { has_dynamic_modifier = { modifier = MAD_STATE_FAMINE } } remove_dynamic_modifier = { modifier = MAD_STATE_FAMINE } }
+	if = { limit = { has_dynamic_modifier = { modifier = MAD_STATE_FAMINE_1 } } remove_dynamic_modifier = { modifier = MAD_STATE_FAMINE_1 } }
+	if = { limit = { has_dynamic_modifier = { modifier = MAD_STATE_FAMINE_2 } } remove_dynamic_modifier = { modifier = MAD_STATE_FAMINE_2 } }
+	if = { limit = { has_dynamic_modifier = { modifier = MAD_STATE_FAMINE_3 } } remove_dynamic_modifier = { modifier = MAD_STATE_FAMINE_3 } }
+	if = { limit = { has_dynamic_modifier = { modifier = MAD_STATE_FAMINE_4 } } remove_dynamic_modifier = { modifier = MAD_STATE_FAMINE_4 } }
+}
+
 # State scope.
+
 MAD_drought_state_update_tier = {
 	set_temp_variable = { MAD_st_tier = 0 }
 	if = { limit = { check_variable = { MAD_state_drought > 14.99 } } set_temp_variable = { MAD_st_tier = 1 } }
@@ -2738,20 +2790,45 @@ MAD_drought_state_update_tier = {
 		if = { limit = { check_variable = { MAD_st_tier = 4 } } add_dynamic_modifier = { modifier = MAD_STATE_DROUGHT_4 } }
 	}
 
-	# the famine layer: hunger, not thirst. Comes and goes on its own meter.
+	# Hunger is tracked separately but shares drought's four thresholds.
+	# Each hunger tier carries twice the penalties of the matching drought tier.
+	set_temp_variable = { MAD_fam_tier = 0 }
+	if = { limit = { check_variable = { MAD_state_famine > 14.99 } } set_temp_variable = { MAD_fam_tier = 1 } }
+	if = { limit = { check_variable = { MAD_state_famine > 34.99 } } set_temp_variable = { MAD_fam_tier = 2 } }
+	if = { limit = { check_variable = { MAD_state_famine > 54.99 } } set_temp_variable = { MAD_fam_tier = 3 } }
+	if = { limit = { check_variable = { MAD_state_famine > 74.99 } } set_temp_variable = { MAD_fam_tier = 4 } }
 	if = {
 		limit = {
-			check_variable = { MAD_state_famine > 39.99 }
-			NOT = { has_dynamic_modifier = { modifier = MAD_STATE_FAMINE } }
+			check_variable = { MAD_fam_tier = 0 }
+			OR = {
+				has_dynamic_modifier = { modifier = MAD_STATE_FAMINE }
+				has_dynamic_modifier = { modifier = MAD_STATE_FAMINE_1 }
+				has_dynamic_modifier = { modifier = MAD_STATE_FAMINE_2 }
+				has_dynamic_modifier = { modifier = MAD_STATE_FAMINE_3 }
+				has_dynamic_modifier = { modifier = MAD_STATE_FAMINE_4 }
+			}
 		}
-		add_dynamic_modifier = { modifier = MAD_STATE_FAMINE }
+		MAD_drought_state_clear_famine_tiers = yes
 	}
-	if = {
-		limit = {
-			check_variable = { MAD_state_famine < 40 }
-			has_dynamic_modifier = { modifier = MAD_STATE_FAMINE }
-		}
-		remove_dynamic_modifier = { modifier = MAD_STATE_FAMINE }
+	else_if = {
+		limit = { check_variable = { MAD_fam_tier = 1 } NOT = { has_dynamic_modifier = { modifier = MAD_STATE_FAMINE_1 } } }
+		MAD_drought_state_clear_famine_tiers = yes
+		add_dynamic_modifier = { modifier = MAD_STATE_FAMINE_1 }
+	}
+	else_if = {
+		limit = { check_variable = { MAD_fam_tier = 2 } NOT = { has_dynamic_modifier = { modifier = MAD_STATE_FAMINE_2 } } }
+		MAD_drought_state_clear_famine_tiers = yes
+		add_dynamic_modifier = { modifier = MAD_STATE_FAMINE_2 }
+	}
+	else_if = {
+		limit = { check_variable = { MAD_fam_tier = 3 } NOT = { has_dynamic_modifier = { modifier = MAD_STATE_FAMINE_3 } } }
+		MAD_drought_state_clear_famine_tiers = yes
+		add_dynamic_modifier = { modifier = MAD_STATE_FAMINE_3 }
+	}
+	else_if = {
+		limit = { check_variable = { MAD_fam_tier = 4 } NOT = { has_dynamic_modifier = { modifier = MAD_STATE_FAMINE_4 } } }
+		MAD_drought_state_clear_famine_tiers = yes
+		add_dynamic_modifier = { modifier = MAD_STATE_FAMINE_4 }
 	}
 }
 
@@ -2767,6 +2844,7 @@ MAD_drought_states_update_tiers = {
 ########################################################################
 # Famine follows the drought with a lag: above 45 the meter rises, below 45 it recovers.
 # Wells (MAD_STATE_WELLS) reduce famine growth above 45 and accelerate recovery below 45.
+
 
 MAD_drought_state_monthly_one = {
 	if = {
@@ -2794,6 +2872,34 @@ MAD_drought_state_monthly_one = {
 			check_variable = { MAD_fam_t < 0 }
 		}
 		multiply_temp_variable = { MAD_fam_t = 1.4 }
+	}
+	if = {
+		limit = {
+			has_state_flag = MAD_STATE_SEED_RESILIENCE
+			check_variable = { MAD_fam_t > 0 }
+		}
+		multiply_temp_variable = { MAD_fam_t = 0.85 }
+	}
+	if = {
+		limit = {
+			has_state_flag = MAD_STATE_SEED_RESILIENCE
+			check_variable = { MAD_fam_t < 0 }
+		}
+		multiply_temp_variable = { MAD_fam_t = 1.10 }
+	}
+	if = {
+		limit = {
+			has_state_flag = MAD_STATE_GRAIN_RESERVE
+			check_variable = { MAD_fam_t > 0 }
+		}
+		multiply_temp_variable = { MAD_fam_t = 0.80 }
+	}
+	if = {
+		limit = {
+			has_state_flag = MAD_STATE_GRAIN_RESERVE
+			check_variable = { MAD_fam_t < 0 }
+		}
+		multiply_temp_variable = { MAD_fam_t = 1.15 }
 	}
 	add_to_variable = { MAD_state_famine = MAD_fam_t }
 	clamp_variable = { var = MAD_state_famine min = 0 max = 100 }
@@ -2827,6 +2933,10 @@ MAD_drought_locust_swarm = {
 	if = { limit = { has_completed_focus = MAD_Continue_the_path } multiply_variable = { MAD_dr_swarm_v = 0.75 } }
 	if = { limit = { has_completed_focus = MAD_biopesticides } multiply_variable = { MAD_dr_swarm_v = 0.75 } }
 	if = { limit = { has_completed_focus = MAD_locust_invasion_response } multiply_variable = { MAD_dr_swarm_v = 0.70 } }
+	if = {
+		limit = { has_country_flag = MAD_DROUGHT_EARLY_WARNING }
+		multiply_variable = { MAD_dr_swarm_v = 0.75 }
+	}
 	266 = {
 		set_temp_variable = { MAD_dr_state_change = ROOT.MAD_dr_swarm_v }
 		multiply_temp_variable = { MAD_dr_state_change = MAD_state_drought_exposure }
@@ -2855,7 +2965,12 @@ MAD_drought_locust_swarm = {
 		set_temp_variable = { MAD_dr_state_famine = ROOT.MAD_dr_swarm_v }
 		MAD_drought_state_apply_famine = yes
 	}
-	add_to_variable = { MAD_drought_shock_pressure = 0.4 }
+	set_temp_variable = { MAD_dr_shock_pressure = 0.4 }
+	if = {
+		limit = { has_country_flag = MAD_DROUGHT_LOCUST_WATCH }
+		set_temp_variable = { MAD_dr_shock_pressure = 0.2 }
+	}
+	MAD_drought_add_warning_shock_pressure = yes
 	MAD_drought_recalc_national = yes
 }
 # MADAGASCAR JIRAMA RECOVERY - SCRIPTED EFFECTS ONLY
@@ -3396,6 +3511,20 @@ MAD_dahalo_southern_supply_interference = {
 			limit = { check_variable = { ROOT.MAD_dahalo_threat > 59.99 } }
 			set_temp_variable = { MAD_dahalo_south_relief_factor = 0.65 }
 			set_temp_variable = { MAD_dahalo_south_supply_leak = 2 }
+		}
+
+		if = {
+			limit = { ROOT = { has_country_flag = MAD_DROUGHT_SUD_EST_COMPLETED } }
+			add_to_temp_variable = { MAD_dahalo_south_relief_factor = 0.15 }
+			if = {
+				limit = { check_variable = { MAD_dahalo_south_relief_factor > 1 } }
+				set_temp_variable = { MAD_dahalo_south_relief_factor = 1 }
+			}
+			subtract_from_temp_variable = { MAD_dahalo_south_supply_leak = 1 }
+			if = {
+				limit = { check_variable = { MAD_dahalo_south_supply_leak < 0 } }
+				set_temp_variable = { MAD_dahalo_south_supply_leak = 0 }
+			}
 		}
 
 		if = {

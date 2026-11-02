@@ -646,7 +646,7 @@ country_event = {
 		custom_effect_tooltip = mad_drought.11_tt
 		hidden_effect = {
 			set_temp_variable = { MAD_dr_change = 3 }
-			MAD_drought_apply_change = yes
+			MAD_drought_apply_shock_change = yes
 		}
 		add_stability = -0.01
 	}
@@ -708,7 +708,8 @@ country_event = {
 				}
 			}
 		}
-		add_to_variable = { MAD_drought_shock_pressure = 0.40 }
+		set_temp_variable = { MAD_dr_shock_pressure = 0.40 }
+		MAD_drought_add_warning_shock_pressure = yes
 		add_to_variable = { MAD_drought_depop = 1 }
 		MAD_drought_recalc_national = yes
 	}
@@ -745,7 +746,8 @@ country_event = {
 				}
 			}
 		}
-		add_to_variable = { MAD_drought_shock_pressure = 0.45 }
+		set_temp_variable = { MAD_dr_shock_pressure = 0.45 }
+		MAD_drought_add_warning_shock_pressure = yes
 		add_to_variable = { MAD_drought_depop = 1 }
 		add_stability = -0.03
 		MAD_drought_recalc_national = yes
@@ -773,12 +775,12 @@ country_event = {
 		hidden_effect = {
 			268 = {
 				set_temp_variable = { MAD_dr_state_change = 16 }
-				MAD_drought_state_apply_change = yes
 				set_temp_variable = { MAD_dr_state_famine = 14 }
-				MAD_drought_state_apply_famine = yes
+				MAD_drought_state_apply_shock = yes
 			}
 		}
-		add_to_variable = { MAD_drought_shock_pressure = 0.35 }
+		set_temp_variable = { MAD_dr_shock_pressure = 0.35 }
+		MAD_drought_add_warning_shock_pressure = yes
 		add_to_variable = { MAD_drought_depop = 1 }
 		add_stability = -0.01
 		MAD_drought_recalc_national = yes
@@ -800,12 +802,12 @@ country_event = {
 		hidden_effect = {
 			268 = {
 				set_temp_variable = { MAD_dr_state_change = 15 }
-				MAD_drought_state_apply_change = yes
 				set_temp_variable = { MAD_dr_state_famine = 15 }
-				MAD_drought_state_apply_famine = yes
+				MAD_drought_state_apply_shock = yes
 			}
 		}
-		add_to_variable = { MAD_drought_shock_pressure = 0.35 }
+		set_temp_variable = { MAD_dr_shock_pressure = 0.35 }
+		MAD_drought_add_warning_shock_pressure = yes
 		add_to_variable = { MAD_drought_depop = 1 }
 		add_stability = -0.02
 		MAD_drought_recalc_national = yes
@@ -827,12 +829,12 @@ country_event = {
 		hidden_effect = {
 			268 = {
 				set_temp_variable = { MAD_dr_state_change = 10 }
-				MAD_drought_state_apply_change = yes
 				set_temp_variable = { MAD_dr_state_famine = 11 }
-				MAD_drought_state_apply_famine = yes
+				MAD_drought_state_apply_shock = yes
 			}
 		}
-		add_to_variable = { MAD_drought_shock_pressure = 0.25 }
+		set_temp_variable = { MAD_dr_shock_pressure = 0.25 }
+		MAD_drought_add_warning_shock_pressure = yes
 		add_to_variable = { MAD_drought_depop = 1 }
 		add_stability = -0.01
 		MAD_drought_recalc_national = yes
@@ -854,12 +856,12 @@ country_event = {
 		hidden_effect = {
 			268 = {
 				set_temp_variable = { MAD_dr_state_change = 17 }
-				MAD_drought_state_apply_change = yes
 				set_temp_variable = { MAD_dr_state_famine = 15 }
-				MAD_drought_state_apply_famine = yes
+				MAD_drought_state_apply_shock = yes
 			}
 		}
-		add_to_variable = { MAD_drought_shock_pressure = 0.40 }
+		set_temp_variable = { MAD_dr_shock_pressure = 0.40 }
+		MAD_drought_add_warning_shock_pressure = yes
 		add_to_variable = { MAD_drought_depop = 1 }
 		add_stability = -0.02
 		MAD_drought_recalc_national = yes
@@ -881,12 +883,12 @@ country_event = {
 		hidden_effect = {
 			268 = {
 				set_temp_variable = { MAD_dr_state_change = 18 }
-				MAD_drought_state_apply_change = yes
 				set_temp_variable = { MAD_dr_state_famine = 18 }
-				MAD_drought_state_apply_famine = yes
+				MAD_drought_state_apply_shock = yes
 			}
 		}
-		add_to_variable = { MAD_drought_shock_pressure = 0.35 }
+		set_temp_variable = { MAD_dr_shock_pressure = 0.35 }
+		MAD_drought_add_warning_shock_pressure = yes
 		add_to_variable = { MAD_drought_depop = 1 }
 		add_stability = -0.02
 		MAD_drought_recalc_national = yes
@@ -1018,12 +1020,12 @@ country_event = {
 		hidden_effect = {
 			event_target:MAD_drought_event_state = {
 				set_temp_variable = { MAD_dr_state_change = 9 }
-				MAD_drought_state_apply_change = yes
 				set_temp_variable = { MAD_dr_state_famine = 5 }
-				MAD_drought_state_apply_famine = yes
+				MAD_drought_state_apply_shock = yes
 			}
 			MAD_drought_recalc_national = yes
-			add_to_variable = { MAD_drought_shock_pressure = 0.25 }
+			set_temp_variable = { MAD_dr_shock_pressure = 0.25 }
+		MAD_drought_add_warning_shock_pressure = yes
 		}
 	}
 }
@@ -1043,9 +1045,8 @@ country_event = {
 		hidden_effect = {
 			event_target:MAD_drought_event_state = {
 				set_temp_variable = { MAD_dr_state_change = 7 }
-				MAD_drought_state_apply_change = yes
 				set_temp_variable = { MAD_dr_state_famine = 10 }
-				MAD_drought_state_apply_famine = yes
+				MAD_drought_state_apply_shock = yes
 				if = {
 					limit = { infrastructure > 0 }
 					damage_building = {
@@ -1075,6 +1076,10 @@ country_event = {
 		hidden_effect = {
 			event_target:MAD_drought_event_state = {
 				set_temp_variable = { MAD_dr_state_famine = 18 }
+				if = {
+					limit = { ROOT = { has_country_flag = MAD_DROUGHT_EARLY_WARNING } }
+					multiply_temp_variable = { MAD_dr_state_famine = 0.75 }
+				}
 				MAD_drought_state_apply_famine = yes
 			}
 		}
