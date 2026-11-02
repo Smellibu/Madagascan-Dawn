@@ -1767,12 +1767,10 @@ visible = {
 				limit = { has_completed_focus = MAD_biopesticides }
 				set_temp_variable = { MAD_rc_delta = 0.5 }
 				MAD_rural_cooperation_adjust = yes
-				custom_effect_tooltip = MAD_RC_DROUGHT_CLEAN_SPRAY_TT
 			}
 			else = {
 				set_temp_variable = { MAD_rc_delta = -2 }
 				MAD_rural_cooperation_adjust = yes
-				custom_effect_tooltip = MAD_RC_DROUGHT_DIRTY_SPRAY_TT
 			}
 			clr_country_flag = MAD_DROUGHT_LOCAL_SPRAY_PROGRAMME_ACTIVE
 		}
