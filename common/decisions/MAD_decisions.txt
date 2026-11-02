@@ -1314,6 +1314,154 @@ MAD_drought_category = {
 	}
 
 	########################################################################
+	# WORLD BANK SOUTHERN RESILIENCE GRANTS
+	# FIAVOTA is available from 2004; each MIONJO tranche opens one year after
+	# the preceding grant is claimed. Eligibility is rechecked at every stage.
+	########################################################################
+
+	MAD_FIAVOTA_WORLD_BANK_GRANT = {
+		allowed = { tag = MAD }
+		icon = generic_political_discourse
+		visible = {
+			date > 2003.12.31
+			NOT = { has_country_flag = MAD_FIAVOTA_WORLD_BANK_GRANT_COMPLETED }
+		}
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_DROUGHT_DEVELOPMENT_GRANT_REQUIREMENTS_TT
+				MAD_DROUGHT_DEVELOPMENT_GRANT_ELIGIBLE = yes
+			}
+		}
+		cost = 0
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: FIAVOTA World Bank grant claimed"
+			set_country_flag = MAD_FIAVOTA_WORLD_BANK_GRANT_COMPLETED
+			set_country_flag = { flag = MAD_MIONJO_FIRST_TRANCHE_DELAY days = 365 }
+			set_temp_variable = { treasury_change = 0.35 }
+			modify_treasury_effect = yes
+			268 = {
+				set_temp_variable = { MAD_dr_state_change = -4 }
+				set_temp_variable = { MAD_dr_state_famine = -10 }
+				MAD_rural_cooperation_boost_state_relief = yes
+				MAD_dahalo_southern_supply_interference = yes
+				MAD_drought_state_apply_change = yes
+				MAD_drought_state_apply_famine = yes
+			}
+			MAD_drought_recalc_national = yes
+			custom_effect_tooltip = MAD_FIAVOTA_GRANT_EFFECT_TT
+		}
+		ai_will_do = { base = 1 }
+	}
+
+	MAD_MIONJO_FIRST_TRANCHE = {
+		allowed = { tag = MAD }
+		icon = generic_construction
+		visible = {
+			has_country_flag = MAD_FIAVOTA_WORLD_BANK_GRANT_COMPLETED
+			NOT = { has_country_flag = MAD_MIONJO_FIRST_TRANCHE_DELAY }
+			NOT = { has_country_flag = MAD_MIONJO_FIRST_TRANCHE_COMPLETED }
+		}
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_DROUGHT_DEVELOPMENT_GRANT_REQUIREMENTS_TT
+				MAD_DROUGHT_DEVELOPMENT_GRANT_ELIGIBLE = yes
+			}
+		}
+		cost = 0
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: MIONJO first tranche claimed"
+			set_country_flag = MAD_MIONJO_FIRST_TRANCHE_COMPLETED
+			set_country_flag = { flag = MAD_MIONJO_SECOND_TRANCHE_DELAY days = 365 }
+			set_temp_variable = { treasury_change = 1.00 }
+			modify_treasury_effect = yes
+			268 = {
+				set_temp_variable = { MAD_dr_state_change = -5 }
+				set_temp_variable = { MAD_dr_state_famine = -8 }
+				MAD_rural_cooperation_boost_state_relief = yes
+				MAD_dahalo_southern_supply_interference = yes
+				MAD_drought_state_apply_change = yes
+				MAD_drought_state_apply_famine = yes
+			}
+			MAD_drought_recalc_national = yes
+			custom_effect_tooltip = MAD_MIONJO_FIRST_TRANCHE_EFFECT_TT
+		}
+		ai_will_do = { base = 1 }
+	}
+
+	MAD_MIONJO_SECOND_TRANCHE = {
+		allowed = { tag = MAD }
+		icon = generic_construction
+		visible = {
+			has_country_flag = MAD_MIONJO_FIRST_TRANCHE_COMPLETED
+			NOT = { has_country_flag = MAD_MIONJO_SECOND_TRANCHE_DELAY }
+			NOT = { has_country_flag = MAD_MIONJO_SECOND_TRANCHE_COMPLETED }
+		}
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_DROUGHT_DEVELOPMENT_GRANT_REQUIREMENTS_TT
+				MAD_DROUGHT_DEVELOPMENT_GRANT_ELIGIBLE = yes
+			}
+		}
+		cost = 0
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: MIONJO second tranche claimed"
+			set_country_flag = MAD_MIONJO_SECOND_TRANCHE_COMPLETED
+			set_country_flag = { flag = MAD_MIONJO_THIRD_TRANCHE_DELAY days = 365 }
+			set_temp_variable = { treasury_change = 1.00 }
+			modify_treasury_effect = yes
+			268 = {
+				set_temp_variable = { MAD_dr_state_change = -5 }
+				set_temp_variable = { MAD_dr_state_famine = -8 }
+				MAD_rural_cooperation_boost_state_relief = yes
+				MAD_dahalo_southern_supply_interference = yes
+				MAD_drought_state_apply_change = yes
+				MAD_drought_state_apply_famine = yes
+			}
+			MAD_drought_recalc_national = yes
+			custom_effect_tooltip = MAD_MIONJO_SECOND_TRANCHE_EFFECT_TT
+		}
+		ai_will_do = { base = 1 }
+	}
+
+	MAD_MIONJO_THIRD_TRANCHE = {
+		allowed = { tag = MAD }
+		icon = generic_construction
+		visible = {
+			has_country_flag = MAD_MIONJO_SECOND_TRANCHE_COMPLETED
+			NOT = { has_country_flag = MAD_MIONJO_THIRD_TRANCHE_DELAY }
+			NOT = { has_country_flag = MAD_MIONJO_THIRD_TRANCHE_COMPLETED }
+		}
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_DROUGHT_DEVELOPMENT_GRANT_REQUIREMENTS_TT
+				MAD_DROUGHT_DEVELOPMENT_GRANT_ELIGIBLE = yes
+			}
+		}
+		cost = 0
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: MIONJO third tranche claimed"
+			set_country_flag = MAD_MIONJO_THIRD_TRANCHE_COMPLETED
+			set_temp_variable = { treasury_change = 0.54 }
+			modify_treasury_effect = yes
+			268 = {
+				set_temp_variable = { MAD_dr_state_change = -5 }
+				set_temp_variable = { MAD_dr_state_famine = -8 }
+				MAD_rural_cooperation_boost_state_relief = yes
+				MAD_dahalo_southern_supply_interference = yes
+				MAD_drought_state_apply_change = yes
+				MAD_drought_state_apply_famine = yes
+			}
+			MAD_drought_recalc_national = yes
+			custom_effect_tooltip = MAD_MIONJO_THIRD_TRANCHE_EFFECT_TT
+		}
+		ai_will_do = { base = 1 }
+	}
+
+	########################################################################
 	# LOCAL RELIEF - repeatable, per state, buys that state time only
 	########################################################################
 
