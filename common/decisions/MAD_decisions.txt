@@ -1425,12 +1425,14 @@ visible = {
 		target_root_trigger = {
 			MAD_drought_exists = yes
 			has_completed_focus = MAD_Promote_drought_tolerant_crops
+			has_country_flag = MAD_DROUGHT_SEED_PROGRAMME_COMPLETED
 		}
 		highlight_states = { highlight_state_targets = { state = FROM } }
 
 		visible = {
 			MAD_drought_exists = yes
 			has_completed_focus = MAD_Promote_drought_tolerant_crops
+			has_country_flag = MAD_DROUGHT_SEED_PROGRAMME_COMPLETED
 		}
 		cost = 25
 		fire_only_once = yes
@@ -1696,6 +1698,7 @@ visible = {
 			custom_effect_tooltip = MAD_drought_prevention_tt
 			set_temp_variable = { MAD_dr_prevent_amount = 0.30 }
 			MAD_drought_add_prevention = yes
+			set_country_flag = MAD_DROUGHT_SEED_PROGRAMME_COMPLETED
 			clr_country_flag = MAD_DROUGHT_SEED_PROGRAMME_ACTIVE
 		}
 
