@@ -16222,6 +16222,16 @@ focus_tree = {
 			effect_tooltip = {
 				add_timed_idea = { idea = MAD_dip_indian_geomatics_spirit days = 1825 }
 				add_to_tech_sharing_group = mad_indian_ocean_research
+				if = {
+					limit = {
+						country_exists = JAP
+						OR = {
+							has_completed_focus = MAD_TOAMASINA_JICA_EXPANSION
+							has_completed_focus = MAD_Japanese_bypass
+						}
+					}
+					JAP = { add_to_tech_sharing_group = mad_indian_ocean_research }
+				}
 			}
 		}
 		ai_will_do = { base = 1 }
