@@ -1325,6 +1325,7 @@ MAD_drought_category = {
 		visible = {
 			date > 2003.12.31
 			NOT = { has_country_flag = MAD_FIAVOTA_WORLD_BANK_GRANT_COMPLETED }
+			NOT = { has_country_flag = MAD_FIAVOTA_WORLD_BANK_GRANT_ACTIVE }
 		}
 		available = {
 			custom_trigger_tooltip = {
@@ -1334,8 +1335,14 @@ MAD_drought_category = {
 		}
 		cost = 0
 		fire_only_once = yes
+		days_remove = 60
 		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: FIAVOTA World Bank grant claimed"
+			log = "[GetDateText]: [Root.GetName]: FIAVOTA World Bank grant implementation started"
+			set_country_flag = MAD_FIAVOTA_WORLD_BANK_GRANT_ACTIVE
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: FIAVOTA World Bank grant completed"
+			clr_country_flag = MAD_FIAVOTA_WORLD_BANK_GRANT_ACTIVE
 			set_country_flag = MAD_FIAVOTA_WORLD_BANK_GRANT_COMPLETED
 			set_country_flag = { flag = MAD_MIONJO_FIRST_TRANCHE_DELAY days = 365 }
 			set_temp_variable = { treasury_change = 0.35 }
@@ -1354,6 +1361,7 @@ MAD_drought_category = {
 		ai_will_do = { base = 1 }
 	}
 
+
 	MAD_MIONJO_FIRST_TRANCHE = {
 		allowed = { tag = MAD }
 		icon = generic_construction
@@ -1361,6 +1369,7 @@ MAD_drought_category = {
 			has_country_flag = MAD_FIAVOTA_WORLD_BANK_GRANT_COMPLETED
 			NOT = { has_country_flag = MAD_MIONJO_FIRST_TRANCHE_DELAY }
 			NOT = { has_country_flag = MAD_MIONJO_FIRST_TRANCHE_COMPLETED }
+			NOT = { has_country_flag = MAD_MIONJO_FIRST_TRANCHE_ACTIVE }
 		}
 		available = {
 			custom_trigger_tooltip = {
@@ -1370,8 +1379,14 @@ MAD_drought_category = {
 		}
 		cost = 0
 		fire_only_once = yes
+		days_remove = 60
 		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: MIONJO first tranche claimed"
+			log = "[GetDateText]: [Root.GetName]: MIONJO first tranche implementation started"
+			set_country_flag = MAD_MIONJO_FIRST_TRANCHE_ACTIVE
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: MIONJO first tranche completed"
+			clr_country_flag = MAD_MIONJO_FIRST_TRANCHE_ACTIVE
 			set_country_flag = MAD_MIONJO_FIRST_TRANCHE_COMPLETED
 			set_country_flag = { flag = MAD_MIONJO_SECOND_TRANCHE_DELAY days = 365 }
 			set_temp_variable = { treasury_change = 1.00 }
@@ -1390,6 +1405,7 @@ MAD_drought_category = {
 		ai_will_do = { base = 1 }
 	}
 
+
 	MAD_MIONJO_SECOND_TRANCHE = {
 		allowed = { tag = MAD }
 		icon = generic_construction
@@ -1397,6 +1413,7 @@ MAD_drought_category = {
 			has_country_flag = MAD_MIONJO_FIRST_TRANCHE_COMPLETED
 			NOT = { has_country_flag = MAD_MIONJO_SECOND_TRANCHE_DELAY }
 			NOT = { has_country_flag = MAD_MIONJO_SECOND_TRANCHE_COMPLETED }
+			NOT = { has_country_flag = MAD_MIONJO_SECOND_TRANCHE_ACTIVE }
 		}
 		available = {
 			custom_trigger_tooltip = {
@@ -1406,8 +1423,14 @@ MAD_drought_category = {
 		}
 		cost = 0
 		fire_only_once = yes
+		days_remove = 60
 		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: MIONJO second tranche claimed"
+			log = "[GetDateText]: [Root.GetName]: MIONJO second tranche implementation started"
+			set_country_flag = MAD_MIONJO_SECOND_TRANCHE_ACTIVE
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: MIONJO second tranche completed"
+			clr_country_flag = MAD_MIONJO_SECOND_TRANCHE_ACTIVE
 			set_country_flag = MAD_MIONJO_SECOND_TRANCHE_COMPLETED
 			set_country_flag = { flag = MAD_MIONJO_THIRD_TRANCHE_DELAY days = 365 }
 			set_temp_variable = { treasury_change = 1.00 }
@@ -1426,6 +1449,7 @@ MAD_drought_category = {
 		ai_will_do = { base = 1 }
 	}
 
+
 	MAD_MIONJO_THIRD_TRANCHE = {
 		allowed = { tag = MAD }
 		icon = generic_construction
@@ -1433,6 +1457,7 @@ MAD_drought_category = {
 			has_country_flag = MAD_MIONJO_SECOND_TRANCHE_COMPLETED
 			NOT = { has_country_flag = MAD_MIONJO_THIRD_TRANCHE_DELAY }
 			NOT = { has_country_flag = MAD_MIONJO_THIRD_TRANCHE_COMPLETED }
+			NOT = { has_country_flag = MAD_MIONJO_THIRD_TRANCHE_ACTIVE }
 		}
 		available = {
 			custom_trigger_tooltip = {
@@ -1442,8 +1467,14 @@ MAD_drought_category = {
 		}
 		cost = 0
 		fire_only_once = yes
+		days_remove = 60
 		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: MIONJO third tranche claimed"
+			log = "[GetDateText]: [Root.GetName]: MIONJO third tranche implementation started"
+			set_country_flag = MAD_MIONJO_THIRD_TRANCHE_ACTIVE
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: MIONJO third tranche completed"
+			clr_country_flag = MAD_MIONJO_THIRD_TRANCHE_ACTIVE
 			set_country_flag = MAD_MIONJO_THIRD_TRANCHE_COMPLETED
 			set_temp_variable = { treasury_change = 0.54 }
 			modify_treasury_effect = yes
@@ -1460,6 +1491,7 @@ MAD_drought_category = {
 		}
 		ai_will_do = { base = 1 }
 	}
+
 
 	########################################################################
 	# LOCAL RELIEF - repeatable, per state, buys that state time only
