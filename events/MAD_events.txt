@@ -5692,7 +5692,7 @@ country_event = {
 }
 
 
-add_namespace = mad_diplomacy
+
 
 country_event = {
 	id = mad_diplomacy.1
@@ -5937,6 +5937,7 @@ country_event = {
 			add_opinion_modifier = { target = ROOT modifier = improve_trade }
 			add_timed_idea = { idea = MAD_dip_mauritius_trade days = 1825 }
 			set_temp_variable = { percent_change = 2 }
+			set_temp_variable = { tag_index = THIS.id }
 			set_temp_variable = { influence_target = ROOT.id }
 			change_influence_percentage = yes
 			set_country_flag = MAD_dip_mauritius_trade_accepted
@@ -6161,8 +6162,8 @@ country_event = {
 				bonus = 0.15
 			}
 			set_temp_variable = { percent_change = 2 }
-			set_temp_variable = { tag_index = ROOT.id }
-			set_temp_variable = { influence_target = THIS.id }
+			set_temp_variable = { tag_index = THIS.id }
+			set_temp_variable = { influence_target = ROOT.id }
 			change_influence_percentage = yes
 		}
 	}
@@ -6315,6 +6316,7 @@ country_event = {
 			set_country_flag = MAD_dip_sadc_agreement
 			add_timed_idea = { idea = MAD_dip_sadc_linkages days = 1825 }
 			set_temp_variable = { percent_change = 2 }
+			set_temp_variable = { tag_index = THIS.id }
 			set_temp_variable = { influence_target = ROOT.id }
 			change_influence_percentage = yes
 			set_temp_variable = { temp_opinion = 5 }
