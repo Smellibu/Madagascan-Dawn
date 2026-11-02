@@ -620,16 +620,20 @@ country_event = {
 	desc = mad_drought.10.d
 	picture = GFX_report_event_economy_default
 	is_triggered_only = yes
+	trigger = { MAD_drought_shocks_allowed = yes }
 
 	option = {
 		name = mad_drought.10.a
-		log = "[GetDateText]: [Root.GetName]: mad_drought.10"
-		custom_effect_tooltip = mad_drought.10_tt
-		hidden_effect = {
-			set_temp_variable = { MAD_dr_shock_base = 6 }
-			MAD_drought_south_shock = yes
+		if = {
+			limit = { NOT = { has_country_flag = MAD_DROUGHT_WON } }
+			log = "[GetDateText]: [Root.GetName]: mad_drought.10"
+			custom_effect_tooltip = mad_drought.10_tt
+			hidden_effect = {
+				set_temp_variable = { MAD_dr_shock_base = 6 }
+				MAD_drought_south_shock = yes
+			}
+			add_stability = -0.01
 		}
-		add_stability = -0.01
 	}
 }
 
@@ -639,16 +643,20 @@ country_event = {
 	desc = mad_drought.11.d
 	picture = GFX_report_event_economy_default
 	is_triggered_only = yes
+	trigger = { MAD_drought_shocks_allowed = yes }
 
 	option = {
 		name = mad_drought.11.a
-		log = "[GetDateText]: [Root.GetName]: mad_drought.11"
-		custom_effect_tooltip = mad_drought.11_tt
-		hidden_effect = {
-			set_temp_variable = { MAD_dr_change = 3 }
-			MAD_drought_apply_shock_change = yes
+		if = {
+			limit = { NOT = { has_country_flag = MAD_DROUGHT_WON } }
+			log = "[GetDateText]: [Root.GetName]: mad_drought.11"
+			custom_effect_tooltip = mad_drought.11_tt
+			hidden_effect = {
+				set_temp_variable = { MAD_dr_change = 3 }
+				MAD_drought_apply_shock_change = yes
+			}
+			add_stability = -0.01
 		}
-		add_stability = -0.01
 	}
 }
 
@@ -658,21 +666,27 @@ country_event = {
 	desc = mad_drought.12.d
 	picture = GFX_report_event_economy_default
 	is_triggered_only = yes
-	trigger = { MAD_historical_drought_should_fire = yes }
+	trigger = {
+		MAD_drought_shocks_allowed = yes
+		MAD_historical_drought_should_fire = yes
+	}
 
 	option = {
 		name = mad_drought.12.a
-		log = "[GetDateText]: [Root.GetName]: mad_drought.12 - locust plague"
-		custom_effect_tooltip = mad_drought.12_tt
-		hidden_effect = {
-			# a swarm does not respect state borders: it crosses the whole island, worst in the Grand Sud.
-			# Every CNA flag you hold cuts it down before it lands.
-			set_temp_variable = { MAD_dr_swarm_base = 9 }
-			if = {
-				limit = { has_country_flag = MAD_DROUGHT_LOCUST_WATCH }
-				set_temp_variable = { MAD_dr_swarm_base = 5 }
+		if = {
+			limit = { NOT = { has_country_flag = MAD_DROUGHT_WON } }
+			log = "[GetDateText]: [Root.GetName]: mad_drought.12 - locust plague"
+			custom_effect_tooltip = mad_drought.12_tt
+			hidden_effect = {
+				# a swarm does not respect state borders: it crosses the whole island, worst in the Grand Sud.
+				# Every CNA flag you hold cuts it down before it lands.
+				set_temp_variable = { MAD_dr_swarm_base = 9 }
+				if = {
+					limit = { has_country_flag = MAD_DROUGHT_LOCUST_WATCH }
+					set_temp_variable = { MAD_dr_swarm_base = 5 }
+				}
+				MAD_drought_locust_swarm = yes
 			}
-			MAD_drought_locust_swarm = yes
 		}
 	}
 }
@@ -683,35 +697,41 @@ country_event = {
 	desc = mad_drought.13.d
 	picture = GFX_report_event_economy_default
 	is_triggered_only = yes
-	trigger = { MAD_historical_drought_should_fire = yes }
+	trigger = {
+		MAD_drought_shocks_allowed = yes
+		MAD_historical_drought_should_fire = yes
+	}
 
 	option = {
 		name = mad_drought.13.a
-		log = "[GetDateText]: [Root.GetName]: mad_drought.13 - 2015-16 El Nino drought"
-		custom_effect_tooltip = mad_drought.13_tt
-		hidden_effect = {
-			if = {
-				limit = { has_country_flag = MAD_DROUGHT_EARLY_WARNING }
-				268 = {
-					set_temp_variable = { MAD_dr_state_change = 8 }
-					MAD_drought_state_apply_change = yes
-					set_temp_variable = { MAD_dr_state_famine = 10 }
-					MAD_drought_state_apply_famine = yes
+		if = {
+			limit = { NOT = { has_country_flag = MAD_DROUGHT_WON } }
+			log = "[GetDateText]: [Root.GetName]: mad_drought.13 - 2015-16 El Nino drought"
+			custom_effect_tooltip = mad_drought.13_tt
+			hidden_effect = {
+				if = {
+					limit = { has_country_flag = MAD_DROUGHT_EARLY_WARNING }
+					268 = {
+						set_temp_variable = { MAD_dr_state_change = 8 }
+						MAD_drought_state_apply_change = yes
+						set_temp_variable = { MAD_dr_state_famine = 10 }
+						MAD_drought_state_apply_famine = yes
+					}
+				}
+				else = {
+					268 = {
+						set_temp_variable = { MAD_dr_state_change = 13 }
+						MAD_drought_state_apply_change = yes
+						set_temp_variable = { MAD_dr_state_famine = 13 }
+						MAD_drought_state_apply_famine = yes
+					}
 				}
 			}
-			else = {
-				268 = {
-					set_temp_variable = { MAD_dr_state_change = 13 }
-					MAD_drought_state_apply_change = yes
-					set_temp_variable = { MAD_dr_state_famine = 13 }
-					MAD_drought_state_apply_famine = yes
-				}
-			}
+			set_temp_variable = { MAD_dr_shock_pressure = 0.40 }
+			MAD_drought_add_warning_shock_pressure = yes
+			add_to_variable = { MAD_drought_depop = 1 }
+			MAD_drought_recalc_national = yes
 		}
-		set_temp_variable = { MAD_dr_shock_pressure = 0.40 }
-		MAD_drought_add_warning_shock_pressure = yes
-		add_to_variable = { MAD_drought_depop = 1 }
-		MAD_drought_recalc_national = yes
 	}
 }
 
@@ -721,36 +741,42 @@ country_event = {
 	desc = mad_drought.14.d
 	picture = GFX_report_event_economy_default
 	is_triggered_only = yes
-	trigger = { MAD_historical_drought_should_fire = yes }
+	trigger = {
+		MAD_drought_shocks_allowed = yes
+		MAD_historical_drought_should_fire = yes
+	}
 
 	option = {
 		name = mad_drought.14.a
-		log = "[GetDateText]: [Root.GetName]: mad_drought.14 - 2020-21 kere crisis"
-		custom_effect_tooltip = mad_drought.14_tt
-		hidden_effect = {
-			if = {
-				limit = { has_country_flag = MAD_DROUGHT_EARLY_WARNING }
-				268 = {
-					set_temp_variable = { MAD_dr_state_change = 10 }
-					MAD_drought_state_apply_change = yes
-					set_temp_variable = { MAD_dr_state_famine = 16 }
-					MAD_drought_state_apply_famine = yes
+		if = {
+			limit = { NOT = { has_country_flag = MAD_DROUGHT_WON } }
+			log = "[GetDateText]: [Root.GetName]: mad_drought.14 - 2020-21 kere crisis"
+			custom_effect_tooltip = mad_drought.14_tt
+			hidden_effect = {
+				if = {
+					limit = { has_country_flag = MAD_DROUGHT_EARLY_WARNING }
+					268 = {
+						set_temp_variable = { MAD_dr_state_change = 10 }
+						MAD_drought_state_apply_change = yes
+						set_temp_variable = { MAD_dr_state_famine = 16 }
+						MAD_drought_state_apply_famine = yes
+					}
+				}
+				else = {
+					268 = {
+						set_temp_variable = { MAD_dr_state_change = 18 }
+						MAD_drought_state_apply_change = yes
+						set_temp_variable = { MAD_dr_state_famine = 22 }
+						MAD_drought_state_apply_famine = yes
+					}
 				}
 			}
-			else = {
-				268 = {
-					set_temp_variable = { MAD_dr_state_change = 18 }
-					MAD_drought_state_apply_change = yes
-					set_temp_variable = { MAD_dr_state_famine = 22 }
-					MAD_drought_state_apply_famine = yes
-				}
-			}
+			set_temp_variable = { MAD_dr_shock_pressure = 0.45 }
+			MAD_drought_add_warning_shock_pressure = yes
+			add_to_variable = { MAD_drought_depop = 1 }
+			add_stability = -0.03
+			MAD_drought_recalc_national = yes
 		}
-		set_temp_variable = { MAD_dr_shock_pressure = 0.45 }
-		MAD_drought_add_warning_shock_pressure = yes
-		add_to_variable = { MAD_drought_depop = 1 }
-		add_stability = -0.03
-		MAD_drought_recalc_national = yes
 	}
 }
 
@@ -766,24 +792,30 @@ country_event = {
 	desc = mad_drought.15.d
 	picture = GFX_report_event_economy_default
 	is_triggered_only = yes
-	trigger = { MAD_historical_drought_should_fire = yes }
+	trigger = {
+		MAD_drought_shocks_allowed = yes
+		MAD_historical_drought_should_fire = yes
+	}
 
 	option = {
 		name = mad_drought.15.a
-		log = "[GetDateText]: [Root.GetName]: mad_drought.15 - southern drought 2000"
-		custom_effect_tooltip = mad_drought.15_tt
-		hidden_effect = {
-			268 = {
-				set_temp_variable = { MAD_dr_state_change = 16 }
-				set_temp_variable = { MAD_dr_state_famine = 14 }
-				MAD_drought_state_apply_shock = yes
+		if = {
+			limit = { NOT = { has_country_flag = MAD_DROUGHT_WON } }
+			log = "[GetDateText]: [Root.GetName]: mad_drought.15 - southern drought 2000"
+			custom_effect_tooltip = mad_drought.15_tt
+			hidden_effect = {
+				268 = {
+					set_temp_variable = { MAD_dr_state_change = 16 }
+					set_temp_variable = { MAD_dr_state_famine = 14 }
+					MAD_drought_state_apply_shock = yes
+				}
 			}
+			set_temp_variable = { MAD_dr_shock_pressure = 0.35 }
+			MAD_drought_add_warning_shock_pressure = yes
+			add_to_variable = { MAD_drought_depop = 1 }
+			add_stability = -0.01
+			MAD_drought_recalc_national = yes
 		}
-		set_temp_variable = { MAD_dr_shock_pressure = 0.35 }
-		MAD_drought_add_warning_shock_pressure = yes
-		add_to_variable = { MAD_drought_depop = 1 }
-		add_stability = -0.01
-		MAD_drought_recalc_national = yes
 	}
 }
 
@@ -793,24 +825,30 @@ country_event = {
 	desc = mad_drought.16.d
 	picture = GFX_report_event_economy_default
 	is_triggered_only = yes
-	trigger = { MAD_historical_drought_should_fire = yes }
+	trigger = {
+		MAD_drought_shocks_allowed = yes
+		MAD_historical_drought_should_fire = yes
+	}
 
 	option = {
 		name = mad_drought.16.a
-		log = "[GetDateText]: [Root.GetName]: mad_drought.16 - southern drought 2003"
-		custom_effect_tooltip = mad_drought.16_tt
-		hidden_effect = {
-			268 = {
-				set_temp_variable = { MAD_dr_state_change = 15 }
-				set_temp_variable = { MAD_dr_state_famine = 15 }
-				MAD_drought_state_apply_shock = yes
+		if = {
+			limit = { NOT = { has_country_flag = MAD_DROUGHT_WON } }
+			log = "[GetDateText]: [Root.GetName]: mad_drought.16 - southern drought 2003"
+			custom_effect_tooltip = mad_drought.16_tt
+			hidden_effect = {
+				268 = {
+					set_temp_variable = { MAD_dr_state_change = 15 }
+					set_temp_variable = { MAD_dr_state_famine = 15 }
+					MAD_drought_state_apply_shock = yes
+				}
 			}
+			set_temp_variable = { MAD_dr_shock_pressure = 0.35 }
+			MAD_drought_add_warning_shock_pressure = yes
+			add_to_variable = { MAD_drought_depop = 1 }
+			add_stability = -0.02
+			MAD_drought_recalc_national = yes
 		}
-		set_temp_variable = { MAD_dr_shock_pressure = 0.35 }
-		MAD_drought_add_warning_shock_pressure = yes
-		add_to_variable = { MAD_drought_depop = 1 }
-		add_stability = -0.02
-		MAD_drought_recalc_national = yes
 	}
 }
 
@@ -820,24 +858,30 @@ country_event = {
 	desc = mad_drought.17.d
 	picture = GFX_report_event_economy_default
 	is_triggered_only = yes
-	trigger = { MAD_historical_drought_should_fire = yes }
+	trigger = {
+		MAD_drought_shocks_allowed = yes
+		MAD_historical_drought_should_fire = yes
+	}
 
 	option = {
 		name = mad_drought.17.a
-		log = "[GetDateText]: [Root.GetName]: mad_drought.17 - 2004-05 southern food crisis"
-		custom_effect_tooltip = mad_drought.17_tt
-		hidden_effect = {
-			268 = {
-				set_temp_variable = { MAD_dr_state_change = 10 }
-				set_temp_variable = { MAD_dr_state_famine = 11 }
-				MAD_drought_state_apply_shock = yes
+		if = {
+			limit = { NOT = { has_country_flag = MAD_DROUGHT_WON } }
+			log = "[GetDateText]: [Root.GetName]: mad_drought.17 - 2004-05 southern food crisis"
+			custom_effect_tooltip = mad_drought.17_tt
+			hidden_effect = {
+				268 = {
+					set_temp_variable = { MAD_dr_state_change = 10 }
+					set_temp_variable = { MAD_dr_state_famine = 11 }
+					MAD_drought_state_apply_shock = yes
+				}
 			}
+			set_temp_variable = { MAD_dr_shock_pressure = 0.25 }
+			MAD_drought_add_warning_shock_pressure = yes
+			add_to_variable = { MAD_drought_depop = 1 }
+			add_stability = -0.01
+			MAD_drought_recalc_national = yes
 		}
-		set_temp_variable = { MAD_dr_shock_pressure = 0.25 }
-		MAD_drought_add_warning_shock_pressure = yes
-		add_to_variable = { MAD_drought_depop = 1 }
-		add_stability = -0.01
-		MAD_drought_recalc_national = yes
 	}
 }
 
@@ -847,24 +891,30 @@ country_event = {
 	desc = mad_drought.18.d
 	picture = GFX_report_event_economy_default
 	is_triggered_only = yes
-	trigger = { MAD_historical_drought_should_fire = yes }
+	trigger = {
+		MAD_drought_shocks_allowed = yes
+		MAD_historical_drought_should_fire = yes
+	}
 
 	option = {
 		name = mad_drought.18.a
-		log = "[GetDateText]: [Root.GetName]: mad_drought.18 - southern drought 2009"
-		custom_effect_tooltip = mad_drought.18_tt
-		hidden_effect = {
-			268 = {
-				set_temp_variable = { MAD_dr_state_change = 17 }
-				set_temp_variable = { MAD_dr_state_famine = 15 }
-				MAD_drought_state_apply_shock = yes
+		if = {
+			limit = { NOT = { has_country_flag = MAD_DROUGHT_WON } }
+			log = "[GetDateText]: [Root.GetName]: mad_drought.18 - southern drought 2009"
+			custom_effect_tooltip = mad_drought.18_tt
+			hidden_effect = {
+				268 = {
+					set_temp_variable = { MAD_dr_state_change = 17 }
+					set_temp_variable = { MAD_dr_state_famine = 15 }
+					MAD_drought_state_apply_shock = yes
+				}
 			}
+			set_temp_variable = { MAD_dr_shock_pressure = 0.40 }
+			MAD_drought_add_warning_shock_pressure = yes
+			add_to_variable = { MAD_drought_depop = 1 }
+			add_stability = -0.02
+			MAD_drought_recalc_national = yes
 		}
-		set_temp_variable = { MAD_dr_shock_pressure = 0.40 }
-		MAD_drought_add_warning_shock_pressure = yes
-		add_to_variable = { MAD_drought_depop = 1 }
-		add_stability = -0.02
-		MAD_drought_recalc_national = yes
 	}
 }
 
@@ -874,24 +924,30 @@ country_event = {
 	desc = mad_drought.19.d
 	picture = GFX_report_event_economy_default
 	is_triggered_only = yes
-	trigger = { MAD_historical_drought_should_fire = yes }
+	trigger = {
+		MAD_drought_shocks_allowed = yes
+		MAD_historical_drought_should_fire = yes
+	}
 
 	option = {
 		name = mad_drought.19.a
-		log = "[GetDateText]: [Root.GetName]: mad_drought.19 - southern drought 2010"
-		custom_effect_tooltip = mad_drought.19_tt
-		hidden_effect = {
-			268 = {
-				set_temp_variable = { MAD_dr_state_change = 18 }
-				set_temp_variable = { MAD_dr_state_famine = 18 }
-				MAD_drought_state_apply_shock = yes
+		if = {
+			limit = { NOT = { has_country_flag = MAD_DROUGHT_WON } }
+			log = "[GetDateText]: [Root.GetName]: mad_drought.19 - southern drought 2010"
+			custom_effect_tooltip = mad_drought.19_tt
+			hidden_effect = {
+				268 = {
+					set_temp_variable = { MAD_dr_state_change = 18 }
+					set_temp_variable = { MAD_dr_state_famine = 18 }
+					MAD_drought_state_apply_shock = yes
+				}
 			}
+			set_temp_variable = { MAD_dr_shock_pressure = 0.35 }
+			MAD_drought_add_warning_shock_pressure = yes
+			add_to_variable = { MAD_drought_depop = 1 }
+			add_stability = -0.02
+			MAD_drought_recalc_national = yes
 		}
-		set_temp_variable = { MAD_dr_shock_pressure = 0.35 }
-		MAD_drought_add_warning_shock_pressure = yes
-		add_to_variable = { MAD_drought_depop = 1 }
-		add_stability = -0.02
-		MAD_drought_recalc_national = yes
 	}
 }
 
@@ -1012,20 +1068,24 @@ country_event = {
 	desc = mad_drought.30.d
 	picture = GFX_report_event_economy_default
 	is_triggered_only = yes
+	trigger = { MAD_drought_shocks_allowed = yes }
 
 	option = {
 		name = mad_drought.30.a
-		log = "[GetDateText]: [Root.GetName]: mad_drought.30 - rains fail in the selected state"
-		custom_effect_tooltip = mad_drought.30_tt
-		hidden_effect = {
-			event_target:MAD_drought_event_state = {
-				set_temp_variable = { MAD_dr_state_change = 9 }
-				set_temp_variable = { MAD_dr_state_famine = 5 }
-				MAD_drought_state_apply_shock = yes
+		if = {
+			limit = { NOT = { has_country_flag = MAD_DROUGHT_WON } }
+			log = "[GetDateText]: [Root.GetName]: mad_drought.30 - rains fail in the selected state"
+			custom_effect_tooltip = mad_drought.30_tt
+			hidden_effect = {
+				event_target:MAD_drought_event_state = {
+					set_temp_variable = { MAD_dr_state_change = 9 }
+					set_temp_variable = { MAD_dr_state_famine = 5 }
+					MAD_drought_state_apply_shock = yes
+				}
+				MAD_drought_recalc_national = yes
+				set_temp_variable = { MAD_dr_shock_pressure = 0.25 }
+				MAD_drought_add_warning_shock_pressure = yes
 			}
-			MAD_drought_recalc_national = yes
-			set_temp_variable = { MAD_dr_shock_pressure = 0.25 }
-			MAD_drought_add_warning_shock_pressure = yes
 		}
 	}
 }
@@ -1037,27 +1097,31 @@ country_event = {
 	desc = mad_drought.31.d
 	picture = GFX_report_event_economy_default
 	is_triggered_only = yes
+	trigger = { MAD_drought_shocks_allowed = yes }
 
 	option = {
 		name = mad_drought.31.a
-		log = "[GetDateText]: [Root.GetName]: mad_drought.31 - cyclone in the selected coastal state"
-		custom_effect_tooltip = mad_drought.31_tt
-		hidden_effect = {
-			event_target:MAD_drought_event_state = {
-				set_temp_variable = { MAD_dr_state_change = 7 }
-				set_temp_variable = { MAD_dr_state_famine = 10 }
-				MAD_drought_state_apply_shock = yes
-				if = {
-					limit = { infrastructure > 0 }
-					damage_building = {
-						type = infrastructure
-						damage = 1
+		if = {
+			limit = { NOT = { has_country_flag = MAD_DROUGHT_WON } }
+			log = "[GetDateText]: [Root.GetName]: mad_drought.31 - cyclone in the selected coastal state"
+			custom_effect_tooltip = mad_drought.31_tt
+			hidden_effect = {
+				event_target:MAD_drought_event_state = {
+					set_temp_variable = { MAD_dr_state_change = 7 }
+					set_temp_variable = { MAD_dr_state_famine = 10 }
+					MAD_drought_state_apply_shock = yes
+					if = {
+						limit = { infrastructure > 0 }
+						damage_building = {
+							type = infrastructure
+							damage = 1
+						}
 					}
 				}
+				MAD_drought_recalc_national = yes
 			}
-			MAD_drought_recalc_national = yes
+			add_stability = -0.01
 		}
-		add_stability = -0.01
 	}
 }
 
@@ -1068,23 +1132,27 @@ country_event = {
 	desc = mad_drought.32.d
 	picture = GFX_report_event_economy_default
 	is_triggered_only = yes
+	trigger = { MAD_drought_shocks_allowed = yes }
 
 	option = {
 		name = mad_drought.32.a
-		log = "[GetDateText]: [Root.GetName]: mad_drought.32 - famine in the selected state"
-		custom_effect_tooltip = mad_drought.32_tt
-		hidden_effect = {
-			event_target:MAD_drought_event_state = {
-				set_temp_variable = { MAD_dr_state_famine = 18 }
-				if = {
-					limit = { ROOT = { has_country_flag = MAD_DROUGHT_EARLY_WARNING } }
-					multiply_temp_variable = { MAD_dr_state_famine = 0.75 }
+		if = {
+			limit = { NOT = { has_country_flag = MAD_DROUGHT_WON } }
+			log = "[GetDateText]: [Root.GetName]: mad_drought.32 - famine in the selected state"
+			custom_effect_tooltip = mad_drought.32_tt
+			hidden_effect = {
+				event_target:MAD_drought_event_state = {
+					set_temp_variable = { MAD_dr_state_famine = 18 }
+					if = {
+						limit = { ROOT = { has_country_flag = MAD_DROUGHT_EARLY_WARNING } }
+						multiply_temp_variable = { MAD_dr_state_famine = 0.75 }
+					}
+					MAD_drought_state_apply_famine = yes
 				}
-				MAD_drought_state_apply_famine = yes
 			}
+			add_stability = -0.02
+			add_war_support = -0.01
 		}
-		add_stability = -0.02
-		add_war_support = -0.01
 	}
 }
 
@@ -1095,24 +1163,28 @@ country_event = {
 	desc = mad_drought.33.d
 	picture = GFX_report_event_economy_default
 	is_triggered_only = yes
+	trigger = { MAD_drought_shocks_allowed = yes }
 
 	option = {
 		name = mad_drought.33.a
-		log = "[GetDateText]: [Root.GetName]: mad_drought.33 - wells run dry in the selected state"
-		custom_effect_tooltip = mad_drought.33_tt
-		hidden_effect = {
-			event_target:MAD_drought_event_state = {
-				clr_state_flag = MAD_STATE_WELLS
-				set_temp_variable = { MAD_dr_state_change = 8 }
-				if = {
-					limit = { ROOT = { has_country_flag = MAD_DROUGHT_EARLY_WARNING } }
-					multiply_temp_variable = { MAD_dr_state_change = 0.75 }
+		if = {
+			limit = { NOT = { has_country_flag = MAD_DROUGHT_WON } }
+			log = "[GetDateText]: [Root.GetName]: mad_drought.33 - wells run dry in the selected state"
+			custom_effect_tooltip = mad_drought.33_tt
+			hidden_effect = {
+				event_target:MAD_drought_event_state = {
+					clr_state_flag = MAD_STATE_WELLS
+					set_temp_variable = { MAD_dr_state_change = 8 }
+					if = {
+						limit = { ROOT = { has_country_flag = MAD_DROUGHT_EARLY_WARNING } }
+						multiply_temp_variable = { MAD_dr_state_change = 0.75 }
+					}
+					MAD_drought_state_apply_change = yes
+					add_to_variable = { MAD_state_drought_exposure = 0.15 }
+					clamp_variable = { var = MAD_state_drought_exposure min = 0.4 max = 2 }
 				}
-				MAD_drought_state_apply_change = yes
-				add_to_variable = { MAD_state_drought_exposure = 0.15 }
-				clamp_variable = { var = MAD_state_drought_exposure min = 0.4 max = 2 }
+				MAD_drought_recalc_national = yes
 			}
-			MAD_drought_recalc_national = yes
 		}
 	}
 }
