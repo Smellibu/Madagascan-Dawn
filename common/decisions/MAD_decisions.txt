@@ -4691,34 +4691,27 @@ MAD_OWNERSHIP_BOP = {
 				check_variable = { gdp_per_capita < 15.001 }
 			}
 			custom_trigger_tooltip = {
-				tooltip = MAD_POLICY_ROAD_MAINTENANCE_ACTIVE
-				NOT = { has_country_flag = MAD_POLICY_ROAD_MAINTENANCE_ACTIVE }
-			}
-			NOT = { has_idea = MAD_POLICY_ROAD_PUBLIC }
-			NOT = { has_idea = MAD_POLICY_ROAD_PRIVATE }
-			custom_trigger_tooltip = {
 				tooltip = MAD_POLICY_RC_REQUIRE_4_TT
 				check_variable = { MAD_rural_cooperation > 3.99 }
 			}
 		}
 		cost = 35
 		fire_only_once = no
-		# The decision remains visible; a country flag holds it unavailable for the 365-day programme.
+		# Native decision timer: the programme runs for 365 days.
+		days_remove = 365
 		custom_cost_trigger = { always = yes }
 		custom_cost_text = cost_0_2
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Regional road maintenance programme launched"
-			set_country_flag = MAD_POLICY_ROAD_MAINTENANCE_ACTIVE
-			country_event = { id = mad_policy_programmes.7 days = 365 }
 			set_temp_variable = { treasury_change = -0.20 }
 			modify_treasury_effect = yes
 			set_temp_variable = { MAD_rc_delta = -4 }
 			MAD_rural_cooperation_adjust = yes
+			# The public/private delivery choice and its effects happen on selection.
 			country_event = { id = mad_policy_programmes.1 }
 		}
 		ai_will_do = { base = 0 }
 	}
-
 	MAD_POLICY_FISHERIES_COLD_CHAIN = {
 		allowed = { tag = MAD }
 		icon = generic_industry
