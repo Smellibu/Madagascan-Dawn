@@ -4500,11 +4500,11 @@ MAD_OWNERSHIP_BOP = {
 				set_country_flag = MAD_POLICY_ROAD_CYCLE_2
 			}
 			else = { set_country_flag = MAD_POLICY_ROAD_CYCLE_3 }
+			country_event = { id = mad_policy_programmes.1 }
 		}
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Regional road maintenance programme completed"
 			clr_country_flag = MAD_POLICY_ROAD_MAINTENANCE_ACTIVE
-			country_event = { id = mad_policy_programmes.1 days = 1 }
 		}
 		ai_will_do = { base = 0 }
 	}
@@ -4562,11 +4562,11 @@ MAD_OWNERSHIP_BOP = {
 				set_country_flag = MAD_POLICY_FISHERIES_CYCLE_2
 			}
 			else = { set_country_flag = MAD_POLICY_FISHERIES_CYCLE_3 }
+			country_event = { id = mad_policy_programmes.2 }
 		}
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Coastal fisheries cold-chain programme completed"
 			clr_country_flag = MAD_POLICY_FISHERIES_ACTIVE
-			country_event = { id = mad_policy_programmes.2 days = 1 }
 		}
 		ai_will_do = { base = 0 }
 	}
@@ -4620,11 +4620,11 @@ MAD_OWNERSHIP_BOP = {
 				set_country_flag = MAD_POLICY_VANILLA_CYCLE_2
 			}
 			else = { set_country_flag = MAD_POLICY_VANILLA_CYCLE_3 }
+			country_event = { id = mad_policy_programmes.3 }
 		}
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Vanilla and clove warehouse-receipt programme completed"
 			clr_country_flag = MAD_POLICY_VANILLA_ACTIVE
-			country_event = { id = mad_policy_programmes.3 days = 1 }
 		}
 		ai_will_do = { base = 0 }
 	}
@@ -4682,11 +4682,11 @@ MAD_OWNERSHIP_BOP = {
 				set_country_flag = MAD_POLICY_APPRENTICESHIP_CYCLE_2
 			}
 			else = { set_country_flag = MAD_POLICY_APPRENTICESHIP_CYCLE_3 }
+			country_event = { id = mad_policy_programmes.4 }
 		}
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Industrial apprenticeship compact completed"
 			clr_country_flag = MAD_POLICY_APPRENTICESHIP_ACTIVE
-			country_event = { id = mad_policy_programmes.4 days = 1 }
 		}
 		ai_will_do = { base = 0 }
 	}
@@ -4739,11 +4739,11 @@ MAD_OWNERSHIP_BOP = {
 				set_country_flag = MAD_POLICY_DEFENCE_CYCLE_2
 			}
 			else = { set_country_flag = MAD_POLICY_DEFENCE_CYCLE_3 }
+			country_event = { id = mad_policy_programmes.5 }
 		}
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Defence depot and equipment maintenance programme completed"
 			clr_country_flag = MAD_POLICY_DEFENCE_ACTIVE
-			country_event = { id = mad_policy_programmes.5 days = 1 }
 		}
 		ai_will_do = { base = 0 }
 	}
