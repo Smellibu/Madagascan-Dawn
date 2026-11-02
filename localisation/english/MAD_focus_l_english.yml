@@ -656,7 +656,7 @@
  # --- decisions ---
  MAD_DROUGHT_EMERGENCY_WATER: "Provide Emergency Water Relief to [FROM.GetName]"
  MAD_DROUGHT_FOOD_AID_APPEAL: "Food Aid Appeal for [FROM.GetName]"
- MAD_DROUGHT_FOOD_AID_APPEAL_desc: "A 30-day food-aid programme for §Y[FROM.GetName]§!. It reduces local drought and hunger; while it runs, no other food-aid programme can start.\n\nCooperation changes relief effectiveness: below 35, reductions are 50% weaker; 35-59.99, 20% weaker; 60-79.99, unchanged; 80+, 20% stronger."
+ MAD_DROUGHT_FOOD_AID_APPEAL_desc: "A 60-day food-aid programme for §Y[FROM.GetName]§!. It reduces local drought and hunger; while it runs, no other food-aid programme can start.\n\nCooperation changes relief effectiveness: below 35, reductions are 50% weaker; 35-59.99, 20% weaker; 60-79.99, unchanged; 80+, 20% stronger."
  MAD_DROUGHT_SEED: "Distribute Drought-Tolerant Seed"
  MAD_DROUGHT_SEED_desc: "Sorghum, cassava and short-cycle rice for farmers across the four drought-affected regions.\n\nA one-time national programme that improves food security, lowers local exposure and makes hunger build more slowly. State-by-state seed distribution unlocks after this programme finishes."
  MAD_DROUGHT_EARLY_WARNING: "Build an Early-Warning System"
@@ -2725,9 +2725,9 @@
  MAD_dr_state_famine_tt: "§YFamine§!: [?MAD_dr_state_famine|-]\n"
  MAD_dr_state_change_tt: "§YDrought§!: [?MAD_dr_state_change|-]\n"
 
- MAD_DROUGHT_EMERGENCY_WATER_desc: "Selecting this starts six months of emergency-water relief in §Y[FROM.GetName]§! immediately. The decision itself runs for §Y180 days§!. While it is active, the four state-targeted Emergency Water Relief choices exclude one another; when it completes, all four become available again. Local wells, boreholes and southern logistics remain separate programmes. Relief effectiveness depends on Rural Cooperation: below 35, §Y50%§!; 35–59.99, §Y80%§!; 60–79.99, §Y100%§!; and 80+, §Y120%§!. Dahalo interference can weaken delivery but does not change the six-month duration."
+ MAD_DROUGHT_EMERGENCY_WATER_desc: "Selecting this starts six months of emergency-water protection in §Y[FROM.GetName]§! immediately; the decision itself runs for §Y180 days§!. Protection normally reduces positive drought growth by §Y70%§!. Its strength is calculated when selected: Rural Cooperation multiplies the protection by §Y50%§! below 35, §Y80%§! at 35–59.99, §Y100%§! at 60–79.99, and §Y120%§! at 80+. In the Grand Sud, Dahalo threat further multiplies effectiveness: §Y80%§! at 40–59.99, §Y65%§! at 60–79.99, and §Y50%§! at 80+. Escort Relief Convoys, Dahalo defeat, or Remenabila in power removes this penalty; completing Southern Logistics adds §Y15 percentage points§! to delivery effectiveness, up to 100%. Rural Cooperation and Dahalo modifiers multiply together. These conditions are captured when relief starts and do not change its six-month duration. While the decision runs, the four state-targeted Emergency Water Relief choices exclude one another; when it completes, all four become available again. Local wells, boreholes and southern logistics remain separate programmes."
 
- MAD_DROUGHT_EMERGENCY_WATER_EFFECT_tt: "§Y[FROM.GetName]§! receives §Y6 months§! of emergency-water relief immediately."
+ MAD_DROUGHT_EMERGENCY_WATER_EFFECT_tt: "§Y[FROM.GetName]§! receives six months of emergency-water protection. Positive drought growth is normally reduced by 70%; Rural Cooperation and Grand Sud Dahalo conditions set the final strength when the programme starts."
 
  # Madagascar focus availability flags
  MAD_QMM_LAGOON_SCANDAL_RESOLVED: "The QMM lagoon scandal has been resolved."
