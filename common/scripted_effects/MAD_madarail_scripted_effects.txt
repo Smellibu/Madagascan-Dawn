@@ -2287,7 +2287,11 @@ MAD_drought_monthly_tick = {
 		}
 
 		# history and chance
-		MAD_drought_scheduled_events = yes
+		# Victory ends new drought shocks, but the monthly state/hunger recovery below must continue.
+		if = {
+			limit = { NOT = { has_country_flag = MAD_DROUGHT_WON } }
+			MAD_drought_scheduled_events = yes
+		}
 
 		# gross pressure this month
 		set_temp_variable = { MAD_dr_delta = MAD_drought_base_pressure }
