@@ -556,3 +556,58 @@ set_leader_MAD = {
 		}
 	}
 }
+
+# Restore the election-winning Madagascar party leader on a dynamic civil-war breakaway.
+# The normal MD set_leader effect intentionally skips per-country leader effects for dynamic tags.
+MAD_RESTORE_CIVIL_WAR_OPPONENT_LEADER = {
+	if = {
+		limit = {
+			is_dynamic_country = yes
+			original_tag = MAD
+		}
+
+		# Copy the Madagascar route flags used by set_leader_MAD.
+		if = { limit = { PREV = { has_country_flag = MAD_HVM_FORMED } } set_country_flag = MAD_HVM_FORMED }
+		if = { limit = { PREV = { has_country_flag = MAD_AREMA_RENEWAL } } set_country_flag = MAD_AREMA_RENEWAL }
+		if = { limit = { PREV = { has_country_flag = MAD_AREMA_RECONCILIATION } } set_country_flag = MAD_AREMA_RECONCILIATION }
+		if = { limit = { PREV = { has_country_flag = MAD_RATSIRAKA_RETURN_DENIED } } set_country_flag = MAD_RATSIRAKA_RETURN_DENIED }
+		if = { limit = { PREV = { has_country_flag = MAD_AREMA_OLD_GUARD_LOCKED } } set_country_flag = MAD_AREMA_OLD_GUARD_LOCKED }
+		if = { limit = { PREV = { has_country_flag = MAD_TGV_FORMED } } set_country_flag = MAD_TGV_FORMED }
+		if = { limit = { PREV = { has_country_flag = MAD_RABARIOELINA_ABSOLUTE } } set_country_flag = MAD_RABARIOELINA_ABSOLUTE }
+
+		# Preserve the already selected CAPSAT / General Staff candidate and branch.
+		if = { limit = { PREV = { has_country_flag = MAD_MIL_PARTY_LEADER_GENERAL_STAFF } } set_country_flag = MAD_MIL_PARTY_LEADER_GENERAL_STAFF }
+		if = { limit = { PREV = { has_country_flag = MAD_MIL_PARTY_LEADER_GENERAL_STAFF_SELECTED } } set_country_flag = MAD_MIL_PARTY_LEADER_GENERAL_STAFF_SELECTED }
+		if = { limit = { PREV = { has_country_flag = MAD_MIL_PARTY_LEADER_GENERAL_STAFF_BENI } } set_country_flag = MAD_MIL_PARTY_LEADER_GENERAL_STAFF_BENI }
+		if = { limit = { PREV = { has_country_flag = MAD_MIL_PARTY_LEADER_GENERAL_STAFF_EDMOND } } set_country_flag = MAD_MIL_PARTY_LEADER_GENERAL_STAFF_EDMOND }
+		if = { limit = { PREV = { has_country_flag = MAD_MIL_PARTY_LEADER_GENERAL_STAFF_ANDRE_LUCIEN } } set_country_flag = MAD_MIL_PARTY_LEADER_GENERAL_STAFF_ANDRE_LUCIEN }
+		if = { limit = { PREV = { has_country_flag = MAD_MIL_PARTY_LEADER_GENERAL_STAFF_PETERA } } set_country_flag = MAD_MIL_PARTY_LEADER_GENERAL_STAFF_PETERA }
+		if = { limit = { PREV = { has_country_flag = MAD_MIL_PARTY_LEADER_GENERAL_STAFF_JULES } } set_country_flag = MAD_MIL_PARTY_LEADER_GENERAL_STAFF_JULES }
+		if = { limit = { PREV = { has_country_flag = MAD_MIL_PARTY_LEADER_GENERAL_STAFF_ANDRIANOME } } set_country_flag = MAD_MIL_PARTY_LEADER_GENERAL_STAFF_ANDRIANOME }
+		if = { limit = { PREV = { has_country_flag = MAD_MIL_PARTY_LEADER_CAPSAT_SELECTED } } set_country_flag = MAD_MIL_PARTY_LEADER_CAPSAT_SELECTED }
+		if = { limit = { PREV = { has_country_flag = MAD_MIL_PARTY_LEADER_CAPSAT_MICHAEL } } set_country_flag = MAD_MIL_PARTY_LEADER_CAPSAT_MICHAEL }
+		if = { limit = { PREV = { has_country_flag = MAD_MIL_PARTY_LEADER_CAPSAT_NOEL } } set_country_flag = MAD_MIL_PARTY_LEADER_CAPSAT_NOEL }
+		if = { limit = { PREV = { has_country_flag = MAD_MIL_PARTY_LEADER_CAPSAT_LYLISON } } set_country_flag = MAD_MIL_PARTY_LEADER_CAPSAT_LYLISON }
+		if = { limit = { PREV = { has_country_flag = MAD_MIL_PARTY_LEADER_CAPSAT_CHARLES } } set_country_flag = MAD_MIL_PARTY_LEADER_CAPSAT_CHARLES }
+		if = { limit = { PREV = { has_country_flag = MAD_MIL_PARTY_LEADER_CAPSAT_ANDRE_LUCIEN } } set_country_flag = MAD_MIL_PARTY_LEADER_CAPSAT_ANDRE_LUCIEN }
+		if = { limit = { PREV = { has_country_flag = MAD_MIL_PARTY_LEADER_CAPSAT_PETERA } } set_country_flag = MAD_MIL_PARTY_LEADER_CAPSAT_PETERA }
+		if = { limit = { PREV = { has_country_flag = MAD_MIL_PARTY_LEADER_CAPSAT_JULES } } set_country_flag = MAD_MIL_PARTY_LEADER_CAPSAT_JULES }
+		if = { limit = { PREV = { has_country_flag = MAD_MIL_PARTY_LEADER_CAPSAT_ANDRIANOME } } set_country_flag = MAD_MIL_PARTY_LEADER_CAPSAT_ANDRIANOME }
+
+		# MD copies leader-throughput counters during civil_war_replication_effect.
+		# Reset only the copied ruling party's counter so its MAD leader is recreated.
+		if = { limit = { check_variable = { ruling_party = 1 } } set_variable = { conservatism_leader = 0 } }
+		else_if = { limit = { check_variable = { ruling_party = 2 } } set_variable = { liberalism_leader = 0 } }
+		else_if = { limit = { check_variable = { ruling_party = 3 } } set_variable = { socialism_leader = 0 } }
+		else_if = { limit = { check_variable = { ruling_party = 5 } } set_variable = { anarchist_communism_leader = 0 } }
+		else_if = { limit = { check_variable = { ruling_party = 13 } } set_variable = { Neutral_Autocracy_leader = 0 } }
+		else_if = { limit = { check_variable = { ruling_party = 15 } } set_variable = { oligarchism_leader = 0 } }
+		else_if = { limit = { check_variable = { ruling_party = 16 } } set_variable = { Neutral_Libertarian_leader = 0 } }
+		else_if = { limit = { check_variable = { ruling_party = 20 } } set_variable = { Nat_Populism_leader = 0 } }
+		else_if = { limit = { check_variable = { ruling_party = 22 } } set_variable = { Nat_Autocracy_leader = 0 } }
+		else_if = { limit = { check_variable = { ruling_party = 23 } } set_variable = { Monarchist_leader = 0 } }
+
+		# Reuse the existing Madagascar party-to-leader mapping, including generic fallbacks.
+		set_leader_MAD = yes
+	}
+}
