@@ -6391,12 +6391,6 @@ country_event = {
 		name = mad_diplomacy.70.a
 		log = "[GetDateText]: [This.GetName]: mad_diplomacy.70.a executed"
 		ai_chance = { base = 55 }
-		custom_effect_tooltip = {
-			localization_key = modifies_dynamic_modifier_tt
-			MODIFIER = MAD_economy_modifier
-		}
-		add_to_variable = { MAD_economy_resource_export_multiplier_modifier = 0.03 tooltip = resource_export_multiplier_modifier_tt }
-		add_to_variable = { MAD_economy_international_market_income_modifier = 0.02 tooltip = international_market_income_modifier_tt }
 		add_timed_idea = { idea = MAD_dip_eu_harmonisation days = 1825 }
 		set_temp_variable = { temp_opinion = 5 }
 		change_international_bankers_opinion = yes
@@ -6410,12 +6404,6 @@ country_event = {
 		name = mad_diplomacy.70.b
 		log = "[GetDateText]: [This.GetName]: mad_diplomacy.70.b executed"
 		ai_chance = { base = 45 }
-		custom_effect_tooltip = {
-			localization_key = modifies_dynamic_modifier_tt
-			MODIFIER = MAD_economy_modifier
-		}
-		add_to_variable = { MAD_economy_resource_export_multiplier_modifier = 0.02 tooltip = resource_export_multiplier_modifier_tt }
-		add_to_variable = { MAD_economy_productivity_growth_modifier = 0.01 tooltip = productivity_growth_modifier_tt }
 		add_timed_idea = { idea = MAD_dip_eu_safeguards days = 1825 }
 		set_temp_variable = { temp_opinion = 5 }
 		change_small_medium_business_owners_opinion = yes
