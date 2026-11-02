@@ -5698,14 +5698,3 @@ country_event = {
 	}
 }
  
-# Releases the regional road-maintenance lock after the full 365-day programme.
-# The outcome idea itself expires after 120 days.
-country_event = {
-	id = mad_policy_programmes.7
-	hidden = yes
-	is_triggered_only = yes
-	immediate = {
-		log = "[GetDateText]: [Root.GetName]: Regional road maintenance programme completed"
-		clr_country_flag = MAD_POLICY_ROAD_MAINTENANCE_ACTIVE
-	}
-}
