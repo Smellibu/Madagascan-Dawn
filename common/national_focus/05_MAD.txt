@@ -16138,10 +16138,7 @@ focus_tree = {
 				SEY = { country_event = { id = mad_diplomacy.12 days = 1 } }
 			}
 			custom_effect_tooltip = TT_IF_THEY_ACCEPT
-			effect_tooltip = {
-				add_ideas = MAD_dip_ioc_network
-				add_ideas = MAD_dip_ioc_active
-			}
+			custom_effect_tooltip = MAD_dip_ioc_cooperation_tt
 		}
 		ai_will_do = { base = 1 }
 	}
@@ -16256,10 +16253,7 @@ focus_tree = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_dip_china_industrial_partnership"
 			CHI = { country_event = { id = mad_diplomacy.50 days = 1 } }
 			custom_effect_tooltip = TT_IF_THEY_ACCEPT
-			effect_tooltip = {
-				add_timed_idea = { idea = MAD_dip_china_local_content days = 1825 }
-				add_timed_idea = { idea = MAD_dip_china_technical_training days = 1825 }
-			}
+			custom_effect_tooltip = MAD_dip_china_partnership_terms_tt
 		}
 		ai_will_do = { base = 1 }
 	}
