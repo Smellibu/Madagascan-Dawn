@@ -12,7 +12,10 @@
 
 # The drought exists from game start until its severity has been brought down to 0 (see MAD_drought_finish).
 MAD_drought_exists = {
-	check_variable = { MAD_drought_severity > 0 }
+	# Once initialised, the drought programme remains active even if the national severity
+	# temporarily reaches zero. This allows the food-security checks, 365-day containment
+	# period, Winning the Fight focus and final push to complete in the intended order.
+	has_country_flag = MAD_DROUGHT_STARTED
 	NOT = { has_country_flag = MAD_DROUGHT_OVER }
 }
 
