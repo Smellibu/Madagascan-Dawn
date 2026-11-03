@@ -3545,6 +3545,16 @@ MAD_MADAGASCAR_4_RELEASED = {
 			}
 		}
 
+		MAD_dip_customs_modernisation = {
+			name = MAD_dip_customs_modernisation
+			picture = GFX_idea_generic
+			allowed_civil_war = { always = yes }
+			modifier = {
+				offices_productivity = 0.01
+				international_market_income_modifier = 0.005
+			}
+		}
+
 		MAD_dip_cyclone_warning = {
 			name = MAD_dip_cyclone_warning
 			picture = GFX_idea_generic
@@ -3685,8 +3695,9 @@ MAD_MADAGASCAR_4_RELEASED = {
 			allowed_civil_war = { always = yes }
 			removal_cost = -1
 			modifier = {
-				resource_export_multiplier_modifier = 0.01
-				research_speed_factor = 0.01
+				research_speed_factor = 0.02
+				productivity_growth_modifier = 0.01
+				production_speed_infrastructure_factor = 0.02
 			}
 		}
 
@@ -3705,7 +3716,7 @@ MAD_MADAGASCAR_4_RELEASED = {
 			picture = GFX_idea_generic
 			allowed_civil_war = { always = yes }
 			modifier = {
-				research_speed_factor = 0.01
+				research_speed_factor = 0.02
 				offices_productivity = 0.02
 			}
 		}
