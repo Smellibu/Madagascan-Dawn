@@ -112,4 +112,37 @@ MAD_rural_cooperation_category = {
 	scripted_gui = MAD_rural_cooperation_gui
 }
 
-
+# Diplomacy programmes. Registrations mirror the category blocks in MAD_decisions.txt.
+MAD_dip_cyclone_decisions = {
+	icon = generic_construction
+	allowed = { tag = MAD }
+	visible = {
+		OR = {
+			has_completed_focus = MAD_dip_cyclone_network
+			has_completed_focus = MAD_dip_swio_maritime_safety
+		}
+	}
+	priority = 95
+	visible_when_empty = no
+}
+MAD_dip_blue_economy_decisions = {
+	icon = generic_construction
+	allowed = { tag = MAD }
+	visible = { has_completed_focus = MAD_dip_blue_economy }
+	priority = 95
+	visible_when_empty = no
+}
+MAD_dip_shelf_decisions = {
+	icon = generic_political_discourse
+	allowed = { tag = MAD }
+	visible = { has_completed_focus = MAD_dip_continental_shelf }
+	priority = 95
+	visible_when_empty = no
+}
+MAD_dip_iles_campaign_decisions = {
+	icon = generic_political_discourse
+	allowed = { tag = MAD }
+	visible = { has_idea = MAD_dip_iles_campaign }
+	priority = 95
+	visible_when_empty = no
+}
