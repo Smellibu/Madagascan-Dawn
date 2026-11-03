@@ -6237,6 +6237,9 @@ country_event = {
 		name = mad_diplomacy.33.b
 		log = "[GetDateText]: [This.GetName]: mad_diplomacy.33.b executed"
 		add_political_power = 10
+		add_timed_idea = { idea = MAD_dip_franco_dialogue days = 1095 }
+		add_opinion_modifier = { target = FROM modifier = diplomatic_support }
+		FROM = { add_opinion_modifier = { target = ROOT modifier = diplomatic_support } }
 	}
 }
 
@@ -6247,6 +6250,11 @@ country_event = {
 	immediate = {
 		add_political_power = 15
 		add_timed_idea = { idea = MAD_dip_iles_campaign days = 1825 }
+		if = {
+			limit = { country_exists = FRA NOT = { has_war_with = FRA } }
+			FRA = { add_opinion_modifier = { target = ROOT modifier = diplomatic_distance } }
+		}
+		unlock_decision_category_tooltip = MAD_dip_iles_campaign_decisions
 		if = {
 			limit = { country_exists = RAJ NOT = { has_war_with = RAJ } }
 			add_opinion_modifier = { target = RAJ modifier = declaration_of_friendship }
