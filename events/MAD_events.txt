@@ -6345,7 +6345,7 @@ country_event = {
 						has_completed_focus = MAD_Japanese_bypass
 					}
 				}
-				JAP = { add_to_tech_sharing_group = mad_indian_ocean_research }
+				JAP = { country_event = { id = mad_diplomacy.41 days = 1 } }
 			}
 			add_tech_bonus = {
 				name = MAD_dip_indian_electronics_research
@@ -6369,6 +6369,43 @@ country_event = {
 	option = {
 		name = mad_diplomacy.40.b
 		log = "[GetDateText]: [This.GetName]: mad_diplomacy.40.b executed"
+		ai_chance = { base = 40 }
+		FROM = { add_opinion_modifier = { target = ROOT modifier = diplomatic_distance } }
+	}
+}
+
+
+country_event = {
+	id = mad_diplomacy.41
+	title = mad_diplomacy.41.t
+	desc = mad_diplomacy.41.d
+	picture = GFX_report_event_economy_default
+	is_triggered_only = yes
+
+	option = {
+		name = mad_diplomacy.41.a
+		log = "[GetDateText]: [This.GetName]: mad_diplomacy.41.a executed"
+		trigger = {
+			NOT = { has_war_with = FROM }
+			has_opinion = { target = FROM value > 10 }
+		}
+		ai_chance = {
+			base = 60
+			modifier = { add = 25 has_opinion = { target = FROM value > 50 } }
+			modifier = { factor = 0 has_war = yes }
+		}
+		add_opinion_modifier = { target = FROM modifier = diplomatic_support }
+		add_to_tech_sharing_group = mad_indian_ocean_research
+		FROM = {
+			add_opinion_modifier = { target = ROOT modifier = diplomatic_support }
+			add_to_tech_sharing_group = mad_indian_ocean_research
+			set_country_flag = MAD_dip_japan_research_accepted
+		}
+	}
+
+	option = {
+		name = mad_diplomacy.41.b
+		log = "[GetDateText]: [This.GetName]: mad_diplomacy.41.b executed"
 		ai_chance = { base = 40 }
 		FROM = { add_opinion_modifier = { target = ROOT modifier = diplomatic_distance } }
 	}
@@ -6752,7 +6789,7 @@ country_event = {
 		trigger = {
 			NOT = { has_war_with = FROM }
 			has_opinion = { target = FROM value > -10 }
-			FROM = { has_country_flag = MAD_dip_mrt_ioc_accepted }
+			FROM = { has_completed_focus = MAD_dip_swio_maritime_safety }
 		}
 		ai_chance = {
 			base = 60
@@ -6791,7 +6828,7 @@ country_event = {
 		trigger = {
 			NOT = { has_war_with = FROM }
 			has_opinion = { target = FROM value > -10 }
-			FROM = { has_country_flag = MAD_dip_com_ioc_accepted }
+			FROM = { has_completed_focus = MAD_dip_swio_maritime_safety }
 		}
 		ai_chance = {
 			base = 60
@@ -6830,7 +6867,7 @@ country_event = {
 		trigger = {
 			NOT = { has_war_with = FROM }
 			has_opinion = { target = FROM value > -10 }
-			FROM = { has_country_flag = MAD_dip_sey_ioc_accepted }
+			FROM = { has_completed_focus = MAD_dip_swio_maritime_safety }
 		}
 		ai_chance = {
 			base = 60

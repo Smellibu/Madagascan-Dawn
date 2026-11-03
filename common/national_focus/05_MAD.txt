@@ -16154,9 +16154,13 @@ focus_tree = {
 		prerequisite = { focus = MAD_dip_multipolar_policy }
 		search_filters = { FOCUS_FILTER_FOREIGN_POLICY FOCUS_FILTER_TRADE }
 		available = {
-			date > 2008.1.1
-			country_exists = SAF
-			NOT = { has_war_with = SAF }
+			OR = {
+				AND = {
+					date > 2008.8.1
+					date < 2009.3.31
+				}
+				date > 2014.1.29
+			}
 		}
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_dip_sadc_trade"
@@ -16181,7 +16185,13 @@ focus_tree = {
 				set_temp_variable = { temp_opinion = -3 }
 				change_industrial_conglomerates_opinion = yes
 			}
-			SAF = { country_event = { id = mad_diplomacy.60 days = 1 } }
+			if = {
+				limit = {
+					country_exists = SAF
+					NOT = { has_war_with = SAF }
+				}
+				SAF = { country_event = { id = mad_diplomacy.60 days = 1 } }
+			}
 			custom_effect_tooltip = TT_IF_THEY_ACCEPT
 			effect_tooltip = {
 				add_timed_idea = { idea = MAD_dip_sadc_linkages days = 1825 }
@@ -16383,11 +16393,6 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_FOREIGN_POLICY FOCUS_FILTER_NAVY }
 		available = {
 			has_country_flag = MAD_dip_france_dialogue_accepted
-			OR = {
-				has_country_flag = MAD_dip_mrt_ioc_accepted
-				has_country_flag = MAD_dip_com_ioc_accepted
-				has_country_flag = MAD_dip_sey_ioc_accepted
-			}
 		}
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_dip_swio_maritime_safety"
@@ -16397,15 +16402,15 @@ focus_tree = {
 				FRA = { country_event = { id = mad_diplomacy.35 days = 1 } }
 			}
 			if = {
-				limit = { has_country_flag = MAD_dip_mrt_ioc_accepted country_exists = MRT NOT = { has_war_with = MRT } }
+				limit = { country_exists = MRT NOT = { has_war_with = MRT } }
 				MRT = { country_event = { id = mad_diplomacy.36 days = 1 } }
 			}
 			if = {
-				limit = { has_country_flag = MAD_dip_com_ioc_accepted country_exists = COM NOT = { has_war_with = COM } }
+				limit = { country_exists = COM NOT = { has_war_with = COM } }
 				COM = { country_event = { id = mad_diplomacy.37 days = 1 } }
 			}
 			if = {
-				limit = { has_country_flag = MAD_dip_sey_ioc_accepted country_exists = SEY NOT = { has_war_with = SEY } }
+				limit = { country_exists = SEY NOT = { has_war_with = SEY } }
 				SEY = { country_event = { id = mad_diplomacy.38 days = 1 } }
 			}
 			custom_effect_tooltip = TT_IF_THEY_ACCEPT
