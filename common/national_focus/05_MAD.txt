@@ -16098,8 +16098,8 @@ focus_tree = {
 	focus = {
 		id = MAD_dip_multipolar_policy
 		icon = diplomatic_treaty
-		x = 12
-		y = 11
+		x = 102
+		y = 10
 		cost = 3
 		prerequisite = { focus = MAD_POL_PARTIES }
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_FOREIGN_POLICY }
@@ -16117,8 +16117,8 @@ focus_tree = {
 	focus = {
 		id = MAD_dip_ioc_cooperation
 		icon = diplomatic_treaty
-		x = -1
-		y = 1
+		x = -5
+		y = 2
 		relative_position_id = MAD_dip_multipolar_policy
 		cost = 3
 		prerequisite = { focus = MAD_dip_multipolar_policy }
@@ -16147,14 +16147,13 @@ focus_tree = {
 	focus = {
 		id = MAD_dip_sadc_trade
 		icon = align_to_south_africa
-		x = 1
-		y = 1
+		x = -7
+		y = 2
 		relative_position_id = MAD_dip_multipolar_policy
 		cost = 3
 		prerequisite = { focus = MAD_dip_multipolar_policy }
 		search_filters = { FOCUS_FILTER_FOREIGN_POLICY FOCUS_FILTER_TRADE }
 		available = {
-			date > 2008.8.15
 			NOT = { has_idea = Reduced_Western_Sanctions }
 			NOT = { has_idea = Western_Sanctions }
 			NOT = { has_idea = international_sanctions }
@@ -16207,8 +16206,8 @@ focus_tree = {
 	focus = {
 		id = MAD_dip_franco_malagasy_dialogue
 		icon = diplomatic_treaty
-		x = 3
-		y = 1
+		x = -1
+		y = 2
 		relative_position_id = MAD_dip_multipolar_policy
 		cost = 3
 		prerequisite = { focus = MAD_dip_multipolar_policy }
@@ -16231,8 +16230,8 @@ focus_tree = {
 	focus = {
 		id = MAD_dip_indian_geomatics
 		icon = align_to_india
-		x = 5
-		y = 1
+		x = 2
+		y = 2
 		relative_position_id = MAD_dip_multipolar_policy
 		cost = 3
 		prerequisite = { focus = MAD_dip_multipolar_policy }
@@ -16268,8 +16267,8 @@ focus_tree = {
 	focus = {
 		id = MAD_dip_china_industrial_partnership
 		icon = prc_sign
-		x = 7
-		y = 1
+		x = 4
+		y = 2
 		relative_position_id = MAD_dip_multipolar_policy
 		cost = 3
 		prerequisite = { focus = MAD_dip_multipolar_policy }
@@ -16292,8 +16291,8 @@ focus_tree = {
 	focus = {
 		id = MAD_dip_eu_epa
 		icon = trade_with_europe
-		x = 9
-		y = 1
+		x = 6
+		y = 2
 		relative_position_id = MAD_dip_multipolar_policy
 		cost = 3
 		prerequisite = { focus = MAD_dip_multipolar_policy }
@@ -16315,8 +16314,8 @@ focus_tree = {
 	focus = {
 		id = MAD_dip_mauritius_trade
 		icon = trade_with_india
-		x = -1
-		y = 1
+		x = 1
+		y = 2
 		relative_position_id = MAD_dip_ioc_cooperation
 		cost = 3
 		prerequisite = { focus = MAD_dip_ioc_cooperation }
@@ -16346,8 +16345,8 @@ focus_tree = {
 	focus = {
 		id = MAD_dip_cyclone_network
 		icon = maritime_trade
-		x = 1
-		y = 1
+		x = -1
+		y = 2
 		relative_position_id = MAD_dip_ioc_cooperation
 		cost = 3
 		prerequisite = { focus = MAD_dip_ioc_cooperation }
@@ -16363,8 +16362,8 @@ focus_tree = {
 	focus = {
 		id = MAD_dip_iles_eparses
 		icon = diplomatic_treaty
-		x = -1
-		y = 1
+		x = 2
+		y = 2
 		relative_position_id = MAD_dip_franco_malagasy_dialogue
 		cost = 3
 		prerequisite = { focus = MAD_dip_franco_malagasy_dialogue }
@@ -16383,8 +16382,8 @@ focus_tree = {
 	focus = {
 		id = MAD_dip_swio_maritime_safety
 		icon = naval_doctrine
-		x = 1
-		y = 1
+		x = -1
+		y = 2
 		relative_position_id = MAD_dip_franco_malagasy_dialogue
 		cost = 3
 		prerequisite = { focus = MAD_dip_franco_malagasy_dialogue focus = MAD_dip_ioc_cooperation }
@@ -16456,8 +16455,8 @@ focus_tree = {
 	focus = {
 		id = MAD_dip_continental_shelf
 		icon = focus_generic_court
-		x = 1
-		y = 3
+		x = -9
+		y = 2
 		relative_position_id = MAD_dip_multipolar_policy
 		cost = 3
 		prerequisite = { focus = MAD_dip_multipolar_policy }
