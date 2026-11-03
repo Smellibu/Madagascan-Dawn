@@ -6524,14 +6524,6 @@ MAD_rural_cooperation_category = {
 }
 
 MAD_dip_cyclone_decisions = {
-	allowed = { original_tag = MAD }
-	icon = generic_construction
-	visible = {
-		OR = {
-			has_completed_focus = MAD_dip_cyclone_network
-			has_completed_focus = MAD_dip_swio_maritime_safety
-		}
-	}
 
 	MAD_dip_shared_forecasting = {
 		icon = generic_political_discourse
@@ -6664,11 +6656,6 @@ MAD_dip_cyclone_decisions = {
 }
 
 MAD_dip_blue_economy_decisions = {
-	allowed = { original_tag = MAD }
-	icon = generic_construction
-	visible = {
-		has_completed_focus = MAD_dip_blue_economy
-	}
 
 	MAD_dip_marine_resource_survey = {
 		icon = generic_political_discourse
@@ -6792,11 +6779,6 @@ MAD_dip_blue_economy_decisions = {
 }
 
 MAD_dip_shelf_decisions = {
-	allowed = { original_tag = MAD }
-	icon = generic_political_discourse
-	visible = {
-		has_completed_focus = MAD_dip_continental_shelf
-	}
 
 	MAD_dip_submit_continental_shelf = {
 		icon = generic_political_discourse
@@ -6846,9 +6828,6 @@ MAD_dip_shelf_decisions = {
 }
 
 MAD_dip_iles_campaign_decisions = {
-	allowed = { original_tag = MAD }
-	icon = generic_political_discourse
-	visible = { has_idea = MAD_dip_iles_campaign }
 
 	MAD_dip_maintain_iles_campaign = {
 		icon = generic_political_discourse
