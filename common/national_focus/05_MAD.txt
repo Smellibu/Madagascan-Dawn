@@ -16154,13 +16154,11 @@ focus_tree = {
 		prerequisite = { focus = MAD_dip_multipolar_policy }
 		search_filters = { FOCUS_FILTER_FOREIGN_POLICY FOCUS_FILTER_TRADE }
 		available = {
-			OR = {
-				AND = {
-					date > 2008.8.15
-					date < 2009.3.31
-				}
-				date > 2014.1.29
-			}
+			date > 2008.8.15
+			NOT = { has_idea = Reduced_Western_Sanctions }
+			NOT = { has_idea = Western_Sanctions }
+			NOT = { has_idea = international_sanctions }
+			NOT = { has_idea = Massive_International_Sanctions }
 		}
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_dip_sadc_trade"
