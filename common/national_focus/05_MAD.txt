@@ -16159,6 +16159,27 @@ focus_tree = {
 		}
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_dip_sadc_trade"
+			custom_effect_tooltip = MAD_dip_sadc_domestic_implementation_tt
+			custom_effect_tooltip = {
+				localization_key = modifies_dynamic_modifier_tt
+				MODIFIER = MAD_economy_modifier
+			}
+			add_to_variable = { MAD_economy_resource_export_multiplier_modifier = 0.01 tooltip = resource_export_multiplier_modifier_tt }
+			if = {
+				limit = { has_idea = farmers }
+				set_temp_variable = { temp_opinion = 5 }
+				change_farmers_opinion = yes
+			}
+			if = {
+				limit = { has_idea = small_medium_business_owners }
+				set_temp_variable = { temp_opinion = 5 }
+				change_small_medium_business_owners_opinion = yes
+			}
+			if = {
+				limit = { has_idea = industrial_conglomerates }
+				set_temp_variable = { temp_opinion = -3 }
+				change_industrial_conglomerates_opinion = yes
+			}
 			SAF = { country_event = { id = mad_diplomacy.60 days = 1 } }
 			custom_effect_tooltip = TT_IF_THEY_ACCEPT
 			effect_tooltip = {
@@ -16216,6 +16237,7 @@ focus_tree = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_dip_indian_geomatics"
 			RAJ = { country_event = { id = mad_diplomacy.40 days = 1 } }
 			custom_effect_tooltip = TT_IF_THEY_ACCEPT
+			custom_effect_tooltip = MAD_dip_indian_contribution_tt
 			effect_tooltip = {
 				add_timed_idea = { idea = MAD_dip_indian_geomatics_spirit days = 1825 }
 				add_to_tech_sharing_group = mad_indian_ocean_research
@@ -16298,8 +16320,9 @@ focus_tree = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_dip_mauritius_trade"
 			MRT = { country_event = { id = mad_diplomacy.20 days = 1 } }
 			custom_effect_tooltip = TT_IF_THEY_ACCEPT
+			custom_effect_tooltip = MAD_dip_mauritius_contribution_tt
 			effect_tooltip = {
-				add_timed_idea = { idea = MAD_dip_mauritius_trade_spirit days = 1825 }
+				add_ideas = MAD_dip_mauritius_trade_spirit
 				set_temp_variable = { receiver_nation = MRT.id }
 				set_temp_variable = { sender_nation = ROOT.id }
 				set_improved_trade_agreement = yes
@@ -16371,26 +16394,22 @@ focus_tree = {
 			if = {
 				limit = { country_exists = FRA NOT = { has_war_with = FRA } }
 				FRA = { country_event = { id = mad_diplomacy.35 days = 1 } }
-				custom_effect_tooltip = TT_IF_THEY_ACCEPT
 			}
 			if = {
-				limit = { has_country_flag = MAD_dip_mrt_ioc_accepted }
-				set_temp_variable = { percent_change = 1 }
-				set_temp_variable = { influence_target = MRT.id }
-				change_influence_percentage = yes
+				limit = { has_country_flag = MAD_dip_mrt_ioc_accepted country_exists = MRT NOT = { has_war_with = MRT } }
+				MRT = { country_event = { id = mad_diplomacy.36 days = 1 } }
 			}
 			if = {
-				limit = { has_country_flag = MAD_dip_com_ioc_accepted }
-				set_temp_variable = { percent_change = 1 }
-				set_temp_variable = { influence_target = COM.id }
-				change_influence_percentage = yes
+				limit = { has_country_flag = MAD_dip_com_ioc_accepted country_exists = COM NOT = { has_war_with = COM } }
+				COM = { country_event = { id = mad_diplomacy.37 days = 1 } }
 			}
 			if = {
-				limit = { has_country_flag = MAD_dip_sey_ioc_accepted }
-				set_temp_variable = { percent_change = 1 }
-				set_temp_variable = { influence_target = SEY.id }
-				change_influence_percentage = yes
+				limit = { has_country_flag = MAD_dip_sey_ioc_accepted country_exists = SEY NOT = { has_war_with = SEY } }
+				SEY = { country_event = { id = mad_diplomacy.38 days = 1 } }
 			}
+			custom_effect_tooltip = TT_IF_THEY_ACCEPT
+			custom_effect_tooltip = MAD_dip_swio_acceptance_tt
+			unlock_decision_category_tooltip = MAD_dip_cyclone_decisions
 			add_political_power = 15
 		}
 		ai_will_do = { base = 1 }
