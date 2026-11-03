@@ -4736,9 +4736,8 @@ MAD_OWNERSHIP_BOP = {
 	# ------------------------------------------------------------------------
 	# REPEATABLE PROGRAMMES
 	# Three cycles maximum per programme. Each cycle consumes RC and treasury.
-	# The completion event lets the player choose a public or private delivery
-	# model. Only the ownership BOP adjustment persists; the programme bonus is
-	# a timed idea lasting 180 days.
+	# Road maintenance offers its public/private delivery choice at launch (120-day idea),
+	# while the programme itself runs for 365 days. Other programme ideas use their own durations.
 	# GDP per capita is expressed in thousands of USD in Millennium Dawn.
 	# ------------------------------------------------------------------------
 
@@ -4770,15 +4769,16 @@ MAD_OWNERSHIP_BOP = {
 			modify_treasury_effect = yes
 			set_temp_variable = { MAD_rc_delta = -4 }
 			MAD_rural_cooperation_adjust = yes
+			# Choose the delivery model at launch. Its 120-day idea expires well before the programme completes.
+			country_event = { id = mad_policy_programmes.1 }
 		}
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Regional road maintenance programme completed"
+			# The additional building slot is awarded only after the full 365-day programme.
 			random_owned_controlled_state = {
 				limit = { NOT = { state = 267 } }
 				add_extra_state_shared_building_slots = 1
 			}
-			# Resolve the public/private delivery choice only after the 365-day programme finishes.
-			country_event = { id = mad_policy_programmes.1 }
 		}
 		ai_will_do = { base = 0 }
 	}
