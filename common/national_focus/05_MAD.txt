@@ -1522,10 +1522,8 @@ focus_tree = {
 			can_staff_an_offices = no
 			}
 			modifier = {
-			factor = 0
-			check_variable = {
-			
-			}
+				factor = 0
+				check_variable = { treasury < 15.5 }
 			}
 			modifier = {
 			factor = 0
@@ -1570,10 +1568,8 @@ focus_tree = {
 			can_staff_an_offices = no
 			}
 			modifier = {
-			factor = 0
-			check_variable = {
-			
-			}
+				factor = 0
+				check_variable = { treasury < 12 }
 			}
 			modifier = {
 			factor = 0
@@ -2865,10 +2861,8 @@ focus_tree = {
 			can_staff_an_offices = no
 			}
 			modifier = {
-			factor = 0
-			check_variable = {
-			
-			}
+				factor = 0
+				check_variable = { treasury < 16 }
 			}
 			modifier = {
 			factor = 0
@@ -4774,10 +4768,8 @@ focus_tree = {
 			can_staff_an_offices = no
 			}
 			modifier = {
-			factor = 0
-			check_variable = {
-			
-			}
+				factor = 0
+				check_variable = { treasury < 8 }
 			}
 			modifier = {
 			factor = 0
@@ -5595,10 +5587,8 @@ focus_tree = {
 			can_staff_an_offices = no
 			}
 			modifier = {
-			factor = 0
-			check_variable = {
-			
-			}
+				factor = 0
+				check_variable = { treasury < 12 }
 			}
 			modifier = {
 			factor = 0
@@ -6906,10 +6896,8 @@ focus_tree = {
 		ai_will_do = {
 			base = 1
 			modifier = {
-			factor = 0
-			check_variable = {
-			
-			}
+				factor = 0
+				check_variable = { treasury < 5 }
 			}
 		}
 	}
@@ -7473,10 +7461,8 @@ focus_tree = {
 		ai_will_do = {
 			base = 1
 			modifier = {
-			factor = 0
-			check_variable = {
-			
-			}
+				factor = 0
+				check_variable = { treasury < 3.75 }
 			}
 		}
 	}
@@ -7561,10 +7547,8 @@ focus_tree = {
 			can_staff_an_offices = no
 			}
 			modifier = {
-			factor = 0
-			check_variable = {
-			
-			}
+				factor = 0
+				check_variable = { treasury < 12 }
 			}
 			modifier = {
 			factor = 0
@@ -7686,10 +7670,8 @@ focus_tree = {
 			can_staff_an_offices = no
 			}
 			modifier = {
-			factor = 0
-			check_variable = {
-			
-			}
+				factor = 0
+				check_variable = { treasury < 15 }
 			}
 			modifier = {
 			factor = 0
@@ -7774,10 +7756,8 @@ focus_tree = {
 			can_staff_an_offices = no
 			}
 			modifier = {
-			factor = 0
-			check_variable = {
-			
-			}
+				factor = 0
+				check_variable = { treasury < 15 }
 			}
 		}
 	}
@@ -7978,10 +7958,8 @@ focus_tree = {
 			can_staff_an_offices = no
 			}
 			modifier = {
-			factor = 0
-			check_variable = {
-			
-			}
+				factor = 0
+				check_variable = { treasury < 12 }
 			}
 			modifier = {
 			factor = 0
@@ -8514,10 +8492,8 @@ focus_tree = {
 			can_staff_an_offices = no
 			}
 			modifier = {
-			factor = 0
-			check_variable = {
-			
-			}
+				factor = 0
+				check_variable = { treasury < 12 }
 			}
 			modifier = {
 			factor = 0
@@ -8706,10 +8682,8 @@ focus_tree = {
 			can_staff_an_offices = no
 			}
 			modifier = {
-			factor = 0
-			check_variable = {
-			
-			}
+				factor = 0
+				check_variable = { treasury < 12 }
 			}
 			modifier = {
 			factor = 0
@@ -9356,10 +9330,8 @@ focus_tree = {
 			can_staff_an_offices = no
 			}
 			modifier = {
-			factor = 0
-			check_variable = {
-			
-			}
+				factor = 0
+				check_variable = { treasury < 2.5 }
 			}
 		}
 	}
@@ -9422,10 +9394,8 @@ focus_tree = {
 			can_staff_an_offices = no
 			}
 			modifier = {
-			factor = 0
-			check_variable = {
-			
-			}
+				factor = 0
+				check_variable = { treasury < 12 }
 			}
 			modifier = {
 			factor = 0
@@ -9480,10 +9450,8 @@ focus_tree = {
 			can_staff_an_offices = no
 			}
 			modifier = {
-			factor = 0
-			check_variable = {
-			
-			}
+				factor = 0
+				check_variable = { treasury < 4 }
 			}
 		}
 	}
@@ -16126,21 +16094,21 @@ focus_tree = {
 		}
 	}
 
+
 	focus = {
 		id = MAD_dip_multipolar_policy
 		icon = diplomatic_treaty
 		x = 102
 		y = 10
 		cost = 3
+		prerequisite = { focus = MAD_POL_PARTIES }
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_FOREIGN_POLICY }
-
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_dip_multipolar_policy"
 			add_political_power = 25
 			add_ideas = MAD_dip_foreign_service
 			country_event = { id = mad_diplomacy.1 days = 1 }
 		}
-
 		ai_will_do = {
 			base = 1
 		}
@@ -16155,7 +16123,6 @@ focus_tree = {
 		cost = 3
 		prerequisite = { focus = MAD_dip_multipolar_policy }
 		search_filters = { FOCUS_FILTER_FOREIGN_POLICY FOCUS_FILTER_INFLUENCE }
-
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_dip_ioc_cooperation"
 			add_political_power = 20
@@ -16174,10 +16141,7 @@ focus_tree = {
 			custom_effect_tooltip = TT_IF_THEY_ACCEPT
 			custom_effect_tooltip = MAD_dip_ioc_cooperation_tt
 		}
-
-		ai_will_do = {
-			base = 1
-		}
+		ai_will_do = { base = 1 }
 	}
 
 	focus = {
@@ -16190,12 +16154,12 @@ focus_tree = {
 		prerequisite = { focus = MAD_dip_multipolar_policy }
 		search_filters = { FOCUS_FILTER_FOREIGN_POLICY FOCUS_FILTER_TRADE }
 		available = {
+			date > 2008.8.15
 			NOT = { has_idea = Reduced_Western_Sanctions }
 			NOT = { has_idea = Western_Sanctions }
 			NOT = { has_idea = international_sanctions }
 			NOT = { has_idea = Massive_International_Sanctions }
 		}
-
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_dip_sadc_trade"
 			custom_effect_tooltip = MAD_dip_sadc_domestic_implementation_tt
@@ -16234,13 +16198,9 @@ focus_tree = {
 				set_improved_trade_agreement = yes
 			}
 		}
-
 		ai_will_do = {
 			base = 1
-			modifier = {
-			factor = 0
-			has_active_mission = bankruptcy_incoming_collapse
-			}
+			modifier = { factor = 0 has_active_mission = bankruptcy_incoming_collapse }
 		}
 	}
 
@@ -16257,7 +16217,6 @@ focus_tree = {
 			country_exists = FRA
 			NOT = { has_war_with = FRA }
 		}
-
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_dip_franco_malagasy_dialogue"
 			FRA = { country_event = { id = mad_diplomacy.30 days = 1 } }
@@ -16266,10 +16225,7 @@ focus_tree = {
 				add_timed_idea = { idea = MAD_dip_franco_dialogue days = 1095 }
 			}
 		}
-
-		ai_will_do = {
-			base = 1
-		}
+		ai_will_do = { base = 1 }
 	}
 
 	focus = {
@@ -16286,7 +16242,6 @@ focus_tree = {
 			country_exists = RAJ
 			NOT = { has_war_with = RAJ }
 		}
-
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_dip_indian_geomatics"
 			RAJ = { country_event = { id = mad_diplomacy.40 days = 1 } }
@@ -16307,10 +16262,7 @@ focus_tree = {
 				}
 			}
 		}
-
-		ai_will_do = {
-			base = 1
-		}
+		ai_will_do = { base = 1 }
 	}
 
 	focus = {
@@ -16328,17 +16280,13 @@ focus_tree = {
 			NOT = { has_war_with = CHI }
 			CHI = { has_opinion = { target = MAD value > 20 } }
 		}
-
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_dip_china_industrial_partnership"
 			CHI = { country_event = { id = mad_diplomacy.50 days = 1 } }
 			custom_effect_tooltip = TT_IF_THEY_ACCEPT
 			custom_effect_tooltip = MAD_dip_china_partnership_terms_tt
 		}
-
-		ai_will_do = {
-			base = 1
-		}
+		ai_will_do = { base = 1 }
 	}
 
 	focus = {
@@ -16357,15 +16305,11 @@ focus_tree = {
 				NOT = { tag = ROOT }
 			}
 		}
-
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_dip_eu_epa"
 			country_event = { id = mad_diplomacy.70 days = 1 }
 		}
-
-		ai_will_do = {
-			base = 1
-		}
+		ai_will_do = { base = 1 }
 	}
 
 	focus = {
@@ -16381,7 +16325,6 @@ focus_tree = {
 			country_exists = MRT
 			NOT = { has_war_with = MRT }
 		}
-
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_dip_mauritius_trade"
 			MRT = { country_event = { id = mad_diplomacy.20 days = 1 } }
@@ -16394,13 +16337,9 @@ focus_tree = {
 				set_improved_trade_agreement = yes
 			}
 		}
-
 		ai_will_do = {
 			base = 1
-			modifier = {
-			factor = 0
-			has_active_mission = bankruptcy_incoming_collapse
-			}
+			modifier = { factor = 0 has_active_mission = bankruptcy_incoming_collapse }
 		}
 	}
 
@@ -16413,16 +16352,12 @@ focus_tree = {
 		cost = 3
 		prerequisite = { focus = MAD_dip_ioc_cooperation }
 		search_filters = { FOCUS_FILTER_ECONOMY FOCUS_FILTER_FOREIGN_POLICY }
-
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_dip_cyclone_network"
 			add_ideas = MAD_dip_cyclone_warning
 			unlock_decision_category_tooltip = MAD_dip_cyclone_decisions
 		}
-
-		ai_will_do = {
-			base = 1
-		}
+		ai_will_do = { base = 1 }
 	}
 
 	focus = {
@@ -16438,15 +16373,11 @@ focus_tree = {
 			country_exists = FRA
 			NOT = { has_war_with = FRA }
 		}
-
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_dip_iles_eparses"
 			country_event = { id = mad_diplomacy.31 days = 1 }
 		}
-
-		ai_will_do = {
-			base = 1
-		}
+		ai_will_do = { base = 1 }
 	}
 
 	focus = {
@@ -16461,7 +16392,6 @@ focus_tree = {
 		available = {
 			has_country_flag = MAD_dip_france_dialogue_accepted
 		}
-
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_dip_swio_maritime_safety"
 			add_timed_idea = { idea = MAD_dip_swio_safety days = 1825 }
@@ -16486,10 +16416,7 @@ focus_tree = {
 			unlock_decision_category_tooltip = MAD_dip_cyclone_decisions
 			add_political_power = 15
 		}
-
-		ai_will_do = {
-			base = 1
-		}
+		ai_will_do = { base = 1 }
 	}
 
 	focus = {
@@ -16501,18 +16428,12 @@ focus_tree = {
 		cost = 3
 		prerequisite = { focus = MAD_dip_eu_epa }
 		search_filters = { FOCUS_FILTER_ECONOMY FOCUS_FILTER_TRADE }
-		available = {
-			date > 2023.1.1
-		}
-
+		available = { date > 2023.1.1 }
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_dip_sustainable_fisheries"
 			country_event = { id = mad_diplomacy.80 days = 1 }
 		}
-
-		ai_will_do = {
-			base = 1
-		}
+		ai_will_do = { base = 1 }
 	}
 
 	focus = {
@@ -16524,16 +16445,12 @@ focus_tree = {
 		cost = 3
 		prerequisite = { focus = MAD_dip_sustainable_fisheries }
 		search_filters = { FOCUS_FILTER_ECONOMY FOCUS_FILTER_INDUSTRY }
-
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_dip_blue_economy"
 			add_ideas = MAD_dip_blue_economy_spirit
 			unlock_decision_category_tooltip = MAD_dip_blue_economy_decisions
 		}
-
-		ai_will_do = {
-			base = 1
-		}
+		ai_will_do = { base = 1 }
 	}
 
 	focus = {
@@ -16545,20 +16462,14 @@ focus_tree = {
 		cost = 3
 		prerequisite = { focus = MAD_dip_multipolar_policy }
 		search_filters = { FOCUS_FILTER_FOREIGN_POLICY FOCUS_FILTER_RESEARCH }
-		available = {
-			date > 2010.1.1
-		}
-
+		available = { date > 2010.1.1 }
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_dip_continental_shelf"
 			add_political_power = 25
 			add_timed_idea = { idea = MAD_dip_continental_shelf_dossier days = 1825 }
 			unlock_decision_category_tooltip = MAD_dip_shelf_decisions
 		}
-
-		ai_will_do = {
-			base = 1
-		}
+		ai_will_do = { base = 1 }
 	}
 
 }
