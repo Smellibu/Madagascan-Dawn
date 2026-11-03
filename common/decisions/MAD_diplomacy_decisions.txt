@@ -2,7 +2,10 @@ MAD_dip_cyclone_decisions = {
 	allowed = { tag = MAD }
 	icon = generic_construction
 	visible = {
-		has_completed_focus = MAD_dip_cyclone_network
+		OR = {
+			has_completed_focus = MAD_dip_cyclone_network
+			has_completed_focus = MAD_dip_swio_maritime_safety
+		}
 	}
 
 	MAD_dip_shared_forecasting = {
@@ -42,17 +45,17 @@ MAD_dip_cyclone_decisions = {
 		icon = generic_construction
 		visible = { has_completed_focus = MAD_dip_cyclone_network }
 		available = {
-			check_variable = { treasury > 0.75 }
+			check_variable = { treasury > 0.50 }
 			NOT = { has_active_mission = bankruptcy_incoming_collapse }
 		}
 		cost = 35
 		fire_only_once = yes
 		days_remove = 60
 		custom_cost_trigger = { always = yes }
-		custom_cost_text = cost_0_75
+		custom_cost_text = cost_0_5
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_dip_preposition_supplies started"
-			set_temp_variable = { treasury_change = -0.75 }
+			set_temp_variable = { treasury_change = -0.50 }
 			modify_treasury_effect = yes
 		}
 		remove_effect = {
@@ -98,9 +101,13 @@ MAD_dip_cyclone_decisions = {
 
 	MAD_dip_maritime_safety_drill = {
 		icon = generic_political_discourse
-		visible = { has_completed_focus = MAD_dip_swio_maritime_safety }
+		visible = {
+			has_completed_focus = MAD_dip_swio_maritime_safety
+			has_country_flag = MAD_dip_swio_exercise_unlocked
+		}
 		available = {
 			check_variable = { treasury > 0.25 }
+			has_country_flag = MAD_dip_swio_exercise_unlocked
 			NOT = { has_active_mission = bankruptcy_incoming_collapse }
 		}
 		cost = 35
@@ -137,17 +144,17 @@ MAD_dip_blue_economy_decisions = {
 		icon = generic_political_discourse
 		visible = { has_completed_focus = MAD_dip_blue_economy }
 		available = {
-			check_variable = { treasury > 0.50 }
+			check_variable = { treasury > 0.25 }
 			NOT = { has_active_mission = bankruptcy_incoming_collapse }
 		}
 		cost = 25
 		fire_only_once = yes
 		days_remove = 60
 		custom_cost_trigger = { always = yes }
-		custom_cost_text = cost_0_5
+		custom_cost_text = cost_0_25
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_dip_marine_resource_survey started"
-			set_temp_variable = { treasury_change = -0.50 }
+			set_temp_variable = { treasury_change = -0.25 }
 			modify_treasury_effect = yes
 		}
 		remove_effect = {
@@ -185,6 +192,14 @@ MAD_dip_blue_economy_decisions = {
 		}
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_dip_coastal_cold_chain completed"
+			random_owned_controlled_state = {
+				limit = { is_coastal = yes }
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
 			custom_effect_tooltip = {
 				localization_key = modifies_dynamic_modifier_tt
 				MODIFIER = MAD_economy_modifier
@@ -286,6 +301,7 @@ MAD_dip_shelf_decisions = {
 				uses = 2
 				bonus = 0.10
 			}
+			country_event = { id = mad_diplomacy.90 days = 1 }
 		}
 		ai_will_do = {
 			base = 1
