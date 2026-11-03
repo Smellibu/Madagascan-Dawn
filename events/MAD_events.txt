@@ -6373,8 +6373,7 @@ country_event = {
 		FROM = {
 			set_temp_variable = { treasury_change = -5.00 }
 			modify_treasury_effect = yes
-			set_temp_variable = { int_investment_change = 5.00 }
-			modify_international_investment_effect = yes
+			add_to_variable = { int_investments = 5.00 }
 			set_temp_variable = { percent_change = 3 }
 			set_temp_variable = { tag_index = THIS.id }
 			set_temp_variable = { influence_target = ROOT.id }
@@ -6421,8 +6420,7 @@ country_event = {
 		FROM = {
 			set_temp_variable = { treasury_change = -3.00 }
 			modify_treasury_effect = yes
-			set_temp_variable = { int_investment_change = 3.00 }
-			modify_international_investment_effect = yes
+			add_to_variable = { int_investments = 3.00 }
 			set_temp_variable = { percent_change = 2 }
 			set_temp_variable = { tag_index = THIS.id }
 			set_temp_variable = { influence_target = ROOT.id }
