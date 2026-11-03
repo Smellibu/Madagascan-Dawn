@@ -61,6 +61,11 @@ MAD_dip_cyclone_decisions = {
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_dip_preposition_supplies completed"
 			add_timed_idea = { idea = MAD_dip_cyclone_stockpiles days = 365 }
+			custom_effect_tooltip = {
+				localization_key = modifies_dynamic_modifier_tt
+				MODIFIER = MAD_economy_modifier
+			}
+			add_to_variable = { MAD_economy_expected_welfare_modifier = 0.02 tooltip = expected_welfare_modifier_tt }
 			add_command_power = 10
 		}
 		ai_will_do = {
