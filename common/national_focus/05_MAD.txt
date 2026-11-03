@@ -1790,6 +1790,7 @@ focus_tree = {
 			add_to_variable = { MAD_economy_receiving_investment_cost_modifier = -0.03 tooltip = receiving_investment_cost_modifier_tt }
 			add_to_variable = { MAD_economy_receiving_investment_duration_modifier = -0.03  tooltip = receiving_investment_duration_modifier_tt }
 			add_to_variable = { MAD_economy_production_speed_industrial_infrastructure_factor = 0.05 tooltip = production_speed_industrial_infrastructure_factor_tt }
+			country_event = { id = mad_qmm.1 days = 100 }
 		}
 
 		ai_will_do = {
@@ -1902,6 +1903,9 @@ focus_tree = {
 		cost = 3
 		prerequisite = { focus = MAD_Toliara_rare_earths }
 		search_filters = { FOCUS_FILTER_ECONOMY }
+		available = {
+			has_country_flag = MAD_QMM_LAGOON_SCANDAL_RESOLVED
+		}
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_TOLIARA_RANOBE_SURVEY"
@@ -2868,26 +2872,6 @@ focus_tree = {
 			factor = 0
 			has_active_mission = bankruptcy_incoming_collapse
 			}
-		}
-	}
-
-	focus = {
-		id = MAD_QMM_LAGOON_POLLUTION_SCANDAL
-		icon = water_conservation
-		x = 0
-		y = 1
-		relative_position_id = MAD_EHOALA_PORT
-		cost = 3
-		prerequisite = { focus = MAD_EHOALA_PORT }
-		search_filters = { FOCUS_FILTER_ECONOMY FOCUS_FILTER_STABILITY }
-
-		completion_reward = {
-			log = "[GetDateText]: [This.GetName]: Focus MAD_QMM_LAGOON_POLLUTION_SCANDAL"
-			country_event = mad_qmm.1
-		}
-
-		ai_will_do = {
-			base = 1
 		}
 	}
 
