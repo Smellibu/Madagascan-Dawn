@@ -3480,6 +3480,17 @@ MAD_MADAGASCAR_4_RELEASED = {
 			}
 		}
 
+		MAD_dip_foreign_service = {
+			name = MAD_dip_foreign_service
+			picture = GFX_idea_generic
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+			modifier = {
+				political_power_gain = 0.02
+				trade_opinion_factor = 0.02
+			}
+		}
+
 		MAD_dip_strategic_autonomy = {
 			name = MAD_dip_strategic_autonomy
 			picture = GFX_idea_generic
