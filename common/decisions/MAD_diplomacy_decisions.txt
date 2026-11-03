@@ -319,3 +319,74 @@ MAD_dip_shelf_decisions = {
 		}
 	}
 }
+
+MAD_dip_iles_campaign_decisions = {
+	allowed = { tag = MAD }
+	icon = generic_political_discourse
+	visible = { has_idea = MAD_dip_iles_campaign }
+
+	MAD_dip_maintain_iles_campaign = {
+		icon = generic_political_discourse
+		visible = {
+			has_idea = MAD_dip_iles_campaign
+			NOT = { has_country_flag = MAD_dip_iles_campaign_maintained }
+		}
+		available = {
+			check_variable = { treasury > 0.25 }
+			NOT = { has_active_mission = bankruptcy_incoming_collapse }
+		}
+		cost = 25
+		fire_only_once = yes
+		days_remove = 60
+		custom_cost_trigger = { always = yes }
+		custom_cost_text = cost_0_25
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_dip_maintain_iles_campaign started"
+			set_temp_variable = { treasury_change = -0.25 }
+			modify_treasury_effect = yes
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_dip_maintain_iles_campaign completed"
+			set_country_flag = MAD_dip_iles_campaign_maintained
+			add_timed_idea = { idea = MAD_dip_iles_campaign days = 1825 }
+			if = {
+				limit = { country_exists = RAJ NOT = { has_war_with = RAJ } }
+				set_temp_variable = { percent_change = 1 }
+				set_temp_variable = { influence_target = RAJ.id }
+				change_influence_percentage = yes
+				add_opinion_modifier = { target = RAJ modifier = declaration_of_friendship }
+				reverse_add_opinion_modifier = { target = RAJ modifier = declaration_of_friendship }
+			}
+			if = {
+				limit = { country_exists = MRT NOT = { has_war_with = MRT } }
+				set_temp_variable = { percent_change = 1 }
+				set_temp_variable = { influence_target = MRT.id }
+				change_influence_percentage = yes
+				add_opinion_modifier = { target = MRT modifier = declaration_of_friendship }
+				reverse_add_opinion_modifier = { target = MRT modifier = declaration_of_friendship }
+			}
+			if = {
+				limit = { country_exists = SEY NOT = { has_war_with = SEY } }
+				set_temp_variable = { percent_change = 1 }
+				set_temp_variable = { influence_target = SEY.id }
+				change_influence_percentage = yes
+				add_opinion_modifier = { target = SEY modifier = declaration_of_friendship }
+				reverse_add_opinion_modifier = { target = SEY modifier = declaration_of_friendship }
+			}
+			if = {
+				limit = { country_exists = COM NOT = { has_war_with = COM } }
+				set_temp_variable = { percent_change = 1 }
+				set_temp_variable = { influence_target = COM.id }
+				change_influence_percentage = yes
+				add_opinion_modifier = { target = COM modifier = declaration_of_friendship }
+				reverse_add_opinion_modifier = { target = COM modifier = declaration_of_friendship }
+			}
+		}
+		ai_will_do = {
+			base = 1
+			modifier = { factor = 0.5 ai_has_high_deficit = yes }
+			modifier = { factor = 0 has_active_mission = bankruptcy_incoming_collapse }
+		}
+	}
+}
+
