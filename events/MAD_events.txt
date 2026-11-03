@@ -6126,29 +6126,7 @@ country_event = {
 		add_opinion_modifier = { target = FROM modifier = diplomatic_support }
 		FROM = {
 			add_opinion_modifier = { target = ROOT modifier = diplomatic_support }
-			add_timed_idea = { idea = MAD_dip_iles_commission days = 1825 }
-			add_tech_bonus = {
-				name = MAD_dip_iles_maritime_research
-				category = CAT_naval_radar
-				uses = 2
-				bonus = 0.10
-			}
-			add_tech_bonus = {
-				name = MAD_dip_iles_marine_research
-				category = CAT_naval_electronics
-				uses = 2
-				bonus = 0.10
-			}
-			if = {
-				limit = { has_idea = international_bankers }
-				set_temp_variable = { temp_opinion = 3 }
-				change_international_bankers_opinion = yes
-			}
-			if = {
-				limit = { has_idea = the_military }
-				set_temp_variable = { temp_opinion = -3 }
-				change_the_military_opinion = yes
-			}
+			country_event = { id = mad_diplomacy.320 days = 1 }
 		}
 	}
 
@@ -6157,6 +6135,88 @@ country_event = {
 		log = "[GetDateText]: [This.GetName]: mad_diplomacy.32.b executed"
 		ai_chance = { base = 45 }
 		FROM = { country_event = { id = mad_diplomacy.33 days = 1 } }
+	}
+}
+
+country_event = {
+	id = mad_diplomacy.320
+	title = mad_diplomacy.320.t
+	desc = mad_diplomacy.320.d
+	picture = GFX_report_event_economy_default
+	is_triggered_only = yes
+
+	option = {
+		name = mad_diplomacy.320.a
+		log = "[GetDateText]: [This.GetName]: mad_diplomacy.320.a executed"
+		ai_chance = {
+			base = 55
+			modifier = { factor = 1.5 has_government = democratic }
+			modifier = { factor = 0.75 has_government = nationalist }
+		}
+		add_timed_idea = { idea = MAD_dip_iles_commission days = 1825 }
+		add_tech_bonus = {
+			name = MAD_dip_iles_maritime_research
+			category = CAT_naval_radar
+			uses = 2
+			bonus = 0.10
+		}
+		add_tech_bonus = {
+			name = MAD_dip_iles_marine_research
+			category = CAT_naval_electronics
+			uses = 2
+			bonus = 0.10
+		}
+		if = {
+			limit = { has_idea = international_bankers }
+			set_temp_variable = { temp_opinion = 5 }
+			change_international_bankers_opinion = yes
+		}
+		if = {
+			limit = { has_idea = the_military }
+			set_temp_variable = { temp_opinion = -5 }
+			change_the_military_opinion = yes
+		}
+	}
+
+	option = {
+		name = mad_diplomacy.320.b
+		log = "[GetDateText]: [This.GetName]: mad_diplomacy.320.b executed"
+		ai_chance = {
+			base = 45
+			modifier = { factor = 1.5 has_government = nationalist }
+			modifier = { factor = 1.25 has_government = neutrality }
+		}
+		add_political_power = 15
+		if = {
+			limit = { has_idea = the_military }
+			set_temp_variable = { temp_opinion = 5 }
+			change_the_military_opinion = yes
+		}
+		if = {
+			limit = { has_idea = labour_unions }
+			set_temp_variable = { temp_opinion = 5 }
+			change_labour_unions_opinion = yes
+		}
+		if = {
+			limit = { country_exists = RAJ NOT = { has_war_with = RAJ } }
+			add_opinion_modifier = { target = RAJ modifier = declaration_of_friendship }
+			reverse_add_opinion_modifier = { target = RAJ modifier = declaration_of_friendship }
+		}
+		if = {
+			limit = { country_exists = MRT NOT = { has_war_with = MRT } }
+			add_opinion_modifier = { target = MRT modifier = declaration_of_friendship }
+			reverse_add_opinion_modifier = { target = MRT modifier = declaration_of_friendship }
+		}
+		if = {
+			limit = { country_exists = SEY NOT = { has_war_with = SEY } }
+			add_opinion_modifier = { target = SEY modifier = declaration_of_friendship }
+			reverse_add_opinion_modifier = { target = SEY modifier = declaration_of_friendship }
+		}
+		if = {
+			limit = { country_exists = COM NOT = { has_war_with = COM } }
+			add_opinion_modifier = { target = COM modifier = declaration_of_friendship }
+			reverse_add_opinion_modifier = { target = COM modifier = declaration_of_friendship }
+		}
 	}
 }
 
