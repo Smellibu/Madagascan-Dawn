@@ -5968,29 +5968,29 @@ country_event = {
 	option = {
 		name = mad_diplomacy.20.a
 		log = "[GetDateText]: [This.GetName]: mad_diplomacy.20.a executed"
-\t\ttrigger = {
-\t\t\tNOT = { has_war_with = FROM }
-\t\t\thas_opinion = { target = FROM value > 15 }
-\t\t\tFROM = {
-\t\t\t\tcheck_variable = { treasury > 0.75 }
-\t\t\t\tNOT = { has_active_mission = bankruptcy_incoming_collapse }
-\t\t\t}
-\t\t}
-\t\tai_chance = {
-\t\t\tbase = 65
-\t\t\tmodifier = { add = 25 has_opinion = { target = FROM value > 50 } }
-\t\t\tmodifier = { factor = 0 has_war = yes }
-\t\t\tmodifier = { factor = 0 FROM = { has_active_mission = bankruptcy_incoming_collapse } }
-\t\t}
-\t\tadd_opinion_modifier = { target = FROM modifier = improve_trade }
-\t\tset_temp_variable = { receiver_nation = ROOT.id }
-\t\tset_temp_variable = { sender_nation = FROM.id }
-\t\tset_improved_trade_agreement = yes
-\t\tFROM = {
-\t\t\tset_temp_variable = { treasury_change = -0.75 }
-\t\t\tmodify_treasury_effect = yes
-\t\t\tadd_opinion_modifier = { target = ROOT modifier = improve_trade }
-\t\t\tadd_ideas = MAD_dip_mauritius_trade_spirit
+		trigger = {
+			NOT = { has_war_with = FROM }
+			has_opinion = { target = FROM value > 15 }
+			FROM = {
+				check_variable = { treasury > 0.75 }
+				NOT = { has_active_mission = bankruptcy_incoming_collapse }
+			}
+		}
+		ai_chance = {
+			base = 65
+			modifier = { add = 25 has_opinion = { target = FROM value > 50 } }
+			modifier = { factor = 0 has_war = yes }
+			modifier = { factor = 0 FROM = { has_active_mission = bankruptcy_incoming_collapse } }
+		}
+		add_opinion_modifier = { target = FROM modifier = improve_trade }
+		set_temp_variable = { receiver_nation = ROOT.id }
+		set_temp_variable = { sender_nation = FROM.id }
+		set_improved_trade_agreement = yes
+		FROM = {
+			set_temp_variable = { treasury_change = -0.75 }
+			modify_treasury_effect = yes
+			add_opinion_modifier = { target = ROOT modifier = improve_trade }
+			add_ideas = MAD_dip_mauritius_trade_spirit
 			if = {
 				limit = { has_idea = small_medium_business_owners }
 				set_temp_variable = { temp_opinion = 5 }
