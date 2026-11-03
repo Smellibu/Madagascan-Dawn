@@ -16106,6 +16106,7 @@ focus_tree = {
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_dip_multipolar_policy"
 			add_political_power = 25
+			add_ideas = MAD_dip_foreign_service
 			country_event = { id = mad_diplomacy.1 days = 1 }
 		}
 		ai_will_do = {
@@ -16462,6 +16463,7 @@ focus_tree = {
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_dip_continental_shelf"
 			add_political_power = 25
+			add_timed_idea = { idea = MAD_dip_continental_shelf_dossier days = 1825 }
 			unlock_decision_category_tooltip = MAD_dip_shelf_decisions
 		}
 		ai_will_do = { base = 1 }
