@@ -9053,7 +9053,17 @@ focus_tree = {
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_ROY_PEOPLES_GUARDIANS"
 			army_experience = 15
-			add_mastery = { amount = 10 folder = land }
+			if = {
+				limit = { has_subdoctrine_in_track = dedicated_doctrine }
+				add_mastery = {
+					amount = 10
+					folder = land
+					track = dedicated_doctrine
+				}
+			}
+			else = {
+				army_experience = 25
+			}
 			if = {
 				limit = { has_idea = the_military }
 				set_temp_variable = { temp_opinion = -5 }
@@ -9136,7 +9146,17 @@ focus_tree = {
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_ROY_ISRAEL_SECURITY"
 			army_experience = 20
-			add_mastery = { amount = 15 folder = land }
+			if = {
+				limit = { has_subdoctrine_in_track = leadership }
+				add_mastery = {
+					amount = 15
+					folder = land
+					track = leadership
+				}
+			}
+			else = {
+				army_experience = 25
+			}
 			add_tech_bonus = {
 				name = MAD_POL_ROY_ISRAEL_SECURITY
 				category = CAT_infantry
@@ -13872,7 +13892,17 @@ focus_tree = {
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_ARMY_THE_ARMY_WE_INHERITED"
 				army_experience = 15
-				add_mastery = { amount = 10 folder = land }
+				if = {
+					limit = { has_subdoctrine_in_track = structure_doctrine }
+					add_mastery = {
+						amount = 10
+						folder = land
+						track = structure_doctrine
+					}
+				}
+				else = {
+					army_experience = 25
+				}
 		}
 
 		ai_will_do = {
@@ -13911,7 +13941,17 @@ focus_tree = {
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_ARMY_BUILD_TRAINING_CADRE"
 				army_experience = 25
-				add_mastery = { amount = 15 folder = land }
+				if = {
+					limit = { has_subdoctrine_in_track = training }
+					add_mastery = {
+						amount = 15
+						folder = land
+						track = training
+					}
+				}
+				else = {
+					army_experience = 25
+				}
 				add_tech_bonus = {
 					name = MAD_ARMY_BUILD_TRAINING_CADRE
 					category = CAT_infantry
@@ -13937,7 +13977,17 @@ focus_tree = {
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_ARMY_STANDARDISE_FIELD_READINESS"
 				army_experience = 30
-				add_mastery = { amount = 20 folder = land }
+				if = {
+					limit = { has_subdoctrine_in_track = training }
+					add_mastery = {
+						amount = 20
+						folder = land
+						track = training
+					}
+				}
+				else = {
+					army_experience = 25
+				}
 				add_tech_bonus = {
 					name = MAD_ARMY_STANDARDISE_FIELD_READINESS
 					category = CAT_command_and_control_equipment
@@ -13969,7 +14019,17 @@ focus_tree = {
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_ARMY_ISLAND_INFANTRY_DOCTRINE"
 				army_experience = 25
-				add_mastery = { amount = 25 folder = land }
+				if = {
+					limit = { has_subdoctrine_in_track = dedicated_doctrine }
+					add_mastery = {
+						amount = 25
+						folder = land
+						track = dedicated_doctrine
+					}
+				}
+				else = {
+					army_experience = 25
+				}
 				add_tech_bonus = {
 					name = MAD_ARMY_ISLAND_INFANTRY_DOCTRINE
 					category = CAT_infantry
@@ -14135,7 +14195,17 @@ focus_tree = {
 			add_to_variable = { MAD_ARMY_CMD_TRAINING_TIME_FACTOR = -0.02 tooltip = training_time_factor_tt  }
 			add_to_variable = { MAD_ARMY_CMD_COMMAND_POWER_GAIN_MULT = -0.02 tooltip = command_power_gain_mult_tt }
 			add_to_variable = { MAD_ARMY_CMD_ARMY_ATTACK_FACTOR = -0.01 tooltip = army_attack_factor_tt }
-			add_mastery = { amount = 25 folder = land }
+			if = {
+				limit = { has_subdoctrine_in_track = leadership }
+				add_mastery = {
+					amount = 25
+					folder = land
+					track = leadership
+				}
+			}
+			else = {
+				army_experience = 25
+			}
 		}
 
 		ai_will_do = {
@@ -14162,7 +14232,17 @@ focus_tree = {
 			add_to_variable = { MAD_ARMY_CMD_PRODUCTION_SPEED_ARMS_FACTORY_FACTOR = 0.05 tooltip = production_speed_arms_factory_factor_tt }
 			add_to_variable = { MAD_ARMY_CMD_MILITARY_SPENDING_COST_FACTOR = -0.03 tooltip = military_spending_cost_factor_tt }
 			add_to_variable = { MAD_ARMY_CMD_SUPPLY_CONSUMPTION_FACTOR = -0.02 tooltip = supply_consumption_factor_tt }
-			add_mastery = { amount = 25 folder = land }
+			if = {
+				limit = { has_subdoctrine_in_track = structure_doctrine }
+				add_mastery = {
+					amount = 25
+					folder = land
+					track = structure_doctrine
+				}
+			}
+			else = {
+				army_experience = 25
+			}
 			add_tech_bonus = {
 				name = MAD_ARMY_CENTRALISED_PROCUREMENT
 				category = CAT_command_and_control_equipment
@@ -14197,7 +14277,17 @@ focus_tree = {
 			add_to_variable = { MAD_ARMY_CMD_SUPPLY_CONSUMPTION_FACTOR = -0.02 tooltip = supply_consumption_factor_tt }
 			add_to_variable = { MAD_ARMY_CMD_REQUIRED_GARRISON_FACTOR = 0.02 tooltip = required_garrison_factor_tt }
 			add_to_variable = { MAD_ARMY_CMD_ARMY_ATTACK_FACTOR = -0.01 tooltip = army_attack_factor_tt }
-			add_mastery = { amount = 20 folder = land }
+			if = {
+				limit = { has_subdoctrine_in_track = structure_doctrine }
+				add_mastery = {
+					amount = 20
+					folder = land
+					track = structure_doctrine
+				}
+			}
+			else = {
+				army_experience = 25
+			}
 		}
 
 		ai_will_do = {
@@ -14217,7 +14307,17 @@ focus_tree = {
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_ARMY_REFIT_RIFLE_COMPANIES"
 				army_experience = 15
-				add_mastery = { amount = 15 folder = land }
+				if = {
+					limit = { has_subdoctrine_in_track = infantry_weapons_type }
+					add_mastery = {
+						amount = 15
+						folder = equipment
+						track = infantry_weapons_type
+					}
+				}
+				else = {
+					army_experience = 25
+				}
 				add_tech_bonus = {
 					name = MAD_ARMY_REFIT_RIFLE_COMPANIES
 					category = CAT_infantry
@@ -14267,7 +14367,17 @@ focus_tree = {
 					uses = 3
 					bonus = 0.50
 				}
-				add_mastery = { amount = 25 folder = land }
+				if = {
+					limit = { has_subdoctrine_in_track = infantry_weapons_type }
+					add_mastery = {
+						amount = 25
+						folder = equipment
+						track = infantry_weapons_type
+					}
+				}
+				else = {
+					army_experience = 25
+				}
 				army_experience = 20
 		}
 
@@ -14289,7 +14399,17 @@ focus_tree = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_ARMY_FIELD_ENGINEERING_STANDARDS"
 			add_to_variable = { terrain_penalty_reduction = 0.02 }
 			add_to_variable = { supply_consumption_factor = -0.02 }
-			add_mastery = { amount = 25 folder = land }
+			if = {
+				limit = { has_subdoctrine_in_track = operational_theory }
+				add_mastery = {
+					amount = 25
+					folder = land
+					track = operational_theory
+				}
+			}
+			else = {
+				army_experience = 25
+			}
 			army_experience = 25
 		}
 
@@ -14318,7 +14438,17 @@ focus_tree = {
 				uses = 2
 				bonus = 0.40
 			}
-			add_mastery = { amount = 15 folder = naval }
+			if = {
+				limit = { has_subdoctrine_in_track = operations }
+				add_mastery = {
+					amount = 15
+					folder = naval
+					track = operations
+				}
+			}
+			else = {
+				navy_experience = 25
+			}
 			navy_experience = 15
 			army_experience = 15
 		}
@@ -14367,7 +14497,17 @@ focus_tree = {
 				uses = 2
 				bonus = 0.40
 			}
-			add_mastery = { amount = 20 folder = land }
+			if = {
+				limit = { has_subdoctrine_in_track = training }
+				add_mastery = {
+					amount = 20
+					folder = land
+					track = training
+				}
+			}
+			else = {
+				army_experience = 25
+			}
 			army_experience = 20
 		}
 
@@ -14445,7 +14585,17 @@ focus_tree = {
 				add_opinion_modifier = { target = FRA modifier = military_cooperation }
 			}
 			add_breakthrough_progress = { specialization = specialization_air value = sp_breakthrough_progress.medium }
-			add_mastery = { amount = 20 folder = air }
+			if = {
+				limit = { has_subdoctrine_in_track = training_and_ops }
+				add_mastery = {
+					amount = 20
+					folder = air
+					track = training_and_ops
+				}
+			}
+			else = {
+				air_experience = 25
+			}
 			air_experience = 20
 			army_experience = 20
 			if = {
@@ -14478,7 +14628,17 @@ focus_tree = {
 				bonus = 0.35
 			}
 			country_event = { id = MAD_military_procurement.6 days = 1 }
-			add_mastery = { amount = 20 folder = air }
+			if = {
+				limit = { has_subdoctrine_in_track = heavy_aircraft }
+				add_mastery = {
+					amount = 20
+					folder = air
+					track = heavy_aircraft
+				}
+			}
+			else = {
+				air_experience = 25
+			}
 			air_experience = 25
 			army_experience = 20
 		}
@@ -14552,7 +14712,17 @@ focus_tree = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_ARMY_LAND_FORCES_MODERNISATION_PLAN"
 			remove_ideas = MAD_ARMY_INHERITED_BURDEN
 			army_experience = 30
-			add_mastery = { amount = 30 folder = land }
+			if = {
+				limit = { has_subdoctrine_in_track = operational_theory }
+				add_mastery = {
+					amount = 30
+					folder = land
+					track = operational_theory
+				}
+			}
+			else = {
+				army_experience = 30
+			}
 		}
 
 		ai_will_do = {
@@ -14597,7 +14767,17 @@ focus_tree = {
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_ARMY_DEFENCE_INDUSTRIAL_PLANNING"
 				add_ideas = MAD_ARMY_DEFENCE_INDUSTRIAL_FRAMEWORK
-				add_mastery = { amount = 20 folder = land }
+				if = {
+					limit = { has_subdoctrine_in_track = technology }
+					add_mastery = {
+						amount = 20
+						folder = land
+						track = technology
+					}
+				}
+				else = {
+					army_experience = 25
+				}
 		}
 
 		ai_will_do = {
@@ -14669,7 +14849,17 @@ focus_tree = {
 			modify_treasury_effect = yes
 			add_to_variable = { supply_consumption_factor = -0.04 }
 			army_experience = 25
-			add_mastery = { amount = 20 folder = land }
+			if = {
+				limit = { has_subdoctrine_in_track = operational_theory }
+				add_mastery = {
+					amount = 20
+					folder = land
+					track = operational_theory
+				}
+			}
+			else = {
+				army_experience = 25
+			}
 			if = {
 				limit = { has_dlc = "Arms Against Tyranny" }
 				mio:MAD_MALAGASY_MOBILITY = { add_mio_size = 1 }
@@ -14734,7 +14924,17 @@ focus_tree = {
 			set_temp_variable = { treasury_change = -1.75 }
 			modify_treasury_effect = yes
 			add_breakthrough_points = { specialization = specialization_air value = 1 }
-			add_mastery = { amount = 25 folder = land }
+			if = {
+				limit = { has_subdoctrine_in_track = drone_warfare }
+				add_mastery = {
+					amount = 25
+					folder = air
+					track = drone_warfare
+				}
+			}
+			else = {
+				air_experience = 25
+			}
 			air_experience = 20
 			army_experience = 20
 		}
@@ -14763,7 +14963,17 @@ focus_tree = {
 				uses = 2
 				bonus = 0.50
 			}
-			add_mastery = { amount = 25 folder = land }
+			if = {
+				limit = { has_subdoctrine_in_track = mechanized_equipment }
+				add_mastery = {
+					amount = 25
+					folder = equipment
+					track = mechanized_equipment
+				}
+			}
+			else = {
+				army_experience = 25
+			}
 			army_experience = 25
 		}
 
@@ -14812,7 +15022,17 @@ focus_tree = {
 				uses = 2
 				bonus = 0.50
 			}
-			add_mastery = { amount = 20 folder = land }
+			if = {
+				limit = { has_subdoctrine_in_track = technology }
+				add_mastery = {
+					amount = 20
+					folder = land
+					track = technology
+				}
+			}
+			else = {
+				army_experience = 25
+			}
 			army_experience = 15
 		}
 
@@ -14847,7 +15067,17 @@ focus_tree = {
 					bonus = 0.35
 				}
 			add_breakthrough_points = { specialization = specialization_air value = 1 }
-				add_mastery = { amount = 25 folder = air }
+				if = {
+					limit = { has_subdoctrine_in_track = training_and_ops }
+					add_mastery = {
+						amount = 25
+						folder = air
+						track = training_and_ops
+					}
+				}
+				else = {
+					air_experience = 25
+				}
 				air_experience = 30
 		}
 
@@ -14875,7 +15105,17 @@ focus_tree = {
 				bonus = 0.40
 			}
 			air_experience = 25
-			add_mastery = { amount = 20 folder = air }
+			if = {
+				limit = { has_subdoctrine_in_track = heavy_aircraft }
+				add_mastery = {
+					amount = 20
+					folder = air
+					track = heavy_aircraft
+				}
+			}
+			else = {
+				air_experience = 25
+			}
 		}
 
 		ai_will_do = {
@@ -14901,7 +15141,17 @@ focus_tree = {
 				limit = { has_dlc = "Arms Against Tyranny" }
 				mio:MAD_IVATO_AEROSYSTEMS = { add_mio_size = 2 }
 			}
-			add_mastery = { amount = 20 folder = air }
+			if = {
+				limit = { has_subdoctrine_in_track = aircraft_design }
+				add_mastery = {
+					amount = 20
+					folder = air
+					track = aircraft_design
+				}
+			}
+			else = {
+				air_experience = 25
+			}
 			add_tech_bonus = {
 				name = MAD_ARMY_AEROSPACE_SUPPLY_CHAIN
 				category = CAT_aircraft
@@ -14949,7 +15199,17 @@ focus_tree = {
 				uses = 3
 				bonus = 0.50
 			}
-			add_mastery = { amount = 25 folder = land }
+			if = {
+				limit = { has_subdoctrine_in_track = technology }
+				add_mastery = {
+					amount = 25
+					folder = land
+					track = technology
+				}
+			}
+			else = {
+				army_experience = 25
+			}
 			army_experience = 20
 		}
 
@@ -15007,7 +15267,17 @@ focus_tree = {
 				uses = 2
 				bonus = 0.35
 			}
-			add_mastery = { amount = 30 folder = land }
+			if = {
+				limit = { has_subdoctrine_in_track = technology }
+				add_mastery = {
+					amount = 30
+					folder = land
+					track = technology
+				}
+			}
+			else = {
+				army_experience = 30
+			}
 			army_experience = 30
 		}
 
@@ -15040,7 +15310,17 @@ focus_tree = {
 				uses = 2
 				bonus = 0.40
 			}
-			add_mastery = { amount = 30 folder = land }
+			if = {
+				limit = { has_subdoctrine_in_track = arty_equipment }
+				add_mastery = {
+					amount = 30
+					folder = equipment
+					track = arty_equipment
+				}
+			}
+			else = {
+				army_experience = 30
+			}
 			army_experience = 25
 		}
 
@@ -15067,7 +15347,17 @@ focus_tree = {
 				uses = 2
 				bonus = 0.50
 			}
-			add_mastery = { amount = 30 folder = land }
+			if = {
+				limit = { has_subdoctrine_in_track = tank_equipment }
+				add_mastery = {
+					amount = 30
+					folder = equipment
+					track = tank_equipment
+				}
+			}
+			else = {
+				army_experience = 30
+			}
 			army_experience = 25
 		}
 
@@ -15098,8 +15388,28 @@ focus_tree = {
 				uses = 2
 				bonus = 0.40
 			}
-			add_mastery = { amount = 20 folder = naval }
-			add_mastery = { amount = 15 folder = land }
+			if = {
+				limit = { has_subdoctrine_in_track = operations }
+				add_mastery = {
+					amount = 20
+					folder = naval
+					track = operations
+				}
+			}
+			else = {
+				navy_experience = 25
+			}
+			if = {
+				limit = { has_subdoctrine_in_track = operational_theory }
+				add_mastery = {
+					amount = 15
+					folder = land
+					track = operational_theory
+				}
+			}
+			else = {
+				army_experience = 25
+			}
 			navy_experience = 20
 		}
 
@@ -15124,7 +15434,17 @@ focus_tree = {
 			set_temp_variable = { treasury_change = -15.0 }
 			modify_treasury_effect = yes
 			add_to_variable = { supply_consumption_factor = -0.03 }
-			add_mastery = { amount = 30 folder = land }
+			if = {
+				limit = { has_subdoctrine_in_track = operational_theory }
+				add_mastery = {
+					amount = 30
+					folder = land
+					track = operational_theory
+				}
+			}
+			else = {
+				army_experience = 30
+			}
 			army_experience = 25
 		}
 
@@ -15159,8 +15479,28 @@ focus_tree = {
 					uses = 3
 					bonus = 0.45
 				}
-				add_mastery = { amount = 25 folder = land }
-				add_mastery = { amount = 20 folder = air }
+				if = {
+					limit = { has_subdoctrine_in_track = operational_theory }
+					add_mastery = {
+						amount = 25
+						folder = land
+						track = operational_theory
+					}
+				}
+				else = {
+					army_experience = 25
+				}
+				if = {
+					limit = { has_subdoctrine_in_track = training_and_ops }
+					add_mastery = {
+						amount = 20
+						folder = air
+						track = training_and_ops
+					}
+				}
+				else = {
+					air_experience = 25
+				}
 				army_experience = 25
 				air_experience = 20
 		}
@@ -15355,7 +15695,17 @@ focus_tree = {
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_NAVAL_FORCE_REVIEW"
 					navy_experience = 10
-								add_mastery = { amount = 10 folder = naval }
+								if = {
+									limit = { has_subdoctrine_in_track = escort_ships }
+									add_mastery = {
+										amount = 10
+										folder = naval
+										track = escort_ships
+									}
+								}
+								else = {
+									navy_experience = 25
+								}
 		}
 
 		ai_will_do = {
@@ -15522,7 +15872,17 @@ focus_tree = {
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_JOINT_MARITIME_OPERATIONS"
 					navy_experience = 10
-								add_mastery = { amount = 10 folder = naval }
+								if = {
+									limit = { has_subdoctrine_in_track = operations }
+									add_mastery = {
+										amount = 10
+										folder = naval
+										track = operations
+									}
+								}
+								else = {
+									navy_experience = 25
+								}
 								country_event = { id = mad_naval.2 days = 1 }
 		}
 
@@ -15604,9 +15964,32 @@ focus_tree = {
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_DRAFT_THE_MALAGASY_CORVETTE"
 						navy_experience = 15
-									add_mastery = { amount = 15 folder = naval }
+									if = {
+										limit = { has_subdoctrine_in_track = escort_ships }
+										add_mastery = {
+											amount = 15
+											folder = naval
+											track = escort_ships
+										}
+									}
+									else = {
+										navy_experience = 25
+									}
 			
-						if = { limit = { has_country_flag = MAD_NAVAL_PROGRAMME_INTERCEPTORS } add_mastery = { amount = 10 folder = naval } }
+						if = {
+							limit = { has_country_flag = MAD_NAVAL_PROGRAMME_INTERCEPTORS }
+							if = {
+								limit = { has_subdoctrine_in_track = escort_ships }
+								add_mastery = {
+									amount = 10
+									folder = naval
+									track = escort_ships
+								}
+							}
+							else = {
+								navy_experience = 25
+							}
+						}
 						if = { limit = { has_country_flag = MAD_NAVAL_PROGRAMME_SURVEILLANCE } add_tech_bonus = { name = MAD_NAVAL_JOINT_PICTURE category = CAT_naval_radar bonus = 0.25 uses = 1 } }
 									country_event = { id = mad_naval.3 days = 1 }
 		}
@@ -15693,7 +16076,17 @@ focus_tree = {
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_CORVETTE_SEA_TRIALS"
 					navy_experience = 25
-								add_mastery = { amount = 20 folder = naval }
+								if = {
+									limit = { has_subdoctrine_in_track = escort_ships }
+									add_mastery = {
+										amount = 20
+										folder = naval
+										track = escort_ships
+									}
+								}
+								else = {
+									navy_experience = 25
+								}
 								country_event = { id = mad_naval.4 days = 1 }
 		}
 
@@ -15756,7 +16149,17 @@ focus_tree = {
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_ESTABLISH_THE_FIRST_CORVETTE_SQUADRON"
 					navy_experience = 25
-								add_mastery = { amount = 20 folder = naval }
+								if = {
+									limit = { has_subdoctrine_in_track = escort_ships }
+									add_mastery = {
+										amount = 20
+										folder = naval
+										track = escort_ships
+									}
+								}
+								else = {
+									navy_experience = 25
+								}
 								if = { limit = { has_country_flag = MAD_CORVETTE_ROLE_MULTIPURPOSE } add_tech_bonus = { name = MAD_NAVAL_SQUADRON_TRAINING category = CAT_naval_modules bonus = 0.25 uses = 1 } }
 		}
 
@@ -15833,7 +16236,17 @@ focus_tree = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_SHIPBORNE_HELICOPTER_DOCTRINE"
 					add_tech_bonus = { name = MAD_NAVAL_SHIPBORNE_AVIATION category = CAT_helicopter_operators bonus = 0.35 uses = 1 }
 								add_tech_bonus = { name = MAD_NAVAL_SHIPBORNE_AVIATION category = CAT_naval_modules bonus = 0.25 uses = 1 }
-								add_mastery = { amount = 15 folder = naval }
+								if = {
+									limit = { has_subdoctrine_in_track = capital_ships }
+									add_mastery = {
+										amount = 15
+										folder = naval
+										track = capital_ships
+									}
+								}
+								else = {
+									navy_experience = 25
+								}
 		}
 
 		ai_will_do = {
@@ -15887,7 +16300,17 @@ focus_tree = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_HELICOPTER_OPERATOR_CONCEPT"
 					add_tech_bonus = { name = MAD_NAVAL_HELICOPTER_OPERATOR_CONCEPT category = CAT_helicopter_operators bonus = 0.50 uses = 1 }
 								navy_experience = 30
-								add_mastery = { amount = 25 folder = naval }
+								if = {
+									limit = { has_subdoctrine_in_track = capital_ships }
+									add_mastery = {
+										amount = 25
+										folder = naval
+										track = capital_ships
+									}
+								}
+								else = {
+									navy_experience = 25
+								}
 								country_event = { id = mad_naval.6 days = 1 }
 		}
 

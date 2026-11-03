@@ -3779,7 +3779,17 @@ country_event = {
 		}
 		add_opinion_modifier = { target = FRA modifier = military_cooperation }
 		army_experience = 15
-		add_mastery = { amount = 10 folder = land }
+		if = {
+			limit = { has_subdoctrine_in_track = infantry_weapons_type }
+			add_mastery = {
+				amount = 10
+				folder = equipment
+				track = infantry_weapons_type
+			}
+		}
+		else = {
+			army_experience = 25
+		}
 	}
 }
 
@@ -3806,7 +3816,17 @@ country_event = {
 			add_opinion_modifier = { target = ROOT modifier = military_cooperation }
 		}
 		add_opinion_modifier = { target = SOV modifier = military_cooperation }
-		add_mastery = { amount = 15 folder = land }
+		if = {
+			limit = { has_subdoctrine_in_track = motorized_equipment }
+			add_mastery = {
+				amount = 15
+				folder = equipment
+				track = motorized_equipment
+			}
+		}
+		else = {
+			army_experience = 25
+		}
 		army_experience = 15
 	}
 	option = {
@@ -3825,7 +3845,17 @@ country_event = {
 			add_opinion_modifier = { target = ROOT modifier = military_cooperation }
 		}
 		add_opinion_modifier = { target = SAF modifier = military_cooperation }
-		add_mastery = { amount = 20 folder = land }
+		if = {
+			limit = { has_subdoctrine_in_track = motorized_equipment }
+			add_mastery = {
+				amount = 20
+				folder = equipment
+				track = motorized_equipment
+			}
+		}
+		else = {
+			army_experience = 25
+		}
 		army_experience = 15
 	}
 	option = {
@@ -3844,7 +3874,17 @@ country_event = {
 			add_opinion_modifier = { target = ROOT modifier = military_cooperation }
 		}
 		add_opinion_modifier = { target = FRA modifier = military_cooperation }
-		add_mastery = { amount = 15 folder = land }
+		if = {
+			limit = { has_subdoctrine_in_track = motorized_equipment }
+			add_mastery = {
+				amount = 15
+				folder = equipment
+				track = motorized_equipment
+			}
+		}
+		else = {
+			army_experience = 25
+		}
 		army_experience = 15
 	}
 }
@@ -3860,9 +3900,39 @@ country_event = {
 	option = {
 		name = MAD_military_procurement.3.a
 		log = "[GetDateText]: [Root.GetName]: French-led interoperability exercise"
-		add_mastery = { amount = 15 folder = land }
-		add_mastery = { amount = 25 folder = naval }
-		add_mastery = { amount = 25 folder = air }
+		if = {
+			limit = { has_subdoctrine_in_track = operational_theory }
+			add_mastery = {
+				amount = 15
+				folder = land
+				track = operational_theory
+			}
+		}
+		else = {
+			army_experience = 25
+		}
+		if = {
+			limit = { has_subdoctrine_in_track = operations }
+			add_mastery = {
+				amount = 25
+				folder = naval
+				track = operations
+			}
+		}
+		else = {
+			navy_experience = 25
+		}
+		if = {
+			limit = { has_subdoctrine_in_track = training_and_ops }
+			add_mastery = {
+				amount = 25
+				folder = air
+				track = training_and_ops
+			}
+		}
+		else = {
+			air_experience = 25
+		}
 		army_experience = 20
 		navy_experience = 20
 		air_experience = 25
@@ -3877,9 +3947,39 @@ country_event = {
 	option = {
 		name = MAD_military_procurement.3.b
 		log = "[GetDateText]: [Root.GetName]: IOC multinational doctrine exercise"
-		add_mastery = { amount = 20 folder = land }
-		add_mastery = { amount = 20 folder = naval }
-		add_mastery = { amount = 20 folder = air }
+		if = {
+			limit = { has_subdoctrine_in_track = operational_theory }
+			add_mastery = {
+				amount = 20
+				folder = land
+				track = operational_theory
+			}
+		}
+		else = {
+			army_experience = 25
+		}
+		if = {
+			limit = { has_subdoctrine_in_track = operations }
+			add_mastery = {
+				amount = 20
+				folder = naval
+				track = operations
+			}
+		}
+		else = {
+			navy_experience = 25
+		}
+		if = {
+			limit = { has_subdoctrine_in_track = training_and_ops }
+			add_mastery = {
+				amount = 20
+				folder = air
+				track = training_and_ops
+			}
+		}
+		else = {
+			air_experience = 25
+		}
 		army_experience = 25
 		navy_experience = 20
 		air_experience = 20
@@ -3895,9 +3995,39 @@ country_event = {
 	option = {
 		name = MAD_military_procurement.3.c
 		log = "[GetDateText]: [Root.GetName]: Malagasy field doctrine"
-		add_mastery = { amount = 30 folder = land }
-		add_mastery = { amount = 10 folder = naval }
-		add_mastery = { amount = 10 folder = air }
+		if = {
+			limit = { has_subdoctrine_in_track = operational_theory }
+			add_mastery = {
+				amount = 30
+				folder = land
+				track = operational_theory
+			}
+		}
+		else = {
+			army_experience = 30
+		}
+		if = {
+			limit = { has_subdoctrine_in_track = operations }
+			add_mastery = {
+				amount = 10
+				folder = naval
+				track = operations
+			}
+		}
+		else = {
+			navy_experience = 25
+		}
+		if = {
+			limit = { has_subdoctrine_in_track = training_and_ops }
+			add_mastery = {
+				amount = 10
+				folder = air
+				track = training_and_ops
+			}
+		}
+		else = {
+			air_experience = 25
+		}
 		army_experience = 30
 		navy_experience = 10
 		air_experience = 10
@@ -3951,7 +4081,17 @@ country_event = {
 			add_opinion_modifier = { target = ROOT modifier = military_cooperation }
 		}
 		add_opinion_modifier = { target = SAF modifier = military_cooperation }
-		add_mastery = { amount = 15 folder = land }
+		if = {
+			limit = { has_subdoctrine_in_track = motorized_equipment }
+			add_mastery = {
+				amount = 15
+				folder = equipment
+				track = motorized_equipment
+			}
+		}
+		else = {
+			army_experience = 25
+		}
 		army_experience = 15
 	}
 	option = {
@@ -3970,7 +4110,17 @@ country_event = {
 			add_opinion_modifier = { target = ROOT modifier = military_cooperation }
 		}
 		add_opinion_modifier = { target = TUR modifier = military_cooperation }
-		add_mastery = { amount = 20 folder = land }
+		if = {
+			limit = { has_subdoctrine_in_track = motorized_equipment }
+			add_mastery = {
+				amount = 20
+				folder = equipment
+				track = motorized_equipment
+			}
+		}
+		else = {
+			army_experience = 25
+		}
 		army_experience = 15
 	}
 }
@@ -4001,7 +4151,17 @@ country_event = {
 		}
 		add_opinion_modifier = { target = SAF modifier = military_cooperation }
 		add_ideas = MAD_ARMY_HELICOPTER_PRIORITY
-		add_mastery = { amount = 15 folder = air }
+		if = {
+			limit = { has_subdoctrine_in_track = training_and_ops }
+			add_mastery = {
+				amount = 15
+				folder = air
+				track = training_and_ops
+			}
+		}
+		else = {
+			air_experience = 25
+		}
 		air_experience = 25
 		army_experience = 10
 	}
@@ -4021,7 +4181,17 @@ country_event = {
 			add_opinion_modifier = { target = ROOT modifier = military_cooperation }
 		}
 		add_opinion_modifier = { target = FRA modifier = military_cooperation }
-		add_mastery = { amount = 20 folder = air }
+		if = {
+			limit = { has_subdoctrine_in_track = heavy_aircraft }
+			add_mastery = {
+				amount = 20
+				folder = air
+				track = heavy_aircraft
+			}
+		}
+		else = {
+			air_experience = 25
+		}
 		air_experience = 30
 	}
 	option = {
@@ -4052,7 +4222,17 @@ country_event = {
 		add_opinion_modifier = { target = SAF modifier = military_cooperation }
 		add_opinion_modifier = { target = FRA modifier = military_cooperation }
 		add_ideas = MAD_ARMY_HELICOPTER_PRIORITY
-		add_mastery = { amount = 20 folder = air }
+		if = {
+			limit = { has_subdoctrine_in_track = training_and_ops }
+			add_mastery = {
+				amount = 20
+				folder = air
+				track = training_and_ops
+			}
+		}
+		else = {
+			air_experience = 25
+		}
 		army_experience = 20
 		air_experience = 30
 	}
@@ -4166,7 +4346,17 @@ country_event = {
 			add_opinion_modifier = { target = ROOT modifier = military_cooperation }
 		}
 		add_opinion_modifier = { target = FRA modifier = military_cooperation }
-		add_mastery = { amount = 25 folder = land }
+		if = {
+			limit = { has_subdoctrine_in_track = arty_equipment }
+			add_mastery = {
+				amount = 25
+				folder = equipment
+				track = arty_equipment
+			}
+		}
+		else = {
+			army_experience = 25
+		}
 	}
 	option = {
 		name = MAD_military_industry.2.b
@@ -4184,7 +4374,17 @@ country_event = {
 			add_opinion_modifier = { target = ROOT modifier = military_cooperation }
 		}
 		add_opinion_modifier = { target = TUR modifier = military_cooperation }
-		add_mastery = { amount = 30 folder = land }
+		if = {
+			limit = { has_subdoctrine_in_track = arty_equipment }
+			add_mastery = {
+				amount = 30
+				folder = equipment
+				track = arty_equipment
+			}
+		}
+		else = {
+			army_experience = 30
+		}
 	}
 	option = {
 		name = MAD_military_industry.2.c
@@ -4202,7 +4402,17 @@ country_event = {
 			add_opinion_modifier = { target = ROOT modifier = military_cooperation }
 		}
 		add_opinion_modifier = { target = RAJ modifier = military_cooperation }
-		add_mastery = { amount = 20 folder = land }
+		if = {
+			limit = { has_subdoctrine_in_track = arty_equipment }
+			add_mastery = {
+				amount = 20
+				folder = equipment
+				track = arty_equipment
+			}
+		}
+		else = {
+			army_experience = 25
+		}
 	}
 }
 
@@ -4230,7 +4440,17 @@ country_event = {
 		}
 		add_opinion_modifier = { target = FRA modifier = military_cooperation }
 		add_tech_bonus = { name = MAD_military_industry_3_france category = CAT_artillery uses = 2 bonus = 0.40 }
-		add_mastery = { amount = 30 folder = land }
+		if = {
+			limit = { has_subdoctrine_in_track = arty_equipment }
+			add_mastery = {
+				amount = 30
+				folder = equipment
+				track = arty_equipment
+			}
+		}
+		else = {
+			army_experience = 30
+		}
 		army_experience = 25
 	}
 	option = {
@@ -4250,7 +4470,17 @@ country_event = {
 		}
 		add_opinion_modifier = { target = TUR modifier = military_cooperation }
 		add_tech_bonus = { name = MAD_military_industry_3_turkey category = CAT_artillery uses = 2 bonus = 0.40 }
-		add_mastery = { amount = 30 folder = land }
+		if = {
+			limit = { has_subdoctrine_in_track = arty_equipment }
+			add_mastery = {
+				amount = 30
+				folder = equipment
+				track = arty_equipment
+			}
+		}
+		else = {
+			army_experience = 30
+		}
 		army_experience = 25
 	}
 	option = {
@@ -4270,7 +4500,17 @@ country_event = {
 		}
 		add_opinion_modifier = { target = RAJ modifier = military_cooperation }
 		add_tech_bonus = { name = MAD_military_industry_3_india category = CAT_artillery uses = 2 bonus = 0.40 }
-		add_mastery = { amount = 25 folder = land }
+		if = {
+			limit = { has_subdoctrine_in_track = arty_equipment }
+			add_mastery = {
+				amount = 25
+				folder = equipment
+				track = arty_equipment
+			}
+		}
+		else = {
+			army_experience = 25
+		}
 		army_experience = 20
 	}
 }
@@ -4287,9 +4527,39 @@ country_event = {
 		if = { limit = { country_exists = FRA } add_opinion_modifier = { target = FRA modifier = large_commercial_relations } FRA = { add_opinion_modifier = { target = ROOT modifier = large_commercial_relations } } }
 		if = { limit = { country_exists = COM } add_opinion_modifier = { target = COM modifier = large_commercial_relations } COM = { add_opinion_modifier = { target = ROOT modifier = large_commercial_relations } } }
 		add_timed_idea = { idea = MAD_ARMY_FRENCH_INTEROPERABILITY days = 3650 }
-		add_mastery = { amount = 35 folder = land }
-		add_mastery = { amount = 25 folder = air }
-		add_mastery = { amount = 20 folder = naval }
+		if = {
+			limit = { has_subdoctrine_in_track = operational_theory }
+			add_mastery = {
+				amount = 35
+				folder = land
+				track = operational_theory
+			}
+		}
+		else = {
+			army_experience = 35
+		}
+		if = {
+			limit = { has_subdoctrine_in_track = training_and_ops }
+			add_mastery = {
+				amount = 25
+				folder = air
+				track = training_and_ops
+			}
+		}
+		else = {
+			air_experience = 25
+		}
+		if = {
+			limit = { has_subdoctrine_in_track = operations }
+			add_mastery = {
+				amount = 20
+				folder = naval
+				track = operations
+			}
+		}
+		else = {
+			navy_experience = 25
+		}
 		add_tech_bonus = { name = MAD_military_industry_4_french category = CAT_command_and_control_equipment category = CAT_internet uses = 3 bonus = 0.50 }
 	}
 	option = {
@@ -4297,17 +4567,77 @@ country_event = {
 		if = { limit = { country_exists = COM } add_opinion_modifier = { target = COM modifier = large_commercial_relations } COM = { add_opinion_modifier = { target = ROOT modifier = large_commercial_relations } } }
 		if = { limit = { country_exists = SEY } add_opinion_modifier = { target = SEY modifier = large_commercial_relations } SEY = { add_opinion_modifier = { target = ROOT modifier = large_commercial_relations } } }
 		add_timed_idea = { idea = MAD_ARMY_INDIAN_OCEAN_NETWORK days = 3650 }
-		add_mastery = { amount = 25 folder = naval }
-		add_mastery = { amount = 25 folder = land }
-		add_mastery = { amount = 15 folder = air }
+		if = {
+			limit = { has_subdoctrine_in_track = operations }
+			add_mastery = {
+				amount = 25
+				folder = naval
+				track = operations
+			}
+		}
+		else = {
+			navy_experience = 25
+		}
+		if = {
+			limit = { has_subdoctrine_in_track = operational_theory }
+			add_mastery = {
+				amount = 25
+				folder = land
+				track = operational_theory
+			}
+		}
+		else = {
+			army_experience = 25
+		}
+		if = {
+			limit = { has_subdoctrine_in_track = training_and_ops }
+			add_mastery = {
+				amount = 15
+				folder = air
+				track = training_and_ops
+			}
+		}
+		else = {
+			air_experience = 25
+		}
 		add_tech_bonus = { name = MAD_military_industry_4_regional category = CAT_naval_radar category = CAT_aircraft uses = 3 bonus = 0.40 }
 	}
 	option = {
 		name = MAD_military_industry.4.c
 		add_timed_idea = { idea = MAD_ARMY_STRATEGIC_AUTONOMY days = 3650 }
-		add_mastery = { amount = 40 folder = land }
-		add_mastery = { amount = 20 folder = air }
-		add_mastery = { amount = 20 folder = naval }
+		if = {
+			limit = { has_subdoctrine_in_track = technology }
+			add_mastery = {
+				amount = 40
+				folder = land
+				track = technology
+			}
+		}
+		else = {
+			army_experience = 40
+		}
+		if = {
+			limit = { has_subdoctrine_in_track = aircraft_design }
+			add_mastery = {
+				amount = 20
+				folder = air
+				track = aircraft_design
+			}
+		}
+		else = {
+			air_experience = 25
+		}
+		if = {
+			limit = { has_subdoctrine_in_track = operations }
+			add_mastery = {
+				amount = 20
+				folder = naval
+				track = operations
+			}
+		}
+		else = {
+			navy_experience = 25
+		}
 		add_tech_bonus = { name = MAD_military_industry_4_autonomy category = CAT_computing category = CAT_industry uses = 3 bonus = 0.35 }
 	}
 }
@@ -4336,7 +4666,17 @@ country_event = {
 		}
 		add_opinion_modifier = { target = FRA modifier = military_cooperation }
 		add_tech_bonus = { name = MAD_military_industry_5_french category = CAT_main_battle_tanks uses = 2 bonus = 0.50 }
-		add_mastery = { amount = 30 folder = land }
+		if = {
+			limit = { has_subdoctrine_in_track = tank_equipment }
+			add_mastery = {
+				amount = 30
+				folder = equipment
+				track = tank_equipment
+			}
+		}
+		else = {
+			army_experience = 30
+		}
 		army_experience = 25
 	}
 	option = {
@@ -4356,7 +4696,17 @@ country_event = {
 		}
 		add_opinion_modifier = { target = TUR modifier = military_cooperation }
 		add_tech_bonus = { name = MAD_military_industry_5_turkish category = CAT_main_battle_tanks uses = 2 bonus = 0.50 }
-		add_mastery = { amount = 30 folder = land }
+		if = {
+			limit = { has_subdoctrine_in_track = tank_equipment }
+			add_mastery = {
+				amount = 30
+				folder = equipment
+				track = tank_equipment
+			}
+		}
+		else = {
+			army_experience = 30
+		}
 		army_experience = 25
 	}
 	option = {
@@ -4376,7 +4726,17 @@ country_event = {
 		}
 		add_opinion_modifier = { target = RAJ modifier = military_cooperation }
 		add_tech_bonus = { name = MAD_military_industry_5_indian category = CAT_main_battle_tanks uses = 2 bonus = 0.50 }
-		add_mastery = { amount = 25 folder = land }
+		if = {
+			limit = { has_subdoctrine_in_track = tank_equipment }
+			add_mastery = {
+				amount = 25
+				folder = equipment
+				track = tank_equipment
+			}
+		}
+		else = {
+			army_experience = 25
+		}
 		army_experience = 20
 	}
 }
@@ -4404,7 +4764,17 @@ country_event = {
 			add_opinion_modifier = { target = ROOT modifier = military_cooperation }
 		}
 		add_opinion_modifier = { target = FRA modifier = military_cooperation }
-		add_mastery = { amount = 25 folder = land }
+		if = {
+			limit = { has_subdoctrine_in_track = mechanized_equipment }
+			add_mastery = {
+				amount = 25
+				folder = equipment
+				track = mechanized_equipment
+			}
+		}
+		else = {
+			army_experience = 25
+		}
 		army_experience = 25
 	}
 	option = {
@@ -4423,7 +4793,17 @@ country_event = {
 			add_opinion_modifier = { target = ROOT modifier = military_cooperation }
 		}
 		add_opinion_modifier = { target = TUR modifier = military_cooperation }
-		add_mastery = { amount = 30 folder = land }
+		if = {
+			limit = { has_subdoctrine_in_track = mechanized_equipment }
+			add_mastery = {
+				amount = 30
+				folder = equipment
+				track = mechanized_equipment
+			}
+		}
+		else = {
+			army_experience = 30
+		}
 		army_experience = 25
 	}
 	option = {
@@ -4442,7 +4822,17 @@ country_event = {
 			add_opinion_modifier = { target = ROOT modifier = military_cooperation }
 		}
 		add_opinion_modifier = { target = SAF modifier = military_cooperation }
-		add_mastery = { amount = 20 folder = land }
+		if = {
+			limit = { has_subdoctrine_in_track = mechanized_equipment }
+			add_mastery = {
+				amount = 20
+				folder = equipment
+				track = mechanized_equipment
+			}
+		}
+		else = {
+			army_experience = 25
+		}
 		army_experience = 20
 	}
 }
@@ -4470,7 +4860,17 @@ country_event = {
 			add_opinion_modifier = { target = ROOT modifier = military_cooperation }
 		}
 		add_opinion_modifier = { target = SPR modifier = military_cooperation }
-		add_mastery = { amount = 20 folder = air }
+		if = {
+			limit = { has_subdoctrine_in_track = heavy_aircraft }
+			add_mastery = {
+				amount = 20
+				folder = air
+				track = heavy_aircraft
+			}
+		}
+		else = {
+			air_experience = 25
+		}
 		air_experience = 25
 	}
 	option = {
@@ -4489,7 +4889,17 @@ country_event = {
 			add_opinion_modifier = { target = ROOT modifier = military_cooperation }
 		}
 		add_opinion_modifier = { target = FRA modifier = military_cooperation }
-		add_mastery = { amount = 25 folder = air }
+		if = {
+			limit = { has_subdoctrine_in_track = heavy_aircraft }
+			add_mastery = {
+				amount = 25
+				folder = air
+				track = heavy_aircraft
+			}
+		}
+		else = {
+			air_experience = 25
+		}
 		air_experience = 30
 	}
 	option = {
@@ -4508,7 +4918,17 @@ country_event = {
 			add_opinion_modifier = { target = ROOT modifier = military_cooperation }
 		}
 		add_opinion_modifier = { target = TUR modifier = military_cooperation }
-		add_mastery = { amount = 30 folder = air }
+		if = {
+			limit = { has_subdoctrine_in_track = heavy_aircraft }
+			add_mastery = {
+				amount = 30
+				folder = air
+				track = heavy_aircraft
+			}
+		}
+		else = {
+			air_experience = 30
+		}
 		air_experience = 25
 	}
 }
@@ -5035,7 +5455,17 @@ country_event = {
 		name = mad_naval.5.a
 		log = "[GetDateText]: [This.GetName]: mad_naval.5.a executed"
 		navy_experience = 15
-		add_mastery = { amount = 20 folder = naval }
+		if = {
+			limit = { has_subdoctrine_in_track = escort_ships }
+			add_mastery = {
+				amount = 20
+				folder = naval
+				track = escort_ships
+			}
+		}
+		else = {
+			navy_experience = 25
+		}
 		add_tech_bonus = { name = MAD_NAVAL_CORVETTE_FORCE category = CAT_corvettes bonus = 0.50 uses = 1 }
 		if = { limit = { has_dlc = "Arms Against Tyranny" } mio:MAD_SECREN_shipbuilding = { add_mio_funds = 500 } }
 	}
@@ -5066,7 +5496,17 @@ country_event = {
 		name = mad_naval.6.b
 		log = "[GetDateText]: [This.GetName]: mad_naval.6.b executed"
 		if = { limit = { has_dlc = "Arms Against Tyranny" } mio:MAD_SECREN_shipbuilding = { add_mio_funds = 750 add_mio_research_bonus = 0.05 } }
-		add_mastery = { amount = 20 folder = naval }
+		if = {
+			limit = { has_subdoctrine_in_track = capital_ships }
+			add_mastery = {
+				amount = 20
+				folder = naval
+				track = capital_ships
+			}
+		}
+		else = {
+			navy_experience = 25
+		}
 	}
 }
 
