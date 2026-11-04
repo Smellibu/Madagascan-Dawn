@@ -130,27 +130,11 @@ MAD_drought_local_seed_programme_available = {
 # evaluated directly, and the three-year mission supplies the timer.
 
 ########################################################################
-# AT LEAST TWO GENERATION PROJECTS HAVE BEEN COMPLETED
+# AT LEAST FOUR GENERATION PROJECTS HAVE BEEN COMPLETED
 ########################################################################
 
-MAD_JIRAMA_HAS_TWO_GENERATION_PROJECTS = {
-	OR = {
-		AND = { has_country_flag = MAD_JIRAMA_MANDROSEZA_BUILT has_country_flag = MAD_JIRAMA_ANDEKALEKA_BUILT }
-		AND = { has_country_flag = MAD_JIRAMA_MANDROSEZA_BUILT has_country_flag = MAD_JIRAMA_SAHOFIKA_BUILT }
-		AND = { has_country_flag = MAD_JIRAMA_MANDROSEZA_BUILT has_country_flag = MAD_JIRAMA_VOLOBE_BUILT }
-		AND = { has_country_flag = MAD_JIRAMA_MANDROSEZA_BUILT has_country_flag = MAD_JIRAMA_DECIM_SOLAR_BUILT }
-		AND = { has_country_flag = MAD_JIRAMA_MANDROSEZA_BUILT has_country_flag = MAD_JIRAMA_OFFSHORE_WIND_BUILT }
-		AND = { has_country_flag = MAD_JIRAMA_ANDEKALEKA_BUILT has_country_flag = MAD_JIRAMA_SAHOFIKA_BUILT }
-		AND = { has_country_flag = MAD_JIRAMA_ANDEKALEKA_BUILT has_country_flag = MAD_JIRAMA_VOLOBE_BUILT }
-		AND = { has_country_flag = MAD_JIRAMA_ANDEKALEKA_BUILT has_country_flag = MAD_JIRAMA_DECIM_SOLAR_BUILT }
-		AND = { has_country_flag = MAD_JIRAMA_ANDEKALEKA_BUILT has_country_flag = MAD_JIRAMA_OFFSHORE_WIND_BUILT }
-		AND = { has_country_flag = MAD_JIRAMA_SAHOFIKA_BUILT has_country_flag = MAD_JIRAMA_VOLOBE_BUILT }
-		AND = { has_country_flag = MAD_JIRAMA_SAHOFIKA_BUILT has_country_flag = MAD_JIRAMA_DECIM_SOLAR_BUILT }
-		AND = { has_country_flag = MAD_JIRAMA_SAHOFIKA_BUILT has_country_flag = MAD_JIRAMA_OFFSHORE_WIND_BUILT }
-		AND = { has_country_flag = MAD_JIRAMA_VOLOBE_BUILT has_country_flag = MAD_JIRAMA_DECIM_SOLAR_BUILT }
-		AND = { has_country_flag = MAD_JIRAMA_VOLOBE_BUILT has_country_flag = MAD_JIRAMA_OFFSHORE_WIND_BUILT }
-		AND = { has_country_flag = MAD_JIRAMA_DECIM_SOLAR_BUILT has_country_flag = MAD_JIRAMA_OFFSHORE_WIND_BUILT }
-	}
+MAD_JIRAMA_HAS_FOUR_GENERATION_PROJECTS = {
+	check_variable = { MAD_JIRAMA_COMPLETED_GENERATION_PROJECTS > 3.99 }
 }
 
 ########################################################################
@@ -163,6 +147,8 @@ MAD_JIRAMA_HAS_TWO_GENERATION_PROJECTS = {
 # caches that threshold in MAD_JIRAMA_required_surplus.
 
 MAD_JIRAMA_GENERATION_AT_LEAST_140_PERCENT = {
+	NOT = { has_idea = heavy_power_restrictions_spirit }
+	NOT = { has_idea = some_power_restrictions_spirit }
 	has_variable = MAD_JIRAMA_required_surplus
 	check_variable = { energy_consumption > 0.001 }
 	check_variable = {
@@ -177,7 +163,7 @@ MAD_JIRAMA_GENERATION_AT_LEAST_140_PERCENT = {
 ########################################################################
 
 MAD_JIRAMA_RECOVERY_REQUIREMENTS_MET = {
-	MAD_JIRAMA_HAS_TWO_GENERATION_PROJECTS = yes
+	MAD_JIRAMA_HAS_FOUR_GENERATION_PROJECTS = yes
 	MAD_JIRAMA_GENERATION_AT_LEAST_140_PERCENT = yes
 }
 MAD_ROY_IN_POWER = {
