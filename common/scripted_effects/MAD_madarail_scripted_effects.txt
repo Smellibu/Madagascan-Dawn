@@ -5139,21 +5139,21 @@ MAD_rural_cooperation_calculate_monthly_change = {
 	if = { limit = { check_variable = { MAD_dahalo_threat < 50 } check_variable = { MAD_dahalo_threat > 25 }  } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
 	if = { limit = { NOT = { check_variable = { MAD_dahalo_threat > 25 } } } add_to_temp_variable = { MAD_rc_monthly_gain = 0.50 } }
 
-	# Governance paths provide lasting institutional memory. Milestones stack, subject to the +3 cap.
-	if = { limit = { has_completed_focus = MAD_POL_ROY_CROWN_WITHOUT_KING } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
-	if = { limit = { has_completed_focus = MAD_POL_ROY_FOKONOLONA } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
-	if = { limit = { has_completed_focus = MAD_POL_ROY_CUSTOMARY_JUSTICE } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
-	if = { limit = { has_completed_focus = MAD_POL_ROY_ONE_MADAGASCAR_MANY_HOUSES } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
-	if = { limit = { has_completed_focus = MAD_POL_AREMA_FOKONOLONA } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
-	if = { limit = { has_completed_focus = MAD_POL_AREMA_FOOD_FIRST } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
-	if = { limit = { has_completed_focus = MAD_POL_AREMA_PROVINCES } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
-	if = { limit = { has_completed_focus = MAD_POL_MIL_SOUTHERN_SECURITY } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
-	if = { limit = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM } add_to_temp_variable = { MAD_rc_monthly_gain = 0.50 } }
-	if = { limit = { has_completed_focus = MAD_POL_MIL_ENGINEERS } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
-	if = { limit = { has_completed_focus = MAD_POL_TGV_INFRASTRUCTURE_FIRST } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
-	if = { limit = { has_completed_focus = MAD_POL_TGV_HEALTH_FOR_ALL } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
-	if = { limit = { has_completed_focus = MAD_POL_TGV_JIRAMA_DELIVERY } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
-	if = { limit = { has_completed_focus = MAD_POL_TGV_FOOD_SOVEREIGNTY } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
+	# Completed party-path milestones grant their monthly dividend only while that party is in power; they stack, subject to the +3 cap.
+	if = { limit = { MAD_TAMIMA_IN_POWER = yes has_completed_focus = MAD_POL_ROY_CROWN_WITHOUT_KING } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
+	if = { limit = { MAD_TAMIMA_IN_POWER = yes has_completed_focus = MAD_POL_ROY_FOKONOLONA } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
+	if = { limit = { MAD_TAMIMA_IN_POWER = yes has_completed_focus = MAD_POL_ROY_CUSTOMARY_JUSTICE } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
+	if = { limit = { MAD_TAMIMA_IN_POWER = yes has_completed_focus = MAD_POL_ROY_ONE_MADAGASCAR_MANY_HOUSES } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
+	if = { limit = { MAD_AREMA_IN_POWER = yes has_completed_focus = MAD_POL_AREMA_FOKONOLONA } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
+	if = { limit = { MAD_AREMA_IN_POWER = yes has_completed_focus = MAD_POL_AREMA_FOOD_FIRST } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
+	if = { limit = { MAD_AREMA_IN_POWER = yes has_completed_focus = MAD_POL_AREMA_PROVINCES } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
+	if = { limit = { MAD_MIL_IN_POWER = yes has_completed_focus = MAD_POL_MIL_SOUTHERN_SECURITY } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
+	if = { limit = { MAD_MIL_IN_POWER = yes has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM } add_to_temp_variable = { MAD_rc_monthly_gain = 0.50 } }
+	if = { limit = { MAD_MIL_IN_POWER = yes has_completed_focus = MAD_POL_MIL_ENGINEERS } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
+	if = { limit = { MAD_TGV_IN_POWER = yes has_completed_focus = MAD_POL_TGV_INFRASTRUCTURE_FIRST } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
+	if = { limit = { MAD_TGV_IN_POWER = yes has_completed_focus = MAD_POL_TGV_HEALTH_FOR_ALL } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
+	if = { limit = { MAD_TGV_IN_POWER = yes has_completed_focus = MAD_POL_TGV_JIRAMA_DELIVERY } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
+	if = { limit = { MAD_TGV_IN_POWER = yes has_completed_focus = MAD_POL_TGV_FOOD_SOVEREIGNTY } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
 	# Successful resolution of the southern drought leaves a durable recovery dividend.
 	if = { limit = { has_completed_focus = MAD_Thriving_south } add_to_temp_variable = { MAD_rc_monthly_gain = 0.50 } }
 
