@@ -6491,12 +6491,14 @@ MAD_rural_cooperation_category = {
 		icon = generic_political_discourse
 
 		visible = {
+			NOT = { has_country_flag = MAD_RURAL_MINING_AUDIT_COMPLETED }
 			OR = {
 				has_country_flag = MAD_MINING_LOCAL_BENEFITS
 				has_completed_focus = MAD_MINING_LOCAL_BENEFIT_FUND
 			}
 		}
 		available = {
+			NOT = { has_country_flag = MAD_RURAL_MINING_AUDIT_COMPLETED }
 			NOT = { has_country_flag = MAD_RURAL_MINING_AUDIT_ACTIVE }
 			custom_trigger_tooltip = {
 				tooltip = MAD_RC_BELOW_90_TT
@@ -6507,7 +6509,7 @@ MAD_rural_cooperation_category = {
 		}
 		cost = 50
 		days_remove = 90
-		days_re_enable = 365
+		fire_only_once = yes
 		custom_cost_trigger = { always = yes }
 		custom_cost_text = cost_0_75
 		complete_effect = {
@@ -6519,6 +6521,7 @@ MAD_rural_cooperation_category = {
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Mining revenue distribution audit completed"
 			clr_country_flag = MAD_RURAL_MINING_AUDIT_ACTIVE
+			set_country_flag = MAD_RURAL_MINING_AUDIT_COMPLETED
 			set_temp_variable = { MAD_rc_delta = 6 }
 			MAD_rural_cooperation_adjust = yes
 			decrease_corruption = yes
