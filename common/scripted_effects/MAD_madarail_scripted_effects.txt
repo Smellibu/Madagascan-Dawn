@@ -3937,23 +3937,8 @@ MAD_dahalo_random_event_tick = {
 }
 
 MAD_dahalo_daily_tick = {
-	# Daily incident processing only; passive Dahalo threat growth is handled by MAD_dahalo_monthly_tick.
-	# Random incidents are additional shocks and remain possible until the system reaches a terminal ending.
-	if = {
-		limit = {
-			NOT = { has_country_flag = MAD_DAHALO_DEFEATED }
-			NOT = { has_country_flag = MAD_REMENABILA_IN_POWER }
-			NOT = { has_country_flag = MAD_REMENABILA_KILLED }
-			NOT = { has_country_flag = MAD_DAHALO_SECURITY_ENDING }
-			NOT = { has_country_flag = MAD_DAHALO_ACCOMMODATION_ENDING }
-			NOT = { has_country_flag = MAD_DAHALO_CIVIL_WAR_STARTED }
-			NOT = { has_country_flag = MAD_DAHALO_CIVIL_WAR_PENDING }
-			NOT = { has_civil_war = yes }
-		}
-
-		clamp_variable = { var = MAD_dahalo_threat min = 0 max = 100 }
-		MAD_dahalo_update_modifier = yes
-	}
+	# Daily processing is limited to incidents and open-revolt detection.
+	# Threat clamping and modifier/Rural Cooperation refreshes happen on each change and on the monthly gain.
 
 	# Open revolt is checked during daily processing so the meter cannot be artificially held at 0.
 	if = {
