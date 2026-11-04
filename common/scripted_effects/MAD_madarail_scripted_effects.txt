@@ -2485,7 +2485,7 @@ MAD_drought_scheduled_events = {
 		# --- the regional ones: these are what make the map uneven ---
 		2 = {
 			if = {
-				limit = { any_owned_state = { has_variable = MAD_state_drought_exposure check_variable = { MAD_state_drought < 85 } }
+				limit = { any_owned_state = { has_variable = MAD_state_drought_exposure check_variable = { MAD_state_drought < 85 } } }
 				random_owned_state = {
 					limit = { has_variable = MAD_state_drought_exposure check_variable = { MAD_state_drought < 85 } }
 					save_event_target_as = MAD_drought_event_state
