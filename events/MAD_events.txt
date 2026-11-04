@@ -1207,6 +1207,59 @@ country_event = {
 	}
 }
 
+# Seasonal rainfall provides a modest local reprieve without ending the national drought.
+country_event = {
+	id = mad_drought.34
+	title = mad_drought.34.t
+	desc = mad_drought.34.d
+	picture = GFX_report_event_economy_default
+	is_triggered_only = yes
+	trigger = { MAD_drought_shocks_allowed = yes }
+
+	option = {
+		name = mad_drought.34.a
+		if = {
+			limit = { NOT = { has_country_flag = MAD_DROUGHT_WON } }
+			log = "[GetDateText]: [Root.GetName]: mad_drought.34 - timely seasonal rains in the selected state"
+			custom_effect_tooltip = mad_drought.34_tt
+			hidden_effect = {
+				event_target:MAD_drought_event_state = {
+					set_temp_variable = { MAD_dr_state_change = -3 }
+					MAD_drought_state_apply_change = yes
+					set_temp_variable = { MAD_dr_state_famine = -1 }
+					MAD_drought_state_apply_famine = yes
+				}
+				MAD_drought_recalc_national = yes
+			}
+		}
+	}
+}
+
+# A stronger-than-expected crop yield improves local food security but does not alter rainfall or drought severity.
+country_event = {
+	id = mad_drought.35
+	title = mad_drought.35.t
+	desc = mad_drought.35.d
+	picture = GFX_report_event_economy_default
+	is_triggered_only = yes
+	trigger = { MAD_drought_shocks_allowed = yes }
+
+	option = {
+		name = mad_drought.35.a
+		if = {
+			limit = { NOT = { has_country_flag = MAD_DROUGHT_WON } }
+			log = "[GetDateText]: [Root.GetName]: mad_drought.35 - better-than-expected harvest in the selected state"
+			custom_effect_tooltip = mad_drought.35_tt
+			hidden_effect = {
+				event_target:MAD_drought_event_state = {
+					set_temp_variable = { MAD_dr_state_famine = -3 }
+					MAD_drought_state_apply_famine = yes
+				}
+			}
+		}
+	}
+}
+
 ########################################################################
 # FOREIGN INVESTMENT PURCHASE OFFERS
 ########################################################################
