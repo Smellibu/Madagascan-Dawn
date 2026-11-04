@@ -75,32 +75,21 @@ on_actions = {
 		}
 	}
 
-	# General monthly hook: only the current MAD country passes the tag gate.
-	on_monthly = {
-		effect = {
-			if = {
-				limit = { tag = MAD }
-				MAD = {
-					# TGV formation/reveal is checked monthly for performance.
-					if = {
-						limit = {
-							original_tag = MAD
-							date > 2007.11.30
-							NOT = { has_country_flag = MAD_TGV_FORMED }
-							NOT = { has_country_flag = MAD_TGV_FORMATION_PENDING }
-						}
-						country_event = mad_political.96
-					}
-					# Passive Dahalo pressure is handled by MAD_dahalo_monthly_tick under on_monthly_MAD.
-					# Do not call it from this generic monthly hook.
-				}
-			}
-		}
-	}
+
 
 	# Tag-specific monthly hook: this is the only active hook advancing the displacement calendar.
 	on_monthly_MAD = {
 		effect = {
+			# TGV formation/reveal is checked monthly for performance.
+			if = {
+				limit = {
+					original_tag = MAD
+					date > 2007.11.30
+					NOT = { has_country_flag = MAD_TGV_FORMED }
+					NOT = { has_country_flag = MAD_TGV_FORMATION_PENDING }
+				}
+				country_event = mad_political.96
+			}
 			MAD_dahalo_monthly_tick = yes
 			MAD_rural_cooperation_monthly_tick = yes
 			if = {
