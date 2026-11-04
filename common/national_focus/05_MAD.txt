@@ -9060,10 +9060,14 @@ focus_tree = {
 					folder = land
 					track = dedicated_doctrine
 				}
-			}
-			else = {
-				army_experience = 25
-			}
+			}else = {
+					add_tech_bonus = {
+						name = MAD_MASTERY_FALLBACK_MAD_POL_ROY_PEOPLES_GUARDIANS_DEDICATED_DOCTRINE_1
+						category = CAT_infantry
+						uses = 1
+						bonus = 0.10
+					}
+				}
 			if = {
 				limit = { has_idea = the_military }
 				set_temp_variable = { temp_opinion = -5 }
@@ -9153,10 +9157,14 @@ focus_tree = {
 					folder = land
 					track = leadership
 				}
-			}
-			else = {
-				army_experience = 25
-			}
+			}else = {
+					add_tech_bonus = {
+						name = MAD_MASTERY_FALLBACK_MAD_POL_ROY_ISRAEL_SECURITY_LEADERSHIP_1
+						category = CAT_infantry
+						uses = 1
+						bonus = 0.10
+					}
+				}
 			add_tech_bonus = {
 				name = MAD_POL_ROY_ISRAEL_SECURITY
 				category = CAT_infantry
@@ -13899,9 +13907,13 @@ focus_tree = {
 						folder = land
 						track = structure_doctrine
 					}
-				}
-				else = {
-					army_experience = 25
+				}else = {
+					add_tech_bonus = {
+						name = MAD_MASTERY_FALLBACK_MAD_ARMY_THE_ARMY_WE_INHERITED_STRUCTURE_DOCTRINE_1
+						category = CAT_command_and_control_equipment
+						uses = 1
+						bonus = 0.10
+					}
 				}
 		}
 
@@ -13948,9 +13960,13 @@ focus_tree = {
 						folder = land
 						track = training
 					}
-				}
-				else = {
-					army_experience = 25
+				}else = {
+					add_tech_bonus = {
+						name = MAD_MASTERY_FALLBACK_MAD_ARMY_BUILD_TRAINING_CADRE_TRAINING_1
+						category = CAT_infantry
+						uses = 1
+						bonus = 0.10
+					}
 				}
 				add_tech_bonus = {
 					name = MAD_ARMY_BUILD_TRAINING_CADRE
@@ -13984,9 +14000,13 @@ focus_tree = {
 						folder = land
 						track = training
 					}
-				}
-				else = {
-					army_experience = 25
+				}else = {
+					add_tech_bonus = {
+						name = MAD_MASTERY_FALLBACK_MAD_ARMY_STANDARDISE_FIELD_READINESS_TRAINING_1
+						category = CAT_command_and_control_equipment
+						uses = 1
+						bonus = 0.10
+					}
 				}
 				add_tech_bonus = {
 					name = MAD_ARMY_STANDARDISE_FIELD_READINESS
@@ -14026,9 +14046,13 @@ focus_tree = {
 						folder = land
 						track = dedicated_doctrine
 					}
-				}
-				else = {
-					army_experience = 25
+				}else = {
+					add_tech_bonus = {
+						name = MAD_MASTERY_FALLBACK_MAD_ARMY_ISLAND_INFANTRY_DOCTRINE_DEDICATED_DOCTRINE_1
+						category = CAT_infantry
+						uses = 1
+						bonus = 0.10
+					}
 				}
 				add_tech_bonus = {
 					name = MAD_ARMY_ISLAND_INFANTRY_DOCTRINE
@@ -14202,10 +14226,14 @@ focus_tree = {
 					folder = land
 					track = leadership
 				}
-			}
-			else = {
-				army_experience = 25
-			}
+			}else = {
+					add_tech_bonus = {
+						name = MAD_MASTERY_FALLBACK_MAD_ARMY_GENERAL_STAFF_PRIMACY_LEADERSHIP_1
+						category = CAT_command_and_control_equipment
+						uses = 1
+						bonus = 0.10
+					}
+				}
 		}
 
 		ai_will_do = {
@@ -14239,10 +14267,14 @@ focus_tree = {
 					folder = land
 					track = structure_doctrine
 				}
-			}
-			else = {
-				army_experience = 25
-			}
+			}else = {
+					add_tech_bonus = {
+						name = MAD_MASTERY_FALLBACK_MAD_ARMY_CENTRALISED_PROCUREMENT_STRUCTURE_DOCTRINE_1
+						category = CAT_command_and_control_equipment
+						uses = 1
+						bonus = 0.10
+					}
+				}
 			add_tech_bonus = {
 				name = MAD_ARMY_CENTRALISED_PROCUREMENT
 				category = CAT_command_and_control_equipment
@@ -14284,10 +14316,14 @@ focus_tree = {
 					folder = land
 					track = structure_doctrine
 				}
-			}
-			else = {
-				army_experience = 25
-			}
+			}else = {
+					add_tech_bonus = {
+						name = MAD_MASTERY_FALLBACK_MAD_ARMY_DOCTRINE_ABOVE_FACTION_STRUCTURE_DOCTRINE_1
+						category = CAT_command_and_control_equipment
+						uses = 1
+						bonus = 0.10
+					}
+				}
 		}
 
 		ai_will_do = {
@@ -14314,9 +14350,13 @@ focus_tree = {
 						folder = equipment
 						track = infantry_weapons_type
 					}
-				}
-				else = {
-					army_experience = 25
+				}else = {
+					add_tech_bonus = {
+						name = MAD_MASTERY_FALLBACK_MAD_ARMY_REFIT_RIFLE_COMPANIES_INFANTRY_WEAPONS_TYPE_1
+						category = CAT_infantry
+						uses = 1
+						bonus = 0.10
+					}
 				}
 				add_tech_bonus = {
 					name = MAD_ARMY_REFIT_RIFLE_COMPANIES
@@ -14374,9 +14414,13 @@ focus_tree = {
 						folder = equipment
 						track = infantry_weapons_type
 					}
-				}
-				else = {
-					army_experience = 25
+				}else = {
+					add_tech_bonus = {
+						name = MAD_MASTERY_FALLBACK_MAD_ARMY_INFANTRY_WEAPONS_RESEARCH_INFANTRY_WEAPONS_TYPE_1
+						category = CAT_infantry
+						uses = 1
+						bonus = 0.10
+					}
 				}
 				army_experience = 20
 		}
@@ -14406,10 +14450,14 @@ focus_tree = {
 					folder = land
 					track = operational_theory
 				}
-			}
-			else = {
-				army_experience = 25
-			}
+			}else = {
+					add_tech_bonus = {
+						name = MAD_MASTERY_FALLBACK_MAD_ARMY_FIELD_ENGINEERING_STANDARDS_OPERATIONAL_THEORY_1
+						category = CAT_command_and_control_equipment
+						uses = 1
+						bonus = 0.10
+					}
+				}
 			army_experience = 25
 		}
 
@@ -14445,10 +14493,14 @@ focus_tree = {
 					folder = naval
 					track = operations
 				}
-			}
-			else = {
-				navy_experience = 25
-			}
+			}else = {
+					add_tech_bonus = {
+						name = MAD_MASTERY_FALLBACK_MAD_ARMY_EYES_ALONG_THE_COAST_OPERATIONS_1
+						category = CAT_naval_radar
+						uses = 1
+						bonus = 0.10
+					}
+				}
 			navy_experience = 15
 			army_experience = 15
 		}
@@ -14504,10 +14556,14 @@ focus_tree = {
 					folder = land
 					track = training
 				}
-			}
-			else = {
-				army_experience = 25
-			}
+			}else = {
+					add_tech_bonus = {
+						name = MAD_MASTERY_FALLBACK_MAD_ARMY_SIGNALS_INTELLIGENCE_SCHOOL_TRAINING_1
+						category = CAT_infantry
+						uses = 1
+						bonus = 0.10
+					}
+				}
 			army_experience = 20
 		}
 
@@ -14592,10 +14648,14 @@ focus_tree = {
 					folder = air
 					track = training_and_ops
 				}
-			}
-			else = {
-				air_experience = 25
-			}
+			}else = {
+					add_tech_bonus = {
+						name = MAD_MASTERY_FALLBACK_MAD_ARMY_REBUILD_THE_HELICOPTER_ARM_TRAINING_AND_OPS_1
+						category = CAT_aircraft
+						uses = 1
+						bonus = 0.10
+					}
+				}
 			air_experience = 20
 			army_experience = 20
 			if = {
@@ -14635,10 +14695,14 @@ focus_tree = {
 					folder = air
 					track = heavy_aircraft
 				}
-			}
-			else = {
-				air_experience = 25
-			}
+			}else = {
+					add_tech_bonus = {
+						name = MAD_MASTERY_FALLBACK_MAD_ARMY_LIFT_AND_SUSTAIN_HEAVY_AIRCRAFT_1
+						category = CAT_aircraft
+						uses = 1
+						bonus = 0.10
+					}
+				}
 			air_experience = 25
 			army_experience = 20
 		}
@@ -14719,10 +14783,14 @@ focus_tree = {
 					folder = land
 					track = operational_theory
 				}
-			}
-			else = {
-				army_experience = 30
-			}
+			}else = {
+					add_tech_bonus = {
+						name = MAD_MASTERY_FALLBACK_MAD_ARMY_LAND_FORCES_MODERNISATION_PLAN_OPERATIONAL_THEORY_1
+						category = CAT_command_and_control_equipment
+						uses = 1
+						bonus = 0.10
+					}
+				}
 		}
 
 		ai_will_do = {
@@ -14774,9 +14842,13 @@ focus_tree = {
 						folder = land
 						track = technology
 					}
-				}
-				else = {
-					army_experience = 25
+				}else = {
+					add_tech_bonus = {
+						name = MAD_MASTERY_FALLBACK_MAD_ARMY_DEFENCE_INDUSTRIAL_PLANNING_TECHNOLOGY_1
+						category = CAT_computing
+						uses = 1
+						bonus = 0.10
+					}
 				}
 		}
 
@@ -14856,10 +14928,14 @@ focus_tree = {
 					folder = land
 					track = operational_theory
 				}
-			}
-			else = {
-				army_experience = 25
-			}
+			}else = {
+					add_tech_bonus = {
+						name = MAD_MASTERY_FALLBACK_MAD_ARMY_TOAMASINA_DEFENCE_LOGISTICS_HUB_OPERATIONAL_THEORY_1
+						category = CAT_command_and_control_equipment
+						uses = 1
+						bonus = 0.10
+					}
+				}
 			if = {
 				limit = { has_dlc = "Arms Against Tyranny" }
 				mio:MAD_MALAGASY_MOBILITY = { add_mio_size = 1 }
@@ -14931,10 +15007,14 @@ focus_tree = {
 					folder = air
 					track = drone_warfare
 				}
-			}
-			else = {
-				air_experience = 25
-			}
+			}else = {
+					add_tech_bonus = {
+						name = MAD_MASTERY_FALLBACK_MAD_ARMY_TACTICAL_UAV_PROGRAMME_DRONE_WARFARE_1
+						category = CAT_aircraft
+						uses = 1
+						bonus = 0.10
+					}
+				}
 			air_experience = 20
 			army_experience = 20
 		}
@@ -14970,10 +15050,14 @@ focus_tree = {
 					folder = equipment
 					track = mechanized_equipment
 				}
-			}
-			else = {
-				army_experience = 25
-			}
+			}else = {
+					add_tech_bonus = {
+						name = MAD_MASTERY_FALLBACK_MAD_ARMY_MECHANISED_INFANTRY_BRIGADE_MECHANIZED_EQUIPMENT_1
+						category = CAT_armored_fighting_vehicles
+						uses = 1
+						bonus = 0.10
+					}
+				}
 			army_experience = 25
 		}
 
@@ -15029,10 +15113,14 @@ focus_tree = {
 					folder = land
 					track = technology
 				}
-			}
-			else = {
-				army_experience = 25
-			}
+			}else = {
+					add_tech_bonus = {
+						name = MAD_MASTERY_FALLBACK_MAD_ARMY_ISLAND_AIR_DEFENCE_TECHNOLOGY_1
+						category = CAT_anti_air
+						uses = 1
+						bonus = 0.10
+					}
+				}
 			army_experience = 15
 		}
 
@@ -15074,9 +15162,13 @@ focus_tree = {
 						folder = air
 						track = training_and_ops
 					}
-				}
-				else = {
-					air_experience = 25
+				}else = {
+					add_tech_bonus = {
+						name = MAD_MASTERY_FALLBACK_MAD_ARMY_HEAVY_LIFT_AVIATION_COMMAND_TRAINING_AND_OPS_1
+						category = CAT_aircraft
+						uses = 1
+						bonus = 0.10
+					}
 				}
 				air_experience = 30
 		}
@@ -15112,10 +15204,14 @@ focus_tree = {
 					folder = air
 					track = heavy_aircraft
 				}
-			}
-			else = {
-				air_experience = 25
-			}
+			}else = {
+					add_tech_bonus = {
+						name = MAD_MASTERY_FALLBACK_MAD_ARMY_MEDIUM_TRANSPORT_FLEET_HEAVY_AIRCRAFT_1
+						category = CAT_aircraft
+						uses = 1
+						bonus = 0.10
+					}
+				}
 		}
 
 		ai_will_do = {
@@ -15148,10 +15244,14 @@ focus_tree = {
 					folder = air
 					track = aircraft_design
 				}
-			}
-			else = {
-				air_experience = 25
-			}
+			}else = {
+					add_tech_bonus = {
+						name = MAD_MASTERY_FALLBACK_MAD_ARMY_AEROSPACE_SUPPLY_CHAIN_AIRCRAFT_DESIGN_1
+						category = CAT_aircraft
+						uses = 1
+						bonus = 0.10
+					}
+				}
 			add_tech_bonus = {
 				name = MAD_ARMY_AEROSPACE_SUPPLY_CHAIN
 				category = CAT_aircraft
@@ -15206,10 +15306,14 @@ focus_tree = {
 					folder = land
 					track = technology
 				}
-			}
-			else = {
-				army_experience = 25
-			}
+			}else = {
+					add_tech_bonus = {
+						name = MAD_MASTERY_FALLBACK_MAD_ARMY_DEFENCE_ELECTRONICS_INDUSTRY_TECHNOLOGY_1
+						category = CAT_computing
+						uses = 1
+						bonus = 0.10
+					}
+				}
 			army_experience = 20
 		}
 
@@ -15274,10 +15378,14 @@ focus_tree = {
 					folder = land
 					track = technology
 				}
-			}
-			else = {
-				army_experience = 30
-			}
+			}else = {
+					add_tech_bonus = {
+						name = MAD_MASTERY_FALLBACK_MAD_ARMY_SPECIAL_PROJECTS_BUREAU_TECHNOLOGY_1
+						category = CAT_computing
+						uses = 1
+						bonus = 0.10
+					}
+				}
 			army_experience = 30
 		}
 
@@ -15317,10 +15425,14 @@ focus_tree = {
 					folder = equipment
 					track = arty_equipment
 				}
-			}
-			else = {
-				army_experience = 30
-			}
+			}else = {
+					add_tech_bonus = {
+						name = MAD_MASTERY_FALLBACK_MAD_ARMY_INTEGRATED_FIRE_SUPPORT_ARTY_EQUIPMENT_1
+						category = CAT_artillery
+						uses = 1
+						bonus = 0.10
+					}
+				}
 			army_experience = 25
 		}
 
@@ -15354,10 +15466,14 @@ focus_tree = {
 					folder = equipment
 					track = tank_equipment
 				}
-			}
-			else = {
-				army_experience = 30
-			}
+			}else = {
+					add_tech_bonus = {
+						name = MAD_MASTERY_FALLBACK_MAD_ARMY_MAIN_BATTLE_TANK_PROGRAMME_TANK_EQUIPMENT_1
+						category = CAT_main_battle_tanks
+						uses = 1
+						bonus = 0.10
+					}
+				}
 			army_experience = 25
 		}
 
@@ -15395,10 +15511,14 @@ focus_tree = {
 					folder = naval
 					track = operations
 				}
-			}
-			else = {
-				navy_experience = 25
-			}
+			}else = {
+					add_tech_bonus = {
+						name = MAD_MASTERY_FALLBACK_MAD_ARMY_COASTAL_DEFENCE_OPERATIONS_1
+						category = CAT_naval_modules
+						uses = 1
+						bonus = 0.10
+					}
+				}
 			if = {
 				limit = { has_subdoctrine_in_track = operational_theory }
 				add_mastery = {
@@ -15406,10 +15526,14 @@ focus_tree = {
 					folder = land
 					track = operational_theory
 				}
-			}
-			else = {
-				army_experience = 25
-			}
+			}else = {
+					add_tech_bonus = {
+						name = MAD_MASTERY_FALLBACK_MAD_ARMY_COASTAL_DEFENCE_OPERATIONAL_THEORY_1
+						category = CAT_command_and_control_equipment
+						uses = 1
+						bonus = 0.10
+					}
+				}
 			navy_experience = 20
 		}
 
@@ -15441,10 +15565,14 @@ focus_tree = {
 					folder = land
 					track = operational_theory
 				}
-			}
-			else = {
-				army_experience = 30
-			}
+			}else = {
+					add_tech_bonus = {
+						name = MAD_MASTERY_FALLBACK_MAD_ARMY_NATIONAL_SUSTAINMENT_NETWORK_OPERATIONAL_THEORY_1
+						category = CAT_command_and_control_equipment
+						uses = 1
+						bonus = 0.10
+					}
+				}
 			army_experience = 25
 		}
 
@@ -15486,9 +15614,13 @@ focus_tree = {
 						folder = land
 						track = operational_theory
 					}
-				}
-				else = {
-					army_experience = 25
+				}else = {
+					add_tech_bonus = {
+						name = MAD_MASTERY_FALLBACK_MAD_ARMY_LONG_RANGE_ISR_AND_FIRES_OPERATIONAL_THEORY_1
+						category = CAT_command_and_control_equipment
+						uses = 1
+						bonus = 0.10
+					}
 				}
 				if = {
 					limit = { has_subdoctrine_in_track = training_and_ops }
@@ -15497,9 +15629,13 @@ focus_tree = {
 						folder = air
 						track = training_and_ops
 					}
-				}
-				else = {
-					air_experience = 25
+				}else = {
+					add_tech_bonus = {
+						name = MAD_MASTERY_FALLBACK_MAD_ARMY_LONG_RANGE_ISR_AND_FIRES_TRAINING_AND_OPS_1
+						category = CAT_aircraft
+						uses = 1
+						bonus = 0.10
+					}
 				}
 				army_experience = 25
 				air_experience = 20
@@ -15702,10 +15838,14 @@ focus_tree = {
 										folder = naval
 										track = escort_ships
 									}
-								}
-								else = {
-									navy_experience = 25
-								}
+								}else = {
+					add_tech_bonus = {
+						name = MAD_MASTERY_FALLBACK_MAD_NAVAL_FORCE_REVIEW_ESCORT_SHIPS_1
+						category = CAT_naval_modules
+						uses = 1
+						bonus = 0.10
+					}
+				}
 		}
 
 		ai_will_do = {
@@ -15879,10 +16019,14 @@ focus_tree = {
 										folder = naval
 										track = operations
 									}
-								}
-								else = {
-									navy_experience = 25
-								}
+								}else = {
+					add_tech_bonus = {
+						name = MAD_MASTERY_FALLBACK_MAD_JOINT_MARITIME_OPERATIONS_OPERATIONS_1
+						category = CAT_naval_modules
+						uses = 1
+						bonus = 0.10
+					}
+				}
 								country_event = { id = mad_naval.2 days = 1 }
 		}
 
@@ -15971,10 +16115,14 @@ focus_tree = {
 											folder = naval
 											track = escort_ships
 										}
-									}
-									else = {
-										navy_experience = 25
-									}
+									}else = {
+					add_tech_bonus = {
+						name = MAD_MASTERY_FALLBACK_MAD_DRAFT_THE_MALAGASY_CORVETTE_ESCORT_SHIPS_1
+						category = CAT_naval_modules
+						uses = 1
+						bonus = 0.10
+					}
+				}
 			
 						if = {
 							limit = { has_country_flag = MAD_NAVAL_PROGRAMME_INTERCEPTORS }
@@ -15985,10 +16133,14 @@ focus_tree = {
 									folder = naval
 									track = escort_ships
 								}
-							}
-							else = {
-								navy_experience = 25
-							}
+							}else = {
+					add_tech_bonus = {
+						name = MAD_MASTERY_FALLBACK_MAD_DRAFT_THE_MALAGASY_CORVETTE_ESCORT_SHIPS_2
+						category = CAT_naval_modules
+						uses = 1
+						bonus = 0.10
+					}
+				}
 						}
 						if = { limit = { has_country_flag = MAD_NAVAL_PROGRAMME_SURVEILLANCE } add_tech_bonus = { name = MAD_NAVAL_JOINT_PICTURE category = CAT_naval_radar bonus = 0.25 uses = 1 } }
 									country_event = { id = mad_naval.3 days = 1 }
@@ -16083,10 +16235,14 @@ focus_tree = {
 										folder = naval
 										track = escort_ships
 									}
-								}
-								else = {
-									navy_experience = 25
-								}
+								}else = {
+					add_tech_bonus = {
+						name = MAD_MASTERY_FALLBACK_MAD_CORVETTE_SEA_TRIALS_ESCORT_SHIPS_1
+						category = CAT_naval_modules
+						uses = 1
+						bonus = 0.10
+					}
+				}
 								country_event = { id = mad_naval.4 days = 1 }
 		}
 
@@ -16156,10 +16312,14 @@ focus_tree = {
 										folder = naval
 										track = escort_ships
 									}
-								}
-								else = {
-									navy_experience = 25
-								}
+								}else = {
+					add_tech_bonus = {
+						name = MAD_MASTERY_FALLBACK_MAD_ESTABLISH_THE_FIRST_CORVETTE_SQUADRON_ESCORT_SHIPS_1
+						category = CAT_naval_modules
+						uses = 1
+						bonus = 0.10
+					}
+				}
 								if = { limit = { has_country_flag = MAD_CORVETTE_ROLE_MULTIPURPOSE } add_tech_bonus = { name = MAD_NAVAL_SQUADRON_TRAINING category = CAT_naval_modules bonus = 0.25 uses = 1 } }
 		}
 
@@ -16243,10 +16403,14 @@ focus_tree = {
 										folder = naval
 										track = capital_ships
 									}
-								}
-								else = {
-									navy_experience = 25
-								}
+								}else = {
+					add_tech_bonus = {
+						name = MAD_MASTERY_FALLBACK_MAD_SHIPBORNE_HELICOPTER_DOCTRINE_CAPITAL_SHIPS_1
+						category = CAT_helicopter_operators
+						uses = 1
+						bonus = 0.10
+					}
+				}
 		}
 
 		ai_will_do = {
@@ -16307,10 +16471,14 @@ focus_tree = {
 										folder = naval
 										track = capital_ships
 									}
-								}
-								else = {
-									navy_experience = 25
-								}
+								}else = {
+					add_tech_bonus = {
+						name = MAD_MASTERY_FALLBACK_MAD_HELICOPTER_OPERATOR_CONCEPT_CAPITAL_SHIPS_1
+						category = CAT_helicopter_operators
+						uses = 1
+						bonus = 0.10
+					}
+				}
 								country_event = { id = mad_naval.6 days = 1 }
 		}
 
