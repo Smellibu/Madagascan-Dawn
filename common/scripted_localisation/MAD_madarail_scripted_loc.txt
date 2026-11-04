@@ -581,6 +581,18 @@ defined_text = {
 }
 
 defined_text = {
+	name = mad_rc_mod_corruption_minimal
+	text = { trigger = { has_idea = corruption_level_01 } localization_key = MAD_RC_LINE_CORRUPTION_MINIMAL }
+	text = { localization_key = MAD_RC_EMPTY }
+}
+
+defined_text = {
+	name = mad_rc_mod_corruption_low
+	text = { trigger = { OR = { has_idea = corruption_level_02 has_idea = corruption_level_03 has_idea = corruption_level_04 } } localization_key = MAD_RC_LINE_CORRUPTION_LOW }
+	text = { localization_key = MAD_RC_EMPTY }
+}
+
+defined_text = {
 	name = mad_rc_mod_stability_50
 	# Show the 50% tier only until the cumulative 65% tier is reached.
 	text = { trigger = { AND = { has_stability > 0.499 NOT = { has_stability > 0.649 } } } localization_key = MAD_RC_LINE_STABILITY_50 }

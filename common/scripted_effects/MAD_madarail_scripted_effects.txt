@@ -5102,6 +5102,22 @@ MAD_rural_cooperation_calculate_monthly_change = {
 		add_to_temp_variable = { MAD_rc_monthly_gain = -0.25 }
 	}
 
+	# The current corruption tier is represented by its existing corruption-level idea.
+	if = {
+		limit = { has_idea = corruption_level_01 }
+		add_to_temp_variable = { MAD_rc_monthly_gain = 0.50 }
+	}
+	else_if = {
+		limit = {
+			OR = {
+				has_idea = corruption_level_02
+				has_idea = corruption_level_03
+				has_idea = corruption_level_04
+			}
+		}
+		add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 }
+	}
+
 	# Trust follows basic state capacity, public consent, and a countryside not in crisis.
 	# Stability tiers deliberately stack: above 65%, both +0.25 effects apply (= +0.50 total).
 	# Scripted localisation hides the lower-tier row when the cumulative higher tier is active.
