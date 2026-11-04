@@ -248,9 +248,18 @@ MAD_daewoo_update_tier = {
 }
 
 MAD_daewoo_clear_tiers = {
-	remove_ideas = MAD_DAEWOO_LEASE_TOXIC
-	remove_ideas = MAD_DAEWOO_LEASE_TROUBLED
-	remove_ideas = MAD_DAEWOO_LEASE_SOUND
+	if = {
+		limit = { has_idea = MAD_DAEWOO_LEASE_TOXIC }
+		remove_ideas = MAD_DAEWOO_LEASE_TOXIC
+	}
+	if = {
+		limit = { has_idea = MAD_DAEWOO_LEASE_TROUBLED }
+		remove_ideas = MAD_DAEWOO_LEASE_TROUBLED
+	}
+	if = {
+		limit = { has_idea = MAD_DAEWOO_LEASE_SOUND }
+		remove_ideas = MAD_DAEWOO_LEASE_SOUND
+	}
 }
 
 ########################################################################
