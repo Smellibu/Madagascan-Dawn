@@ -3199,23 +3199,8 @@ MAD_JIRAMA_RECALCULATE_GENERATION_PROJECT_COUNT = {
 }
 
 MAD_JIRAMA_GENERATION_RECOVERY_DAILY = {
-	# Rebuild from completed-project flags every day, preserving counts in old saves.
-	MAD_JIRAMA_RECALCULATE_GENERATION_PROJECT_COUNT = yes
-	# A legacy save that already has a completed generation project still receives the briefing.
-	MAD_JIRAMA_ISSUE_GENERATION_RECOVERY_BRIEFING = yes
-
-	# Also cover saves where the recovery flag was set before this visible mission existed.
-	if = {
-		limit = {
-			has_country_flag = MAD_JIRAMA_GENERATION_RECOVERY_STARTED
-			NOT = { has_country_flag = MAD_JIRAMA_GENERATION_RECOVERY_EXPIRED }
-			NOT = { has_country_flag = MAD_JIRAMA_GENERATION_RECOVERY_REQUIREMENTS_MET }
-			NOT = { has_completed_focus = MAD_JIRAMA_RECOVERY_SUCCEEDS }
-			NOT = { has_completed_focus = MAD_JIRAMA_RECOVERY_FAILS }
-			NOT = { has_active_mission = MAD_JIRAMA_GENERATION_RECOVERY_MISSION }
-		}
-		activate_mission = MAD_JIRAMA_GENERATION_RECOVERY_MISSION
-	}
+	# Daily checks are limited to the live generation requirement and recovery outcome.
+	# Project counts and the initial briefing are handled by the six completion decisions.
 
 	# MD's energy_calc_balance computes this BEFORE storage discharge and fossil
 	# curtailment adjustments:
