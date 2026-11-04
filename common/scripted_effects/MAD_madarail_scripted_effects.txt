@@ -2473,8 +2473,8 @@ MAD_drought_scheduled_events = {
 	}
 
 	random_list = {
-		# The two favourable outcomes share a modest 2% monthly weight.
-		82 = { }
+		# Double the original proposed positive-event weights; preserve all existing negative-event weights.
+		76 = { }
 		4 = { country_event = mad_drought.10 }
 		2 = {
 			if = {
@@ -2524,18 +2524,14 @@ MAD_drought_scheduled_events = {
 				country_event = mad_drought.33
 			}
 		}
-		# Timely seasonal rains: October-April, using the drought system's rolling 12-month counter.
-		1 = {
+		# Unexpected seasonal rainfall: October-December only.
+		4 = {
 			if = {
 				limit = {
 					OR = {
-						check_variable = { MAD_drought_months = 9 }
 						check_variable = { MAD_drought_months = 10 }
 						check_variable = { MAD_drought_months = 11 }
 						check_variable = { MAD_drought_months = 0 }
-						check_variable = { MAD_drought_months = 1 }
-						check_variable = { MAD_drought_months = 2 }
-						check_variable = { MAD_drought_months = 3 }
 					}
 					any_owned_state = {
 						has_variable = MAD_state_drought_exposure
@@ -2552,19 +2548,19 @@ MAD_drought_scheduled_events = {
 				country_event = mad_drought.34
 			}
 		}
-		# Better-than-expected harvest: restrict the target to regions in a recorded harvest window.
-		1 = {
+		# Better-than-expected harvest: use the regional crop calendars.
+		4 = {
 			if = {
 				limit = {
 					OR = {
 						AND = {
 							OR = {
-								check_variable = { MAD_drought_months = 2 }
 								check_variable = { MAD_drought_months = 3 }
 								check_variable = { MAD_drought_months = 4 }
 								check_variable = { MAD_drought_months = 5 }
-								check_variable = { MAD_drought_months = 10 }
+								check_variable = { MAD_drought_months = 6 }
 								check_variable = { MAD_drought_months = 11 }
+								check_variable = { MAD_drought_months = 0 }
 							}
 							any_owned_state = {
 								OR = { state = 266 state = 267 }
@@ -2574,14 +2570,12 @@ MAD_drought_scheduled_events = {
 						}
 						AND = {
 							OR = {
-								check_variable = { MAD_drought_months = 3 }
 								check_variable = { MAD_drought_months = 4 }
 								check_variable = { MAD_drought_months = 5 }
 								check_variable = { MAD_drought_months = 6 }
 								check_variable = { MAD_drought_months = 7 }
 								check_variable = { MAD_drought_months = 8 }
-								check_variable = { MAD_drought_months = 10 }
-								check_variable = { MAD_drought_months = 11 }
+								check_variable = { MAD_drought_months = 9 }
 							}
 							any_owned_state = {
 								state = 268
@@ -2600,12 +2594,12 @@ MAD_drought_scheduled_events = {
 								OR = { state = 266 state = 267 }
 								ROOT = {
 									OR = {
-										check_variable = { MAD_drought_months = 2 }
 										check_variable = { MAD_drought_months = 3 }
 										check_variable = { MAD_drought_months = 4 }
 										check_variable = { MAD_drought_months = 5 }
-										check_variable = { MAD_drought_months = 10 }
+										check_variable = { MAD_drought_months = 6 }
 										check_variable = { MAD_drought_months = 11 }
+										check_variable = { MAD_drought_months = 0 }
 									}
 								}
 							}
@@ -2613,14 +2607,12 @@ MAD_drought_scheduled_events = {
 								state = 268
 								ROOT = {
 									OR = {
-										check_variable = { MAD_drought_months = 3 }
 										check_variable = { MAD_drought_months = 4 }
 										check_variable = { MAD_drought_months = 5 }
 										check_variable = { MAD_drought_months = 6 }
 										check_variable = { MAD_drought_months = 7 }
 										check_variable = { MAD_drought_months = 8 }
-										check_variable = { MAD_drought_months = 10 }
-										check_variable = { MAD_drought_months = 11 }
+										check_variable = { MAD_drought_months = 9 }
 									}
 								}
 							}
