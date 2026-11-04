@@ -1523,7 +1523,10 @@ country_event = {
 			value = -0.075
 			tooltip_side = MAD_private_ownership
 		}
-		add_ideas = MAD_QMM_LAGOON_COVER_UP
+		add_timed_idea = {
+			idea = MAD_QMM_LAGOON_COVER_UP
+			days = 365
+		}
 		set_country_flag = MAD_QMM_LAGOON_SCANDAL_RESOLVED
 	}
 
@@ -1544,7 +1547,10 @@ country_event = {
 			value = 0.075
 			tooltip_side = MAD_public_ownership
 		}
-		add_ideas = MAD_QMM_LAGOON_CLEANUP
+		add_timed_idea = {
+			idea = MAD_QMM_LAGOON_CLEANUP
+			days = 365
+		}
 		set_country_flag = MAD_QMM_LAGOON_SCANDAL_RESOLVED
 	}
 }
