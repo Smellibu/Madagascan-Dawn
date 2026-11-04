@@ -7365,3 +7365,45 @@ country_event = {
 		ai_chance = { base = 100 }
 	}
 }
+
+
+# Briefing and outcome notifications for the five-year JIRAMA Recovery Plan.
+country_event = {
+	id = mad_jirama.2
+	title = mad_jirama.2.t
+	desc = mad_jirama.2.d
+	picture = GFX_report_event_economy_default
+	is_triggered_only = yes
+
+	option = {
+		name = mad_jirama.2.a
+		log = "[GetDateText]: [Root.GetName]: mad_jirama.2.a - formally launch the JIRAMA Recovery Plan"
+		MAD_JIRAMA_LAUNCH_GENERATION_RECOVERY = yes
+	}
+}
+
+country_event = {
+	id = mad_jirama.3
+	title = mad_jirama.3.t
+	desc = mad_jirama.3.d
+	picture = GFX_report_event_economy_default
+	is_triggered_only = yes
+
+	option = {
+		name = mad_jirama.3.a
+		log = "[GetDateText]: [Root.GetName]: mad_jirama.3.a - review the JIRAMA expansion package"
+	}
+}
+
+country_event = {
+	id = mad_jirama.4
+	title = mad_jirama.4.t
+	desc = mad_jirama.4.d
+	picture = GFX_report_event_economy_default
+	is_triggered_only = yes
+
+	option = {
+		name = mad_jirama.4.a
+		log = "[GetDateText]: [Root.GetName]: mad_jirama.4.a - review the JIRAMA austerity rescue"
+	}
+}

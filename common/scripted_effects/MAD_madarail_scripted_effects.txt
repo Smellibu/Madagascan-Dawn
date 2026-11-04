@@ -3026,16 +3026,60 @@ MAD_drought_locust_swarm = {
 # The first valid call starts one 1095-day mission; later calls do nothing.
 ########################################################################
 
-MAD_JIRAMA_START_GENERATION_RECOVERY = {
+MAD_JIRAMA_ISSUE_GENERATION_RECOVERY_BRIEFING = {
 	if = {
 		limit = {
+			NOT = { has_country_flag = MAD_JIRAMA_GENERATION_RECOVERY_BRIEFING_SENT }
 			NOT = { has_country_flag = MAD_JIRAMA_GENERATION_RECOVERY_STARTED }
 			NOT = { has_completed_focus = MAD_JIRAMA_RECOVERY_FAILS }
 			NOT = { has_completed_focus = MAD_JIRAMA_RECOVERY_SUCCEEDS }
+			OR = {
+				has_country_flag = MAD_JIRAMA_MANDROSEZA_BUILT
+				has_country_flag = MAD_JIRAMA_ANDEKALEKA_BUILT
+				has_country_flag = MAD_JIRAMA_SAHOFIKA_BUILT
+				has_country_flag = MAD_JIRAMA_VOLOBE_BUILT
+				has_country_flag = MAD_JIRAMA_DECIM_SOLAR_BUILT
+				has_country_flag = MAD_JIRAMA_OFFSHORE_WIND_BUILT
+			}
 		}
+		set_country_flag = MAD_JIRAMA_GENERATION_RECOVERY_BRIEFING_SENT
+		set_variable = { MAD_JIRAMA_GENERATION_RECOVERY_GAP = 0 }
+		if = {
+			limit = {
+				has_variable = energy_consumption
+				has_variable = energy_balance
+				check_variable = { energy_consumption > 0.001 }
+			}
+			set_variable = { MAD_JIRAMA_GENERATION_RECOVERY_GAP = energy_consumption }
+			multiply_variable = { MAD_JIRAMA_GENERATION_RECOVERY_GAP = 0.40 }
+			subtract_from_variable = { MAD_JIRAMA_GENERATION_RECOVERY_GAP = energy_balance }
+			clamp_variable = { var = MAD_JIRAMA_GENERATION_RECOVERY_GAP min = 0 }
+		}
+		country_event = { id = mad_jirama.2 }
+	}
+}
 
+MAD_JIRAMA_LAUNCH_GENERATION_RECOVERY = {
+	if = {
+		limit = {
+			has_country_flag = MAD_JIRAMA_GENERATION_RECOVERY_BRIEFING_SENT
+			NOT = { has_country_flag = MAD_JIRAMA_GENERATION_RECOVERY_STARTED }
+			NOT = { has_country_flag = MAD_JIRAMA_GENERATION_RECOVERY_EXPIRED }
+			NOT = { has_completed_focus = MAD_JIRAMA_RECOVERY_FAILS }
+			NOT = { has_completed_focus = MAD_JIRAMA_RECOVERY_SUCCEEDS }
+		}
 		set_country_flag = MAD_JIRAMA_GENERATION_RECOVERY_STARTED
 		activate_mission = MAD_JIRAMA_GENERATION_RECOVERY_MISSION
+	}
+}
+
+MAD_JIRAMA_NOTIFY_GENERATION_RECOVERY_SUCCESS = {
+	if = {
+		limit = {
+			NOT = { has_country_flag = MAD_JIRAMA_GENERATION_RECOVERY_SUCCESS_EVENT_SENT }
+		}
+		set_country_flag = MAD_JIRAMA_GENERATION_RECOVERY_SUCCESS_EVENT_SENT
+		country_event = { id = mad_jirama.3 }
 	}
 }
 
@@ -3057,6 +3101,8 @@ MAD_JIRAMA_RECALCULATE_GENERATION_PROJECT_COUNT = {
 MAD_JIRAMA_GENERATION_RECOVERY_DAILY = {
 	# Rebuild from completed-project flags every day, preserving counts in old saves.
 	MAD_JIRAMA_RECALCULATE_GENERATION_PROJECT_COUNT = yes
+	# A legacy save that already has a completed generation project still receives the briefing.
+	MAD_JIRAMA_ISSUE_GENERATION_RECOVERY_BRIEFING = yes
 
 	# Also cover saves where the recovery flag was set before this visible mission existed.
 	if = {
@@ -3102,6 +3148,7 @@ MAD_JIRAMA_GENERATION_RECOVERY_DAILY = {
 		}
 		log = "[GetDateText]: [This.GetName]: JIRAMA recovery requirements met"
 		set_country_flag = MAD_JIRAMA_GENERATION_RECOVERY_REQUIREMENTS_MET
+		MAD_JIRAMA_NOTIFY_GENERATION_RECOVERY_SUCCESS = yes
 		remove_mission = MAD_JIRAMA_GENERATION_RECOVERY_MISSION
 	}
 }

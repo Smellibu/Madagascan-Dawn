@@ -2326,13 +2326,13 @@ visible = {
 # ============================================================================
 MAD_JIRAMA_PROJECTS = {
 
-	# Visible three-year objective started by the first generation-project focus.
+	# Visible five-year objective launched by the player after the first generation project completes.
 	MAD_JIRAMA_GENERATION_RECOVERY_MISSION = {
 		icon = generic_construction
 		on_map_mode = map_and_decisions_view
 
 		fire_only_once = yes
-		days_mission_timeout = 1095
+		days_mission_timeout = 1825
 		selectable_mission = yes
 		# This mission is activated explicitly by MAD_JIRAMA_START_GENERATION_RECOVERY.
 		activation = { always = no }
@@ -2350,6 +2350,7 @@ MAD_JIRAMA_PROJECTS = {
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: JIRAMA generation recovery mission completed"
 			set_country_flag = MAD_JIRAMA_GENERATION_RECOVERY_REQUIREMENTS_MET
+			MAD_JIRAMA_NOTIFY_GENERATION_RECOVERY_SUCCESS = yes
 			remove_mission = MAD_JIRAMA_GENERATION_RECOVERY_MISSION
 		}
 		timeout_effect = {
@@ -2357,6 +2358,7 @@ MAD_JIRAMA_PROJECTS = {
 			if = {
 				limit = { NOT = { has_country_flag = MAD_JIRAMA_GENERATION_RECOVERY_REQUIREMENTS_MET } }
 				set_country_flag = MAD_JIRAMA_GENERATION_RECOVERY_EXPIRED
+				country_event = { id = mad_jirama.4 }
 			}
 		}
 		ai_will_do = { base = 0 }
@@ -2501,6 +2503,7 @@ MAD_JIRAMA_PROJECTS = {
 			267 = { add_extra_state_shared_building_slots = 1 add_building_construction = { type = fossil_powerplant level = 2 instant_build = yes } }
 			set_country_flag = MAD_JIRAMA_MANDROSEZA_BUILT
 			MAD_JIRAMA_RECALCULATE_GENERATION_PROJECT_COUNT = yes
+			MAD_JIRAMA_ISSUE_GENERATION_RECOVERY_BRIEFING = yes
 			custom_effect_tooltip = { localization_key = modifies_dynamic_modifier_tt MODIFIER = MAD_power_modifier }
 			add_to_variable = { MAD_power_energy_gain_multiplier = 0.02 tooltip = energy_gain_multiplier_tt }
 			add_to_variable = { MAD_power_fossil_pp_fuel_consumption_modifier = -0.02 tooltip = fossil_pp_fuel_consumption_modifier_tt }
@@ -2551,6 +2554,7 @@ MAD_JIRAMA_PROJECTS = {
 			}
 			set_country_flag = MAD_JIRAMA_ANDEKALEKA_BUILT
 			MAD_JIRAMA_RECALCULATE_GENERATION_PROJECT_COUNT = yes
+			MAD_JIRAMA_ISSUE_GENERATION_RECOVERY_BRIEFING = yes
 			custom_effect_tooltip = { localization_key = modifies_dynamic_modifier_tt MODIFIER = MAD_power_modifier }
 			add_to_variable = { MAD_power_energy_gain_multiplier = 0.05 tooltip = energy_gain_multiplier_tt }
 			add_to_variable = { MAD_power_renewable_energy_gain_multiplier = 0.02 tooltip = renewable_energy_gain_multiplier_tt }
@@ -2603,6 +2607,7 @@ MAD_JIRAMA_PROJECTS = {
 			}
 			set_country_flag = MAD_JIRAMA_SAHOFIKA_BUILT
 			MAD_JIRAMA_RECALCULATE_GENERATION_PROJECT_COUNT = yes
+			MAD_JIRAMA_ISSUE_GENERATION_RECOVERY_BRIEFING = yes
 			custom_effect_tooltip = { localization_key = modifies_dynamic_modifier_tt MODIFIER = MAD_power_modifier }
 			add_to_variable = { MAD_power_energy_gain_multiplier = 0.06 tooltip = energy_gain_multiplier_tt }
 			add_to_variable = { MAD_power_renewable_energy_gain_multiplier = 0.05 tooltip = renewable_energy_gain_multiplier_tt }
@@ -2658,6 +2663,7 @@ MAD_JIRAMA_PROJECTS = {
 			clr_country_flag = MAD_JIRAMA_VOLOBE_BUILDING
 			set_country_flag = MAD_JIRAMA_VOLOBE_BUILT
 			MAD_JIRAMA_RECALCULATE_GENERATION_PROJECT_COUNT = yes
+			MAD_JIRAMA_ISSUE_GENERATION_RECOVERY_BRIEFING = yes
 			custom_effect_tooltip = { localization_key = modifies_dynamic_modifier_tt MODIFIER = MAD_power_modifier }
 			add_to_variable = { MAD_power_energy_gain_multiplier = 0.05 tooltip = energy_gain_multiplier_tt }
 			add_to_variable = { MAD_power_renewable_energy_gain_multiplier = 0.07 tooltip = renewable_energy_gain_multiplier_tt }
@@ -2768,6 +2774,7 @@ MAD_JIRAMA_PROJECTS = {
 			two_random_renewable_energy_infra = yes
 			set_country_flag = MAD_JIRAMA_DECIM_SOLAR_BUILT
 			MAD_JIRAMA_RECALCULATE_GENERATION_PROJECT_COUNT = yes
+			MAD_JIRAMA_ISSUE_GENERATION_RECOVERY_BRIEFING = yes
 			custom_effect_tooltip = { localization_key = modifies_dynamic_modifier_tt MODIFIER = MAD_power_modifier }
 			add_to_variable = { MAD_power_renewable_energy_gain_multiplier = 0.04 tooltip = renewable_energy_gain_multiplier_tt }
 			add_to_variable = { MAD_power_energy_gain_multiplier = 0.02 tooltip = energy_gain_multiplier_tt }
@@ -2901,6 +2908,7 @@ MAD_JIRAMA_PROJECTS = {
 			487 = {add_building_construction = { type = renewable_energy_infra level = 2 instant_build = yes }}
 			set_country_flag = MAD_JIRAMA_OFFSHORE_WIND_BUILT
 			MAD_JIRAMA_RECALCULATE_GENERATION_PROJECT_COUNT = yes
+			MAD_JIRAMA_ISSUE_GENERATION_RECOVERY_BRIEFING = yes
 			custom_effect_tooltip = { localization_key = modifies_dynamic_modifier_tt MODIFIER = MAD_power_modifier }
 			add_to_variable = { MAD_power_renewable_energy_gain_multiplier = 0.04 tooltip = renewable_energy_gain_multiplier_tt }
 			add_to_variable = { MAD_power_energy_gain_multiplier = 0.03 tooltip = energy_gain_multiplier_tt }
