@@ -11,13 +11,11 @@ MAD_SELECT_CAPSAT_PARTY_LEADER = {
 	clr_country_flag = MAD_MIL_PARTY_LEADER_CAPSAT_ANDRE_LUCIEN
 	clr_country_flag = MAD_MIL_PARTY_LEADER_CAPSAT_PETERA
 	clr_country_flag = MAD_MIL_PARTY_LEADER_CAPSAT_JULES
-	clr_country_flag = MAD_MIL_PARTY_LEADER_CAPSAT_ANDRIANOME
 	clr_country_flag = MAD_MIL_PARTY_LEADER_GENERAL_STAFF_BENI
 	clr_country_flag = MAD_MIL_PARTY_LEADER_GENERAL_STAFF_EDMOND
 	clr_country_flag = MAD_MIL_PARTY_LEADER_GENERAL_STAFF_ANDRE_LUCIEN
 	clr_country_flag = MAD_MIL_PARTY_LEADER_GENERAL_STAFF_PETERA
 	clr_country_flag = MAD_MIL_PARTY_LEADER_GENERAL_STAFF_JULES
-	clr_country_flag = MAD_MIL_PARTY_LEADER_GENERAL_STAFF_ANDRIANOME
 	if = {
 		limit = { date > 2024.1.31 has_character = MAD_michael_randrianirina }
 		set_country_flag = MAD_MIL_PARTY_LEADER_CAPSAT_MICHAEL
@@ -50,10 +48,6 @@ MAD_SELECT_CAPSAT_PARTY_LEADER = {
 		limit = { date > 2002.3.8 has_character = MAD_jules_mamizara }
 		set_country_flag = MAD_MIL_PARTY_LEADER_CAPSAT_JULES
 	}
-	else_if = {
-		limit = { has_character = MAD_andrianome_dieudonne }
-		set_country_flag = MAD_MIL_PARTY_LEADER_CAPSAT_ANDRIANOME
-	}
 	else = {
 		set_country_flag = MAD_MIL_PARTY_LEADER_CAPSAT_NOEL
 	}
@@ -70,13 +64,11 @@ MAD_SELECT_GENERAL_STAFF_PARTY_LEADER = {
 	clr_country_flag = MAD_MIL_PARTY_LEADER_CAPSAT_ANDRE_LUCIEN
 	clr_country_flag = MAD_MIL_PARTY_LEADER_CAPSAT_PETERA
 	clr_country_flag = MAD_MIL_PARTY_LEADER_CAPSAT_JULES
-	clr_country_flag = MAD_MIL_PARTY_LEADER_CAPSAT_ANDRIANOME
 	clr_country_flag = MAD_MIL_PARTY_LEADER_GENERAL_STAFF_BENI
 	clr_country_flag = MAD_MIL_PARTY_LEADER_GENERAL_STAFF_EDMOND
 	clr_country_flag = MAD_MIL_PARTY_LEADER_GENERAL_STAFF_ANDRE_LUCIEN
 	clr_country_flag = MAD_MIL_PARTY_LEADER_GENERAL_STAFF_PETERA
 	clr_country_flag = MAD_MIL_PARTY_LEADER_GENERAL_STAFF_JULES
-	clr_country_flag = MAD_MIL_PARTY_LEADER_GENERAL_STAFF_ANDRIANOME
 	if = {
 		limit = { date > 2014.5.1 has_character = MAD_beni_xavier_rasolofonirina }
 		set_country_flag = MAD_MIL_PARTY_LEADER_GENERAL_STAFF_BENI
@@ -96,10 +88,6 @@ MAD_SELECT_GENERAL_STAFF_PARTY_LEADER = {
 	else_if = {
 		limit = { date > 2002.3.8 has_character = MAD_jules_mamizara }
 		set_country_flag = MAD_MIL_PARTY_LEADER_GENERAL_STAFF_JULES
-	}
-	else_if = {
-		limit = { has_character = MAD_andrianome_dieudonne }
-		set_country_flag = MAD_MIL_PARTY_LEADER_GENERAL_STAFF_ANDRIANOME
 	}
 	else = {
 		set_country_flag = MAD_MIL_PARTY_LEADER_GENERAL_STAFF_EDMOND
@@ -183,16 +171,6 @@ MAD_CREATE_CAPSAT_PARTY_LEADER = {
 			expire = "2099.1.1"
 		}
 	}
-	else_if = {
-		limit = { has_country_flag = MAD_MIL_PARTY_LEADER_CAPSAT_ANDRIANOME }
-		if = { limit = { has_character = MAD_andrianome_dieudonne } retire_character = MAD_andrianome_dieudonne }
-		create_country_leader = {
-			name = "Andrianome Ranivo Dieudonné"
-			ideology = Nat_Autocracy
-			traits = { nationalist_Nat_Autocracy military_career }
-			expire = "2099.1.1"
-		}
-	}
 	else = {
 		create_country_leader = {
 			name = "Noël Girardin Rakotonandrasana"
@@ -254,16 +232,6 @@ MAD_CREATE_GENERAL_STAFF_PARTY_LEADER = {
 		if = { limit = { has_character = MAD_jules_mamizara } retire_character = MAD_jules_mamizara }
 		create_country_leader = {
 			name = "Jules Mamizara"
-			ideology = Nat_Autocracy
-			traits = { nationalist_Nat_Autocracy military_career }
-			expire = "2099.1.1"
-		}
-	}
-	else_if = {
-		limit = { has_country_flag = MAD_MIL_PARTY_LEADER_GENERAL_STAFF_ANDRIANOME }
-		if = { limit = { has_character = MAD_andrianome_dieudonne } retire_character = MAD_andrianome_dieudonne }
-		create_country_leader = {
-			name = "Andrianome Ranivo Dieudonné"
 			ideology = Nat_Autocracy
 			traits = { nationalist_Nat_Autocracy military_career }
 			expire = "2099.1.1"
@@ -583,7 +551,6 @@ MAD_RESTORE_CIVIL_WAR_OPPONENT_LEADER = {
 		if = { limit = { PREV = { has_country_flag = MAD_MIL_PARTY_LEADER_GENERAL_STAFF_ANDRE_LUCIEN } } set_country_flag = MAD_MIL_PARTY_LEADER_GENERAL_STAFF_ANDRE_LUCIEN }
 		if = { limit = { PREV = { has_country_flag = MAD_MIL_PARTY_LEADER_GENERAL_STAFF_PETERA } } set_country_flag = MAD_MIL_PARTY_LEADER_GENERAL_STAFF_PETERA }
 		if = { limit = { PREV = { has_country_flag = MAD_MIL_PARTY_LEADER_GENERAL_STAFF_JULES } } set_country_flag = MAD_MIL_PARTY_LEADER_GENERAL_STAFF_JULES }
-		if = { limit = { PREV = { has_country_flag = MAD_MIL_PARTY_LEADER_GENERAL_STAFF_ANDRIANOME } } set_country_flag = MAD_MIL_PARTY_LEADER_GENERAL_STAFF_ANDRIANOME }
 		if = { limit = { PREV = { has_country_flag = MAD_MIL_PARTY_LEADER_CAPSAT_SELECTED } } set_country_flag = MAD_MIL_PARTY_LEADER_CAPSAT_SELECTED }
 		if = { limit = { PREV = { has_country_flag = MAD_MIL_PARTY_LEADER_CAPSAT_MICHAEL } } set_country_flag = MAD_MIL_PARTY_LEADER_CAPSAT_MICHAEL }
 		if = { limit = { PREV = { has_country_flag = MAD_MIL_PARTY_LEADER_CAPSAT_NOEL } } set_country_flag = MAD_MIL_PARTY_LEADER_CAPSAT_NOEL }
@@ -592,7 +559,6 @@ MAD_RESTORE_CIVIL_WAR_OPPONENT_LEADER = {
 		if = { limit = { PREV = { has_country_flag = MAD_MIL_PARTY_LEADER_CAPSAT_ANDRE_LUCIEN } } set_country_flag = MAD_MIL_PARTY_LEADER_CAPSAT_ANDRE_LUCIEN }
 		if = { limit = { PREV = { has_country_flag = MAD_MIL_PARTY_LEADER_CAPSAT_PETERA } } set_country_flag = MAD_MIL_PARTY_LEADER_CAPSAT_PETERA }
 		if = { limit = { PREV = { has_country_flag = MAD_MIL_PARTY_LEADER_CAPSAT_JULES } } set_country_flag = MAD_MIL_PARTY_LEADER_CAPSAT_JULES }
-		if = { limit = { PREV = { has_country_flag = MAD_MIL_PARTY_LEADER_CAPSAT_ANDRIANOME } } set_country_flag = MAD_MIL_PARTY_LEADER_CAPSAT_ANDRIANOME }
 
 		# MD copies leader-throughput counters during civil_war_replication_effect.
 		# Reset only the copied ruling party's counter so its MAD leader is recreated.
