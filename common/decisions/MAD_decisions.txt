@@ -1333,7 +1333,7 @@ MAD_drought_category = {
 				MAD_DROUGHT_DEVELOPMENT_GRANT_ELIGIBLE = yes
 			}
 		}
-		undefined
+		cost = 50
 		fire_only_once = yes
 		days_remove = 60
 		complete_effect = {
@@ -1348,15 +1348,14 @@ MAD_drought_category = {
 			set_temp_variable = { treasury_change = 0.35 }
 			modify_treasury_effect = yes
 			268 = {
-				undefined
-				undefined
+				set_temp_variable = { MAD_dr_state_change = -8 }
+				set_temp_variable = { MAD_dr_state_famine = -20 }
 				MAD_rural_cooperation_boost_state_relief = yes
 				MAD_dahalo_southern_supply_interference = yes
 				MAD_drought_state_apply_change = yes
 				MAD_drought_state_apply_famine = yes
 			}
 			MAD_drought_recalc_national = yes
-			undefined
 		}
 		ai_will_do = { base = 1 }
 	}
@@ -1376,7 +1375,7 @@ MAD_drought_category = {
 				MAD_DROUGHT_DEVELOPMENT_GRANT_ELIGIBLE = yes
 			}
 		}
-		undefined
+		cost = 50
 		fire_only_once = yes
 		days_remove = 60
 		complete_effect = {
@@ -1391,15 +1390,14 @@ MAD_drought_category = {
 			set_temp_variable = { treasury_change = 1.00 }
 			modify_treasury_effect = yes
 			268 = {
-				undefined
-				undefined
+				set_temp_variable = { MAD_dr_state_change = -10 }
+				set_temp_variable = { MAD_dr_state_famine = -16 }
 				MAD_rural_cooperation_boost_state_relief = yes
 				MAD_dahalo_southern_supply_interference = yes
 				MAD_drought_state_apply_change = yes
 				MAD_drought_state_apply_famine = yes
 			}
 			MAD_drought_recalc_national = yes
-			undefined
 		}
 		ai_will_do = { base = 1 }
 	}
@@ -1419,7 +1417,7 @@ MAD_drought_category = {
 				MAD_DROUGHT_DEVELOPMENT_GRANT_ELIGIBLE = yes
 			}
 		}
-		undefined
+		cost = 50
 		fire_only_once = yes
 		days_remove = 60
 		complete_effect = {
@@ -1434,15 +1432,14 @@ MAD_drought_category = {
 			set_temp_variable = { treasury_change = 1.00 }
 			modify_treasury_effect = yes
 			268 = {
-				undefined
-				undefined
+				set_temp_variable = { MAD_dr_state_change = -10 }
+				set_temp_variable = { MAD_dr_state_famine = -16 }
 				MAD_rural_cooperation_boost_state_relief = yes
 				MAD_dahalo_southern_supply_interference = yes
 				MAD_drought_state_apply_change = yes
 				MAD_drought_state_apply_famine = yes
 			}
 			MAD_drought_recalc_national = yes
-			undefined
 		}
 		ai_will_do = { base = 1 }
 	}
@@ -1462,7 +1459,7 @@ MAD_drought_category = {
 				MAD_DROUGHT_DEVELOPMENT_GRANT_ELIGIBLE = yes
 			}
 		}
-		undefined
+		cost = 50
 		fire_only_once = yes
 		days_remove = 60
 		complete_effect = {
@@ -1476,15 +1473,14 @@ MAD_drought_category = {
 			set_temp_variable = { treasury_change = 0.54 }
 			modify_treasury_effect = yes
 			268 = {
-				undefined
-				undefined
+				set_temp_variable = { MAD_dr_state_change = -10 }
+				set_temp_variable = { MAD_dr_state_famine = -16 }
 				MAD_rural_cooperation_boost_state_relief = yes
 				MAD_dahalo_southern_supply_interference = yes
 				MAD_drought_state_apply_change = yes
 				MAD_drought_state_apply_famine = yes
 			}
 			MAD_drought_recalc_national = yes
-			undefined
 		}
 		ai_will_do = { base = 1 }
 	}
