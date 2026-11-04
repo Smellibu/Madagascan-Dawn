@@ -3044,7 +3044,19 @@ MAD_JIRAMA_START_GENERATION_RECOVERY = {
 # Called once per day for Madagascar from on_daily_MAD.
 ########################################################################
 
+MAD_JIRAMA_RECALCULATE_GENERATION_PROJECT_COUNT = {
+	set_variable = { MAD_JIRAMA_COMPLETED_GENERATION_PROJECTS = 0 }
+	if = { limit = { has_country_flag = MAD_JIRAMA_MANDROSEZA_BUILT } add_to_variable = { MAD_JIRAMA_COMPLETED_GENERATION_PROJECTS = 1 } }
+	if = { limit = { has_country_flag = MAD_JIRAMA_ANDEKALEKA_BUILT } add_to_variable = { MAD_JIRAMA_COMPLETED_GENERATION_PROJECTS = 1 } }
+	if = { limit = { has_country_flag = MAD_JIRAMA_SAHOFIKA_BUILT } add_to_variable = { MAD_JIRAMA_COMPLETED_GENERATION_PROJECTS = 1 } }
+	if = { limit = { has_country_flag = MAD_JIRAMA_VOLOBE_BUILT } add_to_variable = { MAD_JIRAMA_COMPLETED_GENERATION_PROJECTS = 1 } }
+	if = { limit = { has_country_flag = MAD_JIRAMA_DECIM_SOLAR_BUILT } add_to_variable = { MAD_JIRAMA_COMPLETED_GENERATION_PROJECTS = 1 } }
+	if = { limit = { has_country_flag = MAD_JIRAMA_OFFSHORE_WIND_BUILT } add_to_variable = { MAD_JIRAMA_COMPLETED_GENERATION_PROJECTS = 1 } }
+}
+
 MAD_JIRAMA_GENERATION_RECOVERY_DAILY = {
+	# Rebuild from completed-project flags every day, preserving counts in old saves.
+	MAD_JIRAMA_RECALCULATE_GENERATION_PROJECT_COUNT = yes
 
 	# Also cover saves where the recovery flag was set before this visible mission existed.
 	if = {
