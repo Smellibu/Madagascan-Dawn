@@ -1207,7 +1207,7 @@ country_event = {
 	}
 }
 
-# Seasonal rainfall provides a modest local reprieve without ending the national drought.
+# Seasonal rainfall delivers a substantial local reprieve without ending the national drought.
 country_event = {
 	id = mad_drought.34
 	title = mad_drought.34.t
@@ -1224,9 +1224,9 @@ country_event = {
 			custom_effect_tooltip = mad_drought.34_tt
 			hidden_effect = {
 				event_target:MAD_drought_event_state = {
-					set_temp_variable = { MAD_dr_state_change = -3 }
+					set_temp_variable = { MAD_dr_state_change = -6 }
 					MAD_drought_state_apply_change = yes
-					set_temp_variable = { MAD_dr_state_famine = -1 }
+					set_temp_variable = { MAD_dr_state_famine = -4 }
 					MAD_drought_state_apply_famine = yes
 				}
 				MAD_drought_recalc_national = yes
@@ -1235,7 +1235,7 @@ country_event = {
 	}
 }
 
-# A stronger-than-expected crop yield improves local food security but does not alter rainfall or drought severity.
+# A better-than-expected harvest improves local food security and modestly reduces local drought severity.
 country_event = {
 	id = mad_drought.35
 	title = mad_drought.35.t
@@ -1252,9 +1252,10 @@ country_event = {
 			custom_effect_tooltip = mad_drought.35_tt
 			hidden_effect = {
 				event_target:MAD_drought_event_state = {
-					set_temp_variable = { MAD_dr_state_famine = -3 }
+					set_temp_variable = { MAD_dr_state_famine = -8 }
 					MAD_drought_state_apply_famine = yes
-				}
+					}
+				MAD_drought_recalc_national = yes
 			}
 		}
 	}
