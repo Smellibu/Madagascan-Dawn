@@ -1527,9 +1527,7 @@ MAD_drought_category = {
 		highlight_states = { highlight_state_targets = { state = FROM } }
 		on_map_mode = map_and_decisions_view
 
-				target_trigger = {
-			FROM = { check_variable = { MAD_state_famine > 9.99 } }
-		}
+				
 visible = {
 			MAD_drought_exists = yes
 			OR = {
