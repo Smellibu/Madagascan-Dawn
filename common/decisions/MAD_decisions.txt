@@ -4754,9 +4754,7 @@ MAD_OWNERSHIP_BOP = {
 	MAD_POLICY_ROAD_MAINTENANCE = {
 		allowed = { tag = MAD }
 		icon = generic_construction
-		visible = {
-			check_variable = { gdp_per_capita < 15.001 }
-		}
+		visible = { always = yes }
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_POLICY_GDP_MAX_15000_TT
@@ -4795,21 +4793,14 @@ MAD_OWNERSHIP_BOP = {
 	MAD_POLICY_FISHERIES_COLD_CHAIN = {
 		allowed = { tag = MAD }
 		icon = generic_industry
-		visible = {
-			OR = {
-				NOT = { has_country_flag = MAD_POLICY_FISHERIES_CYCLE_3 }
-				has_country_flag = MAD_POLICY_FISHERIES_ACTIVE
-			}
-			check_variable = { gdp_per_capita > 14.999 }
-			check_variable = { gdp_per_capita < 30.001 }
+		visible = { always = yes }
+		available = {
 			has_completed_focus = MAD_SPAT_STRENGTHEN_AUTHORITY
 			OR = {
 				has_completed_focus = MAD_TOAMASINA
 				has_completed_focus = MAD_EHOALA_PORT
 				has_completed_focus = MAD_ICTSI_CONCESSION
 			}
-		}
-		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_POLICY_GDP_MIN_15000_TT
 				check_variable = { gdp_per_capita > 14.999 }
@@ -4860,17 +4851,10 @@ MAD_OWNERSHIP_BOP = {
 	MAD_POLICY_VANILLA_WAREHOUSE_SCHEME = {
 		allowed = { tag = MAD }
 		icon = generic_agriculture
-		visible = {
-			OR = {
-				NOT = { has_country_flag = MAD_POLICY_VANILLA_CYCLE_3 }
-				has_country_flag = MAD_POLICY_VANILLA_ACTIVE
-			}
-			date > 2023.5.1
-			check_variable = { gdp_per_capita > 29.999 }
-			check_variable = { gdp_per_capita < 45.001 }
-			has_completed_focus = MAD_VANILLA_PRICE_STABILITY
-		}
+		visible = { always = yes }
 		available = {
+			date > 2023.5.1
+			has_completed_focus = MAD_VANILLA_PRICE_STABILITY
 			custom_trigger_tooltip = {
 				tooltip = MAD_POLICY_GDP_MIN_30000_TT
 				check_variable = { gdp_per_capita > 29.999 }
@@ -4921,21 +4905,14 @@ MAD_OWNERSHIP_BOP = {
 	MAD_POLICY_APPRENTICESHIP_COMPACT = {
 		allowed = { tag = MAD }
 		icon = generic_industry
-		visible = {
-			OR = {
-				NOT = { has_country_flag = MAD_POLICY_APPRENTICESHIP_CYCLE_3 }
-				has_country_flag = MAD_POLICY_APPRENTICESHIP_ACTIVE
-			}
-			check_variable = { gdp_per_capita > 29.999 }
-			check_variable = { gdp_per_capita < 45.001 }
+		visible = { always = yes }
+		available = {
 			OR = {
 				has_completed_focus = MAD_POL_HVM_VOCATIONAL_TRAINING
 				has_completed_focus = MAD_POL_TGV_YOUTH_INDUSTRIALISATION
 				has_completed_focus = MAD_POL_AREMA_WORKERS_FARMERS
 				has_completed_focus = MAD_POL_TIM_GREEN_REVOLUTION
 			}
-		}
-		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_POLICY_GDP_MIN_30000_TT
 				check_variable = { gdp_per_capita > 29.999 }
@@ -4986,20 +4963,14 @@ MAD_OWNERSHIP_BOP = {
 	MAD_POLICY_DEFENCE_MAINTENANCE = {
 		allowed = { tag = MAD }
 		icon = generic_military
-		visible = {
-			OR = {
-				NOT = { has_country_flag = MAD_POLICY_DEFENCE_CYCLE_3 }
-				has_country_flag = MAD_POLICY_DEFENCE_ACTIVE
-			}
-			check_variable = { gdp_per_capita > 44.999 }
+		visible = { always = yes }
+		available = {
 			has_completed_focus = MAD_ARMY_DEFENCE_INDUSTRIAL_PLANNING
 			OR = {
 				has_completed_focus = MAD_ARMY_FIELD_ENGINEERING_STANDARDS
 				has_completed_focus = MAD_SECREN_TECHNICAL_TRAINING
 				has_completed_focus = MAD_ARMY_IVATO_AEROSPACE_WORKS
 			}
-		}
-		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_POLICY_GDP_MIN_45000_TT
 				check_variable = { gdp_per_capita > 44.999 }
@@ -5051,15 +5022,13 @@ MAD_OWNERSHIP_BOP = {
 	MAD_POLICY_ROYAL_BONDS = {
 		allowed = { tag = MAD }
 		icon = GFX_decision_generic_political_reform
-		visible = {
-			MAD_ROY_IN_POWER = yes
+		visible = { always = yes }
+		available = {
 			has_completed_focus = MAD_POL_ROY_NATIONAL_TRUST
 			OR = {
 				has_completed_focus = MAD_POL_ROY_FIHAVANANA
 				has_completed_focus = MAD_POL_ROY_FOKONOLONA
 			}
-		}
-		available = {
 			MAD_ROY_IN_POWER = yes
 			487 = { is_owned_by = ROOT }
 		}
@@ -5089,12 +5058,10 @@ MAD_OWNERSHIP_BOP = {
 	MAD_POLICY_TAMIMA_EXPORT_SYNDICATES = {
 		allowed = { tag = MAD }
 		icon = generic_industry
-		visible = {
-			MAD_TAMIMA_IN_POWER = yes
+		visible = { always = yes }
+		available = {
 			has_completed_focus = MAD_POL_ROY_TAMIMA_COUNCIL_GOVERNMENT
 			has_completed_focus = MAD_POL_ROY_NATIONAL_WEALTH
-		}
-		available = {
 			MAD_TAMIMA_IN_POWER = yes
 
 			custom_trigger_tooltip = {
@@ -5132,12 +5099,10 @@ MAD_OWNERSHIP_BOP = {
 	MAD_POLICY_MILITARY_ENGINEER_MANDATE = {
 		allowed = { tag = MAD }
 		icon = generic_construction
-		visible = {
-			MAD_MIL_IN_POWER = yes
+		visible = { always = yes }
+		available = {
 			has_completed_focus = MAD_POL_MIL_TAKES_RESPONSIBILITY
 			has_completed_focus = MAD_POL_MIL_ENGINEERS
-		}
-		available = {
 			MAD_MIL_IN_POWER = yes
 
 			custom_trigger_tooltip = {
@@ -5170,14 +5135,11 @@ MAD_OWNERSHIP_BOP = {
 	MAD_POLICY_AREMA_MILLING_BOARD = {
 		allowed = { tag = MAD }
 		icon = generic_industry
-		visible = {
-			MAD_AREMA_IN_POWER = yes
-			has_country_flag = MAD_RATSIRAKA_EXILE_RESOLVED
+		visible = { always = yes }
+		available = {
 			has_completed_focus = MAD_POL_AREMA_REBUILD
 			has_completed_focus = MAD_POL_AREMA_FOOD_FIRST
 			has_completed_focus = MAD_POL_AREMA_STATE_LEADS
-		}
-		available = {
 			MAD_AREMA_IN_POWER = yes
 			has_country_flag = MAD_RATSIRAKA_EXILE_RESOLVED
 
@@ -5212,15 +5174,12 @@ MAD_OWNERSHIP_BOP = {
 	MAD_POLICY_TIM_EXPORT_CREDIT = {
 		allowed = { tag = MAD }
 		icon = generic_industry
-		visible = {
-			MAD_TIM_IN_POWER = yes
-			date > 2008.12.1
+		visible = { always = yes }
+		available = {
 			OR = {
 				has_completed_focus = MAD_POL_TIM_INFRASTRUCTURE_FINANCE
 				has_completed_focus = MAD_POL_TIM_OPEN_ECONOMY
 			}
-		}
-		available = {
 			MAD_TIM_IN_POWER = yes
 			date > 2008.12.1
 
@@ -5255,8 +5214,8 @@ MAD_OWNERSHIP_BOP = {
 	MAD_POLICY_TGV_VELIRANO_BONDS = {
 		allowed = { tag = MAD }
 		icon = generic_construction
-		visible = {
-			MAD_TGV_IN_POWER = yes
+		visible = { always = yes }
+		available = {
 			date > 2009.1.1
 			has_completed_focus = MAD_POL_TGV_2009_LEGACY
 			has_completed_focus = MAD_POL_TGV_PROJECT_FINANCE
@@ -5264,8 +5223,6 @@ MAD_OWNERSHIP_BOP = {
 				has_completed_focus = MAD_POL_TGV_INFRASTRUCTURE_FIRST
 				has_completed_focus = MAD_POL_TGV_JIRAMA_DELIVERY
 			}
-		}
-		available = {
 			MAD_TGV_IN_POWER = yes
 
 		}
@@ -5299,12 +5256,10 @@ MAD_OWNERSHIP_BOP = {
 	MAD_POLICY_HVM_SME_COINVESTMENT = {
 		allowed = { tag = MAD }
 		icon = generic_industry
-		visible = {
-			MAD_HVM_IN_POWER = yes
+		visible = { always = yes }
+		available = {
 			has_completed_focus = MAD_POL_HVM_INVESTMENT_FRIENDLY
 			has_completed_focus = MAD_POL_HVM_PROJECT_REVIEW
-		}
-		available = {
 			MAD_HVM_IN_POWER = yes
 
 		}
@@ -5342,10 +5297,7 @@ MAD_OWNERSHIP_BOP = {
 	MAD_POLICY_GRAZING_RESTITUTION = {
 		allowed = { tag = MAD }
 		icon = generic_political_discourse
-		visible = {
-			has_idea = MAD_DAHALO_DEFEATED
-			has_completed_focus = MAD_FAHALEMANA
-		}
+		visible = { always = yes }
 		available = {
 			has_idea = MAD_DAHALO_DEFEATED
 			has_completed_focus = MAD_FAHALEMANA
@@ -5374,16 +5326,14 @@ MAD_OWNERSHIP_BOP = {
 	MAD_POLICY_PLAGUE_SURVEILLANCE = {
 		allowed = { tag = MAD }
 		icon = generic_political_discourse
-		visible = {
-			date > 2017.9.1
+		visible = { always = yes }
+		available = {
 			OR = {
 				has_completed_focus = MAD_POL_TGV_HEALTH_FOR_ALL
 				has_completed_focus = MAD_POL_HVM_HEALTH_NUTRITION
 				has_completed_focus = MAD_POL_TIM_HEALTH
 			}
 			NOT = { has_country_flag = MAD_POLICY_PLAGUE_SURVEILLANCE_ENACTED }
-		}
-		available = {
 			date > 2017.9.1
 
 		}
@@ -5408,8 +5358,8 @@ MAD_OWNERSHIP_BOP = {
 	MAD_POLICY_STRATEGIC_SUPPLY_RESERVE = {
 		allowed = { tag = MAD }
 		icon = generic_industry
-		visible = {
-			date > 2020.3.1
+		visible = { always = yes }
+		available = {
 			OR = {
 				has_completed_focus = MAD_POL_AREMA_STRATEGIC_ENTERPRISES
 				has_completed_focus = MAD_POL_TIM_NATIONAL_CHAMPION
@@ -5417,8 +5367,6 @@ MAD_OWNERSHIP_BOP = {
 				has_completed_focus = MAD_POL_HVM_LIGHT_INDUSTRY
 			}
 			NOT = { has_country_flag = MAD_POLICY_STRATEGIC_SUPPLY_RESERVE_ENACTED }
-		}
-		available = {
 			date > 2020.3.1
 
 		}
