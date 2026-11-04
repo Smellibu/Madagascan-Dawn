@@ -2334,13 +2334,13 @@ MAD_JIRAMA_PROJECTS = {
 		fire_only_once = yes
 		days_mission_timeout = 1825
 		selectable_mission = yes
-		# This mission is activated explicitly by MAD_JIRAMA_START_GENERATION_RECOVERY.
+		# This mission is activated explicitly by MAD_JIRAMA_LAUNCH_GENERATION_RECOVERY.
 		activation = { always = no }
 		
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_JIRAMA_FOUR_GENERATION_PROJECTS_tt
-				MAD_JIRAMA_HAS_TWO_GENERATION_PROJECTS = yes
+				MAD_JIRAMA_HAS_FOUR_GENERATION_PROJECTS = yes
 			}
 			custom_trigger_tooltip = {
 				tooltip = MAD_JIRAMA_GENERATION_140_PERCENT_tt
