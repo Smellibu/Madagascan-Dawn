@@ -2474,8 +2474,8 @@ MAD_drought_scheduled_events = {
 
 	random_list = {
 		# Double the original proposed positive-event weights; preserve all existing negative-event weights.
-		76 = { }
-		4 = { country_event = mad_drought.10 }
+		80 = { }
+		2 = { country_event = mad_drought.10 }
 		2 = {
 			if = {
 				limit = { check_variable = { MAD_drought_severity > 25 } }
@@ -2483,9 +2483,9 @@ MAD_drought_scheduled_events = {
 			}
 		}
 		# --- the regional ones: these are what make the map uneven ---
-		4 = {
+		2 = {
 			if = {
-				limit = { any_owned_state = { has_variable = MAD_state_drought_exposure check_variable = { MAD_state_drought < 85 } } }
+				limit = { any_owned_state = { has_variable = MAD_state_drought_exposure check_variable = { MAD_state_drought < 85 } }
 				random_owned_state = {
 					limit = { has_variable = MAD_state_drought_exposure check_variable = { MAD_state_drought < 85 } }
 					save_event_target_as = MAD_drought_event_state
