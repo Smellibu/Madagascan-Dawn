@@ -1755,9 +1755,6 @@ focus_tree = {
 		cost = 3
 		prerequisite = { focus = MAD_QMM_CONSTRUCTION }
 		search_filters = { FOCUS_FILTER_ECONOMY }
-		available = {
-			gdp_total_greater_than_500 = yes
-		}
 
 		completion_reward = {
 			log = "[GetDateText]: [This.GetName]: Focus MAD_EHOALA_PORT"

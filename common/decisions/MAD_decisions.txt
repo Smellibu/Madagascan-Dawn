@@ -894,15 +894,15 @@ MAD_daewoo_category = {
 		days_remove = 75
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAEWOO_RENEGOTIATE"
+	set_country_flag = mad_daewoo_decision
+}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAEWOO_RENEGOTIATE completed"
 			set_temp_variable = { MAD_daewoo_viability_delta = 20 }
 			MAD_daewoo_adjust_viability = yes
 			MAD_daewoo_update_tier = yes
-			set_country_flag = mad_daewoo_decision
-		}
-		remove_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAEWOO_RENEGOTIATE completed"
-			clr_country_flag = mad_daewoo_decision
-			}
+	clr_country_flag = mad_daewoo_decision
+}
 
 		ai_will_do = {
 			base = 1
@@ -925,17 +925,17 @@ MAD_daewoo_category = {
 
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAEWOO_LAND_TITLES"
+	set_country_flag = mad_daewoo_decision
+}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAEWOO_LAND_TITLES completed"
 			set_temp_variable = { MAD_daewoo_viability_delta = 15 }
 			MAD_daewoo_adjust_viability = yes
 			set_temp_variable = { temp_opinion = 10 }
 			change_landowners_opinion = yes
 			MAD_daewoo_update_tier = yes
-			set_country_flag = mad_daewoo_decision
-		}
-		remove_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAEWOO_LAND_TITLES completed"
-			clr_country_flag = mad_daewoo_decision
-			}
+	clr_country_flag = mad_daewoo_decision
+}
 
 		ai_will_do = {
 			base = 1
@@ -963,17 +963,17 @@ MAD_daewoo_category = {
 
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAEWOO_PUBLISH_CONTRACT"
+	set_country_flag = mad_daewoo_decision
+}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAEWOO_PUBLISH_CONTRACT completed"
 			set_temp_variable = { MAD_daewoo_viability_delta = 20 }
 			MAD_daewoo_adjust_viability = yes
 			add_stability = 0.02
 			set_country_flag = MAD_DAEWOO_CONTRACT_PUBLISHED
 			MAD_daewoo_update_tier = yes
-			set_country_flag = mad_daewoo_decision
-		}
-		remove_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAEWOO_PUBLISH_CONTRACT completed"
-			clr_country_flag = mad_daewoo_decision
-			}
+	clr_country_flag = mad_daewoo_decision
+}
 
 		ai_will_do = {
 			base = 1
@@ -1006,6 +1006,10 @@ MAD_daewoo_category = {
 
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAEWOO_CLASSIFIED_ADDENDUM"
+	set_country_flag = mad_daewoo_decision
+}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAEWOO_CLASSIFIED_ADDENDUM completed"
 			set_temp_variable = { MAD_rc_delta = -4 }
 			MAD_rural_cooperation_adjust = yes
 			set_temp_variable = { MAD_daewoo_viability_delta = -10 }
@@ -1013,12 +1017,8 @@ MAD_daewoo_category = {
 			add_political_power = 40
 			increase_corruption = yes
 			MAD_daewoo_update_tier = yes
-			set_country_flag = mad_daewoo_decision
-		}
-		remove_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAEWOO_CLASSIFIED_ADDENDUM completed"
-			clr_country_flag = mad_daewoo_decision
-			}
+	clr_country_flag = mad_daewoo_decision
+}
 
 		ai_will_do = {
 			base = 1
@@ -1051,6 +1051,10 @@ MAD_daewoo_category = {
 
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAEWOO_OUTGROWERS"
+	set_country_flag = mad_daewoo_decision
+}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAEWOO_OUTGROWERS completed"
 			set_temp_variable = { MAD_rc_delta = -4 }
 			MAD_rural_cooperation_adjust = yes
 			set_temp_variable = { MAD_daewoo_viability_delta = 15 }
@@ -1059,12 +1063,8 @@ MAD_daewoo_category = {
 			modify_treasury_effect = yes
 			set_country_flag = MAD_DAEWOO_FOOD_QUOTA
 			MAD_daewoo_update_tier = yes
-			set_country_flag = mad_daewoo_decision
-		}
-		remove_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAEWOO_OUTGROWERS completed"
-			clr_country_flag = mad_daewoo_decision
-			}
+	clr_country_flag = mad_daewoo_decision
+}
 
 		ai_will_do = {
 			base = 1
@@ -1097,17 +1097,17 @@ MAD_daewoo_category = {
 
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAEWOO_LOGISTICS"
+	set_country_flag = mad_daewoo_decision
+}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAEWOO_LOGISTICS completed"
 			set_temp_variable = { MAD_daewoo_viability_delta = 15 }
 			MAD_daewoo_adjust_viability = yes
 			set_temp_variable = { treasury_change = -2.00 }
 			modify_treasury_effect = yes
 			MAD_daewoo_update_tier = yes
-			set_country_flag = mad_daewoo_decision
-		}
-		remove_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAEWOO_LOGISTICS completed"
-			clr_country_flag = mad_daewoo_decision
-			}
+	clr_country_flag = mad_daewoo_decision
+}
 		ai_will_do = {
 			base = 1
 		}
@@ -1134,15 +1134,15 @@ MAD_daewoo_category = {
 
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAEWOO_LOCAL_PROCESSING"
+	set_country_flag = mad_daewoo_decision
+}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAEWOO_LOCAL_PROCESSING completed"
 			set_temp_variable = { MAD_daewoo_viability_delta = 10 }
 			MAD_daewoo_adjust_viability = yes
 			MAD_daewoo_update_tier = yes
-			set_country_flag = mad_daewoo_decision
-		}
-		remove_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAEWOO_LOCAL_PROCESSING completed"
-			clr_country_flag = mad_daewoo_decision
-			}
+	clr_country_flag = mad_daewoo_decision
+}
 
 		ai_will_do = {
 			base = 1
