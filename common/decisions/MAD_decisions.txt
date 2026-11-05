@@ -292,7 +292,8 @@ MAD_madarail_category = {
 	########################################################################
 
 	# --- Comazar (starts at 10 confidence: needs all three concessions to reach 75) ---
-	MAD_MADARAIL_CONCEDE_COMAZAR_STOCK = {
+	MAD_MADAR
+			custom_effect_tooltip = MAD_MADARAIL_COMMIT_COST_5_TTAIL_CONCEDE_COMAZAR_STOCK = {
 		icon = generic_political_discourse
 
 
@@ -313,8 +314,6 @@ MAD_madarail_category = {
 			clamp_variable = { var = MAD_madarail_confidence min = 0 max = 100 }
 			custom_effect_tooltip = MAD_MADARAIL_IF_INVESTOR_COMMITS_TT
 			effect_tooltip = {
-				set_temp_variable = { treasury_change = -5.00 }
-				modify_treasury_effect = yes
 				add_to_variable = { MAD_comazar_production_speed_rail_way_factor = 0.05 tooltip = production_speed_rail_way_factor_tt }
 				add_to_variable = { MAD_comazar_production_speed_rail_terminal_factor = 0.05 tooltip = production_speed_rail_terminal_factor_tt }
 				add_to_variable = { MAD_comazar_internal_investments_money_cost_modifier = 0.02 tooltip = internal_investments_money_cost_modifier_tt }
@@ -394,7 +393,8 @@ MAD_madarail_category = {
 	}
 
 	# --- Vecturis (starts at 30: any two concessions reach 75) ---
-	MAD_MADARAIL_CONCEDE_VECTURIS_RETURNS = {
+	MAD_MADAR
+			custom_effect_tooltip = MAD_MADARAIL_COMMIT_COST_2_TTAIL_CONCEDE_VECTURIS_RETURNS = {
 		icon = generic_political_discourse
 
 
@@ -415,8 +415,6 @@ MAD_madarail_category = {
 			clamp_variable = { var = MAD_madarail_confidence min = 0 max = 100 }
 			custom_effect_tooltip = MAD_MADARAIL_IF_INVESTOR_COMMITS_TT
 			effect_tooltip = {
-				set_temp_variable = { treasury_change = -2.00 }
-				modify_treasury_effect = yes
 				add_to_variable = { MAD_vecturis_receiving_investment_cost_modifier = -0.05 tooltip = receiving_investment_cost_modifier_tt }
 				add_to_variable = { MAD_vecturis_infrastructure_tax_gain_multiplier_modifier = -0.03 tooltip = infrastructure_tax_gain_multiplier_modifier_tt }
 			}
@@ -560,7 +558,8 @@ MAD_madarail_category = {
 		}
 	}
 
-	MAD_MADARAIL_CONCEDE_HOLDING_LOANS = {
+	MAD_MADAR
+			custom_effect_tooltip = MAD_MADARAIL_COMMIT_COST_2_5_TTAIL_CONCEDE_HOLDING_LOANS = {
 		icon = generic_political_discourse
 
 
@@ -581,8 +580,6 @@ MAD_madarail_category = {
 			clamp_variable = { var = MAD_madarail_confidence min = 0 max = 100 }
 			custom_effect_tooltip = MAD_MADARAIL_IF_INVESTOR_COMMITS_TT
 			effect_tooltip = {
-				set_temp_variable = { treasury_change = -2.50 }
-				modify_treasury_effect = yes
 				add_to_variable = { MAD_holding_production_speed_rail_way_factor = 0.05 tooltip = production_speed_rail_way_factor_tt }
 				add_to_variable = { MAD_holding_production_speed_rail_terminal_factor = 0.05 tooltip = production_speed_rail_terminal_factor_tt }
 			}
