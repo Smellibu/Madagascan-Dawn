@@ -4777,7 +4777,8 @@ MAD_OWNERSHIP_BOP = {
 				else = {
 					add_power_balance_value = { id = MAD_economy_ownership_bop value = -0.09375 tooltip_side = MAD_private_ownership }
 				}
-			}}
+			}
+		}
 		ai_will_do = { base = 0 }
 	}
 
@@ -5051,10 +5052,10 @@ MAD_OWNERSHIP_BOP = {
 		custom_cost_trigger = { always = yes }
 		custom_cost_text = cost_0_15
 		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Crown-backed regional development bonds issued"
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_POLICY_ROYAL_BONDS started"
 			set_temp_variable = { treasury_change = -0.15 }
 			modify_treasury_effect = yes
-}
+		}
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_POLICY_ROYAL_BONDS completed"
 			487 = { add_extra_state_shared_building_slots = 1 }
@@ -5067,7 +5068,7 @@ MAD_OWNERSHIP_BOP = {
 			}
 			add_ideas = MAD_POLICY_ROYAL_BONDS_IDEA
 			add_power_balance_value = { id = MAD_economy_ownership_bop value = 0.02 tooltip_side = MAD_public_ownership }
-}
+		}
 		ai_will_do = { base = 0 }
 	}
 
@@ -5091,12 +5092,12 @@ MAD_OWNERSHIP_BOP = {
 		custom_cost_trigger = { always = yes }
 		custom_cost_text = cost_0_2
 		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: TAMIMA chartered export syndicates established"
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_POLICY_TAMIMA_EXPORT_SYNDICATES started"
 			set_temp_variable = { treasury_change = -0.20 }
 			modify_treasury_effect = yes
 			set_temp_variable = { MAD_rc_delta = -3 }
 			MAD_rural_cooperation_adjust = yes
-}
+		}
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_POLICY_TAMIMA_EXPORT_SYNDICATES completed"
 			if = {
@@ -5111,7 +5112,7 @@ MAD_OWNERSHIP_BOP = {
 			}
 			add_ideas = MAD_POLICY_TAMIMA_EXPORT_SYNDICATES_IDEA
 			add_power_balance_value = { id = MAD_economy_ownership_bop value = -0.03 tooltip_side = MAD_private_ownership }
-}
+		}
 		ai_will_do = { base = 0 }
 	}
 
@@ -5135,12 +5136,12 @@ MAD_OWNERSHIP_BOP = {
 		custom_cost_trigger = { always = yes }
 		custom_cost_text = cost_0_22
 		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Military Engineer Corps national works mandate adopted"
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_POLICY_MILITARY_ENGINEER_MANDATE started"
 			set_temp_variable = { treasury_change = -0.22 }
 			modify_treasury_effect = yes
 			set_temp_variable = { MAD_rc_delta = -2 }
 			MAD_rural_cooperation_adjust = yes
-}
+		}
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_POLICY_MILITARY_ENGINEER_MANDATE completed"
 			if = {
@@ -5150,7 +5151,7 @@ MAD_OWNERSHIP_BOP = {
 			}
 			add_ideas = MAD_POLICY_MILITARY_ENGINEER_MANDATE_IDEA
 			add_power_balance_value = { id = MAD_economy_ownership_bop value = 0.02 tooltip_side = MAD_public_ownership }
-}
+		}
 		ai_will_do = { base = 0 }
 	}
 
@@ -5172,10 +5173,10 @@ MAD_OWNERSHIP_BOP = {
 		custom_cost_trigger = { always = yes }
 		custom_cost_text = cost_0_3
 		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: AREMA public milling and storage board funded"
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_POLICY_AREMA_MILLING_BOARD started"
 			set_temp_variable = { treasury_change = -0.30 }
 			modify_treasury_effect = yes
-}
+		}
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_POLICY_AREMA_MILLING_BOARD completed"
 			set_temp_variable = { MAD_rc_delta = 3 }
@@ -5192,7 +5193,7 @@ MAD_OWNERSHIP_BOP = {
 			}
 			add_ideas = MAD_POLICY_AREMA_MILLING_BOARD_IDEA
 			add_power_balance_value = { id = MAD_economy_ownership_bop value = 0.03 tooltip_side = MAD_public_ownership }
-}
+		}
 		ai_will_do = { base = 0 }
 	}
 
@@ -5215,10 +5216,10 @@ MAD_OWNERSHIP_BOP = {
 		custom_cost_trigger = { always = yes }
 		custom_cost_text = cost_0_25
 		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Export credit and supply-chain guarantee approved after the global financial crisis"
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_POLICY_TIM_EXPORT_CREDIT started"
 			set_temp_variable = { treasury_change = -0.25 }
 			modify_treasury_effect = yes
-}
+		}
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_POLICY_TIM_EXPORT_CREDIT completed"
 			set_temp_variable = { MAD_rc_delta = 1 }
@@ -5235,7 +5236,7 @@ MAD_OWNERSHIP_BOP = {
 			}
 			add_ideas = MAD_POLICY_TIM_EXPORT_CREDIT_IDEA
 			add_power_balance_value = { id = MAD_economy_ownership_bop value = -0.025 tooltip_side = MAD_private_ownership }
-}
+		}
 		ai_will_do = { base = 0 }
 	}
 
@@ -5260,10 +5261,10 @@ MAD_OWNERSHIP_BOP = {
 		custom_cost_trigger = { always = yes }
 		custom_cost_text = cost_0_4
 		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Velirano infrastructure delivery bonds issued"
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_POLICY_TGV_VELIRANO_BONDS started"
 			set_temp_variable = { treasury_change = -0.40 }
 			modify_treasury_effect = yes
-}
+		}
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_POLICY_TGV_VELIRANO_BONDS completed"
 			set_temp_variable = { MAD_rc_delta = 2 }
@@ -5280,7 +5281,7 @@ MAD_OWNERSHIP_BOP = {
 			}
 			add_ideas = MAD_POLICY_TGV_VELIRANO_BONDS_IDEA
 			add_power_balance_value = { id = MAD_economy_ownership_bop value = 0.02 tooltip_side = MAD_public_ownership }
-}
+		}
 		ai_will_do = { base = 0 }
 	}
 
@@ -5300,10 +5301,10 @@ MAD_OWNERSHIP_BOP = {
 		custom_cost_trigger = { always = yes }
 		custom_cost_text = cost_0_2
 		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Malagasy SME co-investment window established"
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_POLICY_HVM_SME_COINVESTMENT started"
 			set_temp_variable = { treasury_change = -0.20 }
 			modify_treasury_effect = yes
-}
+		}
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_POLICY_HVM_SME_COINVESTMENT completed"
 			set_temp_variable = { MAD_rc_delta = 1 }
@@ -5320,7 +5321,7 @@ MAD_OWNERSHIP_BOP = {
 			}
 			add_ideas = MAD_POLICY_HVM_SME_COINVESTMENT_IDEA
 			add_power_balance_value = { id = MAD_economy_ownership_bop value = -0.02 tooltip_side = MAD_private_ownership }
-}
+		}
 		ai_will_do = { base = 0 }
 	}
 
@@ -5347,16 +5348,16 @@ MAD_OWNERSHIP_BOP = {
 		custom_cost_trigger = { always = yes }
 		custom_cost_text = cost_0_18
 		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Southern grazing claims and restitution tribunal launched"
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_POLICY_GRAZING_RESTITUTION started"
 			set_temp_variable = { treasury_change = -0.18 }
 			modify_treasury_effect = yes
 			set_temp_variable = { MAD_rc_delta = -2 }
 			MAD_rural_cooperation_adjust = yes
-}
+		}
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_POLICY_GRAZING_RESTITUTION completed"
 			country_event = mad_policy_programmes.6
-}
+		}
 		ai_will_do = { base = 0 }
 	}
 
@@ -5380,10 +5381,10 @@ MAD_OWNERSHIP_BOP = {
 		custom_cost_trigger = { always = yes }
 		custom_cost_text = cost_0_1
 		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: District epidemic surveillance charter adopted"
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_POLICY_PLAGUE_SURVEILLANCE started"
 			set_temp_variable = { treasury_change = -0.10 }
 			modify_treasury_effect = yes
-}
+		}
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_POLICY_PLAGUE_SURVEILLANCE completed"
 			set_temp_variable = { MAD_rc_delta = 3 }
@@ -5391,7 +5392,7 @@ MAD_OWNERSHIP_BOP = {
 			set_country_flag = MAD_POLICY_PLAGUE_SURVEILLANCE_ENACTED
 			add_ideas = MAD_POLICY_PLAGUE_SURVEILLANCE_IDEA
 			add_power_balance_value = { id = MAD_economy_ownership_bop value = 0.015 tooltip_side = MAD_public_ownership }
-}
+		}
 		ai_will_do = { base = 0 }
 	}
 
@@ -5416,10 +5417,10 @@ MAD_OWNERSHIP_BOP = {
 		custom_cost_trigger = { always = yes }
 		custom_cost_text = cost_0_15
 		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Strategic supplier and domestic production reserve established"
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_POLICY_STRATEGIC_SUPPLY_RESERVE started"
 			set_temp_variable = { treasury_change = -0.15 }
 			modify_treasury_effect = yes
-}
+		}
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_POLICY_STRATEGIC_SUPPLY_RESERVE completed"
 			set_temp_variable = { MAD_rc_delta = 2 }
@@ -5437,7 +5438,7 @@ MAD_OWNERSHIP_BOP = {
 			}
 			add_ideas = MAD_POLICY_STRATEGIC_SUPPLY_RESERVE_IDEA
 			add_power_balance_value = { id = MAD_economy_ownership_bop value = 0.02 tooltip_side = MAD_public_ownership }
-}
+		}
 		ai_will_do = { base = 0 }
 	}
 }
