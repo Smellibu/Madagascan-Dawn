@@ -4765,16 +4765,12 @@ MAD_OWNERSHIP_BOP = {
 	# GDP per capita is expressed in thousands of USD in Millennium Dawn.
 	# ------------------------------------------------------------------------
 
-	MAD_POLICY_ROAD_MAINTENANCE = {
+{
 		allowed = { tag = MAD }
 		icon = generic_construction
 		visible = { always = yes }
 		available = {
-			custom_trigger_tooltip = {
-				tooltip = MAD_POLICY_GDP_MAX_15000_TT
-				check_variable = { gdp_per_capita < 15.001 }
-			}
-			custom_trigger_tooltip = {
+						custom_trigger_tooltip = {
 				tooltip = MAD_POLICY_RC_REQUIRE_4_TT
 				check_variable = { MAD_rural_cooperation > 3.99 }
 			}
@@ -4804,7 +4800,7 @@ MAD_OWNERSHIP_BOP = {
 		}
 		ai_will_do = { base = 0 }
 	}
-	MAD_POLICY_FISHERIES_COLD_CHAIN = {
+{
 		allowed = { tag = MAD }
 		icon = generic_industry
 		visible = { always = yes }
@@ -4815,15 +4811,7 @@ MAD_OWNERSHIP_BOP = {
 				has_completed_focus = MAD_EHOALA_PORT
 				has_completed_focus = MAD_ICTSI_CONCESSION
 			}
-			custom_trigger_tooltip = {
-				tooltip = MAD_POLICY_GDP_MIN_15000_TT
-				check_variable = { gdp_per_capita > 14.999 }
-			}
-			custom_trigger_tooltip = {
-				tooltip = MAD_POLICY_GDP_MAX_30000_TT
-				check_variable = { gdp_per_capita < 30.001 }
-			}
-			NOT = { has_country_flag = MAD_POLICY_FISHERIES_CYCLE_3 }
+									NOT = { has_country_flag = MAD_POLICY_FISHERIES_CYCLE_3 }
 			NOT = { has_country_flag = MAD_POLICY_FISHERIES_ACTIVE }
 
 			custom_trigger_tooltip = {
@@ -4862,22 +4850,13 @@ MAD_OWNERSHIP_BOP = {
 		ai_will_do = { base = 0 }
 	}
 
-	MAD_POLICY_VANILLA_WAREHOUSE_SCHEME = {
+{
 		allowed = { tag = MAD }
 		icon = generic_agriculture
 		visible = { always = yes }
 		available = {
-			date > 2023.5.1
 			has_completed_focus = MAD_VANILLA_PRICE_STABILITY
-			custom_trigger_tooltip = {
-				tooltip = MAD_POLICY_GDP_MIN_30000_TT
-				check_variable = { gdp_per_capita > 29.999 }
-			}
-			custom_trigger_tooltip = {
-				tooltip = MAD_POLICY_GDP_MAX_45000_TT
-				check_variable = { gdp_per_capita < 45.001 }
-			}
-			NOT = { has_country_flag = MAD_POLICY_VANILLA_CYCLE_3 }
+									NOT = { has_country_flag = MAD_POLICY_VANILLA_CYCLE_3 }
 			NOT = { has_country_flag = MAD_POLICY_VANILLA_ACTIVE }
 
 			custom_trigger_tooltip = {
@@ -4916,7 +4895,7 @@ MAD_OWNERSHIP_BOP = {
 		ai_will_do = { base = 0 }
 	}
 
-	MAD_POLICY_APPRENTICESHIP_COMPACT = {
+{
 		allowed = { tag = MAD }
 		icon = generic_industry
 		visible = { always = yes }
@@ -4927,15 +4906,7 @@ MAD_OWNERSHIP_BOP = {
 				has_completed_focus = MAD_POL_AREMA_WORKERS_FARMERS
 				has_completed_focus = MAD_POL_TIM_GREEN_REVOLUTION
 			}
-			custom_trigger_tooltip = {
-				tooltip = MAD_POLICY_GDP_MIN_30000_TT
-				check_variable = { gdp_per_capita > 29.999 }
-			}
-			custom_trigger_tooltip = {
-				tooltip = MAD_POLICY_GDP_MAX_45000_TT
-				check_variable = { gdp_per_capita < 45.001 }
-			}
-			NOT = { has_country_flag = MAD_POLICY_APPRENTICESHIP_CYCLE_3 }
+									NOT = { has_country_flag = MAD_POLICY_APPRENTICESHIP_CYCLE_3 }
 			NOT = { has_country_flag = MAD_POLICY_APPRENTICESHIP_ACTIVE }
 
 			custom_trigger_tooltip = {
@@ -4974,7 +4945,7 @@ MAD_OWNERSHIP_BOP = {
 		ai_will_do = { base = 0 }
 	}
 
-	MAD_POLICY_DEFENCE_MAINTENANCE = {
+{
 		allowed = { tag = MAD }
 		icon = generic_military
 		visible = { always = yes }
@@ -4985,11 +4956,7 @@ MAD_OWNERSHIP_BOP = {
 				has_completed_focus = MAD_SECREN_TECHNICAL_TRAINING
 				has_completed_focus = MAD_ARMY_IVATO_AEROSPACE_WORKS
 			}
-			custom_trigger_tooltip = {
-				tooltip = MAD_POLICY_GDP_MIN_45000_TT
-				check_variable = { gdp_per_capita > 44.999 }
-			}
-			NOT = { has_country_flag = MAD_POLICY_DEFENCE_CYCLE_3 }
+						NOT = { has_country_flag = MAD_POLICY_DEFENCE_CYCLE_3 }
 			NOT = { has_country_flag = MAD_POLICY_DEFENCE_ACTIVE }
 
 			custom_trigger_tooltip = {
