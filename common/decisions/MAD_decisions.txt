@@ -1576,6 +1576,7 @@ visible = {
 			has_completed_focus = MAD_Promote_drought_tolerant_crops
 			has_country_flag = MAD_DROUGHT_SEED_PROGRAMME_COMPLETED
 		}
+		target_trigger = { FROM = { NOT = { has_state_flag = MAD_STATE_LOCAL_SEED_DISTRIBUTED } } }
 		highlight_states = { highlight_state_targets = { state = FROM } }
 
 		visible = {
@@ -1614,6 +1615,7 @@ visible = {
 				set_temp_variable = { MAD_dr_state_change = -3 }
 				set_temp_variable = { MAD_dr_state_famine = -6 }
 				set_state_flag = MAD_STATE_SEED_RESILIENCE
+				set_state_flag = MAD_STATE_LOCAL_SEED_DISTRIBUTED
 				# Calculate relief strength using Rural Cooperation before paying its cost.
 				MAD_dahalo_southern_supply_interference = yes
 				MAD_drought_state_apply_change = yes
@@ -1842,7 +1844,6 @@ visible = {
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Drought-resistant seed programme completed"
 			custom_effect_tooltip = MAD_drought_prevention_tt
-			custom_effect_tooltip = MAD_drought_seed_resilience_tt
 			set_temp_variable = { MAD_dr_prevent_amount = 0.10 }
 			MAD_drought_add_prevention = yes
 			# Nationwide seed support improves food security and agricultural resilience.
@@ -1868,6 +1869,7 @@ visible = {
 			}
 			MAD_drought_recalc_national = yes
 			set_country_flag = MAD_DROUGHT_SEED_PROGRAMME_COMPLETED
+			custom_effect_tooltip = MAD_drought_seed_resilience_tt
 			clr_country_flag = MAD_DROUGHT_SEED_PROGRAMME_ACTIVE
 		
 			clr_country_flag = MAD_DROUGHT_PREVENTION_PROJECT_ACTIVE
@@ -2228,6 +2230,7 @@ visible = {
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Internal resettlement completed"
 			MAD_drought_resettle = yes
+			custom_effect_tooltip = MAD_DROUGHT_RESETTLE_CAP_TT
 			set_temp_variable = { MAD_rc_delta = 1 }
 			MAD_rural_cooperation_adjust = yes
 		}
