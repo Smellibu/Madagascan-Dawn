@@ -4670,10 +4670,6 @@ MAD_OWNERSHIP_BOP = {
 				limit = { has_completed_focus = MAD_STATE_FUEL_IMPORTS }
 				add_to_variable = { MAD_economy_internal_investments_money_cost_modifier = 0.05 tooltip = internal_investments_money_cost_modifier_tt }
 			}
-			if = {
-				limit = { has_completed_focus = MAD_GPM_BUY_WHILE_CHEAP }
-				# The state branch adds +0.01875 here; reverse that contribution.
-			}
 
 			# 75% of the original Rubis/Galana private route.
 			add_to_variable = { MAD_economy_receiving_investment_cost_modifier = -0.0375 tooltip = receiving_investment_cost_modifier_tt }
@@ -4699,6 +4695,7 @@ MAD_OWNERSHIP_BOP = {
 					tooltip_side = MAD_private_ownership
 				}
 			}
+			# Reverse the state branch's +0.01875 adjustment.
 			if = {
 				limit = { has_completed_focus = MAD_GPM_BUY_WHILE_CHEAP }
 				add_power_balance_value = {
@@ -4795,7 +4792,6 @@ MAD_OWNERSHIP_BOP = {
 	# The completion event lets the player choose a public or private delivery
 	# model. Only the ownership BOP adjustment persists; the programme bonus is
 	# a timed idea lasting 180 days.
-	# GDP per capita is expressed in thousands of USD in Millennium Dawn.
 	# ------------------------------------------------------------------------
 
 	MAD_POLICY_ROAD_MAINTENANCE = {
