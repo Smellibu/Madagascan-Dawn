@@ -3663,132 +3663,31 @@ MAD_dahalo_resolve_mazava = {
 	MAD_dahalo_campaign_clear_after_resolution = yes
 }
 MAD_dahalo_southern_supply_interference = {
-	# This is deliberately limited to the Grand Sud and to physical relief/supply operations.
-	# Cash transfers and locally-built wells are not penalised here: the problem is getting
-	# water, food, seed and pest-control supplies safely into the countryside.
-	#
-	# Escort Relief Convoys temporarily flips the interception penalty off. This makes the
-	# decision an actual countermeasure rather than a second generic threat-reduction button.
+	# Combined Rural Cooperation + Dahalo effectiveness for physical relief deliveries.
+	# The shared calculator adds the two effects; it also preserves the Grand Sud-only leak.
+	set_temp_variable = { MAD_dr_apply_dahalo_interference = 1 }
+	MAD_drought_calculate_relief_effectiveness = yes
 	if = {
-		limit = {
-			has_state_flag = MAD_GRAND_SUD_STATE
-			NOT = {
-				ROOT = {
-					has_country_flag = MAD_DAHALO_DEFEATED
-				}
-			}
-			NOT = {
-				ROOT = {
-					has_country_flag = MAD_REMENABILA_IN_POWER
-				}
-			}
-			check_variable = { ROOT.MAD_dahalo_threat > 39.99 }
-		}
-
-		set_temp_variable = { MAD_dahalo_south_relief_factor = 0.80 }
-		set_temp_variable = { MAD_dahalo_south_supply_leak = 1 }
-
-		if = {
-			limit = {
-				ROOT = {
-					has_country_flag = MAD_DAHALO_ESCORT_RELIEF_ACTIVE
-				}
-			}
-			set_temp_variable = { MAD_dahalo_south_relief_factor = 1.00 }
-			set_temp_variable = { MAD_dahalo_south_supply_leak = 0 }
-		}
-		else_if = {
-			limit = { check_variable = { ROOT.MAD_dahalo_threat > 79.99 } }
-			set_temp_variable = { MAD_dahalo_south_relief_factor = 0.50 }
-			set_temp_variable = { MAD_dahalo_south_supply_leak = 3 }
-		}
-		else_if = {
-			limit = { check_variable = { ROOT.MAD_dahalo_threat > 59.99 } }
-			set_temp_variable = { MAD_dahalo_south_relief_factor = 0.65 }
-			set_temp_variable = { MAD_dahalo_south_supply_leak = 2 }
-		}
-
-		if = {
-			limit = { ROOT = { has_country_flag = MAD_DROUGHT_SUD_EST_COMPLETED } }
-			add_to_temp_variable = { MAD_dahalo_south_relief_factor = 0.15 }
-			if = {
-				limit = { check_variable = { MAD_dahalo_south_relief_factor > 1 } }
-				set_temp_variable = { MAD_dahalo_south_relief_factor = 1 }
-			}
-			subtract_from_temp_variable = { MAD_dahalo_south_supply_leak = 1 }
-			if = {
-				limit = { check_variable = { MAD_dahalo_south_supply_leak < 0 } }
-				set_temp_variable = { MAD_dahalo_south_supply_leak = 0 }
-			}
-		}
-
-		if = {
-			limit = { check_variable = { MAD_dr_state_change < -0.001 } }
-			multiply_temp_variable = { MAD_dr_state_change = MAD_dahalo_south_relief_factor }
-		}
-		if = {
-			limit = { check_variable = { MAD_dr_state_famine < -0.001 } }
-			multiply_temp_variable = { MAD_dr_state_famine = MAD_dahalo_south_relief_factor }
-			add_to_variable = { MAD_state_famine = MAD_dahalo_south_supply_leak }
-			clamp_variable = { var = MAD_state_famine min = 0 max = 100 }
-		}
+		limit = { check_variable = { MAD_dr_state_change < -0.001 } }
+		multiply_temp_variable = { MAD_dr_state_change = MAD_drought_relief_effectiveness }
+	}
+	if = {
+		limit = { check_variable = { MAD_dr_state_famine < -0.001 } }
+		multiply_temp_variable = { MAD_dr_state_famine = MAD_drought_relief_effectiveness }
+		add_to_variable = { MAD_state_famine = MAD_dahalo_south_supply_leak }
+		clamp_variable = { var = MAD_state_famine min = 0 max = 100 }
 	}
 }
 
 MAD_dahalo_southern_water_relief_interference = {
-	# Emergency-water protection lasts six months. Its strength is locked in when selected.
-	# Rural Cooperation uses the same bands as Food Aid.
-	set_temp_variable = { MAD_water_rural_cooperation_factor = 0.50 }
-	if = {
-		limit = { ROOT = { check_variable = { MAD_rural_cooperation > 79.99 } } }
-		set_temp_variable = { MAD_water_rural_cooperation_factor = 1.20 }
-	}
-	else_if = {
-		limit = { ROOT = { check_variable = { MAD_rural_cooperation > 59.99 } } }
-		set_temp_variable = { MAD_water_rural_cooperation_factor = 1.00 }
-	}
-	else_if = {
-		limit = { ROOT = { check_variable = { MAD_rural_cooperation > 34.99 } } }
-		set_temp_variable = { MAD_water_rural_cooperation_factor = 0.80 }
-	}
+	# Emergency-water protection lasts six months. It uses the same additive
+	# Rural Cooperation / Dahalo effectiveness as other physical relief.
+	set_temp_variable = { MAD_dr_apply_dahalo_interference = 1 }
+	MAD_drought_calculate_relief_effectiveness = yes
 
-	# Dahalo supply interference applies only in the Grand Sud and follows Food Aid's rules.
-	set_temp_variable = { MAD_water_dahalo_factor = 1.00 }
-	if = {
-		limit = {
-			has_state_flag = MAD_GRAND_SUD_STATE
-			NOT = { ROOT = { has_country_flag = MAD_DAHALO_DEFEATED } }
-			NOT = { ROOT = { has_country_flag = MAD_REMENABILA_IN_POWER } }
-			check_variable = { ROOT.MAD_dahalo_threat > 39.99 }
-		}
-		set_temp_variable = { MAD_water_dahalo_factor = 0.80 }
-		if = {
-			limit = { ROOT = { has_country_flag = MAD_DAHALO_ESCORT_RELIEF_ACTIVE } }
-			set_temp_variable = { MAD_water_dahalo_factor = 1.00 }
-		}
-		else_if = {
-			limit = { check_variable = { ROOT.MAD_dahalo_threat > 79.99 } }
-			set_temp_variable = { MAD_water_dahalo_factor = 0.50 }
-		}
-		else_if = {
-			limit = { check_variable = { ROOT.MAD_dahalo_threat > 59.99 } }
-			set_temp_variable = { MAD_water_dahalo_factor = 0.65 }
-		}
-		if = {
-			limit = { ROOT = { has_country_flag = MAD_DROUGHT_SUD_EST_COMPLETED } }
-			add_to_temp_variable = { MAD_water_dahalo_factor = 0.15 }
-			if = {
-				limit = { check_variable = { MAD_water_dahalo_factor > 1.00 } }
-				set_temp_variable = { MAD_water_dahalo_factor = 1.00 }
-			}
-		}
-	}
-
-	# The base programme prevents 70% of positive drought growth. The two effectiveness
-	# factors multiply; convert the result into the remaining growth multiplier.
-	set_temp_variable = { MAD_water_effectiveness = MAD_water_rural_cooperation_factor }
-	multiply_temp_variable = { MAD_water_effectiveness = MAD_water_dahalo_factor }
-	set_temp_variable = { MAD_water_growth_reduction = MAD_water_effectiveness }
+	# The base programme prevents 70% of positive drought growth; apply the
+	# combined effectiveness to that base protection.
+	set_temp_variable = { MAD_water_growth_reduction = MAD_drought_relief_effectiveness }
 	multiply_temp_variable = { MAD_water_growth_reduction = 0.70 }
 	set_temp_variable = { MAD_water_growth_factor = 1.00 }
 	subtract_from_temp_variable = { MAD_water_growth_factor = MAD_water_growth_reduction }
@@ -5363,31 +5262,91 @@ MAD_rural_cooperation_monthly_tick = {
 	MAD_rural_cooperation_calculate_monthly_change = yes
 }
 
+# Shared by targeted physical relief and emergency water. This is called only when a
+# relief decision is selected, not from a daily or monthly tick.
+MAD_drought_calculate_relief_effectiveness = {
+	# Cooperation supplies the baseline effectiveness; Dahalo removes percentage points,
+	# rather than multiplying a second penalty into the Cooperation result.
+	set_temp_variable = { MAD_drought_relief_effectiveness = 0.65 }
+	if = {
+		limit = { ROOT = { check_variable = { MAD_rural_cooperation > 79.99 } } }
+		set_temp_variable = { MAD_drought_relief_effectiveness = 1.10 }
+	}
+	else_if = {
+		limit = { ROOT = { check_variable = { MAD_rural_cooperation > 59.99 } } }
+		set_temp_variable = { MAD_drought_relief_effectiveness = 1.00 }
+	}
+	else_if = {
+		limit = { ROOT = { check_variable = { MAD_rural_cooperation > 34.99 } } }
+		set_temp_variable = { MAD_drought_relief_effectiveness = 0.85 }
+	}
+
+	set_temp_variable = { MAD_dahalo_south_relief_penalty = 0 }
+	set_temp_variable = { MAD_dahalo_south_supply_leak = 0 }
+	if = {
+		limit = {
+			check_variable = { MAD_dr_apply_dahalo_interference > 0.5 }
+			has_state_flag = MAD_GRAND_SUD_STATE
+			NOT = { ROOT = { has_country_flag = MAD_DAHALO_DEFEATED } }
+			NOT = { ROOT = { has_country_flag = MAD_REMENABILA_IN_POWER } }
+			check_variable = { ROOT.MAD_dahalo_threat > 39.99 }
+		}
+		if = {
+			limit = { check_variable = { ROOT.MAD_dahalo_threat > 79.99 } }
+			set_temp_variable = { MAD_dahalo_south_relief_penalty = 0.35 }
+			set_temp_variable = { MAD_dahalo_south_supply_leak = 3 }
+		}
+		else_if = {
+			limit = { check_variable = { ROOT.MAD_dahalo_threat > 59.99 } }
+			set_temp_variable = { MAD_dahalo_south_relief_penalty = 0.25 }
+			set_temp_variable = { MAD_dahalo_south_supply_leak = 2 }
+		}
+		else = {
+			set_temp_variable = { MAD_dahalo_south_relief_penalty = 0.15 }
+			set_temp_variable = { MAD_dahalo_south_supply_leak = 1 }
+		}
+
+		if = {
+			limit = { ROOT = { has_country_flag = MAD_DAHALO_ESCORT_RELIEF_ACTIVE } }
+			set_temp_variable = { MAD_dahalo_south_relief_penalty = 0 }
+			set_temp_variable = { MAD_dahalo_south_supply_leak = 0 }
+		}
+		else_if = {
+			limit = { ROOT = { has_country_flag = MAD_DROUGHT_SUD_EST_COMPLETED } }
+			subtract_from_temp_variable = { MAD_dahalo_south_relief_penalty = 0.15 }
+			subtract_from_temp_variable = { MAD_dahalo_south_supply_leak = 1 }
+			if = {
+				limit = { check_variable = { MAD_dahalo_south_relief_penalty < 0 } }
+				set_temp_variable = { MAD_dahalo_south_relief_penalty = 0 }
+			}
+			if = {
+				limit = { check_variable = { MAD_dahalo_south_supply_leak < 0 } }
+				set_temp_variable = { MAD_dahalo_south_supply_leak = 0 }
+			}
+		}
+	}
+
+	subtract_from_temp_variable = { MAD_drought_relief_effectiveness = MAD_dahalo_south_relief_penalty }
+	if = {
+		limit = { check_variable = { MAD_drought_relief_effectiveness < 0.40 } }
+		set_temp_variable = { MAD_drought_relief_effectiveness = 0.40 }
+	}
+}
+
 # Used only by explicitly listed targeted relief decisions. Scale their helpful negative
 # deltas before the Dahalo interception effect is applied; cash costs and containment counts
 # are deliberately unaffected.
 MAD_rural_cooperation_boost_state_relief = {
-	# Cooperation changes the effectiveness of targeted drought/famine relief:
-	# below 35: -50%; 35-59.99: -20%; 60-79.99: no modifier; 80+: +20%.
-	set_temp_variable = { MAD_rc_relief_multiplier = 0.50 }
-	if = {
-		limit = { ROOT = { check_variable = { MAD_rural_cooperation > 79.99 } } }
-		set_temp_variable = { MAD_rc_relief_multiplier = 1.20 }
-	}
-	else_if = {
-		limit = { ROOT = { check_variable = { MAD_rural_cooperation > 59.99 } } }
-		set_temp_variable = { MAD_rc_relief_multiplier = 1.00 }
-	}
-	else_if = {
-		limit = { ROOT = { check_variable = { MAD_rural_cooperation > 34.99 } } }
-		set_temp_variable = { MAD_rc_relief_multiplier = 0.80 }
-	}
+	# Rural-Cooperation-only relief: cash-for-work and locally constructed wells/boreholes
+	# are deliberately exempt from Dahalo's physical-supply interception.
+	set_temp_variable = { MAD_dr_apply_dahalo_interference = 0 }
+	MAD_drought_calculate_relief_effectiveness = yes
 	if = {
 		limit = { check_variable = { MAD_dr_state_change < -0.001 } }
-		multiply_temp_variable = { MAD_dr_state_change = MAD_rc_relief_multiplier }
+		multiply_temp_variable = { MAD_dr_state_change = MAD_drought_relief_effectiveness }
 	}
 	if = {
 		limit = { check_variable = { MAD_dr_state_famine < -0.001 } }
-		multiply_temp_variable = { MAD_dr_state_famine = MAD_rc_relief_multiplier }
+		multiply_temp_variable = { MAD_dr_state_famine = MAD_drought_relief_effectiveness }
 	}
 }

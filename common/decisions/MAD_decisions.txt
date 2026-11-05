@@ -1301,7 +1301,6 @@ MAD_drought_category = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_DROUGHT_FOOD_AID_APPEAL complete"
 			FROM = {
 				set_temp_variable = { MAD_dr_state_famine = -20 }
-				MAD_rural_cooperation_boost_state_relief = yes
 				MAD_dahalo_southern_supply_interference = yes
 				MAD_drought_state_apply_famine = yes
 			}
@@ -1350,7 +1349,6 @@ MAD_drought_category = {
 			268 = {
 				set_temp_variable = { MAD_dr_state_change = -8 }
 				set_temp_variable = { MAD_dr_state_famine = -20 }
-				MAD_rural_cooperation_boost_state_relief = yes
 				MAD_dahalo_southern_supply_interference = yes
 				MAD_drought_state_apply_change = yes
 				MAD_drought_state_apply_famine = yes
@@ -1392,7 +1390,6 @@ MAD_drought_category = {
 			268 = {
 				set_temp_variable = { MAD_dr_state_change = -10 }
 				set_temp_variable = { MAD_dr_state_famine = -16 }
-				MAD_rural_cooperation_boost_state_relief = yes
 				MAD_dahalo_southern_supply_interference = yes
 				MAD_drought_state_apply_change = yes
 				MAD_drought_state_apply_famine = yes
@@ -1434,7 +1431,6 @@ MAD_drought_category = {
 			268 = {
 				set_temp_variable = { MAD_dr_state_change = -10 }
 				set_temp_variable = { MAD_dr_state_famine = -16 }
-				MAD_rural_cooperation_boost_state_relief = yes
 				MAD_dahalo_southern_supply_interference = yes
 				MAD_drought_state_apply_change = yes
 				MAD_drought_state_apply_famine = yes
@@ -1475,7 +1471,6 @@ MAD_drought_category = {
 			268 = {
 				set_temp_variable = { MAD_dr_state_change = -10 }
 				set_temp_variable = { MAD_dr_state_famine = -16 }
-				MAD_rural_cooperation_boost_state_relief = yes
 				MAD_dahalo_southern_supply_interference = yes
 				MAD_drought_state_apply_change = yes
 				MAD_drought_state_apply_famine = yes
@@ -1613,7 +1608,6 @@ visible = {
 				set_temp_variable = { MAD_dr_state_famine = -6 }
 				set_state_flag = MAD_STATE_SEED_RESILIENCE
 				# Calculate relief strength using Rural Cooperation before paying its cost.
-				MAD_rural_cooperation_boost_state_relief = yes
 				MAD_dahalo_southern_supply_interference = yes
 				MAD_drought_state_apply_change = yes
 				MAD_drought_state_apply_famine = yes
@@ -1742,7 +1736,6 @@ visible = {
 			FROM = {
 				set_temp_variable = { MAD_dr_state_change = -4 }
 				set_temp_variable = { MAD_dr_state_famine = -8 }
-				MAD_rural_cooperation_boost_state_relief = yes
 				MAD_dahalo_southern_supply_interference = yes
 				MAD_drought_state_apply_change = yes
 				MAD_drought_state_apply_famine = yes
@@ -2113,7 +2106,6 @@ visible = {
 			}
 			268 = {
 				set_temp_variable = { MAD_dr_state_famine = -40 }
-				MAD_rural_cooperation_boost_state_relief = yes
 				MAD_dahalo_southern_supply_interference = yes
 				MAD_drought_state_apply_famine = yes
 			}
