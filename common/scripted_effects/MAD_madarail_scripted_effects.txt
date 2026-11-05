@@ -5262,8 +5262,8 @@ MAD_rural_cooperation_monthly_tick = {
 	MAD_rural_cooperation_calculate_monthly_change = yes
 }
 
-# Shared by targeted physical relief and emergency water. This is called only when a
-# relief decision is selected, not from a daily or monthly tick.
+# Shared by targeted physical relief and emergency water. Called only when a
+# one-off relief effect is applied, never from a daily or monthly tick.
 MAD_drought_calculate_relief_effectiveness = {
 	# Cooperation supplies the baseline effectiveness; Dahalo removes percentage points,
 	# rather than multiplying a second penalty into the Cooperation result.
