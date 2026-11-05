@@ -4435,14 +4435,17 @@ MAD_OWNERSHIP_BOP = {
 		icon = generic_ownership
 		cost = 50
 		fire_only_once = yes
-		days_remove = 1
+		days_remove = 60
 		visible = {
 			has_country_flag = MAD_TELMA_STATE_OWNED
 			NOT = { has_country_flag = MAD_TELMA_PRIVATISED_AFTER_STATE }
 		}
 		
 		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision MAD_SELL_TELMA_PRIVATE"
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_SELL_TELMA_PRIVATE started"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_SELL_TELMA_PRIVATE completed"
 			clr_country_flag = MAD_TELMA_STATE_OWNED
 			set_country_flag = MAD_TELMA_PRIVATISED_AFTER_STATE
 			set_country_flag = MAD_TELMA_AXIAN_OWNED
@@ -4479,14 +4482,17 @@ MAD_OWNERSHIP_BOP = {
 		icon = generic_air
 		cost = 50
 		fire_only_once = yes
-		days_remove = 1
+		days_remove = 60
 		visible = {
 			has_idea = MAD_STATE_AIRLINE
 			NOT = { has_country_flag = MAD_AIR_PRIVATISED_AFTER_STATE }
 		}
 		
 		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision MAD_SELL_AIRLINE_PRIVATE"
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_SELL_AIRLINE_PRIVATE started"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_SELL_AIRLINE_PRIVATE completed"
 			remove_ideas = MAD_STATE_AIRLINE
 			add_ideas = MAD_PRIVATE_AIRLINE
 			set_country_flag = MAD_AIR_PRIVATISED_AFTER_STATE
@@ -4513,14 +4519,17 @@ MAD_OWNERSHIP_BOP = {
 		icon = GFX_decision_generic_political_reform
 		cost = 50
 		fire_only_once = yes
-		days_remove = 1
+		days_remove = 90
 		visible = {
 			has_country_flag = MAD_JIRAMA_PUBLIC_MODEL
 			NOT = { has_country_flag = MAD_JIRAMA_PRIVATISED_AFTER_STATE }
 		}
 		
 		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision MAD_SELL_JIRAMA_PRIVATE"
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_SELL_JIRAMA_PRIVATE started"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_SELL_JIRAMA_PRIVATE completed"
 
 			# Remove the public model's direct ownership effects.
 			add_to_variable = { MAD_power_energy_gain_multiplier = -0.04 tooltip = energy_gain_multiplier_tt }
@@ -4536,20 +4545,10 @@ MAD_OWNERSHIP_BOP = {
 			if = {
 				limit = { has_completed_focus = MAD_ELECTRICITY_FOR_ALL }
 				add_to_variable = { MAD_economy_internal_investments_money_cost_modifier = 0.05 tooltip = internal_investments_money_cost_modifier_tt }
-				add_power_balance_value = {
-					id = MAD_economy_ownership_bop
-					value = -0.0375
-					tooltip_side = MAD_private_ownership
-				}
 			}
 			if = {
 				limit = { has_completed_focus = MAD_Volobe_Amont_DAM }
 				add_to_variable = { MAD_economy_foreign_influence_modifier = -0.02 tooltip = foreign_influence_modifier_tt }
-				add_power_balance_value = {
-					id = MAD_economy_ownership_bop
-					value = -0.01875
-					tooltip_side = MAD_private_ownership
-				}
 			}
 
 			# 75% of the original private JIRAMA route's direct benefits.
@@ -4572,6 +4571,23 @@ MAD_OWNERSHIP_BOP = {
 				value = -0.13125
 				tooltip_side = MAD_private_ownership
 			}
+
+			if = {
+				limit = { has_completed_focus = MAD_ELECTRICITY_FOR_ALL }
+				add_power_balance_value = {
+					id = MAD_economy_ownership_bop
+					value = -0.0375
+					tooltip_side = MAD_private_ownership
+				}
+			}
+			if = {
+				limit = { has_completed_focus = MAD_Volobe_Amont_DAM }
+				add_power_balance_value = {
+					id = MAD_economy_ownership_bop
+					value = -0.01875
+					tooltip_side = MAD_private_ownership
+				}
+			}
 		}
 		ai_will_do = { base = 0 }
 	}
@@ -4580,7 +4596,7 @@ MAD_OWNERSHIP_BOP = {
 		icon = generic_railway
 		cost = 50
 		fire_only_once = yes
-		days_remove = 1
+		days_remove = 90
 		visible = {
 			OR = {
 				has_idea = MAD_MADARAIL_OPERATOR_STATE_AUSTERE
@@ -4590,7 +4606,10 @@ MAD_OWNERSHIP_BOP = {
 		}
 		
 		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision MAD_SELL_MADARAIL_PRIVATE"
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_SELL_MADARAIL_PRIVATE started"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_SELL_MADARAIL_PRIVATE completed"
 			if = {
 				limit = { has_idea = MAD_MADARAIL_OPERATOR_STATE_AUSTERE }
 				add_stability = 0.02
@@ -4625,14 +4644,17 @@ MAD_OWNERSHIP_BOP = {
 		icon = generic_fuel
 		cost = 50
 		fire_only_once = yes
-		days_remove = 1
+		days_remove = 60
 		visible = {
 			has_country_flag = MAD_GPM_STATE_MODEL
 			NOT = { has_country_flag = MAD_GPM_PRIVATISED_AFTER_STATE }
 		}
 		
 		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision MAD_SELL_GPM_PRIVATE"
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_SELL_GPM_PRIVATE started"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_SELL_GPM_PRIVATE completed"
 			clr_country_flag = MAD_GPM_STATE_MODEL
 			set_country_flag = MAD_GPM_PRIVATE_MODEL
 			set_country_flag = MAD_GPM_PRIVATISED_AFTER_STATE
@@ -4647,20 +4669,10 @@ MAD_OWNERSHIP_BOP = {
 			if = {
 				limit = { has_completed_focus = MAD_STATE_FUEL_IMPORTS }
 				add_to_variable = { MAD_economy_internal_investments_money_cost_modifier = 0.05 tooltip = internal_investments_money_cost_modifier_tt }
-				add_power_balance_value = {
-					id = MAD_economy_ownership_bop
-					value = -0.0375
-					tooltip_side = MAD_private_ownership
-				}
 			}
 			if = {
 				limit = { has_completed_focus = MAD_GPM_BUY_WHILE_CHEAP }
 				# The state branch adds +0.01875 here; reverse that contribution.
-				add_power_balance_value = {
-					id = MAD_economy_ownership_bop
-					value = -0.01875
-					tooltip_side = MAD_private_ownership
-				}
 			}
 
 			# 75% of the original Rubis/Galana private route.
@@ -4678,6 +4690,23 @@ MAD_OWNERSHIP_BOP = {
 				value = -0.13125
 				tooltip_side = MAD_private_ownership
 			}
+
+			if = {
+				limit = { has_completed_focus = MAD_STATE_FUEL_IMPORTS }
+				add_power_balance_value = {
+					id = MAD_economy_ownership_bop
+					value = -0.0375
+					tooltip_side = MAD_private_ownership
+				}
+			}
+			if = {
+				limit = { has_completed_focus = MAD_GPM_BUY_WHILE_CHEAP }
+				add_power_balance_value = {
+					id = MAD_economy_ownership_bop
+					value = -0.01875
+					tooltip_side = MAD_private_ownership
+				}
+			}
 		}
 		ai_will_do = { base = 0 }
 	}
@@ -4686,7 +4715,7 @@ MAD_OWNERSHIP_BOP = {
 		icon = generic_mining
 		cost = 50
 		fire_only_once = yes
-		days_remove = 1
+		days_remove = 90
 		visible = {
 			OR = {
 				has_idea = MAD_AMBATOVY_Partial_State
@@ -4696,7 +4725,10 @@ MAD_OWNERSHIP_BOP = {
 		}
 		
 		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision MAD_SELL_AMBATOVY_PRIVATE"
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_SELL_AMBATOVY_PRIVATE started"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_SELL_AMBATOVY_PRIVATE completed"
 
 			# Ambatovy BOP sale uses fixed values: $15bn for majority state ownership, $5bn for partial.
 			if = {
@@ -4713,6 +4745,8 @@ MAD_OWNERSHIP_BOP = {
 			if = {
 				limit = { has_idea = MAD_AMBATOVY_Full_State }
 				remove_ideas = MAD_AMBATOVY_Full_State
+				add_ideas = MAD_AMBATOVY_PRIVATE
+				set_country_flag = MAD_AMBATOVY_PRIVATISED_AFTER_STATE
 				if = {
 					limit = {
 						OR = {
@@ -4729,6 +4763,8 @@ MAD_OWNERSHIP_BOP = {
 			else_if = {
 				limit = { has_idea = MAD_AMBATOVY_Partial_State }
 				remove_ideas = MAD_AMBATOVY_Partial_State
+				add_ideas = MAD_AMBATOVY_PRIVATE
+				set_country_flag = MAD_AMBATOVY_PRIVATISED_AFTER_STATE
 				if = {
 					limit = {
 						OR = {
@@ -4741,11 +4777,7 @@ MAD_OWNERSHIP_BOP = {
 				else = {
 					add_power_balance_value = { id = MAD_economy_ownership_bop value = -0.09375 tooltip_side = MAD_private_ownership }
 				}
-			}
-
-			add_ideas = MAD_AMBATOVY_PRIVATE
-			set_country_flag = MAD_AMBATOVY_PRIVATISED_AFTER_STATE
-		}
+			}}
 		ai_will_do = { base = 0 }
 	}
 
@@ -4765,7 +4797,7 @@ MAD_OWNERSHIP_BOP = {
 	# GDP per capita is expressed in thousands of USD in Millennium Dawn.
 	# ------------------------------------------------------------------------
 
-{
+	MAD_POLICY_ROAD_MAINTENANCE = {
 		allowed = { tag = MAD }
 		icon = generic_construction
 		visible = { always = yes }
@@ -4800,7 +4832,7 @@ MAD_OWNERSHIP_BOP = {
 		}
 		ai_will_do = { base = 0 }
 	}
-{
+	MAD_POLICY_FISHERIES_COLD_CHAIN = {
 		allowed = { tag = MAD }
 		icon = generic_industry
 		visible = { always = yes }
@@ -4850,7 +4882,7 @@ MAD_OWNERSHIP_BOP = {
 		ai_will_do = { base = 0 }
 	}
 
-{
+	MAD_POLICY_VANILLA_WAREHOUSE_SCHEME = {
 		allowed = { tag = MAD }
 		icon = generic_agriculture
 		visible = { always = yes }
@@ -4895,7 +4927,7 @@ MAD_OWNERSHIP_BOP = {
 		ai_will_do = { base = 0 }
 	}
 
-{
+	MAD_POLICY_APPRENTICESHIP_COMPACT = {
 		allowed = { tag = MAD }
 		icon = generic_industry
 		visible = { always = yes }
@@ -4945,7 +4977,7 @@ MAD_OWNERSHIP_BOP = {
 		ai_will_do = { base = 0 }
 	}
 
-{
+	MAD_POLICY_DEFENCE_MAINTENANCE = {
 		allowed = { tag = MAD }
 		icon = generic_military
 		visible = { always = yes }
@@ -5015,13 +5047,16 @@ MAD_OWNERSHIP_BOP = {
 		}
 		cost = 50
 		fire_only_once = yes
-		days_remove = 1
+		days_remove = 30
 		custom_cost_trigger = { always = yes }
 		custom_cost_text = cost_0_15
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Crown-backed regional development bonds issued"
 			set_temp_variable = { treasury_change = -0.15 }
 			modify_treasury_effect = yes
+}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_POLICY_ROYAL_BONDS completed"
 			487 = { add_extra_state_shared_building_slots = 1 }
 			set_temp_variable = { MAD_rc_delta = 3 }
 			MAD_rural_cooperation_adjust = yes
@@ -5032,7 +5067,7 @@ MAD_OWNERSHIP_BOP = {
 			}
 			add_ideas = MAD_POLICY_ROYAL_BONDS_IDEA
 			add_power_balance_value = { id = MAD_economy_ownership_bop value = 0.02 tooltip_side = MAD_public_ownership }
-		}
+}
 		ai_will_do = { base = 0 }
 	}
 
@@ -5052,7 +5087,7 @@ MAD_OWNERSHIP_BOP = {
 		}
 		cost = 50
 		fire_only_once = yes
-		days_remove = 1
+		days_remove = 60
 		custom_cost_trigger = { always = yes }
 		custom_cost_text = cost_0_2
 		complete_effect = {
@@ -5061,6 +5096,9 @@ MAD_OWNERSHIP_BOP = {
 			modify_treasury_effect = yes
 			set_temp_variable = { MAD_rc_delta = -3 }
 			MAD_rural_cooperation_adjust = yes
+}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_POLICY_TAMIMA_EXPORT_SYNDICATES completed"
 			if = {
 				limit = { has_idea = small_medium_business_owners }
 				set_temp_variable = { temp_opinion = 10 }
@@ -5073,7 +5111,7 @@ MAD_OWNERSHIP_BOP = {
 			}
 			add_ideas = MAD_POLICY_TAMIMA_EXPORT_SYNDICATES_IDEA
 			add_power_balance_value = { id = MAD_economy_ownership_bop value = -0.03 tooltip_side = MAD_private_ownership }
-		}
+}
 		ai_will_do = { base = 0 }
 	}
 
@@ -5093,7 +5131,7 @@ MAD_OWNERSHIP_BOP = {
 		}
 		cost = 50
 		fire_only_once = yes
-		days_remove = 1
+		days_remove = 30
 		custom_cost_trigger = { always = yes }
 		custom_cost_text = cost_0_22
 		complete_effect = {
@@ -5102,6 +5140,9 @@ MAD_OWNERSHIP_BOP = {
 			modify_treasury_effect = yes
 			set_temp_variable = { MAD_rc_delta = -2 }
 			MAD_rural_cooperation_adjust = yes
+}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_POLICY_MILITARY_ENGINEER_MANDATE completed"
 			if = {
 				limit = { has_idea = the_military }
 				set_temp_variable = { temp_opinion = 10 }
@@ -5109,7 +5150,7 @@ MAD_OWNERSHIP_BOP = {
 			}
 			add_ideas = MAD_POLICY_MILITARY_ENGINEER_MANDATE_IDEA
 			add_power_balance_value = { id = MAD_economy_ownership_bop value = 0.02 tooltip_side = MAD_public_ownership }
-		}
+}
 		ai_will_do = { base = 0 }
 	}
 
@@ -5127,13 +5168,16 @@ MAD_OWNERSHIP_BOP = {
 		}
 		cost = 50
 		fire_only_once = yes
-		days_remove = 1
+		days_remove = 60
 		custom_cost_trigger = { always = yes }
 		custom_cost_text = cost_0_3
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: AREMA public milling and storage board funded"
 			set_temp_variable = { treasury_change = -0.30 }
 			modify_treasury_effect = yes
+}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_POLICY_AREMA_MILLING_BOARD completed"
 			set_temp_variable = { MAD_rc_delta = 3 }
 			MAD_rural_cooperation_adjust = yes
 			if = {
@@ -5148,7 +5192,7 @@ MAD_OWNERSHIP_BOP = {
 			}
 			add_ideas = MAD_POLICY_AREMA_MILLING_BOARD_IDEA
 			add_power_balance_value = { id = MAD_economy_ownership_bop value = 0.03 tooltip_side = MAD_public_ownership }
-		}
+}
 		ai_will_do = { base = 0 }
 	}
 
@@ -5167,13 +5211,16 @@ MAD_OWNERSHIP_BOP = {
 		}
 		cost = 50
 		fire_only_once = yes
-		days_remove = 1
+		days_remove = 30
 		custom_cost_trigger = { always = yes }
 		custom_cost_text = cost_0_25
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Export credit and supply-chain guarantee approved after the global financial crisis"
 			set_temp_variable = { treasury_change = -0.25 }
 			modify_treasury_effect = yes
+}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_POLICY_TIM_EXPORT_CREDIT completed"
 			set_temp_variable = { MAD_rc_delta = 1 }
 			MAD_rural_cooperation_adjust = yes
 			if = {
@@ -5188,7 +5235,7 @@ MAD_OWNERSHIP_BOP = {
 			}
 			add_ideas = MAD_POLICY_TIM_EXPORT_CREDIT_IDEA
 			add_power_balance_value = { id = MAD_economy_ownership_bop value = -0.025 tooltip_side = MAD_private_ownership }
-		}
+}
 		ai_will_do = { base = 0 }
 	}
 
@@ -5209,13 +5256,16 @@ MAD_OWNERSHIP_BOP = {
 		}
 		cost = 75
 		fire_only_once = yes
-		days_remove = 1
+		days_remove = 30
 		custom_cost_trigger = { always = yes }
 		custom_cost_text = cost_0_4
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Velirano infrastructure delivery bonds issued"
 			set_temp_variable = { treasury_change = -0.40 }
 			modify_treasury_effect = yes
+}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_POLICY_TGV_VELIRANO_BONDS completed"
 			set_temp_variable = { MAD_rc_delta = 2 }
 			MAD_rural_cooperation_adjust = yes
 			if = {
@@ -5230,7 +5280,7 @@ MAD_OWNERSHIP_BOP = {
 			}
 			add_ideas = MAD_POLICY_TGV_VELIRANO_BONDS_IDEA
 			add_power_balance_value = { id = MAD_economy_ownership_bop value = 0.02 tooltip_side = MAD_public_ownership }
-		}
+}
 		ai_will_do = { base = 0 }
 	}
 
@@ -5246,13 +5296,16 @@ MAD_OWNERSHIP_BOP = {
 		}
 		cost = 50
 		fire_only_once = yes
-		days_remove = 1
+		days_remove = 60
 		custom_cost_trigger = { always = yes }
 		custom_cost_text = cost_0_2
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Malagasy SME co-investment window established"
 			set_temp_variable = { treasury_change = -0.20 }
 			modify_treasury_effect = yes
+}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_POLICY_HVM_SME_COINVESTMENT completed"
 			set_temp_variable = { MAD_rc_delta = 1 }
 			MAD_rural_cooperation_adjust = yes
 			if = {
@@ -5267,7 +5320,7 @@ MAD_OWNERSHIP_BOP = {
 			}
 			add_ideas = MAD_POLICY_HVM_SME_COINVESTMENT_IDEA
 			add_power_balance_value = { id = MAD_economy_ownership_bop value = -0.02 tooltip_side = MAD_private_ownership }
-		}
+}
 		ai_will_do = { base = 0 }
 	}
 
@@ -5290,7 +5343,7 @@ MAD_OWNERSHIP_BOP = {
 		}
 		cost = 50
 		fire_only_once = yes
-		days_remove = 1
+		days_remove = 90
 		custom_cost_trigger = { always = yes }
 		custom_cost_text = cost_0_18
 		complete_effect = {
@@ -5299,8 +5352,11 @@ MAD_OWNERSHIP_BOP = {
 			modify_treasury_effect = yes
 			set_temp_variable = { MAD_rc_delta = -2 }
 			MAD_rural_cooperation_adjust = yes
-			country_event = { id = mad_policy_programmes.6 days = 1 }
-		}
+}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_POLICY_GRAZING_RESTITUTION completed"
+			country_event = mad_policy_programmes.6
+}
 		ai_will_do = { base = 0 }
 	}
 
@@ -5320,19 +5376,22 @@ MAD_OWNERSHIP_BOP = {
 		}
 		cost = 50
 		fire_only_once = yes
-		days_remove = 1
+		days_remove = 60
 		custom_cost_trigger = { always = yes }
 		custom_cost_text = cost_0_1
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: District epidemic surveillance charter adopted"
 			set_temp_variable = { treasury_change = -0.10 }
 			modify_treasury_effect = yes
+}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_POLICY_PLAGUE_SURVEILLANCE completed"
 			set_temp_variable = { MAD_rc_delta = 3 }
 			MAD_rural_cooperation_adjust = yes
 			set_country_flag = MAD_POLICY_PLAGUE_SURVEILLANCE_ENACTED
 			add_ideas = MAD_POLICY_PLAGUE_SURVEILLANCE_IDEA
 			add_power_balance_value = { id = MAD_economy_ownership_bop value = 0.015 tooltip_side = MAD_public_ownership }
-		}
+}
 		ai_will_do = { base = 0 }
 	}
 
@@ -5353,13 +5412,16 @@ MAD_OWNERSHIP_BOP = {
 		}
 		cost = 50
 		fire_only_once = yes
-		days_remove = 1
+		days_remove = 90
 		custom_cost_trigger = { always = yes }
 		custom_cost_text = cost_0_15
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Strategic supplier and domestic production reserve established"
 			set_temp_variable = { treasury_change = -0.15 }
 			modify_treasury_effect = yes
+}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_POLICY_STRATEGIC_SUPPLY_RESERVE completed"
 			set_temp_variable = { MAD_rc_delta = 2 }
 			MAD_rural_cooperation_adjust = yes
 			set_country_flag = MAD_POLICY_STRATEGIC_SUPPLY_RESERVE_ENACTED
@@ -5375,7 +5437,7 @@ MAD_OWNERSHIP_BOP = {
 			}
 			add_ideas = MAD_POLICY_STRATEGIC_SUPPLY_RESERVE_IDEA
 			add_power_balance_value = { id = MAD_economy_ownership_bop value = 0.02 tooltip_side = MAD_public_ownership }
-		}
+}
 		ai_will_do = { base = 0 }
 	}
 }
