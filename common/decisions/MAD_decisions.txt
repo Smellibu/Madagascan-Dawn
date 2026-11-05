@@ -4469,6 +4469,8 @@ MAD_OWNERSHIP_BOP = {
 			add_to_variable = { MAD_economy_civilian_industry_tax_modifier = 0.0375 tooltip = civilian_industry_tax_modifier_tt }
 			add_to_variable = { MAD_economy_production_speed_offices_factor = 0.05 tooltip = production_speed_offices_factor_tt }
 			add_political_power = 19
+			set_temp_variable = { MAD_rc_delta = -3 }
+			MAD_rural_cooperation_adjust = yes
 			add_power_balance_value = {
 				id = MAD_economy_ownership_bop
 				value = -0.20625
@@ -4506,6 +4508,8 @@ MAD_OWNERSHIP_BOP = {
 				bonus = 0.25
 			}
 			add_to_variable = { MAD_economy_production_factory_max_efficiency_factor = 0.05 tooltip = production_factory_max_efficiency_factor_tt }
+			set_temp_variable = { MAD_rc_delta = -2 }
+			MAD_rural_cooperation_adjust = yes
 			add_power_balance_value = {
 				id = MAD_economy_ownership_bop
 				value = -0.13125
@@ -4566,6 +4570,8 @@ MAD_OWNERSHIP_BOP = {
 			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.05 tooltip = productivity_growth_modifier_tt }
 			add_stability = -0.0225
 
+			set_temp_variable = { MAD_rc_delta = -5 }
+			MAD_rural_cooperation_adjust = yes
 			add_power_balance_value = {
 				id = MAD_economy_ownership_bop
 				value = -0.13125
@@ -4631,6 +4637,8 @@ MAD_OWNERSHIP_BOP = {
 			add_to_variable = { MAD_economy_production_speed_rail_way_factor = 0.075 tooltip = production_speed_rail_way_factor_tt }
 			add_political_power = 19
 
+			set_temp_variable = { MAD_rc_delta = -4 }
+			MAD_rural_cooperation_adjust = yes
 			add_power_balance_value = {
 				id = MAD_economy_ownership_bop
 				value = -0.13125
@@ -4681,6 +4689,8 @@ MAD_OWNERSHIP_BOP = {
 			set_temp_variable = { treasury_change = { value = gdp_total multiply = 0.06 } }
 			modify_treasury_effect = yes
 
+			set_temp_variable = { MAD_rc_delta = -3 }
+			MAD_rural_cooperation_adjust = yes
 			add_power_balance_value = {
 				id = MAD_economy_ownership_bop
 				value = -0.13125
@@ -4744,6 +4754,8 @@ MAD_OWNERSHIP_BOP = {
 				remove_ideas = MAD_AMBATOVY_Full_State
 				add_ideas = MAD_AMBATOVY_PRIVATE
 				set_country_flag = MAD_AMBATOVY_PRIVATISED_AFTER_STATE
+				set_temp_variable = { MAD_rc_delta = -5 }
+				MAD_rural_cooperation_adjust = yes
 				if = {
 					limit = {
 						OR = {
@@ -4762,6 +4774,8 @@ MAD_OWNERSHIP_BOP = {
 				remove_ideas = MAD_AMBATOVY_Partial_State
 				add_ideas = MAD_AMBATOVY_PRIVATE
 				set_country_flag = MAD_AMBATOVY_PRIVATISED_AFTER_STATE
+				set_temp_variable = { MAD_rc_delta = -5 }
+				MAD_rural_cooperation_adjust = yes
 				if = {
 					limit = {
 						OR = {
@@ -4809,12 +4823,12 @@ MAD_OWNERSHIP_BOP = {
 		# Native decision timer: the programme runs for 365 days.
 		days_remove = 365
 		custom_cost_trigger = { always = yes }
-		custom_cost_text = cost_0_2
+		custom_cost_text = cost_0_75
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Regional road maintenance programme launched"
-			set_temp_variable = { treasury_change = -0.20 }
+			set_temp_variable = { treasury_change = -0.75 }
 			modify_treasury_effect = yes
-			set_temp_variable = { MAD_rc_delta = -4 }
+			set_temp_variable = { MAD_rc_delta = -6 }
 			MAD_rural_cooperation_adjust = yes
 			# Choose the delivery model at launch. Its 120-day idea expires well before the programme completes.
 			country_event = { id = mad_policy_programmes.1 }
@@ -4853,13 +4867,13 @@ MAD_OWNERSHIP_BOP = {
 		days_remove = 180
 		days_re_enable = 180
 		custom_cost_trigger = { always = yes }
-		custom_cost_text = cost_0_06
+		custom_cost_text = cost_0_3
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Coastal fisheries cold-chain programme launched"
 			set_country_flag = MAD_POLICY_FISHERIES_ACTIVE
-			set_temp_variable = { treasury_change = -0.06 }
+			set_temp_variable = { treasury_change = -0.30 }
 			modify_treasury_effect = yes
-			set_temp_variable = { MAD_rc_delta = -1 }
+			set_temp_variable = { MAD_rc_delta = -3 }
 			MAD_rural_cooperation_adjust = yes
 			if = {
 				limit = { NOT = { has_country_flag = MAD_POLICY_FISHERIES_CYCLE_1 } }
@@ -4898,13 +4912,13 @@ MAD_OWNERSHIP_BOP = {
 		days_remove = 90
 		days_re_enable = 90
 		custom_cost_trigger = { always = yes }
-		custom_cost_text = cost_0_05
+		custom_cost_text = cost_0_25
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Vanilla and clove warehouse-receipt programme launched"
 			set_country_flag = MAD_POLICY_VANILLA_ACTIVE
-			set_temp_variable = { treasury_change = -0.05 }
+			set_temp_variable = { treasury_change = -0.25 }
 			modify_treasury_effect = yes
-			set_temp_variable = { MAD_rc_delta = -1 }
+			set_temp_variable = { MAD_rc_delta = -2 }
 			MAD_rural_cooperation_adjust = yes
 			if = {
 				limit = { NOT = { has_country_flag = MAD_POLICY_VANILLA_CYCLE_1 } }
@@ -4948,13 +4962,13 @@ MAD_OWNERSHIP_BOP = {
 		days_remove = 180
 		days_re_enable = 180
 		custom_cost_trigger = { always = yes }
-		custom_cost_text = cost_0_1
+		custom_cost_text = cost_0_4
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Industrial apprenticeship compact launched"
 			set_country_flag = MAD_POLICY_APPRENTICESHIP_ACTIVE
-			set_temp_variable = { treasury_change = -0.10 }
+			set_temp_variable = { treasury_change = -0.40 }
 			modify_treasury_effect = yes
-			set_temp_variable = { MAD_rc_delta = -1 }
+			set_temp_variable = { MAD_rc_delta = -3 }
 			MAD_rural_cooperation_adjust = yes
 			if = {
 				limit = { NOT = { has_country_flag = MAD_POLICY_APPRENTICESHIP_CYCLE_1 } }
@@ -4998,13 +5012,13 @@ MAD_OWNERSHIP_BOP = {
 		days_remove = 180
 		days_re_enable = 180
 		custom_cost_trigger = { always = yes }
-		custom_cost_text = cost_0_15
+		custom_cost_text = cost_0_75
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Defence depot and equipment maintenance programme launched"
 			set_country_flag = MAD_POLICY_DEFENCE_ACTIVE
-			set_temp_variable = { treasury_change = -0.15 }
+			set_temp_variable = { treasury_change = -0.75 }
 			modify_treasury_effect = yes
-			set_temp_variable = { MAD_rc_delta = -2 }
+			set_temp_variable = { MAD_rc_delta = -4 }
 			MAD_rural_cooperation_adjust = yes
 			if = {
 				limit = { NOT = { has_country_flag = MAD_POLICY_DEFENCE_CYCLE_1 } }
@@ -5046,16 +5060,16 @@ MAD_OWNERSHIP_BOP = {
 		fire_only_once = yes
 		days_remove = 30
 		custom_cost_trigger = { always = yes }
-		custom_cost_text = cost_0_15
+		custom_cost_text = cost_0_75
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_POLICY_ROYAL_BONDS started"
-			set_temp_variable = { treasury_change = -0.15 }
+			set_temp_variable = { treasury_change = -0.75 }
 			modify_treasury_effect = yes
 		}
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_POLICY_ROYAL_BONDS completed"
 			487 = { add_extra_state_shared_building_slots = 1 }
-			set_temp_variable = { MAD_rc_delta = 3 }
+			set_temp_variable = { MAD_rc_delta = 2 }
 			MAD_rural_cooperation_adjust = yes
 			if = {
 				limit = { has_idea = landowners }
@@ -5086,12 +5100,12 @@ MAD_OWNERSHIP_BOP = {
 		fire_only_once = yes
 		days_remove = 60
 		custom_cost_trigger = { always = yes }
-		custom_cost_text = cost_0_2
+		custom_cost_text = cost_0_75
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_POLICY_TAMIMA_EXPORT_SYNDICATES started"
-			set_temp_variable = { treasury_change = -0.20 }
+			set_temp_variable = { treasury_change = -0.75 }
 			modify_treasury_effect = yes
-			set_temp_variable = { MAD_rc_delta = -3 }
+			set_temp_variable = { MAD_rc_delta = -4 }
 			MAD_rural_cooperation_adjust = yes
 		}
 		remove_effect = {
@@ -5130,12 +5144,12 @@ MAD_OWNERSHIP_BOP = {
 		fire_only_once = yes
 		days_remove = 30
 		custom_cost_trigger = { always = yes }
-		custom_cost_text = cost_0_22
+		custom_cost_text = cost_0_75
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_POLICY_MILITARY_ENGINEER_MANDATE started"
-			set_temp_variable = { treasury_change = -0.22 }
+			set_temp_variable = { treasury_change = -0.75 }
 			modify_treasury_effect = yes
-			set_temp_variable = { MAD_rc_delta = -2 }
+			set_temp_variable = { MAD_rc_delta = -3 }
 			MAD_rural_cooperation_adjust = yes
 		}
 		remove_effect = {
@@ -5167,15 +5181,15 @@ MAD_OWNERSHIP_BOP = {
 		fire_only_once = yes
 		days_remove = 60
 		custom_cost_trigger = { always = yes }
-		custom_cost_text = cost_0_3
+		custom_cost_text = cost_0_75
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_POLICY_AREMA_MILLING_BOARD started"
-			set_temp_variable = { treasury_change = -0.30 }
+			set_temp_variable = { treasury_change = -0.75 }
 			modify_treasury_effect = yes
 		}
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_POLICY_AREMA_MILLING_BOARD completed"
-			set_temp_variable = { MAD_rc_delta = 3 }
+			set_temp_variable = { MAD_rc_delta = 2 }
 			MAD_rural_cooperation_adjust = yes
 			if = {
 				limit = { has_idea = farmers }
@@ -5210,10 +5224,10 @@ MAD_OWNERSHIP_BOP = {
 		fire_only_once = yes
 		days_remove = 30
 		custom_cost_trigger = { always = yes }
-		custom_cost_text = cost_0_25
+		custom_cost_text = cost_0_75
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_POLICY_TIM_EXPORT_CREDIT started"
-			set_temp_variable = { treasury_change = -0.25 }
+			set_temp_variable = { treasury_change = -0.75 }
 			modify_treasury_effect = yes
 		}
 		remove_effect = {
@@ -5255,10 +5269,10 @@ MAD_OWNERSHIP_BOP = {
 		fire_only_once = yes
 		days_remove = 30
 		custom_cost_trigger = { always = yes }
-		custom_cost_text = cost_0_4
+		custom_cost_text = cost_1_0
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_POLICY_TGV_VELIRANO_BONDS started"
-			set_temp_variable = { treasury_change = -0.40 }
+			set_temp_variable = { treasury_change = -1.00 }
 			modify_treasury_effect = yes
 		}
 		remove_effect = {
@@ -5295,10 +5309,10 @@ MAD_OWNERSHIP_BOP = {
 		fire_only_once = yes
 		days_remove = 60
 		custom_cost_trigger = { always = yes }
-		custom_cost_text = cost_0_2
+		custom_cost_text = cost_0_5
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_POLICY_HVM_SME_COINVESTMENT started"
-			set_temp_variable = { treasury_change = -0.20 }
+			set_temp_variable = { treasury_change = -0.50 }
 			modify_treasury_effect = yes
 		}
 		remove_effect = {
@@ -5342,12 +5356,12 @@ MAD_OWNERSHIP_BOP = {
 		fire_only_once = yes
 		days_remove = 90
 		custom_cost_trigger = { always = yes }
-		custom_cost_text = cost_0_18
+		custom_cost_text = cost_0_75
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_POLICY_GRAZING_RESTITUTION started"
-			set_temp_variable = { treasury_change = -0.18 }
+			set_temp_variable = { treasury_change = -0.75 }
 			modify_treasury_effect = yes
-			set_temp_variable = { MAD_rc_delta = -2 }
+			set_temp_variable = { MAD_rc_delta = -3 }
 			MAD_rural_cooperation_adjust = yes
 		}
 		remove_effect = {
@@ -5375,15 +5389,15 @@ MAD_OWNERSHIP_BOP = {
 		fire_only_once = yes
 		days_remove = 60
 		custom_cost_trigger = { always = yes }
-		custom_cost_text = cost_0_1
+		custom_cost_text = cost_0_5
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_POLICY_PLAGUE_SURVEILLANCE started"
-			set_temp_variable = { treasury_change = -0.10 }
+			set_temp_variable = { treasury_change = -0.50 }
 			modify_treasury_effect = yes
 		}
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_POLICY_PLAGUE_SURVEILLANCE completed"
-			set_temp_variable = { MAD_rc_delta = 3 }
+			set_temp_variable = { MAD_rc_delta = 2 }
 			MAD_rural_cooperation_adjust = yes
 			set_country_flag = MAD_POLICY_PLAGUE_SURVEILLANCE_ENACTED
 			add_ideas = MAD_POLICY_PLAGUE_SURVEILLANCE_IDEA
@@ -5411,10 +5425,10 @@ MAD_OWNERSHIP_BOP = {
 		fire_only_once = yes
 		days_remove = 90
 		custom_cost_trigger = { always = yes }
-		custom_cost_text = cost_0_15
+		custom_cost_text = cost_0_75
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_POLICY_STRATEGIC_SUPPLY_RESERVE started"
-			set_temp_variable = { treasury_change = -0.15 }
+			set_temp_variable = { treasury_change = -0.75 }
 			modify_treasury_effect = yes
 		}
 		remove_effect = {
