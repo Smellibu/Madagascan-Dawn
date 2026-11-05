@@ -45,11 +45,6 @@ country_event = {
 	option = {
 		name = mad_ambatovy.1.a # "Let Sherritt step in"
 		log = "[GetDateText]: [This.GetName]: mad_ambatovy.1 - Sherritt steps in"
-		add_power_balance_value = {
-			id = MAD_economy_ownership_bop
-			value = -0.075
-			tooltip_side = MAD_private_ownership
-		}
 
 		custom_effect_tooltip = {
 			localization_key = modifies_dynamic_modifier_tt
@@ -57,6 +52,11 @@ country_event = {
 		}
 		add_to_variable = { MAD_economy_receiving_investment_duration_modifier = -0.10 tooltip = receiving_investment_duration_modifier_tt }
 
+		add_power_balance_value = {
+			id = MAD_economy_ownership_bop
+			value = -0.075
+			tooltip_side = MAD_private_ownership
+		}
 	}
 
 	option = {
@@ -72,11 +72,6 @@ country_event = {
 			limit = { has_country_flag = MAD_dynatec_invited }
 			set_country_flag = MAD_ambatovy_state_bought_dynatec
 		}
-		add_power_balance_value = {
-			id = MAD_economy_ownership_bop
-			value = 0.075
-			tooltip_side = MAD_public_ownership
-		}
 			custom_effect_tooltip = {
 				localization_key = modifies_dynamic_modifier_tt
 				MODIFIER = MAD_economy_modifier
@@ -85,6 +80,11 @@ country_event = {
 		add_to_variable = { MAD_economy_infrastructure_tax_gain_multiplier_modifier = 0.05 tooltip = infrastructure_tax_gain_multiplier_modifier_tt }
 
 		log = "[GetDateText]: [This.GetName]: mad_ambatovy.1 - state buys out Dynatec"
+		add_power_balance_value = {
+			id = MAD_economy_ownership_bop
+			value = 0.075
+			tooltip_side = MAD_public_ownership
+		}
 	}
 }
 add_namespace = MAD_LUFTHANSA_OFFER
@@ -255,17 +255,17 @@ country_event = {
 		MAD_rural_cooperation_adjust = yes
 		add_ideas = MAD_MADARAIL_OPERATOR_STATE_AUSTERE
 		add_stability = -0.02
-		add_power_balance_value = {
-			id = MAD_economy_ownership_bop
-			value = 0.075
-			tooltip_side = MAD_public_ownership
-		}
 		custom_effect_tooltip = {
 			localization_key = modifies_dynamic_modifier_tt
 			MODIFIER = MAD_economy_modifier
 		}
 		add_to_variable = { MAD_economy_infrastructure_tax_gain_multiplier_modifier = -0.10 tooltip = infrastructure_tax_gain_multiplier_modifier_tt }
 		add_to_variable = { MAD_economy_receiving_investment_cost_modifier = 0.10 tooltip = receiving_investment_cost_modifier_tt }
+		add_power_balance_value = {
+			id = MAD_economy_ownership_bop
+			value = 0.075
+			tooltip_side = MAD_public_ownership
+		}
 	}
 
 	# Option B: pay off the concession's debts and take it over properly - costs treasury, bigger buffs, free infrastructure
@@ -274,11 +274,6 @@ country_event = {
 		log = "[GetDateText]: [This.GetName]: mad_madarail.1.b executed - paid off Madarail's debts before taking over"
 		add_ideas = MAD_MADARAIL_OPERATOR_STATE_FUNDED
 		add_stability = 0.02
-		add_power_balance_value = {
-			id = MAD_economy_ownership_bop
-			value = 0.075
-			tooltip_side = MAD_public_ownership
-		}
 		custom_effect_tooltip = {
 			localization_key = modifies_dynamic_modifier_tt
 			MODIFIER = MAD_economy_modifier
@@ -298,6 +293,11 @@ country_event = {
 		# Separately clear the concession's debts / recapitalise the operator.
 		set_temp_variable = { treasury_change = -5.00 }
 		modify_treasury_effect = yes
+		add_power_balance_value = {
+			id = MAD_economy_ownership_bop
+			value = 0.075
+			tooltip_side = MAD_public_ownership
+		}
 	}
 }
 
@@ -1521,16 +1521,16 @@ country_event = {
 		set_temp_variable = { corp_change = 5 }
 		modify_corporate_tax_rate_effect = yes
 		add_stability = -0.05
-		add_power_balance_value = {
-			id = MAD_economy_ownership_bop
-			value = -0.075
-			tooltip_side = MAD_private_ownership
-		}
 		add_timed_idea = {
 			idea = MAD_QMM_LAGOON_COVER_UP
 			days = 365
 		}
 		set_country_flag = MAD_QMM_LAGOON_SCANDAL_RESOLVED
+		add_power_balance_value = {
+			id = MAD_economy_ownership_bop
+			value = -0.075
+			tooltip_side = MAD_private_ownership
+		}
 	}
 
 	option = {
@@ -1545,16 +1545,16 @@ country_event = {
 		set_temp_variable = { corp_change = -5 }
 		modify_corporate_tax_rate_effect = yes
 		add_stability = 0.05
-		add_power_balance_value = {
-			id = MAD_economy_ownership_bop
-			value = 0.075
-			tooltip_side = MAD_public_ownership
-		}
 		add_timed_idea = {
 			idea = MAD_QMM_LAGOON_CLEANUP
 			days = 365
 		}
 		set_country_flag = MAD_QMM_LAGOON_SCANDAL_RESOLVED
+		add_power_balance_value = {
+			id = MAD_economy_ownership_bop
+			value = 0.075
+			tooltip_side = MAD_public_ownership
+		}
 	}
 }
 
@@ -1965,9 +1965,9 @@ country_event = {
 		modify_treasury_effect = yes
 		add_to_variable = { MAD_dahalo_threat = -4 tooltip = MAD_DAHALO_THREAT_MINUS_4_TT }
 		add_to_variable = { MAD_economy_expected_police_modifier = -0.25 tooltip = expected_police_modifier_tt }
-		add_power_balance_value = { id = MAD_economy_ownership_bop value = -0.01875 tooltip_side = MAD_private_ownership }
 		add_stability = 0.01
 		MAD_dahalo_update_modifier = yes
+		add_power_balance_value = { id = MAD_economy_ownership_bop value = -0.01875 tooltip_side = MAD_private_ownership }
 	}
 	option = {
 		name = mad_dahalo.12.b
@@ -1977,9 +1977,9 @@ country_event = {
 		modify_treasury_effect = yes
 		add_to_variable = { MAD_dahalo_threat = -8 tooltip = MAD_DAHALO_THREAT_MINUS_8_TT }
 		add_to_variable = { MAD_economy_expected_police_modifier = 0.25 tooltip = expected_police_modifier_tt }
-		add_power_balance_value = { id = MAD_economy_ownership_bop value = 0.01875 tooltip_side = MAD_public_ownership }
 		add_stability = 0.005
 		MAD_dahalo_update_modifier = yes
+		add_power_balance_value = { id = MAD_economy_ownership_bop value = 0.01875 tooltip_side = MAD_public_ownership }
 	}
 	option = {
 		name = mad_dahalo.12.c
@@ -2007,10 +2007,10 @@ country_event = {
 		modify_treasury_effect = yes
 		add_to_variable = { MAD_dahalo_threat = -8 tooltip = MAD_DAHALO_THREAT_MINUS_8_TT }
 		add_to_variable = { MAD_economy_expected_police_modifier = -0.5 tooltip = expected_police_modifier_tt }
-		add_power_balance_value = { id = MAD_economy_ownership_bop value = -0.01875 tooltip_side = MAD_private_ownership }
 		add_to_variable = { MAD_economy_receiving_investment_duration_modifier = -0.01 tooltip = receiving_investment_duration_modifier_tt }
 		add_stability = -0.005
 		MAD_dahalo_update_modifier = yes
+		add_power_balance_value = { id = MAD_economy_ownership_bop value = -0.01875 tooltip_side = MAD_private_ownership }
 	}
 	option = {
 		name = mad_dahalo.13.b
@@ -2020,9 +2020,9 @@ country_event = {
 		modify_treasury_effect = yes
 		add_to_variable = { MAD_dahalo_threat = -6 tooltip = MAD_DAHALO_THREAT_MINUS_6_TT }
 		add_to_variable = { MAD_economy_expected_police_modifier = 0.5 tooltip = expected_police_modifier_tt }
-		add_power_balance_value = { id = MAD_economy_ownership_bop value = 0.01875 tooltip_side = MAD_public_ownership }
 		add_stability = 0.005
 		MAD_dahalo_update_modifier = yes
+		add_power_balance_value = { id = MAD_economy_ownership_bop value = 0.01875 tooltip_side = MAD_public_ownership }
 	}
 	option = {
 		name = mad_dahalo.13.c
@@ -2052,8 +2052,8 @@ country_event = {
 		add_to_variable = { MAD_economy_receiving_investment_cost_modifier = -0.02 tooltip = receiving_investment_cost_modifier_tt }
 		add_to_variable = { MAD_economy_receiving_investment_duration_modifier = -0.03 tooltip = receiving_investment_duration_modifier_tt }
 		add_to_variable = { MAD_economy_expected_police_modifier = -0.5 tooltip = expected_police_modifier_tt }
-		add_power_balance_value = { id = MAD_economy_ownership_bop value = -0.01875 tooltip_side = MAD_private_ownership }
 		MAD_dahalo_update_modifier = yes
+		add_power_balance_value = { id = MAD_economy_ownership_bop value = -0.01875 tooltip_side = MAD_private_ownership }
 	}
 	option = {
 		name = mad_dahalo.14.b
@@ -2065,9 +2065,9 @@ country_event = {
 		add_to_variable = { MAD_economy_receiving_investment_cost_modifier = -0.01 tooltip = receiving_investment_cost_modifier_tt }
 		add_to_variable = { MAD_economy_receiving_investment_duration_modifier = -0.02 tooltip = receiving_investment_duration_modifier_tt }
 		add_to_variable = { MAD_economy_expected_police_modifier = 0.5 tooltip = expected_police_modifier_tt }
-		add_power_balance_value = { id = MAD_economy_ownership_bop value = 0.01875 tooltip_side = MAD_public_ownership }
 		army_experience = 2
 		MAD_dahalo_update_modifier = yes
+		add_power_balance_value = { id = MAD_economy_ownership_bop value = 0.01875 tooltip_side = MAD_public_ownership }
 	}
 	option = {
 		name = mad_dahalo.14.c
@@ -2797,11 +2797,6 @@ country_event = {
 		name = mad_political.6.a
 		add_ideas = MAD_TIM_TIKO_FIREWALL
 		set_country_flag = MAD_TIM_TIKO_FIREWALL
-		add_power_balance_value = {
-			id = MAD_economy_ownership_bop
-			value = -0.05
-			tooltip_side = MAD_private_ownership
-		}
 		decrease_corruption = yes
 		set_temp_variable = { temp_opinion = 5 }
 		change_small_medium_business_owners_opinion = yes
@@ -2810,16 +2805,16 @@ country_event = {
 		set_temp_variable = { temp_outlook_increase = 0.04 }
 		change_relative_party_popularity = yes
 		recalculate_party = yes
+		add_power_balance_value = {
+			id = MAD_economy_ownership_bop
+			value = -0.05
+			tooltip_side = MAD_private_ownership
+		}
 	}
 
 	option = {
 		name = mad_political.6.b
 		add_ideas = MAD_TIM_TIKO_NATIONAL_CHAMPION
-		add_power_balance_value = {
-			id = MAD_economy_ownership_bop
-			value = -0.10
-			tooltip_side = MAD_private_ownership
-		}
 		set_temp_variable = { temp_opinion = 8 }
 		change_small_medium_business_owners_opinion = yes
 		set_temp_variable = { temp_opinion = -5 }
@@ -2829,16 +2824,16 @@ country_event = {
 		set_temp_variable = { temp_outlook_increase = 0.04 }
 		change_relative_party_popularity = yes
 		recalculate_party = yes
+		add_power_balance_value = {
+			id = MAD_economy_ownership_bop
+			value = -0.10
+			tooltip_side = MAD_private_ownership
+		}
 	}
 
 	option = {
 		name = mad_political.6.c
 		add_ideas = MAD_TIM_TIKO_MIXED
-		add_power_balance_value = {
-			id = MAD_economy_ownership_bop
-			value = -0.03
-			tooltip_side = MAD_private_ownership
-		}
 		set_temp_variable = { temp_opinion = 3 }
 		change_small_medium_business_owners_opinion = yes
 		add_political_power = 25
@@ -2847,6 +2842,11 @@ country_event = {
 		set_temp_variable = { temp_outlook_increase = 0.04 }
 		change_relative_party_popularity = yes
 		recalculate_party = yes
+		add_power_balance_value = {
+			id = MAD_economy_ownership_bop
+			value = -0.03
+			tooltip_side = MAD_private_ownership
+		}
 	}
 }
 
@@ -5003,12 +5003,11 @@ country_event = {
 	is_triggered_only = yes
 	option = {
 		name = mad_royal.1.a
-		add_power_balance_value = { id = MAD_economy_ownership_bop value = 0.10 tooltip_side = MAD_public_ownership }
 		decrease_corruption = yes
+		add_power_balance_value = { id = MAD_economy_ownership_bop value = 0.10 tooltip_side = MAD_public_ownership }
 	}
 	option = {
 		name = mad_royal.1.b
-		add_power_balance_value = { id = MAD_economy_ownership_bop value = 0.075 tooltip_side = MAD_public_ownership }
 		decrease_corruption = yes
 		random_core_state = {
 			add_extra_state_shared_building_slots = 1
@@ -5016,6 +5015,7 @@ country_event = {
 		}
 		set_temp_variable = { treasury_change = -3.00 }
 		modify_treasury_effect = yes
+		add_power_balance_value = { id = MAD_economy_ownership_bop value = 0.075 tooltip_side = MAD_public_ownership }
 	}
 }
 
@@ -6031,22 +6031,22 @@ country_event = {
 	option = {
 		name = mad_policy_programmes.1.a
 		add_timed_idea = { idea = MAD_POLICY_ROAD_PUBLIC days = 120 }
-		add_power_balance_value = { id = MAD_economy_ownership_bop value = 0.04 tooltip_side = MAD_public_ownership }
 		if = {
 			limit = { has_idea = labour_unions }
 			set_temp_variable = { temp_opinion = 5 }
 			change_labour_unions_opinion = yes
 		}
+		add_power_balance_value = { id = MAD_economy_ownership_bop value = 0.04 tooltip_side = MAD_public_ownership }
 	}
 	option = {
 		name = mad_policy_programmes.1.b
 		add_timed_idea = { idea = MAD_POLICY_ROAD_PRIVATE days = 120 }
-		add_power_balance_value = { id = MAD_economy_ownership_bop value = -0.04 tooltip_side = MAD_private_ownership }
 		if = {
 			limit = { has_idea = small_medium_business_owners }
 			set_temp_variable = { temp_opinion = 5 }
 			change_small_medium_business_owners_opinion = yes
 		}
+		add_power_balance_value = { id = MAD_economy_ownership_bop value = -0.04 tooltip_side = MAD_private_ownership }
 	}
 }
 
@@ -6059,22 +6059,22 @@ country_event = {
 	option = {
 		name = mad_policy_programmes.2.a
 		add_timed_idea = { idea = MAD_POLICY_FISHERIES_PUBLIC days = 180 }
-		add_power_balance_value = { id = MAD_economy_ownership_bop value = 0.006 tooltip_side = MAD_public_ownership }
 		if = {
 			limit = { has_idea = labour_unions }
 			set_temp_variable = { temp_opinion = 5 }
 			change_labour_unions_opinion = yes
 		}
+		add_power_balance_value = { id = MAD_economy_ownership_bop value = 0.006 tooltip_side = MAD_public_ownership }
 	}
 	option = {
 		name = mad_policy_programmes.2.b
 		add_timed_idea = { idea = MAD_POLICY_FISHERIES_PRIVATE days = 180 }
-		add_power_balance_value = { id = MAD_economy_ownership_bop value = -0.006 tooltip_side = MAD_private_ownership }
 		if = {
 			limit = { has_idea = small_medium_business_owners }
 			set_temp_variable = { temp_opinion = 5 }
 			change_small_medium_business_owners_opinion = yes
 		}
+		add_power_balance_value = { id = MAD_economy_ownership_bop value = -0.006 tooltip_side = MAD_private_ownership }
 	}
 }
 
@@ -6087,22 +6087,22 @@ country_event = {
 	option = {
 		name = mad_policy_programmes.3.a
 		add_timed_idea = { idea = MAD_POLICY_VANILLA_PUBLIC days = 180 }
-		add_power_balance_value = { id = MAD_economy_ownership_bop value = 0.006 tooltip_side = MAD_public_ownership }
 		if = {
 			limit = { has_idea = farmers }
 			set_temp_variable = { temp_opinion = 5 }
 			change_farmers_opinion = yes
 		}
+		add_power_balance_value = { id = MAD_economy_ownership_bop value = 0.006 tooltip_side = MAD_public_ownership }
 	}
 	option = {
 		name = mad_policy_programmes.3.b
 		add_timed_idea = { idea = MAD_POLICY_VANILLA_PRIVATE days = 180 }
-		add_power_balance_value = { id = MAD_economy_ownership_bop value = -0.006 tooltip_side = MAD_private_ownership }
 		if = {
 			limit = { has_idea = landowners }
 			set_temp_variable = { temp_opinion = 5 }
 			change_landowners_opinion = yes
 		}
+		add_power_balance_value = { id = MAD_economy_ownership_bop value = -0.006 tooltip_side = MAD_private_ownership }
 	}
 }
 
@@ -6115,22 +6115,22 @@ country_event = {
 	option = {
 		name = mad_policy_programmes.4.a
 		add_timed_idea = { idea = MAD_POLICY_APPRENTICESHIP_PUBLIC days = 180 }
-		add_power_balance_value = { id = MAD_economy_ownership_bop value = 0.006 tooltip_side = MAD_public_ownership }
 		if = {
 			limit = { has_idea = labour_unions }
 			set_temp_variable = { temp_opinion = 5 }
 			change_labour_unions_opinion = yes
 		}
+		add_power_balance_value = { id = MAD_economy_ownership_bop value = 0.006 tooltip_side = MAD_public_ownership }
 	}
 	option = {
 		name = mad_policy_programmes.4.b
 		add_timed_idea = { idea = MAD_POLICY_APPRENTICESHIP_PRIVATE days = 180 }
-		add_power_balance_value = { id = MAD_economy_ownership_bop value = -0.006 tooltip_side = MAD_private_ownership }
 		if = {
 			limit = { has_idea = small_medium_business_owners }
 			set_temp_variable = { temp_opinion = 5 }
 			change_small_medium_business_owners_opinion = yes
 		}
+		add_power_balance_value = { id = MAD_economy_ownership_bop value = -0.006 tooltip_side = MAD_private_ownership }
 	}
 }
 
@@ -6143,22 +6143,22 @@ country_event = {
 	option = {
 		name = mad_policy_programmes.5.a
 		add_timed_idea = { idea = MAD_POLICY_DEFENCE_PUBLIC days = 180 }
-		add_power_balance_value = { id = MAD_economy_ownership_bop value = 0.006 tooltip_side = MAD_public_ownership }
 		if = {
 			limit = { has_idea = the_military }
 			set_temp_variable = { temp_opinion = 5 }
 			change_the_military_opinion = yes
 		}
+		add_power_balance_value = { id = MAD_economy_ownership_bop value = 0.006 tooltip_side = MAD_public_ownership }
 	}
 	option = {
 		name = mad_policy_programmes.5.b
 		add_timed_idea = { idea = MAD_POLICY_DEFENCE_PRIVATE days = 180 }
-		add_power_balance_value = { id = MAD_economy_ownership_bop value = -0.006 tooltip_side = MAD_private_ownership }
 		if = {
 			limit = { has_idea = small_medium_business_owners }
 			set_temp_variable = { temp_opinion = 5 }
 			change_small_medium_business_owners_opinion = yes
 		}
+		add_power_balance_value = { id = MAD_economy_ownership_bop value = -0.006 tooltip_side = MAD_private_ownership }
 	}
 }
 
@@ -6171,24 +6171,24 @@ country_event = {
 	option = {
 		name = mad_policy_programmes.6.a
 		add_ideas = MAD_POLICY_GRAZING_TRIBUNAL_PUBLIC_IDEA
-		add_power_balance_value = { id = MAD_economy_ownership_bop value = 0.015 tooltip_side = MAD_public_ownership }
 		if = {
 			limit = { has_idea = farmers }
 			set_temp_variable = { temp_opinion = 5 }
 			change_farmers_opinion = yes
 		}
 		add_stability = 0.02
+		add_power_balance_value = { id = MAD_economy_ownership_bop value = 0.015 tooltip_side = MAD_public_ownership }
 	}
 	option = {
 		name = mad_policy_programmes.6.b
 		add_ideas = MAD_POLICY_GRAZING_TRIBUNAL_PRIVATE_IDEA
-		add_power_balance_value = { id = MAD_economy_ownership_bop value = -0.015 tooltip_side = MAD_private_ownership }
 		if = {
 			limit = { has_idea = landowners }
 			set_temp_variable = { temp_opinion = 5 }
 			change_landowners_opinion = yes
 		}
 		add_stability = 0.01
+		add_power_balance_value = { id = MAD_economy_ownership_bop value = -0.015 tooltip_side = MAD_private_ownership }
 	}
 }
 

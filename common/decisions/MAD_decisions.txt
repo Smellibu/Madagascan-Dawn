@@ -5058,13 +5058,13 @@ MAD_OWNERSHIP_BOP = {
 			487 = { add_extra_state_shared_building_slots = 1 }
 			set_temp_variable = { MAD_rc_delta = 3 }
 			MAD_rural_cooperation_adjust = yes
-			add_power_balance_value = { id = MAD_economy_ownership_bop value = 0.02 tooltip_side = MAD_public_ownership }
 			if = {
 				limit = { has_idea = landowners }
 				set_temp_variable = { temp_opinion = 5 }
 				change_landowners_opinion = yes
 			}
 			add_ideas = MAD_POLICY_ROYAL_BONDS_IDEA
+			add_power_balance_value = { id = MAD_economy_ownership_bop value = 0.02 tooltip_side = MAD_public_ownership }
 		}
 		ai_will_do = { base = 0 }
 	}
@@ -5094,7 +5094,6 @@ MAD_OWNERSHIP_BOP = {
 			modify_treasury_effect = yes
 			set_temp_variable = { MAD_rc_delta = -3 }
 			MAD_rural_cooperation_adjust = yes
-			add_power_balance_value = { id = MAD_economy_ownership_bop value = -0.03 tooltip_side = MAD_private_ownership }
 			if = {
 				limit = { has_idea = small_medium_business_owners }
 				set_temp_variable = { temp_opinion = 10 }
@@ -5106,6 +5105,7 @@ MAD_OWNERSHIP_BOP = {
 				change_international_bankers_opinion = yes
 			}
 			add_ideas = MAD_POLICY_TAMIMA_EXPORT_SYNDICATES_IDEA
+			add_power_balance_value = { id = MAD_economy_ownership_bop value = -0.03 tooltip_side = MAD_private_ownership }
 		}
 		ai_will_do = { base = 0 }
 	}
@@ -5135,13 +5135,13 @@ MAD_OWNERSHIP_BOP = {
 			modify_treasury_effect = yes
 			set_temp_variable = { MAD_rc_delta = -2 }
 			MAD_rural_cooperation_adjust = yes
-			add_power_balance_value = { id = MAD_economy_ownership_bop value = 0.02 tooltip_side = MAD_public_ownership }
 			if = {
 				limit = { has_idea = the_military }
 				set_temp_variable = { temp_opinion = 10 }
 				change_the_military_opinion = yes
 			}
 			add_ideas = MAD_POLICY_MILITARY_ENGINEER_MANDATE_IDEA
+			add_power_balance_value = { id = MAD_economy_ownership_bop value = 0.02 tooltip_side = MAD_public_ownership }
 		}
 		ai_will_do = { base = 0 }
 	}
@@ -5169,7 +5169,6 @@ MAD_OWNERSHIP_BOP = {
 			modify_treasury_effect = yes
 			set_temp_variable = { MAD_rc_delta = 3 }
 			MAD_rural_cooperation_adjust = yes
-			add_power_balance_value = { id = MAD_economy_ownership_bop value = 0.03 tooltip_side = MAD_public_ownership }
 			if = {
 				limit = { has_idea = farmers }
 				set_temp_variable = { temp_opinion = 10 }
@@ -5181,6 +5180,7 @@ MAD_OWNERSHIP_BOP = {
 				change_labour_unions_opinion = yes
 			}
 			add_ideas = MAD_POLICY_AREMA_MILLING_BOARD_IDEA
+			add_power_balance_value = { id = MAD_economy_ownership_bop value = 0.03 tooltip_side = MAD_public_ownership }
 		}
 		ai_will_do = { base = 0 }
 	}
@@ -5209,7 +5209,6 @@ MAD_OWNERSHIP_BOP = {
 			modify_treasury_effect = yes
 			set_temp_variable = { MAD_rc_delta = 1 }
 			MAD_rural_cooperation_adjust = yes
-			add_power_balance_value = { id = MAD_economy_ownership_bop value = -0.025 tooltip_side = MAD_private_ownership }
 			if = {
 				limit = { has_idea = international_bankers }
 				set_temp_variable = { temp_opinion = 10 }
@@ -5221,6 +5220,7 @@ MAD_OWNERSHIP_BOP = {
 				change_small_medium_business_owners_opinion = yes
 			}
 			add_ideas = MAD_POLICY_TIM_EXPORT_CREDIT_IDEA
+			add_power_balance_value = { id = MAD_economy_ownership_bop value = -0.025 tooltip_side = MAD_private_ownership }
 		}
 		ai_will_do = { base = 0 }
 	}
@@ -5251,7 +5251,6 @@ MAD_OWNERSHIP_BOP = {
 			modify_treasury_effect = yes
 			set_temp_variable = { MAD_rc_delta = 2 }
 			MAD_rural_cooperation_adjust = yes
-			add_power_balance_value = { id = MAD_economy_ownership_bop value = 0.02 tooltip_side = MAD_public_ownership }
 			if = {
 				limit = { has_idea = labour_unions }
 				set_temp_variable = { temp_opinion = 10 }
@@ -5263,6 +5262,7 @@ MAD_OWNERSHIP_BOP = {
 				change_small_medium_business_owners_opinion = yes
 			}
 			add_ideas = MAD_POLICY_TGV_VELIRANO_BONDS_IDEA
+			add_power_balance_value = { id = MAD_economy_ownership_bop value = 0.02 tooltip_side = MAD_public_ownership }
 		}
 		ai_will_do = { base = 0 }
 	}
@@ -5288,7 +5288,6 @@ MAD_OWNERSHIP_BOP = {
 			modify_treasury_effect = yes
 			set_temp_variable = { MAD_rc_delta = 1 }
 			MAD_rural_cooperation_adjust = yes
-			add_power_balance_value = { id = MAD_economy_ownership_bop value = -0.02 tooltip_side = MAD_private_ownership }
 			if = {
 				limit = { has_idea = small_medium_business_owners }
 				set_temp_variable = { temp_opinion = 10 }
@@ -5300,6 +5299,7 @@ MAD_OWNERSHIP_BOP = {
 				change_international_bankers_opinion = yes
 			}
 			add_ideas = MAD_POLICY_HVM_SME_COINVESTMENT_IDEA
+			add_power_balance_value = { id = MAD_economy_ownership_bop value = -0.02 tooltip_side = MAD_private_ownership }
 		}
 		ai_will_do = { base = 0 }
 	}
@@ -5363,8 +5363,8 @@ MAD_OWNERSHIP_BOP = {
 			set_temp_variable = { MAD_rc_delta = 3 }
 			MAD_rural_cooperation_adjust = yes
 			set_country_flag = MAD_POLICY_PLAGUE_SURVEILLANCE_ENACTED
-			add_power_balance_value = { id = MAD_economy_ownership_bop value = 0.015 tooltip_side = MAD_public_ownership }
 			add_ideas = MAD_POLICY_PLAGUE_SURVEILLANCE_IDEA
+			add_power_balance_value = { id = MAD_economy_ownership_bop value = 0.015 tooltip_side = MAD_public_ownership }
 		}
 		ai_will_do = { base = 0 }
 	}
@@ -5396,7 +5396,6 @@ MAD_OWNERSHIP_BOP = {
 			set_temp_variable = { MAD_rc_delta = 2 }
 			MAD_rural_cooperation_adjust = yes
 			set_country_flag = MAD_POLICY_STRATEGIC_SUPPLY_RESERVE_ENACTED
-			add_power_balance_value = { id = MAD_economy_ownership_bop value = 0.02 tooltip_side = MAD_public_ownership }
 			if = {
 				limit = { has_idea = labour_unions }
 				set_temp_variable = { temp_opinion = 5 }
@@ -5408,6 +5407,7 @@ MAD_OWNERSHIP_BOP = {
 				change_small_medium_business_owners_opinion = yes
 			}
 			add_ideas = MAD_POLICY_STRATEGIC_SUPPLY_RESERVE_IDEA
+			add_power_balance_value = { id = MAD_economy_ownership_bop value = 0.02 tooltip_side = MAD_public_ownership }
 		}
 		ai_will_do = { base = 0 }
 	}
