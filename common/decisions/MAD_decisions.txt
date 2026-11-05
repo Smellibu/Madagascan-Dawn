@@ -5786,10 +5786,13 @@ MAD_royal_political_category = {
 
 		visible = {
 			MAD_ROY_IN_POWER = yes
-			has_country_flag = MAD_ROY_ISLAND_RECLAMATION_PREPARED
 		}
 		available = {
 			country_exists = FRA
+			custom_trigger_tooltip = {
+				tooltip = MAD_ROY_ISLAND_RECLAMATION_PREPARED_TT
+				has_country_flag = MAD_ROY_ISLAND_RECLAMATION_PREPARED
+			}
 			NOT = { has_country_flag = MAD_ROY_FRANCE_REUNION_DEMANDED }
 		}
 		complete_effect = {
@@ -5807,10 +5810,13 @@ MAD_royal_political_category = {
 
 		visible = {
 			MAD_ROY_IN_POWER = yes
-			has_country_flag = MAD_ROY_ISLAND_RECLAMATION_PREPARED
 		}
 		available = {
 			country_exists = FRA
+			custom_trigger_tooltip = {
+				tooltip = MAD_ROY_ISLAND_RECLAMATION_PREPARED_TT
+				has_country_flag = MAD_ROY_ISLAND_RECLAMATION_PREPARED
+			}
 			custom_trigger_tooltip = {
 				tooltip = MAD_ROY_MAYOTTE_REQUIRES_COMOROS_CORE_TT
 				OR = {
