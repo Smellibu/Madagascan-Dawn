@@ -550,8 +550,8 @@ country_event = {
 	}
 }
 
-# The deadline passed and the lease is still a bad deal: it collapses and the government falls.
-# The settlement (10 billion for the deal plus 5 billion, and -5% stability) is paid by the focus MAD_DEAL_KEPT_FAILED.
+# The deadline passed and the lease is still a bad deal: the lease collapses and the government-failure focus is applied.
+# The settlement and political penalties in MAD_DEAL_KEPT_FAILED are applied automatically.
 country_event = {
 	id = mad_daewoo.3
 	hidden = yes
@@ -565,7 +565,7 @@ country_event = {
 		set_country_flag = MAD_DAEWOO_OUTCOME_FAILED
 		MAD_daewoo_end_lease = yes
 		add_timed_idea = { idea = MAD_DAEWOO_CANCELLED days = 1095 }
-		country_event = { id = mad_political.94 days = 1 }
+		MAD_autocomplete_forced_outcome_foci = yes
 	}
 }
 
