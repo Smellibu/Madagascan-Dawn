@@ -144,7 +144,7 @@ MAD_agriculture_modifier = {
 # Deliberately built out of plain vanilla STATE modifiers so they work whatever else Millennium Dawn changes.
 # ============================================================
 
-# 15-34: the rains are late. Annoying, not yet dangerous.
+# 15-34.99: the rains are late. Annoying, not yet dangerous.
 MAD_STATE_DROUGHT_1 = {
 	icon = GFX_idea_generic_agrarian_society
 
@@ -152,7 +152,7 @@ MAD_STATE_DROUGHT_1 = {
 	state_production_speed_buildings_factor = -0.05
 }
 
-# 35-54: drought. Fields are failing and people start moving.
+# 35-59.99: drought. Fields are failing and people start moving.
 MAD_STATE_DROUGHT_2 = {
 	icon = GFX_idea_generic_agrarian_society
 
@@ -162,7 +162,7 @@ MAD_STATE_DROUGHT_2 = {
 	local_supplies = -0.10
 }
 
-# 55-74: famine conditions.
+# 60-79.99: famine conditions.
 MAD_STATE_DROUGHT_3 = {
 	icon = GFX_idea_generic_agrarian_society
 
@@ -173,7 +173,7 @@ MAD_STATE_DROUGHT_3 = {
 	compliance_growth = -0.05
 }
 
-# 75+: kere. The catastrophic famine the Grand Sud is actually named for.
+# 80-100: kere. The catastrophic famine the Grand Sud is actually named for.
 MAD_STATE_DROUGHT_4 = {
 	icon = GFX_idea_generic_agrarian_society
 
