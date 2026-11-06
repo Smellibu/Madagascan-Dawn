@@ -279,8 +279,8 @@ MAD_daewoo_break_effects = {
 			add_to_variable = { MAD_agri_income_tax = -0.02 }
 
 			# The initial deal adds one district in state 268. Keeping the lease
-			# adds another in 268 and one in 266. A prior West Coast withdrawal
-			# is respected when the kept lease collapses.
+			# adds another in 268 and one in 266. The classified addendum adds a
+			# second West Coast district in 266; remove both if the lease collapses.
 			268 = {
 				if = {
 					limit = { agriculture_district > 1 }
@@ -303,13 +303,40 @@ MAD_daewoo_break_effects = {
 				limit = {
 					has_completed_focus = MAD_DEAL_KEPT
 					NOT = { has_country_flag = MAD_DAEWOO_WEST_COAST_WITHDRAWN }
+					has_country_flag = MAD_DAEWOO_CLASSIFIED_ADDENDUM_COMPLETED
 				}
 				266 = {
 					if = {
-						limit = { agriculture_district > 0 }
+						limit = { agriculture_district > 1 }
 						remove_building = {
 							type = agriculture_district
-							level = 1
+							level = 2
+						}
+					}
+					else = {
+						if = {
+							limit = { agriculture_district > 0 }
+							remove_building = {
+								type = agriculture_district
+								level = 1
+							}
+						}
+					}
+				}
+			}
+			else = {
+				if = {
+					limit = {
+						has_completed_focus = MAD_DEAL_KEPT
+						NOT = { has_country_flag = MAD_DAEWOO_WEST_COAST_WITHDRAWN }
+					}
+					266 = {
+						if = {
+							limit = { agriculture_district > 0 }
+							remove_building = {
+								type = agriculture_district
+								level = 1
+							}
 						}
 					}
 				}

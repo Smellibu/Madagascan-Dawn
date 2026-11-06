@@ -956,7 +956,7 @@ MAD_daewoo_category = {
 			NOT = { has_country_flag = mad_daewoo_decision }
 		}
 
-		cost = 50
+		cost = 100
 		fire_only_once = yes
 		days_remove = 75
 		complete_effect = {
@@ -987,7 +987,7 @@ MAD_daewoo_category = {
 		available = {
 			NOT = { has_country_flag = mad_daewoo_decision }
 			}
-		cost = 25
+		cost = 50
 		fire_only_once = yes
 		days_remove = 75
 
@@ -1022,9 +1022,13 @@ MAD_daewoo_category = {
 		available = {
 			NOT = { has_country_flag = mad_daewoo_decision }
 			NOT = { has_country_flag = MAD_DAEWOO_WEST_COAST_WITHDRAWN }
+			custom_trigger_tooltip = {
+				tooltip = MAD_DAEWOO_ADDENDUM_EXCLUSIVE_tt
+				NOT = { has_country_flag = MAD_DAEWOO_CLASSIFIED_ADDENDUM_COMPLETED }
+			}
 		}
 
-		cost = 25
+		cost = 50
 		fire_only_once = yes
 		days_remove = 75
 
@@ -1090,7 +1094,7 @@ MAD_daewoo_category = {
 			NOT = { has_country_flag = mad_daewoo_decision }
 		}
 
-		cost = 25
+		cost = 50
 		fire_only_once = yes
 		days_remove = 75
 
@@ -1126,6 +1130,7 @@ MAD_daewoo_category = {
 				tooltip = MAD_DAEWOO_ADDENDUM_tt
 				has_completed_focus = MAD_BIANCO_POLITICIZED
 				NOT = { has_country_flag = MAD_DAEWOO_CONTRACT_PUBLISHED }
+				NOT = { has_country_flag = MAD_DAEWOO_WEST_COAST_WITHDRAWN }
 			}
 			NOT = { has_country_flag = mad_daewoo_decision }
 			custom_trigger_tooltip = {
@@ -1149,8 +1154,18 @@ MAD_daewoo_category = {
 			set_temp_variable = { MAD_daewoo_viability_delta = -10 }
 			MAD_daewoo_adjust_viability = yes
 			custom_effect_tooltip = MAD_DAEWOO_VIABILITY_MINUS_10_TT
-			add_political_power = 40
+			add_political_power = 80
 			increase_corruption = yes
+			266 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = agriculture_district
+					level = 1
+					instant_build = yes
+				}
+			}
+			custom_effect_tooltip = MAD_DAEWOO_ADDENDUM_DISTRICT_TT
+			set_country_flag = MAD_DAEWOO_CLASSIFIED_ADDENDUM_COMPLETED
 			MAD_daewoo_update_tier = yes
 	clr_country_flag = mad_daewoo_decision
 }
@@ -1178,7 +1193,7 @@ MAD_daewoo_category = {
 			NOT = { has_country_flag = mad_daewoo_decision }
 		}
 
-		cost = 25
+		cost = 50
 		fire_only_once = yes
 		days_remove = 75
 		custom_cost_trigger = { always = yes }
@@ -1225,7 +1240,7 @@ MAD_daewoo_category = {
 			NOT = { has_country_flag = mad_daewoo_decision }
 		}
 
-		cost = 25
+		cost = 50
 		fire_only_once = yes
 		days_remove = 75
 		custom_cost_trigger = { always = yes }
@@ -1265,7 +1280,7 @@ MAD_daewoo_category = {
 			NOT = { has_country_flag = mad_daewoo_decision }
 		}
 
-		cost = 25
+		cost = 50
 		fire_only_once = yes
 		days_remove = 75
 
