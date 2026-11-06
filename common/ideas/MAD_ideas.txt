@@ -623,6 +623,108 @@ ideas = {
 				stability_factor = 0.05
 			}
 		}
+
+		# Exactly one national idea represents the current Dahalo threat tier.
+		MAD_DAHALO_THREAT_SEVERE = {
+			name = MAD_dahalo_modifier
+			picture = GFX_idea_generic_political_pressure
+			allowed_civil_war = { always = yes }
+			cost = 0
+			removal_cost = -1
+			modifier = {
+				agricolture_productivity_modifier = -0.10
+				agriculture_district_income_tax_modifier = -0.08
+				agriculture_district_worker_requirement_modifier = 0.10
+				productivity_growth_modifier = -0.20
+				receiving_investment_cost_modifier = 0.08
+				receiving_investment_duration_modifier = 0.08
+				stability_factor = -0.10
+				expected_police_modifier = 1.0
+				civilian_industry_tax_modifier = -0.05
+				corporate_tax_income_multiplier_modifier = -0.10
+				infrastructure_tax_gain_multiplier_modifier = -0.04
+			}
+		}
+		MAD_DAHALO_THREAT_HIGH = {
+			name = MAD_dahalo_modifier
+			picture = GFX_idea_generic_political_pressure
+			allowed_civil_war = { always = yes }
+			cost = 0
+			removal_cost = -1
+			modifier = {
+				agricolture_productivity_modifier = -0.08
+				agriculture_district_income_tax_modifier = -0.06
+				agriculture_district_worker_requirement_modifier = 0.08
+				productivity_growth_modifier = -0.16
+				receiving_investment_cost_modifier = 0.06
+				receiving_investment_duration_modifier = 0.06
+				stability_factor = -0.08
+				expected_police_modifier = 1.0
+				civilian_industry_tax_modifier = -0.04
+				corporate_tax_income_multiplier_modifier = -0.08
+				infrastructure_tax_gain_multiplier_modifier = -0.03
+			}
+		}
+		MAD_DAHALO_THREAT_MODERATE = {
+			name = MAD_dahalo_modifier
+			picture = GFX_idea_generic_political_pressure
+			allowed_civil_war = { always = yes }
+			cost = 0
+			removal_cost = -1
+			modifier = {
+				agricolture_productivity_modifier = -0.06
+				agriculture_district_income_tax_modifier = -0.04
+				agriculture_district_worker_requirement_modifier = 0.06
+				productivity_growth_modifier = -0.12
+				receiving_investment_cost_modifier = 0.04
+				receiving_investment_duration_modifier = 0.04
+				stability_factor = -0.06
+				expected_police_modifier = 0.5
+				civilian_industry_tax_modifier = -0.03
+				corporate_tax_income_multiplier_modifier = -0.06
+				infrastructure_tax_gain_multiplier_modifier = -0.02
+			}
+		}
+		MAD_DAHALO_THREAT_LOW = {
+			name = MAD_dahalo_modifier
+			picture = GFX_idea_generic_political_pressure
+			allowed_civil_war = { always = yes }
+			cost = 0
+			removal_cost = -1
+			modifier = {
+				agricolture_productivity_modifier = -0.04
+				agriculture_district_income_tax_modifier = -0.02
+				agriculture_district_worker_requirement_modifier = 0.04
+				productivity_growth_modifier = -0.08
+				receiving_investment_cost_modifier = 0.02
+				receiving_investment_duration_modifier = 0.02
+				stability_factor = -0.04
+				expected_police_modifier = 0.5
+				civilian_industry_tax_modifier = -0.02
+				corporate_tax_income_multiplier_modifier = -0.04
+				infrastructure_tax_gain_multiplier_modifier = -0.01
+			}
+		}
+		MAD_DAHALO_THREAT_MINIMAL = {
+			name = MAD_dahalo_modifier
+			picture = GFX_idea_generic_political_pressure
+			allowed_civil_war = { always = yes }
+			cost = 0
+			removal_cost = -1
+			modifier = {
+				agricolture_productivity_modifier = -0.02
+				agriculture_district_income_tax_modifier = -0.01
+				agriculture_district_worker_requirement_modifier = 0.02
+				productivity_growth_modifier = -0.04
+				receiving_investment_cost_modifier = 0.01
+				receiving_investment_duration_modifier = 0.01
+				stability_factor = -0.02
+				expected_police_modifier = 0.5
+				civilian_industry_tax_modifier = -0.01
+				corporate_tax_income_multiplier_modifier = -0.02
+				infrastructure_tax_gain_multiplier_modifier = 0
+			}
+		}
 		MAD_MOUNTAIN_WARFARE_TRAINING = {
 			picture = GFX_idea_generic_army_reform
 

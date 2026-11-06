@@ -255,6 +255,8 @@ MAD_airforce_modifier = {
 	air_range_factor = MAD_air_range_factor
 	air_mission_xp_gain_factor = MAD_air_mission_xp_gain_factor
 }
+# Legacy save compatibility only: retained so existing saves can remove it safely.
+# New games use the MAD_DAHALO_THREAT_* national ideas; do not add this modifier.
 MAD_dahalo_modifier = {
 	icon = GFX_idea_generic
 

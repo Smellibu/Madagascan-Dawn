@@ -3276,146 +3276,84 @@ MAD_JIRAMA_GENERATION_RECOVERY_DAILY = {
 
 MAD_dahalo_init = {
 	if = {
-		limit = {
-			tag = MAD
-			NOT = { has_country_flag = MAD_DAHALO_INITIALISED }
-		}
-		set_country_flag = MAD_DAHALO_INITIALISED
-		set_variable = { MAD_dahalo_threat = 65 }
-		set_variable = { MAD_dahalo_ringleader_sweeps = 0 }
-		set_variable = { MAD_dahalo_event_cooldown = 180 }
+		limit = { tag = MAD }
 		if = {
-			limit = { NOT = { has_dynamic_modifier = { modifier = MAD_dahalo_modifier } } }
-			add_dynamic_modifier = { modifier = MAD_dahalo_modifier }
+			limit = { NOT = { has_country_flag = MAD_DAHALO_INITIALISED } }
+			set_country_flag = MAD_DAHALO_INITIALISED
+			set_variable = { MAD_dahalo_threat = 65 }
+			set_variable = { MAD_dahalo_ringleader_sweeps = 0 }
+			set_variable = { MAD_dahalo_event_cooldown = 180 }
 		}
+		# Also synchronise existing saves: replace any legacy dynamic modifier with the matching tier idea.
 		MAD_dahalo_update_modifier = yes
 	}
 }
 
+MAD_dahalo_remove_threat_ideas = {
+	if = { limit = { has_idea = MAD_DAHALO_THREAT_SEVERE } remove_ideas = MAD_DAHALO_THREAT_SEVERE }
+	if = { limit = { has_idea = MAD_DAHALO_THREAT_HIGH } remove_ideas = MAD_DAHALO_THREAT_HIGH }
+	if = { limit = { has_idea = MAD_DAHALO_THREAT_MODERATE } remove_ideas = MAD_DAHALO_THREAT_MODERATE }
+	if = { limit = { has_idea = MAD_DAHALO_THREAT_LOW } remove_ideas = MAD_DAHALO_THREAT_LOW }
+	if = { limit = { has_idea = MAD_DAHALO_THREAT_MINIMAL } remove_ideas = MAD_DAHALO_THREAT_MINIMAL }
+}
+
 MAD_dahalo_update_modifier = {
-	# Only create the modifier while there is an active insecurity penalty.
-	# At zero threat the later branch removes it, so adding it here would be redundant.
+	# Legacy save migration: remove the old variable-backed dynamic modifier if it exists.
 	if = {
-		limit = {
-			NOT = { has_country_flag = MAD_REMENABILA_IN_POWER }
-			check_variable = { MAD_dahalo_threat > 0.001 }
-			NOT = { has_dynamic_modifier = { modifier = MAD_dahalo_modifier } }
-		}
-		add_dynamic_modifier = { modifier = MAD_dahalo_modifier }
+		limit = { has_dynamic_modifier = { modifier = MAD_dahalo_modifier } }
+		remove_dynamic_modifier = { modifier = MAD_dahalo_modifier }
 	}
 
 	clamp_variable = { var = MAD_dahalo_threat min = 0 max = 100 }
 
-	# Remenabila's takeover changes the nature of the problem completely: the Dahalo are no longer
-	# an armed group outside the state, so the insecurity modifier is removed and the separate regime
-	# effects on his focuses take over.
 	if = {
 		limit = { has_country_flag = MAD_REMENABILA_IN_POWER }
-		set_variable = { MAD_dahalo_agri_productivity = 0 }
-		set_variable = { MAD_dahalo_agri_income_tax = 0 }
-		set_variable = { MAD_dahalo_agri_worker_req = 0 }
-		set_variable = { MAD_dahalo_productivity_growth = 0 }
-		set_variable = { MAD_dahalo_corporate_tax = 0 }
-		set_variable = { MAD_dahalo_receiving_investment_cost = 0 }
-		set_variable = { MAD_dahalo_receiving_investment_duration = 0 }
-		set_variable = { MAD_dahalo_stability = 0 }
-		set_variable = { MAD_dahalo_expected_police = 0 }
-		set_variable = { MAD_dahalo_civilian_tax = 0 }
-		set_variable = { MAD_dahalo_infrastructure_tax = 0 }
-		if = {
-			limit = { has_dynamic_modifier = { modifier = MAD_dahalo_modifier } }
-			remove_dynamic_modifier = { modifier = MAD_dahalo_modifier }
-		}
+		MAD_dahalo_remove_threat_ideas = yes
 	}
 	else_if = {
 		limit = { check_variable = { MAD_dahalo_threat > 79.99 } }
-		set_variable = { MAD_dahalo_agri_productivity = -0.10 }
-		set_variable = { MAD_dahalo_agri_income_tax = -0.08 }
-		set_variable = { MAD_dahalo_agri_worker_req = 0.10 }
-		set_variable = { MAD_dahalo_productivity_growth = -0.20 }
-		set_variable = { MAD_dahalo_receiving_investment_cost = 0.08 }
-		set_variable = { MAD_dahalo_receiving_investment_duration = 0.08 }
-		set_variable = { MAD_dahalo_stability = -0.10 }
-		set_variable = { MAD_dahalo_expected_police = 1.0 }
-		set_variable = { MAD_dahalo_civilian_tax = -0.05 }
-		set_variable = { MAD_dahalo_corporate_tax = -0.10 }
-		set_variable = { MAD_dahalo_infrastructure_tax = -0.04 }
+		if = {
+			limit = { NOT = { has_idea = MAD_DAHALO_THREAT_SEVERE } }
+			MAD_dahalo_remove_threat_ideas = yes
+			add_ideas = MAD_DAHALO_THREAT_SEVERE
+		}
 	}
 	else_if = {
 		limit = { check_variable = { MAD_dahalo_threat > 59.99 } }
-		set_variable = { MAD_dahalo_agri_productivity = -0.08 }
-		set_variable = { MAD_dahalo_agri_income_tax = -0.06 }
-		set_variable = { MAD_dahalo_agri_worker_req = 0.08 }
-		set_variable = { MAD_dahalo_productivity_growth = -0.16 }
-		set_variable = { MAD_dahalo_receiving_investment_cost = 0.06 }
-		set_variable = { MAD_dahalo_receiving_investment_duration = 0.06 }
-		set_variable = { MAD_dahalo_stability = -0.08 }
-		set_variable = { MAD_dahalo_expected_police = 1.0 }
-		set_variable = { MAD_dahalo_civilian_tax = -0.04 }
-		set_variable = { MAD_dahalo_corporate_tax = -0.08 }
-		set_variable = { MAD_dahalo_infrastructure_tax = -0.03 }
+		if = {
+			limit = { NOT = { has_idea = MAD_DAHALO_THREAT_HIGH } }
+			MAD_dahalo_remove_threat_ideas = yes
+			add_ideas = MAD_DAHALO_THREAT_HIGH
+		}
 	}
 	else_if = {
 		limit = { check_variable = { MAD_dahalo_threat > 39.99 } }
-		set_variable = { MAD_dahalo_agri_productivity = -0.06 }
-		set_variable = { MAD_dahalo_agri_income_tax = -0.04 }
-		set_variable = { MAD_dahalo_agri_worker_req = 0.06 }
-		set_variable = { MAD_dahalo_productivity_growth = -0.12 }
-		set_variable = { MAD_dahalo_receiving_investment_cost = 0.04 }
-		set_variable = { MAD_dahalo_receiving_investment_duration = 0.04 }
-		set_variable = { MAD_dahalo_stability = -0.06 }
-		set_variable = { MAD_dahalo_expected_police = 0.5 }
-		set_variable = { MAD_dahalo_civilian_tax = -0.03 }
-		set_variable = { MAD_dahalo_corporate_tax = -0.06 }
-		set_variable = { MAD_dahalo_infrastructure_tax = -0.02 }
+		if = {
+			limit = { NOT = { has_idea = MAD_DAHALO_THREAT_MODERATE } }
+			MAD_dahalo_remove_threat_ideas = yes
+			add_ideas = MAD_DAHALO_THREAT_MODERATE
+		}
 	}
 	else_if = {
 		limit = { check_variable = { MAD_dahalo_threat > 19.99 } }
-		set_variable = { MAD_dahalo_agri_productivity = -0.04 }
-		set_variable = { MAD_dahalo_agri_income_tax = -0.02 }
-		set_variable = { MAD_dahalo_agri_worker_req = 0.04 }
-		set_variable = { MAD_dahalo_productivity_growth = -0.08 }
-		set_variable = { MAD_dahalo_receiving_investment_cost = 0.02 }
-		set_variable = { MAD_dahalo_receiving_investment_duration = 0.02 }
-		set_variable = { MAD_dahalo_stability = -0.04 }
-		set_variable = { MAD_dahalo_expected_police = 0.5 }
-		set_variable = { MAD_dahalo_civilian_tax = -0.02 }
-		set_variable = { MAD_dahalo_corporate_tax = -0.04 }
-		set_variable = { MAD_dahalo_infrastructure_tax = -0.01 }
+		if = {
+			limit = { NOT = { has_idea = MAD_DAHALO_THREAT_LOW } }
+			MAD_dahalo_remove_threat_ideas = yes
+			add_ideas = MAD_DAHALO_THREAT_LOW
+		}
 	}
 	else_if = {
 		limit = { check_variable = { MAD_dahalo_threat > 0 } }
-		set_variable = { MAD_dahalo_agri_productivity = -0.02 }
-		set_variable = { MAD_dahalo_agri_income_tax = -0.01 }
-		set_variable = { MAD_dahalo_agri_worker_req = 0.02 }
-		set_variable = { MAD_dahalo_productivity_growth = -0.04 }
-		set_variable = { MAD_dahalo_receiving_investment_cost = 0.01 }
-		set_variable = { MAD_dahalo_receiving_investment_duration = 0.01 }
-		set_variable = { MAD_dahalo_stability = -0.02 }
-		set_variable = { MAD_dahalo_expected_police = 0.5 }
-		set_variable = { MAD_dahalo_civilian_tax = -0.01 }
-		set_variable = { MAD_dahalo_corporate_tax = -0.02 }
-		set_variable = { MAD_dahalo_infrastructure_tax = 0 }
+		if = {
+			limit = { NOT = { has_idea = MAD_DAHALO_THREAT_MINIMAL } }
+			MAD_dahalo_remove_threat_ideas = yes
+			add_ideas = MAD_DAHALO_THREAT_MINIMAL
+		}
 	}
 	else = {
-		set_variable = { MAD_dahalo_agri_productivity = 0 }
-		set_variable = { MAD_dahalo_agri_income_tax = 0 }
-		set_variable = { MAD_dahalo_agri_worker_req = 0 }
-		set_variable = { MAD_dahalo_productivity_growth = 0 }
-		set_variable = { MAD_dahalo_corporate_tax = 0 }
-		set_variable = { MAD_dahalo_receiving_investment_cost = 0 }
-		set_variable = { MAD_dahalo_receiving_investment_duration = 0 }
-		set_variable = { MAD_dahalo_stability = 0 }
-		set_variable = { MAD_dahalo_expected_police = 0 }
-		set_variable = { MAD_dahalo_civilian_tax = 0 }
-		set_variable = { MAD_dahalo_infrastructure_tax = 0 }
 		# Reaching 0 threat is NOT the same as finishing the Dahalo storyline.
-		# The terminal focus sets MAD_DAHALO_DEFEATED; this keeps the permanent panel and
-		# the Remenabila hunt usable even if ordinary security work temporarily reaches 0.
-		if = {
-			limit = { has_dynamic_modifier = { modifier = MAD_dahalo_modifier } }
-			remove_dynamic_modifier = { modifier = MAD_dahalo_modifier }
-		}
+		# The terminal focus grants MAD_DAHALO_DEFEATED separately; keep it intact.
+		MAD_dahalo_remove_threat_ideas = yes
 	}
 
 	MAD_rural_cooperation_calculate_monthly_change = yes
