@@ -5600,7 +5600,7 @@ country_event = {
 				instant_build = yes
 			}
 		}
-		if = { limit = { has_dlc = "Arms Against Tyranny" } mio:MAD_SECREN_shipbuilding = { add_mio_funds = 2000 add_mio_research_bonus = 0.02 } }
+		if = { limit = { has_dlc = "Arms Against Tyranny" } mio:MAD_SECREN_shipbuilding = { add_mio_funds = 1000 add_mio_research_bonus = 0.02 } }
 	}
 }
 
@@ -5634,7 +5634,7 @@ country_event = {
 		}
 		if = {
 			limit = { has_dlc = "Arms Against Tyranny" }
-			mio:MAD_SECREN_shipbuilding = { add_mio_funds = 1600 add_mio_research_bonus = 0.01 }
+			mio:MAD_SECREN_shipbuilding = { add_mio_funds = 800 add_mio_research_bonus = 0.01 }
 		}
 	}
 	option = {
@@ -5739,7 +5739,7 @@ country_event = {
 		add_tech_bonus = { name = MAD_NAVAL_JOINT_CORVETTE category = CAT_corvettes bonus = 0.25 uses = 1 }
 		if = {
 			limit = { has_dlc = "Arms Against Tyranny" }
-			mio:MAD_SECREN_shipbuilding = { add_mio_funds = 800 }
+			mio:MAD_SECREN_shipbuilding = { add_mio_funds = 400 }
 		}
 		# Ask France first. South Korea receives the same proposal if France
 		# is unavailable, at war, or has no corvettes in service.
@@ -5774,7 +5774,7 @@ country_event = {
 		set_country_flag = MAD_NAVAL_DESIGN_DOMESTIC
 		add_tech_bonus = { name = MAD_NAVAL_DOMESTIC_CORVETTE category = CAT_corvettes bonus = 0.25 uses = 1 }
 		add_tech_bonus = { name = MAD_NAVAL_DOMESTIC_CORVETTE category = CAT_naval_modules bonus = 0.50 uses = 1 }
-		if = { limit = { has_dlc = "Arms Against Tyranny" } mio:MAD_SECREN_shipbuilding = { add_mio_funds = 2000 add_mio_research_bonus = 0.05 } }
+		if = { limit = { has_dlc = "Arms Against Tyranny" } mio:MAD_SECREN_shipbuilding = { add_mio_funds = 1000 add_mio_research_bonus = 0.05 } }
 		if = {
 			limit = { has_subdoctrine_in_track = escort_ships }
 			add_mastery = {
@@ -5865,7 +5865,7 @@ country_event = {
 		}
 		add_tech_bonus = { name = MAD_NAVAL_CORVETTE_FORCE category = CAT_corvettes bonus = 0.50 uses = 1 }
 		add_tech_bonus = { name = MAD_NAVAL_FRIGATE_RESEARCH category = CAT_frigates bonus = 0.25 uses = 1 }
-		if = { limit = { has_dlc = "Arms Against Tyranny" } mio:MAD_SECREN_shipbuilding = { add_mio_funds = 2000 } }
+		if = { limit = { has_dlc = "Arms Against Tyranny" } mio:MAD_SECREN_shipbuilding = { add_mio_funds = 1000 } }
 	}
 	option = {
 		name = mad_naval.5.b
@@ -5972,7 +5972,7 @@ country_event = {
 	option = {
 		name = mad_naval.6.b
 		log = "[GetDateText]: [This.GetName]: mad_naval.6.b executed"
-		if = { limit = { has_dlc = "Arms Against Tyranny" } mio:MAD_SECREN_shipbuilding = { add_mio_funds = 3000 add_mio_research_bonus = 0.05 } }
+		if = { limit = { has_dlc = "Arms Against Tyranny" } mio:MAD_SECREN_shipbuilding = { add_mio_funds = 1500 add_mio_research_bonus = 0.05 } }
 		if = {
 			limit = { has_subdoctrine_in_track = capital_ships }
 			add_mastery = {
