@@ -15886,6 +15886,7 @@ focus_tree = {
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_MODULAR_HULL_ASSEMBLY"
 					add_tech_bonus = { name = MAD_SECREN_MODULAR_HULLS category = CAT_corvettes bonus = 0.35 uses = 1 }
+								if = { limit = { has_country_flag = MAD_NAVAL_PRIORITY_OFFSHORE } add_tech_bonus = { name = MAD_NAVAL_OFFSHORE_HULL_ASSEMBLY category = CAT_corvettes bonus = 0.10 uses = 1 navy_experience = 5 } }
 								if = { limit = { has_dlc = "Arms Against Tyranny" } mio:MAD_SECREN_shipbuilding = { add_mio_funds = 300 } }
 		}
 
@@ -15984,7 +15985,7 @@ focus_tree = {
 						navy_experience = 10
 									if = { limit = { has_dlc = "Arms Against Tyranny" } mio:MAD_SECREN_shipbuilding = { add_mio_research_bonus = 0.03 add_mio_funds = 350 } }
 									if = { limit = { has_country_flag = MAD_NAVAL_DESIGN_JOINT } add_tech_bonus = { name = MAD_NAVAL_JOINT_DESIGN category = CAT_naval_modules bonus = 0.25 uses = 1 } }
-						if = { limit = { has_country_flag = MAD_NAVAL_DESIGN_LICENSED } add_tech_bonus = { name = MAD_SECREN_MODULAR_HULLS category = CAT_corvettes bonus = 0.15 uses = 1 } }
+						
 		}
 
 		ai_will_do = {
@@ -16027,7 +16028,7 @@ focus_tree = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_INTEGRATE_NAVAL_SENSORS_AND_WEAPONS"
 					add_tech_bonus = { name = MAD_NAVAL_SYSTEMS_INTEGRATION category = CAT_naval_modules bonus = 0.50 uses = 1 }
 								add_tech_bonus = { name = MAD_NAVAL_SYSTEMS_INTEGRATION category = CAT_naval_radar bonus = 0.25 uses = 1 }
-								if = { limit = { has_country_flag = MAD_NAVAL_DESIGN_LICENSED } add_tech_bonus = { name = MAD_NAVAL_SYSTEMS_INTEGRATION category = CAT_corvettes bonus = 0.15 uses = 1 } }
+								
 		}
 
 		ai_will_do = {

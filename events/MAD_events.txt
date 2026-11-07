@@ -5541,6 +5541,7 @@ country_event = {
 	option = {
 		name = mad_naval.1.b
 		log = "[GetDateText]: [This.GetName]: mad_naval.1.b executed"
+		set_country_flag = MAD_NAVAL_PRIORITY_OFFSHORE
 		navy_experience = 10
 		add_tech_bonus = { name = MAD_NAVAL_REVIEW_OFFSHORE category = CAT_corvettes bonus = 0.15 uses = 1 }
 	}
@@ -5563,7 +5564,10 @@ country_event = {
 		name = mad_naval.2.a
 		log = "[GetDateText]: [This.GetName]: mad_naval.2.a executed"
 		navy_experience = 10
-		if = { limit = { has_dlc = "Arms Against Tyranny" } mio:MAD_SECREN_shipbuilding = { add_mio_funds = 400 } }
+		if = {
+			limit = { has_dlc = "Arms Against Tyranny" }
+			mio:MAD_SECREN_shipbuilding = { add_mio_funds = 400 add_mio_research_bonus = 0.01 }
+		}
 	}
 	option = {
 		name = mad_naval.2.b
@@ -5578,6 +5582,7 @@ country_event = {
 		set_country_flag = MAD_NAVAL_PROGRAMME_INTERCEPTORS
 		add_tech_bonus = { name = MAD_NAVAL_FAST_INTERCEPTION category = CAT_patrol_boats bonus = 0.25 uses = 1 }
 		add_tech_bonus = { name = MAD_NAVAL_FAST_INTERCEPTION category = CAT_landing_craft bonus = 0.25 uses = 1 }
+		navy_experience = 5
 	}
 }
 
@@ -5592,16 +5597,76 @@ country_event = {
 		name = mad_naval.3.a
 		log = "[GetDateText]: [This.GetName]: mad_naval.3.a executed"
 		set_country_flag = MAD_NAVAL_DESIGN_LICENSED
-		add_tech_bonus = { name = MAD_NAVAL_LICENSED_CORVETTE category = CAT_corvettes bonus = 0.50 uses = 1 }
-		if = { limit = { has_dlc = "Arms Against Tyranny" } mio:MAD_SECREN_shipbuilding = { add_mio_funds = 350 } }
+		# Prefer France's latest corvette design. If France is unavailable,
+		# at war, or has no corvettes in service, fall back to South Korea.
+		if = {
+			limit = {
+				country_exists = FRA
+				FRA = {
+					NOT = { is_at_war = yes }
+					has_navy_size = { size > 0 unit = corvette }
+				}
+			}
+			FRA = {
+				create_production_license = {
+					target = MAD
+					new_prioritised = yes
+					equipment = { type = corvette_hull_3 }
+				}
+			}
+		}
+		else = {
+			if = {
+				limit = {
+					country_exists = KOR
+					KOR = {
+						NOT = { is_at_war = yes }
+						has_navy_size = { size > 0 unit = corvette }
+					}
+				}
+				KOR = {
+					create_production_license = {
+						target = MAD
+						new_prioritised = yes
+						equipment = { type = corvette_hull_2 }
+					}
+				}
+			}
+		}
 	}
 	option = {
 		name = mad_naval.3.b
 		log = "[GetDateText]: [This.GetName]: mad_naval.3.b executed"
 		set_country_flag = MAD_NAVAL_DESIGN_JOINT
-		add_tech_bonus = { name = MAD_NAVAL_JOINT_CORVETTE category = CAT_corvettes bonus = 0.35 uses = 1 }
-		add_tech_bonus = { name = MAD_NAVAL_JOINT_CORVETTE category = CAT_naval_modules bonus = 0.25 uses = 1 }
-		if = { limit = { has_dlc = "Arms Against Tyranny" } mio:MAD_SECREN_shipbuilding = { add_mio_funds = 500 add_mio_research_bonus = 0.03 } }
+		add_tech_bonus = { name = MAD_NAVAL_JOINT_CORVETTE category = CAT_corvettes bonus = 0.25 uses = 1 }
+		if = {
+			limit = { has_dlc = "Arms Against Tyranny" }
+			mio:MAD_SECREN_shipbuilding = { add_mio_funds = 200 }
+		}
+		# Ask France first. South Korea receives the same proposal if France
+		# is unavailable, at war, or has no corvettes in service.
+		if = {
+			limit = {
+				country_exists = FRA
+				FRA = {
+					NOT = { is_at_war = yes }
+					has_navy_size = { size > 0 unit = corvette }
+				}
+			}
+			FRA = { country_event = { id = mad_naval.10 days = 1 } }
+		}
+		else = {
+			if = {
+				limit = {
+					country_exists = KOR
+					KOR = {
+						NOT = { is_at_war = yes }
+						has_navy_size = { size > 0 unit = corvette }
+					}
+				}
+				KOR = { country_event = { id = mad_naval.10 days = 1 } }
+			}
+		}
 	}
 	option = {
 		name = mad_naval.3.c
@@ -5884,6 +5949,78 @@ country_event = {
 		if = {
 			limit = { country_exists = FRA }
 			add_opinion_modifier = { target = FRA modifier = MAD_french_corvette_sale_refused }
+		}
+	}
+}
+
+# Event 10 — France, or South Korea as the fallback partner, considers Madagascar's corvette co-development proposal.
+country_event = {
+	id = mad_naval.10
+	title = mad_naval.10.t
+	desc = mad_naval.10.d
+	picture = GFX_report_event_generic_political
+	is_triggered_only = yes
+	option = {
+		name = mad_naval.10.a
+		log = "[GetDateText]: [This.GetName]: accepted Madagascar's corvette co-development proposal"
+		set_temp_variable = { treasury_change = -7.50 }
+		modify_treasury_effect = yes
+		set_temp_variable = { int_investment_change = 10.00 }
+		modify_international_investment_effect = yes
+		set_temp_variable = { percent_change = 3 }
+		set_temp_variable = { influence_target = MAD }
+		if = {
+			limit = { tag = FRA }
+			set_temp_variable = { tag_index = FRA }
+		}
+		else = { set_temp_variable = { tag_index = KOR } }
+		change_influence_percentage = yes
+		add_opinion_modifier = { target = MAD modifier = MAD_corvette_cooperation }
+		MAD = { country_event = { id = mad_naval.11 days = 1 } }
+		ai_chance = {
+			base = 10
+			modifier = { add = 40 check_variable = { treasury > 7.499 } }
+			modifier = { add = 20 has_opinion = { target = MAD value > 0 } }
+		}
+	}
+	option = {
+		name = mad_naval.10.b
+		log = "[GetDateText]: [This.GetName]: declined Madagascar's corvette co-development proposal"
+		if = {
+			limit = {
+				tag = FRA
+				country_exists = KOR
+				KOR = {
+					NOT = { is_at_war = yes }
+					has_navy_size = { size > 0 unit = corvette }
+				}
+			}
+			KOR = { country_event = { id = mad_naval.10 days = 1 } }
+		}
+		ai_chance = { base = 20 }
+	}
+}
+
+# Event 11 — Madagascar receives the accepting partner's decision and funds its share.
+country_event = {
+	id = mad_naval.11
+	title = mad_naval.11.t
+	desc = mad_naval.11.d
+	picture = GFX_report_event_generic_political
+	is_triggered_only = yes
+	option = {
+		name = mad_naval.11.a
+		log = "[GetDateText]: [This.GetName]: corvette co-development agreement accepted by [FROM.GetName]"
+		add_opinion_modifier = { target = FROM modifier = MAD_corvette_cooperation }
+		set_temp_variable = { treasury_change = -2.50 }
+		modify_treasury_effect = yes
+		266 = {
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = dockyard
+				level = 1
+				instant_build = yes
+			}
 		}
 	}
 }
