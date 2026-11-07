@@ -5535,6 +5535,16 @@ country_event = {
 		name = mad_naval.1.a
 		log = "[GetDateText]: [This.GetName]: mad_naval.1.a executed"
 		set_country_flag = MAD_NAVAL_PRIORITY_COASTAL
+		# Two radar levels at Antsiranana: $3.5bn total.
+		set_temp_variable = { treasury_change = -3.50 }
+		modify_treasury_effect = yes
+		266 = {
+			add_building_construction = {
+				type = radar_station
+				level = 2
+				instant_build = yes
+			}
+		}
 		if = {
 			limit = { has_subdoctrine_in_track = operations }
 			add_mastery = {
@@ -5552,6 +5562,16 @@ country_event = {
 		name = mad_naval.1.b
 		log = "[GetDateText]: [This.GetName]: mad_naval.1.b executed"
 		set_country_flag = MAD_NAVAL_PRIORITY_OFFSHORE
+		# Expand the SECREN harbour at province 8188 by two port levels: $1bn.
+		set_temp_variable = { treasury_change = -1.00 }
+		modify_treasury_effect = yes
+		8188 = {
+			add_building_construction = {
+				type = naval_base
+				level = 2
+				instant_build = yes
+			}
+		}
 		if = {
 			limit = { has_subdoctrine_in_track = escort_ships }
 			add_mastery = {
@@ -5569,7 +5589,18 @@ country_event = {
 		name = mad_naval.1.c
 		log = "[GetDateText]: [This.GetName]: mad_naval.1.c executed"
 		set_country_flag = MAD_NAVAL_PRIORITY_SECREN
-		if = { limit = { has_dlc = "Arms Against Tyranny" } mio:MAD_SECREN_shipbuilding = { add_mio_funds = 500 add_mio_research_bonus = 0.02 } }
+		# Establish one SECREN dockyard at Antsiranana: $7.5bn.
+		set_temp_variable = { treasury_change = -7.50 }
+		modify_treasury_effect = yes
+		266 = {
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = dockyard
+				level = 1
+				instant_build = yes
+			}
+		}
+		if = { limit = { has_dlc = "Arms Against Tyranny" } mio:MAD_SECREN_shipbuilding = { add_mio_funds = 1000 add_mio_research_bonus = 0.02 } }
 	}
 }
 
@@ -5583,6 +5614,13 @@ country_event = {
 	option = {
 		name = mad_naval.2.a
 		log = "[GetDateText]: [This.GetName]: mad_naval.2.a executed"
+		# Fortify four key harbour provinces: $0.5bn each, $2bn total.
+		set_temp_variable = { treasury_change = -2.00 }
+		modify_treasury_effect = yes
+		8188 = { add_building_construction = { type = coastal_bunker level = 1 instant_build = yes } }
+		5222 = { add_building_construction = { type = coastal_bunker level = 1 instant_build = yes } }
+		12956 = { add_building_construction = { type = coastal_bunker level = 1 instant_build = yes } }
+		5128 = { add_building_construction = { type = coastal_bunker level = 1 instant_build = yes } }
 		if = {
 			limit = { has_subdoctrine_in_track = operations }
 			add_mastery = {
@@ -5596,12 +5634,16 @@ country_event = {
 		}
 		if = {
 			limit = { has_dlc = "Arms Against Tyranny" }
-			mio:MAD_SECREN_shipbuilding = { add_mio_funds = 400 add_mio_research_bonus = 0.01 }
+			mio:MAD_SECREN_shipbuilding = { add_mio_funds = 800 add_mio_research_bonus = 0.01 }
 		}
 	}
 	option = {
 		name = mad_naval.2.b
 		log = "[GetDateText]: [This.GetName]: mad_naval.2.b executed"
+		# Add one radar level at Antsiranana: $1.75bn.
+		set_temp_variable = { treasury_change = -1.75 }
+		modify_treasury_effect = yes
+		266 = { add_building_construction = { type = radar_station level = 1 instant_build = yes } }
 		set_country_flag = MAD_NAVAL_PROGRAMME_SURVEILLANCE
 		add_tech_bonus = { name = MAD_NAVAL_COMMON_PICTURE category = CAT_naval_radar bonus = 0.35 uses = 1 }
 		if = {
@@ -5619,6 +5661,10 @@ country_event = {
 	option = {
 		name = mad_naval.2.c
 		log = "[GetDateText]: [This.GetName]: mad_naval.2.c executed"
+		# Add one naval-base level at the SECREN port, province 8188: $0.5bn.
+		set_temp_variable = { treasury_change = -0.50 }
+		modify_treasury_effect = yes
+		8188 = { add_building_construction = { type = naval_base level = 1 instant_build = yes } }
 		set_country_flag = MAD_NAVAL_PROGRAMME_INTERCEPTORS
 		add_tech_bonus = { name = MAD_NAVAL_FAST_INTERCEPTION category = CAT_patrol_boats bonus = 0.25 uses = 1 }
 		add_tech_bonus = { name = MAD_NAVAL_FAST_INTERCEPTION category = CAT_landing_craft bonus = 0.25 uses = 1 }
@@ -5693,7 +5739,7 @@ country_event = {
 		add_tech_bonus = { name = MAD_NAVAL_JOINT_CORVETTE category = CAT_corvettes bonus = 0.25 uses = 1 }
 		if = {
 			limit = { has_dlc = "Arms Against Tyranny" }
-			mio:MAD_SECREN_shipbuilding = { add_mio_funds = 200 }
+			mio:MAD_SECREN_shipbuilding = { add_mio_funds = 400 }
 		}
 		# Ask France first. South Korea receives the same proposal if France
 		# is unavailable, at war, or has no corvettes in service.
@@ -5728,7 +5774,7 @@ country_event = {
 		set_country_flag = MAD_NAVAL_DESIGN_DOMESTIC
 		add_tech_bonus = { name = MAD_NAVAL_DOMESTIC_CORVETTE category = CAT_corvettes bonus = 0.25 uses = 1 }
 		add_tech_bonus = { name = MAD_NAVAL_DOMESTIC_CORVETTE category = CAT_naval_modules bonus = 0.50 uses = 1 }
-		if = { limit = { has_dlc = "Arms Against Tyranny" } mio:MAD_SECREN_shipbuilding = { add_mio_funds = 500 add_mio_research_bonus = 0.05 } }
+		if = { limit = { has_dlc = "Arms Against Tyranny" } mio:MAD_SECREN_shipbuilding = { add_mio_funds = 1000 add_mio_research_bonus = 0.05 } }
 		if = {
 			limit = { has_subdoctrine_in_track = escort_ships }
 			add_mastery = {
@@ -5755,7 +5801,7 @@ country_event = {
 		log = "[GetDateText]: [This.GetName]: mad_naval.4.a executed"
 		set_country_flag = MAD_CORVETTE_ROLE_PATROL
 		add_tech_bonus = { name = MAD_NAVAL_CORVETTE_PATROL category = CAT_naval_radar bonus = 0.50 uses = 1 }
-		add_tech_bonus = { name = MAD_NAVAL_CORVETTE_PATROL category = CAT_corvettes bonus = 0.20 uses = 1 }
+		add_tech_bonus = { name = MAD_NAVAL_CORVETTE_PATROL category = CAT_naval_modules bonus = 0.20 uses = 1 }
 	}
 	option = {
 		name = mad_naval.4.b
@@ -5819,7 +5865,7 @@ country_event = {
 		}
 		add_tech_bonus = { name = MAD_NAVAL_CORVETTE_FORCE category = CAT_corvettes bonus = 0.50 uses = 1 }
 		add_tech_bonus = { name = MAD_NAVAL_FRIGATE_RESEARCH category = CAT_frigates bonus = 0.25 uses = 1 }
-		if = { limit = { has_dlc = "Arms Against Tyranny" } mio:MAD_SECREN_shipbuilding = { add_mio_funds = 500 } }
+		if = { limit = { has_dlc = "Arms Against Tyranny" } mio:MAD_SECREN_shipbuilding = { add_mio_funds = 1000 } }
 	}
 	option = {
 		name = mad_naval.5.b
@@ -5841,8 +5887,31 @@ country_event = {
 	is_triggered_only = yes
 	option = {
 		name = mad_naval.6.a
+		trigger = {
+			OR = {
+				AND = { country_exists = FRA FRA = { NOT = { is_at_war = yes } } }
+				AND = { country_exists = KOR KOR = { NOT = { is_at_war = yes } } }
+				AND = { country_exists = CHI CHI = { NOT = { is_at_war = yes } } }
+			}
+		}
 		log = "[GetDateText]: [This.GetName]: mad_naval.6.a executed"
-		add_tech_bonus = { name = MAD_NAVAL_OPERATOR_DESIGN category = CAT_helicopter_operators bonus = 0.50 uses = 1 }
+		# Send the proposal to the first available partner: France, Korea, then China.
+		if = {
+			limit = { country_exists = FRA FRA = { NOT = { is_at_war = yes } } }
+			FRA = { country_event = { id = mad_naval.12 days = 1 } }
+		}
+		else = {
+			if = {
+				limit = { country_exists = KOR KOR = { NOT = { is_at_war = yes } } }
+				KOR = { country_event = { id = mad_naval.12 days = 1 } }
+			}
+			else = {
+				if = {
+					limit = { country_exists = CHI CHI = { NOT = { is_at_war = yes } } }
+					CHI = { country_event = { id = mad_naval.12 days = 1 } }
+				}
+			}
+		}
 		if = {
 			limit = { has_subdoctrine_in_track = capital_ships }
 			add_mastery = {
@@ -5858,7 +5927,7 @@ country_event = {
 	option = {
 		name = mad_naval.6.b
 		log = "[GetDateText]: [This.GetName]: mad_naval.6.b executed"
-		if = { limit = { has_dlc = "Arms Against Tyranny" } mio:MAD_SECREN_shipbuilding = { add_mio_funds = 750 add_mio_research_bonus = 0.05 } }
+		if = { limit = { has_dlc = "Arms Against Tyranny" } mio:MAD_SECREN_shipbuilding = { add_mio_funds = 1500 add_mio_research_bonus = 0.05 } }
 		if = {
 			limit = { has_subdoctrine_in_track = capital_ships }
 			add_mastery = {
@@ -6125,6 +6194,95 @@ country_event = {
 	}
 }
 
+# Event 12 — A foreign partner considers Madagascar's helicopter-operator programme.
+country_event = {
+	id = mad_naval.12
+	title = mad_naval.12.t
+	desc = mad_naval.12.d
+	picture = GFX_report_event_generic_political
+	is_triggered_only = yes
+
+	option = {
+		name = mad_naval.12.a
+		log = "[GetDateText]: [This.GetName]: accepted Madagascar's helicopter-operator partnership proposal"
+		# The partner commits $7.5bn, records $10bn in international investment,
+		# and receives a 5% increase in influence over Madagascar.
+		set_temp_variable = { treasury_change = -7.50 }
+		modify_treasury_effect = yes
+		set_temp_variable = { int_investment_change = 10.00 }
+		modify_international_investment_effect = yes
+		set_temp_variable = { percent_change = 5 }
+		set_temp_variable = { influence_target = MAD }
+		if = {
+			limit = { tag = FRA }
+			set_temp_variable = { tag_index = FRA }
+		}
+		else = {
+			if = {
+				limit = { tag = KOR }
+				set_temp_variable = { tag_index = KOR }
+			}
+			else = {
+				set_temp_variable = { tag_index = CHI }
+			}
+		}
+		change_influence_percentage = yes
+		MAD = { country_event = { id = mad_naval.13 days = 1 } }
+		ai_chance = {
+			base = 10
+			modifier = { add = 40 check_variable = { treasury > 7.499 } }
+			modifier = { add = 20 has_opinion = { target = MAD value > 0 } }
+		}
+	}
+
+	option = {
+		name = mad_naval.12.b
+		log = "[GetDateText]: [This.GetName]: declined Madagascar's helicopter-operator partnership proposal"
+		# A refusal passes the proposal to the next available partner.
+		if = {
+			limit = { tag = FRA country_exists = KOR KOR = { NOT = { is_at_war = yes } } }
+			KOR = { country_event = { id = mad_naval.12 days = 1 } }
+		}
+		else = {
+			if = {
+				limit = { tag = FRA country_exists = CHI CHI = { NOT = { is_at_war = yes } } }
+				CHI = { country_event = { id = mad_naval.12 days = 1 } }
+			}
+			else = {
+				if = {
+					limit = { tag = KOR country_exists = CHI CHI = { NOT = { is_at_war = yes } } }
+					CHI = { country_event = { id = mad_naval.12 days = 1 } }
+				}
+			}
+		}
+		ai_chance = { base = 20 }
+	}
+}
+
+# Event 13 — Madagascar receives the helicopter-operator partnership.
+country_event = {
+	id = mad_naval.13
+	title = mad_naval.13.t
+	desc = mad_naval.13.d
+	picture = GFX_report_event_generic_political
+	is_triggered_only = yes
+
+	option = {
+		name = mad_naval.13.a
+		log = "[GetDateText]: [This.GetName]: helicopter-operator partnership accepted by [FROM.GetName]"
+		# The partner's $7.5bn commitment finances one new SECREN naval yard.
+		266 = {
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = dockyard
+				level = 1
+				instant_build = yes
+			}
+		}
+		add_tech_bonus = { name = MAD_NAVAL_OPERATOR_DESIGN category = CAT_helicopter_operators bonus = 0.40 uses = 1 }
+	}
+}
+
 # Rural Cooperation — Southern Services Compact outcome event.
 add_namespace = mad_rural_cooperation
 
@@ -6293,7 +6451,7 @@ country_event = {
 		if = {
 			limit = { has_dlc = "Arms Against Tyranny" }
 			mio:MAD_SECREN_shipbuilding = {
-				add_mio_funds = 750
+				add_mio_funds = 1500
 			}
 		}
 
