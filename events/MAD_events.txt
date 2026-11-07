@@ -4328,10 +4328,10 @@ country_event = {
 		modify_treasury_effect = yes
 		if = {
 			limit = { has_dlc = "By Blood Alone" }
-			add_equipment_to_stockpile = { type = large_plane_air_transport_airframe_2 amount = 20 producer = SPR variant_name = "Airbus C-295" }
+			add_equipment_to_stockpile = { type = large_plane_air_transport_airframe_2 amount = 20 producer = FRA variant_name = "CASA/IPTN CN-235" }
 		}
 		else = {
-			add_equipment_to_stockpile = { type = transport_plane3 amount = 20 producer = SPR }
+			add_equipment_to_stockpile = { type = transport_plane3 amount = 20 producer = FRA }
 		}
 		FRA = {
 			set_temp_variable = { treasury_change = 1.5 }
@@ -4372,10 +4372,10 @@ country_event = {
 		modify_treasury_effect = yes
 		if = {
 			limit = { has_dlc = "By Blood Alone" }
-			add_equipment_to_stockpile = { type = large_plane_air_transport_airframe_2 amount = 10 producer = SPR variant_name = "Airbus C-295" }
+			add_equipment_to_stockpile = { type = large_plane_air_transport_airframe_2 amount = 10 producer = FRA variant_name = "CASA/IPTN CN-235" }
 		}
 		else = {
-			add_equipment_to_stockpile = { type = transport_plane3 amount = 10 producer = SPR }
+			add_equipment_to_stockpile = { type = transport_plane3 amount = 10 producer = FRA }
 		}
 		SAF = {
 			set_temp_variable = { treasury_change = 1.25 }
@@ -4419,7 +4419,7 @@ country_event = {
 	}
 }
 
-# --- airlift capability: C-295 purchase versus domestic innovation ---
+# --- airlift capability: CN-235 purchase versus domestic innovation ---
 country_event = {
 	id = MAD_military_procurement.6
 	title = MAD_military_procurement.6.t
@@ -4433,10 +4433,10 @@ country_event = {
 		modify_treasury_effect = yes
 		if = {
 			limit = { has_dlc = "By Blood Alone" }
-			add_equipment_to_stockpile = { type = large_plane_air_transport_airframe_2 amount = 20 producer = SPR variant_name = "Airbus C-295" }
+			add_equipment_to_stockpile = { type = large_plane_air_transport_airframe_2 amount = 20 producer = FRA variant_name = "CASA/IPTN CN-235" }
 		}
 		else = {
-			add_equipment_to_stockpile = { type = transport_plane3 amount = 20 producer = SPR }
+			add_equipment_to_stockpile = { type = transport_plane3 amount = 20 producer = FRA }
 		}
 		FRA = {
 			set_temp_variable = { treasury_change = 1.5 }
@@ -5073,10 +5073,10 @@ country_event = {
 		modify_treasury_effect = yes
 		if = {
 			limit = { has_dlc = "By Blood Alone" }
-			add_equipment_to_stockpile = { type = large_plane_air_transport_airframe_2 amount = 2 producer = SPR variant_name = "Airbus C-295" }
+			add_equipment_to_stockpile = { type = large_plane_air_transport_airframe_2 amount = 2 producer = FRA variant_name = "CASA/IPTN CN-235" }
 		}
 		else = {
-			add_equipment_to_stockpile = { type = transport_plane3 amount = 2 producer = SPR }
+			add_equipment_to_stockpile = { type = transport_plane3 amount = 2 producer = FRA }
 		}
 		FRA = {
 			set_temp_variable = { treasury_change = 10.0 }
