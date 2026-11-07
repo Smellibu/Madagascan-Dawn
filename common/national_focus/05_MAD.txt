@@ -6399,9 +6399,9 @@ focus_tree = {
 			else = {
 				add_equipment_to_stockpile = { type = transport_plane3 amount = 30 producer = GER }
 			}
-			set_temp_variable = { treasury_change = -1.00 }
+			set_temp_variable = { treasury_change = -1.80 }
 			modify_treasury_effect = yes
-			GER = { set_temp_variable = { treasury_change = 1.00 }
+			GER = { set_temp_variable = { treasury_change = 1.80 }
 			modify_treasury_effect = yes}
 			
 			add_tech_bonus = {
@@ -6832,10 +6832,10 @@ focus_tree = {
 			else = {
 				add_equipment_to_stockpile = { type = AS_Fighter3 amount = 20 producer = GER }
 			}
-			set_temp_variable = { treasury_change = -2.00 }
+			set_temp_variable = { treasury_change = -3.00 }
 			modify_treasury_effect = yes
 			GER = {
-				set_temp_variable = { treasury_change = 2.00 }
+				set_temp_variable = { treasury_change = 3.00 }
 				modify_treasury_effect = yes
 			}
 			267 = {
@@ -14575,11 +14575,17 @@ focus_tree = {
 			}
 			if = {
 				limit = { country_exists = SAF }
-				add_equipment_to_stockpile = { type = transport_helicopter_1 amount = 60 producer = SAF variant_name = "AS350B2" }
-				set_temp_variable = { treasury_change = -2.5 }
+				if = {
+					limit = { has_dlc = "No Step Back" }
+					add_equipment_to_stockpile = { type = transport_helicopter_1 amount = 60 producer = SAF } # Atlas Oryx
+				}
+				else = {
+					add_equipment_to_stockpile = { type = transport_helicopter_2 amount = 60 producer = SAF } # Atlas Oryx
+				}
+				set_temp_variable = { treasury_change = -0.90 }
 				modify_treasury_effect = yes
 				SAF = {
-					set_temp_variable = { treasury_change = 2.5 }
+					set_temp_variable = { treasury_change = 0.90 }
 					modify_treasury_effect = yes
 					set_temp_variable = { percent_change = 2 }
 					set_temp_variable = { tag_index = THIS.id }
@@ -14591,11 +14597,11 @@ focus_tree = {
 			}
 			else_if = {
 				limit = { country_exists = FRA }
-				add_equipment_to_stockpile = { type = transport_helicopter_1 amount = 60 producer = FRA variant_name = "Aérospatiale SA-330 Puma" }
-				set_temp_variable = { treasury_change = -2.5 }
+				add_equipment_to_stockpile = { type = transport_helicopter_1 amount = 60 producer = FRA variant_name = "Eurocopter AS330 Puma" }
+				set_temp_variable = { treasury_change = -1.20 }
 				modify_treasury_effect = yes
 				FRA = {
-					set_temp_variable = { treasury_change = 2.5 }
+					set_temp_variable = { treasury_change = 1.20 }
 					modify_treasury_effect = yes
 					set_temp_variable = { percent_change = 2 }
 					set_temp_variable = { tag_index = THIS.id }

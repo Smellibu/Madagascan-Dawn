@@ -3794,11 +3794,11 @@ country_event = {
 	option = {
 		name = MAD_military_procurement.1.a
 		trigger = { country_exists = SAF }
-		set_temp_variable = { treasury_change = -2.5 }
+		set_temp_variable = { treasury_change = -0.30 }
 		modify_treasury_effect = yes
-		add_equipment_to_stockpile = { type = infantry_weapons_4 amount = 3000 producer = SAF variant_name = "South African service-rifle package" }
+		add_equipment_to_stockpile = { type = infantry_weapons_3 amount = 6000 producer = SAF # R4 }
 		SAF = {
-			set_temp_variable = { treasury_change = 2.5 }
+			set_temp_variable = { treasury_change = 0.30 }
 			modify_treasury_effect = yes
 			set_temp_variable = { percent_change = 4 }
 			set_temp_variable = { tag_index = THIS.id }
@@ -3812,11 +3812,11 @@ country_event = {
 	option = {
 		name = MAD_military_procurement.1.b
 		trigger = { country_exists = BEL }
-		set_temp_variable = { treasury_change = -2.0 }
+		set_temp_variable = { treasury_change = -0.25 }
 		modify_treasury_effect = yes
-		add_equipment_to_stockpile = { type = infantry_weapons_4 amount = 2500 producer = BEL variant_name = "Belgian infantry-weapons package" }
+		add_equipment_to_stockpile = { type = infantry_weapons_3 amount = 5000 producer = BEL # FN FNC }
 		BEL = {
-			set_temp_variable = { treasury_change = 2.0 }
+			set_temp_variable = { treasury_change = 0.25 }
 			modify_treasury_effect = yes
 			set_temp_variable = { percent_change = 3 }
 			set_temp_variable = { tag_index = THIS.id }
@@ -3830,11 +3830,11 @@ country_event = {
 	option = {
 		name = MAD_military_procurement.1.c
 		trigger = { country_exists = FRA }
-		set_temp_variable = { treasury_change = -2.3 }
+		set_temp_variable = { treasury_change = -0.70 }
 		modify_treasury_effect = yes
-		add_equipment_to_stockpile = { type = infantry_weapons_4 amount = 2800 producer = FRA variant_name = "French service-rifle package" }
+		add_equipment_to_stockpile = { type = infantry_weapons_4 amount = 5600 producer = FRA # FAMAS }
 		FRA = {
-			set_temp_variable = { treasury_change = 2.3 }
+			set_temp_variable = { treasury_change = 0.70 }
 			modify_treasury_effect = yes
 			set_temp_variable = { percent_change = 3 }
 			set_temp_variable = { tag_index = THIS.id }
@@ -3868,11 +3868,11 @@ country_event = {
 	option = {
 		name = MAD_military_procurement.2.a
 		trigger = { country_exists = SOV }
-		set_temp_variable = { treasury_change = -2.5 }
+		set_temp_variable = { treasury_change = -0.35 }
 		modify_treasury_effect = yes
-		add_equipment_to_stockpile = { type = util_vehicle_4 amount = 120 producer = SOV variant_name = "GAZ all-terrain utility vehicle fleet" }
+		add_equipment_to_stockpile = { type = util_vehicle_1 amount = 1200 producer = SOV # GAZ-66 }
 		SOV = {
-			set_temp_variable = { treasury_change = 2.5 }
+			set_temp_variable = { treasury_change = 0.35 }
 			modify_treasury_effect = yes
 			set_temp_variable = { percent_change = 4 }
 			set_temp_variable = { tag_index = THIS.id }
@@ -3897,11 +3897,11 @@ country_event = {
 	option = {
 		name = MAD_military_procurement.2.b
 		trigger = { country_exists = SAF }
-		set_temp_variable = { treasury_change = -2.2 }
+		set_temp_variable = { treasury_change = -0.55 }
 		modify_treasury_effect = yes
-		add_equipment_to_stockpile = { type = util_vehicle_4 amount = 100 producer = SAF variant_name = "South African utility fleet" }
+		add_equipment_to_stockpile = { type = util_vehicle_3 amount = 750 producer = SAF # SAMIL-100 }
 		SAF = {
-			set_temp_variable = { treasury_change = 2.2 }
+			set_temp_variable = { treasury_change = 0.55 }
 			modify_treasury_effect = yes
 			set_temp_variable = { percent_change = 3 }
 			set_temp_variable = { tag_index = THIS.id }
@@ -3926,11 +3926,11 @@ country_event = {
 	option = {
 		name = MAD_military_procurement.2.c
 		trigger = { country_exists = FRA }
-		set_temp_variable = { treasury_change = -2.4 }
+		set_temp_variable = { treasury_change = -0.75 }
 		modify_treasury_effect = yes
-		add_equipment_to_stockpile = { type = util_vehicle_4 amount = 110 producer = FRA variant_name = "French utility vehicle fleet" }
+		add_equipment_to_stockpile = { type = util_vehicle_4 amount = 500 producer = FRA # VBL M-11 }
 		FRA = {
-			set_temp_variable = { treasury_change = 2.4 }
+			set_temp_variable = { treasury_change = 0.75 }
 			modify_treasury_effect = yes
 			set_temp_variable = { percent_change = 3 }
 			set_temp_variable = { tag_index = THIS.id }
@@ -4207,11 +4207,17 @@ country_event = {
 	option = {
 		name = MAD_military_procurement.5.a
 		trigger = { country_exists = UAE }
-		set_temp_variable = { treasury_change = -2.5 }
+		set_temp_variable = { treasury_change = -0.80 }
 		modify_treasury_effect = yes
-		add_equipment_to_stockpile = { type = util_vehicle_4 amount = 80 producer = UAE variant_name = "Panthera T4" }
+		if = {
+			limit = { has_dlc = "No Step Back" }
+			add_equipment_to_stockpile = { type = medium_tank_amphibious_chassis_0 amount = 280 producer = UAE variant_name = "M3 Panhard" }
+		}
+		else = {
+			add_equipment_to_stockpile = { type = APC_1 amount = 280 producer = UAE }
+		}
 		UAE = {
-			set_temp_variable = { treasury_change = 2.5 }
+			set_temp_variable = { treasury_change = 0.80 }
 			modify_treasury_effect = yes
 			set_temp_variable = { percent_change = 4 }
 			set_temp_variable = { tag_index = THIS.id }
@@ -4226,11 +4232,17 @@ country_event = {
 	option = {
 		name = MAD_military_procurement.5.b
 		trigger = { country_exists = SAF }
-		set_temp_variable = { treasury_change = -2.3 }
+		set_temp_variable = { treasury_change = -1.00 }
 		modify_treasury_effect = yes
-		add_equipment_to_stockpile = { type = util_vehicle_4 amount = 70 producer = SAF variant_name = "South African protected-mobility fleet" }
+		if = {
+			limit = { has_dlc = "No Step Back" }
+			add_equipment_to_stockpile = { type = medium_tank_flame_chassis_1 amount = 175 producer = SAF variant_name = "Ratel-20" }
+		}
+		else = {
+			add_equipment_to_stockpile = { type = APC_3 amount = 175 producer = SAF }
+		}
 		SAF = {
-			set_temp_variable = { treasury_change = 2.3 }
+			set_temp_variable = { treasury_change = 1.00 }
 			modify_treasury_effect = yes
 			set_temp_variable = { percent_change = 3 }
 			set_temp_variable = { tag_index = THIS.id }
@@ -4255,11 +4267,17 @@ country_event = {
 	option = {
 		name = MAD_military_procurement.5.c
 		trigger = { country_exists = TUR }
-		set_temp_variable = { treasury_change = -2.6 }
+		set_temp_variable = { treasury_change = -0.90 }
 		modify_treasury_effect = yes
-		add_equipment_to_stockpile = { type = util_vehicle_4 amount = 80 producer = TUR variant_name = "Turkish protected-mobility fleet" }
+		if = {
+			limit = { has_dlc = "No Step Back" }
+			add_equipment_to_stockpile = { type = medium_tank_amphibious_chassis_1 amount = 120 producer = TUR variant_name = "ACV-15 AAPC" }
+		}
+		else = {
+			add_equipment_to_stockpile = { type = APC_2 amount = 120 producer = TUR }
+		}
 		TUR = {
-			set_temp_variable = { treasury_change = 2.6 }
+			set_temp_variable = { treasury_change = 0.90 }
 			modify_treasury_effect = yes
 			set_temp_variable = { percent_change = 4 }
 			set_temp_variable = { tag_index = THIS.id }
@@ -4295,11 +4313,17 @@ country_event = {
 	option = {
 		name = MAD_military_procurement.4.a
 		trigger = { country_exists = SAF }
-		set_temp_variable = { treasury_change = -2.5 }
+		set_temp_variable = { treasury_change = -0.90 }
 		modify_treasury_effect = yes
-		add_equipment_to_stockpile = { type = transport_helicopter_1 amount = 60 producer = SAF variant_name = "AS350B2" }
+		if = {
+			limit = { has_dlc = "No Step Back" }
+			add_equipment_to_stockpile = { type = transport_helicopter_1 amount = 60 producer = SAF } # Atlas Oryx
+		}
+		else = {
+			add_equipment_to_stockpile = { type = transport_helicopter_2 amount = 60 producer = SAF } # Atlas Oryx
+		}
 		SAF = {
-			set_temp_variable = { treasury_change = 2.5 }
+			set_temp_variable = { treasury_change = 0.90 }
 			modify_treasury_effect = yes
 			set_temp_variable = { percent_change = 4 }
 			set_temp_variable = { tag_index = THIS.id }
@@ -4325,17 +4349,17 @@ country_event = {
 	option = {
 		name = MAD_military_procurement.4.b
 		trigger = { country_exists = FRA }
-		set_temp_variable = { treasury_change = -1.0 }
+		set_temp_variable = { treasury_change = -1.50 }
 		modify_treasury_effect = yes
 		if = {
 			limit = { has_dlc = "By Blood Alone" }
-			add_equipment_to_stockpile = { type = large_plane_air_transport_airframe_2 amount = 20 producer = FRA variant_name = "CASA/IPTN CN-235" }
+			add_equipment_to_stockpile = { type = large_plane_air_transport_airframe_2 amount = 20 producer = FRA variant_name = "Airbus C-295" }
 		}
 		else = {
 			add_equipment_to_stockpile = { type = transport_plane3 amount = 20 producer = FRA }
 		}
 		FRA = {
-			set_temp_variable = { treasury_change = 1.0 }
+			set_temp_variable = { treasury_change = 1.50 }
 			modify_treasury_effect = yes
 			set_temp_variable = { percent_change = 8 }
 			set_temp_variable = { tag_index = THIS.id }
@@ -4366,20 +4390,26 @@ country_event = {
 	option = {
 		name = MAD_military_procurement.4.c
 		trigger = { country_exists = SAF country_exists = FRA }
-		set_temp_variable = { treasury_change = -1.25 }
+		set_temp_variable = { treasury_change = -0.90 }
 		modify_treasury_effect = yes
-		add_equipment_to_stockpile = { type = transport_helicopter_1 amount = 30 producer = SAF variant_name = "AS350B2" }
-		set_temp_variable = { treasury_change = -0.50 }
+		if = {
+			limit = { has_dlc = "No Step Back" }
+			add_equipment_to_stockpile = { type = transport_helicopter_1 amount = 60 producer = SAF } # Atlas Oryx
+		}
+		else = {
+			add_equipment_to_stockpile = { type = transport_helicopter_2 amount = 60 producer = SAF } # Atlas Oryx
+		}
+		set_temp_variable = { treasury_change = -0.75 }
 		modify_treasury_effect = yes
 		if = {
 			limit = { has_dlc = "By Blood Alone" }
-			add_equipment_to_stockpile = { type = large_plane_air_transport_airframe_2 amount = 10 producer = FRA variant_name = "CASA/IPTN CN-235" }
+			add_equipment_to_stockpile = { type = large_plane_air_transport_airframe_2 amount = 10 producer = FRA variant_name = "Airbus C-295" }
 		}
 		else = {
 			add_equipment_to_stockpile = { type = transport_plane3 amount = 10 producer = FRA }
 		}
 		SAF = {
-			set_temp_variable = { treasury_change = 1.25 }
+			set_temp_variable = { treasury_change = 0.90 }
 			modify_treasury_effect = yes
 			set_temp_variable = { percent_change = 3 }
 			set_temp_variable = { tag_index = THIS.id }
@@ -4388,7 +4418,7 @@ country_event = {
 			add_opinion_modifier = { target = ROOT modifier = military_cooperation }
 		}
 		FRA = {
-			set_temp_variable = { treasury_change = 0.50 }
+			set_temp_variable = { treasury_change = 0.75 }
 			modify_treasury_effect = yes
 			set_temp_variable = { percent_change = 5 }
 			set_temp_variable = { tag_index = THIS.id }
@@ -4430,17 +4460,17 @@ country_event = {
 	option = {
 		name = MAD_military_procurement.6.a
 		trigger = { country_exists = FRA }
-		set_temp_variable = { treasury_change = -1.0 }
+		set_temp_variable = { treasury_change = -1.50 }
 		modify_treasury_effect = yes
 		if = {
 			limit = { has_dlc = "By Blood Alone" }
-			add_equipment_to_stockpile = { type = large_plane_air_transport_airframe_2 amount = 20 producer = FRA variant_name = "CASA/IPTN CN-235" }
+			add_equipment_to_stockpile = { type = large_plane_air_transport_airframe_2 amount = 20 producer = FRA variant_name = "Airbus C-295" }
 		}
 		else = {
 			add_equipment_to_stockpile = { type = transport_plane3 amount = 20 producer = FRA }
 		}
 		FRA = {
-			set_temp_variable = { treasury_change = 1.0 }
+			set_temp_variable = { treasury_change = 1.50 }
 			modify_treasury_effect = yes
 			set_temp_variable = { percent_change = 5 }
 			set_temp_variable = { tag_index = THIS.id }
@@ -4478,11 +4508,17 @@ country_event = {
 	option = {
 		name = MAD_military_industry.1.a
 		trigger = { country_exists = SAF }
-		set_temp_variable = { treasury_change = -12.0 }
+		set_temp_variable = { treasury_change = -0.45 }
 		modify_treasury_effect = yes
-		add_equipment_to_stockpile = { type = util_vehicle_4 amount = 60 producer = SAF variant_name = "Malagasy-South African protected vehicle" }
+		if = {
+			limit = { has_dlc = "No Step Back" }
+			add_equipment_to_stockpile = { type = medium_tank_flame_chassis_1 amount = 75 producer = SAF variant_name = "Ratel-20" }
+		}
+		else = {
+			add_equipment_to_stockpile = { type = APC_3 amount = 75 producer = SAF }
+		}
 		SAF = {
-			set_temp_variable = { treasury_change = 12.0 }
+			set_temp_variable = { treasury_change = 0.45 }
 			modify_treasury_effect = yes
 			set_temp_variable = { percent_change = 6 }
 			set_temp_variable = { tag_index = THIS.id }
@@ -4498,11 +4534,17 @@ country_event = {
 	option = {
 		name = MAD_military_industry.1.b
 		trigger = { country_exists = TUR }
-		set_temp_variable = { treasury_change = -14.0 }
+		set_temp_variable = { treasury_change = -0.50 }
 		modify_treasury_effect = yes
-		add_equipment_to_stockpile = { type = util_vehicle_4 amount = 75 producer = TUR variant_name = "Malagasy-Turkish protected vehicle" }
+		if = {
+			limit = { has_dlc = "No Step Back" }
+			add_equipment_to_stockpile = { type = medium_tank_amphibious_chassis_1 amount = 60 producer = TUR variant_name = "ACV-15 AAPC" }
+		}
+		else = {
+			add_equipment_to_stockpile = { type = APC_2 amount = 60 producer = TUR }
+		}
 		TUR = {
-			set_temp_variable = { treasury_change = 14.0 }
+			set_temp_variable = { treasury_change = 0.50 }
 			modify_treasury_effect = yes
 			set_temp_variable = { percent_change = 6 }
 			set_temp_variable = { tag_index = THIS.id }
@@ -4527,11 +4569,11 @@ country_event = {
 	option = {
 		name = MAD_military_industry.2.a
 		trigger = { country_exists = FRA }
-		set_temp_variable = { treasury_change = -10.0 }
+		set_temp_variable = { treasury_change = -0.75 }
 		modify_treasury_effect = yes
-		add_equipment_to_stockpile = { type = artillery_1 amount = 120 producer = FRA }
+		add_equipment_to_stockpile = { type = artillery_2 amount = 120 producer = FRA # TRF1 }
 		FRA = {
-			set_temp_variable = { treasury_change = 10.0 }
+			set_temp_variable = { treasury_change = 0.75 }
 			modify_treasury_effect = yes
 			set_temp_variable = { percent_change = 6 }
 			set_temp_variable = { tag_index = THIS.id }
@@ -4555,11 +4597,11 @@ country_event = {
 	option = {
 		name = MAD_military_industry.2.b
 		trigger = { country_exists = TUR }
-		set_temp_variable = { treasury_change = -11.0 }
+		set_temp_variable = { treasury_change = -0.40 }
 		modify_treasury_effect = yes
-		add_equipment_to_stockpile = { type = artillery_1 amount = 110 producer = TUR }
+		add_equipment_to_stockpile = { type = artillery_1 amount = 160 producer = TUR # M114 }
 		TUR = {
-			set_temp_variable = { treasury_change = 11.0 }
+			set_temp_variable = { treasury_change = 0.40 }
 			modify_treasury_effect = yes
 			set_temp_variable = { percent_change = 7 }
 			set_temp_variable = { tag_index = THIS.id }
@@ -4583,11 +4625,11 @@ country_event = {
 	option = {
 		name = MAD_military_industry.2.c
 		trigger = { country_exists = RAJ }
-		set_temp_variable = { treasury_change = -9.0 }
+		set_temp_variable = { treasury_change = -0.50 }
 		modify_treasury_effect = yes
-		add_equipment_to_stockpile = { type = artillery_1 amount = 100 producer = RAJ }
+		add_equipment_to_stockpile = { type = artillery_1 amount = 200 producer = RAJ # IFG }
 		RAJ = {
-			set_temp_variable = { treasury_change = 9.0 }
+			set_temp_variable = { treasury_change = 0.50 }
 			modify_treasury_effect = yes
 			set_temp_variable = { percent_change = 5 }
 			set_temp_variable = { tag_index = THIS.id }
@@ -4620,11 +4662,11 @@ country_event = {
 	option = {
 		name = MAD_military_industry.3.a
 		trigger = { country_exists = FRA }
-		set_temp_variable = { treasury_change = -12.0 }
+		set_temp_variable = { treasury_change = -1.25 }
 		modify_treasury_effect = yes
-		add_equipment_to_stockpile = { type = artillery_1 amount = 140 producer = FRA }
+		add_equipment_to_stockpile = { type = artillery_2 amount = 200 producer = FRA # TRF1 }
 		FRA = {
-			set_temp_variable = { treasury_change = 12.0 }
+			set_temp_variable = { treasury_change = 1.25 }
 			modify_treasury_effect = yes
 			set_temp_variable = { percent_change = 6 }
 			set_temp_variable = { tag_index = THIS.id }
@@ -4650,11 +4692,11 @@ country_event = {
 	option = {
 		name = MAD_military_industry.3.b
 		trigger = { country_exists = TUR }
-		set_temp_variable = { treasury_change = -13.0 }
+		set_temp_variable = { treasury_change = -0.625 }
 		modify_treasury_effect = yes
-		add_equipment_to_stockpile = { type = artillery_1 amount = 150 producer = TUR }
+		add_equipment_to_stockpile = { type = artillery_1 amount = 250 producer = TUR # M114 }
 		TUR = {
-			set_temp_variable = { treasury_change = 13.0 }
+			set_temp_variable = { treasury_change = 0.625 }
 			modify_treasury_effect = yes
 			set_temp_variable = { percent_change = 7 }
 			set_temp_variable = { tag_index = THIS.id }
@@ -4680,11 +4722,11 @@ country_event = {
 	option = {
 		name = MAD_military_industry.3.c
 		trigger = { country_exists = RAJ }
-		set_temp_variable = { treasury_change = -11.0 }
+		set_temp_variable = { treasury_change = -0.75 }
 		modify_treasury_effect = yes
-		add_equipment_to_stockpile = { type = artillery_1 amount = 130 producer = RAJ }
+		add_equipment_to_stockpile = { type = artillery_1 amount = 300 producer = RAJ # IFG }
 		RAJ = {
-			set_temp_variable = { treasury_change = 11.0 }
+			set_temp_variable = { treasury_change = 0.75 }
 			modify_treasury_effect = yes
 			set_temp_variable = { percent_change = 5 }
 			set_temp_variable = { tag_index = THIS.id }
@@ -4846,11 +4888,17 @@ country_event = {
 	option = {
 		name = MAD_military_industry.5.a
 		trigger = { country_exists = FRA }
-		set_temp_variable = { treasury_change = -25.0 }
+		set_temp_variable = { treasury_change = -4.50 }
 		modify_treasury_effect = yes
-		add_equipment_to_stockpile = { type = medium_tank_chassis_2 amount = 80 producer = FRA }
+		if = {
+			limit = { has_dlc = "No Step Back" }
+			add_equipment_to_stockpile = { type = medium_tank_chassis_2 amount = 80 producer = FRA variant_name = "Leclerc S2" }
+		}
+		else = {
+			add_equipment_to_stockpile = { type = MBT_4 amount = 80 producer = FRA }
+		}
 		FRA = {
-			set_temp_variable = { treasury_change = 25.0 }
+			set_temp_variable = { treasury_change = 4.50 }
 			modify_treasury_effect = yes
 			set_temp_variable = { percent_change = 8 }
 			set_temp_variable = { tag_index = THIS.id }
@@ -4876,11 +4924,17 @@ country_event = {
 	option = {
 		name = MAD_military_industry.5.b
 		trigger = { country_exists = TUR }
-		set_temp_variable = { treasury_change = -23.0 }
+		set_temp_variable = { treasury_change = -2.00 }
 		modify_treasury_effect = yes
-		add_equipment_to_stockpile = { type = medium_tank_chassis_2 amount = 70 producer = TUR }
+		if = {
+			limit = { has_dlc = "No Step Back" }
+			add_equipment_to_stockpile = { type = medium_tank_chassis_0 amount = 160 producer = TUR } # M60A3
+		}
+		else = {
+			add_equipment_to_stockpile = { type = MBT_1 amount = 160 producer = TUR } # M60A3
+		}
 		TUR = {
-			set_temp_variable = { treasury_change = 23.0 }
+			set_temp_variable = { treasury_change = 2.00 }
 			modify_treasury_effect = yes
 			set_temp_variable = { percent_change = 8 }
 			set_temp_variable = { tag_index = THIS.id }
@@ -4906,11 +4960,17 @@ country_event = {
 	option = {
 		name = MAD_military_industry.5.c
 		trigger = { country_exists = RAJ }
-		set_temp_variable = { treasury_change = -21.0 }
+		set_temp_variable = { treasury_change = -3.50 }
 		modify_treasury_effect = yes
-		add_equipment_to_stockpile = { type = medium_tank_chassis_2 amount = 65 producer = RAJ }
+		if = {
+			limit = { has_dlc = "No Step Back" }
+			add_equipment_to_stockpile = { type = medium_tank_chassis_2 amount = 120 producer = RAJ variant_name = "Arjun MK1" }
+		}
+		else = {
+			add_equipment_to_stockpile = { type = MBT_3 amount = 120 producer = RAJ } # Arjun MK1
+		}
 		RAJ = {
-			set_temp_variable = { treasury_change = 21.0 }
+			set_temp_variable = { treasury_change = 3.50 }
 			modify_treasury_effect = yes
 			set_temp_variable = { percent_change = 7 }
 			set_temp_variable = { tag_index = THIS.id }
@@ -4945,11 +5005,11 @@ country_event = {
 	option = {
 		name = MAD_military_industry.6.a
 		trigger = { country_exists = FRA }
-		set_temp_variable = { treasury_change = -7.0 }
+		set_temp_variable = { treasury_change = -0.24 }
 		modify_treasury_effect = yes
-		add_equipment_to_stockpile = { type = util_vehicle_4 amount = 160 producer = FRA variant_name = "French mechanised infantry package" }
+		add_equipment_to_stockpile = { type = util_vehicle_4 amount = 160 producer = FRA # VBL M-11 }
 		FRA = {
-			set_temp_variable = { treasury_change = 7.0 }
+			set_temp_variable = { treasury_change = 0.24 }
 			modify_treasury_effect = yes
 			set_temp_variable = { percent_change = 5 }
 			set_temp_variable = { tag_index = THIS.id }
@@ -4974,11 +5034,11 @@ country_event = {
 	option = {
 		name = MAD_military_industry.6.b
 		trigger = { country_exists = TUR }
-		set_temp_variable = { treasury_change = -7.3 }
+		set_temp_variable = { treasury_change = -0.225 }
 		modify_treasury_effect = yes
-		add_equipment_to_stockpile = { type = util_vehicle_4 amount = 150 producer = TUR variant_name = "Turkish mechanised infantry package" }
+		add_equipment_to_stockpile = { type = util_vehicle_4 amount = 150 producer = TUR # Otokar Defender MLR41 }
 		TUR = {
-			set_temp_variable = { treasury_change = 7.3 }
+			set_temp_variable = { treasury_change = 0.225 }
 			modify_treasury_effect = yes
 			set_temp_variable = { percent_change = 5 }
 			set_temp_variable = { tag_index = THIS.id }
@@ -5003,11 +5063,11 @@ country_event = {
 	option = {
 		name = MAD_military_industry.6.c
 		trigger = { country_exists = SAF }
-		set_temp_variable = { treasury_change = -6.6 }
+		set_temp_variable = { treasury_change = -0.1026667 }
 		modify_treasury_effect = yes
-		add_equipment_to_stockpile = { type = util_vehicle_4 amount = 140 producer = SAF variant_name = "South African mechanised infantry package" }
+		add_equipment_to_stockpile = { type = util_vehicle_3 amount = 140 producer = SAF # SAMIL-100 }
 		SAF = {
-			set_temp_variable = { treasury_change = 6.6 }
+			set_temp_variable = { treasury_change = 0.1026667 }
 			modify_treasury_effect = yes
 			set_temp_variable = { percent_change = 4 }
 			set_temp_variable = { tag_index = THIS.id }
@@ -5041,17 +5101,17 @@ country_event = {
 	option = {
 		name = MAD_military_industry.7.a
 		trigger = { country_exists = SPR }
-		set_temp_variable = { treasury_change = -1.125 }
+		set_temp_variable = { treasury_change = -0.75 }
 		modify_treasury_effect = yes
 		if = {
 			limit = { has_dlc = "By Blood Alone" }
-			add_equipment_to_stockpile = { type = large_plane_air_transport_airframe_2 amount = 15 producer = SPR variant_name = "Airbus C-295" }
+			add_equipment_to_stockpile = { type = large_plane_air_transport_airframe_2 amount = 15 producer = SPR variant_name = "CASA/IPTN CN-235" }
 		}
 		else = {
-			add_equipment_to_stockpile = { type = transport_plane3 amount = 15 producer = SPR variant_name = "Airbus C-295" }
+			add_equipment_to_stockpile = { type = transport_plane3 amount = 15 producer = SPR }
 		}
 		SPR = {
-			set_temp_variable = { treasury_change = 1.125 }
+			set_temp_variable = { treasury_change = 0.75 }
 			modify_treasury_effect = yes
 			set_temp_variable = { percent_change = 6 }
 			set_temp_variable = { tag_index = THIS.id }
@@ -5076,17 +5136,17 @@ country_event = {
 	option = {
 		name = MAD_military_industry.7.b
 		trigger = { country_exists = FRA }
-		set_temp_variable = { treasury_change = -1.0 }
+		set_temp_variable = { treasury_change = -1.50 }
 		modify_treasury_effect = yes
 		if = {
 			limit = { has_dlc = "By Blood Alone" }
-			add_equipment_to_stockpile = { type = large_plane_air_transport_airframe_2 amount = 20 producer = FRA variant_name = "CASA/IPTN CN-235" }
+			add_equipment_to_stockpile = { type = large_plane_air_transport_airframe_2 amount = 20 producer = FRA variant_name = "Airbus C-295" }
 		}
 		else = {
 			add_equipment_to_stockpile = { type = transport_plane3 amount = 20 producer = FRA }
 		}
 		FRA = {
-			set_temp_variable = { treasury_change = 1.0 }
+			set_temp_variable = { treasury_change = 1.50 }
 			modify_treasury_effect = yes
 			set_temp_variable = { percent_change = 8 }
 			set_temp_variable = { tag_index = THIS.id }
@@ -5111,17 +5171,17 @@ country_event = {
 	option = {
 		name = MAD_military_industry.7.c
 		trigger = { country_exists = TUR }
-		set_temp_variable = { treasury_change = -1.2 }
+		set_temp_variable = { treasury_change = -0.90 }
 		modify_treasury_effect = yes
 		if = {
 			limit = { has_dlc = "By Blood Alone" }
-			add_equipment_to_stockpile = { type = large_plane_air_transport_airframe_1 amount = 12 producer = TUR variant_name = "C-130 Hercules" }
+			add_equipment_to_stockpile = { type = large_plane_air_transport_airframe_1 amount = 15 producer = TUR variant_name = "C-130 Hercules" }
 		}
 		else = {
-			add_equipment_to_stockpile = { type = transport_plane1 amount = 12 producer = TUR }
+			add_equipment_to_stockpile = { type = transport_plane1 amount = 15 producer = TUR }
 		}
 		TUR = {
-			set_temp_variable = { treasury_change = 1.2 }
+			set_temp_variable = { treasury_change = 0.90 }
 			modify_treasury_effect = yes
 			set_temp_variable = { percent_change = 7 }
 			set_temp_variable = { tag_index = THIS.id }
@@ -6047,7 +6107,7 @@ country_event = {
 }
 
 # Event 7 — France decides whether to sell Madagascar two 1975-era corvettes.
-# Total purchase price is $5bn: Madagascar pays it and France receives the same amount.
+# Total purchase price is $700m ($350m per corvette): Madagascar pays it and France receives the same amount.
 country_event = {
 	id = mad_naval.7
 	title = mad_naval.7.t
@@ -6098,7 +6158,7 @@ country_event = {
 		}
 
 		# France receives the sale payment.
-		set_temp_variable = { treasury_change = 5.00 }
+		set_temp_variable = { treasury_change = 0.70 }
 		modify_treasury_effect = yes
 
 		# Increase French influence over Madagascar.
@@ -6178,7 +6238,7 @@ country_event = {
 		}
 
 		# Madagascar pays for the purchase.
-		set_temp_variable = { treasury_change = -5.00 }
+		set_temp_variable = { treasury_change = -0.70 }
 		modify_treasury_effect = yes
 
 
