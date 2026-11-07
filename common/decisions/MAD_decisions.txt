@@ -5612,7 +5612,7 @@ MAD_OWNERSHIP_BOP = {
 	MAD_POLICY_PLAGUE_SURVEILLANCE = {
 		allowed = { tag = MAD }
 		icon = generic_political_discourse
-		visible = { always = yes }
+		visible = { has_country_flag = MAD_2017_PLAGUE_CONTAINED }
 		available = {
 			OR = {
 				has_completed_focus = MAD_POL_TGV_HEALTH_FOR_ALL
@@ -5620,7 +5620,6 @@ MAD_OWNERSHIP_BOP = {
 				has_completed_focus = MAD_POL_TIM_HEALTH
 			}
 			NOT = { has_country_flag = MAD_POLICY_PLAGUE_SURVEILLANCE_ENACTED }
-			date > 2017.9.1
 
 		}
 		cost = 50
