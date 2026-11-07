@@ -15707,7 +15707,7 @@ focus_tree = {
 						limit = { has_dlc = "Arms Against Tyranny" }
 						unlock_military_industrial_organization_tooltip = mio:MAD_SECREN_shipbuilding
 					}
-								if = { limit = { has_dlc = "Arms Against Tyranny" } mio:MAD_SECREN_shipbuilding = { add_mio_funds = 500 } }
+								if = { limit = { has_dlc = "Arms Against Tyranny" } mio:MAD_SECREN_shipbuilding = { add_mio_funds = 1000 } }
 								navy_experience = 10
 		}
 
@@ -15768,9 +15768,9 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_NAVAL_MAINTENANCE_TRAINING"
-					if = { limit = { has_dlc = "Arms Against Tyranny" } mio:MAD_SECREN_shipbuilding = { add_mio_funds = 600 add_mio_research_bonus = 0.02 } }
+					if = { limit = { has_dlc = "Arms Against Tyranny" } mio:MAD_SECREN_shipbuilding = { add_mio_funds = 1200 add_mio_research_bonus = 0.02 } }
 								navy_experience = 10
-								if = { limit = { has_country_flag = MAD_NAVAL_PRIORITY_SECREN } if = { limit = { has_dlc = "Arms Against Tyranny" } mio:MAD_SECREN_shipbuilding = { add_mio_funds = 500 } } }
+								if = { limit = { has_country_flag = MAD_NAVAL_PRIORITY_SECREN } if = { limit = { has_dlc = "Arms Against Tyranny" } mio:MAD_SECREN_shipbuilding = { add_mio_funds = 1000 } } }
 		}
 
 		ai_will_do = {
@@ -15865,7 +15865,7 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_SECREN_TECHNICAL_TRAINING"
-					if = { limit = { has_dlc = "Arms Against Tyranny" } mio:MAD_SECREN_shipbuilding = { add_mio_funds = 700 add_mio_research_bonus = 0.03 } }
+					if = { limit = { has_dlc = "Arms Against Tyranny" } mio:MAD_SECREN_shipbuilding = { add_mio_funds = 1400 add_mio_research_bonus = 0.03 } }
 								navy_experience = 10
 		}
 
@@ -15887,7 +15887,7 @@ focus_tree = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_MODULAR_HULL_ASSEMBLY"
 					add_tech_bonus = { name = MAD_SECREN_MODULAR_HULLS category = CAT_corvettes bonus = 0.35 uses = 1 }
 								if = { limit = { has_country_flag = MAD_NAVAL_PRIORITY_OFFSHORE } add_tech_bonus = { name = MAD_NAVAL_OFFSHORE_HULL_ASSEMBLY category = CAT_corvettes bonus = 0.10 uses = 1 navy_experience = 5 } }
-								if = { limit = { has_dlc = "Arms Against Tyranny" } mio:MAD_SECREN_shipbuilding = { add_mio_funds = 600 } }
+								if = { limit = { has_dlc = "Arms Against Tyranny" } mio:MAD_SECREN_shipbuilding = { add_mio_funds = 1200 } }
 		}
 
 		ai_will_do = {
@@ -15983,7 +15983,7 @@ focus_tree = {
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_NAVAL_DESIGN_OFFICE"
 						navy_experience = 10
-									if = { limit = { has_dlc = "Arms Against Tyranny" } mio:MAD_SECREN_shipbuilding = { add_mio_research_bonus = 0.03 add_mio_funds = 700 } }
+									if = { limit = { has_dlc = "Arms Against Tyranny" } mio:MAD_SECREN_shipbuilding = { add_mio_research_bonus = 0.03 add_mio_funds = 1400 } }
 									if = { limit = { has_country_flag = MAD_NAVAL_DESIGN_JOINT } add_tech_bonus = { name = MAD_NAVAL_JOINT_DESIGN category = CAT_naval_modules bonus = 0.25 uses = 1 } }
 						
 		}
@@ -16006,7 +16006,7 @@ focus_tree = {
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_CORVETTE_PROTOTYPE_HULL"
 					add_tech_bonus = { name = MAD_SECREN_PROTOTYPE_PROGRAMME category = CAT_corvettes bonus = 0.50 uses = 1 }
-								if = { limit = { has_dlc = "Arms Against Tyranny" } mio:MAD_SECREN_shipbuilding = { add_mio_funds = 900 } }
+								if = { limit = { has_dlc = "Arms Against Tyranny" } mio:MAD_SECREN_shipbuilding = { add_mio_funds = 1800 } }
 								if = { limit = { has_country_flag = MAD_NAVAL_DESIGN_DOMESTIC } if = { limit = { has_dlc = "Arms Against Tyranny" } mio:MAD_SECREN_shipbuilding = { add_mio_research_bonus = 0.02 } } }
 		}
 
@@ -16083,7 +16083,7 @@ focus_tree = {
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_STANDARDISE_THE_CORVETTE_CLASS"
 					add_tech_bonus = { name = MAD_SECREN_CLASS_STANDARDISATION category = CAT_corvettes bonus = 0.35 uses = 1 }
-								if = { limit = { has_dlc = "Arms Against Tyranny" } mio:MAD_SECREN_shipbuilding = { add_mio_funds = 1000 } }
+								if = { limit = { has_dlc = "Arms Against Tyranny" } mio:MAD_SECREN_shipbuilding = { add_mio_funds = 2000 } }
 								if = { limit = { has_country_flag = MAD_CORVETTE_ROLE_PATROL } add_tech_bonus = { name = MAD_SECREN_CLASS_STANDARDISATION category = CAT_naval_radar bonus = 0.25 uses = 1 } }
 								if = { limit = { has_country_flag = MAD_CORVETTE_ROLE_COASTAL_DEFENCE } add_tech_bonus = { name = MAD_SECREN_CLASS_STANDARDISATION category = CAT_naval_cannons bonus = 0.25 uses = 1 } }
 		}
@@ -16104,8 +16104,8 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_LOCAL_NAVAL_COMPONENTS"
-					if = { limit = { has_dlc = "Arms Against Tyranny" } mio:MAD_SECREN_shipbuilding = { add_mio_funds = 1200 add_mio_research_bonus = 0.03 } }
-								if = { limit = { has_country_flag = MAD_NAVAL_PRIORITY_SECREN } if = { limit = { has_dlc = "Arms Against Tyranny" } mio:MAD_SECREN_shipbuilding = { add_mio_funds = 500 } } }
+					if = { limit = { has_dlc = "Arms Against Tyranny" } mio:MAD_SECREN_shipbuilding = { add_mio_funds = 2400 add_mio_research_bonus = 0.03 } }
+								if = { limit = { has_country_flag = MAD_NAVAL_PRIORITY_SECREN } if = { limit = { has_dlc = "Arms Against Tyranny" } mio:MAD_SECREN_shipbuilding = { add_mio_funds = 1000 } } }
 		}
 
 		ai_will_do = {
@@ -16162,7 +16162,7 @@ focus_tree = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_WESTERN_INDIAN_OCEAN_DOCTRINE"
 					add_tech_bonus = { name = MAD_NAVAL_WESTERN_INDIAN_OCEAN_DOCTRINE category = CAT_corvettes bonus = 0.35 uses = 1 }
 								navy_experience = 20
-								if = { limit = { has_dlc = "Arms Against Tyranny" } mio:MAD_SECREN_shipbuilding = { add_mio_funds = 1000 } }
+								if = { limit = { has_dlc = "Arms Against Tyranny" } mio:MAD_SECREN_shipbuilding = { add_mio_funds = 2000 } }
 								country_event = { id = mad_naval.5 days = 1 }
 		}
 
@@ -16248,7 +16248,7 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_SECREN_FLIGHT_DECK_ENGINEERING"
-					if = { limit = { has_dlc = "Arms Against Tyranny" } mio:MAD_SECREN_shipbuilding = { add_mio_research_bonus = 0.03 add_mio_funds = 1000 } }
+					if = { limit = { has_dlc = "Arms Against Tyranny" } mio:MAD_SECREN_shipbuilding = { add_mio_research_bonus = 0.03 add_mio_funds = 2000 } }
 								add_tech_bonus = { name = MAD_SECREN_FLIGHT_DECK_ENGINEERING category = CAT_naval_modules bonus = 0.35 uses = 1 }
 		}
 

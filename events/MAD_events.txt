@@ -5600,7 +5600,7 @@ country_event = {
 				instant_build = yes
 			}
 		}
-		if = { limit = { has_dlc = "Arms Against Tyranny" } mio:MAD_SECREN_shipbuilding = { add_mio_funds = 1000 add_mio_research_bonus = 0.02 } }
+		if = { limit = { has_dlc = "Arms Against Tyranny" } mio:MAD_SECREN_shipbuilding = { add_mio_funds = 2000 add_mio_research_bonus = 0.02 } }
 	}
 }
 
@@ -5634,7 +5634,7 @@ country_event = {
 		}
 		if = {
 			limit = { has_dlc = "Arms Against Tyranny" }
-			mio:MAD_SECREN_shipbuilding = { add_mio_funds = 800 add_mio_research_bonus = 0.01 }
+			mio:MAD_SECREN_shipbuilding = { add_mio_funds = 1600 add_mio_research_bonus = 0.01 }
 		}
 	}
 	option = {
@@ -5739,7 +5739,7 @@ country_event = {
 		add_tech_bonus = { name = MAD_NAVAL_JOINT_CORVETTE category = CAT_corvettes bonus = 0.25 uses = 1 }
 		if = {
 			limit = { has_dlc = "Arms Against Tyranny" }
-			mio:MAD_SECREN_shipbuilding = { add_mio_funds = 400 }
+			mio:MAD_SECREN_shipbuilding = { add_mio_funds = 800 }
 		}
 		# Ask France first. South Korea receives the same proposal if France
 		# is unavailable, at war, or has no corvettes in service.
@@ -5774,7 +5774,7 @@ country_event = {
 		set_country_flag = MAD_NAVAL_DESIGN_DOMESTIC
 		add_tech_bonus = { name = MAD_NAVAL_DOMESTIC_CORVETTE category = CAT_corvettes bonus = 0.25 uses = 1 }
 		add_tech_bonus = { name = MAD_NAVAL_DOMESTIC_CORVETTE category = CAT_naval_modules bonus = 0.50 uses = 1 }
-		if = { limit = { has_dlc = "Arms Against Tyranny" } mio:MAD_SECREN_shipbuilding = { add_mio_funds = 1000 add_mio_research_bonus = 0.05 } }
+		if = { limit = { has_dlc = "Arms Against Tyranny" } mio:MAD_SECREN_shipbuilding = { add_mio_funds = 2000 add_mio_research_bonus = 0.05 } }
 		if = {
 			limit = { has_subdoctrine_in_track = escort_ships }
 			add_mastery = {
@@ -5865,7 +5865,7 @@ country_event = {
 		}
 		add_tech_bonus = { name = MAD_NAVAL_CORVETTE_FORCE category = CAT_corvettes bonus = 0.50 uses = 1 }
 		add_tech_bonus = { name = MAD_NAVAL_FRIGATE_RESEARCH category = CAT_frigates bonus = 0.25 uses = 1 }
-		if = { limit = { has_dlc = "Arms Against Tyranny" } mio:MAD_SECREN_shipbuilding = { add_mio_funds = 1000 } }
+		if = { limit = { has_dlc = "Arms Against Tyranny" } mio:MAD_SECREN_shipbuilding = { add_mio_funds = 2000 } }
 	}
 	option = {
 		name = mad_naval.5.b
@@ -5885,33 +5885,17 @@ country_event = {
 	desc = mad_naval.6.d
 	picture = GFX_report_event_generic_political
 	is_triggered_only = yes
+
+	# The single proposal goes to the first partner available. A refusal does not
+	# trigger another proposal; the recipient is identified in this event option.
 	option = {
 		name = mad_naval.6.a
 		trigger = {
-			OR = {
-				AND = { country_exists = FRA FRA = { NOT = { is_at_war = yes } } }
-				AND = { country_exists = KOR KOR = { NOT = { is_at_war = yes } } }
-				AND = { country_exists = CHI CHI = { NOT = { is_at_war = yes } } }
-			}
+			country_exists = FRA
+			FRA = { NOT = { is_at_war = yes } }
 		}
-		log = "[GetDateText]: [This.GetName]: mad_naval.6.a executed"
-		# Send the proposal to the first available partner: France, Korea, then China.
-		if = {
-			limit = { country_exists = FRA FRA = { NOT = { is_at_war = yes } } }
-			FRA = { country_event = { id = mad_naval.12 days = 1 } }
-		}
-		else = {
-			if = {
-				limit = { country_exists = KOR KOR = { NOT = { is_at_war = yes } } }
-				KOR = { country_event = { id = mad_naval.12 days = 1 } }
-			}
-			else = {
-				if = {
-					limit = { country_exists = CHI CHI = { NOT = { is_at_war = yes } } }
-					CHI = { country_event = { id = mad_naval.12 days = 1 } }
-				}
-			}
-		}
+		log = "[GetDateText]: [This.GetName]: mad_naval.6.a executed (France)"
+		FRA = { country_event = { id = mad_naval.12 days = 1 } }
 		if = {
 			limit = { has_subdoctrine_in_track = capital_ships }
 			add_mastery = {
@@ -5924,10 +5908,71 @@ country_event = {
 			navy_experience = 20
 		}
 	}
+
+	option = {
+		name = mad_naval.6.a_kor
+		trigger = {
+			country_exists = KOR
+			KOR = { NOT = { is_at_war = yes } }
+			NOT = {
+				AND = {
+					country_exists = FRA
+					FRA = { NOT = { is_at_war = yes } }
+				}
+			}
+		}
+		log = "[GetDateText]: [This.GetName]: mad_naval.6.a executed (South Korea)"
+		KOR = { country_event = { id = mad_naval.12 days = 1 } }
+		if = {
+			limit = { has_subdoctrine_in_track = capital_ships }
+			add_mastery = {
+				amount = 20
+				folder = naval
+				track = capital_ships
+			}
+		}
+		else = {
+			navy_experience = 20
+		}
+	}
+
+	option = {
+		name = mad_naval.6.a_chi
+		trigger = {
+			country_exists = CHI
+			CHI = { NOT = { is_at_war = yes } }
+			NOT = {
+				AND = {
+					country_exists = FRA
+					FRA = { NOT = { is_at_war = yes } }
+				}
+			}
+			NOT = {
+				AND = {
+					country_exists = KOR
+					KOR = { NOT = { is_at_war = yes } }
+				}
+			}
+		}
+		log = "[GetDateText]: [This.GetName]: mad_naval.6.a executed (China)"
+		CHI = { country_event = { id = mad_naval.12 days = 1 } }
+		if = {
+			limit = { has_subdoctrine_in_track = capital_ships }
+			add_mastery = {
+				amount = 20
+				folder = naval
+				track = capital_ships
+			}
+		}
+		else = {
+			navy_experience = 20
+		}
+	}
+
 	option = {
 		name = mad_naval.6.b
 		log = "[GetDateText]: [This.GetName]: mad_naval.6.b executed"
-		if = { limit = { has_dlc = "Arms Against Tyranny" } mio:MAD_SECREN_shipbuilding = { add_mio_funds = 1500 add_mio_research_bonus = 0.05 } }
+		if = { limit = { has_dlc = "Arms Against Tyranny" } mio:MAD_SECREN_shipbuilding = { add_mio_funds = 6000 add_mio_research_bonus = 0.05 } }
 		if = {
 			limit = { has_subdoctrine_in_track = capital_ships }
 			add_mastery = {
@@ -6238,23 +6283,7 @@ country_event = {
 	option = {
 		name = mad_naval.12.b
 		log = "[GetDateText]: [This.GetName]: declined Madagascar's helicopter-operator partnership proposal"
-		# A refusal passes the proposal to the next available partner.
-		if = {
-			limit = { tag = FRA country_exists = KOR KOR = { NOT = { is_at_war = yes } } }
-			KOR = { country_event = { id = mad_naval.12 days = 1 } }
-		}
-		else = {
-			if = {
-				limit = { tag = FRA country_exists = CHI CHI = { NOT = { is_at_war = yes } } }
-				CHI = { country_event = { id = mad_naval.12 days = 1 } }
-			}
-			else = {
-				if = {
-					limit = { tag = KOR country_exists = CHI CHI = { NOT = { is_at_war = yes } } }
-					CHI = { country_event = { id = mad_naval.12 days = 1 } }
-				}
-			}
-		}
+		# The proposal ends here; Madagascar does not approach another country.
 		ai_chance = { base = 20 }
 	}
 }
@@ -6451,7 +6480,7 @@ country_event = {
 		if = {
 			limit = { has_dlc = "Arms Against Tyranny" }
 			mio:MAD_SECREN_shipbuilding = {
-				add_mio_funds = 1500
+				add_mio_funds = 3000
 			}
 		}
 
