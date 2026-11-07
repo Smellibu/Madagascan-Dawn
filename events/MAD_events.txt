@@ -4372,10 +4372,10 @@ country_event = {
 		modify_treasury_effect = yes
 		if = {
 			limit = { has_dlc = "By Blood Alone" }
-			add_equipment_to_stockpile = { type = large_plane_air_transport_airframe_2 amount = 1 producer = SPR variant_name = "Airbus C-295" }
+			add_equipment_to_stockpile = { type = large_plane_air_transport_airframe_2 amount = 10 producer = SPR variant_name = "Airbus C-295" }
 		}
 		else = {
-			add_equipment_to_stockpile = { type = transport_plane3 amount = 1 producer = SPR }
+			add_equipment_to_stockpile = { type = transport_plane3 amount = 10 producer = SPR }
 		}
 		SAF = {
 			set_temp_variable = { treasury_change = 1.25 }
