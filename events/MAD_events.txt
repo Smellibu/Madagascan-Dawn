@@ -5039,11 +5039,17 @@ country_event = {
 	is_triggered_only = yes
 	option = {
 		name = MAD_military_industry.7.a
-		trigger = { country_exists = SPR }
+		trigger = { country_exists = FRA }
 		set_temp_variable = { treasury_change = -8.0 }
 		modify_treasury_effect = yes
-		add_equipment_to_stockpile = { type = transport_plane5 amount = 5 producer = SPR variant_name = "C-295M" }
-		SPR = {
+		if = {
+			limit = { has_dlc = "By Blood Alone" }
+			add_equipment_to_stockpile = { type = large_plane_air_transport_airframe_2 amount = 5 producer = FRA variant_name = "CASA/IPTN CN-235" }
+		}
+		else = {
+			add_equipment_to_stockpile = { type = transport_plane3 amount = 5 producer = FRA }
+		}
+		FRA = {
 			set_temp_variable = { treasury_change = 8.0 }
 			modify_treasury_effect = yes
 			set_temp_variable = { percent_change = 6 }
@@ -5052,7 +5058,7 @@ country_event = {
 			change_influence_percentage = yes
 			add_opinion_modifier = { target = ROOT modifier = military_cooperation }
 		}
-		add_opinion_modifier = { target = SPR modifier = military_cooperation }
+		add_opinion_modifier = { target = FRA modifier = military_cooperation }
 		if = {
 			limit = { has_subdoctrine_in_track = heavy_aircraft }
 			add_mastery = {
