@@ -4953,8 +4953,6 @@ focus_tree = {
 			add_to_variable = { MAD_economy_receiving_investment_cost_modifier = -0.03 tooltip = receiving_investment_cost_modifier_tt }
 			add_to_variable = { MAD_economy_receiving_investment_duration_modifier = -0.03  tooltip = receiving_investment_duration_modifier_tt }
 			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.05 tooltip = productivity_growth_modifier_tt }
-			set_temp_variable = { treasury_change = -3.50 }
-			modify_treasury_effect = yes
 			hidden_effect = {
 				country_event = { id = mad_austral.1 days = 180 }
 			}
@@ -6393,8 +6391,6 @@ focus_tree = {
 				localization_key = modifies_dynamic_modifier_tt
 				MODIFIER = MAD_economy_modifier
 			}
-			add_to_variable = { MAD_economy_receiving_investment_cost_modifier = 0.06 tooltip = receiving_investment_cost_modifier_tt }
-			add_to_variable = { MAD_economy_receiving_investment_duration_modifier = 0.06 tooltip = receiving_investment_duration_modifier_tt }
 			add_to_variable = { MAD_economy_productivity_growth_modifier = -0.05 tooltip = productivity_growth_modifier_tt }
 			if = {
 				limit = { has_idea = MAD_AUSTRAL_AIRLINE }
