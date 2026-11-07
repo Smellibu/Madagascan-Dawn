@@ -4051,39 +4051,47 @@ country_event = {
 		air_experience = 20
 		if = {
 			limit = { country_exists = FRA }
-			set_temp_variable = { percent_change = 1 }
-			set_temp_variable = { tag_index = ROOT.id }
-			set_temp_variable = { influence_target = FRA.id }
-			change_influence_percentage = yes
+			FRA = {
+				set_temp_variable = { percent_change = 1 }
+				set_temp_variable = { tag_index = ROOT.id }
+				set_temp_variable = { influence_target = THIS.id }
+				change_influence_percentage = yes
+				add_opinion_modifier = { target = ROOT modifier = military_cooperation }
+			}
 			add_opinion_modifier = { target = FRA modifier = military_cooperation }
-			FRA = { add_opinion_modifier = { target = ROOT modifier = military_cooperation } }
 		}
 		if = {
 			limit = { country_exists = COM }
-			set_temp_variable = { percent_change = 1 }
-			set_temp_variable = { tag_index = ROOT.id }
-			set_temp_variable = { influence_target = COM.id }
-			change_influence_percentage = yes
+			COM = {
+				set_temp_variable = { percent_change = 1 }
+				set_temp_variable = { tag_index = ROOT.id }
+				set_temp_variable = { influence_target = THIS.id }
+				change_influence_percentage = yes
+				add_opinion_modifier = { target = ROOT modifier = military_cooperation }
+			}
 			add_opinion_modifier = { target = COM modifier = military_cooperation }
-			COM = { add_opinion_modifier = { target = ROOT modifier = military_cooperation } }
 		}
 		if = {
 			limit = { country_exists = MRT }
-			set_temp_variable = { percent_change = 1 }
-			set_temp_variable = { tag_index = ROOT.id }
-			set_temp_variable = { influence_target = MRT.id }
-			change_influence_percentage = yes
+			MRT = {
+				set_temp_variable = { percent_change = 1 }
+				set_temp_variable = { tag_index = ROOT.id }
+				set_temp_variable = { influence_target = THIS.id }
+				change_influence_percentage = yes
+				add_opinion_modifier = { target = ROOT modifier = military_cooperation }
+			}
 			add_opinion_modifier = { target = MRT modifier = military_cooperation }
-			MRT = { add_opinion_modifier = { target = ROOT modifier = military_cooperation } }
 		}
 		if = {
 			limit = { country_exists = SEY }
-			set_temp_variable = { percent_change = 1 }
-			set_temp_variable = { tag_index = ROOT.id }
-			set_temp_variable = { influence_target = SEY.id }
-			change_influence_percentage = yes
+			SEY = {
+				set_temp_variable = { percent_change = 1 }
+				set_temp_variable = { tag_index = ROOT.id }
+				set_temp_variable = { influence_target = THIS.id }
+				change_influence_percentage = yes
+				add_opinion_modifier = { target = ROOT modifier = military_cooperation }
+			}
 			add_opinion_modifier = { target = SEY modifier = military_cooperation }
-			SEY = { add_opinion_modifier = { target = ROOT modifier = military_cooperation } }
 		}
 	}
 
