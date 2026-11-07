@@ -6,6 +6,7 @@
 add_namespace = mad_ambatovy
 add_namespace = mad_austral
 add_namespace = mad_diplomacy
+add_namespace = mad_plague
 
 country_event = {
 	id = mad_austral.1
@@ -8012,3 +8013,108 @@ country_event = {
 		log = "[GetDateText]: [Root.GetName]: mad_jirama.4.a - review the JIRAMA austerity rescue"
 	}
 }
+
+# ============================================================================
+# 2017 Madagascar pneumonic plague emergency
+# The domestic chain concludes by unlocking the permanent surveillance decision.
+# ============================================================================
+country_event = {
+	id = mad_plague.1
+	title = mad_plague.1.t
+	desc = mad_plague.1.d
+	picture = GFX_african_school
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = mad_plague.1.a # Mobilise the national health services
+		log = "[GetDateText]: [Root.GetName]: mad_plague.1.a - full national response"
+		set_temp_variable = {
+			treasury_change = {
+				value = MAD.gdp_total
+				multiply = -0.005 # Emergency response costs 0.5% of Madagascar GDP.
+			}
+		}
+		modify_treasury_effect = yes
+		add_stability = -0.02
+		decrease_economic_growth = yes
+		add_timed_idea = {
+			idea = MAD_2017_PLAGUE_EMERGENCY
+			days = 90
+		}
+		set_country_flag = MAD_2017_PLAGUE_FULL_RESPONSE
+		set_global_flag = MAD_2017_PLAGUE_OUTBREAK
+		hidden_effect = {
+			news_event = { id = mad_plague.2 days = 30 random_days = 10 }
+			country_event = { id = mad_plague.3 days = 74 }
+		}
+		ai_chance = {
+			base = 10
+		}
+	}
+
+	option = {
+		name = mad_plague.1.b # Concentrate resources on affected cities
+		log = "[GetDateText]: [Root.GetName]: mad_plague.1.b - targeted response"
+		add_stability = -0.05
+		decrease_economic_growth = yes
+		add_timed_idea = {
+			idea = MAD_2017_PLAGUE_EMERGENCY
+			days = 150
+		}
+		set_country_flag = MAD_2017_PLAGUE_TARGETED_RESPONSE
+		set_global_flag = MAD_2017_PLAGUE_OUTBREAK
+		hidden_effect = {
+			news_event = { id = mad_plague.2 days = 30 random_days = 10 }
+			country_event = { id = mad_plague.3 days = 74 }
+		}
+		ai_chance = {
+			base = 1
+		}
+	}
+}
+
+# International reaction; there are no foreign infection or travel-ban effects.
+news_event = {
+	id = mad_plague.2
+	title = mad_plague.2.t
+	desc = mad_plague.2.d
+	picture = GFX_african_school
+	is_triggered_only = yes
+	trigger = {
+		has_global_flag = MAD_2017_PLAGUE_OUTBREAK
+	}
+
+	option = {
+		name = mad_plague.2.a
+	}
+}
+
+# Late-November containment unlocks the existing National Epidemic Surveillance Charter.
+country_event = {
+	id = mad_plague.3
+	title = mad_plague.3.t
+	desc = mad_plague.3.d
+	picture = GFX_african_school
+	is_triggered_only = yes
+	trigger = {
+		OR = {
+			has_country_flag = MAD_2017_PLAGUE_FULL_RESPONSE
+			has_country_flag = MAD_2017_PLAGUE_TARGETED_RESPONSE
+		}
+	}
+
+	option = {
+		name = mad_plague.3.a
+		if = {
+			limit = { has_country_flag = MAD_2017_PLAGUE_FULL_RESPONSE }
+			add_stability = 0.04
+		}
+		else = {
+			add_stability = 0.02
+		}
+		set_country_flag = MAD_2017_PLAGUE_CONTAINED
+		log = "[GetDateText]: [Root.GetName]: 2017 pneumonic plague outbreak contained; surveillance charter unlocked"
+	}
+}
+
