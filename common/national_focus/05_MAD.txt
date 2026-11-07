@@ -14514,11 +14514,11 @@ focus_tree = {
 			}
 			if = {
 				limit = { country_exists = SAF }
-				add_equipment_to_stockpile = { type = transport_helicopter_1 amount = 40 producer = SAF variant_name = "AS350B2" }
-				set_temp_variable = { treasury_change = -1.5 }
+				add_equipment_to_stockpile = { type = transport_helicopter_1 amount = 60 producer = SAF variant_name = "AS350B2" }
+				set_temp_variable = { treasury_change = -2.5 }
 				modify_treasury_effect = yes
 				SAF = {
-					set_temp_variable = { treasury_change = 1.5 }
+					set_temp_variable = { treasury_change = 2.5 }
 					modify_treasury_effect = yes
 					set_temp_variable = { percent_change = 2 }
 					set_temp_variable = { tag_index = THIS.id }
@@ -14530,11 +14530,11 @@ focus_tree = {
 			}
 			else_if = {
 				limit = { country_exists = FRA }
-				add_equipment_to_stockpile = { type = transport_helicopter_1 amount = 40 producer = FRA variant_name = "Malagasy helicopter starter fleet" }
-				set_temp_variable = { treasury_change = -1.5 }
+				add_equipment_to_stockpile = { type = transport_helicopter_1 amount = 60 producer = FRA variant_name = "Aérospatiale SA-330 Puma" }
+				set_temp_variable = { treasury_change = -2.5 }
 				modify_treasury_effect = yes
 				FRA = {
-					set_temp_variable = { treasury_change = 1.5 }
+					set_temp_variable = { treasury_change = 2.5 }
 					modify_treasury_effect = yes
 					set_temp_variable = { percent_change = 2 }
 					set_temp_variable = { tag_index = THIS.id }
