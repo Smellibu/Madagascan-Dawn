@@ -4294,11 +4294,11 @@ country_event = {
 	option = {
 		name = MAD_military_procurement.4.a
 		trigger = { country_exists = SAF }
-		set_temp_variable = { treasury_change = -2.25 }
+		set_temp_variable = { treasury_change = -2.5 }
 		modify_treasury_effect = yes
 		add_equipment_to_stockpile = { type = transport_helicopter_1 amount = 60 producer = SAF variant_name = "AS350B2" }
 		SAF = {
-			set_temp_variable = { treasury_change = 2.25 }
+			set_temp_variable = { treasury_change = 2.5 }
 			modify_treasury_effect = yes
 			set_temp_variable = { percent_change = 4 }
 			set_temp_variable = { tag_index = THIS.id }
@@ -4307,7 +4307,6 @@ country_event = {
 			add_opinion_modifier = { target = ROOT modifier = military_cooperation }
 		}
 		add_opinion_modifier = { target = SAF modifier = military_cooperation }
-		add_ideas = MAD_ARMY_HELICOPTER_PRIORITY
 		if = {
 			limit = { has_subdoctrine_in_track = training_and_ops }
 			add_mastery = {
@@ -4325,19 +4324,26 @@ country_event = {
 	option = {
 		name = MAD_military_procurement.4.b
 		trigger = { country_exists = FRA }
-		set_temp_variable = { treasury_change = -10.0 }
+		set_temp_variable = { treasury_change = -1.5 }
 		modify_treasury_effect = yes
-		add_equipment_to_stockpile = { type = transport_plane2 amount = 5 producer = FRA variant_name = "CN-235" }
+		add_equipment_to_stockpile = { type = transport_plane2 amount = 20 producer = FRA variant_name = "CN-235" }
 		FRA = {
-			set_temp_variable = { treasury_change = 10.0 }
+			set_temp_variable = { treasury_change = 1.5 }
 			modify_treasury_effect = yes
 			set_temp_variable = { percent_change = 8 }
 			set_temp_variable = { tag_index = THIS.id }
 			set_temp_variable = { influence_target = ROOT.id }
 			change_influence_percentage = yes
-			add_opinion_modifier = { target = ROOT modifier = military_cooperation }
+
 		}
-		add_opinion_modifier = { target = FRA modifier = military_cooperation }
+custom_effect_tooltip = MAD_france_military_cooperation_tt
+		custom_effect_tooltip = MAD_madagascar_military_cooperation_tt
+		hidden_effect = {
+			FRA = { add_opinion_modifier = { target = ROOT modifier = military_cooperation } }
+		}
+		hidden_effect = {
+			add_opinion_modifier = { target = FRA modifier = military_cooperation }
+		}
 		if = {
 			limit = { has_subdoctrine_in_track = heavy_aircraft }
 			add_mastery = {
@@ -4354,12 +4360,12 @@ country_event = {
 	option = {
 		name = MAD_military_procurement.4.c
 		trigger = { country_exists = SAF country_exists = FRA }
-		set_temp_variable = { treasury_change = -6.125 }
+		set_temp_variable = { treasury_change = -5.75 }
 		modify_treasury_effect = yes
-		add_equipment_to_stockpile = { type = transport_helicopter_1 amount = 30 producer = SAF variant_name = "AS350B2" }
+		add_equipment_to_stockpile = { type = transport_helicopter_1 amount = 10 producer = SAF variant_name = "AS350B2" }
 		add_equipment_to_stockpile = { type = transport_plane2 amount = 1 producer = FRA variant_name = "CN-235" }
 		SAF = {
-			set_temp_variable = { treasury_change = 1.125 }
+			set_temp_variable = { treasury_change = -1.25 }
 			modify_treasury_effect = yes
 			set_temp_variable = { percent_change = 3 }
 			set_temp_variable = { tag_index = THIS.id }
@@ -4374,11 +4380,17 @@ country_event = {
 			set_temp_variable = { tag_index = THIS.id }
 			set_temp_variable = { influence_target = ROOT.id }
 			change_influence_percentage = yes
-			add_opinion_modifier = { target = ROOT modifier = military_cooperation }
+
 		}
 		add_opinion_modifier = { target = SAF modifier = military_cooperation }
-		add_opinion_modifier = { target = FRA modifier = military_cooperation }
-		add_ideas = MAD_ARMY_HELICOPTER_PRIORITY
+custom_effect_tooltip = MAD_france_military_cooperation_tt
+		custom_effect_tooltip = MAD_madagascar_military_cooperation_tt
+		hidden_effect = {
+			FRA = { add_opinion_modifier = { target = ROOT modifier = military_cooperation } }
+		}
+		hidden_effect = {
+			add_opinion_modifier = { target = FRA modifier = military_cooperation }
+		}
 		if = {
 			limit = { has_subdoctrine_in_track = training_and_ops }
 			add_mastery = {
@@ -4405,19 +4417,26 @@ country_event = {
 	option = {
 		name = MAD_military_procurement.6.a
 		trigger = { country_exists = FRA }
-		set_temp_variable = { treasury_change = -5.0 }
+		set_temp_variable = { treasury_change = -1.5 }
 		modify_treasury_effect = yes
-		add_equipment_to_stockpile = { type = transport_plane2 amount = 1 producer = FRA variant_name = "CN-235" }
+		add_equipment_to_stockpile = { type = transport_plane2 amount = 20 producer = FRA variant_name = "CN-235" }
 		FRA = {
-			set_temp_variable = { treasury_change = 5.0 }
+			set_temp_variable = { treasury_change = 1.5 }
 			modify_treasury_effect = yes
 			set_temp_variable = { percent_change = 5 }
 			set_temp_variable = { tag_index = THIS.id }
 			set_temp_variable = { influence_target = ROOT.id }
 			change_influence_percentage = yes
-			add_opinion_modifier = { target = ROOT modifier = military_cooperation }
+
 		}
-		add_opinion_modifier = { target = FRA modifier = military_cooperation }
+custom_effect_tooltip = MAD_france_military_cooperation_tt
+		custom_effect_tooltip = MAD_madagascar_military_cooperation_tt
+		hidden_effect = {
+			FRA = { add_opinion_modifier = { target = ROOT modifier = military_cooperation } }
+		}
+		hidden_effect = {
+			add_opinion_modifier = { target = FRA modifier = military_cooperation }
+		}
 		set_country_flag = MAD_ARMY_AIRLIFT_READY
 
 	}
