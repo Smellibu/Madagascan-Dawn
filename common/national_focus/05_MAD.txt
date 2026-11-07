@@ -14514,9 +14514,9 @@ focus_tree = {
 			}
 			if = {
 				limit = { country_exists = SAF }
+				add_equipment_to_stockpile = { type = transport_helicopter_1 amount = 40 producer = SAF variant_name = "AS350B2" }
 				set_temp_variable = { treasury_change = -1.5 }
 				modify_treasury_effect = yes
-				add_equipment_to_stockpile = { type = transport_helicopter_1 amount = 2 producer = SAF variant_name = "AS350B2" }
 				SAF = {
 					set_temp_variable = { treasury_change = 1.5 }
 					modify_treasury_effect = yes
@@ -14530,9 +14530,9 @@ focus_tree = {
 			}
 			else_if = {
 				limit = { country_exists = FRA }
+				add_equipment_to_stockpile = { type = transport_helicopter_1 amount = 40 producer = FRA variant_name = "Malagasy helicopter starter fleet" }
 				set_temp_variable = { treasury_change = -1.5 }
 				modify_treasury_effect = yes
-				add_equipment_to_stockpile = { type = transport_helicopter_1 amount = 2 producer = FRA variant_name = "Malagasy helicopter starter fleet" }
 				FRA = {
 					set_temp_variable = { treasury_change = 1.5 }
 					modify_treasury_effect = yes
@@ -14553,8 +14553,7 @@ focus_tree = {
 					track = training_and_ops
 				}
 			}
-			air_experience = 20
-			army_experience = 20
+
 			if = {
 				limit = { NOT = { has_country_flag = MAD_DAHALO_DEFEATED } }
 				add_to_variable = { MAD_dahalo_threat = -8 tooltip = MAD_DAHALO_THREAT_MINUS_8_TT }
@@ -14581,7 +14580,7 @@ focus_tree = {
 			add_tech_bonus = {
 				name = MAD_ARMY_LIFT_AND_SUSTAIN
 				category = CAT_aircraft
-				uses = 3
+				uses = 1
 				bonus = 0.35
 			}
 			country_event = { id = MAD_military_procurement.6 days = 1 }
