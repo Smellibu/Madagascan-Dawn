@@ -4294,11 +4294,11 @@ country_event = {
 	option = {
 		name = MAD_military_procurement.4.a
 		trigger = { country_exists = SAF }
-		set_temp_variable = { treasury_change = -3.0 }
+		set_temp_variable = { treasury_change = -2.25 }
 		modify_treasury_effect = yes
-		add_equipment_to_stockpile = { type = transport_helicopter_1 amount = 4 producer = SAF variant_name = "AS350B2" }
+		add_equipment_to_stockpile = { type = transport_helicopter_1 amount = 60 producer = SAF variant_name = "AS350B2" }
 		SAF = {
-			set_temp_variable = { treasury_change = 3.0 }
+			set_temp_variable = { treasury_change = 2.25 }
 			modify_treasury_effect = yes
 			set_temp_variable = { percent_change = 4 }
 			set_temp_variable = { tag_index = THIS.id }
@@ -4354,12 +4354,12 @@ country_event = {
 	option = {
 		name = MAD_military_procurement.4.c
 		trigger = { country_exists = SAF country_exists = FRA }
-		set_temp_variable = { treasury_change = -8.0 }
+		set_temp_variable = { treasury_change = -6.125 }
 		modify_treasury_effect = yes
-		add_equipment_to_stockpile = { type = transport_helicopter_1 amount = 2 producer = SAF variant_name = "AS350B2" }
+		add_equipment_to_stockpile = { type = transport_helicopter_1 amount = 30 producer = SAF variant_name = "AS350B2" }
 		add_equipment_to_stockpile = { type = transport_plane2 amount = 1 producer = FRA variant_name = "CN-235" }
 		SAF = {
-			set_temp_variable = { treasury_change = 3.0 }
+			set_temp_variable = { treasury_change = 1.125 }
 			modify_treasury_effect = yes
 			set_temp_variable = { percent_change = 3 }
 			set_temp_variable = { tag_index = THIS.id }
@@ -4419,7 +4419,7 @@ country_event = {
 		}
 		add_opinion_modifier = { target = FRA modifier = military_cooperation }
 		set_country_flag = MAD_ARMY_AIRLIFT_READY
-		air_experience = 25
+
 	}
 	option = {
 		name = MAD_military_procurement.6.b
