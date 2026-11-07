@@ -5747,41 +5747,79 @@ country_event = {
 			}
 		}
 	}
+	# Send the joint-development proposal to the first eligible partner.
+	# The recipient is shown directly in the option; a refusal never triggers
+	# another offer. If neither partner is eligible, retain the domestic route.
 	option = {
-		name = mad_naval.3.b
-		log = "[GetDateText]: [This.GetName]: mad_naval.3.b executed"
+		name = mad_naval.3.b_fra
+		trigger = {
+			country_exists = FRA
+			FRA = {
+				NOT = { is_at_war = yes }
+				has_tech = corvette_hull_3
+				has_navy_size = { size > 0 unit = corvette }
+			}
+		}
+		log = "[GetDateText]: [This.GetName]: mad_naval.3.b_fra executed (France)"
 		set_country_flag = MAD_NAVAL_DESIGN_JOINT
 		add_tech_bonus = { name = MAD_NAVAL_JOINT_CORVETTE category = CAT_corvettes bonus = 0.25 uses = 1 }
-		if = {
-			limit = { has_dlc = "Arms Against Tyranny" }
-			mio:MAD_SECREN_shipbuilding = { add_mio_funds = 400 }
-		}
-		# Ask France first. South Korea receives the same proposal if France
-		# is unavailable, at war, or has no corvettes in service.
-		if = {
-			limit = {
-				country_exists = FRA
-				FRA = {
-					NOT = { is_at_war = yes }
-					has_tech = corvette_hull_3
-					has_navy_size = { size > 0 unit = corvette }
-				}
+		if = { limit = { has_dlc = "Arms Against Tyranny" } mio:MAD_SECREN_shipbuilding = { add_mio_funds = 400 } }
+		FRA = { country_event = { id = mad_naval.10 days = 1 } }
+	}
+	option = {
+		name = mad_naval.3.b_kor
+		trigger = {
+			country_exists = KOR
+			KOR = {
+				NOT = { is_at_war = yes }
+				has_tech = corvette_hull_2
+				has_navy_size = { size > 0 unit = corvette }
 			}
-			FRA = { country_event = { id = mad_naval.10 days = 1 } }
-		}
-		else = {
-			if = {
-				limit = {
-					country_exists = KOR
-					KOR = {
+			NOT = {
+				AND = {
+					country_exists = FRA
+					FRA = {
 						NOT = { is_at_war = yes }
-						has_tech = corvette_hull_2
+						has_tech = corvette_hull_3
 						has_navy_size = { size > 0 unit = corvette }
 					}
 				}
-				KOR = { country_event = { id = mad_naval.10 days = 1 } }
 			}
 		}
+		log = "[GetDateText]: [This.GetName]: mad_naval.3.b_kor executed (South Korea)"
+		set_country_flag = MAD_NAVAL_DESIGN_JOINT
+		add_tech_bonus = { name = MAD_NAVAL_JOINT_CORVETTE category = CAT_corvettes bonus = 0.25 uses = 1 }
+		if = { limit = { has_dlc = "Arms Against Tyranny" } mio:MAD_SECREN_shipbuilding = { add_mio_funds = 400 } }
+		KOR = { country_event = { id = mad_naval.10 days = 1 } }
+	}
+	option = {
+		name = mad_naval.3.b
+		trigger = {
+			NOT = {
+				OR = {
+					AND = {
+						country_exists = FRA
+						FRA = {
+							NOT = { is_at_war = yes }
+							has_tech = corvette_hull_3
+							has_navy_size = { size > 0 unit = corvette }
+						}
+					}
+					AND = {
+						country_exists = KOR
+						KOR = {
+							NOT = { is_at_war = yes }
+							has_tech = corvette_hull_2
+							has_navy_size = { size > 0 unit = corvette }
+						}
+					}
+				}
+			}
+		}
+		log = "[GetDateText]: [This.GetName]: mad_naval.3.b domestic route (no eligible foreign partner)"
+		set_country_flag = MAD_NAVAL_DESIGN_JOINT
+		add_tech_bonus = { name = MAD_NAVAL_JOINT_CORVETTE category = CAT_corvettes bonus = 0.25 uses = 1 }
+		if = { limit = { has_dlc = "Arms Against Tyranny" } mio:MAD_SECREN_shipbuilding = { add_mio_funds = 400 } }
 	}
 	option = {
 		name = mad_naval.3.c
@@ -6214,18 +6252,7 @@ country_event = {
 	option = {
 		name = mad_naval.10.b
 		log = "[GetDateText]: [This.GetName]: declined Madagascar's corvette co-development proposal"
-		if = {
-			limit = {
-				tag = FRA
-				country_exists = KOR
-				KOR = {
-					NOT = { is_at_war = yes }
-					has_tech = corvette_hull_2
-					has_navy_size = { size > 0 unit = corvette }
-				}
-			}
-			KOR = { country_event = { id = mad_naval.10 days = 1 } }
-		}
+		MAD = { country_event = { id = mad_naval.14 days = 1 } }
 		ai_chance = { base = 20 }
 	}
 }
@@ -6298,7 +6325,7 @@ country_event = {
 	option = {
 		name = mad_naval.12.b
 		log = "[GetDateText]: [This.GetName]: declined Madagascar's helicopter-operator partnership proposal"
-		# The proposal ends here; Madagascar does not approach another country.
+		MAD = { country_event = { id = mad_naval.15 days = 1 } }
 		ai_chance = { base = 20 }
 	}
 }
@@ -6324,6 +6351,32 @@ country_event = {
 			}
 		}
 		add_tech_bonus = { name = MAD_NAVAL_OPERATOR_DESIGN category = CAT_helicopter_operators bonus = 0.40 uses = 1 }
+	}
+}
+
+# Event 14 — Madagascar is notified when the corvette co-development proposal is declined.
+country_event = {
+	id = mad_naval.14
+	title = mad_naval.14.t
+	desc = mad_naval.14.d
+	picture = GFX_report_event_generic_political
+	is_triggered_only = yes
+	option = {
+		name = mad_naval.14.a
+		log = "[GetDateText]: [This.GetName]: [FROM.GetName] declined the corvette co-development proposal"
+	}
+}
+
+# Event 15 — Madagascar is notified when the helicopter-operator proposal is declined.
+country_event = {
+	id = mad_naval.15
+	title = mad_naval.15.t
+	desc = mad_naval.15.d
+	picture = GFX_report_event_generic_political
+	is_triggered_only = yes
+	option = {
+		name = mad_naval.15.a
+		log = "[GetDateText]: [This.GetName]: [FROM.GetName] declined the helicopter-operator partnership proposal"
 	}
 }
 
