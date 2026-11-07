@@ -4359,9 +4359,11 @@ country_event = {
 	option = {
 		name = MAD_military_procurement.4.c
 		trigger = { country_exists = SAF country_exists = FRA }
-		set_temp_variable = { treasury_change = -5.75 }
+		set_temp_variable = { treasury_change = -0.75 }
 		modify_treasury_effect = yes
 		add_equipment_to_stockpile = { type = transport_helicopter_1 amount = 10 producer = SAF variant_name = "AS350B2" }
+		set_temp_variable = { treasury_change = -5.0 }
+		modify_treasury_effect = yes
 		add_equipment_to_stockpile = { type = transport_plane2 amount = 1 producer = FRA variant_name = "CN-235" }
 		SAF = {
 			set_temp_variable = { treasury_change = -1.25 }
