@@ -476,7 +476,7 @@ MAD_SECREN_shipbuilding = {
 		token = MAD_SECREN_trait_tropical_corrosion_control
 		name = MAD_SECREN_trait_tropical_corrosion_control
 		icon = GFX_generic_mio_trait_icon_small_ship_reliability
-		position = { x = -1 y = 0 }
+		position = { x = 0 y = 0 }
 		limit_to_equipment_type = { corvette stealth_corvette frigate stealth_frigate patrol_boat support_ship_hull }
 		equipment_bonus = { reliability = 0.06 }
 		on_complete = { expenditure_for_mio_upgrade = yes }
@@ -488,7 +488,7 @@ MAD_SECREN_shipbuilding = {
 		name = MAD_SECREN_trait_local_shipyard_sustainment
 		icon = GFX_generic_mio_trait_icon_task
 		all_parents = { MAD_SECREN_trait_tropical_corrosion_control }
-		position = { x = -1 y = 1 }
+		position = { x = 0 y = 1 }
 		relative_position_id = MAD_SECREN_trait_tropical_corrosion_control
 		limit_to_equipment_type = { patrol_boat support_ship_hull }
 		organization_modifier = {
