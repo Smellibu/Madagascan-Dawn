@@ -5568,10 +5568,10 @@ country_event = {
 		name = mad_naval.1.b
 		log = "[GetDateText]: [This.GetName]: mad_naval.1.b executed"
 		set_country_flag = MAD_NAVAL_PRIORITY_OFFSHORE
-		# Expand the SECREN harbour at province 8188 by two port levels: $1bn.
+		# Expand the SECREN harbour at Antsiranana province 5222 by two port levels: $1bn.
 		set_temp_variable = { treasury_change = -1.00 }
 		modify_treasury_effect = yes
-		8188 = {
+		5222 = {
 			add_building_construction = {
 				type = naval_base
 				level = 2
@@ -5620,13 +5620,13 @@ country_event = {
 	option = {
 		name = mad_naval.2.a
 		log = "[GetDateText]: [This.GetName]: mad_naval.2.a executed"
-		# Fortify four key harbour provinces: $0.5bn each, $2bn total.
+		# Fortify the four harbour provinces — Antsiranana, Mahajanga, Toliara and Toamasina: $0.5bn each, $2bn total.
 		set_temp_variable = { treasury_change = -2.00 }
 		modify_treasury_effect = yes
-		8188 = { add_building_construction = { type = coastal_bunker level = 1 instant_build = yes } }
-		5222 = { add_building_construction = { type = coastal_bunker level = 1 instant_build = yes } }
-		12956 = { add_building_construction = { type = coastal_bunker level = 1 instant_build = yes } }
-		5128 = { add_building_construction = { type = coastal_bunker level = 1 instant_build = yes } }
+		5222 = { add_building_construction = { type = coastal_bunker level = 1 instant_build = yes } } # Antsiranana
+		8188 = { add_building_construction = { type = coastal_bunker level = 1 instant_build = yes } } # Mahajanga
+		12956 = { add_building_construction = { type = coastal_bunker level = 1 instant_build = yes } } # Toliara
+		615 = { add_building_construction = { type = coastal_bunker level = 1 instant_build = yes } } # Toamasina
 		if = {
 			limit = { has_subdoctrine_in_track = operations }
 			add_mastery = {
@@ -5667,10 +5667,10 @@ country_event = {
 	option = {
 		name = mad_naval.2.c
 		log = "[GetDateText]: [This.GetName]: mad_naval.2.c executed"
-		# Add one naval-base level at the SECREN port, province 8188: $0.5bn.
+		# Add one naval-base level at the SECREN port, Antsiranana province 5222: $0.5bn.
 		set_temp_variable = { treasury_change = -0.50 }
 		modify_treasury_effect = yes
-		8188 = { add_building_construction = { type = naval_base level = 1 instant_build = yes } }
+		5222 = { add_building_construction = { type = naval_base level = 1 instant_build = yes } }
 		set_country_flag = MAD_NAVAL_PROGRAMME_INTERCEPTORS
 		add_tech_bonus = { name = MAD_NAVAL_FAST_INTERCEPTION category = CAT_patrol_boats bonus = 0.25 uses = 1 }
 		add_tech_bonus = { name = MAD_NAVAL_FAST_INTERCEPTION category = CAT_landing_craft bonus = 0.25 uses = 1 }
