@@ -5729,6 +5729,17 @@ country_event = {
 		add_tech_bonus = { name = MAD_NAVAL_DOMESTIC_CORVETTE category = CAT_corvettes bonus = 0.25 uses = 1 }
 		add_tech_bonus = { name = MAD_NAVAL_DOMESTIC_CORVETTE category = CAT_naval_modules bonus = 0.50 uses = 1 }
 		if = { limit = { has_dlc = "Arms Against Tyranny" } mio:MAD_SECREN_shipbuilding = { add_mio_funds = 500 add_mio_research_bonus = 0.05 } }
+		if = {
+			limit = { has_subdoctrine_in_track = escort_ships }
+			add_mastery = {
+				amount = 15
+				folder = naval
+				track = escort_ships
+			}
+		}
+		else = {
+			navy_experience = 10
+		}
 	}
 }
 
@@ -5752,6 +5763,17 @@ country_event = {
 		set_country_flag = MAD_CORVETTE_ROLE_COASTAL_DEFENCE
 		add_tech_bonus = { name = MAD_NAVAL_CORVETTE_COASTAL_DEFENCE category = CAT_naval_cannons bonus = 0.35 uses = 1 }
 		add_tech_bonus = { name = MAD_NAVAL_CORVETTE_COASTAL_DEFENCE category = CAT_corvettes bonus = 0.25 uses = 1 }
+		if = {
+			limit = { has_subdoctrine_in_track = operations }
+			add_mastery = {
+				amount = 10
+				folder = naval
+				track = operations
+			}
+		}
+		else = {
+			navy_experience = 5
+		}
 	}
 	option = {
 		name = mad_naval.4.c
