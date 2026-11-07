@@ -5972,7 +5972,7 @@ country_event = {
 	option = {
 		name = mad_naval.6.b
 		log = "[GetDateText]: [This.GetName]: mad_naval.6.b executed"
-		if = { limit = { has_dlc = "Arms Against Tyranny" } mio:MAD_SECREN_shipbuilding = { add_mio_funds = 6000 add_mio_research_bonus = 0.05 } }
+		if = { limit = { has_dlc = "Arms Against Tyranny" } mio:MAD_SECREN_shipbuilding = { add_mio_funds = 3000 add_mio_research_bonus = 0.05 } }
 		if = {
 			limit = { has_subdoctrine_in_track = capital_ships }
 			add_mastery = {
