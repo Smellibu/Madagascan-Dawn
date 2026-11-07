@@ -1127,6 +1127,53 @@ focus_tree = {
 		}
 	}
 
+
+	focus = {
+		id = MAD_ANTETEZAMBATO_HYDRO
+		icon = focus_generic_hydroelectric_energy
+		x = -1
+		y = 1
+		relative_position_id = MAD_ELECTRICITY_FOR_ALL
+		cost = 3
+		prerequisite = { focus = MAD_ELECTRICITY_FOR_ALL }
+		search_filters = { FOCUS_FILTER_ECONOMY FOCUS_FILTER_EXPENDITURE }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_ANTETEZAMBATO_HYDRO"
+			custom_effect_tooltip = {
+				localization_key = modifies_dynamic_modifier_tt
+				MODIFIER = MAD_power_modifier
+			}
+			add_to_variable = { MAD_power_energy_gain_multiplier = 0.01 tooltip = energy_gain_multiplier_tt }
+		}
+
+		ai_will_do = { base = 1 }
+	}
+
+	focus = {
+		id = MAD_AMBOHIMANAMBOLA_THERMAL
+		icon = powerplant
+		x = 1
+		y = 1
+		relative_position_id = MAD_ELECTRICITY_FOR_ALL
+		cost = 3
+		prerequisite = { focus = MAD_ELECTRICITY_FOR_ALL }
+		search_filters = { FOCUS_FILTER_ECONOMY FOCUS_FILTER_EXPENDITURE }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_AMBOHIMANAMBOLA_THERMAL"
+			custom_effect_tooltip = {
+				localization_key = modifies_dynamic_modifier_tt
+				MODIFIER = MAD_power_modifier
+			}
+			add_to_variable = { MAD_power_fossil_pp_fuel_consumption_modifier = -0.04 tooltip = fossil_pp_fuel_consumption_modifier_tt }
+		}
+
+		ai_will_do = { base = 1 }
+	}
+
+
+
 	focus = {
 		id = MAD_AIR
 		icon = focus_airline

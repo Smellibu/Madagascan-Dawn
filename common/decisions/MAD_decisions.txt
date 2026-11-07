@@ -2823,6 +2823,96 @@ MAD_JIRAMA_PROJECTS = {
 
 		ai_will_do = { base = 0 }
 	}
+
+	MAD_JIRAMA_BUILD_ANTETEZAMBATO = {
+		icon = generic_construction
+		on_map_mode = map_and_decisions_view
+
+		visible = {
+			has_completed_focus = MAD_ANTETEZAMBATO_HYDRO
+			NOT = { has_country_flag = MAD_JIRAMA_ANTETEZAMBATO_BUILT }
+		}
+		custom_cost_trigger = { always = yes }
+		custom_cost_text = cost_13_0
+		fire_only_once = yes
+		days_remove = 730
+
+		available = {
+			267 = { is_owned_and_controlled_by = ROOT }
+			custom_trigger_tooltip = {
+				tooltip = MAD_RC_REQUIRE_10_TT
+				check_variable = { MAD_rural_cooperation > 9.99 }
+			}
+		}
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_JIRAMA_BUILD_ANTETEZAMBATO - construction begins"
+			set_temp_variable = { MAD_rc_delta = -10 }
+			MAD_rural_cooperation_adjust = yes
+			set_temp_variable = { treasury_change = -13.000 }
+			modify_treasury_effect = yes
+		}
+
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_JIRAMA_BUILD_ANTETEZAMBATO - project complete"
+			set_temp_variable = { MAD_rc_delta = 4 }
+			MAD_rural_cooperation_adjust = yes
+			267 = {
+				add_to_variable = { hydroelectric_energy_production_var = 2.5 }
+				add_dynamic_modifier = { modifier = hydroelectric_infrastructure_in_state }
+			}
+			set_country_flag = MAD_JIRAMA_ANTETEZAMBATO_BUILT
+		}
+
+		ai_will_do = { base = 0 }
+	}
+
+	MAD_JIRAMA_BUILD_AMBOHIMANAMBOLA = {
+		icon = generic_construction
+		on_map_mode = map_and_decisions_view
+
+		visible = {
+			has_completed_focus = MAD_AMBOHIMANAMBOLA_THERMAL
+			NOT = { has_country_flag = MAD_JIRAMA_AMBOHIMANAMBOLA_BUILT }
+		}
+		custom_cost_trigger = { always = yes }
+		custom_cost_text = cost_28_5
+		fire_only_once = yes
+		days_remove = 730
+
+		available = {
+			267 = { is_owned_and_controlled_by = ROOT }
+			custom_trigger_tooltip = {
+				tooltip = MAD_RC_REQUIRE_10_TT
+				check_variable = { MAD_rural_cooperation > 9.99 }
+			}
+		}
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_JIRAMA_BUILD_AMBOHIMANAMBOLA - construction begins"
+			set_temp_variable = { MAD_rc_delta = -10 }
+			MAD_rural_cooperation_adjust = yes
+			set_temp_variable = { treasury_change = -28.500 }
+			modify_treasury_effect = yes
+		}
+
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_JIRAMA_BUILD_AMBOHIMANAMBOLA - project complete"
+			set_temp_variable = { MAD_rc_delta = 4 }
+			MAD_rural_cooperation_adjust = yes
+			267 = {
+				add_building_construction = {
+					type = fossil_powerplant
+					level = 3
+					instant_build = yes
+				}
+			}
+			set_country_flag = MAD_JIRAMA_AMBOHIMANAMBOLA_BUILT
+		}
+
+		ai_will_do = { base = 0 }
+	}
+
 	MAD_JIRAMA_BUILD_LEAD_ACCESS = {
 		icon = generic_construction
 		on_map_mode = map_and_decisions_view
