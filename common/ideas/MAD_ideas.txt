@@ -1660,6 +1660,21 @@ MAD_HVM_FRANCO_MALAGASY_PARTNERSHIP = {
 
 		clr_country_flag = MAD_PI_ACTIVE_MAD_HVM_FRANCO_MALAGASY_PARTNERSHIP
 
+
+		# Temporary national burden during the 2017 pneumonic plague emergency.
+		MAD_2017_PLAGUE_EMERGENCY = {
+			name = MAD_2017_PLAGUE_EMERGENCY
+			picture = GFX_idea_generic
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+			modifier = {
+				stability_factor = -0.03
+				productivity_growth_modifier = -0.03
+				health_cost_multiplier_modifier = 0.05
+			}
+		}
+
+
 	}
 
 }
