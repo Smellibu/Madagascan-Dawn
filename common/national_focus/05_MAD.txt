@@ -6392,7 +6392,13 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_GERMAN_PLANES"
-			add_equipment_to_stockpile = { type = large_plane_air_transport_airframe amount = 30 producer = GER variant_name = "Transall C-160" }
+			if = {
+				limit = { has_dlc = "By Blood Alone" }
+				add_equipment_to_stockpile = { type = large_plane_air_transport_airframe_1 amount = 30 producer = GER variant_name = "Transall C-160" }
+			}
+			else = {
+				add_equipment_to_stockpile = { type = transport_plane3 amount = 30 producer = GER }
+			}
 			set_temp_variable = { treasury_change = -1.00 }
 			modify_treasury_effect = yes
 			GER = { set_temp_variable = { treasury_change = 1.00 }
@@ -6819,11 +6825,19 @@ focus_tree = {
 			add_to_variable = { MAD_air_attack_factor = 0.05 tooltip = air_attack_factor_tt }
 			add_to_variable = { MAD_air_mission_xp_gain_factor = 0.05 tooltip = air_mission_xp_gain_factor_tt }
 			
-			add_equipment_to_stockpile = { type = medium_plane_airframe amount = 20 producer = GER variant_name = "Typhoon Tranche 1"}
+			if = {
+				limit = { has_dlc = "By Blood Alone" }
+				add_equipment_to_stockpile = { type = medium_plane_airframe_2 amount = 20 producer = GER variant_name = "Typhoon Tranche 1" }
+			}
+			else = {
+				add_equipment_to_stockpile = { type = AS_Fighter3 amount = 20 producer = GER }
+			}
 			set_temp_variable = { treasury_change = -2.00 }
 			modify_treasury_effect = yes
-			GER = { set_temp_variable = { treasury_change = -2.00 }
-			modify_treasury_effect = yes}
+			GER = {
+				set_temp_variable = { treasury_change = 2.00 }
+				modify_treasury_effect = yes
+			}
 			267 = {
 				add_extra_state_shared_building_slots = 1
 				add_building_construction = {
