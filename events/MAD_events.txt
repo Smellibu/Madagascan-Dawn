@@ -3970,7 +3970,12 @@ country_event = {
 			}
 		}
 		else = {
-			army_experience = 25
+			add_tech_bonus = {
+				name = MAD_military_procurement_3_french_land_fallback
+				category = CAT_command_and_control_equipment
+				uses = 1
+				bonus = 0.20
+			}
 		}
 		if = {
 			limit = { has_subdoctrine_in_track = operations }
@@ -3981,7 +3986,12 @@ country_event = {
 			}
 		}
 		else = {
-			navy_experience = 25
+			add_tech_bonus = {
+				name = MAD_military_procurement_3_french_naval_fallback
+				category = CAT_naval_modules
+				uses = 1
+				bonus = 0.15
+			}
 		}
 		if = {
 			limit = { has_subdoctrine_in_track = training_and_ops }
@@ -3992,7 +4002,12 @@ country_event = {
 			}
 		}
 		else = {
-			air_experience = 25
+			add_tech_bonus = {
+				name = MAD_military_procurement_3_french_air_fallback
+				category = CAT_aircraft
+				uses = 1
+				bonus = 0.15
+			}
 		}
 		army_experience = 20
 		navy_experience = 20
@@ -4022,7 +4037,12 @@ country_event = {
 			}
 		}
 		else = {
-			army_experience = 25
+			add_tech_bonus = {
+				name = MAD_military_procurement_3_ioc_land_fallback
+				category = CAT_electronics
+				uses = 1
+				bonus = 0.20
+			}
 		}
 		if = {
 			limit = { has_subdoctrine_in_track = operations }
@@ -4033,7 +4053,12 @@ country_event = {
 			}
 		}
 		else = {
-			navy_experience = 25
+			add_tech_bonus = {
+				name = MAD_military_procurement_3_ioc_naval_fallback
+				category = CAT_naval_radar
+				uses = 1
+				bonus = 0.15
+			}
 		}
 		if = {
 			limit = { has_subdoctrine_in_track = training_and_ops }
@@ -4044,7 +4069,12 @@ country_event = {
 			}
 		}
 		else = {
-			air_experience = 25
+			add_tech_bonus = {
+				name = MAD_military_procurement_3_ioc_air_fallback
+				category = CAT_heavy_aircraft
+				uses = 1
+				bonus = 0.15
+			}
 		}
 		army_experience = 25
 		navy_experience = 20
@@ -4107,7 +4137,12 @@ country_event = {
 			}
 		}
 		else = {
-			army_experience = 30
+			add_tech_bonus = {
+				name = MAD_military_procurement_3_malagasy_land_fallback
+				category = CAT_infantry
+				uses = 1
+				bonus = 0.25
+			}
 		}
 		if = {
 			limit = { has_subdoctrine_in_track = operations }
@@ -4118,7 +4153,12 @@ country_event = {
 			}
 		}
 		else = {
-			navy_experience = 25
+			add_tech_bonus = {
+				name = MAD_military_procurement_3_malagasy_naval_fallback
+				category = CAT_patrol_boats
+				uses = 1
+				bonus = 0.15
+			}
 		}
 		if = {
 			limit = { has_subdoctrine_in_track = training_and_ops }
@@ -4129,11 +4169,26 @@ country_event = {
 			}
 		}
 		else = {
-			air_experience = 25
+			add_tech_bonus = {
+				name = MAD_military_procurement_3_malagasy_air_fallback
+				category = CAT_helicopter_operators
+				uses = 1
+				bonus = 0.15
+			}
 		}
 		army_experience = 30
 		navy_experience = 10
 		air_experience = 10
+
+		if = {
+			limit = { has_idea = officer_international_education }
+			swap_ideas = {
+				remove_idea = officer_international_education
+				add_idea = officer_military_academy
+			}
+		}
+		set_temp_variable = { percent_change = 5 }
+		change_domestic_influence_percentage = yes
 
 	}
 }
