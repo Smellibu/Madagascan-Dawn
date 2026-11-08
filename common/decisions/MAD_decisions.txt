@@ -6766,10 +6766,6 @@ MAD_dip_cyclone_decisions = {
 		icon = generic_political_discourse
 		visible = { has_completed_focus = MAD_dip_cyclone_network }
 		available = {
-			custom_trigger_tooltip = {
-				tooltip = MAD_TREASURY_REQUIRE_0_25_TT
-				check_variable = { treasury > 0.25 }
-			}
 			NOT = { has_active_mission = bankruptcy_incoming_collapse }
 		}
 		cost = 25
@@ -6802,10 +6798,6 @@ MAD_dip_cyclone_decisions = {
 		icon = generic_construction
 		visible = { has_completed_focus = MAD_dip_cyclone_network }
 		available = {
-			custom_trigger_tooltip = {
-				tooltip = MAD_TREASURY_REQUIRE_0_50_TT
-				check_variable = { treasury > 0.50 }
-			}
 			NOT = { has_active_mission = bankruptcy_incoming_collapse }
 		}
 		cost = 35
@@ -6839,10 +6831,6 @@ MAD_dip_cyclone_decisions = {
 		icon = generic_political_discourse
 		visible = { has_completed_focus = MAD_dip_cyclone_network }
 		available = {
-			custom_trigger_tooltip = {
-				tooltip = MAD_TREASURY_REQUIRE_0_25_TT
-				check_variable = { treasury > 0.25 }
-			}
 			NOT = { has_active_mission = bankruptcy_incoming_collapse }
 		}
 		cost = 25
@@ -6874,10 +6862,6 @@ MAD_dip_cyclone_decisions = {
 			has_country_flag = MAD_dip_swio_exercise_unlocked
 		}
 		available = {
-			custom_trigger_tooltip = {
-				tooltip = MAD_TREASURY_REQUIRE_0_25_TT
-				check_variable = { treasury > 0.25 }
-			}
 			has_country_flag = MAD_dip_swio_exercise_unlocked
 			NOT = { has_active_mission = bankruptcy_incoming_collapse }
 		}
@@ -6910,10 +6894,6 @@ MAD_dip_blue_economy_decisions = {
 		icon = generic_political_discourse
 		visible = { has_completed_focus = MAD_dip_blue_economy }
 		available = {
-			custom_trigger_tooltip = {
-				tooltip = MAD_TREASURY_REQUIRE_0_25_TT
-				check_variable = { treasury > 0.25 }
-			}
 			NOT = { has_active_mission = bankruptcy_incoming_collapse }
 		}
 		cost = 25
@@ -6946,10 +6926,6 @@ MAD_dip_blue_economy_decisions = {
 		icon = generic_construction
 		visible = { has_completed_focus = MAD_dip_blue_economy }
 		available = {
-			custom_trigger_tooltip = {
-				tooltip = MAD_TREASURY_REQUIRE_0_75_TT
-				check_variable = { treasury > 0.75 }
-			}
 			NOT = { has_active_mission = bankruptcy_incoming_collapse }
 		}
 		cost = 35
@@ -6994,10 +6970,6 @@ MAD_dip_blue_economy_decisions = {
 		icon = generic_construction
 		visible = { has_completed_focus = MAD_dip_blue_economy }
 		available = {
-			custom_trigger_tooltip = {
-				tooltip = MAD_TREASURY_REQUIRE_0_50_TT
-				check_variable = { treasury > 0.50 }
-			}
 			NOT = { has_active_mission = bankruptcy_incoming_collapse }
 		}
 		cost = 25
@@ -7046,10 +7018,6 @@ MAD_dip_shelf_decisions = {
 			NOT = { has_country_flag = MAD_dip_continental_shelf_submitted }
 		}
 		available = {
-			custom_trigger_tooltip = {
-				tooltip = MAD_TREASURY_REQUIRE_0_50_TT
-				check_variable = { treasury > 0.50 }
-			}
 			NOT = { has_active_mission = bankruptcy_incoming_collapse }
 		}
 		cost = 50
@@ -7097,10 +7065,6 @@ MAD_dip_iles_campaign_decisions = {
 			NOT = { has_country_flag = MAD_dip_iles_campaign_maintained }
 		}
 		available = {
-			custom_trigger_tooltip = {
-				tooltip = MAD_TREASURY_REQUIRE_0_25_TT
-				check_variable = { treasury > 0.25 }
-			}
 			NOT = { has_active_mission = bankruptcy_incoming_collapse }
 		}
 		cost = 25
