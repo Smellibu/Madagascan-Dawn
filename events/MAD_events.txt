@@ -120,7 +120,6 @@ country_event = {
 	}
 	option = { # Decline the offer
 		name = MAD_LUFTHANSA_OFFER.b
-		add_opinion_modifier = { target = MAD modifier = MAD_offer_refused }
 		MAD = {
 			set_country_flag = MAD_GERMANS_REJECTED_LUFTHANSA
 			country_event = { id = MAD_LUFTHANSA_OFFER.3 hours = 1 }
@@ -165,7 +164,7 @@ country_event = { # Fires on MAD - decline branch
 
 	option = {
 		name = MAD_LUFTHANSA_OFFER_DECLINE.a
-		add_opinion_modifier = { target = GER modifier = MAD_investment_refused }
+		add_opinion_modifier = { target = GER modifier = MAD_offer_refused }
 		ai_chance = { base = 1 }
 	}
 }
@@ -1304,7 +1303,6 @@ country_event = {
 	}
 	option = {
 		name = mad_foreign_investment.1.b
-		add_opinion_modifier = { target = MAD modifier = MAD_offer_refused }
 		ai_chance = { base = 20 }
 		MAD = { country_event = { id = mad_foreign_investment.3 days = 1 } }
 	}
@@ -1343,7 +1341,7 @@ country_event = {
 
 	option = {
 		name = mad_foreign_investment.3.a
-		add_opinion_modifier = { target = KOR modifier = MAD_investment_refused }
+		add_opinion_modifier = { target = KOR modifier = MAD_offer_refused }
 		add_stability = 0.01
 	}
 }
@@ -1379,7 +1377,6 @@ country_event = {
 	}
 	option = {
 		name = mad_foreign_investment.11.b
-		add_opinion_modifier = { target = MAD modifier = MAD_offer_refused }
 		ai_chance = { base = 20 }
 		MAD = { country_event = { id = mad_foreign_investment.13 days = 1 } }
 	}
@@ -1415,7 +1412,7 @@ country_event = {
 
 	option = {
 		name = mad_foreign_investment.13.a
-		add_opinion_modifier = { target = USA modifier = MAD_investment_refused }
+		add_opinion_modifier = { target = USA modifier = MAD_offer_refused }
 		add_stability = 0.01
 	}
 }
@@ -1451,7 +1448,6 @@ country_event = {
 	}
 	option = {
 		name = mad_foreign_investment.21.b
-		add_opinion_modifier = { target = MAD modifier = MAD_offer_refused }
 		ai_chance = { base = 20 }
 		MAD = { country_event = { id = mad_foreign_investment.23 days = 1 } }
 	}
@@ -1486,7 +1482,7 @@ country_event = {
 
 	option = {
 		name = mad_foreign_investment.23.a
-		add_opinion_modifier = { target = GER modifier = MAD_investment_refused }
+		add_opinion_modifier = { target = GER modifier = MAD_offer_refused }
 		add_stability = 0.01
 	}
 }
@@ -5444,10 +5440,10 @@ country_event = {
 	}
 	option = {
 		name = mad_royal.7.b
-		add_opinion_modifier = { target = MAD modifier = MAD_offer_refused }
 		log = "[GetDateText]: [This.GetName]: mad_royal.7.b - Comorian union rejected"
 		MAD = { set_country_flag = MAD_ROY_UNION_COMOROS_REJECTED }
 		ai_chance = { base = 75 }
+		MAD = { country_event = { id = mad_diplomacy.91 days = 1 } }
 	}
 }
 country_event = {
@@ -5465,10 +5461,10 @@ country_event = {
 	}
 	option = {
 		name = mad_royal.8.b
-		add_opinion_modifier = { target = MAD modifier = MAD_offer_refused }
 		log = "[GetDateText]: [This.GetName]: mad_royal.8.b - Seychellois union rejected"
 		MAD = { set_country_flag = MAD_ROY_UNION_SEYCHELLES_REJECTED }
 		ai_chance = { base = 75 }
+		MAD = { country_event = { id = mad_diplomacy.91 days = 1 } }
 	}
 }
 country_event = {
@@ -5486,10 +5482,10 @@ country_event = {
 	}
 	option = {
 		name = mad_royal.9.b
-		add_opinion_modifier = { target = MAD modifier = MAD_offer_refused }
 		log = "[GetDateText]: [This.GetName]: mad_royal.9.b - Mauritian union rejected"
 		MAD = { set_country_flag = MAD_ROY_UNION_MAURITIUS_REJECTED }
 		ai_chance = { base = 75 }
+		MAD = { country_event = { id = mad_diplomacy.91 days = 1 } }
 	}
 }
 
@@ -5524,7 +5520,6 @@ country_event = {
 	}
 	option = {
 		name = mad_royal.10.b
-		add_opinion_modifier = { target = MAD modifier = MAD_offer_refused }
 		log = "[GetDateText]: [This.GetName]: mad_royal.10.b - French government refuses Reunion demand"
 		MAD = {
 			add_war_support = 0.03
@@ -5535,6 +5530,7 @@ country_event = {
 			MAD = { add_state_claim = 706 }
 		}
 		ai_chance = { base = 100 }
+		MAD = { country_event = { id = mad_diplomacy.91 days = 1 } }
 	}
 }
 
@@ -5575,7 +5571,6 @@ country_event = {
 	}
 	option = {
 		name = mad_royal.11.b
-		add_opinion_modifier = { target = MAD modifier = MAD_offer_refused }
 		log = "[GetDateText]: [This.GetName]: mad_royal.11.b - French government refuses Mayotte demand"
 		MAD = {
 			add_war_support = 0.03
@@ -5594,6 +5589,7 @@ country_event = {
 		}
 		}
 		ai_chance = { base = 100 }
+		MAD = { country_event = { id = mad_diplomacy.91 days = 1 } }
 	}
 }
 
@@ -6187,7 +6183,6 @@ country_event = {
 
 	option = {
 		name = mad_naval.7.b
-		add_opinion_modifier = { target = MAD modifier = MAD_offer_refused }
 		log = "[GetDateText]: [This.GetName]: mad_naval.7.b declined French corvette sale"
 
 		MAD = {
@@ -6286,7 +6281,7 @@ country_event = {
 		log = "[GetDateText]: [This.GetName]: mad_naval.9.a French sale declined"
 		if = {
 			limit = { country_exists = FRA }
-			add_opinion_modifier = { target = FRA modifier = MAD_french_corvette_sale_refused }
+			add_opinion_modifier = { target = FRA modifier = MAD_offer_refused }
 		}
 	}
 }
@@ -6323,7 +6318,6 @@ country_event = {
 	}
 	option = {
 		name = mad_naval.10.b
-		add_opinion_modifier = { target = MAD modifier = MAD_offer_refused }
 		log = "[GetDateText]: [This.GetName]: declined Madagascar's corvette co-development proposal"
 		MAD = { country_event = { id = mad_naval.14 days = 1 } }
 		ai_chance = { base = 20 }
@@ -6397,7 +6391,6 @@ country_event = {
 
 	option = {
 		name = mad_naval.12.b
-		add_opinion_modifier = { target = MAD modifier = MAD_offer_refused }
 		log = "[GetDateText]: [This.GetName]: declined Madagascar's helicopter-operator partnership proposal"
 		MAD = { country_event = { id = mad_naval.15 days = 1 } }
 		ai_chance = { base = 20 }
@@ -6438,6 +6431,7 @@ country_event = {
 	option = {
 		name = mad_naval.14.a
 		log = "[GetDateText]: [This.GetName]: [FROM.GetName] declined the corvette co-development proposal"
+		add_opinion_modifier = { target = FROM modifier = MAD_offer_refused }
 	}
 }
 
@@ -6451,6 +6445,7 @@ country_event = {
 	option = {
 		name = mad_naval.15.a
 		log = "[GetDateText]: [This.GetName]: [FROM.GetName] declined the helicopter-operator partnership proposal"
+		add_opinion_modifier = { target = FROM modifier = MAD_offer_refused }
 	}
 }
 
@@ -6592,7 +6587,6 @@ country_event = {
 
 	option = {
 		name = mad_secren.1.b
-		add_opinion_modifier = { target = MAD modifier = MAD_offer_refused }
 		ai_chance = { base = 20 }
 
 		log = "[GetDateText]: [This.GetName]: French SECREN investment declined"
@@ -6653,6 +6647,7 @@ country_event = {
 		log = "[GetDateText]: [This.GetName]: France declined SECREN investment"
 
 		set_country_flag = MAD_SECREN_FRENCH_INVESTMENT_DECLINED
+		add_opinion_modifier = { target = FROM modifier = MAD_offer_refused }
 	}
 }
 
@@ -7039,9 +7034,9 @@ country_event = {
 
 	option = {
 		name = mad_diplomacy.10.b
-		add_opinion_modifier = { target = MAD modifier = MAD_offer_refused }
 		log = "[GetDateText]: [This.GetName]: mad_diplomacy.10.b executed"
 		ai_chance = { base = 40 }
+		FROM = { country_event = { id = mad_diplomacy.91 days = 1 } }
 	}
 }
 
@@ -7077,9 +7072,9 @@ country_event = {
 
 	option = {
 		name = mad_diplomacy.11.b
-		add_opinion_modifier = { target = MAD modifier = MAD_offer_refused }
 		log = "[GetDateText]: [This.GetName]: mad_diplomacy.11.b executed"
 		ai_chance = { base = 40 }
+		FROM = { country_event = { id = mad_diplomacy.91 days = 1 } }
 	}
 }
 
@@ -7115,9 +7110,9 @@ country_event = {
 
 	option = {
 		name = mad_diplomacy.12.b
-		add_opinion_modifier = { target = MAD modifier = MAD_offer_refused }
 		log = "[GetDateText]: [This.GetName]: mad_diplomacy.12.b executed"
 		ai_chance = { base = 40 }
+		FROM = { country_event = { id = mad_diplomacy.91 days = 1 } }
 	}
 }
 
@@ -7220,13 +7215,13 @@ country_event = {
 
 	option = {
 		name = mad_diplomacy.20.b
-		add_opinion_modifier = { target = MAD modifier = MAD_offer_refused }
 		log = "[GetDateText]: [This.GetName]: mad_diplomacy.20.b executed"
 		ai_chance = { base = 35 }
 		FROM = {
 			add_opinion_modifier = { target = ROOT modifier = diplomatic_distance }
 			country_event = { id = mad_diplomacy.21 days = 1 }
 		}
+		FROM = { country_event = { id = mad_diplomacy.91 days = 1 } }
 	}
 }
 
@@ -7274,10 +7269,10 @@ country_event = {
 
 	option = {
 		name = mad_diplomacy.30.b
-		add_opinion_modifier = { target = MAD modifier = MAD_offer_refused }
 		log = "[GetDateText]: [This.GetName]: mad_diplomacy.30.b executed"
 		ai_chance = { base = 40 }
 		FROM = { add_opinion_modifier = { target = ROOT modifier = diplomatic_distance } }
+		FROM = { country_event = { id = mad_diplomacy.91 days = 1 } }
 	}
 }
 
@@ -7337,10 +7332,10 @@ country_event = {
 
 	option = {
 		name = mad_diplomacy.32.b
-		add_opinion_modifier = { target = MAD modifier = MAD_offer_refused }
 		log = "[GetDateText]: [This.GetName]: mad_diplomacy.32.b executed"
 		ai_chance = { base = 45 }
 		FROM = { country_event = { id = mad_diplomacy.33 days = 1 } }
+		FROM = { country_event = { id = mad_diplomacy.91 days = 1 } }
 	}
 }
 
@@ -7570,10 +7565,10 @@ country_event = {
 
 	option = {
 		name = mad_diplomacy.40.b
-		add_opinion_modifier = { target = MAD modifier = MAD_offer_refused }
 		log = "[GetDateText]: [This.GetName]: mad_diplomacy.40.b executed"
 		ai_chance = { base = 40 }
 		FROM = { add_opinion_modifier = { target = ROOT modifier = diplomatic_distance } }
+		FROM = { country_event = { id = mad_diplomacy.91 days = 1 } }
 	}
 }
 
@@ -7607,10 +7602,10 @@ country_event = {
 
 	option = {
 		name = mad_diplomacy.41.b
-		add_opinion_modifier = { target = MAD modifier = MAD_offer_refused }
 		log = "[GetDateText]: [This.GetName]: mad_diplomacy.41.b executed"
 		ai_chance = { base = 40 }
 		FROM = { add_opinion_modifier = { target = ROOT modifier = diplomatic_distance } }
+		FROM = { country_event = { id = mad_diplomacy.91 days = 1 } }
 	}
 }
 
@@ -7643,10 +7638,10 @@ country_event = {
 
 	option = {
 		name = mad_diplomacy.50.b
-		add_opinion_modifier = { target = MAD modifier = MAD_offer_refused }
 		log = "[GetDateText]: [This.GetName]: mad_diplomacy.50.b executed"
 		ai_chance = { base = 40 }
 		FROM = { add_political_power = 10 add_opinion_modifier = { target = ROOT modifier = diplomatic_distance } }
+		FROM = { country_event = { id = mad_diplomacy.91 days = 1 } }
 	}
 }
 
@@ -7802,10 +7797,10 @@ country_event = {
 
 	option = {
 		name = mad_diplomacy.60.b
-		add_opinion_modifier = { target = MAD modifier = MAD_offer_refused }
 		log = "[GetDateText]: [This.GetName]: mad_diplomacy.60.b executed"
 		ai_chance = { base = 40 }
 		FROM = { add_opinion_modifier = { target = ROOT modifier = diplomatic_distance } }
+		FROM = { country_event = { id = mad_diplomacy.91 days = 1 } }
 	}
 }
 
@@ -7961,9 +7956,9 @@ country_event = {
 
 	option = {
 		name = mad_diplomacy.35.b
-		add_opinion_modifier = { target = MAD modifier = MAD_offer_refused }
 		log = "[GetDateText]: [This.GetName]: mad_diplomacy.35.b executed"
 		ai_chance = { base = 40 }
+		FROM = { country_event = { id = mad_diplomacy.91 days = 1 } }
 	}
 }
 
@@ -8003,9 +7998,9 @@ country_event = {
 
 	option = {
 		name = mad_diplomacy.36.b
-		add_opinion_modifier = { target = MAD modifier = MAD_offer_refused }
 		log = "[GetDateText]: [This.GetName]: mad_diplomacy.36.b executed"
 		ai_chance = { base = 40 }
+		FROM = { country_event = { id = mad_diplomacy.91 days = 1 } }
 	}
 }
 
@@ -8042,9 +8037,9 @@ country_event = {
 
 	option = {
 		name = mad_diplomacy.37.b
-		add_opinion_modifier = { target = MAD modifier = MAD_offer_refused }
 		log = "[GetDateText]: [This.GetName]: mad_diplomacy.37.b executed"
 		ai_chance = { base = 40 }
+		FROM = { country_event = { id = mad_diplomacy.91 days = 1 } }
 	}
 }
 
@@ -8081,9 +8076,9 @@ country_event = {
 
 	option = {
 		name = mad_diplomacy.38.b
-		add_opinion_modifier = { target = MAD modifier = MAD_offer_refused }
 		log = "[GetDateText]: [This.GetName]: mad_diplomacy.38.b executed"
 		ai_chance = { base = 40 }
+		FROM = { country_event = { id = mad_diplomacy.91 days = 1 } }
 	}
 }
 
@@ -8268,3 +8263,17 @@ country_event = {
 	}
 }
 
+# Madagascar is notified when a foreign government declines a Malagasy proposal.
+country_event = {
+	id = mad_diplomacy.91
+	title = mad_diplomacy.91.t
+	desc = mad_diplomacy.91.d
+	picture = GFX_report_event_economy_default
+	is_triggered_only = yes
+
+	option = {
+		name = mad_diplomacy.91.a
+		add_opinion_modifier = { target = FROM modifier = MAD_offer_refused }
+		log = "[GetDateText]: [This.GetName]: [FROM.GetName] declined Madagascar's proposal"
+	}
+}
