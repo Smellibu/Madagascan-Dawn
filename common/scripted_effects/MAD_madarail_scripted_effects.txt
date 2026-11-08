@@ -3185,7 +3185,7 @@ MAD_JIRAMA_ISSUE_GENERATION_RECOVERY_BRIEFING = {
 			subtract_from_variable = { MAD_JIRAMA_GENERATION_RECOVERY_GAP = energy_balance }
 			clamp_variable = { var = MAD_JIRAMA_GENERATION_RECOVERY_GAP min = 0 }
 		}
-		country_event = { id = mad_jirama.2 }
+		country_event = mad_jirama.2
 	}
 }
 
@@ -3209,7 +3209,7 @@ MAD_JIRAMA_NOTIFY_GENERATION_RECOVERY_SUCCESS = {
 			NOT = { has_country_flag = MAD_JIRAMA_GENERATION_RECOVERY_SUCCESS_EVENT_SENT }
 		}
 		set_country_flag = MAD_JIRAMA_GENERATION_RECOVERY_SUCCESS_EVENT_SENT
-		country_event = { id = mad_jirama.3 }
+		country_event = mad_jirama.3
 	}
 }
 
