@@ -4924,7 +4924,7 @@ country_event = {
 		modify_treasury_effect = yes
 		if = {
 			limit = { has_dlc = "No Step Back" }
-			add_equipment_to_stockpile = { type = medium_tank_chassis_0 amount = 160 producer = TUR } } # M60A3
+			add_equipment_to_stockpile = { type = medium_tank_chassis_0 amount = 160 producer = TUR variant_name = "M60A3" } } # M60A3
 		else = {
 			add_equipment_to_stockpile = { type = MBT_1 amount = 160 producer = TUR } } # M60A3
 		TUR = {
@@ -5012,11 +5012,11 @@ country_event = {
 		}
 		add_opinion_modifier = { target = FRA modifier = military_cooperation }
 		if = {
-			limit = { has_subdoctrine_in_track = mechanized_equipment }
+			limit = { has_subdoctrine_in_track = motorized_equipment }
 			add_mastery = {
 				amount = 25
 				folder = equipment
-				track = mechanized_equipment
+				track = motorized_equipment
 			}
 		}
 		else = {
@@ -5041,11 +5041,11 @@ country_event = {
 		}
 		add_opinion_modifier = { target = TUR modifier = military_cooperation }
 		if = {
-			limit = { has_subdoctrine_in_track = mechanized_equipment }
+			limit = { has_subdoctrine_in_track = motorized_equipment }
 			add_mastery = {
 				amount = 30
 				folder = equipment
-				track = mechanized_equipment
+				track = motorized_equipment
 			}
 		}
 		else = {
@@ -5070,11 +5070,11 @@ country_event = {
 		}
 		add_opinion_modifier = { target = SAF modifier = military_cooperation }
 		if = {
-			limit = { has_subdoctrine_in_track = mechanized_equipment }
+			limit = { has_subdoctrine_in_track = motorized_equipment }
 			add_mastery = {
 				amount = 20
 				folder = equipment
-				track = mechanized_equipment
+				track = motorized_equipment
 			}
 		}
 		else = {
