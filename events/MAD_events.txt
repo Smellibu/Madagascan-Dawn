@@ -4211,10 +4211,10 @@ country_event = {
 		modify_treasury_effect = yes
 		if = {
 			limit = { has_dlc = "No Step Back" }
-			add_equipment_to_stockpile = { type = medium_tank_amphibious_chassis_0 amount = 280 producer = UAE variant_name = "M3 Panhard" }
+			add_equipment_to_stockpile = { type = medium_tank_amphibious_chassis_0 amount = 280 producer = FRA variant_name = "M3 Panhard" }
 		}
 		else = {
-			add_equipment_to_stockpile = { type = APC_1 amount = 280 producer = UAE }
+			add_equipment_to_stockpile = { type = APC_1 amount = 280 producer = FRA }
 		}
 		UAE = {
 			set_temp_variable = { treasury_change = 0.80 }
