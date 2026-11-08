@@ -4351,10 +4351,10 @@ country_event = {
 		modify_treasury_effect = yes
 		if = {
 			limit = { has_dlc = "By Blood Alone" }
-			add_equipment_to_stockpile = { type = large_plane_air_transport_airframe_2 amount = 20 producer = FRA variant_name = "Airbus C-295" }
+			add_equipment_to_stockpile = { type = large_plane_air_transport_airframe_2 amount = 20 producer = SPR variant_name = "Airbus C-295" }
 		}
 		else = {
-			add_equipment_to_stockpile = { type = transport_plane3 amount = 20 producer = FRA }
+			add_equipment_to_stockpile = { type = transport_plane3 amount = 20 producer = SPR }
 		}
 		FRA = {
 			set_temp_variable = { treasury_change = 1.50 }
@@ -4399,10 +4399,10 @@ country_event = {
 		modify_treasury_effect = yes
 		if = {
 			limit = { has_dlc = "By Blood Alone" }
-			add_equipment_to_stockpile = { type = large_plane_air_transport_airframe_2 amount = 10 producer = FRA variant_name = "Airbus C-295" }
+			add_equipment_to_stockpile = { type = large_plane_air_transport_airframe_2 amount = 10 producer = SPR variant_name = "Airbus C-295" }
 		}
 		else = {
-			add_equipment_to_stockpile = { type = transport_plane3 amount = 10 producer = FRA }
+			add_equipment_to_stockpile = { type = transport_plane3 amount = 10 producer = SPR }
 		}
 		SAF = {
 			set_temp_variable = { treasury_change = 0.90 }
@@ -4460,10 +4460,10 @@ country_event = {
 		modify_treasury_effect = yes
 		if = {
 			limit = { has_dlc = "By Blood Alone" }
-			add_equipment_to_stockpile = { type = large_plane_air_transport_airframe_2 amount = 20 producer = FRA variant_name = "Airbus C-295" }
+			add_equipment_to_stockpile = { type = large_plane_air_transport_airframe_2 amount = 20 producer = SPR variant_name = "Airbus C-295" }
 		}
 		else = {
-			add_equipment_to_stockpile = { type = transport_plane3 amount = 20 producer = FRA }
+			add_equipment_to_stockpile = { type = transport_plane3 amount = 20 producer = SPR }
 		}
 		FRA = {
 			set_temp_variable = { treasury_change = 1.50 }
@@ -4595,7 +4595,7 @@ country_event = {
 		trigger = { country_exists = TUR }
 		set_temp_variable = { treasury_change = -0.40 }
 		modify_treasury_effect = yes
-		add_equipment_to_stockpile = { type = artillery_1 amount = 160 producer = TUR } # M114
+		add_equipment_to_stockpile = { type = artillery_1 amount = 160 producer = USA } # M114
 		TUR = {
 			set_temp_variable = { treasury_change = 0.40 }
 			modify_treasury_effect = yes
@@ -4690,7 +4690,7 @@ country_event = {
 		trigger = { country_exists = TUR }
 		set_temp_variable = { treasury_change = -0.625 }
 		modify_treasury_effect = yes
-		add_equipment_to_stockpile = { type = artillery_1 amount = 250 producer = TUR } # M114
+		add_equipment_to_stockpile = { type = artillery_1 amount = 250 producer = USA } # M114
 		TUR = {
 			set_temp_variable = { treasury_change = 0.625 }
 			modify_treasury_effect = yes
@@ -4924,9 +4924,9 @@ country_event = {
 		modify_treasury_effect = yes
 		if = {
 			limit = { has_dlc = "No Step Back" }
-			add_equipment_to_stockpile = { type = medium_tank_chassis_0 amount = 160 producer = TUR variant_name = "M60A3" } } # M60A3
+			add_equipment_to_stockpile = { type = medium_tank_chassis_0 amount = 160 producer = USA variant_name = "M60A3" } } # M60A3
 		else = {
-			add_equipment_to_stockpile = { type = MBT_1 amount = 160 producer = TUR } } # M60A3
+			add_equipment_to_stockpile = { type = MBT_1 amount = 160 producer = USA } } # M60A3
 		TUR = {
 			set_temp_variable = { treasury_change = 2.00 }
 			modify_treasury_effect = yes
@@ -5133,10 +5133,10 @@ country_event = {
 		modify_treasury_effect = yes
 		if = {
 			limit = { has_dlc = "By Blood Alone" }
-			add_equipment_to_stockpile = { type = large_plane_air_transport_airframe_2 amount = 20 producer = FRA variant_name = "Airbus C-295" }
+			add_equipment_to_stockpile = { type = large_plane_air_transport_airframe_2 amount = 20 producer = SPR variant_name = "Airbus C-295" }
 		}
 		else = {
-			add_equipment_to_stockpile = { type = transport_plane3 amount = 20 producer = FRA }
+			add_equipment_to_stockpile = { type = transport_plane3 amount = 20 producer = SPR }
 		}
 		FRA = {
 			set_temp_variable = { treasury_change = 1.50 }
@@ -5168,10 +5168,10 @@ country_event = {
 		modify_treasury_effect = yes
 		if = {
 			limit = { has_dlc = "By Blood Alone" }
-			add_equipment_to_stockpile = { type = large_plane_air_transport_airframe_1 amount = 15 producer = TUR variant_name = "C-130 Hercules" }
+			add_equipment_to_stockpile = { type = large_plane_air_transport_airframe_1 amount = 15 producer = USA variant_name = "C-130 Hercules" }
 		}
 		else = {
-			add_equipment_to_stockpile = { type = transport_plane1 amount = 15 producer = TUR }
+			add_equipment_to_stockpile = { type = transport_plane1 amount = 15 producer = USA }
 		}
 		TUR = {
 			set_temp_variable = { treasury_change = 0.90 }
