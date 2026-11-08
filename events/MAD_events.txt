@@ -5773,7 +5773,7 @@ country_event = {
 			limit = {
 				country_exists = FRA
 				FRA = {
-					NOT = { is_at_war = yes }
+					NOT = { has_war = yes }
 					has_tech = corvette_hull_3
 					has_navy_size = { size > 0 unit = corvette }
 				}
@@ -5791,7 +5791,7 @@ country_event = {
 				limit = {
 					country_exists = KOR
 					KOR = {
-						NOT = { is_at_war = yes }
+						NOT = { has_war = yes }
 						has_tech = corvette_hull_2
 						has_navy_size = { size > 0 unit = corvette }
 					}
@@ -5814,7 +5814,7 @@ country_event = {
 		trigger = {
 			country_exists = FRA
 			FRA = {
-				NOT = { is_at_war = yes }
+				NOT = { has_war = yes }
 				has_tech = corvette_hull_3
 				has_navy_size = { size > 0 unit = corvette }
 			}
@@ -5830,7 +5830,7 @@ country_event = {
 		trigger = {
 			country_exists = KOR
 			KOR = {
-				NOT = { is_at_war = yes }
+				NOT = { has_war = yes }
 				has_tech = corvette_hull_2
 				has_navy_size = { size > 0 unit = corvette }
 			}
@@ -5838,7 +5838,7 @@ country_event = {
 				AND = {
 					country_exists = FRA
 					FRA = {
-						NOT = { is_at_war = yes }
+						NOT = { has_war = yes }
 						has_tech = corvette_hull_3
 						has_navy_size = { size > 0 unit = corvette }
 					}
@@ -5859,7 +5859,7 @@ country_event = {
 					AND = {
 						country_exists = FRA
 						FRA = {
-							NOT = { is_at_war = yes }
+							NOT = { has_war = yes }
 							has_tech = corvette_hull_3
 							has_navy_size = { size > 0 unit = corvette }
 						}
@@ -5867,7 +5867,7 @@ country_event = {
 					AND = {
 						country_exists = KOR
 						KOR = {
-							NOT = { is_at_war = yes }
+							NOT = { has_war = yes }
 							has_tech = corvette_hull_2
 							has_navy_size = { size > 0 unit = corvette }
 						}
@@ -6004,7 +6004,7 @@ country_event = {
 		name = mad_naval.6.a
 		trigger = {
 			country_exists = FRA
-			FRA = { NOT = { is_at_war = yes } }
+			FRA = { NOT = { has_war = yes } }
 		}
 		log = "[GetDateText]: [This.GetName]: mad_naval.6.a executed (France)"
 		FRA = { country_event = { id = mad_naval.12 days = 1 } }
@@ -6025,15 +6025,15 @@ country_event = {
 		name = mad_naval.6.a_kor
 		trigger = {
 			country_exists = KOR
-			KOR = { NOT = { is_at_war = yes } }
+			KOR = { NOT = { has_war = yes } }
 			NOT = {
 				AND = {
 					country_exists = FRA
-					FRA = { NOT = { is_at_war = yes } }
+					FRA = { NOT = { has_war = yes } }
 				}
 			}
 		}
-		log = "[GetDateText]: [This.GetName]: mad_naval.6.a executed (South Korea)"
+		log = "[GetDateText]: [This.GetName]: mad_naval.6.a_kor executed (South Korea)"
 		KOR = { country_event = { id = mad_naval.12 days = 1 } }
 		if = {
 			limit = { has_subdoctrine_in_track = capital_ships }
@@ -6052,21 +6052,21 @@ country_event = {
 		name = mad_naval.6.a_chi
 		trigger = {
 			country_exists = CHI
-			CHI = { NOT = { is_at_war = yes } }
+			CHI = { NOT = { has_war = yes } }
 			NOT = {
 				AND = {
 					country_exists = FRA
-					FRA = { NOT = { is_at_war = yes } }
+					FRA = { NOT = { has_war = yes } }
 				}
 			}
 			NOT = {
 				AND = {
 					country_exists = KOR
-					KOR = { NOT = { is_at_war = yes } }
+					KOR = { NOT = { has_war = yes } }
 				}
 			}
 		}
-		log = "[GetDateText]: [This.GetName]: mad_naval.6.a executed (China)"
+		log = "[GetDateText]: [This.GetName]: mad_naval.6.a_chi executed (China)"
 		CHI = { country_event = { id = mad_naval.12 days = 1 } }
 		if = {
 			limit = { has_subdoctrine_in_track = capital_ships }
