@@ -7221,7 +7221,6 @@ country_event = {
 			add_opinion_modifier = { target = ROOT modifier = diplomatic_distance }
 			country_event = { id = mad_diplomacy.21 days = 1 }
 		}
-		FROM = { country_event = { id = mad_diplomacy.91 days = 1 } }
 	}
 }
 
@@ -7237,6 +7236,7 @@ country_event = {
 		log = "[GetDateText]: [This.GetName]: mad_diplomacy.21.a executed"
 		ai_chance = { base = 100 }
 		add_timed_idea = { idea = MAD_dip_customs_modernisation days = 1095 }
+		add_opinion_modifier = { target = FROM modifier = MAD_offer_refused }
 	}
 }
 
