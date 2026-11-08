@@ -3796,7 +3796,7 @@ country_event = {
 		trigger = { country_exists = SAF }
 		set_temp_variable = { treasury_change = -0.30 }
 		modify_treasury_effect = yes
-		add_equipment_to_stockpile = { type = infantry_weapons_3 amount = 6000 producer = SAF # R4 }
+		add_equipment_to_stockpile = { type = infantry_weapons_3 amount = 6000 producer = SAF } # R4
 		SAF = {
 			set_temp_variable = { treasury_change = 0.30 }
 			modify_treasury_effect = yes
@@ -3814,7 +3814,7 @@ country_event = {
 		trigger = { country_exists = BEL }
 		set_temp_variable = { treasury_change = -0.25 }
 		modify_treasury_effect = yes
-		add_equipment_to_stockpile = { type = infantry_weapons_3 amount = 5000 producer = BEL # FN FNC }
+		add_equipment_to_stockpile = { type = infantry_weapons_3 amount = 5000 producer = BEL } # FN FNC
 		BEL = {
 			set_temp_variable = { treasury_change = 0.25 }
 			modify_treasury_effect = yes
@@ -3832,7 +3832,7 @@ country_event = {
 		trigger = { country_exists = FRA }
 		set_temp_variable = { treasury_change = -0.70 }
 		modify_treasury_effect = yes
-		add_equipment_to_stockpile = { type = infantry_weapons_4 amount = 5600 producer = FRA # FAMAS }
+		add_equipment_to_stockpile = { type = infantry_weapons_4 amount = 5600 producer = FRA } # FAMAS
 		FRA = {
 			set_temp_variable = { treasury_change = 0.70 }
 			modify_treasury_effect = yes
@@ -3870,7 +3870,7 @@ country_event = {
 		trigger = { country_exists = SOV }
 		set_temp_variable = { treasury_change = -0.35 }
 		modify_treasury_effect = yes
-		add_equipment_to_stockpile = { type = util_vehicle_1 amount = 1200 producer = SOV # GAZ-66 }
+		add_equipment_to_stockpile = { type = util_vehicle_1 amount = 1200 producer = SOV } # GAZ-66
 		SOV = {
 			set_temp_variable = { treasury_change = 0.35 }
 			modify_treasury_effect = yes
@@ -3899,7 +3899,7 @@ country_event = {
 		trigger = { country_exists = SAF }
 		set_temp_variable = { treasury_change = -0.55 }
 		modify_treasury_effect = yes
-		add_equipment_to_stockpile = { type = util_vehicle_3 amount = 750 producer = SAF # SAMIL-100 }
+		add_equipment_to_stockpile = { type = util_vehicle_3 amount = 750 producer = SAF } # SAMIL-100
 		SAF = {
 			set_temp_variable = { treasury_change = 0.55 }
 			modify_treasury_effect = yes
@@ -3928,7 +3928,7 @@ country_event = {
 		trigger = { country_exists = FRA }
 		set_temp_variable = { treasury_change = -0.75 }
 		modify_treasury_effect = yes
-		add_equipment_to_stockpile = { type = util_vehicle_4 amount = 500 producer = FRA # VBL M-11 }
+		add_equipment_to_stockpile = { type = util_vehicle_4 amount = 500 producer = FRA } # VBL M-11
 		FRA = {
 			set_temp_variable = { treasury_change = 0.75 }
 			modify_treasury_effect = yes
@@ -4317,11 +4317,9 @@ country_event = {
 		modify_treasury_effect = yes
 		if = {
 			limit = { has_dlc = "No Step Back" }
-			add_equipment_to_stockpile = { type = transport_helicopter_1 amount = 60 producer = SAF } # Atlas Oryx
-		}
+			add_equipment_to_stockpile = { type = transport_helicopter_1 amount = 60 producer = SAF } } # Atlas Oryx
 		else = {
-			add_equipment_to_stockpile = { type = transport_helicopter_2 amount = 60 producer = SAF } # Atlas Oryx
-		}
+			add_equipment_to_stockpile = { type = transport_helicopter_2 amount = 60 producer = SAF } } # Atlas Oryx
 		SAF = {
 			set_temp_variable = { treasury_change = 0.90 }
 			modify_treasury_effect = yes
@@ -4394,11 +4392,9 @@ country_event = {
 		modify_treasury_effect = yes
 		if = {
 			limit = { has_dlc = "No Step Back" }
-			add_equipment_to_stockpile = { type = transport_helicopter_1 amount = 60 producer = SAF } # Atlas Oryx
-		}
+			add_equipment_to_stockpile = { type = transport_helicopter_1 amount = 60 producer = SAF } } # Atlas Oryx
 		else = {
-			add_equipment_to_stockpile = { type = transport_helicopter_2 amount = 60 producer = SAF } # Atlas Oryx
-		}
+			add_equipment_to_stockpile = { type = transport_helicopter_2 amount = 60 producer = SAF } } # Atlas Oryx
 		set_temp_variable = { treasury_change = -0.75 }
 		modify_treasury_effect = yes
 		if = {
@@ -4571,7 +4567,7 @@ country_event = {
 		trigger = { country_exists = FRA }
 		set_temp_variable = { treasury_change = -0.75 }
 		modify_treasury_effect = yes
-		add_equipment_to_stockpile = { type = artillery_2 amount = 120 producer = FRA # TRF1 }
+		add_equipment_to_stockpile = { type = artillery_2 amount = 120 producer = FRA } # TRF1
 		FRA = {
 			set_temp_variable = { treasury_change = 0.75 }
 			modify_treasury_effect = yes
@@ -4599,7 +4595,7 @@ country_event = {
 		trigger = { country_exists = TUR }
 		set_temp_variable = { treasury_change = -0.40 }
 		modify_treasury_effect = yes
-		add_equipment_to_stockpile = { type = artillery_1 amount = 160 producer = TUR # M114 }
+		add_equipment_to_stockpile = { type = artillery_1 amount = 160 producer = TUR } # M114
 		TUR = {
 			set_temp_variable = { treasury_change = 0.40 }
 			modify_treasury_effect = yes
@@ -4627,7 +4623,7 @@ country_event = {
 		trigger = { country_exists = RAJ }
 		set_temp_variable = { treasury_change = -0.50 }
 		modify_treasury_effect = yes
-		add_equipment_to_stockpile = { type = artillery_1 amount = 200 producer = RAJ # IFG }
+		add_equipment_to_stockpile = { type = artillery_1 amount = 200 producer = RAJ } # IFG
 		RAJ = {
 			set_temp_variable = { treasury_change = 0.50 }
 			modify_treasury_effect = yes
@@ -4664,7 +4660,7 @@ country_event = {
 		trigger = { country_exists = FRA }
 		set_temp_variable = { treasury_change = -1.25 }
 		modify_treasury_effect = yes
-		add_equipment_to_stockpile = { type = artillery_2 amount = 200 producer = FRA # TRF1 }
+		add_equipment_to_stockpile = { type = artillery_2 amount = 200 producer = FRA } # TRF1
 		FRA = {
 			set_temp_variable = { treasury_change = 1.25 }
 			modify_treasury_effect = yes
@@ -4694,7 +4690,7 @@ country_event = {
 		trigger = { country_exists = TUR }
 		set_temp_variable = { treasury_change = -0.625 }
 		modify_treasury_effect = yes
-		add_equipment_to_stockpile = { type = artillery_1 amount = 250 producer = TUR # M114 }
+		add_equipment_to_stockpile = { type = artillery_1 amount = 250 producer = TUR } # M114
 		TUR = {
 			set_temp_variable = { treasury_change = 0.625 }
 			modify_treasury_effect = yes
@@ -4724,7 +4720,7 @@ country_event = {
 		trigger = { country_exists = RAJ }
 		set_temp_variable = { treasury_change = -0.75 }
 		modify_treasury_effect = yes
-		add_equipment_to_stockpile = { type = artillery_1 amount = 300 producer = RAJ # IFG }
+		add_equipment_to_stockpile = { type = artillery_1 amount = 300 producer = RAJ } # IFG
 		RAJ = {
 			set_temp_variable = { treasury_change = 0.75 }
 			modify_treasury_effect = yes
@@ -4928,11 +4924,9 @@ country_event = {
 		modify_treasury_effect = yes
 		if = {
 			limit = { has_dlc = "No Step Back" }
-			add_equipment_to_stockpile = { type = medium_tank_chassis_0 amount = 160 producer = TUR } # M60A3
-		}
+			add_equipment_to_stockpile = { type = medium_tank_chassis_0 amount = 160 producer = TUR } } # M60A3
 		else = {
-			add_equipment_to_stockpile = { type = MBT_1 amount = 160 producer = TUR } # M60A3
-		}
+			add_equipment_to_stockpile = { type = MBT_1 amount = 160 producer = TUR } } # M60A3
 		TUR = {
 			set_temp_variable = { treasury_change = 2.00 }
 			modify_treasury_effect = yes
@@ -4967,8 +4961,7 @@ country_event = {
 			add_equipment_to_stockpile = { type = medium_tank_chassis_2 amount = 120 producer = RAJ variant_name = "Arjun MK1" }
 		}
 		else = {
-			add_equipment_to_stockpile = { type = MBT_3 amount = 120 producer = RAJ } # Arjun MK1
-		}
+			add_equipment_to_stockpile = { type = MBT_3 amount = 120 producer = RAJ } } # Arjun MK1
 		RAJ = {
 			set_temp_variable = { treasury_change = 3.50 }
 			modify_treasury_effect = yes
@@ -5007,7 +5000,7 @@ country_event = {
 		trigger = { country_exists = FRA }
 		set_temp_variable = { treasury_change = -0.24 }
 		modify_treasury_effect = yes
-		add_equipment_to_stockpile = { type = util_vehicle_4 amount = 160 producer = FRA # VBL M-11 }
+		add_equipment_to_stockpile = { type = util_vehicle_4 amount = 160 producer = FRA } # VBL M-11
 		FRA = {
 			set_temp_variable = { treasury_change = 0.24 }
 			modify_treasury_effect = yes
@@ -5036,7 +5029,7 @@ country_event = {
 		trigger = { country_exists = TUR }
 		set_temp_variable = { treasury_change = -0.225 }
 		modify_treasury_effect = yes
-		add_equipment_to_stockpile = { type = util_vehicle_4 amount = 150 producer = TUR # Otokar Defender MLR41 }
+		add_equipment_to_stockpile = { type = util_vehicle_4 amount = 150 producer = TUR } # Otokar Defender MLR41
 		TUR = {
 			set_temp_variable = { treasury_change = 0.225 }
 			modify_treasury_effect = yes
@@ -5065,7 +5058,7 @@ country_event = {
 		trigger = { country_exists = SAF }
 		set_temp_variable = { treasury_change = -0.1026667 }
 		modify_treasury_effect = yes
-		add_equipment_to_stockpile = { type = util_vehicle_3 amount = 140 producer = SAF # SAMIL-100 }
+		add_equipment_to_stockpile = { type = util_vehicle_3 amount = 140 producer = SAF } # SAMIL-100
 		SAF = {
 			set_temp_variable = { treasury_change = 0.1026667 }
 			modify_treasury_effect = yes
