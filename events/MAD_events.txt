@@ -5027,11 +5027,11 @@ country_event = {
 	option = {
 		name = MAD_military_industry.6.b
 		trigger = { country_exists = TUR }
-		set_temp_variable = { treasury_change = -0.3375 }
+		set_temp_variable = { treasury_change = -0.35 }
 		modify_treasury_effect = yes
 		add_equipment_to_stockpile = { type = util_vehicle_4 amount = 225 producer = TUR } # Otokar Defender MLR41
 		TUR = {
-			set_temp_variable = { treasury_change = 0.3375 }
+			set_temp_variable = { treasury_change = 0.35 }
 			modify_treasury_effect = yes
 			set_temp_variable = { percent_change = 5 }
 			set_temp_variable = { tag_index = THIS.id }
@@ -5056,11 +5056,11 @@ country_event = {
 	option = {
 		name = MAD_military_industry.6.c
 		trigger = { country_exists = SAF }
-		set_temp_variable = { treasury_change = -0.2053334 }
+		set_temp_variable = { treasury_change = -0.20 }
 		modify_treasury_effect = yes
 		add_equipment_to_stockpile = { type = util_vehicle_3 amount = 280 producer = SAF } # SAMIL-100
 		SAF = {
-			set_temp_variable = { treasury_change = 0.2053334 }
+			set_temp_variable = { treasury_change = 0.20 }
 			modify_treasury_effect = yes
 			set_temp_variable = { percent_change = 4 }
 			set_temp_variable = { tag_index = THIS.id }
