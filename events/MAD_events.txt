@@ -49,9 +49,13 @@ country_event = {
 
 		custom_effect_tooltip = {
 			localization_key = modifies_dynamic_modifier_tt
-			MODIFIER = MAD_economy_modifier
+			MODIFIER = MAD_investment_modifier
 		}
 		add_to_variable = { MAD_economy_receiving_investment_duration_modifier = -0.10 tooltip = receiving_investment_duration_modifier_tt }
+		custom_effect_tooltip = {
+			localization_key = modifies_dynamic_modifier_tt
+			MODIFIER = MAD_foreign_relations_modifier
+		}
 		add_to_variable = { MAD_economy_foreign_influence_defense_modifier = -0.03 tooltip = foreign_influence_defense_modifier_tt }
 
 		add_power_balance_value = {
@@ -264,9 +268,13 @@ country_event = {
 		add_stability = -0.02
 		custom_effect_tooltip = {
 			localization_key = modifies_dynamic_modifier_tt
-			MODIFIER = MAD_economy_modifier
+			MODIFIER = MAD_infrastructure_modifier
 		}
 		add_to_variable = { MAD_economy_infrastructure_tax_gain_multiplier_modifier = -0.10 tooltip = infrastructure_tax_gain_multiplier_modifier_tt }
+		custom_effect_tooltip = {
+			localization_key = modifies_dynamic_modifier_tt
+			MODIFIER = MAD_investment_modifier
+		}
 		add_to_variable = { MAD_economy_receiving_investment_cost_modifier = 0.10 tooltip = receiving_investment_cost_modifier_tt }
 		add_power_balance_value = {
 			id = MAD_economy_ownership_bop
@@ -283,7 +291,7 @@ country_event = {
 		add_stability = 0.02
 		custom_effect_tooltip = {
 			localization_key = modifies_dynamic_modifier_tt
-			MODIFIER = MAD_economy_modifier
+			MODIFIER = MAD_infrastructure_modifier
 		}
 		add_to_variable = { MAD_economy_infrastructure_tax_gain_multiplier_modifier = 0.05 tooltip = infrastructure_tax_gain_multiplier_modifier_tt }
 		# Purchase compensation: match the initial Madarail privatisation value (8% of GDP).
@@ -1405,6 +1413,10 @@ country_event = {
 		}
 		add_to_variable = { MAD_economy_research_speed_factor = 0.03 tooltip = research_speed_factor_tt }
 		add_to_variable = { MAD_economy_offices_productivity = 0.05 tooltip = offices_productivity_tt }
+		custom_effect_tooltip = {
+			localization_key = modifies_dynamic_modifier_tt
+			MODIFIER = MAD_foreign_relations_modifier
+		}
 		add_to_variable = { MAD_economy_trade_opinion_factor = 0.02 tooltip = trade_opinion_factor_tt }
 	}
 }
@@ -1475,6 +1487,10 @@ country_event = {
 			MODIFIER = MAD_economy_modifier
 		}
 		add_to_variable = { MAD_economy_production_speed_industrial_complex_factor = 0.05 tooltip = production_speed_industrial_complex_factor_tt }
+		custom_effect_tooltip = {
+			localization_key = modifies_dynamic_modifier_tt
+			MODIFIER = MAD_investment_modifier
+		}
 		add_to_variable = { MAD_economy_receiving_investment_cost_modifier = -0.03 tooltip = receiving_investment_cost_modifier_tt }
 	}
 }
@@ -1764,7 +1780,7 @@ country_event = {
 		custom_effect_tooltip = { localization_key = modifies_dynamic_modifier_tt MODIFIER = MAD_power_modifier }
 		add_to_variable = { MAD_power_energy_gain_multiplier = 0.03 tooltip = energy_gain_multiplier_tt }
 		add_to_variable = { MAD_power_renewable_energy_gain_multiplier = 0.02 tooltip = renewable_energy_gain_multiplier_tt }
-		custom_effect_tooltip = { localization_key = modifies_dynamic_modifier_tt MODIFIER = MAD_economy_modifier }
+		custom_effect_tooltip = { localization_key = modifies_dynamic_modifier_tt MODIFIER = MAD_investment_modifier }
 		add_to_variable = { MAD_economy_internal_investments_money_cost_modifier = -0.05 tooltip = internal_investments_money_cost_modifier_tt }
 		add_stability = 0.02
 		set_temp_variable = { temp_opinion = -5 }
@@ -1783,9 +1799,13 @@ country_event = {
 		custom_effect_tooltip = { localization_key = modifies_dynamic_modifier_tt MODIFIER = MAD_power_modifier }
 		add_to_variable = { MAD_power_production_speed_renewable_energy_infra_factor = 0.05 tooltip = production_speed_renewable_energy_infra_factor_tt }
 		add_to_variable = { MAD_power_renewable_infra_cost_multiplier_modifier = -0.03 tooltip = renewable_infra_cost_multiplier_modifier_tt }
-		custom_effect_tooltip = { localization_key = modifies_dynamic_modifier_tt MODIFIER = MAD_economy_modifier }
+		custom_effect_tooltip = { localization_key = modifies_dynamic_modifier_tt MODIFIER = MAD_investment_modifier }
 		add_to_variable = { MAD_economy_receiving_investment_cost_modifier = -0.05 tooltip = receiving_investment_cost_modifier_tt }
 		add_to_variable = { MAD_economy_receiving_investment_duration_modifier = -0.03 tooltip = receiving_investment_duration_modifier_tt }
+		custom_effect_tooltip = {
+			localization_key = modifies_dynamic_modifier_tt
+			MODIFIER = MAD_foreign_relations_modifier
+		}
 		add_to_variable = { MAD_economy_foreign_influence_modifier = 0.05 tooltip = foreign_influence_modifier_tt }
 		add_stability = -0.01
 		set_temp_variable = { temp_opinion = 8 }

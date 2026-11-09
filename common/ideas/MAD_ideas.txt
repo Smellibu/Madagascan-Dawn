@@ -242,14 +242,14 @@ ideas = {
 			on_add = {
 				custom_effect_tooltip = {
 					localization_key = modifies_dynamic_modifier_tt
-					MODIFIER = MAD_economy_modifier
+					MODIFIER = MAD_infrastructure_modifier
 				}
 				add_to_variable = { MAD_economy_infrastructure_tax_gain_multiplier_modifier = 0.05 tooltip = infrastructure_tax_gain_multiplier_modifier_tt }
 			}
 			on_remove = {
 				custom_effect_tooltip = {
 					localization_key = modifies_dynamic_modifier_tt
-					MODIFIER = MAD_economy_modifier
+					MODIFIER = MAD_infrastructure_modifier
 				}
 				add_to_variable = { MAD_economy_infrastructure_tax_gain_multiplier_modifier = -0.05 tooltip = infrastructure_tax_gain_multiplier_modifier_tt }
 			}
@@ -267,17 +267,25 @@ ideas = {
 			on_add = {
 				custom_effect_tooltip = {
 					localization_key = modifies_dynamic_modifier_tt
-					MODIFIER = MAD_economy_modifier
+					MODIFIER = MAD_infrastructure_modifier
 				}
 				add_to_variable = { MAD_economy_infrastructure_tax_gain_multiplier_modifier = 0.1 tooltip = infrastructure_tax_gain_multiplier_modifier_tt }
+				custom_effect_tooltip = {
+					localization_key = modifies_dynamic_modifier_tt
+					MODIFIER = MAD_economy_modifier
+				}
 				add_to_variable = { MAD_economy_expected_welfare_modifier = 0.25 tooltip = expected_welfare_modifier_tt }
 			}
 			on_remove = {
 				custom_effect_tooltip = {
 					localization_key = modifies_dynamic_modifier_tt
-					MODIFIER = MAD_economy_modifier
+					MODIFIER = MAD_infrastructure_modifier
 				}
 				add_to_variable = { MAD_economy_infrastructure_tax_gain_multiplier_modifier = -0.1 tooltip = infrastructure_tax_gain_multiplier_modifier_tt }
+				custom_effect_tooltip = {
+					localization_key = modifies_dynamic_modifier_tt
+					MODIFIER = MAD_economy_modifier
+				}
 				add_to_variable = { MAD_economy_expected_welfare_modifier = -0.25 tooltip = expected_welfare_modifier_tt }
 			}
 		}
@@ -301,17 +309,25 @@ ideas = {
 			on_add = {
 				custom_effect_tooltip = {
 					localization_key = modifies_dynamic_modifier_tt
-					MODIFIER = MAD_economy_modifier
+					MODIFIER = MAD_infrastructure_modifier
 				}
 				add_to_variable = { MAD_economy_infrastructure_tax_gain_multiplier_modifier = -0.08 tooltip = infrastructure_tax_gain_multiplier_modifier_tt }
+				custom_effect_tooltip = {
+					localization_key = modifies_dynamic_modifier_tt
+					MODIFIER = MAD_investment_modifier
+				}
 				add_to_variable = { MAD_economy_receiving_investment_cost_modifier = 0.06 tooltip = receiving_investment_cost_modifier_tt }
 			}
 			on_remove = {
 				custom_effect_tooltip = {
 					localization_key = modifies_dynamic_modifier_tt
-					MODIFIER = MAD_economy_modifier
+					MODIFIER = MAD_infrastructure_modifier
 				}
 				add_to_variable = { MAD_economy_infrastructure_tax_gain_multiplier_modifier = 0.08 tooltip = infrastructure_tax_gain_multiplier_modifier_tt }
+				custom_effect_tooltip = {
+					localization_key = modifies_dynamic_modifier_tt
+					MODIFIER = MAD_investment_modifier
+				}
 				add_to_variable = { MAD_economy_receiving_investment_cost_modifier = -0.06 tooltip = receiving_investment_cost_modifier_tt }
 			}
 		}
@@ -327,17 +343,25 @@ ideas = {
 			on_add = {
 				custom_effect_tooltip = {
 					localization_key = modifies_dynamic_modifier_tt
-					MODIFIER = MAD_economy_modifier
+					MODIFIER = MAD_infrastructure_modifier
 				}
 				add_to_variable = { MAD_economy_infrastructure_tax_gain_multiplier_modifier = -0.03 tooltip = infrastructure_tax_gain_multiplier_modifier_tt }
+				custom_effect_tooltip = {
+					localization_key = modifies_dynamic_modifier_tt
+					MODIFIER = MAD_investment_modifier
+				}
 				add_to_variable = { MAD_economy_receiving_investment_cost_modifier = 0.02 tooltip = receiving_investment_cost_modifier_tt }
 			}
 			on_remove = {
 				custom_effect_tooltip = {
 					localization_key = modifies_dynamic_modifier_tt
-					MODIFIER = MAD_economy_modifier
+					MODIFIER = MAD_infrastructure_modifier
 				}
 				add_to_variable = { MAD_economy_infrastructure_tax_gain_multiplier_modifier = 0.03 tooltip = infrastructure_tax_gain_multiplier_modifier_tt }
+				custom_effect_tooltip = {
+					localization_key = modifies_dynamic_modifier_tt
+					MODIFIER = MAD_investment_modifier
+				}
 				add_to_variable = { MAD_economy_receiving_investment_cost_modifier = -0.02 tooltip = receiving_investment_cost_modifier_tt }
 			}
 		}
