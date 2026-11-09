@@ -4686,7 +4686,7 @@ focus_tree = {
 			}
 			add_to_variable = { MAD_economy_receiving_investment_cost_modifier = -0.03 tooltip = receiving_investment_cost_modifier_tt }
 			add_to_variable = { MAD_economy_receiving_investment_duration_modifier = -0.03  tooltip = receiving_investment_duration_modifier_tt }
-			add_to_variable = { MAD_economy_foreign_influence_modifier = -0.05 tooltip = foreign_influence_modifier_tt }
+			add_to_variable = { MAD_economy_foreign_influence_defense_modifier = -0.03 tooltip = foreign_influence_defense_modifier_tt }
 			if = {
 				limit = { has_idea = international_bankers }
 				set_temp_variable = { temp_opinion = 10 }
@@ -5736,7 +5736,7 @@ focus_tree = {
 				localization_key = modifies_dynamic_modifier_tt
 				MODIFIER = MAD_economy_modifier
 			}
-			add_to_variable = { MAD_economy_foreign_influence_modifier = -0.10 tooltip = foreign_influence_modifier_tt }
+			add_to_variable = { MAD_economy_foreign_influence_defense_modifier = -0.05 tooltip = foreign_influence_defense_modifier_tt }
 			
 			268 = {
 				add_extra_state_shared_building_slots = 1
@@ -6614,7 +6614,7 @@ focus_tree = {
 				MODIFIER = MAD_economy_modifier
 			}
 			add_to_variable = { MAD_economy_receiving_investment_duration_modifier = -0.03 tooltip = receiving_investment_duration_modifier_tt }
-			add_to_variable = { MAD_economy_foreign_influence_modifier = -0.05 tooltip = foreign_influence_modifier_tt }
+			add_to_variable = { MAD_economy_foreign_influence_defense_modifier = -0.03 tooltip = foreign_influence_defense_modifier_tt }
 		}
 
 		ai_will_do = {
@@ -7247,7 +7247,7 @@ focus_tree = {
 				MODIFIER = MAD_economy_modifier
 			}
 			add_to_variable = { MAD_economy_receiving_investment_cost_modifier = -0.03 tooltip = receiving_investment_cost_modifier_tt }
-			add_to_variable = { MAD_economy_foreign_influence_modifier = -0.05 tooltip = foreign_influence_modifier_tt }
+			add_to_variable = { MAD_economy_foreign_influence_defense_modifier = -0.03 tooltip = foreign_influence_defense_modifier_tt }
 			set_temp_variable = { corp_change = 4 }
 			modify_corporate_tax_rate_effect = yes
 			add_political_power = 50
