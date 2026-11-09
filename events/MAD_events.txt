@@ -1538,12 +1538,6 @@ country_event = {
 	picture = GFX_report_event_economy_default
 	is_triggered_only = yes
 
-	immediate = {
-		# The scandal itself damages trust in the state before the response is chosen.
-		set_temp_variable = { MAD_rc_delta = -10 }
-		MAD_rural_cooperation_adjust = yes
-	}
-
 	option = {
 		name = mad_qmm.1.a
 		log = "[GetDateText]: [Root.GetName]: mad_qmm.1.a - QMM scandal covered up"
