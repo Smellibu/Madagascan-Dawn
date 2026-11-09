@@ -283,10 +283,10 @@ country_event = {
 		}
 	}
 
-	# Option B: pay off the concession's debts and take it over properly - costs treasury, bigger buffs, free infrastructure
+	# Option B: take over on a stronger public footing - bigger buffs
 	option = {
 		name = mad_madarail.1.b
-		log = "[GetDateText]: [This.GetName]: mad_madarail.1.b executed - paid off Madarail's debts before taking over"
+		log = "[GetDateText]: [This.GetName]: mad_madarail.1.b executed - Madarail placed under stronger public operation"
 		add_ideas = MAD_MADARAIL_OPERATOR_STATE_FUNDED
 		add_stability = 0.02
 		custom_effect_tooltip = {
@@ -294,20 +294,6 @@ country_event = {
 			MODIFIER = MAD_infrastructure_modifier
 		}
 		add_to_variable = { MAD_economy_infrastructure_tax_gain_multiplier_modifier = 0.05 tooltip = infrastructure_tax_gain_multiplier_modifier_tt }
-		# Purchase compensation: match the initial Madarail privatisation value (8% of GDP).
-		set_temp_variable = { treasury_change = { value = gdp_total multiply = -0.08 } }
-		modify_treasury_effect = yes
-		# free infrastructure investment as part of the recapitalisation
-		487 = {
-			add_building_construction = {
-				type = infrastructure
-				level = 1
-				instant_build = yes
-			}
-		}
-		# Separately clear the concession's debts / recapitalise the operator.
-		set_temp_variable = { treasury_change = -5.00 }
-		modify_treasury_effect = yes
 		add_power_balance_value = {
 			id = MAD_economy_ownership_bop
 			value = 0.075
