@@ -1921,7 +1921,8 @@ country_event = {
 			MAD_dahalo_prepare_for_civil_war = yes
 			start_civil_war = {
 				ideology = neutrality
-				ruling_party = neutrality
+				# Preserve the original government's party; this parameter would change Madagascar's ruling party.
+				keep_political_leader = yes
 				size = 0.55
 				army_ratio = 0.65
 				navy_ratio = 0
@@ -1939,13 +1940,11 @@ country_event = {
 					ruling_party = neutrality
 					elections_allowed = no
 				}
-				create_country_leader = {
-					name = "Dahalo Military Council"
-					desc = MAD_DAHALO_REBEL_LEADER_DESC
-					expire = "2099.1.1"
-					ideology = despotism
-					traits = { }
-				}
+				# Madagascar party 13 is the Dahalo Council (Neutral Autocracy).
+				# Reuse its existing leader mapping so the breakaway is led by Remenabila.
+				set_variable = { ruling_party = 13 }
+				set_variable = { Neutral_Autocracy_leader = 0 }
+				set_leader_MAD = yes
 			}
 		}
 	}}
