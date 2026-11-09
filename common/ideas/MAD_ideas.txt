@@ -2362,7 +2362,8 @@ MAD_MIL_CIVILIAN_GUARDIANSHIP = {
 			modifier = {
 				political_power_factor = 0.05
 				bureaucracy_cost_multiplier_modifier = -0.05
-				foreign_influence_defense_modifier = 0.02
+				foreign_influence_defense_modifier = 0.04
+				receiving_investment_cost_modifier = -0.03
 			}
 
 			# Tracks the current earned version of this party idea.
@@ -2395,9 +2396,11 @@ MAD_MIL_CIVILIAN_GUARDIANSHIP = {
 			picture = generic_political_discourse
 			modifier = {
 				political_power_factor = 0.05
-				stability_factor = -0.01
-				corporate_tax_income_multiplier_modifier = 0.02
-				foreign_influence_modifier = 0.02
+				stability_factor = -0.02
+				corporate_tax_income_multiplier_modifier = 0.04
+				foreign_influence_modifier = 0.03
+				productivity_growth_modifier = 0.10
+				production_speed_industrial_complex_factor = 0.05
 			}
 
 			# Tracks the current earned version of this party idea.
@@ -2430,8 +2433,11 @@ MAD_MIL_CIVILIAN_GUARDIANSHIP = {
 			picture = generic_political_discourse
 			modifier = {
 				political_power_factor = 0.02
-				stability_factor = 0.01
+				stability_factor = 0.02
 				receiving_investment_duration_modifier = -0.03
+				receiving_investment_cost_modifier = -0.02
+				bureaucracy_cost_multiplier_modifier = -0.02
+				foreign_influence_defense_modifier = -0.03
 			}
 
 			# Tracks the current earned version of this party idea.
