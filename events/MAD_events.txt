@@ -3063,6 +3063,7 @@ country_event = {
 		set_temp_variable = { party_popularity_increase = 0.05 }
 		set_temp_variable = { temp_outlook_increase = 0.05 }
 		change_relative_party_popularity = yes
+		add_stability = 0.01
 		recalculate_party = yes
 	}
 
@@ -3072,7 +3073,9 @@ country_event = {
 
 		set_temp_variable = { party_index = 20 }
 		set_temp_variable = { party_popularity_increase = 0.03 }
+		set_temp_variable = { temp_outlook_increase = 0 }
 		change_relative_party_popularity = yes
+		add_political_power = 25
 	}
 
 	option = {
@@ -3080,14 +3083,16 @@ country_event = {
 		add_ideas = MAD_TGV_EMERGENCY_MANDATE
 
 		set_temp_variable = { party_index = 20 }
-		set_temp_variable = { party_popularity_increase = 0.06 }
-		set_temp_variable = { temp_outlook_increase = 0.06 }
+		set_temp_variable = { party_popularity_increase = 0.04 }
+		set_temp_variable = { temp_outlook_increase = 0.04 }
 		change_relative_party_popularity = yes
 
 		set_temp_variable = { party_index = 22 }
-		set_temp_variable = { party_popularity_increase = 0.06 }
-		set_temp_variable = { temp_outlook_increase = 0.06 }
+		set_temp_variable = { party_popularity_increase = 0.04 }
+		set_temp_variable = { temp_outlook_increase = 0.04 }
 		change_relative_party_popularity = yes
+		add_stability = -0.02
+		add_war_support = 0.02
 		recalculate_party = yes
 	}
 }

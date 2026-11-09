@@ -2469,9 +2469,10 @@ MAD_MIL_CIVILIAN_GUARDIANSHIP = {
 		MAD_TGV_REVOLUTIONARY_LEGACY = {
 			picture = generic_political_discourse
 			modifier = {
-				party_popularity_stability_factor = 0.05
+				party_popularity_stability_factor = 0.08
 				political_power_factor = 0.05
-				projects_cost_modifier = -0.03
+				projects_cost_modifier = -0.05
+				social_cost_multiplier_modifier = -0.04
 			}
 
 			# Tracks the current earned version of this party idea.
@@ -2503,9 +2504,9 @@ MAD_MIL_CIVILIAN_GUARDIANSHIP = {
 		MAD_TGV_ELECTORAL_LEGITIMACY = {
 			picture = generic_political_discourse
 			modifier = {
-				stability_factor = 0.02
-				bureaucracy_cost_multiplier_modifier = -0.04
-				political_power_factor = 0.15
+				stability_factor = 0.04
+				bureaucracy_cost_multiplier_modifier = -0.05
+				political_power_factor = 0.08
 			}
 
 			# Tracks the current earned version of this party idea.
@@ -2537,9 +2538,12 @@ MAD_MIL_CIVILIAN_GUARDIANSHIP = {
 		MAD_TGV_EMERGENCY_MANDATE = {
 			picture = generic_political_discourse
 			modifier = {
-				political_power_factor = 0.2
+				political_power_factor = 0.15
 				production_speed_buildings_factor = 0.08
 				army_strength_factor = 0.04
+				stability_factor = -0.02
+				army_personnel_cost_multiplier_modifier = 0.05
+				police_cost_multiplier_modifier = 0.05
 			}
 
 			# Tracks the current earned version of this party idea.
