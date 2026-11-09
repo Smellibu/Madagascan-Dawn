@@ -595,33 +595,63 @@ MAD_drought_apply_change = {
 
 	# The drought model covers exactly four Madagascar states. Do not apply the drought
 	# system to unrelated owned territory: the panel average must equal these four states.
+	# Events .10 and .11 opt into the existing state tooltip while retaining this
+	# shared exposure/protection calculation and its four-state-only scope.
 	266 = {
 		set_temp_variable = { MAD_dr_st = ROOT.MAD_dr_change_v }
 		multiply_temp_variable = { MAD_dr_st = MAD_state_drought_exposure }
 		MAD_drought_state_apply_growth_protection = yes
-		add_to_variable = { MAD_state_drought = MAD_dr_st }
-		MAD_drought_state_clamp = yes
+		if = {
+			limit = { ROOT = { has_country_flag = MAD_DROUGHT_EVENT_SHOW_STATE_CHANGE_TT } }
+			set_temp_variable = { MAD_dr_state_change = MAD_dr_st }
+			MAD_drought_state_apply_change = yes
+		}
+		else = {
+			add_to_variable = { MAD_state_drought = MAD_dr_st }
+			MAD_drought_state_clamp = yes
+		}
 	}
 	267 = {
 		set_temp_variable = { MAD_dr_st = ROOT.MAD_dr_change_v }
 		multiply_temp_variable = { MAD_dr_st = MAD_state_drought_exposure }
 		MAD_drought_state_apply_growth_protection = yes
-		add_to_variable = { MAD_state_drought = MAD_dr_st }
-		MAD_drought_state_clamp = yes
+		if = {
+			limit = { ROOT = { has_country_flag = MAD_DROUGHT_EVENT_SHOW_STATE_CHANGE_TT } }
+			set_temp_variable = { MAD_dr_state_change = MAD_dr_st }
+			MAD_drought_state_apply_change = yes
+		}
+		else = {
+			add_to_variable = { MAD_state_drought = MAD_dr_st }
+			MAD_drought_state_clamp = yes
+		}
 	}
 	268 = {
 		set_temp_variable = { MAD_dr_st = ROOT.MAD_dr_change_v }
 		multiply_temp_variable = { MAD_dr_st = MAD_state_drought_exposure }
 		MAD_drought_state_apply_growth_protection = yes
-		add_to_variable = { MAD_state_drought = MAD_dr_st }
-		MAD_drought_state_clamp = yes
+		if = {
+			limit = { ROOT = { has_country_flag = MAD_DROUGHT_EVENT_SHOW_STATE_CHANGE_TT } }
+			set_temp_variable = { MAD_dr_state_change = MAD_dr_st }
+			MAD_drought_state_apply_change = yes
+		}
+		else = {
+			add_to_variable = { MAD_state_drought = MAD_dr_st }
+			MAD_drought_state_clamp = yes
+		}
 	}
 	487 = {
 		set_temp_variable = { MAD_dr_st = ROOT.MAD_dr_change_v }
 		multiply_temp_variable = { MAD_dr_st = MAD_state_drought_exposure }
 		MAD_drought_state_apply_growth_protection = yes
-		add_to_variable = { MAD_state_drought = MAD_dr_st }
-		MAD_drought_state_clamp = yes
+		if = {
+			limit = { ROOT = { has_country_flag = MAD_DROUGHT_EVENT_SHOW_STATE_CHANGE_TT } }
+			set_temp_variable = { MAD_dr_state_change = MAD_dr_st }
+			MAD_drought_state_apply_change = yes
+		}
+		else = {
+			add_to_variable = { MAD_state_drought = MAD_dr_st }
+			MAD_drought_state_clamp = yes
+		}
 	}
 	MAD_drought_recalc_national = yes
 	MAD_drought_states_update_tiers = yes
