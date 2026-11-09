@@ -2863,9 +2863,11 @@ country_event = {
 
 		set_temp_variable = { party_index = 22 }
 		set_temp_variable = { party_popularity_increase = 0.04 }
+		set_temp_variable = { temp_outlook_increase = 0 }
 		change_relative_party_popularity = yes
 		set_temp_variable = { party_index = 2 }
 		set_temp_variable = { party_popularity_increase = 0.03 }
+		set_temp_variable = { temp_outlook_increase = 0 }
 		change_relative_party_popularity = yes
 		recalculate_party = yes
 	}
@@ -2883,6 +2885,7 @@ country_event = {
 		change_relative_party_popularity = yes
 		set_temp_variable = { party_index = 2 }
 		set_temp_variable = { party_popularity_increase = -0.03 }
+		set_temp_variable = { temp_outlook_increase = 0 }
 		change_relative_party_popularity = yes
 		recalculate_party = yes
 	}
