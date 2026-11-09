@@ -2635,7 +2635,7 @@ country_event = {
 			if = {
 				limit = {
 					NOT = { check_variable = { ruling_party = p } }
-					NOT = { is_in_array = { array = gov_coalition_array value = p } }
+					NOT = { is_in_array = { gov_coalition_array = p } }
 					NOT = { is_party_banned_trigger = yes }
 					check_variable = { party_pop_array^p > 0 }
 					check_variable = { party_pop_array^p > MAD_DAEWOO_NEXT_PARTY_POPULARITY }
@@ -2649,6 +2649,7 @@ country_event = {
 	option = {
 		name = mad_political.93.a
 		trigger = {
+					has_civil_war = no
 				NOT = { check_variable = { MAD_DAEWOO_NEXT_PARTY < 0 } }
 			}
 
