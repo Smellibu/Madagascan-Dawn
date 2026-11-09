@@ -2534,6 +2534,10 @@ country_event = {
 		set_temp_variable = { temp_outlook_increase = 0.05 }
 		change_relative_party_popularity = yes
 		increase_centralization = yes
+		set_temp_variable = { rul_party_temp = 23 }
+		change_ruling_party_effect = yes
+		set_temp_variable = { party_index = 15 }
+		ban_party_scripted_call = yes
 		recalculate_party = yes
 
 
@@ -2548,7 +2552,10 @@ country_event = {
 		set_temp_variable = { temp_outlook_increase = 0.05 }
 		change_relative_party_popularity = yes
 		decrease_centralization = yes
-		set_country_flag = MAD_TAMIMA_COUNCIL
+		set_temp_variable = { rul_party_temp = 15 }
+		change_ruling_party_effect = yes
+		set_temp_variable = { party_index = 23 }
+		ban_party_scripted_call = yes
 		recalculate_party = yes
 
 
