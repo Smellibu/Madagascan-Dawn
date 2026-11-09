@@ -480,11 +480,7 @@ focus_tree = {
 				MODIFIER = MAD_power_modifier
 			}
 			add_to_variable = { MAD_power_energy_gain_multiplier = 0.02 tooltip = energy_gain_multiplier_tt }
-			custom_effect_tooltip = {
-				localization_key = modifies_dynamic_modifier_tt
-				MODIFIER = MAD_economy_modifier
-			}
-			add_to_variable = { MAD_economy_production_speed_energy_infrastructure_factor = 0.05 tooltip = production_speed_energy_infrastructure_factor_tt }
+			add_to_variable = { MAD_power_production_speed_energy_infrastructure_factor = 0.05 tooltip = production_speed_energy_infrastructure_factor_tt }
 		}
 
 		ai_will_do = {
@@ -510,11 +506,7 @@ focus_tree = {
 			}
 			add_to_variable = { MAD_power_energy_gain_multiplier = 0.03 tooltip = energy_gain_multiplier_tt }
 			add_to_variable = { MAD_power_fossil_pp_fuel_consumption_modifier = -0.03 tooltip = fossil_pp_fuel_consumption_modifier_tt }
-			custom_effect_tooltip = {
-				localization_key = modifies_dynamic_modifier_tt
-				MODIFIER = MAD_economy_modifier
-			}
-			add_to_variable = { MAD_economy_production_speed_energy_infrastructure_factor = 0.05 tooltip = production_speed_energy_infrastructure_factor_tt }
+			add_to_variable = { MAD_power_production_speed_energy_infrastructure_factor = 0.05 tooltip = production_speed_energy_infrastructure_factor_tt }
 			set_temp_variable = { treasury_change = -1.50 }
 			modify_treasury_effect = yes
 			add_stability = 0.03
@@ -584,11 +576,7 @@ focus_tree = {
 			}
 			add_to_variable = { MAD_power_energy_gain_multiplier = 0.02 tooltip = energy_gain_multiplier_tt }
 			add_to_variable = { MAD_power_energy_use_modifier_mils = -0.01 tooltip = energy_use_modifier_mils_tt }
-			custom_effect_tooltip = {
-				localization_key = modifies_dynamic_modifier_tt
-				MODIFIER = MAD_economy_modifier
-			}
-			add_to_variable = { MAD_economy_production_speed_energy_infrastructure_factor = 0.05 tooltip = production_speed_energy_infrastructure_factor_tt }
+			add_to_variable = { MAD_power_production_speed_energy_infrastructure_factor = 0.05 tooltip = production_speed_energy_infrastructure_factor_tt }
 		}
 
 		ai_will_do = {
@@ -1135,11 +1123,11 @@ focus_tree = {
 			add_to_variable = { MAD_power_renewable_energy_gain_multiplier = 0.05 tooltip = renewable_energy_gain_multiplier_tt }
 			add_to_variable = { MAD_power_pop_energy_use_multiplier = -0.03 tooltip = pop_energy_use_multiplier_tt }
 			add_to_variable = { MAD_power_energy_use_modifier_agriculture_district = -0.02 tooltip = energy_use_modifier_agriculture_district_tt }
+			add_to_variable = { MAD_power_production_speed_energy_infrastructure_factor = 0.05 tooltip = production_speed_energy_infrastructure_factor_tt }
 			custom_effect_tooltip = {
 				localization_key = modifies_dynamic_modifier_tt
 				MODIFIER = MAD_economy_modifier
 			}
-			add_to_variable = { MAD_economy_production_speed_energy_infrastructure_factor = 0.05 tooltip = production_speed_energy_infrastructure_factor_tt }
 			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.05 tooltip = productivity_growth_modifier_tt }
 			add_to_variable = { MAD_economy_expected_welfare_modifier = 0.25 tooltip = expected_welfare_modifier_tt }
 			if = {
@@ -3112,11 +3100,7 @@ focus_tree = {
 			}
 			add_to_variable = { MAD_power_energy_use_modifier_civs = -0.02 tooltip = energy_use_modifier_civs_tt }
 			add_to_variable = { MAD_power_fossil_pp_fuel_consumption_modifier = -0.02 tooltip = fossil_pp_fuel_consumption_modifier_tt }
-			custom_effect_tooltip = {
-				localization_key = modifies_dynamic_modifier_tt
-				MODIFIER = MAD_economy_modifier
-			}
-			add_to_variable = { MAD_economy_production_speed_energy_infrastructure_factor = 0.06 tooltip = production_speed_energy_infrastructure_factor_tt }
+			add_to_variable = { MAD_power_production_speed_energy_infrastructure_factor = 0.06 tooltip = production_speed_energy_infrastructure_factor_tt }
 			custom_effect_tooltip = {
 				localization_key = modifies_dynamic_modifier_tt
 				MODIFIER = MAD_infrastructure_modifier
@@ -4500,9 +4484,9 @@ focus_tree = {
 			}
 			custom_effect_tooltip = {
 				localization_key = modifies_dynamic_modifier_tt
-				MODIFIER = MAD_economy_modifier
+				MODIFIER = MAD_power_modifier
 			}
-			add_to_variable = { MAD_economy_production_speed_energy_infrastructure_factor = 0.05 tooltip = production_speed_energy_infrastructure_factor_tt }
+			add_to_variable = { MAD_power_production_speed_energy_infrastructure_factor = 0.05 tooltip = production_speed_energy_infrastructure_factor_tt }
 			
 		}
 
@@ -6917,11 +6901,7 @@ focus_tree = {
 			}
 			add_to_variable = { MAD_power_energy_use_modifier_civs = -0.02 tooltip = energy_use_modifier_civs_tt }
 			add_to_variable = { MAD_power_pop_energy_use_multiplier = -0.01 tooltip = pop_energy_use_multiplier_tt }
-			custom_effect_tooltip = {
-				localization_key = modifies_dynamic_modifier_tt
-				MODIFIER = MAD_economy_modifier
-			}
-			add_to_variable = { MAD_economy_production_speed_energy_infrastructure_factor = 0.05 tooltip = production_speed_energy_infrastructure_factor_tt }
+			add_to_variable = { MAD_power_production_speed_energy_infrastructure_factor = 0.05 tooltip = production_speed_energy_infrastructure_factor_tt }
 			custom_effect_tooltip = {
 				localization_key = modifies_dynamic_modifier_tt
 				MODIFIER = MAD_infrastructure_modifier
@@ -8384,20 +8364,16 @@ focus_tree = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_RURAL_SMART_METER_CONNECTION"
 			custom_effect_tooltip = {
 				localization_key = modifies_dynamic_modifier_tt
-				MODIFIER = MAD_economy_modifier
+				MODIFIER = MAD_power_modifier
 			}
-			add_to_variable = { MAD_economy_production_speed_energy_infrastructure_factor = 0.05 tooltip = production_speed_energy_infrastructure_factor_tt }
+			add_to_variable = { MAD_power_production_speed_energy_infrastructure_factor = 0.05 tooltip = production_speed_energy_infrastructure_factor_tt }
+			add_to_variable = { MAD_power_pop_energy_use_multiplier = -0.02 tooltip = pop_energy_use_multiplier_tt }
+			add_to_variable = { MAD_power_energy_use_modifier_civs = -0.01 tooltip = energy_use_modifier_civs_tt }
 			custom_effect_tooltip = {
 				localization_key = modifies_dynamic_modifier_tt
 				MODIFIER = MAD_infrastructure_modifier
 			}
 			add_to_variable = { MAD_economy_infrastructure_tax_gain_multiplier_modifier = 0.03 tooltip = infrastructure_tax_gain_multiplier_modifier_tt }
-			custom_effect_tooltip = {
-				localization_key = modifies_dynamic_modifier_tt
-				MODIFIER = MAD_power_modifier
-			}
-			add_to_variable = { MAD_power_pop_energy_use_multiplier = -0.02 tooltip = pop_energy_use_multiplier_tt }
-			add_to_variable = { MAD_power_energy_use_modifier_civs = -0.01 tooltip = energy_use_modifier_civs_tt }
 			add_stability = 0.02
 			if = {
 				limit = { has_idea = small_medium_business_owners }
