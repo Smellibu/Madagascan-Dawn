@@ -4692,9 +4692,29 @@ MAD_OWNERSHIP_BOP = {
 			add_ideas = MAD_FIBRE_MONOPOLY
 
 			# Remove the direct state-model bonuses/penalties first.
+			custom_effect_tooltip = {
+				localization_key = modifies_dynamic_modifier_tt
+				MODIFIER = MAD_infrastructure_modifier
+			}
+
 			add_to_variable = { MAD_economy_infrastructure_tax_gain_multiplier_modifier = -0.10 tooltip = infrastructure_tax_gain_multiplier_modifier_tt }
+			custom_effect_tooltip = {
+				localization_key = modifies_dynamic_modifier_tt
+				MODIFIER = MAD_economy_modifier
+			}
+
 			add_to_variable = { MAD_economy_civilian_industry_tax_modifier = -0.05 tooltip = civilian_industry_tax_modifier_tt }
+			custom_effect_tooltip = {
+				localization_key = modifies_dynamic_modifier_tt
+				MODIFIER = MAD_foreign_relations_modifier
+			}
+
 			add_to_variable = { MAD_economy_foreign_influence_modifier = -0.10 tooltip = foreign_influence_modifier_tt }
+			custom_effect_tooltip = {
+				localization_key = modifies_dynamic_modifier_tt
+				MODIFIER = MAD_investment_modifier
+			}
+
 			add_to_variable = { MAD_economy_internal_investments_money_cost_modifier = 0.10 tooltip = internal_investments_money_cost_modifier_tt }
 			add_to_variable = { MAD_economy_receiving_investment_cost_modifier = -0.10 tooltip = receiving_investment_cost_modifier_tt }
 			add_stability = 0.02
@@ -4703,6 +4723,11 @@ MAD_OWNERSHIP_BOP = {
 			modify_treasury_effect = yes
 
 			# 75% of the original private TelMa route.
+			custom_effect_tooltip = {
+				localization_key = modifies_dynamic_modifier_tt
+				MODIFIER = MAD_economy_modifier
+			}
+
 			add_to_variable = { MAD_economy_civ_facs_worker_requirement_modifier = -0.03 tooltip = civ_facs_worker_requirement_modifier_tt }
 			add_to_variable = { MAD_economy_stability_factor = -0.03 tooltip = stability_factor_tt }
 			add_to_variable = { MAD_economy_civilian_factories_productivity = 0.05 tooltip = civilian_factories_productivity_tt }
@@ -4747,6 +4772,11 @@ MAD_OWNERSHIP_BOP = {
 				uses = 3
 				bonus = 0.25
 			}
+			custom_effect_tooltip = {
+				localization_key = modifies_dynamic_modifier_tt
+				MODIFIER = MAD_economy_modifier
+			}
+
 			add_to_variable = { MAD_economy_production_factory_max_efficiency_factor = 0.05 tooltip = production_factory_max_efficiency_factor_tt }
 			set_temp_variable = { MAD_rc_delta = -2 }
 			MAD_rural_cooperation_adjust = yes
@@ -4776,22 +4806,57 @@ MAD_OWNERSHIP_BOP = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_SELL_JIRAMA_PRIVATE completed"
 
 			# Remove the public model's direct ownership effects.
+			custom_effect_tooltip = {
+				localization_key = modifies_dynamic_modifier_tt
+				MODIFIER = MAD_power_modifier
+			}
+
 			add_to_variable = { MAD_power_energy_gain_multiplier = -0.04 tooltip = energy_gain_multiplier_tt }
 			add_to_variable = { MAD_power_renewable_energy_gain_multiplier = -0.03 tooltip = renewable_energy_gain_multiplier_tt }
 			add_to_variable = { MAD_power_renewable_infra_cost_multiplier_modifier = 0.05 tooltip = renewable_infra_cost_multiplier_modifier_tt }
+			custom_effect_tooltip = {
+				localization_key = modifies_dynamic_modifier_tt
+				MODIFIER = MAD_investment_modifier
+			}
+
 			add_to_variable = { MAD_economy_internal_investments_money_cost_modifier = 0.05 tooltip = internal_investments_money_cost_modifier_tt }
+			custom_effect_tooltip = {
+				localization_key = modifies_dynamic_modifier_tt
+				MODIFIER = MAD_economy_modifier
+			}
+
 			add_to_variable = { MAD_economy_productivity_growth_modifier = -0.05 tooltip = productivity_growth_modifier_tt }
 			add_stability = -0.02
+			custom_effect_tooltip = {
+				localization_key = modifies_dynamic_modifier_tt
+				MODIFIER = MAD_investment_modifier
+			}
+
 			add_to_variable = { MAD_economy_return_on_investment_modifier = -0.03 tooltip = return_on_investment_modifier_tt }
+			custom_effect_tooltip = {
+				localization_key = modifies_dynamic_modifier_tt
+				MODIFIER = MAD_foreign_relations_modifier
+			}
+
 			add_to_variable = { MAD_economy_foreign_influence_modifier = -0.05 tooltip = foreign_influence_modifier_tt }
 
 			# If later public-model BOP adjustments have already fired, remove them too.
 			if = {
 				limit = { has_completed_focus = MAD_ELECTRICITY_FOR_ALL }
+				custom_effect_tooltip = {
+					localization_key = modifies_dynamic_modifier_tt
+					MODIFIER = MAD_investment_modifier
+				}
+
 				add_to_variable = { MAD_economy_internal_investments_money_cost_modifier = 0.05 tooltip = internal_investments_money_cost_modifier_tt }
 			}
 			if = {
 				limit = { has_completed_focus = MAD_Volobe_Amont_DAM }
+				custom_effect_tooltip = {
+					localization_key = modifies_dynamic_modifier_tt
+					MODIFIER = MAD_foreign_relations_modifier
+				}
+
 				add_to_variable = { MAD_economy_foreign_influence_modifier = -0.02 tooltip = foreign_influence_modifier_tt }
 			}
 
@@ -4802,11 +4867,31 @@ MAD_OWNERSHIP_BOP = {
 			# BOP sale: 2 percentage points below the initial 12% GDP sale price.
 			set_temp_variable = { treasury_change = { value = gdp_total multiply = 0.10 } }
 			modify_treasury_effect = yes
+			custom_effect_tooltip = {
+				localization_key = modifies_dynamic_modifier_tt
+				MODIFIER = MAD_power_modifier
+			}
+
 			add_to_variable = { MAD_power_energy_gain_multiplier = 0.0225 tooltip = energy_gain_multiplier_tt }
 			add_to_variable = { MAD_power_renewable_energy_gain_multiplier = 0.0225 tooltip = renewable_energy_gain_multiplier_tt }
+			custom_effect_tooltip = {
+				localization_key = modifies_dynamic_modifier_tt
+				MODIFIER = MAD_investment_modifier
+			}
+
 			add_to_variable = { MAD_economy_receiving_investment_cost_modifier = -0.0375 tooltip = receiving_investment_cost_modifier_tt }
 			add_to_variable = { MAD_economy_receiving_investment_duration_modifier = -0.0225 tooltip = receiving_investment_duration_modifier_tt }
+			custom_effect_tooltip = {
+				localization_key = modifies_dynamic_modifier_tt
+				MODIFIER = MAD_foreign_relations_modifier
+			}
+
 			add_to_variable = { MAD_economy_foreign_influence_modifier = -0.0375 tooltip = foreign_influence_modifier_tt }
+			custom_effect_tooltip = {
+				localization_key = modifies_dynamic_modifier_tt
+				MODIFIER = MAD_economy_modifier
+			}
+
 			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.05 tooltip = productivity_growth_modifier_tt }
 			add_stability = -0.0225
 
@@ -4873,7 +4958,17 @@ MAD_OWNERSHIP_BOP = {
 			# BOP sale: 2 percentage points below the initial 8% GDP sale price.
 			set_temp_variable = { treasury_change = { value = gdp_total multiply = 0.06 } }
 			modify_treasury_effect = yes
+			custom_effect_tooltip = {
+				localization_key = modifies_dynamic_modifier_tt
+				MODIFIER = MAD_investment_modifier
+			}
+
 			add_to_variable = { MAD_economy_receiving_investment_cost_modifier = -0.0375 tooltip = receiving_investment_cost_modifier_tt }
+			custom_effect_tooltip = {
+				localization_key = modifies_dynamic_modifier_tt
+				MODIFIER = MAD_infrastructure_modifier
+			}
+
 			add_to_variable = { MAD_economy_production_speed_rail_way_factor = 0.075 tooltip = production_speed_rail_way_factor_tt }
 			add_political_power = 19
 
@@ -4908,10 +5003,30 @@ MAD_OWNERSHIP_BOP = {
 			set_country_flag = MAD_GPM_PRIVATISED_AFTER_STATE
 
 			# Remove the direct state-control bonuses first.
+			custom_effect_tooltip = {
+				localization_key = modifies_dynamic_modifier_tt
+				MODIFIER = MAD_investment_modifier
+			}
+
 			add_to_variable = { MAD_economy_internal_investments_money_cost_modifier = 0.10 tooltip = internal_investments_money_cost_modifier_tt }
+			custom_effect_tooltip = {
+				localization_key = modifies_dynamic_modifier_tt
+				MODIFIER = MAD_infrastructure_modifier
+			}
+
 			add_to_variable = { MAD_economy_infrastructure_tax_gain_multiplier_modifier = -0.05 tooltip = infrastructure_tax_gain_multiplier_modifier_tt }
+			custom_effect_tooltip = {
+				localization_key = modifies_dynamic_modifier_tt
+				MODIFIER = MAD_foreign_relations_modifier
+			}
+
 			add_to_variable = { MAD_economy_foreign_influence_modifier = -0.05 tooltip = foreign_influence_modifier_tt }
 			add_stability = -0.02
+			custom_effect_tooltip = {
+				localization_key = modifies_dynamic_modifier_tt
+				MODIFIER = MAD_investment_modifier
+			}
+
 			add_to_variable = { MAD_economy_return_on_investment_modifier = -0.02 tooltip = return_on_investment_modifier_tt }
 
 			if = {
@@ -4922,7 +5037,17 @@ MAD_OWNERSHIP_BOP = {
 			# 75% of the original Rubis/Galana private route.
 			add_to_variable = { MAD_economy_receiving_investment_cost_modifier = -0.0375 tooltip = receiving_investment_cost_modifier_tt }
 			add_to_variable = { MAD_economy_receiving_investment_duration_modifier = -0.0375 tooltip = receiving_investment_duration_modifier_tt }
+			custom_effect_tooltip = {
+				localization_key = modifies_dynamic_modifier_tt
+				MODIFIER = MAD_economy_modifier
+			}
+
 			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.075 tooltip = productivity_growth_modifier_tt }
+			custom_effect_tooltip = {
+				localization_key = modifies_dynamic_modifier_tt
+				MODIFIER = MAD_foreign_relations_modifier
+			}
+
 			add_to_variable = { MAD_economy_trade_opinion_factor = 0.0375 tooltip = trade_opinion_factor_tt }
 			add_political_power = 19
 			# BOP sale: 2 percentage points below the initial 8% GDP sale price.
@@ -6124,6 +6249,11 @@ MAD_military_refoundation_category = {
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_MILITARY_SUPPORT_GENDARMERIE started"
 			set_country_flag = MAD_MIL_GENDARMERIE_DECISION_DONE
+			custom_effect_tooltip = {
+				localization_key = modifies_dynamic_modifier_tt
+				MODIFIER = MAD_economy_modifier
+			}
+
 			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.05 tooltip = productivity_growth_modifier_tt }
 			add_political_power = 15
 		}

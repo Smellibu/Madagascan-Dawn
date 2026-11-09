@@ -80,9 +80,14 @@ country_event = {
 		}
 			custom_effect_tooltip = {
 				localization_key = modifies_dynamic_modifier_tt
-				MODIFIER = MAD_economy_modifier
+				MODIFIER = MAD_foreign_relations_modifier
 			}
 		add_to_variable = { MAD_economy_foreign_influence_defense_modifier = 0.03 tooltip = foreign_influence_defense_modifier_tt }
+		custom_effect_tooltip = {
+			localization_key = modifies_dynamic_modifier_tt
+			MODIFIER = MAD_infrastructure_modifier
+		}
+
 		add_to_variable = { MAD_economy_infrastructure_tax_gain_multiplier_modifier = 0.05 tooltip = infrastructure_tax_gain_multiplier_modifier_tt }
 
 		log = "[GetDateText]: [This.GetName]: mad_ambatovy.1 - state buys out Dynatec"
@@ -147,10 +152,6 @@ country_event = { # Fires on MAD - accept branch
 
 	option = {
 		name = MAD_LUFTHANSA_OFFER_ACCEPT.a
-		custom_effect_tooltip = {
-			localization_key = modifies_dynamic_modifier_tt
-			MODIFIER = MAD_economy_modifier
-		}
 		set_temp_variable = {
 			treasury_change = {
 				value = gdp_total
@@ -158,8 +159,23 @@ country_event = { # Fires on MAD - accept branch
 			}
 		}
 		modify_treasury_effect = yes
+		custom_effect_tooltip = {
+			localization_key = modifies_dynamic_modifier_tt
+			MODIFIER = MAD_infrastructure_modifier
+		}
+
 		add_to_variable = { MAD_economy_infrastructure_cost_multiplier_modifier = -0.02 tooltip = infrastructure_cost_multiplier_modifier_tt }
+		custom_effect_tooltip = {
+			localization_key = modifies_dynamic_modifier_tt
+			MODIFIER = MAD_investment_modifier
+		}
+
 		add_to_variable = { MAD_economy_receiving_investment_cost_modifier = -0.05 tooltip = receiving_investment_cost_modifier_tt }
+		custom_effect_tooltip = {
+			localization_key = modifies_dynamic_modifier_tt
+			MODIFIER = MAD_economy_modifier
+		}
+
 		add_to_variable = { MAD_economy_offices_productivity = 0.05 tooltip = offices_productivity_tt }
 		ai_chance = { base = 1 }
 	}
@@ -1612,25 +1628,59 @@ country_event = {
 		# deliberately one-off and are not reversed.
 		if = {
 			limit = { check_variable = { MAD_vanilla_shock_state = 11 } }
+			custom_effect_tooltip = {
+				localization_key = modifies_dynamic_modifier_tt
+				MODIFIER = MAD_investment_modifier
+			}
+
 			add_to_variable = { MAD_economy_international_market_income_modifier = -0.10 tooltip = international_market_income_modifier_tt }
 			add_to_variable = { MAD_economy_return_on_investment_modifier = -0.04 tooltip = return_on_investment_modifier_tt }
 		}
 		else_if = {
 			limit = { check_variable = { MAD_vanilla_shock_state = 12 } }
+			custom_effect_tooltip = {
+				localization_key = modifies_dynamic_modifier_tt
+				MODIFIER = MAD_investment_modifier
+			}
 			add_to_variable = { MAD_economy_international_market_income_modifier = -0.06 tooltip = international_market_income_modifier_tt }
 			add_to_variable = { MAD_economy_return_on_investment_modifier = -0.02 tooltip = return_on_investment_modifier_tt }
+			custom_effect_tooltip = {
+				localization_key = modifies_dynamic_modifier_tt
+				MODIFIER = MAD_economy_modifier
+			}
+
 			add_to_variable = { MAD_economy_expected_welfare_modifier = -0.25 tooltip = expected_welfare_modifier_tt }
 		}
 		else_if = {
 			limit = { check_variable = { MAD_vanilla_shock_state = -11 } }
+			custom_effect_tooltip = {
+				localization_key = modifies_dynamic_modifier_tt
+				MODIFIER = MAD_investment_modifier
+			}
+
 			add_to_variable = { MAD_economy_international_market_income_modifier = 0.04 tooltip = international_market_income_modifier_tt }
 			add_to_variable = { MAD_economy_return_on_investment_modifier = 0.01 tooltip = return_on_investment_modifier_tt }
+			custom_effect_tooltip = {
+				localization_key = modifies_dynamic_modifier_tt
+				MODIFIER = MAD_economy_modifier
+			}
+
 			add_to_variable = { MAD_economy_expected_welfare_modifier = 0.25 tooltip = expected_welfare_modifier_tt }
 		}
 		else_if = {
 			limit = { check_variable = { MAD_vanilla_shock_state = -12 } }
+			custom_effect_tooltip = {
+				localization_key = modifies_dynamic_modifier_tt
+				MODIFIER = MAD_investment_modifier
+			}
+
 			add_to_variable = { MAD_economy_international_market_income_modifier = 0.08 tooltip = international_market_income_modifier_tt }
 			add_to_variable = { MAD_economy_return_on_investment_modifier = 0.03 tooltip = return_on_investment_modifier_tt }
+			custom_effect_tooltip = {
+				localization_key = modifies_dynamic_modifier_tt
+				MODIFIER = MAD_economy_modifier
+			}
+
 			add_to_variable = { MAD_economy_expected_welfare_modifier = 0.25 tooltip = expected_welfare_modifier_tt }
 		}
 
@@ -1661,6 +1711,11 @@ country_event = {
 		log = "[GetDateText]: [Root.GetName]: mad_vanilla.1.a - reinvest in the vanilla boom"
 
 		custom_effect_tooltip = mad_vanilla.1.reinvest_tt
+		custom_effect_tooltip = {
+			localization_key = modifies_dynamic_modifier_tt
+			MODIFIER = MAD_investment_modifier
+		}
+
 		add_to_variable = { MAD_economy_international_market_income_modifier = 0.10 tooltip = international_market_income_modifier_tt }
 		add_to_variable = { MAD_economy_return_on_investment_modifier = 0.04 tooltip = return_on_investment_modifier_tt }
 		add_stability = 0.02
@@ -1676,8 +1731,18 @@ country_event = {
 		log = "[GetDateText]: [Root.GetName]: mad_vanilla.1.b - bank the vanilla profits"
 
 		custom_effect_tooltip = mad_vanilla.1.bank_tt
+		custom_effect_tooltip = {
+			localization_key = modifies_dynamic_modifier_tt
+			MODIFIER = MAD_investment_modifier
+		}
+
 		add_to_variable = { MAD_economy_international_market_income_modifier = 0.06 tooltip = international_market_income_modifier_tt }
 		add_to_variable = { MAD_economy_return_on_investment_modifier = 0.02 tooltip = return_on_investment_modifier_tt }
+		custom_effect_tooltip = {
+			localization_key = modifies_dynamic_modifier_tt
+			MODIFIER = MAD_economy_modifier
+		}
+
 		add_to_variable = { MAD_economy_expected_welfare_modifier = 0.25 tooltip = expected_welfare_modifier_tt }
 		add_stability = 0.04
 		set_temp_variable = { treasury_change = 1.00 }
@@ -1696,8 +1761,18 @@ country_event = {
 		log = "[GetDateText]: [Root.GetName]: mad_vanilla.1.c - support vanilla growers"
 
 		custom_effect_tooltip = mad_vanilla.1.support_tt
+		custom_effect_tooltip = {
+			localization_key = modifies_dynamic_modifier_tt
+			MODIFIER = MAD_investment_modifier
+		}
+
 		add_to_variable = { MAD_economy_international_market_income_modifier = -0.04 tooltip = international_market_income_modifier_tt }
 		add_to_variable = { MAD_economy_return_on_investment_modifier = -0.01 tooltip = return_on_investment_modifier_tt }
+		custom_effect_tooltip = {
+			localization_key = modifies_dynamic_modifier_tt
+			MODIFIER = MAD_economy_modifier
+		}
+
 		add_to_variable = { MAD_economy_expected_welfare_modifier = -0.25 tooltip = expected_welfare_modifier_tt }
 		add_stability = 0.01
 		set_temp_variable = { treasury_change = -2.00 }
@@ -1713,8 +1788,18 @@ country_event = {
 		log = "[GetDateText]: [Root.GetName]: mad_vanilla.1.d - let the vanilla market correct itself"
 
 		custom_effect_tooltip = mad_vanilla.1.correct_tt
+		custom_effect_tooltip = {
+			localization_key = modifies_dynamic_modifier_tt
+			MODIFIER = MAD_investment_modifier
+		}
+
 		add_to_variable = { MAD_economy_international_market_income_modifier = -0.08 tooltip = international_market_income_modifier_tt }
 		add_to_variable = { MAD_economy_return_on_investment_modifier = -0.03 tooltip = return_on_investment_modifier_tt }
+		custom_effect_tooltip = {
+			localization_key = modifies_dynamic_modifier_tt
+			MODIFIER = MAD_economy_modifier
+		}
+
 		add_to_variable = { MAD_economy_expected_welfare_modifier = -0.25 tooltip = expected_welfare_modifier_tt }
 		add_stability = -0.03
 		add_political_power = -25
@@ -1892,6 +1977,11 @@ country_event = {
 		add_to_variable = { MAD_dahalo_threat = 5 tooltip = MAD_DAHALO_THREAT_PLUS_5_TT }
 		if = {
 			limit = { check_variable = { MAD_agri_productivity > -0.039 } }
+			custom_effect_tooltip = {
+				localization_key = modifies_dynamic_modifier_tt
+				MODIFIER = MAD_agriculture_modifier
+			}
+
 			add_to_variable = { MAD_agri_productivity = -0.01 tooltip = agricolture_productivity_modifier_tt }
 		}
 		if = {
@@ -1912,6 +2002,11 @@ country_event = {
 		add_to_variable = { MAD_dahalo_threat = 8 tooltip = MAD_DAHALO_THREAT_PLUS_8_TT }
 		if = {
 			limit = { check_variable = { MAD_agri_productivity > -0.039 } }
+			custom_effect_tooltip = {
+				localization_key = modifies_dynamic_modifier_tt
+				MODIFIER = MAD_agriculture_modifier
+			}
+
 			add_to_variable = { MAD_agri_productivity = -0.05 tooltip = agricolture_productivity_modifier_tt }
 		}
 		if = {
@@ -1949,6 +2044,11 @@ country_event = {
 		set_temp_variable = { treasury_change = -0.75 }
 		modify_treasury_effect = yes
 		add_to_variable = { MAD_dahalo_threat = 4 tooltip = MAD_DAHALO_THREAT_PLUS_4_TT }
+		custom_effect_tooltip = {
+			localization_key = modifies_dynamic_modifier_tt
+			MODIFIER = MAD_investment_modifier
+		}
+
 		add_to_variable = { MAD_economy_receiving_investment_duration_modifier = 0.01 tooltip = receiving_investment_duration_modifier_tt }
 		add_to_variable = { MAD_economy_international_market_income_modifier = -0.01 tooltip = international_market_income_modifier_tt }
 		add_stability = -0.01
@@ -1958,6 +2058,11 @@ country_event = {
 		name = mad_dahalo.11.b
 		log = "[GetDateText]: [Root.GetName]: mad_dahalo.11.b - the roads must stay open"
 		add_to_variable = { MAD_dahalo_threat = 7 tooltip = MAD_DAHALO_THREAT_PLUS_7_TT }
+		custom_effect_tooltip = {
+			localization_key = modifies_dynamic_modifier_tt
+			MODIFIER = MAD_investment_modifier
+		}
+
 		add_to_variable = { MAD_economy_receiving_investment_duration_modifier = 0.03 tooltip = receiving_investment_duration_modifier_tt }
 		add_to_variable = { MAD_economy_international_market_income_modifier = -0.02 tooltip = international_market_income_modifier_tt }
 		add_stability = -0.02
@@ -1980,6 +2085,11 @@ country_event = {
 		set_temp_variable = { treasury_change = -0.75 }
 		modify_treasury_effect = yes
 		add_to_variable = { MAD_dahalo_threat = -4 tooltip = MAD_DAHALO_THREAT_MINUS_4_TT }
+		custom_effect_tooltip = {
+			localization_key = modifies_dynamic_modifier_tt
+			MODIFIER = MAD_economy_modifier
+		}
+
 		add_to_variable = { MAD_economy_expected_police_modifier = -0.25 tooltip = expected_police_modifier_tt }
 		add_stability = 0.01
 		MAD_dahalo_update_modifier = yes
@@ -1992,6 +2102,11 @@ country_event = {
 		set_temp_variable = { treasury_change = -0.50 }
 		modify_treasury_effect = yes
 		add_to_variable = { MAD_dahalo_threat = -8 tooltip = MAD_DAHALO_THREAT_MINUS_8_TT }
+		custom_effect_tooltip = {
+			localization_key = modifies_dynamic_modifier_tt
+			MODIFIER = MAD_economy_modifier
+		}
+
 		add_to_variable = { MAD_economy_expected_police_modifier = 0.25 tooltip = expected_police_modifier_tt }
 		add_stability = 0.005
 		MAD_dahalo_update_modifier = yes
@@ -2022,7 +2137,17 @@ country_event = {
 		set_temp_variable = { treasury_change = -2.00 }
 		modify_treasury_effect = yes
 		add_to_variable = { MAD_dahalo_threat = -8 tooltip = MAD_DAHALO_THREAT_MINUS_8_TT }
+		custom_effect_tooltip = {
+			localization_key = modifies_dynamic_modifier_tt
+			MODIFIER = MAD_economy_modifier
+		}
+
 		add_to_variable = { MAD_economy_expected_police_modifier = -0.5 tooltip = expected_police_modifier_tt }
+		custom_effect_tooltip = {
+			localization_key = modifies_dynamic_modifier_tt
+			MODIFIER = MAD_investment_modifier
+		}
+
 		add_to_variable = { MAD_economy_receiving_investment_duration_modifier = -0.01 tooltip = receiving_investment_duration_modifier_tt }
 		add_stability = -0.005
 		MAD_dahalo_update_modifier = yes
@@ -2035,6 +2160,11 @@ country_event = {
 		set_temp_variable = { treasury_change = -1.00 }
 		modify_treasury_effect = yes
 		add_to_variable = { MAD_dahalo_threat = -6 tooltip = MAD_DAHALO_THREAT_MINUS_6_TT }
+		custom_effect_tooltip = {
+			localization_key = modifies_dynamic_modifier_tt
+			MODIFIER = MAD_economy_modifier
+		}
+
 		add_to_variable = { MAD_economy_expected_police_modifier = 0.5 tooltip = expected_police_modifier_tt }
 		add_stability = 0.005
 		MAD_dahalo_update_modifier = yes
@@ -2045,6 +2175,11 @@ country_event = {
 		log = "[GetDateText]: [Root.GetName]: mad_dahalo.13.c - refuse the arrangement"
 		set_country_flag = MAD_DAHALO_PRIVATE_SECURITY_RESOLVED
 		add_to_variable = { MAD_dahalo_threat = 2 tooltip = MAD_DAHALO_THREAT_PLUS_2_TT }
+		custom_effect_tooltip = {
+			localization_key = modifies_dynamic_modifier_tt
+			MODIFIER = MAD_investment_modifier
+		}
+
 		add_to_variable = { MAD_economy_receiving_investment_duration_modifier = 0.01 tooltip = receiving_investment_duration_modifier_tt }
 		MAD_dahalo_update_modifier = yes
 	}
@@ -2065,8 +2200,18 @@ country_event = {
 		set_temp_variable = { treasury_change = -2.00 }
 		modify_treasury_effect = yes
 		add_to_variable = { MAD_dahalo_threat = -5 tooltip = MAD_DAHALO_THREAT_MINUS_5_TT }
+		custom_effect_tooltip = {
+			localization_key = modifies_dynamic_modifier_tt
+			MODIFIER = MAD_investment_modifier
+		}
+
 		add_to_variable = { MAD_economy_receiving_investment_cost_modifier = -0.02 tooltip = receiving_investment_cost_modifier_tt }
 		add_to_variable = { MAD_economy_receiving_investment_duration_modifier = -0.03 tooltip = receiving_investment_duration_modifier_tt }
+		custom_effect_tooltip = {
+			localization_key = modifies_dynamic_modifier_tt
+			MODIFIER = MAD_economy_modifier
+		}
+
 		add_to_variable = { MAD_economy_expected_police_modifier = -0.5 tooltip = expected_police_modifier_tt }
 		MAD_dahalo_update_modifier = yes
 		add_power_balance_value = { id = MAD_economy_ownership_bop value = -0.01875 tooltip_side = MAD_private_ownership }
@@ -2078,8 +2223,18 @@ country_event = {
 		set_temp_variable = { treasury_change = -1.50 }
 		modify_treasury_effect = yes
 		add_to_variable = { MAD_dahalo_threat = -5 tooltip = MAD_DAHALO_THREAT_MINUS_5_TT }
+		custom_effect_tooltip = {
+			localization_key = modifies_dynamic_modifier_tt
+			MODIFIER = MAD_investment_modifier
+		}
+
 		add_to_variable = { MAD_economy_receiving_investment_cost_modifier = -0.01 tooltip = receiving_investment_cost_modifier_tt }
 		add_to_variable = { MAD_economy_receiving_investment_duration_modifier = -0.02 tooltip = receiving_investment_duration_modifier_tt }
+		custom_effect_tooltip = {
+			localization_key = modifies_dynamic_modifier_tt
+			MODIFIER = MAD_economy_modifier
+		}
+
 		add_to_variable = { MAD_economy_expected_police_modifier = 0.5 tooltip = expected_police_modifier_tt }
 		army_experience = 2
 		MAD_dahalo_update_modifier = yes
@@ -2090,6 +2245,11 @@ country_event = {
 		log = "[GetDateText]: [Root.GetName]: mad_dahalo.14.c - accept the risk"
 		set_country_flag = MAD_DAHALO_PROJECT_SECURITY_RESOLVED
 		add_to_variable = { MAD_dahalo_threat = 3 tooltip = MAD_DAHALO_THREAT_PLUS_3_TT }
+		custom_effect_tooltip = {
+			localization_key = modifies_dynamic_modifier_tt
+			MODIFIER = MAD_investment_modifier
+		}
+
 		add_to_variable = { MAD_economy_receiving_investment_cost_modifier = 0.03 tooltip = receiving_investment_cost_modifier_tt }
 		add_to_variable = { MAD_economy_receiving_investment_duration_modifier = 0.04 tooltip = receiving_investment_duration_modifier_tt }
 		add_to_variable = { MAD_economy_international_market_income_modifier = -0.01 tooltip = international_market_income_modifier_tt }
