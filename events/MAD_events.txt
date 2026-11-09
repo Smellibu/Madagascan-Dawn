@@ -113,6 +113,11 @@ country_event = {
 			}
 		}
 		modify_international_investment_effect = yes
+		# Lufthansa acceptance also increases German influence in Madagascar.
+		set_temp_variable = { percent_change = 3 }
+		set_temp_variable = { tag_index = GER }
+		set_temp_variable = { influence_target = MAD }
+		change_influence_percentage = yes
 		MAD = {
 			set_country_flag = MAD_GERMANS_ACCEPTED_LUFTHANSA
 			country_event = { id = MAD_LUFTHANSA_OFFER.2 hours = 1 }
