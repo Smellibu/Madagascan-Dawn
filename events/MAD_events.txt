@@ -1692,16 +1692,38 @@ country_event = {
 		clr_country_flag = MAD_VANILLA_PRICE_BOOM
 		clr_country_flag = MAD_VANILLA_PRICE_BUST
 
-		# Roughly a 55/45 boom-bust split. The event is intentionally compact;
-		# the player-facing interaction happens in the options below.
-		random_list = {
-			55 = {
-				set_country_flag = MAD_VANILLA_PRICE_BOOM
-				set_variable = { MAD_vanilla_shock_state = 1 }
+		# Calculate this market turn from inflation at the time the event fires.
+		# MD stores inflation_rate_var as a fraction: 0.15 = 15%.
+		# At 15% inflation or higher, a bust is more likely (65%).
+		# Below 15%, a boom is more likely (55%).
+		hidden_effect = {
+			if = {
+				limit = {
+					has_variable = inflation_rate_var
+					NOT = { check_variable = { inflation_rate_var < 0.15 } }
+				}
+				random_list = {
+					65 = {
+						set_country_flag = MAD_VANILLA_PRICE_BUST
+						set_variable = { MAD_vanilla_shock_state = -1 }
+					}
+					35 = {
+						set_country_flag = MAD_VANILLA_PRICE_BOOM
+						set_variable = { MAD_vanilla_shock_state = 1 }
+					}
+				}
 			}
-			45 = {
-				set_country_flag = MAD_VANILLA_PRICE_BUST
-				set_variable = { MAD_vanilla_shock_state = -1 }
+			else = {
+				random_list = {
+					55 = {
+						set_country_flag = MAD_VANILLA_PRICE_BOOM
+						set_variable = { MAD_vanilla_shock_state = 1 }
+					}
+					45 = {
+						set_country_flag = MAD_VANILLA_PRICE_BUST
+						set_variable = { MAD_vanilla_shock_state = -1 }
+					}
+				}
 			}
 		}
 
@@ -1715,7 +1737,6 @@ country_event = {
 		trigger = { has_country_flag = MAD_VANILLA_PRICE_BOOM }
 		log = "[GetDateText]: [Root.GetName]: mad_vanilla.1.a - reinvest in the vanilla boom"
 
-		custom_effect_tooltip = mad_vanilla.1.reinvest_tt
 		custom_effect_tooltip = {
 			localization_key = modifies_dynamic_modifier_tt
 			MODIFIER = MAD_investment_modifier
@@ -1727,7 +1748,9 @@ country_event = {
 		add_political_power = 10
 		set_variable = { MAD_vanilla_shock_state = 11 }
 
-		country_event = { id = mad_vanilla.1 days = 600 }
+		hidden_effect = {
+			country_event = { id = mad_vanilla.1 days = 600 }
+		}
 	}
 
 	option = {
@@ -1735,7 +1758,6 @@ country_event = {
 		trigger = { has_country_flag = MAD_VANILLA_PRICE_BOOM }
 		log = "[GetDateText]: [Root.GetName]: mad_vanilla.1.b - bank the vanilla profits"
 
-		custom_effect_tooltip = mad_vanilla.1.bank_tt
 		custom_effect_tooltip = {
 			localization_key = modifies_dynamic_modifier_tt
 			MODIFIER = MAD_investment_modifier
@@ -1754,7 +1776,9 @@ country_event = {
 		modify_treasury_effect = yes
 		set_variable = { MAD_vanilla_shock_state = 12 }
 
-		country_event = { id = mad_vanilla.1 days = 600 }
+		hidden_effect = {
+			country_event = { id = mad_vanilla.1 days = 600 }
+		}
 	}
 
 	option = {
@@ -1765,7 +1789,6 @@ country_event = {
 		}
 		log = "[GetDateText]: [Root.GetName]: mad_vanilla.1.c - support vanilla growers"
 
-		custom_effect_tooltip = mad_vanilla.1.support_tt
 		custom_effect_tooltip = {
 			localization_key = modifies_dynamic_modifier_tt
 			MODIFIER = MAD_investment_modifier
@@ -1784,7 +1807,9 @@ country_event = {
 		modify_treasury_effect = yes
 		set_variable = { MAD_vanilla_shock_state = -11 }
 
-		country_event = { id = mad_vanilla.1 days = 600 }
+		hidden_effect = {
+			country_event = { id = mad_vanilla.1 days = 600 }
+		}
 	}
 
 	option = {
@@ -1792,7 +1817,6 @@ country_event = {
 		trigger = { has_country_flag = MAD_VANILLA_PRICE_BUST }
 		log = "[GetDateText]: [Root.GetName]: mad_vanilla.1.d - let the vanilla market correct itself"
 
-		custom_effect_tooltip = mad_vanilla.1.correct_tt
 		custom_effect_tooltip = {
 			localization_key = modifies_dynamic_modifier_tt
 			MODIFIER = MAD_investment_modifier
@@ -1810,7 +1834,9 @@ country_event = {
 		add_political_power = -25
 		set_variable = { MAD_vanilla_shock_state = -12 }
 
-		country_event = { id = mad_vanilla.1 days = 600 }
+		hidden_effect = {
+			country_event = { id = mad_vanilla.1 days = 600 }
+		}
 	}
 }
 
