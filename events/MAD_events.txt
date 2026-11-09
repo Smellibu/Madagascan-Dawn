@@ -2703,7 +2703,10 @@ country_event = {
 	# ============================================================
 	option = {
 		name = mad_political.2.a
-		decrease_corruption = yes
+		set_temp_variable = { treasury_change = { value = gdp_total multiply = -0.05 } }
+		modify_treasury_effect = yes
+		custom_effect_tooltip = { localization_key = modifies_dynamic_modifier_tt MODIFIER = MAD_economy_modifier }
+		add_to_variable = { MAD_economy_population_tax_income_multiplier_modifier = -0.08 tooltip = population_tax_income_multiplier_modifier_tt }
 
 		# The incumbent government is damaged by the scandal,
 		# while the opposition benefits.
