@@ -3385,7 +3385,12 @@ country_event = {
 	}
 
 	immediate = {
-		clr_country_flag = MAD_AREMA_BANNED
+		if = {
+			limit = { has_country_flag = MAD_AREMA_BANNED }
+			set_temp_variable = { party_index = 5 }
+			unban_party_scripted_call = yes
+			clr_country_flag = MAD_AREMA_BANNED
+		}
 		clr_country_flag = MAD_RATSIRAKA_RETURN_PENDING
 		set_country_flag = MAD_RATSIRAKA_RETURN_RESOLVED
 	}
