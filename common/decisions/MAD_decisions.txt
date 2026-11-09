@@ -5031,6 +5031,10 @@ MAD_OWNERSHIP_BOP = {
 
 			if = {
 				limit = { has_completed_focus = MAD_STATE_FUEL_IMPORTS }
+				custom_effect_tooltip = {
+					localization_key = modifies_dynamic_modifier_tt
+					MODIFIER = MAD_investment_modifier
+				}
 				add_to_variable = { MAD_economy_internal_investments_money_cost_modifier = 0.05 tooltip = internal_investments_money_cost_modifier_tt }
 			}
 

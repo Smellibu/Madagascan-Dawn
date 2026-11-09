@@ -1986,6 +1986,10 @@ country_event = {
 		}
 		if = {
 			limit = { check_variable = { MAD_agri_income_tax > -0.029 } }
+			custom_effect_tooltip = {
+				localization_key = modifies_dynamic_modifier_tt
+				MODIFIER = MAD_agriculture_modifier
+			}
 			add_to_variable = { MAD_agri_income_tax = -0.01 tooltip = agriculture_district_income_tax_modifier_tt }
 		}
 		add_stability = -0.02
@@ -2011,6 +2015,10 @@ country_event = {
 		}
 		if = {
 			limit = { check_variable = { MAD_agri_income_tax > -0.029 } }
+			custom_effect_tooltip = {
+				localization_key = modifies_dynamic_modifier_tt
+				MODIFIER = MAD_agriculture_modifier
+			}
 			add_to_variable = { MAD_agri_income_tax = -0.02 tooltip = agriculture_district_income_tax_modifier_tt }
 		}
 		add_stability = -0.03

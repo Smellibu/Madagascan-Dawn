@@ -1472,6 +1472,10 @@ focus_tree = {
 			}
 			if = {
 				limit = { has_completed_focus = MAD_TOURISM_INCOME_BOOST }
+				custom_effect_tooltip = {
+					localization_key = modifies_dynamic_modifier_tt
+					MODIFIER = MAD_investment_modifier
+				}
 				add_to_variable = { MAD_economy_international_market_income_modifier = 0.05 tooltip = international_market_income_modifier_tt }
 			}
 		}
