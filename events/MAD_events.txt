@@ -52,6 +52,7 @@ country_event = {
 			MODIFIER = MAD_economy_modifier
 		}
 		add_to_variable = { MAD_economy_receiving_investment_duration_modifier = -0.10 tooltip = receiving_investment_duration_modifier_tt }
+		add_to_variable = { MAD_economy_foreign_influence_defense_modifier = -0.03 tooltip = foreign_influence_defense_modifier_tt }
 
 		add_power_balance_value = {
 			id = MAD_economy_ownership_bop
@@ -77,7 +78,7 @@ country_event = {
 				localization_key = modifies_dynamic_modifier_tt
 				MODIFIER = MAD_economy_modifier
 			}
-		add_to_variable = { MAD_economy_foreign_influence_modifier = -0.10 tooltip = foreign_influence_modifier_tt }
+		add_to_variable = { MAD_economy_foreign_influence_defense_modifier = 0.03 tooltip = foreign_influence_defense_modifier_tt }
 		add_to_variable = { MAD_economy_infrastructure_tax_gain_multiplier_modifier = 0.05 tooltip = infrastructure_tax_gain_multiplier_modifier_tt }
 
 		log = "[GetDateText]: [This.GetName]: mad_ambatovy.1 - state buys out Dynatec"
