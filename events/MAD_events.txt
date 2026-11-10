@@ -3024,25 +3024,7 @@ country_event = {
 		}
 	}
 
-	option = {
-		name = mad_political.6.c
-		add_ideas = MAD_TIM_TIKO_MIXED
-		set_temp_variable = { temp_opinion = 5 }
-		change_small_medium_business_owners_opinion = yes
-		set_temp_variable = { temp_opinion = 5 }
-		change_international_bankers_opinion = yes
-		add_political_power = 20
-		set_temp_variable = { party_index = 2 }
-		set_temp_variable = { party_popularity_increase = 0.03 }
-		set_temp_variable = { temp_outlook_increase = 0.03 }
-		change_relative_party_popularity = yes
-		recalculate_party = yes
-		add_power_balance_value = {
-			id = MAD_economy_ownership_bop
-			value = -0.03
-			tooltip_side = MAD_private_ownership
-		}
-	}
+
 }
 
 # ---------------------------------------------------------------------------
