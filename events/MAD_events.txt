@@ -3590,6 +3590,19 @@ country_event = {
 					AND = { has_country_flag = MAD_ARMY_COMMAND_GENERAL_STAFF NOT = { has_country_flag = MAD_ARMY_COMMAND_CAPSAT } }
 				}
 			}
+			# Suppress the generic MD movement system only from the moment the
+			# MAD pressure catalyst begins. Keep MD's shared monthly strength drift:
+			# the cleanup cooldown is immediately cleared after removing old missions.
+			set_country_flag = disabled_protests_system
+			if = {
+				limit = { NOT = { has_country_flag = MAD_MODERN_MD_PROTESTS_INITIALISED } }
+				remove_mission = MD_incoming_protest_movement
+				remove_mission = MD_incoming_revolt
+				remove_mission = MD_zero_strength_recovery
+				MD_cleanup_protest_revolt = yes
+				clr_country_flag = MD_protest_cooldown
+				set_country_flag = MAD_MODERN_MD_PROTESTS_INITIALISED
+			}
 			set_country_flag = MAD_MODERN_PROTEST_CATALYST_ISSUED
 			set_country_flag = MAD_MODERN_PROTEST_CATALYST_ACTIVE
 			add_timed_idea = { idea = MAD_MODERN_PROTEST_PRESSURE days = 365 }
@@ -3863,6 +3876,10 @@ country_event = {
 			set_variable = { ruling_party = 22 }
 			set_variable = { party_pop_array^22 = 1 }
 			set_country_flag = MAD_MILITARY_RULE_PATH
+			# This dynamic breakaway is still part of Madagascar's modern crisis;
+			# do not allow the generic MD protest chain to start on its tag.
+			set_country_flag = disabled_protests_system
+			set_country_flag = MAD_MODERN_MD_PROTESTS_INITIALISED
 			set_country_flag = MAD_CAPSAT_REVOLT_RESOLVED
 			set_country_flag = MAD_ARMY_COMMAND_DECIDED
 			if = {
