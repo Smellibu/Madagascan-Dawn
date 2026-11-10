@@ -4106,11 +4106,6 @@ MAD_seed_party_idea_entitlements = {
 			set_country_flag = MAD_PI_ACTIVE_MAD_TIM_TIKO_NATIONAL_CHAMPION
 		}
 		if = {
-			limit = { has_idea = MAD_TIM_TIKO_MIXED }
-			set_country_flag = MAD_PI_EARNED_MAD_TIM_TIKO_MIXED
-			set_country_flag = MAD_PI_ACTIVE_MAD_TIM_TIKO_MIXED
-		}
-		if = {
 			limit = { has_idea = MAD_TIM_REPUBLICAN_INSTITUTIONS }
 			set_country_flag = MAD_PI_EARNED_MAD_TIM_REPUBLICAN_INSTITUTIONS
 			set_country_flag = MAD_PI_ACTIVE_MAD_TIM_REPUBLICAN_INSTITUTIONS
@@ -4328,7 +4323,6 @@ MAD_sync_party_political_ideas = {
 	remove_ideas = MAD_TIM_JUSTICE_AND_ACCOUNTABILITY
 	remove_ideas = MAD_TIM_TIKO_FIREWALL
 	remove_ideas = MAD_TIM_TIKO_NATIONAL_CHAMPION
-	remove_ideas = MAD_TIM_TIKO_MIXED
 	remove_ideas = MAD_TIM_REPUBLICAN_INSTITUTIONS
 	remove_ideas = MAD_POL_TGV_INSTITUTIONAL_EMERGENCE
 	remove_ideas = MAD_POL_TGV_PRESIDENTIALISM
@@ -4535,10 +4529,6 @@ MAD_sync_party_political_ideas = {
 	if = {
 		limit = { MAD_TIM_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_TIM_TIKO_NATIONAL_CHAMPION }
 		add_ideas = MAD_TIM_TIKO_NATIONAL_CHAMPION
-	}
-	if = {
-		limit = { MAD_TIM_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_TIM_TIKO_MIXED }
-		add_ideas = MAD_TIM_TIKO_MIXED
 	}
 	if = {
 		limit = { MAD_TIM_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_TIM_REPUBLICAN_INSTITUTIONS }

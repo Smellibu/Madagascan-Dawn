@@ -5794,7 +5794,6 @@ country_event = {
 			add_building_construction = {
 				type = radar_station
 				level = 2
-				province = 5222
 				instant_build = yes
 			}
 		}
@@ -5859,7 +5858,6 @@ country_event = {
 			add_building_construction = {
 				type = dockyard
 				level = 1
-				province = 5222
 				instant_build = yes
 			}
 		}
@@ -5906,7 +5904,7 @@ country_event = {
 		# Add one radar level at Antsiranana: $1.75bn.
 		set_temp_variable = { treasury_change = -1.75 }
 		modify_treasury_effect = yes
-		266 = { add_building_construction = { type = radar_station level = 1 province = 5222 instant_build = yes } }
+		266 = { add_building_construction = { type = radar_station level = 1 instant_build = yes } }
 		set_country_flag = MAD_NAVAL_PROGRAMME_SURVEILLANCE
 		add_tech_bonus = { name = MAD_NAVAL_COMMON_PICTURE category = CAT_naval_radar bonus = 0.35 uses = 1 }
 		if = {
