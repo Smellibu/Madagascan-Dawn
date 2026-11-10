@@ -94,6 +94,13 @@ capital = 267
 	set_variable = { MAD_economy_infrastructure_tax_gain_multiplier_modifier = -0.10 }
 	set_variable = { MAD_economy_infrastructure_cost_multiplier_modifier = 0.15 }
 
+	# JIRAMA's starting power-system baseline.
+	set_variable = { MAD_power_energy_gain_multiplier = -0.15 }
+	set_variable = { MAD_power_renewable_energy_gain_multiplier = -0.20 }
+	set_variable = { MAD_power_production_speed_energy_infrastructure_factor = -0.10 }
+	set_variable = { MAD_power_fossil_pp_fuel_consumption_modifier = 0.05 }
+	set_variable = { MAD_power_pop_energy_use_multiplier = 0.05 }
+
 	oob = "MAD_2000"
 
 	set_power_balance = {
