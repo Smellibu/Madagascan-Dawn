@@ -146,3 +146,12 @@ MAD_dip_iles_campaign_decisions = {
 	priority = 95
 	visible_when_empty = no
 }
+
+
+MAD_MODERN_PROTEST_CATEGORY = {
+	icon = generic_political_discourse
+	allowed = { tag = MAD }
+	visible = { has_active_mission = MAD_MODERN_PROTEST_PRESSURE_MISSION }
+	priority = 99
+	visible_when_empty = no
+}

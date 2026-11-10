@@ -975,7 +975,29 @@ ideas = {
 				clr_country_flag = MAD_PI_ACTIVE_MAD_POL_TRADITIONAL_CONSTITUTION
 			}
 		}
-MAD_POL_MILITARY_GOVERNMENT = {
+MAD_MODERN_PROTEST_PRESSURE = {
+			picture = GFX_idea_generic_political_pressure
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+			modifier = {
+				expected_welfare_modifier = 1
+				expected_healthcare_modifier = 1
+				expected_education_modifier = 1
+				expected_police_modifier = 1
+				expected_adm_modifier = 1
+				expected_mil_modifier = 1
+			}
+		}
+		MAD_MODERN_TRANSITIONAL_COUNCIL = {
+			picture = GFX_idea_generic_army_reform
+			removal_cost = -1
+			modifier = {
+				stability_factor = 0.03
+				political_power_gain = 0.05
+			}
+		}
+
+		MAD_POL_MILITARY_GOVERNMENT = {
 			picture = GFX_idea_generic_army_reform
 			removal_cost = -1
 			modifier = {

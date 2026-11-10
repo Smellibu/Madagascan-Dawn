@@ -3566,6 +3566,387 @@ country_event = {
 	}
 }
 
+
+country_event = {
+	id = mad_political.99
+	hidden = yes
+	is_triggered_only = yes
+	trigger = {
+		original_tag = MAD
+		tag = MAD
+		date > 2023.12.31
+		NOT = { has_country_flag = MAD_MODERN_PROTEST_CATALYST_ISSUED }
+		NOT = { has_country_flag = MAD_MODERN_PROTEST_CATALYST_FAILED }
+		NOT = { has_country_flag = MAD_MODERN_CRISIS_COMPLETED }
+	}
+	immediate = {
+		if = {
+			limit = {
+				NOT = { MAD_MIL_IN_POWER = yes }
+				has_country_flag = MAD_ARMY_COMMAND_DECIDED
+				has_civil_war = no
+				OR = {
+					AND = { has_country_flag = MAD_ARMY_COMMAND_CAPSAT NOT = { has_country_flag = MAD_ARMY_COMMAND_GENERAL_STAFF } }
+					AND = { has_country_flag = MAD_ARMY_COMMAND_GENERAL_STAFF NOT = { has_country_flag = MAD_ARMY_COMMAND_CAPSAT } }
+				}
+			}
+			set_country_flag = MAD_MODERN_PROTEST_CATALYST_ISSUED
+			set_country_flag = MAD_MODERN_PROTEST_CATALYST_ACTIVE
+			add_timed_idea = { idea = MAD_MODERN_PROTEST_PRESSURE days = 365 }
+			activate_mission = MAD_MODERN_PROTEST_PRESSURE_MISSION
+			country_event = { id = mad_political.100 days = 1 }
+		}
+		else = { country_event = { id = mad_political.99 days = 365 } }
+	}
+}
+country_event = {
+	id = mad_political.100
+	title = mad_political.100.t
+	desc = mad_political.100.d
+	picture = GFX_report_event_generic_political
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = { name = mad_political.100.a }
+}
+country_event = {
+	id = mad_political.101
+	hidden = yes
+	is_triggered_only = yes
+	fire_only_once = yes
+	trigger = { original_tag = MAD tag = MAD has_country_flag = MAD_MODERN_PROTEST_CATALYST_ACTIVE }
+	immediate = {
+		remove_ideas = MAD_MODERN_PROTEST_PRESSURE
+		clr_country_flag = MAD_MODERN_PROTEST_CATALYST_ACTIVE
+		if = {
+			limit = { check_variable = { protest_strength > 59 } }
+			set_country_flag = MAD_MODERN_PROTEST_THRESHOLD_MET
+			country_event = { id = mad_political.102 days = 1 }
+		}
+		else = { set_country_flag = MAD_MODERN_PROTEST_CATALYST_FAILED }
+	}
+}
+country_event = {
+	id = mad_political.102
+	hidden = yes
+	is_triggered_only = yes
+	trigger = {
+		original_tag = MAD
+		tag = MAD
+		date > 2019.12.31
+		has_country_flag = MAD_MODERN_PROTEST_THRESHOLD_MET
+		NOT = { has_country_flag = MAD_MODERN_CRISIS_STARTED }
+		NOT = { has_country_flag = MAD_MODERN_CRISIS_COMPLETED }
+	}
+	immediate = {
+		if = {
+			limit = {
+				NOT = { MAD_MIL_IN_POWER = yes }
+				has_country_flag = MAD_ARMY_COMMAND_DECIDED
+				has_civil_war = no
+				OR = {
+					AND = { has_country_flag = MAD_ARMY_COMMAND_CAPSAT NOT = { has_country_flag = MAD_ARMY_COMMAND_GENERAL_STAFF } }
+					AND = { has_country_flag = MAD_ARMY_COMMAND_GENERAL_STAFF NOT = { has_country_flag = MAD_ARMY_COMMAND_CAPSAT } }
+				}
+			}
+			if = {
+				limit = { has_country_flag = MAD_ARMY_COMMAND_GENERAL_STAFF }
+				set_country_flag = MAD_MODERN_COMMAND_GENERAL_STAFF
+				clr_country_flag = MAD_MODERN_COMMAND_CAPSAT
+			}
+			else = {
+				set_country_flag = MAD_MODERN_COMMAND_CAPSAT
+				clr_country_flag = MAD_MODERN_COMMAND_GENERAL_STAFF
+			}
+			set_country_flag = MAD_MODERN_CRISIS_STARTED
+			set_country_flag = MAD_MODERN_CRISIS_ACTIVE
+			country_event = { id = mad_political.103 days = 1 }
+		}
+		else = { country_event = { id = mad_political.102 days = 365 } }
+	}
+}
+country_event = {
+	id = mad_political.103
+	title = mad_political.103.t
+	desc = mad_political.103.d
+	picture = GFX_report_event_generic_political
+	is_triggered_only = yes
+	trigger = { has_country_flag = MAD_MODERN_CRISIS_STARTED has_country_flag = MAD_MODERN_CRISIS_ACTIVE has_civil_war = no NOT = { has_country_flag = MAD_MODERN_CRISIS_COMPLETED } }
+	option = {
+		name = mad_political.103.a
+		trigger = { custom_trigger_tooltip = { tooltip = MAD_RC_REQUIRE_10_TT check_variable = { MAD_rural_cooperation > 9.99 } } }
+		set_country_flag = MAD_MODERN_SERVICE_RESPONSE
+		set_temp_variable = { treasury_change = { value = gdp_total multiply = -0.05 } }
+		modify_treasury_effect = yes
+		set_temp_variable = { MAD_rc_delta = -10 }
+		MAD_rural_cooperation_adjust = yes
+		add_to_variable = { protest_strength = -25 }
+		clamp_variable = { var = protest_strength min = 0 max = 100 }
+		add_stability = 0.02
+		if = {
+			limit = { check_variable = { protest_strength < 40 } }
+			set_country_flag = MAD_MODERN_CRISIS_DEESCALATED
+			set_country_flag = MAD_MODERN_CRISIS_COMPLETED
+			clr_country_flag = MAD_MODERN_CRISIS_ACTIVE
+		}
+		else = { country_event = { id = mad_political.104 days = 14 } }
+	}
+	option = {
+		name = mad_political.103.b
+		set_country_flag = MAD_MODERN_CABINET_DISMISSED
+		add_stability = -0.05
+		add_political_power = -400
+		country_event = { id = mad_political.104 days = 14 }
+	}
+	option = {
+		name = mad_political.103.c
+		set_country_flag = MAD_MODERN_CRACKDOWN
+		add_stability = -0.06
+		add_to_variable = { protest_radicalisation = 2 }
+		clamp_variable = { var = protest_radicalisation min = 0 max = 10 }
+		add_to_variable = { protest_strength = 5 }
+		clamp_variable = { var = protest_strength min = 0 max = 100 }
+		country_event = { id = mad_political.104 days = 14 }
+	}
+}
+country_event = {
+	id = mad_political.104
+	title = mad_political.104.t
+	desc = { text = mad_political.104.d_dialogue_rejected trigger = { has_country_flag = MAD_MODERN_CABINET_DISMISSED } }
+	desc = { text = mad_political.104.d_continuing trigger = { NOT = { has_country_flag = MAD_MODERN_CABINET_DISMISSED } } }
+	picture = GFX_report_event_generic_political
+	is_triggered_only = yes
+	trigger = { has_country_flag = MAD_MODERN_CRISIS_ACTIVE NOT = { has_country_flag = MAD_MODERN_CRISIS_COMPLETED } has_civil_war = no }
+	option = {
+		name = mad_political.104.a
+		set_country_flag = MAD_MODERN_ARMY_MEDIATION
+		add_stability = 0.01
+		country_event = { id = mad_political.105 days = 7 }
+	}
+	option = {
+		name = mad_political.104.b
+		set_country_flag = MAD_MODERN_MILITARY_ORDERED
+		add_stability = -0.04
+		add_to_variable = { protest_radicalisation = 1 }
+		clamp_variable = { var = protest_radicalisation min = 0 max = 10 }
+		country_event = { id = mad_political.105 days = 7 }
+	}
+}
+country_event = {
+	id = mad_political.105
+	title = mad_political.105.t
+	desc = { text = mad_political.105.d_general_staff_mediation trigger = { has_country_flag = MAD_MODERN_COMMAND_GENERAL_STAFF has_country_flag = MAD_MODERN_ARMY_MEDIATION } }
+	desc = { text = mad_political.105.d_capsat_mediation trigger = { has_country_flag = MAD_MODERN_COMMAND_CAPSAT has_country_flag = MAD_MODERN_ARMY_MEDIATION } }
+	desc = { text = mad_political.105.d_general_staff_defection trigger = { has_country_flag = MAD_MODERN_COMMAND_GENERAL_STAFF has_country_flag = MAD_MODERN_MILITARY_ORDERED } }
+	desc = { text = mad_political.105.d_capsat_defection trigger = { has_country_flag = MAD_MODERN_COMMAND_CAPSAT has_country_flag = MAD_MODERN_MILITARY_ORDERED } }
+	picture = GFX_report_event_generic_political
+	is_triggered_only = yes
+	trigger = {
+		has_country_flag = MAD_MODERN_CRISIS_ACTIVE
+		NOT = { has_country_flag = MAD_MODERN_CRISIS_COMPLETED }
+		OR = { has_country_flag = MAD_MODERN_ARMY_MEDIATION has_country_flag = MAD_MODERN_MILITARY_ORDERED }
+		OR = {
+			AND = { has_country_flag = MAD_MODERN_COMMAND_GENERAL_STAFF NOT = { has_country_flag = MAD_MODERN_COMMAND_CAPSAT } }
+			AND = { has_country_flag = MAD_MODERN_COMMAND_CAPSAT NOT = { has_country_flag = MAD_MODERN_COMMAND_GENERAL_STAFF } }
+		}
+		has_civil_war = no
+	}
+	option = {
+		name = mad_political.105.a
+		trigger = { has_country_flag = MAD_MODERN_ARMY_MEDIATION }
+		set_country_flag = MAD_MODERN_CIVILIAN_SETTLEMENT
+		set_country_flag = MAD_MODERN_CRISIS_DEESCALATED
+		set_country_flag = MAD_MODERN_CRISIS_COMPLETED
+		clr_country_flag = MAD_MODERN_CRISIS_ACTIVE
+		add_to_variable = { protest_strength = -20 }
+		clamp_variable = { var = protest_strength min = 0 max = 100 }
+		add_stability = 0.02
+	}
+	option = {
+		name = mad_political.105.b
+		trigger = { has_country_flag = MAD_MODERN_ARMY_MEDIATION }
+		set_country_flag = MAD_MODERN_MILITARY_DEFECTED
+		add_stability = -0.06
+		country_event = { id = mad_political.106 days = 7 }
+	}
+	option = {
+		name = mad_political.105.c
+		trigger = { has_country_flag = MAD_MODERN_MILITARY_ORDERED }
+		set_country_flag = MAD_MODERN_MILITARY_DEFECTED
+		add_stability = -0.03
+		country_event = { id = mad_political.106 days = 7 }
+	}
+	option = {
+		name = mad_political.105.d
+		trigger = { has_country_flag = MAD_MODERN_MILITARY_ORDERED }
+		set_country_flag = MAD_MODERN_MILITARY_DEFECTED
+		add_stability = -0.07
+		add_to_variable = { protest_radicalisation = 1 }
+		clamp_variable = { var = protest_radicalisation min = 0 max = 10 }
+		country_event = { id = mad_political.106 days = 7 }
+	}
+}
+country_event = {
+	id = mad_political.106
+	title = mad_political.106.t
+	desc = mad_political.106.d
+	picture = GFX_report_event_generic_political
+	is_triggered_only = yes
+	trigger = {
+		has_country_flag = MAD_MODERN_CRISIS_ACTIVE
+		has_country_flag = MAD_MODERN_MILITARY_DEFECTED
+		NOT = { has_country_flag = MAD_MODERN_CRISIS_COMPLETED }
+		has_civil_war = no
+	}
+	option = {
+		name = mad_political.106.a
+		set_country_flag = MAD_MODERN_PARLIAMENTARY_CHALLENGE_ACCEPTED
+		add_stability = -0.02
+		country_event = { id = mad_political.107 days = 7 }
+	}
+	option = {
+		name = mad_political.106.b
+		set_country_flag = MAD_MODERN_DISSOLUTION_ATTEMPT
+		add_stability = -0.06
+		country_event = { id = mad_political.107 days = 7 }
+	}
+	option = {
+		name = mad_political.106.c
+		trigger = {
+			owns_state = 267
+			267 = { is_controlled_by = ROOT }
+			OR = { 487 = { is_controlled_by = ROOT } 266 = { is_controlled_by = ROOT } 268 = { is_controlled_by = ROOT } }
+		}
+		set_country_flag = MAD_MODERN_CIVILIAN_RESISTANCE
+		set_country_flag = MAD_MODERN_CIVIL_WAR_STARTED
+		set_country_flag = MAD_MODERN_CRISIS_COMPLETED
+		clr_country_flag = MAD_MODERN_CRISIS_ACTIVE
+		set_country_flag = MAD_CAPSAT_REVOLT_RESOLVED
+		clr_country_flag = MAD_TGV_CAPSAT_REJECTION
+		clr_country_flag = MAD_TGV_COMMAND_FORCE_CAPSAT
+		clr_country_flag = MAD_TGV_COMMAND_FORCE_GENERAL_STAFF
+		if = {
+			limit = { has_country_flag = MAD_MODERN_COMMAND_GENERAL_STAFF }
+			set_country_flag = MAD_MIL_PARTY_LEADER_GENERAL_STAFF
+			MAD_SELECT_GENERAL_STAFF_PARTY_LEADER = yes
+		}
+		else = {
+			clr_country_flag = MAD_MIL_PARTY_LEADER_GENERAL_STAFF
+			MAD_SELECT_CAPSAT_PARTY_LEADER = yes
+		}
+		if = {
+			limit = { 487 = { is_controlled_by = ROOT } }
+			set_capital = { state = 487 remember_old_capital = no }
+		}
+		else_if = {
+			limit = { 266 = { is_controlled_by = ROOT } }
+			set_capital = { state = 266 remember_old_capital = no }
+		}
+		else = { set_capital = { state = 268 remember_old_capital = no } }
+		set_country_flag = MAD_MODERN_CIVIL_WAR_CAPITAL_MOVED
+		add_stability = -0.12
+		start_civil_war = {
+			ideology = nationalist
+			keep_political_leader = yes
+			size = 0.45
+			army_ratio = 0.70
+			navy_ratio = 0
+			air_ratio = 0
+			capital = 267
+			states = { 267 }
+			set_politics = { ruling_party = nationalist elections_allowed = no }
+			set_variable = { ruling_party = 22 }
+			set_variable = { party_pop_array^22 = 1 }
+			set_country_flag = MAD_MILITARY_RULE_PATH
+			set_country_flag = MAD_CAPSAT_REVOLT_RESOLVED
+			set_country_flag = MAD_ARMY_COMMAND_DECIDED
+			if = {
+				limit = { PREV = { has_country_flag = MAD_MODERN_COMMAND_GENERAL_STAFF } }
+				set_country_flag = MAD_ARMY_COMMAND_GENERAL_STAFF
+				clr_country_flag = MAD_ARMY_COMMAND_CAPSAT
+			}
+			else = {
+				set_country_flag = MAD_ARMY_COMMAND_CAPSAT
+				clr_country_flag = MAD_ARMY_COMMAND_GENERAL_STAFF
+			}
+			add_dynamic_modifier = { modifier = MAD_ARMY_COMMAND_SYSTEM }
+			add_ideas = MAD_POL_MILITARY_GOVERNMENT
+			MAD_RESTORE_CIVIL_WAR_OPPONENT_LEADER = yes
+		}
+	}
+}
+country_event = {
+	id = mad_political.107
+	title = mad_political.107.t
+	desc = mad_political.107.d
+	picture = GFX_report_event_generic_political
+	is_triggered_only = yes
+	trigger = { has_country_flag = MAD_MODERN_CRISIS_ACTIVE has_country_flag = MAD_MODERN_MILITARY_DEFECTED NOT = { has_country_flag = MAD_MODERN_CRISIS_COMPLETED } has_civil_war = no }
+	option = {
+		name = mad_political.107.a
+		set_country_flag = MAD_MODERN_TRANSITION_COUNCIL
+		add_stability = -0.01
+		country_event = { id = mad_political.108 days = 1 }
+	}
+	option = {
+		name = mad_political.107.b
+		set_country_flag = MAD_MODERN_DIRECT_MILITARY_RULE
+		add_stability = -0.05
+		country_event = { id = mad_political.108 days = 1 }
+	}
+}
+country_event = {
+	id = mad_political.108
+	hidden = yes
+	is_triggered_only = yes
+	fire_only_once = yes
+	trigger = {
+		original_tag = MAD tag = MAD
+		has_country_flag = MAD_MODERN_CRISIS_STARTED
+		has_country_flag = MAD_MODERN_CRISIS_ACTIVE
+		has_country_flag = MAD_MODERN_MILITARY_DEFECTED
+		NOT = { has_country_flag = MAD_MODERN_CRISIS_COMPLETED }
+		has_civil_war = no
+		OR = { has_country_flag = MAD_MODERN_TRANSITION_COUNCIL has_country_flag = MAD_MODERN_DIRECT_MILITARY_RULE }
+		OR = {
+			AND = { has_country_flag = MAD_MODERN_COMMAND_GENERAL_STAFF NOT = { has_country_flag = MAD_MODERN_COMMAND_CAPSAT } }
+			AND = { has_country_flag = MAD_MODERN_COMMAND_CAPSAT NOT = { has_country_flag = MAD_MODERN_COMMAND_GENERAL_STAFF } }
+		}
+	}
+	immediate = {
+		if = {
+			limit = { has_country_flag = MAD_MODERN_COMMAND_GENERAL_STAFF }
+			set_country_flag = MAD_MIL_PARTY_LEADER_GENERAL_STAFF
+			MAD_SELECT_GENERAL_STAFF_PARTY_LEADER = yes
+		}
+		else = {
+			clr_country_flag = MAD_MIL_PARTY_LEADER_GENERAL_STAFF
+			MAD_SELECT_CAPSAT_PARTY_LEADER = yes
+		}
+		set_party_index_to_ruling_party = yes
+		set_temp_variable = { party_popularity_increase = -0.15 }
+		change_relative_party_popularity = yes
+		set_temp_variable = { rul_party_temp = 22 }
+		set_temp_variable = { disable_elections = 1 }
+		MAD_RESET_PARTY_LEADER_COUNTER = yes
+		change_ruling_party_effect = yes
+		set_temp_variable = { party_index = 22 }
+		set_temp_variable = { party_popularity_increase = 0.15 }
+		change_relative_party_popularity = yes
+		set_country_flag = MAD_MILITARY_RULE_PATH
+		add_ideas = MAD_POL_MILITARY_GOVERNMENT
+		if = {
+			limit = { has_country_flag = MAD_MODERN_TRANSITION_COUNCIL }
+			add_timed_idea = { idea = MAD_MODERN_TRANSITIONAL_COUNCIL days = 180 }
+		}
+		set_country_flag = MAD_CAPSAT_REVOLT_RESOLVED
+		clr_country_flag = MAD_TGV_CAPSAT_REJECTION
+		clr_country_flag = MAD_TGV_COMMAND_FORCE_CAPSAT
+		clr_country_flag = MAD_TGV_COMMAND_FORCE_GENERAL_STAFF
+		set_country_flag = MAD_MODERN_CRISIS_COMPLETED
+		clr_country_flag = MAD_MODERN_CRISIS_ACTIVE
+	}
+}
+
 # ============================================================================
 # MADAGASCAR ARMY — command and procurement events
 # ============================================================================

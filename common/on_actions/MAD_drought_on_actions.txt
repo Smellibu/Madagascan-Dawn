@@ -8,6 +8,16 @@ on_actions = {
 			if = {
 				limit = { country_exists = MAD }
 				MAD = {
+					if = {
+						limit = { original_tag = MAD NOT = { has_country_flag = MAD_MODERN_MD_PROTESTS_INITIALISED } }
+						set_country_flag = disabled_protests_system
+						remove_mission = MD_incoming_protest_movement
+						remove_mission = MD_incoming_revolt
+						remove_mission = MD_zero_strength_recovery
+						MD_cleanup_protest_revolt = yes
+						clr_country_flag = MD_protest_cooldown
+						set_country_flag = MAD_MODERN_MD_PROTESTS_INITIALISED
+					}
 					MAD_dahalo_init = yes
 					MAD_rural_cooperation_initialize = yes
 					# Mark the first eligible monthly tick independently of when the drought focus starts.
@@ -80,6 +90,16 @@ on_actions = {
 	# Tag-specific monthly hook: this is the only active hook advancing the displacement calendar.
 	on_monthly_MAD = {
 		effect = {
+			if = {
+				limit = { tag = MAD original_tag = MAD is_ai = no has_idea = MAD_MODERN_PROTEST_PRESSURE }
+				add_to_variable = { protest_strength = 4 }
+				clamp_variable = { var = protest_strength min = 0 max = 100 }
+			}
+			if = {
+				limit = { tag = MAD original_tag = MAD is_ai = no date > 2023.12.31 NOT = { has_country_flag = MAD_MODERN_PROTEST_CHECK_QUEUED } NOT = { has_country_flag = MAD_MODERN_PROTEST_CATALYST_ISSUED } NOT = { has_country_flag = MAD_MODERN_PROTEST_CATALYST_FAILED } NOT = { has_country_flag = MAD_MODERN_CRISIS_COMPLETED } }
+				set_country_flag = MAD_MODERN_PROTEST_CHECK_QUEUED
+				country_event = { id = mad_political.99 days = 1 }
+			}
 			# TGV formation/reveal is checked monthly for performance.
 			if = {
 				limit = {
@@ -126,4 +146,14 @@ on_actions = {
 			}
 		}
 	}
+	on_civil_war_end = {
+		effect = {
+			if = {
+				limit = { tag = MAD original_tag = MAD has_country_flag = MAD_MODERN_CIVIL_WAR_CAPITAL_MOVED owns_state = 267 }
+				set_capital = { state = 267 remember_old_capital = no }
+				clr_country_flag = MAD_MODERN_CIVIL_WAR_CAPITAL_MOVED
+			}
+		}
+	}
+
 }

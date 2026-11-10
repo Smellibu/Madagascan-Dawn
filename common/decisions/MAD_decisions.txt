@@ -7219,3 +7219,20 @@ MAD_dip_iles_campaign_decisions = {
 		}
 	}
 }
+
+
+MAD_MODERN_PROTEST_CATEGORY = {
+	MAD_MODERN_PROTEST_PRESSURE_MISSION = {
+		icon = generic_political_discourse
+		selectable_mission = no
+		fire_only_once = yes
+		days_mission_timeout = 365
+		activation = { always = no }
+		available = { always = no }
+		timeout_effect = {
+			log = "[GetDateText]: [Root.GetName]: Modern protest-pressure year elapsed"
+			country_event = mad_political.101
+		}
+		ai_will_do = { base = 0 }
+	}
+}
