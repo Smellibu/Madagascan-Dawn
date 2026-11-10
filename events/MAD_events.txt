@@ -2542,6 +2542,7 @@ country_event = {
 		increase_centralization = yes
 
 		set_temp_variable = { rul_party_temp = 23 }
+		MAD_RESET_PARTY_LEADER_COUNTER = yes
 		change_ruling_party_effect = yes
 		set_temp_variable = { party_index = 15 }
 		ban_party_scripted_call = yes
@@ -2561,6 +2562,7 @@ country_event = {
 		decrease_centralization = yes
 
 		set_temp_variable = { rul_party_temp = 15 }
+		MAD_RESET_PARTY_LEADER_COUNTER = yes
 		change_ruling_party_effect = yes
 		set_temp_variable = { party_index = 23 }
 		ban_party_scripted_call = yes
@@ -2674,29 +2676,13 @@ country_event = {
 				civil_war_replication_effect = yes
 			}
 	
-			set_variable = { ruling_party = v }
 			set_variable = { party_pop_array^v = 0.7 }
 			startup_politics = yes
-			# Convert the selected MD party slot to its HOI4 ideology group.
-			if = {
-				limit = { check_variable = { v < 4 } }
-				set_politics = { ruling_party = democratic elections_allowed = no }
-			}
-			else_if = {
-				limit = { check_variable = { v < 10 } }
-				set_politics = { ruling_party = communism elections_allowed = no }
-			}
-			else_if = {
-				limit = { check_variable = { v < 12 } }
-				set_politics = { ruling_party = fascism elections_allowed = no }
-			}
-			else_if = {
-				limit = { check_variable = { v < 20 } }
-				set_politics = { ruling_party = neutrality elections_allowed = no }
-			}
-			else = {
-				set_politics = { ruling_party = nationalist elections_allowed = no }
-			}
+			# Select the party and let MD derive its ideology and dispatch MAD's party leader.
+			set_temp_variable = { rul_party_temp = v }
+			set_temp_variable = { disable_elections = 1 }
+			MAD_RESET_PARTY_LEADER_COUNTER = yes
+			change_ruling_party_effect = yes
 		}
 	}
 
@@ -2784,6 +2770,7 @@ country_event = {
 
 		# Military party takes power.
 		set_temp_variable = { rul_party_temp = 22 }
+		MAD_RESET_PARTY_LEADER_COUNTER = yes
 		change_ruling_party_effect = yes
 		set_politics = {
 			ruling_party = nationalist
@@ -2822,6 +2809,7 @@ country_event = {
 
 		# TGV becomes the actual ruling MD party.
 		set_temp_variable = { rul_party_temp = 20 }
+		MAD_RESET_PARTY_LEADER_COUNTER = yes
 		change_ruling_party_effect = yes
 		set_politics = {
 			ruling_party = nationalist
@@ -3234,28 +3222,17 @@ country_event = {
 			clear_variable = MAD_RATSIRAKA_CW_PREWAR_NATIONALIST
 
 			# Turn the original, player-controlled Madagascar into AREMA's side.
-			set_politics = {
-				ruling_party = communism
-				elections_allowed = no
-			}
 			add_popularity = {
 				ideology = communism
 				popularity = 0.5
 			}
-
 			start_politics_input = yes
-			set_variable = { ruling_party = 5 }
 			set_variable = { party_pop_array^5 = 0.7 }
 			startup_politics = yes
-
-			create_country_leader = {
-				name = "Didier Ratsiraka"
-				picture = "Didier_Ratsiraka.dds"
-				ideology = anarchist_communism
-				traits = {
-					emerging_anarchist_communism
-				}
-			}
+			set_temp_variable = { rul_party_temp = 5 }
+			set_temp_variable = { disable_elections = 1 }
+			MAD_RESET_PARTY_LEADER_COUNTER = yes
+			change_ruling_party_effect = yes
 		}
 	}
 
@@ -3424,17 +3401,10 @@ country_event = {
 
 	option = {
 		name = mad_political.92.b
-		create_country_leader = {
-			name = "Pierre Raharijaona"
-			picture = "Pierre_Raharijaona.dds"
-			expire = "2050.1.1"
-			ideology = anarchist_communism
-			traits = {
-				emerging_anarchist_communism
-			}
-		}
 		set_country_flag = MAD_RATSIRAKA_RETURN_DENIED
 		set_country_flag = MAD_AREMA_OLD_GUARD_LOCKED
+		set_temp_variable = { rul_party_temp = 5 }
+		MAD_RESET_PARTY_LEADER_COUNTER = yes
 		
 
 	}
@@ -3484,15 +3454,11 @@ country_event = {
 	option = {
 		name = mad_political.95.a
 
-		create_country_leader = {
-			name = "Andry Rajoelina"
-            picture = "Andry_Rajoelina.dds"
-			expire = "2050.1.1"
-			ideology = Nat_Populism
-			traits = {
-				nationalist_Nat_Populism
-				career_politician
-			}
+		set_temp_variable = { rul_party_temp = 20 }
+		MAD_RESET_PARTY_LEADER_COUNTER = yes
+		if = {
+			limit = { check_variable = { ruling_party = 20 } }
+			set_leader = yes
 		}
 	}
 }
@@ -3524,15 +3490,11 @@ country_event = {
 	option = {
 		name = mad_political.96.a
 		# Andry Rajoelina becomes the country leader as the generic party becomes TGV.
-		create_country_leader = {
-			name = "Andry Rajoelina"
-            picture = "Andry_Rajoelina.dds"
-			expire = "2050.1.1"
-			ideology = Nat_Populism
-			traits = {
-				nationalist_Nat_Populism
-				career_politician
-			}
+		set_temp_variable = { rul_party_temp = 20 }
+		MAD_RESET_PARTY_LEADER_COUNTER = yes
+		if = {
+			limit = { check_variable = { ruling_party = 20 } }
+			set_leader = yes
 		}
 	}
 }
@@ -3569,17 +3531,7 @@ country_event = {
 
 	option = {
 		name = mad_political.97.a
-		# Hery becomes the country leader as the generic party becomes HVM.
-		create_country_leader = {
-			name = "Hery Rajaonarimampianina"
-			picture = "Hery_Rajaonarimampianina.dds"
-			expire = "2050.1.1"
-			ideology = conservatism
-			traits = {
-				western_conservatism
-				career_politician
-			}
-		}
+		# Transfer the government from TGV (20 / nationalist) to HVM (1 / democratic).
 		set_temp_variable = { party_index = 20 }
 		set_temp_variable = { party_popularity_increase = -0.05 }
 		set_temp_variable = { temp_outlook_increase = -0.05 }
@@ -3590,6 +3542,11 @@ country_event = {
 		set_temp_variable = { temp_outlook_increase = 0.05 }
 		change_relative_party_popularity = yes
 		recalculate_party = yes
+
+		set_temp_variable = { rul_party_temp = 1 }
+		set_temp_variable = { disable_elections = 0 }
+		MAD_RESET_PARTY_LEADER_COUNTER = yes
+		change_ruling_party_effect = yes
 	}
 }
 
@@ -3955,7 +3912,6 @@ country_event = {
 		
 		clr_country_flag = MAD_MIL_PARTY_LEADER_GENERAL_STAFF
 		MAD_SELECT_CAPSAT_PARTY_LEADER = yes
-		set_variable = { Nat_Autocracy_leader = 0 }
 
 		# Move both the politics-view party and the government to the military party.
 		set_party_index_to_ruling_party = yes
@@ -3963,6 +3919,7 @@ country_event = {
 		change_relative_party_popularity = yes
 		set_temp_variable = { rul_party_temp = 22 }
 		set_temp_variable = { disable_elections = 1 }
+		MAD_RESET_PARTY_LEADER_COUNTER = yes
 		change_ruling_party_effect = yes
 		set_temp_variable = { party_index = 22 }
 		set_temp_variable = { party_popularity_increase = 0.15 }

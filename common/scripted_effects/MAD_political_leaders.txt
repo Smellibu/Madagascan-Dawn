@@ -1,3 +1,19 @@
+# Reset the MAD subideology leader-throughput counter for the party entering government.
+# MD's change_ruling_party_effect calls set_leader; this lets set_leader_MAD
+# rebuild the correct MAD-specific leader on every government transfer.
+MAD_RESET_PARTY_LEADER_COUNTER = {
+	if = { limit = { check_variable = { rul_party_temp = 1 } } set_variable = { conservatism_leader = 0 } }
+	else_if = { limit = { check_variable = { rul_party_temp = 2 } } set_variable = { liberalism_leader = 0 } }
+	else_if = { limit = { check_variable = { rul_party_temp = 3 } } set_variable = { socialism_leader = 0 } }
+	else_if = { limit = { check_variable = { rul_party_temp = 5 } } set_variable = { anarchist_communism_leader = 0 } }
+	else_if = { limit = { check_variable = { rul_party_temp = 13 } } set_variable = { Neutral_Autocracy_leader = 0 } }
+	else_if = { limit = { check_variable = { rul_party_temp = 15 } } set_variable = { oligarchism_leader = 0 } }
+	else_if = { limit = { check_variable = { rul_party_temp = 16 } } set_variable = { Neutral_Libertarian_leader = 0 } }
+	else_if = { limit = { check_variable = { rul_party_temp = 20 } } set_variable = { Nat_Populism_leader = 0 } }
+	else_if = { limit = { check_variable = { rul_party_temp = 22 } } set_variable = { Nat_Autocracy_leader = 0 } }
+	else_if = { limit = { check_variable = { rul_party_temp = 23 } } set_variable = { Monarchist_leader = 0 } }
+}
+
 # Date-aware selection for the military party's leader.
 # Candidate flags persist after a character is retired, so party 22 can
 # recreate the same political leader when it returns to government.
