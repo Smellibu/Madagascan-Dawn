@@ -2677,16 +2677,30 @@ country_event = {
 			set_variable = { ruling_party = v }
 			set_variable = { party_pop_array^v = 0.7 }
 			startup_politics = yes
-			set_politics = { elections_allowed = no }
+			# THIS resolves the selected MD party index to its ideology group.
+			set_politics = { ruling_party = THIS elections_allowed = no }
 		}
 	}
 
 	option = {
 		name = mad_political.93.b
 
-		# Restore elections, then immediately invoke MD's existing election
-		# campaign event rather than sending the player through political.2.
-		set_politics = { elections_allowed = yes }
+		# Preserve the incumbent government's ideology when restoring elections.
+		if = {
+			limit = { has_government = democratic }
+			set_politics = { ruling_party = democratic elections_allowed = yes }
+		}
+		else_if = {
+			limit = { has_government = communism }
+			set_politics = { ruling_party = communism elections_allowed = yes }
+		}
+		else_if = {
+			limit = { has_government = nationalist }
+			set_politics = { ruling_party = nationalist elections_allowed = yes }
+		}
+		else = {
+			set_politics = { ruling_party = neutrality elections_allowed = yes }
+		}
 		country_event = MD4_election_campaign.0
 	}
 }
@@ -2840,7 +2854,7 @@ country_event = {
 		remove_ideas = MAD_POL_MILITARY_GUARDIAN
 		remove_ideas = MAD_POL_MILITARY_GOVERNMENT
 		add_ideas = MAD_MIL_PROFESSIONAL_COMMAND
-		set_politics = { elections_allowed = yes }
+		set_politics = { ruling_party = nationalist elections_allowed = yes }
 		decrease_corruption = yes
 		add_political_power = 35
 		set_temp_variable = { party_index = 22 }
@@ -2856,7 +2870,7 @@ country_event = {
 		remove_ideas = MAD_MIL_PROFESSIONAL_COMMAND
 		remove_ideas = MAD_POL_MILITARY_GOVERNMENT
 		add_ideas = MAD_POL_MILITARY_GUARDIAN
-		set_politics = { elections_allowed = yes }
+		set_politics = { ruling_party = nationalist elections_allowed = yes }
 		add_political_power = 25
 
 		set_temp_variable = { party_index = 22 }
