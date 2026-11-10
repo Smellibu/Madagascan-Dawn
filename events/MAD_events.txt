@@ -2659,23 +2659,26 @@ country_event = {
 				NOT = { check_variable = { MAD_DAEWOO_NEXT_PARTY < 0 } }
 			}
 
-		# Reproduce MD's party-specific revolt/civil-war pattern, using the
-		# largest eligible opposition party found above instead of a GUI slot.
-		set_temp_variable = { v = MAD_DAEWOO_NEXT_PARTY }
-		start_civil_war_with_no_leader_change = yes
-
-		random_other_country = {
-			limit = {
-				original_tag = PREV
-				NOT = { TAG = PREV }
+		custom_effect_tooltip = mad_political.93.a_tt
+		hidden_effect = {
+			# Reproduce MD's party-specific revolt/civil-war pattern, using the
+			# largest eligible opposition party found above instead of a GUI slot.
+			set_temp_variable = { v = MAD_DAEWOO_NEXT_PARTY }
+			start_civil_war_with_no_leader_change = yes
+	
+			random_other_country = {
+				limit = {
+					original_tag = PREV
+					NOT = { TAG = PREV }
+				}
+				civil_war_replication_effect = yes
 			}
-			civil_war_replication_effect = yes
+	
+			set_variable = { ruling_party = v }
+			set_variable = { party_pop_array^v = 0.7 }
+			startup_politics = yes
+			set_politics = { elections_allowed = no }
 		}
-
-		set_variable = { ruling_party = v }
-		set_variable = { party_pop_array^v = 0.7 }
-		startup_politics = yes
-		set_politics = { elections_allowed = no }
 	}
 
 	option = {
