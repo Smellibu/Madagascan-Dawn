@@ -9367,6 +9367,12 @@ focus_tree = {
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_ROY_PEOPLES_GUARDIANS"
 			army_experience = 15
+			custom_effect_tooltip = {
+				localization_key = modifies_dynamic_modifier_tt
+				MODIFIER = MAD_economy_modifier
+			}
+			add_to_variable = { MAD_economy_police_cost_multiplier_modifier = 0.05 tooltip = police_cost_multiplier_modifier_tt }
+			add_to_variable = { MAD_economy_stability_factor = 0.05 tooltip = stability_factor_tt }
 			if = {
 				limit = { has_subdoctrine_in_track = dedicated_doctrine }
 				add_mastery = {
