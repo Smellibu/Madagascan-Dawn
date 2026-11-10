@@ -2542,6 +2542,7 @@ country_event = {
 		increase_centralization = yes
 
 		set_temp_variable = { rul_party_temp = 23 }
+		set_temp_variable = { disable_elections = 1 }
 		MAD_RESET_PARTY_LEADER_COUNTER = yes
 		change_ruling_party_effect = yes
 		set_temp_variable = { party_index = 15 }
@@ -2562,6 +2563,7 @@ country_event = {
 		decrease_centralization = yes
 
 		set_temp_variable = { rul_party_temp = 15 }
+		set_temp_variable = { disable_elections = 1 }
 		MAD_RESET_PARTY_LEADER_COUNTER = yes
 		change_ruling_party_effect = yes
 		set_temp_variable = { party_index = 23 }
@@ -2770,12 +2772,9 @@ country_event = {
 
 		# Military party takes power.
 		set_temp_variable = { rul_party_temp = 22 }
+		set_temp_variable = { disable_elections = 1 }
 		MAD_RESET_PARTY_LEADER_COUNTER = yes
 		change_ruling_party_effect = yes
-		set_politics = {
-			ruling_party = nationalist
-			elections_allowed = no
-		}
 
 		set_temp_variable = { party_index = 20 }
 		set_temp_variable = { party_popularity_increase = 0.05 }
@@ -2809,12 +2808,9 @@ country_event = {
 
 		# TGV becomes the actual ruling MD party.
 		set_temp_variable = { rul_party_temp = 20 }
+		set_temp_variable = { disable_elections = 0 }
 		MAD_RESET_PARTY_LEADER_COUNTER = yes
 		change_ruling_party_effect = yes
-		set_politics = {
-			ruling_party = nationalist
-			elections_allowed = yes
-		}
 
 		# TGV gets the political benefit.
 		set_temp_variable = { party_index = 20 }
