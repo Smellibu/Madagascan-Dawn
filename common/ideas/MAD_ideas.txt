@@ -2429,42 +2429,7 @@ MAD_MIL_CIVILIAN_GUARDIANSHIP = {
 
 		}
 
-		MAD_TIM_TIKO_MIXED = {
-			picture = generic_political_discourse
-			modifier = {
-				political_power_factor = 0.02
-				stability_factor = 0.02
-				receiving_investment_duration_modifier = -0.03
-				receiving_investment_cost_modifier = -0.02
-				bureaucracy_cost_multiplier_modifier = -0.02
-				foreign_influence_defense_modifier = -0.03
-			}
 
-			# Tracks the current earned version of this party idea.
-
-			on_add = {
-
-				set_country_flag = MAD_PI_EARNED_MAD_TIM_TIKO_MIXED
-
-				set_country_flag = MAD_PI_ACTIVE_MAD_TIM_TIKO_MIXED
-
-			}
-
-			on_remove = {
-
-				if = {
-
-					limit = { has_country_flag = MAD_PI_ACTIVE_MAD_TIM_TIKO_MIXED NOT = { has_country_flag = MAD_PI_SYNC_IN_PROGRESS } }
-
-					clr_country_flag = MAD_PI_EARNED_MAD_TIM_TIKO_MIXED
-
-				}
-
-				clr_country_flag = MAD_PI_ACTIVE_MAD_TIM_TIKO_MIXED
-
-			}
-
-		}
 
 		MAD_TGV_REVOLUTIONARY_LEGACY = {
 			picture = generic_political_discourse
