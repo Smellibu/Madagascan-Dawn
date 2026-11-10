@@ -3590,10 +3590,8 @@ country_event = {
 					AND = { has_country_flag = MAD_ARMY_COMMAND_GENERAL_STAFF NOT = { has_country_flag = MAD_ARMY_COMMAND_CAPSAT } }
 				}
 			}
-			# Suppress the generic MD movement system only from the moment the
-			# MAD pressure catalyst begins. Keep MD's shared monthly strength drift:
-			# the cleanup cooldown is immediately cleared after removing old missions.
-			set_country_flag = disabled_protests_system
+			# Remove pre-existing generic MD protest state before the pressure year starts.
+			# The cleanup cooldown is cleared so MD's shared monthly strength drift continues.
 			if = {
 				limit = { NOT = { has_country_flag = MAD_MODERN_MD_PROTESTS_INITIALISED } }
 				remove_mission = MD_incoming_protest_movement
@@ -3607,6 +3605,9 @@ country_event = {
 			set_country_flag = MAD_MODERN_PROTEST_CATALYST_ACTIVE
 			add_timed_idea = { idea = MAD_MODERN_PROTEST_PRESSURE days = 365 }
 			activate_mission = MAD_MODERN_PROTEST_PRESSURE_MISSION
+			# From this point on, only MAD's generic MD movement chain is suppressed.
+			# The shared monthly protest_strength calculation remains active. 
+			set_country_flag = disabled_protests_system
 			country_event = { id = mad_political.100 days = 1 }
 		}
 		else = { country_event = { id = mad_political.99 days = 365 } }
