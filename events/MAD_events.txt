@@ -1972,21 +1972,24 @@ country_event = {
 		modify_treasury_effect = yes
 		add_to_variable = { MAD_dahalo_threat = 5 tooltip = MAD_DAHALO_THREAT_PLUS_5_TT }
 		if = {
-			limit = { check_variable = { MAD_agri_productivity > -0.039 } }
+			limit = {
+				OR = {
+					check_variable = { MAD_agri_productivity > -0.039 }
+					check_variable = { MAD_agri_income_tax > -0.029 }
+				}
+			}
 			custom_effect_tooltip = {
 				localization_key = modifies_dynamic_modifier_tt
 				MODIFIER = MAD_agriculture_modifier
 			}
-
-			add_to_variable = { MAD_agri_productivity = -0.01 tooltip = agricolture_productivity_modifier_tt }
-		}
-		if = {
-			limit = { check_variable = { MAD_agri_income_tax > -0.029 } }
-			custom_effect_tooltip = {
-				localization_key = modifies_dynamic_modifier_tt
-				MODIFIER = MAD_agriculture_modifier
+			if = {
+				limit = { check_variable = { MAD_agri_productivity > -0.039 } }
+				add_to_variable = { MAD_agri_productivity = -0.01 tooltip = agricolture_productivity_modifier_tt }
 			}
-			add_to_variable = { MAD_agri_income_tax = -0.01 tooltip = agriculture_district_income_tax_modifier_tt }
+			if = {
+				limit = { check_variable = { MAD_agri_income_tax > -0.029 } }
+				add_to_variable = { MAD_agri_income_tax = -0.01 tooltip = agriculture_district_income_tax_modifier_tt }
+			}
 		}
 		add_stability = -0.02
 
@@ -2001,21 +2004,24 @@ country_event = {
 		}
 		add_to_variable = { MAD_dahalo_threat = 8 tooltip = MAD_DAHALO_THREAT_PLUS_8_TT }
 		if = {
-			limit = { check_variable = { MAD_agri_productivity > -0.039 } }
+			limit = {
+				OR = {
+					check_variable = { MAD_agri_productivity > -0.039 }
+					check_variable = { MAD_agri_income_tax > -0.029 }
+				}
+			}
 			custom_effect_tooltip = {
 				localization_key = modifies_dynamic_modifier_tt
 				MODIFIER = MAD_agriculture_modifier
 			}
-
-			add_to_variable = { MAD_agri_productivity = -0.05 tooltip = agricolture_productivity_modifier_tt }
-		}
-		if = {
-			limit = { check_variable = { MAD_agri_income_tax > -0.029 } }
-			custom_effect_tooltip = {
-				localization_key = modifies_dynamic_modifier_tt
-				MODIFIER = MAD_agriculture_modifier
+			if = {
+				limit = { check_variable = { MAD_agri_productivity > -0.039 } }
+				add_to_variable = { MAD_agri_productivity = -0.05 tooltip = agricolture_productivity_modifier_tt }
 			}
-			add_to_variable = { MAD_agri_income_tax = -0.02 tooltip = agriculture_district_income_tax_modifier_tt }
+			if = {
+				limit = { check_variable = { MAD_agri_income_tax > -0.029 } }
+				add_to_variable = { MAD_agri_income_tax = -0.02 tooltip = agriculture_district_income_tax_modifier_tt }
+			}
 		}
 		add_stability = -0.03
 		MAD_dahalo_update_modifier = yes
