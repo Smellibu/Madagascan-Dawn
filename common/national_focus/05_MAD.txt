@@ -10145,13 +10145,8 @@ focus_tree = {
 			recalculate_party = yes
 			add_political_power = 25
 			add_ideas = MAD_POL_MILITARY_GUARDIAN
-				if = {
-					limit = {
-						has_elections = no
-					}
-			
-				set_politics = { ruling_party = nationalist elections_allowed = yes }
-				}
+			set_politics = { ruling_party = nationalist elections_allowed = yes }
+			custom_effect_tooltip = MAD_POL_MIL_PROTECT_BALLOT_ELECTION_BAN_TT
 		}
 
 		ai_will_do = {
