@@ -3880,6 +3880,11 @@ country_event = {
 			# do not allow the generic MD protest chain to start on its tag.
 			set_country_flag = disabled_protests_system
 			set_country_flag = MAD_MODERN_MD_PROTESTS_INITIALISED
+			# If this side later inherits the MAD tag after winning, the monthly
+			# scheduler must recognise the crisis as already resolved.
+			set_country_flag = MAD_MODERN_CIVILIAN_RESISTANCE
+			set_country_flag = MAD_MODERN_CIVIL_WAR_STARTED
+			set_country_flag = MAD_MODERN_CRISIS_COMPLETED
 			set_country_flag = MAD_CAPSAT_REVOLT_RESOLVED
 			set_country_flag = MAD_ARMY_COMMAND_DECIDED
 			if = {
