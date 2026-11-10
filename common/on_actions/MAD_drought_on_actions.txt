@@ -19,6 +19,18 @@ on_actions = {
 						clr_country_flag = disabled_protests_system
 						clr_country_flag = MAD_MODERN_MD_PROTESTS_INITIALISED
 					}
+					# Repair saves from the earlier permanent-suppression implementation.
+					if = {
+						limit = {
+							original_tag = MAD
+							OR = {
+								has_country_flag = MAD_MODERN_PROTEST_CATALYST_FAILED
+								has_country_flag = MAD_MODERN_CRISIS_COMPLETED
+							}
+						}
+						clr_country_flag = disabled_protests_system
+						clr_country_flag = MAD_TGV_CAPSAT_REVOLT_DEFERRED
+					}
 					MAD_dahalo_init = yes
 					MAD_rural_cooperation_initialize = yes
 					# Mark the first eligible monthly tick independently of when the drought focus starts.
