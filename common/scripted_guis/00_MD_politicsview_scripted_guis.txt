@@ -419,6 +419,7 @@ scripted_gui = {
 					# MAD: Protect the Ballot prevents the military party from suspending elections while it remains in power.
 					NOT = {
 						AND = {
+							tag = MAD
 							has_completed_focus = MAD_POL_MIL_PROTECT_BALLOT
 							MAD_MIL_IN_POWER = yes
 						}
