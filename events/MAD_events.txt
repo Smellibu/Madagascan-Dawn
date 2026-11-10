@@ -2677,8 +2677,26 @@ country_event = {
 			set_variable = { ruling_party = v }
 			set_variable = { party_pop_array^v = 0.7 }
 			startup_politics = yes
-			# THIS resolves the selected MD party index to its ideology group.
-			set_politics = { ruling_party = THIS elections_allowed = no }
+			# Convert the selected MD party slot to its HOI4 ideology group.
+			if = {
+				limit = { check_variable = { v < 4 } }
+				set_politics = { ruling_party = democratic elections_allowed = no }
+			}
+			else_if = {
+				limit = { check_variable = { v < 10 } }
+				set_politics = { ruling_party = communism elections_allowed = no }
+			}
+			else_if = {
+				limit = { check_variable = { v < 12 } }
+				set_politics = { ruling_party = fascism elections_allowed = no }
+			}
+			else_if = {
+				limit = { check_variable = { v < 20 } }
+				set_politics = { ruling_party = neutrality elections_allowed = no }
+			}
+			else = {
+				set_politics = { ruling_party = nationalist elections_allowed = no }
+			}
 		}
 	}
 
