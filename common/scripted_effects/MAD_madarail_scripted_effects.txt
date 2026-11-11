@@ -5338,3 +5338,23 @@ MAD_rural_cooperation_boost_state_relief = {
 		multiply_temp_variable = { MAD_dr_state_famine = MAD_drought_relief_effectiveness }
 	}
 }
+
+# ---------------------------------------------------------------------------
+# Historical political-tree visibility markers.
+# These are called only from decisive historical events; the focus tree also
+# has a direct 1 January 2009 fallback, so no recurring polling is needed.
+# Both helpers are idempotent and have no gameplay side effects.
+# ---------------------------------------------------------------------------
+MAD_UNLOCK_POL_CONTENT_2002_2009 = {
+	if = {
+		limit = { NOT = { has_country_flag = MAD_POL_CONTENT_2002_2009_UNLOCKED } }
+		set_country_flag = MAD_POL_CONTENT_2002_2009_UNLOCKED
+	}
+}
+
+MAD_UNLOCK_POL_CONTENT_2009_2025 = {
+	if = {
+		limit = { NOT = { has_country_flag = MAD_POL_CONTENT_2009_2025_UNLOCKED } }
+		set_country_flag = MAD_POL_CONTENT_2009_2025_UNLOCKED
+	}
+}

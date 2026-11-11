@@ -2511,6 +2511,7 @@ country_event = {
 
 add_namespace = mad_political
 add_namespace = mad_ratsiraka
+add_namespace = MAD_military_refoundation
 
 # ---------------------------------------------------------------------------
 # 1. Royal Crown Question
@@ -2629,6 +2630,7 @@ country_event = {
 
 	immediate = {
 		set_country_flag = MAD_DAEWOO_POLITICAL_FALLOUT_DONE
+		MAD_UNLOCK_POL_CONTENT_2009_2025 = yes
 
 		# Find the largest eligible opposition party.
 		# MD's party system stores party support in party_pop_array^index.
@@ -2727,6 +2729,7 @@ country_event = {
 
 	immediate = {
 		set_country_flag = MAD_DAEWOO_POLITICAL_FALLOUT_DONE
+		MAD_UNLOCK_POL_CONTENT_2009_2025 = yes
 	}
 
 	# ============================================================
@@ -3230,6 +3233,7 @@ country_event = {
 			MAD_RESET_PARTY_LEADER_COUNTER = yes
 			change_ruling_party_effect = yes
 		}
+		MAD_UNLOCK_POL_CONTENT_2002_2009 = yes
 	}
 
 	option = {
@@ -3245,6 +3249,7 @@ country_event = {
 		set_country_flag = MAD_RATSIRAKA_EXILE_EVENT_PENDING
 		set_variable = { MAD_RATSIRAKA_FORMATION_STABLE_DAYS = 0 }
 		country_event = { id = mad_ratsiraka.2 days = 1 }
+		MAD_UNLOCK_POL_CONTENT_2002_2009 = yes
 	}
 }
 
@@ -3269,6 +3274,7 @@ country_event = {
 		set_country_flag = MAD_AREMA_BANNED
 		set_temp_variable = { party_index = 5 }
 		ban_party_scripted_call = yes
+		MAD_UNLOCK_POL_CONTENT_2002_2009 = yes
 	}
 }
 
