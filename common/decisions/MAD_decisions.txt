@@ -5442,43 +5442,7 @@ MAD_OWNERSHIP_BOP = {
 		ai_will_do = { base = 0 }
 	}
 
-	MAD_POLICY_MILITARY_ENGINEER_MANDATE = {
-		icon = generic_construction
-		visible = { MAD_POL_MIL_POST_2025_ROUTE_AVAILABLE = yes }
-		allowed = { MAD_POL_MIL_POST_2025_ROUTE_AVAILABLE = yes }
-		available = {
-			has_completed_focus = MAD_POL_MIL_TAKES_RESPONSIBILITY
-			has_completed_focus = MAD_POL_MIL_ENGINEERS
-			MAD_POL_MIL_POST_2025_ROUTE_AVAILABLE = yes
-			custom_trigger_tooltip = {
-				tooltip = MAD_POLICY_RC_REQUIRE_2_TT
-				check_variable = { MAD_rural_cooperation > 1.99 }
-			}
-		}
-		cost = 50
-		fire_only_once = yes
-		days_remove = 30
-		custom_cost_trigger = { always = yes }
-		custom_cost_text = cost_0_75
-		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision MAD_POLICY_MILITARY_ENGINEER_MANDATE started"
-			set_temp_variable = { treasury_change = -0.75 }
-			modify_treasury_effect = yes
-			set_temp_variable = { MAD_rc_delta = -3 }
-			MAD_rural_cooperation_adjust = yes
-		}
-		remove_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision MAD_POLICY_MILITARY_ENGINEER_MANDATE completed"
-			if = {
-				limit = { has_idea = the_military }
-				set_temp_variable = { temp_opinion = 10 }
-				change_the_military_opinion = yes
-			}
-			add_timed_idea = { idea = MAD_POLICY_MILITARY_ENGINEER_MANDATE_IDEA days = 1095 }
-			add_power_balance_value = { id = MAD_economy_ownership_bop value = 0.02 tooltip_side = MAD_public_ownership }
-		}
-		ai_will_do = { base = 0 }
-	}
+
 
 	MAD_POLICY_AREMA_MILLING_BOARD = {
 		icon = generic_industry
@@ -6145,7 +6109,7 @@ MAD_royal_political_category = {
 
 # ---------------------------------------------------------------------------
 # Military refoundation decisions
-# Closed automatically when the military is no longer the ruling party.
+# MAD is registered at game start; early projects and the post-2025 route control visibility, while each decision retains its own gates.
 # ---------------------------------------------------------------------------
 MAD_military_refoundation_category = {
 
@@ -6321,6 +6285,45 @@ MAD_military_refoundation_category = {
 			}
 		}
 		ai_will_do = { base = 1 }
+	}
+
+
+	MAD_POLICY_MILITARY_ENGINEER_MANDATE = {
+		icon = generic_construction
+		visible = { MAD_POL_MIL_POST_2025_ROUTE_AVAILABLE = yes }
+		allowed = { MAD_POL_MIL_POST_2025_ROUTE_AVAILABLE = yes }
+		available = {
+			has_completed_focus = MAD_POL_MIL_TAKES_RESPONSIBILITY
+			has_completed_focus = MAD_POL_MIL_ENGINEERS
+			MAD_POL_MIL_POST_2025_ROUTE_AVAILABLE = yes
+			custom_trigger_tooltip = {
+				tooltip = MAD_POLICY_RC_REQUIRE_2_TT
+				check_variable = { MAD_rural_cooperation > 1.99 }
+			}
+		}
+		cost = 50
+		fire_only_once = yes
+		days_remove = 30
+		custom_cost_trigger = { always = yes }
+		custom_cost_text = cost_0_75
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_POLICY_MILITARY_ENGINEER_MANDATE started"
+			set_temp_variable = { treasury_change = -0.75 }
+			modify_treasury_effect = yes
+			set_temp_variable = { MAD_rc_delta = -3 }
+			MAD_rural_cooperation_adjust = yes
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_POLICY_MILITARY_ENGINEER_MANDATE completed"
+			if = {
+				limit = { has_idea = the_military }
+				set_temp_variable = { temp_opinion = 10 }
+				change_the_military_opinion = yes
+			}
+			add_timed_idea = { idea = MAD_POLICY_MILITARY_ENGINEER_MANDATE_IDEA days = 1095 }
+			add_power_balance_value = { id = MAD_economy_ownership_bop value = 0.02 tooltip_side = MAD_public_ownership }
+		}
+		ai_will_do = { base = 0 }
 	}
 }
 # ---------------------------------------------------------------------------
