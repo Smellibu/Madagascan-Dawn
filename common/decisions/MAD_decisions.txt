@@ -6173,7 +6173,10 @@ MAD_military_refoundation_category = {
 			set_temp_variable = { MAD_rc_delta = 2 }
 			MAD_rural_cooperation_adjust = yes
 			if = {
-				limit = { NOT = { has_country_flag = MAD_DAHALO_DEFEATED } }
+				limit = {
+					NOT = { has_country_flag = MAD_DAHALO_DEFEATED }
+					check_variable = { MAD_dahalo_threat > 0 }
+				}
 				add_to_variable = { MAD_dahalo_threat = -2 tooltip = MAD_DAHALO_THREAT_MINUS_2_TT }
 				MAD_dahalo_update_modifier = yes
 			}
@@ -6216,20 +6219,34 @@ MAD_military_refoundation_category = {
 		fire_only_once = yes
 		days_remove = 120
 		allowed = { MAD_POL_MIL_POST_2025_ROUTE_AVAILABLE = yes }
-		visible = { MAD_POL_MIL_POST_2025_ROUTE_AVAILABLE = yes has_country_flag = MAD_MIL_CRDSN_REVIVED }
+		visible = {
+			MAD_POL_MIL_POST_2025_ROUTE_AVAILABLE = yes
+			has_country_flag = MAD_MIL_NATIONAL_CONSULTATION_DONE
+		}
 		available = {
 			MAD_POL_MIL_POST_2025_ROUTE_AVAILABLE = yes
-			has_country_flag = MAD_MIL_CRDSN_REVIVED
+			has_country_flag = MAD_MIL_NATIONAL_CONSULTATION_DONE
 			NOT = { has_country_flag = MAD_MIL_OFFICER_CONFERENCE_HELD }
 		}
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_MILITARY_OFFICER_CONFERENCE started"
 			set_country_flag = MAD_MIL_OFFICER_CONFERENCE_ACTIVE
+			set_country_flag = MAD_MIL_CRDSN_ACTIVE
 		}
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_MILITARY_OFFICER_CONFERENCE completed"
 			clr_country_flag = MAD_MIL_OFFICER_CONFERENCE_ACTIVE
+			clr_country_flag = MAD_MIL_CRDSN_ACTIVE
 			set_country_flag = MAD_MIL_OFFICER_CONFERENCE_HELD
+			set_country_flag = MAD_MIL_SECURITY_COMMITTEE_MANDATE
+			if = {
+				limit = { has_country_flag = MAD_MIL_CRDSN_REVIVED }
+				custom_effect_tooltip = MAD_MIL_CRDSN_COMMITTEE_MANDATE_TT
+			}
+			else_if = {
+				limit = { has_country_flag = MAD_MIL_CIVIC_FORUM }
+				custom_effect_tooltip = MAD_MIL_CIVIC_SECURITY_FORUM_TT
+			}
 			if = {
 				limit = { has_idea = the_military }
 				set_temp_variable = { temp_opinion = 5 }
