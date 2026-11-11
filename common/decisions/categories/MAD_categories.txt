@@ -58,11 +58,13 @@ MAD_OWNERSHIP_BOP = {
 	}
 }
 MAD_military_refoundation_category = {
-	allowed = {
-		MAD_MIL_IN_POWER = yes
-	}
+	allowed = { tag = MAD }
 	visible = {
-		MAD_MIL_IN_POWER = yes
+		OR = {
+			has_country_flag = MAD_MIL_RURAL_GENDARMERIE_REVIEWED
+			has_country_flag = MAD_MIL_MOBILE_RESPONSE_PROJECT_UNLOCKED
+			MAD_POL_MIL_POST_2025_ROUTE_AVAILABLE = yes
+		}
 	}
 	priority = 95
 	visible_when_empty = no
