@@ -6194,7 +6194,7 @@ MAD_military_refoundation_category = {
 		available = {
 			has_country_flag = MAD_MIL_MOBILE_RESPONSE_PROJECT_UNLOCKED
 			NOT = { has_country_flag = MAD_MIL_MOBILE_RESPONSE_PROJECT_DONE }
-			any_owned_state = { is_coastal = yes infrastructure_random_build_loc = yes }
+			any_owned_state = { is_coastal = yes is_controlled_by = ROOT infrastructure_random_build_loc = yes }
 		}
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_MILITARY_MOBILE_RESPONSE_PROJECT started"

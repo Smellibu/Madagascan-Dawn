@@ -9977,6 +9977,7 @@ focus_tree = {
 		available = {
 			any_owned_state = {
 				is_capital = no
+				is_controlled_by = ROOT
 				infrastructure_random_build_loc = yes
 			}
 		}
@@ -10784,6 +10785,10 @@ focus_tree = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_MIL_POST_2025_ROUTE_TT
 				MAD_POL_MIL_POST_2025_ROUTE_AVAILABLE = yes
+			}
+			custom_trigger_tooltip = {
+				tooltip = MAD_MIL_PUBLIC_ACCOUNTS_REQUIREMENT_TT
+				has_idea = MAD_MIL_PUBLIC_INTEGRITY_II
 			}
 		}
 
