@@ -9945,6 +9945,129 @@ focus_tree = {
 	}
 
 	focus = {
+		id = MAD_POL_MIL_PRE2002_OFFICER_CORPS
+		icon = military_academy
+		x = 18
+		y = 13
+		cost = 3
+		prerequisite = { focus = MAD_POL_PARTIES }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_MIL_PRE2002_OFFICER_CORPS"
+			set_country_flag = MAD_MIL_PRE2002_PERSONNEL_REVIEW_PENDING
+			country_event = { id = MAD_military_refoundation.1 days = 1 }
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_POL_MIL_PRE2002_DEVELOPMENT_STAFF
+		icon = construction
+		x = -1
+		y = 1
+		relative_position_id = MAD_POL_MIL_PRE2002_OFFICER_CORPS
+		cost = 3
+		prerequisite = { focus = MAD_POL_MIL_PRE2002_OFFICER_CORPS }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_MIL_PRE2002_DEVELOPMENT_STAFF"
+			set_country_flag = MAD_MIL_DEVELOPMENT_ROLE_RETAINED
+			set_temp_variable = { treasury_change = -1.00 }
+			modify_treasury_effect = yes
+			266 = {
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_POL_MIL_PRE2002_GENDARMERIE
+		icon = Generic_Policeman
+		x = 1
+		y = 1
+		relative_position_id = MAD_POL_MIL_PRE2002_OFFICER_CORPS
+		cost = 3
+		prerequisite = { focus = MAD_POL_MIL_PRE2002_OFFICER_CORPS }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_MIL_PRE2002_GENDARMERIE"
+			set_country_flag = MAD_MIL_RURAL_GENDARMERIE_REVIEWED
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_POL_MIL_SECURITY_SECTOR_REVIEW
+		icon = police_station
+		x = 0
+		y = 1
+		relative_position_id = MAD_POL_MIL_LESSON_2002
+		cost = 3
+		prerequisite = { focus = MAD_POL_MIL_LESSON_2002 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		visible = {
+			OR = {
+			has_country_flag = MAD_POL_CONTENT_2002_2009_UNLOCKED
+			date > 2009.1.1
+		}
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_MIL_SECURITY_SECTOR_REVIEW"
+			set_country_flag = MAD_MIL_SECURITY_SECTOR_REVIEW_PENDING
+			country_event = { id = MAD_military_refoundation.2 days = 1 }
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_POL_MIL_MAPUTO_CHARTER
+		icon = diplomatic_treaty
+		x = 0
+		y = 1
+		relative_position_id = MAD_POL_MIL_LESSON_2009
+		cost = 3
+		prerequisite = { focus = MAD_POL_MIL_LESSON_2009 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		visible = {
+			OR = {
+			has_country_flag = MAD_POL_CONTENT_2009_2025_UNLOCKED
+			date > 2009.1.1
+		}
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_MIL_MAPUTO_CHARTER"
+			set_country_flag = MAD_MIL_MAPUTO_CHARTER_PENDING
+			country_event = { id = MAD_military_refoundation.3 days = 1 }
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
 		id = MAD_POL_MIL_TAKES_RESPONSIBILITY
 		icon = war
 		x = 29
@@ -10001,6 +10124,7 @@ focus_tree = {
 
 	focus = {
 		id = MAD_POL_MIL_CHAIN_OF_COMMAND
+		visible = { always = no }
 		icon = Generic_Command_Power
 		x = 0
 		y = 1
@@ -10029,6 +10153,7 @@ focus_tree = {
 
 	focus = {
 		id = MAD_POL_MIL_PROFESSIONAL_OFFICERS
+		visible = { always = no }
 		icon = military_academy
 		x = -1
 		y = 1
@@ -10055,32 +10180,25 @@ focus_tree = {
 		}
 	}
 
-	focus = {
+		focus = {
 		id = MAD_POL_MIL_LESSON_2002
 		icon = demand_territory
-		x = 1
-		y = 1
-		relative_position_id = MAD_POL_MIL_CHAIN_OF_COMMAND
+		x = 0
+		y = 2
+		relative_position_id = MAD_POL_MIL_PRE2002_OFFICER_CORPS
 		cost = 3
-		prerequisite = { focus = MAD_POL_MIL_CHAIN_OF_COMMAND }
+		prerequisite = { focus = MAD_POL_MIL_PRE2002_OFFICER_CORPS }
 		search_filters = { FOCUS_FILTER_POLITICAL }
-		available = {
-			custom_trigger_tooltip = {
-				tooltip = MAD_MIL_IN_POWER_tt
-				MAD_MIL_IN_POWER = yes
-			}
+		visible = {
+			OR = {
+			has_country_flag = MAD_POL_CONTENT_2002_2009_UNLOCKED
+			date > 2009.1.1
+		}
 		}
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_MIL_LESSON_2002"
-			add_political_power = 50
-			set_temp_variable = { party_index = 22 }
-			set_temp_variable = { party_popularity_increase = 0.04 }
-			set_temp_variable = { temp_outlook_increase = 0.04 }
-			change_relative_party_popularity = yes
-			recalculate_party = yes
-			add_stability = 0.03
-			army_experience = 50
+			set_country_flag = MAD_MIL_LESSON_2002_RECORDED
 		}
 
 		ai_will_do = {
@@ -10088,30 +10206,36 @@ focus_tree = {
 		}
 	}
 
-	focus = {
+		focus = {
 		id = MAD_POL_MIL_LESSON_2009
 		icon = army_general_stuff1
-		x = 0
+		x = 2
 		y = 1
 		relative_position_id = MAD_POL_MIL_LESSON_2002
 		cost = 3
 		prerequisite = { focus = MAD_POL_MIL_LESSON_2002 }
 		search_filters = { FOCUS_FILTER_POLITICAL }
-		available = {
-			custom_trigger_tooltip = {
-				tooltip = MAD_MIL_IN_POWER_tt
-				MAD_MIL_IN_POWER = yes
-			}
+		visible = {
+			OR = {
+			has_country_flag = MAD_POL_CONTENT_2009_2025_UNLOCKED
+			date > 2009.1.1
+		}
 		}
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_MIL_LESSON_2009"
-			add_political_power = 75
-			army_experience = 100
-			set_temp_variable = { party_index = 22 }
-			set_temp_variable = { party_popularity_increase = 0.04 }
-			change_relative_party_popularity = yes
-			recalculate_party = yes
+			set_country_flag = MAD_MIL_LESSON_2009_RECORDED
+			if = {
+				limit = {
+					has_civil_war = no
+					NOT = { has_country_flag = MAD_ARMY_COMMAND_DECIDED }
+					NOT = { has_country_flag = MAD_TGV_COMMAND_FORCE_CAPSAT }
+					NOT = { has_country_flag = MAD_TGV_COMMAND_FORCE_GENERAL_STAFF }
+					NOT = { has_country_flag = MAD_ARMY_COMMAND_CAPSAT }
+					NOT = { has_country_flag = MAD_ARMY_COMMAND_GENERAL_STAFF }
+				}
+				country_event = { id = MAD_military_command.1 days = 1 }
+			}
 		}
 
 		ai_will_do = {
@@ -10201,6 +10325,7 @@ focus_tree = {
 
 	focus = {
 		id = MAD_POL_MIL_CAPSAT_LESSON
+		visible = { always = no }
 		icon = army_doctrine
 		x = 0
 		y = 1
@@ -10363,6 +10488,7 @@ focus_tree = {
 
 	focus = {
 		id = MAD_POL_MIL_NEVER_DIVIDED
+		visible = { always = no }
 		icon = army_doctrine
 		x = 1
 		y = 2
@@ -10399,6 +10525,7 @@ focus_tree = {
 
 	focus = {
 		id = MAD_POL_MIL_MARITIME_SECURITY
+		visible = { always = no }
 		icon = navy
 		x = 0
 		y = 1
@@ -10429,6 +10556,7 @@ focus_tree = {
 
 	focus = {
 		id = MAD_POL_MIL_MULTILATERAL_DOCTRINE
+		visible = { always = no }
 		icon = diplomatic_treaty
 		x = 0
 		y = 1

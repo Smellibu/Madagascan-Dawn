@@ -1947,6 +1947,103 @@ MAD_MIL_CIVILIAN_GUARDIANSHIP = {
 		clr_country_flag = MAD_PI_ACTIVE_MAD_MIL_CIVILIAN_GUARDIANSHIP
 	}
 }
+		MAD_MIL_PRE2002_PERSONNEL_PROGRAMME = {
+			name = MAD_MIL_PRE2002_PERSONNEL_PROGRAMME
+			picture = generic_political_discourse
+			allowed_civil_war = { always = yes }
+			cost = 0
+			removal_cost = -1
+			modifier = {
+				minimum_training_level = 0.05
+				military_leader_cost_factor = -0.05
+				experience_gain_army_factor = 0.02
+			}
+			on_add = {
+				set_country_flag = MAD_PI_EARNED_MAD_MIL_PRE2002_PERSONNEL_PROGRAMME
+				set_country_flag = MAD_PI_ACTIVE_MAD_MIL_PRE2002_PERSONNEL_PROGRAMME
+			}
+			on_remove = {
+				if = {
+					limit = { has_country_flag = MAD_PI_ACTIVE_MAD_MIL_PRE2002_PERSONNEL_PROGRAMME NOT = { has_country_flag = MAD_PI_SYNC_IN_PROGRESS } }
+					clr_country_flag = MAD_PI_EARNED_MAD_MIL_PRE2002_PERSONNEL_PROGRAMME
+				}
+				clr_country_flag = MAD_PI_ACTIVE_MAD_MIL_PRE2002_PERSONNEL_PROGRAMME
+			}
+		}
+
+		MAD_MIL_PRE2002_PRESIDENTIAL_NETWORK = {
+			name = MAD_MIL_PRE2002_PRESIDENTIAL_NETWORK
+			picture = generic_political_discourse
+			allowed_civil_war = { always = yes }
+			cost = 0
+			removal_cost = -1
+			modifier = {
+				political_power_factor = 0.05
+				personnel_cost_multiplier_modifier = 0.05
+				military_spending_cost_factor = 0.02
+			}
+			on_add = {
+				set_country_flag = MAD_PI_EARNED_MAD_MIL_PRE2002_PRESIDENTIAL_NETWORK
+				set_country_flag = MAD_PI_ACTIVE_MAD_MIL_PRE2002_PRESIDENTIAL_NETWORK
+			}
+			on_remove = {
+				if = {
+					limit = { has_country_flag = MAD_PI_ACTIVE_MAD_MIL_PRE2002_PRESIDENTIAL_NETWORK NOT = { has_country_flag = MAD_PI_SYNC_IN_PROGRESS } }
+					clr_country_flag = MAD_PI_EARNED_MAD_MIL_PRE2002_PRESIDENTIAL_NETWORK
+				}
+				clr_country_flag = MAD_PI_ACTIVE_MAD_MIL_PRE2002_PRESIDENTIAL_NETWORK
+			}
+		}
+
+		MAD_MIL_SECURITY_SECTOR_REFORM = {
+			name = MAD_MIL_SECURITY_SECTOR_REFORM
+			picture = generic_political_discourse
+			allowed_civil_war = { always = yes }
+			cost = 0
+			removal_cost = -1
+			modifier = {
+				personnel_cost_multiplier_modifier = -0.05
+				police_cost_multiplier_modifier = -0.03
+				required_garrison_factor = -0.05
+				root_out_resistance_effectiveness_factor = 0.05
+				production_speed_dockyard_factor = 0.02
+			}
+			on_add = {
+				set_country_flag = MAD_PI_EARNED_MAD_MIL_SECURITY_SECTOR_REFORM
+				set_country_flag = MAD_PI_ACTIVE_MAD_MIL_SECURITY_SECTOR_REFORM
+			}
+			on_remove = {
+				if = {
+					limit = { has_country_flag = MAD_PI_ACTIVE_MAD_MIL_SECURITY_SECTOR_REFORM NOT = { has_country_flag = MAD_PI_SYNC_IN_PROGRESS } }
+					clr_country_flag = MAD_PI_EARNED_MAD_MIL_SECURITY_SECTOR_REFORM
+				}
+				clr_country_flag = MAD_PI_ACTIVE_MAD_MIL_SECURITY_SECTOR_REFORM
+			}
+		}
+
+		MAD_MIL_MOBILE_RESPONSE_CAPACITY = {
+			name = MAD_MIL_MOBILE_RESPONSE_CAPACITY
+			picture = generic_political_discourse
+			allowed_civil_war = { always = yes }
+			cost = 0
+			removal_cost = -1
+			modifier = {
+				production_speed_infrastructure_factor = 0.02
+				production_speed_dockyard_factor = 0.02
+				experience_gain_navy_factor = 0.01
+			}
+			on_add = {
+				set_country_flag = MAD_PI_EARNED_MAD_MIL_MOBILE_RESPONSE_CAPACITY
+				set_country_flag = MAD_PI_ACTIVE_MAD_MIL_MOBILE_RESPONSE_CAPACITY
+			}
+			on_remove = {
+				if = {
+					limit = { has_country_flag = MAD_PI_ACTIVE_MAD_MIL_MOBILE_RESPONSE_CAPACITY NOT = { has_country_flag = MAD_PI_SYNC_IN_PROGRESS } }
+					clr_country_flag = MAD_PI_EARNED_MAD_MIL_MOBILE_RESPONSE_CAPACITY
+				}
+				clr_country_flag = MAD_PI_ACTIVE_MAD_MIL_MOBILE_RESPONSE_CAPACITY
+			}
+		}
 		MAD_AREMA_OLD_GUARD = {
 			picture = generic_political_discourse
 			modifier = {

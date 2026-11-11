@@ -8969,3 +8969,95 @@ country_event = {
 		log = "[GetDateText]: [This.GetName]: [FROM.GetName] declined Madagascar's proposal"
 	}
 }
+
+
+# ============================================================================
+# Military refoundation programme - historical stages 0-2
+# Separate namespace; do not renumber the existing mad_political events.
+# ============================================================================
+country_event = {
+	id = MAD_military_refoundation.1
+	title = MAD_military_refoundation.1.t
+	desc = MAD_military_refoundation.1.d
+	picture = GFX_report_event_generic_political
+	is_triggered_only = yes
+	fire_only_once = yes
+	trigger = { has_country_flag = MAD_MIL_PRE2002_PERSONNEL_REVIEW_PENDING }
+	immediate = { clr_country_flag = MAD_MIL_PRE2002_PERSONNEL_REVIEW_PENDING }
+
+	option = {
+		name = MAD_military_refoundation.1.a
+		set_country_flag = MAD_MIL_PRE2002_MERIT_PATH
+		clr_country_flag = MAD_MIL_PRE2002_PRESIDENTIAL_PATH
+		remove_ideas = MAD_MIL_PRE2002_PRESIDENTIAL_NETWORK
+		add_timed_idea = { idea = MAD_MIL_PRE2002_PERSONNEL_PROGRAMME days = 1095 }
+	}
+	option = {
+		name = MAD_military_refoundation.1.b
+		set_country_flag = MAD_MIL_PRE2002_PRESIDENTIAL_PATH
+		clr_country_flag = MAD_MIL_PRE2002_MERIT_PATH
+		remove_ideas = MAD_MIL_PRE2002_PERSONNEL_PROGRAMME
+		add_timed_idea = { idea = MAD_MIL_PRE2002_PRESIDENTIAL_NETWORK days = 1095 }
+	}
+}
+
+country_event = {
+	id = MAD_military_refoundation.2
+	title = MAD_military_refoundation.2.t
+	desc = MAD_military_refoundation.2.d
+	picture = GFX_report_event_generic_political
+	is_triggered_only = yes
+	fire_only_once = yes
+	trigger = { has_country_flag = MAD_MIL_SECURITY_SECTOR_REVIEW_PENDING }
+	immediate = { clr_country_flag = MAD_MIL_SECURITY_SECTOR_REVIEW_PENDING }
+
+	option = {
+		name = MAD_military_refoundation.2.a
+		set_country_flag = MAD_MIL_SECURITY_REFORM_IMPOSED
+		clr_country_flag = MAD_MIL_SECURITY_REFORM_CONSULTED
+		remove_ideas = MAD_MIL_MOBILE_RESPONSE_CAPACITY
+		add_timed_idea = { idea = MAD_MIL_SECURITY_SECTOR_REFORM days = 1095 }
+		if = {
+			limit = { has_idea = the_military }
+			set_temp_variable = { temp_opinion = -10 }
+			change_the_military_opinion = yes
+		}
+	}
+	option = {
+		name = MAD_military_refoundation.2.b
+		set_country_flag = MAD_MIL_SECURITY_REFORM_CONSULTED
+		clr_country_flag = MAD_MIL_SECURITY_REFORM_IMPOSED
+		remove_ideas = MAD_MIL_SECURITY_SECTOR_REFORM
+		set_country_flag = MAD_MIL_MOBILE_RESPONSE_PROJECT_UNLOCKED
+		if = {
+			limit = { has_idea = the_military }
+			set_temp_variable = { temp_opinion = 5 }
+			change_the_military_opinion = yes
+		}
+	}
+}
+
+country_event = {
+	id = MAD_military_refoundation.3
+	title = MAD_military_refoundation.3.t
+	desc = MAD_military_refoundation.3.d
+	picture = GFX_report_event_generic_political
+	is_triggered_only = yes
+	fire_only_once = yes
+	trigger = { has_country_flag = MAD_MIL_MAPUTO_CHARTER_PENDING }
+	immediate = { clr_country_flag = MAD_MIL_MAPUTO_CHARTER_PENDING }
+
+	option = {
+		name = MAD_military_refoundation.3.a
+		set_country_flag = MAD_MIL_CRDSN_PROPOSED
+		clr_country_flag = MAD_MIL_EXECUTIVE_SECURITY_COORDINATION
+		set_variable = { MAD_MIL_CRDSN_MEMBER_COUNT = 8 }
+		set_variable = { MAD_MIL_CRDSN_SEATS_PER_MOVEMENT = 2 }
+		set_variable = { MAD_MIL_CRDSN_POLITICAL_MOVEMENTS = 4 }
+	}
+	option = {
+		name = MAD_military_refoundation.3.b
+		set_country_flag = MAD_MIL_EXECUTIVE_SECURITY_COORDINATION
+		clr_country_flag = MAD_MIL_CRDSN_PROPOSED
+	}
+}

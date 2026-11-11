@@ -6149,6 +6149,71 @@ MAD_royal_political_category = {
 # ---------------------------------------------------------------------------
 MAD_military_refoundation_category = {
 
+	MAD_MILITARY_RURAL_GENDARMERIE_REVIEW = {
+		icon = GFX_decision_generic_police
+		cost = 25
+		fire_only_once = yes
+		days_remove = 60
+		allowed = { has_country_flag = MAD_MIL_RURAL_GENDARMERIE_REVIEWED }
+		visible = { has_country_flag = MAD_MIL_RURAL_GENDARMERIE_REVIEWED }
+		available = {
+			has_country_flag = MAD_MIL_RURAL_GENDARMERIE_REVIEWED
+			NOT = { has_country_flag = MAD_MIL_RURAL_GENDARMERIE_PROJECT_DONE }
+		}
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_MILITARY_RURAL_GENDARMERIE_REVIEW started"
+			set_country_flag = MAD_MIL_RURAL_GENDARMERIE_PROJECT_ACTIVE
+			set_temp_variable = { treasury_change = -0.50 }
+			modify_treasury_effect = yes
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_MILITARY_RURAL_GENDARMERIE_REVIEW completed"
+			clr_country_flag = MAD_MIL_RURAL_GENDARMERIE_PROJECT_ACTIVE
+			set_country_flag = MAD_MIL_RURAL_GENDARMERIE_PROJECT_DONE
+			set_temp_variable = { MAD_rc_delta = 2 }
+			MAD_rural_cooperation_adjust = yes
+			if = {
+				limit = { NOT = { has_country_flag = MAD_DAHALO_DEFEATED } }
+				add_to_variable = { MAD_dahalo_threat = -2 tooltip = MAD_DAHALO_THREAT_MINUS_2_TT }
+				MAD_dahalo_update_modifier = yes
+			}
+		}
+		ai_will_do = { base = 0 }
+	}
+
+	MAD_MILITARY_MOBILE_RESPONSE_PROJECT = {
+		icon = GFX_decision_generic_construction
+		cost = 25
+		fire_only_once = yes
+		days_remove = 120
+		allowed = { has_country_flag = MAD_MIL_MOBILE_RESPONSE_PROJECT_UNLOCKED }
+		visible = { has_country_flag = MAD_MIL_MOBILE_RESPONSE_PROJECT_UNLOCKED }
+		available = {
+			has_country_flag = MAD_MIL_MOBILE_RESPONSE_PROJECT_UNLOCKED
+			NOT = { has_country_flag = MAD_MIL_MOBILE_RESPONSE_PROJECT_DONE }
+		}
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_MILITARY_MOBILE_RESPONSE_PROJECT started"
+			set_country_flag = MAD_MIL_MOBILE_RESPONSE_PROJECT_ACTIVE
+			set_temp_variable = { treasury_change = -0.75 }
+			modify_treasury_effect = yes
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_MILITARY_MOBILE_RESPONSE_PROJECT completed"
+			clr_country_flag = MAD_MIL_MOBILE_RESPONSE_PROJECT_ACTIVE
+			set_country_flag = MAD_MIL_MOBILE_RESPONSE_PROJECT_DONE
+			487 = {
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+			add_timed_idea = { idea = MAD_MIL_MOBILE_RESPONSE_CAPACITY days = 1095 }
+		}
+		ai_will_do = { base = 0 }
+	}
+
 	MAD_MILITARY_OFFICER_CONFERENCE = {
 		icon = GFX_decision_generic_political_reform
 		cost = 50
