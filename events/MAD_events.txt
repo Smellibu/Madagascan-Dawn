@@ -4334,41 +4334,18 @@ country_event = {
 
 	option = {
 		name = MAD_military_command.5.b
-		log = "[GetDateText]: [Root.GetName]: Negotiate With CAPSAT"
-		# On old saves, the General Staff spirit means its baseline is still static.
-		# On new saves, that baseline is already in the live modifier and must be removed
-		# from its variables before the CAPSAT baseline and concessions are added.
+		log = "[GetDateText]: [Root.GetName]: Give CAPSAT a Place in the Settlement"
+		# The political concession adds CAPSAT's agreed influence without changing
+		# the already selected General Staff / CAPSAT command baseline.
 		if = {
-			limit = { has_idea = MAD_ARMY_GENERAL_STAFF_COMMAND }
-			remove_ideas = MAD_ARMY_GENERAL_STAFF_COMMAND
-			MAD_ARMY_COMMAND_APPLY_CAPSAT_BASE = yes
+			limit = { NOT = { has_country_flag = MAD_CAPSAT_COALITION_DEAL } }
 			MAD_ARMY_COMMAND_APPLY_CAPSAT_CONCESSIONS = yes
 		}
-		else = {
-			MAD_ARMY_COMMAND_REMOVE_GENERAL_STAFF_BASE = yes
-			MAD_ARMY_COMMAND_APPLY_CAPSAT_BASE = yes
-			MAD_ARMY_COMMAND_APPLY_CAPSAT_CONCESSIONS = yes
-		}
-		if = { limit = { has_idea = MAD_ARMY_CAPSAT_COMMAND } remove_ideas = MAD_ARMY_CAPSAT_COMMAND }
-		if = { limit = { has_idea = MAD_ARMY_CAPSAT_CONCESSIONS } remove_ideas = MAD_ARMY_CAPSAT_CONCESSIONS }
-		# The agreement gives CAPSAT a place in government, but does not settle army command.
 		clr_country_flag = MAD_TGV_COMMAND_FORCE_CAPSAT
 		clr_country_flag = MAD_TGV_COMMAND_FORCE_GENERAL_STAFF
 
-		# Select the relevant CAPSAT party leader before adding party 22 to the coalition.
-		# If party 22 is already in government, preserve its incumbent party leader.
-		if = {
-			limit = {
-				NOT = { check_variable = { ruling_party = 22 } }
-				NOT = { is_in_array = { array = gov_coalition_array value = 22 } }
-			}
-			clr_country_flag = MAD_MIL_PARTY_LEADER_GENERAL_STAFF
-			MAD_SELECT_CAPSAT_PARTY_LEADER = yes
-			set_variable = { Nat_Autocracy_leader = 0 }
-		}
-
-		# Millennium Dawn's politics-view coalition API adds party 22 as a junior partner
-		# without changing the ruling party or replacing the sitting national leader.
+		# Add party 22 as a junior coalition partner. This does not replace the
+		# incumbent party leader, ruling party or national leader.
 		set_temp_variable = { add_col_one = 22 }
 		add_coalition_members_effect = yes
 
@@ -4376,31 +4353,27 @@ country_event = {
 		set_country_flag = MAD_CAPSAT_COALITION_DEAL
 		clr_country_flag = MAD_TGV_CAPSAT_REJECTION
 
-		# Re-open the command question: either CAPSAT or General Staff can now be selected.
-		clr_country_flag = MAD_ARMY_COMMAND_DECIDED
-		clr_country_flag = MAD_ARMY_COMMAND_CAPSAT
-		clr_country_flag = MAD_ARMY_COMMAND_GENERAL_STAFF
-		country_event = { id = MAD_military_command.1 days = 1 }
-
 		add_stability = -0.04
 		army_experience = 20
 	}
 
 	option = {
 		name = MAD_military_command.5.c
-		log = "[GetDateText]: [Root.GetName]: Surrender to CAPSAT"
+		log = "[GetDateText]: [Root.GetName]: Transfer the Government to the FPA"
+		# This outcome transfers political government to the FPA. It deliberately
+		# preserves the command choice already made by the General Staff / CAPSAT event.
 		set_country_flag = MAD_ARMY_COMMAND_DECIDED
-		set_country_flag = MAD_ARMY_COMMAND_CAPSAT
-		clr_country_flag = MAD_ARMY_COMMAND_GENERAL_STAFF
 		clr_country_flag = MAD_TGV_COMMAND_FORCE_CAPSAT
 		clr_country_flag = MAD_TGV_COMMAND_FORCE_GENERAL_STAFF
 		set_country_flag = MAD_CAPSAT_REVOLT_RESOLVED
 		clr_country_flag = MAD_TGV_CAPSAT_REJECTION
-		
+
 		clr_country_flag = MAD_MIL_PARTY_LEADER_GENERAL_STAFF
 		MAD_SELECT_CAPSAT_PARTY_LEADER = yes
 
-		# Move both the politics-view party and the government to the military party.
+		# This is an explicit transfer of the ruling government to party 22.
+		# The existing MAD party helper selects its political leader; the current
+		# military command flags and MAD_ARMY_COMMAND_SYSTEM remain unchanged.
 		set_party_index_to_ruling_party = yes
 		set_temp_variable = { party_popularity_increase = -0.15 }
 		change_relative_party_popularity = yes
@@ -4412,8 +4385,8 @@ country_event = {
 		set_temp_variable = { party_popularity_increase = 0.15 }
 		change_relative_party_popularity = yes
 
-		# Normally set_leader_MAD creates the selected CAPSAT leader. Keep a guarded
-		# fallback for saves where the generic party leader counter prevented creation.
+		# Fallback for saves where the generic party leader counter prevented
+		# creation of the selected FPA leader during the government transfer.
 		if = {
 			limit = { check_variable = { Nat_Autocracy_leader = 0 } }
 			hidden_effect = { kill_country_leader = yes }
@@ -4421,21 +4394,6 @@ country_event = {
 			set_variable = { Nat_Autocracy_leader = 1 }
 		}
 		set_country_flag = MAD_MILITARY_RULE_PATH
-		# As above, migrate old static spirits without subtracting a baseline which
-		# was never written to variables in pre-patch saves.
-		if = {
-			limit = { has_idea = MAD_ARMY_GENERAL_STAFF_COMMAND }
-			remove_ideas = MAD_ARMY_GENERAL_STAFF_COMMAND
-			MAD_ARMY_COMMAND_APPLY_CAPSAT_BASE = yes
-			MAD_ARMY_COMMAND_APPLY_CAPSAT_CONCESSIONS = yes
-		}
-		else = {
-			MAD_ARMY_COMMAND_REMOVE_GENERAL_STAFF_BASE = yes
-			MAD_ARMY_COMMAND_APPLY_CAPSAT_BASE = yes
-			MAD_ARMY_COMMAND_APPLY_CAPSAT_CONCESSIONS = yes
-		}
-		if = { limit = { has_idea = MAD_ARMY_CAPSAT_COMMAND } remove_ideas = MAD_ARMY_CAPSAT_COMMAND }
-		if = { limit = { has_idea = MAD_ARMY_CAPSAT_CONCESSIONS } remove_ideas = MAD_ARMY_CAPSAT_CONCESSIONS }
 		add_stability = -0.12
 		add_war_support = 0.05
 	}
