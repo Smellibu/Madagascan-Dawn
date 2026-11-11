@@ -5444,12 +5444,12 @@ MAD_OWNERSHIP_BOP = {
 
 	MAD_POLICY_MILITARY_ENGINEER_MANDATE = {
 		icon = generic_construction
-		visible = { always = yes }
+		visible = { MAD_POL_MIL_POST_2025_ROUTE_AVAILABLE = yes }
+		allowed = { MAD_POL_MIL_POST_2025_ROUTE_AVAILABLE = yes }
 		available = {
 			has_completed_focus = MAD_POL_MIL_TAKES_RESPONSIBILITY
 			has_completed_focus = MAD_POL_MIL_ENGINEERS
-			MAD_MIL_IN_POWER = yes
-
+			MAD_POL_MIL_POST_2025_ROUTE_AVAILABLE = yes
 			custom_trigger_tooltip = {
 				tooltip = MAD_POLICY_RC_REQUIRE_2_TT
 				check_variable = { MAD_rural_cooperation > 1.99 }
@@ -5474,7 +5474,7 @@ MAD_OWNERSHIP_BOP = {
 				set_temp_variable = { temp_opinion = 10 }
 				change_the_military_opinion = yes
 			}
-			add_ideas = MAD_POLICY_MILITARY_ENGINEER_MANDATE_IDEA
+			add_timed_idea = { idea = MAD_POLICY_MILITARY_ENGINEER_MANDATE_IDEA days = 1095 }
 			add_power_balance_value = { id = MAD_economy_ownership_bop value = 0.02 tooltip_side = MAD_public_ownership }
 		}
 		ai_will_do = { base = 0 }
@@ -6191,23 +6191,19 @@ MAD_military_refoundation_category = {
 		available = {
 			has_country_flag = MAD_MIL_MOBILE_RESPONSE_PROJECT_UNLOCKED
 			NOT = { has_country_flag = MAD_MIL_MOBILE_RESPONSE_PROJECT_DONE }
+			any_owned_state = { is_coastal = yes infrastructure_random_build_loc = yes }
 		}
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_MILITARY_MOBILE_RESPONSE_PROJECT started"
 			set_country_flag = MAD_MIL_MOBILE_RESPONSE_PROJECT_ACTIVE
-			set_temp_variable = { treasury_change = -0.75 }
-			modify_treasury_effect = yes
 		}
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_MILITARY_MOBILE_RESPONSE_PROJECT completed"
 			clr_country_flag = MAD_MIL_MOBILE_RESPONSE_PROJECT_ACTIVE
 			set_country_flag = MAD_MIL_MOBILE_RESPONSE_PROJECT_DONE
-			487 = {
-				add_building_construction = {
-					type = infrastructure
-					level = 1
-					instant_build = yes
-				}
+			random_owned_controlled_state = {
+				limit = { is_coastal = yes infrastructure_random_build_loc = yes }
+				one_state_infrastructure = yes
 			}
 			add_timed_idea = { idea = MAD_MIL_MOBILE_RESPONSE_CAPACITY days = 1095 }
 		}
@@ -6217,18 +6213,28 @@ MAD_military_refoundation_category = {
 	MAD_MILITARY_OFFICER_CONFERENCE = {
 		icon = GFX_decision_generic_political_reform
 		cost = 50
+		fire_only_once = yes
 		days_remove = 120
-		allowed = { MAD_MIL_IN_POWER = yes }
-		visible = { MAD_MIL_IN_POWER = yes }
+		allowed = { MAD_POL_MIL_POST_2025_ROUTE_AVAILABLE = yes }
+		visible = { MAD_POL_MIL_POST_2025_ROUTE_AVAILABLE = yes has_country_flag = MAD_MIL_CRDSN_REVIVED }
 		available = {
-			MAD_MIL_IN_POWER = yes
+			MAD_POL_MIL_POST_2025_ROUTE_AVAILABLE = yes
+			has_country_flag = MAD_MIL_CRDSN_REVIVED
 			NOT = { has_country_flag = MAD_MIL_OFFICER_CONFERENCE_HELD }
 		}
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_MILITARY_OFFICER_CONFERENCE started"
+			set_country_flag = MAD_MIL_OFFICER_CONFERENCE_ACTIVE
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_MILITARY_OFFICER_CONFERENCE completed"
+			clr_country_flag = MAD_MIL_OFFICER_CONFERENCE_ACTIVE
 			set_country_flag = MAD_MIL_OFFICER_CONFERENCE_HELD
-			army_experience = 20
-			add_political_power = 25
+			if = {
+				limit = { has_idea = the_military }
+				set_temp_variable = { temp_opinion = 5 }
+				change_the_military_opinion = yes
+			}
 		}
 		ai_will_do = { base = 1 }
 	}
@@ -6236,51 +6242,68 @@ MAD_military_refoundation_category = {
 	MAD_MILITARY_CIVILIAN_OVERSIGHT = {
 		icon = GFX_decision_generic_political_reform
 		cost = 75
+		fire_only_once = yes
 		days_remove = 180
-		allowed = { MAD_MIL_IN_POWER = yes }
-		visible = { MAD_MIL_IN_POWER = yes }
+		allowed = { MAD_POL_MIL_POST_2025_ROUTE_AVAILABLE = yes }
+		visible = {
+			MAD_POL_MIL_POST_2025_ROUTE_AVAILABLE = yes
+			has_completed_focus = MAD_POL_MIL_CLEAN_UNIFORM
+		}
 		available = {
-			MAD_MIL_IN_POWER = yes
-			has_country_flag = MAD_MIL_REFOUNDATION_GUARDIAN
+			MAD_POL_MIL_POST_2025_ROUTE_AVAILABLE = yes
+			has_completed_focus = MAD_POL_MIL_CLEAN_UNIFORM
 			NOT = { has_country_flag = MAD_MIL_CIVILIAN_OVERSIGHT_DONE }
 		}
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_MILITARY_CIVILIAN_OVERSIGHT started"
-			set_country_flag = MAD_MIL_CIVILIAN_OVERSIGHT_DONE
-			set_temp_variable = { party_index = 2 }
-			set_temp_variable = { party_popularity_increase = 0.02 }
-			set_temp_variable = { temp_outlook_increase = 0.02 }
-			change_relative_party_popularity = yes
-			decrease_corruption = yes
-			add_political_power = 25
-			recalculate_party = yes
+			set_country_flag = MAD_MIL_PUBLIC_AUDIT_ACTIVE
 		}
-		ai_will_do = { base = 2 }
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_MILITARY_CIVILIAN_OVERSIGHT completed"
+			clr_country_flag = MAD_MIL_PUBLIC_AUDIT_ACTIVE
+			set_country_flag = MAD_MIL_CIVILIAN_OVERSIGHT_DONE
+			decrease_corruption = yes
+			swap_ideas = {
+				remove_idea = MAD_MIL_PUBLIC_INTEGRITY_I
+				add_idea = MAD_MIL_PUBLIC_INTEGRITY_II
+			}
+		}
+		ai_will_do = { base = 1 }
 	}
 
 	MAD_MILITARY_SUPPORT_GENDARMERIE = {
 		icon = GFX_decision_generic_police
 		cost = 50
+		fire_only_once = yes
 		days_remove = 120
-		allowed = { MAD_MIL_IN_POWER = yes }
-		visible = { MAD_MIL_IN_POWER = yes }
+		allowed = { MAD_POL_MIL_POST_2025_ROUTE_AVAILABLE = yes }
+		visible = {
+			MAD_POL_MIL_POST_2025_ROUTE_AVAILABLE = yes
+			has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM
+		}
 		available = {
-			MAD_MIL_IN_POWER = yes
-			has_completed_focus = MAD_POL_MIL_SOUTHERN_SECURITY
+			MAD_POL_MIL_POST_2025_ROUTE_AVAILABLE = yes
+			has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM
 			NOT = { has_country_flag = MAD_MIL_GENDARMERIE_DECISION_DONE }
 		}
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_MILITARY_SUPPORT_GENDARMERIE started"
-			set_country_flag = MAD_MIL_GENDARMERIE_DECISION_DONE
-			custom_effect_tooltip = {
-				localization_key = modifies_dynamic_modifier_tt
-				MODIFIER = MAD_economy_modifier
-			}
-
-			add_to_variable = { MAD_economy_productivity_growth_modifier = 0.05 tooltip = productivity_growth_modifier_tt }
-			add_political_power = 15
+			set_country_flag = MAD_MIL_GENDARMERIE_PROJECT_ACTIVE
 		}
-		ai_will_do = { base = 2 }
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_MILITARY_SUPPORT_GENDARMERIE completed"
+			clr_country_flag = MAD_MIL_GENDARMERIE_PROJECT_ACTIVE
+			set_country_flag = MAD_MIL_GENDARMERIE_DECISION_DONE
+			if = {
+				limit = {
+					NOT = { has_country_flag = MAD_DAHALO_DEFEATED }
+					check_variable = { MAD_dahalo_threat > 0 }
+				}
+				add_to_variable = { MAD_dahalo_threat = -2 tooltip = MAD_DAHALO_THREAT_MINUS_2_TT }
+				MAD_dahalo_update_modifier = yes
+			}
+		}
+		ai_will_do = { base = 1 }
 	}
 }
 # ---------------------------------------------------------------------------
