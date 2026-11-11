@@ -1001,7 +1001,7 @@ MAD_MODERN_PROTEST_PRESSURE = {
 			picture = GFX_idea_generic_army_reform
 			removal_cost = -1
 			modifier = {
-				political_power_factor = 0.15
+				political_power_factor = 0.05
 				stability_factor = -0.05
 				war_support_factor = 0.05
 				personnel_cost_multiplier_modifier = 0.05
@@ -1028,7 +1028,7 @@ MAD_POL_MILITARY_GUARDIAN = {
 			removal_cost = -1
 			modifier = {
 				stability_factor = 0.03
-				political_power_factor = 0.15
+				political_power_factor = 0.05
 				foreign_influence_defense_modifier = 0.03
 				war_support_factor = 0.01
 			}
@@ -1921,6 +1921,112 @@ MAD_MIL_CLEAN_UNIFORM = {
 		clr_country_flag = MAD_PI_ACTIVE_MAD_MIL_CLEAN_UNIFORM
 	}
 }
+
+MAD_MIL_PUBLIC_INTEGRITY_I = {
+	name = MAD_MIL_PUBLIC_INTEGRITY_I
+	picture = generic_political_discourse
+	allowed_civil_war = { always = yes }
+	cost = 0
+	removal_cost = -1
+	modifier = { corruption_cost_factor = -0.05 military_spending_cost_factor = -0.01 }
+	on_add = {
+		set_country_flag = MAD_PI_EARNED_MAD_MIL_PUBLIC_INTEGRITY_I
+		set_country_flag = MAD_PI_ACTIVE_MAD_MIL_PUBLIC_INTEGRITY_I
+	}
+	on_remove = {
+		if = { limit = { has_country_flag = MAD_PI_ACTIVE_MAD_MIL_PUBLIC_INTEGRITY_I NOT = { has_country_flag = MAD_PI_SYNC_IN_PROGRESS } } clr_country_flag = MAD_PI_EARNED_MAD_MIL_PUBLIC_INTEGRITY_I }
+		clr_country_flag = MAD_PI_ACTIVE_MAD_MIL_PUBLIC_INTEGRITY_I
+	}
+}
+MAD_MIL_PUBLIC_INTEGRITY_II = {
+	name = MAD_MIL_PUBLIC_INTEGRITY_II
+	picture = generic_political_discourse
+	allowed_civil_war = { always = yes }
+	cost = 0
+	removal_cost = -1
+	modifier = { corruption_cost_factor = -0.05 military_spending_cost_factor = -0.01 bureaucracy_cost_multiplier_modifier = -0.03 police_cost_multiplier_modifier = -0.02 }
+	on_add = {
+		set_country_flag = MAD_PI_EARNED_MAD_MIL_PUBLIC_INTEGRITY_II
+		set_country_flag = MAD_PI_ACTIVE_MAD_MIL_PUBLIC_INTEGRITY_II
+	}
+	on_remove = {
+		if = { limit = { has_country_flag = MAD_PI_ACTIVE_MAD_MIL_PUBLIC_INTEGRITY_II NOT = { has_country_flag = MAD_PI_SYNC_IN_PROGRESS } } clr_country_flag = MAD_PI_EARNED_MAD_MIL_PUBLIC_INTEGRITY_II }
+		clr_country_flag = MAD_PI_ACTIVE_MAD_MIL_PUBLIC_INTEGRITY_II
+	}
+}
+MAD_MIL_PUBLIC_INTEGRITY_III = {
+	name = MAD_MIL_PUBLIC_INTEGRITY_III
+	picture = generic_political_discourse
+	allowed_civil_war = { always = yes }
+	cost = 0
+	removal_cost = -1
+	modifier = { corruption_cost_factor = -0.10 military_spending_cost_factor = -0.01 bureaucracy_cost_multiplier_modifier = -0.05 police_cost_multiplier_modifier = -0.03 }
+	on_add = {
+		set_country_flag = MAD_PI_EARNED_MAD_MIL_PUBLIC_INTEGRITY_III
+		set_country_flag = MAD_PI_ACTIVE_MAD_MIL_PUBLIC_INTEGRITY_III
+	}
+	on_remove = {
+		if = { limit = { has_country_flag = MAD_PI_ACTIVE_MAD_MIL_PUBLIC_INTEGRITY_III NOT = { has_country_flag = MAD_PI_SYNC_IN_PROGRESS } } clr_country_flag = MAD_PI_EARNED_MAD_MIL_PUBLIC_INTEGRITY_III }
+		clr_country_flag = MAD_PI_ACTIVE_MAD_MIL_PUBLIC_INTEGRITY_III
+	}
+}
+MAD_MIL_NATIONAL_RECONSTRUCTION_I = {
+	name = MAD_MIL_NATIONAL_RECONSTRUCTION_I
+	picture = generic_political_discourse
+	allowed_civil_war = { always = yes }
+	cost = 0
+	removal_cost = -1
+	modifier = { productivity_growth_modifier = 0.02 production_speed_infrastructure_factor = 0.03 }
+	on_add = {
+		set_country_flag = MAD_PI_EARNED_MAD_MIL_NATIONAL_RECONSTRUCTION_I
+		set_country_flag = MAD_PI_ACTIVE_MAD_MIL_NATIONAL_RECONSTRUCTION_I
+	}
+	on_remove = {
+		if = { limit = { has_country_flag = MAD_PI_ACTIVE_MAD_MIL_NATIONAL_RECONSTRUCTION_I NOT = { has_country_flag = MAD_PI_SYNC_IN_PROGRESS } } clr_country_flag = MAD_PI_EARNED_MAD_MIL_NATIONAL_RECONSTRUCTION_I }
+		clr_country_flag = MAD_PI_ACTIVE_MAD_MIL_NATIONAL_RECONSTRUCTION_I
+	}
+}
+MAD_MIL_NATIONAL_RECONSTRUCTION_II = {
+	name = MAD_MIL_NATIONAL_RECONSTRUCTION_II
+	picture = generic_political_discourse
+	allowed_civil_war = { always = yes }
+	cost = 0
+	removal_cost = -1
+	modifier = { productivity_growth_modifier = 0.02 production_speed_infrastructure_factor = 0.03 production_speed_arms_factory_factor = 0.03 military_industrial_organization_research_bonus = 0.02 }
+	on_add = {
+		set_country_flag = MAD_PI_EARNED_MAD_MIL_NATIONAL_RECONSTRUCTION_II
+		set_country_flag = MAD_PI_ACTIVE_MAD_MIL_NATIONAL_RECONSTRUCTION_II
+	}
+	on_remove = {
+		if = { limit = { has_country_flag = MAD_PI_ACTIVE_MAD_MIL_NATIONAL_RECONSTRUCTION_II NOT = { has_country_flag = MAD_PI_SYNC_IN_PROGRESS } } clr_country_flag = MAD_PI_EARNED_MAD_MIL_NATIONAL_RECONSTRUCTION_II }
+		clr_country_flag = MAD_PI_ACTIVE_MAD_MIL_NATIONAL_RECONSTRUCTION_II
+	}
+}
+MAD_MIL_NATIONAL_RECONSTRUCTION_III = {
+	name = MAD_MIL_NATIONAL_RECONSTRUCTION_III
+	picture = generic_political_discourse
+	allowed_civil_war = { always = yes }
+	cost = 0
+	removal_cost = -1
+	modifier = {
+		productivity_growth_modifier = 0.02
+		production_speed_infrastructure_factor = 0.05
+		production_speed_arms_factory_factor = 0.05
+		military_industrial_organization_research_bonus = 0.02
+		military_factories_productivity = 0.05
+		mil_facs_worker_requirement_modifier = -0.03
+		production_factory_efficiency_gain_factor = 0.03
+	}
+	on_add = {
+		set_country_flag = MAD_PI_EARNED_MAD_MIL_NATIONAL_RECONSTRUCTION_III
+		set_country_flag = MAD_PI_ACTIVE_MAD_MIL_NATIONAL_RECONSTRUCTION_III
+	}
+	on_remove = {
+		if = { limit = { has_country_flag = MAD_PI_ACTIVE_MAD_MIL_NATIONAL_RECONSTRUCTION_III NOT = { has_country_flag = MAD_PI_SYNC_IN_PROGRESS } } clr_country_flag = MAD_PI_EARNED_MAD_MIL_NATIONAL_RECONSTRUCTION_III }
+		clr_country_flag = MAD_PI_ACTIVE_MAD_MIL_NATIONAL_RECONSTRUCTION_III
+	}
+}
+
 MAD_MIL_CIVILIAN_GUARDIANSHIP = {
 			picture = generic_political_discourse
 			removal_cost = -1

@@ -240,3 +240,14 @@ MAD_ROY_IN_POWER = {
 		MAD_TGV_IN_POWER = yes
 		has_completed_focus = MAD_POL_TGV_THIRTEEN_VELIRANO
 	}
+
+MAD_POL_MIL_POST_2025_ROUTE_AVAILABLE = {
+	OR = {
+		MAD_MIL_IN_POWER = yes
+		AND = {
+			has_country_flag = MAD_MODERN_CRISIS_COMPLETED
+			has_country_flag = MAD_MODERN_CIVILIAN_SETTLEMENT
+			has_civil_war = no
+		}
+	}
+}
