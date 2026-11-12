@@ -10032,7 +10032,7 @@ focus_tree = {
 		visible = {
 			OR = {
 			has_country_flag = MAD_POL_CONTENT_2002_2009_UNLOCKED
-			date > 2009.1.1
+			date > 2002.1.1
 		}
 		}
 
@@ -10046,21 +10046,54 @@ focus_tree = {
 		}
 	}
 
-	focus = {
-		id = MAD_POL_MIL_SECURITY_SECTOR_REVIEW
-		icon = police_station
+focus = {
+		id = MAD_POL_MIL_2005_RESTRUCTURING
+		icon = military_academy
 		x = 0
 		y = 1
 		relative_position_id = MAD_POL_MIL_LESSON_2002
 		cost = 3
 		prerequisite = { focus = MAD_POL_MIL_LESSON_2002 }
 		search_filters = { FOCUS_FILTER_POLITICAL }
-		visible = {
-			OR = {
-			has_country_flag = MAD_POL_CONTENT_2002_2009_UNLOCKED
-			date > 2009.1.1
+		visible = { date > 2005.1.1 }
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_MIL_2005_RESTRUCTURING"
+			set_country_flag = MAD_MIL_2005_RESTRUCTURING_PENDING
+			country_event = { id = MAD_military_refoundation.6 days = 1 }
 		}
+		ai_will_do = { base = 1 }
+	}
+
+focus = {
+		id = MAD_POL_MIL_FIDY_2006_CHALLENGE
+		icon = protest_zloi
+		x = -1
+		y = 1
+		relative_position_id = MAD_POL_MIL_2005_RESTRUCTURING
+		cost = 3
+		prerequisite = { focus = MAD_POL_MIL_2005_RESTRUCTURING }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		visible = { date > 2006.11.17 }
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_MIL_FIDY_2006_CHALLENGE"
+			set_country_flag = MAD_MIL_FIDY_2006_PENDING
+			country_event = { id = MAD_military_refoundation.7 days = 1 }
 		}
+		ai_will_do = { base = 1 }
+	}
+
+
+
+	focus = {
+		id = MAD_POL_MIL_SECURITY_SECTOR_REVIEW
+		icon = police_station
+		x = 1
+		y = 1
+		relative_position_id = MAD_POL_MIL_2005_RESTRUCTURING
+		cost = 3
+		prerequisite = { focus = MAD_POL_MIL_2005_RESTRUCTURING }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		visible = { date > 2007.1.1 }
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_MIL_SECURITY_SECTOR_REVIEW"
@@ -10242,6 +10275,62 @@ focus_tree = {
 			base = 1
 		}
 	}
+
+focus = {
+		id = MAD_POL_MIL_NATIONAL_SECURITY_REFORM_2014_17
+		icon = political_reform
+		x = 0
+		y = 1
+		relative_position_id = MAD_POL_MIL_LESSON_2009
+		cost = 3
+		prerequisite = { focus = MAD_POL_MIL_LESSON_2009 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		visible = { date > 2014.1.1 }
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_MIL_NATIONAL_SECURITY_REFORM_2014_17"
+			set_country_flag = MAD_MIL_NSRP_PENDING
+			country_event = { id = MAD_military_refoundation.12 days = 1 }
+		}
+		ai_will_do = { base = 1 }
+	}
+
+focus = {
+		id = MAD_POL_MIL_HCDN_SPDSN_ESTABLISHMENT
+		icon = political_reform
+		x = 0
+		y = 1
+		relative_position_id = MAD_POL_MIL_NATIONAL_SECURITY_REFORM_2014_17
+		cost = 3
+		prerequisite = { focus = MAD_POL_MIL_NATIONAL_SECURITY_REFORM_2014_17 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		visible = { date > 2016.12.16 }
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_MIL_HCDN_SPDSN_ESTABLISHMENT"
+			set_country_flag = MAD_MIL_HCDN_SPDSN_ESTABLISHMENT_PENDING
+			country_event = { id = MAD_military_refoundation.13 days = 1 }
+		}
+		ai_will_do = { base = 1 }
+	}
+
+focus = {
+		id = MAD_POL_MIL_INTERNAL_CONTROL_2021_23
+		icon = military_academy
+		x = 0
+		y = 1
+		relative_position_id = MAD_POL_MIL_HCDN_SPDSN_ESTABLISHMENT
+		cost = 3
+		prerequisite = { focus = MAD_POL_MIL_HCDN_SPDSN_ESTABLISHMENT }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		visible = { date > 2021.1.1 }
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_MIL_INTERNAL_CONTROL_2021_23"
+			set_country_flag = MAD_MIL_INTERNAL_CONTROL_PENDING
+			country_event = { id = MAD_military_refoundation.14 days = 1 }
+		}
+		ai_will_do = { base = 1 }
+	}
+
+
 
 	focus = {
 		id = MAD_POL_MIL_PROTECT_BALLOT
