@@ -9312,17 +9312,13 @@ country_event = {
 			limit = { has_country_flag = MAD_TGV_CNME_ESTABLISHED }
 			set_country_flag = MAD_TGV_CNME_FIS_CREATED
 			add_ideas = MAD_TGV_FIS_PARALLEL_SECURITY
-			add_stability = -0.02
-			add_political_power = 15
-			set_temp_variable = { party_popularity_increase = 0.02 }
 		}
 		else = {
-			set_country_flag = MAD_TGV_FIS_LIMITED_ESTABLISHMENT
 			add_ideas = MAD_TGV_FIS_PARALLEL_SECURITY_LIMITED
-			add_stability = -0.013333
-			add_political_power = 10
-			set_temp_variable = { party_popularity_increase = 0.013333 }
 		}
+		add_stability = -0.02
+		add_political_power = 15
+		set_temp_variable = { party_popularity_increase = 0.02 }
 		change_relative_party_popularity = yes
 		recalculate_party = yes
 	}
@@ -9339,15 +9335,12 @@ country_event = {
 		if = {
 			limit = { has_country_flag = MAD_TGV_CNME_ESTABLISHED }
 			add_ideas = MAD_TGV_FIS_ACCOUNTABLE_SECURITY
-			add_stability = 0.02
-			add_political_power = 10
 		}
 		else = {
-			set_country_flag = MAD_TGV_FIS_LIMITED_ESTABLISHMENT
 			add_ideas = MAD_TGV_FIS_ACCOUNTABLE_SECURITY_LIMITED
-			add_stability = 0.013333
-			add_political_power = 6.666667
 		}
+		add_stability = 0.02
+		add_political_power = 10
 	}
 }
 
