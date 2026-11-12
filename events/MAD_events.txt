@@ -3663,6 +3663,7 @@ country_event = {
 				clr_country_flag = MAD_TGV_CAPSAT_REVOLT_DEFERRED
 				country_event = { id = MAD_military_command.5 days = 1 }
 			}
+			country_event = { id = mad_political.110 days = 1 }
 		}
 	}
 }
@@ -3738,6 +3739,7 @@ country_event = {
 				clr_country_flag = MAD_TGV_CAPSAT_REVOLT_DEFERRED
 				country_event = { id = MAD_military_command.5 days = 1 }
 			}
+			country_event = { id = mad_political.110 days = 1 }
 		}
 		else = { country_event = { id = mad_political.104 days = 14 } }
 	}
@@ -3818,6 +3820,7 @@ country_event = {
 		add_to_variable = { protest_strength = -20 }
 		clamp_variable = { var = protest_strength min = 0 max = 100 }
 		add_stability = 0.02
+		country_event = { id = mad_political.110 days = 1 }
 	}
 	option = {
 		name = mad_political.105.b
@@ -3971,6 +3974,7 @@ country_event = {
 			add_ideas = MAD_POL_MILITARY_GOVERNMENT
 			MAD_RESTORE_CIVIL_WAR_OPPONENT_LEADER = yes
 		}
+		country_event = { id = mad_political.110 days = 1 }
 	}
 }
 country_event = {
@@ -4046,6 +4050,75 @@ country_event = {
 		clr_country_flag = MAD_TGV_CAPSAT_REVOLT_DEFERRED
 		set_country_flag = MAD_MODERN_CRISIS_COMPLETED
 		clr_country_flag = MAD_MODERN_CRISIS_ACTIVE
+		country_event = { id = mad_political.110 days = 1 }
+	}
+}
+
+
+# The High Constitutional Court assigned the ordinary functions of Head of State to Senate President Richard Ravalomanana on 27 October 2023.
+country_event = {
+	id = mad_political.109
+	title = mad_political.109.t
+	desc = mad_political.109.d
+	picture = GFX_report_event_generic_political
+	is_triggered_only = yes
+	fire_only_once = yes
+	trigger = {
+		original_tag = MAD
+		tag = MAD
+		date > 2023.10.26
+		MAD_TGV_IN_POWER = yes
+		NOT = { has_country_flag = MAD_RICHARD_INTERIM_OFFICE }
+		has_character = MAD_richard_ravalomanana
+	}
+	option = {
+		name = mad_political.109.a
+		log = "[GetDateText]: [Root.GetName]: Richard Ravalomanana assumes the interim functions of Head of State"
+		create_country_leader = {
+			name = MAD_richard_ravalomanana
+			expire = "2099.1.1"
+			ideology = Nat_Populism
+			traits = { nationalist_Nat_Populism military_career }
+		}
+		promote_character = MAD_richard_ravalomanana
+		set_country_flag = MAD_RICHARD_INTERIM_OFFICE
+		add_ideas = MAD_SPLIT_LEADERSHIP
+	}
+}
+
+country_event = {
+	id = mad_political.110
+	title = mad_political.110.t
+	desc = {
+		text = mad_political.110.d_tgv
+		trigger = { MAD_TGV_IN_POWER = yes }
+	}
+	desc = {
+		text = mad_political.110.d_other
+		trigger = { NOT = { MAD_TGV_IN_POWER = yes } }
+	}
+	picture = GFX_report_event_generic_political
+	is_triggered_only = yes
+	fire_only_once = yes
+	trigger = {
+		original_tag = MAD
+		tag = MAD
+		has_country_flag = MAD_RICHARD_INTERIM_OFFICE
+	}
+	option = {
+		name = mad_political.110.a
+		log = "[GetDateText]: [Root.GetName]: Andry Rajoelina flees to Dubai following the modern protest crisis"
+		remove_ideas = MAD_SPLIT_LEADERSHIP
+		set_country_flag = MAD_RAJOELINA_FLED_DUBAI
+		clr_country_flag = MAD_RICHARD_INTERIM_OFFICE
+		if = {
+			limit = { NOT = { MAD_TGV_IN_POWER = yes } }
+			remove_country_leader_role = {
+				character = "MAD_richard_ravalomanana"
+				ideology = Nat_Populism
+			}
+			retire_character = MAD_richard_ravalomanana
+		}
 	}
 }
 
