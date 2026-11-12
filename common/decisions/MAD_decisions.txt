@@ -4681,9 +4681,6 @@ MAD_OWNERSHIP_BOP = {
 			NOT = { has_country_flag = MAD_TELMA_PRIVATISED_AFTER_STATE }
 		}
 		
-		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision MAD_SELL_TELMA_PRIVATE started"
-		}
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_SELL_TELMA_PRIVATE completed"
 			clr_country_flag = MAD_TELMA_STATE_OWNED
@@ -4751,9 +4748,6 @@ MAD_OWNERSHIP_BOP = {
 			NOT = { has_country_flag = MAD_AIR_PRIVATISED_AFTER_STATE }
 		}
 		
-		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision MAD_SELL_AIRLINE_PRIVATE started"
-		}
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_SELL_AIRLINE_PRIVATE completed"
 			remove_ideas = MAD_STATE_AIRLINE
@@ -4795,9 +4789,6 @@ MAD_OWNERSHIP_BOP = {
 			NOT = { has_country_flag = MAD_JIRAMA_PRIVATISED_AFTER_STATE }
 		}
 		
-		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision MAD_SELL_JIRAMA_PRIVATE started"
-		}
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_SELL_JIRAMA_PRIVATE completed"
 
@@ -4902,9 +4893,6 @@ MAD_OWNERSHIP_BOP = {
 			NOT = { has_country_flag = MAD_MADARAIL_PRIVATISED_AFTER_STATE }
 		}
 		
-		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision MAD_SELL_MADARAIL_PRIVATE started"
-		}
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_SELL_MADARAIL_PRIVATE completed"
 			if = {
@@ -4959,9 +4947,6 @@ MAD_OWNERSHIP_BOP = {
 			NOT = { has_country_flag = MAD_GPM_PRIVATISED_AFTER_STATE }
 		}
 		
-		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision MAD_SELL_GPM_PRIVATE started"
-		}
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_SELL_GPM_PRIVATE completed"
 			clr_country_flag = MAD_GPM_STATE_MODEL
@@ -5054,9 +5039,6 @@ MAD_OWNERSHIP_BOP = {
 			NOT = { has_country_flag = MAD_AMBATOVY_PRIVATISED_AFTER_STATE }
 		}
 		
-		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision MAD_SELL_AMBATOVY_PRIVATE started"
-		}
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_SELL_AMBATOVY_PRIVATE completed"
 
@@ -6118,7 +6100,6 @@ MAD_military_refoundation_category = {
 		cost = 25
 		fire_only_once = yes
 		days_remove = 60
-		allowed = { has_country_flag = MAD_MIL_RURAL_GENDARMERIE_REVIEWED }
 		visible = { has_country_flag = MAD_MIL_RURAL_GENDARMERIE_REVIEWED }
 		available = {
 			has_country_flag = MAD_MIL_RURAL_GENDARMERIE_REVIEWED
@@ -6153,7 +6134,6 @@ MAD_military_refoundation_category = {
 		cost = 25
 		fire_only_once = yes
 		days_remove = 120
-		allowed = { has_country_flag = MAD_MIL_MOBILE_RESPONSE_PROJECT_UNLOCKED }
 		visible = { has_country_flag = MAD_MIL_MOBILE_RESPONSE_PROJECT_UNLOCKED }
 		available = {
 			has_country_flag = MAD_MIL_MOBILE_RESPONSE_PROJECT_UNLOCKED

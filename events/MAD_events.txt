@@ -2778,6 +2778,9 @@ country_event = {
 		set_temp_variable = { disable_elections = 1 }
 		MAD_RESET_PARTY_LEADER_COUNTER = yes
 		change_ruling_party_effect = yes
+		# The refoundation choice follows only after military rule is established.
+		set_country_flag = MAD_MIL_REFOUNDATION_PENDING
+		country_event = { id = mad_political.3 days = 1 }
 
 		set_temp_variable = { party_index = 20 }
 		set_temp_variable = { party_popularity_increase = 0.05 }
@@ -3465,7 +3468,7 @@ country_event = {
 
 		create_country_leader = {
 			name = "Andry Rajoelina"
-            picture = "Andry_Rajoelina.dds"
+			picture = "Andry_Rajoelina.dds"
 			expire = "2050.1.1"
 			ideology = Nat_Populism
 			traits = {
@@ -3505,7 +3508,7 @@ country_event = {
 		# Add Andry Rajoelina as TGV's party leader.
 		create_country_leader = {
 			name = "Andry Rajoelina"
-            picture = "Andry_Rajoelina.dds"
+			picture = "Andry_Rajoelina.dds"
 			expire = "2050.1.1"
 			ideology = Nat_Populism
 			traits = {
@@ -7921,8 +7924,10 @@ country_event = {
 		name = mad_diplomacy.30.b
 		log = "[GetDateText]: [This.GetName]: mad_diplomacy.30.b executed"
 		ai_chance = { base = 40 }
-		FROM = { add_opinion_modifier = { target = ROOT modifier = diplomatic_distance } }
-		FROM = { country_event = { id = mad_diplomacy.91 days = 1 } }
+		FROM = {
+			add_opinion_modifier = { target = ROOT modifier = diplomatic_distance }
+			country_event = { id = mad_diplomacy.91 days = 1 }
+		}
 	}
 }
 
@@ -7984,8 +7989,10 @@ country_event = {
 		name = mad_diplomacy.32.b
 		log = "[GetDateText]: [This.GetName]: mad_diplomacy.32.b executed"
 		ai_chance = { base = 45 }
-		FROM = { country_event = { id = mad_diplomacy.33 days = 1 } }
-		FROM = { country_event = { id = mad_diplomacy.91 days = 1 } }
+		FROM = {
+			country_event = { id = mad_diplomacy.33 days = 1 }
+			country_event = { id = mad_diplomacy.91 days = 1 }
+		}
 	}
 }
 
@@ -8217,8 +8224,10 @@ country_event = {
 		name = mad_diplomacy.40.b
 		log = "[GetDateText]: [This.GetName]: mad_diplomacy.40.b executed"
 		ai_chance = { base = 40 }
-		FROM = { add_opinion_modifier = { target = ROOT modifier = diplomatic_distance } }
-		FROM = { country_event = { id = mad_diplomacy.91 days = 1 } }
+		FROM = {
+			add_opinion_modifier = { target = ROOT modifier = diplomatic_distance }
+			country_event = { id = mad_diplomacy.91 days = 1 }
+		}
 	}
 }
 
@@ -8254,8 +8263,10 @@ country_event = {
 		name = mad_diplomacy.41.b
 		log = "[GetDateText]: [This.GetName]: mad_diplomacy.41.b executed"
 		ai_chance = { base = 40 }
-		FROM = { add_opinion_modifier = { target = ROOT modifier = diplomatic_distance } }
-		FROM = { country_event = { id = mad_diplomacy.91 days = 1 } }
+		FROM = {
+			add_opinion_modifier = { target = ROOT modifier = diplomatic_distance }
+			country_event = { id = mad_diplomacy.91 days = 1 }
+		}
 	}
 }
 
@@ -8290,8 +8301,11 @@ country_event = {
 		name = mad_diplomacy.50.b
 		log = "[GetDateText]: [This.GetName]: mad_diplomacy.50.b executed"
 		ai_chance = { base = 40 }
-		FROM = { add_political_power = 10 add_opinion_modifier = { target = ROOT modifier = diplomatic_distance } }
-		FROM = { country_event = { id = mad_diplomacy.91 days = 1 } }
+		FROM = {
+			add_political_power = 10
+			add_opinion_modifier = { target = ROOT modifier = diplomatic_distance }
+			country_event = { id = mad_diplomacy.91 days = 1 }
+		}
 	}
 }
 
@@ -8449,8 +8463,10 @@ country_event = {
 		name = mad_diplomacy.60.b
 		log = "[GetDateText]: [This.GetName]: mad_diplomacy.60.b executed"
 		ai_chance = { base = 40 }
-		FROM = { add_opinion_modifier = { target = ROOT modifier = diplomatic_distance } }
-		FROM = { country_event = { id = mad_diplomacy.91 days = 1 } }
+		FROM = {
+			add_opinion_modifier = { target = ROOT modifier = diplomatic_distance }
+			country_event = { id = mad_diplomacy.91 days = 1 }
+		}
 	}
 }
 
@@ -8762,8 +8778,7 @@ country_event = {
 
 	option = {
 		name = mad_diplomacy.90.a
-		log = "[GetDateText]: [This.GetName]: mad_diplomacy.90.a executed"
-		ai_chance = { base = 100 }
+				ai_chance = { base = 100 }
 	}
 }
 
@@ -8792,8 +8807,7 @@ country_event = {
 
 	option = {
 		name = mad_jirama.3.a
-		log = "[GetDateText]: [Root.GetName]: mad_jirama.3.a - review the JIRAMA expansion package"
-	}
+			}
 }
 
 country_event = {
@@ -8805,8 +8819,7 @@ country_event = {
 
 	option = {
 		name = mad_jirama.4.a
-		log = "[GetDateText]: [Root.GetName]: mad_jirama.4.a - review the JIRAMA austerity rescue"
-	}
+			}
 }
 
 # ============================================================================

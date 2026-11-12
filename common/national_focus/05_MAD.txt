@@ -8389,7 +8389,6 @@ focus_tree = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_remenabila_takes_command"
 			set_country_flag = MAD_REMENABILA_IN_POWER
 			MAD_dahalo_switch_to_remenabila = yes
-			hidden_effect = { country_event = { id = mad_dahalo.2 days = 1 } }
 			
 			set_temp_variable = { rul_party_temp = 13 }
 			set_temp_variable = { disable_elections = 1 }
@@ -10021,6 +10020,32 @@ focus_tree = {
 		}
 	}
 
+		focus = {
+		id = MAD_POL_MIL_LESSON_2002
+		icon = demand_territory
+		x = 0
+		y = 2
+		relative_position_id = MAD_POL_MIL_PRE2002_OFFICER_CORPS
+		cost = 3
+		prerequisite = { focus = MAD_POL_MIL_PRE2002_OFFICER_CORPS }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		visible = {
+			OR = {
+			has_country_flag = MAD_POL_CONTENT_2002_2009_UNLOCKED
+			date > 2009.1.1
+		}
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_MIL_LESSON_2002"
+			set_country_flag = MAD_MIL_LESSON_2002_RECORDED
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
 	focus = {
 		id = MAD_POL_MIL_SECURITY_SECTOR_REVIEW
 		icon = police_station
@@ -10174,32 +10199,6 @@ focus_tree = {
 			add_ideas = MAD_MIL_PROFESSIONAL_OFFICERS
 			army_experience = 25
 			add_political_power = 25
-		}
-
-		ai_will_do = {
-			base = 1
-		}
-	}
-
-		focus = {
-		id = MAD_POL_MIL_LESSON_2002
-		icon = demand_territory
-		x = 0
-		y = 2
-		relative_position_id = MAD_POL_MIL_PRE2002_OFFICER_CORPS
-		cost = 3
-		prerequisite = { focus = MAD_POL_MIL_PRE2002_OFFICER_CORPS }
-		search_filters = { FOCUS_FILTER_POLITICAL }
-		visible = {
-			OR = {
-			has_country_flag = MAD_POL_CONTENT_2002_2009_UNLOCKED
-			date > 2009.1.1
-		}
-		}
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_MIL_LESSON_2002"
-			set_country_flag = MAD_MIL_LESSON_2002_RECORDED
 		}
 
 		ai_will_do = {
@@ -10371,139 +10370,6 @@ focus_tree = {
 	}
 
 	focus = {
-		id = MAD_POL_MIL_SOUTHERN_SECURITY
-		icon = forceful_treaty
-		x = 0
-		y = 2
-		relative_position_id = MAD_POL_MIL_REFOUNDATION
-		cost = 3
-		prerequisite = { focus = MAD_POL_MIL_REGIONAL_ADMIN focus = MAD_POL_MIL_PUBLIC_SERVICES }
-		search_filters = { FOCUS_FILTER_POLITICAL }
-		available = {
-			custom_trigger_tooltip = {
-				tooltip = MAD_MIL_POST_2025_ROUTE_TT
-				MAD_POL_MIL_POST_2025_ROUTE_AVAILABLE = yes
-			}
-		}
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_MIL_SOUTHERN_SECURITY"
-			set_temp_variable = { MAD_rc_delta = 4 }
-			MAD_rural_cooperation_adjust = yes
-			if = {
-				limit = {
-					NOT = { has_country_flag = MAD_DAHALO_DEFEATED }
-					check_variable = { MAD_dahalo_threat > 0 }
-				}
-				add_to_variable = { MAD_dahalo_threat = -8 tooltip = MAD_DAHALO_THREAT_MINUS_8_TT }
-				MAD_dahalo_update_modifier = yes
-			}
-		}
-
-		ai_will_do = {
-			base = 1
-		}
-	}
-
-
-	focus = {
-		id = MAD_POL_MIL_GENDARMERIE_REFORM
-		icon = Generic_Policeman
-		x = 0
-		y = 1
-		relative_position_id = MAD_POL_MIL_SOUTHERN_SECURITY
-		cost = 3
-		prerequisite = { focus = MAD_POL_MIL_SOUTHERN_SECURITY }
-		search_filters = { FOCUS_FILTER_POLITICAL }
-		available = {
-			custom_trigger_tooltip = {
-				tooltip = MAD_MIL_POST_2025_ROUTE_TT
-				MAD_POL_MIL_POST_2025_ROUTE_AVAILABLE = yes
-			}
-		}
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_MIL_GENDARMERIE_REFORM"
-			set_temp_variable = { MAD_rc_delta = 3 }
-			MAD_rural_cooperation_adjust = yes
-			set_country_flag = MAD_MIL_GENDARMERIE_REFORMED
-		}
-
-		ai_will_do = {
-			base = 1
-		}
-	}
-
-
-	focus = {
-		id = MAD_POL_MIL_ENGINEERS
-		icon = army_saper
-		x = 0
-		y = 1
-		relative_position_id = MAD_POL_MIL_MARKET_REFORM
-		cost = 3
-		prerequisite = { focus = MAD_POL_MIL_MARKET_REFORM focus = MAD_POL_MIL_PUBLIC_SERVICES }
-		search_filters = { FOCUS_FILTER_POLITICAL }
-		available = {
-			custom_trigger_tooltip = {
-				tooltip = MAD_MIL_POST_2025_ROUTE_TT
-				MAD_POL_MIL_POST_2025_ROUTE_AVAILABLE = yes
-			}
-		}
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_MIL_ENGINEERS"
-			swap_ideas = {
-				remove_idea = MAD_MIL_NATIONAL_RECONSTRUCTION_II
-				add_idea = MAD_MIL_NATIONAL_RECONSTRUCTION_III
-			}
-			set_country_flag = MAD_MIL_PUBLIC_WORKS_AUTHORIZED
-		}
-
-		ai_will_do = {
-			base = 1
-		}
-	}
-
-
-	focus = {
-		id = MAD_POL_MIL_NEVER_DIVIDED
-		visible = { always = no }
-		icon = army_doctrine
-		x = 1
-		y = 2
-		relative_position_id = MAD_POL_MIL_ENGINEERS
-		cost = 3
-		prerequisite = { focus = MAD_POL_MIL_ENGINEERS focus = MAD_POL_MIL_CIVILIAN_GUARDIANSHIP focus = MAD_POL_MIL_CAPSAT_LESSON }
-		search_filters = { FOCUS_FILTER_POLITICAL }
-		available = {
-			custom_trigger_tooltip = {
-				tooltip = MAD_MIL_IN_POWER_tt
-				MAD_MIL_IN_POWER = yes
-			}
-		}
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_MIL_NEVER_DIVIDED"
-			swap_ideas = {
-				remove_idea = MAD_MIL_PROFESSIONAL_COMMAND
-				add_idea = MAD_MIL_UNIFIED_FORCES
-			}
-			army_experience = 35
-			if = {
-				limit = { has_idea = the_military }
-				set_temp_variable = { temp_opinion = 10 }
-				change_the_military_opinion = yes
-			}
-					MAD_rural_cooperation_calculate_monthly_change = yes
-		}
-
-		ai_will_do = {
-			base = 1
-		}
-	}
-
-	focus = {
 		id = MAD_POL_MIL_MARITIME_SECURITY
 		visible = { always = no }
 		icon = navy
@@ -10567,6 +10433,40 @@ focus_tree = {
 			set_temp_variable = { party_popularity_increase = 0.02 }
 			change_relative_party_popularity = yes
 			recalculate_party = yes
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_POL_MIL_CIVILIAN_ADMINISTRATION
+		icon = parliament_box
+		x = 1
+		y = 2
+		relative_position_id = MAD_POL_MIL_TAKES_RESPONSIBILITY
+		cost = 3
+		prerequisite = { focus = MAD_POL_MIL_TAKES_RESPONSIBILITY }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		visible = {
+			OR = {
+				has_completed_focus = MAD_POL_MIL_PROTECT_BALLOT
+				has_completed_focus = MAD_POL_MIL_FINAL_ARBITER
+			}
+		}
+		available = {
+			MAD_POL_MIL_POST_2025_ROUTE_AVAILABLE = yes
+			OR = {
+				has_completed_focus = MAD_POL_MIL_PROTECT_BALLOT
+				has_completed_focus = MAD_POL_MIL_FINAL_ARBITER
+			}
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_MIL_CIVILIAN_ADMINISTRATION"
+			set_country_flag = MAD_MIL_CIVILIAN_CABINET
+			add_stability = 0.02
 		}
 
 		ai_will_do = {
@@ -10686,40 +10586,6 @@ focus_tree = {
 	}
 
 	focus = {
-		id = MAD_POL_MIL_CIVILIAN_ADMINISTRATION
-		icon = parliament_box
-		x = 1
-		y = 2
-		relative_position_id = MAD_POL_MIL_TAKES_RESPONSIBILITY
-		cost = 3
-		prerequisite = { focus = MAD_POL_MIL_TAKES_RESPONSIBILITY }
-		search_filters = { FOCUS_FILTER_POLITICAL }
-		visible = {
-			OR = {
-				has_completed_focus = MAD_POL_MIL_PROTECT_BALLOT
-				has_completed_focus = MAD_POL_MIL_FINAL_ARBITER
-			}
-		}
-		available = {
-			MAD_POL_MIL_POST_2025_ROUTE_AVAILABLE = yes
-			OR = {
-				has_completed_focus = MAD_POL_MIL_PROTECT_BALLOT
-				has_completed_focus = MAD_POL_MIL_FINAL_ARBITER
-			}
-		}
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_MIL_CIVILIAN_ADMINISTRATION"
-			set_country_flag = MAD_MIL_CIVILIAN_CABINET
-			add_stability = 0.02
-		}
-
-		ai_will_do = {
-			base = 1
-		}
-	}
-
-	focus = {
 		id = MAD_POL_MIL_DIGITAL_ADMINISTRATION
 		icon = diplomatic_treaty
 		x = -2
@@ -10807,6 +10673,69 @@ focus_tree = {
 	}
 
 	focus = {
+		id = MAD_POL_MIL_SOUTHERN_SECURITY
+		icon = forceful_treaty
+		x = 0
+		y = 2
+		relative_position_id = MAD_POL_MIL_REFOUNDATION
+		cost = 3
+		prerequisite = { focus = MAD_POL_MIL_REGIONAL_ADMIN focus = MAD_POL_MIL_PUBLIC_SERVICES }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_MIL_POST_2025_ROUTE_TT
+				MAD_POL_MIL_POST_2025_ROUTE_AVAILABLE = yes
+			}
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_MIL_SOUTHERN_SECURITY"
+			set_temp_variable = { MAD_rc_delta = 4 }
+			MAD_rural_cooperation_adjust = yes
+			if = {
+				limit = {
+					NOT = { has_country_flag = MAD_DAHALO_DEFEATED }
+					check_variable = { MAD_dahalo_threat > 0 }
+				}
+				add_to_variable = { MAD_dahalo_threat = -8 tooltip = MAD_DAHALO_THREAT_MINUS_8_TT }
+				MAD_dahalo_update_modifier = yes
+			}
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_POL_MIL_GENDARMERIE_REFORM
+		icon = Generic_Policeman
+		x = 0
+		y = 1
+		relative_position_id = MAD_POL_MIL_SOUTHERN_SECURITY
+		cost = 3
+		prerequisite = { focus = MAD_POL_MIL_SOUTHERN_SECURITY }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_MIL_POST_2025_ROUTE_TT
+				MAD_POL_MIL_POST_2025_ROUTE_AVAILABLE = yes
+			}
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_MIL_GENDARMERIE_REFORM"
+			set_temp_variable = { MAD_rc_delta = 3 }
+			MAD_rural_cooperation_adjust = yes
+			set_country_flag = MAD_MIL_GENDARMERIE_REFORMED
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
 		id = MAD_POL_MIL_MARKET_REFORM
 		icon = construction
 		x = 1
@@ -10852,8 +10781,72 @@ focus_tree = {
 		}
 	}
 
+	focus = {
+		id = MAD_POL_MIL_ENGINEERS
+		icon = army_saper
+		x = 0
+		y = 1
+		relative_position_id = MAD_POL_MIL_MARKET_REFORM
+		cost = 3
+		prerequisite = { focus = MAD_POL_MIL_MARKET_REFORM focus = MAD_POL_MIL_PUBLIC_SERVICES }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_MIL_POST_2025_ROUTE_TT
+				MAD_POL_MIL_POST_2025_ROUTE_AVAILABLE = yes
+			}
+		}
 
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_MIL_ENGINEERS"
+			swap_ideas = {
+				remove_idea = MAD_MIL_NATIONAL_RECONSTRUCTION_II
+				add_idea = MAD_MIL_NATIONAL_RECONSTRUCTION_III
+			}
+			set_country_flag = MAD_MIL_PUBLIC_WORKS_AUTHORIZED
+		}
 
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_POL_MIL_NEVER_DIVIDED
+		visible = { always = no }
+		icon = army_doctrine
+		x = 1
+		y = 2
+		relative_position_id = MAD_POL_MIL_ENGINEERS
+		cost = 3
+		prerequisite = { focus = MAD_POL_MIL_ENGINEERS focus = MAD_POL_MIL_CIVILIAN_GUARDIANSHIP focus = MAD_POL_MIL_CAPSAT_LESSON }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_MIL_IN_POWER_tt
+				MAD_MIL_IN_POWER = yes
+			}
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_MIL_NEVER_DIVIDED"
+			swap_ideas = {
+				remove_idea = MAD_MIL_PROFESSIONAL_COMMAND
+				add_idea = MAD_MIL_UNIFIED_FORCES
+			}
+			army_experience = 35
+			if = {
+				limit = { has_idea = the_military }
+				set_temp_variable = { temp_opinion = 10 }
+				change_the_military_opinion = yes
+			}
+					MAD_rural_cooperation_calculate_monthly_change = yes
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
 
 	focus = {
 		id = MAD_POL_AREMA_REBUILD
