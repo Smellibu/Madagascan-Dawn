@@ -3493,7 +3493,7 @@ MAD_dahalo_category = {
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAHALO_TANDROKA_OPERATION started"
 			MAD_dahalo_campaign_reset = yes
-			set_variable = { MAD_dahalo_campaign_success_chance = 20 }
+			set_variable = { MAD_dahalo_campaign_success_chance = 14 }
 			MAD_dahalo_campaign_add_readiness = yes
 			MAD_dahalo_campaign_add_threat_modifier = yes
 			if = { limit = { has_country_flag = MAD_TGV_FIS_DIRECT_COMMAND } add_to_variable = { MAD_dahalo_campaign_success_chance = -12 } }
