@@ -8987,7 +8987,7 @@ focus_tree = {
 	}
 
 	focus = {
-		id = MAD_POL_ROY_NATIONAL_WEALTH
+		id = MAD_POL_ROY_LEGAL_ORDER
 		icon = adopt_the_peoples_constitution
 		x = 0
 		y = 1
@@ -9003,7 +9003,7 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_ROY_NATIONAL_WEALTH"
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_ROY_LEGAL_ORDER"
 			country_event = { id = mad_royal.2 days = 1 }
 		}
 
@@ -9017,9 +9017,9 @@ focus_tree = {
 		icon = focus_generic_court
 		x = 0
 		y = 1
-		relative_position_id = MAD_POL_ROY_NATIONAL_WEALTH
+		relative_position_id = MAD_POL_ROY_LEGAL_ORDER
 		cost = 3
-		prerequisite = { focus = MAD_POL_ROY_NATIONAL_WEALTH }
+		prerequisite = { focus = MAD_POL_ROY_LEGAL_ORDER }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
 			custom_trigger_tooltip = {
