@@ -9246,7 +9246,7 @@ focus_tree = {
 	}
 
 	focus = {
-		id = MAD_POL_ROY_TRIBES_BEFORE_PARTIES
+		id = MAD_POL_ROY_REGIONAL_HOUSES
 		icon = focus_IRQ_approach_tribes_for_support
 		x = 0
 		y = 1
@@ -9262,7 +9262,7 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_ROY_TRIBES_BEFORE_PARTIES"
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_ROY_REGIONAL_HOUSES"
 			decrease_centralization = yes
 			two_random_network_infrastructure = yes
 			if = {
@@ -9287,9 +9287,9 @@ focus_tree = {
 		icon = monarchism
 		x = 0
 		y = 1
-		relative_position_id = MAD_POL_ROY_TRIBES_BEFORE_PARTIES
+		relative_position_id = MAD_POL_ROY_REGIONAL_HOUSES
 		cost = 3
-		prerequisite = { focus = MAD_POL_ROY_TRIBES_BEFORE_PARTIES }
+		prerequisite = { focus = MAD_POL_ROY_REGIONAL_HOUSES }
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
 		available = {
 			custom_trigger_tooltip = {
