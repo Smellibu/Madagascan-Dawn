@@ -9658,7 +9658,7 @@ focus_tree = {
 	}
 
 	focus = {
-		id = MAD_POL_ROY_LIVING_FORCES
+		id = MAD_POL_ROY_TAMIMA_REPRESENT_LIVING_FORCES
 		icon = focus_generic_court
 		x = 0
 		y = 1
@@ -9674,7 +9674,7 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_ROY_LIVING_FORCES"
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_ROY_TAMIMA_REPRESENT_LIVING_FORCES"
 			set_temp_variable = { MAD_rc_delta = 6 }
 			MAD_rural_cooperation_adjust = yes
 			custom_effect_tooltip = MAD_RURAL_COOP_FOCUS_GAIN_6_TT
@@ -9730,9 +9730,9 @@ focus_tree = {
 		icon = self_management
 		x = 0
 		y = 1
-		relative_position_id = MAD_POL_ROY_LIVING_FORCES
+		relative_position_id = MAD_POL_ROY_TAMIMA_REPRESENT_LIVING_FORCES
 		cost = 3
-		prerequisite = { focus = MAD_POL_ROY_LIVING_FORCES }
+		prerequisite = { focus = MAD_POL_ROY_TAMIMA_REPRESENT_LIVING_FORCES }
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY FOCUS_FILTER_ECONOMY }
 		available = {
 			custom_trigger_tooltip = {
