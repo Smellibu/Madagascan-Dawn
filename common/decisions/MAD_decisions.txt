@@ -6157,7 +6157,7 @@ MAD_military_refoundation_category = {
 		ai_will_do = { base = 0 }
 	}
 
-		MAD_MILITARY_OFFICER_CONFERENCE = {
+		MAD_POL_TGV_IMPLEMENT_SECURITY_CONSULTATION = {
 		icon = GFX_decision_generic_political_reform
 		cost = 50
 		fire_only_once = yes
@@ -6183,7 +6183,7 @@ MAD_military_refoundation_category = {
 			NOT = { has_country_flag = MAD_MIL_OFFICER_CONFERENCE_HELD }
 		}
 		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision MAD_MILITARY_OFFICER_CONFERENCE started"
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_POL_TGV_IMPLEMENT_SECURITY_CONSULTATION started"
 			set_temp_variable = { treasury_change = -2.50 }
 			modify_treasury_effect = yes
 			set_country_flag = MAD_MIL_OFFICER_CONFERENCE_ACTIVE
@@ -6193,7 +6193,7 @@ MAD_military_refoundation_category = {
 			}
 		}
 		remove_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision MAD_MILITARY_OFFICER_CONFERENCE completed"
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_POL_TGV_IMPLEMENT_SECURITY_CONSULTATION completed"
 			clr_country_flag = MAD_MIL_OFFICER_CONFERENCE_ACTIVE
 			clr_country_flag = MAD_MIL_CRDSN_ACTIVE
 			set_country_flag = MAD_MIL_OFFICER_CONFERENCE_HELD
