@@ -13056,6 +13056,27 @@ focus = {
 		}
 
 			focus = {
+			id = MAD_POL_TGV_ESTABLISH_FIS
+			icon = political_reform
+			x = -2
+			y = 1
+			relative_position_id = MAD_POL_TGV_2009_LEGACY
+			cost = 3
+			prerequisite = { focus = MAD_POL_TGV_2009_LEGACY }
+			search_filters = { FOCUS_FILTER_POLITICAL }
+			visible = {
+				has_country_flag = MAD_TGV_CNME_ESTABLISHED
+				has_country_flag = MAD_TGV_2009_TRANSITIONAL_ROUTE
+			}
+			available = { MAD_TGV_IN_POWER = yes }
+			completion_reward = {
+				log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_TGV_ESTABLISH_FIS"
+				country_event = { id = MAD_military_refoundation.20 days = 1 }
+			}
+			ai_will_do = { base = 1 }
+		}
+
+		focus = {
 			id = MAD_POL_TGV_MAPUTO_CHARTER
 			icon = diplomatic_treaty
 			x = 0
