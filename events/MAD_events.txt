@@ -9342,8 +9342,6 @@ country_event = {
 		set_country_flag = MAD_TGV_CNME_INTEGRITY_MODEL_SELECTED
 		set_country_flag = MAD_TGV_DST_ESTABLISHED
 		add_ideas = MAD_TGV_CNME_INTEGRITY_MODEL
-		add_political_power = 10
-		add_stability = 0.01
 		hidden_effect = { country_event = { id = MAD_military_refoundation.9 days = 390 } }
 	}
 	option = {
@@ -9354,8 +9352,6 @@ country_event = {
 		set_country_flag = MAD_TGV_CNME_EXECUTIVE_MODEL_SELECTED
 		set_country_flag = MAD_TGV_DST_ESTABLISHED
 		add_ideas = MAD_TGV_CNME_EXECUTIVE_MODEL
-		add_political_power = 10
-		add_stability = 0.01
 		hidden_effect = { country_event = { id = MAD_military_refoundation.9 days = 390 } }
 	}
 }
@@ -9380,7 +9376,6 @@ country_event = {
 		set_country_flag = MAD_TGV_DST_ESTABLISHED
 		remove_ideas = MAD_TGV_CNME_INTEGRITY_MODEL
 		remove_ideas = MAD_TGV_CNME_EXECUTIVE_MODEL
-		set_temp_variable = { party_index = 20 }
 		if = {
 			limit = { has_country_flag = MAD_TGV_CNME_ESTABLISHED }
 			set_country_flag = MAD_TGV_CNME_FIS_CREATED
@@ -9389,11 +9384,6 @@ country_event = {
 		else = {
 			add_ideas = MAD_TGV_FIS_PARALLEL_SECURITY_LIMITED
 		}
-		add_stability = -0.02
-		add_political_power = 15
-		set_temp_variable = { party_popularity_increase = 0.02 }
-		change_relative_party_popularity = yes
-		recalculate_party = yes
 	}
 	option = {
 		name = MAD_military_refoundation.20.b
@@ -9412,8 +9402,6 @@ country_event = {
 		else = {
 			add_ideas = MAD_TGV_FIS_ACCOUNTABLE_SECURITY_LIMITED
 		}
-		add_stability = 0.02
-		add_political_power = 10
 	}
 }
 
@@ -9692,16 +9680,12 @@ country_event = {
 		log = "[GetDateText]: [Root.GetName]: Treat Apollo 21 as a national-security emergency"
 		set_country_flag = MAD_APOLLO21_SECURITY_RESPONSE
 		add_timed_idea = { idea = MAD_APOLLO21_SECURITY_POSTURE days = 180 }
-		add_political_power = 20
-		add_stability = 0.01
 	}
 	option = {
 		name = mad_apollo21.1.b
 		log = "[GetDateText]: [Root.GetName]: Place Apollo 21 under judicial oversight"
 		set_country_flag = MAD_APOLLO21_JUDICIAL_RESPONSE
 		add_timed_idea = { idea = MAD_APOLLO21_JUDICIAL_REVIEW days = 180 }
-		add_political_power = 15
-		add_stability = 0.02
 	}
 }
 
