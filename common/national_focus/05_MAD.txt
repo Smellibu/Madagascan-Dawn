@@ -9726,7 +9726,7 @@ focus_tree = {
 	}
 
 	focus = {
-		id = MAD_POL_ROY_CROWN_WITHOUT_KING
+		id = MAD_POL_ROY_RESTORE_FOKONOLONA
 		icon = self_management
 		x = 0
 		y = 1
@@ -9742,7 +9742,7 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_ROY_CROWN_WITHOUT_KING"
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_ROY_RESTORE_FOKONOLONA"
 			set_temp_variable = { MAD_rc_delta = 6 }
 			MAD_rural_cooperation_adjust = yes
 			custom_effect_tooltip = MAD_RURAL_COOP_FOCUS_GAIN_6_TT
@@ -9782,9 +9782,9 @@ focus_tree = {
 		icon = national_unity
 		x = 0
 		y = 1
-		relative_position_id = MAD_POL_ROY_CROWN_WITHOUT_KING
+		relative_position_id = MAD_POL_ROY_RESTORE_FOKONOLONA
 		cost = 3
-		prerequisite = { focus = MAD_POL_ROY_CROWN_WITHOUT_KING }
+		prerequisite = { focus = MAD_POL_ROY_RESTORE_FOKONOLONA }
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
 		available = {
 			custom_trigger_tooltip = {
