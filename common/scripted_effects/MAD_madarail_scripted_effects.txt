@@ -3407,6 +3407,7 @@ MAD_dahalo_campaign_reset = {
 	clr_country_flag = MAD_MAZAVA_GROUND_OPERATION
 }
 MAD_dahalo_campaign_add_readiness = {
+	if = { limit = { has_country_flag = MAD_DAHALO_FIS_POST_TANDROKA_LIABILITY } add_to_variable = { MAD_dahalo_campaign_success_chance = -10 } }
 	if = { limit = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM } add_to_variable = { MAD_dahalo_campaign_success_chance = 10 } }
 	if = { limit = { has_country_flag = MAD_DAHALO_TRACKER_NETWORK_ESTABLISHED } add_to_variable = { MAD_dahalo_campaign_success_chance = 6 } }
 	if = {
@@ -3465,6 +3466,7 @@ MAD_dahalo_campaign_roll = {
 }
 MAD_dahalo_campaign_apply_success_rc = {
 	if = { limit = { has_country_flag = MAD_DAHALO_CAMPAIGN_COMMUNITY_APPROACH } add_to_temp_variable = { MAD_rc_delta = 2 } }
+	if = { limit = { has_country_flag = MAD_DAHALO_FIS_POST_TANDROKA_LIABILITY } add_to_temp_variable = { MAD_rc_delta = -5 } }
 	MAD_rural_cooperation_adjust = yes
 	if = { limit = { has_country_flag = MAD_DAHALO_CAMPAIGN_GENERAL_STAFF_STYLE } army_experience = 5 }
 }
@@ -3474,6 +3476,7 @@ MAD_dahalo_campaign_apply_failure_rc = {
 	if = { limit = { has_country_flag = MAD_DAHALO_CAMPAIGN_CAPSAT_STYLE } add_to_temp_variable = { MAD_rc_delta = -2 } }
 	if = { limit = { has_country_flag = MAD_DAHALO_CAMPAIGN_GENERAL_STAFF_STYLE } add_to_temp_variable = { MAD_rc_delta = 2 } }
 	if = { limit = { has_country_flag = MAD_USAD_COMMUNITY_LIAISON } add_to_temp_variable = { MAD_rc_delta = 2 } }
+	if = { limit = { has_country_flag = MAD_DAHALO_FIS_POST_TANDROKA_LIABILITY } add_to_temp_variable = { MAD_rc_delta = -5 } add_stability = -0.05 }
 	MAD_rural_cooperation_adjust = yes
 }
 MAD_dahalo_campaign_clear_after_resolution = {
