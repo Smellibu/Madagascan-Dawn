@@ -6177,7 +6177,7 @@ MAD_military_refoundation_category = {
 		ai_will_do = { base = 0 }
 	}
 
-	MAD_MILITARY_OFFICER_CONFERENCE = {
+		MAD_MILITARY_OFFICER_CONFERENCE = {
 		icon = GFX_decision_generic_political_reform
 		cost = 50
 		fire_only_once = yes
@@ -6186,36 +6186,71 @@ MAD_military_refoundation_category = {
 		visible = {
 			MAD_POL_MIL_POST_2025_ROUTE_AVAILABLE = yes
 			has_country_flag = MAD_MIL_NATIONAL_CONSULTATION_DONE
+			OR = {
+				has_country_flag = MAD_MIL_CRDSN_REVIVED
+				has_country_flag = MAD_MIL_CIVIC_FORUM
+				has_country_flag = MAD_MIL_HCDN_SPDSN_REFORM
+			}
 		}
 		available = {
 			MAD_POL_MIL_POST_2025_ROUTE_AVAILABLE = yes
 			has_country_flag = MAD_MIL_NATIONAL_CONSULTATION_DONE
+			OR = {
+				has_country_flag = MAD_MIL_CRDSN_REVIVED
+				has_country_flag = MAD_MIL_CIVIC_FORUM
+				has_country_flag = MAD_MIL_HCDN_SPDSN_REFORM
+			}
 			NOT = { has_country_flag = MAD_MIL_OFFICER_CONFERENCE_HELD }
 		}
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_MILITARY_OFFICER_CONFERENCE started"
+			set_temp_variable = { treasury_change = -2.50 }
+			modify_treasury_effect = yes
 			set_country_flag = MAD_MIL_OFFICER_CONFERENCE_ACTIVE
-			set_country_flag = MAD_MIL_CRDSN_ACTIVE
+			if = {
+				limit = { has_country_flag = MAD_MIL_CRDSN_REVIVED }
+				set_country_flag = MAD_MIL_CRDSN_ACTIVE
+			}
 		}
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_MILITARY_OFFICER_CONFERENCE completed"
 			clr_country_flag = MAD_MIL_OFFICER_CONFERENCE_ACTIVE
 			clr_country_flag = MAD_MIL_CRDSN_ACTIVE
 			set_country_flag = MAD_MIL_OFFICER_CONFERENCE_HELD
-			set_country_flag = MAD_MIL_SECURITY_COMMITTEE_MANDATE
 			if = {
 				limit = { has_country_flag = MAD_MIL_CRDSN_REVIVED }
-				custom_effect_tooltip = MAD_MIL_CRDSN_COMMITTEE_MANDATE_TT
+				set_country_flag = MAD_MIL_SECURITY_COMMITTEE_MANDATE
+				add_ideas = MAD_MIL_CRDSN_COMMITTEE
+				if = {
+					limit = { has_idea = the_military }
+					set_temp_variable = { temp_opinion = 5 }
+					change_the_military_opinion = yes
+				}
+				set_temp_variable = { MAD_rc_delta = 1 }
+				MAD_rural_cooperation_adjust = yes
 			}
 			else_if = {
 				limit = { has_country_flag = MAD_MIL_CIVIC_FORUM }
-				custom_effect_tooltip = MAD_MIL_CIVIC_SECURITY_FORUM_TT
+				set_country_flag = MAD_MIL_CIVIC_SECURITY_FORUM_ESTABLISHED
+				add_ideas = MAD_MIL_CIVIC_SECURITY_FORUM
+				set_temp_variable = { MAD_rc_delta = 2 }
+				MAD_rural_cooperation_adjust = yes
+				if = {
+					limit = {
+						NOT = { has_country_flag = MAD_DAHALO_DEFEATED }
+						check_variable = { MAD_dahalo_threat > 0 }
+					}
+					add_to_variable = { MAD_dahalo_threat = -2 tooltip = MAD_DAHALO_THREAT_MINUS_2_TT }
+					MAD_dahalo_update_modifier = yes
+				}
 			}
-			if = {
-				limit = { has_idea = the_military }
-				set_temp_variable = { temp_opinion = 5 }
-				change_the_military_opinion = yes
+			else_if = {
+				limit = { has_country_flag = MAD_MIL_HCDN_SPDSN_REFORM }
+				set_country_flag = MAD_MIL_HCDN_SPDSN_REFORMED
+				add_ideas = MAD_MIL_HCDN_SPDSN_COORDINATION
 			}
+			set_country_flag = MAD_MIL_INSTITUTIONAL_FOLLOWUP_PENDING
+			country_event = { id = MAD_military_refoundation.5 days = 1 }
 		}
 		ai_will_do = { base = 1 }
 	}
@@ -6252,7 +6287,7 @@ MAD_military_refoundation_category = {
 		ai_will_do = { base = 1 }
 	}
 
-	MAD_MILITARY_SUPPORT_GENDARMERIE = {
+		MAD_MILITARY_SUPPORT_GENDARMERIE = {
 		icon = GFX_decision_generic_police
 		cost = 50
 		fire_only_once = yes
@@ -6269,6 +6304,8 @@ MAD_military_refoundation_category = {
 		}
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_MILITARY_SUPPORT_GENDARMERIE started"
+			set_temp_variable = { treasury_change = -5.00 }
+			modify_treasury_effect = yes
 			set_country_flag = MAD_MIL_GENDARMERIE_PROJECT_ACTIVE
 		}
 		remove_effect = {
@@ -6281,6 +6318,29 @@ MAD_military_refoundation_category = {
 					check_variable = { MAD_dahalo_threat > 0 }
 				}
 				add_to_variable = { MAD_dahalo_threat = -2 tooltip = MAD_DAHALO_THREAT_MINUS_2_TT }
+				MAD_dahalo_update_modifier = yes
+			}
+			if = {
+				limit = { has_country_flag = MAD_MIL_SECURITY_COMMITTEE_MANDATE }
+				set_temp_variable = { MAD_rc_delta = 1 }
+				MAD_rural_cooperation_adjust = yes
+			}
+			else_if = {
+				limit = {
+					has_country_flag = MAD_MIL_CIVIC_SECURITY_FORUM_ESTABLISHED
+					NOT = { has_country_flag = MAD_DAHALO_DEFEATED }
+					check_variable = { MAD_dahalo_threat > 0 }
+				}
+				add_to_variable = { MAD_dahalo_threat = -2 tooltip = MAD_DAHALO_THREAT_MINUS_2_TT }
+				MAD_dahalo_update_modifier = yes
+			}
+			else_if = {
+				limit = {
+					has_country_flag = MAD_MIL_HCDN_SPDSN_REFORMED
+					NOT = { has_country_flag = MAD_DAHALO_DEFEATED }
+					check_variable = { MAD_dahalo_threat > 0 }
+				}
+				add_to_variable = { MAD_dahalo_threat = -1 tooltip = MAD_DAHALO_THREAT_MINUS_1_TT }
 				MAD_dahalo_update_modifier = yes
 			}
 		}

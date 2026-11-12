@@ -9008,28 +9008,51 @@ country_event = {
 	fire_only_once = yes
 	trigger = { has_country_flag = MAD_MIL_MAPUTO_CHARTER_PENDING }
 	immediate = { clr_country_flag = MAD_MIL_MAPUTO_CHARTER_PENDING }
-
 	option = {
 		name = MAD_military_refoundation.3.a
+		ai_chance = { factor = 10 }
 		log = "[GetDateText]: [Root.GetName]: Event MAD_military_refoundation.3.a executed"
 		set_country_flag = MAD_MIL_CRDSN_PROPOSED
 		clr_country_flag = MAD_MIL_EXECUTIVE_SECURITY_COORDINATION
-		set_variable = { MAD_MIL_CRDSN_MEMBER_COUNT = 8 }
-		set_variable = { MAD_MIL_CRDSN_SEATS_PER_MOVEMENT = 2 }
-		set_variable = { MAD_MIL_CRDSN_POLITICAL_MOVEMENTS = 4 }
+		add_political_power = -15
+		add_stability = 0.03
+		decrease_centralization = yes
 	}
 	option = {
 		name = MAD_military_refoundation.3.b
+		ai_chance = { factor = 90 }
 		log = "[GetDateText]: [Root.GetName]: Event MAD_military_refoundation.3.b executed"
 		set_country_flag = MAD_MIL_EXECUTIVE_SECURITY_COORDINATION
 		clr_country_flag = MAD_MIL_CRDSN_PROPOSED
+		add_political_power = 25
+		add_stability = -0.01
+		increase_centralization = yes
+		set_temp_variable = { party_index = 20 }
+		set_temp_variable = { party_popularity_increase = 0.03 }
+		set_temp_variable = { temp_outlook_increase = 0.03 }
+		change_relative_party_popularity = yes
+		recalculate_party = yes
 	}
 }
 
 country_event = {
 	id = MAD_military_refoundation.4
 	title = MAD_military_refoundation.4.t
-	desc = MAD_military_refoundation.4.d
+	desc = {
+		text = MAD_military_refoundation.4.d_crdsn
+		trigger = { has_country_flag = MAD_MIL_CRDSN_PROPOSED }
+	}
+	desc = {
+		text = MAD_military_refoundation.4.d_executive
+		trigger = { has_country_flag = MAD_MIL_EXECUTIVE_SECURITY_COORDINATION }
+	}
+	desc = {
+		text = MAD_military_refoundation.4.d_default
+		trigger = {
+			NOT = { has_country_flag = MAD_MIL_CRDSN_PROPOSED }
+			NOT = { has_country_flag = MAD_MIL_EXECUTIVE_SECURITY_COORDINATION }
+		}
+	}
 	picture = GFX_report_event_generic_political
 	is_triggered_only = yes
 	fire_only_once = yes
@@ -9038,17 +9061,83 @@ country_event = {
 	option = {
 		name = MAD_military_refoundation.4.a
 		trigger = { has_country_flag = MAD_MIL_CRDSN_PROPOSED }
-		log = "[GetDateText]: [Root.GetName]: Event MAD_military_refoundation.4.a executed"
+		ai_chance = { factor = 25 }
+		log = "[GetDateText]: [Root.GetName]: Event MAD_military_refoundation.4.a executed - CRDSN revival selected"
 		set_country_flag = MAD_MIL_NATIONAL_CONSULTATION_DONE
 		set_country_flag = MAD_MIL_CRDSN_REVIVED
+		clr_country_flag = MAD_MIL_CIVIC_FORUM
+		clr_country_flag = MAD_MIL_HCDN_SPDSN_REFORM
+		clr_country_flag = MAD_MIL_EXECUTIVE_SECURITY_CONTINUITY
 	}
 	option = {
 		name = MAD_military_refoundation.4.b
-		log = "[GetDateText]: [Root.GetName]: Event MAD_military_refoundation.4.b executed"
+		ai_chance = { factor = 20 }
+		log = "[GetDateText]: [Root.GetName]: Event MAD_military_refoundation.4.b executed - civic and religious forum selected"
 		set_country_flag = MAD_MIL_NATIONAL_CONSULTATION_DONE
 		set_country_flag = MAD_MIL_CIVIC_FORUM
-		set_temp_variable = { MAD_rc_delta = 1 }
-		MAD_rural_cooperation_adjust = yes
+		clr_country_flag = MAD_MIL_CRDSN_REVIVED
+		clr_country_flag = MAD_MIL_HCDN_SPDSN_REFORM
+		clr_country_flag = MAD_MIL_EXECUTIVE_SECURITY_CONTINUITY
+	}
+	option = {
+		name = MAD_military_refoundation.4.c
+		ai_chance = { factor = 20 }
+		log = "[GetDateText]: [Root.GetName]: Event MAD_military_refoundation.4.c executed - HCDN and SPDSN reform selected"
+		set_country_flag = MAD_MIL_NATIONAL_CONSULTATION_DONE
+		set_country_flag = MAD_MIL_HCDN_SPDSN_REFORM
+		clr_country_flag = MAD_MIL_CRDSN_REVIVED
+		clr_country_flag = MAD_MIL_CIVIC_FORUM
+		clr_country_flag = MAD_MIL_EXECUTIVE_SECURITY_CONTINUITY
+	}
+	option = {
+		name = MAD_military_refoundation.4.d
+		ai_chance = { factor = 35 }
+		log = "[GetDateText]: [Root.GetName]: Event MAD_military_refoundation.4.d executed - executive continuity selected"
+		set_country_flag = MAD_MIL_NATIONAL_CONSULTATION_DONE
+		set_country_flag = MAD_MIL_EXECUTIVE_SECURITY_CONTINUITY
+		clr_country_flag = MAD_MIL_CRDSN_REVIVED
+		clr_country_flag = MAD_MIL_CIVIC_FORUM
+		clr_country_flag = MAD_MIL_HCDN_SPDSN_REFORM
+		increase_centralization = yes
+	}
+}
+
+country_event = {
+	id = MAD_military_refoundation.5
+	title = MAD_military_refoundation.5.t
+	desc = MAD_military_refoundation.5.d
+	picture = GFX_report_event_generic_political
+	is_triggered_only = yes
+	fire_only_once = yes
+	trigger = { has_country_flag = MAD_MIL_INSTITUTIONAL_FOLLOWUP_PENDING }
+	immediate = { clr_country_flag = MAD_MIL_INSTITUTIONAL_FOLLOWUP_PENDING }
+	option = {
+		name = MAD_military_refoundation.5.a
+		ai_chance = { factor = 45 }
+		log = "[GetDateText]: [Root.GetName]: Event MAD_military_refoundation.5.a executed - civilian oversight selected"
+		set_country_flag = MAD_MIL_SECURITY_OVERSIGHT_STRENGTHENED
+		clr_country_flag = MAD_MIL_SECURITY_EXECUTIVE_COORDINATION_REINFORCED
+		clr_country_flag = MAD_MIL_HCDN_PARLIAMENTARY_PARTICIPATION
+		decrease_corruption = yes
+		decrease_centralization = yes
+		if = {
+			limit = { has_country_flag = MAD_MIL_HCDN_SPDSN_REFORMED }
+			set_country_flag = MAD_MIL_HCDN_PARLIAMENTARY_PARTICIPATION
+		}
+	}
+	option = {
+		name = MAD_military_refoundation.5.b
+		ai_chance = { factor = 55 }
+		log = "[GetDateText]: [Root.GetName]: Event MAD_military_refoundation.5.b executed - executive coordination reinforced"
+		set_country_flag = MAD_MIL_SECURITY_EXECUTIVE_COORDINATION_REINFORCED
+		clr_country_flag = MAD_MIL_SECURITY_OVERSIGHT_STRENGTHENED
+		clr_country_flag = MAD_MIL_HCDN_PARLIAMENTARY_PARTICIPATION
+		increase_centralization = yes
+		if = {
+			limit = { has_idea = the_military }
+			set_temp_variable = { temp_opinion = 5 }
+			change_the_military_opinion = yes
+		}
 	}
 }
 

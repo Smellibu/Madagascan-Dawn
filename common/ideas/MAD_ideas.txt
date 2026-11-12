@@ -1710,6 +1710,36 @@ MAD_HVM_FRANCO_MALAGASY_PARTNERSHIP = {
 
 
 
+		MAD_MIL_CRDSN_COMMITTEE = {
+			name = MAD_MIL_CRDSN_COMMITTEE
+			picture = generic_political_discourse
+			allowed_civil_war = { always = yes }
+			cost = 0
+			removal_cost = -1
+			modifier = {
+				army_org_factor = 0.02
+			}
+		}
+		MAD_MIL_CIVIC_SECURITY_FORUM = {
+			name = MAD_MIL_CIVIC_SECURITY_FORUM
+			picture = generic_political_discourse
+			allowed_civil_war = { always = yes }
+			cost = 0
+			removal_cost = -1
+			modifier = {
+				police_cost_multiplier_modifier = -0.02
+			}
+		}
+		MAD_MIL_HCDN_SPDSN_COORDINATION = {
+			name = MAD_MIL_HCDN_SPDSN_COORDINATION
+			picture = generic_political_discourse
+			allowed_civil_war = { always = yes }
+			cost = 0
+			removal_cost = -1
+			modifier = {
+				bureaucracy_cost_multiplier_modifier = -0.02
+			}
+		}
 	}
 
 }
