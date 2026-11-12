@@ -12942,7 +12942,7 @@ focus_tree = {
 	}
 
 			focus = {
-			id = MAD_POL_MIL_MAPUTO_CHARTER
+			id = MAD_POL_TGV_MAPUTO_CHARTER
 			icon = diplomatic_treaty
 			x = 0
 			y = 1
@@ -12963,7 +12963,7 @@ focus_tree = {
 				}
 			}
 			completion_reward = {
-				log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_MIL_MAPUTO_CHARTER"
+				log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_TGV_MAPUTO_CHARTER"
 				set_country_flag = MAD_MIL_MAPUTO_CHARTER_PENDING
 				country_event = { id = MAD_military_refoundation.3 days = 1 }
 			}
@@ -12975,9 +12975,9 @@ focus_tree = {
 			icon = Focus_Parliament_Constitution
 			x = 0
 			y = 1
-			relative_position_id = MAD_POL_MIL_MAPUTO_CHARTER
+			relative_position_id = MAD_POL_TGV_MAPUTO_CHARTER
 			cost = 3
-			prerequisite = { focus = MAD_POL_MIL_MAPUTO_CHARTER }
+			prerequisite = { focus = MAD_POL_TGV_MAPUTO_CHARTER }
 			search_filters = { FOCUS_FILTER_POLITICAL }
 			available = {
 				custom_trigger_tooltip = {
