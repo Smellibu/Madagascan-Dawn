@@ -6235,7 +6235,7 @@ MAD_military_refoundation_category = {
 		ai_will_do = { base = 1 }
 	}
 
-	MAD_MILITARY_CIVILIAN_OVERSIGHT = {
+	MAD_MIL_PUBLIC_ACCOUNTS_REVIEW = {
 		icon = GFX_decision_generic_political_reform
 		cost = 75
 		fire_only_once = yes
@@ -6251,11 +6251,11 @@ MAD_military_refoundation_category = {
 			NOT = { has_country_flag = MAD_MIL_CIVILIAN_OVERSIGHT_DONE }
 		}
 		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision MAD_MILITARY_CIVILIAN_OVERSIGHT started"
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_MIL_PUBLIC_ACCOUNTS_REVIEW started"
 			set_country_flag = MAD_MIL_PUBLIC_AUDIT_ACTIVE
 		}
 		remove_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision MAD_MILITARY_CIVILIAN_OVERSIGHT completed"
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_MIL_PUBLIC_ACCOUNTS_REVIEW completed"
 			clr_country_flag = MAD_MIL_PUBLIC_AUDIT_ACTIVE
 			set_country_flag = MAD_MIL_CIVILIAN_OVERSIGHT_DONE
 			decrease_corruption = yes
