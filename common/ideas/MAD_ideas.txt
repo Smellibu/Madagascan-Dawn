@@ -2317,6 +2317,36 @@ MAD_MIL_2005_OPERATIONAL_PROGRAMME = {
 				stability_factor = 0.02
 			}
 		}
+		MAD_TGV_FIS_PARALLEL_SECURITY_LIMITED = {
+			name = MAD_TGV_FIS_PARALLEL_SECURITY_LIMITED
+			picture = generic_political_discourse
+			allowed_civil_war = { always = yes }
+			cost = 0
+			removal_cost = -1
+			modifier = {
+				corruption_cost_factor = -0.066667
+				bureaucracy_cost_multiplier_modifier = 0.066667
+				political_power_gain = -0.10
+				police_cost_multiplier_modifier = -0.066667
+				root_out_resistance_effectiveness_factor = 0.033333
+				stability_factor = -0.006667
+			}
+		}
+
+		MAD_TGV_FIS_ACCOUNTABLE_SECURITY_LIMITED = {
+			name = MAD_TGV_FIS_ACCOUNTABLE_SECURITY_LIMITED
+			picture = generic_political_discourse
+			allowed_civil_war = { always = yes }
+			cost = 0
+			removal_cost = -1
+			modifier = {
+				bureaucracy_cost_multiplier_modifier = 0.10
+				political_power_gain = 0.033333
+				police_cost_multiplier_modifier = -0.033333
+				root_out_resistance_effectiveness_factor = 0.013333
+				stability_factor = 0.013333
+			}
+		}
 
 		MAD_MIL_HAT_OFFICER_ACCOMMODATION = {
 			name = MAD_MIL_HAT_OFFICER_ACCOMMODATION

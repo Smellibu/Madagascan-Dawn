@@ -9295,7 +9295,6 @@ country_event = {
 	is_triggered_only = yes
 	fire_only_once = yes
 	trigger = {
-		has_country_flag = MAD_TGV_CNME_ESTABLISHED
 		MAD_TGV_IN_POWER = yes
 		NOT = { has_country_flag = MAD_TGV_FIS_ESTABLISHED }
 	}
@@ -9306,14 +9305,24 @@ country_event = {
 		set_country_flag = MAD_TGV_FIS_ESTABLISHED
 		set_country_flag = MAD_TGV_FIS_DIRECT_COMMAND
 		set_country_flag = MAD_TGV_DST_ESTABLISHED
-		set_country_flag = MAD_TGV_CNME_FIS_CREATED
 		remove_ideas = MAD_TGV_CNME_INTEGRITY_MODEL
 		remove_ideas = MAD_TGV_CNME_EXECUTIVE_MODEL
-		add_ideas = MAD_TGV_FIS_PARALLEL_SECURITY
-		add_stability = -0.02
-		add_political_power = 15
 		set_temp_variable = { party_index = 20 }
-		set_temp_variable = { party_popularity_increase = 0.02 }
+		if = {
+			limit = { has_country_flag = MAD_TGV_CNME_ESTABLISHED }
+			set_country_flag = MAD_TGV_CNME_FIS_CREATED
+			add_ideas = MAD_TGV_FIS_PARALLEL_SECURITY
+			add_stability = -0.02
+			add_political_power = 15
+			set_temp_variable = { party_popularity_increase = 0.02 }
+		}
+		else = {
+			set_country_flag = MAD_TGV_FIS_LIMITED_ESTABLISHMENT
+			add_ideas = MAD_TGV_FIS_PARALLEL_SECURITY_LIMITED
+			add_stability = -0.013333
+			add_political_power = 10
+			set_temp_variable = { party_popularity_increase = 0.013333 }
+		}
 		change_relative_party_popularity = yes
 		recalculate_party = yes
 	}
@@ -9327,9 +9336,18 @@ country_event = {
 		set_country_flag = MAD_TGV_DST_ESTABLISHED
 		remove_ideas = MAD_TGV_CNME_INTEGRITY_MODEL
 		remove_ideas = MAD_TGV_CNME_EXECUTIVE_MODEL
-		add_ideas = MAD_TGV_FIS_ACCOUNTABLE_SECURITY
-		add_stability = 0.02
-		add_political_power = 10
+		if = {
+			limit = { has_country_flag = MAD_TGV_CNME_ESTABLISHED }
+			add_ideas = MAD_TGV_FIS_ACCOUNTABLE_SECURITY
+			add_stability = 0.02
+			add_political_power = 10
+		}
+		else = {
+			set_country_flag = MAD_TGV_FIS_LIMITED_ESTABLISHMENT
+			add_ideas = MAD_TGV_FIS_ACCOUNTABLE_SECURITY_LIMITED
+			add_stability = 0.013333
+			add_political_power = 6.666667
+		}
 	}
 }
 
