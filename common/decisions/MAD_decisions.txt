@@ -6227,7 +6227,16 @@ MAD_military_refoundation_category = {
 			else_if = {
 				limit = { has_country_flag = MAD_MIL_HCDN_SPDSN_REFORM }
 				set_country_flag = MAD_MIL_HCDN_SPDSN_REFORMED
-				add_ideas = MAD_MIL_HCDN_SPDSN_COORDINATION
+				if = {
+					limit = { has_idea = MAD_MIL_HCDN_SPDSN_BASE }
+					swap_ideas = {
+						remove_idea = MAD_MIL_HCDN_SPDSN_BASE
+						add_idea = MAD_MIL_HCDN_SPDSN_COORDINATION
+					}
+				}
+				else = {
+					add_ideas = MAD_MIL_HCDN_SPDSN_COORDINATION
+				}
 			}
 			set_country_flag = MAD_MIL_INSTITUTIONAL_FOLLOWUP_PENDING
 			country_event = { id = MAD_military_refoundation.5 days = 1 }
@@ -6365,6 +6374,71 @@ MAD_military_refoundation_category = {
 		}
 		ai_will_do = { base = 0 }
 	}
+
+	MAD_MIL_CREATE_GFSI = {
+		icon = GFX_decision_generic_police
+		visible = {
+			has_completed_focus = MAD_POL_MIL_INTERNAL_CONTROL_2021_23
+			date > 2021.2.10
+		}
+		available = {
+			has_completed_focus = MAD_POL_MIL_INTERNAL_CONTROL_2021_23
+			date > 2021.2.10
+			NOT = { has_country_flag = MAD_MIL_GFSI_PROJECT_ACTIVE }
+			NOT = { has_country_flag = MAD_MIL_GFSI_ESTABLISHED }
+		}
+		cost = 50
+		fire_only_once = yes
+		days_remove = 120
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_MIL_CREATE_GFSI started"
+			set_country_flag = MAD_MIL_GFSI_PROJECT_ACTIVE
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_MIL_CREATE_GFSI completed"
+			clr_country_flag = MAD_MIL_GFSI_PROJECT_ACTIVE
+			set_country_flag = MAD_MIL_GFSI_ESTABLISHED
+			add_ideas = MAD_MIL_GFSI_RAPID_RESPONSE
+			army_experience = 10
+			add_political_power = -10
+		}
+		ai_will_do = { base = 0 }
+	}
+
+	MAD_MILITARY_INSPECTORATE_IMPLEMENTATION = {
+		icon = GFX_decision_generic_political_reform
+		visible = {
+			has_country_flag = MAD_MIL_INTERNAL_CONTROL_STARTED
+			date > 2023.12.31
+		}
+		available = {
+			has_country_flag = MAD_MIL_INTERNAL_CONTROL_STARTED
+			date > 2023.12.31
+			NOT = { has_country_flag = MAD_MIL_INSPECTORATE_PROJECT_ACTIVE }
+			NOT = { has_country_flag = MAD_MIL_INSPECTORATES_APPOINTED }
+		}
+		cost = 50
+		fire_only_once = yes
+		days_remove = 180
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_MILITARY_INSPECTORATE_IMPLEMENTATION started"
+			set_country_flag = MAD_MIL_INSPECTORATE_PROJECT_ACTIVE
+			set_temp_variable = { treasury_change = -1.00 }
+			modify_treasury_effect = yes
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_MILITARY_INSPECTORATE_IMPLEMENTATION completed"
+			clr_country_flag = MAD_MIL_INSPECTORATE_PROJECT_ACTIVE
+			set_country_flag = MAD_MIL_INSPECTORATES_APPOINTED
+			add_ideas = MAD_MIL_INTERNAL_INSPECTION_CAPACITY
+			decrease_corruption = yes
+			add_stability = 0.01
+			add_political_power = 10
+			army_experience = 5
+		}
+		ai_will_do = { base = 0 }
+	}
+
 }
 # ---------------------------------------------------------------------------
 # TGV – Thirteen Velirano
