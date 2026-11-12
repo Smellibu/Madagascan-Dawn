@@ -17477,4 +17477,146 @@ focus_tree = {
 		ai_will_do = { base = 1 }
 	}
 
+
+	focus = {
+		id = MAD_POL_TGV_OFFICERS_OF_MARCH
+		icon = army_reform
+		x = 2
+		y = 1
+		relative_position_id = MAD_POL_TGV_2009_LEGACY
+		cost = 3
+		prerequisite = { focus = MAD_POL_TGV_2009_LEGACY }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_TGV_IN_POWER_tt
+				MAD_TGV_IN_POWER = yes
+			}
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_TGV_OFFICERS_OF_MARCH"
+			set_country_flag = MAD_POL_TGV_OFFICERS_OF_MARCH_COMPLETED
+
+			if = {
+				limit = { has_idea = MAD_MIL_OFFICER_CORPS_I }
+				swap_ideas = {
+					remove_idea = MAD_MIL_OFFICER_CORPS_I
+					add_idea = MAD_MIL_OFFICER_CORPS_II
+				}
+			}
+			else_if = {
+				limit = { has_idea = MAD_MIL_OFFICER_CORPS_II }
+				swap_ideas = {
+					remove_idea = MAD_MIL_OFFICER_CORPS_II
+					add_idea = MAD_MIL_OFFICER_CORPS_III
+				}
+			}
+			else_if = {
+				limit = { NOT = { has_idea = MAD_MIL_OFFICER_CORPS_III } }
+				add_ideas = MAD_MIL_OFFICER_CORPS_I
+			}
+			add_war_support = 0.01
+			every_army_leader = {
+				gain_xp = 10
+			}
+		}
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_POL_TGV_2013_OFFICER_PROMOTIONS
+		icon = army_reform
+		x = -2
+		y = 1
+		relative_position_id = MAD_POL_TGV_YOUTH_READY
+		cost = 3
+		prerequisite = { focus = MAD_POL_TGV_YOUTH_READY }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_TGV_IN_POWER_tt
+				MAD_TGV_IN_POWER = yes
+			}
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_TGV_2013_OFFICER_PROMOTIONS"
+			set_country_flag = MAD_POL_TGV_2013_OFFICER_PROMOTIONS_COMPLETED
+
+			if = {
+				limit = { has_idea = MAD_MIL_OFFICER_CORPS_I }
+				swap_ideas = {
+					remove_idea = MAD_MIL_OFFICER_CORPS_I
+					add_idea = MAD_MIL_OFFICER_CORPS_II
+				}
+			}
+			else_if = {
+				limit = { has_idea = MAD_MIL_OFFICER_CORPS_II }
+				swap_ideas = {
+					remove_idea = MAD_MIL_OFFICER_CORPS_II
+					add_idea = MAD_MIL_OFFICER_CORPS_III
+				}
+			}
+			else_if = {
+				limit = { NOT = { has_idea = MAD_MIL_OFFICER_CORPS_III } }
+				add_ideas = MAD_MIL_OFFICER_CORPS_I
+			}
+			add_war_support = 0.01
+			every_army_leader = {
+				gain_xp = 10
+			}
+		}
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_POL_HVM_OFFICER_PROMOTIONS
+		icon = army_reform
+		x = 4
+		y = 1
+		relative_position_id = MAD_POL_HVM_PARTY_OF_GOVERNMENT
+		cost = 3
+		prerequisite = { focus = MAD_POL_HVM_PARTY_OF_GOVERNMENT }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_HVM_IN_POWER_tt
+				MAD_HVM_IN_POWER = yes
+			}
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_HVM_OFFICER_PROMOTIONS"
+			set_country_flag = MAD_POL_HVM_OFFICER_PROMOTIONS_COMPLETED
+
+			if = {
+				limit = { has_idea = MAD_MIL_OFFICER_CORPS_I }
+				swap_ideas = {
+					remove_idea = MAD_MIL_OFFICER_CORPS_I
+					add_idea = MAD_MIL_OFFICER_CORPS_II
+				}
+			}
+			else_if = {
+				limit = { has_idea = MAD_MIL_OFFICER_CORPS_II }
+				swap_ideas = {
+					remove_idea = MAD_MIL_OFFICER_CORPS_II
+					add_idea = MAD_MIL_OFFICER_CORPS_III
+				}
+			}
+			else_if = {
+				limit = { NOT = { has_idea = MAD_MIL_OFFICER_CORPS_III } }
+				add_ideas = MAD_MIL_OFFICER_CORPS_I
+			}
+			add_war_support = 0.01
+			every_army_leader = {
+				gain_xp = 10
+			}
+		}
+		ai_will_do = {
+			base = 1
+		}
+	}
+
 }

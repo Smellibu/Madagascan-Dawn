@@ -19,8 +19,20 @@ characters = {
 				factor = 1.000
 			}
 		}
+		corps_commander = {
+			# Brigadier-General from 2011; replaced by the 2013 divisional promotion.
+			visible = {
+				date > 2011.1.1
+				NOT = { has_country_flag = MAD_POL_TGV_2013_OFFICER_PROMOTIONS_COMPLETED }
+			}
+			skill = 2
+			attack_skill = 2
+			defense_skill = 1
+			planning_skill = 1
+			logistics_skill = 3
+		}
 		field_marshal = {
-			visible = { date > 2014.5.1 }
+			visible = { has_country_flag = MAD_POL_TGV_2013_OFFICER_PROMOTIONS_COMPLETED }
 			traits = { trait_reckless expert_delegator }
 			skill = 2
 			attack_skill = 2
@@ -218,7 +230,7 @@ characters = {
 			}
 		}
 		corps_commander = {
-			visible = { date > 2009.11.2 }
+			visible = { has_country_flag = MAD_POL_TGV_OFFICERS_OF_MARCH_COMPLETED }
 			traits = { trait_reckless }
 			skill = 2
 			attack_skill = 3
@@ -255,7 +267,7 @@ characters = {
 		}
 		corps_commander = {
 			# Installed as Army Chief of Staff on 11 March 2009.
-			visible = { date > 2009.3.10 }
+			visible = { has_country_flag = MAD_POL_TGV_OFFICERS_OF_MARCH_COMPLETED }
 			traits = { adaptable }
 			skill = 2
 			attack_skill = 2
@@ -385,4 +397,172 @@ characters = {
 			ai_will_do = { factor = 1.000 }
 		}
 	}
+
+	MAD_richard_ravalomanana = {
+		name = "Richard Ravalomanana"
+		corps_commander = {
+			visible = {
+				has_country_flag = MAD_POL_TGV_OFFICERS_OF_MARCH_COMPLETED
+				NOT = { has_country_flag = MAD_POL_TGV_2013_OFFICER_PROMOTIONS_COMPLETED }
+			}
+			skill = 2
+			attack_skill = 2
+			defense_skill = 2
+			planning_skill = 2
+			logistics_skill = 2
+		}
+		field_marshal = {
+			visible = { has_country_flag = MAD_POL_TGV_2013_OFFICER_PROMOTIONS_COMPLETED }
+			skill = 2
+			attack_skill = 2
+			defense_skill = 2
+			planning_skill = 2
+			logistics_skill = 2
+		}
+	}
+
+	MAD_jean_bruno_wilfrid_razafindrakoto = {
+		name = "Jean Bruno Wilfrid Razafindrakoto"
+		corps_commander = {
+			visible = { has_country_flag = MAD_POL_TGV_OFFICERS_OF_MARCH_COMPLETED }
+			skill = 2
+			attack_skill = 2
+			defense_skill = 2
+			planning_skill = 2
+			logistics_skill = 2
+		}
+	}
+
+	MAD_tafara_edmond = {
+		name = "Tafara Edmond"
+		field_marshal = {
+			visible = { has_country_flag = MAD_POL_TGV_2013_OFFICER_PROMOTIONS_COMPLETED }
+			skill = 2
+			attack_skill = 2
+			defense_skill = 2
+			planning_skill = 2
+			logistics_skill = 2
+		}
+	}
+
+	MAD_rafenomanjato_mamy_jerison = {
+		name = "Rafenomanjato Mamy Jerison"
+		field_marshal = {
+			visible = { has_country_flag = MAD_POL_TGV_2013_OFFICER_PROMOTIONS_COMPLETED }
+			skill = 2
+			attack_skill = 2
+			defense_skill = 2
+			planning_skill = 2
+			logistics_skill = 2
+		}
+	}
+
+	MAD_alphonse_ravelontsoa = {
+		name = "Alphonse Ravelontsoa"
+		corps_commander = {
+			visible = { has_country_flag = MAD_POL_HVM_OFFICER_PROMOTIONS_COMPLETED }
+			skill = 2
+			attack_skill = 2
+			defense_skill = 2
+			planning_skill = 2
+			logistics_skill = 2
+		}
+	}
+
+	MAD_jean_louis_tombovelo = {
+		name = "Jean Louis Tombovelo"
+		corps_commander = {
+			visible = { has_country_flag = MAD_POL_HVM_OFFICER_PROMOTIONS_COMPLETED }
+			skill = 2
+			attack_skill = 2
+			defense_skill = 2
+			planning_skill = 2
+			logistics_skill = 2
+		}
+	}
+
+	MAD_roger_rakotomalala = {
+		name = "Roger Rakotomalala"
+		corps_commander = {
+			visible = { has_country_flag = MAD_POL_HVM_OFFICER_PROMOTIONS_COMPLETED }
+			skill = 2
+			attack_skill = 2
+			defense_skill = 2
+			planning_skill = 2
+			logistics_skill = 2
+		}
+	}
+
+	MAD_paulin_babity = {
+		name = "Paulin Babity"
+		corps_commander = {
+			visible = { has_country_flag = MAD_POL_HVM_OFFICER_PROMOTIONS_COMPLETED }
+			skill = 2
+			attack_skill = 2
+			defense_skill = 2
+			planning_skill = 2
+			logistics_skill = 2
+		}
+	}
+
+	MAD_jean_noelson_fulgence_raharinirina = {
+		name = "Jean Noelson Fulgence Raharinirina"
+		corps_commander = {
+			visible = { has_country_flag = MAD_POL_HVM_OFFICER_PROMOTIONS_COMPLETED }
+			skill = 2
+			attack_skill = 2
+			defense_skill = 2
+			planning_skill = 2
+			logistics_skill = 2
+		}
+	}
+
+	MAD_marc_rakotomarolahy = {
+		name = "Marc Rakotomarolahy"
+		corps_commander = {
+			visible = { has_country_flag = MAD_POL_HVM_OFFICER_PROMOTIONS_COMPLETED }
+			skill = 2
+			attack_skill = 2
+			defense_skill = 2
+			planning_skill = 2
+			logistics_skill = 2
+		}
+	}
+
+	MAD_eddie_charles_razafindrakoto = {
+		name = "Eddie Charles Razafindrakoto"
+		corps_commander = {
+			visible = { has_country_flag = MAD_POL_HVM_OFFICER_PROMOTIONS_COMPLETED }
+			skill = 2
+			attack_skill = 2
+			defense_skill = 2
+			planning_skill = 2
+			logistics_skill = 2
+		}
+	}
+
+	MAD_evariste_botojanina = {
+		name = "Evariste Botojanina"
+		corps_commander = {
+			visible = { has_country_flag = MAD_POL_HVM_OFFICER_PROMOTIONS_COMPLETED }
+			skill = 2
+			attack_skill = 2
+			defense_skill = 2
+			planning_skill = 2
+			logistics_skill = 2
+		}
+	}
+
+	MAD_ludovic_pierre_ramarokoto = {
+		name = "Ludovic Pierre Ramarokoto"
+		corps_commander = {
+			visible = { has_country_flag = MAD_POL_HVM_OFFICER_PROMOTIONS_COMPLETED }
+			skill = 2
+			attack_skill = 2
+			defense_skill = 2
+			planning_skill = 2
+			logistics_skill = 2
+		}
+	}
+
 }
