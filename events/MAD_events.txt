@@ -7,6 +7,7 @@ add_namespace = mad_ambatovy
 add_namespace = mad_austral
 add_namespace = mad_diplomacy
 add_namespace = mad_plague
+add_namespace = mad_apollo21
 
 country_event = {
 	id = mad_austral.1
@@ -2337,6 +2338,10 @@ country_event = {
 	option = {
 		trigger = { has_country_flag = MAD_DAHALO_TANDROKA_CONTESTED }
 		name = mad_dahalo.17.b
+		hidden_effect = {
+			set_country_flag = MAD_DAHALO_FIS_REVIEW_PENDING
+			set_country_flag = MAD_DAHALO_FIS_POST_TANDROKA_LIABILITY
+		}
 	}
 }
 
@@ -2839,7 +2844,84 @@ country_event = {
 
 		recalculate_party = yes
 		set_country_flag = MAD_TGV_2009_TRANSITIONAL_ROUTE
-		country_event = { id = MAD_military_refoundation.8 days = 1 }
+		country_event = {
+	id = MAD_military_refoundation.8
+	title = MAD_military_refoundation.8.t
+	desc = MAD_military_refoundation.8.d
+	picture = GFX_report_event_generic_political
+	is_triggered_only = yes
+	fire_only_once = yes
+	trigger = { has_country_flag = MAD_TGV_2009_TRANSITIONAL_ROUTE MAD_TGV_IN_POWER = yes }
+	option = {
+		name = MAD_military_refoundation.8.a
+		ai_chance = { factor = 50 }
+		log = "[GetDateText]: [Root.GetName]: Establish CNME with administrative integrity safeguards"
+		set_country_flag = MAD_TGV_CNME_ESTABLISHED
+		set_country_flag = MAD_TGV_CNME_INTEGRITY_MODEL_SELECTED
+		set_country_flag = MAD_TGV_DST_ESTABLISHED
+		add_ideas = MAD_TGV_CNME_INTEGRITY_MODEL
+		add_political_power = 10
+		add_stability = 0.01
+		hidden_effect = { country_event = { id = MAD_military_refoundation.9 days = 390 } }
+	}
+	option = {
+		name = MAD_military_refoundation.8.b
+		ai_chance = { factor = 50 }
+		log = "[GetDateText]: [Root.GetName]: Establish CNME with executive security coordination"
+		set_country_flag = MAD_TGV_CNME_ESTABLISHED
+		set_country_flag = MAD_TGV_CNME_EXECUTIVE_MODEL_SELECTED
+		set_country_flag = MAD_TGV_DST_ESTABLISHED
+		add_ideas = MAD_TGV_CNME_EXECUTIVE_MODEL
+		add_political_power = 10
+		add_stability = 0.01
+		hidden_effect = { country_event = { id = MAD_military_refoundation.9 days = 390 } }
+	}
+}
+
+country_event = {
+	id = MAD_military_refoundation.20
+	title = MAD_military_refoundation.20.t
+	desc = MAD_military_refoundation.20.d
+	picture = GFX_report_event_generic_political
+	is_triggered_only = yes
+	fire_only_once = yes
+	trigger = {
+		has_country_flag = MAD_TGV_CNME_ESTABLISHED
+		NOT = { has_country_flag = MAD_TGV_FIS_ESTABLISHED }
+	}
+	option = {
+		name = MAD_military_refoundation.20.a
+		ai_chance = { factor = 50 }
+		log = "[GetDateText]: [Root.GetName]: Empower the executive-run FIS"
+		set_country_flag = MAD_TGV_FIS_ESTABLISHED
+		set_country_flag = MAD_TGV_FIS_DIRECT_COMMAND
+		set_country_flag = MAD_TGV_DST_ESTABLISHED
+		set_country_flag = MAD_TGV_CNME_FIS_CREATED
+		remove_ideas = MAD_TGV_CNME_INTEGRITY_MODEL
+		remove_ideas = MAD_TGV_CNME_EXECUTIVE_MODEL
+		add_ideas = MAD_TGV_FIS_PARALLEL_SECURITY
+		add_stability = -0.02
+		add_political_power = 15
+		set_temp_variable = { party_index = 20 }
+		set_temp_variable = { party_popularity_increase = 0.02 }
+		change_relative_party_popularity = yes
+		recalculate_party = yes
+	}
+	option = {
+		name = MAD_military_refoundation.20.b
+		ai_chance = { factor = 50 }
+		log = "[GetDateText]: [Root.GetName]: Establish a judicially supervised FIS"
+		set_country_flag = MAD_TGV_FIS_ESTABLISHED
+		set_country_flag = MAD_TGV_FIS_JUDICIAL_OVERSIGHT
+		set_country_flag = MAD_TGV_FIS_REGULARISED
+		set_country_flag = MAD_TGV_DST_ESTABLISHED
+		remove_ideas = MAD_TGV_CNME_INTEGRITY_MODEL
+		remove_ideas = MAD_TGV_CNME_EXECUTIVE_MODEL
+		add_ideas = MAD_TGV_FIS_ACCOUNTABLE_SECURITY
+		add_stability = 0.02
+		add_political_power = 10
+	}
+}
 	}
 }
 
@@ -9545,6 +9627,31 @@ country_event = {
 	}
 }
 
-
-
+# Apollo 21: arrests made on 20 July 2021; authorities publicly described the alleged plot on 22 July.
+country_event = {
+	id = mad_apollo21.1
+	title = mad_apollo21.1.t
+	desc = mad_apollo21.1.d
+	picture = GFX_report_event_generic_political
+	is_triggered_only = yes
+	fire_only_once = yes
+	trigger = { MAD_TGV_IN_POWER = yes }
+	immediate = { set_country_flag = MAD_APOLLO21_EVENT_FIRED }
+	option = {
+		name = mad_apollo21.1.a
+		log = "[GetDateText]: [Root.GetName]: Treat Apollo 21 as a national-security emergency"
+		set_country_flag = MAD_APOLLO21_SECURITY_RESPONSE
+		add_timed_idea = { idea = MAD_APOLLO21_SECURITY_POSTURE days = 180 }
+		add_political_power = 20
+		add_stability = 0.01
+	}
+	option = {
+		name = mad_apollo21.1.b
+		log = "[GetDateText]: [Root.GetName]: Place Apollo 21 under judicial oversight"
+		set_country_flag = MAD_APOLLO21_JUDICIAL_RESPONSE
+		add_timed_idea = { idea = MAD_APOLLO21_JUDICIAL_REVIEW days = 180 }
+		add_political_power = 15
+		add_stability = 0.02
+	}
+}
 
