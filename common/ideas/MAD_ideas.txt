@@ -2180,6 +2180,220 @@ MAD_MIL_CIVILIAN_GUARDIANSHIP = {
 				clr_country_flag = MAD_PI_ACTIVE_MAD_MIL_MOBILE_RESPONSE_CAPACITY
 			}
 		}
+
+MAD_MIL_2005_OPERATIONAL_PROGRAMME = {
+			name = MAD_MIL_2005_OPERATIONAL_PROGRAMME
+			picture = generic_political_discourse
+			allowed_civil_war = { always = yes }
+			cost = 0
+			removal_cost = -1
+			modifier = {
+				minimum_training_level = 0.03
+				experience_gain_army_factor = 0.02
+				experience_gain_navy_factor = 0.02
+				production_speed_dockyard_factor = 0.02
+			}
+		}
+
+		MAD_MIL_2005_FORCE_RESTRUCTURE = {
+			name = MAD_MIL_2005_FORCE_RESTRUCTURE
+			picture = generic_political_discourse
+			allowed_civil_war = { always = yes }
+			cost = 0
+			removal_cost = -1
+			modifier = {
+				minimum_training_level = 0.05
+				experience_gain_army_factor = 0.03
+				experience_gain_navy_factor = 0.02
+				production_speed_dockyard_factor = 0.03
+				personnel_cost_multiplier_modifier = -0.03
+				bureaucracy_cost_multiplier_modifier = -0.01
+			}
+		}
+
+		MAD_MIL_FIDY_PROVISIONAL_BOARD = {
+			name = MAD_MIL_FIDY_PROVISIONAL_BOARD
+			picture = generic_political_discourse
+			allowed_civil_war = { always = yes }
+			cost = 0
+			removal_cost = -1
+			modifier = {
+				stability_factor = -0.03
+				political_power_gain = -0.01
+				bureaucracy_cost_multiplier_modifier = 0.03
+			}
+		}
+
+		MAD_TGV_FIS_PARALLEL_SECURITY = {
+			name = MAD_TGV_FIS_PARALLEL_SECURITY
+			picture = generic_political_discourse
+			allowed_civil_war = { always = yes }
+			cost = 0
+			removal_cost = -1
+			modifier = {
+				root_out_resistance_effectiveness_factor = 0.05
+				police_cost_multiplier_modifier = 0.03
+				stability_factor = -0.01
+			}
+		}
+
+		MAD_TGV_FIS_ACCOUNTABLE_SECURITY = {
+			name = MAD_TGV_FIS_ACCOUNTABLE_SECURITY
+			picture = generic_political_discourse
+			allowed_civil_war = { always = yes }
+			cost = 0
+			removal_cost = -1
+			modifier = {
+				root_out_resistance_effectiveness_factor = 0.02
+				police_cost_multiplier_modifier = 0.02
+				stability_factor = 0.02
+			}
+		}
+
+		MAD_MIL_HAT_OFFICER_ACCOMMODATION = {
+			name = MAD_MIL_HAT_OFFICER_ACCOMMODATION
+			picture = generic_political_discourse
+			allowed_civil_war = { always = yes }
+			cost = 0
+			removal_cost = -1
+			modifier = {
+				personnel_cost_multiplier_modifier = 0.05
+				experience_gain_army_factor = 0.02
+				stability_factor = 0.01
+			}
+		}
+
+		MAD_MIL_CIVILIAN_COMMAND_COMPACT = {
+			name = MAD_MIL_CIVILIAN_COMMAND_COMPACT
+			picture = generic_political_discourse
+			allowed_civil_war = { always = yes }
+			cost = 0
+			removal_cost = -1
+			modifier = {
+				bureaucracy_cost_multiplier_modifier = -0.01
+				stability_factor = 0.02
+				experience_gain_army_factor = 0.01
+			}
+		}
+
+		MAD_MIL_HAT_TRANSITION_GUARANTOR = {
+			name = MAD_MIL_HAT_TRANSITION_GUARANTOR
+			picture = generic_political_discourse
+			allowed_civil_war = { always = yes }
+			cost = 0
+			removal_cost = -1
+			modifier = {
+				political_power_gain = 0.01
+				stability_factor = -0.02
+			}
+		}
+
+		MAD_MIL_TGV_TRANSITION_GUARANTOR = {
+			name = MAD_MIL_TGV_TRANSITION_GUARANTOR
+			picture = generic_political_discourse
+			allowed_civil_war = { always = yes }
+			cost = 0
+			removal_cost = -1
+			modifier = {
+				political_power_gain = 0.01
+				stability_factor = -0.02
+			}
+		}
+
+		MAD_MIL_NATIONAL_SECURITY_REFORM_PLAN = {
+			name = MAD_MIL_NATIONAL_SECURITY_REFORM_PLAN
+			picture = generic_political_discourse
+			allowed_civil_war = { always = yes }
+			cost = 0
+			removal_cost = -1
+			modifier = {
+				bureaucracy_cost_multiplier_modifier = -0.02
+				stability_factor = 0.01
+				political_power_gain = 0.005
+			}
+		}
+
+		MAD_MIL_HCDN_SPDSN_BASE = {
+			name = MAD_MIL_HCDN_SPDSN_BASE
+			picture = generic_political_discourse
+			allowed_civil_war = { always = yes }
+			cost = 0
+			removal_cost = -1
+			modifier = {
+				bureaucracy_cost_multiplier_modifier = -0.01
+				political_power_gain = 0.005
+				stability_factor = 0.01
+			}
+		}
+
+		MAD_MIL_EXECUTIVE_SECURITY_CONTINUITY_IDEA = {
+			name = MAD_MIL_EXECUTIVE_SECURITY_CONTINUITY_IDEA
+			picture = generic_political_discourse
+			allowed_civil_war = { always = yes }
+			cost = 0
+			removal_cost = -1
+			modifier = {
+				bureaucracy_cost_multiplier_modifier = -0.01
+				stability_factor = -0.01
+			}
+		}
+
+		MAD_MIL_INTERNAL_CONTROL_FRAMEWORK = {
+			name = MAD_MIL_INTERNAL_CONTROL_FRAMEWORK
+			picture = generic_political_discourse
+			allowed_civil_war = { always = yes }
+			cost = 0
+			removal_cost = -1
+			modifier = {
+				minimum_training_level = 0.02
+				experience_gain_army_factor = 0.01
+				personnel_cost_multiplier_modifier = -0.01
+				bureaucracy_cost_multiplier_modifier = -0.01
+			}
+		}
+
+		MAD_MIL_INTERNAL_INSPECTION_CAPACITY = {
+			name = MAD_MIL_INTERNAL_INSPECTION_CAPACITY
+			picture = generic_political_discourse
+			allowed_civil_war = { always = yes }
+			cost = 0
+			removal_cost = -1
+			modifier = {
+				personnel_cost_multiplier_modifier = -0.02
+				bureaucracy_cost_multiplier_modifier = -0.01
+				stability_factor = 0.01
+				experience_gain_army_factor = 0.01
+			}
+		}
+
+		MAD_MIL_GFSI_RAPID_RESPONSE = {
+			name = MAD_MIL_GFSI_RAPID_RESPONSE
+			picture = generic_political_discourse
+			allowed_civil_war = { always = yes }
+			cost = 0
+			removal_cost = -1
+			modifier = {
+				special_forces_cap_flat = 2
+				army_attack_factor = 0.01
+				army_core_defence_factor = 0.02
+				minimum_training_level = 0.02
+			}
+		}
+
+		MAD_MIL_DIRECTORATE_TRANSITION = {
+			name = MAD_MIL_DIRECTORATE_TRANSITION
+			picture = generic_political_discourse
+			allowed_civil_war = { always = yes }
+			cost = 0
+			removal_cost = -1
+			modifier = {
+				bureaucracy_cost_multiplier_modifier = 0.03
+				stability_factor = -0.02
+				political_power_gain = 0.01
+			}
+		}
+
+
 		MAD_AREMA_OLD_GUARD = {
 			picture = generic_political_discourse
 			modifier = {
