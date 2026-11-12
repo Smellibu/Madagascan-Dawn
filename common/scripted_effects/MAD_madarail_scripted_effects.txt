@@ -5174,7 +5174,7 @@ MAD_rural_cooperation_calculate_monthly_change = {
 	# Completed party-path milestones grant their monthly dividend only while that party is in power; they stack, subject to the +3 cap.
 	if = { limit = { MAD_TAMIMA_IN_POWER = yes has_completed_focus = MAD_POL_ROY_CROWN_WITHOUT_KING } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
 	if = { limit = { MAD_TAMIMA_IN_POWER = yes has_completed_focus = MAD_POL_ROY_ANTENIMIERAN_ANDRIANA } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
-	if = { limit = { MAD_TAMIMA_IN_POWER = yes has_completed_focus = MAD_POL_ROY_CUSTOMARY_JUSTICE } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
+	if = { limit = { MAD_TAMIMA_IN_POWER = yes has_completed_focus = MAD_POL_ROY_LIVING_FORCES } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
 	if = { limit = { MAD_TAMIMA_IN_POWER = yes has_completed_focus = MAD_POL_ROY_ONE_MADAGASCAR_MANY_HOUSES } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
 	if = { limit = { MAD_AREMA_IN_POWER = yes has_completed_focus = MAD_POL_AREMA_FOKONOLONA } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
 	if = { limit = { MAD_AREMA_IN_POWER = yes has_completed_focus = MAD_POL_AREMA_FOOD_FIRST } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
