@@ -1743,6 +1743,45 @@ MAD_MIL_HCDN_SPDSN_COORDINATION = {
 	}
 }
 
+MAD_MIL_OFFICER_PATRONAGE_I = {
+	name = MAD_MIL_OFFICER_PATRONAGE_I
+	picture = generic_political_discourse
+	allowed_civil_war = { always = yes }
+	cost = 0
+	removal_cost = -1
+	modifier = {
+		personnel_cost_multiplier_modifier = 0.01
+		nationalist_drift = 0.01
+		war_support_factor = 0.01
+	}
+}
+
+MAD_MIL_OFFICER_PATRONAGE_II = {
+	name = MAD_MIL_OFFICER_PATRONAGE_II
+	picture = generic_political_discourse
+	allowed_civil_war = { always = yes }
+	cost = 0
+	removal_cost = -1
+	modifier = {
+		personnel_cost_multiplier_modifier = 0.02
+		nationalist_drift = 0.02
+		war_support_factor = 0.02
+	}
+}
+
+MAD_MIL_OFFICER_PATRONAGE_III = {
+	name = MAD_MIL_OFFICER_PATRONAGE_III
+	picture = generic_political_discourse
+	allowed_civil_war = { always = yes }
+	cost = 0
+	removal_cost = -1
+	modifier = {
+		personnel_cost_multiplier_modifier = 0.03
+		nationalist_drift = 0.03
+		war_support_factor = 0.03
+	}
+}
+
 MAD_MIL_PROFESSIONAL_COMMAND = {
 			picture = generic_political_discourse
 			removal_cost = -1

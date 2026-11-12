@@ -13030,6 +13030,30 @@ focus = {
 		}
 	}
 
+		focus = {
+			id = MAD_POL_TGV_OFFICERS_OF_MARCH
+			icon = political_reform
+			x = 2
+			y = 1
+			relative_position_id = MAD_POL_TGV_2009_LEGACY
+			cost = 3
+			prerequisite = { focus = MAD_POL_TGV_2009_LEGACY }
+			search_filters = { FOCUS_FILTER_POLITICAL }
+			visible = {
+				date > 2009.11.2
+				MAD_TGV_IN_POWER = yes
+			}
+			available = { MAD_TGV_IN_POWER = yes }
+			completion_reward = {
+				log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_TGV_OFFICERS_OF_MARCH"
+				set_country_flag = MAD_TGV_PROMOTIONS_2009_COMPLETED
+				add_war_support = 0.01
+				every_army_leader = { gain_xp = 10 }
+				add_ideas = MAD_MIL_OFFICER_PATRONAGE_I
+			}
+			ai_will_do = { base = 1 }
+		}
+
 			focus = {
 			id = MAD_POL_TGV_MAPUTO_CHARTER
 			icon = diplomatic_treaty
@@ -13086,6 +13110,38 @@ focus = {
 			}
 			ai_will_do = { base = 1 }
 		}
+
+	focus = {
+		id = MAD_POL_TGV_2013_OFFICER_PROMOTIONS
+		icon = political_reform
+		x = 2
+		y = 1
+		relative_position_id = MAD_POL_TGV_FOURTH_REPUBLIC
+		cost = 3
+		prerequisite = { focus = MAD_POL_TGV_FOURTH_REPUBLIC }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available = {
+			MAD_TGV_IN_POWER = yes
+			date > 2013.1.1
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_TGV_2013_OFFICER_PROMOTIONS"
+			set_country_flag = MAD_TGV_PROMOTIONS_2013_COMPLETED
+			add_war_support = 0.01
+			every_army_leader = { gain_xp = 10 }
+			if = {
+				limit = { has_idea = MAD_MIL_OFFICER_PATRONAGE_I }
+				swap_ideas = {
+					remove_idea = MAD_MIL_OFFICER_PATRONAGE_I
+					add_idea = MAD_MIL_OFFICER_PATRONAGE_II
+				}
+			}
+			else = {
+				add_ideas = MAD_MIL_OFFICER_PATRONAGE_I
+			}
+		}
+		ai_will_do = { base = 1 }
+	}
 
 	focus = {
 		id = MAD_POL_TGV_RETURN_BALLOT
@@ -13813,6 +13869,45 @@ focus = {
 		ai_will_do = {
 			base = 1
 		}
+	}
+
+	focus = {
+		id = MAD_POL_HVM_OFFICER_PROMOTIONS
+		icon = political_reform
+		x = 2
+		y = 1
+		relative_position_id = MAD_POL_HVM_PARTY_OF_GOVERNMENT
+		cost = 3
+		prerequisite = { focus = MAD_POL_HVM_PARTY_OF_GOVERNMENT }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available = {
+			MAD_HVM_IN_POWER = yes
+			date > 2016.2.24
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_HVM_OFFICER_PROMOTIONS"
+			set_country_flag = MAD_HVM_PROMOTIONS_COMPLETED
+			add_war_support = 0.01
+			every_army_leader = { gain_xp = 10 }
+			if = {
+				limit = { has_idea = MAD_MIL_OFFICER_PATRONAGE_II }
+				swap_ideas = {
+					remove_idea = MAD_MIL_OFFICER_PATRONAGE_II
+					add_idea = MAD_MIL_OFFICER_PATRONAGE_III
+				}
+			}
+			else_if = {
+				limit = { has_idea = MAD_MIL_OFFICER_PATRONAGE_I }
+				swap_ideas = {
+					remove_idea = MAD_MIL_OFFICER_PATRONAGE_I
+					add_idea = MAD_MIL_OFFICER_PATRONAGE_II
+				}
+			}
+			else = {
+				add_ideas = MAD_MIL_OFFICER_PATRONAGE_I
+			}
+		}
+		ai_will_do = { base = 1 }
 	}
 
 	focus = {
