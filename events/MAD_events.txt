@@ -9012,7 +9012,6 @@ country_event = {
 		name = MAD_military_refoundation.3.a
 		ai_chance = { factor = 10 }
 		log = "[GetDateText]: [Root.GetName]: Event MAD_military_refoundation.3.a executed"
-		custom_effect_tooltip = MAD_MIL_CRDSN_PROPOSAL_EFFECT_TT
 		set_country_flag = MAD_MIL_CRDSN_PROPOSED
 		clr_country_flag = MAD_MIL_EXECUTIVE_SECURITY_COORDINATION
 		add_political_power = -15
@@ -9023,7 +9022,6 @@ country_event = {
 		name = MAD_military_refoundation.3.b
 		ai_chance = { factor = 90 }
 		log = "[GetDateText]: [Root.GetName]: Event MAD_military_refoundation.3.b executed"
-		custom_effect_tooltip = MAD_MIL_EXECUTIVE_SECURITY_EFFECT_TT
 		set_country_flag = MAD_MIL_EXECUTIVE_SECURITY_COORDINATION
 		clr_country_flag = MAD_MIL_CRDSN_PROPOSED
 		add_political_power = 25
@@ -9065,7 +9063,6 @@ country_event = {
 		trigger = { has_country_flag = MAD_MIL_CRDSN_PROPOSED }
 		ai_chance = { factor = 25 }
 		log = "[GetDateText]: [Root.GetName]: Event MAD_military_refoundation.4.a executed - CRDSN revival selected"
-		custom_effect_tooltip = MAD_MIL_CRDSN_REVIVAL_CHOICE_TT
 		set_country_flag = MAD_MIL_NATIONAL_CONSULTATION_DONE
 		set_country_flag = MAD_MIL_CRDSN_REVIVED
 		clr_country_flag = MAD_MIL_CIVIC_FORUM
@@ -9076,7 +9073,6 @@ country_event = {
 		name = MAD_military_refoundation.4.b
 		ai_chance = { factor = 20 }
 		log = "[GetDateText]: [Root.GetName]: Event MAD_military_refoundation.4.b executed - civic and religious forum selected"
-		custom_effect_tooltip = MAD_MIL_CIVIC_FORUM_CHOICE_TT
 		set_country_flag = MAD_MIL_NATIONAL_CONSULTATION_DONE
 		set_country_flag = MAD_MIL_CIVIC_FORUM
 		clr_country_flag = MAD_MIL_CRDSN_REVIVED
@@ -9087,7 +9083,6 @@ country_event = {
 		name = MAD_military_refoundation.4.c
 		ai_chance = { factor = 20 }
 		log = "[GetDateText]: [Root.GetName]: Event MAD_military_refoundation.4.c executed - HCDN and SPDSN reform selected"
-		custom_effect_tooltip = MAD_MIL_HCDN_SPDSN_CHOICE_TT
 		set_country_flag = MAD_MIL_NATIONAL_CONSULTATION_DONE
 		set_country_flag = MAD_MIL_HCDN_SPDSN_REFORM
 		clr_country_flag = MAD_MIL_CRDSN_REVIVED
@@ -9098,7 +9093,6 @@ country_event = {
 		name = MAD_military_refoundation.4.d
 		ai_chance = { factor = 35 }
 		log = "[GetDateText]: [Root.GetName]: Event MAD_military_refoundation.4.d executed - executive continuity selected"
-		custom_effect_tooltip = MAD_MIL_EXECUTIVE_CONTINUITY_CHOICE_TT
 		set_country_flag = MAD_MIL_NATIONAL_CONSULTATION_DONE
 		set_country_flag = MAD_MIL_EXECUTIVE_SECURITY_CONTINUITY
 		clr_country_flag = MAD_MIL_CRDSN_REVIVED
@@ -9121,7 +9115,6 @@ country_event = {
 		name = MAD_military_refoundation.5.a
 		ai_chance = { factor = 45 }
 		log = "[GetDateText]: [Root.GetName]: Event MAD_military_refoundation.5.a executed - civilian oversight selected"
-		custom_effect_tooltip = MAD_MIL_SECURITY_OVERSIGHT_EFFECT_TT
 		set_country_flag = MAD_MIL_SECURITY_OVERSIGHT_STRENGTHENED
 		clr_country_flag = MAD_MIL_SECURITY_EXECUTIVE_COORDINATION_REINFORCED
 		clr_country_flag = MAD_MIL_HCDN_PARLIAMENTARY_PARTICIPATION
@@ -9136,7 +9129,6 @@ country_event = {
 		name = MAD_military_refoundation.5.b
 		ai_chance = { factor = 55 }
 		log = "[GetDateText]: [Root.GetName]: Event MAD_military_refoundation.5.b executed - executive coordination reinforced"
-		custom_effect_tooltip = MAD_MIL_SECURITY_EXECUTIVE_EFFECT_TT
 		set_country_flag = MAD_MIL_SECURITY_EXECUTIVE_COORDINATION_REINFORCED
 		clr_country_flag = MAD_MIL_SECURITY_OVERSIGHT_STRENGTHENED
 		clr_country_flag = MAD_MIL_HCDN_PARLIAMENTARY_PARTICIPATION
