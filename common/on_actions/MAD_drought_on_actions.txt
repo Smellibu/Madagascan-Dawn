@@ -44,6 +44,15 @@ on_actions = {
 						clr_country_flag = MAD_TGV_CAPSAT_REVOLT_DEFERRED
 					}
 					MAD_dahalo_init = yes
+					# Migrate old saves where the original one-step option represented both CNME and FIS.
+					if = {
+						limit = { has_country_flag = MAD_TGV_CNME_FIS_CREATED }
+						set_country_flag = MAD_TGV_CNME_ESTABLISHED
+						set_country_flag = MAD_TGV_FIS_ESTABLISHED
+						set_country_flag = MAD_TGV_DST_ESTABLISHED
+						remove_ideas = MAD_TGV_FIS_PARALLEL_SECURITY
+					add_ideas = MAD_TGV_FIS_PARALLEL_SECURITY
+					}
 					MAD_rural_cooperation_initialize = yes
 					# Mark the first eligible monthly tick independently of when the drought focus starts.
 					if = {
@@ -93,6 +102,16 @@ on_actions = {
 			MAD_autocomplete_forced_outcome_foci = yes
 			MAD_JIRAMA_GENERATION_RECOVERY_DAILY = yes
 			MAD_ratsiraka_check_government_formed = yes
+			if = {
+				limit = {
+					original_tag = MAD
+					date > 2021.7.19
+					date < 2021.7.21
+					MAD_TGV_IN_POWER = yes
+					NOT = { has_country_flag = MAD_APOLLO21_EVENT_FIRED }
+				}
+				country_event = mad_apollo21.1
+			}
 			# When the player manually allows AREMA again, detect that party index 5 is no longer banned.
 			if = {
 				limit = {
