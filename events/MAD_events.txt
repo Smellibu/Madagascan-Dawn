@@ -3814,6 +3814,7 @@ country_event = {
 		set_country_flag = MAD_MODERN_CIVILIAN_SETTLEMENT
 		set_country_flag = MAD_MODERN_CRISIS_DEESCALATED
 		set_country_flag = MAD_MODERN_CRISIS_COMPLETED
+		mark_focus_tree_layout_dirty = yes
 		clr_country_flag = MAD_MODERN_CRISIS_ACTIVE
 		# The negotiated settlement concludes the modern crisis.
 		clr_country_flag = disabled_protests_system
@@ -9165,6 +9166,7 @@ country_event = {
 		ai_chance = { factor = 25 }
 		log = "[GetDateText]: [Root.GetName]: Event MAD_military_refoundation.4.a executed - CRDSN revival selected"
 		set_country_flag = MAD_MIL_NATIONAL_CONSULTATION_DONE
+		mark_focus_tree_layout_dirty = yes
 		set_country_flag = MAD_MIL_CRDSN_REVIVED
 		clr_country_flag = MAD_MIL_CIVIC_FORUM
 		clr_country_flag = MAD_MIL_HCDN_SPDSN_REFORM
@@ -9175,6 +9177,7 @@ country_event = {
 		ai_chance = { factor = 20 }
 		log = "[GetDateText]: [Root.GetName]: Event MAD_military_refoundation.4.b executed - civic and religious forum selected"
 		set_country_flag = MAD_MIL_NATIONAL_CONSULTATION_DONE
+		mark_focus_tree_layout_dirty = yes
 		set_country_flag = MAD_MIL_CIVIC_FORUM
 		clr_country_flag = MAD_MIL_CRDSN_REVIVED
 		clr_country_flag = MAD_MIL_HCDN_SPDSN_REFORM
@@ -9185,6 +9188,7 @@ country_event = {
 		ai_chance = { factor = 20 }
 		log = "[GetDateText]: [Root.GetName]: Event MAD_military_refoundation.4.c executed - HCDN and SPDSN reform selected"
 		set_country_flag = MAD_MIL_NATIONAL_CONSULTATION_DONE
+		mark_focus_tree_layout_dirty = yes
 		set_country_flag = MAD_MIL_HCDN_SPDSN_REFORM
 		clr_country_flag = MAD_MIL_CRDSN_REVIVED
 		clr_country_flag = MAD_MIL_CIVIC_FORUM
@@ -9195,6 +9199,7 @@ country_event = {
 		ai_chance = { factor = 35 }
 		log = "[GetDateText]: [Root.GetName]: Event MAD_military_refoundation.4.d executed - executive continuity selected"
 		set_country_flag = MAD_MIL_NATIONAL_CONSULTATION_DONE
+		mark_focus_tree_layout_dirty = yes
 		set_country_flag = MAD_MIL_EXECUTIVE_SECURITY_CONTINUITY
 		clr_country_flag = MAD_MIL_CRDSN_REVIVED
 		clr_country_flag = MAD_MIL_CIVIC_FORUM

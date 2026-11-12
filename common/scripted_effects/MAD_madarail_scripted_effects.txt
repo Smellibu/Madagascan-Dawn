@@ -5352,6 +5352,7 @@ MAD_UNLOCK_POL_CONTENT_2002_2009 = {
 	if = {
 		limit = { NOT = { has_country_flag = MAD_POL_CONTENT_2002_2009_UNLOCKED } }
 		set_country_flag = MAD_POL_CONTENT_2002_2009_UNLOCKED
+		mark_focus_tree_layout_dirty = yes
 	}
 }
 
@@ -5359,5 +5360,6 @@ MAD_UNLOCK_POL_CONTENT_2009_2025 = {
 	if = {
 		limit = { NOT = { has_country_flag = MAD_POL_CONTENT_2009_2025_UNLOCKED } }
 		set_country_flag = MAD_POL_CONTENT_2009_2025_UNLOCKED
+		mark_focus_tree_layout_dirty = yes
 	}
 }

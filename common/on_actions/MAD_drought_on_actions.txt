@@ -111,6 +111,27 @@ on_actions = {
 				if = { limit = { NOT = { has_character = MAD_richard_ravalomanana } } recruit_character = MAD_richard_ravalomanana }
 			}
 
+			# The Officers of March branch is visible only from 3 November through 31 December 2009.
+			if = {
+				limit = {
+					original_tag = MAD
+					date > 2009.11.2
+					date < 2010.1.1
+					NOT = { has_country_flag = MAD_MIL_FOCUS_TGV_MARCH_WINDOW_OPENED }
+				}
+				set_country_flag = MAD_MIL_FOCUS_TGV_MARCH_WINDOW_OPENED
+				mark_focus_tree_layout_dirty = yes
+			}
+			if = {
+				limit = {
+					original_tag = MAD
+					date > 2009.12.31
+					NOT = { has_country_flag = MAD_MIL_FOCUS_TGV_MARCH_WINDOW_CLOSED }
+				}
+				set_country_flag = MAD_MIL_FOCUS_TGV_MARCH_WINDOW_CLOSED
+				mark_focus_tree_layout_dirty = yes
+			}
+
 			# Richard Ravalomanana: 1 December 2012.
 			if = {
 				limit = { original_tag = MAD tag = MAD date > 2012.11.30 date < 2012.12.2 NOT = { has_country_flag = MAD_HISTORICAL_RICHARD_2012_PROMOTION } NOT = { has_country_flag = MAD_TGV_PROMOTIONS_2013_COMPLETED } }
@@ -182,6 +203,56 @@ on_actions = {
 	# Tag-specific monthly hook: this is the only active hook advancing the displacement calendar.
 	on_monthly_MAD = {
 		effect = {
+			# allow_branch is checked when the tree loads or is marked dirty.
+			# Refresh once at each historic date gate; avoid daily polling for these milestones.
+			if = {
+				limit = {
+					original_tag = MAD
+					OR = {
+						AND = { date > 2002.1.1 NOT = { has_country_flag = MAD_MIL_FOCUS_LAYOUT_2002_REFRESHED } }
+					AND = { date > 2005.1.1 NOT = { has_country_flag = MAD_MIL_FOCUS_LAYOUT_2005_REFRESHED } }
+					AND = { date > 2006.11.17 NOT = { has_country_flag = MAD_MIL_FOCUS_LAYOUT_2006_REFRESHED } }
+					AND = { date > 2007.1.1 NOT = { has_country_flag = MAD_MIL_FOCUS_LAYOUT_2007_REFRESHED } }
+					AND = { date > 2009.1.1 NOT = { has_country_flag = MAD_MIL_FOCUS_LAYOUT_2009_REFRESHED } }
+					AND = { date > 2014.1.1 NOT = { has_country_flag = MAD_MIL_FOCUS_LAYOUT_2014_REFRESHED } }
+					AND = { date > 2016.12.16 NOT = { has_country_flag = MAD_MIL_FOCUS_LAYOUT_2016_REFRESHED } }
+					AND = { date > 2021.1.1 NOT = { has_country_flag = MAD_MIL_FOCUS_LAYOUT_2021_REFRESHED } }
+					}
+				}
+				if = {
+					limit = { date > 2002.1.1 NOT = { has_country_flag = MAD_MIL_FOCUS_LAYOUT_2002_REFRESHED } }
+					set_country_flag = MAD_MIL_FOCUS_LAYOUT_2002_REFRESHED
+				}
+				if = {
+					limit = { date > 2005.1.1 NOT = { has_country_flag = MAD_MIL_FOCUS_LAYOUT_2005_REFRESHED } }
+					set_country_flag = MAD_MIL_FOCUS_LAYOUT_2005_REFRESHED
+				}
+				if = {
+					limit = { date > 2006.11.17 NOT = { has_country_flag = MAD_MIL_FOCUS_LAYOUT_2006_REFRESHED } }
+					set_country_flag = MAD_MIL_FOCUS_LAYOUT_2006_REFRESHED
+				}
+				if = {
+					limit = { date > 2007.1.1 NOT = { has_country_flag = MAD_MIL_FOCUS_LAYOUT_2007_REFRESHED } }
+					set_country_flag = MAD_MIL_FOCUS_LAYOUT_2007_REFRESHED
+				}
+				if = {
+					limit = { date > 2009.1.1 NOT = { has_country_flag = MAD_MIL_FOCUS_LAYOUT_2009_REFRESHED } }
+					set_country_flag = MAD_MIL_FOCUS_LAYOUT_2009_REFRESHED
+				}
+				if = {
+					limit = { date > 2014.1.1 NOT = { has_country_flag = MAD_MIL_FOCUS_LAYOUT_2014_REFRESHED } }
+					set_country_flag = MAD_MIL_FOCUS_LAYOUT_2014_REFRESHED
+				}
+				if = {
+					limit = { date > 2016.12.16 NOT = { has_country_flag = MAD_MIL_FOCUS_LAYOUT_2016_REFRESHED } }
+					set_country_flag = MAD_MIL_FOCUS_LAYOUT_2016_REFRESHED
+				}
+				if = {
+					limit = { date > 2021.1.1 NOT = { has_country_flag = MAD_MIL_FOCUS_LAYOUT_2021_REFRESHED } }
+					set_country_flag = MAD_MIL_FOCUS_LAYOUT_2021_REFRESHED
+				}
+				mark_focus_tree_layout_dirty = yes
+			}
 			if = {
 				limit = { tag = MAD original_tag = MAD is_ai = no has_idea = MAD_MODERN_PROTEST_PRESSURE }
 				add_to_variable = { protest_strength = 4 }
@@ -232,6 +303,8 @@ on_actions = {
 		effect = {
 			if = {
 				limit = { original_tag = MAD }
+				# Ruling-party changes alter military and post-crisis focus visibility.
+				mark_focus_tree_layout_dirty = yes
 				# Reconcile party ideas first; the event applies the final constitutional model and refreshes Rural Cooperation.
 				country_event = { id = mad_political.8 hours = 1 }
 				set_variable = { MAD_RATSIRAKA_FORMATION_STABLE_DAYS = 0 }
@@ -240,6 +313,11 @@ on_actions = {
 	}
 	on_civil_war_end = {
 		effect = {
+			if = {
+				limit = { original_tag = MAD }
+				# The modern military focus branch also depends on the civil war having ended.
+				mark_focus_tree_layout_dirty = yes
+			}
 			if = {
 				limit = { tag = MAD original_tag = MAD has_country_flag = MAD_MODERN_CIVIL_WAR_CAPITAL_MOVED owns_state = 267 }
 				set_capital = { state = 267 remember_old_capital = no }

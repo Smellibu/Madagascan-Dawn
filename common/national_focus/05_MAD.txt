@@ -10029,7 +10029,7 @@ focus_tree = {
 		cost = 3
 		prerequisite = { focus = MAD_POL_MIL_PRE2002_OFFICER_CORPS }
 		search_filters = { FOCUS_FILTER_POLITICAL }
-		visible = {
+		allow_branch = {
 			OR = {
 			has_country_flag = MAD_POL_CONTENT_2002_2009_UNLOCKED
 			date > 2002.1.1
@@ -10055,7 +10055,7 @@ focus = {
 		cost = 3
 		prerequisite = { focus = MAD_POL_MIL_LESSON_2002 }
 		search_filters = { FOCUS_FILTER_POLITICAL }
-		visible = { date > 2005.1.1 }
+		allow_branch = { date > 2005.1.1 }
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_MIL_2005_RESTRUCTURING"
 			set_country_flag = MAD_MIL_2005_RESTRUCTURING_PENDING
@@ -10073,7 +10073,7 @@ focus = {
 		cost = 3
 		prerequisite = { focus = MAD_POL_MIL_2005_RESTRUCTURING }
 		search_filters = { FOCUS_FILTER_POLITICAL }
-		visible = { date > 2006.11.17 }
+		allow_branch = { date > 2006.11.17 }
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_MIL_FIDY_2006_CHALLENGE"
 			set_country_flag = MAD_MIL_FIDY_2006_PENDING
@@ -10093,7 +10093,7 @@ focus = {
 		cost = 3
 		prerequisite = { focus = MAD_POL_MIL_2005_RESTRUCTURING }
 		search_filters = { FOCUS_FILTER_POLITICAL }
-		visible = { date > 2007.1.1 }
+		allow_branch = { date > 2007.1.1 }
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_MIL_SECURITY_SECTOR_REVIEW"
@@ -10116,7 +10116,7 @@ focus = {
 		cost = 3
 		prerequisite = { focus = MAD_POL_PARTIES }
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ARMY_BONUS }
-		visible = {
+		allow_branch = {
 			OR = {
 				AND = {
 					has_country_flag = MAD_MODERN_CRISIS_COMPLETED
@@ -10183,7 +10183,7 @@ focus = {
 
 	focus = {
 		id = MAD_POL_MIL_CHAIN_OF_COMMAND
-		visible = { always = no }
+		allow_branch = { always = no }
 		icon = Generic_Command_Power
 		x = 0
 		y = 1
@@ -10212,7 +10212,7 @@ focus = {
 
 	focus = {
 		id = MAD_POL_MIL_PROFESSIONAL_OFFICERS
-		visible = { always = no }
+		allow_branch = { always = no }
 		icon = military_academy
 		x = -1
 		y = 1
@@ -10248,7 +10248,7 @@ focus = {
 		cost = 3
 		prerequisite = { focus = MAD_POL_MIL_LESSON_2002 }
 		search_filters = { FOCUS_FILTER_POLITICAL }
-		visible = {
+		allow_branch = {
 			OR = {
 			has_country_flag = MAD_POL_CONTENT_2009_2025_UNLOCKED
 			date > 2009.1.1
@@ -10285,7 +10285,7 @@ focus = {
 		cost = 3
 		prerequisite = { focus = MAD_POL_MIL_LESSON_2009 }
 		search_filters = { FOCUS_FILTER_POLITICAL }
-		visible = { date > 2014.1.1 }
+		allow_branch = { date > 2014.1.1 }
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_MIL_NATIONAL_SECURITY_REFORM_2014_17"
 			set_country_flag = MAD_MIL_NSRP_PENDING
@@ -10303,7 +10303,7 @@ focus = {
 		cost = 3
 		prerequisite = { focus = MAD_POL_MIL_NATIONAL_SECURITY_REFORM_2014_17 }
 		search_filters = { FOCUS_FILTER_POLITICAL }
-		visible = { date > 2016.12.16 }
+		allow_branch = { date > 2016.12.16 }
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_MIL_HCDN_SPDSN_ESTABLISHMENT"
 			set_country_flag = MAD_MIL_HCDN_SPDSN_ESTABLISHMENT_PENDING
@@ -10321,7 +10321,7 @@ focus = {
 		cost = 3
 		prerequisite = { focus = MAD_POL_MIL_HCDN_SPDSN_ESTABLISHMENT }
 		search_filters = { FOCUS_FILTER_POLITICAL }
-		visible = { date > 2021.1.1 }
+		allow_branch = { date > 2021.1.1 }
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_MIL_INTERNAL_CONTROL_2021_23"
 			set_country_flag = MAD_MIL_INTERNAL_CONTROL_PENDING
@@ -10351,6 +10351,8 @@ focus = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_MIL_PROTECT_BALLOT"
+			set_country_flag = MAD_MIL_PROTECT_BALLOT_SELECTED
+			mark_focus_tree_layout_dirty = yes
 			if = {
 				limit = { has_idea = MAD_POL_MILITARY_GOVERNMENT }
 				remove_ideas = MAD_POL_MILITARY_GOVERNMENT
@@ -10393,6 +10395,8 @@ focus = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_MIL_FINAL_ARBITER"
+			set_country_flag = MAD_MIL_FINAL_ARBITER_SELECTED
+			mark_focus_tree_layout_dirty = yes
 			if = {
 				limit = { has_idea = MAD_POL_MILITARY_GUARDIAN }
 				remove_ideas = MAD_POL_MILITARY_GUARDIAN
@@ -10427,7 +10431,7 @@ focus = {
 
 	focus = {
 		id = MAD_POL_MIL_CAPSAT_LESSON
-		visible = { always = no }
+		allow_branch = { always = no }
 		icon = army_doctrine
 		x = 0
 		y = 1
@@ -10460,7 +10464,7 @@ focus = {
 
 	focus = {
 		id = MAD_POL_MIL_MARITIME_SECURITY
-		visible = { always = no }
+		allow_branch = { always = no }
 		icon = navy
 		x = 0
 		y = 1
@@ -10491,7 +10495,7 @@ focus = {
 
 	focus = {
 		id = MAD_POL_MIL_MULTILATERAL_DOCTRINE
-		visible = { always = no }
+		allow_branch = { always = no }
 		icon = diplomatic_treaty
 		x = 0
 		y = 1
@@ -10538,12 +10542,14 @@ focus = {
 		cost = 3
 		prerequisite = { focus = MAD_POL_MIL_TAKES_RESPONSIBILITY }
 		search_filters = { FOCUS_FILTER_POLITICAL }
-		visible = {
-			OR = {
-				has_completed_focus = MAD_POL_MIL_PROTECT_BALLOT
-				has_completed_focus = MAD_POL_MIL_FINAL_ARBITER
+		allow_branch = {
+				OR = {
+					has_completed_focus = MAD_POL_MIL_PROTECT_BALLOT
+					has_completed_focus = MAD_POL_MIL_FINAL_ARBITER
+					has_country_flag = MAD_MIL_PROTECT_BALLOT_SELECTED
+					has_country_flag = MAD_MIL_FINAL_ARBITER_SELECTED
+				}
 			}
-		}
 		available = {
 			MAD_POL_MIL_POST_2025_ROUTE_AVAILABLE = yes
 			OR = {
@@ -10654,10 +10660,13 @@ focus = {
 		cost = 3
 		prerequisite = { focus = MAD_POL_MIL_PROTECT_BALLOT focus = MAD_POL_MIL_ASSEMBLIES }
 		search_filters = { FOCUS_FILTER_POLITICAL }
-		visible = {
-			has_completed_focus = MAD_POL_MIL_PROTECT_BALLOT
-			has_country_flag = MAD_MIL_NATIONAL_CONSULTATION_DONE
-		}
+		allow_branch = {
+				OR = {
+					has_completed_focus = MAD_POL_MIL_PROTECT_BALLOT
+					has_country_flag = MAD_MIL_PROTECT_BALLOT_SELECTED
+				}
+				has_country_flag = MAD_MIL_NATIONAL_CONSULTATION_DONE
+			}
 		available = {
 			MAD_POL_MIL_POST_2025_ROUTE_AVAILABLE = yes
 			has_country_flag = MAD_MIL_NATIONAL_CONSULTATION_DONE
@@ -10902,7 +10911,7 @@ focus = {
 
 	focus = {
 		id = MAD_POL_MIL_NEVER_DIVIDED
-		visible = { always = no }
+		allow_branch = { always = no }
 		icon = army_doctrine
 		x = 1
 		y = 2
@@ -13039,9 +13048,10 @@ focus = {
 			cost = 3
 			prerequisite = { focus = MAD_POL_TGV_2009_LEGACY }
 			search_filters = { FOCUS_FILTER_POLITICAL }
-			visible = {
-				date > 2009.11.2
-				date < 2010.1.1
+			allow_branch = {
+				has_country_flag = MAD_TGV_BRANCH_UNLOCKED
+				has_country_flag = MAD_MIL_FOCUS_TGV_MARCH_WINDOW_OPENED
+				NOT = { has_country_flag = MAD_MIL_FOCUS_TGV_MARCH_WINDOW_CLOSED }
 				MAD_TGV_IN_POWER = yes
 			}
 			available = { MAD_TGV_IN_POWER = yes }
@@ -13115,7 +13125,7 @@ focus = {
 			cost = 3
 			prerequisite = { focus = MAD_POL_TGV_2009_LEGACY }
 			search_filters = { FOCUS_FILTER_POLITICAL }
-			visible = {
+			allow_branch = {
 				has_country_flag = MAD_TGV_BRANCH_UNLOCKED
 			}
 			available = { MAD_TGV_IN_POWER = yes }
@@ -13135,7 +13145,8 @@ focus = {
 			cost = 3
 			prerequisite = { focus = MAD_POL_TGV_2009_LEGACY }
 			search_filters = { FOCUS_FILTER_POLITICAL }
-			visible = {
+			allow_branch = {
+				has_country_flag = MAD_TGV_BRANCH_UNLOCKED
 				OR = {
 					has_country_flag = MAD_POL_CONTENT_2009_2025_UNLOCKED
 					date > 2009.1.1
