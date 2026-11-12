@@ -9046,7 +9046,7 @@ focus_tree = {
 	}
 
 	focus = {
-		id = MAD_POL_ROY_CROWN_FINAL
+		id = MAD_POL_ROY_MALAGASY_LAND_FARMERS
 		icon = agriculture
 		x = 0
 		y = 1
@@ -9062,7 +9062,7 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_ROY_CROWN_FINAL"
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_ROY_MALAGASY_LAND_FARMERS"
 			random_core_state = {
 				add_extra_state_shared_building_slots = 1
 				add_building_construction = { type = agriculture_district level = 1 instant_build = yes }
@@ -9094,9 +9094,9 @@ focus_tree = {
 		icon = resource_extraction
 		x = 0
 		y = 1
-		relative_position_id = MAD_POL_ROY_CROWN_FINAL
+		relative_position_id = MAD_POL_ROY_MALAGASY_LAND_FARMERS
 		cost = 3
-		prerequisite = { focus = MAD_POL_ROY_CROWN_FINAL }
+		prerequisite = { focus = MAD_POL_ROY_MALAGASY_LAND_FARMERS }
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ECONOMY }
 		available = {
 			custom_trigger_tooltip = {
