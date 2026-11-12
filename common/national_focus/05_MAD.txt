@@ -7351,7 +7351,7 @@ focus_tree = {
 	}
 
 	focus = {
-		id = MAD_OLD_RELIABLE
+		id = MAD_AIRLINE_OPERATIONAL_RELIABILITY
 		icon = focus_airline
 		x = 0
 		y = 1
@@ -7361,7 +7361,7 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_ECONOMY FOCUS_FILTER_AIRCRAFT }
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus MAD_OLD_RELIABLE"
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_AIRLINE_OPERATIONAL_RELIABILITY"
 			swap_ideas = {
 				remove_idea = MADAGASCAR_AIRLINES_RELAUNCHED
 				add_idea = MAD_MADAGASCAR_AIRLINE_RELIABLE
@@ -7411,9 +7411,9 @@ focus_tree = {
 		icon = focus_generic_industry_investment
 		x = 0
 		y = 1
-		relative_position_id = MAD_OLD_RELIABLE
+		relative_position_id = MAD_AIRLINE_OPERATIONAL_RELIABILITY
 		cost = 3
-		prerequisite = { focus = MAD_OLD_RELIABLE }
+		prerequisite = { focus = MAD_AIRLINE_OPERATIONAL_RELIABILITY }
 		search_filters = { FOCUS_FILTER_ECONOMY FOCUS_FILTER_AIRCRAFT }
 		available = {
 			267 = {
