@@ -3619,6 +3619,11 @@ country_event = {
 				clr_country_flag = MD_protest_cooldown
 				set_country_flag = MAD_MODERN_MD_PROTESTS_INITIALISED
 			}
+			if = {
+				limit = { MAD_TGV_IN_POWER = yes }
+				set_country_flag = MAD_MODERN_PROTEST_UNDER_TGV
+				add_ideas = MAD_SPLIT_LEADERSHIP
+			}
 			set_country_flag = MAD_MODERN_PROTEST_CATALYST_ISSUED
 			set_country_flag = MAD_MODERN_PROTEST_CATALYST_ACTIVE
 			add_timed_idea = { idea = MAD_MODERN_PROTEST_PRESSURE days = 365 }
@@ -4055,47 +4060,37 @@ country_event = {
 }
 
 
-# The High Constitutional Court assigned the ordinary functions of Head of State to Senate President Richard Ravalomanana on 27 October 2023.
-country_event = {
-	id = mad_political.109
-	title = mad_political.109.t
-	desc = mad_political.109.d
-	picture = GFX_report_event_generic_political
-	is_triggered_only = yes
-	fire_only_once = yes
-	trigger = {
-		original_tag = MAD
-		tag = MAD
-		date > 2023.10.26
-		MAD_TGV_IN_POWER = yes
-		NOT = { has_country_flag = MAD_RICHARD_INTERIM_OFFICE }
-		has_character = MAD_richard_ravalomanana
-	}
-	option = {
-		name = mad_political.109.a
-		log = "[GetDateText]: [Root.GetName]: Richard Ravalomanana assumes the interim functions of Head of State"
-		create_country_leader = {
-			name = MAD_richard_ravalomanana
-			expire = "2099.1.1"
-			ideology = Nat_Populism
-			traits = { nationalist_Nat_Populism military_career }
-		}
-		promote_character = MAD_richard_ravalomanana
-		set_country_flag = MAD_RICHARD_INTERIM_OFFICE
-		add_ideas = MAD_SPLIT_LEADERSHIP
-	}
-}
-
+# Resolve the Split Leadership idea only when the pressure campaign or the full crisis reaches an endpoint.
+# Rajoelina's departure and the TGV ban are exclusive to a TGV-origin crisis ending in direct military administration.
 country_event = {
 	id = mad_political.110
 	title = mad_political.110.t
 	desc = {
-		text = mad_political.110.d_tgv
-		trigger = { MAD_TGV_IN_POWER = yes }
+		text = mad_political.110.d_military
+		trigger = {
+			AND = {
+				has_country_flag = MAD_MODERN_DIRECT_MILITARY_RULE
+				has_country_flag = MAD_MODERN_PROTEST_UNDER_TGV
+			}
+		}
+	}
+	desc = {
+		text = mad_political.110.d_catalyst_failed
+		trigger = { has_country_flag = MAD_MODERN_PROTEST_CATALYST_FAILED }
 	}
 	desc = {
 		text = mad_political.110.d_other
-		trigger = { NOT = { MAD_TGV_IN_POWER = yes } }
+		trigger = {
+			NOT = {
+				OR = {
+					has_country_flag = MAD_MODERN_PROTEST_CATALYST_FAILED
+					AND = {
+						has_country_flag = MAD_MODERN_DIRECT_MILITARY_RULE
+						has_country_flag = MAD_MODERN_PROTEST_UNDER_TGV
+					}
+				}
+			}
+		}
 	}
 	picture = GFX_report_event_generic_political
 	is_triggered_only = yes
@@ -4103,21 +4098,28 @@ country_event = {
 	trigger = {
 		original_tag = MAD
 		tag = MAD
-		has_country_flag = MAD_RICHARD_INTERIM_OFFICE
+		OR = {
+			has_country_flag = MAD_MODERN_CRISIS_COMPLETED
+			has_country_flag = MAD_MODERN_PROTEST_CATALYST_FAILED
+		}
 	}
 	option = {
 		name = mad_political.110.a
-		log = "[GetDateText]: [Root.GetName]: Andry Rajoelina flees to Dubai following the modern protest crisis"
+		log = "[GetDateText]: [Root.GetName]: Split Leadership ends with the protest-pressure campaign or modern crisis"
 		remove_ideas = MAD_SPLIT_LEADERSHIP
-		set_country_flag = MAD_RAJOELINA_FLED_DUBAI
+		# Clear this legacy marker for existing saves; Richard is not appointed or retired by this event.
 		clr_country_flag = MAD_RICHARD_INTERIM_OFFICE
 		if = {
-			limit = { NOT = { MAD_TGV_IN_POWER = yes } }
-			remove_country_leader_role = {
-				character = "MAD_richard_ravalomanana"
-				ideology = Nat_Populism
+			limit = {
+				has_country_flag = MAD_MODERN_DIRECT_MILITARY_RULE
+				has_country_flag = MAD_MODERN_PROTEST_UNDER_TGV
 			}
-			retire_character = MAD_richard_ravalomanana
+			log = "[GetDateText]: [Root.GetName]: Andry Rajoelina flees to Dubai after direct military administration is established"
+			set_country_flag = MAD_RAJOELINA_FLED_DUBAI
+			set_country_flag = MAD_TGV_BANNED
+			set_temp_variable = { party_index = 20 }
+			ban_party_scripted_call = yes
+			recalculate_party = yes
 		}
 	}
 }
