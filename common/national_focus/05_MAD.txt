@@ -13066,18 +13066,12 @@ focus = {
 					add_skill_level = 1
 				}
 			}
-			else = {
-				recruit_character = MAD_noel_rakotonandrasana
-			}
 			if = {
 				limit = { has_character = MAD_andre_andriarijaona }
 				MAD_andre_andriarijaona = {
 					promote_leader = yes
 					add_skill_level = 1
 				}
-			}
-			else = {
-				recruit_character = MAD_andre_andriarijaona
 			}
 			if = {
 				limit = { has_character = MAD_bruno_razafindrakoto }
@@ -13086,18 +13080,12 @@ focus = {
 					add_skill_level = 1
 				}
 			}
-			else = {
-				recruit_character = MAD_bruno_razafindrakoto
-			}
 			if = {
 				limit = { has_character = MAD_richard_ravalomanana }
 				MAD_richard_ravalomanana = {
 					demote_leader = yes
 					add_skill_level = 1
 				}
-			}
-			else = {
-				recruit_character = MAD_richard_ravalomanana
 			}
 			every_army_leader = { gain_xp = 10 }
 			if = {
@@ -13198,14 +13186,13 @@ focus = {
 		id = MAD_POL_TGV_2013_OFFICER_PROMOTIONS
 		icon = political_reform
 		x = 2
-		y = 1
-		relative_position_id = MAD_POL_TGV_FOURTH_REPUBLIC
+		y = 2
+		relative_position_id = MAD_POL_TGV_2009_LEGACY
 		cost = 3
-		prerequisite = { focus = MAD_POL_TGV_FOURTH_REPUBLIC }
+		prerequisite = { focus = MAD_POL_TGV_2009_LEGACY }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
 			MAD_TGV_IN_POWER = yes
-			date > 2012.12.31
 		}
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_TGV_2013_OFFICER_PROMOTIONS"
@@ -13218,18 +13205,12 @@ focus = {
 					add_skill_level = 1
 				}
 			}
-			else = {
-				recruit_character = MAD_richard_ravalomanana
-			}
 			if = {
 				limit = { has_character = MAD_tafara_edmond }
 				MAD_tafara_edmond = {
 					demote_leader = yes
 					add_skill_level = 1
 				}
-			}
-			else = {
-				recruit_character = MAD_tafara_edmond
 			}
 			if = {
 				limit = { has_character = MAD_rafenomanjato_mamy_jerison }
@@ -13238,18 +13219,12 @@ focus = {
 					add_skill_level = 1
 				}
 			}
-			else = {
-				recruit_character = MAD_rafenomanjato_mamy_jerison
-			}
 			if = {
 				limit = { has_character = MAD_beni_xavier_rasolofonirina }
 				MAD_beni_xavier_rasolofonirina = {
 					demote_leader = yes
 					add_skill_level = 1
 				}
-			}
-			else = {
-				recruit_character = MAD_beni_xavier_rasolofonirina
 			}
 			every_army_leader = { gain_xp = 10 }
 			if = {
@@ -14007,7 +13982,6 @@ focus = {
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
 			MAD_HVM_IN_POWER = yes
-			date > 2016.2.24
 		}
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_HVM_OFFICER_PROMOTIONS"
@@ -14020,18 +13994,12 @@ focus = {
 					add_skill_level = 1
 				}
 			}
-			else = {
-				recruit_character = MAD_alphonse_ravelontsoa
-			}
 			if = {
 				limit = { has_character = MAD_jean_louis_tombovelo }
 				MAD_jean_louis_tombovelo = {
 					demote_leader = yes
 					add_skill_level = 1
 				}
-			}
-			else = {
-				recruit_character = MAD_jean_louis_tombovelo
 			}
 			if = {
 				limit = { has_character = MAD_roger_rakotomalala }
@@ -14040,18 +14008,12 @@ focus = {
 					add_skill_level = 1
 				}
 			}
-			else = {
-				recruit_character = MAD_roger_rakotomalala
-			}
 			if = {
 				limit = { has_character = MAD_paulin_babity }
 				MAD_paulin_babity = {
 					demote_leader = yes
 					add_skill_level = 1
 				}
-			}
-			else = {
-				recruit_character = MAD_paulin_babity
 			}
 			if = {
 				limit = { has_character = MAD_jean_noelson_fulgence_raharinirina }
@@ -14060,18 +14022,12 @@ focus = {
 					add_skill_level = 1
 				}
 			}
-			else = {
-				recruit_character = MAD_jean_noelson_fulgence_raharinirina
-			}
 			if = {
 				limit = { has_character = MAD_marc_rakotomarolahy }
 				MAD_marc_rakotomarolahy = {
 					demote_leader = yes
 					add_skill_level = 1
 				}
-			}
-			else = {
-				recruit_character = MAD_marc_rakotomarolahy
 			}
 			if = {
 				limit = { has_character = MAD_eddie_charles_razafindrakoto }
@@ -14080,9 +14036,6 @@ focus = {
 					add_skill_level = 1
 				}
 			}
-			else = {
-				recruit_character = MAD_eddie_charles_razafindrakoto
-			}
 			if = {
 				limit = { has_character = MAD_evariste_botojanina }
 				MAD_evariste_botojanina = {
@@ -14090,18 +14043,12 @@ focus = {
 					add_skill_level = 1
 				}
 			}
-			else = {
-				recruit_character = MAD_evariste_botojanina
-			}
 			if = {
 				limit = { has_character = MAD_ludovic_pierre_ramarokoto }
 				MAD_ludovic_pierre_ramarokoto = {
 					demote_leader = yes
 					add_skill_level = 1
 				}
-			}
-			else = {
-				recruit_character = MAD_ludovic_pierre_ramarokoto
 			}
 			every_army_leader = { gain_xp = 10 }
 			if = {
