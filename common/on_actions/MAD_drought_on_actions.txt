@@ -107,8 +107,6 @@ on_actions = {
 			if = {
 				limit = { original_tag = MAD tag = MAD date > 2009.11.2 date < 2009.11.4 NOT = { has_country_flag = MAD_HISTORICAL_2009_OFFICERS_RECRUITED } }
 				set_country_flag = MAD_HISTORICAL_2009_OFFICERS_RECRUITED
-				if = { limit = { NOT = { has_character = MAD_bruno_razafindrakoto } } recruit_character = MAD_bruno_razafindrakoto }
-				if = { limit = { NOT = { has_character = MAD_richard_ravalomanana } } recruit_character = MAD_richard_ravalomanana }
 			}
 
 			# The Officers of March branch is visible only from 3 November through 31 December 2009.
@@ -143,8 +141,6 @@ on_actions = {
 			if = {
 				limit = { original_tag = MAD tag = MAD date > 2012.12.31 date < 2013.1.2 NOT = { has_country_flag = MAD_HISTORICAL_2013_OFFICERS_RECRUITED } }
 				set_country_flag = MAD_HISTORICAL_2013_OFFICERS_RECRUITED
-				if = { limit = { NOT = { has_character = MAD_tafara_edmond } } recruit_character = MAD_tafara_edmond }
-				if = { limit = { NOT = { has_character = MAD_rafenomanjato_mamy_jerison } } recruit_character = MAD_rafenomanjato_mamy_jerison }
 				if = { limit = { NOT = { has_country_flag = MAD_TGV_PROMOTIONS_2013_COMPLETED } has_character = MAD_tafara_edmond } MAD_tafara_edmond = { promote_leader = yes } }
 				if = { limit = { NOT = { has_country_flag = MAD_TGV_PROMOTIONS_2013_COMPLETED } has_character = MAD_rafenomanjato_mamy_jerison } MAD_rafenomanjato_mamy_jerison = { promote_leader = yes } }
 			}
@@ -160,15 +156,6 @@ on_actions = {
 			if = {
 				limit = { original_tag = MAD tag = MAD date > 2016.2.24 date < 2016.2.26 NOT = { has_country_flag = MAD_HISTORICAL_HVM_OFFICERS_RECRUITED } }
 				set_country_flag = MAD_HISTORICAL_HVM_OFFICERS_RECRUITED
-				if = { limit = { NOT = { has_character = MAD_alphonse_ravelontsoa } } recruit_character = MAD_alphonse_ravelontsoa }
-				if = { limit = { NOT = { has_character = MAD_jean_louis_tombovelo } } recruit_character = MAD_jean_louis_tombovelo }
-				if = { limit = { NOT = { has_character = MAD_roger_rakotomalala } } recruit_character = MAD_roger_rakotomalala }
-				if = { limit = { NOT = { has_character = MAD_paulin_babity } } recruit_character = MAD_paulin_babity }
-				if = { limit = { NOT = { has_character = MAD_jean_noelson_fulgence_raharinirina } } recruit_character = MAD_jean_noelson_fulgence_raharinirina }
-				if = { limit = { NOT = { has_character = MAD_marc_rakotomarolahy } } recruit_character = MAD_marc_rakotomarolahy }
-				if = { limit = { NOT = { has_character = MAD_eddie_charles_razafindrakoto } } recruit_character = MAD_eddie_charles_razafindrakoto }
-				if = { limit = { NOT = { has_character = MAD_evariste_botojanina } } recruit_character = MAD_evariste_botojanina }
-				if = { limit = { NOT = { has_character = MAD_ludovic_pierre_ramarokoto } } recruit_character = MAD_ludovic_pierre_ramarokoto }
 			}
 
 			if = {
