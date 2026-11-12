@@ -10048,32 +10048,7 @@ focus_tree = {
 		}
 	}
 
-	focus = {
-		id = MAD_POL_MIL_MAPUTO_CHARTER
-		icon = diplomatic_treaty
-		x = 0
-		y = 1
-		relative_position_id = MAD_POL_MIL_LESSON_2009
-		cost = 3
-		prerequisite = { focus = MAD_POL_MIL_LESSON_2009 }
-		search_filters = { FOCUS_FILTER_POLITICAL }
-		visible = {
-			OR = {
-			has_country_flag = MAD_POL_CONTENT_2009_2025_UNLOCKED
-			date > 2009.1.1
-		}
-		}
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_MIL_MAPUTO_CHARTER"
-			set_country_flag = MAD_MIL_MAPUTO_CHARTER_PENDING
-			country_event = { id = MAD_military_refoundation.3 days = 1 }
-		}
-
-		ai_will_do = {
-			base = 1
-		}
-	}
+	
 
 	focus = {
 		id = MAD_POL_MIL_TAKES_RESPONSIBILITY
@@ -12973,38 +12948,62 @@ focus_tree = {
 		}
 	}
 
-	focus = {
-		id = MAD_POL_TGV_FOURTH_REPUBLIC
-		icon = Focus_Parliament_Constitution
-		x = 0
-		y = 1
-		relative_position_id = MAD_POL_TGV_2009_LEGACY
-		cost = 3
-		prerequisite = { focus = MAD_POL_TGV_2009_LEGACY }
-		search_filters = { FOCUS_FILTER_POLITICAL }
-		available = {
-			custom_trigger_tooltip = {
-				tooltip = MAD_TGV_IN_POWER_tt
-				MAD_TGV_IN_POWER = yes
+			focus = {
+			id = MAD_POL_MIL_MAPUTO_CHARTER
+			icon = diplomatic_treaty
+			x = 0
+			y = 1
+			relative_position_id = MAD_POL_TGV_2009_LEGACY
+			cost = 3
+			prerequisite = { focus = MAD_POL_TGV_2009_LEGACY }
+			search_filters = { FOCUS_FILTER_POLITICAL }
+			visible = {
+				OR = {
+					has_country_flag = MAD_POL_CONTENT_2009_2025_UNLOCKED
+					date > 2009.1.1
+				}
 			}
+			available = {
+				custom_trigger_tooltip = {
+					tooltip = MAD_TGV_IN_POWER_tt
+					MAD_TGV_IN_POWER = yes
+				}
+			}
+			completion_reward = {
+				log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_MIL_MAPUTO_CHARTER"
+				set_country_flag = MAD_MIL_MAPUTO_CHARTER_PENDING
+				country_event = { id = MAD_military_refoundation.3 days = 1 }
+			}
+			ai_will_do = { base = 1 }
 		}
 
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_TGV_FOURTH_REPUBLIC"
-			add_political_power = 75
-			set_temp_variable = { party_index = 20 }
-			set_temp_variable = { party_popularity_increase = 0.05 }
-			set_temp_variable = { temp_outlook_increase = 0.05 }
-			change_relative_party_popularity = yes
-			recalculate_party = yes
-			
-			increase_centralization = yes
+		focus = {
+			id = MAD_POL_TGV_FOURTH_REPUBLIC
+			icon = Focus_Parliament_Constitution
+			x = 0
+			y = 1
+			relative_position_id = MAD_POL_MIL_MAPUTO_CHARTER
+			cost = 3
+			prerequisite = { focus = MAD_POL_MIL_MAPUTO_CHARTER }
+			search_filters = { FOCUS_FILTER_POLITICAL }
+			available = {
+				custom_trigger_tooltip = {
+					tooltip = MAD_TGV_IN_POWER_tt
+					MAD_TGV_IN_POWER = yes
+				}
+			}
+			completion_reward = {
+				log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_TGV_FOURTH_REPUBLIC"
+				decrease_corruption = yes
+				set_temp_variable = { party_index = 20 }
+				set_temp_variable = { party_popularity_increase = 0.05 }
+				set_temp_variable = { temp_outlook_increase = 0.05 }
+				change_relative_party_popularity = yes
+				recalculate_party = yes
+				increase_centralization = yes
+			}
+			ai_will_do = { base = 1 }
 		}
-
-		ai_will_do = {
-			base = 1
-		}
-	}
 
 	focus = {
 		id = MAD_POL_TGV_RETURN_BALLOT
