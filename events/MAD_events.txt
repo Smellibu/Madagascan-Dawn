@@ -2844,84 +2844,7 @@ country_event = {
 
 		recalculate_party = yes
 		set_country_flag = MAD_TGV_2009_TRANSITIONAL_ROUTE
-		country_event = {
-	id = MAD_military_refoundation.8
-	title = MAD_military_refoundation.8.t
-	desc = MAD_military_refoundation.8.d
-	picture = GFX_report_event_generic_political
-	is_triggered_only = yes
-	fire_only_once = yes
-	trigger = { has_country_flag = MAD_TGV_2009_TRANSITIONAL_ROUTE MAD_TGV_IN_POWER = yes }
-	option = {
-		name = MAD_military_refoundation.8.a
-		ai_chance = { factor = 50 }
-		log = "[GetDateText]: [Root.GetName]: Establish CNME with administrative integrity safeguards"
-		set_country_flag = MAD_TGV_CNME_ESTABLISHED
-		set_country_flag = MAD_TGV_CNME_INTEGRITY_MODEL_SELECTED
-		set_country_flag = MAD_TGV_DST_ESTABLISHED
-		add_ideas = MAD_TGV_CNME_INTEGRITY_MODEL
-		add_political_power = 10
-		add_stability = 0.01
-		hidden_effect = { country_event = { id = MAD_military_refoundation.9 days = 390 } }
-	}
-	option = {
-		name = MAD_military_refoundation.8.b
-		ai_chance = { factor = 50 }
-		log = "[GetDateText]: [Root.GetName]: Establish CNME with executive security coordination"
-		set_country_flag = MAD_TGV_CNME_ESTABLISHED
-		set_country_flag = MAD_TGV_CNME_EXECUTIVE_MODEL_SELECTED
-		set_country_flag = MAD_TGV_DST_ESTABLISHED
-		add_ideas = MAD_TGV_CNME_EXECUTIVE_MODEL
-		add_political_power = 10
-		add_stability = 0.01
-		hidden_effect = { country_event = { id = MAD_military_refoundation.9 days = 390 } }
-	}
-}
-
-country_event = {
-	id = MAD_military_refoundation.20
-	title = MAD_military_refoundation.20.t
-	desc = MAD_military_refoundation.20.d
-	picture = GFX_report_event_generic_political
-	is_triggered_only = yes
-	fire_only_once = yes
-	trigger = {
-		has_country_flag = MAD_TGV_CNME_ESTABLISHED
-		NOT = { has_country_flag = MAD_TGV_FIS_ESTABLISHED }
-	}
-	option = {
-		name = MAD_military_refoundation.20.a
-		ai_chance = { factor = 50 }
-		log = "[GetDateText]: [Root.GetName]: Empower the executive-run FIS"
-		set_country_flag = MAD_TGV_FIS_ESTABLISHED
-		set_country_flag = MAD_TGV_FIS_DIRECT_COMMAND
-		set_country_flag = MAD_TGV_DST_ESTABLISHED
-		set_country_flag = MAD_TGV_CNME_FIS_CREATED
-		remove_ideas = MAD_TGV_CNME_INTEGRITY_MODEL
-		remove_ideas = MAD_TGV_CNME_EXECUTIVE_MODEL
-		add_ideas = MAD_TGV_FIS_PARALLEL_SECURITY
-		add_stability = -0.02
-		add_political_power = 15
-		set_temp_variable = { party_index = 20 }
-		set_temp_variable = { party_popularity_increase = 0.02 }
-		change_relative_party_popularity = yes
-		recalculate_party = yes
-	}
-	option = {
-		name = MAD_military_refoundation.20.b
-		ai_chance = { factor = 50 }
-		log = "[GetDateText]: [Root.GetName]: Establish a judicially supervised FIS"
-		set_country_flag = MAD_TGV_FIS_ESTABLISHED
-		set_country_flag = MAD_TGV_FIS_JUDICIAL_OVERSIGHT
-		set_country_flag = MAD_TGV_FIS_REGULARISED
-		set_country_flag = MAD_TGV_DST_ESTABLISHED
-		remove_ideas = MAD_TGV_CNME_INTEGRITY_MODEL
-		remove_ideas = MAD_TGV_CNME_EXECUTIVE_MODEL
-		add_ideas = MAD_TGV_FIS_ACCOUNTABLE_SECURITY
-		add_stability = 0.02
-		add_political_power = 10
-	}
-}
+		country_event = { id = MAD_military_refoundation.8 days = 1 }
 	}
 }
 
@@ -9329,7 +9252,7 @@ country_event = {
 	}
 }
 
-# The CNME/FIS sequence is entered only through mad_political.2.c (TGV route).
+# CNME is established through the TGV transitional-government event; its FIS successor is established by a later TGV focus.
 country_event = {
 	id = MAD_military_refoundation.8
 	title = MAD_military_refoundation.8.t
@@ -9340,30 +9263,72 @@ country_event = {
 	trigger = { has_country_flag = MAD_TGV_2009_TRANSITIONAL_ROUTE MAD_TGV_IN_POWER = yes }
 	option = {
 		name = MAD_military_refoundation.8.a
-		ai_chance = { factor = 90 }
-		log = "[GetDateText]: [Root.GetName]: Establish CNME/FIS"
-		set_country_flag = MAD_TGV_CNME_FIS_CREATED
-		set_country_flag = MAD_TGV_FIS_DIRECT_COMMAND
-		add_timed_idea = { idea = MAD_TGV_FIS_PARALLEL_SECURITY days = 1095 }
-		add_stability = -0.02
-		add_political_power = 15
-		set_temp_variable = { party_index = 20 }
-		set_temp_variable = { party_popularity_increase = 0.03 }
-		set_temp_variable = { temp_outlook_increase = 0.03 }
-		change_relative_party_popularity = yes
-		recalculate_party = yes
+		ai_chance = { factor = 50 }
+		log = "[GetDateText]: [Root.GetName]: Establish CNME with administrative integrity safeguards"
+		set_country_flag = MAD_TGV_CNME_ESTABLISHED
+		set_country_flag = MAD_TGV_CNME_INTEGRITY_MODEL_SELECTED
+		set_country_flag = MAD_TGV_DST_ESTABLISHED
+		add_ideas = MAD_TGV_CNME_INTEGRITY_MODEL
+		add_political_power = 10
+		add_stability = 0.01
 		hidden_effect = { country_event = { id = MAD_military_refoundation.9 days = 390 } }
 	}
 	option = {
 		name = MAD_military_refoundation.8.b
-		ai_chance = { factor = 10 }
-		log = "[GetDateText]: [Root.GetName]: Keep investigations within ordinary structures"
-		set_country_flag = MAD_TGV_FIS_REGULARISED
-		set_country_flag = MAD_TGV_FIS_JUDICIAL_OVERSIGHT
-		add_timed_idea = { idea = MAD_TGV_FIS_ACCOUNTABLE_SECURITY days = 1095 }
-		add_stability = 0.02
-		add_political_power = -10
+		ai_chance = { factor = 50 }
+		log = "[GetDateText]: [Root.GetName]: Establish CNME with executive security coordination"
+		set_country_flag = MAD_TGV_CNME_ESTABLISHED
+		set_country_flag = MAD_TGV_CNME_EXECUTIVE_MODEL_SELECTED
+		set_country_flag = MAD_TGV_DST_ESTABLISHED
+		add_ideas = MAD_TGV_CNME_EXECUTIVE_MODEL
+		add_political_power = 10
+		add_stability = 0.01
 		hidden_effect = { country_event = { id = MAD_military_refoundation.9 days = 390 } }
+	}
+}
+
+country_event = {
+	id = MAD_military_refoundation.20
+	title = MAD_military_refoundation.20.t
+	desc = MAD_military_refoundation.20.d
+	picture = GFX_report_event_generic_political
+	is_triggered_only = yes
+	fire_only_once = yes
+	trigger = {
+		has_country_flag = MAD_TGV_CNME_ESTABLISHED
+		NOT = { has_country_flag = MAD_TGV_FIS_ESTABLISHED }
+	}
+	option = {
+		name = MAD_military_refoundation.20.a
+		ai_chance = { factor = 50 }
+		log = "[GetDateText]: [Root.GetName]: Empower the executive-run FIS"
+		set_country_flag = MAD_TGV_FIS_ESTABLISHED
+		set_country_flag = MAD_TGV_FIS_DIRECT_COMMAND
+		set_country_flag = MAD_TGV_DST_ESTABLISHED
+		set_country_flag = MAD_TGV_CNME_FIS_CREATED
+		remove_ideas = MAD_TGV_CNME_INTEGRITY_MODEL
+		remove_ideas = MAD_TGV_CNME_EXECUTIVE_MODEL
+		add_ideas = MAD_TGV_FIS_PARALLEL_SECURITY
+		add_stability = -0.02
+		add_political_power = 15
+		set_temp_variable = { party_index = 20 }
+		set_temp_variable = { party_popularity_increase = 0.02 }
+		change_relative_party_popularity = yes
+		recalculate_party = yes
+	}
+	option = {
+		name = MAD_military_refoundation.20.b
+		ai_chance = { factor = 50 }
+		log = "[GetDateText]: [Root.GetName]: Establish a judicially supervised FIS"
+		set_country_flag = MAD_TGV_FIS_ESTABLISHED
+		set_country_flag = MAD_TGV_FIS_JUDICIAL_OVERSIGHT
+		set_country_flag = MAD_TGV_FIS_REGULARISED
+		set_country_flag = MAD_TGV_DST_ESTABLISHED
+		remove_ideas = MAD_TGV_CNME_INTEGRITY_MODEL
+		remove_ideas = MAD_TGV_CNME_EXECUTIVE_MODEL
+		add_ideas = MAD_TGV_FIS_ACCOUNTABLE_SECURITY
+		add_stability = 0.02
+		add_political_power = 10
 	}
 }
 
