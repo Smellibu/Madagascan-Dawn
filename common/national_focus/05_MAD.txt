@@ -9013,7 +9013,7 @@ focus_tree = {
 	}
 
 	focus = {
-		id = MAD_POL_ROY_CUSTOM_BEFORE_PARTY
+		id = MAD_POL_ROY_FINANCIAL_REFORM
 		icon = focus_generic_court
 		x = 0
 		y = 1
@@ -9029,7 +9029,7 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_ROY_CUSTOM_BEFORE_PARTY"
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_ROY_FINANCIAL_REFORM"
 			set_temp_variable = { treasury_change = -3.00 }
 			modify_treasury_effect = yes
 			if = {
@@ -9050,9 +9050,9 @@ focus_tree = {
 		icon = agriculture
 		x = 0
 		y = 1
-		relative_position_id = MAD_POL_ROY_CUSTOM_BEFORE_PARTY
+		relative_position_id = MAD_POL_ROY_FINANCIAL_REFORM
 		cost = 3
-		prerequisite = { focus = MAD_POL_ROY_CUSTOM_BEFORE_PARTY }
+		prerequisite = { focus = MAD_POL_ROY_FINANCIAL_REFORM }
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ECONOMY }
 		available = {
 			custom_trigger_tooltip = {
