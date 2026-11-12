@@ -2796,6 +2796,8 @@ country_event = {
 		}
 
 		recalculate_party = yes
+		set_country_flag = MAD_MIL_DIRECTORATE_PENDING
+		country_event = { id = MAD_military_refoundation.16 days = 2 }
 	}
 
 	# ============================================================
@@ -2836,6 +2838,8 @@ country_event = {
 		}
 
 		recalculate_party = yes
+		set_country_flag = MAD_TGV_2009_TRANSITIONAL_ROUTE
+		country_event = { id = MAD_military_refoundation.8 days = 1 }
 	}
 }
 
@@ -8988,9 +8992,11 @@ country_event = {
 		name = MAD_military_refoundation.2.a
 		log = "[GetDateText]: [Root.GetName]: Event MAD_military_refoundation.2.a executed"
 		set_country_flag = MAD_MIL_SECURITY_REFORM_IMPOSED
+		set_country_flag = MAD_MIL_2007_REFORM_IMPOSED
 		clr_country_flag = MAD_MIL_SECURITY_REFORM_CONSULTED
 		remove_ideas = MAD_MIL_MOBILE_RESPONSE_CAPACITY
 		add_timed_idea = { idea = MAD_MIL_SECURITY_SECTOR_REFORM days = 1095 }
+		add_stability = -0.02
 		if = {
 			limit = { has_idea = the_military }
 			set_temp_variable = { temp_opinion = -10 }
@@ -9002,8 +9008,8 @@ country_event = {
 		log = "[GetDateText]: [Root.GetName]: Event MAD_military_refoundation.2.b executed"
 		set_country_flag = MAD_MIL_SECURITY_REFORM_CONSULTED
 		clr_country_flag = MAD_MIL_SECURITY_REFORM_IMPOSED
+		clr_country_flag = MAD_MIL_2007_REFORM_IMPOSED
 		remove_ideas = MAD_MIL_SECURITY_SECTOR_REFORM
-		set_country_flag = MAD_MIL_MOBILE_RESPONSE_PROJECT_UNLOCKED
 		if = {
 			limit = { has_idea = the_military }
 			set_temp_variable = { temp_opinion = 5 }
@@ -9153,5 +9159,390 @@ country_event = {
 		}
 	}
 }
+
+# Historical military-policy additions (the established .1-.5 events retain their IDs).
+country_event = {
+	id = MAD_military_refoundation.6
+	title = MAD_military_refoundation.6.t
+	desc = MAD_military_refoundation.6.d
+	picture = GFX_report_event_generic_political
+	is_triggered_only = yes
+	fire_only_once = yes
+	trigger = { has_country_flag = MAD_MIL_2005_RESTRUCTURING_PENDING }
+	immediate = { clr_country_flag = MAD_MIL_2005_RESTRUCTURING_PENDING }
+	option = {
+		name = MAD_military_refoundation.6.a
+		ai_chance = { factor = 90 }
+		log = "[GetDateText]: [Root.GetName]: Submit 2005 restructuring proposals"
+		set_country_flag = MAD_MIL_2005_DRAFT_SUBMITTED
+		set_country_flag = MAD_MIL_2005_OPERATIONAL_PROGRAMME
+		add_timed_idea = { idea = MAD_MIL_2005_OPERATIONAL_PROGRAMME days = 1095 }
+		army_experience = 10
+		navy_experience = 5
+		air_experience = 5
+		add_political_power = 10
+		set_country_flag = MAD_MIL_MOBILE_RESPONSE_PROJECT_UNLOCKED
+	}
+	option = {
+		name = MAD_military_refoundation.6.b
+		ai_chance = { factor = 10 }
+		log = "[GetDateText]: [Root.GetName]: Implement comprehensive restructuring"
+		set_country_flag = MAD_MIL_2005_RESTRUCTURING_IMPLEMENTED
+		remove_ideas = MAD_MIL_2005_OPERATIONAL_PROGRAMME
+		add_timed_idea = { idea = MAD_MIL_2005_FORCE_RESTRUCTURE days = 1825 }
+		army_experience = 15
+		navy_experience = 10
+		air_experience = 10
+		add_political_power = 15
+		add_stability = -0.02
+	}
+}
+
+country_event = {
+	id = MAD_military_refoundation.7
+	title = MAD_military_refoundation.7.t
+	desc = MAD_military_refoundation.7.d
+	picture = GFX_report_event_generic_political
+	is_triggered_only = yes
+	fire_only_once = yes
+	trigger = { has_country_flag = MAD_MIL_FIDY_2006_PENDING }
+	immediate = { clr_country_flag = MAD_MIL_FIDY_2006_PENDING }
+	option = {
+		name = MAD_military_refoundation.7.a
+		ai_chance = { factor = 85 }
+		log = "[GetDateText]: [Root.GetName]: Reject Fidy's call"
+		set_country_flag = MAD_MIL_FIDY_REJECTED
+		set_country_flag = MAD_MIL_FIDY_NO_WIDE_SUPPORT
+		add_stability = 0.02
+		add_political_power = 10
+	}
+	option = {
+		name = MAD_military_refoundation.7.b
+		ai_chance = { factor = 14 }
+		log = "[GetDateText]: [Root.GetName]: Review Fidy's constitutional complaint"
+		set_country_flag = MAD_MIL_FIDY_COMPLAINT_REVIEWED
+		add_political_power = -10
+		add_stability = 0.01
+	}
+	option = {
+		name = MAD_military_refoundation.7.c
+		ai_chance = { factor = 1 }
+		log = "[GetDateText]: [Root.GetName]: Support Fidy's provisional military government"
+		set_country_flag = MAD_MIL_FIDY_PROVISIONAL_GOVERNMENT
+		set_temp_variable = { rul_party_temp = 22 }
+		set_temp_variable = { disable_elections = 1 }
+		MAD_RESET_PARTY_LEADER_COUNTER = yes
+		change_ruling_party_effect = yes
+		add_timed_idea = { idea = MAD_MIL_FIDY_PROVISIONAL_BOARD days = 730 }
+		add_stability = -0.12
+		add_war_support = 0.05
+		add_political_power = 15
+		set_temp_variable = { party_index = 22 }
+		set_temp_variable = { party_popularity_increase = 0.12 }
+		set_temp_variable = { temp_outlook_increase = 0.12 }
+		change_relative_party_popularity = yes
+		recalculate_party = yes
+	}
+}
+
+# The CNME/FIS sequence is entered only through mad_political.2.c (TGV route).
+country_event = {
+	id = MAD_military_refoundation.8
+	title = MAD_military_refoundation.8.t
+	desc = MAD_military_refoundation.8.d
+	picture = GFX_report_event_generic_political
+	is_triggered_only = yes
+	fire_only_once = yes
+	trigger = { has_country_flag = MAD_TGV_2009_TRANSITIONAL_ROUTE MAD_TGV_IN_POWER = yes }
+	option = {
+		name = MAD_military_refoundation.8.a
+		ai_chance = { factor = 90 }
+		log = "[GetDateText]: [Root.GetName]: Establish CNME/FIS"
+		set_country_flag = MAD_TGV_CNME_FIS_CREATED
+		set_country_flag = MAD_TGV_FIS_DIRECT_COMMAND
+		add_timed_idea = { idea = MAD_TGV_FIS_PARALLEL_SECURITY days = 1095 }
+		add_stability = -0.02
+		add_political_power = 15
+		set_temp_variable = { party_index = 20 }
+		set_temp_variable = { party_popularity_increase = 0.03 }
+		set_temp_variable = { temp_outlook_increase = 0.03 }
+		change_relative_party_popularity = yes
+		recalculate_party = yes
+		hidden_effect = { country_event = { id = MAD_military_refoundation.9 days = 390 } }
+	}
+	option = {
+		name = MAD_military_refoundation.8.b
+		ai_chance = { factor = 10 }
+		log = "[GetDateText]: [Root.GetName]: Keep investigations within ordinary structures"
+		set_country_flag = MAD_TGV_FIS_REGULARISED
+		set_country_flag = MAD_TGV_FIS_JUDICIAL_OVERSIGHT
+		add_timed_idea = { idea = MAD_TGV_FIS_ACCOUNTABLE_SECURITY days = 1095 }
+		add_stability = 0.02
+		add_political_power = -10
+		hidden_effect = { country_event = { id = MAD_military_refoundation.9 days = 390 } }
+	}
+}
+
+country_event = {
+	id = MAD_military_refoundation.9
+	title = MAD_military_refoundation.9.t
+	desc = MAD_military_refoundation.9.d
+	picture = GFX_report_event_generic_political
+	is_triggered_only = yes
+	fire_only_once = yes
+	trigger = { has_country_flag = MAD_TGV_2009_TRANSITIONAL_ROUTE MAD_TGV_IN_POWER = yes }
+	option = {
+		name = MAD_military_refoundation.9.a
+		ai_chance = { factor = 55 }
+		log = "[GetDateText]: [Root.GetName]: Accommodate HAT officer corps"
+		set_country_flag = MAD_MIL_2010_OFFICER_ACCOMMODATION
+		add_timed_idea = { idea = MAD_MIL_HAT_OFFICER_ACCOMMODATION days = 1095 }
+		add_political_power = 10
+		add_stability = 0.01
+		set_temp_variable = { party_index = 22 }
+		set_temp_variable = { party_popularity_increase = 0.03 }
+		set_temp_variable = { temp_outlook_increase = 0.03 }
+		change_relative_party_popularity = yes
+		hidden_effect = { country_event = { id = MAD_military_refoundation.10 days = 210 } }
+	}
+	option = {
+		name = MAD_military_refoundation.9.b
+		ai_chance = { factor = 30 }
+		log = "[GetDateText]: [Root.GetName]: Negotiate civilian command compact"
+		set_country_flag = MAD_MIL_2010_CIVILIAN_COMMAND_COMPACT
+		add_timed_idea = { idea = MAD_MIL_CIVILIAN_COMMAND_COMPACT days = 1095 }
+		add_political_power = -10
+		add_stability = 0.02
+		set_temp_variable = { party_index = 22 }
+		set_temp_variable = { party_popularity_increase = 0.01 }
+		change_relative_party_popularity = yes
+		hidden_effect = { country_event = { id = MAD_military_refoundation.10 days = 210 } }
+	}
+	option = {
+		name = MAD_military_refoundation.9.c
+		ai_chance = { factor = 15 }
+		log = "[GetDateText]: [Root.GetName]: Reject officer demands"
+		set_country_flag = MAD_MIL_2010_CIVILIAN_AUTHORITY_ASSERTED
+		add_stability = -0.04
+		set_temp_variable = { party_index = 22 }
+		set_temp_variable = { party_popularity_increase = -0.03 }
+		change_relative_party_popularity = yes
+		if = {
+			limit = { has_idea = the_military }
+			set_temp_variable = { temp_opinion = -10 }
+			change_the_military_opinion = yes
+		}
+		hidden_effect = { country_event = { id = MAD_military_refoundation.10 days = 210 } }
+	}
+}
+
+country_event = {
+	id = MAD_military_refoundation.10
+	title = MAD_military_refoundation.10.t
+	desc = MAD_military_refoundation.10.d
+	picture = GFX_report_event_generic_political
+	is_triggered_only = yes
+	fire_only_once = yes
+	trigger = { has_country_flag = MAD_TGV_2009_TRANSITIONAL_ROUTE MAD_TGV_IN_POWER = yes }
+	option = {
+		name = MAD_military_refoundation.10.a
+		ai_chance = { factor = 75 }
+		log = "[GetDateText]: [Root.GetName]: Negotiate November 2010 military challenge"
+		set_country_flag = MAD_MIL_2010_MUTINY_NEGOTIATED
+		add_stability = 0.02
+		add_political_power = 15
+		set_temp_variable = { party_index = 22 }
+		set_temp_variable = { party_popularity_increase = 0.01 }
+		change_relative_party_popularity = yes
+		hidden_effect = { country_event = { id = MAD_military_refoundation.11 days = 300 } }
+	}
+	option = {
+		name = MAD_military_refoundation.10.b
+		ai_chance = { factor = 15 }
+		log = "[GetDateText]: [Root.GetName]: Suppress November 2010 military challenge"
+		set_country_flag = MAD_MIL_2010_MUTINY_SUPPRESSED
+		add_stability = -0.04
+		army_experience = 10
+		set_temp_variable = { party_index = 22 }
+		set_temp_variable = { party_popularity_increase = -0.03 }
+		change_relative_party_popularity = yes
+		if = {
+			limit = { has_idea = the_military }
+			set_temp_variable = { temp_opinion = -10 }
+			change_the_military_opinion = yes
+		}
+		hidden_effect = { country_event = { id = MAD_military_refoundation.11 days = 300 } }
+	}
+	option = {
+		name = MAD_military_refoundation.10.c
+		ai_chance = { factor = 10 }
+		log = "[GetDateText]: [Root.GetName]: Formalise military mediation role"
+		set_country_flag = MAD_MIL_2010_TRANSITIONAL_GUARANTOR
+		add_timed_idea = { idea = MAD_MIL_HAT_TRANSITION_GUARANTOR days = 1095 }
+		add_stability = -0.02
+		set_temp_variable = { party_index = 22 }
+		set_temp_variable = { party_popularity_increase = 0.05 }
+		set_temp_variable = { temp_outlook_increase = 0.05 }
+		change_relative_party_popularity = yes
+		hidden_effect = { country_event = { id = MAD_military_refoundation.11 days = 300 } }
+	}
+}
+
+country_event = {
+	id = MAD_military_refoundation.11
+	title = MAD_military_refoundation.11.t
+	desc = MAD_military_refoundation.11.d
+	picture = GFX_report_event_generic_political
+	is_triggered_only = yes
+	fire_only_once = yes
+	trigger = { has_country_flag = MAD_TGV_2009_TRANSITIONAL_ROUTE MAD_TGV_IN_POWER = yes }
+	option = {
+		name = MAD_military_refoundation.11.a
+		ai_chance = { factor = 80 }
+		log = "[GetDateText]: [Root.GetName]: Accept SADC transition timetable"
+		set_country_flag = MAD_MIL_2013_ELECTORAL_COMMITMENT
+		set_politics = { elections_allowed = yes }
+		remove_ideas = MAD_MIL_HAT_TRANSITION_GUARANTOR
+		add_stability = 0.03
+		add_political_power = 20
+		set_temp_variable = { party_index = 22 }
+		set_temp_variable = { party_popularity_increase = -0.02 }
+		change_relative_party_popularity = yes
+		recalculate_party = yes
+	}
+	option = {
+		name = MAD_military_refoundation.11.b
+		ai_chance = { factor = 20 }
+		log = "[GetDateText]: [Root.GetName]: Retain military transition guarantee"
+		set_country_flag = MAD_MIL_TGV_RESERVED_TRANSITION_VETO
+		add_timed_idea = { idea = MAD_MIL_TGV_TRANSITION_GUARANTOR days = 1095 }
+		add_stability = -0.02
+		set_temp_variable = { party_index = 22 }
+		set_temp_variable = { party_popularity_increase = 0.05 }
+		set_temp_variable = { temp_outlook_increase = 0.05 }
+		change_relative_party_popularity = yes
+		recalculate_party = yes
+	}
+}
+
+country_event = {
+	id = MAD_military_refoundation.12
+	title = MAD_military_refoundation.12.t
+	desc = MAD_military_refoundation.12.d
+	picture = GFX_report_event_generic_political
+	is_triggered_only = yes
+	fire_only_once = yes
+	trigger = { has_country_flag = MAD_MIL_NSRP_PENDING }
+	immediate = { clr_country_flag = MAD_MIL_NSRP_PENDING }
+	option = {
+		name = MAD_military_refoundation.12.a
+		ai_chance = { factor = 80 }
+		log = "[GetDateText]: [Root.GetName]: Adopt NSRP"
+		set_country_flag = MAD_MIL_NSRP_ADOPTED
+		add_timed_idea = { idea = MAD_MIL_NATIONAL_SECURITY_REFORM_PLAN days = 1825 }
+		add_political_power = 15
+		add_stability = 0.02
+	}
+	option = {
+		name = MAD_military_refoundation.12.b
+		ai_chance = { factor = 20 }
+		log = "[GetDateText]: [Root.GetName]: Defer NSRP"
+		set_country_flag = MAD_MIL_NSRP_DEFERRED
+		add_political_power = 10
+		add_stability = -0.01
+	}
+}
+
+country_event = {
+	id = MAD_military_refoundation.13
+	title = MAD_military_refoundation.13.t
+	desc = MAD_military_refoundation.13.d
+	picture = GFX_report_event_generic_political
+	is_triggered_only = yes
+	fire_only_once = yes
+	trigger = { has_country_flag = MAD_MIL_HCDN_SPDSN_ESTABLISHMENT_PENDING }
+	immediate = { clr_country_flag = MAD_MIL_HCDN_SPDSN_ESTABLISHMENT_PENDING }
+	option = {
+		name = MAD_military_refoundation.13.a
+		ai_chance = { factor = 80 }
+		log = "[GetDateText]: [Root.GetName]: Establish HCDN and SPDSN"
+		set_country_flag = MAD_MIL_HCDN_ESTABLISHED
+		set_country_flag = MAD_MIL_SPDSN_ESTABLISHED
+		add_ideas = MAD_MIL_HCDN_SPDSN_BASE
+		add_political_power = 15
+		add_stability = 0.02
+	}
+	option = {
+		name = MAD_military_refoundation.13.b
+		ai_chance = { factor = 20 }
+		log = "[GetDateText]: [Root.GetName]: Retain executive-centred coordination"
+		set_country_flag = MAD_MIL_EXECUTIVE_SECURITY_CONTINUITY
+		add_timed_idea = { idea = MAD_MIL_EXECUTIVE_SECURITY_CONTINUITY_IDEA days = 1095 }
+		add_political_power = 10
+		add_stability = -0.01
+	}
+}
+
+country_event = {
+	id = MAD_military_refoundation.14
+	title = MAD_military_refoundation.14.t
+	desc = MAD_military_refoundation.14.d
+	picture = GFX_report_event_generic_political
+	is_triggered_only = yes
+	fire_only_once = yes
+	trigger = { has_country_flag = MAD_MIL_INTERNAL_CONTROL_PENDING }
+	immediate = { clr_country_flag = MAD_MIL_INTERNAL_CONTROL_PENDING }
+	option = {
+		name = MAD_military_refoundation.14.a
+		ai_chance = { factor = 80 }
+		log = "[GetDateText]: [Root.GetName]: Implement internal control framework"
+		set_country_flag = MAD_MIL_INTERNAL_CONTROL_STARTED
+		set_country_flag = MAD_MIL_RISK_MANAGEMENT_INTRODUCED
+		add_timed_idea = { idea = MAD_MIL_INTERNAL_CONTROL_FRAMEWORK days = 1095 }
+		army_experience = 10
+		add_political_power = 15
+		add_stability = 0.01
+	}
+	option = {
+		name = MAD_military_refoundation.14.b
+		ai_chance = { factor = 20 }
+		log = "[GetDateText]: [Root.GetName]: Defer internal-control programme"
+		set_country_flag = MAD_MIL_INTERNAL_CONTROL_DEFERRED
+		add_political_power = 10
+		add_stability = -0.01
+	}
+}
+
+# Alternative military-takeover branch, distinct from the TGV transitional route.
+country_event = {
+	id = MAD_military_refoundation.16
+	title = MAD_military_refoundation.16.t
+	desc = MAD_military_refoundation.16.d
+	picture = GFX_report_event_generic_political
+	is_triggered_only = yes
+	fire_only_once = yes
+	trigger = { has_country_flag = MAD_MIL_DIRECTORATE_PENDING }
+	immediate = { clr_country_flag = MAD_MIL_DIRECTORATE_PENDING }
+	option = {
+		name = MAD_military_refoundation.16.a
+		ai_chance = { factor = 15 }
+		log = "[GetDateText]: [Root.GetName]: Retain the Military Directorate"
+		set_country_flag = MAD_MIL_DIRECTORATE_RETAINED
+		set_country_flag = MAD_MIL_DIRECTORATE_24M_MANDATE
+		add_timed_idea = { idea = MAD_MIL_DIRECTORATE_TRANSITION days = 730 }
+		add_political_power = 25
+		add_stability = -0.05
+	}
+	option = {
+		name = MAD_military_refoundation.16.b
+		ai_chance = { factor = 85 }
+		log = "[GetDateText]: [Root.GetName]: Prepare transfer to civilian authority"
+		set_country_flag = MAD_MIL_DIRECTORATE_TRANSFER_PREPARED
+		add_political_power = 15
+		add_stability = 0.01
+	}
+}
+
+
 
 
