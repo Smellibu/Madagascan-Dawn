@@ -765,10 +765,6 @@ MAD_drought_south_shock = {
 }
 
 ########################################################################
-# DROUGHT DISPLACEMENT
-########################################################################
-# The four modeled states use state_population_k (in thousands) to calculate population-proportional movement.
-########################################################################
 # THE MONTHLY TICK
 ########################################################################
 
@@ -1128,7 +1124,6 @@ MAD_drought_state_init = {
 		set_variable = { MAD_state_relief_months = 0 }
 		set_variable = { MAD_state_water_relief_months = 0 }
 		set_variable = { MAD_state_water_relief_growth_factor = 1 }
-		set_variable = { MAD_state_displacement_accumulator = 0 }
 		clr_state_flag = MAD_GRAND_SUD_STATE
 		clr_state_flag = MAD_REFUGE_STATE
 		add_to_array = { array = ROOT.MAD_drought_states value = THIS }
@@ -1141,7 +1136,6 @@ MAD_drought_state_init = {
 		set_variable = { MAD_state_relief_months = 0 }
 		set_variable = { MAD_state_water_relief_months = 0 }
 		set_variable = { MAD_state_water_relief_growth_factor = 1 }
-		set_variable = { MAD_state_displacement_accumulator = 0 }
 		clr_state_flag = MAD_GRAND_SUD_STATE
 		set_state_flag = MAD_REFUGE_STATE
 		add_to_array = { array = ROOT.MAD_drought_states value = THIS }
@@ -1154,7 +1148,6 @@ MAD_drought_state_init = {
 		set_variable = { MAD_state_relief_months = 0 }
 		set_variable = { MAD_state_water_relief_months = 0 }
 		set_variable = { MAD_state_water_relief_growth_factor = 1 }
-		set_variable = { MAD_state_displacement_accumulator = 0 }
 		set_state_flag = MAD_GRAND_SUD_STATE
 		clr_state_flag = MAD_REFUGE_STATE
 		add_to_array = { array = ROOT.MAD_drought_states value = THIS }
@@ -1167,7 +1160,6 @@ MAD_drought_state_init = {
 		set_variable = { MAD_state_relief_months = 0 }
 		set_variable = { MAD_state_water_relief_months = 0 }
 		set_variable = { MAD_state_water_relief_growth_factor = 1 }
-		set_variable = { MAD_state_displacement_accumulator = 0 }
 		clr_state_flag = MAD_GRAND_SUD_STATE
 		set_state_flag = MAD_REFUGE_STATE
 		add_to_array = { array = ROOT.MAD_drought_states value = THIS }
