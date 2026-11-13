@@ -10038,32 +10038,70 @@ focus_tree = {
 	}
 
 		focus = {
-		id = MAD_POL_MIL_LESSON_2002
-		icon = demand_territory
-		x = 0
-		y = 2
-		relative_position_id = MAD_POL_MIL_PRE2002_OFFICER_CORPS
-		cost = 3
-		prerequisite = { focus = MAD_POL_MIL_PRE2002_OFFICER_CORPS }
-		search_filters = { FOCUS_FILTER_POLITICAL }
-		
+			id = MAD_POL_MIL_LESSON_2002
+			icon = demand_territory
+			x = 0
+			y = 2
+			relative_position_id = MAD_POL_MIL_PRE2002_OFFICER_CORPS
+			cost = 3
 
-		
-		allow_branch = {
-			OR = {
-				has_country_flag = MAD_POL_CONTENT_2002_2009_UNLOCKED
-				has_country_flag = MAD_POL_CONTENT_2009_2025_UNLOCKED
-				date > 2009.1.1
+			prerequisite = {
+				focus = MAD_POL_MIL_PRE2002_OFFICER_CORPS
 			}
-		}completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_MIL_LESSON_2002"
-			set_country_flag = MAD_MIL_LESSON_2002_RECORDED
-		}
 
-		ai_will_do = {
-			base = 1
+			search_filters = { FOCUS_FILTER_POLITICAL }
+
+			allow_branch = {
+				OR = {
+					has_country_flag = MAD_POL_CONTENT_2002_2009_UNLOCKED
+					has_country_flag = MAD_POL_CONTENT_2009_2025_UNLOCKED
+					date > 2009.1.1
+				}
+			}
+
+			completion_reward = {
+				log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_MIL_LESSON_2002"
+
+				# The armed forces emerge from the crisis with
+				# a stronger independent political position.
+				set_temp_variable = { party_index = 22 }
+				set_temp_variable = { party_popularity_increase = 0.03 }
+				set_temp_variable = { temp_outlook_increase = 0.03 }
+				change_relative_party_popularity = yes
+
+				# Recognise FPA as a member of the existing
+				# governing coalition.
+				set_temp_variable = { add_col_one = 22 }
+				add_coalition_members_effect = yes
+
+				# Increase military spending through the MD law mechanic.
+				# Only apply the one-year decrease restriction if the
+				# military spending law actually increases.
+				if = {
+					limit = {
+						defence_increase_blocked = no
+					}
+
+					set_temp_variable = {
+						mad_mil_2002_spending_before = military_law
+					}
+					increase_military_spending = yes
+
+					if = {
+						limit = {
+							check_variable = {
+								military_law > mad_mil_2002_spending_before
+							}
+						}
+						block_defence_decrease = yes
+					}
+				}
+			}
+
+			ai_will_do = {
+				base = 1
+			}
 		}
-	}
 
 focus = {
 		id = MAD_POL_MIL_2005_RESTRUCTURING
