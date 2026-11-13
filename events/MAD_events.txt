@@ -776,11 +776,13 @@ country_event = {
 					MAD_drought_state_apply_famine = yes
 				}
 			}
+			# Approximate 8,000 drought-driven migrants from the Grand Sud to Antananarivo.
+			268 = { add_manpower = -8000 }
+			267 = { add_manpower = 8000 }
 			hidden_effect = {
 				set_temp_variable = { MAD_dr_shock_pressure = 0.40 }
 				MAD_drought_add_warning_shock_pressure = yes
-				add_to_variable = { MAD_drought_depop = 1 }
-				MAD_drought_recalc_national = yes
+					MAD_drought_recalc_national = yes
 			}
 		}
 	}
@@ -818,11 +820,13 @@ country_event = {
 					MAD_drought_state_apply_famine = yes
 				}
 			}
+			# WHO/IOM reporting put drought displacement at about 5,000 people by end-2021.
+			268 = { add_manpower = -5000 }
+			267 = { add_manpower = 5000 }
 			hidden_effect = {
 				set_temp_variable = { MAD_dr_shock_pressure = 0.45 }
 				MAD_drought_add_warning_shock_pressure = yes
-				add_to_variable = { MAD_drought_depop = 1 }
-				MAD_drought_recalc_national = yes
+					MAD_drought_recalc_national = yes
 			}
 			add_stability = -0.03
 		}
@@ -858,8 +862,7 @@ country_event = {
 			hidden_effect = {
 				set_temp_variable = { MAD_dr_shock_pressure = 0.35 }
 				MAD_drought_add_warning_shock_pressure = yes
-				add_to_variable = { MAD_drought_depop = 1 }
-				MAD_drought_recalc_national = yes
+					MAD_drought_recalc_national = yes
 			}
 			add_stability = -0.01
 		}
@@ -886,11 +889,13 @@ country_event = {
 				set_temp_variable = { MAD_dr_state_famine = 15 }
 				MAD_drought_state_apply_shock = yes
 			}
+			# Approximate 5,000 drought migrants from the Grand Sud to the capital region.
+			268 = { add_manpower = -5000 }
+			267 = { add_manpower = 5000 }
 			hidden_effect = {
 				set_temp_variable = { MAD_dr_shock_pressure = 0.35 }
 				MAD_drought_add_warning_shock_pressure = yes
-				add_to_variable = { MAD_drought_depop = 1 }
-				MAD_drought_recalc_national = yes
+					MAD_drought_recalc_national = yes
 			}
 			add_stability = -0.02
 		}
@@ -920,8 +925,7 @@ country_event = {
 			hidden_effect = {
 				set_temp_variable = { MAD_dr_shock_pressure = 0.25 }
 				MAD_drought_add_warning_shock_pressure = yes
-				add_to_variable = { MAD_drought_depop = 1 }
-				MAD_drought_recalc_national = yes
+					MAD_drought_recalc_national = yes
 			}
 			add_stability = -0.01
 		}
@@ -948,11 +952,13 @@ country_event = {
 				set_temp_variable = { MAD_dr_state_famine = 15 }
 				MAD_drought_state_apply_shock = yes
 			}
+			# IOM field interviews identified roughly 500 migrants from one southern community since 2009.
+			268 = { add_manpower = -500 }
+			267 = { add_manpower = 500 }
 			hidden_effect = {
 				set_temp_variable = { MAD_dr_shock_pressure = 0.40 }
 				MAD_drought_add_warning_shock_pressure = yes
-				add_to_variable = { MAD_drought_depop = 1 }
-				MAD_drought_recalc_national = yes
+					MAD_drought_recalc_national = yes
 			}
 			add_stability = -0.02
 		}
@@ -982,8 +988,7 @@ country_event = {
 			hidden_effect = {
 				set_temp_variable = { MAD_dr_shock_pressure = 0.35 }
 				MAD_drought_add_warning_shock_pressure = yes
-				add_to_variable = { MAD_drought_depop = 1 }
-				MAD_drought_recalc_national = yes
+					MAD_drought_recalc_national = yes
 			}
 			add_stability = -0.02
 		}
@@ -1015,77 +1020,6 @@ country_event = {
 		name = mad_drought.22.a
 		log = "[GetDateText]: [Root.GetName]: mad_drought.22"
 		add_stability = 0.01
-	}
-}
-
-########################################################################
-# One event at most per monthly displacement tick. All positive transfers are staged first,
-# and no state population is changed until the player confirms this option. Empty months do not queue this event.
-country_event = {
-	id = mad_drought.23
-	title = mad_drought.displacement.t
-	desc = mad_drought.23.d_default
-	picture = GFX_report_event_economy_default
-	is_triggered_only = yes
-	option = {
-		name = mad_drought.displacement.a
-		custom_effect_tooltip = mad_drought.displacement.option_header_tt
-		if = {
-			limit = { check_variable = { MAD_drought_report_net_266 > 0.5 } }
-			custom_effect_tooltip = mad_drought.displacement.net_266_positive_tt
-		}
-		else_if = {
-			limit = { check_variable = { MAD_drought_report_net_266 < -0.5 } }
-			custom_effect_tooltip = mad_drought.displacement.net_266_negative_tt
-		}
-		if = {
-			limit = { check_variable = { MAD_drought_report_net_267 > 0.5 } }
-			custom_effect_tooltip = mad_drought.displacement.net_267_positive_tt
-		}
-		else_if = {
-			limit = { check_variable = { MAD_drought_report_net_267 < -0.5 } }
-			custom_effect_tooltip = mad_drought.displacement.net_267_negative_tt
-		}
-		if = {
-			limit = { check_variable = { MAD_drought_report_net_268 > 0.5 } }
-			custom_effect_tooltip = mad_drought.displacement.net_268_positive_tt
-		}
-		else_if = {
-			limit = { check_variable = { MAD_drought_report_net_268 < -0.5 } }
-			custom_effect_tooltip = mad_drought.displacement.net_268_negative_tt
-		}
-		if = {
-			limit = { check_variable = { MAD_drought_report_net_487 > 0.5 } }
-			custom_effect_tooltip = mad_drought.displacement.net_487_positive_tt
-		}
-		else_if = {
-			limit = { check_variable = { MAD_drought_report_net_487 < -0.5 } }
-			custom_effect_tooltip = mad_drought.displacement.net_487_negative_tt
-		}
-		if = {
-			limit = { check_variable = { MAD_drought_report_deaths_monthly > 0.5 } }
-			custom_effect_tooltip = mad_drought.displacement.deaths_monthly_tt
-		}
-		if = {
-			limit = { check_variable = { MAD_drought_report_arrivals_COM > 0.5 } }
-			custom_effect_tooltip = mad_drought.displacement.arrival_COM_tt
-		}
-		if = {
-			limit = { check_variable = { MAD_drought_report_arrivals_MOZ > 0.5 } }
-			custom_effect_tooltip = mad_drought.displacement.arrival_MOZ_tt
-		}
-		if = {
-			limit = { check_variable = { MAD_drought_report_arrivals_SAF > 0.5 } }
-			custom_effect_tooltip = mad_drought.displacement.arrival_SAF_tt
-		}
-		hidden_effect = {
-			MAD_drought_commit_displacement_266 = yes
-			MAD_drought_commit_displacement_267 = yes
-			MAD_drought_commit_displacement_268 = yes
-			MAD_drought_commit_displacement_487 = yes
-			MAD_drought_update_displacement_overload = yes
-			clr_country_flag = MAD_DROUGHT_DISPLACEMENT_REPORT_PENDING
-		}
 	}
 }
 
@@ -1141,6 +1075,8 @@ country_event = {
 			limit = { NOT = { has_country_flag = MAD_DROUGHT_WON } }
 			log = "[GetDateText]: [Root.GetName]: mad_drought.31 - cyclone in the selected coastal state"
 			event_target:MAD_drought_event_state = {
+				# Approx. 60,000 displaced and 100 fatalities, comparable to Cyclone Batsirai.
+				add_manpower = -60100
 				set_temp_variable = { MAD_dr_state_change = 7 }
 				set_temp_variable = { MAD_dr_state_famine = 10 }
 				MAD_drought_state_apply_shock = yes
@@ -1152,6 +1088,11 @@ country_event = {
 					}
 				}
 			}
+			if = {
+				limit = { event_target:MAD_drought_event_state = { state = 267 } }
+				268 = { add_manpower = 60000 }
+			}
+			else = { 267 = { add_manpower = 60000 } }
 			hidden_effect = {
 				MAD_drought_recalc_national = yes
 			}
@@ -1181,6 +1122,12 @@ country_event = {
 				}
 				MAD_drought_state_apply_famine = yes
 			}
+			event_target:MAD_drought_event_state = { add_manpower = -5000 }
+			if = {
+				limit = { event_target:MAD_drought_event_state = { state = 267 } }
+				268 = { add_manpower = 5000 }
+			}
+			else = { 267 = { add_manpower = 5000 } }
 			add_stability = -0.02
 			add_war_support = -0.01
 		}
