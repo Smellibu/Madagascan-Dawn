@@ -18,6 +18,11 @@ jobs:
         with:
           ref: codex/mad-military-policy-history-2026-11-12
           persist-credentials: true
+          sparse-checkout: |
+            .github/workflows
+            common/characters
+            gfx/leaders/MAD
+          sparse-checkout-cone-mode: true
 
       - name: Install image processing tools
         run: |
@@ -149,7 +154,7 @@ jobs:
           import re
           from pathlib import Path
           text = Path('common/characters/MAD.txt').read_text(encoding='utf-8-sig')
-          missing = [p for p in re.findall(r'"(gfx/leaders/MAD/[^"]+\\.dds)"', text)
+          missing = [p for p in re.findall(r'"(gfx/leaders/MAD/[^"]+\.dds)"', text)
                      if not Path(p).is_file()]
           if missing:
               raise SystemExit('Missing referenced portrait files: ' + ', '.join(missing))
