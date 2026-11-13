@@ -868,8 +868,8 @@ MAD_drought_finish = {
 			487 = { MAD_state_food_secure = yes }
 		}
 		set_country_flag = MAD_DROUGHT_OVER
-		# A temporary national population rebound represents recovery after the drought; no displaced-person tracking.
-		add_timed_idea = { idea = MAD_DROUGHT_RESETTLED days = 730 }
+		# Grant the two-year national population-growth recovery bonus when the drought is fully resolved.
+		add_timed_idea = { idea = MAD_DROUGHT_POPULATION_RECOVERY days = 730 }
 		set_variable = { MAD_drought_severity = 0 }
 		set_variable = { MAD_drought_relief_months = 0 }
 		MAD_drought_clear_tiers = yes
@@ -1107,7 +1107,7 @@ MAD_drought_scheduled_events = {
 # have to hunt state IDs through the rest of the mod:
 #
 #   MAD_GRAND_SUD_STATE  - the Grand Sud: state 268 (Toliara), starting drought value 45.
-#   MAD_REFUGE_STATE     - where people go when the south empties: 267 (Antananarivo) and 487 (Toamasina).
+#   MAD_DROUGHT_LOW_EXPOSURE_STATE - lower-exposure states: 267 (Antananarivo) and 487 (Toamasina).
 #
 # The four Madagascar states, taken from the railway comment in MAD_decisions.txt:
 #   267 Antananarivo   268 Toliara   266 Mahajanga   487 Toamasina
@@ -1127,7 +1127,7 @@ MAD_drought_state_init = {
 		set_variable = { MAD_state_water_relief_months = 0 }
 		set_variable = { MAD_state_water_relief_growth_factor = 1 }
 		clr_state_flag = MAD_GRAND_SUD_STATE
-		clr_state_flag = MAD_REFUGE_STATE
+		clr_state_flag = MAD_DROUGHT_LOW_EXPOSURE_STATE
 		add_to_array = { array = ROOT.MAD_drought_states value = THIS }
 	}
 	267 = {
@@ -1139,7 +1139,7 @@ MAD_drought_state_init = {
 		set_variable = { MAD_state_water_relief_months = 0 }
 		set_variable = { MAD_state_water_relief_growth_factor = 1 }
 		clr_state_flag = MAD_GRAND_SUD_STATE
-		set_state_flag = MAD_REFUGE_STATE
+		set_state_flag = MAD_DROUGHT_LOW_EXPOSURE_STATE
 		add_to_array = { array = ROOT.MAD_drought_states value = THIS }
 	}
 	268 = {
@@ -1151,7 +1151,7 @@ MAD_drought_state_init = {
 		set_variable = { MAD_state_water_relief_months = 0 }
 		set_variable = { MAD_state_water_relief_growth_factor = 1 }
 		set_state_flag = MAD_GRAND_SUD_STATE
-		clr_state_flag = MAD_REFUGE_STATE
+		clr_state_flag = MAD_DROUGHT_LOW_EXPOSURE_STATE
 		add_to_array = { array = ROOT.MAD_drought_states value = THIS }
 	}
 	487 = {
@@ -1163,7 +1163,7 @@ MAD_drought_state_init = {
 		set_variable = { MAD_state_water_relief_months = 0 }
 		set_variable = { MAD_state_water_relief_growth_factor = 1 }
 		clr_state_flag = MAD_GRAND_SUD_STATE
-		set_state_flag = MAD_REFUGE_STATE
+		set_state_flag = MAD_DROUGHT_LOW_EXPOSURE_STATE
 		add_to_array = { array = ROOT.MAD_drought_states value = THIS }
 	}
 
