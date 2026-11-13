@@ -3280,6 +3280,8 @@ country_event = {
 	trigger = {
 		original_tag = MAD
 		NOT = { MAD_AREMA_IN_POWER = yes }
+		# Recheck when the delayed event fires in case TGV took power during the five-day wait.
+		NOT = { MAD_TGV_IN_POWER = yes }
 		NOT = { has_country_flag = MAD_RATSIRAKA_SUCCESSOR_SELECTED }
 		NOT = { has_country_flag = MAD_AREMA_RENEWAL }
 		NOT = { has_country_flag = MAD_AREMA_RECONCILIATION }
