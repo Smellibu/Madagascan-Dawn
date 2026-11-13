@@ -151,6 +151,27 @@ characters = {
 			ai_will_do = { factor = 1.000 }
 		}
 }
+	# General de Brigade at the 2000 start; Chief of the General Staff from January 2002.
+	MAD_andrianome_ranivo_dieudonne = {
+		name = "Andrianome Ranivo Dieudonné"
+		corps_commander = {
+			# Available as a field commander from the 2000 start.
+			skill = 2
+			attack_skill = 2
+			defense_skill = 2
+			planning_skill = 2
+			logistics_skill = 2
+		}
+		advisor = {
+			# Starting Chief of the General Staff candidate; available alongside Marcel Ranjeva.
+			slot = army_chief
+			idea_token = andrianome_ranivo_dieudonne_army_chief
+			ledger = army
+			traits = { army_chief_planning_1 }
+			cost = 100
+			ai_will_do = { factor = 1.000 }
+		}
+	}
 	MAD_jules_mamizara = {
 		name = "Jules Mamizara"
 		corps_commander = {
