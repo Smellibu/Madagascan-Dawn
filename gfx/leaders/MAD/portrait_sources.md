@@ -8,7 +8,7 @@ Copyright notes are not licences. Non-CC photographs require permission before p
 | Richard_Ravalomanana | [Jeune Afrique](https://www.jeuneafrique.com/1499275/politique/presidentielle-a-madagascar-entre-rajoelina-et-ses-opposants-lescalade-des-tensions-continue/) | Source attribution recorded; personal mod use |
 | Jean_Bruno_Wilfrid_Razafindrakoto | No verified portrait candidate passed face/source checks | Not imported; no new portrait reference was added |
 | Rakoto_Ramahavonjy_Andriamintsoa | No verified portrait candidate passed face/source checks | Not imported; no new portrait reference was added |
-| Michael_Randrianirina | No verified portrait candidate passed face/source checks | Not imported; no new portrait reference was added |
+| Michael_Randrianirina | [AP / Deccan Chronicle](https://www.deccanchronicle.com/world/what-to-know-about-the-man-behind-madagascars-sudden-military-coup-1910857) | Image caption identifies Michael Randrianirina at the October 2025 swearing-in; source attribution recorded |
 | Remenabila | [Rakrist08 / Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Remenabila_01.jpg) | CC BY-SA 3.0 |
 | Dr_Ndriana_Rabarioelina | [Kingdom of Madagascar blog](https://kingdom-of-madagascar.blogspot.com/2019/) | Copyright / permission not established |
 | Herizo_Razafimahaleo | [Eliana Saxton / U.S. Department of State](https://commons.wikimedia.org/wiki/File:Herizo_Razafimahaleo_(Profile).jpg) | Public domain, U.S. government work |
