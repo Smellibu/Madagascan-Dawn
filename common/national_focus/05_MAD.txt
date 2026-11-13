@@ -9973,23 +9973,32 @@ focus_tree = {
 		prerequisite = { focus = MAD_POL_MIL_PRE2002_OFFICER_CORPS }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 
-		available = {
-			any_owned_state = {
-				is_capital = no
-				is_controlled_by = ROOT
-				infrastructure_random_build_loc = yes
-			}
-		}
-
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_MIL_PRE2002_DEVELOPMENT_STAFF"
 			set_country_flag = MAD_MIL_DEVELOPMENT_ROLE_RETAINED
-			random_owned_controlled_state = {
+			if = {
 				limit = {
-					is_capital = no
-					infrastructure_random_build_loc = yes
+					any_owned_state = {
+						is_capital = no
+						is_controlled_by = ROOT
+						infrastructure_random_build_loc = yes
+					}
 				}
-				one_state_infrastructure = yes
+				random_owned_controlled_state = {
+					limit = {
+						is_capital = no
+						infrastructure_random_build_loc = yes
+					}
+					one_state_infrastructure = yes
+				}
+			}
+			else = {
+				add_tech_bonus = {
+					name = MAD_POL_MIL_PRE2002_DEVELOPMENT_STAFF
+					category = CAT_industry
+					bonus = 0.15
+					uses = 2
+				}
 			}
 		}
 
