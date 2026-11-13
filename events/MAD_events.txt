@@ -2553,7 +2553,11 @@ country_event = {
 		set_country_flag = MAD_DAEWOO_POLITICAL_FALLOUT_PENDING
 		if = {
 			limit = { NOT = { has_country_flag = MAD_TGV_FORMED } }
-			country_event = { id = mad_political.96 days = 1 }
+			if = {
+				limit = { NOT = { has_country_flag = MAD_TGV_FORMATION_PENDING } }
+				set_country_flag = MAD_TGV_FORMATION_PENDING
+				country_event = { id = mad_political.96 days = 1 }
+			}
 			if = {
 				limit = { has_elections = yes }
 				country_event = { id = mad_political.2 days = 10 }
@@ -3307,7 +3311,10 @@ country_event = {
 			limit = { NOT = { has_country_flag = MAD_TGV_FORMED } }
 			# Defer TGV's +10% support until the formation event so the party remains absent
 			# from MD's compact Politics View during the 15-day formation delay.
-			set_country_flag = MAD_TGV_INITIAL_SUPPORT_PENDING
+			if = {
+				limit = { NOT = { has_country_flag = MAD_TGV_FORMATION_PENDING } }
+				set_country_flag = MAD_TGV_INITIAL_SUPPORT_PENDING
+			}
 		}
 		else = {
 			set_temp_variable = { party_index = 20 }
@@ -3322,7 +3329,10 @@ country_event = {
 		add_political_power = 150
 
 		if = {
-			limit = { NOT = { has_country_flag = MAD_TGV_FORMED } }
+			limit = {
+				NOT = { has_country_flag = MAD_TGV_FORMED }
+				NOT = { has_country_flag = MAD_TGV_FORMATION_PENDING }
+			}
 			set_country_flag = MAD_TGV_FORMATION_PENDING
 			country_event = { id = mad_political.95 days = 2 }
 		}
@@ -3349,7 +3359,10 @@ country_event = {
 		
 
 		if = {
-			limit = { NOT = { has_country_flag = MAD_TGV_FORMED } }
+			limit = {
+				NOT = { has_country_flag = MAD_TGV_FORMED }
+				NOT = { has_country_flag = MAD_TGV_FORMATION_PENDING }
+			}
 			set_country_flag = MAD_TGV_FORMATION_PENDING
 			country_event = { id = mad_political.95 days = 2 }
 		}
@@ -3410,7 +3423,8 @@ country_event = {
 # TGV formation
 # .95 - delayed response after mad_political.91
 # .96 - December 2007 formation event
-# Both use the same MAD_TGV_FORMED latch, so only one formation route can fire.
+# Each route claims MAD_TGV_FORMATION_PENDING before queueing; both events consume it
+# and set MAD_TGV_FORMED, so competing routes cannot establish TGV twice.
 # ---------------------------------------------------------------------------
 country_event = {
 	id = mad_political.95
@@ -3474,11 +3488,12 @@ country_event = {
 	trigger = {
 		original_tag = MAD
 		# The 2007 yearly dispatcher schedules this historical formation for 1 December.
+		has_country_flag = MAD_TGV_FORMATION_PENDING
 		NOT = { has_country_flag = MAD_TGV_FORMED }
-		NOT = { has_country_flag = MAD_TGV_FORMATION_PENDING }
 	}
 
 	immediate = {
+		clr_country_flag = MAD_TGV_FORMATION_PENDING
 		set_country_flag = MAD_TGV_FORMED
 		set_country_flag = MAD_TGV_BRANCH_UNLOCKED
 
