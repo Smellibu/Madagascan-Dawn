@@ -17,7 +17,7 @@ Copyright notes are not licences. Non-CC photographs require permission before p
 | Andry_Rajoelina | [Rijasolo / European Commission](https://commons.wikimedia.org/wiki/File:Andry_Rajoelina_(2023).jpg) | CC BY 4.0 |
 | Marcel_Ranjeva | [MC2 Jesse B. Awalt / U.S. Navy](https://commons.wikimedia.org/wiki/File:Marcel_Ranjeva,_12th_AU_Summit,_090203-N-0506A-616.jpg) | Public domain, U.S. Navy official-duty photograph |
 | Andrianome_Ranivo_Dieudonne | [Madagate / 2014 obituary](https://www.madagate.org/madagascar-informations-politiques/flash-infos/3797-madagascar-general-andrianome-lofficier-superieur-de-la-neutralite-active-est-decede.pdf) | NOT USED: the candidate produced a French text/date crop, not a verifiable likeness. No independently confirmed portrait or reuse permission found; character remains on the generic commander portrait. |
-| Jules_Mamizara | [Alexander Joe / AFP via Getty Images](https://www.worldometers.info/maps/madagascar-map/) | Getty image caption identifies Jules Mamizara as the right-hand Defence Minister on 18 June 2002 |
+| Jules_Mamizara | No verified downloadable portrait candidate | Not imported; the prior map match was rejected and removed |
 | Sylvain_Razafimandimby | [L’Express de Madagascar](https://www.lexpress.mg/2024/03/deces-le-general-sylvain-razafimandimby.html) | Copyright / permission not established |
 | Raonenantsoamampianina | [MadOnline / image-search candidate](https://www.madonline.com/nouvelles-nominations-au-sommet-de-larmee/) | Copyright / permission not established |
 | Petera_Behajaina | [Olivier Péguy / RFI](https://www1.rfi.fr/actufr/articles/059/article_31466.asp) | Copyright / permission not established; RFI/AFP images may require permission |
