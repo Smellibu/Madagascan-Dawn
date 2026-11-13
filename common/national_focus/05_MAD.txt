@@ -8702,7 +8702,6 @@ focus_tree = {
 				set_country_flag = { flag = MAD_RURAL_CONSTITUTION_SWITCH_COOLDOWN value = 1 days = 365 }
 			}
 			else = {
-				remove_ideas = MAD_POL_SECULAR_GOVERNMENT
 				if = {
 					limit = { NOT = { has_idea = MAD_POL_UNSECULAR_GOVERNMENT } }
 					add_ideas = MAD_POL_UNSECULAR_GOVERNMENT
@@ -8890,7 +8889,6 @@ focus_tree = {
 				remove_idea = MAD_POL_ROYAL_CONSTITUTION
 				add_idea = MAD_POL_CHRISTOCRATIC_STATE
 			}
-			remove_ideas = MAD_POL_ROYAL_CONSTITUTION
 			increase_centralization = yes
 			set_temp_variable = { party_index = 23 }
 			set_temp_variable = { party_popularity_increase = 0.05 }
