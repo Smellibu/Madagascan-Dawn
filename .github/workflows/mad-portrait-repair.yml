@@ -625,11 +625,11 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add common/characters/MAD.txt common/scripted_effects/MAD_political_leaders.txt events/MAD_events.txt gfx/leaders/MAD
           # Remove this one-shot importer after this run so it does not remain in the mod.
+          rm -f .github/workflows/mad-portrait-repair.yml
+          git add -u .github/workflows/mad-portrait-repair.yml
           if git diff --cached --quiet; then
             echo "No changes to commit."
             exit 0
           fi
-          git commit -m "Repair and validate Madagascar leader portraits"
-rm -f .github/workflows/mad-portrait-repair.yml
-          git add -u .github/workflows/mad-portrait-repair.yml
+          git commit -m "Import first five Madagascar leader portraits"
           git push origin HEAD:codex/mad-military-policy-history-2026-11-12
