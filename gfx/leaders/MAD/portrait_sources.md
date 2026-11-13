@@ -6,7 +6,7 @@ Copyright notes are not licences. Non-CC photographs require permission before p
 | Portrait | Source / credit | Rights status |
 |---|---|---|
 | Richard_Ravalomanana | [Jeune Afrique](https://www.jeuneafrique.com/1499275/politique/presidentielle-a-madagascar-entre-rajoelina-et-ses-opposants-lescalade-des-tensions-continue/) | Source attribution recorded; personal mod use |
-| Jean_Bruno_Wilfrid_Razafindrakoto | No verified portrait candidate passed face/source checks | Not imported; no new portrait reference was added |
+| Jean_Bruno_Wilfrid_Razafindrakoto | [ACTUALITES DE MADA (2012 blog post; photographer not identified)](https://actu2mada.blogspot.com/2012/) | The source image is explicitly captioned General Razafindrakoto Bruno |
 | Rakoto_Ramahavonjy_Andriamintsoa | No verified portrait candidate passed face/source checks | Not imported; no new portrait reference was added |
 | Michael_Randrianirina | [AP / Deccan Chronicle](https://www.deccanchronicle.com/world/what-to-know-about-the-man-behind-madagascars-sudden-military-coup-1910857) | Image caption identifies Michael Randrianirina at the October 2025 swearing-in; source attribution recorded |
 | Remenabila | [Rakrist08 / Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Remenabila_01.jpg) | CC BY-SA 3.0 |
