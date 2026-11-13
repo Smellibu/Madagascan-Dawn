@@ -868,6 +868,8 @@ MAD_drought_finish = {
 			487 = { MAD_state_food_secure = yes }
 		}
 		set_country_flag = MAD_DROUGHT_OVER
+		# A temporary national population rebound represents recovery after the drought; no displaced-person tracking.
+		add_timed_idea = { idea = MAD_DROUGHT_RESETTLED days = 730 }
 		set_variable = { MAD_drought_severity = 0 }
 		set_variable = { MAD_drought_relief_months = 0 }
 		MAD_drought_clear_tiers = yes
