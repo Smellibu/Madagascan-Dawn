@@ -9297,41 +9297,7 @@ country_event = {
 }
 
 # Historical military-policy additions (the established .1-.5 events retain their IDs).
-country_event = {
-	id = MAD_military_refoundation.6
-	title = MAD_military_refoundation.6.t
-	desc = MAD_military_refoundation.6.d
-	picture = GFX_report_event_generic_political
-	is_triggered_only = yes
-	fire_only_once = yes
-	trigger = { has_country_flag = MAD_MIL_2005_RESTRUCTURING_PENDING }
-	immediate = { clr_country_flag = MAD_MIL_2005_RESTRUCTURING_PENDING }
-	option = {
-		name = MAD_military_refoundation.6.a
-		ai_chance = { factor = 90 }
-		log = "[GetDateText]: [Root.GetName]: Submit 2005 restructuring proposals"
-		set_country_flag = MAD_MIL_2005_DRAFT_SUBMITTED
-		set_country_flag = MAD_MIL_2005_OPERATIONAL_PROGRAMME
-		add_timed_idea = { idea = MAD_MIL_2005_OPERATIONAL_PROGRAMME days = 1095 }
-		army_experience = 10
-		navy_experience = 5
-		air_experience = 5
-		add_political_power = 10
-		set_country_flag = MAD_MIL_MOBILE_RESPONSE_PROJECT_UNLOCKED
-	}
-	option = {
-		name = MAD_military_refoundation.6.b
-		ai_chance = { factor = 10 }
-		log = "[GetDateText]: [Root.GetName]: Implement comprehensive restructuring"
-		set_country_flag = MAD_MIL_2005_RESTRUCTURING_IMPLEMENTED
-		add_timed_idea = { idea = MAD_MIL_2005_FORCE_RESTRUCTURE days = 1825 }
-		army_experience = 15
-		navy_experience = 10
-		air_experience = 10
-		add_political_power = 15
-		add_stability = -0.02
-	}
-}
+
 
 country_event = {
 	id = MAD_military_refoundation.7
