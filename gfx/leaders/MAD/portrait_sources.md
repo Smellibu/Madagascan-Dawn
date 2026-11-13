@@ -5,6 +5,7 @@ Copyright notes are not licences. Non-CC photographs require permission before p
 
 | Portrait | Source / credit | Rights status |
 |---|---|---|
+| Rafenomanjato_Mamy_Jerison | [CEDS Madagascar](https://ceds-madagascar.com/promotions/10-louis-rakotomalala/) | CEDS profile labels the photograph as Mamy Jerison Rafenomanjato; reuse permission not established |
 | Richard_Ravalomanana | [Jeune Afrique](https://www.jeuneafrique.com/1499275/politique/presidentielle-a-madagascar-entre-rajoelina-et-ses-opposants-lescalade-des-tensions-continue/) | Source attribution recorded; personal mod use |
 | Jean_Bruno_Wilfrid_Razafindrakoto | [ACTUALITES DE MADA (2012 blog post; photographer not identified)](https://actu2mada.blogspot.com/2012/) | The source image is explicitly captioned General Razafindrakoto Bruno |
 | Rakoto_Ramahavonjy_Andriamintsoa | No verified portrait candidate passed face/source checks | Not imported; no new portrait reference was added |
