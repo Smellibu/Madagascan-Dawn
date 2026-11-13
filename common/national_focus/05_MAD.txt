@@ -10046,12 +10046,7 @@ focus_tree = {
 		cost = 3
 		prerequisite = { focus = MAD_POL_MIL_PRE2002_OFFICER_CORPS }
 		search_filters = { FOCUS_FILTER_POLITICAL }
-		allow_branch = {
-			OR = {
-			has_country_flag = MAD_POL_CONTENT_2002_2009_UNLOCKED
-			date > 2002.1.1
-		}
-		}
+		
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_MIL_LESSON_2002"
@@ -10072,7 +10067,7 @@ focus = {
 		cost = 3
 		prerequisite = { focus = MAD_POL_MIL_LESSON_2002 }
 		search_filters = { FOCUS_FILTER_POLITICAL }
-		allow_branch = { date > 2005.1.1 }
+		
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_MIL_2005_RESTRUCTURING"
 			set_country_flag = MAD_MIL_2005_RESTRUCTURING_PENDING
@@ -10090,7 +10085,7 @@ focus = {
 		cost = 3
 		prerequisite = { focus = MAD_POL_MIL_2005_RESTRUCTURING }
 		search_filters = { FOCUS_FILTER_POLITICAL }
-		allow_branch = { date > 2006.11.17 }
+		
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_MIL_FIDY_2006_CHALLENGE"
 			set_country_flag = MAD_MIL_FIDY_2006_PENDING
@@ -10110,7 +10105,7 @@ focus = {
 		cost = 3
 		prerequisite = { focus = MAD_POL_MIL_2005_RESTRUCTURING }
 		search_filters = { FOCUS_FILTER_POLITICAL }
-		allow_branch = { date > 2007.1.1 }
+		
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_MIL_SECURITY_SECTOR_REVIEW"
@@ -10302,7 +10297,12 @@ focus = {
 		cost = 3
 		prerequisite = { focus = MAD_POL_MIL_LESSON_2009 }
 		search_filters = { FOCUS_FILTER_POLITICAL }
-		allow_branch = { date > 2014.1.1 }
+		allow_branch = {
+			OR = {
+				has_country_flag = MAD_POL_CONTENT_2009_2025_UNLOCKED
+				date > 2009.1.1
+			}
+		}
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_MIL_NATIONAL_SECURITY_REFORM_2014_17"
 			set_country_flag = MAD_MIL_NSRP_PENDING
@@ -10320,7 +10320,12 @@ focus = {
 		cost = 3
 		prerequisite = { focus = MAD_POL_MIL_NATIONAL_SECURITY_REFORM_2014_17 }
 		search_filters = { FOCUS_FILTER_POLITICAL }
-		allow_branch = { date > 2016.12.16 }
+		allow_branch = {
+			OR = {
+				has_country_flag = MAD_POL_CONTENT_2009_2025_UNLOCKED
+				date > 2009.1.1
+			}
+		}
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_MIL_HCDN_SPDSN_ESTABLISHMENT"
 			set_country_flag = MAD_MIL_HCDN_SPDSN_ESTABLISHMENT_PENDING
@@ -10338,7 +10343,12 @@ focus = {
 		cost = 3
 		prerequisite = { focus = MAD_POL_MIL_HCDN_SPDSN_ESTABLISHMENT }
 		search_filters = { FOCUS_FILTER_POLITICAL }
-		allow_branch = { date > 2021.1.1 }
+		allow_branch = {
+			OR = {
+				has_country_flag = MAD_POL_CONTENT_2009_2025_UNLOCKED
+				date > 2009.1.1
+			}
+		}
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_MIL_INTERNAL_CONTROL_2021_23"
 			set_country_flag = MAD_MIL_INTERNAL_CONTROL_PENDING
