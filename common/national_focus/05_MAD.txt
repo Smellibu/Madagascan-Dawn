@@ -10110,33 +10110,6 @@ focus = {
 		ai_will_do = { base = 1 }
 	}
 
-focus = {
-		id = MAD_POL_MIL_FIDY_2006_CHALLENGE
-		icon = protest_zloi
-		x = -1
-		y = 1
-		relative_position_id = MAD_POL_MIL_2005_RESTRUCTURING
-		cost = 3
-		prerequisite = { focus = MAD_POL_MIL_2005_RESTRUCTURING }
-		search_filters = { FOCUS_FILTER_POLITICAL }
-		
-		
-		allow_branch = {
-			OR = {
-				has_country_flag = MAD_POL_CONTENT_2002_2009_UNLOCKED
-				has_country_flag = MAD_POL_CONTENT_2009_2025_UNLOCKED
-				date > 2009.1.1
-			}
-		}completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_MIL_FIDY_2006_CHALLENGE"
-			set_country_flag = MAD_MIL_FIDY_2006_PENDING
-			country_event = { id = MAD_military_refoundation.7 days = 1 }
-		}
-		ai_will_do = { base = 1 }
-	}
-
-
-
 	focus = {
 		id = MAD_POL_MIL_SECURITY_SECTOR_REVIEW
 		icon = police_station

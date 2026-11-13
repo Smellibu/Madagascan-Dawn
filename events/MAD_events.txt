@@ -9292,43 +9292,48 @@ country_event = {
 	picture = GFX_report_event_generic_political
 	is_triggered_only = yes
 	fire_only_once = yes
-	trigger = { has_country_flag = MAD_MIL_FIDY_2006_PENDING }
+	trigger = {
+		has_country_flag = MAD_MIL_FIDY_2006_PENDING
+		check_variable = { ruling_party = 2 }
+	}
 	immediate = { clr_country_flag = MAD_MIL_FIDY_2006_PENDING }
 	option = {
 		name = MAD_military_refoundation.7.a
-		ai_chance = { factor = 85 }
-		log = "[GetDateText]: [Root.GetName]: Reject Fidy's call"
-		set_country_flag = MAD_MIL_FIDY_REJECTED
-		set_country_flag = MAD_MIL_FIDY_NO_WIDE_SUPPORT
-		add_stability = 0.02
-		add_political_power = 10
+		ai_chance = { factor = 55 }
+		log = "[GetDateText]: [Root.GetName]: Order Fidy's arrest"
+		set_country_flag = MAD_MIL_FIDY_ARRESTED
+		if = {
+			limit = { has_idea = the_military }
+			set_temp_variable = { temp_opinion = -10 }
+			change_the_military_opinion = yes
+		}
+		add_stability = 0.01
+		add_political_power = 5
 	}
 	option = {
 		name = MAD_military_refoundation.7.b
-		ai_chance = { factor = 14 }
-		log = "[GetDateText]: [Root.GetName]: Review Fidy's constitutional complaint"
-		set_country_flag = MAD_MIL_FIDY_COMPLAINT_REVIEWED
+		ai_chance = { factor = 30 }
+		log = "[GetDateText]: [Root.GetName]: Address Fidy's constitutional grievances"
+		set_country_flag = MAD_MIL_FIDY_GRIEVANCES_ADDRESSED
+		if = {
+			limit = { has_idea = the_military }
+			set_temp_variable = { temp_opinion = 5 }
+			change_the_military_opinion = yes
+		}
+		add_stability = 0.02
 		add_political_power = -10
-		add_stability = 0.01
 	}
 	option = {
 		name = MAD_military_refoundation.7.c
-		ai_chance = { factor = 1 }
-		log = "[GetDateText]: [Root.GetName]: Support Fidy's provisional military government"
-		set_country_flag = MAD_MIL_FIDY_PROVISIONAL_GOVERNMENT
-		set_temp_variable = { rul_party_temp = 22 }
-		set_temp_variable = { disable_elections = 1 }
-		MAD_RESET_PARTY_LEADER_COUNTER = yes
-		change_ruling_party_effect = yes
-		add_timed_idea = { idea = MAD_MIL_FIDY_PROVISIONAL_BOARD days = 730 }
-		add_stability = -0.12
-		add_war_support = 0.05
-		add_political_power = 15
-		set_temp_variable = { party_index = 22 }
-		set_temp_variable = { party_popularity_increase = 0.12 }
-		set_temp_variable = { temp_outlook_increase = 0.12 }
-		change_relative_party_popularity = yes
-		recalculate_party = yes
+		ai_chance = { factor = 15 }
+		log = "[GetDateText]: [Root.GetName]: Strengthen civilian control over the armed forces"
+		set_country_flag = MAD_MIL_FIDY_CIVILIAN_CONTROL_STRENGTHENED
+		add_timed_idea = { idea = MAD_MIL_CIVILIAN_GUARDIANSHIP days = 1825 }
+		if = {
+			limit = { has_idea = the_military }
+			set_temp_variable = { temp_opinion = -10 }
+			change_the_military_opinion = yes
+		}
 	}
 }
 

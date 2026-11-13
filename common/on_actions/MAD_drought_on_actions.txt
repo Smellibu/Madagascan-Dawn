@@ -97,6 +97,21 @@ on_actions = {
 			MAD_JIRAMA_GENERATION_RECOVERY_DAILY = yes
 			MAD_ratsiraka_check_government_formed = yes
 
+			# 17 November 2006: General Fidy's challenge, only under a TIM government.
+			if = {
+				limit = {
+					original_tag = MAD
+					tag = MAD
+					date > 2006.11.16
+					date < 2006.11.18
+					check_variable = { ruling_party = 2 }
+					NOT = { has_country_flag = MAD_MIL_FIDY_2006_EVENT_FIRED }
+				}
+				set_country_flag = MAD_MIL_FIDY_2006_EVENT_FIRED
+				set_country_flag = MAD_MIL_FIDY_2006_PENDING
+				country_event = MAD_military_refoundation.7
+			}
+
 			# 3 November 2009 officer recruitment fallback.
 			if = {
 				limit = { original_tag = MAD tag = MAD date > 2009.11.2 date < 2009.11.4 NOT = { has_country_flag = MAD_HISTORICAL_2009_OFFICERS_RECRUITED } }
