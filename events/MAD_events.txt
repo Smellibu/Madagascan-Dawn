@@ -9380,7 +9380,6 @@ country_event = {
 		name = MAD_military_refoundation.7.c
 		ai_chance = { factor = 15 }
 		log = "[GetDateText]: [Root.GetName]: Strengthen civilian control over the armed forces"
-		set_country_flag = MAD_MIL_FIDY_CIVILIAN_CONTROL_STRENGTHENED
 		add_timed_idea = { idea = MAD_MIL_CIVILIAN_GUARDIANSHIP days = 1825 }
 		if = {
 			limit = { has_idea = the_military }
