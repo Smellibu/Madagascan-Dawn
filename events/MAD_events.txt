@@ -2552,11 +2552,24 @@ country_event = {
 	immediate = {
 		set_country_flag = MAD_DAEWOO_POLITICAL_FALLOUT_PENDING
 		if = {
-			limit = { has_elections = yes }
-			country_event = { id = mad_political.2 days = 1 }
+			limit = { NOT = { has_country_flag = MAD_TGV_FORMED } }
+			country_event = { id = mad_political.96 days = 1 }
+			if = {
+				limit = { has_elections = yes }
+				country_event = { id = mad_political.2 days = 10 }
+			}
+			else = {
+				country_event = { id = mad_political.93 days = 10 }
+			}
 		}
 		else = {
-			country_event = { id = mad_political.93 days = 1 }
+			if = {
+				limit = { has_elections = yes }
+				country_event = { id = mad_political.2 days = 1 }
+			}
+			else = {
+				country_event = { id = mad_political.93 days = 1 }
+			}
 		}
 	}
 }
