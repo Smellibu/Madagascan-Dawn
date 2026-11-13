@@ -1,9 +1,9 @@
-name: Repair Madagascar leader portraits — Group 3
+name: Import first five Madagascar leader portraits
 
 on:
   push:
     branches:
-      - codex/dahalo-2.0.3-beta-corrected-2026-10-30
+      - codex/mad-military-policy-history-2026-11-12
     paths:
       - .github/workflows/mad-portrait-repair.yml
 
@@ -16,7 +16,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: codex/dahalo-2.0.3-beta-corrected-2026-10-30
+          ref: codex/mad-military-policy-history-2026-11-12
           persist-credentials: true
           sparse-checkout: |
             .github/workflows
@@ -59,24 +59,62 @@ jobs:
 
           TARGETS = [
             {
-              "base":"Andrianome_Ranivo_Dieudonne", "char":"MAD_andrianome_dieudonne", "role":"army",
-              "review_only":True,
-              "credit":"Madagate / archived obituary image",
-              "rights":"Copyright / permission not established"
+              "base":"Michael_Randrianirina", "char":"MAD_michael_randrianirina", "role":"army",
+              "urls":["https://upload.wikimedia.org/wikipedia/commons/d/d1/Michael_Randrianirina_%282026-02-19%29.jpg"],
+              "source_page":"https://commons.wikimedia.org/wiki/File:Michael_Randrianirina_(2026-02-19).jpg",
+              "terms":["Michael","Randrianirina"],
+              "credit":"Sergey Bobylev / Kremlin.ru via Wikimedia Commons",
+              "rights":"CC BY 4.0; attribution to Kremlin.ru / Sergey Bobylev"
             },
             {
-              "base":"Raonenantsoamampianina", "char":"MAD_raonenantsoamampianina", "role":"army",
-              "review_only":True,
-              "credit":"MadOnline / archived army appointments article",
-              "rights":"Copyright / permission not established"
+              "base":"Jules_Mamizara", "char":"MAD_jules_mamizara", "role":"army",
+              "urls":[
+                "https://www.2424.mg/news/disparition-le-general-jules-mamizara-tire-sa-reverence/",
+                "https://lexpress.mg/17/07/2020/deces-du-general-mamizara-un-trois-etoiles-seteint/"
+              ],
+              "commons_queries":["Jules Mamizara Madagascar"],
+              "queries":["Jules Mamizara general Madagascar portrait","General Jules Mamizara Madagascar 2020","Jules Mamizara gendarmerie Madagascar"],
+              "terms":["Jules","Mamizara"],
+              "credit":"InfoCom Seg / 2424.mg",
+              "rights":"Photographic source credit recorded; personal mod use"
             },
             {
-              "base":"Hyppolite_Rarison_Ramaroson", "char":"MAD_hyppolite_ramaroson", "role":"navy",
-              "urls":["https://madagascar-tribune.com/local/cache-vignettes/L286xH327/Hipolyte-d59b2.jpg?1789161787="],
-              "source_page":"https://madagascar-tribune.com/Le-vice-amiral-Hyppolite-Ramaroson,13613.html",
-              "terms":["hyppolite","ramaroson"],
-              "credit":"Madagascar Tribune (photographer not identified)",
-              "rights":"Copyright / permission not established"
+              "base":"Rakoto_Ramahavonjy_Andriamintsoa", "char":"MAD_rakoto_ramahavonjy_andriamintsoa", "role":"navy",
+              "urls":["https://www.madagascar-tribune.com/Scoops-en-stock,14334.html"],
+              "commons_queries":["Rakoto Ramahavonjy Andriamintsoa"],
+              "queries":[
+                "Rakoto Ramahavonjy Andriamintsoa Madagascar",
+                "Rakoto Ramahavonjy Madagascar military officer",
+                "Ramahavonjy Andriamintsoa marine Madagascar"
+              ],
+              "terms":["Rakoto","Ramahavonjy","Andriamintsoa"],
+              "credit":"Original publisher / photographer as credited at source",
+              "rights":"Source attribution recorded; personal mod use"
+            },
+            {
+              "base":"Jean_Bruno_Wilfrid_Razafindrakoto", "char":"MAD_bruno_razafindrakoto", "role":"army",
+              "urls":[
+                "https://mobile.madagascar-tribune.com/La-HAT-recompense-le-colonel,11758.html",
+                "https://www.madagascar-tribune.com/Le-general-Bruno-Razafindrakoto,17890.html",
+                "https://www.madonline.com/passation-de-commandement-au-sein-de-la-gendarmerie/"
+              ],
+              "commons_queries":["Jean Bruno Wilfrid Razafindrakoto"],
+              "queries":[
+                "Jean Bruno Wilfrid Razafindrakoto portrait",
+                "Colonel General Bruno Razafindrakoto Madagascar gendarmerie",
+                "Bruno Razafindrakoto Madagascar 2009"
+              ],
+              "terms":["Jean Bruno","Wilfrid","Razafindrakoto"],
+              "credit":"Madagascar Tribune / Madagascar Online",
+              "rights":"Source attribution recorded; personal mod use"
+            },
+            {
+              "base":"Richard_Ravalomanana", "char":"MAD_richard_ravalomanana", "role":"army",
+              "urls":["https://prod.cdn-medias.jeuneafrique.com/medias/2023/10/30/jad20231030-ass-madagascar-richard-ravalomanana.jpg"],
+              "source_page":"https://www.jeuneafrique.com/1499275/politique/presidentielle-a-madagascar-entre-rajoelina-et-ses-opposants-lescalade-des-tensions-continue/",
+              "terms":["Richard","Ravalomanana"],
+              "credit":"Jeune Afrique",
+              "rights":"Source attribution recorded; personal mod use"
             },
           ]
 
@@ -519,14 +557,11 @@ jobs:
           # The picture field is filename-only in MD create_country_leader blocks.
           # Add it to the civilian TGV-formation event as well as the scripted party leader.
           CHARACTER_TARGETS = {
-            "Andrianome_Ranivo_Dieudonne":("MAD_andrianome_dieudonne","Andrianome Ranivo Dieudonné","army"),
+            "Michael_Randrianirina":("MAD_michael_randrianirina","Michael Randrianirina","army"),
             "Jules_Mamizara":("MAD_jules_mamizara","Jules Mamizara","army"),
-            "Raonenantsoamampianina":("MAD_raonenantsoamampianina","Raonenantsoamampianina","army"),
-            "Petera_Behajaina":("MAD_petera_behajaina","Petera Behajaina","army"),
-            "Noel_Girardin_Rakotonandrasana":("MAD_noel_rakotonandrasana","Noël Girardin Rakotonandrasana","army"),
-            "Edmond_Rasolomahandry":("MAD_edmond_rasolomahandry","Edmond Rasolomahandry","army"),
-            "Charles_Andrianasoavina":("MAD_charles_andrianasoavina","Charles Andrianasoavina","army"),
-            "Hyppolite_Rarison_Ramaroson":("MAD_hyppolite_ramaroson","Hyppolite Rarison Ramaroson","navy"),
+            "Rakoto_Ramahavonjy_Andriamintsoa":("MAD_rakoto_ramahavonjy_andriamintsoa","Rakoto Ramahavonjy Andriamintsoa","navy"),
+            "Jean_Bruno_Wilfrid_Razafindrakoto":("MAD_bruno_razafindrakoto","Jean Bruno Wilfrid Razafindrakoto","army"),
+            "Richard_Ravalomanana":("MAD_richard_ravalomanana","Richard Ravalomanana","army"),
           }
           def ensure_character_portrait(doc, char_id, name, role, base):
             marker="\t"+char_id+" = {\n\t\tname = \""+name+"\""
@@ -589,9 +624,12 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add common/characters/MAD.txt common/scripted_effects/MAD_political_leaders.txt events/MAD_events.txt gfx/leaders/MAD
+          # Remove this one-shot importer after this run so it does not remain in the mod.
           if git diff --cached --quiet; then
             echo "No changes to commit."
             exit 0
           fi
           git commit -m "Repair and validate Madagascar leader portraits"
-          git push origin HEAD:codex/dahalo-2.0.3-beta-corrected-2026-10-30
+rm -f .github/workflows/mad-portrait-repair.yml
+          git add -u .github/workflows/mad-portrait-repair.yml
+          git push origin HEAD:codex/mad-military-policy-history-2026-11-12
