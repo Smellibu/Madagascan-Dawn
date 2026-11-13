@@ -472,7 +472,7 @@ ideas = {
 				agriculture_district_income_tax_modifier = -0.2
 				stability_factor = -0.06
 				political_power_factor = -0.05
-				monthly_population = -0.25
+				monthly_population = -0.15
 			}
 		}
 
@@ -485,20 +485,30 @@ ideas = {
 				agriculture_district_income_tax_modifier = -0.25
 				stability_factor = -0.1
 				political_power_factor = -0.1
-				monthly_population = -0.4
+				monthly_population = -0.3
 				productivity_growth_modifier = -0.3
 			}
 		}
 
 		
 		
+		MAD_DROUGHT_RESETTLED = {
+			picture = GFX_idea_generic
+			removal_cost = -1
+
+			modifier = {
+				monthly_population = 0.4
+				stability_factor = 0.02
+			}
+		}
+
 		MAD_FARMER_FUNDING = {
 			picture = GFX_idea_generic
 			removal_cost = -1
 
 			modifier = {
 				stability_factor = 0.05
-				monthly_population = 0.05
+				monthly_population = 0.15
 				agriculture_district_income_tax_modifier = 0.05
 			}
 		}
