@@ -9057,6 +9057,66 @@ country_event = {
 	}
 }
 
+
+country_event = {
+	id = MAD_military_refoundation.17
+	title = MAD_military_refoundation.17.t
+	desc = MAD_military_refoundation.17.d
+	picture = GFX_report_event_generic_political
+	is_triggered_only = yes
+	fire_only_once = yes
+	trigger = {
+		has_country_flag = MAD_MIL_PRE2002_GENDARMERIE_REVIEW_PENDING
+	}
+	immediate = {
+		clr_country_flag = MAD_MIL_PRE2002_GENDARMERIE_REVIEW_PENDING
+	}
+
+	# Preserve the 1996 State Secretariat arrangement.
+	option = {
+		name = MAD_military_refoundation.17.a
+		ai_chance = { factor = 60 }
+		log = "[GetDateText]: [Root.GetName]: Event MAD_military_refoundation.17.a - retain the State Secretariat"
+		add_timed_idea = {
+			idea = MAD_MIL_PRE2002_GENDARMERIE_SECRETARIAT
+			days = 1095
+		}
+	}
+
+	# Bring forward the National Gendarmerie Command established in 2002.
+	option = {
+		name = MAD_military_refoundation.17.b
+		ai_chance = { factor = 25 }
+		log = "[GetDateText]: [Root.GetName]: Event MAD_military_refoundation.17.b - establish a National Gendarmerie Command"
+		add_timed_idea = {
+			idea = MAD_MIL_PRE2002_GENDARMERIE_COMMAND
+			days = 1095
+		}
+		if = {
+			limit = { has_idea = the_military }
+			set_temp_variable = { temp_opinion = 5 }
+			change_the_military_opinion = yes
+		}
+	}
+
+	# Extend the 1990s mixed-command approach into civilian oversight.
+	option = {
+		name = MAD_military_refoundation.17.c
+		ai_chance = { factor = 15 }
+		log = "[GetDateText]: [Root.GetName]: Event MAD_military_refoundation.17.c - establish civilian security coordination"
+		add_timed_idea = {
+			idea = MAD_MIL_PRE2002_GENDARMERIE_CIVILIAN_COORDINATION
+			days = 1095
+		}
+		add_stability = -0.01
+		if = {
+			limit = { has_idea = the_military }
+			set_temp_variable = { temp_opinion = -5 }
+			change_the_military_opinion = yes
+		}
+	}
+}
+
 country_event = {
 	id = MAD_military_refoundation.2
 	title = MAD_military_refoundation.2.t

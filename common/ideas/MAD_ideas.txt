@@ -2176,6 +2176,86 @@ MAD_MIL_CIVILIAN_GUARDIANSHIP = {
 			}
 		}
 
+		MAD_MIL_PRE2002_GENDARMERIE_SECRETARIAT = {
+			name = MAD_MIL_PRE2002_GENDARMERIE_SECRETARIAT
+			picture = generic_political_discourse
+			allowed_civil_war = { always = yes }
+			cost = 0
+			removal_cost = -1
+			modifier = {
+				expected_mil_modifier = -0.25
+				political_power_factor = 0.05
+				bureaucracy_cost_multiplier_modifier = 0.10
+			}
+			on_add = {
+				set_country_flag = MAD_PI_EARNED_MAD_MIL_PRE2002_GENDARMERIE_SECRETARIAT
+				set_country_flag = MAD_PI_ACTIVE_MAD_MIL_PRE2002_GENDARMERIE_SECRETARIAT
+			}
+			on_remove = {
+				if = {
+					limit = {
+						has_country_flag = MAD_PI_ACTIVE_MAD_MIL_PRE2002_GENDARMERIE_SECRETARIAT
+						NOT = { has_country_flag = MAD_PI_SYNC_IN_PROGRESS }
+					}
+					clr_country_flag = MAD_PI_EARNED_MAD_MIL_PRE2002_GENDARMERIE_SECRETARIAT
+				}
+				clr_country_flag = MAD_PI_ACTIVE_MAD_MIL_PRE2002_GENDARMERIE_SECRETARIAT
+			}
+		}
+
+		MAD_MIL_PRE2002_GENDARMERIE_COMMAND = {
+			name = MAD_MIL_PRE2002_GENDARMERIE_COMMAND
+			picture = generic_political_discourse
+			allowed_civil_war = { always = yes }
+			cost = 0
+			removal_cost = -1
+			modifier = {
+				expected_mil_modifier = 0.5
+				army_org_factor = 0.10
+			}
+			on_add = {
+				set_country_flag = MAD_PI_EARNED_MAD_MIL_PRE2002_GENDARMERIE_COMMAND
+				set_country_flag = MAD_PI_ACTIVE_MAD_MIL_PRE2002_GENDARMERIE_COMMAND
+			}
+			on_remove = {
+				if = {
+					limit = {
+						has_country_flag = MAD_PI_ACTIVE_MAD_MIL_PRE2002_GENDARMERIE_COMMAND
+						NOT = { has_country_flag = MAD_PI_SYNC_IN_PROGRESS }
+					}
+					clr_country_flag = MAD_PI_EARNED_MAD_MIL_PRE2002_GENDARMERIE_COMMAND
+				}
+				clr_country_flag = MAD_PI_ACTIVE_MAD_MIL_PRE2002_GENDARMERIE_COMMAND
+			}
+		}
+
+		MAD_MIL_PRE2002_GENDARMERIE_CIVILIAN_COORDINATION = {
+			name = MAD_MIL_PRE2002_GENDARMERIE_CIVILIAN_COORDINATION
+			picture = generic_political_discourse
+			allowed_civil_war = { always = yes }
+			cost = 0
+			removal_cost = -1
+			modifier = {
+				expected_mil_modifier = -0.5
+				bureaucracy_cost_multiplier_modifier = 0.15
+				stability_factor = 0.05
+			}
+			on_add = {
+				set_country_flag = MAD_PI_EARNED_MAD_MIL_PRE2002_GENDARMERIE_CIVILIAN_COORDINATION
+				set_country_flag = MAD_PI_ACTIVE_MAD_MIL_PRE2002_GENDARMERIE_CIVILIAN_COORDINATION
+			}
+			on_remove = {
+				if = {
+					limit = {
+						has_country_flag = MAD_PI_ACTIVE_MAD_MIL_PRE2002_GENDARMERIE_CIVILIAN_COORDINATION
+						NOT = { has_country_flag = MAD_PI_SYNC_IN_PROGRESS }
+					}
+					clr_country_flag = MAD_PI_EARNED_MAD_MIL_PRE2002_GENDARMERIE_CIVILIAN_COORDINATION
+				}
+				clr_country_flag = MAD_PI_ACTIVE_MAD_MIL_PRE2002_GENDARMERIE_CIVILIAN_COORDINATION
+			}
+		}
+
 		MAD_MIL_SECURITY_SECTOR_REFORM = {
 			name = MAD_MIL_SECURITY_SECTOR_REFORM
 			picture = generic_political_discourse

@@ -10014,7 +10014,7 @@ focus_tree = {
 
 	focus = {
 		id = MAD_POL_MIL_PRE2002_GENDARMERIE
-		icon = Generic_Policeman
+		icon = generic_government
 		x = 1
 		y = 1
 		relative_position_id = MAD_POL_MIL_PRE2002_OFFICER_CORPS
@@ -10024,7 +10024,12 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_MIL_PRE2002_GENDARMERIE"
-			set_country_flag = MAD_MIL_RURAL_GENDARMERIE_REVIEWED
+			custom_effect_tooltip = MAD_MIL_UNLOCK_RURAL_GENDARMERIE_REVIEW_TT
+			set_country_flag = MAD_MIL_PRE2002_GENDARMERIE_REVIEW_PENDING
+			country_event = {
+				id = MAD_military_refoundation.17
+				days = 1
+			}
 		}
 
 		ai_will_do = {
