@@ -56,10 +56,6 @@ on_actions = {
 					MAD_rural_cooperation_initialize = yes
 					# Mark the first eligible monthly tick independently of when the drought focus starts.
 					if = {
-						limit = { NOT = { has_country_flag = MAD_DROUGHT_CALENDAR_CLOCK_STARTED } }
-						set_country_flag = MAD_DROUGHT_CALENDAR_CLOCK_STARTED
-					}
-					if = {
 						limit = {
 							NOT = { has_idea = MAD_ARMY_INHERITED_BURDEN }
 						NOT = { has_completed_focus = MAD_ARMY_LAND_FORCES_MODERNISATION_PLAN }
@@ -72,8 +68,6 @@ on_actions = {
 						country_event = { id = mad_drought.2 days = 30 }
 					}
 					clamp_variable = { var = MAD_drought_prevention_count min = 0 max = 7 }
-					# Clear any stale displacement penalty and evaluate per-origin totals on startup.
-					MAD_drought_update_displacement_overload = yes
 					# The hidden event synchronises party ideas first, then constitutional policy and the Rural Cooperation readout.
 					country_event = mad_political.8
 					# Arm the first-loss monitor once; it waits for the new government to form.
@@ -187,104 +181,6 @@ on_actions = {
 
 
 
-	# Tag-specific monthly hook: this is the only active hook advancing the displacement calendar.
-	on_monthly_MAD = {
-		effect = {
-			# allow_branch is checked when the tree loads or is marked dirty.
-			# Refresh once at each historic date gate; avoid daily polling for these milestones.
-			if = {
-				limit = {
-					original_tag = MAD
-					OR = {
-						AND = { date > 2002.1.1 NOT = { has_country_flag = MAD_MIL_FOCUS_LAYOUT_2002_REFRESHED } }
-					AND = { date > 2005.1.1 NOT = { has_country_flag = MAD_MIL_FOCUS_LAYOUT_2005_REFRESHED } }
-					AND = { date > 2006.11.17 NOT = { has_country_flag = MAD_MIL_FOCUS_LAYOUT_2006_REFRESHED } }
-					AND = { date > 2007.1.1 NOT = { has_country_flag = MAD_MIL_FOCUS_LAYOUT_2007_REFRESHED } }
-					AND = { date > 2009.1.1 NOT = { has_country_flag = MAD_MIL_FOCUS_LAYOUT_2009_REFRESHED } }
-					AND = { date > 2014.1.1 NOT = { has_country_flag = MAD_MIL_FOCUS_LAYOUT_2014_REFRESHED } }
-					AND = { date > 2016.12.16 NOT = { has_country_flag = MAD_MIL_FOCUS_LAYOUT_2016_REFRESHED } }
-					AND = { date > 2021.1.1 NOT = { has_country_flag = MAD_MIL_FOCUS_LAYOUT_2021_REFRESHED } }
-					}
-				}
-				if = {
-					limit = { date > 2002.1.1 NOT = { has_country_flag = MAD_MIL_FOCUS_LAYOUT_2002_REFRESHED } }
-					set_country_flag = MAD_MIL_FOCUS_LAYOUT_2002_REFRESHED
-				}
-				if = {
-					limit = { date > 2005.1.1 NOT = { has_country_flag = MAD_MIL_FOCUS_LAYOUT_2005_REFRESHED } }
-					set_country_flag = MAD_MIL_FOCUS_LAYOUT_2005_REFRESHED
-				}
-				if = {
-					limit = { date > 2006.11.17 NOT = { has_country_flag = MAD_MIL_FOCUS_LAYOUT_2006_REFRESHED } }
-					set_country_flag = MAD_MIL_FOCUS_LAYOUT_2006_REFRESHED
-				}
-				if = {
-					limit = { date > 2007.1.1 NOT = { has_country_flag = MAD_MIL_FOCUS_LAYOUT_2007_REFRESHED } }
-					set_country_flag = MAD_MIL_FOCUS_LAYOUT_2007_REFRESHED
-				}
-				if = {
-					limit = { date > 2009.1.1 NOT = { has_country_flag = MAD_MIL_FOCUS_LAYOUT_2009_REFRESHED } }
-					set_country_flag = MAD_MIL_FOCUS_LAYOUT_2009_REFRESHED
-				}
-				if = {
-					limit = { date > 2014.1.1 NOT = { has_country_flag = MAD_MIL_FOCUS_LAYOUT_2014_REFRESHED } }
-					set_country_flag = MAD_MIL_FOCUS_LAYOUT_2014_REFRESHED
-				}
-				if = {
-					limit = { date > 2016.12.16 NOT = { has_country_flag = MAD_MIL_FOCUS_LAYOUT_2016_REFRESHED } }
-					set_country_flag = MAD_MIL_FOCUS_LAYOUT_2016_REFRESHED
-				}
-				if = {
-					limit = { date > 2021.1.1 NOT = { has_country_flag = MAD_MIL_FOCUS_LAYOUT_2021_REFRESHED } }
-					set_country_flag = MAD_MIL_FOCUS_LAYOUT_2021_REFRESHED
-				}
-				mark_focus_tree_layout_dirty = yes
-			}
-			if = {
-				limit = { tag = MAD original_tag = MAD is_ai = no has_idea = MAD_MODERN_PROTEST_PRESSURE }
-				add_to_variable = { protest_strength = 4 }
-				clamp_variable = { var = protest_strength min = 0 max = 100 }
-			}
-			if = {
-				limit = { tag = MAD original_tag = MAD is_ai = no date > 2023.12.31 NOT = { has_country_flag = MAD_MODERN_PROTEST_CHECK_QUEUED } NOT = { has_country_flag = MAD_MODERN_PROTEST_CATALYST_ISSUED } NOT = { has_country_flag = MAD_MODERN_PROTEST_CATALYST_FAILED } NOT = { has_country_flag = MAD_MODERN_CRISIS_COMPLETED } }
-				set_country_flag = MAD_MODERN_PROTEST_CHECK_QUEUED
-				country_event = { id = mad_political.99 days = 1 }
-			}
-			# TGV formation/reveal is checked monthly for performance.
-			if = {
-				limit = {
-					original_tag = MAD
-					date > 2007.11.30
-					NOT = { has_country_flag = MAD_TGV_FORMED }
-					NOT = { has_country_flag = MAD_TGV_FORMATION_PENDING }
-				}
-				country_event = mad_political.96
-			}
-			MAD_dahalo_monthly_tick = yes
-			MAD_rural_cooperation_monthly_tick = yes
-			if = {
-				limit = { has_country_flag = MAD_DROUGHT_STARTED }
-				if = {
-					limit = { has_country_flag = MAD_DROUGHT_CALENDAR_CLOCK_STARTED }
-					clr_country_flag = MAD_DROUGHT_CALENDAR_CLOCK_STARTED
-					# At 2000-01-01 new-game pulse, January has not elapsed yet.
-					if = {
-						limit = { date > 1999.12.31 date < 2000.1.2 }
-						set_country_flag = MAD_DROUGHT_SKIP_INITIAL_DISPLACEMENT_PULSE
-					}
-				}
-				if = {
-					limit = { NOT = { has_country_flag = MAD_DROUGHT_SKIP_INITIAL_DISPLACEMENT_PULSE } }
-					MAD_drought_displacement_monthly_tick = yes
-					MAD_drought_update_displacement_overload = yes
-				}
-				if = {
-					limit = { has_country_flag = MAD_DROUGHT_SKIP_INITIAL_DISPLACEMENT_PULSE }
-					clr_country_flag = MAD_DROUGHT_SKIP_INITIAL_DISPLACEMENT_PULSE
-				}
-			}
-		}
-	}
 
 	on_ruling_party_change = {
 		effect = {
