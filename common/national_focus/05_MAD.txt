@@ -10048,7 +10048,10 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		
 
-		completion_reward = {
+		
+		allow_branch = {
+			has_country_flag = MAD_POL_CONTENT_2002_2009_UNLOCKED
+		}completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_MIL_LESSON_2002"
 			set_country_flag = MAD_MIL_LESSON_2002_RECORDED
 		}
@@ -10068,7 +10071,10 @@ focus = {
 		prerequisite = { focus = MAD_POL_MIL_LESSON_2002 }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		
-		completion_reward = {
+		
+		allow_branch = {
+			has_country_flag = MAD_POL_CONTENT_2002_2009_UNLOCKED
+		}completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_MIL_2005_RESTRUCTURING"
 			set_country_flag = MAD_MIL_2005_RESTRUCTURING_PENDING
 			country_event = { id = MAD_military_refoundation.6 days = 1 }
@@ -10086,7 +10092,10 @@ focus = {
 		prerequisite = { focus = MAD_POL_MIL_2005_RESTRUCTURING }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		
-		completion_reward = {
+		
+		allow_branch = {
+			has_country_flag = MAD_POL_CONTENT_2002_2009_UNLOCKED
+		}completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_MIL_FIDY_2006_CHALLENGE"
 			set_country_flag = MAD_MIL_FIDY_2006_PENDING
 			country_event = { id = MAD_military_refoundation.7 days = 1 }
@@ -10107,7 +10116,10 @@ focus = {
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		
 
-		completion_reward = {
+		
+		allow_branch = {
+			has_country_flag = MAD_POL_CONTENT_2002_2009_UNLOCKED
+		}completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_MIL_SECURITY_SECTOR_REVIEW"
 			set_country_flag = MAD_MIL_SECURITY_SECTOR_REVIEW_PENDING
 			country_event = { id = MAD_military_refoundation.2 days = 1 }
