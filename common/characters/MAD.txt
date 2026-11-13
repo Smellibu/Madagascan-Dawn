@@ -132,21 +132,21 @@ characters = {
 				large = "gfx/leaders/MAD/Marcel_Ranjeva.dds"
 			}
 		}
-		field_marshal = {
-			traits = { old_guard expert_delegator }
-			skill = 3
-			attack_skill = 3
-			defense_skill = 3
-			planning_skill = 2
-			logistics_skill = 2
-		}
-	
 		advisor = {
-			# Former Army Chief of Staff; available as Army Chief from the 2000 start.
+			# Former Chief of the General Staff; available as Chief of Army from the 2000 start.
 			slot = army_chief
 			idea_token = marcel_ranjeva_army_chief
 			ledger = army
 			traits = { army_chief_planning_1 }
+			cost = 100
+			ai_will_do = { factor = 1.000 }
+		}
+		advisor = {
+			# Separate Military High Command appointment; no field-command role.
+			slot = high_command
+			idea_token = marcel_ranjeva_high_command
+			ledger = army
+			traits = { army_regrouping_1 }
 			cost = 100
 			ai_will_do = { factor = 1.000 }
 		}
