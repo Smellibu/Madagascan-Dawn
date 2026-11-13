@@ -2342,83 +2342,9 @@ visible = {
 	########################################################################
 
 	# Return internally displaced people to their original states in affordable batches.
-	MAD_DROUGHT_RESETTLE = {
-		icon = generic_political_discourse
-
-		visible = {
-			check_variable = { MAD_drought_displaced_internal > 0.5 }
-		}
-		available = {
-			custom_trigger_tooltip = {
-				tooltip = MAD_DROUGHT_PREVENTION_4_tt
-				check_variable = { MAD_drought_prevention_count > 3.99 }
-			}
-			custom_trigger_tooltip = {
-				tooltip = MAD_DROUGHT_SEVERITY_BELOW_35_tt
-				check_variable = { MAD_drought_severity < 35 }
-			}
-		}
-		cost = 50
-		days_remove = 90
-		custom_cost_trigger = { always = yes }
-		custom_cost_text = cost_1_0
-
-		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Internal resettlement programme started"
-			set_temp_variable = { treasury_change = -1.00 }
-			modify_treasury_effect = yes
-		}
-
-		remove_effect = {
-			log = "[GetDateText]: [Root.GetName]: Internal resettlement completed"
-			MAD_drought_resettle = yes
-			custom_effect_tooltip = MAD_DROUGHT_RESETTLE_CAP_TT
-			set_temp_variable = { MAD_rc_delta = 1 }
-			MAD_rural_cooperation_adjust = yes
-		}
-
-		ai_will_do = { base = 1 }
-	}
 
 	# Invite part of the diaspora home. Each call returns 10% of the cumulative living diaspora that originally reached foreign destinations,
 	# allocated back to their original states, with a hard cap of six uses.
-	MAD_DROUGHT_EXPAT_RETURN = {
-		icon = generic_political_discourse
-
-		visible = {
-			check_variable = { MAD_drought_displaced_abroad > 0.5 }
-			check_variable = { MAD_drought_expat_return_calls < 6 }
-		}
-		available = {
-			custom_trigger_tooltip = {
-				tooltip = MAD_DROUGHT_PREVENTION_4_tt
-				check_variable = { MAD_drought_prevention_count > 3.99 }
-			}
-			custom_trigger_tooltip = {
-				tooltip = MAD_DROUGHT_SEVERITY_BELOW_35_tt
-				check_variable = { MAD_drought_severity < 35 }
-			}
-		}
-		cost = 35
-		days_remove = 180
-		custom_cost_trigger = { always = yes }
-		custom_cost_text = cost_2_0
-
-		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Diaspora return programme started"
-			set_temp_variable = { treasury_change = -2.00 }
-			modify_treasury_effect = yes
-		}
-
-		remove_effect = {
-			log = "[GetDateText]: [Root.GetName]: Diaspora return programme completed"
-			MAD_drought_return_expats = yes
-			set_temp_variable = { MAD_rc_delta = 1 }
-			MAD_rural_cooperation_adjust = yes
-		}
-
-		ai_will_do = { base = 1 }
-	}
 
 	# After Winning The Fight the drought recedes fast on its own; this finishes it.
 	MAD_DROUGHT_FINAL_PUSH = {
