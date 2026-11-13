@@ -242,28 +242,6 @@ MAD_STATE_FAMINE_4 = {
 	compliance_growth = -0.20
 }
 
-# --- CROP DEATH: the permanent ones ---
-
-# A fifth of the south is gone and is not coming back.
-MAD_STATE_DEPOPULATED = {
-	icon = GFX_idea_generic_army_problems
-
-	local_manpower = -0.20
-	local_building_slots_factor = -0.20
-	state_production_speed_buildings_factor = -0.15
-	local_supplies = -0.10
-}
-
-# 80% of them reached Antananarivo or Toamasina. More hands, and the slums that come with them.
-MAD_STATE_REFUGEE_INFLUX = {
-	icon = GFX_idea_generic_manpower
-
-	local_manpower = 0.16
-	local_building_slots_factor = 0.10
-	state_production_speed_buildings_factor = -0.05
-	compliance_growth = -0.05
-}
-
 MAD_airforce_modifier = {
 	icon = GFX_idea_democracy
 	air_detection = MAD_air_detection
@@ -339,7 +317,4 @@ MAD_ARMY_COMMAND_SYSTEM = {
 	supply_consumption_factor = MAD_ARMY_CMD_SUPPLY_CONSUMPTION_FACTOR
 	planning_speed = MAD_ARMY_CMD_PLANNING_SPEED
 }
-# common/dynamic_modifiers/MAD_drought_displacement_modifiers.txt
-# Applied only to an origin state with 50,000 or more of its own residents still displaced.
-# The scripted effect removes it once fewer than 50,000 of that state's residents remain displaced.
 
