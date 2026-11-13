@@ -10074,28 +10074,10 @@ focus_tree = {
 				set_temp_variable = { add_col_one = 22 }
 				add_coalition_members_effect = yes
 
-				# Increase military spending through the MD law mechanic.
-				# Only apply the one-year decrease restriction if the
-				# military spending law actually increases.
-				if = {
-					limit = {
-						defence_increase_blocked = no
-					}
-
-					set_temp_variable = {
-						mad_mil_2002_spending_before = military_law
-					}
-					increase_military_spending = yes
-
-					if = {
-						limit = {
-							check_variable = {
-								military_law > mad_mil_2002_spending_before
-							}
-						}
-						block_defence_decrease = yes
-					}
-				}
+				# Use the standard MD focus-reward sequence so the
+				# one-year military-spending restriction is displayed.
+				increase_military_spending = yes
+				block_defence_decrease = yes
 			}
 
 			ai_will_do = {
