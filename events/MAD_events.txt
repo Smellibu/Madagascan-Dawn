@@ -2597,6 +2597,7 @@ country_event = {
 	}
 
 	immediate = {
+		set_country_flag = MAD_DAEWOO_POLITICAL_FALLOUT_93_CALLED
 		set_country_flag = MAD_DAEWOO_POLITICAL_FALLOUT_DONE
 		clr_country_flag = MAD_DAEWOO_POLITICAL_FALLOUT_PENDING
 		MAD_UNLOCK_POL_CONTENT_2009_2025 = yes
@@ -2703,6 +2704,7 @@ country_event = {
 	}
 
 	immediate = {
+		set_country_flag = MAD_DAEWOO_POLITICAL_FALLOUT_2_CALLED
 		set_country_flag = MAD_DAEWOO_POLITICAL_FALLOUT_DONE
 		clr_country_flag = MAD_DAEWOO_POLITICAL_FALLOUT_PENDING
 		MAD_UNLOCK_POL_CONTENT_2009_2025 = yes
@@ -9115,11 +9117,12 @@ country_event = {
 		}
 		if = {
 			limit = {
-				date < 2009.1.1
 				NOT = { has_country_flag = MAD_DAEWOO_POLITICAL_FALLOUT_DONE }
 				NOT = { has_country_flag = MAD_DAEWOO_POLITICAL_FALLOUT_PENDING }
-				NOT = { has_country_flag = MAD_POL_CONTENT_2009_2025_UNLOCKED }
 				NOT = { has_country_flag = MAD_MIL_REFORM_UPRISING_OCCURRED }
+				has_country_flag = MAD_TGV_FORMED
+				NOT = { has_country_flag = MAD_DAEWOO_POLITICAL_FALLOUT_2_CALLED }
+				NOT = { has_country_flag = MAD_DAEWOO_POLITICAL_FALLOUT_93_CALLED }
 				has_stability < 0.5
 			}
 			set_country_flag = MAD_MIL_REFORM_UPRISING_PENDING
@@ -9740,7 +9743,10 @@ country_event = {
 	is_triggered_only = yes
 	fire_only_once = yes
 
-	trigger = { has_country_flag = MAD_MIL_REFORM_UPRISING_PENDING }
+	trigger = {
+		has_country_flag = MAD_MIL_REFORM_UPRISING_PENDING
+		has_country_flag = MAD_TGV_FORMED
+	}
 
 	immediate = {
 		set_country_flag = MAD_DAEWOO_POLITICAL_FALLOUT_DONE
@@ -9871,9 +9877,11 @@ country_event = {
 		if = {
 			limit = {
 				has_country_flag = MAD_MIL_REFORM_UPRISING_PENDING
+				has_country_flag = MAD_TGV_FORMED
+				NOT = { has_country_flag = MAD_DAEWOO_POLITICAL_FALLOUT_2_CALLED }
+				NOT = { has_country_flag = MAD_DAEWOO_POLITICAL_FALLOUT_93_CALLED }
 				NOT = { has_country_flag = MAD_DAEWOO_POLITICAL_FALLOUT_DONE }
 				NOT = { has_country_flag = MAD_DAEWOO_POLITICAL_FALLOUT_PENDING }
-				NOT = { has_country_flag = MAD_POL_CONTENT_2009_2025_UNLOCKED }
 				NOT = { has_country_flag = MAD_MIL_REFORM_UPRISING_CONCEDED }
 				NOT = { has_country_flag = MAD_MIL_REFORM_UPRISING_OCCURRED }
 			}
