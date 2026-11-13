@@ -10053,6 +10053,7 @@ focus_tree = {
 
 			allow_branch = {
 				OR = {
+					MAD_MIL_IN_POWER = yes
 					has_country_flag = MAD_POL_CONTENT_2002_2009_UNLOCKED
 					has_country_flag = MAD_POL_CONTENT_2009_2025_UNLOCKED
 					date > 2009.1.1
@@ -10098,6 +10099,7 @@ focus = {
 		
 		allow_branch = {
 			OR = {
+				MAD_MIL_IN_POWER = yes
 				has_country_flag = MAD_POL_CONTENT_2002_2009_UNLOCKED
 				has_country_flag = MAD_POL_CONTENT_2009_2025_UNLOCKED
 				date > 2009.1.1
@@ -10158,6 +10160,7 @@ focus = {
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ARMY_BONUS }
 		allow_branch = {
 			OR = {
+				MAD_MIL_IN_POWER = yes
 				AND = {
 					has_country_flag = MAD_MODERN_CRISIS_COMPLETED
 					has_country_flag = MAD_CAPSAT_REVOLT_RESOLVED
@@ -10175,6 +10178,7 @@ focus = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_MIL_POST_2025_ROUTE_TT
 				OR = {
+					MAD_MIL_IN_POWER = yes
 					AND = {
 						has_country_flag = MAD_MODERN_CRISIS_COMPLETED
 						has_country_flag = MAD_CAPSAT_REVOLT_RESOLVED
@@ -10223,7 +10227,9 @@ focus = {
 
 	focus = {
 		id = MAD_POL_MIL_CHAIN_OF_COMMAND
-		allow_branch = { always = no }
+		allow_branch = {
+			MAD_MIL_IN_POWER = yes
+		}
 		icon = Generic_Command_Power
 		x = 0
 		y = 1
@@ -10252,7 +10258,9 @@ focus = {
 
 	focus = {
 		id = MAD_POL_MIL_PROFESSIONAL_OFFICERS
-		allow_branch = { always = no }
+		allow_branch = {
+			MAD_MIL_IN_POWER = yes
+		}
 		icon = military_academy
 		x = -1
 		y = 1
@@ -10290,6 +10298,7 @@ focus = {
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		allow_branch = {
 			OR = {
+				MAD_MIL_IN_POWER = yes
 			has_country_flag = MAD_POL_CONTENT_2009_2025_UNLOCKED
 			date > 2009.1.1
 		}
@@ -10327,6 +10336,7 @@ focus = {
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		allow_branch = {
 			OR = {
+				MAD_MIL_IN_POWER = yes
 				has_country_flag = MAD_POL_CONTENT_2009_2025_UNLOCKED
 				date > 2009.1.1
 			}
@@ -10350,6 +10360,7 @@ focus = {
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		allow_branch = {
 			OR = {
+				MAD_MIL_IN_POWER = yes
 				has_country_flag = MAD_POL_CONTENT_2009_2025_UNLOCKED
 				date > 2009.1.1
 			}
@@ -10373,6 +10384,7 @@ focus = {
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		allow_branch = {
 			OR = {
+				MAD_MIL_IN_POWER = yes
 				has_country_flag = MAD_POL_CONTENT_2009_2025_UNLOCKED
 				date > 2009.1.1
 			}
@@ -10486,7 +10498,9 @@ focus = {
 
 	focus = {
 		id = MAD_POL_MIL_CAPSAT_LESSON
-		allow_branch = { always = no }
+		allow_branch = {
+			MAD_MIL_IN_POWER = yes
+		}
 		icon = army_doctrine
 		x = 0
 		y = 1
@@ -10499,7 +10513,6 @@ focus = {
 				tooltip = MAD_MIL_IN_POWER_tt
 				MAD_MIL_IN_POWER = yes
 			}
-			has_country_flag = MAD_MILITARY_RULE_PATH
 		}
 
 		completion_reward = {
@@ -10519,7 +10532,9 @@ focus = {
 
 	focus = {
 		id = MAD_POL_MIL_MARITIME_SECURITY
-		allow_branch = { always = no }
+		allow_branch = {
+			MAD_MIL_IN_POWER = yes
+		}
 		icon = navy
 		x = 0
 		y = 1
@@ -10550,7 +10565,9 @@ focus = {
 
 	focus = {
 		id = MAD_POL_MIL_MULTILATERAL_DOCTRINE
-		allow_branch = { always = no }
+		allow_branch = {
+			MAD_MIL_IN_POWER = yes
+		}
 		icon = diplomatic_treaty
 		x = 0
 		y = 1
@@ -10599,6 +10616,7 @@ focus = {
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		allow_branch = {
 				OR = {
+					MAD_MIL_IN_POWER = yes
 					has_completed_focus = MAD_POL_MIL_PROTECT_BALLOT
 					has_completed_focus = MAD_POL_MIL_FINAL_ARBITER
 					has_country_flag = MAD_MIL_PROTECT_BALLOT_SELECTED
@@ -10717,6 +10735,7 @@ focus = {
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		allow_branch = {
 				OR = {
+					MAD_MIL_IN_POWER = yes
 					has_completed_focus = MAD_POL_MIL_PROTECT_BALLOT
 					has_country_flag = MAD_MIL_PROTECT_BALLOT_SELECTED
 				}
@@ -10966,7 +10985,9 @@ focus = {
 
 	focus = {
 		id = MAD_POL_MIL_NEVER_DIVIDED
-		allow_branch = { always = no }
+		allow_branch = {
+			MAD_MIL_IN_POWER = yes
+		}
 		icon = army_doctrine
 		x = 1
 		y = 2
