@@ -776,9 +776,9 @@ country_event = {
 					MAD_drought_state_apply_famine = yes
 				}
 			}
-			# Approximate 8,000 drought-driven migrants from the Grand Sud to Antananarivo.
-			268 = { add_manpower = -8000 }
-			267 = { add_manpower = 8000 }
+			# Scaled in-game estimate: 80,000 drought-driven migrants from the Grand Sud to Antananarivo.
+			268 = { add_manpower = -80000 }
+			267 = { add_manpower = 80000 }
 			hidden_effect = {
 				set_temp_variable = { MAD_dr_shock_pressure = 0.40 }
 				MAD_drought_add_warning_shock_pressure = yes
@@ -820,9 +820,9 @@ country_event = {
 					MAD_drought_state_apply_famine = yes
 				}
 			}
-			# WHO/IOM reporting put drought displacement at about 5,000 people by end-2021.
-			268 = { add_manpower = -5000 }
-			267 = { add_manpower = 5000 }
+			# Scaled in-game estimate: 50,000 drought-driven migrants from the Grand Sud to Antananarivo.
+			268 = { add_manpower = -50000 }
+			267 = { add_manpower = 50000 }
 			hidden_effect = {
 				set_temp_variable = { MAD_dr_shock_pressure = 0.45 }
 				MAD_drought_add_warning_shock_pressure = yes
@@ -889,9 +889,9 @@ country_event = {
 				set_temp_variable = { MAD_dr_state_famine = 15 }
 				MAD_drought_state_apply_shock = yes
 			}
-			# Approximate 5,000 drought migrants from the Grand Sud to the capital region.
-			268 = { add_manpower = -5000 }
-			267 = { add_manpower = 5000 }
+			# Scaled in-game estimate: 50,000 drought migrants from the Grand Sud to the capital region.
+			268 = { add_manpower = -50000 }
+			267 = { add_manpower = 50000 }
 			hidden_effect = {
 				set_temp_variable = { MAD_dr_shock_pressure = 0.35 }
 				MAD_drought_add_warning_shock_pressure = yes
@@ -952,9 +952,9 @@ country_event = {
 				set_temp_variable = { MAD_dr_state_famine = 15 }
 				MAD_drought_state_apply_shock = yes
 			}
-			# IOM field interviews identified roughly 500 migrants from one southern community since 2009.
-			268 = { add_manpower = -500 }
-			267 = { add_manpower = 500 }
+			# Scaled in-game estimate: 50,000 drought migrants from the southern region since 2009.
+			268 = { add_manpower = -50000 }
+			267 = { add_manpower = 50000 }
 			hidden_effect = {
 				set_temp_variable = { MAD_dr_shock_pressure = 0.40 }
 				MAD_drought_add_warning_shock_pressure = yes
@@ -1122,12 +1122,12 @@ country_event = {
 				}
 				MAD_drought_state_apply_famine = yes
 			}
-			event_target:MAD_drought_event_state = { add_manpower = -5000 }
+			event_target:MAD_drought_event_state = { add_manpower = -50000 }
 			if = {
 				limit = { event_target:MAD_drought_event_state = { state = 267 } }
-				268 = { add_manpower = 5000 }
+				268 = { add_manpower = 50000 }
 			}
-			else = { 267 = { add_manpower = 5000 } }
+			else = { 267 = { add_manpower = 50000 } }
 			add_stability = -0.02
 			add_war_support = -0.01
 		}
