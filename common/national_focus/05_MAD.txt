@@ -10115,23 +10115,30 @@ focus = {
 		icon = police_station
 		x = 1
 		y = 1
-		relative_position_id = MAD_POL_MIL_2005_RESTRUCTURING
+		relative_position_id = MAD_POL_TIM_2007_CONSTITUTION
 		cost = 3
-		prerequisite = { focus = MAD_POL_MIL_2005_RESTRUCTURING }
+		prerequisite = { focus = MAD_POL_TIM_2007_CONSTITUTION }
 		search_filters = { FOCUS_FILTER_POLITICAL }
-		
-
-		
-		allow_branch = {
-			OR = {
-				has_country_flag = MAD_POL_CONTENT_2002_2009_UNLOCKED
-				has_country_flag = MAD_POL_CONTENT_2009_2025_UNLOCKED
-				date > 2009.1.1
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_TIM_IN_POWER_tt
+				MAD_TIM_IN_POWER = yes
 			}
-		}completion_reward = {
+		}
+
+		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_MIL_SECURITY_SECTOR_REVIEW"
+			increase_policing_budget = yes
+			block_police_decrease = yes
+			decrease_officer_training_level = yes
+			add_timed_idea = { idea = MAD_MIL_SECURITY_SECTOR_REFORM days = 365 }
+			if = {
+				limit = { has_variable = MAD_dahalo_threat }
+				add_to_variable = { MAD_dahalo_threat = -10 tooltip = MAD_DAHALO_THREAT_MINUS_10_TT }
+				MAD_dahalo_update_modifier = yes
+			}
 			set_country_flag = MAD_MIL_SECURITY_SECTOR_REVIEW_PENDING
-			country_event = { id = MAD_military_refoundation.2 days = 1 }
+			country_event = { id = MAD_military_refoundation.2 days = 5 }
 		}
 
 		ai_will_do = {
