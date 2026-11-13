@@ -10050,7 +10050,11 @@ focus_tree = {
 
 		
 		allow_branch = {
-			has_country_flag = MAD_POL_CONTENT_2002_2009_UNLOCKED
+			OR = {
+				has_country_flag = MAD_POL_CONTENT_2002_2009_UNLOCKED
+				has_country_flag = MAD_POL_CONTENT_2009_2025_UNLOCKED
+				date > 2009.1.1
+			}
 		}completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_MIL_LESSON_2002"
 			set_country_flag = MAD_MIL_LESSON_2002_RECORDED
@@ -10073,7 +10077,11 @@ focus = {
 		
 		
 		allow_branch = {
-			has_country_flag = MAD_POL_CONTENT_2002_2009_UNLOCKED
+			OR = {
+				has_country_flag = MAD_POL_CONTENT_2002_2009_UNLOCKED
+				has_country_flag = MAD_POL_CONTENT_2009_2025_UNLOCKED
+				date > 2009.1.1
+			}
 		}completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_MIL_2005_RESTRUCTURING"
 			set_country_flag = MAD_MIL_2005_RESTRUCTURING_PENDING
@@ -10094,7 +10102,11 @@ focus = {
 		
 		
 		allow_branch = {
-			has_country_flag = MAD_POL_CONTENT_2002_2009_UNLOCKED
+			OR = {
+				has_country_flag = MAD_POL_CONTENT_2002_2009_UNLOCKED
+				has_country_flag = MAD_POL_CONTENT_2009_2025_UNLOCKED
+				date > 2009.1.1
+			}
 		}completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_MIL_FIDY_2006_CHALLENGE"
 			set_country_flag = MAD_MIL_FIDY_2006_PENDING
@@ -10118,7 +10130,11 @@ focus = {
 
 		
 		allow_branch = {
-			has_country_flag = MAD_POL_CONTENT_2002_2009_UNLOCKED
+			OR = {
+				has_country_flag = MAD_POL_CONTENT_2002_2009_UNLOCKED
+				has_country_flag = MAD_POL_CONTENT_2009_2025_UNLOCKED
+				date > 2009.1.1
+			}
 		}completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_MIL_SECURITY_SECTOR_REVIEW"
 			set_country_flag = MAD_MIL_SECURITY_SECTOR_REVIEW_PENDING
