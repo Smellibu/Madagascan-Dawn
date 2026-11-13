@@ -9998,6 +9998,11 @@ focus_tree = {
 					uses = 2
 				}
 			}
+			if = {
+				limit = { has_idea = the_military }
+				set_temp_variable = { temp_opinion = 5 }
+				change_the_military_opinion = yes
+			}
 		}
 
 		ai_will_do = {
