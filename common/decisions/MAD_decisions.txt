@@ -1313,7 +1313,6 @@ MAD_daewoo_category = {
 #   REACTIVE decisions     - open from the first day. They only push the number down for a while: the pressure keeps coming.
 #   PREVENTATIVE decisions - each is unlocked by a focus in the Drought And Famine branch, can be done once, and takes a
 #                            permanent slice off the monthly pressure. 7 exist; 5 done + severity <= 30 contains the drought.
-#   RESETTLE / FINAL PUSH  - late decisions.
 # "cost" is political power; treasury (billions) is charged in the effect, the same way the Daewoo decisions do it.
 
 MAD_drought_category = {
@@ -2341,10 +2340,7 @@ visible = {
 	# LATE DECISIONS
 	########################################################################
 
-	# Return internally displaced people to their original states in affordable batches.
 
-	# Invite part of the diaspora home. Each call returns 10% of the cumulative living diaspora that originally reached foreign destinations,
-	# allocated back to their original states, with a hard cap of six uses.
 
 	# After Winning The Fight the drought recedes fast on its own; this finishes it.
 	MAD_DROUGHT_FINAL_PUSH = {
