@@ -14944,6 +14944,24 @@ focus = {
 	}
 
 	focus = {
+		id = MAD_hvm_human_rights_protections
+		icon = political_reform
+		x = -6
+		y = 1
+		relative_position_id = MAD_POL_HVM_RULE_OF_LAW
+		cost = 3
+		prerequisite = { focus = MAD_POL_HVM_RULE_OF_LAW }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_CORRUPTION }
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_HVM_IN_POWER_tt
+				MAD_HVM_IN_POWER = yes
+			}
+		}
+		ai_will_do = { base = 1 }
+	}
+
+	focus = {
 		id = MAD_hvm_anti_corruption_courts
 		icon = focus_generic_court
 		x = -4
