@@ -10153,6 +10153,29 @@ focus_tree = {
 	}
 
 focus = {
+		id = MAD_POL_MIL_MODERNISE_MILITARY_STATUTE
+		icon = military_academy
+		x = 2
+		y = 1
+		relative_position_id = MAD_pol_mil_confirm_chief_of_staff
+		cost = 3
+		prerequisite = { focus = MAD_pol_mil_confirm_chief_of_staff }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_MIL_IN_POWER_tt
+				MAD_MIL_IN_POWER = yes
+			}
+			MAD_POL_MIL_POST_2025_ROUTE_AVAILABLE = yes
+			OR = {
+				has_country_flag = MAD_ARMY_COMMAND_CAPSAT
+				has_country_flag = MAD_ARMY_COMMAND_GENERAL_STAFF
+			}
+		}
+		ai_will_do = { base = 1 }
+	}
+
+focus = {
 		id = MAD_pol_mil_confirm_chief_of_staff
 		icon = Generic_Command_Power
 		x = 0
@@ -10658,6 +10681,44 @@ focus = {
 		}
 	}
 
+focus = {
+		id = MAD_POL_MIL_TOROHY_TAX_INTEGRITY
+		icon = diplomatic_treaty
+		x = 1
+		y = 1
+		relative_position_id = MAD_POL_MIL_CLEAN_UNIFORM
+		cost = 3
+		prerequisite = { focus = MAD_POL_MIL_CLEAN_UNIFORM }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_MIL_IN_POWER_tt
+				MAD_MIL_IN_POWER = yes
+			}
+			MAD_POL_MIL_POST_2025_ROUTE_AVAILABLE = yes
+		}
+		ai_will_do = { base = 1 }
+	}
+
+focus = {
+		id = MAD_POL_MIL_YOUTH_ANTI_CORRUPTION_HIGH_COMMISSION
+		icon = political_reform
+		x = -1
+		y = 1
+		relative_position_id = MAD_POL_MIL_CLEAN_UNIFORM
+		cost = 3
+		prerequisite = { focus = MAD_POL_MIL_CLEAN_UNIFORM }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_MIL_IN_POWER_tt
+				MAD_MIL_IN_POWER = yes
+			}
+			MAD_POL_MIL_POST_2025_ROUTE_AVAILABLE = yes
+		}
+		ai_will_do = { base = 1 }
+	}
+
 
 	focus = {
 		id = MAD_POL_MIL_REFOUNDATION
@@ -10685,6 +10746,25 @@ focus = {
 		ai_will_do = {
 			base = 1
 		}
+	}
+
+focus = {
+		id = MAD_POL_MIL_GREEN_BUDGET
+		icon = construction
+		x = 4
+		y = 1
+		relative_position_id = MAD_POL_MIL_REFOUNDATION
+		cost = 3
+		prerequisite = { focus = MAD_POL_MIL_REFOUNDATION }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_MIL_IN_POWER_tt
+				MAD_MIL_IN_POWER = yes
+			}
+			MAD_POL_MIL_POST_2025_ROUTE_AVAILABLE = yes
+		}
+		ai_will_do = { base = 1 }
 	}
 
 
@@ -10810,6 +10890,44 @@ focus = {
 		}
 	}
 
+focus = {
+		id = MAD_POL_MIL_CYBERCRIME_BILL
+		icon = diplomatic_treaty
+		x = 1
+		y = 1
+		relative_position_id = MAD_POL_MIL_DIGITAL_ADMINISTRATION
+		cost = 3
+		prerequisite = { focus = MAD_POL_MIL_DIGITAL_ADMINISTRATION }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_MIL_IN_POWER_tt
+				MAD_MIL_IN_POWER = yes
+			}
+			MAD_POL_MIL_POST_2025_ROUTE_AVAILABLE = yes
+		}
+		ai_will_do = { base = 1 }
+	}
+
+focus = {
+		id = MAD_POL_MIL_BIOMETRIC_ID_REGISTRATION
+		icon = political_reform
+		x = -1
+		y = 1
+		relative_position_id = MAD_POL_MIL_DIGITAL_ADMINISTRATION
+		cost = 3
+		prerequisite = { focus = MAD_POL_MIL_DIGITAL_ADMINISTRATION }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_MIL_IN_POWER_tt
+				MAD_MIL_IN_POWER = yes
+			}
+			MAD_POL_MIL_POST_2025_ROUTE_AVAILABLE = yes
+		}
+		ai_will_do = { base = 1 }
+	}
+
 	focus = {
 		id = MAD_POL_MIL_REGIONAL_ADMIN
 		icon = diplomatic_treaty
@@ -10875,6 +10993,25 @@ focus = {
 		ai_will_do = {
 			base = 1
 		}
+	}
+
+focus = {
+		id = MAD_POL_MIL_SECURE_EMERGENCY_POWER_SUPPLY
+		icon = construction
+		x = -1
+		y = 1
+		relative_position_id = MAD_POL_MIL_PUBLIC_SERVICES
+		cost = 3
+		prerequisite = { focus = MAD_POL_MIL_PUBLIC_SERVICES }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_MIL_IN_POWER_tt
+				MAD_MIL_IN_POWER = yes
+			}
+			MAD_POL_MIL_POST_2025_ROUTE_AVAILABLE = yes
+		}
+		ai_will_do = { base = 1 }
 	}
 
 	focus = {
@@ -10996,6 +11133,44 @@ focus = {
 		ai_will_do = {
 			base = 1
 		}
+	}
+
+focus = {
+		id = MAD_POL_MIL_ESSENTIAL_MARKET_REGULATION
+		icon = political_reform
+		x = 2
+		y = 1
+		relative_position_id = MAD_POL_MIL_MARKET_REFORM
+		cost = 3
+		prerequisite = { focus = MAD_POL_MIL_MARKET_REFORM }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_MIL_IN_POWER_tt
+				MAD_MIL_IN_POWER = yes
+			}
+			MAD_POL_MIL_POST_2025_ROUTE_AVAILABLE = yes
+		}
+		ai_will_do = { base = 1 }
+	}
+
+focus = {
+		id = MAD_POL_MIL_PUBLIC_PRIVATE_PARTNERSHIP_BILL
+		icon = construction
+		x = -2
+		y = 1
+		relative_position_id = MAD_POL_MIL_MARKET_REFORM
+		cost = 3
+		prerequisite = { focus = MAD_POL_MIL_MARKET_REFORM }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_MIL_IN_POWER_tt
+				MAD_MIL_IN_POWER = yes
+			}
+			MAD_POL_MIL_POST_2025_ROUTE_AVAILABLE = yes
+		}
+		ai_will_do = { base = 1 }
 	}
 
 	focus = {
