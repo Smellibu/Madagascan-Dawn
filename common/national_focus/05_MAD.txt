@@ -11785,6 +11785,63 @@ focus = {
 			base = 1
 		}
 	}
+	focus = {
+		id = MAD_POL_AREMA_MERIT_PUBLIC_SERVICE
+		icon = focus_generic_improve_the_administration
+		x = -1
+		y = 1
+		relative_position_id = MAD_POL_AREMA_RENEWAL_PROGRAMME
+		cost = 3
+		prerequisite = { focus = MAD_POL_AREMA_RENEWAL_PROGRAMME }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_AREMA_IN_POWER_tt
+				MAD_AREMA_IN_POWER = yes
+			}
+			custom_trigger_tooltip = {
+				tooltip = MAD_AREMA_RENEWAL_PATH_tt
+				has_completed_focus = MAD_POL_AREMA_CHOOSE_RENEWAL
+			}
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_AREMA_MERIT_PUBLIC_SERVICE"
+			add_stability = 0.02
+			add_political_power = 50
+		}
+		ai_will_do = {
+			base = 1
+		}
+	}
+	focus = {
+		id = MAD_POL_AREMA_THIRD_CHAMBER
+		icon = generic_government
+		x = 2
+		y = 1
+		relative_position_id = MAD_POL_AREMA_RENEWAL_PROGRAMME
+		cost = 3
+		prerequisite = { focus = MAD_POL_AREMA_RENEWAL_PROGRAMME }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_AREMA_IN_POWER_tt
+				MAD_AREMA_IN_POWER = yes
+			}
+			custom_trigger_tooltip = {
+				tooltip = MAD_AREMA_RENEWAL_PATH_tt
+				has_completed_focus = MAD_POL_AREMA_CHOOSE_RENEWAL
+			}
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_AREMA_THIRD_CHAMBER"
+			add_stability = 0.02
+			add_political_power = 50
+		}
+		ai_will_do = {
+			base = 1
+		}
+	}
+
 
 	focus = {
 		id = MAD_POL_AREMA_RENEWAL_MODERNISE
@@ -11977,6 +12034,37 @@ focus = {
 			}
 		}
 	}
+	focus = {
+		id = MAD_POL_AREMA_REVIVE_REGIONAL_ENTERPRISES
+		icon = economic_nationalisation
+		x = 2
+		y = 1
+		relative_position_id = MAD_POL_AREMA_RENEWAL_MODERNISE
+		cost = 3
+		prerequisite = { focus = MAD_POL_AREMA_RENEWAL_MODERNISE }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ECONOMY }
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_AREMA_IN_POWER_tt
+				MAD_AREMA_IN_POWER = yes
+			}
+			custom_trigger_tooltip = {
+				tooltip = MAD_AREMA_RENEWAL_PATH_tt
+				has_completed_focus = MAD_POL_AREMA_CHOOSE_RENEWAL
+			}
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_AREMA_REVIVE_REGIONAL_ENTERPRISES"
+			increase_economic_growth = yes
+			increase_exports = yes
+			add_stability = 0.02
+			add_political_power = 50
+		}
+		ai_will_do = {
+			base = 1
+		}
+	}
+
 
 	focus = {
 		id = MAD_POL_AREMA_STATE_LEADS
@@ -12214,6 +12302,64 @@ focus = {
 			base = 1
 		}
 	}
+	focus = {
+		id = MAD_POL_AREMA_LAND_TENURE_REFORM
+		icon = focus_generic_land_reform
+		x = -2
+		y = 1
+		relative_position_id = MAD_POL_AREMA_FOKONOLONA
+		cost = 3
+		prerequisite = { focus = MAD_POL_AREMA_FOKONOLONA }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ECONOMY }
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_AREMA_IN_POWER_tt
+				MAD_AREMA_IN_POWER = yes
+			}
+			custom_trigger_tooltip = {
+				tooltip = MAD_AREMA_RENEWAL_PATH_tt
+				has_completed_focus = MAD_POL_AREMA_CHOOSE_RENEWAL
+			}
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_AREMA_LAND_TENURE_REFORM"
+			add_stability = 0.02
+			add_political_power = 50
+		}
+		ai_will_do = {
+			base = 1
+		}
+	}
+	focus = {
+		id = MAD_POL_AREMA_PANGALANES_DEVELOPMENT
+		icon = infrastructure
+		x = 2
+		y = 1
+		relative_position_id = MAD_POL_AREMA_FOKONOLONA
+		cost = 3
+		prerequisite = { focus = MAD_POL_AREMA_FOKONOLONA }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ECONOMY }
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_AREMA_IN_POWER_tt
+				MAD_AREMA_IN_POWER = yes
+			}
+			custom_trigger_tooltip = {
+				tooltip = MAD_AREMA_RENEWAL_PATH_tt
+				has_completed_focus = MAD_POL_AREMA_CHOOSE_RENEWAL
+			}
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_AREMA_PANGALANES_DEVELOPMENT"
+			one_random_infrastructure = yes
+			increase_economic_growth = yes
+			add_political_power = 50
+		}
+		ai_will_do = {
+			base = 1
+		}
+	}
+
 
 	focus = {
 		id = MAD_POL_AREMA_INDEPENDENCE
@@ -12352,11 +12498,11 @@ focus = {
 	focus = {
 		id = MAD_POL_AREMA_PROVINCES
 		icon = decentralized_economy
-		x = 0
+		x = -3
 		y = 1
-		relative_position_id = MAD_POL_AREMA_RECONCILIATION_INSTITUTIONALISE
+		relative_position_id = MAD_POL_AREMA_RENEWAL_PROGRAMME
 		cost = 3
-		prerequisite = { focus = MAD_POL_AREMA_RECONCILIATION_INSTITUTIONALISE }
+		prerequisite = { focus = MAD_POL_AREMA_RENEWAL_PROGRAMME }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
 			custom_trigger_tooltip = {
@@ -12365,8 +12511,8 @@ focus = {
 			}
 			
 			custom_trigger_tooltip = {
-				tooltip = MAD_AREMA_RECONCILIATION_PATH_tt
-				has_completed_focus = MAD_POL_AREMA_RECONCILIATION_INSTITUTIONALISE
+				tooltip = MAD_AREMA_RENEWAL_PATH_tt
+				has_completed_focus = MAD_POL_AREMA_CHOOSE_RENEWAL
 			}
 		}
 
