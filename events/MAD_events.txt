@@ -2853,7 +2853,7 @@ country_event = {
 		remove_ideas = MAD_POL_MILITARY_GUARDIAN
 		remove_ideas = MAD_POL_MILITARY_GOVERNMENT
 		add_ideas = MAD_MIL_PROFESSIONAL_COMMAND
-		set_politics = { elections_allowed = yes }
+		set_politics = { ruling_party = nationalist elections_allowed = yes }
 		decrease_corruption = yes
 		add_political_power = 35
 		set_temp_variable = { party_index = 22 }
@@ -2869,7 +2869,7 @@ country_event = {
 		remove_ideas = MAD_MIL_PROFESSIONAL_COMMAND
 		remove_ideas = MAD_POL_MILITARY_GOVERNMENT
 		add_ideas = MAD_POL_MILITARY_GUARDIAN
-		set_politics = { elections_allowed = yes }
+		set_politics = { ruling_party = nationalist elections_allowed = yes }
 		add_political_power = 25
 
 		set_temp_variable = { party_index = 22 }
@@ -9370,6 +9370,7 @@ country_event = {
 		add_stability = 0.02
 		add_political_power = -10
 		set_politics = {
+			ruling_party = democratic
 			last_election = "2002.1.20"
 			election_frequency = 60
 			elections_allowed = yes
@@ -9586,7 +9587,7 @@ country_event = {
 		ai_chance = { factor = 80 }
 		log = "[GetDateText]: [Root.GetName]: Accept SADC transition timetable"
 		set_country_flag = MAD_MIL_2013_ELECTORAL_COMMITMENT
-		set_politics = { elections_allowed = yes }
+		set_politics = { ruling_party = nationalist elections_allowed = yes }
 		remove_ideas = MAD_MIL_HAT_TRANSITION_GUARANTOR
 		add_stability = 0.03
 		add_political_power = 20
