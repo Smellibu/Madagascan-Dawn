@@ -11984,57 +11984,6 @@ focus = {
 	}
 
 	focus = {
-		id = MAD_POL_AREMA_WORKERS_FARMERS
-		icon = focus_generic_workers_and_farmers_rise
-		x = 0
-		y = 1
-		relative_position_id = MAD_POL_AREMA_RENEWAL_MODERNISE
-		cost = 3
-		prerequisite = { focus = MAD_POL_AREMA_RENEWAL_MODERNISE }
-		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ECONOMY }
-		available = {
-			custom_trigger_tooltip = {
-				tooltip = MAD_AREMA_IN_POWER_tt
-				MAD_AREMA_IN_POWER = yes
-			}
-			
-			custom_trigger_tooltip = {
-				tooltip = MAD_AREMA_RENEWAL_PATH_tt
-				has_completed_focus = MAD_POL_AREMA_RENEWAL_MODERNISE
-			}
-		}
-
-		completion_reward = {
-			set_temp_variable = { MAD_rc_delta = 4 }
-			MAD_rural_cooperation_adjust = yes
-			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_AREMA_WORKERS_FARMERS"
-			
-			increase_social_spending = yes
-			one_random_agriculture_district = yes
-			
-			set_temp_variable = { party_index = 5 }
-			set_temp_variable = { party_popularity_increase = 0.03 }
-			set_temp_variable = { temp_outlook_increase = 0.03 }
-			change_relative_party_popularity = yes
-			
-			custom_effect_tooltip = {
-				localization_key = modifies_dynamic_modifier_tt
-				MODIFIER = MAD_agriculture_modifier
-			}
-			add_to_variable = { MAD_agri_worker_req = -0.03 tooltip = agriculture_district_worker_requirement_modifier_tt }
-			
-			add_power_balance_value = { id = MAD_economy_ownership_bop value = 0.05 tooltip_side = MAD_public_ownership }
-		}
-
-		ai_will_do = {
-			base = 1
-			modifier = {
-			factor = 0
-			can_staff_an_agriculture_district = no
-			}
-		}
-	}
-	focus = {
 		id = MAD_POL_AREMA_REVIVE_REGIONAL_ENTERPRISES
 		icon = economic_nationalisation
 		x = 2
@@ -12055,6 +12004,7 @@ focus = {
 		}
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_AREMA_REVIVE_REGIONAL_ENTERPRISES"
+			one_random_industrial_complex = yes
 			increase_economic_growth = yes
 			increase_exports = yes
 			add_stability = 0.02
