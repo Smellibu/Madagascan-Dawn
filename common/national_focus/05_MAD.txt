@@ -14157,23 +14157,6 @@ focus = {
 		}
 	}
 
-	focus = {
-		id = MAD_pol_tgv_tourism
-		icon = economic_tourism
-		x = 2
-		y = 1
-		relative_position_id = MAD_POL_TGV_EMERGENCE_INITIATIVE
-		cost = 3
-		prerequisite = { focus = MAD_POL_TGV_EMERGENCE_INITIATIVE }
-		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_FOREIGN_INVESTMENTS }
-		available = {
-			custom_trigger_tooltip = {
-				tooltip = MAD_TGV_IN_POWER_tt
-				MAD_TGV_IN_POWER = yes
-			}
-		}
-		ai_will_do = { base = 1 }
-	}
 
 	focus = {
 		id = MAD_pol_tgv_sustainable_resources
@@ -14343,23 +14326,6 @@ focus = {
 		}
 	}
 
-	focus = {
-		id = MAD_pol_tgv_hydropower
-		icon = focus_generic_hydroelectric_energy
-		x = 2
-		y = 1
-		relative_position_id = MAD_POL_TGV_JIRAMA_DELIVERY
-		cost = 3
-		prerequisite = { focus = MAD_POL_TGV_JIRAMA_DELIVERY }
-		search_filters = { FOCUS_FILTER_POWER_INFRASTRUCTURE FOCUS_FILTER_ENVIRONMENT }
-		available = {
-			custom_trigger_tooltip = {
-				tooltip = MAD_TGV_IN_POWER_tt
-				MAD_TGV_IN_POWER = yes
-			}
-		}
-		ai_will_do = { base = 1 }
-	}
 
 	focus = {
 		id = MAD_POL_TGV_SPECIAL_ECONOMIC_ZONES
