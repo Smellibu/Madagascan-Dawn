@@ -18988,4 +18988,25 @@ focus = {
 		ai_will_do = { base = 1 }
 	}
 
+
+	focus = {
+		id = MAD_POL_TIM_LAND_SOVEREIGNTY
+		icon = land_reform
+		x = 0
+		y = 1
+		relative_position_id = MAD_POL_TIM_2018_MANIFESTO
+		cost = 3
+		prerequisite = { focus = MAD_POL_TIM_2018_MANIFESTO }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ECONOMY }
+
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_TIM_IN_POWER_tt
+				MAD_TIM_IN_POWER = yes
+			}
+		}
+
+		ai_will_do = { base = 1 }
+	}
+
 }
