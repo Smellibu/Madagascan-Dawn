@@ -13850,6 +13850,24 @@ focus = {
 	}
 
 	focus = {
+		id = MAD_pol_tgv_social_protection
+		icon = focus_generic_welfare
+		x = 4
+		y = 1
+		relative_position_id = MAD_POL_TGV_THIRTEEN_VELIRANO
+		cost = 3
+		prerequisite = { focus = MAD_POL_TGV_THIRTEEN_VELIRANO }
+		search_filters = { FOCUS_FILTER_INTERNAL_AFFAIRS FOCUS_FILTER_STABILITY }
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_TGV_IN_POWER_tt
+				MAD_TGV_IN_POWER = yes
+			}
+		}
+		ai_will_do = { base = 1 }
+	}
+
+	focus = {
 		id = MAD_pol_tgv_sport_culture
 		icon = focus_generic_public_works
 		x = 3
