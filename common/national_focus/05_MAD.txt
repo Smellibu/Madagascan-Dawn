@@ -9950,12 +9950,6 @@ focus_tree = {
 		prerequisite = { focus = MAD_POL_PARTIES }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 
-		available = {
-			custom_trigger_tooltip = {
-				tooltip = MAD_MIL_IN_POWER_tt
-				MAD_MIL_IN_POWER = yes
-			}
-		}
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_MIL_PRE2002_OFFICER_CORPS"
@@ -9978,12 +9972,6 @@ focus_tree = {
 		prerequisite = { focus = MAD_POL_MIL_PRE2002_OFFICER_CORPS }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 
-		available = {
-			custom_trigger_tooltip = {
-				tooltip = MAD_MIL_IN_POWER_tt
-				MAD_MIL_IN_POWER = yes
-			}
-		}
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_MIL_PRE2002_DEVELOPMENT_STAFF"
@@ -10036,12 +10024,6 @@ focus_tree = {
 		prerequisite = { focus = MAD_POL_MIL_PRE2002_OFFICER_CORPS }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 
-		available = {
-			custom_trigger_tooltip = {
-				tooltip = MAD_MIL_IN_POWER_tt
-				MAD_MIL_IN_POWER = yes
-			}
-		}
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_MIL_PRE2002_GENDARMERIE"
@@ -10069,17 +10051,13 @@ focus_tree = {
 
 			prerequisite = {
 				focus = MAD_POL_MIL_PRE2002_OFFICER_CORPS
+				focus = MAD_POL_MIL_PRE2002_DEVELOPMENT_STAFF
+				focus = MAD_POL_MIL_PRE2002_GENDARMERIE
 			}
 
 			search_filters = { FOCUS_FILTER_POLITICAL }
 
 	
-		available = {
-				custom_trigger_tooltip = {
-					tooltip = MAD_MIL_IN_POWER_tt
-					MAD_MIL_IN_POWER = yes
-				}
-			}
 
 			completion_reward = {
 				log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_MIL_LESSON_2002"
@@ -10114,10 +10092,11 @@ focus_tree = {
 	focus = {
 		id = MAD_POL_MIL_TAKES_RESPONSIBILITY
 		icon = war
-		x = 29
-		y = 13
+		x = 4
+		y = 1
+		relative_position_id = MAD_POL_MIL_LESSON_2002
 		cost = 3
-		prerequisite = { focus = MAD_POL_PARTIES }
+		prerequisite = { focus = MAD_POL_MIL_LESSON_2002 }
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ARMY_BONUS }
 		available = {
 			custom_trigger_tooltip = {
