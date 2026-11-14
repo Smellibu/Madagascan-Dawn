@@ -3193,54 +3193,6 @@ MAD_dahalo_category = {
 	#   MAD_Dead_with_a_swagger  -> security ending
 	#   MAD_cowthief_in_chief     -> accommodation ending
 
-	MAD_DAHALO_RURAL_PATROLS = {
-		icon = generic_political_discourse
-
-		available = {
-			NOT = { has_country_flag = MAD_DAHALO_OPERATION_ACTIVE }
-
-			custom_trigger_tooltip = {
-				tooltip = MAD_RC_REQUIRE_6_OR_4_5_TT
-				OR = {
-					AND = {
-						has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM
-						check_variable = { MAD_rural_cooperation > 4.49 }
-					}
-					AND = {
-						NOT = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM }
-						check_variable = { MAD_rural_cooperation > 5.99 }
-					}
-				}
-			}
-		}
-		cost = 35
-		days_remove = 45
-		days_re_enable = 0
-		custom_cost_trigger = { always = yes }
-		custom_cost_text = cost_0_2
-
-		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAHALO_RURAL_PATROLS"
-			set_temp_variable = { MAD_rc_delta = -6 }
-			MAD_rural_cooperation_apply_gendarmerie_discount = yes
-			MAD_rural_cooperation_adjust = yes
-			custom_effect_tooltip = MAD_RURAL_COOPERATION_SPENT_TT
-
-			set_temp_variable = { treasury_change = -0.20 }
-			modify_treasury_effect = yes
-			add_to_variable = { MAD_dahalo_threat = -6 tooltip = MAD_DAHALO_THREAT_MINUS_6_TT }
-			add_stability = 0.0025
-			MAD_dahalo_update_modifier = yes
-
-			set_country_flag = MAD_DAHALO_OPERATION_ACTIVE
-		}
-		remove_effect = {
-			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAHALO_RURAL_PATROLS completed"
-			clr_country_flag = MAD_DAHALO_OPERATION_ACTIVE
-		}
-		ai_will_do = { base = 4 }
-	}
-
 	MAD_DAHALO_HERD_REGISTRY = {
 		icon = generic_political_discourse
 
@@ -6737,6 +6689,49 @@ MAD_HVM_PROJECT_REVIEW_CATEGORY = {
 # The consultations are a reusable safety valve; the Compact is a one-off programme.
 ########################################################################
 MAD_rural_cooperation_category = {
+	# Repeatable rural security support, unlocked by the Gendarmerie Reform focus.
+	MAD_DAHALO_RURAL_PATROLS = {
+		icon = generic_political_discourse
+
+		visible = {
+			has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM
+		}
+
+		available = {
+			NOT = { has_country_flag = MAD_DAHALO_OPERATION_ACTIVE }
+
+			custom_trigger_tooltip = {
+				tooltip = MAD_RC_REQUIRE_6_OR_4_5_TT
+				check_variable = { MAD_rural_cooperation > 4.49 }
+			}
+		}
+		cost = 35
+		days_remove = 45
+		days_re_enable = 0
+		custom_cost_trigger = { always = yes }
+		custom_cost_text = cost_0_2
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAHALO_RURAL_PATROLS"
+			set_temp_variable = { MAD_rc_delta = 4 }
+			MAD_rural_cooperation_adjust = yes
+			custom_effect_tooltip = MAD_RURAL_PATROLS_COOPERATION_GAIN_TT
+
+			set_temp_variable = { treasury_change = -0.20 }
+			modify_treasury_effect = yes
+			add_to_variable = { MAD_dahalo_threat = -4 tooltip = MAD_DAHALO_THREAT_MINUS_4_TT }
+			add_stability = 0.0025
+			MAD_dahalo_update_modifier = yes
+
+			set_country_flag = MAD_DAHALO_OPERATION_ACTIVE
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAHALO_RURAL_PATROLS completed"
+			clr_country_flag = MAD_DAHALO_OPERATION_ACTIVE
+		}
+		ai_will_do = { base = 4 }
+	}
+
 	# The constitutional ideas are neutral state models, separate from party-synchronised programme ideas.
 	MAD_RURAL_UNSECULARISE_GOVERNMENT = {
 		icon = generic_political_discourse
