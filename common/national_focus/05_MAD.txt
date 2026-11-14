@@ -10533,6 +10533,36 @@ focus = {
 	}
 
 	focus = {
+		id = MAD_pol_mil_capsat_state_establishment
+		icon = parliament_box
+		x = 0
+		y = 1
+		relative_position_id = MAD_pol_mil_capsat_high_counsellors
+		cost = 3
+		prerequisite = {
+			focus = MAD_pol_mil_capsat_high_counsellors
+			focus = MAD_POL_MIL_CIVILIAN_ADMINISTRATION
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_MIL_IN_POWER_tt
+				MAD_MIL_IN_POWER = yes
+			}
+			has_country_flag = MAD_ARMY_COMMAND_CAPSAT
+			MAD_POL_MIL_POST_2025_ROUTE_AVAILABLE = yes
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_pol_mil_capsat_state_establishment"
+			set_country_flag = MAD_MIL_SECURITY_ESTABLISHMENT_IN_STATE
+		}
+
+		ai_will_do = { base = 1 }
+	}
+
+
+	focus = {
 		id = MAD_POL_MIL_CIVILIAN_ADMINISTRATION
 		icon = parliament_box
 		x = 1
@@ -10665,7 +10695,7 @@ focus = {
 		y = 2
 		relative_position_id = MAD_POL_MIL_PROTECT_BALLOT
 		cost = 3
-		prerequisite = { focus = MAD_POL_MIL_PROTECT_BALLOT focus = MAD_POL_MIL_ASSEMBLIES }
+		prerequisite = { focus = MAD_POL_MIL_PROTECT_BALLOT focus = MAD_POL_MIL_CONSTITUTIONAL_REFERENDUM }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
 			custom_trigger_tooltip = {
@@ -10686,6 +10716,67 @@ focus = {
 			base = 1
 		}
 	}
+
+	focus = {
+		id = MAD_POL_MIL_CONSTITUTIONAL_REFERENDUM
+		icon = Focus_Parliament_Constitution
+		x = 3
+		y = 1
+		relative_position_id = MAD_POL_MIL_REFOUNDATION
+		cost = 3
+		prerequisite = { focus = MAD_POL_MIL_REFOUNDATION }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_MIL_IN_POWER_tt
+				MAD_MIL_IN_POWER = yes
+			}
+			custom_trigger_tooltip = {
+				tooltip = MAD_MIL_POST_2025_ROUTE_TT
+				MAD_POL_MIL_POST_2025_ROUTE_AVAILABLE = yes
+			}
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_MIL_CONSTITUTIONAL_REFERENDUM"
+			# Preparation only: the HCC confirmed the possibility in principle;
+			# this does not record that a referendum has actually taken place.
+			set_country_flag = MAD_MIL_MULTI_OPTION_REFERENDUM_PREPARED
+		}
+
+		ai_will_do = { base = 1 }
+	}
+
+
+	focus = {
+		id = MAD_POL_MIL_GENERAL_STAFF_CONSTITUTIONAL_OVERSIGHT
+		icon = Focus_Parliament_Constitution
+		x = 0
+		y = 1
+		relative_position_id = MAD_POL_MIL_PROFESSIONAL_OFFICERS
+		cost = 3
+		prerequisite = {
+			focus = MAD_POL_MIL_PROFESSIONAL_OFFICERS
+			focus = MAD_POL_MIL_CIVILIAN_GUARDIANSHIP
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_MIL_IN_POWER_tt
+				MAD_MIL_IN_POWER = yes
+			}
+			has_country_flag = MAD_ARMY_COMMAND_GENERAL_STAFF
+			MAD_POL_MIL_POST_2025_ROUTE_AVAILABLE = yes
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_MIL_GENERAL_STAFF_CONSTITUTIONAL_OVERSIGHT"
+			set_country_flag = MAD_MIL_GENERAL_STAFF_CONSTITUTIONAL_OVERSIGHT
+		}
+
+		ai_will_do = { base = 1 }
+	}
+
 
 	focus = {
 		id = MAD_POL_MIL_DIGITAL_ADMINISTRATION
@@ -10948,12 +11039,16 @@ focus = {
 		y = 2
 		relative_position_id = MAD_POL_MIL_ENGINEERS
 		cost = 3
-		prerequisite = { focus = MAD_POL_MIL_ENGINEERS focus = MAD_POL_MIL_CIVILIAN_GUARDIANSHIP focus = MAD_POL_MIL_CAPSAT_LESSON }
+		prerequisite = { focus = MAD_POL_MIL_ENGINEERS focus = MAD_POL_MIL_CIVILIAN_GUARDIANSHIP }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_MIL_IN_POWER_tt
 				MAD_MIL_IN_POWER = yes
+			}
+			OR = {
+				has_completed_focus = MAD_pol_mil_capsat_state_establishment
+				has_completed_focus = MAD_POL_MIL_GENERAL_STAFF_CONSTITUTIONAL_OVERSIGHT
 			}
 		}
 
