@@ -13076,9 +13076,9 @@ focus = {
 		icon = adopt_the_peoples_constitution
 		x = 1
 		y = 1
-		relative_position_id = MAD_POL_MIL_2005_RESTRUCTURING
+		relative_position_id = MAD_POL_TIM_DECENTRALISE
 		cost = 3
-		prerequisite = { focus = MAD_POL_MIL_2005_RESTRUCTURING }
+		prerequisite = { focus = MAD_POL_TIM_DECENTRALISE }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
 			custom_trigger_tooltip = {
@@ -18864,6 +18864,127 @@ focus = {
 			add_timed_idea = { idea = MAD_dip_continental_shelf_dossier days = 1825 }
 			unlock_decision_category_tooltip = MAD_dip_shelf_decisions
 		}
+		ai_will_do = { base = 1 }
+	}
+
+
+	focus = {
+		id = MAD_POL_TIM_EDUCATION_TRANSFORMATION
+		icon = focus_generic_education
+		x = -1
+		y = 1
+		relative_position_id = MAD_POL_TIM_MAP
+		cost = 3
+		prerequisite = { focus = MAD_POL_TIM_MAP }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_TIM_IN_POWER_tt
+				MAD_TIM_IN_POWER = yes
+			}
+		}
+
+		ai_will_do = { base = 1 }
+	}
+
+	focus = {
+		id = MAD_POL_TIM_PUBLIC_FINANCE
+		icon = focus_generic_financial_agreement
+		x = 2
+		y = 1
+		relative_position_id = MAD_POL_TIM_MAP
+		cost = 3
+		prerequisite = { focus = MAD_POL_TIM_MAP }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ECONOMY }
+
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_TIM_IN_POWER_tt
+				MAD_TIM_IN_POWER = yes
+			}
+		}
+
+		ai_will_do = { base = 1 }
+	}
+
+	focus = {
+		id = MAD_POL_TIM_2018_MANIFESTO
+		icon = political_reform
+		x = 1
+		y = 1
+		relative_position_id = MAD_POL_TIM_REFUND_THE_REPUBLIC
+		cost = 3
+		prerequisite = { focus = MAD_POL_TIM_REFUND_THE_REPUBLIC }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_TIM_IN_POWER_tt
+				MAD_TIM_IN_POWER = yes
+			}
+		}
+
+		ai_will_do = { base = 1 }
+	}
+
+	focus = {
+		id = MAD_POL_TIM_DEVELOPMENT_BANK
+		icon = focus_generic_financial_agreement
+		x = -1
+		y = 1
+		relative_position_id = MAD_POL_TIM_2018_MANIFESTO
+		cost = 3
+		prerequisite = { focus = MAD_POL_TIM_2018_MANIFESTO }
+		search_filters = { FOCUS_FILTER_ECONOMY }
+
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_TIM_IN_POWER_tt
+				MAD_TIM_IN_POWER = yes
+			}
+		}
+
+		ai_will_do = { base = 1 }
+	}
+
+	focus = {
+		id = MAD_POL_TIM_YOUTH_ENTERPRISE
+		icon = focus_generic_industry_investment
+		x = 1
+		y = 1
+		relative_position_id = MAD_POL_TIM_2018_MANIFESTO
+		cost = 3
+		prerequisite = { focus = MAD_POL_TIM_2018_MANIFESTO }
+		search_filters = { FOCUS_FILTER_ECONOMY FOCUS_FILTER_POLITICAL }
+
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_TIM_IN_POWER_tt
+				MAD_TIM_IN_POWER = yes
+			}
+		}
+
+		ai_will_do = { base = 1 }
+	}
+
+	focus = {
+		id = MAD_POL_TIM_MAP_PLUS
+		icon = construction
+		x = 0
+		y = 2
+		relative_position_id = MAD_POL_TIM_2018_MANIFESTO
+		cost = 3
+		prerequisite = { focus = MAD_POL_TIM_2018_MANIFESTO }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ECONOMY }
+
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_TIM_IN_POWER_tt
+				MAD_TIM_IN_POWER = yes
+			}
+		}
+
 		ai_will_do = { base = 1 }
 	}
 
