@@ -10478,75 +10478,6 @@ focus = {
 	}
 
 	focus = {
-		id = MAD_POL_MIL_MARITIME_SECURITY
-		icon = navy
-		x = 0
-		y = 1
-		relative_position_id = MAD_POL_MIL_NEVER_DIVIDED
-		cost = 3
-		prerequisite = { focus = MAD_POL_MIL_NEVER_DIVIDED }
-		search_filters = { FOCUS_FILTER_POLITICAL }
-		available = {
-			custom_trigger_tooltip = {
-				tooltip = MAD_MIL_IN_POWER_tt
-				MAD_MIL_IN_POWER = yes
-			}
-			has_completed_focus = MAD_TELMA_MARITIME_DOMAIN_NETWORK
-		}
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_MIL_MARITIME_SECURITY"
-			add_ideas = MAD_POL_MARITIME_SECURITY
-			army_experience = 20
-			add_political_power = 15
-			add_stability = 0.01
-		}
-
-		ai_will_do = {
-			base = 1
-		}
-	}
-
-	focus = {
-		id = MAD_POL_MIL_MULTILATERAL_DOCTRINE
-		icon = diplomatic_treaty
-		x = 0
-		y = 1
-		relative_position_id = MAD_POL_MIL_MARITIME_SECURITY
-		cost = 3
-		prerequisite = { focus = MAD_POL_MIL_MARITIME_SECURITY }
-		search_filters = { FOCUS_FILTER_POLITICAL }
-		available = {
-			custom_trigger_tooltip = {
-				tooltip = MAD_MIL_IN_POWER_tt
-				MAD_MIL_IN_POWER = yes
-			}
-		}
-
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_MIL_MULTILATERAL_DOCTRINE"
-			swap_ideas = {
-				remove_idea = MAD_POL_MARITIME_SECURITY
-				add_idea = MAD_MIL_MULTILATERAL_DOCTRINE
-			}
-			add_stability = 0.03
-			add_political_power = 50
-			set_temp_variable = { party_index = 22 }
-			set_temp_variable = { party_popularity_increase = 0.03 }
-			change_relative_party_popularity = yes
-			recalculate_party = yes
-			set_temp_variable = { party_index = 2 }
-			set_temp_variable = { party_popularity_increase = 0.02 }
-			change_relative_party_popularity = yes
-			recalculate_party = yes
-		}
-
-		ai_will_do = {
-			base = 1
-		}
-	}
-
-	focus = {
 		id = MAD_POL_MIL_CIVILIAN_ADMINISTRATION
 		icon = parliament_box
 		x = 1
@@ -10984,6 +10915,75 @@ focus = {
 				change_the_military_opinion = yes
 			}
 					MAD_rural_cooperation_calculate_monthly_change = yes
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_POL_MIL_MARITIME_SECURITY
+		icon = navy
+		x = 0
+		y = 1
+		relative_position_id = MAD_POL_MIL_NEVER_DIVIDED
+		cost = 3
+		prerequisite = { focus = MAD_POL_MIL_NEVER_DIVIDED }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_MIL_IN_POWER_tt
+				MAD_MIL_IN_POWER = yes
+			}
+			has_completed_focus = MAD_TELMA_MARITIME_DOMAIN_NETWORK
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_MIL_MARITIME_SECURITY"
+			add_ideas = MAD_POL_MARITIME_SECURITY
+			army_experience = 20
+			add_political_power = 15
+			add_stability = 0.01
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_POL_MIL_MULTILATERAL_DOCTRINE
+		icon = diplomatic_treaty
+		x = 0
+		y = 1
+		relative_position_id = MAD_POL_MIL_MARITIME_SECURITY
+		cost = 3
+		prerequisite = { focus = MAD_POL_MIL_MARITIME_SECURITY }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_MIL_IN_POWER_tt
+				MAD_MIL_IN_POWER = yes
+			}
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_MIL_MULTILATERAL_DOCTRINE"
+			swap_ideas = {
+				remove_idea = MAD_POL_MARITIME_SECURITY
+				add_idea = MAD_MIL_MULTILATERAL_DOCTRINE
+			}
+			add_stability = 0.03
+			add_political_power = 50
+			set_temp_variable = { party_index = 22 }
+			set_temp_variable = { party_popularity_increase = 0.03 }
+			change_relative_party_popularity = yes
+			recalculate_party = yes
+			set_temp_variable = { party_index = 2 }
+			set_temp_variable = { party_popularity_increase = 0.02 }
+			change_relative_party_popularity = yes
+			recalculate_party = yes
 		}
 
 		ai_will_do = {
