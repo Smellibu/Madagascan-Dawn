@@ -14745,6 +14745,24 @@ focus = {
 	}
 
 	focus = {
+		id = MAD_hvm_national_development_plan
+		icon = focus_generic_improve_the_administration
+		x = -4
+		y = 1
+		relative_position_id = MAD_POL_HVM_STABILISE_REPUBLIC
+		cost = 3
+		prerequisite = { focus = MAD_POL_HVM_STABILISE_REPUBLIC }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_INTERNAL_AFFAIRS }
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_HVM_IN_POWER_tt
+				MAD_HVM_IN_POWER = yes
+			}
+		}
+		ai_will_do = { base = 1 }
+	}
+
+	focus = {
 		id = MAD_POL_HVM_RSS_INTERNATIONAL_ASSESSMENT
 		icon = political_reform
 		x = 8
@@ -14905,6 +14923,24 @@ focus = {
 		ai_will_do = {
 			base = 1
 		}
+	}
+
+	focus = {
+		id = MAD_hvm_anti_corruption_courts
+		icon = focus_generic_court
+		x = -4
+		y = 1
+		relative_position_id = MAD_POL_HVM_RULE_OF_LAW
+		cost = 3
+		prerequisite = { focus = MAD_POL_HVM_RULE_OF_LAW }
+		search_filters = { FOCUS_FILTER_CORRUPTION FOCUS_FILTER_POLITICAL }
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_HVM_IN_POWER_tt
+				MAD_HVM_IN_POWER = yes
+			}
+		}
+		ai_will_do = { base = 1 }
 	}
 
 	focus = {
@@ -15099,6 +15135,24 @@ focus = {
 	}
 
 	focus = {
+		id = MAD_hvm_special_economic_zones
+		icon = focus_generic_industry_investment
+		x = 2
+		y = 2
+		relative_position_id = MAD_POL_HVM_INVESTMENT_FRIENDLY
+		cost = 3
+		prerequisite = { focus = MAD_POL_HVM_INVESTMENT_FRIENDLY }
+		search_filters = { FOCUS_FILTER_FOREIGN_INVESTMENTS FOCUS_FILTER_INDUSTRY }
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_HVM_IN_POWER_tt
+				MAD_HVM_IN_POWER = yes
+			}
+		}
+		ai_will_do = { base = 1 }
+	}
+
+	focus = {
 		id = MAD_POL_HVM_HUMAN_CAPITAL
 		icon = focus_generic_education
 		x = 0
@@ -15132,6 +15186,60 @@ focus = {
 		ai_will_do = {
 			base = 1
 		}
+	}
+
+	focus = {
+		id = MAD_hvm_social_protection_policy
+		icon = stability
+		x = -4
+		y = 1
+		relative_position_id = MAD_POL_HVM_HUMAN_CAPITAL
+		cost = 3
+		prerequisite = { focus = MAD_POL_HVM_HUMAN_CAPITAL }
+		search_filters = { FOCUS_FILTER_INTERNAL_AFFAIRS FOCUS_FILTER_STABILITY }
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_HVM_IN_POWER_tt
+				MAD_HVM_IN_POWER = yes
+			}
+		}
+		ai_will_do = { base = 1 }
+	}
+
+	focus = {
+		id = MAD_hvm_fiavota
+		icon = focus_generic_education
+		x = 0
+		y = 1
+		relative_position_id = MAD_hvm_social_protection_policy
+		cost = 3
+		prerequisite = { focus = MAD_hvm_social_protection_policy }
+		search_filters = { FOCUS_FILTER_INTERNAL_AFFAIRS FOCUS_FILTER_STABILITY }
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_HVM_IN_POWER_tt
+				MAD_HVM_IN_POWER = yes
+			}
+		}
+		ai_will_do = { base = 1 }
+	}
+
+	focus = {
+		id = MAD_hvm_education_sector_plan
+		icon = focus_generic_education
+		x = 2
+		y = 1
+		relative_position_id = MAD_POL_HVM_HUMAN_CAPITAL
+		cost = 3
+		prerequisite = { focus = MAD_POL_HVM_HUMAN_CAPITAL }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_INTERNAL_AFFAIRS }
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_HVM_IN_POWER_tt
+				MAD_HVM_IN_POWER = yes
+			}
+		}
+		ai_will_do = { base = 1 }
 	}
 
 	focus = {
@@ -15194,6 +15302,24 @@ focus = {
 		ai_will_do = {
 			base = 1
 		}
+	}
+
+	focus = {
+		id = MAD_hvm_electricity_sector_reform
+		icon = focus_generic_hydroelectric_energy
+		x = 2
+		y = 1
+		relative_position_id = MAD_POL_HVM_ENERGY_FOR_GROWTH
+		cost = 3
+		prerequisite = { focus = MAD_POL_HVM_ENERGY_FOR_GROWTH }
+		search_filters = { FOCUS_FILTER_POWER_INFRASTRUCTURE FOCUS_FILTER_RENEWABLE_ENERGY_INFRASTRUCTURE }
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_HVM_IN_POWER_tt
+				MAD_HVM_IN_POWER = yes
+			}
+		}
+		ai_will_do = { base = 1 }
 	}
 
 	focus = {
