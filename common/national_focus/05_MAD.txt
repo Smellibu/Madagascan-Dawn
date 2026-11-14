@@ -13665,23 +13665,23 @@ focus = {
 			ai_will_do = { base = 1 }
 		}
 
-focus = {
-	id = MAD_pol_tgv_local_government
-	icon = decentralized_economy
-	x = 0
-	y = 1
-	relative_position_id = MAD_POL_TGV_RESTORE_PROVINCES
-	cost = 3
-	prerequisite = { focus = MAD_POL_TGV_RESTORE_PROVINCES }
-	search_filters = { FOCUS_FILTER_INTERNAL_AFFAIRS FOCUS_FILTER_POLITICAL }
-	available = {
-		custom_trigger_tooltip = {
-			tooltip = MAD_TGV_IN_POWER_tt
-			MAD_TGV_IN_POWER = yes
+		focus = {
+			id = MAD_pol_tgv_local_government
+			icon = decentralized_economy
+			x = 0
+			y = 1
+			relative_position_id = MAD_POL_TGV_RESTORE_PROVINCES
+			cost = 3
+			prerequisite = { focus = MAD_POL_TGV_RESTORE_PROVINCES }
+			search_filters = { FOCUS_FILTER_INTERNAL_AFFAIRS FOCUS_FILTER_POLITICAL }
+			available = {
+				custom_trigger_tooltip = {
+					tooltip = MAD_TGV_IN_POWER_tt
+					MAD_TGV_IN_POWER = yes
+				}
+			}
+			ai_will_do = { base = 1 }
 		}
-	}
-	ai_will_do = { base = 1 }
-}
 
 		focus = {
 			id = MAD_POL_TGV_CONSTITUTIONAL_HCDN
@@ -13849,59 +13849,59 @@ focus = {
 		}
 	}
 
-focus = {
-	id = MAD_pol_tgv_sport_culture
-	icon = focus_generic_public_works
-	x = 3
-	y = 1
-	relative_position_id = MAD_POL_TGV_THIRTEEN_VELIRANO
-	cost = 3
-	prerequisite = { focus = MAD_POL_TGV_THIRTEEN_VELIRANO }
-	search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_INTERNAL_AFFAIRS }
-	available = {
-		custom_trigger_tooltip = {
-			tooltip = MAD_TGV_IN_POWER_tt
-			MAD_TGV_IN_POWER = yes
+	focus = {
+		id = MAD_pol_tgv_sport_culture
+		icon = focus_generic_public_works
+		x = 3
+		y = 1
+		relative_position_id = MAD_POL_TGV_THIRTEEN_VELIRANO
+		cost = 3
+		prerequisite = { focus = MAD_POL_TGV_THIRTEEN_VELIRANO }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_INTERNAL_AFFAIRS }
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_TGV_IN_POWER_tt
+				MAD_TGV_IN_POWER = yes
+			}
 		}
+		ai_will_do = { base = 1 }
 	}
-	ai_will_do = { base = 1 }
-}
 
-focus = {
-	id = MAD_pol_tgv_fihariana
-	icon = focus_generic_industry_investment
-	x = 2
-	y = 1
-	relative_position_id = MAD_POL_TGV_THIRTEEN_VELIRANO
-	cost = 3
-	prerequisite = { focus = MAD_POL_TGV_THIRTEEN_VELIRANO }
-	search_filters = { FOCUS_FILTER_ECONOMY FOCUS_FILTER_INDUSTRY }
-	available = {
-		custom_trigger_tooltip = {
-			tooltip = MAD_TGV_IN_POWER_tt
-			MAD_TGV_IN_POWER = yes
+	focus = {
+		id = MAD_pol_tgv_fihariana
+		icon = focus_generic_industry_investment
+		x = 2
+		y = 1
+		relative_position_id = MAD_POL_TGV_THIRTEEN_VELIRANO
+		cost = 3
+		prerequisite = { focus = MAD_POL_TGV_THIRTEEN_VELIRANO }
+		search_filters = { FOCUS_FILTER_ECONOMY FOCUS_FILTER_INDUSTRY }
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_TGV_IN_POWER_tt
+				MAD_TGV_IN_POWER = yes
+			}
 		}
+		ai_will_do = { base = 1 }
 	}
-	ai_will_do = { base = 1 }
-}
 
-focus = {
-	id = MAD_pol_tgv_education_for_all
-	icon = focus_generic_education
-	x = -2
-	y = 1
-	relative_position_id = MAD_POL_TGV_THIRTEEN_VELIRANO
-	cost = 3
-	prerequisite = { focus = MAD_POL_TGV_THIRTEEN_VELIRANO }
-	search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_INTERNAL_AFFAIRS }
-	available = {
-		custom_trigger_tooltip = {
-			tooltip = MAD_TGV_IN_POWER_tt
-			MAD_TGV_IN_POWER = yes
+	focus = {
+		id = MAD_pol_tgv_education_for_all
+		icon = focus_generic_education
+		x = -2
+		y = 1
+		relative_position_id = MAD_POL_TGV_THIRTEEN_VELIRANO
+		cost = 3
+		prerequisite = { focus = MAD_POL_TGV_THIRTEEN_VELIRANO }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_INTERNAL_AFFAIRS }
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_TGV_IN_POWER_tt
+				MAD_TGV_IN_POWER = yes
+			}
 		}
+		ai_will_do = { base = 1 }
 	}
-	ai_will_do = { base = 1 }
-}
 
 	focus = {
 		id = MAD_POL_TGV_WATER_PROGRAMME
@@ -13993,41 +13993,41 @@ focus = {
 		}
 	}
 
-focus = {
-	id = MAD_pol_tgv_tourism
-	icon = economic_tourism
-	x = 2
-	y = 1
-	relative_position_id = MAD_POL_TGV_EMERGENCE_INITIATIVE
-	cost = 3
-	prerequisite = { focus = MAD_POL_TGV_EMERGENCE_INITIATIVE }
-	search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_FOREIGN_INVESTMENTS }
-	available = {
-		custom_trigger_tooltip = {
-			tooltip = MAD_TGV_IN_POWER_tt
-			MAD_TGV_IN_POWER = yes
+	focus = {
+		id = MAD_pol_tgv_tourism
+		icon = economic_tourism
+		x = 2
+		y = 1
+		relative_position_id = MAD_POL_TGV_EMERGENCE_INITIATIVE
+		cost = 3
+		prerequisite = { focus = MAD_POL_TGV_EMERGENCE_INITIATIVE }
+		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_FOREIGN_INVESTMENTS }
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_TGV_IN_POWER_tt
+				MAD_TGV_IN_POWER = yes
+			}
 		}
+		ai_will_do = { base = 1 }
 	}
-	ai_will_do = { base = 1 }
-}
 
-focus = {
-	id = MAD_pol_tgv_sustainable_resources
-	icon = sustainable_development
-	x = -2
-	y = 1
-	relative_position_id = MAD_POL_TGV_EMERGENCE_INITIATIVE
-	cost = 3
-	prerequisite = { focus = MAD_POL_TGV_EMERGENCE_INITIATIVE }
-	search_filters = { FOCUS_FILTER_ENVIRONMENT FOCUS_FILTER_RESOURCE }
-	available = {
-		custom_trigger_tooltip = {
-			tooltip = MAD_TGV_IN_POWER_tt
-			MAD_TGV_IN_POWER = yes
+	focus = {
+		id = MAD_pol_tgv_sustainable_resources
+		icon = sustainable_development
+		x = -2
+		y = 1
+		relative_position_id = MAD_POL_TGV_EMERGENCE_INITIATIVE
+		cost = 3
+		prerequisite = { focus = MAD_POL_TGV_EMERGENCE_INITIATIVE }
+		search_filters = { FOCUS_FILTER_ENVIRONMENT FOCUS_FILTER_RESOURCE }
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_TGV_IN_POWER_tt
+				MAD_TGV_IN_POWER = yes
+			}
 		}
+		ai_will_do = { base = 1 }
 	}
-	ai_will_do = { base = 1 }
-}
 
 	focus = {
 		id = MAD_POL_TGV_INFRASTRUCTURE_FIRST
@@ -14179,23 +14179,23 @@ focus = {
 		}
 	}
 
-focus = {
-	id = MAD_pol_tgv_hydropower
-	icon = focus_generic_hydroelectric_energy
-	x = 2
-	y = 1
-	relative_position_id = MAD_POL_TGV_JIRAMA_DELIVERY
-	cost = 3
-	prerequisite = { focus = MAD_POL_TGV_JIRAMA_DELIVERY }
-	search_filters = { FOCUS_FILTER_POWER_INFRASTRUCTURE FOCUS_FILTER_ENVIRONMENT }
-	available = {
-		custom_trigger_tooltip = {
-			tooltip = MAD_TGV_IN_POWER_tt
-			MAD_TGV_IN_POWER = yes
+	focus = {
+		id = MAD_pol_tgv_hydropower
+		icon = focus_generic_hydroelectric_energy
+		x = 2
+		y = 1
+		relative_position_id = MAD_POL_TGV_JIRAMA_DELIVERY
+		cost = 3
+		prerequisite = { focus = MAD_POL_TGV_JIRAMA_DELIVERY }
+		search_filters = { FOCUS_FILTER_POWER_INFRASTRUCTURE FOCUS_FILTER_ENVIRONMENT }
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_TGV_IN_POWER_tt
+				MAD_TGV_IN_POWER = yes
+			}
 		}
+		ai_will_do = { base = 1 }
 	}
-	ai_will_do = { base = 1 }
-}
 
 	focus = {
 		id = MAD_POL_TGV_SPECIAL_ECONOMIC_ZONES
@@ -14473,23 +14473,23 @@ focus = {
 		}
 	}
 
-focus = {
-	id = MAD_pol_tgv_tanamasoandro
-	icon = capital_region
-	x = 2
-	y = 1
-	relative_position_id = MAD_POL_TGV_PRESIDENTIAL_PROJECTS
-	cost = 3
-	prerequisite = { focus = MAD_POL_TGV_PRESIDENTIAL_PROJECTS }
-	search_filters = { FOCUS_FILTER_INFRASTRUCTURE FOCUS_FILTER_INDUSTRY }
-	available = {
-		custom_trigger_tooltip = {
-			tooltip = MAD_TGV_IN_POWER_tt
-			MAD_TGV_IN_POWER = yes
+	focus = {
+		id = MAD_pol_tgv_tanamasoandro
+		icon = capital_region
+		x = 2
+		y = 1
+		relative_position_id = MAD_POL_TGV_PRESIDENTIAL_PROJECTS
+		cost = 3
+		prerequisite = { focus = MAD_POL_TGV_PRESIDENTIAL_PROJECTS }
+		search_filters = { FOCUS_FILTER_INFRASTRUCTURE FOCUS_FILTER_INDUSTRY }
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_TGV_IN_POWER_tt
+				MAD_TGV_IN_POWER = yes
+			}
 		}
+		ai_will_do = { base = 1 }
 	}
-	ai_will_do = { base = 1 }
-}
 
 	focus = {
 		id = MAD_POL_TGV_TRANSPARENT_EMERGENCE
