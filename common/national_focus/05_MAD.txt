@@ -10152,9 +10152,8 @@ focus_tree = {
 		}
 	}
 
-
-	focus = {
-		id = MAD_POL_MIL_CHAIN_OF_COMMAND
+focus = {
+		id = MAD_pol_mil_confirm_chief_of_staff
 		icon = Generic_Command_Power
 		x = 0
 		y = 1
@@ -10167,6 +10166,27 @@ focus_tree = {
 				tooltip = MAD_MIL_IN_POWER_tt
 				MAD_MIL_IN_POWER = yes
 			}
+			has_country_flag = MAD_ARMY_COMMAND_DECIDED
+		}
+		ai_will_do = { base = 1 }
+	}
+
+
+	focus = {
+		id = MAD_POL_MIL_CHAIN_OF_COMMAND
+		icon = Generic_Command_Power
+		x = -3
+		y = 1
+		relative_position_id = MAD_pol_mil_confirm_chief_of_staff
+		cost = 3
+		prerequisite = { focus = MAD_pol_mil_confirm_chief_of_staff }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_MIL_IN_POWER_tt
+				MAD_MIL_IN_POWER = yes
+			}
+			has_country_flag = MAD_ARMY_COMMAND_GENERAL_STAFF
 		}
 
 		completion_reward = {
@@ -10181,14 +10201,33 @@ focus_tree = {
 		}
 	}
 
-	focus = {
-		id = MAD_POL_MIL_PROFESSIONAL_OFFICERS
-		icon = military_academy
-		x = -1
+focus = {
+		id = MAD_pol_mil_general_staff_verifiable_roadmap
+		icon = Generic_Command_Power
+		x = 0
 		y = 1
 		relative_position_id = MAD_POL_MIL_CHAIN_OF_COMMAND
 		cost = 3
 		prerequisite = { focus = MAD_POL_MIL_CHAIN_OF_COMMAND }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_MIL_IN_POWER_tt
+				MAD_MIL_IN_POWER = yes
+			}
+			has_country_flag = MAD_ARMY_COMMAND_GENERAL_STAFF
+		}
+		ai_will_do = { base = 1 }
+	}
+
+	focus = {
+		id = MAD_POL_MIL_PROFESSIONAL_OFFICERS
+		icon = military_academy
+		x = 0
+		y = 1
+		relative_position_id = MAD_pol_mil_general_staff_verifiable_roadmap
+		cost = 3
+		prerequisite = { focus = MAD_pol_mil_general_staff_verifiable_roadmap }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
 			custom_trigger_tooltip = {
@@ -10279,7 +10318,7 @@ focus = {
 	focus = {
 		id = MAD_POL_MIL_PROTECT_BALLOT
 		icon = Election
-		x = 0
+		x = -1
 		y = 1
 		relative_position_id = MAD_POL_MIL_TAKES_RESPONSIBILITY
 		cost = 3
@@ -10327,7 +10366,7 @@ focus = {
 	focus = {
 		id = MAD_POL_MIL_FINAL_ARBITER
 		icon = Generic_Command_Power
-		x = 2
+		x = 1
 		y = 1
 		relative_position_id = MAD_POL_MIL_TAKES_RESPONSIBILITY
 		cost = 3
@@ -10384,17 +10423,18 @@ focus = {
 	focus = {
 		id = MAD_POL_MIL_CAPSAT_LESSON
 		icon = army_doctrine
-		x = 0
+		x = 4
 		y = 1
-		relative_position_id = MAD_POL_MIL_FINAL_ARBITER
+		relative_position_id = MAD_pol_mil_confirm_chief_of_staff
 		cost = 3
-		prerequisite = { focus = MAD_POL_MIL_FINAL_ARBITER }
+		prerequisite = { focus = MAD_pol_mil_confirm_chief_of_staff }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_MIL_IN_POWER_tt
 				MAD_MIL_IN_POWER = yes
 			}
+			has_country_flag = MAD_ARMY_COMMAND_CAPSAT
 		}
 
 		completion_reward = {
@@ -10410,6 +10450,86 @@ focus = {
 		ai_will_do = {
 			base = 1
 		}
+	}
+
+focus = {
+		id = MAD_pol_mil_capsat_gendarmerie_alignment
+		icon = Generic_Policeman
+		x = 0
+		y = 1
+		relative_position_id = MAD_POL_MIL_CAPSAT_LESSON
+		cost = 3
+		prerequisite = { focus = MAD_POL_MIL_CAPSAT_LESSON }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_MIL_IN_POWER_tt
+				MAD_MIL_IN_POWER = yes
+			}
+			has_country_flag = MAD_ARMY_COMMAND_CAPSAT
+			MAD_POL_MIL_POST_2025_ROUTE_AVAILABLE = yes
+		}
+		ai_will_do = { base = 1 }
+	}
+
+	focus = {
+		id = MAD_pol_mil_capsat_transitional_defence_council
+		icon = parliament_box
+		x = 0
+		y = 1
+		relative_position_id = MAD_pol_mil_capsat_gendarmerie_alignment
+		cost = 3
+		prerequisite = { focus = MAD_pol_mil_capsat_gendarmerie_alignment }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_MIL_IN_POWER_tt
+				MAD_MIL_IN_POWER = yes
+			}
+			has_country_flag = MAD_ARMY_COMMAND_CAPSAT
+			MAD_POL_MIL_POST_2025_ROUTE_AVAILABLE = yes
+		}
+		ai_will_do = { base = 1 }
+	}
+
+	focus = {
+		id = MAD_pol_mil_capsat_security_command
+		icon = Generic_Command_Power
+		x = 0
+		y = 1
+		relative_position_id = MAD_pol_mil_capsat_transitional_defence_council
+		cost = 3
+		prerequisite = { focus = MAD_pol_mil_capsat_transitional_defence_council }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_MIL_IN_POWER_tt
+				MAD_MIL_IN_POWER = yes
+			}
+			has_country_flag = MAD_ARMY_COMMAND_CAPSAT
+			MAD_POL_MIL_POST_2025_ROUTE_AVAILABLE = yes
+		}
+		ai_will_do = { base = 1 }
+	}
+
+	focus = {
+		id = MAD_pol_mil_capsat_high_counsellors
+		icon = Generic_Command_Power
+		x = 0
+		y = 1
+		relative_position_id = MAD_pol_mil_capsat_security_command
+		cost = 3
+		prerequisite = { focus = MAD_pol_mil_capsat_security_command }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_MIL_IN_POWER_tt
+				MAD_MIL_IN_POWER = yes
+			}
+			has_country_flag = MAD_ARMY_COMMAND_CAPSAT
+			MAD_POL_MIL_POST_2025_ROUTE_AVAILABLE = yes
+		}
+		ai_will_do = { base = 1 }
 	}
 
 	focus = {
