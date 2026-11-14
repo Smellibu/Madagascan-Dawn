@@ -10081,7 +10081,12 @@ focus_tree = {
 		x = 29
 		y = 13
 		cost = 3
-		prerequisite = { focus = MAD_POL_PARTIES }
+		prerequisite = {
+			focus = MAD_POL_MIL_PRE2002_OFFICER_CORPS
+			focus = MAD_POL_TGV_OFFICERS_OF_MARCH
+			focus = MAD_POL_TGV_2013_OFFICER_PROMOTIONS
+			focus = MAD_POL_HVM_OFFICER_PROMOTIONS
+		}
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ARMY_BONUS }
 		visible = {
 			OR = {
@@ -17481,18 +17486,11 @@ focus_tree = {
 	focus = {
 		id = MAD_POL_TGV_OFFICERS_OF_MARCH
 		icon = army_reform
-		x = 2
-		y = 1
-		relative_position_id = MAD_POL_TGV_2009_LEGACY
+		x = 21
+		y = 13
 		cost = 3
-		prerequisite = { focus = MAD_POL_TGV_2009_LEGACY }
+		prerequisite = { focus = MAD_POL_PARTIES }
 		search_filters = { FOCUS_FILTER_POLITICAL }
-		available = {
-			custom_trigger_tooltip = {
-				tooltip = MAD_TGV_IN_POWER_tt
-				MAD_TGV_IN_POWER = yes
-			}
-		}
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_TGV_OFFICERS_OF_MARCH"
 			set_country_flag = MAD_POL_TGV_OFFICERS_OF_MARCH_COMPLETED
@@ -17528,18 +17526,11 @@ focus_tree = {
 	focus = {
 		id = MAD_POL_TGV_2013_OFFICER_PROMOTIONS
 		icon = army_reform
-		x = -2
-		y = 1
-		relative_position_id = MAD_POL_TGV_YOUTH_READY
+		x = 24
+		y = 13
 		cost = 3
-		prerequisite = { focus = MAD_POL_TGV_YOUTH_READY }
+		prerequisite = { focus = MAD_POL_PARTIES }
 		search_filters = { FOCUS_FILTER_POLITICAL }
-		available = {
-			custom_trigger_tooltip = {
-				tooltip = MAD_TGV_IN_POWER_tt
-				MAD_TGV_IN_POWER = yes
-			}
-		}
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_TGV_2013_OFFICER_PROMOTIONS"
 			set_country_flag = MAD_POL_TGV_2013_OFFICER_PROMOTIONS_COMPLETED
@@ -17575,18 +17566,11 @@ focus_tree = {
 	focus = {
 		id = MAD_POL_HVM_OFFICER_PROMOTIONS
 		icon = army_reform
-		x = 4
-		y = 1
-		relative_position_id = MAD_POL_HVM_PARTY_OF_GOVERNMENT
+		x = 27
+		y = 13
 		cost = 3
-		prerequisite = { focus = MAD_POL_HVM_PARTY_OF_GOVERNMENT }
+		prerequisite = { focus = MAD_POL_PARTIES }
 		search_filters = { FOCUS_FILTER_POLITICAL }
-		available = {
-			custom_trigger_tooltip = {
-				tooltip = MAD_HVM_IN_POWER_tt
-				MAD_HVM_IN_POWER = yes
-			}
-		}
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_HVM_OFFICER_PROMOTIONS"
 			set_country_flag = MAD_POL_HVM_OFFICER_PROMOTIONS_COMPLETED
