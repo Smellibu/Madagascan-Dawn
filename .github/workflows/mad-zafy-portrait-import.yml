@@ -20,8 +20,9 @@ jobs:
           ref: codex/mad-military-policy-history-2026-11-12
           persist-credentials: true
           sparse-checkout: |
-            common/scripted_effects/MAD_political_leaders.txt
-            gfx/leaders/MAD/portrait_sources.md
+            common/scripted_effects
+            gfx/leaders/MAD
+            .github/workflows
           sparse-checkout-cone-mode: false
 
       - name: Install DDS conversion tool
