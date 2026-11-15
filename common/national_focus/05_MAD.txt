@@ -14069,10 +14069,8 @@ available = {
 		cost = 3
 		prerequisite = { focus = MAD_POL_TGV_MAPUTO_CHARTER }
 		search_filters = { FOCUS_FILTER_POLITICAL }
-		allow_branch = {
-			has_country_flag = MAD_TGV_MAPUTO_IMPLEMENTED
-		}
 		available = {
+			has_country_flag = MAD_TGV_MAPUTO_IMPLEMENTED
 			custom_trigger_tooltip = {
 				tooltip = MAD_TGV_IN_POWER_tt
 				MAD_TGV_IN_POWER = yes
@@ -14099,10 +14097,8 @@ available = {
 		cost = 3
 		prerequisite = { focus = MAD_POL_TGV_MAPUTO_CHARTER }
 		search_filters = { FOCUS_FILTER_POLITICAL }
-		allow_branch = {
-			has_country_flag = MAD_TGV_MAPUTO_IMPLEMENTED
-		}
 		available = {
+			has_country_flag = MAD_TGV_MAPUTO_IMPLEMENTED
 			custom_trigger_tooltip = {
 				tooltip = MAD_TGV_IN_POWER_tt
 				MAD_TGV_IN_POWER = yes
@@ -14130,10 +14126,8 @@ available = {
 		cost = 3
 		prerequisite = { focus = MAD_POL_TGV_MAPUTO_CHARTER }
 		search_filters = { FOCUS_FILTER_POLITICAL }
-		allow_branch = {
-			has_country_flag = MAD_TGV_MAPUTO_IMPLEMENTED
-		}
 		available = {
+			has_country_flag = MAD_TGV_MAPUTO_IMPLEMENTED
 			custom_trigger_tooltip = {
 				tooltip = MAD_TGV_IN_POWER_tt
 				MAD_TGV_IN_POWER = yes
@@ -14163,10 +14157,8 @@ available = {
 		prerequisite = { focus = MAD_POL_TGV_MAPUTO_LEGISLATURE }
 		prerequisite = { focus = MAD_POL_TGV_ENFORCE_CRDSN }
 		search_filters = { FOCUS_FILTER_POLITICAL }
-		allow_branch = {
-			has_country_flag = MAD_TGV_MAPUTO_IMPLEMENTED
-		}
 		available = {
+			has_country_flag = MAD_TGV_MAPUTO_IMPLEMENTED
 			custom_trigger_tooltip = {
 				tooltip = MAD_TGV_IN_POWER_tt
 				MAD_TGV_IN_POWER = yes
@@ -14205,6 +14197,7 @@ available = {
 		prerequisite = { focus = MAD_POL_TGV_MAPUTO_CHARTER }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
+			has_country_flag = MAD_TGV_MAPUTO_UNILATERAL
 			custom_trigger_tooltip = {
 				tooltip = MAD_TGV_IN_POWER_tt
 				MAD_TGV_IN_POWER = yes
@@ -14403,7 +14396,12 @@ available = {
 		y = 1
 		relative_position_id = MAD_POL_TGV_FOURTH_REPUBLIC
 		cost = 3
-		prerequisite = { focus = MAD_POL_TGV_FOURTH_REPUBLIC }
+		prerequisite = {
+			OR = {
+				focus = MAD_POL_TGV_FOURTH_REPUBLIC
+				focus = MAD_POL_TGV_FORMALISE_MAPUTO_STRUCTURE
+			}
+		}
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
 			custom_trigger_tooltip = {
@@ -14424,15 +14422,19 @@ available = {
 			change_relative_party_popularity = yes
 						recalculate_party = yes
 			
+			# Schedule one transitional election 18 months from the current date.
+			# TGV is excluded from this ballot only; preserve any pre-existing player ban.
+			set_country_flag = MAD_TGV_RETURN_BALLOT_ELECTION_PENDING
+			set_temp_variable = { party_index = 20 }
 			if = {
-				limit = {
-					has_elections = no
-				}
-				set_politics = {
-					ruling_party = nationalist
-					elections_allowed = yes
-				}
+				limit = { NOT = { is_party_banned_trigger = yes } }
+				set_country_flag = MAD_TGV_RETURN_BALLOT_TEMP_BAN_APPLIED
+				ban_party_scripted_call = yes
 			}
+			set_temp_variable = { election_year_param = global.year }
+			set_temp_variable = { election_month_param = global.month }
+			set_temp_variable = { election_freq = 18 }
+			set_elections_with_frequency = yes
 				if = {
 					limit = { has_country_flag = MAD_HVM_FORMATION_PENDING }
 					country_event = { id = mad_political.97 days = 1 }
@@ -15249,6 +15251,8 @@ available = {
 				tooltip = MAD_TGV_IN_POWER_tt
 				MAD_TGV_IN_POWER = yes
 			}
+			# The transitional ballot must take place before TGV can suspend elections.
+			NOT = { has_country_flag = MAD_TGV_RETURN_BALLOT_ELECTION_PENDING }
 			NOT = { has_country_flag = MAD_ARMY_COMMAND_GENERAL_STAFF }
 		}
 

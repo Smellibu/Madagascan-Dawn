@@ -2098,6 +2098,26 @@ country_event = {
 		hidden_effect = {
 			clear_variable = campaign_funding_count
 			hold_elections = yes
+			# Resolve Madagascar's one-off transitional ballot after its results have
+			# been calculated, so TGV is excluded only from this election.
+			if = {
+				limit = {
+					tag = MAD
+					has_country_flag = MAD_TGV_RETURN_BALLOT_ELECTION_PENDING
+				}
+				if = {
+					limit = { has_country_flag = MAD_TGV_RETURN_BALLOT_TEMP_BAN_APPLIED }
+					set_temp_variable = { party_index = 20 }
+					unban_party_scripted_call = yes
+					clr_country_flag = MAD_TGV_RETURN_BALLOT_TEMP_BAN_APPLIED
+				}
+				clr_country_flag = MAD_TGV_RETURN_BALLOT_ELECTION_PENDING
+				# Restore Madagascar's ordinary five-year election cycle.
+				set_temp_variable = { election_year_param = global.year }
+				set_temp_variable = { election_month_param = global.month }
+				set_temp_variable = { election_freq = 60 }
+				set_elections_with_frequency = yes
+			}
 			#any single party is over election threshold - set them to rule immediately
 			if = {
 				limit = {
