@@ -29,3 +29,4 @@ Copyright notes are not licences. Non-CC photographs require permission before p
 | Mamy_Solofoniaina_Ranaivoniarivo | [PixEye](https://commons.wikimedia.org/wiki/File:Mamy_Ranaivoniarivo.jpg) | CC BY-SA 3.0 |
 | Hyppolite_Rarison_Ramaroson | [Madagascar Tribune (photographer not identified)](https://madagascar-tribune.com/Le-vice-amiral-Hyppolite-Ramaroson,13613.html) | Copyright / permission not established |
 | Andre_Lucien_Rakotoarimasy | [C.E.D.S Madagascar](https://ceds-madagascar.com/promotions/2-rakoto-ratsimamanga/) | Copyright / permission not established |
+| Albert_Zafy | [Yvannoé / Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Albert_Zafy_2013-06-07.jpg) | CC BY-SA 3.0; cropped, resized and converted to DDS DXT1 |
