@@ -14101,6 +14101,109 @@ available = {
 	}
 
 	focus = {
+		id = MAD_POL_TGV_MAPUTO_UNITY_GOVERNMENT
+		icon = political_reform
+		x = 1
+		y = 1
+		relative_position_id = MAD_POL_TGV_MAPUTO_CHARTER
+		cost = 3
+		prerequisite = { focus = MAD_POL_TGV_MAPUTO_CHARTER }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		visible = {
+			has_country_flag = MAD_TGV_MAPUTO_IMPLEMENTED
+		}
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_TGV_IN_POWER_tt
+				MAD_TGV_IN_POWER = yes
+			}
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_TGV_MAPUTO_UNITY_GOVERNMENT"
+			add_political_power = 25
+			add_stability = 0.03
+			decrease_centralization = yes
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_POL_TGV_MAPUTO_LEGISLATURE
+		icon = Focus_Parliament_Constitution
+		x = 5
+		y = 1
+		relative_position_id = MAD_POL_TGV_MAPUTO_CHARTER
+		cost = 3
+		prerequisite = { focus = MAD_POL_TGV_MAPUTO_CHARTER }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		visible = {
+			has_country_flag = MAD_TGV_MAPUTO_IMPLEMENTED
+		}
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_TGV_IN_POWER_tt
+				MAD_TGV_IN_POWER = yes
+			}
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_TGV_MAPUTO_LEGISLATURE"
+			add_political_power = 25
+			add_stability = 0.02
+			decrease_centralization = yes
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_POL_TGV_FORMALISE_MAPUTO_STRUCTURE
+		icon = Focus_Parliament_Constitution
+		x = 3
+		y = 2
+		relative_position_id = MAD_POL_TGV_MAPUTO_CHARTER
+		cost = 3
+		prerequisite = { focus = MAD_POL_TGV_MAPUTO_CHARTER }
+		prerequisite = { focus = MAD_POL_TGV_MAPUTO_UNITY_GOVERNMENT }
+		prerequisite = { focus = MAD_POL_TGV_MAPUTO_LEGISLATURE }
+		prerequisite = { focus = MAD_POL_TGV_ENFORCE_CRDSN }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		visible = {
+			has_country_flag = MAD_TGV_MAPUTO_IMPLEMENTED
+		}
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_TGV_IN_POWER_tt
+				MAD_TGV_IN_POWER = yes
+			}
+			custom_trigger_tooltip = {
+				tooltip = MAD_TGV_MAPUTO_CRDSN_REVIVED_tt
+				has_country_flag = MAD_MIL_CRDSN_REVIVED
+			}
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_TGV_FORMALISE_MAPUTO_STRUCTURE"
+			add_political_power = 50
+			add_stability = 0.05
+			if = {
+				limit = { has_idea = MAD_2009_INTERNATIONAL_ISOLATION }
+				remove_ideas = MAD_2009_INTERNATIONAL_ISOLATION
+			}
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
 		id = MAD_POL_TGV_FOURTH_REPUBLIC
 		icon = Focus_Parliament_Constitution
 		x = 0
