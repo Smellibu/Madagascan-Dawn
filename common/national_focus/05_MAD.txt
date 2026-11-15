@@ -11754,16 +11754,20 @@ focus_tree = {
 	focus = {
 		id = MAD_POL_AREMA_PUBLIC_SECURITY
 		icon = generic_government
-		x = 1
+		x = 0
 		y = 1
-		relative_position_id = MAD_POL_AREMA_FOKONOLONA
+		relative_position_id = MAD_POL_AREMA_REVOLUTIONARY_LEGACY
 		cost = 3
-		prerequisite = { focus = MAD_POL_AREMA_FOKONOLONA }
+		prerequisite = { focus = MAD_POL_AREMA_REVOLUTIONARY_LEGACY }
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_AREMA_IN_POWER_tt
 				MAD_AREMA_IN_POWER = yes
+			}
+			custom_trigger_tooltip = {
+				tooltip = MAD_AREMA_OLD_GUARD_PATH_tt
+				has_completed_focus = MAD_POL_AREMA_OLD_GUARD_ADAPT
 			}
 		}
 
@@ -11781,9 +11785,9 @@ focus_tree = {
 	focus = {
 		id = MAD_POL_AREMA_RULE_OF_LAW
 		icon = focus_generic_improve_the_administration
-		x = 7
-		y = 6
-		relative_position_id = MAD_POL_AREMA_REVOLUTION_ADAPTS
+		x = 0
+		y = 1
+		relative_position_id = MAD_POL_AREMA_PUBLIC_SECURITY
 		cost = 3
 		prerequisite = { focus = MAD_POL_AREMA_PUBLIC_SECURITY }
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
@@ -11791,6 +11795,10 @@ focus_tree = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_AREMA_IN_POWER_tt
 				MAD_AREMA_IN_POWER = yes
+			}
+			custom_trigger_tooltip = {
+				tooltip = MAD_AREMA_OLD_GUARD_PATH_tt
+				has_completed_focus = MAD_POL_AREMA_OLD_GUARD_ADAPT
 			}
 		}
 
