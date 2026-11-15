@@ -11754,11 +11754,11 @@ focus_tree = {
 	focus = {
 		id = MAD_POL_AREMA_PUBLIC_SECURITY
 		icon = generic_government
-		x = 7
-		y = 4
-		relative_position_id = MAD_POL_AREMA_REVOLUTION_ADAPTS
+		x = 1
+		y = 1
+		relative_position_id = MAD_POL_AREMA_FOKONOLONA
 		cost = 3
-		prerequisite = { focus = MAD_POL_AREMA_LAND_TENURE_REFORM }
+		prerequisite = { focus = MAD_POL_AREMA_FOKONOLONA }
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
 		available = {
 			custom_trigger_tooltip = {
@@ -12412,11 +12412,11 @@ focus_tree = {
 	focus = {
 		id = MAD_POL_AREMA_LAND_TENURE_REFORM
 		icon = focus_generic_land_reform
-		x = 1
+		x = 0
 		y = 1
-		relative_position_id = MAD_POL_AREMA_FOKONOLONA
+		relative_position_id = MAD_POL_AREMA_THIRD_CHAMBER
 		cost = 3
-		prerequisite = { focus = MAD_POL_AREMA_FOKONOLONA }
+		prerequisite = { focus = MAD_POL_AREMA_THIRD_CHAMBER }
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ECONOMY }
 		available = {
 			custom_trigger_tooltip = {
@@ -12447,10 +12447,10 @@ focus_tree = {
 		id = MAD_POL_AREMA_PANGALANES_DEVELOPMENT
 		icon = infrastructure
 		x = 0
-		y = 2
-		relative_position_id = MAD_POL_AREMA_FOKONOLONA
+		y = 1
+		relative_position_id = MAD_POL_AREMA_REVIVE_REGIONAL_ENTERPRISES
 		cost = 3
-		prerequisite = { focus = MAD_POL_AREMA_FOKONOLONA }
+		prerequisite = { focus = MAD_POL_AREMA_REVIVE_REGIONAL_ENTERPRISES }
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ECONOMY }
 		available = {
 			custom_trigger_tooltip = {
