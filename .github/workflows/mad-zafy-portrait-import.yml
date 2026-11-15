@@ -1,0 +1,96 @@
+name: Import Albert Zafy portrait
+
+on:
+  push:
+    branches:
+      - codex/mad-military-policy-history-2026-11-12
+    paths:
+      - .github/workflows/mad-zafy-portrait-import.yml
+
+permissions:
+  contents: write
+
+jobs:
+  import-zafy-portrait:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out only the required MAD files
+        uses: actions/checkout@v4
+        with:
+          ref: codex/mad-military-policy-history-2026-11-12
+          persist-credentials: true
+          sparse-checkout: |
+            common/scripted_effects/MAD_political_leaders.txt
+            gfx/leaders/MAD/portrait_sources.md
+          sparse-checkout-cone-mode: false
+
+      - name: Install DDS conversion tool
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y imagemagick
+
+      - name: Download and verify the freely licensed Commons original
+        run: |
+          set -euo pipefail
+          curl --fail --location --retry 4 --retry-delay 2 \
+            --user-agent "Madagascan-Dawn portrait importer (CC BY-SA 3.0)" \
+            "https://upload.wikimedia.org/wikipedia/commons/d/da/Albert_Zafy_2013-06-07.jpg" \
+            --output /tmp/Albert_Zafy_2013-06-07.jpg
+          echo "87624ed3775744e8cf3e0eeb0408283d7b68cce4  /tmp/Albert_Zafy_2013-06-07.jpg" | sha1sum --check
+          identify /tmp/Albert_Zafy_2013-06-07.jpg
+
+      - name: Create the game-ready portrait assets and wire Zafy's party-leader portrait
+        run: |
+          set -euo pipefail
+          mkdir -p gfx/leaders/MAD/small
+          # Source is 1150x1400. A centered 1040x1400 crop matches the mod's 156:210 portrait ratio.
+          convert /tmp/Albert_Zafy_2013-06-07.jpg \
+            -auto-orient -gravity center -crop 1040x1400+0+0 +repage \
+            -resize 156x210\! -strip -colorspace sRGB -type TrueColor \
+            -define dds:compression=dxt1 gfx/leaders/MAD/Albert_Zafy.dds
+          convert /tmp/Albert_Zafy_2013-06-07.jpg \
+            -auto-orient -gravity center -crop 1040x1400+0+0 +repage \
+            -resize 38x51\! -strip -colorspace sRGB -type TrueColor \
+            -define dds:compression=dxt1 gfx/leaders/MAD/small/Albert_Zafy_small.dds
+          identify gfx/leaders/MAD/Albert_Zafy.dds gfx/leaders/MAD/small/Albert_Zafy_small.dds
+
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+
+          leader_file = Path("common/scripted_effects/MAD_political_leaders.txt")
+          text = leader_file.read_text(encoding="utf-8")
+          marker = '\t\t\t\tname = "Albert Zafy"\n'
+          if text.count(marker) != 1:
+              raise SystemExit(f"Expected exactly one Albert Zafy leader definition; found {text.count(marker)}")
+          start = text.index(marker)
+          block_end = text.find("\n\t\t\t}", start)
+          if block_end < 0:
+              raise SystemExit("Could not locate the end of Albert Zafy's create_country_leader block")
+          block = text[start:block_end]
+          if re.search(r'(?m)^\s*picture\s*=', block):
+              raise SystemExit("Albert Zafy already has a picture assignment; refusing to duplicate it")
+          text = text.replace(marker, marker + '\t\t\t\tpicture = "Albert_Zafy.dds"\n', 1)
+          leader_file.write_text(text, encoding="utf-8")
+
+          sources_file = Path("gfx/leaders/MAD/portrait_sources.md")
+          sources = sources_file.read_text(encoding="utf-8")
+          row = "| Albert_Zafy | [Yvannoé / Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Albert_Zafy_2013-06-07.jpg) | CC BY-SA 3.0; cropped, resized and converted to DDS DXT1 |"
+          if "| Albert_Zafy |" not in sources:
+              sources = sources.rstrip() + "\n" + row + "\n"
+              sources_file.write_text(sources, encoding="utf-8")
+          PY
+
+      - name: Verify generated files and commit the completed portrait
+        run: |
+          set -euo pipefail
+          test -s gfx/leaders/MAD/Albert_Zafy.dds
+          test -s gfx/leaders/MAD/small/Albert_Zafy_small.dds
+          grep -F 'picture = "Albert_Zafy.dds"' common/scripted_effects/MAD_political_leaders.txt
+          grep -F '| Albert_Zafy |' gfx/leaders/MAD/portrait_sources.md
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add common/scripted_effects/MAD_political_leaders.txt gfx/leaders/MAD/portrait_sources.md gfx/leaders/MAD/Albert_Zafy.dds gfx/leaders/MAD/small/Albert_Zafy_small.dds
+          git rm .github/workflows/mad-zafy-portrait-import.yml
+          git commit -m "Add Albert Zafy portrait"
+          git push origin HEAD:codex/mad-military-policy-history-2026-11-12
