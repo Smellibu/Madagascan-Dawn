@@ -36,7 +36,37 @@ jobs:
             --user-agent "Madagascan-Dawn portrait importer (CC BY-SA 3.0)" \
             "https://upload.wikimedia.org/wikipedia/commons/d/da/Albert_Zafy_2013-06-07.jpg" \
             --output /tmp/Albert_Zafy_2013-06-07.jpg
-          echo "87624ed3775744e8cf3e0eeb0408283d7b68cce4  /tmp/Albert_Zafy_2013-06-07.jpg" | sha1sum --check
+          python3 - <<'PY'
+          import hashlib, json, urllib.request
+          from pathlib import Path
+
+          image = Path("/tmp/Albert_Zafy_2013-06-07.jpg").read_bytes()
+          actual_hex = hashlib.sha1(image).hexdigest()
+          api = ("https://commons.wikimedia.org/w/api.php?action=query&format=json"
+                 "&prop=imageinfo&iiprop=sha1&titles=File%3AAlbert_Zafy_2013-06-07.jpg")
+          request = urllib.request.Request(api, headers={"User-Agent": "Madagascan-Dawn portrait importer"})
+          with urllib.request.urlopen(request, timeout=30) as response:
+              payload = json.load(response)
+          page = next(iter(payload["query"]["pages"].values()))
+          expected = page["imageinfo"][0]["sha1"].lower()
+
+          alphabet = "0123456789abcdefghijklmnopqrstuvwxyz"
+          def base36(value):
+              if value == 0:
+                  return "0"
+              digits = []
+              while value:
+                  value, remainder = divmod(value, 36)
+                  digits.append(alphabet[remainder])
+              return "".join(reversed(digits))
+
+          actual_base36 = base36(int(actual_hex, 16))
+          print("Downloaded JPEG SHA-1 (hex):", actual_hex)
+          print("Commons API SHA-1:", expected)
+          if expected not in (actual_hex, actual_base36):
+              raise SystemExit("Downloaded JPEG does not match the live Commons file record")
+          print("Commons file integrity verified.")
+          PY
           identify /tmp/Albert_Zafy_2013-06-07.jpg
 
       - name: Create the game-ready portrait assets and wire Zafy's party-leader portrait
