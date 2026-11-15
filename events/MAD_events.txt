@@ -9166,7 +9166,7 @@ country_event = {
 	trigger = { has_country_flag = MAD_TGV_MAPUTO_SETTLEMENT_PENDING }
 	immediate = { clr_country_flag = MAD_TGV_MAPUTO_SETTLEMENT_PENDING }
 
-	# The inclusive settlement gives the three other signatory movements a political base.
+	# The inclusive settlement gives all four signatory movements a political base.
 	option = {
 		name = MAD_military_refoundation.21.a
 		ai_chance = { factor = 10 }
@@ -9179,6 +9179,12 @@ country_event = {
 		add_stability = 0.03
 		decrease_centralization = yes
 
+		# Represent all four signatory movements: TGV, TIM, AREMA and UNDD.
+		set_temp_variable = { party_index = 20 }
+		set_temp_variable = { party_popularity_increase = 0.05 }
+		set_temp_variable = { temp_outlook_increase = 0.05 }
+		change_relative_party_popularity = yes
+
 		set_temp_variable = { party_index = 2 }
 		set_temp_variable = { party_popularity_increase = 0.05 }
 		set_temp_variable = { temp_outlook_increase = 0.05 }
@@ -9189,6 +9195,10 @@ country_event = {
 		set_temp_variable = { temp_outlook_increase = 0.05 }
 		change_relative_party_popularity = yes
 
+		set_temp_variable = { party_index = 17 }
+		set_temp_variable = { party_popularity_increase = 0.05 }
+		set_temp_variable = { temp_outlook_increase = 0.05 }
+		change_relative_party_popularity = yes
 
 		recalculate_party = yes
 	}
