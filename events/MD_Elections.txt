@@ -2098,19 +2098,18 @@ country_event = {
 		hidden_effect = {
 			clear_variable = campaign_funding_count
 			hold_elections = yes
-			# Resolve Madagascar's one-off transitional ballot after its results have
-			# been calculated, so TGV is excluded only from this election.
+			# Exclude TGV from this one ballot in the election-results snapshot only.
+			# The underlying popularity and party-ban array remain untouched, so TGV
+			# returns normally at the next election unless the player has banned it.
 			if = {
 				limit = {
 					tag = MAD
 					has_country_flag = MAD_TGV_RETURN_BALLOT_ELECTION_PENDING
 				}
-				if = {
-					limit = { has_country_flag = MAD_TGV_RETURN_BALLOT_TEMP_BAN_APPLIED }
-					set_temp_variable = { party_index = 20 }
-					unban_party_scripted_call = yes
-					clr_country_flag = MAD_TGV_RETURN_BALLOT_TEMP_BAN_APPLIED
-				}
+				set_variable = { party_pop_elect_array^20 = 0 }
+				update_majority_threshold = yes
+				find_two_highest_parties = yes
+				update_government_coalition_strength = yes
 				clr_country_flag = MAD_TGV_RETURN_BALLOT_ELECTION_PENDING
 				# Restore Madagascar's ordinary five-year election cycle.
 				set_temp_variable = { election_year_param = global.year }

@@ -14423,14 +14423,8 @@ available = {
 						recalculate_party = yes
 			
 			# Schedule one transitional election 18 months from the current date.
-			# TGV is excluded from this ballot only; preserve any pre-existing player ban.
+			# TGV is excluded from this ballot's results without changing its party-ban state.
 			set_country_flag = MAD_TGV_RETURN_BALLOT_ELECTION_PENDING
-			set_temp_variable = { party_index = 20 }
-			if = {
-				limit = { NOT = { is_party_banned_trigger = yes } }
-				set_country_flag = MAD_TGV_RETURN_BALLOT_TEMP_BAN_APPLIED
-				ban_party_scripted_call = yes
-			}
 			set_temp_variable = { election_year_param = global.year }
 			set_temp_variable = { election_month_param = global.month }
 			set_temp_variable = { election_freq = 18 }
