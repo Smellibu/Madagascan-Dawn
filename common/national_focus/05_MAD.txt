@@ -11569,25 +11569,30 @@ focus_tree = {
 		relative_position_id = MAD_POL_AREMA_REBUILD
 		cost = 3
 		prerequisite = { focus = MAD_POL_AREMA_REBUILD }
-		mutually_exclusive = { focus = MAD_POL_AREMA_CHOOSE_RENEWAL }
-		mutually_exclusive = { focus = MAD_POL_AREMA_CHOOSE_RECONCILIATION }
 		search_filters = { FOCUS_FILTER_POLITICAL }
-		available = {
+available = {
+			custom_trigger_tooltip = { tooltip = MAD_AREMA_IN_POWER_tt MAD_AREMA_IN_POWER = yes }
+			NOT = { has_country_flag = MAD_RATSIRAKA_EXILED }
 			custom_trigger_tooltip = {
-				tooltip = MAD_AREMA_IN_POWER_tt
-				MAD_AREMA_IN_POWER = yes
+				tooltip = MAD_AREMA_LEADERSHIP_FOCUS_COOLDOWN_tt
+				NOT = { has_country_flag = MAD_AREMA_LEADERSHIP_FOCUS_COOLDOWN }
 			}
-			
-			has_country_leader = {
-				name = "Didier Ratsiraka"
-				ruling_only = yes
-			}
-			
 			date > 2002.3.1
-			NOT = { has_country_flag = MAD_AREMA_OLD_GUARD_LOCKED }
 		}
 
 		completion_reward = {
+			hidden_effect = { kill_country_leader = yes }
+			create_country_leader = {
+				name = "Didier Ratsiraka"
+				picture = "Didier_Ratsiraka.dds"
+				expire = "2050.1.1"
+				ideology = anarchist_communism
+				traits = { emerging_anarchist_communism career_politician military_career former_foreign_minister }
+			}
+			set_country_flag = MAD_AREMA_LEADER_RATSIRAKA
+			clr_country_flag = MAD_AREMA_LEADER_RAJAONARIVELO
+			clr_country_flag = MAD_AREMA_LEADER_RAHARIJAONA
+			set_country_flag = { flag = MAD_AREMA_LEADERSHIP_FOCUS_COOLDOWN value = 1 days = 365 }
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_AREMA_CHOOSE_OLD_GUARD"
 			swap_ideas = { remove_idea = MAD_AREMA_REBUILDING add_idea = MAD_AREMA_OLD_GUARD }
 			set_temp_variable = { party_index = 5 }
@@ -11610,32 +11615,24 @@ focus_tree = {
 		relative_position_id = MAD_POL_AREMA_REBUILD
 		cost = 3
 		prerequisite = { focus = MAD_POL_AREMA_REBUILD }
-		mutually_exclusive = { focus = MAD_POL_AREMA_CHOOSE_OLD_GUARD }
-		mutually_exclusive = { focus = MAD_POL_AREMA_CHOOSE_RECONCILIATION }
 		search_filters = { FOCUS_FILTER_POLITICAL }
-		available = {
+available = {
+			custom_trigger_tooltip = { tooltip = MAD_AREMA_IN_POWER_tt MAD_AREMA_IN_POWER = yes }
 			custom_trigger_tooltip = {
-				tooltip = MAD_AREMA_IN_POWER_tt
-				MAD_AREMA_IN_POWER = yes
+				tooltip = MAD_AREMA_LEADERSHIP_FOCUS_COOLDOWN_tt
+				NOT = { has_country_flag = MAD_AREMA_LEADERSHIP_FOCUS_COOLDOWN }
 			}
 			date > 2002.3.1
 		}
 
 		completion_reward = {
+			set_country_flag = MAD_AREMA_LEADER_RAJAONARIVELO
+			clr_country_flag = MAD_AREMA_LEADER_RATSIRAKA
+			clr_country_flag = MAD_AREMA_LEADER_RAHARIJAONA
+			set_country_flag = { flag = MAD_AREMA_LEADERSHIP_FOCUS_COOLDOWN value = 1 days = 365 }
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_AREMA_CHOOSE_RENEWAL"
 			
-			hidden_effect = {
-				kill_country_leader = yes
-				set_country_flag = MAD_RATSIRAKA_SUCCESSOR_SELECTED
-			
-				clr_country_flag = MAD_RATSIRAKA_FIRST_LOSS_PENDING
-				clr_country_flag = MAD_RATSIRAKA_EVENT_QUEUED
-				clr_country_flag = MAD_RATSIRAKA_EXILE_EVENT_PENDING
-				clr_country_flag = MAD_VIVA_INTERVIEW_PENDING
-				clr_country_flag = MAD_RATSIRAKA_COALITION_TRACKING
-				clr_country_flag = MAD_RATSIRAKA_COALITION_TIMED_OUT
-				set_variable = { MAD_RATSIRAKA_FORMATION_STABLE_DAYS = 0 }
-			}
+hidden_effect = { kill_country_leader = yes }
 			create_country_leader = {
 				name = "Pierrot Rajaonarivelo"
 				picture = "Pierrot_Rajaonarivelo.dds"
@@ -11667,33 +11664,24 @@ focus_tree = {
 		relative_position_id = MAD_POL_AREMA_REBUILD
 		cost = 3
 		prerequisite = { focus = MAD_POL_AREMA_REBUILD }
-		mutually_exclusive = { focus = MAD_POL_AREMA_CHOOSE_OLD_GUARD }
-		mutually_exclusive = { focus = MAD_POL_AREMA_CHOOSE_RENEWAL }
 		search_filters = { FOCUS_FILTER_POLITICAL }
-		available = {
+available = {
+			custom_trigger_tooltip = { tooltip = MAD_TIM_IN_POWER_tt MAD_TIM_IN_POWER = yes }
+			has_country_leader = { name = "Marc Ravalomanana" ruling_only = yes }
 			custom_trigger_tooltip = {
-				tooltip = MAD_TIM_IN_POWER_tt
-				MAD_TIM_IN_POWER = yes
+				tooltip = MAD_AREMA_LEADERSHIP_FOCUS_COOLDOWN_tt
+				NOT = { has_country_flag = MAD_AREMA_LEADERSHIP_FOCUS_COOLDOWN }
 			}
-			
 			date > 2002.3.1
 		}
 
 		completion_reward = {
+			set_country_flag = MAD_AREMA_LEADER_RAHARIJAONA
+			clr_country_flag = MAD_AREMA_LEADER_RATSIRAKA
+			clr_country_flag = MAD_AREMA_LEADER_RAJAONARIVELO
+			set_country_flag = { flag = MAD_AREMA_LEADERSHIP_FOCUS_COOLDOWN value = 1 days = 365 }
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_AREMA_CHOOSE_RECONCILIATION"
 			
-			hidden_effect = {
-				kill_country_leader = yes
-				set_country_flag = MAD_RATSIRAKA_SUCCESSOR_SELECTED
-			
-				clr_country_flag = MAD_RATSIRAKA_FIRST_LOSS_PENDING
-				clr_country_flag = MAD_RATSIRAKA_EVENT_QUEUED
-				clr_country_flag = MAD_RATSIRAKA_EXILE_EVENT_PENDING
-				clr_country_flag = MAD_VIVA_INTERVIEW_PENDING
-				clr_country_flag = MAD_RATSIRAKA_COALITION_TRACKING
-				clr_country_flag = MAD_RATSIRAKA_COALITION_TIMED_OUT
-				set_variable = { MAD_RATSIRAKA_FORMATION_STABLE_DAYS = 0 }
-			}
 			create_country_leader = {
 				name = "Pierre Raharijaona"
 				picture = "Pierre_Raharijaona.dds"
@@ -11713,8 +11701,6 @@ focus_tree = {
 			set_temp_variable = { party_popularity_increase = 0.02 }
 			change_relative_party_popularity = yes
 			recalculate_party = yes
-			set_temp_variable = { add_col_one = 5 }
-			add_coalition_members_effect = yes
 		}
 
 		ai_will_do = {
@@ -11729,25 +11715,25 @@ focus_tree = {
 		y = 4
 		relative_position_id = MAD_POL_AREMA_REBUILD
 		cost = 3
-		prerequisite = { focus = MAD_POL_AREMA_CHOOSE_OLD_GUARD focus = MAD_POL_AREMA_CHOOSE_RENEWAL focus = MAD_POL_AREMA_CHOOSE_RECONCILIATION }
+prerequisite = {
+			OR = {
+				focus = MAD_POL_AREMA_CHOOSE_OLD_GUARD
+				focus = MAD_POL_AREMA_CHOOSE_RENEWAL
+				focus = MAD_POL_AREMA_CHOOSE_RECONCILIATION
+			}
+		}
 		search_filters = { FOCUS_FILTER_POLITICAL }
-		available = {
+available = {
 			OR = {
 				AND = {
-					has_completed_focus = MAD_POL_AREMA_CHOOSE_RECONCILIATION
-					custom_trigger_tooltip = {
-						tooltip = MAD_TIM_IN_POWER_tt
-						MAD_TIM_IN_POWER = yes
-					}
+					custom_trigger_tooltip = { tooltip = MAD_TIM_IN_POWER_tt MAD_TIM_IN_POWER = yes }
+					has_country_flag = MAD_AREMA_LEADER_RAHARIJAONA
 				}
 				AND = {
+					custom_trigger_tooltip = { tooltip = MAD_AREMA_IN_POWER_tt MAD_AREMA_IN_POWER = yes }
 					OR = {
-						has_completed_focus = MAD_POL_AREMA_CHOOSE_OLD_GUARD
-						has_completed_focus = MAD_POL_AREMA_CHOOSE_RENEWAL
-					}
-					custom_trigger_tooltip = {
-						tooltip = MAD_AREMA_IN_POWER_tt
-						MAD_AREMA_IN_POWER = yes
+						has_country_flag = MAD_AREMA_LEADER_RATSIRAKA
+						has_country_flag = MAD_AREMA_LEADER_RAJAONARIVELO
 					}
 				}
 			}
@@ -11758,7 +11744,7 @@ focus_tree = {
 			add_ideas = MAD_POL_AREMA_PROGRAMME
 			if = {
 				limit = {
-					NOT = { has_completed_focus = MAD_POL_AREMA_CHOOSE_RECONCILIATION }
+					NOT = { has_country_flag = MAD_AREMA_LEADER_RAHARIJAONA }
 				}
 				set_temp_variable = { party_index = 5 }
 				set_temp_variable = { party_popularity_increase = 0.04 }
@@ -11789,7 +11775,7 @@ focus_tree = {
 			}
 			custom_trigger_tooltip = {
 				tooltip = MAD_AREMA_OLD_GUARD_PATH_tt
-				has_completed_focus = MAD_POL_AREMA_OLD_GUARD_ADAPT
+				has_country_flag = MAD_AREMA_LEADER_RATSIRAKA
 			}
 		}
 
@@ -11820,7 +11806,7 @@ focus_tree = {
 			}
 			custom_trigger_tooltip = {
 				tooltip = MAD_AREMA_OLD_GUARD_PATH_tt
-				has_completed_focus = MAD_POL_AREMA_OLD_GUARD_ADAPT
+				has_country_flag = MAD_AREMA_LEADER_RATSIRAKA
 			}
 		}
 
@@ -11851,7 +11837,7 @@ focus_tree = {
 			}
 			custom_trigger_tooltip = {
 				tooltip = MAD_AREMA_RENEWAL_PATH_tt
-				has_completed_focus = MAD_POL_AREMA_CHOOSE_RENEWAL
+				has_country_flag = MAD_AREMA_LEADER_RAJAONARIVELO
 			}
 		}
 
@@ -11879,7 +11865,7 @@ focus_tree = {
 			custom_trigger_tooltip = { tooltip = MAD_AREMA_IN_POWER_tt MAD_AREMA_IN_POWER = yes }
 			custom_trigger_tooltip = {
 				tooltip = MAD_AREMA_OLD_GUARD_PATH_tt
-				has_completed_focus = MAD_POL_AREMA_CHOOSE_OLD_GUARD
+				has_country_flag = MAD_AREMA_LEADER_RATSIRAKA
 			}
 		}
 
@@ -11917,8 +11903,9 @@ focus_tree = {
 		cost = 3
 		prerequisite = { focus = MAD_POL_AREMA_REVOLUTIONARY_ORGANISATION }
 		search_filters = { FOCUS_FILTER_POLITICAL }
-		available = {
+available = {
 			custom_trigger_tooltip = { tooltip = MAD_AREMA_IN_POWER_tt MAD_AREMA_IN_POWER = yes }
+			custom_trigger_tooltip = { tooltip = MAD_AREMA_OLD_GUARD_PATH_tt has_country_flag = MAD_AREMA_LEADER_RATSIRAKA }
 		}
 
 		completion_reward = {
@@ -11944,7 +11931,7 @@ focus_tree = {
 			custom_trigger_tooltip = { tooltip = MAD_AREMA_IN_POWER_tt MAD_AREMA_IN_POWER = yes }
 			custom_trigger_tooltip = {
 				tooltip = MAD_AREMA_RENEWAL_PATH_tt
-				has_completed_focus = MAD_POL_AREMA_CHOOSE_RENEWAL
+				has_country_flag = MAD_AREMA_LEADER_RAJAONARIVELO
 			}
 		}
 
@@ -11986,7 +11973,7 @@ focus_tree = {
 			}
 			custom_trigger_tooltip = {
 				tooltip = MAD_AREMA_RENEWAL_PATH_tt
-				has_completed_focus = MAD_POL_AREMA_CHOOSE_RENEWAL
+				has_country_flag = MAD_AREMA_LEADER_RAJAONARIVELO
 			}
 		}
 
@@ -12017,7 +12004,7 @@ focus_tree = {
 			}
 			custom_trigger_tooltip = {
 				tooltip = MAD_AREMA_RENEWAL_PATH_tt
-				has_completed_focus = MAD_POL_AREMA_CHOOSE_RENEWAL
+				has_country_flag = MAD_AREMA_LEADER_RAJAONARIVELO
 			}
 		}
 
@@ -12045,7 +12032,7 @@ focus_tree = {
 			custom_trigger_tooltip = { tooltip = MAD_AREMA_IN_POWER_tt MAD_AREMA_IN_POWER = yes }
 			custom_trigger_tooltip = {
 				tooltip = MAD_AREMA_RENEWAL_PATH_tt
-				has_completed_focus = MAD_POL_AREMA_CHOOSE_RENEWAL
+				has_country_flag = MAD_AREMA_LEADER_RAJAONARIVELO
 			}
 		}
 
@@ -12072,7 +12059,7 @@ focus_tree = {
 			custom_trigger_tooltip = { tooltip = MAD_TIM_IN_POWER_tt MAD_TIM_IN_POWER = yes }
 			custom_trigger_tooltip = {
 				tooltip = MAD_AREMA_RECONCILIATION_PATH_tt
-				has_completed_focus = MAD_POL_AREMA_CHOOSE_RECONCILIATION
+				has_country_flag = MAD_AREMA_LEADER_RAHARIJAONA
 			}
 		}
 
@@ -12116,7 +12103,7 @@ focus_tree = {
 			custom_trigger_tooltip = { tooltip = MAD_TIM_IN_POWER_tt MAD_TIM_IN_POWER = yes }
 			custom_trigger_tooltip = {
 				tooltip = MAD_AREMA_RECONCILIATION_PATH_tt
-				has_completed_focus = MAD_POL_AREMA_CHOOSE_RECONCILIATION
+				has_country_flag = MAD_AREMA_LEADER_RAHARIJAONA
 			}
 		}
 
@@ -12147,7 +12134,7 @@ focus_tree = {
 			
 			custom_trigger_tooltip = {
 				tooltip = MAD_AREMA_OLD_GUARD_PATH_tt
-				has_completed_focus = MAD_POL_AREMA_OLD_GUARD_ADAPT
+				has_country_flag = MAD_AREMA_LEADER_RATSIRAKA
 			}
 		}
 
@@ -12196,7 +12183,7 @@ focus_tree = {
 			}
 			custom_trigger_tooltip = {
 				tooltip = MAD_AREMA_RENEWAL_PATH_tt
-				has_completed_focus = MAD_POL_AREMA_CHOOSE_RENEWAL
+				has_country_flag = MAD_AREMA_LEADER_RAJAONARIVELO
 			}
 		}
 
@@ -12230,7 +12217,7 @@ focus_tree = {
 			}
 			custom_trigger_tooltip = {
 				tooltip = MAD_AREMA_OLD_GUARD_PATH_tt
-				has_completed_focus = MAD_POL_AREMA_CHOOSE_OLD_GUARD
+				has_country_flag = MAD_AREMA_LEADER_RATSIRAKA
 			}
 		}
 
@@ -12274,7 +12261,7 @@ focus_tree = {
 			}
 			custom_trigger_tooltip = {
 				tooltip = MAD_AREMA_OLD_GUARD_PATH_tt
-				has_completed_focus = MAD_POL_AREMA_CHOOSE_OLD_GUARD
+				has_country_flag = MAD_AREMA_LEADER_RATSIRAKA
 			}
 			OR = { has_completed_focus = MAD_JIRAMA_STAY_PUBLIC has_completed_focus = MAD_STATE_FUEL_IMPORTS has_completed_focus = MAD_MADARAIL_STATE_TAKEOVER has_completed_focus = MAD_TELMA_RENATIONALIZE }
 		}
@@ -12324,7 +12311,7 @@ focus_tree = {
 			}
 			custom_trigger_tooltip = {
 				tooltip = MAD_AREMA_OLD_GUARD_PATH_tt
-				has_completed_focus = MAD_POL_AREMA_CHOOSE_OLD_GUARD
+				has_country_flag = MAD_AREMA_LEADER_RATSIRAKA
 			}
 			has_completed_focus = MAD_POL_AREMA_STATE_LEADS
 		}
@@ -12374,7 +12361,7 @@ focus_tree = {
 			}
 			custom_trigger_tooltip = {
 				tooltip = MAD_AREMA_RENEWAL_PATH_tt
-				has_completed_focus = MAD_POL_AREMA_CHOOSE_RENEWAL
+				has_country_flag = MAD_AREMA_LEADER_RAJAONARIVELO
 			}
 		}
 
@@ -12427,7 +12414,7 @@ focus_tree = {
 			}
 			custom_trigger_tooltip = {
 				tooltip = MAD_AREMA_OLD_GUARD_PATH_tt
-				has_completed_focus = MAD_POL_AREMA_CHOOSE_OLD_GUARD
+				has_country_flag = MAD_AREMA_LEADER_RATSIRAKA
 			}
 			has_completed_focus = MAD_Agricultural_reforms
 		}
@@ -12487,7 +12474,7 @@ focus_tree = {
 			}
 			custom_trigger_tooltip = {
 				tooltip = MAD_AREMA_RENEWAL_PATH_tt
-				has_completed_focus = MAD_POL_AREMA_CHOOSE_RENEWAL
+				has_country_flag = MAD_AREMA_LEADER_RAJAONARIVELO
 			}
 		}
 
@@ -12521,7 +12508,7 @@ focus_tree = {
 			}
 			custom_trigger_tooltip = {
 				tooltip = MAD_AREMA_RENEWAL_PATH_tt
-				has_completed_focus = MAD_POL_AREMA_CHOOSE_RENEWAL
+				has_country_flag = MAD_AREMA_LEADER_RAJAONARIVELO
 			}
 		}
 
@@ -12553,7 +12540,7 @@ focus_tree = {
 			}
 			custom_trigger_tooltip = {
 				tooltip = MAD_AREMA_OLD_GUARD_PATH_tt
-				has_completed_focus = MAD_POL_AREMA_CHOOSE_OLD_GUARD
+				has_country_flag = MAD_AREMA_LEADER_RATSIRAKA
 			}
 		}
 
@@ -12636,7 +12623,7 @@ focus_tree = {
 			}
 			custom_trigger_tooltip = {
 				tooltip = MAD_AREMA_OLD_GUARD_PATH_tt
-				has_completed_focus = MAD_POL_AREMA_CHOOSE_OLD_GUARD
+				has_country_flag = MAD_AREMA_LEADER_RATSIRAKA
 			}
 		}
 
@@ -12696,7 +12683,7 @@ focus_tree = {
 			
 			custom_trigger_tooltip = {
 				tooltip = MAD_AREMA_RENEWAL_PATH_tt
-				has_completed_focus = MAD_POL_AREMA_CHOOSE_RENEWAL
+				has_country_flag = MAD_AREMA_LEADER_RAJAONARIVELO
 			}
 		}
 
@@ -12740,8 +12727,8 @@ focus_tree = {
 				MAD_AREMA_IN_POWER = yes
 			}
 			OR = {
-				has_completed_focus = MAD_POL_AREMA_CHOOSE_OLD_GUARD
-				has_completed_focus = MAD_POL_AREMA_CHOOSE_RENEWAL
+				has_country_flag = MAD_AREMA_LEADER_RATSIRAKA
+				has_country_flag = MAD_AREMA_LEADER_RAJAONARIVELO
 			}
 			OR = { power_balance_value = { id = MAD_economy_ownership_bop value > -0.10 } has_completed_focus = MAD_FUEL_LIBERALIZATION has_completed_focus = MAD_JIRAMA_CORPORATIZE has_completed_focus = MAD_MADARAIL_INVESTORS_STAY has_completed_focus = MAD_ACCEPT_FOREIGN_OWNERSHIP }
 		}
@@ -12784,7 +12771,7 @@ focus_tree = {
 			}
 			custom_trigger_tooltip = {
 				tooltip = MAD_AREMA_RENEWAL_PATH_tt
-				has_completed_focus = MAD_POL_AREMA_CHOOSE_RENEWAL
+				has_country_flag = MAD_AREMA_LEADER_RAJAONARIVELO
 			}
 		}
 
@@ -12827,8 +12814,8 @@ focus_tree = {
 				MAD_AREMA_IN_POWER = yes
 			}
 			OR = {
-				has_completed_focus = MAD_POL_AREMA_CHOOSE_OLD_GUARD
-				has_completed_focus = MAD_POL_AREMA_CHOOSE_RENEWAL
+				has_country_flag = MAD_AREMA_LEADER_RATSIRAKA
+				has_country_flag = MAD_AREMA_LEADER_RAJAONARIVELO
 			}
 			has_completed_focus = MAD_NATURELLE
 		}
@@ -12893,13 +12880,13 @@ focus_tree = {
 			}
 			OR = {
 				AND = {
-					has_completed_focus = MAD_POL_AREMA_CHOOSE_OLD_GUARD
+					has_country_flag = MAD_AREMA_LEADER_RATSIRAKA
 					OR = {
 						has_completed_focus = MAD_POL_AREMA_STATE_BANKS
 						has_completed_focus = MAD_POL_AREMA_INDIAN_OCEAN
 					}
 				}
-				has_completed_focus = MAD_POL_AREMA_CHOOSE_RENEWAL
+				has_country_flag = MAD_AREMA_LEADER_RAJAONARIVELO
 			}
 		}
 
@@ -12940,13 +12927,13 @@ focus_tree = {
 			}
 			OR = {
 				AND = {
-					has_completed_focus = MAD_POL_AREMA_CHOOSE_OLD_GUARD
+					has_country_flag = MAD_AREMA_LEADER_RATSIRAKA
 					OR = {
 						has_completed_focus = MAD_POL_AREMA_STATE_BANKS
 						has_completed_focus = MAD_POL_AREMA_INDIAN_OCEAN
 					}
 				}
-				has_completed_focus = MAD_POL_AREMA_CHOOSE_RENEWAL
+				has_country_flag = MAD_AREMA_LEADER_RAJAONARIVELO
 			}
 		}
 
@@ -18044,7 +18031,7 @@ focus_tree = {
 			}
 			custom_trigger_tooltip = {
 				tooltip = MAD_AREMA_OLD_GUARD_PATH_tt
-				has_completed_focus = MAD_POL_AREMA_CHOOSE_OLD_GUARD
+				has_country_flag = MAD_AREMA_LEADER_RATSIRAKA
 			}
 		}
 

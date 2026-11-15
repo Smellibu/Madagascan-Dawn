@@ -528,20 +528,12 @@ country_event = {
 		# Daewoo Fallout is already the trigger point for this event.
 		# Schedule Viva directly; no daily polling is needed.
 		if = {
-			limit = {
-				NOT = { MAD_AREMA_IN_POWER = yes }
-				NOT = { has_country_flag = MAD_RATSIRAKA_SUCCESSOR_SELECTED }
-				NOT = { has_country_flag = MAD_AREMA_RENEWAL }
-				NOT = { has_country_flag = MAD_AREMA_RECONCILIATION }
-				# Viva ban cannot happen under TGV, since Rajoelina leads TGV and owns viva.
-				NOT = { MAD_TGV_IN_POWER = yes }
-				OR = {
-					has_country_flag = MAD_AREMA_BANNED
-					has_country_flag = MAD_RATSIRAKA_RETURN_DENIED
-				}
-				NOT = { has_country_flag = MAD_VIVA_INTERVIEW_PENDING }
-				NOT = { has_country_flag = MAD_VIVA_INTERVIEW_RESOLVED }
-			}
+limit = {
+			has_country_flag = MAD_RATSIRAKA_EXILED
+			NOT = { MAD_TGV_IN_POWER = yes }
+			NOT = { has_country_flag = MAD_VIVA_INTERVIEW_PENDING }
+			NOT = { has_country_flag = MAD_VIVA_INTERVIEW_RESOLVED }
+		}
 			set_country_flag = MAD_VIVA_INTERVIEW_PENDING
 			country_event = { id = mad_political.91 days = 5 }
 		}
@@ -3125,11 +3117,7 @@ country_event = {
 	title = mad_political.90.t
 	desc = mad_political.90.d
 	is_triggered_only = yes
-	trigger = {
-		NOT = { has_country_flag = MAD_RATSIRAKA_SUCCESSOR_SELECTED }
-		NOT = { has_country_flag = MAD_AREMA_RENEWAL }
-		NOT = { has_country_flag = MAD_AREMA_RECONCILIATION }
-	}
+trigger = { original_tag = MAD }
 
 	option = {
 		name = mad_political.90.a
@@ -3250,21 +3238,34 @@ country_event = {
 	desc = mad_political.98.d
 	picture = GFX_report_event_generic_political
 	is_triggered_only = yes
-	trigger = {
-		has_country_flag = MAD_RATSIRAKA_EXILE_EVENT_PENDING
-		NOT = { has_country_flag = MAD_RATSIRAKA_SUCCESSOR_SELECTED }
-		NOT = { has_country_flag = MAD_AREMA_RENEWAL }
-		NOT = { has_country_flag = MAD_AREMA_RECONCILIATION }
-	}
+trigger = { has_country_flag = MAD_RATSIRAKA_EXILE_EVENT_PENDING }
 
 	option = {
 		name = mad_political.98.a
 		clr_country_flag = MAD_RATSIRAKA_EXILE_EVENT_PENDING
 		set_country_flag = MAD_RATSIRAKA_EXILE_RESOLVED
 		set_country_flag = MAD_RATSIRAKA_EXILED
-		set_country_flag = MAD_AREMA_BANNED
-		set_temp_variable = { party_index = 5 }
-		ban_party_scripted_call = yes
+		# Older saves may still carry the ban from the previous exile implementation.
+		if = {
+			limit = { check_variable = { party_banned_array^5 = 1 } }
+			set_temp_variable = { party_index = 5 }
+			unban_party_scripted_call = yes
+		}
+		clr_country_flag = MAD_AREMA_BANNED
+		set_country_flag = MAD_AREMA_LEADER_RAJAONARIVELO
+		clr_country_flag = MAD_AREMA_LEADER_RATSIRAKA
+		clr_country_flag = MAD_AREMA_LEADER_RAHARIJAONA
+		if = {
+			limit = { MAD_AREMA_IN_POWER = yes }
+			kill_country_leader = yes
+		}
+		create_country_leader = {
+			name = "Pierrot Rajaonarivelo"
+			picture = "Pierrot_Rajaonarivelo.dds"
+			expire = "2050.1.1"
+			ideology = anarchist_communism
+			traits = { emerging_anarchist_communism career_politician diplomat former_foreign_minister }
+		}
 		MAD_UNLOCK_POL_CONTENT_2002_2009 = yes
 	}
 }
@@ -3277,21 +3278,11 @@ country_event = {
 	is_triggered_only = yes
 	fire_only_once = yes
 
-	trigger = {
+trigger = {
 		original_tag = MAD
-		NOT = { MAD_AREMA_IN_POWER = yes }
-		# Recheck when the delayed event fires in case TGV took power during the five-day wait.
 		NOT = { MAD_TGV_IN_POWER = yes }
-		NOT = { has_country_flag = MAD_RATSIRAKA_SUCCESSOR_SELECTED }
-		NOT = { has_country_flag = MAD_AREMA_RENEWAL }
-		NOT = { has_country_flag = MAD_AREMA_RECONCILIATION }
 		has_completed_focus = MAD_DAEWOO_FALLOUT
-		OR = {
-			# Ratsiraka is still in self-selected exile because AREMA remains banned.
-			has_country_flag = MAD_AREMA_BANNED
-			# Or AREMA was unbanned, but the return decision was refused.
-			has_country_flag = MAD_RATSIRAKA_RETURN_DENIED
-		}
+		has_country_flag = MAD_RATSIRAKA_EXILED
 		has_country_flag = MAD_VIVA_INTERVIEW_PENDING
 		NOT = { has_country_flag = MAD_VIVA_INTERVIEW_RESOLVED }
 	}
@@ -3346,12 +3337,6 @@ country_event = {
 		# If AREMA is still banned, allowing the channel also restores AREMA
 		# through MD's normal individual-party unban system. This happens after
 		# Daewoo Fallout, so the Ratsiraka-return event is deliberately not reopened.
-		if = {
-			limit = { has_country_flag = MAD_AREMA_BANNED }
-			set_temp_variable = { party_index = 5 }
-			unban_party_scripted_call = yes
-			clr_country_flag = MAD_AREMA_BANNED
-		}
 
 		set_temp_variable = { party_index = 5 }
 		set_temp_variable = { party_popularity_increase = -0.04 }
@@ -3371,55 +3356,6 @@ country_event = {
 	}
 }
 
-country_event = {
-	id = mad_political.92
-	title = mad_political.92.t
-	desc = mad_political.92.d
-	picture = GFX_report_event_election
-	is_triggered_only = yes
-	fire_only_once = yes
-
-	trigger = {
-		original_tag = MAD
-		NOT = { MAD_AREMA_IN_POWER = yes }
-		NOT = { has_completed_focus = MAD_DAEWOO_FALLOUT }
-		has_country_flag = MAD_RATSIRAKA_EXILED
-
-		has_country_flag = MAD_RATSIRAKA_RETURN_PENDING
-		NOT = { has_country_flag = MAD_RATSIRAKA_RETURN_RESOLVED }
-	}
-
-	immediate = {
-		clr_country_flag = MAD_AREMA_BANNED
-		clr_country_flag = MAD_RATSIRAKA_RETURN_PENDING
-		set_country_flag = MAD_RATSIRAKA_RETURN_RESOLVED
-	}
-
-	option = {
-		name = mad_political.92.a
-
-		custom_effect_tooltip = mad_political.92.a_tt
-
-		clr_country_flag = MAD_RATSIRAKA_RETURN_DENIED
-	}
-
-	option = {
-		name = mad_political.92.b
-		create_country_leader = {
-			name = "Pierre Raharijaona"
-			picture = "Pierre_Raharijaona.dds"
-			expire = "2050.1.1"
-			ideology = anarchist_communism
-			traits = {
-				emerging_anarchist_communism
-			}
-		}
-		set_country_flag = MAD_RATSIRAKA_RETURN_DENIED
-		set_country_flag = MAD_AREMA_OLD_GUARD_LOCKED
-		
-
-	}
-}
 
 # ---------------------------------------------------------------------------
 # TGV formation

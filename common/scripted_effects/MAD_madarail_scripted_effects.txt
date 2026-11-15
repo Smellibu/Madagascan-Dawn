@@ -3090,35 +3090,12 @@ MAD_sync_party_political_ideas = {
 MAD_ratsiraka_check_government_formed = {
 	# If a successor-led AREMA route was selected, permanently disarm Ratsiraka's first-loss chain.
 	# Existing route flags also cover saves made before the explicit successor marker was added.
-	if = {
-		limit = {
-			original_tag = MAD
-			OR = {
-				has_country_flag = MAD_RATSIRAKA_SUCCESSOR_SELECTED
-				has_country_flag = MAD_AREMA_RENEWAL
-				has_country_flag = MAD_AREMA_RECONCILIATION
-			}
-		}
-		clr_country_flag = MAD_RATSIRAKA_FIRST_LOSS_PENDING
-		clr_country_flag = MAD_RATSIRAKA_EVENT_QUEUED
-		clr_country_flag = MAD_RATSIRAKA_EXILE_EVENT_PENDING
-		clr_country_flag = MAD_VIVA_INTERVIEW_PENDING
-		clr_country_flag = MAD_RATSIRAKA_COALITION_TRACKING
-		clr_country_flag = MAD_RATSIRAKA_COALITION_TIMED_OUT
-		set_variable = { MAD_RATSIRAKA_FORMATION_STABLE_DAYS = 0 }
-	}
 
 	# Recover saves where an older version marked the event resolved before a choice.
 	if = {
 		limit = {
 			original_tag = MAD
-			NOT = {
-				OR = {
-					has_country_flag = MAD_RATSIRAKA_SUCCESSOR_SELECTED
-					has_country_flag = MAD_AREMA_RENEWAL
-					has_country_flag = MAD_AREMA_RECONCILIATION
-				}
-			}
+			
 			has_country_flag = MAD_RATSIRAKA_FIRST_LOSS_DONE
 			has_country_flag = MAD_RATSIRAKA_EXILE_RESOLVED
 			NOT = { has_country_flag = MAD_RATSIRAKA_CIVIL_WAR_STARTED }
@@ -3139,13 +3116,7 @@ MAD_ratsiraka_check_government_formed = {
 	if = {
 		limit = {
 			original_tag = MAD
-			NOT = {
-				OR = {
-					has_country_flag = MAD_RATSIRAKA_SUCCESSOR_SELECTED
-					has_country_flag = MAD_AREMA_RENEWAL
-					has_country_flag = MAD_AREMA_RECONCILIATION
-				}
-			}
+			
 			has_country_flag = MAD_RATSIRAKA_FIRST_LOSS_PENDING
 			NOT = { has_country_flag = MAD_RATSIRAKA_FIRST_LOSS_DONE }
 			NOT = { has_country_flag = MAD_RATSIRAKA_EVENT_QUEUED }
