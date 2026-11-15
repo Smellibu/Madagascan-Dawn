@@ -4,11 +4,37 @@ on_actions = {
 			if = {
 				limit = {
 					tag = MAD
+					has_country_flag = MAD_TGV_RETURN_BALLOT_ELECTION_PENDING
 					NOT = { has_country_flag = MAD_TGV_RETURN_BALLOT_ELECTION_MONITOR_ACTIVE }
 				}
 				set_country_flag = MAD_TGV_RETURN_BALLOT_ELECTION_MONITOR_ACTIVE
+				set_country_flag = MAD_TGV_RETURN_BALLOT_ELECTION_STARTED
 				country_event = { id = MAD_military_refoundation.22 days = 1 }
 			}
+		}
+	}
+	on_ruling_party_change = {
+		effect = {
+			if = {
+				limit = { tag = MAD }
+				MAD_TRACK_LAST_NON_TGV_HVM_GOVERNING_PARTY = yes
+				MAD_CANCEL_TGV_RETURN_BALLOT_IF_OUT_OF_POWER = yes
+			}
+		}
+	}
+	on_government_change = {
+		effect = {
+			MAD_CANCEL_TGV_RETURN_BALLOT_IF_OUT_OF_POWER = yes
+		}
+	}
+	on_coup_succeeded = {
+		effect = {
+			MAD_CANCEL_TGV_RETURN_BALLOT_IF_OUT_OF_POWER = yes
+		}
+	}
+	on_civil_war_end = {
+		effect = {
+			MAD_CANCEL_TGV_RETURN_BALLOT_IF_OUT_OF_POWER = yes
 		}
 	}
 }

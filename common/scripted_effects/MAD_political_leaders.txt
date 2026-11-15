@@ -1,3 +1,57 @@
+MAD_SET_ELECTIONS_WITH_FREQUENCY_PRESERVING_PERMISSION = {
+	if = {
+		limit = { has_elections = yes }
+		set_elections_with_frequency = yes
+	}
+	else = {
+		set_country_flag = no_leader_change
+		meta_effect = {
+			text = {
+				set_politics = {
+					ruling_party = ROOT
+					elections_allowed = no
+					last_election = "[YEAR].[MONTH].1"
+					election_frequency = [FREQ]
+				}
+			}
+			YEAR = "[?election_year_param]"
+			MONTH = "[?election_month_param|0]"
+			FREQ = "[?election_freq|.0]"
+		}
+		clr_country_flag = no_leader_change
+	}
+}
+
+MAD_TRACK_LAST_NON_TGV_HVM_GOVERNING_PARTY = {
+	if = {
+		limit = {
+			tag = MAD
+			NOT = { OR = {
+				check_variable = { ruling_party = 20 }
+				check_variable = { ruling_party = 1 }
+			} }
+		}
+		set_variable = { MAD_LAST_NON_TGV_HVM_GOVERNING_PARTY = ruling_party }
+	}
+}
+
+MAD_CANCEL_TGV_RETURN_BALLOT_IF_OUT_OF_POWER = {
+	if = {
+		limit = {
+			tag = MAD
+			has_country_flag = MAD_TGV_RETURN_BALLOT_ELECTION_PENDING
+			NOT = { has_country_flag = MAD_TGV_RETURN_BALLOT_ELECTION_STARTED }
+			NOT = { has_country_flag = MAD_TGV_RETURN_BALLOT_ELECTION_MONITOR_ACTIVE }
+			NOT = { has_country_flag = elections_in_progress }
+			NOT = { has_country_flag = coalition_forming }
+			NOT = { MAD_TGV_IN_POWER = yes }
+			NOT = { has_country_flag = MAD_TGV_RETURN_BALLOT_ELECTION_CANCELLATION_PENDING }
+		}
+		set_country_flag = MAD_TGV_RETURN_BALLOT_ELECTION_CANCELLATION_PENDING
+		country_event = { id = MAD_military_refoundation.27 days = 1 }
+	}
+}
+
 # Reset the MAD subideology leader-throughput counter for the party entering government.
 # MD's change_ruling_party_effect calls set_leader; this lets set_leader_MAD
 # rebuild the correct MAD-specific leader on every government transfer.
@@ -491,35 +545,24 @@ set_leader_MAD = {
 	else_if = {
 		limit = { check_variable = { ruling_party = 20 } }
 		if = {
-			limit = { has_country_flag = MAD_TGV_EDGARD_REPRESENTATIVE }
+			limit = { has_country_flag = MAD_TGV_EDGARD_ELECTED }
 			set_variable = { Nat_Populism_leader = 1 }
 			hidden_effect = { kill_country_leader = yes }
 			create_country_leader = {
 				name = "Edgard Razafindravahy"
 				ideology = Nat_Populism
-				traits = {
-					nationalist_Nat_Populism
-					career_politician
-				}
+				traits = { nationalist_Nat_Populism career_politician }
 			}
 		}
 		else_if = {
-			limit = {
-				has_country_flag = MAD_TGV_FORMED
-				check_variable = { Nat_Populism_leader = 0 }
-			}
+			limit = { has_country_flag = MAD_TGV_FORMED check_variable = { Nat_Populism_leader = 0 } }
 			add_to_variable = { Nat_Populism_leader = 1 }
 			hidden_effect = { kill_country_leader = yes }
 			create_country_leader = {
 				name = "Andry Rajoelina"
 				picture = "Andry_Rajoelina.dds"
 				ideology = Nat_Populism
-				traits = {
-					nationalist_Nat_Populism
-					career_politician
-					businessman
-					MAD_disk_jockey
-				}
+				traits = { nationalist_Nat_Populism career_politician businessman MAD_disk_jockey }
 			}
 			if = { limit = { has_country_flag = do_not_retire } subtract_from_variable = { Nat_Populism_leader = 1 } }
 			set_temp_variable = { b = 1 }

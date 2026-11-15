@@ -14243,12 +14243,9 @@ available = {
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_TGV_SADC_ELECTORAL_FRAMEWORK"
 			set_country_flag = MAD_TGV_SADC_ELECTORAL_RESTRICTIONS
-			set_variable = {
-				var = MAD_TGV_SADC_EXCLUDED_PARTY
-				value = MAD_LAST_NON_TGV_HVM_ELECTED_PARTY
-			}
+			set_variable = { var = MAD_TGV_SADC_EXCLUDED_PARTY value = MAD_LAST_NON_TGV_HVM_GOVERNING_PARTY }
 			custom_effect_tooltip = MAD_TGV_SADC_ELECTORAL_FRAMEWORK_TT
-		}
+	}
 
 		ai_will_do = {
 			base = 1
@@ -14435,7 +14432,6 @@ available = {
 		cost = 3
 		# One prerequisite block is implicit OR in the focus tree.
 		prerequisite = {
-			focus = MAD_POL_TGV_FOURTH_REPUBLIC
 			focus = MAD_POL_TGV_SADC_ELECTORAL_FRAMEWORK
 			focus = MAD_POL_TGV_FORMALISE_MAPUTO_STRUCTURE
 		}
@@ -14452,90 +14448,68 @@ available = {
 			clr_country_flag = MAD_TGV_ELECTION_MAPUTO_COMPROMISE
 			clr_country_flag = MAD_TGV_ELECTION_FOURTH_REPUBLIC
 			clr_country_flag = MAD_TGV_ELECTION_FOURTH_REPUBLIC_SADC
-
+			clr_country_flag = MAD_TGV_EDGARD_REPRESENTATIVE
+			clr_country_flag = MAD_TGV_EDGARD_NOMINATED
+			clr_country_flag = MAD_TGV_EDGARD_ELECTED
 			if = {
 				limit = { has_country_flag = MAD_TGV_MAPUTO_IMPLEMENTED }
-				if = {
-					limit = { has_country_flag = MAD_MIL_CRDSN_REVIVED }
-					set_country_flag = MAD_TGV_ELECTION_MAPUTO_FULL
-				}
-				else = {
-					set_country_flag = MAD_TGV_ELECTION_MAPUTO_COMPROMISE
-				}
+				if = { limit = { has_country_flag = MAD_MIL_CRDSN_REVIVED } set_country_flag = MAD_TGV_ELECTION_MAPUTO_FULL }
+				else = { set_country_flag = MAD_TGV_ELECTION_MAPUTO_COMPROMISE }
 			}
 			else_if = {
 				limit = { has_country_flag = MAD_TGV_MAPUTO_UNILATERAL }
 				set_country_flag = MAD_TGV_ELECTION_FOURTH_REPUBLIC
-				if = {
-					limit = { has_country_flag = MAD_TGV_SADC_ELECTORAL_RESTRICTIONS }
-					set_country_flag = MAD_TGV_ELECTION_FOURTH_REPUBLIC_SADC
-				}
-			}
-
-			if = {
-				limit = { has_country_flag = MAD_TGV_ELECTION_MAPUTO_FULL }
-				set_temp_variable = { party_index = 22 }
-				if = {
-					limit = { NOT = { is_party_banned_trigger = yes } }
-					ban_party_scripted_call = yes
-					set_country_flag = MAD_TGV_MAPUTO_MILITARY_BAN_APPLIED
-				}
-			}
-			if = {
-				limit = { has_country_flag = MAD_TGV_ELECTION_FOURTH_REPUBLIC_SADC }
+				set_country_flag = MAD_TGV_SADC_ELECTORAL_RESTRICTIONS
+				set_variable = { var = MAD_TGV_SADC_EXCLUDED_PARTY value = MAD_LAST_NON_TGV_HVM_GOVERNING_PARTY }
 				set_temp_variable = { party_index = MAD_TGV_SADC_EXCLUDED_PARTY }
 				if = {
 					limit = {
-						NOT = { check_variable = { MAD_TGV_SADC_EXCLUDED_PARTY = 20 } }
+						NOT = { OR = {
+							check_variable = { MAD_TGV_SADC_EXCLUDED_PARTY = 20 }
+						check_variable = { MAD_TGV_SADC_EXCLUDED_PARTY = 1 }
+						} }
 						NOT = { is_party_banned_trigger = yes }
 					}
 					ban_party_scripted_call = yes
 					set_country_flag = MAD_TGV_SADC_PARTY_BAN_APPLIED
 				}
 			}
-
+			if = {
+				limit = { has_country_flag = MAD_TGV_ELECTION_MAPUTO_FULL }
+				set_temp_variable = { party_index = 22 }
+				if = { limit = { NOT = { is_party_banned_trigger = yes } } ban_party_scripted_call = yes set_country_flag = MAD_TGV_MAPUTO_MILITARY_BAN_APPLIED }
+			}
 			set_country_flag = MAD_TGV_RETURN_BALLOT_ELECTION_PENDING
 			clr_country_flag = MAD_TGV_RETURN_BALLOT_ELECTION_MONITOR_ACTIVE
 			clr_country_flag = MAD_TGV_RETURN_BALLOT_ELECTION_STARTED
+			clr_country_flag = MAD_TGV_RETURN_BALLOT_ELECTION_CANCELLATION_PENDING
+			clr_country_flag = MAD_TGV_RETURN_BALLOT_ELECTION_RESULT_RESOLVED
 			set_temp_variable = { election_year_param = global.year }
 			set_temp_variable = { election_month_param = global.month }
 			set_temp_variable = { election_freq = 9 }
-			set_elections_with_frequency = yes
-
+			MAD_SET_ELECTIONS_WITH_FREQUENCY_PRESERVING_PERMISSION = yes
 			if = {
-				limit = { has_country_flag = MAD_TGV_ELECTION_FOURTH_REPUBLIC_SADC }
+				limit = { has_country_flag = MAD_TGV_ELECTION_FOURTH_REPUBLIC }
 				country_event = { id = MAD_military_refoundation.23 days = 30 }
 			}
 			else_if = {
 				limit = {
-					has_country_flag = MAD_TGV_ELECTION_FOURTH_REPUBLIC
+					OR = {
+						has_country_flag = MAD_TGV_ELECTION_MAPUTO_FULL
+						has_country_flag = MAD_TGV_ELECTION_MAPUTO_COMPROMISE
+					}
 					NOT = { has_country_flag = MAD_HVM_FORMED }
 				}
 				set_country_flag = MAD_HVM_FORMATION_PENDING
 				country_event = { id = mad_political.97 days = 30 }
 			}
-
-			if = {
-				limit = { has_country_flag = MAD_TGV_ELECTION_MAPUTO_FULL }
-				custom_effect_tooltip = MAD_TGV_MAPUTO_ELECTION_FULL_TT
-			}
-			else_if = {
-				limit = { has_country_flag = MAD_TGV_ELECTION_MAPUTO_COMPROMISE }
-				custom_effect_tooltip = MAD_TGV_MAPUTO_ELECTION_COMPROMISE_TT
-			}
-			else_if = {
-				limit = { has_country_flag = MAD_TGV_ELECTION_FOURTH_REPUBLIC_SADC }
-				custom_effect_tooltip = MAD_TGV_FOURTH_REPUBLIC_SADC_ELECTION_TT
-			}
-			else_if = {
-				limit = { has_country_flag = MAD_TGV_ELECTION_FOURTH_REPUBLIC }
-				custom_effect_tooltip = MAD_TGV_FOURTH_REPUBLIC_ELECTION_TT
-			}
-
+			if = { limit = { has_country_flag = MAD_TGV_ELECTION_MAPUTO_FULL } custom_effect_tooltip = MAD_TGV_MAPUTO_ELECTION_FULL_TT }
+			else_if = { limit = { has_country_flag = MAD_TGV_ELECTION_MAPUTO_COMPROMISE } custom_effect_tooltip = MAD_TGV_MAPUTO_ELECTION_COMPROMISE_TT }
+			else_if = { limit = { has_country_flag = MAD_TGV_ELECTION_FOURTH_REPUBLIC } custom_effect_tooltip = MAD_TGV_FOURTH_REPUBLIC_ELECTION_TT }
 			country_event = { id = MAD_military_refoundation.26 days = 1 }
 			set_temp_variable = { percent_change = 5 }
 			change_domestic_influence_percentage = yes
-		}
+	}
 		ai_will_do = { base = 1 }
 	}
 
