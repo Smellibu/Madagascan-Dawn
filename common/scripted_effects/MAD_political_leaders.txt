@@ -173,7 +173,7 @@ MAD_CREATE_CAPSAT_PARTY_LEADER = {
 			name = "Petera Behajaina"
 			picture = "Petera_Behajaina.dds"
 			ideology = Nat_Autocracy
-			traits = { nationalist_Nat_Autocracy military_career }
+			traits = { nationalist_Nat_Autocracy military_career MAD_former_defence_minister }
 			expire = "2099.1.1"
 		}
 	}
@@ -183,7 +183,7 @@ MAD_CREATE_CAPSAT_PARTY_LEADER = {
 		create_country_leader = {
 			name = "Jules Mamizara"
 			ideology = Nat_Autocracy
-			traits = { nationalist_Nat_Autocracy military_career }
+			traits = { nationalist_Nat_Autocracy military_career MAD_former_defence_minister }
 			expire = "2099.1.1"
 		}
 	}
@@ -206,7 +206,7 @@ MAD_CREATE_GENERAL_STAFF_PARTY_LEADER = {
 			name = "Beni Xavier Rasolofonirina"
 			picture = "Beni_Xavier_Rasolofonirina.dds"
 			ideology = Nat_Autocracy
-			traits = { nationalist_Nat_Autocracy military_career }
+			traits = { nationalist_Nat_Autocracy military_career MAD_former_defence_minister }
 			expire = "2099.1.1"
 		}
 	}
@@ -239,7 +239,7 @@ MAD_CREATE_GENERAL_STAFF_PARTY_LEADER = {
 			name = "Petera Behajaina"
 			picture = "Petera_Behajaina.dds"
 			ideology = Nat_Autocracy
-			traits = { nationalist_Nat_Autocracy military_career }
+			traits = { nationalist_Nat_Autocracy military_career MAD_former_defence_minister }
 			expire = "2099.1.1"
 		}
 	}
@@ -249,7 +249,7 @@ MAD_CREATE_GENERAL_STAFF_PARTY_LEADER = {
 		create_country_leader = {
 			name = "Jules Mamizara"
 			ideology = Nat_Autocracy
-			traits = { nationalist_Nat_Autocracy military_career }
+			traits = { nationalist_Nat_Autocracy military_career MAD_former_defence_minister }
 			expire = "2099.1.1"
 		}
 	}
@@ -285,6 +285,8 @@ set_leader_MAD = {
 				traits = {
 					western_conservatism
 					career_politician
+					economist
+					former_finance_minister
 				}
 			}
 			if = { limit = { has_country_flag = do_not_retire } subtract_from_variable = { conservatism_leader = 1 } }
@@ -304,6 +306,7 @@ set_leader_MAD = {
 				traits = {
 					western_liberalism
 					career_politician
+					businessman
 				}
 			}
 			if = { limit = { has_country_flag = do_not_retire } subtract_from_variable = { liberalism_leader = 1 } }
@@ -342,6 +345,8 @@ set_leader_MAD = {
 					traits = {
 						emerging_anarchist_communism
 						career_politician
+						diplomat
+						former_foreign_minister
 					}
 				}
 			}
@@ -380,6 +385,8 @@ set_leader_MAD = {
 					traits = {
 						emerging_anarchist_communism
 						career_politician
+						military_career
+						former_foreign_minister
 					}
 				}
 			}
@@ -399,6 +406,7 @@ set_leader_MAD = {
 				ideology = Neutral_Autocracy
 				traits = {
 					neutrality_Neutral_Autocracy
+					MAD_dahalo_warlord
 				}
 			}
 			if = { limit = { has_country_flag = do_not_retire } subtract_from_variable = { Neutral_Autocracy_leader = 1 } }
@@ -435,6 +443,8 @@ set_leader_MAD = {
 				traits = {
 					neutrality_Neutral_Libertarian
 					career_politician
+					economist
+					former_foreign_minister
 				}
 			}
 			if = { limit = { has_country_flag = do_not_retire } subtract_from_variable = { Neutral_Libertarian_leader = 1 } }
@@ -458,6 +468,8 @@ set_leader_MAD = {
 				traits = {
 					nationalist_Nat_Populism
 					career_politician
+					businessman
+					MAD_media_entrepreneur
 				}
 			}
 			if = { limit = { has_country_flag = do_not_retire } subtract_from_variable = { Nat_Populism_leader = 1 } }
@@ -523,6 +535,8 @@ set_leader_MAD = {
 					traits = {
 						nationalist_Monarchist
 						career_politician
+						cleric
+						MAD_royal_claimant
 					}
 				}
 			}
