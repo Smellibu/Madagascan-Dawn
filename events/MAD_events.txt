@@ -9933,6 +9933,11 @@ country_event = {
 			country_event = { id = MAD_military_refoundation.22 days = 1 }
 		}
 		else_if = {
+			limit = { has_country_flag = coalition_forming }
+			set_country_flag = MAD_TGV_RETURN_BALLOT_ELECTION_STARTED
+			country_event = { id = MAD_military_refoundation.22 days = 1 }
+		}
+		else_if = {
 			limit = { has_country_flag = MAD_TGV_RETURN_BALLOT_ELECTION_STARTED }
 			set_variable = { var = MAD_LAST_ELECTED_PARTY value = ruling_party }
 			if = {
