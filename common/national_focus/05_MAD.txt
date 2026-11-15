@@ -11672,8 +11672,8 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
 			custom_trigger_tooltip = {
-				tooltip = MAD_AREMA_IN_POWER_tt
-				MAD_AREMA_IN_POWER = yes
+				tooltip = MAD_TIM_IN_POWER_tt
+				MAD_TIM_IN_POWER = yes
 			}
 			
 			date > 2002.3.1
@@ -11713,6 +11713,8 @@ focus_tree = {
 			set_temp_variable = { party_popularity_increase = 0.02 }
 			change_relative_party_popularity = yes
 			recalculate_party = yes
+			set_temp_variable = { add_col_one = 5 }
+			add_coalition_members_effect = yes
 		}
 
 		ai_will_do = {
@@ -11730,20 +11732,40 @@ focus_tree = {
 		prerequisite = { focus = MAD_POL_AREMA_CHOOSE_OLD_GUARD focus = MAD_POL_AREMA_CHOOSE_RENEWAL focus = MAD_POL_AREMA_CHOOSE_RECONCILIATION }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
-			custom_trigger_tooltip = {
-				tooltip = MAD_AREMA_IN_POWER_tt
-				MAD_AREMA_IN_POWER = yes
+			OR = {
+				AND = {
+					has_completed_focus = MAD_POL_AREMA_CHOOSE_RECONCILIATION
+					custom_trigger_tooltip = {
+						tooltip = MAD_TIM_IN_POWER_tt
+						MAD_TIM_IN_POWER = yes
+					}
+				}
+				AND = {
+					OR = {
+						has_completed_focus = MAD_POL_AREMA_CHOOSE_OLD_GUARD
+						has_completed_focus = MAD_POL_AREMA_CHOOSE_RENEWAL
+					}
+					custom_trigger_tooltip = {
+						tooltip = MAD_AREMA_IN_POWER_tt
+						MAD_AREMA_IN_POWER = yes
+					}
+				}
 			}
 		}
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_AREMA_REVOLUTION_ADAPTS"
 			add_ideas = MAD_POL_AREMA_PROGRAMME
-			set_temp_variable = { party_index = 5 }
-			set_temp_variable = { party_popularity_increase = 0.04 }
-			set_temp_variable = { temp_outlook_increase = 0.04 }
-			change_relative_party_popularity = yes
-			recalculate_party = yes
+			if = {
+				limit = {
+					NOT = { has_completed_focus = MAD_POL_AREMA_CHOOSE_RECONCILIATION }
+				}
+				set_temp_variable = { party_index = 5 }
+				set_temp_variable = { party_popularity_increase = 0.04 }
+				set_temp_variable = { temp_outlook_increase = 0.04 }
+				change_relative_party_popularity = yes
+				recalculate_party = yes
+			}
 		}
 
 		ai_will_do = {
@@ -11816,16 +11838,20 @@ focus_tree = {
 	focus = {
 		id = MAD_POL_AREMA_ELECTORAL_REFORM
 		icon = Election
-		x = 0
-		y = 2
-		relative_position_id = MAD_POL_AREMA_REVOLUTION_ADAPTS
+		x = -4
+		y = 1
+		relative_position_id = MAD_POL_AREMA_RENEWAL_PROGRAMME
 		cost = 3
-		prerequisite = { focus = MAD_POL_AREMA_STATE_LEADS }
+		prerequisite = { focus = MAD_POL_AREMA_RENEWAL_PROGRAMME }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_AREMA_IN_POWER_tt
 				MAD_AREMA_IN_POWER = yes
+			}
+			custom_trigger_tooltip = {
+				tooltip = MAD_AREMA_RENEWAL_PATH_tt
+				has_completed_focus = MAD_POL_AREMA_CHOOSE_RENEWAL
 			}
 		}
 
@@ -12017,6 +12043,10 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
 			custom_trigger_tooltip = { tooltip = MAD_AREMA_IN_POWER_tt MAD_AREMA_IN_POWER = yes }
+			custom_trigger_tooltip = {
+				tooltip = MAD_AREMA_RENEWAL_PATH_tt
+				has_completed_focus = MAD_POL_AREMA_CHOOSE_RENEWAL
+			}
 		}
 
 		completion_reward = {
@@ -12032,14 +12062,14 @@ focus_tree = {
 	focus = {
 		id = MAD_POL_AREMA_RECONCILIATION_PACT
 		icon = diplomacy
-		x = -3
+		x = 0
 		y = 1
-		relative_position_id = MAD_POL_AREMA_REVOLUTION_ADAPTS
+		relative_position_id = MAD_POL_AREMA_CHOOSE_RECONCILIATION
 		cost = 3
-		prerequisite = { focus = MAD_POL_AREMA_REVOLUTION_ADAPTS }
+		prerequisite = { focus = MAD_POL_AREMA_CHOOSE_RECONCILIATION }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
-			custom_trigger_tooltip = { tooltip = MAD_AREMA_IN_POWER_tt MAD_AREMA_IN_POWER = yes }
+			custom_trigger_tooltip = { tooltip = MAD_TIM_IN_POWER_tt MAD_TIM_IN_POWER = yes }
 			custom_trigger_tooltip = {
 				tooltip = MAD_AREMA_RECONCILIATION_PATH_tt
 				has_completed_focus = MAD_POL_AREMA_CHOOSE_RECONCILIATION
@@ -12077,13 +12107,17 @@ focus_tree = {
 		id = MAD_POL_AREMA_RECONCILIATION_INSTITUTIONALISE
 		icon = focus_generic_improve_the_administration
 		x = 0
-		y = 2
+		y = 1
 		relative_position_id = MAD_POL_AREMA_RECONCILIATION_PACT
 		cost = 3
 		prerequisite = { focus = MAD_POL_AREMA_RECONCILIATION_PACT }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
-			custom_trigger_tooltip = { tooltip = MAD_AREMA_IN_POWER_tt MAD_AREMA_IN_POWER = yes }
+			custom_trigger_tooltip = { tooltip = MAD_TIM_IN_POWER_tt MAD_TIM_IN_POWER = yes }
+			custom_trigger_tooltip = {
+				tooltip = MAD_AREMA_RECONCILIATION_PATH_tt
+				has_completed_focus = MAD_POL_AREMA_CHOOSE_RECONCILIATION
+			}
 		}
 
 		completion_reward = {
@@ -12183,16 +12217,20 @@ focus_tree = {
 	focus = {
 		id = MAD_POL_AREMA_STATE_LEADS
 		icon = Generic_State_Socialism
-		x = -1
+		x = 3
 		y = 1
-		relative_position_id = MAD_POL_AREMA_REVOLUTION_ADAPTS
+		relative_position_id = MAD_POL_AREMA_REVOLUTIONARY_LEGACY
 		cost = 3
-		prerequisite = { focus = MAD_POL_AREMA_REVOLUTION_ADAPTS }
+		prerequisite = { focus = MAD_POL_AREMA_REVOLUTIONARY_LEGACY }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_AREMA_IN_POWER_tt
 				MAD_AREMA_IN_POWER = yes
+			}
+			custom_trigger_tooltip = {
+				tooltip = MAD_AREMA_OLD_GUARD_PATH_tt
+				has_completed_focus = MAD_POL_AREMA_CHOOSE_OLD_GUARD
 			}
 		}
 
@@ -12233,6 +12271,10 @@ focus_tree = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_AREMA_IN_POWER_tt
 				MAD_AREMA_IN_POWER = yes
+			}
+			custom_trigger_tooltip = {
+				tooltip = MAD_AREMA_OLD_GUARD_PATH_tt
+				has_completed_focus = MAD_POL_AREMA_CHOOSE_OLD_GUARD
 			}
 			OR = { has_completed_focus = MAD_JIRAMA_STAY_PUBLIC has_completed_focus = MAD_STATE_FUEL_IMPORTS has_completed_focus = MAD_MADARAIL_STATE_TAKEOVER has_completed_focus = MAD_TELMA_RENATIONALIZE }
 		}
@@ -12280,6 +12322,10 @@ focus_tree = {
 				tooltip = MAD_AREMA_IN_POWER_tt
 				MAD_AREMA_IN_POWER = yes
 			}
+			custom_trigger_tooltip = {
+				tooltip = MAD_AREMA_OLD_GUARD_PATH_tt
+				has_completed_focus = MAD_POL_AREMA_CHOOSE_OLD_GUARD
+			}
 			has_completed_focus = MAD_POL_AREMA_STATE_LEADS
 		}
 
@@ -12315,16 +12361,20 @@ focus_tree = {
 	focus = {
 		id = MAD_POL_AREMA_FOKONOLONA
 		icon = self_management
-		x = 6
+		x = -2
 		y = 1
-		relative_position_id = MAD_POL_AREMA_REVOLUTION_ADAPTS
+		relative_position_id = MAD_POL_AREMA_RENEWAL_PROGRAMME
 		cost = 3
-		prerequisite = { focus = MAD_POL_AREMA_REVOLUTION_ADAPTS }
+		prerequisite = { focus = MAD_POL_AREMA_RENEWAL_PROGRAMME }
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ECONOMY }
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_AREMA_IN_POWER_tt
 				MAD_AREMA_IN_POWER = yes
+			}
+			custom_trigger_tooltip = {
+				tooltip = MAD_AREMA_RENEWAL_PATH_tt
+				has_completed_focus = MAD_POL_AREMA_CHOOSE_RENEWAL
 			}
 		}
 
@@ -12364,16 +12414,20 @@ focus_tree = {
 	focus = {
 		id = MAD_POL_AREMA_FOOD_FIRST
 		icon = agriculture
-		x = -1
+		x = -3
 		y = 1
-		relative_position_id = MAD_POL_AREMA_FOKONOLONA
+		relative_position_id = MAD_POL_AREMA_REVOLUTIONARY_LEGACY
 		cost = 3
-		prerequisite = { focus = MAD_POL_AREMA_FOKONOLONA }
+		prerequisite = { focus = MAD_POL_AREMA_REVOLUTIONARY_LEGACY }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_AREMA_IN_POWER_tt
 				MAD_AREMA_IN_POWER = yes
+			}
+			custom_trigger_tooltip = {
+				tooltip = MAD_AREMA_OLD_GUARD_PATH_tt
+				has_completed_focus = MAD_POL_AREMA_CHOOSE_OLD_GUARD
 			}
 			has_completed_focus = MAD_Agricultural_reforms
 		}
@@ -12497,6 +12551,10 @@ focus_tree = {
 				tooltip = MAD_AREMA_IN_POWER_tt
 				MAD_AREMA_IN_POWER = yes
 			}
+			custom_trigger_tooltip = {
+				tooltip = MAD_AREMA_OLD_GUARD_PATH_tt
+				has_completed_focus = MAD_POL_AREMA_CHOOSE_OLD_GUARD
+			}
 		}
 
 		completion_reward = {
@@ -12575,6 +12633,10 @@ focus_tree = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_AREMA_IN_POWER_tt
 				MAD_AREMA_IN_POWER = yes
+			}
+			custom_trigger_tooltip = {
+				tooltip = MAD_AREMA_OLD_GUARD_PATH_tt
+				has_completed_focus = MAD_POL_AREMA_CHOOSE_OLD_GUARD
 			}
 		}
 
@@ -12677,6 +12739,10 @@ focus_tree = {
 				tooltip = MAD_AREMA_IN_POWER_tt
 				MAD_AREMA_IN_POWER = yes
 			}
+			OR = {
+				has_completed_focus = MAD_POL_AREMA_CHOOSE_OLD_GUARD
+				has_completed_focus = MAD_POL_AREMA_CHOOSE_RENEWAL
+			}
 			OR = { power_balance_value = { id = MAD_economy_ownership_bop value > -0.10 } has_completed_focus = MAD_FUEL_LIBERALIZATION has_completed_focus = MAD_JIRAMA_CORPORATIZE has_completed_focus = MAD_MADARAIL_INVESTORS_STAY has_completed_focus = MAD_ACCEPT_FOREIGN_OWNERSHIP }
 		}
 
@@ -12705,16 +12771,20 @@ focus_tree = {
 	focus = {
 		id = MAD_POL_AREMA_STRATEGIC_INVESTMENT
 		icon = focus_generic_industry_investment
-		x = 0
-		y = 2
-		relative_position_id = MAD_POL_AREMA_MIXED_ECONOMY
+		x = 2
+		y = 1
+		relative_position_id = MAD_POL_AREMA_RENEWAL_MODERNISE
 		cost = 3
-		prerequisite = { focus = MAD_POL_AREMA_MIXED_ECONOMY }
+		prerequisite = { focus = MAD_POL_AREMA_RENEWAL_MODERNISE }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_AREMA_IN_POWER_tt
 				MAD_AREMA_IN_POWER = yes
+			}
+			custom_trigger_tooltip = {
+				tooltip = MAD_AREMA_RENEWAL_PATH_tt
+				has_completed_focus = MAD_POL_AREMA_CHOOSE_RENEWAL
 			}
 		}
 
@@ -12747,14 +12817,18 @@ focus_tree = {
 		icon = sustainable_development
 		x = 0
 		y = 2
-		relative_position_id = MAD_POL_AREMA_STRATEGIC_INVESTMENT
+		relative_position_id = MAD_POL_AREMA_MIXED_ECONOMY
 		cost = 3
-		prerequisite = { focus = MAD_POL_AREMA_STRATEGIC_INVESTMENT }
+		prerequisite = { focus = MAD_POL_AREMA_MIXED_ECONOMY }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_AREMA_IN_POWER_tt
 				MAD_AREMA_IN_POWER = yes
+			}
+			OR = {
+				has_completed_focus = MAD_POL_AREMA_CHOOSE_OLD_GUARD
+				has_completed_focus = MAD_POL_AREMA_CHOOSE_RENEWAL
 			}
 			has_completed_focus = MAD_NATURELLE
 		}
@@ -12806,8 +12880,9 @@ focus_tree = {
 	focus = {
 		id = MAD_POL_AREMA_SECOND_SOCIALISM
 		icon = Generic_State_Socialism
-		x = 51
-		y = 20
+		x = 0
+		y = 1
+		relative_position_id = MAD_POL_AREMA_NATIONAL_DEVELOPMENT_PACT
 		cost = 3
 		prerequisite = { focus = MAD_POL_AREMA_NATIONAL_DEVELOPMENT_PACT }
 		search_filters = { FOCUS_FILTER_POLITICAL }
@@ -12817,8 +12892,14 @@ focus_tree = {
 				MAD_AREMA_IN_POWER = yes
 			}
 			OR = {
-				has_completed_focus = MAD_POL_AREMA_STATE_BANKS
-				has_completed_focus = MAD_POL_AREMA_INDIAN_OCEAN
+				AND = {
+					has_completed_focus = MAD_POL_AREMA_CHOOSE_OLD_GUARD
+					OR = {
+						has_completed_focus = MAD_POL_AREMA_STATE_BANKS
+						has_completed_focus = MAD_POL_AREMA_INDIAN_OCEAN
+					}
+				}
+				has_completed_focus = MAD_POL_AREMA_CHOOSE_RENEWAL
 			}
 		}
 
@@ -12846,11 +12927,11 @@ focus_tree = {
 	focus = {
 		id = MAD_POL_AREMA_NATIONAL_DEVELOPMENT_PACT
 		icon = focus_generic_central_planning
-		x = 0
-		y = -2
-		relative_position_id = MAD_POL_AREMA_SECOND_SOCIALISM
+		x = 2
+		y = 2
+		relative_position_id = MAD_POL_AREMA_MIXED_ECONOMY
 		cost = 3
-		prerequisite = { focus = MAD_POL_AREMA_REVOLUTION_ADAPTS }
+		prerequisite = { focus = MAD_POL_AREMA_MIXED_ECONOMY }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
 			custom_trigger_tooltip = {
@@ -12858,8 +12939,14 @@ focus_tree = {
 				MAD_AREMA_IN_POWER = yes
 			}
 			OR = {
-				has_completed_focus = MAD_POL_AREMA_STATE_BANKS
-				has_completed_focus = MAD_POL_AREMA_INDIAN_OCEAN
+				AND = {
+					has_completed_focus = MAD_POL_AREMA_CHOOSE_OLD_GUARD
+					OR = {
+						has_completed_focus = MAD_POL_AREMA_STATE_BANKS
+						has_completed_focus = MAD_POL_AREMA_INDIAN_OCEAN
+					}
+				}
+				has_completed_focus = MAD_POL_AREMA_CHOOSE_RENEWAL
 			}
 		}
 
@@ -17923,6 +18010,10 @@ focus_tree = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_AREMA_IN_POWER_tt
 				MAD_AREMA_IN_POWER = yes
+			}
+			custom_trigger_tooltip = {
+				tooltip = MAD_AREMA_OLD_GUARD_PATH_tt
+				has_completed_focus = MAD_POL_AREMA_CHOOSE_OLD_GUARD
 			}
 		}
 
