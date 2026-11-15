@@ -10352,7 +10352,7 @@ focus_tree = {
 	}
 
 	focus = {
-		id = MAD_POL_MIL_INTERNAL_CONTROL_2021_23
+		id = MAD_POL_TGV_ESTABLISH_ETAT_MAJOR_DES_ARMEES
 		icon = military_academy
 		x = -1
 		y = 2
@@ -10368,7 +10368,7 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_MIL_INTERNAL_CONTROL_2021_23"
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_TGV_ESTABLISH_ETAT_MAJOR_DES_ARMEES"
 			set_country_flag = MAD_MIL_INTERNAL_CONTROL_PENDING
 			country_event = { id = MAD_military_refoundation.14 days = 1 }
 		}
@@ -13255,7 +13255,7 @@ focus_tree = {
 	}
 
 	focus = {
-		id = MAD_POL_MIL_2005_RESTRUCTURING
+		id = MAD_POL_TIM_2005_ARMED_FORCES_RESTRUCTURING_PROGRAMME
 		icon = military_academy
 		x = -1
 		y = 1
@@ -13271,7 +13271,7 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_MIL_2005_RESTRUCTURING"
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_TIM_2005_ARMED_FORCES_RESTRUCTURING_PROGRAMME"
 			set_temp_variable = { party_index = 22 }
 			set_temp_variable = { party_popularity_increase = -0.05 }
 			change_relative_party_popularity = yes
@@ -13333,7 +13333,7 @@ focus_tree = {
 	}
 
 	focus = {
-		id = MAD_POL_MIL_SECURITY_SECTOR_REVIEW
+		id = MAD_POL_TIM_2007_SECURITY_SECTOR_REFORM
 		icon = police_station
 		x = 0
 		y = 1
@@ -13349,7 +13349,7 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_MIL_SECURITY_SECTOR_REVIEW"
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_TIM_2007_SECURITY_SECTOR_REFORM"
 			increase_policing_budget = yes
 			block_police_decrease = yes
 			decrease_officer_training_level = yes
