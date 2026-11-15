@@ -4,7 +4,6 @@ on_actions = {
 			if = {
 				limit = {
 					tag = MAD
-					has_country_flag = MAD_TGV_RETURN_BALLOT_ELECTION_PENDING
 					NOT = { has_country_flag = MAD_TGV_RETURN_BALLOT_ELECTION_MONITOR_ACTIVE }
 				}
 				set_country_flag = MAD_TGV_RETURN_BALLOT_ELECTION_MONITOR_ACTIVE

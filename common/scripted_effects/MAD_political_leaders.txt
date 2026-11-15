@@ -487,10 +487,23 @@ set_leader_MAD = {
 			set_temp_variable = { b = 1 }
 		}
 	}
-	# 20 — TGV (Nationalist Populism), only after the formation latch is set.
+	# 20 — TGV (Nationalist Populism).
 	else_if = {
 		limit = { check_variable = { ruling_party = 20 } }
 		if = {
+			limit = { has_country_flag = MAD_TGV_EDGARD_REPRESENTATIVE }
+			set_variable = { Nat_Populism_leader = 1 }
+			hidden_effect = { kill_country_leader = yes }
+			create_country_leader = {
+				name = "Edgard Razafindravahy"
+				ideology = Nat_Populism
+				traits = {
+					nationalist_Nat_Populism
+					career_politician
+				}
+			}
+		}
+		else_if = {
 			limit = {
 				has_country_flag = MAD_TGV_FORMED
 				check_variable = { Nat_Populism_leader = 0 }
@@ -499,7 +512,7 @@ set_leader_MAD = {
 			hidden_effect = { kill_country_leader = yes }
 			create_country_leader = {
 				name = "Andry Rajoelina"
-			picture = "Andry_Rajoelina.dds"
+				picture = "Andry_Rajoelina.dds"
 				ideology = Nat_Populism
 				traits = {
 					nationalist_Nat_Populism

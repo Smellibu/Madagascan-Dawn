@@ -3474,6 +3474,7 @@ country_event = {
 		original_tag = MAD
 		has_country_flag = MAD_HVM_FORMATION_PENDING
 		NOT = { has_country_flag = MAD_HVM_FORMED }
+		NOT = { has_country_flag = MAD_TGV_SADC_ELECTORAL_RESTRICTIONS }
 	}
 
 	immediate = {
@@ -9927,26 +9928,208 @@ country_event = {
 	trigger = { tag = MAD }
 	immediate = {
 		if = {
-			limit = { has_country_flag = MAD_TGV_RETURN_BALLOT_ELECTION_PENDING }
+			limit = { has_country_flag = elections_in_progress }
+			set_country_flag = MAD_TGV_RETURN_BALLOT_ELECTION_STARTED
+			country_event = { id = MAD_military_refoundation.22 days = 1 }
+		}
+		else_if = {
+			limit = { has_country_flag = MAD_TGV_RETURN_BALLOT_ELECTION_STARTED }
+			set_variable = { var = MAD_LAST_ELECTED_PARTY value = ruling_party }
 			if = {
-				limit = { has_country_flag = elections_in_progress }
-				set_country_flag = MAD_TGV_RETURN_BALLOT_ELECTION_STARTED
-				country_event = { id = MAD_military_refoundation.22 days = 1 }
+				limit = {
+					NOT = { check_variable = { ruling_party = 20 } }
+					NOT = { check_variable = { ruling_party = 1 } }
+				}
+				set_variable = { var = MAD_LAST_NON_TGV_HVM_ELECTED_PARTY value = ruling_party }
 			}
-			else_if = {
-				limit = { has_country_flag = MAD_TGV_RETURN_BALLOT_ELECTION_STARTED }
+			if = {
+				limit = { has_country_flag = MAD_TGV_RETURN_BALLOT_ELECTION_PENDING }
+				if = {
+					limit = { has_country_flag = MAD_TGV_MAPUTO_MILITARY_BAN_APPLIED }
+					set_temp_variable = { party_index = 22 }
+					unban_party_scripted_call = yes
+					clr_country_flag = MAD_TGV_MAPUTO_MILITARY_BAN_APPLIED
+				}
+				if = {
+					limit = { has_country_flag = MAD_TGV_SADC_PARTY_BAN_APPLIED }
+					set_temp_variable = { party_index = MAD_TGV_SADC_EXCLUDED_PARTY }
+					unban_party_scripted_call = yes
+					clr_country_flag = MAD_TGV_SADC_PARTY_BAN_APPLIED
+				}
+				if = {
+					limit = { has_country_flag = MAD_TGV_EDGARD_REPRESENTATIVE }
+					if = {
+						limit = { check_variable = { ruling_party = 20 } }
+					}
+					else = {
+						clr_country_flag = MAD_TGV_EDGARD_REPRESENTATIVE
+						set_variable = { Nat_Populism_leader = 0 }
+					}
+				}
 				clr_country_flag = MAD_TGV_RETURN_BALLOT_ELECTION_PENDING
-				clr_country_flag = MAD_TGV_RETURN_BALLOT_ELECTION_STARTED
-				clr_country_flag = MAD_TGV_RETURN_BALLOT_ELECTION_MONITOR_ACTIVE
 				set_elections_60_months = yes
 			}
-			else = {
-				country_event = { id = MAD_military_refoundation.22 days = 1 }
-			}
-		}
-		else = {
 			clr_country_flag = MAD_TGV_RETURN_BALLOT_ELECTION_STARTED
 			clr_country_flag = MAD_TGV_RETURN_BALLOT_ELECTION_MONITOR_ACTIVE
+		}
+		else = {
+			country_event = { id = MAD_military_refoundation.22 days = 1 }
+		}
+	}
+}
+
+
+
+country_event = {
+	id = MAD_military_refoundation.23
+	title = MAD_military_refoundation.23.t
+	desc = MAD_military_refoundation.23.d
+	picture = GFX_report_event_generic_political
+	is_triggered_only = yes
+	fire_only_once = yes
+	trigger = {
+		tag = MAD
+		MAD_TGV_IN_POWER = yes
+		has_country_flag = MAD_TGV_ELECTION_FOURTH_REPUBLIC_SADC
+		NOT = { has_country_flag = MAD_TGV_EDGARD_REPRESENTATIVE }
+	}
+	option = {
+		name = MAD_military_refoundation.23.a
+		log = "[GetDateText]: [Root.GetName]: Edgard Razafindravahy is selected to represent TGV"
+		set_country_flag = MAD_TGV_EDGARD_REPRESENTATIVE
+		set_variable = { Nat_Populism_leader = 1 }
+		hidden_effect = {
+			kill_country_leader = yes
+			create_country_leader = {
+				name = "Edgard Razafindravahy"
+				expire = "2050.1.1"
+				ideology = Nat_Populism
+				traits = {
+					nationalist_Nat_Populism
+					career_politician
+				}
+			}
+		}
+		if = {
+			limit = { has_country_flag = MAD_HVM_FORMED }
+			country_event = { id = MAD_military_refoundation.25 days = 30 }
+		}
+		else = {
+			country_event = { id = MAD_military_refoundation.24 days = 30 }
+		}
+	}
+}
+
+country_event = {
+	id = MAD_military_refoundation.24
+	title = MAD_military_refoundation.24.t
+	desc = MAD_military_refoundation.24.d
+	picture = GFX_report_event_generic_political
+	is_triggered_only = yes
+	fire_only_once = yes
+	trigger = {
+		tag = MAD
+		has_country_flag = MAD_TGV_EDGARD_REPRESENTATIVE
+		has_country_flag = MAD_TGV_ELECTION_FOURTH_REPUBLIC_SADC
+		NOT = { has_country_flag = MAD_HVM_FORMED }
+	}
+	option = {
+		name = MAD_military_refoundation.24.a
+		log = "[GetDateText]: [Root.GetName]: HVM is founded as a separate electoral movement"
+		set_country_flag = MAD_HVM_FORMED
+		set_country_flag = MAD_HVM_BRANCH_UNLOCKED
+		create_country_leader = {
+			name = "Hery Rajaonarimampianina"
+			picture = "Hery_Rajaonarimampianina.dds"
+			expire = "2050.1.1"
+			ideology = conservatism
+			traits = {
+				western_conservatism
+				career_politician
+			}
+		}
+		mark_focus_tree_layout_dirty = yes
+		update_dirty_politicsview_expanded = yes
+		country_event = { id = MAD_military_refoundation.25 days = 30 }
+	}
+}
+
+country_event = {
+	id = MAD_military_refoundation.25
+	title = MAD_military_refoundation.25.t
+	desc = MAD_military_refoundation.25.d
+	picture = GFX_report_event_generic_political
+	is_triggered_only = yes
+	fire_only_once = yes
+	trigger = {
+		tag = MAD
+		MAD_TGV_IN_POWER = yes
+		has_country_flag = MAD_TGV_EDGARD_REPRESENTATIVE
+		has_country_flag = MAD_HVM_FORMED
+	}
+	option = {
+		name = MAD_military_refoundation.25.a
+		log = "[GetDateText]: [Root.GetName]: Back Edgard and TGV in the transitional election"
+		set_temp_variable = { party_index = 20 }
+		set_temp_variable = { party_popularity_increase = 0.15 }
+		set_temp_variable = { temp_outlook_increase = 0.15 }
+		change_relative_party_popularity = yes
+		recalculate_party = yes
+	}
+	option = {
+		name = MAD_military_refoundation.25.b
+		log = "[GetDateText]: [Root.GetName]: Back Hery and HVM in the transitional election"
+		set_temp_variable = { party_index = 1 }
+		set_temp_variable = { party_popularity_increase = 0.15 }
+		set_temp_variable = { temp_outlook_increase = 0.15 }
+		change_relative_party_popularity = yes
+		recalculate_party = yes
+	}
+}
+
+country_event = {
+	id = MAD_military_refoundation.26
+	title = MAD_military_refoundation.26.t
+	desc = {
+		text = MAD_military_refoundation.26.d_maputo_full
+		trigger = { has_country_flag = MAD_TGV_ELECTION_MAPUTO_FULL }
+	}
+	desc = {
+		text = MAD_military_refoundation.26.d_maputo_compromise
+		trigger = { has_country_flag = MAD_TGV_ELECTION_MAPUTO_COMPROMISE }
+	}
+	desc = {
+		text = MAD_military_refoundation.26.d_fourth_republic_sadc
+		trigger = { has_country_flag = MAD_TGV_ELECTION_FOURTH_REPUBLIC_SADC }
+	}
+	desc = {
+		text = MAD_military_refoundation.26.d_fourth_republic
+		trigger = { has_country_flag = MAD_TGV_ELECTION_FOURTH_REPUBLIC }
+	}
+	picture = GFX_report_event_generic_political
+	is_triggered_only = yes
+	fire_only_once = yes
+	trigger = {
+		tag = MAD
+		has_country_flag = MAD_TGV_RETURN_BALLOT_ELECTION_PENDING
+	}
+	option = {
+		name = MAD_military_refoundation.26.a
+		if = {
+			limit = { has_country_flag = MAD_TGV_ELECTION_MAPUTO_FULL }
+			custom_effect_tooltip = MAD_TGV_MAPUTO_ELECTION_FULL_TT
+		}
+		else_if = {
+			limit = { has_country_flag = MAD_TGV_ELECTION_MAPUTO_COMPROMISE }
+			custom_effect_tooltip = MAD_TGV_MAPUTO_ELECTION_COMPROMISE_TT
+		}
+		else_if = {
+			limit = { has_country_flag = MAD_TGV_ELECTION_FOURTH_REPUBLIC_SADC }
+			custom_effect_tooltip = MAD_TGV_FOURTH_REPUBLIC_SADC_ELECTION_TT
+		}
+		else_if = {
+			limit = { has_country_flag = MAD_TGV_ELECTION_FOURTH_REPUBLIC }
+			custom_effect_tooltip = MAD_TGV_FOURTH_REPUBLIC_ELECTION_TT
 		}
 	}
 }
