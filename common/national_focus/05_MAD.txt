@@ -14183,13 +14183,16 @@ available = {
 				MAD_TGV_IN_POWER = yes
 			}
 			custom_trigger_tooltip = {
-				tooltip = MAD_TGV_MAPUTO_CRDSN_REVIVED_tt
-				has_country_flag = MAD_MIL_CRDSN_REVIVED
+				tooltip = MAD_TGV_MAPUTO_CRDSN_PROPOSED_tt
+				has_country_flag = MAD_MIL_CRDSN_PROPOSED
 			}
 		}
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_TGV_FORMALISE_MAPUTO_STRUCTURE"
+			# The TGV Article 22 choice proposes the CRDSN; this focus formally establishes it.
+			set_country_flag = MAD_MIL_CRDSN_REVIVED
+			clr_country_flag = MAD_MIL_CRDSN_PROPOSED
 			add_political_power = 50
 			add_stability = 0.05
 			if = {
