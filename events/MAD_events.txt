@@ -9219,6 +9219,67 @@ country_event = {
 	}
 }
 
+
+country_event = {
+	id = MAD_military_refoundation.21
+	title = MAD_military_refoundation.21.t
+	desc = MAD_military_refoundation.21.d
+	picture = GFX_report_event_generic_political
+	is_triggered_only = yes
+	fire_only_once = yes
+	trigger = { has_country_flag = MAD_TGV_MAPUTO_SETTLEMENT_PENDING }
+	immediate = { clr_country_flag = MAD_TGV_MAPUTO_SETTLEMENT_PENDING }
+
+	# The inclusive settlement gives the three other signatory movements a political base.
+	option = {
+		name = MAD_military_refoundation.21.a
+		ai_chance = { factor = 10 }
+		log = "[GetDateText]: [Root.GetName]: Implement the Maputo power-sharing settlement"
+		set_country_flag = MAD_TGV_MAPUTO_IMPLEMENTED
+		clr_country_flag = MAD_TGV_MAPUTO_UNILATERAL
+		clr_country_flag = MAD_MIL_EXECUTIVE_SECURITY_COORDINATION
+		clr_country_flag = MAD_MIL_CRDSN_PROPOSED
+		add_political_power = -15
+		add_stability = 0.03
+		decrease_centralization = yes
+
+		set_temp_variable = { party_index = 2 }
+		set_temp_variable = { party_popularity_increase = 0.05 }
+		set_temp_variable = { temp_outlook_increase = 0.05 }
+		change_relative_party_popularity = yes
+
+		set_temp_variable = { party_index = 5 }
+		set_temp_variable = { party_popularity_increase = 0.05 }
+		set_temp_variable = { temp_outlook_increase = 0.05 }
+		change_relative_party_popularity = yes
+
+		set_temp_variable = { party_index = 14 }
+		set_temp_variable = { party_popularity_increase = 0.05 }
+		set_temp_variable = { temp_outlook_increase = 0.05 }
+		change_relative_party_popularity = yes
+		recalculate_party = yes
+	}
+
+	# Historical route: retain HAT executive dominance instead of implementing the settlement.
+	option = {
+		name = MAD_military_refoundation.21.b
+		ai_chance = { factor = 90 }
+		log = "[GetDateText]: [Root.GetName]: Maintain the unilateral HAT transition"
+		set_country_flag = MAD_TGV_MAPUTO_UNILATERAL
+		clr_country_flag = MAD_TGV_MAPUTO_IMPLEMENTED
+		set_country_flag = MAD_MIL_EXECUTIVE_SECURITY_COORDINATION
+		clr_country_flag = MAD_MIL_CRDSN_PROPOSED
+		add_political_power = 20
+		add_stability = -0.02
+		increase_centralization = yes
+		set_temp_variable = { party_index = 20 }
+		set_temp_variable = { party_popularity_increase = 0.05 }
+		set_temp_variable = { temp_outlook_increase = 0.05 }
+		change_relative_party_popularity = yes
+		recalculate_party = yes
+	}
+}
+
 country_event = {
 	id = MAD_military_refoundation.4
 	title = MAD_military_refoundation.4.t

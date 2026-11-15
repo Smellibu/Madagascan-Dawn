@@ -7,6 +7,7 @@ MAD_RESET_PARTY_LEADER_COUNTER = {
 	else_if = { limit = { check_variable = { rul_party_temp = 3 } } set_variable = { socialism_leader = 0 } }
 	else_if = { limit = { check_variable = { rul_party_temp = 5 } } set_variable = { anarchist_communism_leader = 0 } }
 	else_if = { limit = { check_variable = { rul_party_temp = 13 } } set_variable = { Neutral_Autocracy_leader = 0 } }
+	else_if = { limit = { check_variable = { rul_party_temp = 14 } } set_variable = { Neutral_conservatism_leader = 0 } }
 	else_if = { limit = { check_variable = { rul_party_temp = 15 } } set_variable = { oligarchism_leader = 0 } }
 	else_if = { limit = { check_variable = { rul_party_temp = 16 } } set_variable = { Neutral_Libertarian_leader = 0 } }
 	else_if = { limit = { check_variable = { rul_party_temp = 20 } } set_variable = { Nat_Populism_leader = 0 } }
@@ -410,6 +411,25 @@ set_leader_MAD = {
 				}
 			}
 			if = { limit = { has_country_flag = do_not_retire } subtract_from_variable = { Neutral_Autocracy_leader = 1 } }
+			set_temp_variable = { b = 1 }
+		}
+	}
+	# 14 — UNDD / Albert Zafy, represented through the neutral-conservative slot only on the Maputo route.
+	else_if = {
+		limit = { check_variable = { ruling_party = 14 } }
+		if = {
+			limit = {
+				has_country_flag = MAD_TGV_MAPUTO_IMPLEMENTED
+				check_variable = { Neutral_conservatism_leader = 0 }
+			}
+			add_to_variable = { Neutral_conservatism_leader = 1 }
+			hidden_effect = { kill_country_leader = yes }
+			create_country_leader = {
+				name = "Albert Zafy"
+				ideology = Neutral_conservatism
+				traits = { career_politician }
+			}
+			if = { limit = { has_country_flag = do_not_retire } subtract_from_variable = { Neutral_conservatism_leader = 1 } }
 			set_temp_variable = { b = 1 }
 		}
 	}
