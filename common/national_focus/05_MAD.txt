@@ -10093,8 +10093,8 @@ focus_tree = {
 		id = MAD_POL_MIL_TAKES_RESPONSIBILITY
 		icon = war
 		x = 0
-		y = 1
-		relative_position_id = MAD_POL_MIL_LESSON_2002
+		y = 3
+		relative_position_id = MAD_POL_MIL_PRE2002_OFFICER_CORPS
 		cost = 3
 		prerequisite = { focus = MAD_POL_MIL_LESSON_2002 }
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ARMY_BONUS }
@@ -10199,8 +10199,8 @@ focus = {
 		id = MAD_POL_MIL_CHAIN_OF_COMMAND
 		icon = Generic_Command_Power
 		x = -2
-		y = 1
-		relative_position_id = MAD_pol_mil_confirm_chief_of_staff
+		y = 6
+		relative_position_id = MAD_POL_MIL_TAKES_RESPONSIBILITY
 		cost = 3
 		prerequisite = { focus = MAD_pol_mil_confirm_chief_of_staff }
 		search_filters = { FOCUS_FILTER_POLITICAL }
@@ -10247,8 +10247,8 @@ focus = {
 		id = MAD_POL_MIL_PROFESSIONAL_OFFICERS
 		icon = military_academy
 		x = 0
-		y = 1
-		relative_position_id = MAD_pol_mil_general_staff_verifiable_roadmap
+		y = 2
+		relative_position_id = MAD_POL_MIL_CHAIN_OF_COMMAND
 		cost = 3
 		prerequisite = { focus = MAD_pol_mil_general_staff_verifiable_roadmap }
 		search_filters = { FOCUS_FILTER_POLITICAL }
@@ -10447,8 +10447,8 @@ focus = {
 		id = MAD_POL_MIL_CAPSAT_LESSON
 		icon = army_doctrine
 		x = 0
-		y = 1
-		relative_position_id = MAD_pol_mil_confirm_chief_of_staff
+		y = 6
+		relative_position_id = MAD_POL_MIL_TAKES_RESPONSIBILITY
 		cost = 3
 		prerequisite = { focus = MAD_pol_mil_confirm_chief_of_staff }
 		search_filters = { FOCUS_FILTER_POLITICAL }
@@ -10499,8 +10499,8 @@ focus = {
 		id = MAD_pol_mil_capsat_transitional_defence_council
 		icon = parliament_box
 		x = 0
-		y = 1
-		relative_position_id = MAD_pol_mil_capsat_gendarmerie_alignment
+		y = 2
+		relative_position_id = MAD_POL_MIL_CAPSAT_LESSON
 		cost = 3
 		prerequisite = { focus = MAD_pol_mil_capsat_gendarmerie_alignment }
 		search_filters = { FOCUS_FILTER_POLITICAL }
@@ -13970,8 +13970,8 @@ focus = {
 		id = MAD_POL_TGV_RETURN_BALLOT
 		icon = Election
 		x = 1
-		y = 4
-		relative_position_id = MAD_POL_TGV_FOURTH_REPUBLIC
+		y = 7
+		relative_position_id = MAD_POL_TGV_2009_LEGACY
 		cost = 3
 		prerequisite = { focus = MAD_POL_TGV_FOURTH_REPUBLIC }
 		search_filters = { FOCUS_FILTER_POLITICAL }
