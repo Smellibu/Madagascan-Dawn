@@ -1160,7 +1160,6 @@ focus_tree = {
 		}
 	}
 
-
 	focus = {
 		id = MAD_ANTETEZAMBATO_HYDRO
 		icon = focus_generic_hydroelectric_energy
@@ -1180,7 +1179,9 @@ focus_tree = {
 			add_to_variable = { MAD_power_energy_gain_multiplier = 0.01 tooltip = energy_gain_multiplier_tt }
 		}
 
-		ai_will_do = { base = 1 }
+		ai_will_do = {
+			base = 1
+		}
 	}
 
 	focus = {
@@ -1202,10 +1203,10 @@ focus_tree = {
 			add_to_variable = { MAD_power_fossil_pp_fuel_consumption_modifier = -0.04 tooltip = fossil_pp_fuel_consumption_modifier_tt }
 		}
 
-		ai_will_do = { base = 1 }
+		ai_will_do = {
+			base = 1
+		}
 	}
-
-
 
 	focus = {
 		id = MAD_AIR
@@ -1601,8 +1602,10 @@ focus_tree = {
 		ai_will_do = {
 			base = 1
 			modifier = {
-				factor = 0
-				check_variable = { treasury < 15.5 }
+			factor = 0
+			check_variable = {
+				treasury < 15.5
+			}
 			}
 			modifier = {
 			factor = 0
@@ -1647,8 +1650,10 @@ focus_tree = {
 			can_staff_an_offices = no
 			}
 			modifier = {
-				factor = 0
-				check_variable = { treasury < 12 }
+			factor = 0
+			check_variable = {
+				treasury < 12
+			}
 			}
 			modifier = {
 			factor = 0
@@ -1987,6 +1992,7 @@ focus_tree = {
 		cost = 3
 		prerequisite = { focus = MAD_Toliara_rare_earths }
 		search_filters = { FOCUS_FILTER_ECONOMY }
+
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_TOLIARA_RANOBE_SURVEY"
 			custom_effect_tooltip = {
@@ -2990,8 +2996,10 @@ focus_tree = {
 			can_staff_an_offices = no
 			}
 			modifier = {
-				factor = 0
-				check_variable = { treasury < 16 }
+			factor = 0
+			check_variable = {
+				treasury < 16
+			}
 			}
 			modifier = {
 			factor = 0
@@ -4476,7 +4484,6 @@ focus_tree = {
 				set_temp_variable = { temp_opinion = -2 }
 				change_landowners_opinion = yes
 			}
-			
 		}
 
 		ai_will_do = {
@@ -4509,7 +4516,6 @@ focus_tree = {
 			add_to_variable = { MAD_power_production_speed_renewable_energy_infra_factor = 0.05 tooltip = production_speed_renewable_energy_infra_factor_tt }
 			add_stability = 0.01
 			add_tech_bonus = { name = MAD_DECIM_RENEWABLES bonus = 0.35 uses = 1 category = CAT_renewable_energy }
-			
 		}
 
 		ai_will_do = {
@@ -4940,8 +4946,10 @@ focus_tree = {
 			can_staff_an_offices = no
 			}
 			modifier = {
-				factor = 0
-				check_variable = { treasury < 8 }
+			factor = 0
+			check_variable = {
+				treasury < 8
+			}
 			}
 			modifier = {
 			factor = 0
@@ -5616,8 +5624,7 @@ focus_tree = {
 						if = { limit = { has_country_flag = MAD_JIRAMA_PUBLIC_MODEL }
 			add_power_balance_value = { id = MAD_economy_ownership_bop value = 0.0375 tooltip_side = MAD_public_ownership }
 				}
-			
-					}
+		}
 
 		ai_will_do = {
 			base = 1
@@ -5756,8 +5763,10 @@ focus_tree = {
 			can_staff_an_offices = no
 			}
 			modifier = {
-				factor = 0
-				check_variable = { treasury < 12 }
+			factor = 0
+			check_variable = {
+				treasury < 12
+			}
 			}
 			modifier = {
 			factor = 0
@@ -7138,8 +7147,10 @@ focus_tree = {
 		ai_will_do = {
 			base = 1
 			modifier = {
-				factor = 0
-				check_variable = { treasury < 5 }
+			factor = 0
+			check_variable = {
+				treasury < 5
+			}
 			}
 		}
 	}
@@ -7269,7 +7280,6 @@ focus_tree = {
 			add_to_variable = { MAD_power_production_speed_renewable_energy_infra_factor = 0.05 tooltip = production_speed_renewable_energy_infra_factor_tt }
 			add_to_variable = { MAD_power_renewable_infra_cost_multiplier_modifier = -0.03 tooltip = renewable_infra_cost_multiplier_modifier_tt }
 			add_stability = -0.01
-			
 		}
 
 		ai_will_do = {
@@ -7731,8 +7741,10 @@ focus_tree = {
 		ai_will_do = {
 			base = 1
 			modifier = {
-				factor = 0
-				check_variable = { treasury < 3.75 }
+			factor = 0
+			check_variable = {
+				treasury < 3.75
+			}
 			}
 		}
 	}
@@ -7821,8 +7833,10 @@ focus_tree = {
 			can_staff_an_offices = no
 			}
 			modifier = {
-				factor = 0
-				check_variable = { treasury < 12 }
+			factor = 0
+			check_variable = {
+				treasury < 12
+			}
 			}
 			modifier = {
 			factor = 0
@@ -7944,8 +7958,10 @@ focus_tree = {
 			can_staff_an_offices = no
 			}
 			modifier = {
-				factor = 0
-				check_variable = { treasury < 15 }
+			factor = 0
+			check_variable = {
+				treasury < 15
+			}
 			}
 			modifier = {
 			factor = 0
@@ -8042,8 +8058,10 @@ focus_tree = {
 			can_staff_an_offices = no
 			}
 			modifier = {
-				factor = 0
-				check_variable = { treasury < 15 }
+			factor = 0
+			check_variable = {
+				treasury < 15
+			}
 			}
 		}
 	}
@@ -8244,8 +8262,10 @@ focus_tree = {
 			can_staff_an_offices = no
 			}
 			modifier = {
-				factor = 0
-				check_variable = { treasury < 12 }
+			factor = 0
+			check_variable = {
+				treasury < 12
+			}
 			}
 			modifier = {
 			factor = 0
@@ -8785,8 +8805,10 @@ focus_tree = {
 			can_staff_an_offices = no
 			}
 			modifier = {
-				factor = 0
-				check_variable = { treasury < 12 }
+			factor = 0
+			check_variable = {
+				treasury < 12
+			}
 			}
 			modifier = {
 			factor = 0
@@ -8974,8 +8996,10 @@ focus_tree = {
 			can_staff_an_offices = no
 			}
 			modifier = {
-				factor = 0
-				check_variable = { treasury < 12 }
+			factor = 0
+			check_variable = {
+				treasury < 12
+			}
 			}
 			modifier = {
 			factor = 0
@@ -9649,8 +9673,10 @@ focus_tree = {
 			can_staff_an_offices = no
 			}
 			modifier = {
-				factor = 0
-				check_variable = { treasury < 2.5 }
+			factor = 0
+			check_variable = {
+				treasury < 2.5
+			}
 			}
 		}
 	}
@@ -9713,8 +9739,10 @@ focus_tree = {
 			can_staff_an_offices = no
 			}
 			modifier = {
-				factor = 0
-				check_variable = { treasury < 12 }
+			factor = 0
+			check_variable = {
+				treasury < 12
+			}
 			}
 			modifier = {
 			factor = 0
@@ -9769,8 +9797,10 @@ focus_tree = {
 			can_staff_an_offices = no
 			}
 			modifier = {
-				factor = 0
-				check_variable = { treasury < 4 }
+			factor = 0
+			check_variable = {
+				treasury < 4
+			}
 			}
 		}
 	}
@@ -9950,7 +9980,6 @@ focus_tree = {
 		prerequisite = { focus = MAD_POL_PARTIES }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 
-
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_MIL_PRE2002_OFFICER_CORPS"
 			set_country_flag = MAD_MIL_PRE2002_PERSONNEL_REVIEW_PENDING
@@ -9971,7 +10000,6 @@ focus_tree = {
 		cost = 3
 		prerequisite = { focus = MAD_POL_MIL_PRE2002_OFFICER_CORPS }
 		search_filters = { FOCUS_FILTER_POLITICAL }
-
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_MIL_PRE2002_DEVELOPMENT_STAFF"
@@ -10009,8 +10037,14 @@ focus_tree = {
 
 		ai_will_do = {
 			base = 1
-			modifier = { factor = 0.5 ai_has_high_deficit = yes }
-			modifier = { factor = 0 has_active_mission = bankruptcy_incoming_collapse }
+			modifier = {
+			factor = 0.5
+			ai_has_high_deficit = yes
+			}
+			modifier = {
+			factor = 0
+			has_active_mission = bankruptcy_incoming_collapse
+			}
 		}
 	}
 
@@ -10023,7 +10057,6 @@ focus_tree = {
 		cost = 3
 		prerequisite = { focus = MAD_POL_MIL_PRE2002_OFFICER_CORPS }
 		search_filters = { FOCUS_FILTER_POLITICAL }
-
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_MIL_PRE2002_GENDARMERIE"
@@ -10040,54 +10073,41 @@ focus_tree = {
 		}
 	}
 
-		focus = {
-			id = MAD_POL_MIL_LESSON_2002
-	
+	focus = {
+		id = MAD_POL_MIL_LESSON_2002
 		icon = demand_territory
-			x = 0
-			y = 2
-			relative_position_id = MAD_POL_MIL_PRE2002_OFFICER_CORPS
-			cost = 3
+		x = 0
+		y = 2
+		relative_position_id = MAD_POL_MIL_PRE2002_OFFICER_CORPS
+		cost = 3
+		prerequisite = { focus = MAD_POL_MIL_PRE2002_OFFICER_CORPS focus = MAD_POL_MIL_PRE2002_DEVELOPMENT_STAFF focus = MAD_POL_MIL_PRE2002_GENDARMERIE }
+		search_filters = { FOCUS_FILTER_POLITICAL }
 
-			prerequisite = {
-				focus = MAD_POL_MIL_PRE2002_OFFICER_CORPS
-				focus = MAD_POL_MIL_PRE2002_DEVELOPMENT_STAFF
-				focus = MAD_POL_MIL_PRE2002_GENDARMERIE
-			}
-
-			search_filters = { FOCUS_FILTER_POLITICAL }
-
-	
-
-			completion_reward = {
-				log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_MIL_LESSON_2002"
-
-				# The armed forces emerge from the crisis with
-				# a stronger independent political position.
-				set_temp_variable = { party_index = 22 }
-				set_temp_variable = { party_popularity_increase = 0.03 }
-				set_temp_variable = { temp_outlook_increase = 0.03 }
-				change_relative_party_popularity = yes
-
-				# Recognise FPA as a member of the existing
-				# governing coalition.
-				set_temp_variable = { add_col_one = 22 }
-				add_coalition_members_effect = yes
-
-				# Use the standard MD focus-reward sequence so the
-				# one-year military-spending restriction is displayed.
-				increase_military_spending = yes
-				block_defence_decrease = yes
-			}
-
-			ai_will_do = {
-				base = 1
-			}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_MIL_LESSON_2002"
+			
+			
+			
+			set_temp_variable = { party_index = 22 }
+			set_temp_variable = { party_popularity_increase = 0.03 }
+			set_temp_variable = { temp_outlook_increase = 0.03 }
+			change_relative_party_popularity = yes
+			
+			
+			
+			set_temp_variable = { add_col_one = 22 }
+			add_coalition_members_effect = yes
+			
+			
+			
+			increase_military_spending = yes
+			block_defence_decrease = yes
 		}
 
-
-
-	
+		ai_will_do = {
+			base = 1
+		}
+	}
 
 	focus = {
 		id = MAD_POL_MIL_TAKES_RESPONSIBILITY
@@ -10152,7 +10172,7 @@ focus_tree = {
 		}
 	}
 
-focus = {
+	focus = {
 		id = MAD_POL_MIL_MODERNISE_MILITARY_STATUTE
 		icon = military_academy
 		x = 2
@@ -10172,10 +10192,18 @@ focus = {
 				has_country_flag = MAD_ARMY_COMMAND_GENERAL_STAFF
 			}
 		}
-		ai_will_do = { base = 1 }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_MIL_MODERNISE_MILITARY_STATUTE"
+			# TODO: add effects
+		}
+
+		ai_will_do = {
+			base = 1
+		}
 	}
 
-focus = {
+	focus = {
 		id = MAD_pol_mil_confirm_chief_of_staff
 		icon = Generic_Command_Power
 		x = 0
@@ -10191,9 +10219,16 @@ focus = {
 			}
 			has_country_flag = MAD_ARMY_COMMAND_DECIDED
 		}
-		ai_will_do = { base = 1 }
-	}
 
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_pol_mil_confirm_chief_of_staff"
+			# TODO: add effects
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
 
 	focus = {
 		id = MAD_POL_MIL_CHAIN_OF_COMMAND
@@ -10224,7 +10259,7 @@ focus = {
 		}
 	}
 
-focus = {
+	focus = {
 		id = MAD_pol_mil_general_staff_verifiable_roadmap
 		icon = Generic_Command_Power
 		x = 0
@@ -10240,7 +10275,15 @@ focus = {
 			}
 			has_country_flag = MAD_ARMY_COMMAND_GENERAL_STAFF
 		}
-		ai_will_do = { base = 1 }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_pol_mil_general_staff_verifiable_roadmap"
+			# TODO: add effects
+		}
+
+		ai_will_do = {
+			base = 1
+		}
 	}
 
 	focus = {
@@ -10271,7 +10314,7 @@ focus = {
 		}
 	}
 
-		focus = {
+	focus = {
 		id = MAD_POL_MIL_LESSON_2009
 		icon = army_general_stuff1
 		x = 2
@@ -10308,11 +10351,7 @@ focus = {
 		}
 	}
 
-
-
-
-
-focus = {
+	focus = {
 		id = MAD_POL_MIL_INTERNAL_CONTROL_2021_23
 		icon = military_academy
 		x = 2
@@ -10333,10 +10372,11 @@ focus = {
 			set_country_flag = MAD_MIL_INTERNAL_CONTROL_PENDING
 			country_event = { id = MAD_military_refoundation.14 days = 1 }
 		}
-		ai_will_do = { base = 1 }
+
+		ai_will_do = {
+			base = 1
+		}
 	}
-
-
 
 	focus = {
 		id = MAD_POL_MIL_PROTECT_BALLOT
@@ -10384,7 +10424,6 @@ focus = {
 			base = 1
 		}
 	}
-
 
 	focus = {
 		id = MAD_POL_MIL_FINAL_ARBITER
@@ -10442,7 +10481,6 @@ focus = {
 		}
 	}
 
-
 	focus = {
 		id = MAD_POL_MIL_CAPSAT_LESSON
 		icon = army_doctrine
@@ -10475,7 +10513,7 @@ focus = {
 		}
 	}
 
-focus = {
+	focus = {
 		id = MAD_pol_mil_capsat_gendarmerie_alignment
 		icon = Generic_Policeman
 		x = 0
@@ -10492,7 +10530,15 @@ focus = {
 			has_country_flag = MAD_ARMY_COMMAND_CAPSAT
 			MAD_POL_MIL_POST_2025_ROUTE_AVAILABLE = yes
 		}
-		ai_will_do = { base = 1 }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_pol_mil_capsat_gendarmerie_alignment"
+			# TODO: add effects
+		}
+
+		ai_will_do = {
+			base = 1
+		}
 	}
 
 	focus = {
@@ -10512,7 +10558,15 @@ focus = {
 			has_country_flag = MAD_ARMY_COMMAND_CAPSAT
 			MAD_POL_MIL_POST_2025_ROUTE_AVAILABLE = yes
 		}
-		ai_will_do = { base = 1 }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_pol_mil_capsat_transitional_defence_council"
+			# TODO: add effects
+		}
+
+		ai_will_do = {
+			base = 1
+		}
 	}
 
 	focus = {
@@ -10532,7 +10586,15 @@ focus = {
 			has_country_flag = MAD_ARMY_COMMAND_CAPSAT
 			MAD_POL_MIL_POST_2025_ROUTE_AVAILABLE = yes
 		}
-		ai_will_do = { base = 1 }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_pol_mil_capsat_security_command"
+			# TODO: add effects
+		}
+
+		ai_will_do = {
+			base = 1
+		}
 	}
 
 	focus = {
@@ -10552,7 +10614,15 @@ focus = {
 			has_country_flag = MAD_ARMY_COMMAND_CAPSAT
 			MAD_POL_MIL_POST_2025_ROUTE_AVAILABLE = yes
 		}
-		ai_will_do = { base = 1 }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_pol_mil_capsat_high_counsellors"
+			# TODO: add effects
+		}
+
+		ai_will_do = {
+			base = 1
+		}
 	}
 
 	focus = {
@@ -10578,9 +10648,10 @@ focus = {
 			set_country_flag = MAD_MIL_SECURITY_ESTABLISHMENT_IN_STATE
 		}
 
-		ai_will_do = { base = 1 }
+		ai_will_do = {
+			base = 1
+		}
 	}
-
 
 	focus = {
 		id = MAD_POL_MIL_CIVILIAN_ADMINISTRATION
@@ -10645,7 +10716,6 @@ focus = {
 		}
 	}
 
-
 	focus = {
 		id = MAD_POL_MIL_CLEAN_UNIFORM
 		icon = Generic_Policeman
@@ -10678,7 +10748,7 @@ focus = {
 		}
 	}
 
-focus = {
+	focus = {
 		id = MAD_POL_MIL_TOROHY_TAX_INTEGRITY
 		icon = diplomatic_treaty
 		x = 1
@@ -10694,10 +10764,18 @@ focus = {
 			}
 			MAD_POL_MIL_POST_2025_ROUTE_AVAILABLE = yes
 		}
-		ai_will_do = { base = 1 }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_MIL_TOROHY_TAX_INTEGRITY"
+			# TODO: add effects
+		}
+
+		ai_will_do = {
+			base = 1
+		}
 	}
 
-focus = {
+	focus = {
 		id = MAD_POL_MIL_YOUTH_ANTI_CORRUPTION_HIGH_COMMISSION
 		icon = political_reform
 		x = -1
@@ -10713,9 +10791,16 @@ focus = {
 			}
 			MAD_POL_MIL_POST_2025_ROUTE_AVAILABLE = yes
 		}
-		ai_will_do = { base = 1 }
-	}
 
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_MIL_YOUTH_ANTI_CORRUPTION_HIGH_COMMISSION"
+			# TODO: add effects
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
 
 	focus = {
 		id = MAD_POL_MIL_REFOUNDATION
@@ -10745,7 +10830,7 @@ focus = {
 		}
 	}
 
-focus = {
+	focus = {
 		id = MAD_POL_MIL_GREEN_BUDGET
 		icon = construction
 		x = 4
@@ -10761,9 +10846,16 @@ focus = {
 			}
 			MAD_POL_MIL_POST_2025_ROUTE_AVAILABLE = yes
 		}
-		ai_will_do = { base = 1 }
-	}
 
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_MIL_GREEN_BUDGET"
+			# TODO: add effects
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
 
 	focus = {
 		id = MAD_POL_MIL_CIVILIAN_GUARDIANSHIP
@@ -10816,14 +10908,15 @@ focus = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_MIL_CONSTITUTIONAL_REFERENDUM"
-			# Preparation only: the HCC confirmed the possibility in principle;
-			# this does not record that a referendum has actually taken place.
+			
+			
 			set_country_flag = MAD_MIL_MULTI_OPTION_REFERENDUM_PREPARED
 		}
 
-		ai_will_do = { base = 1 }
+		ai_will_do = {
+			base = 1
+		}
 	}
-
 
 	focus = {
 		id = MAD_POL_MIL_GENERAL_STAFF_CONSTITUTIONAL_OVERSIGHT
@@ -10848,9 +10941,10 @@ focus = {
 			set_country_flag = MAD_MIL_GENERAL_STAFF_CONSTITUTIONAL_OVERSIGHT
 		}
 
-		ai_will_do = { base = 1 }
+		ai_will_do = {
+			base = 1
+		}
 	}
-
 
 	focus = {
 		id = MAD_POL_MIL_DIGITAL_ADMINISTRATION
@@ -10884,7 +10978,7 @@ focus = {
 		}
 	}
 
-focus = {
+	focus = {
 		id = MAD_POL_MIL_CYBERCRIME_BILL
 		icon = diplomatic_treaty
 		x = 1
@@ -10900,10 +10994,18 @@ focus = {
 			}
 			MAD_POL_MIL_POST_2025_ROUTE_AVAILABLE = yes
 		}
-		ai_will_do = { base = 1 }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_MIL_CYBERCRIME_BILL"
+			# TODO: add effects
+		}
+
+		ai_will_do = {
+			base = 1
+		}
 	}
 
-focus = {
+	focus = {
 		id = MAD_POL_MIL_BIOMETRIC_ID_REGISTRATION
 		icon = political_reform
 		x = -1
@@ -10919,7 +11021,15 @@ focus = {
 			}
 			MAD_POL_MIL_POST_2025_ROUTE_AVAILABLE = yes
 		}
-		ai_will_do = { base = 1 }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_MIL_BIOMETRIC_ID_REGISTRATION"
+			# TODO: add effects
+		}
+
+		ai_will_do = {
+			base = 1
+		}
 	}
 
 	focus = {
@@ -10989,7 +11099,7 @@ focus = {
 		}
 	}
 
-focus = {
+	focus = {
 		id = MAD_POL_MIL_SECURE_EMERGENCY_POWER_SUPPLY
 		icon = construction
 		x = -1
@@ -11005,7 +11115,15 @@ focus = {
 			}
 			MAD_POL_MIL_POST_2025_ROUTE_AVAILABLE = yes
 		}
-		ai_will_do = { base = 1 }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_MIL_SECURE_EMERGENCY_POWER_SUPPLY"
+			# TODO: add effects
+		}
+
+		ai_will_do = {
+			base = 1
+		}
 	}
 
 	focus = {
@@ -11129,7 +11247,7 @@ focus = {
 		}
 	}
 
-focus = {
+	focus = {
 		id = MAD_POL_MIL_ESSENTIAL_MARKET_REGULATION
 		icon = political_reform
 		x = 2
@@ -11145,10 +11263,18 @@ focus = {
 			}
 			MAD_POL_MIL_POST_2025_ROUTE_AVAILABLE = yes
 		}
-		ai_will_do = { base = 1 }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_MIL_ESSENTIAL_MARKET_REGULATION"
+			# TODO: add effects
+		}
+
+		ai_will_do = {
+			base = 1
+		}
 	}
 
-focus = {
+	focus = {
 		id = MAD_POL_MIL_PUBLIC_PRIVATE_PARTNERSHIP_BILL
 		icon = construction
 		x = -2
@@ -11164,7 +11290,15 @@ focus = {
 			}
 			MAD_POL_MIL_POST_2025_ROUTE_AVAILABLE = yes
 		}
-		ai_will_do = { base = 1 }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_MIL_PUBLIC_PRIVATE_PARTNERSHIP_BILL"
+			# TODO: add effects
+		}
+
+		ai_will_do = {
+			base = 1
+		}
 	}
 
 	focus = {
@@ -11310,7 +11444,6 @@ focus = {
 		}
 	}
 
-
 	focus = {
 		id = MAD_POL_AREMA_RAT_PRSP
 		icon = focus_generic_workers_and_farmers_rise
@@ -11326,6 +11459,7 @@ focus = {
 				MAD_AREMA_IN_POWER = yes
 			}
 		}
+
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_AREMA_RAT_PRSP"
 			increase_social_spending = yes
@@ -11334,7 +11468,10 @@ focus = {
 			add_stability = 0.02
 			add_political_power = 50
 		}
-		ai_will_do = { base = 1 }
+
+		ai_will_do = {
+			base = 1
+		}
 	}
 
 	focus = {
@@ -11352,6 +11489,7 @@ focus = {
 				MAD_AREMA_IN_POWER = yes
 			}
 		}
+
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_AREMA_RAT_AUTONOMOUS_PROVINCES"
 			decrease_centralization = yes
@@ -11359,7 +11497,10 @@ focus = {
 			add_stability = 0.02
 			add_political_power = 50
 		}
-		ai_will_do = { base = 1 }
+
+		ai_will_do = {
+			base = 1
+		}
 	}
 
 	focus = {
@@ -11377,13 +11518,17 @@ focus = {
 				MAD_AREMA_IN_POWER = yes
 			}
 		}
+
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_AREMA_RAT_PRIVATISATION"
 			increase_economic_growth = yes
 			increase_exports = yes
 			add_political_power = 50
 		}
-		ai_will_do = { base = 1 }
+
+		ai_will_do = {
+			base = 1
+		}
 	}
 
 	focus = {
@@ -11606,7 +11751,6 @@ focus = {
 		}
 	}
 
-
 	focus = {
 		id = MAD_POL_AREMA_PUBLIC_SECURITY
 		icon = generic_government
@@ -11622,12 +11766,16 @@ focus = {
 				MAD_AREMA_IN_POWER = yes
 			}
 		}
+
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_AREMA_PUBLIC_SECURITY"
 			add_stability = 0.03
 			add_political_power = 50
 		}
-		ai_will_do = { base = 1 }
+
+		ai_will_do = {
+			base = 1
+		}
 	}
 
 	focus = {
@@ -11645,12 +11793,16 @@ focus = {
 				MAD_AREMA_IN_POWER = yes
 			}
 		}
+
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_AREMA_RULE_OF_LAW"
 			add_stability = 0.02
 			add_political_power = 50
 		}
-		ai_will_do = { base = 1 }
+
+		ai_will_do = {
+			base = 1
+		}
 	}
 
 	focus = {
@@ -11668,12 +11820,16 @@ focus = {
 				MAD_AREMA_IN_POWER = yes
 			}
 		}
+
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_AREMA_ELECTORAL_REFORM"
 			add_stability = 0.02
 			add_political_power = 50
 		}
-		ai_will_do = { base = 1 }
+
+		ai_will_do = {
+			base = 1
+		}
 	}
 
 	focus = {
@@ -11779,6 +11935,7 @@ focus = {
 			base = 1
 		}
 	}
+
 	focus = {
 		id = MAD_POL_AREMA_MERIT_PUBLIC_SERVICE
 		icon = focus_generic_improve_the_administration
@@ -11798,15 +11955,18 @@ focus = {
 				has_completed_focus = MAD_POL_AREMA_CHOOSE_RENEWAL
 			}
 		}
+
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_AREMA_MERIT_PUBLIC_SERVICE"
 			add_stability = 0.02
 			add_political_power = 50
 		}
+
 		ai_will_do = {
 			base = 1
 		}
 	}
+
 	focus = {
 		id = MAD_POL_AREMA_THIRD_CHAMBER
 		icon = generic_government
@@ -11826,16 +11986,17 @@ focus = {
 				has_completed_focus = MAD_POL_AREMA_CHOOSE_RENEWAL
 			}
 		}
+
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_AREMA_THIRD_CHAMBER"
 			add_stability = 0.02
 			add_political_power = 50
 		}
+
 		ai_will_do = {
 			base = 1
 		}
 	}
-
 
 	focus = {
 		id = MAD_POL_AREMA_RENEWAL_MODERNISE
@@ -11996,6 +12157,7 @@ focus = {
 				has_completed_focus = MAD_POL_AREMA_CHOOSE_RENEWAL
 			}
 		}
+
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_AREMA_REVIVE_REGIONAL_ENTERPRISES"
 			one_random_industrial_complex = yes
@@ -12004,11 +12166,11 @@ focus = {
 			add_stability = 0.02
 			add_political_power = 50
 		}
+
 		ai_will_do = {
 			base = 1
 		}
 	}
-
 
 	focus = {
 		id = MAD_POL_AREMA_STATE_LEADS
@@ -12246,6 +12408,7 @@ focus = {
 			base = 1
 		}
 	}
+
 	focus = {
 		id = MAD_POL_AREMA_LAND_TENURE_REFORM
 		icon = focus_generic_land_reform
@@ -12265,6 +12428,7 @@ focus = {
 				has_completed_focus = MAD_POL_AREMA_CHOOSE_RENEWAL
 			}
 		}
+
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_AREMA_LAND_TENURE_REFORM"
 			set_temp_variable = { MAD_rc_delta = 4 }
@@ -12273,10 +12437,12 @@ focus = {
 			add_stability = 0.02
 			add_political_power = 50
 		}
+
 		ai_will_do = {
 			base = 1
 		}
 	}
+
 	focus = {
 		id = MAD_POL_AREMA_PANGALANES_DEVELOPMENT
 		icon = infrastructure
@@ -12296,17 +12462,18 @@ focus = {
 				has_completed_focus = MAD_POL_AREMA_CHOOSE_RENEWAL
 			}
 		}
+
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_AREMA_PANGALANES_DEVELOPMENT"
 			one_random_infrastructure = yes
 			increase_economic_growth = yes
 			add_political_power = 50
 		}
+
 		ai_will_do = {
 			base = 1
 		}
 	}
-
 
 	focus = {
 		id = MAD_POL_AREMA_INDEPENDENCE
@@ -12627,7 +12794,6 @@ focus = {
 			base = 1
 		}
 	}
-
 
 	focus = {
 		id = MAD_POL_AREMA_SECOND_SOCIALISM
@@ -13103,6 +13269,7 @@ focus = {
 				MAD_TIM_IN_POWER = yes
 			}
 		}
+
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_MIL_2005_RESTRUCTURING"
 			set_temp_variable = { party_index = 22 }
@@ -13126,7 +13293,10 @@ focus = {
 			}
 			set_country_flag = MAD_MIL_MOBILE_RESPONSE_PROJECT_UNLOCKED
 		}
-		ai_will_do = { base = 1 }
+
+		ai_will_do = {
+			base = 1
+		}
 	}
 
 	focus = {
@@ -13690,23 +13860,26 @@ focus = {
 		}
 	}
 
-		focus = {
-			id = MAD_POL_TGV_OFFICERS_OF_MARCH
-			icon = political_reform
-			x = 2
+	focus = {
+		id = MAD_POL_TGV_OFFICERS_OF_MARCH
+		icon = political_reform
+		x = 2
 			y = 1
-			relative_position_id = MAD_POL_TGV_2009_LEGACY
-			cost = 3
-			prerequisite = { focus = MAD_POL_TGV_2009_LEGACY }
-			search_filters = { FOCUS_FILTER_POLITICAL }
-			allow_branch = {
-				has_country_flag = MAD_TGV_BRANCH_UNLOCKED
-				has_country_flag = MAD_MIL_FOCUS_TGV_MARCH_WINDOW_OPENED
-				NOT = { has_country_flag = MAD_MIL_FOCUS_TGV_MARCH_WINDOW_CLOSED }
-				MAD_TGV_IN_POWER = yes
-			}
-			available = { MAD_TGV_IN_POWER = yes }
-			completion_reward = {
+		relative_position_id = MAD_POL_TGV_2009_LEGACY
+		cost = 3
+		prerequisite = { focus = MAD_POL_TGV_2009_LEGACY }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		allow_branch = {
+			has_country_flag = MAD_TGV_BRANCH_UNLOCKED
+			has_country_flag = MAD_MIL_FOCUS_TGV_MARCH_WINDOW_OPENED
+			NOT = { has_country_flag = MAD_MIL_FOCUS_TGV_MARCH_WINDOW_CLOSED }
+			MAD_TGV_IN_POWER = yes
+		}
+		available = {
+			MAD_TGV_IN_POWER = yes
+		}
+
+		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_TGV_OFFICERS_OF_MARCH"
 			set_country_flag = MAD_TGV_PROMOTIONS_2009_COMPLETED
 			add_war_support = 0.01
@@ -13752,158 +13925,207 @@ focus = {
 				add_ideas = MAD_MIL_OFFICER_PATRONAGE_I
 			}
 		}
-			ai_will_do = { base = 1 }
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_POL_TGV_ESTABLISH_FIS
+		icon = political_reform
+		x = -2
+		y = 1
+		relative_position_id = MAD_POL_TGV_2009_LEGACY
+		cost = 3
+		prerequisite = { focus = MAD_POL_TGV_2009_LEGACY }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		allow_branch = {
+			has_country_flag = MAD_TGV_BRANCH_UNLOCKED
+		}
+		available = {
+			MAD_TGV_IN_POWER = yes
 		}
 
-			focus = {
-			id = MAD_POL_TGV_ESTABLISH_FIS
-			icon = political_reform
-			x = -2
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_TGV_ESTABLISH_FIS"
+			country_event = { id = MAD_military_refoundation.20 days = 1 }
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_POL_TGV_MAPUTO_CHARTER
+		icon = diplomatic_treaty
+		x = 0
 			y = 1
-			relative_position_id = MAD_POL_TGV_2009_LEGACY
-			cost = 3
-			prerequisite = { focus = MAD_POL_TGV_2009_LEGACY }
-			search_filters = { FOCUS_FILTER_POLITICAL }
-			allow_branch = {
-				has_country_flag = MAD_TGV_BRANCH_UNLOCKED
+		relative_position_id = MAD_POL_TGV_2009_LEGACY
+		cost = 3
+		prerequisite = { focus = MAD_POL_TGV_2009_LEGACY }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		allow_branch = {
+			has_country_flag = MAD_TGV_BRANCH_UNLOCKED
+			OR = {
+				has_country_flag = MAD_POL_CONTENT_2009_2025_UNLOCKED
+				date > 2009.1.1
 			}
-			available = { MAD_TGV_IN_POWER = yes }
-			completion_reward = {
-				log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_TGV_ESTABLISH_FIS"
-				country_event = { id = MAD_military_refoundation.20 days = 1 }
+		}
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_TGV_IN_POWER_tt
+				MAD_TGV_IN_POWER = yes
 			}
-			ai_will_do = { base = 1 }
 		}
 
-		focus = {
-			id = MAD_POL_TGV_MAPUTO_CHARTER
-			icon = diplomatic_treaty
-			x = 0
-			y = 1
-			relative_position_id = MAD_POL_TGV_2009_LEGACY
-			cost = 3
-			prerequisite = { focus = MAD_POL_TGV_2009_LEGACY }
-			search_filters = { FOCUS_FILTER_POLITICAL }
-			allow_branch = {
-				has_country_flag = MAD_TGV_BRANCH_UNLOCKED
-				OR = {
-					has_country_flag = MAD_POL_CONTENT_2009_2025_UNLOCKED
-					date > 2009.1.1
-				}
-			}
-			available = {
-				custom_trigger_tooltip = {
-					tooltip = MAD_TGV_IN_POWER_tt
-					MAD_TGV_IN_POWER = yes
-				}
-			}
-			completion_reward = {
-				log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_TGV_MAPUTO_CHARTER"
-				set_country_flag = MAD_MIL_MAPUTO_CHARTER_PENDING
-				country_event = { id = MAD_military_refoundation.3 days = 1 }
-			}
-			ai_will_do = { base = 1 }
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_TGV_MAPUTO_CHARTER"
+			set_country_flag = MAD_MIL_MAPUTO_CHARTER_PENDING
+			country_event = { id = MAD_military_refoundation.3 days = 1 }
 		}
 
-		focus = {
-			id = MAD_POL_TGV_FOURTH_REPUBLIC
-			icon = Focus_Parliament_Constitution
-			x = 0
-			y = 1
-			relative_position_id = MAD_POL_TGV_MAPUTO_CHARTER
-			cost = 3
-			prerequisite = { focus = MAD_POL_TGV_MAPUTO_CHARTER }
-			search_filters = { FOCUS_FILTER_POLITICAL }
-			available = {
-				custom_trigger_tooltip = {
-					tooltip = MAD_TGV_IN_POWER_tt
-					MAD_TGV_IN_POWER = yes
-				}
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_POL_TGV_FOURTH_REPUBLIC
+		icon = Focus_Parliament_Constitution
+		x = 0
+		y = 1
+		relative_position_id = MAD_POL_TGV_MAPUTO_CHARTER
+		cost = 3
+		prerequisite = { focus = MAD_POL_TGV_MAPUTO_CHARTER }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_TGV_IN_POWER_tt
+				MAD_TGV_IN_POWER = yes
 			}
-			completion_reward = {
-				log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_TGV_FOURTH_REPUBLIC"
-				decrease_corruption = yes
-				set_temp_variable = { party_index = 20 }
-				set_temp_variable = { party_popularity_increase = 0.05 }
-				set_temp_variable = { temp_outlook_increase = 0.05 }
-				change_relative_party_popularity = yes
-				recalculate_party = yes
-				increase_centralization = yes
-			}
-			ai_will_do = { base = 1 }
 		}
 
-		focus = {
-			id = MAD_POL_TGV_MAJORITY_GOVERNMENT
-			icon = political_reform
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_TGV_FOURTH_REPUBLIC"
+			decrease_corruption = yes
+			set_temp_variable = { party_index = 20 }
+			set_temp_variable = { party_popularity_increase = 0.05 }
+			set_temp_variable = { temp_outlook_increase = 0.05 }
+			change_relative_party_popularity = yes
+			recalculate_party = yes
+			increase_centralization = yes
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_POL_TGV_MAJORITY_GOVERNMENT
+		icon = political_reform
 			x = -2
 			y = 2
-			relative_position_id = MAD_POL_TGV_FOURTH_REPUBLIC
-			cost = 3
-			prerequisite = { focus = MAD_POL_TGV_FOURTH_REPUBLIC }
-			search_filters = { FOCUS_FILTER_POLITICAL }
-			available = {
-				custom_trigger_tooltip = {
-					tooltip = MAD_TGV_IN_POWER_tt
-					MAD_TGV_IN_POWER = yes
-				}
+		relative_position_id = MAD_POL_TGV_FOURTH_REPUBLIC
+		cost = 3
+		prerequisite = { focus = MAD_POL_TGV_FOURTH_REPUBLIC }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_TGV_IN_POWER_tt
+				MAD_TGV_IN_POWER = yes
 			}
-			ai_will_do = { base = 1 }
 		}
 
-		focus = {
-			id = MAD_POL_TGV_RESTORE_PROVINCES
-			icon = decentralized_economy
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_TGV_MAJORITY_GOVERNMENT"
+			# TODO: add effects
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_POL_TGV_RESTORE_PROVINCES
+		icon = decentralized_economy
 			x = 0
 			y = 2
-			relative_position_id = MAD_POL_TGV_FOURTH_REPUBLIC
-			cost = 3
-			prerequisite = { focus = MAD_POL_TGV_FOURTH_REPUBLIC }
-			search_filters = { FOCUS_FILTER_POLITICAL }
-			available = {
-				custom_trigger_tooltip = {
-					tooltip = MAD_TGV_IN_POWER_tt
-					MAD_TGV_IN_POWER = yes
-				}
+		relative_position_id = MAD_POL_TGV_FOURTH_REPUBLIC
+		cost = 3
+		prerequisite = { focus = MAD_POL_TGV_FOURTH_REPUBLIC }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_TGV_IN_POWER_tt
+				MAD_TGV_IN_POWER = yes
 			}
-			ai_will_do = { base = 1 }
 		}
 
-		focus = {
-			id = MAD_pol_tgv_local_government
-			icon = decentralized_economy
-			x = 0
-			y = 1
-			relative_position_id = MAD_POL_TGV_RESTORE_PROVINCES
-			cost = 3
-			prerequisite = { focus = MAD_POL_TGV_RESTORE_PROVINCES }
-			search_filters = { FOCUS_FILTER_INTERNAL_AFFAIRS FOCUS_FILTER_POLITICAL }
-			available = {
-				custom_trigger_tooltip = {
-					tooltip = MAD_TGV_IN_POWER_tt
-					MAD_TGV_IN_POWER = yes
-				}
-			}
-			ai_will_do = { base = 1 }
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_TGV_RESTORE_PROVINCES"
+			# TODO: add effects
 		}
 
-		focus = {
-			id = MAD_POL_TGV_CONSTITUTIONAL_HCDN
-			icon = Focus_Parliament_Constitution
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_pol_tgv_local_government
+		icon = decentralized_economy
+		x = 0
+		y = 1
+		relative_position_id = MAD_POL_TGV_RESTORE_PROVINCES
+		cost = 3
+		prerequisite = { focus = MAD_POL_TGV_RESTORE_PROVINCES }
+		search_filters = { FOCUS_FILTER_INTERNAL_AFFAIRS FOCUS_FILTER_POLITICAL }
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_TGV_IN_POWER_tt
+				MAD_TGV_IN_POWER = yes
+			}
+		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_pol_tgv_local_government"
+			# TODO: add effects
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = MAD_POL_TGV_CONSTITUTIONAL_HCDN
+		icon = Focus_Parliament_Constitution
 			x = 2
 			y = 2
-			relative_position_id = MAD_POL_TGV_FOURTH_REPUBLIC
-			cost = 3
-			prerequisite = { focus = MAD_POL_TGV_FOURTH_REPUBLIC }
-			search_filters = { FOCUS_FILTER_POLITICAL }
-			available = {
-				custom_trigger_tooltip = {
-					tooltip = MAD_TGV_IN_POWER_tt
-					MAD_TGV_IN_POWER = yes
-				}
+		relative_position_id = MAD_POL_TGV_FOURTH_REPUBLIC
+		cost = 3
+		prerequisite = { focus = MAD_POL_TGV_FOURTH_REPUBLIC }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_TGV_IN_POWER_tt
+				MAD_TGV_IN_POWER = yes
 			}
-			ai_will_do = { base = 1 }
 		}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_TGV_CONSTITUTIONAL_HCDN"
+			# TODO: add effects
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
 
 	focus = {
 		id = MAD_POL_TGV_2013_OFFICER_PROMOTIONS
@@ -13917,6 +14139,7 @@ focus = {
 		available = {
 			MAD_TGV_IN_POWER = yes
 		}
+
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_TGV_2013_OFFICER_PROMOTIONS"
 			set_country_flag = MAD_TGV_PROMOTIONS_2013_COMPLETED
@@ -13963,7 +14186,10 @@ focus = {
 				add_ideas = MAD_MIL_OFFICER_PATRONAGE_I
 			}
 		}
-		ai_will_do = { base = 1 }
+
+		ai_will_do = {
+			base = 1
+		}
 	}
 
 	focus = {
@@ -14068,7 +14294,15 @@ focus = {
 				MAD_TGV_IN_POWER = yes
 			}
 		}
-		ai_will_do = { base = 1 }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_pol_tgv_social_protection"
+			# TODO: add effects
+		}
+
+		ai_will_do = {
+			base = 1
+		}
 	}
 
 	focus = {
@@ -14086,7 +14320,15 @@ focus = {
 				MAD_TGV_IN_POWER = yes
 			}
 		}
-		ai_will_do = { base = 1 }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_pol_tgv_sport_culture"
+			# TODO: add effects
+		}
+
+		ai_will_do = {
+			base = 1
+		}
 	}
 
 	focus = {
@@ -14104,7 +14346,15 @@ focus = {
 				MAD_TGV_IN_POWER = yes
 			}
 		}
-		ai_will_do = { base = 1 }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_pol_tgv_fihariana"
+			# TODO: add effects
+		}
+
+		ai_will_do = {
+			base = 1
+		}
 	}
 
 	focus = {
@@ -14122,7 +14372,15 @@ focus = {
 				MAD_TGV_IN_POWER = yes
 			}
 		}
-		ai_will_do = { base = 1 }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_pol_tgv_education_for_all"
+			# TODO: add effects
+		}
+
+		ai_will_do = {
+			base = 1
+		}
 	}
 
 	focus = {
@@ -14215,7 +14473,6 @@ focus = {
 		}
 	}
 
-
 	focus = {
 		id = MAD_pol_tgv_sustainable_resources
 		icon = sustainable_development
@@ -14231,7 +14488,15 @@ focus = {
 				MAD_TGV_IN_POWER = yes
 			}
 		}
-		ai_will_do = { base = 1 }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_pol_tgv_sustainable_resources"
+			# TODO: add effects
+		}
+
+		ai_will_do = {
+			base = 1
+		}
 	}
 
 	focus = {
@@ -14383,7 +14648,6 @@ focus = {
 			}
 		}
 	}
-
 
 	focus = {
 		id = MAD_POL_TGV_SPECIAL_ECONOMIC_ZONES
@@ -14676,7 +14940,15 @@ focus = {
 				MAD_TGV_IN_POWER = yes
 			}
 		}
-		ai_will_do = { base = 1 }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_pol_tgv_tanamasoandro"
+			# TODO: add effects
+		}
+
+		ai_will_do = {
+			base = 1
+		}
 	}
 
 	focus = {
@@ -14816,6 +15088,7 @@ focus = {
 		available = {
 			MAD_HVM_IN_POWER = yes
 		}
+
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_HVM_OFFICER_PROMOTIONS"
 			set_country_flag = MAD_HVM_PROMOTIONS_COMPLETED
@@ -14897,7 +15170,10 @@ focus = {
 				add_ideas = MAD_MIL_OFFICER_PATRONAGE_I
 			}
 		}
-		ai_will_do = { base = 1 }
+
+		ai_will_do = {
+			base = 1
+		}
 	}
 
 	focus = {
@@ -14947,7 +15223,15 @@ focus = {
 				MAD_HVM_IN_POWER = yes
 			}
 		}
-		ai_will_do = { base = 1 }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_hvm_national_development_plan"
+			# TODO: add effects
+		}
+
+		ai_will_do = {
+			base = 1
+		}
 	}
 
 	focus = {
@@ -14965,7 +15249,15 @@ focus = {
 				MAD_HVM_IN_POWER = yes
 			}
 		}
-		ai_will_do = { base = 1 }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_HVM_RSS_INTERNATIONAL_ASSESSMENT"
+			# TODO: add effects
+		}
+
+		ai_will_do = {
+			base = 1
+		}
 	}
 
 	focus = {
@@ -14983,7 +15275,15 @@ focus = {
 				MAD_HVM_IN_POWER = yes
 			}
 		}
-		ai_will_do = { base = 1 }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_HVM_RSS_POLICY"
+			# TODO: add effects
+		}
+
+		ai_will_do = {
+			base = 1
+		}
 	}
 
 	focus = {
@@ -15001,7 +15301,15 @@ focus = {
 				MAD_HVM_IN_POWER = yes
 			}
 		}
-		ai_will_do = { base = 1 }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_HVM_HCDN_REFORM"
+			# TODO: add effects
+		}
+
+		ai_will_do = {
+			base = 1
+		}
 	}
 
 	focus = {
@@ -15019,7 +15327,15 @@ focus = {
 				MAD_HVM_IN_POWER = yes
 			}
 		}
-		ai_will_do = { base = 1 }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_HVM_SP_DSN"
+			# TODO: add effects
+		}
+
+		ai_will_do = {
+			base = 1
+		}
 	}
 
 	focus = {
@@ -15037,7 +15353,15 @@ focus = {
 				MAD_HVM_IN_POWER = yes
 			}
 		}
-		ai_will_do = { base = 1 }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_HVM_BNC_RSS"
+			# TODO: add effects
+		}
+
+		ai_will_do = {
+			base = 1
+		}
 	}
 
 	focus = {
@@ -15057,7 +15381,15 @@ focus = {
 				MAD_HVM_IN_POWER = yes
 			}
 		}
-		ai_will_do = { base = 1 }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_HVM_RSS_EIGHT_PILLARS"
+			# TODO: add effects
+		}
+
+		ai_will_do = {
+			base = 1
+		}
 	}
 
 	focus = {
@@ -15075,7 +15407,15 @@ focus = {
 				MAD_HVM_IN_POWER = yes
 			}
 		}
-		ai_will_do = { base = 1 }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_HVM_ARSSAM"
+			# TODO: add effects
+		}
+
+		ai_will_do = {
+			base = 1
+		}
 	}
 
 	focus = {
@@ -15128,7 +15468,15 @@ focus = {
 				MAD_HVM_IN_POWER = yes
 			}
 		}
-		ai_will_do = { base = 1 }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_hvm_human_rights_protections"
+			# TODO: add effects
+		}
+
+		ai_will_do = {
+			base = 1
+		}
 	}
 
 	focus = {
@@ -15146,7 +15494,15 @@ focus = {
 				MAD_HVM_IN_POWER = yes
 			}
 		}
-		ai_will_do = { base = 1 }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_hvm_anti_corruption_courts"
+			# TODO: add effects
+		}
+
+		ai_will_do = {
+			base = 1
+		}
 	}
 
 	focus = {
@@ -15355,7 +15711,15 @@ focus = {
 				MAD_HVM_IN_POWER = yes
 			}
 		}
-		ai_will_do = { base = 1 }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_hvm_special_economic_zones"
+			# TODO: add effects
+		}
+
+		ai_will_do = {
+			base = 1
+		}
 	}
 
 	focus = {
@@ -15409,10 +15773,16 @@ focus = {
 				MAD_HVM_IN_POWER = yes
 			}
 		}
-		ai_will_do = { base = 1 }
-	}
 
-	
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_hvm_social_protection_policy"
+			# TODO: add effects
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
 
 	focus = {
 		id = MAD_hvm_education_sector_plan
@@ -15429,7 +15799,15 @@ focus = {
 				MAD_HVM_IN_POWER = yes
 			}
 		}
-		ai_will_do = { base = 1 }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_hvm_education_sector_plan"
+			# TODO: add effects
+		}
+
+		ai_will_do = {
+			base = 1
+		}
 	}
 
 	focus = {
@@ -15493,8 +15871,6 @@ focus = {
 			base = 1
 		}
 	}
-
-	
 
 	focus = {
 		id = MAD_POL_HVM_AGRICULTURE
@@ -16553,10 +16929,10 @@ focus = {
 				limit = { country_exists = SAF }
 				if = {
 					limit = { has_dlc = "No Step Back" }
-					add_equipment_to_stockpile = { type = transport_helicopter_1 amount = 60 producer = SAF } # Atlas Oryx
+					add_equipment_to_stockpile = { type = transport_helicopter_1 amount = 60 producer = SAF } 
 				}
 				else = {
-					add_equipment_to_stockpile = { type = transport_helicopter_2 amount = 60 producer = SAF } # Atlas Oryx
+					add_equipment_to_stockpile = { type = transport_helicopter_2 amount = 60 producer = SAF } 
 				}
 				set_temp_variable = { treasury_change = -0.90 }
 				modify_treasury_effect = yes
@@ -16596,7 +16972,7 @@ focus = {
 					track = training_and_ops
 				}
 			}
-
+			
 			if = {
 				limit = { NOT = { has_country_flag = MAD_DAHALO_DEFEATED } }
 				add_to_variable = { MAD_dahalo_threat = -8 tooltip = MAD_DAHALO_THREAT_MINUS_8_TT }
@@ -18028,7 +18404,6 @@ focus = {
 						navy_experience = 10
 									if = { limit = { has_dlc = "Arms Against Tyranny" } mio:MAD_SECREN_shipbuilding = { add_mio_research_bonus = 0.03 add_mio_funds = 1400 } }
 									if = { limit = { has_country_flag = MAD_NAVAL_DESIGN_JOINT } add_tech_bonus = { name = MAD_NAVAL_JOINT_DESIGN category = CAT_naval_modules bonus = 0.25 uses = 1 } }
-						
 		}
 
 		ai_will_do = {
@@ -18071,7 +18446,6 @@ focus = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_INTEGRATE_NAVAL_SENSORS_AND_WEAPONS"
 					add_tech_bonus = { name = MAD_NAVAL_SYSTEMS_INTEGRATION category = CAT_naval_modules bonus = 0.50 uses = 1 }
 								add_tech_bonus = { name = MAD_NAVAL_SYSTEMS_INTEGRATION category = CAT_naval_radar bonus = 0.25 uses = 1 }
-								
 		}
 
 		ai_will_do = {
@@ -18514,7 +18888,6 @@ focus = {
 		}
 	}
 
-
 	focus = {
 		id = MAD_dip_multipolar_policy
 		icon = diplomatic_treaty
@@ -18522,12 +18895,14 @@ focus = {
 		y = 10
 		cost = 3
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_FOREIGN_POLICY }
+
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_dip_multipolar_policy"
 			add_political_power = 25
 			add_ideas = MAD_dip_foreign_service
 			country_event = { id = mad_diplomacy.1 days = 1 }
 		}
+
 		ai_will_do = {
 			base = 1
 		}
@@ -18542,6 +18917,7 @@ focus = {
 		cost = 3
 		prerequisite = { focus = MAD_dip_multipolar_policy }
 		search_filters = { FOCUS_FILTER_FOREIGN_POLICY FOCUS_FILTER_INFLUENCE }
+
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_dip_ioc_cooperation"
 			add_political_power = 20
@@ -18560,7 +18936,10 @@ focus = {
 			custom_effect_tooltip = TT_IF_THEY_ACCEPT
 			custom_effect_tooltip = MAD_dip_ioc_cooperation_tt
 		}
-		ai_will_do = { base = 1 }
+
+		ai_will_do = {
+			base = 1
+		}
 	}
 
 	focus = {
@@ -18579,6 +18958,7 @@ focus = {
 			NOT = { has_idea = international_sanctions }
 			NOT = { has_idea = Massive_International_Sanctions }
 		}
+
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_dip_sadc_trade"
 			custom_effect_tooltip = MAD_dip_sadc_domestic_implementation_tt
@@ -18617,9 +18997,13 @@ focus = {
 				set_improved_trade_agreement = yes
 			}
 		}
+
 		ai_will_do = {
 			base = 1
-			modifier = { factor = 0 has_active_mission = bankruptcy_incoming_collapse }
+			modifier = {
+			factor = 0
+			has_active_mission = bankruptcy_incoming_collapse
+			}
 		}
 	}
 
@@ -18636,6 +19020,7 @@ focus = {
 			country_exists = FRA
 			NOT = { has_war_with = FRA }
 		}
+
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_dip_franco_malagasy_dialogue"
 			FRA = { country_event = { id = mad_diplomacy.30 days = 1 } }
@@ -18644,7 +19029,10 @@ focus = {
 				add_timed_idea = { idea = MAD_dip_franco_dialogue days = 1095 }
 			}
 		}
-		ai_will_do = { base = 1 }
+
+		ai_will_do = {
+			base = 1
+		}
 	}
 
 	focus = {
@@ -18661,6 +19049,7 @@ focus = {
 			country_exists = RAJ
 			NOT = { has_war_with = RAJ }
 		}
+
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_dip_indian_geomatics"
 			RAJ = { country_event = { id = mad_diplomacy.40 days = 1 } }
@@ -18681,7 +19070,10 @@ focus = {
 				}
 			}
 		}
-		ai_will_do = { base = 1 }
+
+		ai_will_do = {
+			base = 1
+		}
 	}
 
 	focus = {
@@ -18699,13 +19091,17 @@ focus = {
 			NOT = { has_war_with = CHI }
 			CHI = { has_opinion = { target = MAD value > 20 } }
 		}
+
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_dip_china_industrial_partnership"
 			CHI = { country_event = { id = mad_diplomacy.50 days = 1 } }
 			custom_effect_tooltip = TT_IF_THEY_ACCEPT
 			custom_effect_tooltip = MAD_dip_china_partnership_terms_tt
 		}
-		ai_will_do = { base = 1 }
+
+		ai_will_do = {
+			base = 1
+		}
 	}
 
 	focus = {
@@ -18724,11 +19120,15 @@ focus = {
 				NOT = { tag = ROOT }
 			}
 		}
+
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_dip_eu_epa"
 			country_event = { id = mad_diplomacy.70 days = 1 }
 		}
-		ai_will_do = { base = 1 }
+
+		ai_will_do = {
+			base = 1
+		}
 	}
 
 	focus = {
@@ -18744,6 +19144,7 @@ focus = {
 			country_exists = MRT
 			NOT = { has_war_with = MRT }
 		}
+
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_dip_mauritius_trade"
 			MRT = { country_event = { id = mad_diplomacy.20 days = 1 } }
@@ -18756,9 +19157,13 @@ focus = {
 				set_improved_trade_agreement = yes
 			}
 		}
+
 		ai_will_do = {
 			base = 1
-			modifier = { factor = 0 has_active_mission = bankruptcy_incoming_collapse }
+			modifier = {
+			factor = 0
+			has_active_mission = bankruptcy_incoming_collapse
+			}
 		}
 	}
 
@@ -18771,12 +19176,16 @@ focus = {
 		cost = 3
 		prerequisite = { focus = MAD_dip_ioc_cooperation }
 		search_filters = { FOCUS_FILTER_ECONOMY FOCUS_FILTER_FOREIGN_POLICY }
+
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_dip_cyclone_network"
 			add_ideas = MAD_dip_cyclone_warning
 			unlock_decision_category_tooltip = MAD_dip_cyclone_decisions
 		}
-		ai_will_do = { base = 1 }
+
+		ai_will_do = {
+			base = 1
+		}
 	}
 
 	focus = {
@@ -18792,11 +19201,15 @@ focus = {
 			country_exists = FRA
 			NOT = { has_war_with = FRA }
 		}
+
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_dip_iles_eparses"
 			country_event = { id = mad_diplomacy.31 days = 1 }
 		}
-		ai_will_do = { base = 1 }
+
+		ai_will_do = {
+			base = 1
+		}
 	}
 
 	focus = {
@@ -18811,6 +19224,7 @@ focus = {
 		available = {
 			has_country_flag = MAD_dip_france_dialogue_accepted
 		}
+
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_dip_swio_maritime_safety"
 			add_timed_idea = { idea = MAD_dip_swio_safety days = 1825 }
@@ -18835,7 +19249,10 @@ focus = {
 			unlock_decision_category_tooltip = MAD_dip_cyclone_decisions
 			add_political_power = 15
 		}
-		ai_will_do = { base = 1 }
+
+		ai_will_do = {
+			base = 1
+		}
 	}
 
 	focus = {
@@ -18847,12 +19264,18 @@ focus = {
 		cost = 3
 		prerequisite = { focus = MAD_dip_eu_epa }
 		search_filters = { FOCUS_FILTER_ECONOMY FOCUS_FILTER_TRADE }
-		available = { date > 2023.1.1 }
+		available = {
+			date > 2023.1.1
+		}
+
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_dip_sustainable_fisheries"
 			country_event = { id = mad_diplomacy.80 days = 1 }
 		}
-		ai_will_do = { base = 1 }
+
+		ai_will_do = {
+			base = 1
+		}
 	}
 
 	focus = {
@@ -18864,12 +19287,16 @@ focus = {
 		cost = 3
 		prerequisite = { focus = MAD_dip_sustainable_fisheries }
 		search_filters = { FOCUS_FILTER_ECONOMY FOCUS_FILTER_INDUSTRY }
+
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_dip_blue_economy"
 			add_ideas = MAD_dip_blue_economy_spirit
 			unlock_decision_category_tooltip = MAD_dip_blue_economy_decisions
 		}
-		ai_will_do = { base = 1 }
+
+		ai_will_do = {
+			base = 1
+		}
 	}
 
 	focus = {
@@ -18881,16 +19308,21 @@ focus = {
 		cost = 3
 		prerequisite = { focus = MAD_dip_multipolar_policy }
 		search_filters = { FOCUS_FILTER_FOREIGN_POLICY FOCUS_FILTER_RESEARCH }
-		available = { date > 2010.1.1 }
+		available = {
+			date > 2010.1.1
+		}
+
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_dip_continental_shelf"
 			add_political_power = 25
 			add_timed_idea = { idea = MAD_dip_continental_shelf_dossier days = 1825 }
 			unlock_decision_category_tooltip = MAD_dip_shelf_decisions
 		}
-		ai_will_do = { base = 1 }
-	}
 
+		ai_will_do = {
+			base = 1
+		}
+	}
 
 	focus = {
 		id = MAD_POL_TIM_EDUCATION_TRANSFORMATION
@@ -18901,7 +19333,6 @@ focus = {
 		cost = 3
 		prerequisite = { focus = MAD_POL_TIM_MAP }
 		search_filters = { FOCUS_FILTER_POLITICAL }
-
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_TIM_IN_POWER_tt
@@ -18909,7 +19340,14 @@ focus = {
 			}
 		}
 
-		ai_will_do = { base = 1 }
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_TIM_EDUCATION_TRANSFORMATION"
+			# TODO: add effects
+		}
+
+		ai_will_do = {
+			base = 1
+		}
 	}
 
 	focus = {
@@ -18921,7 +19359,6 @@ focus = {
 		cost = 3
 		prerequisite = { focus = MAD_POL_TIM_MAP }
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ECONOMY }
-
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_TIM_IN_POWER_tt
@@ -18929,7 +19366,14 @@ focus = {
 			}
 		}
 
-		ai_will_do = { base = 1 }
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_TIM_PUBLIC_FINANCE"
+			# TODO: add effects
+		}
+
+		ai_will_do = {
+			base = 1
+		}
 	}
 
 	focus = {
@@ -18941,7 +19385,6 @@ focus = {
 		cost = 3
 		prerequisite = { focus = MAD_POL_TIM_REFUND_THE_REPUBLIC }
 		search_filters = { FOCUS_FILTER_POLITICAL }
-
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_TIM_IN_POWER_tt
@@ -18949,7 +19392,14 @@ focus = {
 			}
 		}
 
-		ai_will_do = { base = 1 }
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_TIM_2018_MANIFESTO"
+			# TODO: add effects
+		}
+
+		ai_will_do = {
+			base = 1
+		}
 	}
 
 	focus = {
@@ -18961,7 +19411,6 @@ focus = {
 		cost = 3
 		prerequisite = { focus = MAD_POL_TIM_2018_MANIFESTO }
 		search_filters = { FOCUS_FILTER_ECONOMY }
-
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_TIM_IN_POWER_tt
@@ -18969,7 +19418,14 @@ focus = {
 			}
 		}
 
-		ai_will_do = { base = 1 }
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_TIM_DEVELOPMENT_BANK"
+			# TODO: add effects
+		}
+
+		ai_will_do = {
+			base = 1
+		}
 	}
 
 	focus = {
@@ -18981,7 +19437,6 @@ focus = {
 		cost = 3
 		prerequisite = { focus = MAD_POL_TIM_2018_MANIFESTO }
 		search_filters = { FOCUS_FILTER_ECONOMY FOCUS_FILTER_POLITICAL }
-
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_TIM_IN_POWER_tt
@@ -18989,7 +19444,14 @@ focus = {
 			}
 		}
 
-		ai_will_do = { base = 1 }
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_TIM_YOUTH_ENTERPRISE"
+			# TODO: add effects
+		}
+
+		ai_will_do = {
+			base = 1
+		}
 	}
 
 	focus = {
@@ -19001,7 +19463,6 @@ focus = {
 		cost = 3
 		prerequisite = { focus = MAD_POL_TIM_2018_MANIFESTO }
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ECONOMY }
-
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_TIM_IN_POWER_tt
@@ -19009,9 +19470,15 @@ focus = {
 			}
 		}
 
-		ai_will_do = { base = 1 }
-	}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_TIM_MAP_PLUS"
+			# TODO: add effects
+		}
 
+		ai_will_do = {
+			base = 1
+		}
+	}
 
 	focus = {
 		id = MAD_POL_TIM_LAND_SOVEREIGNTY
@@ -19022,7 +19489,6 @@ focus = {
 		cost = 3
 		prerequisite = { focus = MAD_POL_TIM_2018_MANIFESTO }
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ECONOMY }
-
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_TIM_IN_POWER_tt
@@ -19030,7 +19496,14 @@ focus = {
 			}
 		}
 
-		ai_will_do = { base = 1 }
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_TIM_LAND_SOVEREIGNTY"
+			# TODO: add effects
+		}
+
+		ai_will_do = {
+			base = 1
+		}
 	}
 
 }
