@@ -9,6 +9,7 @@ MAD_RESET_PARTY_LEADER_COUNTER = {
 	else_if = { limit = { check_variable = { rul_party_temp = 13 } } set_variable = { Neutral_Autocracy_leader = 0 } }
 	else_if = { limit = { check_variable = { rul_party_temp = 15 } } set_variable = { oligarchism_leader = 0 } }
 	else_if = { limit = { check_variable = { rul_party_temp = 16 } } set_variable = { Neutral_Libertarian_leader = 0 } }
+	else_if = { limit = { check_variable = { rul_party_temp = 17 } } set_variable = { Neutral_green_leader = 0 } }
 	else_if = { limit = { check_variable = { rul_party_temp = 20 } } set_variable = { Nat_Populism_leader = 0 } }
 	else_if = { limit = { check_variable = { rul_party_temp = 22 } } set_variable = { Nat_Autocracy_leader = 0 } }
 	else_if = { limit = { check_variable = { rul_party_temp = 23 } } set_variable = { Monarchist_leader = 0 } }
@@ -266,7 +267,7 @@ MAD_CREATE_GENERAL_STAFF_PARTY_LEADER = {
 
 set_leader_MAD = {
 	# Madagascar-specific party names are defined in MD_politics_view_parties_l_english.yml.
-	# These are the only 10 labelled MAD party indices; do not fill unrelated generic MD slots.
+	# These are the only 11 labelled MAD party indices; do not fill unrelated generic MD slots.
 
 	# 1 — HVM (Conservatism). HVM only receives its named leader after the formation event.
 	if = {
@@ -463,6 +464,25 @@ set_leader_MAD = {
 				}
 			}
 			if = { limit = { has_country_flag = do_not_retire } subtract_from_variable = { Neutral_Libertarian_leader = 1 } }
+			set_temp_variable = { b = 1 }
+		}
+	}
+	# 17 — UNDD (Neutral Green), led by Albert Zafy.
+	else_if = {
+		limit = { check_variable = { ruling_party = 17 } }
+		if = {
+			limit = { check_variable = { Neutral_green_leader = 0 } }
+			add_to_variable = { Neutral_green_leader = 1 }
+			hidden_effect = { kill_country_leader = yes }
+			create_country_leader = {
+				name = "Albert Zafy"
+				ideology = Neutral_green
+				traits = {
+					neutrality_Neutral_green
+					career_politician
+				}
+			}
+			if = { limit = { has_country_flag = do_not_retire } subtract_from_variable = { Neutral_green_leader = 1 } }
 			set_temp_variable = { b = 1 }
 		}
 	}
