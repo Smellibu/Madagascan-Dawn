@@ -14038,25 +14038,18 @@ available = {
 		cost = 3
 		prerequisite = { focus = MAD_POL_TGV_2009_LEGACY }
 		search_filters = { FOCUS_FILTER_POLITICAL }
-		allow_branch = {
-			has_country_flag = MAD_TGV_BRANCH_UNLOCKED
-		}
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_TGV_IN_POWER_tt
 				MAD_TGV_IN_POWER = yes
 			}
 		}
-
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_TGV_MAPUTO_CHARTER"
 			set_country_flag = MAD_TGV_MAPUTO_SETTLEMENT_PENDING
 			country_event = { id = MAD_military_refoundation.21 days = 1 }
 		}
-
-		ai_will_do = {
-			base = 1
-		}
+		ai_will_do = { base = 1 }
 	}
 
 
@@ -14076,16 +14069,12 @@ available = {
 				MAD_TGV_IN_POWER = yes
 			}
 		}
-
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_TGV_ENFORCE_CRDSN"
 			set_country_flag = MAD_MIL_MAPUTO_CHARTER_PENDING
 			country_event = { id = MAD_military_refoundation.3 days = 1 }
 		}
-
-		ai_will_do = {
-			base = 1
-		}
+		ai_will_do = { base = 1 }
 	}
 
 	focus = {
@@ -14104,17 +14093,13 @@ available = {
 				MAD_TGV_IN_POWER = yes
 			}
 		}
-
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_TGV_MAPUTO_UNITY_GOVERNMENT"
 			add_political_power = 25
 			add_stability = 0.03
 			decrease_centralization = yes
 		}
-
-		ai_will_do = {
-			base = 1
-		}
+		ai_will_do = { base = 1 }
 	}
 
 	focus = {
@@ -14133,17 +14118,15 @@ available = {
 				MAD_TGV_IN_POWER = yes
 			}
 		}
-
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_TGV_MAPUTO_LEGISLATURE"
+			set_country_flag = MAD_TGV_MAPUTO_NATIONAL_CONFERENCE_CONVENED
+			set_country_flag = MAD_TGV_MAPUTO_CENI_ESTABLISHED
 			add_political_power = 25
 			add_stability = 0.02
 			decrease_centralization = yes
 		}
-
-		ai_will_do = {
-			base = 1
-		}
+		ai_will_do = { base = 1 }
 	}
 
 	focus = {
@@ -14164,16 +14147,31 @@ available = {
 				MAD_TGV_IN_POWER = yes
 			}
 			custom_trigger_tooltip = {
-				tooltip = MAD_TGV_MAPUTO_CRDSN_PROPOSED_tt
-				has_country_flag = MAD_MIL_CRDSN_PROPOSED
+				tooltip = MAD_TGV_MAPUTO_SECURITY_SETTLEMENT_TT
+				OR = {
+					has_country_flag = MAD_MIL_CRDSN_PROPOSED
+					has_country_flag = MAD_MIL_CRDSN_REVIVED
+					has_country_flag = MAD_MIL_EXECUTIVE_SECURITY_COORDINATION
+				}
 			}
 		}
-
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_TGV_FORMALISE_MAPUTO_STRUCTURE"
-			# The TGV Article 22 choice proposes the CRDSN; this focus formally establishes it.
-			set_country_flag = MAD_MIL_CRDSN_REVIVED
-			clr_country_flag = MAD_MIL_CRDSN_PROPOSED
+			set_country_flag = MAD_TGV_MAPUTO_INSTITUTIONS_FORMALISED
+			if = {
+				limit = {
+					OR = {
+						has_country_flag = MAD_MIL_CRDSN_PROPOSED
+						has_country_flag = MAD_MIL_CRDSN_REVIVED
+					}
+				}
+				set_country_flag = MAD_MIL_CRDSN_REVIVED
+				clr_country_flag = MAD_MIL_CRDSN_PROPOSED
+				clr_country_flag = MAD_TGV_MAPUTO_EXECUTIVE_SECURITY_COMPROMISE
+			}
+			else = {
+				set_country_flag = MAD_TGV_MAPUTO_EXECUTIVE_SECURITY_COMPROMISE
+			}
 			add_political_power = 50
 			add_stability = 0.05
 			if = {
@@ -14181,10 +14179,7 @@ available = {
 				remove_ideas = MAD_2009_INTERNATIONAL_ISOLATION
 			}
 		}
-
-		ai_will_do = {
-			base = 1
-		}
+		ai_will_do = { base = 1 }
 	}
 
 	focus = {
@@ -14203,7 +14198,6 @@ available = {
 				MAD_TGV_IN_POWER = yes
 			}
 		}
-
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_TGV_FOURTH_REPUBLIC"
 			decrease_corruption = yes
@@ -14214,10 +14208,7 @@ available = {
 			recalculate_party = yes
 			increase_centralization = yes
 		}
-
-		ai_will_do = {
-			base = 1
-		}
+		ai_will_do = { base = 1 }
 	}
 
 	focus = {
@@ -14392,15 +14383,14 @@ available = {
 	focus = {
 		id = MAD_POL_TGV_RETURN_BALLOT
 		icon = Election
-		x = 4
-		y = 1
-		relative_position_id = MAD_POL_TGV_FOURTH_REPUBLIC
+		x = -2
+		y = 5
+		relative_position_id = MAD_POL_TGV_MAPUTO_CHARTER
 		cost = 3
+		# One prerequisite block is implicit OR in the focus tree.
 		prerequisite = {
-			OR = {
-				focus = MAD_POL_TGV_FOURTH_REPUBLIC
-				focus = MAD_POL_TGV_FORMALISE_MAPUTO_STRUCTURE
-			}
+			focus = MAD_POL_TGV_FOURTH_REPUBLIC
+			focus = MAD_POL_TGV_FORMALISE_MAPUTO_STRUCTURE
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -14409,37 +14399,48 @@ available = {
 				MAD_TGV_IN_POWER = yes
 			}
 		}
-
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_TGV_RETURN_BALLOT"
 			if = {
 				limit = { MAD_TGV_IN_POWER = yes }
 				set_country_flag = MAD_HVM_FORMATION_PENDING
 			}
-			set_temp_variable = { party_index = 20 }
-			set_temp_variable = { party_popularity_increase = 0.05 }
-			set_temp_variable = { temp_outlook_increase = 0.05 }
-			change_relative_party_popularity = yes
-						recalculate_party = yes
-			
-			# Schedule one transitional election 18 months from the current date.
-			# TGV is excluded from this ballot's results without changing its party-ban state.
+			clr_country_flag = MAD_TGV_ELECTION_MAPUTO_FULL
+			clr_country_flag = MAD_TGV_ELECTION_MAPUTO_COMPROMISE
+			clr_country_flag = MAD_TGV_ELECTION_FOURTH_REPUBLIC
+			if = {
+				limit = { has_country_flag = MAD_TGV_MAPUTO_IMPLEMENTED }
+				if = {
+					limit = { has_country_flag = MAD_MIL_CRDSN_REVIVED }
+					set_country_flag = MAD_TGV_ELECTION_MAPUTO_FULL
+					custom_effect_tooltip = MAD_TGV_MAPUTO_ELECTION_FULL_TT
+				}
+				else = {
+					set_country_flag = MAD_TGV_ELECTION_MAPUTO_COMPROMISE
+					custom_effect_tooltip = MAD_TGV_MAPUTO_ELECTION_COMPROMISE_TT
+				}
+			}
+			else_if = {
+				limit = { has_country_flag = MAD_TGV_MAPUTO_UNILATERAL }
+				set_country_flag = MAD_TGV_ELECTION_FOURTH_REPUBLIC
+				custom_effect_tooltip = MAD_TGV_FOURTH_REPUBLIC_ELECTION_TT
+			}
 			set_country_flag = MAD_TGV_RETURN_BALLOT_ELECTION_PENDING
+			clr_country_flag = MAD_TGV_RETURN_BALLOT_ELECTION_MONITOR_ACTIVE
+			clr_country_flag = MAD_TGV_RETURN_BALLOT_ELECTION_STARTED
 			set_temp_variable = { election_year_param = global.year }
 			set_temp_variable = { election_month_param = global.month }
 			set_temp_variable = { election_freq = 18 }
 			set_elections_with_frequency = yes
-				if = {
-					limit = { has_country_flag = MAD_HVM_FORMATION_PENDING }
-					country_event = { id = mad_political.97 days = 1 }
-				}
+			if = {
+				limit = { has_country_flag = MAD_HVM_FORMATION_PENDING }
+				country_event = { id = mad_political.97 days = 1 }
+			}
+			custom_effect_tooltip = MAD_TGV_ELECTION_60_DAY_RESIGNATION_TT
 			set_temp_variable = { percent_change = 5 }
 			change_domestic_influence_percentage = yes
 		}
-
-		ai_will_do = {
-			base = 1
-		}
+		ai_will_do = { base = 1 }
 	}
 
 	focus = {

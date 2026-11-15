@@ -9916,3 +9916,37 @@ country_event = {
 	}
 }
 
+
+
+# MAD-only monitor for the transitional TGV return election.
+# It observes MD's elections_in_progress flag without changing generic result events.
+country_event = {
+	id = MAD_military_refoundation.22
+	hidden = yes
+	is_triggered_only = yes
+	trigger = { tag = MAD }
+	immediate = {
+		if = {
+			limit = { has_country_flag = MAD_TGV_RETURN_BALLOT_ELECTION_PENDING }
+			if = {
+				limit = { has_country_flag = elections_in_progress }
+				set_country_flag = MAD_TGV_RETURN_BALLOT_ELECTION_STARTED
+				country_event = { id = MAD_military_refoundation.22 days = 1 }
+			}
+			else_if = {
+				limit = { has_country_flag = MAD_TGV_RETURN_BALLOT_ELECTION_STARTED }
+				clr_country_flag = MAD_TGV_RETURN_BALLOT_ELECTION_PENDING
+				clr_country_flag = MAD_TGV_RETURN_BALLOT_ELECTION_STARTED
+				clr_country_flag = MAD_TGV_RETURN_BALLOT_ELECTION_MONITOR_ACTIVE
+				set_elections_60_months = yes
+			}
+			else = {
+				country_event = { id = MAD_military_refoundation.22 days = 1 }
+			}
+		}
+		else = {
+			clr_country_flag = MAD_TGV_RETURN_BALLOT_ELECTION_STARTED
+			clr_country_flag = MAD_TGV_RETURN_BALLOT_ELECTION_MONITOR_ACTIVE
+		}
+	}
+}
