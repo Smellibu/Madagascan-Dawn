@@ -11707,12 +11707,10 @@ available = {
 		y = 4
 		relative_position_id = MAD_POL_AREMA_REBUILD
 		cost = 3
-prerequisite = {
-			OR = {
-				focus = MAD_POL_AREMA_CHOOSE_OLD_GUARD
-				focus = MAD_POL_AREMA_CHOOSE_RENEWAL
-				focus = MAD_POL_AREMA_CHOOSE_RECONCILIATION
-			}
+		prerequisite = {
+			focus = MAD_POL_AREMA_CHOOSE_OLD_GUARD
+			focus = MAD_POL_AREMA_CHOOSE_RENEWAL
+			focus = MAD_POL_AREMA_CHOOSE_RECONCILIATION
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL }
 available = {
