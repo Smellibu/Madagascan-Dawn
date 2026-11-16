@@ -3458,6 +3458,17 @@ country_event = {
 				clr_country_flag = MD_protest_cooldown
 				set_country_flag = MAD_MODERN_MD_PROTESTS_INITIALISED
 			}
+			# Record the civilian party governing when the protest-pressure campaign begins.
+			# The incumbent leader is replaced when the military transfer is implemented in .108.
+			set_variable = { MAD_MODERN_PROTEST_ORIGIN_PARTY = ruling_party }
+			clr_country_flag = MAD_MODERN_CIVILIAN_LEADER_EXILE_ELIGIBLE
+			if = {
+				limit = {
+					NOT = { check_variable = { ruling_party = 22 } }
+					NOT = { is_in_array = { gov_coalition_array = 22 } }
+				}
+				set_country_flag = MAD_MODERN_CIVILIAN_LEADER_EXILE_ELIGIBLE
+			}
 			if = {
 				limit = { MAD_TGV_IN_POWER = yes }
 				set_country_flag = MAD_MODERN_PROTEST_UNDER_TGV
@@ -3901,7 +3912,7 @@ country_event = {
 
 
 # Resolve the Split Leadership idea only when the pressure campaign or the full crisis reaches an endpoint.
-# Rajoelina's departure and the TGV ban are exclusive to a TGV-origin crisis ending in direct military administration.
+# The civilian leader displaced by direct military administration is recorded when the campaign starts.
 country_event = {
 	id = mad_political.110
 	title = mad_political.110.t
@@ -3910,8 +3921,26 @@ country_event = {
 		trigger = {
 			AND = {
 				has_country_flag = MAD_MODERN_DIRECT_MILITARY_RULE
-				has_country_flag = MAD_MODERN_PROTEST_UNDER_TGV
+				OR = {
+					AND = {
+						has_country_flag = MAD_MODERN_CIVILIAN_LEADER_EXILE_ELIGIBLE
+						check_variable = { MAD_MODERN_PROTEST_ORIGIN_PARTY = 20 }
+					}
+					# Compatibility for campaigns already in progress when this change is loaded.
+					AND = {
+						has_country_flag = MAD_MODERN_PROTEST_UNDER_TGV
+						NOT = { has_variable = MAD_MODERN_PROTEST_ORIGIN_PARTY }
+					}
+				}
 			}
+		}
+	}
+	desc = {
+		text = mad_political.110.d_military_other
+		trigger = {
+			has_country_flag = MAD_MODERN_DIRECT_MILITARY_RULE
+			has_country_flag = MAD_MODERN_CIVILIAN_LEADER_EXILE_ELIGIBLE
+			NOT = { check_variable = { MAD_MODERN_PROTEST_ORIGIN_PARTY = 20 } }
 		}
 	}
 	desc = {
@@ -3926,7 +3955,20 @@ country_event = {
 					has_country_flag = MAD_MODERN_PROTEST_CATALYST_FAILED
 					AND = {
 						has_country_flag = MAD_MODERN_DIRECT_MILITARY_RULE
-						has_country_flag = MAD_MODERN_PROTEST_UNDER_TGV
+						OR = {
+							AND = {
+								has_country_flag = MAD_MODERN_CIVILIAN_LEADER_EXILE_ELIGIBLE
+							check_variable = { MAD_MODERN_PROTEST_ORIGIN_PARTY = 20 }
+						}
+						AND = {
+							has_country_flag = MAD_MODERN_PROTEST_UNDER_TGV
+							NOT = { has_variable = MAD_MODERN_PROTEST_ORIGIN_PARTY }
+						}
+						AND = {
+							has_country_flag = MAD_MODERN_CIVILIAN_LEADER_EXILE_ELIGIBLE
+							NOT = { check_variable = { MAD_MODERN_PROTEST_ORIGIN_PARTY = 20 } }
+						}
+					}
 					}
 				}
 			}
@@ -3952,14 +3994,36 @@ country_event = {
 		if = {
 			limit = {
 				has_country_flag = MAD_MODERN_DIRECT_MILITARY_RULE
-				has_country_flag = MAD_MODERN_PROTEST_UNDER_TGV
+				OR = {
+					has_country_flag = MAD_MODERN_CIVILIAN_LEADER_EXILE_ELIGIBLE
+					AND = {
+						has_country_flag = MAD_MODERN_PROTEST_UNDER_TGV
+						NOT = { has_variable = MAD_MODERN_PROTEST_ORIGIN_PARTY }
+					}
+				}
 			}
-			log = "[GetDateText]: [Root.GetName]: Andry Rajoelina flees to Dubai after direct military administration is established"
-			set_country_flag = MAD_RAJOELINA_FLED_DUBAI
-			set_country_flag = MAD_TGV_BANNED
-			set_temp_variable = { party_index = 20 }
-			ban_party_scripted_call = yes
-			recalculate_party = yes
+			log = "[GetDateText]: [Root.GetName]: The leader of the displaced civilian party flees to Dubai after direct military administration is established"
+			set_country_flag = MAD_MODERN_CIVILIAN_LEADER_FLED_DUBAI
+			if = {
+				limit = {
+					OR = {
+						AND = {
+							has_country_flag = MAD_MODERN_CIVILIAN_LEADER_EXILE_ELIGIBLE
+						check_variable = { MAD_MODERN_PROTEST_ORIGIN_PARTY = 20 }
+						}
+					AND = {
+							has_country_flag = MAD_MODERN_PROTEST_UNDER_TGV
+						NOT = { has_variable = MAD_MODERN_PROTEST_ORIGIN_PARTY }
+					}
+					}
+				}
+				log = "[GetDateText]: [Root.GetName]: Andry Rajoelina flees to Dubai after direct military administration is established"
+				set_country_flag = MAD_RAJOELINA_FLED_DUBAI
+				set_country_flag = MAD_TGV_BANNED
+				set_temp_variable = { party_index = 20 }
+				ban_party_scripted_call = yes
+				recalculate_party = yes
+			}
 		}
 	}
 }
