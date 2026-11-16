@@ -6717,7 +6717,10 @@ MAD_rural_cooperation_category = {
 			set_temp_variable = { MAD_rc_delta = -5 }
 			MAD_rural_cooperation_adjust = yes
 			custom_effect_tooltip = MAD_RURAL_COOPERATION_SPENT_TT
-			kill_country_leader = yes
+			if = {
+				limit = { MAD_AREMA_IN_POWER = yes }
+				kill_country_leader = yes
+			}
 			create_country_leader = {
 				name = "Didier Ratsiraka"
 				picture = "Didier_Ratsiraka.dds"
