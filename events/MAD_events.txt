@@ -3153,6 +3153,9 @@ trigger = { original_tag = MAD }
 		clr_country_flag = MAD_RATSIRAKA_COALITION_TIMED_OUT
 		set_country_flag = MAD_RATSIRAKA_FIRST_LOSS_DONE
 		set_country_flag = MAD_RATSIRAKA_EXILE_EVENT_PENDING
+		# Remember the party that replaced AREMA when Ratsiraka first lost office or left the governing coalition.
+		set_variable = { MAD_RATSIRAKA_SUCCESSOR_PARTY = ruling_party }
+		set_country_flag = MAD_RATSIRAKA_SUCCESSOR_PARTY_RECORDED
 		set_variable = { MAD_RATSIRAKA_FORMATION_STABLE_DAYS = 0 }
 		country_event = { id = mad_ratsiraka.2 days = 1 }
 		MAD_UNLOCK_POL_CONTENT_2002_2009 = yes

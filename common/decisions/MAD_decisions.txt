@@ -6696,6 +6696,13 @@ MAD_rural_cooperation_category = {
 		available = {
 			has_country_flag = MAD_RATSIRAKA_EXILED
 			NOT = { MAD_TIM_IN_POWER = yes }
+			# Also bar the party that actually succeeded AREMA when Ratsiraka first lost office.
+			NOT = {
+				AND = {
+					has_country_flag = MAD_RATSIRAKA_SUCCESSOR_PARTY_RECORDED
+					check_variable = { ruling_party = MAD_RATSIRAKA_SUCCESSOR_PARTY }
+				}
+			}
 			custom_trigger_tooltip = {
 				tooltip = MAD_RATSIRAKA_RETURN_RC_REQUIREMENT_TT
 				check_variable = { MAD_rural_cooperation > 4.99 }
