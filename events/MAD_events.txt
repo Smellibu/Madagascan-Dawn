@@ -2704,11 +2704,6 @@ country_event = {
 		set_country_flag = MAD_DAEWOO_POLITICAL_FALLOUT_DONE
 		clr_country_flag = MAD_DAEWOO_POLITICAL_FALLOUT_PENDING
 		MAD_UNLOCK_POL_CONTENT_2009_2025 = yes
-		if = {
-			limit = { has_country_flag = MAD_MIL_REFORM_UPRISING_PENDING }
-			set_country_flag = MAD_MIL_REFORM_UPRISING_CONCEDED
-			clr_country_flag = MAD_MIL_REFORM_UPRISING_PENDING
-		}
 	}
 
 	# ============================================================
@@ -2757,9 +2752,6 @@ country_event = {
 		set_temp_variable = { disable_elections = 1 }
 		MAD_RESET_PARTY_LEADER_COUNTER = yes
 		change_ruling_party_effect = yes
-		# The refoundation choice follows only after military rule is established.
-		set_country_flag = MAD_MIL_REFOUNDATION_PENDING
-		country_event = { id = mad_political.3 days = 1 }
 
 		set_temp_variable = { party_index = 20 }
 		set_temp_variable = { party_popularity_increase = 0.05 }
@@ -2817,81 +2809,12 @@ country_event = {
 
 		recalculate_party = yes
 		set_country_flag = MAD_TGV_2009_TRANSITIONAL_ROUTE
-		country_event = { id = MAD_military_refoundation.8 days = 1 }
 	}
 }
 
 # ---------------------------------------------------------------------------
 # 3. Military refoundation Refoundation
 # ---------------------------------------------------------------------------
-country_event = {
-	id = mad_political.3
-	title = mad_political.3.t
-	desc = mad_political.3.d
-	picture = GFX_report_event_generic_political
-	is_triggered_only = yes
-	fire_only_once = yes
-	trigger = {
-		has_country_flag = MAD_MIL_REFOUNDATION_PENDING
-	}
-
-	immediate = {
-		clr_country_flag = MAD_MIL_REFOUNDATION_PENDING
-	}
-
-	option = {
-		name = mad_political.3.a # Professionalise
-		remove_ideas = MAD_POL_MILITARY_GUARDIAN
-		remove_ideas = MAD_POL_MILITARY_GOVERNMENT
-		add_ideas = MAD_MIL_PROFESSIONAL_COMMAND
-		set_politics = { ruling_party = nationalist elections_allowed = yes }
-		decrease_corruption = yes
-		add_political_power = 35
-		set_temp_variable = { party_index = 22 }
-		set_temp_variable = { party_popularity_increase = 0.04 }
-		set_temp_variable = { temp_outlook_increase = 0.04 }
-		change_relative_party_popularity = yes
-		recalculate_party = yes
-	}
-
-	option = {
-		name = mad_political.3.b # Constitutional guardian
-		set_country_flag = MAD_MIL_REFOUNDATION_GUARDIAN
-		remove_ideas = MAD_MIL_PROFESSIONAL_COMMAND
-		remove_ideas = MAD_POL_MILITARY_GOVERNMENT
-		add_ideas = MAD_POL_MILITARY_GUARDIAN
-		set_politics = { ruling_party = nationalist elections_allowed = yes }
-		add_political_power = 25
-
-		set_temp_variable = { party_index = 22 }
-		set_temp_variable = { party_popularity_increase = 0.04 }
-		set_temp_variable = { temp_outlook_increase = 0 }
-		change_relative_party_popularity = yes
-		set_temp_variable = { party_index = 2 }
-		set_temp_variable = { party_popularity_increase = 0.03 }
-		set_temp_variable = { temp_outlook_increase = 0 }
-		change_relative_party_popularity = yes
-		recalculate_party = yes
-	}
-
-	option = {
-		name = mad_political.3.c # Final arbiter
-		remove_ideas = MAD_MIL_PROFESSIONAL_COMMAND
-		remove_ideas = MAD_POL_MILITARY_GUARDIAN
-		add_ideas = MAD_POL_MILITARY_GOVERNMENT
-		add_political_power = 25
-
-		set_temp_variable = { party_index = 22 }
-		set_temp_variable = { party_popularity_increase = 0.07 }
-		set_temp_variable = { temp_outlook_increase = 0.07 }
-		change_relative_party_popularity = yes
-		set_temp_variable = { party_index = 2 }
-		set_temp_variable = { party_popularity_increase = -0.03 }
-		set_temp_variable = { temp_outlook_increase = 0 }
-		change_relative_party_popularity = yes
-		recalculate_party = yes
-	}
-}
 
 # ---------------------------------------------------------------------------
 # 4. AREMA Congress
@@ -9421,7 +9344,6 @@ country_event = {
 		set_country_flag = MAD_TGV_CNME_INTEGRITY_MODEL_SELECTED
 		set_country_flag = MAD_TGV_DST_ESTABLISHED
 		add_ideas = MAD_TGV_CNME_INTEGRITY_MODEL
-		hidden_effect = { country_event = { id = MAD_military_refoundation.9 days = 390 } }
 	}
 	option = {
 		name = MAD_military_refoundation.8.b
@@ -9431,7 +9353,6 @@ country_event = {
 		set_country_flag = MAD_TGV_CNME_EXECUTIVE_MODEL_SELECTED
 		set_country_flag = MAD_TGV_DST_ESTABLISHED
 		add_ideas = MAD_TGV_CNME_EXECUTIVE_MODEL
-		hidden_effect = { country_event = { id = MAD_military_refoundation.9 days = 390 } }
 	}
 }
 
@@ -9504,7 +9425,6 @@ country_event = {
 		set_temp_variable = { party_popularity_increase = 0.03 }
 		set_temp_variable = { temp_outlook_increase = 0.03 }
 		change_relative_party_popularity = yes
-		hidden_effect = { country_event = { id = MAD_military_refoundation.10 days = 210 } }
 	}
 	option = {
 		name = MAD_military_refoundation.9.b
@@ -9517,7 +9437,6 @@ country_event = {
 		set_temp_variable = { party_index = 22 }
 		set_temp_variable = { party_popularity_increase = 0.01 }
 		change_relative_party_popularity = yes
-		hidden_effect = { country_event = { id = MAD_military_refoundation.10 days = 210 } }
 	}
 	option = {
 		name = MAD_military_refoundation.9.c
@@ -9533,7 +9452,6 @@ country_event = {
 			set_temp_variable = { temp_opinion = -10 }
 			change_the_military_opinion = yes
 		}
-		hidden_effect = { country_event = { id = MAD_military_refoundation.10 days = 210 } }
 	}
 }
 
@@ -9555,7 +9473,6 @@ country_event = {
 		set_temp_variable = { party_index = 22 }
 		set_temp_variable = { party_popularity_increase = 0.01 }
 		change_relative_party_popularity = yes
-		hidden_effect = { country_event = { id = MAD_military_refoundation.11 days = 300 } }
 	}
 	option = {
 		name = MAD_military_refoundation.10.b
@@ -9572,7 +9489,6 @@ country_event = {
 			set_temp_variable = { temp_opinion = -10 }
 			change_the_military_opinion = yes
 		}
-		hidden_effect = { country_event = { id = MAD_military_refoundation.11 days = 300 } }
 	}
 	option = {
 		name = MAD_military_refoundation.10.c
@@ -9585,7 +9501,6 @@ country_event = {
 		set_temp_variable = { party_popularity_increase = 0.05 }
 		set_temp_variable = { temp_outlook_increase = 0.05 }
 		change_relative_party_popularity = yes
-		hidden_effect = { country_event = { id = MAD_military_refoundation.11 days = 300 } }
 	}
 }
 
@@ -9598,24 +9513,11 @@ country_event = {
 	fire_only_once = yes
 	trigger = { has_country_flag = MAD_TGV_2009_TRANSITIONAL_ROUTE MAD_TGV_IN_POWER = yes }
 	option = {
-		name = MAD_military_refoundation.11.a
-		ai_chance = { factor = 80 }
-		log = "[GetDateText]: [Root.GetName]: Accept SADC transition timetable"
-		set_country_flag = MAD_MIL_2013_ELECTORAL_COMMITMENT
-		set_politics = { ruling_party = nationalist elections_allowed = yes }
-		remove_ideas = MAD_MIL_HAT_TRANSITION_GUARANTOR
-		add_stability = 0.03
-		add_political_power = 20
-		set_temp_variable = { party_index = 22 }
-		set_temp_variable = { party_popularity_increase = -0.02 }
-		change_relative_party_popularity = yes
-		recalculate_party = yes
-	}
-	option = {
 		name = MAD_military_refoundation.11.b
 		ai_chance = { factor = 20 }
 		log = "[GetDateText]: [Root.GetName]: Retain military transition guarantee"
 		set_country_flag = MAD_MIL_TGV_RESERVED_TRANSITION_VETO
+		remove_ideas = MAD_MIL_HAT_TRANSITION_GUARANTOR
 		add_timed_idea = { idea = MAD_MIL_TGV_TRANSITION_GUARANTOR days = 1095 }
 		add_stability = -0.02
 		set_temp_variable = { party_index = 22 }
@@ -9805,9 +9707,6 @@ country_event = {
 		set_temp_variable = { disable_elections = 1 }
 		MAD_RESET_PARTY_LEADER_COUNTER = yes
 		change_ruling_party_effect = yes
-		# The refoundation choice follows only after military rule is established.
-		set_country_flag = MAD_MIL_REFOUNDATION_PENDING
-		country_event = { id = mad_political.3 days = 1 }
 
 		set_temp_variable = { party_index = 20 }
 		set_temp_variable = { party_popularity_increase = 0.05 }
@@ -9865,7 +9764,6 @@ country_event = {
 
 		recalculate_party = yes
 		set_country_flag = MAD_TGV_2009_TRANSITIONAL_ROUTE
-		country_event = { id = MAD_military_refoundation.8 days = 1 }
 	}
 }
 
@@ -10077,15 +9975,6 @@ country_event = {
 			clr_country_flag = MAD_TGV_SADC_PARTY_BAN_APPLIED
 		}
 		if = {
-			limit = { has_country_flag = MAD_AREMA_EXILE_UNBAN_DEFERRED_BY_SADC }
-			if = {
-				limit = { check_variable = { party_banned_array^5 = 1 } }
-				set_temp_variable = { party_index = 5 }
-				unban_party_scripted_call = yes
-			}
-			clr_country_flag = MAD_AREMA_EXILE_UNBAN_DEFERRED_BY_SADC
-		}
-		if = {
 			limit = { has_country_flag = MAD_TGV_RETURN_BALLOT_ELECTION_CANCELLATION_PENDING }
 			if = {
 				limit = { has_country_flag = MAD_TGV_ELECTION_BACKING_EDGARD }
@@ -10129,6 +10018,7 @@ country_event = {
 		clr_country_flag = MAD_TGV_ELECTION_FOURTH_REPUBLIC
 		clr_country_flag = MAD_TGV_SADC_ELECTORAL_RESTRICTIONS
 		clr_country_flag = MAD_TGV_SADC_PARTY_BAN_APPLIED
+		clr_country_flag = MAD_TGV_SADC_PARTY_BAN_LOCKED
 		clr_country_flag = MAD_TGV_ELECTION_BACKING_EDGARD
 		clr_country_flag = MAD_TGV_ELECTION_BACKING_HVM
 		clr_country_flag = MAD_TGV_EDGARD_REPRESENTATIVE
