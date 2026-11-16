@@ -191,7 +191,44 @@ MAD_ROY_IN_POWER = {
 		check_variable = { ruling_party = 13 }
 	}
 
-	# The only valid sources for mad_political.2.
+	# TGV counts as part of the government whether it holds the premiership or a junior coalition seat.
+	MAD_TGV_GOVERNMENT = {
+		OR = {
+			MAD_TGV_IN_POWER = yes
+			is_in_array = { array = gov_coalition_array value = 20 }
+		}
+	}
+
+	# All pre-2013 coup callers use the same gate. The caller claims the pending
+	# flag before scheduling anything; the event dispatcher consumes it once.
+	MAD_2009_COUP_ROUTE_AVAILABLE = {
+		original_tag = MAD
+		tag = MAD
+		has_civil_war = no
+		NOT = { MAD_TGV_GOVERNMENT = yes }
+		NOT = { has_country_flag = MAD_2009_COUP_PENDING }
+		NOT = { has_country_flag = MAD_2009_COUP_EVENT_ACTIVE }
+		NOT = { has_country_flag = MAD_2009_COUP_OCCURRED }
+		NOT = { has_country_flag = MAD_2009_COUP_RESOLVED }
+		NOT = { has_country_flag = MAD_2009_COUP_CANCELLED }
+		NOT = { has_country_flag = MAD_2009_MAYORAL_EVENT_PENDING }
+		NOT = { has_country_flag = MAD_MIL_REFORM_UPRISING_OCCURRED }
+	}
+
+	MAD_2009_COUP_EVENT_ELIGIBLE = {
+		original_tag = MAD
+		tag = MAD
+		has_civil_war = no
+		has_country_flag = MAD_2009_COUP_PENDING
+		NOT = { MAD_TGV_GOVERNMENT = yes }
+		NOT = { has_country_flag = MAD_2009_COUP_EVENT_ACTIVE }
+		NOT = { has_country_flag = MAD_2009_COUP_OCCURRED }
+		NOT = { has_country_flag = MAD_2009_COUP_RESOLVED }
+		NOT = { has_country_flag = MAD_2009_COUP_CANCELLED }
+		NOT = { has_country_flag = MAD_MIL_REFORM_UPRISING_OCCURRED }
+	}
+
+	# Daewoo failure is one source of the same shared 2009 crisis event.
 	MAD_DAEWOO_POLITICAL_FAILURE = {
 		OR = {
 			has_country_flag = MAD_DAEWOO_BROKEN
