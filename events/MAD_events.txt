@@ -3298,13 +3298,23 @@ country_event = {
 		date > 2009.2.2
 		date < 2009.2.4
 	}
-	immediate = {
-		clr_country_flag = MAD_2009_MAYORAL_EVENT_PENDING
-		set_country_flag = MAD_2009_MAYORAL_EVENT_RESOLVED
-	}
 	option = {
 		name = mad_political.113.a
-		trigger = { MAD_2009_COUP_ROUTE_AVAILABLE = yes }
+		trigger = {
+			original_tag = MAD
+			tag = MAD
+			has_civil_war = no
+			NOT = { MAD_TGV_GOVERNMENT = yes }
+			NOT = { has_country_flag = MAD_2009_COUP_PENDING }
+			NOT = { has_country_flag = MAD_2009_COUP_EVENT_ACTIVE }
+			NOT = { has_country_flag = MAD_2009_COUP_OCCURRED }
+			NOT = { has_country_flag = MAD_2009_COUP_RESOLVED }
+			NOT = { has_country_flag = MAD_2009_COUP_CANCELLED }
+			NOT = { has_country_flag = MAD_2009_MAYORAL_EVENT_CANCELLED }
+			NOT = { has_country_flag = MAD_MIL_REFORM_UPRISING_OCCURRED }
+		}
+		clr_country_flag = MAD_2009_MAYORAL_EVENT_PENDING
+		set_country_flag = MAD_2009_MAYORAL_EVENT_RESOLVED
 		set_country_flag = MAD_RAJOELINA_DISMISSED_AS_MAYOR
 		add_stability = -0.05
 		set_temp_variable = { party_index = 20 }
@@ -3317,6 +3327,8 @@ country_event = {
 	}
 	option = {
 		name = mad_political.113.b
+		clr_country_flag = MAD_2009_MAYORAL_EVENT_PENDING
+		set_country_flag = MAD_2009_MAYORAL_EVENT_RESOLVED
 		set_country_flag = MAD_RAJOELINA_POLITICAL_ACTIVITY_ALLOWED
 		add_stability = -0.01
 		set_temp_variable = { party_index = 20 }
@@ -3369,7 +3381,6 @@ country_event = {
 	trigger = { MAD_2009_COUP_EVENT_ELIGIBLE = yes }
 	option = {
 		name = mad_political.115.a
-		trigger = { NOT = { MAD_TGV_GOVERNMENT = yes } }
 		set_country_flag = MAD_2009_RURAL_UNREST_MILITARY_DEPLOYED
 		add_stability = -0.03
 		country_event = { id = mad_political.114 days = 30 }
