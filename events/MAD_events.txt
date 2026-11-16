@@ -10081,6 +10081,10 @@ country_event = {
 	trigger = {
 		tag = MAD
 		has_country_flag = MAD_TGV_RETURN_BALLOT_ELECTION_PENDING
+		OR = {
+			has_country_flag = MAD_TGV_RETURN_BALLOT_ELECTION_RESULT_RESOLVED
+			has_country_flag = MAD_TGV_RETURN_BALLOT_ELECTION_CANCELLATION_PENDING
+		}
 	}
 	immediate = {
 		if = {
