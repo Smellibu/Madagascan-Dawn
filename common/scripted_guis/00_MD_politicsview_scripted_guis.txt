@@ -165,6 +165,13 @@ scripted_gui = {
 
 			allow_all_parties_button_click_enabled = {
 				has_political_power > 230
+				# The all-parties Allow action would also clear the protected SADC exclusion.
+				NOT = {
+					AND = {
+						original_tag = MAD
+						has_country_flag = MAD_TGV_SADC_PARTY_BAN_LOCKED
+					}
+				}
 			}
 
 			ban_all_parties_button_visible = {
