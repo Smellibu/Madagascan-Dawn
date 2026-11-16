@@ -6689,7 +6689,7 @@ MAD_HVM_PROJECT_REVIEW_CATEGORY = {
 # The consultations are a reusable safety valve; the Compact is a one-off programme.
 ########################################################################
 MAD_rural_cooperation_category = {
-	# Bring Ratsiraka back under any government except TIM; this does not reverse the historical exile event.
+	# Bring Ratsiraka back under any government except TIM; AREMA's leadership remains a separate focus choice.
 	MAD_RATSIRAKA_RETURN_FROM_EXILE = {
 		icon = generic_political_discourse
 		visible = { has_country_flag = MAD_RATSIRAKA_EXILED }
@@ -6725,9 +6725,6 @@ MAD_rural_cooperation_category = {
 				ideology = anarchist_communism
 				traits = { emerging_anarchist_communism career_politician military_career former_foreign_minister }
 			}
-			set_country_flag = MAD_AREMA_LEADER_RATSIRAKA
-			clr_country_flag = MAD_AREMA_LEADER_RAJAONARIVELO
-			clr_country_flag = MAD_AREMA_LEADER_RAHARIJAONA
 			clr_country_flag = MAD_RATSIRAKA_EXILED
 			clr_country_flag = MAD_VIVA_INTERVIEW_PENDING
 		}
