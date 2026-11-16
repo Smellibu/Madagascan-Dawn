@@ -3912,7 +3912,7 @@ country_event = {
 
 
 # Resolve the Split Leadership idea only when the pressure campaign or the full crisis reaches an endpoint.
-# The civilian leader displaced by direct military administration is recorded when the campaign starts.
+# A direct military takeover sends the recorded civilian incumbent into exile and bans that same party.
 country_event = {
 	id = mad_political.110
 	title = mad_political.110.t
@@ -3921,24 +3921,13 @@ country_event = {
 		trigger = {
 			has_country_flag = MAD_MODERN_DIRECT_MILITARY_RULE
 			OR = {
-				AND = {
-					has_country_flag = MAD_MODERN_CIVILIAN_LEADER_EXILE_ELIGIBLE
-					check_variable = { MAD_MODERN_PROTEST_ORIGIN_PARTY = 20 }
-				}
-				# Compatibility for campaigns already in progress when this change is loaded.
+				has_country_flag = MAD_MODERN_CIVILIAN_LEADER_EXILE_ELIGIBLE
+				# Compatibility for older saves whose TGV campaign predates origin-party tracking.
 				AND = {
 					has_country_flag = MAD_MODERN_PROTEST_UNDER_TGV
 					NOT = { has_variable = MAD_MODERN_PROTEST_ORIGIN_PARTY }
 				}
 			}
-		}
-	}
-	desc = {
-		text = mad_political.110.d_military_other
-		trigger = {
-			has_country_flag = MAD_MODERN_DIRECT_MILITARY_RULE
-			has_country_flag = MAD_MODERN_CIVILIAN_LEADER_EXILE_ELIGIBLE
-			NOT = { check_variable = { MAD_MODERN_PROTEST_ORIGIN_PARTY = 20 } }
 		}
 	}
 	desc = {
@@ -3993,27 +3982,29 @@ country_event = {
 					}
 				}
 			}
-			log = "[GetDateText]: [Root.GetName]: The leader of the displaced civilian party flees to Dubai after direct military administration is established"
 			set_country_flag = MAD_MODERN_CIVILIAN_LEADER_FLED_DUBAI
+			log = "[GetDateText]: [Root.GetName]: The displaced civilian leader flees to Dubai after direct military administration is established"
 			if = {
-				limit = {
-					OR = {
-						AND = {
-							has_country_flag = MAD_MODERN_CIVILIAN_LEADER_EXILE_ELIGIBLE
-							check_variable = { MAD_MODERN_PROTEST_ORIGIN_PARTY = 20 }
-						}
-						AND = {
-							has_country_flag = MAD_MODERN_PROTEST_UNDER_TGV
-							NOT = { has_variable = MAD_MODERN_PROTEST_ORIGIN_PARTY }
-						}
-					}
+				limit = { has_variable = MAD_MODERN_PROTEST_ORIGIN_PARTY }
+				# Ban exactly the civilian party whose government was displaced.
+				set_temp_variable = { party_index = MAD_MODERN_PROTEST_ORIGIN_PARTY }
+				ban_party_scripted_call = yes
+				recalculate_party = yes
+				# Preserve legacy TGV markers for content and saves that still check them.
+				if = {
+					limit = { check_variable = { MAD_MODERN_PROTEST_ORIGIN_PARTY = 20 } }
+					set_country_flag = MAD_RAJOELINA_FLED_DUBAI
+					set_country_flag = MAD_TGV_BANNED
 				}
-				log = "[GetDateText]: [Root.GetName]: Andry Rajoelina flees to Dubai after direct military administration is established"
-				set_country_flag = MAD_RAJOELINA_FLED_DUBAI
-				set_country_flag = MAD_TGV_BANNED
+			}
+			else_if = {
+				limit = { has_country_flag = MAD_MODERN_PROTEST_UNDER_TGV }
+				# Legacy TGV save: no origin-party variable exists, so retain the old party-20 outcome.
 				set_temp_variable = { party_index = 20 }
 				ban_party_scripted_call = yes
 				recalculate_party = yes
+				set_country_flag = MAD_RAJOELINA_FLED_DUBAI
+				set_country_flag = MAD_TGV_BANNED
 			}
 		}
 	}
