@@ -3919,18 +3919,16 @@ country_event = {
 	desc = {
 		text = mad_political.110.d_military
 		trigger = {
-			AND = {
-				has_country_flag = MAD_MODERN_DIRECT_MILITARY_RULE
-				OR = {
-					AND = {
-						has_country_flag = MAD_MODERN_CIVILIAN_LEADER_EXILE_ELIGIBLE
-						check_variable = { MAD_MODERN_PROTEST_ORIGIN_PARTY = 20 }
-					}
-					# Compatibility for campaigns already in progress when this change is loaded.
-					AND = {
-						has_country_flag = MAD_MODERN_PROTEST_UNDER_TGV
-						NOT = { has_variable = MAD_MODERN_PROTEST_ORIGIN_PARTY }
-					}
+			has_country_flag = MAD_MODERN_DIRECT_MILITARY_RULE
+			OR = {
+				AND = {
+					has_country_flag = MAD_MODERN_CIVILIAN_LEADER_EXILE_ELIGIBLE
+					check_variable = { MAD_MODERN_PROTEST_ORIGIN_PARTY = 20 }
+				}
+				# Compatibility for campaigns already in progress when this change is loaded.
+				AND = {
+					has_country_flag = MAD_MODERN_PROTEST_UNDER_TGV
+					NOT = { has_variable = MAD_MODERN_PROTEST_ORIGIN_PARTY }
 				}
 			}
 		}
@@ -3956,19 +3954,12 @@ country_event = {
 					AND = {
 						has_country_flag = MAD_MODERN_DIRECT_MILITARY_RULE
 						OR = {
-							AND = {
-								has_country_flag = MAD_MODERN_CIVILIAN_LEADER_EXILE_ELIGIBLE
-							check_variable = { MAD_MODERN_PROTEST_ORIGIN_PARTY = 20 }
-						}
-						AND = {
-							has_country_flag = MAD_MODERN_PROTEST_UNDER_TGV
-							NOT = { has_variable = MAD_MODERN_PROTEST_ORIGIN_PARTY }
-						}
-						AND = {
 							has_country_flag = MAD_MODERN_CIVILIAN_LEADER_EXILE_ELIGIBLE
-							NOT = { check_variable = { MAD_MODERN_PROTEST_ORIGIN_PARTY = 20 } }
+							AND = {
+								has_country_flag = MAD_MODERN_PROTEST_UNDER_TGV
+								NOT = { has_variable = MAD_MODERN_PROTEST_ORIGIN_PARTY }
+							}
 						}
-					}
 					}
 				}
 			}
@@ -4009,12 +4000,12 @@ country_event = {
 					OR = {
 						AND = {
 							has_country_flag = MAD_MODERN_CIVILIAN_LEADER_EXILE_ELIGIBLE
-						check_variable = { MAD_MODERN_PROTEST_ORIGIN_PARTY = 20 }
+							check_variable = { MAD_MODERN_PROTEST_ORIGIN_PARTY = 20 }
 						}
-					AND = {
+						AND = {
 							has_country_flag = MAD_MODERN_PROTEST_UNDER_TGV
-						NOT = { has_variable = MAD_MODERN_PROTEST_ORIGIN_PARTY }
-					}
+							NOT = { has_variable = MAD_MODERN_PROTEST_ORIGIN_PARTY }
+						}
 					}
 				}
 				log = "[GetDateText]: [Root.GetName]: Andry Rajoelina flees to Dubai after direct military administration is established"
