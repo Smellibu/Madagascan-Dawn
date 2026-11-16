@@ -2775,8 +2775,7 @@ country_event = {
 		}
 
 		recalculate_party = yes
-		set_country_flag = MAD_MIL_DIRECTORATE_PENDING
-		country_event = { id = MAD_military_refoundation.16 days = 2 }
+
 	}
 
 	# ============================================================
@@ -9706,36 +9705,6 @@ country_event = {
 	}
 }
 
-# Alternative military-takeover branch, distinct from the TGV transitional route.
-country_event = {
-	id = MAD_military_refoundation.16
-	title = MAD_military_refoundation.16.t
-	desc = MAD_military_refoundation.16.d
-	picture = GFX_report_event_generic_political
-	is_triggered_only = yes
-	fire_only_once = yes
-	trigger = { has_country_flag = MAD_MIL_DIRECTORATE_PENDING }
-	immediate = { clr_country_flag = MAD_MIL_DIRECTORATE_PENDING }
-	option = {
-		name = MAD_military_refoundation.16.a
-		ai_chance = { factor = 15 }
-		log = "[GetDateText]: [Root.GetName]: Retain the Military Directorate"
-		set_country_flag = MAD_MIL_DIRECTORATE_RETAINED
-		set_country_flag = MAD_MIL_DIRECTORATE_24M_MANDATE
-		add_timed_idea = { idea = MAD_MIL_DIRECTORATE_TRANSITION days = 730 }
-		add_political_power = 25
-		add_stability = -0.05
-	}
-	option = {
-		name = MAD_military_refoundation.16.b
-		ai_chance = { factor = 85 }
-		log = "[GetDateText]: [Root.GetName]: Prepare transfer to civilian authority"
-		set_country_flag = MAD_MIL_DIRECTORATE_TRANSFER_PREPARED
-		add_political_power = 15
-		add_stability = 0.01
-	}
-}
-
 # Apollo 21: arrests made on 20 July 2021; authorities publicly described the alleged plot on 22 July.
 country_event = {
 	id = mad_apollo21.1
@@ -9845,8 +9814,7 @@ country_event = {
 		}
 
 		recalculate_party = yes
-		set_country_flag = MAD_MIL_DIRECTORATE_PENDING
-		country_event = { id = MAD_military_refoundation.16 days = 2 }
+
 	}
 
 	# ============================================================
