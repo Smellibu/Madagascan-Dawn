@@ -3172,7 +3172,6 @@ trigger = { has_country_flag = MAD_RATSIRAKA_EXILE_EVENT_PENDING }
 		clr_country_flag = MAD_RATSIRAKA_EXILE_EVENT_PENDING
 		set_country_flag = MAD_RATSIRAKA_EXILE_RESOLVED
 		set_country_flag = MAD_RATSIRAKA_EXILED
-		clr_country_flag = MAD_AREMA_BANNED
 		set_country_flag = MAD_AREMA_LEADER_RAJAONARIVELO
 		clr_country_flag = MAD_AREMA_LEADER_RATSIRAKA
 		clr_country_flag = MAD_AREMA_LEADER_RAHARIJAONA
@@ -9506,7 +9505,6 @@ country_event = {
 		name = MAD_military_refoundation.11.b
 		ai_chance = { factor = 20 }
 		log = "[GetDateText]: [Root.GetName]: Retain military transition guarantee"
-		set_country_flag = MAD_MIL_TGV_RESERVED_TRANSITION_VETO
 		remove_ideas = MAD_MIL_HAT_TRANSITION_GUARANTOR
 		add_timed_idea = { idea = MAD_MIL_TGV_TRANSITION_GUARANTOR days = 1095 }
 		add_stability = -0.02
