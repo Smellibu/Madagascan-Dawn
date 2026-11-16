@@ -6695,7 +6695,7 @@ MAD_rural_cooperation_category = {
 		visible = { has_country_flag = MAD_RATSIRAKA_EXILED }
 		available = {
 			has_country_flag = MAD_RATSIRAKA_EXILED
-			custom_trigger_tooltip = { tooltip = MAD_AREMA_IN_POWER_tt MAD_AREMA_IN_POWER = yes }
+			NOT = { MAD_TIM_IN_POWER = yes }
 			custom_trigger_tooltip = {
 				tooltip = MAD_RATSIRAKA_RETURN_RC_REQUIREMENT_TT
 				check_variable = { MAD_rural_cooperation > 4.99 }
