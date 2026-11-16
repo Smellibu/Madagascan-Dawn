@@ -2517,17 +2517,14 @@ country_event = {
 	hidden = yes
 
 	trigger = {
-		OR = {
-			has_country_flag = MAD_DAEWOO_BROKEN
-			has_country_flag = MAD_DAEWOO_REVIEW_FAILED
-			has_country_flag = MAD_DAEWOO_OUTCOME_FAILED
-		}
+		MAD_2009_COUP_ROUTE_AVAILABLE = yes
+		MAD_DAEWOO_POLITICAL_FAILURE = yes
 		NOT = { has_country_flag = MAD_DAEWOO_POLITICAL_FALLOUT_DONE }
-		NOT = { has_country_flag = MAD_MIL_REFORM_UPRISING_OCCURRED }
 	}
 
 	immediate = {
 		set_country_flag = MAD_DAEWOO_POLITICAL_FALLOUT_PENDING
+		set_country_flag = MAD_2009_COUP_PENDING
 		if = {
 			limit = { NOT = { has_country_flag = MAD_TGV_FORMED } }
 			if = {
@@ -2535,22 +2532,10 @@ country_event = {
 				set_country_flag = MAD_TGV_FORMATION_PENDING
 				country_event = { id = mad_political.96 days = 1 }
 			}
-			if = {
-				limit = { has_elections = yes }
-				country_event = { id = mad_political.2 days = 10 }
-			}
-			else = {
-				country_event = { id = mad_political.93 days = 10 }
-			}
+			country_event = { id = mad_political.114 days = 10 }
 		}
 		else = {
-			if = {
-				limit = { has_elections = yes }
-				country_event = { id = mad_political.2 days = 1 }
-			}
-			else = {
-				country_event = { id = mad_political.93 days = 1 }
-			}
+			country_event = { id = mad_political.114 days = 1 }
 		}
 	}
 }
@@ -2568,19 +2553,18 @@ country_event = {
 
 	trigger = {
 		has_elections = no
-		OR = {
-			has_country_flag = MAD_DAEWOO_BROKEN
-			has_country_flag = MAD_DAEWOO_REVIEW_FAILED
-			has_country_flag = MAD_DAEWOO_OUTCOME_FAILED
-		}
-		NOT = { has_country_flag = MAD_DAEWOO_POLITICAL_FALLOUT_DONE }
-		NOT = { has_country_flag = MAD_MIL_REFORM_UPRISING_OCCURRED }
+		MAD_2009_COUP_EVENT_ELIGIBLE = yes
 	}
 
 	immediate = {
-		set_country_flag = MAD_DAEWOO_POLITICAL_FALLOUT_93_CALLED
-		set_country_flag = MAD_DAEWOO_POLITICAL_FALLOUT_DONE
-		clr_country_flag = MAD_DAEWOO_POLITICAL_FALLOUT_PENDING
+		clr_country_flag = MAD_2009_COUP_PENDING
+		set_country_flag = MAD_2009_COUP_EVENT_ACTIVE
+		if = {
+			limit = { MAD_DAEWOO_POLITICAL_FAILURE = yes }
+			set_country_flag = MAD_DAEWOO_POLITICAL_FALLOUT_93_CALLED
+			set_country_flag = MAD_DAEWOO_POLITICAL_FALLOUT_DONE
+			clr_country_flag = MAD_DAEWOO_POLITICAL_FALLOUT_PENDING
+		}
 		MAD_UNLOCK_POL_CONTENT_2009_2025 = yes
 		if = {
 			limit = { has_country_flag = MAD_MIL_REFORM_UPRISING_PENDING }
@@ -2617,13 +2601,16 @@ country_event = {
 	option = {
 		name = mad_political.93.a
 		trigger = {
-					has_civil_war = no
-				NOT = { check_variable = { MAD_DAEWOO_NEXT_PARTY < 0 } }
-			}
+			has_civil_war = no
+			NOT = { MAD_TGV_GOVERNMENT = yes }
+			NOT = { check_variable = { MAD_DAEWOO_NEXT_PARTY < 0 } }
+		}
 
 		custom_effect_tooltip = mad_political.93.a_tt
 		hidden_effect = {
 			set_country_flag = MAD_2009_COUP_OCCURRED
+			set_country_flag = MAD_2009_COUP_RESOLVED
+			clr_country_flag = MAD_2009_COUP_EVENT_ACTIVE
 			# Reproduce MD's party-specific revolt/civil-war pattern, using the
 			# largest eligible opposition party found above instead of a GUI slot.
 			set_temp_variable = { v = MAD_DAEWOO_NEXT_PARTY }
@@ -2649,6 +2636,8 @@ country_event = {
 
 	option = {
 		name = mad_political.93.b
+		set_country_flag = MAD_2009_COUP_RESOLVED
+		clr_country_flag = MAD_2009_COUP_EVENT_ACTIVE
 
 		# Preserve the incumbent government's ideology when restoring elections.
 		if = {
@@ -2680,15 +2669,18 @@ country_event = {
 
 	trigger = {
 		has_elections = yes
-		MAD_DAEWOO_POLITICAL_FAILURE = yes
-		NOT = { has_country_flag = MAD_DAEWOO_POLITICAL_FALLOUT_DONE }
-		NOT = { has_country_flag = MAD_MIL_REFORM_UPRISING_OCCURRED }
+		MAD_2009_COUP_EVENT_ELIGIBLE = yes
 	}
 
 	immediate = {
-		set_country_flag = MAD_DAEWOO_POLITICAL_FALLOUT_2_CALLED
-		set_country_flag = MAD_DAEWOO_POLITICAL_FALLOUT_DONE
-		clr_country_flag = MAD_DAEWOO_POLITICAL_FALLOUT_PENDING
+		clr_country_flag = MAD_2009_COUP_PENDING
+		set_country_flag = MAD_2009_COUP_EVENT_ACTIVE
+		if = {
+			limit = { MAD_DAEWOO_POLITICAL_FAILURE = yes }
+			set_country_flag = MAD_DAEWOO_POLITICAL_FALLOUT_2_CALLED
+			set_country_flag = MAD_DAEWOO_POLITICAL_FALLOUT_DONE
+			clr_country_flag = MAD_DAEWOO_POLITICAL_FALLOUT_PENDING
+		}
 		MAD_UNLOCK_POL_CONTENT_2009_2025 = yes
 		if = {
 			limit = { has_country_flag = MAD_MIL_REFORM_UPRISING_PENDING }
@@ -2703,6 +2695,8 @@ country_event = {
 	# ============================================================
 	option = {
 		name = mad_political.2.a
+		set_country_flag = MAD_2009_COUP_RESOLVED
+		clr_country_flag = MAD_2009_COUP_EVENT_ACTIVE
 		set_temp_variable = { treasury_change = { value = gdp_total multiply = -0.05 } }
 		modify_treasury_effect = yes
 		custom_effect_tooltip = { localization_key = modifies_dynamic_modifier_tt MODIFIER = MAD_economy_modifier }
@@ -2730,8 +2724,11 @@ country_event = {
 	# ============================================================
 	option = {
 		name = mad_political.2.b
+		trigger = { NOT = { MAD_TGV_GOVERNMENT = yes } }
 
 		set_country_flag = MAD_2009_COUP_OCCURRED
+		set_country_flag = MAD_2009_COUP_RESOLVED
+		clr_country_flag = MAD_2009_COUP_EVENT_ACTIVE
 		add_stability = -0.05
 
 		set_party_index_to_ruling_party = yes
@@ -2766,8 +2763,11 @@ country_event = {
 	# ============================================================
 	option = {
 		name = mad_political.2.c
+		trigger = { NOT = { MAD_TGV_GOVERNMENT = yes } }
 
 		set_country_flag = MAD_2009_COUP_OCCURRED
+		set_country_flag = MAD_2009_COUP_RESOLVED
+		clr_country_flag = MAD_2009_COUP_EVENT_ACTIVE
 		add_stability = -0.03
 		increase_corruption = yes
 
@@ -3192,10 +3192,7 @@ country_event = {
 		original_tag = MAD
 		has_country_flag = MAD_RATSIRAKA_EXILED
 		NOT = { has_country_flag = MAD_AREMA_LEADER_RATSIRAKA }
-		NOT = { MAD_TGV_IN_POWER = yes }
-		# TGV must not be a junior coalition partner either.
-		NOT = { is_in_array = { array = gov_coalition_array value = 20 } }
-		NOT = { has_country_flag = MAD_2009_COUP_OCCURRED }
+		MAD_2009_COUP_ROUTE_AVAILABLE = yes
 		NOT = { has_country_flag = MAD_VIVA_INTERVIEW_RESOLVED }
 	}
 
@@ -3205,6 +3202,7 @@ country_event = {
 
 	option = {
 		name = mad_political.91.a
+		set_country_flag = MAD_VIVA_TV_BANNED
 
 		set_party_index_to_ruling_party = yes
 		set_temp_variable = { party_popularity_increase = -0.08 }
@@ -3239,6 +3237,8 @@ country_event = {
 			set_country_flag = MAD_TGV_FORMATION_PENDING
 			country_event = { id = mad_political.95 days = 2 }
 		}
+		set_country_flag = MAD_2009_MAYORAL_EVENT_PENDING
+		country_event = { id = mad_political.113 days = 52 }
 	}
 
 	option = {
@@ -3266,6 +3266,103 @@ country_event = {
 	}
 }
 
+
+# ---------------------------------------------------------------------------
+# 2009 mayoral dismissal route following the Viva TV closure.
+# The interview is 13 December 2008; the mayoral decision is scheduled 52 days
+# later (3 February 2009). Dismissal queues the common coup dispatcher for
+# 42 days later (17 March 2009).
+country_event = {
+	id = mad_political.113
+	title = mad_political.113.t
+	desc = mad_political.113.d
+	picture = GFX_report_event_generic_political
+	is_triggered_only = yes
+	fire_only_once = yes
+	trigger = {
+		original_tag = MAD
+		tag = MAD
+		has_country_flag = MAD_2009_MAYORAL_EVENT_PENDING
+		NOT = { MAD_TGV_GOVERNMENT = yes }
+		NOT = { has_country_flag = MAD_2009_COUP_PENDING }
+		NOT = { has_country_flag = MAD_2009_COUP_EVENT_ACTIVE }
+		NOT = { has_country_flag = MAD_2009_COUP_OCCURRED }
+		NOT = { has_country_flag = MAD_2009_COUP_RESOLVED }
+		has_civil_war = no
+		date > 2009.2.2
+		date < 2009.2.4
+	}
+	immediate = {
+		clr_country_flag = MAD_2009_MAYORAL_EVENT_PENDING
+		set_country_flag = MAD_2009_MAYORAL_EVENT_RESOLVED
+	}
+	option = {
+		name = mad_political.113.a
+		trigger = { MAD_2009_COUP_ROUTE_AVAILABLE = yes }
+		set_country_flag = MAD_RAJOELINA_DISMISSED_AS_MAYOR
+		add_stability = -0.05
+		set_temp_variable = { party_index = 20 }
+		set_temp_variable = { party_popularity_increase = 0.05 }
+		set_temp_variable = { temp_outlook_increase = 0.05 }
+		change_relative_party_popularity = yes
+		recalculate_party = yes
+		set_country_flag = MAD_2009_COUP_PENDING
+		country_event = { id = mad_political.114 days = 42 }
+	}
+	option = {
+		name = mad_political.113.b
+		set_country_flag = MAD_RAJOELINA_POLITICAL_ACTIVITY_ALLOWED
+		add_stability = -0.01
+		set_temp_variable = { party_index = 20 }
+		set_temp_variable = { party_popularity_increase = 0.03 }
+		set_temp_variable = { temp_outlook_increase = 0.03 }
+		change_relative_party_popularity = yes
+		recalculate_party = yes
+	}
+}
+
+# Every 2009 route uses this one dispatcher. It rechecks the government when
+# the countdown expires, then selects .2 (elections) or .93 (no elections).
+country_event = {
+	id = mad_political.114
+	hidden = yes
+	is_triggered_only = yes
+	fire_only_once = yes
+	immediate = {
+		if = {
+			limit = { MAD_2009_COUP_EVENT_ELIGIBLE = yes }
+			if = {
+				limit = { has_elections = yes }
+				country_event = { id = mad_political.2 }
+			}
+			else = { country_event = { id = mad_political.93 } }
+		}
+		else = {
+			clr_country_flag = MAD_2009_COUP_PENDING
+			clr_country_flag = MAD_DAEWOO_POLITICAL_FALLOUT_PENDING
+			set_country_flag = MAD_2009_COUP_CANCELLED
+			set_country_flag = MAD_2009_COUP_RESOLVED
+		}
+	}
+}
+
+# Alternative rural-unrest route. The monthly MAD checker claims the same
+# pending lock before showing this single-response street-protest event.
+country_event = {
+	id = mad_political.115
+	title = mad_political.115.t
+	desc = mad_political.115.d
+	picture = GFX_report_event_generic_political
+	is_triggered_only = yes
+	fire_only_once = yes
+	trigger = { MAD_2009_COUP_EVENT_ELIGIBLE = yes }
+	option = {
+		name = mad_political.115.a
+		set_country_flag = MAD_2009_RURAL_UNREST_MILITARY_DEPLOYED
+		add_stability = -0.03
+		country_event = { id = mad_political.114 days = 30 }
+	}
+}
 
 # ---------------------------------------------------------------------------
 # TGV formation
