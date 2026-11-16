@@ -949,6 +949,14 @@ scripted_gui = {
 				NOT = {
 					has_country_flag = partyall_banned
 				}
+				# Lock the SADC-excluded party until the scheduled ballot resolves or is cancelled.
+				NOT = {
+					AND = {
+						original_tag = MAD
+						has_country_flag = MAD_TGV_SADC_PARTY_BAN_LOCKED
+						check_variable = { MAD_TGV_SADC_EXCLUDED_PARTY = v }
+					}
+				}
 
 				# set_temp_variable = { party_index = v }
 				# party_allowed_to_ban_trigger = yes
