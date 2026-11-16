@@ -10400,9 +10400,14 @@ focus_tree = {
 				add_ideas = MAD_POL_MILITARY_GUARDIAN
 			}
 			set_politics = { ruling_party = nationalist elections_allowed = yes }
+			add_political_power = 25
 			set_temp_variable = { party_index = 22 }
-			set_temp_variable = { party_popularity_increase = 0.03 }
+			set_temp_variable = { party_popularity_increase = 0.04 }
 			set_temp_variable = { temp_outlook_increase = 0.03 }
+			change_relative_party_popularity = yes
+			set_temp_variable = { party_index = 2 }
+			set_temp_variable = { party_popularity_increase = 0.03 }
+			set_temp_variable = { temp_outlook_increase = 0 }
 			change_relative_party_popularity = yes
 			recalculate_party = yes
 			custom_effect_tooltip = MAD_POL_MIL_PROTECT_BALLOT_ELECTION_BAN_TT
@@ -10454,9 +10459,14 @@ focus_tree = {
 				limit = { has_elections = yes }
 				set_politics = { ruling_party = nationalist elections_allowed = no }
 			}
+			add_political_power = 25
 			set_temp_variable = { party_index = 22 }
-			set_temp_variable = { party_popularity_increase = 0.05 }
-			set_temp_variable = { temp_outlook_increase = 0.05 }
+			set_temp_variable = { party_popularity_increase = 0.07 }
+			set_temp_variable = { temp_outlook_increase = 0.07 }
+			change_relative_party_popularity = yes
+			set_temp_variable = { party_index = 2 }
+			set_temp_variable = { party_popularity_increase = -0.03 }
+			set_temp_variable = { temp_outlook_increase = 0 }
 			change_relative_party_popularity = yes
 			recalculate_party = yes
 		}
@@ -14018,9 +14028,9 @@ available = {
 	focus = {
 		id = MAD_POL_TGV_ESTABLISH_FIS
 		icon = political_reform
-		x = 2
-		y = 1
-		relative_position_id = MAD_POL_TGV_2009_LEGACY
+		x = 6
+		y = 0
+		relative_position_id = MAD_POL_TGV_ESTABLISH_CNME
 		cost = 3
 		prerequisite = { focus = MAD_POL_TGV_2009_LEGACY }
 		prerequisite = { focus = MAD_POL_TGV_ESTABLISH_CNME }
