@@ -10123,23 +10123,6 @@ focus_tree = {
 				tooltip = MAD_MIL_IN_POWER_tt
 				MAD_MIL_IN_POWER = yes
 			}
-			custom_trigger_tooltip = {
-				tooltip = MAD_MIL_POST_2025_ROUTE_TT
-				OR = {
-					MAD_MIL_IN_POWER = yes
-					AND = {
-						has_country_flag = MAD_MODERN_CRISIS_COMPLETED
-						has_country_flag = MAD_CAPSAT_REVOLT_RESOLVED
-						has_country_flag = MAD_MILITARY_RULE_PATH
-						has_civil_war = no
-					}
-					AND = {
-						has_country_flag = MAD_MODERN_CRISIS_COMPLETED
-						has_country_flag = MAD_MODERN_CIVILIAN_SETTLEMENT
-						has_civil_war = no
-					}
-				}
-			}
 		}
 
 		completion_reward = {
@@ -10351,6 +10334,41 @@ focus_tree = {
 		}
 	}
 
+
+	focus = {
+		id = MAD_POL_MIL_RESTORE_PROFESSIONAL_COMMAND
+		icon = military_academy
+		x = -4
+		y = 1
+		relative_position_id = MAD_POL_MIL_TAKES_RESPONSIBILITY
+		cost = 3
+		prerequisite = { focus = MAD_POL_MIL_TAKES_RESPONSIBILITY }
+		mutually_exclusive = { focus = MAD_POL_MIL_PROTECT_BALLOT }
+		mutually_exclusive = { focus = MAD_POL_MIL_FINAL_ARBITER }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_MIL_IN_POWER_tt
+				MAD_MIL_IN_POWER = yes
+			}
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_MIL_RESTORE_PROFESSIONAL_COMMAND"
+			remove_ideas = MAD_POL_MILITARY_GUARDIAN
+			remove_ideas = MAD_POL_MILITARY_GOVERNMENT
+			add_ideas = MAD_MIL_PROFESSIONAL_COMMAND
+			set_politics = { ruling_party = nationalist elections_allowed = yes }
+			decrease_corruption = yes
+			add_political_power = 35
+			set_temp_variable = { party_index = 22 }
+			set_temp_variable = { party_popularity_increase = 0.04 }
+			set_temp_variable = { temp_outlook_increase = 0.04 }
+			change_relative_party_popularity = yes
+			recalculate_party = yes
+		}
+		ai_will_do = { base = 1 }
+	}
+
 	focus = {
 		id = MAD_POL_MIL_PROTECT_BALLOT
 		icon = Election
@@ -10359,16 +10377,13 @@ focus_tree = {
 		relative_position_id = MAD_POL_MIL_TAKES_RESPONSIBILITY
 		cost = 3
 		prerequisite = { focus = MAD_POL_MIL_TAKES_RESPONSIBILITY }
+		mutually_exclusive = { focus = MAD_POL_MIL_RESTORE_PROFESSIONAL_COMMAND }
 		mutually_exclusive = { focus = MAD_POL_MIL_FINAL_ARBITER }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_MIL_IN_POWER_tt
 				MAD_MIL_IN_POWER = yes
-			}
-			custom_trigger_tooltip = {
-				tooltip = MAD_MIL_POST_2025_ROUTE_TT
-				MAD_POL_MIL_POST_2025_ROUTE_AVAILABLE = yes
 			}
 		}
 
@@ -10406,16 +10421,13 @@ focus_tree = {
 		relative_position_id = MAD_POL_MIL_TAKES_RESPONSIBILITY
 		cost = 3
 		prerequisite = { focus = MAD_POL_MIL_TAKES_RESPONSIBILITY }
+		mutually_exclusive = { focus = MAD_POL_MIL_RESTORE_PROFESSIONAL_COMMAND }
 		mutually_exclusive = { focus = MAD_POL_MIL_PROTECT_BALLOT }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_MIL_IN_POWER_tt
 				MAD_MIL_IN_POWER = yes
-			}
-			custom_trigger_tooltip = {
-				tooltip = MAD_MIL_POST_2025_ROUTE_TT
-				MAD_POL_MIL_POST_2025_ROUTE_AVAILABLE = yes
 			}
 		}
 
@@ -14011,6 +14023,7 @@ available = {
 		relative_position_id = MAD_POL_TGV_2009_LEGACY
 		cost = 3
 		prerequisite = { focus = MAD_POL_TGV_2009_LEGACY }
+		prerequisite = { focus = MAD_POL_TGV_ESTABLISH_CNME }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		allow_branch = {
 			has_country_flag = MAD_TGV_BRANCH_UNLOCKED
@@ -14029,19 +14042,117 @@ available = {
 		}
 	}
 
+
 	focus = {
-		id = MAD_POL_TGV_MAPUTO_CHARTER
+		id = MAD_POL_TGV_ESTABLISH_CNME
 		icon = diplomatic_treaty
-		x = -2
+		x = -4
 		y = 1
 		relative_position_id = MAD_POL_TGV_2009_LEGACY
 		cost = 3
 		prerequisite = { focus = MAD_POL_TGV_2009_LEGACY }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
-			custom_trigger_tooltip = {
-				tooltip = MAD_TGV_IN_POWER_tt
-				MAD_TGV_IN_POWER = yes
+			MAD_TGV_IN_POWER = yes
+			has_country_flag = MAD_TGV_2009_TRANSITIONAL_ROUTE
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_TGV_ESTABLISH_CNME"
+			country_event = { id = MAD_military_refoundation.8 days = 1 }
+		}
+		ai_will_do = { base = 1 }
+	}
+
+	focus = {
+		id = MAD_POL_TGV_SETTLE_HAT_OFFICER_RELATIONS
+		icon = political_reform
+		x = 0
+		y = 1
+		relative_position_id = MAD_POL_TGV_ESTABLISH_CNME
+		cost = 3
+		prerequisite = { focus = MAD_POL_TGV_ESTABLISH_CNME }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available = {
+			MAD_TGV_IN_POWER = yes
+			has_country_flag = MAD_TGV_2009_TRANSITIONAL_ROUTE
+			OR = {
+				has_country_flag = MAD_TGV_CNME_INTEGRITY_MODEL_SELECTED
+				has_country_flag = MAD_TGV_CNME_EXECUTIVE_MODEL_SELECTED
+			}
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_TGV_SETTLE_HAT_OFFICER_RELATIONS"
+			country_event = { id = MAD_military_refoundation.9 days = 1 }
+		}
+		ai_will_do = { base = 1 }
+	}
+
+	focus = {
+		id = MAD_POL_TGV_RESOLVE_2010_MILITARY_CHALLENGE
+		icon = army_doctrine
+		x = 0
+		y = 1
+		relative_position_id = MAD_POL_TGV_SETTLE_HAT_OFFICER_RELATIONS
+		cost = 3
+		prerequisite = { focus = MAD_POL_TGV_SETTLE_HAT_OFFICER_RELATIONS }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available = {
+			MAD_TGV_IN_POWER = yes
+			has_country_flag = MAD_TGV_2009_TRANSITIONAL_ROUTE
+			OR = {
+				has_country_flag = MAD_MIL_2010_OFFICER_ACCOMMODATION
+				has_country_flag = MAD_MIL_2010_CIVILIAN_COMMAND_COMPACT
+				has_country_flag = MAD_MIL_2010_CIVILIAN_AUTHORITY_ASSERTED
+			}
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_TGV_RESOLVE_2010_MILITARY_CHALLENGE"
+			country_event = { id = MAD_military_refoundation.10 days = 1 }
+		}
+		ai_will_do = { base = 1 }
+	}
+
+	focus = {
+		id = MAD_POL_TGV_RETAIN_TRANSITION_GUARANTEE
+		icon = Generic_Command_Power
+		x = 2
+		y = 0
+		relative_position_id = MAD_POL_TGV_RESOLVE_2010_MILITARY_CHALLENGE
+		cost = 3
+		prerequisite = { focus = MAD_POL_TGV_RESOLVE_2010_MILITARY_CHALLENGE }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available = {
+			MAD_TGV_IN_POWER = yes
+			has_country_flag = MAD_TGV_2009_TRANSITIONAL_ROUTE
+			OR = {
+				has_country_flag = MAD_MIL_2010_MUTINY_NEGOTIATED
+				has_country_flag = MAD_MIL_2010_MUTINY_SUPPRESSED
+				has_country_flag = MAD_MIL_2010_TRANSITIONAL_GUARANTOR
+			}
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_TGV_RETAIN_TRANSITION_GUARANTEE"
+			country_event = { id = MAD_military_refoundation.11 days = 1 }
+		}
+		ai_will_do = { base = 1 }
+	}
+
+	focus = {
+		id = MAD_POL_TGV_MAPUTO_CHARTER
+		icon = diplomatic_treaty
+		x = -2
+		y = 1
+		relative_position_id = MAD_POL_TGV_RESOLVE_2010_MILITARY_CHALLENGE
+		cost = 3
+		prerequisite = { focus = MAD_POL_TGV_RESOLVE_2010_MILITARY_CHALLENGE }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available = {
+			MAD_TGV_IN_POWER = yes
+			has_country_flag = MAD_TGV_2009_TRANSITIONAL_ROUTE
+			OR = {
+				has_country_flag = MAD_MIL_2010_MUTINY_NEGOTIATED
+				has_country_flag = MAD_MIL_2010_MUTINY_SUPPRESSED
+				has_country_flag = MAD_MIL_2010_TRANSITIONAL_GUARANTOR
 			}
 		}
 		completion_reward = {
@@ -14465,12 +14576,15 @@ available = {
 					limit = {
 						NOT = { OR = {
 							check_variable = { MAD_TGV_SADC_EXCLUDED_PARTY = 20 }
-						check_variable = { MAD_TGV_SADC_EXCLUDED_PARTY = 1 }
+							check_variable = { MAD_TGV_SADC_EXCLUDED_PARTY = 1 }
 						} }
-						NOT = { is_party_banned_trigger = yes }
 					}
-					ban_party_scripted_call = yes
-					set_country_flag = MAD_TGV_SADC_PARTY_BAN_APPLIED
+					set_country_flag = MAD_TGV_SADC_PARTY_BAN_LOCKED
+					if = {
+						limit = { NOT = { is_party_banned_trigger = yes } }
+						ban_party_scripted_call = yes
+						set_country_flag = MAD_TGV_SADC_PARTY_BAN_APPLIED
+					}
 				}
 			}
 			if = {
