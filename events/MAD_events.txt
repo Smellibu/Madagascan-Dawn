@@ -3193,6 +3193,8 @@ country_event = {
 		has_country_flag = MAD_RATSIRAKA_EXILED
 		NOT = { has_country_flag = MAD_AREMA_LEADER_RATSIRAKA }
 		NOT = { MAD_TGV_IN_POWER = yes }
+		# TGV must not be a junior coalition partner either.
+		NOT = { is_in_array = { array = gov_coalition_array value = 20 } }
 		NOT = { has_country_flag = MAD_2009_COUP_OCCURRED }
 		NOT = { has_country_flag = MAD_VIVA_INTERVIEW_RESOLVED }
 	}

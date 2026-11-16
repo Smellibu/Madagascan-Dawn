@@ -205,6 +205,43 @@ on_actions = {
 				set_capital = { state = 267 remember_old_capital = no }
 				clr_country_flag = MAD_MODERN_CIVIL_WAR_CAPITAL_MOVED
 			}
+
+			# Exile Ratsiraka only if the original MAD/AREMA side from mad_political.90.a is defeated.
+			# The marker is set before that specific civil war and is not copied as a route flag.
+			if = {
+				limit = {
+					FROM = {
+						tag = MAD
+						original_tag = MAD
+						has_country_flag = MAD_RATSIRAKA_CIVIL_WAR_STARTED
+					}
+				}
+				ROOT = {
+					set_country_flag = MAD_RATSIRAKA_EXILE_EVENT_PENDING
+					country_event = { id = mad_ratsiraka.2 days = 1 }
+				}
+			}
+
+			# Consume the marker on either side when this civil war ends. If MAD wins, no exile is queued;
+			# clearing it prevents a later, unrelated civil war from triggering Ratsiraka's exile.
+			if = {
+				limit = {
+					ROOT = {
+						original_tag = MAD
+						has_country_flag = MAD_RATSIRAKA_CIVIL_WAR_STARTED
+					}
+				}
+				ROOT = { clr_country_flag = MAD_RATSIRAKA_CIVIL_WAR_STARTED }
+			}
+			if = {
+				limit = {
+					FROM = {
+						original_tag = MAD
+						has_country_flag = MAD_RATSIRAKA_CIVIL_WAR_STARTED
+					}
+				}
+				FROM = { clr_country_flag = MAD_RATSIRAKA_CIVIL_WAR_STARTED }
+			}
 		}
 	}
 
