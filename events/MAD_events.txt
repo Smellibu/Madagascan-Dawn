@@ -3425,8 +3425,7 @@ country_event = {
 
 	trigger = {
 		original_tag = MAD
-		# The 2007 yearly dispatcher schedules this historical formation for 1 December.
-		has_country_flag = MAD_TGV_FORMATION_PENDING
+		# The 2007 yearly dispatcher must form TGV on 1 December if no earlier route has formed it.
 		NOT = { has_country_flag = MAD_TGV_FORMED }
 	}
 
