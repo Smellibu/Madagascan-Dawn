@@ -180,6 +180,40 @@ on_actions = {
 
 
 
+	# Monthly 2006-2012 alternative crisis route. It evaluates only MAD once per month.
+	on_monthly_MAD = {
+		effect = {
+			# If TGV takes office before the scheduled mayoral decision, abandon that route.
+			if = {
+				limit = {
+					has_country_flag = MAD_2009_MAYORAL_EVENT_PENDING
+					OR = {
+						MAD_TGV_GOVERNMENT = yes
+						date > 2009.2.3
+					}
+				}
+				clr_country_flag = MAD_2009_MAYORAL_EVENT_PENDING
+				set_country_flag = MAD_2009_MAYORAL_EVENT_CANCELLED
+			}
+
+			if = {
+				limit = {
+					date > 2005.12.31
+					date < 2013.1.1
+					MAD_2009_COUP_ROUTE_AVAILABLE = yes
+					MAD_drought_exists = yes
+					has_variable = MAD_rural_cooperation
+					check_variable = { MAD_rural_cooperation < 35 }
+					has_stability < 0.5
+					check_variable = { MAD_drought_severity > 24.99 }
+					NOT = { has_country_flag = MAD_2009_RURAL_UNREST_ROUTE_TRIGGERED }
+				}
+				set_country_flag = MAD_2009_RURAL_UNREST_ROUTE_TRIGGERED
+				set_country_flag = MAD_2009_COUP_PENDING
+				country_event = { id = mad_political.115 days = 0 }
+			}
+		}
+	}
 
 	on_ruling_party_change = {
 		effect = {
