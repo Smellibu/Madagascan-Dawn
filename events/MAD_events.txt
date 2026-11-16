@@ -2571,11 +2571,6 @@ country_event = {
 			clr_country_flag = MAD_MIL_REFORM_UPRISING_PENDING
 		}
 		MAD_UNLOCK_POL_CONTENT_2009_2025 = yes
-		if = {
-			limit = { has_country_flag = MAD_MIL_REFORM_UPRISING_PENDING }
-			set_country_flag = MAD_MIL_REFORM_UPRISING_CONCEDED
-			clr_country_flag = MAD_MIL_REFORM_UPRISING_PENDING
-		}
 
 		# Find the largest eligible opposition party.
 		# MD's party system stores party support in party_pop_array^index.
@@ -9798,6 +9793,8 @@ country_event = {
 	# ============================================================
 	option = {
 		name = mad_political.111.a
+		set_country_flag = MAD_2009_COUP_RESOLVED
+		clr_country_flag = MAD_2009_COUP_EVENT_ACTIVE
 		set_temp_variable = { treasury_change = { value = gdp_total multiply = -0.05 } }
 		modify_treasury_effect = yes
 		custom_effect_tooltip = { localization_key = modifies_dynamic_modifier_tt MODIFIER = MAD_economy_modifier }
