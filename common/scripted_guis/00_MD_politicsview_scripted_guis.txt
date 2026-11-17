@@ -373,6 +373,25 @@ scripted_gui = {
 						}
 					}
 				}
+				if = {
+					limit = { original_tag = MAD }
+					NOT = {
+						OR = {
+							check_variable = { ruling_party = 1 } # HVM
+							check_variable = { ruling_party = 2 } # TIM
+							check_variable = { ruling_party = 3 } # PSD
+							check_variable = { ruling_party = 5 } # AREMA
+							check_variable = { ruling_party = 13 } # Dahalo
+							check_variable = { ruling_party = 15 } # TAMIMA
+							check_variable = { ruling_party = 16 } # FANILO
+							check_variable = { ruling_party = 17 } # UNDD
+							check_variable = { ruling_party = 20 } # TGV
+							check_variable = { ruling_party = 22 } # Military
+							check_variable = { ruling_party = 23 } # CRPM
+						}
+					}
+				}
+
 				hidden_trigger = {
 					NOT = { tag = ISR }
 					NOT = { tag = ITA }
