@@ -8638,6 +8638,15 @@ focus_tree = {
 		cost = 3
 		prerequisite = { focus = MAD_POL_PARTIES }
 		search_filters = { FOCUS_FILTER_POLITICAL }
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_ROY_CRPM_OR_TAMIMA_IN_POWER_tt
+				OR = {
+					MAD_ROY_IN_POWER = yes
+					MAD_TAMIMA_IN_POWER = yes
+				}
+			}
+		}
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_ROY_SUMMON_HOUSES"
@@ -8666,6 +8675,15 @@ focus_tree = {
 		cost = 3
 		prerequisite = { focus = MAD_POL_ROY_SUMMON_HOUSES }
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAD_ROY_CRPM_OR_TAMIMA_IN_POWER_tt
+				OR = {
+					MAD_ROY_IN_POWER = yes
+					MAD_TAMIMA_IN_POWER = yes
+				}
+			}
+		}
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_ROY_MALAGASY_TRADITION"
