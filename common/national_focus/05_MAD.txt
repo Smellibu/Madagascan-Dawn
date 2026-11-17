@@ -13925,9 +13925,6 @@ available = {
 		y = 1
 		relative_position_id = MAD_POL_TGV_YOUTH_READY
 		cost = 3
-		allow_branch = {
-			has_country_flag = MAD_TGV_2009_TRANSITIONAL_ROUTE
-		}
 		prerequisite = { focus = MAD_POL_TGV_YOUTH_READY }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -13968,13 +13965,6 @@ available = {
 		cost = 3
 		prerequisite = { focus = MAD_POL_TGV_2009_LEGACY }
 		search_filters = { FOCUS_FILTER_POLITICAL }
-		allow_branch = {
-			has_country_flag = MAD_TGV_2009_TRANSITIONAL_ROUTE
-			has_country_flag = MAD_TGV_BRANCH_UNLOCKED
-			has_country_flag = MAD_MIL_FOCUS_TGV_MARCH_WINDOW_OPENED
-			NOT = { has_country_flag = MAD_MIL_FOCUS_TGV_MARCH_WINDOW_CLOSED }
-			MAD_TGV_IN_POWER = yes
-		}
 		available = {
 			MAD_TGV_IN_POWER = yes
 		}
@@ -14040,10 +14030,6 @@ available = {
 		cost = 3
 		prerequisite = { focus = MAD_POL_TGV_ESTABLISH_CNME }
 		search_filters = { FOCUS_FILTER_POLITICAL }
-		allow_branch = {
-			has_country_flag = MAD_TGV_2009_TRANSITIONAL_ROUTE
-			has_country_flag = MAD_TGV_BRANCH_UNLOCKED
-		}
 		available = {
 			MAD_TGV_IN_POWER = yes
 		}
@@ -14066,9 +14052,6 @@ available = {
 		y = 1
 		relative_position_id = MAD_POL_TGV_2009_LEGACY
 		cost = 3
-		allow_branch = {
-			has_country_flag = MAD_TGV_2009_TRANSITIONAL_ROUTE
-		}
 		prerequisite = { focus = MAD_POL_TGV_2009_LEGACY }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -14089,9 +14072,6 @@ available = {
 		y = 1
 		relative_position_id = MAD_POL_TGV_ESTABLISH_CNME
 		cost = 3
-		allow_branch = {
-			has_country_flag = MAD_TGV_2009_TRANSITIONAL_ROUTE
-		}
 		prerequisite = { focus = MAD_POL_TGV_ESTABLISH_CNME }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -14116,9 +14096,6 @@ available = {
 		y = 1
 		relative_position_id = MAD_POL_TGV_SETTLE_HAT_OFFICER_RELATIONS
 		cost = 3
-		allow_branch = {
-			has_country_flag = MAD_TGV_2009_TRANSITIONAL_ROUTE
-		}
 		prerequisite = { focus = MAD_POL_TGV_SETTLE_HAT_OFFICER_RELATIONS }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -14144,9 +14121,6 @@ available = {
 		y = 1
 		relative_position_id = MAD_POL_TGV_RESOLVE_2010_MILITARY_CHALLENGE
 		cost = 3
-		allow_branch = {
-			has_country_flag = MAD_TGV_2009_TRANSITIONAL_ROUTE
-		}
 		prerequisite = { focus = MAD_POL_TGV_RESOLVE_2010_MILITARY_CHALLENGE }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -14172,9 +14146,6 @@ available = {
 		y = 1
 		relative_position_id = MAD_POL_TGV_RESOLVE_2010_MILITARY_CHALLENGE
 		cost = 3
-		allow_branch = {
-			has_country_flag = MAD_TGV_2009_TRANSITIONAL_ROUTE
-		}
 		prerequisite = { focus = MAD_POL_TGV_RESOLVE_2010_MILITARY_CHALLENGE }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -14204,10 +14175,6 @@ available = {
 		cost = 3
 		prerequisite = { focus = MAD_POL_TGV_MAPUTO_CHARTER }
 		search_filters = { FOCUS_FILTER_POLITICAL }
-		allow_branch = {
-			has_country_flag = MAD_TGV_2009_TRANSITIONAL_ROUTE
-			has_country_flag = MAD_TGV_MAPUTO_IMPLEMENTED
-		}
 		available = {
 			has_country_flag = MAD_TGV_MAPUTO_IMPLEMENTED
 			custom_trigger_tooltip = {
@@ -14232,10 +14199,6 @@ available = {
 		cost = 3
 		prerequisite = { focus = MAD_POL_TGV_MAPUTO_CHARTER }
 		search_filters = { FOCUS_FILTER_POLITICAL }
-		allow_branch = {
-			has_country_flag = MAD_TGV_2009_TRANSITIONAL_ROUTE
-			has_country_flag = MAD_TGV_MAPUTO_IMPLEMENTED
-		}
 		available = {
 			has_country_flag = MAD_TGV_MAPUTO_IMPLEMENTED
 			custom_trigger_tooltip = {
@@ -14261,10 +14224,6 @@ available = {
 		cost = 3
 		prerequisite = { focus = MAD_POL_TGV_MAPUTO_CHARTER }
 		search_filters = { FOCUS_FILTER_POLITICAL }
-		allow_branch = {
-			has_country_flag = MAD_TGV_2009_TRANSITIONAL_ROUTE
-			has_country_flag = MAD_TGV_MAPUTO_IMPLEMENTED
-		}
 		available = {
 			has_country_flag = MAD_TGV_MAPUTO_IMPLEMENTED
 			custom_trigger_tooltip = {
@@ -14294,10 +14253,6 @@ available = {
 		prerequisite = { focus = MAD_POL_TGV_MAPUTO_LEGISLATURE }
 		prerequisite = { focus = MAD_POL_TGV_ENFORCE_CRDSN }
 		search_filters = { FOCUS_FILTER_POLITICAL }
-		allow_branch = {
-			has_country_flag = MAD_TGV_2009_TRANSITIONAL_ROUTE
-			has_country_flag = MAD_TGV_MAPUTO_IMPLEMENTED
-		}
 		available = {
 			has_country_flag = MAD_TGV_MAPUTO_IMPLEMENTED
 			custom_trigger_tooltip = {
@@ -14347,9 +14302,6 @@ available = {
 		y = 1
 		relative_position_id = MAD_POL_TGV_MAPUTO_CHARTER
 		cost = 3
-		allow_branch = {
-			has_country_flag = MAD_TGV_2009_TRANSITIONAL_ROUTE
-		}
 		prerequisite = { focus = MAD_POL_TGV_MAPUTO_CHARTER }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -14374,9 +14326,6 @@ available = {
 		y = 1
 		relative_position_id = MAD_POL_TGV_NATIONAL_DIALOGUE
 		cost = 3
-		allow_branch = {
-			has_country_flag = MAD_TGV_2009_TRANSITIONAL_ROUTE
-		}
 		prerequisite = { focus = MAD_POL_TGV_NATIONAL_DIALOGUE }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -14405,9 +14354,6 @@ available = {
 		y = 1
 		relative_position_id = MAD_POL_TGV_FOURTH_REPUBLIC
 		cost = 3
-		allow_branch = {
-			has_country_flag = MAD_TGV_2009_TRANSITIONAL_ROUTE
-		}
 		prerequisite = { focus = MAD_POL_TGV_FOURTH_REPUBLIC }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -14609,9 +14555,6 @@ available = {
 		y = 4
 		relative_position_id = MAD_POL_TGV_MAPUTO_CHARTER
 		cost = 3
-		allow_branch = {
-			has_country_flag = MAD_TGV_2009_TRANSITIONAL_ROUTE
-		}
 		# One prerequisite block is implicit OR in the focus tree.
 		prerequisite = {
 			focus = MAD_POL_TGV_SADC_ELECTORAL_FRAMEWORK
