@@ -14341,7 +14341,7 @@ available = {
 	}
 
 	focus = {
-		id = MAD_POL_TGV_FOURTH_REPUBLIC
+		id = MAD_POL_TGV_NATIONAL_DIALOGUE
 		icon = Focus_Parliament_Constitution
 		x = 2
 		y = 1
@@ -14351,6 +14351,33 @@ available = {
 			has_country_flag = MAD_TGV_2009_TRANSITIONAL_ROUTE
 		}
 		prerequisite = { focus = MAD_POL_TGV_MAPUTO_CHARTER }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available = {
+			has_country_flag = MAD_TGV_MAPUTO_UNILATERAL
+			custom_trigger_tooltip = {
+				tooltip = MAD_TGV_IN_POWER_tt
+				MAD_TGV_IN_POWER = yes
+			}
+		}
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_TGV_NATIONAL_DIALOGUE"
+			add_political_power = 25
+			add_stability = 0.02
+		}
+		ai_will_do = { base = 1 }
+	}
+
+	focus = {
+		id = MAD_POL_TGV_FOURTH_REPUBLIC
+		icon = Focus_Parliament_Constitution
+		x = 0
+		y = 1
+		relative_position_id = MAD_POL_TGV_NATIONAL_DIALOGUE
+		cost = 3
+		allow_branch = {
+			has_country_flag = MAD_TGV_2009_TRANSITIONAL_ROUTE
+		}
+		prerequisite = { focus = MAD_POL_TGV_NATIONAL_DIALOGUE }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
 			has_country_flag = MAD_TGV_MAPUTO_UNILATERAL
