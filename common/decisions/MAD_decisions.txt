@@ -5656,14 +5656,14 @@ MAD_royal_political_category = {
 		visible = {
 			MAD_TAMIMA_IN_POWER = yes
 			has_completed_focus = MAD_POL_ROY_KINGS_MANDATE
-					has_country_flag = MAD_TAMIMA_LEADERSHIP_NDRIANA
-}
+			has_country_flag = MAD_TAMIMA_LEADERSHIP_NDRIANA
+		}
 		available = {
 			MAD_TAMIMA_IN_POWER = yes
 
 			NOT = { has_country_flag = MAD_ROY_CROWN_ADMINISTRATION_ASSERTED }
-					has_country_flag = MAD_TAMIMA_LEADERSHIP_NDRIANA
-}
+			has_country_flag = MAD_TAMIMA_LEADERSHIP_NDRIANA
+		}
 		custom_cost_trigger = { always = yes }
 		custom_cost_text = cost_1_0
 
@@ -5751,14 +5751,14 @@ MAD_royal_political_category = {
 		visible = {
 			MAD_TAMIMA_IN_POWER = yes
 			has_completed_focus = MAD_POL_ROY_ISRAEL_SECURITY
-					has_country_flag = MAD_TAMIMA_LEADERSHIP_NDRIANA
-}
+			has_country_flag = MAD_TAMIMA_LEADERSHIP_NDRIANA
+		}
 		available = {
 			MAD_TAMIMA_IN_POWER = yes
 			country_exists = ISR
 			NOT = { has_country_flag = MAD_ROY_ISRAEL_DELEGATION_SENT }
-					has_country_flag = MAD_TAMIMA_LEADERSHIP_NDRIANA
-}
+			has_country_flag = MAD_TAMIMA_LEADERSHIP_NDRIANA
+		}
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_ROY_SEND_ROYAL_DELEGATION_TO_ISRAEL started"
 			add_opinion_modifier = { target = ISR modifier = has_expressed_loyalty }
@@ -5780,14 +5780,14 @@ MAD_royal_political_category = {
 			MAD_TAMIMA_IN_POWER = yes
 			has_completed_focus = MAD_POL_ROY_ISLANDS_WAIT
 			has_country_flag = MAD_TAMIMA_LEADERSHIP_NDRIANA
-}
+		}
 		available = {
 			MAD_TAMIMA_IN_POWER = yes
 			country_exists = FRA
 			NOT = { has_country_flag = MAD_ROY_ISLAND_DOSSIER_PRESENTED }
 			has_country_flag = MAD_TAMIMA_LEADERSHIP_NDRIANA
 			has_completed_focus = MAD_POL_ROY_ISLANDS_WAIT
-}
+		}
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_ROY_PRESENT_ISLAND_DOSSIER started"
 			add_opinion_modifier = { target = FRA modifier = major_breach_of_trust }
@@ -5806,7 +5806,7 @@ MAD_royal_political_category = {
 			MAD_TAMIMA_IN_POWER = yes
 			has_completed_focus = MAD_POL_ROY_ISLANDS_WAIT
 			has_country_flag = MAD_TAMIMA_LEADERSHIP_NDRIANA
-}
+		}
 		available = {
 			MAD_TAMIMA_IN_POWER = yes
 			custom_trigger_tooltip = {
@@ -5816,7 +5816,7 @@ MAD_royal_political_category = {
 			NOT = { has_country_flag = MAD_ROY_ISLAND_RECLAMATION_PREPARED }
 			has_country_flag = MAD_TAMIMA_LEADERSHIP_NDRIANA
 			has_completed_focus = MAD_POL_ROY_ISLANDS_WAIT
-}
+		}
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_ROY_PREPARE_ISLAND_RECLAMATION started"
 			add_named_threat = { threat = 2 name = MAD_ROY_ISLAND_RECLAMATION_TENSION }
@@ -5923,14 +5923,14 @@ MAD_royal_political_category = {
 			has_country_flag = MAD_ROY_ISLAND_RECLAMATION_PREPARED
 			has_country_flag = MAD_TAMIMA_LEADERSHIP_NDRIANA
 			has_completed_focus = MAD_POL_ROY_ISLANDS_WAIT
-}
+		}
 		available = {
 			COM = { exists = yes has_opinion = { target = MAD value > 99 } influence_higher_35 = yes }
 			NOT = { has_country_flag = MAD_ROY_UNION_COMOROS_OFFER_SENT }
 			has_country_flag = MAD_TAMIMA_LEADERSHIP_NDRIANA
 			has_completed_focus = MAD_POL_ROY_ISLANDS_WAIT
 			MAD_TAMIMA_IN_POWER = yes
-}
+		}
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_ROY_OFFER_UNION_COMOROS started"
 			set_country_flag = MAD_ROY_UNION_COMOROS_OFFER_SENT
@@ -5949,14 +5949,14 @@ MAD_royal_political_category = {
 			has_country_flag = MAD_ROY_ISLAND_RECLAMATION_PREPARED
 			has_country_flag = MAD_TAMIMA_LEADERSHIP_NDRIANA
 			has_completed_focus = MAD_POL_ROY_ISLANDS_WAIT
-}
+		}
 		available = {
 			SEY = { exists = yes has_opinion = { target = MAD value > 99 } influence_higher_35 = yes }
 			NOT = { has_country_flag = MAD_ROY_UNION_SEYCHELLES_OFFER_SENT }
 			has_country_flag = MAD_TAMIMA_LEADERSHIP_NDRIANA
 			has_completed_focus = MAD_POL_ROY_ISLANDS_WAIT
 			MAD_TAMIMA_IN_POWER = yes
-}
+		}
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_ROY_OFFER_UNION_SEYCHELLES started"
 			set_country_flag = MAD_ROY_UNION_SEYCHELLES_OFFER_SENT
@@ -5975,14 +5975,14 @@ MAD_royal_political_category = {
 			has_country_flag = MAD_ROY_ISLAND_RECLAMATION_PREPARED
 			has_country_flag = MAD_TAMIMA_LEADERSHIP_NDRIANA
 			has_completed_focus = MAD_POL_ROY_ISLANDS_WAIT
-}
+		}
 		available = {
 			MRT = { exists = yes has_opinion = { target = MAD value > 99 } influence_higher_35 = yes }
 			NOT = { has_country_flag = MAD_ROY_UNION_MAURITIUS_OFFER_SENT }
 			has_country_flag = MAD_TAMIMA_LEADERSHIP_NDRIANA
 			has_completed_focus = MAD_POL_ROY_ISLANDS_WAIT
 			MAD_TAMIMA_IN_POWER = yes
-}
+		}
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_ROY_OFFER_UNION_MAURITIUS started"
 			set_country_flag = MAD_ROY_UNION_MAURITIUS_OFFER_SENT
@@ -6000,7 +6000,7 @@ MAD_royal_political_category = {
 			MAD_TAMIMA_IN_POWER = yes
 			has_country_flag = MAD_TAMIMA_LEADERSHIP_NDRIANA
 			has_completed_focus = MAD_POL_ROY_ISLANDS_WAIT
-}
+		}
 		available = {
 			country_exists = FRA
 			custom_trigger_tooltip = {
@@ -6011,7 +6011,7 @@ MAD_royal_political_category = {
 			has_country_flag = MAD_TAMIMA_LEADERSHIP_NDRIANA
 			has_completed_focus = MAD_POL_ROY_ISLANDS_WAIT
 			MAD_TAMIMA_IN_POWER = yes
-}
+		}
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_ROY_DEMAND_REUNION started"
 			set_country_flag = MAD_ROY_FRANCE_REUNION_DEMANDED
@@ -6029,7 +6029,7 @@ MAD_royal_political_category = {
 			MAD_TAMIMA_IN_POWER = yes
 			has_country_flag = MAD_TAMIMA_LEADERSHIP_NDRIANA
 			has_completed_focus = MAD_POL_ROY_ISLANDS_WAIT
-}
+		}
 		available = {
 			country_exists = FRA
 			custom_trigger_tooltip = {
@@ -6050,7 +6050,7 @@ MAD_royal_political_category = {
 			has_country_flag = MAD_TAMIMA_LEADERSHIP_NDRIANA
 			has_completed_focus = MAD_POL_ROY_ISLANDS_WAIT
 			MAD_TAMIMA_IN_POWER = yes
-}
+		}
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_ROY_DEMAND_MAYOTTE started"
 			set_country_flag = MAD_ROY_FRANCE_MAYOTTE_DEMANDED
