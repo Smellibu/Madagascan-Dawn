@@ -17,6 +17,7 @@ on_actions = {
 		effect = {
 			if = {
 				limit = { tag = MAD }
+				MAD_RECORD_TGV_GOVERNMENT_HISTORY = yes
 				MAD_TRACK_LAST_NON_TGV_HVM_GOVERNING_PARTY = yes
 				MAD_CANCEL_TGV_RETURN_BALLOT_IF_OUT_OF_POWER = yes
 			}
@@ -24,6 +25,7 @@ on_actions = {
 	}
 	on_government_change = {
 		effect = {
+			MAD_RECORD_TGV_GOVERNMENT_HISTORY = yes
 			MAD_CANCEL_TGV_RETURN_BALLOT_IF_OUT_OF_POWER = yes
 		}
 	}
