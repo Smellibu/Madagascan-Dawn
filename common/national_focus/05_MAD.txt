@@ -9180,7 +9180,7 @@ focus_tree = {
 			}
 		}
 
-		completion_reward = {
+				completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_ROY_SACRED_HERITAGE"
 			267 = {
 				add_extra_state_shared_building_slots = 2
@@ -9189,8 +9189,8 @@ focus_tree = {
 			set_temp_variable = { treasury_change = -4.00 }
 			modify_treasury_effect = yes
 			custom_effect_tooltip = MAD_ROY_UNLOCK_HERITAGE_SECTION_TT
-					country_event = { id = mad_royal.4 days = 1 }
-}
+			country_event = { id = mad_royal.4 days = 1 }
+		}
 
 		ai_will_do = {
 			base = 1
