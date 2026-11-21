@@ -2456,51 +2456,40 @@ country_event = {
 	trigger = {
 		has_country_flag = MAD_ROYAL_CROWN_QUESTION_PENDING
 	}
-
 	immediate = {
 		clr_country_flag = MAD_ROYAL_CROWN_QUESTION_PENDING
 	}
-
 	option = {
 		name = mad_political.1.a
-		set_country_flag = MAD_RABARIOELINA_ABSOLUTE
+		log = "[GetDateText]: [This.GetName]: mad_political.1.a - incumbent Ndriana retained as TAMIMA leader"
+		set_country_flag = MAD_TAMIMA_LEADERSHIP_NDRIANA
+		clr_country_flag = MAD_TAMIMA_LEADERSHIP_COUNCIL
 		clr_country_flag = MAD_TAMIMA_COUNCIL
-		set_temp_variable = { party_index = 23 }
+		set_temp_variable = { party_index = 15 }
 		set_temp_variable = { party_popularity_increase = 0.05 }
 		set_temp_variable = { temp_outlook_increase = 0.05 }
 		change_relative_party_popularity = yes
 		increase_centralization = yes
-
-		set_temp_variable = { rul_party_temp = 23 }
-		set_temp_variable = { disable_elections = 1 }
+		set_temp_variable = { rul_party_temp = 15 }
 		MAD_RESET_PARTY_LEADER_COUNTER = yes
-		change_ruling_party_effect = yes
-		set_temp_variable = { party_index = 15 }
-		ban_party_scripted_call = yes
+		set_leader_MAD = yes
 		recalculate_party = yes
-
-
 	}
-
 	option = {
 		name = mad_political.1.b
-		set_country_flag = MAD_TAMIMA_COUNCIL
+		log = "[GetDateText]: [This.GetName]: mad_political.1.b - TAMIMA Council takes leadership"
+		set_country_flag = MAD_TAMIMA_LEADERSHIP_COUNCIL
+		clr_country_flag = MAD_TAMIMA_LEADERSHIP_NDRIANA
 		clr_country_flag = MAD_RABARIOELINA_ABSOLUTE
 		set_temp_variable = { party_index = 15 }
 		set_temp_variable = { party_popularity_increase = 0.05 }
 		set_temp_variable = { temp_outlook_increase = 0.05 }
 		change_relative_party_popularity = yes
 		decrease_centralization = yes
-
 		set_temp_variable = { rul_party_temp = 15 }
-		set_temp_variable = { disable_elections = 1 }
 		MAD_RESET_PARTY_LEADER_COUNTER = yes
-		change_ruling_party_effect = yes
-		set_temp_variable = { party_index = 23 }
-		ban_party_scripted_call = yes
+		set_leader_MAD = yes
 		recalculate_party = yes
-
-
 	}
 }
 
@@ -6005,9 +5994,6 @@ country_event = {
 	}
 	option = {
 		name = mad_royal.4.b
-		# The national-heritage-trust choice establishes the civilian R&D facility.
-		# Choosing House custodianship above deliberately builds no R&D facility.
-		MAD_build_nuclear_facility_in_available_state = yes
 		increase_education_budget = yes
 	}
 }
@@ -6139,35 +6125,15 @@ country_event = {
 	fire_only_once = yes
 	option = {
 		name = mad_royal.6.a
-		log = "[GetDateText]: [This.GetName]: mad_royal.6.a - succession protests suppressed"
-		add_stability = -0.08
-		increase_policing_budget = yes
-		set_temp_variable = { party_index = 23 }
-		set_temp_variable = { party_popularity_increase = -0.08 }
-		change_relative_party_popularity = yes
-		recalculate_party = yes
+		log = "[GetDateText]: [This.GetName]: mad_royal.6.a - dialogue opened with dissenting Houses"
+		add_stability = 0.01
+		set_country_flag = MAD_TAMIMA_ROYAL_RECOGNITION_DIALOGUE
 	}
 	option = {
 		name = mad_royal.6.b
-		log = "[GetDateText]: [This.GetName]: mad_royal.6.b - succession protests permitted"
+		log = "[GetDateText]: [This.GetName]: mad_royal.6.b - Ndriana's mandate asserted"
 		add_stability = -0.04
-		267 = {
-			# Damage approximately half of the existing building level capacity; the damage can be repaired later.
-			set_temp_variable = { MAD_tana_infrastructure_damage = building_level@infrastructure }
-			multiply_temp_variable = { MAD_tana_infrastructure_damage = 0.5 }
-			while_loop_effect = {
-				limit = { check_variable = { MAD_tana_infrastructure_damage > 0 } infrastructure > 0 }
-				damage_building = { type = infrastructure damage = 0.5 }
-				subtract_from_temp_variable = { MAD_tana_infrastructure_damage = 0.5 }
-			}
-			set_temp_variable = { MAD_tana_offices_damage = building_level@offices }
-			multiply_temp_variable = { MAD_tana_offices_damage = 0.5 }
-			while_loop_effect = {
-				limit = { check_variable = { MAD_tana_offices_damage > 0 } offices > 0 }
-				damage_building = { type = offices damage = 0.5 }
-				subtract_from_temp_variable = { MAD_tana_offices_damage = 0.5 }
-			}
-		}
+		set_country_flag = MAD_TAMIMA_ROYAL_MANDATE_ASSERTED
 	}
 }
 
