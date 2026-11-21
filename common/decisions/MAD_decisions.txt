@@ -6864,11 +6864,11 @@ MAD_rural_cooperation_category = {
 				NOT = { has_country_flag = MAD_RURAL_CONSTITUTION_SWITCH_COOLDOWN }
 			}
 			NOT = { has_idea = MAD_POL_CHRISTOCRATIC_STATE }
-			# After Sacred Constitution, CRPM/TAMIMA cannot return to secular government while either rules.
+			# After Sacred Constitution, TAMIMA cannot return to secular government while either rules.
 			NOT = {
 				AND = {
 					has_completed_focus = MAD_POL_ROY_SACRED_CONSTITUTION
-					OR = { MAD_ROY_IN_POWER = yes MAD_TAMIMA_IN_POWER = yes }
+					MAD_TAMIMA_IN_POWER = yes
 				}
 			}
 		}
@@ -6893,11 +6893,11 @@ MAD_rural_cooperation_category = {
 
 		visible = {
 			has_idea = MAD_POL_ANDRIANA_NON_RECOGNITION
-			NOT = { OR = { MAD_ROY_IN_POWER = yes MAD_TAMIMA_IN_POWER = yes } }
+			NOT = { MAD_TAMIMA_IN_POWER = yes }
 		}
 		available = {
 			has_idea = MAD_POL_ANDRIANA_NON_RECOGNITION
-			NOT = { OR = { MAD_ROY_IN_POWER = yes MAD_TAMIMA_IN_POWER = yes } }
+			NOT = { MAD_TAMIMA_IN_POWER = yes }
 			custom_trigger_tooltip = {
 				tooltip = MAD_ANDRIANA_POLICY_SWITCH_COOLDOWN_TT
 				NOT = {
@@ -6928,11 +6928,11 @@ MAD_rural_cooperation_category = {
 
 		visible = {
 			has_idea = MAD_POL_ANDRIANA_HERITAGE_RECOGNISED
-			NOT = { OR = { MAD_ROY_IN_POWER = yes MAD_TAMIMA_IN_POWER = yes } }
+			NOT = { MAD_TAMIMA_IN_POWER = yes }
 		}
 		available = {
 			has_idea = MAD_POL_ANDRIANA_HERITAGE_RECOGNISED
-			NOT = { OR = { MAD_ROY_IN_POWER = yes MAD_TAMIMA_IN_POWER = yes } }
+			NOT = { MAD_TAMIMA_IN_POWER = yes }
 			custom_trigger_tooltip = {
 				tooltip = MAD_ANDRIANA_POLICY_SWITCH_COOLDOWN_TT
 				NOT = {

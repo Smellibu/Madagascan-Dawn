@@ -1088,3 +1088,27 @@ defined_text = {
 
 # Only non-zero monthly Rural Cooperation contributions are shown in the decision-category description.
 
+
+# Display TAMIMA for Madagascar's 24th MD political party while preserving
+# the generic Monarchist label for all other countries.
+defined_text = {
+	name = MAD_TAMIMA_PARTY_LABEL
+	text = {
+		trigger = { tag = MAD }
+		localization_key = MAD_TAMIMA_PARTY_NAME
+	}
+	text = {
+		localization_key = "[Monarchist_L]"
+	}
+}
+
+defined_text = {
+	name = MAD_TAMIMA_PARTY_DESCRIPTION
+	text = {
+		trigger = { tag = MAD }
+		localization_key = MAD_TAMIMA_PARTY_DESCRIPTION_TEXT
+	}
+	text = {
+		localization_key = "[Monarchist_L_desc]"
+	}
+}

@@ -2762,27 +2762,27 @@ MAD_sync_party_political_ideas = {
 
 	# Restore only earned ideas belonging to the current governing party.
 	if = {
-		limit = { OR = { MAD_ROY_IN_POWER = yes MAD_TAMIMA_IN_POWER = yes } has_country_flag = MAD_PI_EARNED_MAD_POL_ROYAL_CONSTITUTION }
+		limit = { MAD_TAMIMA_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_POL_ROYAL_CONSTITUTION }
 		add_ideas = MAD_POL_ROYAL_CONSTITUTION
 	}
 	if = {
-		limit = { MAD_ROY_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_POL_ROYAL_GOVERNMENT }
+		limit = { MAD_TAMIMA_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_POL_ROYAL_GOVERNMENT }
 		add_ideas = MAD_POL_ROYAL_GOVERNMENT
 	}
 	if = {
-		limit = { MAD_ROY_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_POL_CHRISTOCRATIC_STATE }
+		limit = { MAD_TAMIMA_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_POL_CHRISTOCRATIC_STATE }
 		add_ideas = MAD_POL_CHRISTOCRATIC_STATE
 	}
 	if = {
-		limit = { MAD_ROY_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_POL_CUSTOMARY_ADMINISTRATION }
+		limit = { MAD_TAMIMA_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_POL_CUSTOMARY_ADMINISTRATION }
 		add_ideas = MAD_POL_CUSTOMARY_ADMINISTRATION
 	}
 	if = {
-		limit = { MAD_ROY_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_POL_ROYAL_CONSOLIDATION }
+		limit = { MAD_TAMIMA_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_POL_ROYAL_CONSOLIDATION }
 		add_ideas = MAD_POL_ROYAL_CONSOLIDATION
 	}
 	if = {
-		limit = { MAD_ROY_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_POL_ROYAL_JUSTICE }
+		limit = { MAD_TAMIMA_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_POL_ROYAL_JUSTICE }
 		add_ideas = MAD_POL_ROYAL_JUSTICE
 	}
 	if = {
@@ -3070,7 +3070,7 @@ MAD_sync_party_political_ideas = {
 	clr_country_flag = MAD_PI_SYNC_IN_PROGRESS
 
 	# Cancel unfinished party-specific processes but preserve branch-choice and completed-outcome flags.
-	if = { limit = { NOT = { MAD_ROY_IN_POWER = yes } } clr_country_flag = MAD_ROYAL_CROWN_QUESTION_PENDING }
+	if = { limit = { NOT = { MAD_TAMIMA_IN_POWER = yes } } clr_country_flag = MAD_ROYAL_CROWN_QUESTION_PENDING }
 	if = { limit = { NOT = { MAD_MIL_IN_POWER = yes } } clr_country_flag = MAD_MIL_REFOUNDATION_PENDING }
 	if = { limit = { NOT = { MAD_AREMA_IN_POWER = yes } } clr_country_flag = MAD_AREMA_CONGRESS_PENDING }
 	if = {
@@ -3420,14 +3420,14 @@ MAD_rural_constitution_government_sync = {
 	else_if = {
 		limit = {
 			has_completed_focus = MAD_POL_ROY_SACRED_CONSTITUTION
-			OR = { MAD_ROY_IN_POWER = yes MAD_TAMIMA_IN_POWER = yes }
+			MAD_TAMIMA_IN_POWER = yes
 		}
 		MAD_rural_constitution_force_religious = yes
 	}
 	MAD_rural_cooperation_calculate_monthly_change = yes
 }
 
-# Remembered royal-house policy is separately suspended under CRPM/TAMIMA and restored on government change.
+# Remembered royal-house policy is separately suspended under TAMIMA and restored on government change.
 MAD_rural_andriana_recognition_sync = {
 	# Migration for older saves: retire the previous redundant AREMA counter-policy idea/flag.
 	if = {
@@ -3439,7 +3439,7 @@ MAD_rural_andriana_recognition_sync = {
 		clr_country_flag = MAD_AREMA_SECULAR_HOUSE_POLICY_UNLOCKED
 	}
 	if = {
-		limit = { OR = { MAD_ROY_IN_POWER = yes MAD_TAMIMA_IN_POWER = yes } }
+		limit = { MAD_TAMIMA_IN_POWER = yes }
 		remove_ideas = MAD_POL_ANDRIANA_HERITAGE_RECOGNISED
 		remove_ideas = MAD_POL_ANDRIANA_NON_RECOGNITION
 	}

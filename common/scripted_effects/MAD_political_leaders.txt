@@ -61,7 +61,6 @@ MAD_RESET_PARTY_LEADER_COUNTER = {
 	else_if = { limit = { check_variable = { rul_party_temp = 3 } } set_variable = { socialism_leader = 0 } }
 	else_if = { limit = { check_variable = { rul_party_temp = 5 } } set_variable = { anarchist_communism_leader = 0 } }
 	else_if = { limit = { check_variable = { rul_party_temp = 13 } } set_variable = { Neutral_Autocracy_leader = 0 } }
-	else_if = { limit = { check_variable = { rul_party_temp = 15 } } set_variable = { oligarchism_leader = 0 } }
 	else_if = { limit = { check_variable = { rul_party_temp = 16 } } set_variable = { Neutral_Libertarian_leader = 0 } }
 	else_if = { limit = { check_variable = { rul_party_temp = 17 } } set_variable = { Neutral_green_leader = 0 } }
 	else_if = { limit = { check_variable = { rul_party_temp = 20 } } set_variable = { Nat_Populism_leader = 0 } }
@@ -483,39 +482,6 @@ set_leader_MAD = {
 			set_temp_variable = { b = 1 }
 		}
 	}
-	# 15 — TAMIMA (Oligarchism). Ndriana is the incumbent leader unless the Crown Question selects the Council.
-	else_if = {
-		limit = { check_variable = { ruling_party = 15 } }
-		if = { limit = { check_variable = { oligarchism_leader = 0 } }
-			add_to_variable = { oligarchism_leader = 1 }
-			hidden_effect = { kill_country_leader = yes }
-			if = {
-				limit = { has_country_flag = MAD_TAMIMA_LEADERSHIP_COUNCIL }
-				create_country_leader = {
-					name = "TAMIMA Council of the Houses"
-					ideology = oligarchism
-					traits = {
-						neutrality_oligarchism
-					}
-				}
-			}
-			else = {
-				create_country_leader = {
-					name = "Dr. Ndriana Rabarioelina"
-					picture = "Dr_Ndriana_Rabarioelina.dds"
-					ideology = oligarchism
-					traits = {
-						neutrality_oligarchism
-						career_politician
-						cleric
-						MAD_royal_claimant
-					}
-				}
-			}
-			if = { limit = { has_country_flag = do_not_retire } subtract_from_variable = { oligarchism_leader = 1 } }
-			set_temp_variable = { b = 1 }
-		}
-	}
 	# 16 — LEADER-Fanilo (Neutral Libertarian).
 	else_if = {
 		limit = { check_variable = { ruling_party = 16 } }
@@ -628,14 +594,23 @@ set_leader_MAD = {
 			set_temp_variable = { b = 1 }
 		}
 	}
-	# 23 — CRPM (Monarchist). Rabarioelina only leads after the personal-crown choice.
+	# 23 — TAMIMA (Monarchist party slot). Ndriana is incumbent unless the Crown Question selects the Council.
 	else_if = {
 		limit = { check_variable = { ruling_party = 23 } }
 		if = { limit = { check_variable = { Monarchist_leader = 0 } }
 			add_to_variable = { Monarchist_leader = 1 }
 			hidden_effect = { kill_country_leader = yes }
 			if = {
-				limit = { has_country_flag = MAD_RABARIOELINA_ABSOLUTE }
+				limit = { has_country_flag = MAD_TAMIMA_LEADERSHIP_COUNCIL }
+				create_country_leader = {
+					name = "TAMIMA Council of the Houses"
+					ideology = Monarchist
+					traits = {
+						nationalist_Monarchist
+					}
+				}
+			}
+			else = {
 				create_country_leader = {
 					name = "Dr. Ndriana Rabarioelina"
 					picture = "Dr_Ndriana_Rabarioelina.dds"
@@ -645,15 +620,6 @@ set_leader_MAD = {
 						career_politician
 						cleric
 						MAD_royal_claimant
-					}
-				}
-			}
-			else = {
-				create_country_leader = {
-					name = "CRPM Council of Kings and Princes"
-					ideology = Monarchist
-					traits = {
-						nationalist_Monarchist
 					}
 				}
 			}
@@ -710,7 +676,6 @@ MAD_RESTORE_CIVIL_WAR_OPPONENT_LEADER = {
 		else_if = { limit = { check_variable = { ruling_party = 3 } } set_variable = { socialism_leader = 0 } }
 		else_if = { limit = { check_variable = { ruling_party = 5 } } set_variable = { anarchist_communism_leader = 0 } }
 		else_if = { limit = { check_variable = { ruling_party = 13 } } set_variable = { Neutral_Autocracy_leader = 0 } }
-		else_if = { limit = { check_variable = { ruling_party = 15 } } set_variable = { oligarchism_leader = 0 } }
 		else_if = { limit = { check_variable = { ruling_party = 16 } } set_variable = { Neutral_Libertarian_leader = 0 } }
 		else_if = { limit = { check_variable = { ruling_party = 20 } } set_variable = { Nat_Populism_leader = 0 } }
 		else_if = { limit = { check_variable = { ruling_party = 22 } } set_variable = { Nat_Autocracy_leader = 0 } }
