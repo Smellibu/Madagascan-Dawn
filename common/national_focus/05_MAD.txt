@@ -9550,11 +9550,11 @@ focus_tree = {
 	focus = {
 		id = MAD_POL_ROY_TAMIMA_COUNCIL
 		icon = Focus_generic_monarchist_sentiment
-		x = 0
+		x = 2
 		y = 1
-		relative_position_id = MAD_POL_ROY_LIVING_FORCES
+		relative_position_id = MAD_POL_ROY_COUNCIL_OF_KINGS
 		cost = 3
-		prerequisite = { focus = MAD_POL_ROY_LIVING_FORCES }
+		prerequisite = { focus = MAD_POL_ROY_COUNCIL_OF_KINGS }
 
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -9669,11 +9669,11 @@ focus_tree = {
 	focus = {
 		id = MAD_POL_ROY_TAMIMA_REPRESENT_LIVING_FORCES
 		icon = focus_generic_court
-		x = 0
+		x = -1
 		y = 1
-		relative_position_id = MAD_POL_ROY_ANTENIMIERAN_ANDRIANA
+		relative_position_id = MAD_POL_ROY_LIVING_FORCES
 		cost = 3
-		prerequisite = { focus = MAD_POL_ROY_ANTENIMIERAN_ANDRIANA }
+		prerequisite = { focus = MAD_POL_ROY_LIVING_FORCES }
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY FOCUS_FILTER_ECONOMY }
 		available = {
 			custom_trigger_tooltip = {
