@@ -8641,10 +8641,7 @@ focus_tree = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_ROY_TAMIMA_IN_POWER_tt
-				OR = {
-					MAD_TAMIMA_IN_POWER = yes
-					MAD_TAMIMA_IN_POWER = yes
-				}
+				MAD_TAMIMA_IN_POWER = yes
 			}
 		}
 
@@ -8674,10 +8671,7 @@ focus_tree = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_ROY_TAMIMA_IN_POWER_tt
-				OR = {
-					MAD_TAMIMA_IN_POWER = yes
-					MAD_TAMIMA_IN_POWER = yes
-				}
+				MAD_TAMIMA_IN_POWER = yes
 			}
 		}
 
@@ -8709,10 +8703,7 @@ focus_tree = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_ROY_TAMIMA_IN_POWER_tt
-				OR = {
-					MAD_TAMIMA_IN_POWER = yes
-					MAD_TAMIMA_IN_POWER = yes
-				}
+				MAD_TAMIMA_IN_POWER = yes
 			}
 		}
 
@@ -8855,17 +8846,11 @@ focus_tree = {
 	focus = {
 		id = MAD_POL_ROY_KINGS_MANDATE
 		icon = monarchism
-		x = 3
+		x = -1
 		y = 1
-		relative_position_id = MAD_POL_ROY_LEGAL_ORDER
+		relative_position_id = MAD_POL_ROY_ONE_MADAGASCAR_MANY_HOUSES_FINAL
 		cost = 3
-		prerequisite = {
-			focus = MAD_POL_ROY_REGIONAL_HOUSES
-			focus = MAD_POL_ROY_LEGAL_ORDER
-			focus = MAD_POL_ROY_TRUE_SOVEREIGNTY
-			focus = MAD_POL_ROY_TAMIMA_SACRED_HERITAGE
-			focus = MAD_POL_ROY_PEOPLES_GUARDIANS
-		}
+		prerequisite = { focus = MAD_POL_ROY_ONE_MADAGASCAR_MANY_HOUSES_FINAL }
 
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
@@ -8878,18 +8863,15 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_ROY_KINGS_MANDATE"
-
-			
 			custom_effect_tooltip = MAD_ROY_UNLOCK_CROWN_AFFAIRS_SECTION_TT
-			
 			set_temp_variable = { party_index = 15 }
 			set_temp_variable = { party_popularity_increase = 0.03 }
 			set_temp_variable = { temp_outlook_increase = 0.03 }
 			change_relative_party_popularity = yes
 			recalculate_party = yes
+			set_country_flag = MAD_TAMIMA_ROYAL_MANDATE
 			hidden_effect = { country_event = { id = mad_royal.6 days = 30 } }
-					set_country_flag = MAD_TAMIMA_ROYAL_MANDATE
-}
+		}
 
 		ai_will_do = {
 			base = 1
@@ -8966,9 +8948,9 @@ focus_tree = {
 		icon = Generic_Religious_Unity
 		x = 0
 		y = 1
-		relative_position_id = MAD_POL_ROY_CROWN_ABOVE_NOBILITY
+		relative_position_id = MAD_POL_ROY_FFKM_CONCORDAT
 		cost = 3
-		prerequisite = { focus = MAD_POL_ROY_CROWN_ABOVE_NOBILITY }
+		prerequisite = { focus = MAD_POL_ROY_FFKM_CONCORDAT }
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ECONOMY }
 		available = {
 			custom_trigger_tooltip = {
@@ -9017,9 +8999,9 @@ focus_tree = {
 		icon = adopt_the_peoples_constitution
 		x = 0
 		y = 1
-		relative_position_id = MAD_POL_ROY_RESTORE_FOKONOLONA
+		relative_position_id = MAD_POL_ROY_DINA_CUSTOMARY_JUSTICE
 		cost = 3
-		prerequisite = { focus = MAD_POL_ROY_RESTORE_FOKONOLONA }
+		prerequisite = { focus = MAD_POL_ROY_DINA_CUSTOMARY_JUSTICE }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
 			custom_trigger_tooltip = {
@@ -9327,19 +9309,18 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_ROY_NEW_KINGDOM"
+			swap_ideas = {
+				remove_idea = MAD_POL_ROYAL_CONSTITUTION
+				add_idea = MAD_POL_CHRISTOCRATIC_STATE
+			}
 			add_ideas = MAD_POL_ROYAL_CONSOLIDATION
 			increase_social_spending = yes
-			
 			set_temp_variable = { party_index = 15 }
 			set_temp_variable = { party_popularity_increase = 0.05 }
 			set_temp_variable = { temp_outlook_increase = 0.05 }
 			change_relative_party_popularity = yes
 			recalculate_party = yes
-					swap_ideas = {
-				remove_idea = MAD_POL_ROYAL_CONSTITUTION
-				add_idea = MAD_POL_CHRISTOCRATIC_STATE
-			}
-}
+		}
 
 		ai_will_do = {
 			base = 1
@@ -9349,7 +9330,7 @@ focus_tree = {
 	focus = {
 		id = MAD_POL_ROY_FFKM_CONCORDAT
 		icon = Generic_Religious_Unity
-		x = -2
+		x = 0
 		y = 1
 		relative_position_id = MAD_POL_ROY_CROWN_ABOVE_NOBILITY
 		cost = 3
@@ -9357,8 +9338,8 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
 		available = {
 			custom_trigger_tooltip = {
-				tooltip = MAD_ROY_CRPM_IN_POWER_tt
-				MAD_ROY_IN_POWER = yes
+				tooltip = MAD_ROY_TAMIMA_IN_POWER_tt
+				MAD_TAMIMA_IN_POWER = yes
 			}
 		}
 
@@ -9918,11 +9899,17 @@ focus_tree = {
 	focus = {
 		id = MAD_POL_ROY_ONE_MADAGASCAR_MANY_HOUSES_FINAL
 		icon = national_unity
-		x = 0
+		x = 3
 		y = 1
-		relative_position_id = MAD_POL_ROY_CROWNLESS_CONSTITUTION
+		relative_position_id = MAD_POL_ROY_LEGAL_ORDER
 		cost = 3
-		prerequisite = { focus = MAD_POL_ROY_CROWNLESS_CONSTITUTION }
+		prerequisite = {
+			focus = MAD_POL_ROY_REGIONAL_HOUSES
+			focus = MAD_POL_ROY_LEGAL_ORDER
+			focus = MAD_POL_ROY_TRUE_SOVEREIGNTY
+			focus = MAD_POL_ROY_TAMIMA_SACRED_HERITAGE
+			focus = MAD_POL_ROY_PEOPLES_GUARDIANS
+		}
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
 		available = {
 			custom_trigger_tooltip = {
