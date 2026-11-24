@@ -165,6 +165,13 @@ scripted_gui = {
 
 			allow_all_parties_button_click_enabled = {
 				has_political_power > 230
+				# The all-parties Allow action would also clear the protected SADC exclusion.
+				NOT = {
+					AND = {
+						original_tag = MAD
+						has_country_flag = MAD_TGV_SADC_PARTY_BAN_LOCKED
+					}
+				}
 			}
 
 			ban_all_parties_button_visible = {
@@ -366,6 +373,24 @@ scripted_gui = {
 						}
 					}
 				}
+				if = {
+					limit = { original_tag = MAD }
+					NOT = {
+						OR = {
+							western_conservatism_are_in_power = yes # HVM
+							western_liberals_are_in_power = yes # TIM
+							western_social_democrats_are_in_power = yes # PSD
+							emerging_anarchist_communism_are_in_power = yes # AREMA
+							neutrality_neutral_autocracy_are_in_power = yes # Dahalo
+							neutrality_neutral_libertarians_are_in_power = yes # FANILO
+							neutrality_neutral_green_are_in_power = yes # UNDD
+							nationalist_right_wing_populists_are_in_power = yes # TGV
+							nationalist_military_junta_are_in_power = yes # Military
+							nationalist_monarchists_are_in_power = yes # TAMIMA
+						}
+					}
+				}
+
 				hidden_trigger = {
 					NOT = { tag = ISR }
 					NOT = { tag = ITA }
@@ -421,7 +446,7 @@ scripted_gui = {
 						AND = {
 							tag = MAD
 							has_completed_focus = MAD_POL_MIL_PROTECT_BALLOT
-							MAD_MIL_IN_POWER = yes
+							nationalist_military_junta_are_in_power = yes
 						}
 					}
 
@@ -948,6 +973,14 @@ scripted_gui = {
 				has_political_power > 9
 				NOT = {
 					has_country_flag = partyall_banned
+				}
+				# Lock the SADC-excluded party until the scheduled ballot resolves or is cancelled.
+				NOT = {
+					AND = {
+						original_tag = MAD
+						has_country_flag = MAD_TGV_SADC_PARTY_BAN_LOCKED
+						check_variable = { MAD_TGV_SADC_EXCLUDED_PARTY = v }
+					}
 				}
 
 				# set_temp_variable = { party_index = v }

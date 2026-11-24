@@ -7,6 +7,21 @@ characters = {
 				large = "gfx/leaders/MAD/Beni_Xavier_Rasolofonirina.dds"
 			}
 		}
+		corps_commander = {
+			# Brigadier General before promotion to General de Division on 1 September 2013.
+			visible = {
+			OR = {
+				AND = { date > 2011.6.30 NOT = { date > 2013.8.31 } }
+				has_country_flag = MAD_TGV_PROMOTIONS_2013_COMPLETED
+			}
+		}
+			traits = { trait_reckless }
+			skill = 2
+			attack_skill = 2
+			defense_skill = 1
+			planning_skill = 1
+			logistics_skill = 3
+		}
 		advisor = {
 			visible = { date > 2014.5.1 }
 			slot = army_chief
@@ -19,20 +34,11 @@ characters = {
 				factor = 1.000
 			}
 		}
-		corps_commander = {
-			# Brigadier-General from 2011; replaced by the 2013 divisional promotion.
-			visible = {
-				date > 2011.1.1
-				NOT = { has_country_flag = MAD_POL_TGV_2013_OFFICER_PROMOTIONS_COMPLETED }
-			}
-			skill = 2
-			attack_skill = 2
-			defense_skill = 1
-			planning_skill = 1
-			logistics_skill = 3
-		}
 		field_marshal = {
-			visible = { has_country_flag = MAD_POL_TGV_2013_OFFICER_PROMOTIONS_COMPLETED }
+			visible = {
+			date > 2013.8.31
+			NOT = { has_country_flag = MAD_TGV_PROMOTIONS_2013_COMPLETED }
+		}
 			traits = { trait_reckless expert_delegator }
 			skill = 2
 			attack_skill = 2
@@ -45,6 +51,13 @@ characters = {
 	# He becomes the principal modern CAPSAT leader, with no unverified portrait assigned.
 	MAD_michael_randrianirina = {
 		name = "Michael Randrianirina"
+
+		portraits = {
+			army = {
+				small = "gfx/leaders/MAD/small/Michael_Randrianirina_small.dds"
+				large = "gfx/leaders/MAD/Michael_Randrianirina.dds"
+			}
+		}
 		corps_commander = {
 			visible = { date > 2024.1.31 }
 			skill = 2
@@ -126,17 +139,8 @@ characters = {
 				large = "gfx/leaders/MAD/Marcel_Ranjeva.dds"
 			}
 		}
-		field_marshal = {
-			traits = { old_guard expert_delegator }
-			skill = 3
-			attack_skill = 3
-			defense_skill = 3
-			planning_skill = 2
-			logistics_skill = 2
-		}
-	
 		advisor = {
-			# Former Army Chief of Staff; available as Army Chief from the 2000 start.
+			# Former Chief of the General Staff; available as Chief of Army from the 2000 start.
 			slot = army_chief
 			idea_token = marcel_ranjeva_army_chief
 			ledger = army
@@ -144,9 +148,40 @@ characters = {
 			cost = 100
 			ai_will_do = { factor = 1.000 }
 		}
+		advisor = {
+			# Separate Military High Command appointment; no field-command role.
+			slot = high_command
+			idea_token = marcel_ranjeva_high_command
+			ledger = army
+			traits = { army_regrouping_1 }
+			cost = 100
+			ai_will_do = { factor = 1.000 }
+		}
 }
+	# General de Brigade at the 2000 start; Chief of the General Staff from January 2002.
+	MAD_andrianome_ranivo_dieudonne = {
+		name = "Andrianome Ranivo Dieudonné"
+		corps_commander = {
+			# Available as a field commander from the 2000 start.
+			skill = 2
+			attack_skill = 2
+			defense_skill = 2
+			planning_skill = 2
+			logistics_skill = 2
+		}
+		advisor = {
+			# Starting Chief of the General Staff candidate; available alongside Marcel Ranjeva.
+			slot = army_chief
+			idea_token = andrianome_ranivo_dieudonne_army_chief
+			ledger = army
+			traits = { army_chief_planning_1 }
+			cost = 100
+			ai_will_do = { factor = 1.000 }
+		}
+	}
 	MAD_jules_mamizara = {
 		name = "Jules Mamizara"
+
 		corps_commander = {
 			visible = { date > 2002.3.8 }
 			traits = { media_personality }
@@ -230,7 +265,12 @@ characters = {
 			}
 		}
 		corps_commander = {
-			visible = { has_country_flag = MAD_POL_TGV_OFFICERS_OF_MARCH_COMPLETED }
+			visible = {
+			OR = {
+				date > 2009.11.2
+				has_country_flag = MAD_TGV_PROMOTIONS_2009_COMPLETED
+			}
+		}
 			traits = { trait_reckless }
 			skill = 2
 			attack_skill = 3
@@ -266,8 +306,13 @@ characters = {
 			}
 		}
 		corps_commander = {
-			# Installed as Army Chief of Staff on 11 March 2009.
-			visible = { has_country_flag = MAD_POL_TGV_OFFICERS_OF_MARCH_COMPLETED }
+			# Appointed Army Chief of Staff in March; elevated to general in the November 2009 promotion round.
+			visible = {
+			OR = {
+				date > 2009.11.2
+				has_country_flag = MAD_TGV_PROMOTIONS_2009_COMPLETED
+			}
+		}
 			traits = { adaptable }
 			skill = 2
 			attack_skill = 2
@@ -398,13 +443,46 @@ characters = {
 		}
 	}
 
-	MAD_richard_ravalomanana = {
-		name = "Richard Ravalomanana"
+	# Transitional promotion waves: March 2009, 2012–13 and the HVM-era 2015–17 rounds.
+	MAD_bruno_razafindrakoto = {
+		name = "Jean Bruno Wilfrid Razafindrakoto"
+
+		portraits = {
+			army = {
+				small = "gfx/leaders/MAD/small/Jean_Bruno_Wilfrid_Razafindrakoto_small.dds"
+				large = "gfx/leaders/MAD/Jean_Bruno_Wilfrid_Razafindrakoto.dds"
+			}
+		}
 		corps_commander = {
 			visible = {
-				has_country_flag = MAD_POL_TGV_OFFICERS_OF_MARCH_COMPLETED
-				NOT = { has_country_flag = MAD_POL_TGV_2013_OFFICER_PROMOTIONS_COMPLETED }
+			OR = {
+				date > 2009.11.2
+				has_country_flag = MAD_TGV_PROMOTIONS_2009_COMPLETED
 			}
+		}
+			traits = { adaptable }
+			skill = 2
+			attack_skill = 2
+			defense_skill = 2
+			planning_skill = 2
+			logistics_skill = 2
+		}
+	}
+	MAD_richard_ravalomanana = {
+		name = "Richard Ravalomanana"
+
+		portraits = {
+			army = {
+				small = "gfx/leaders/MAD/small/Richard_Ravalomanana_small.dds"
+				large = "gfx/leaders/MAD/Richard_Ravalomanana.dds"
+			}
+		}
+		corps_commander = {
+			visible = {
+			date > 2009.11.2
+			NOT = { OR = { date > 2012.11.30 has_country_flag = MAD_TGV_PROMOTIONS_2013_COMPLETED } }
+		}
+			traits = { old_guard }
 			skill = 2
 			attack_skill = 2
 			defense_skill = 2
@@ -412,55 +490,75 @@ characters = {
 			logistics_skill = 2
 		}
 		field_marshal = {
-			visible = { has_country_flag = MAD_POL_TGV_2013_OFFICER_PROMOTIONS_COMPLETED }
-			skill = 2
+			visible = { OR = { date > 2012.11.30 has_country_flag = MAD_TGV_PROMOTIONS_2013_COMPLETED } }
+			traits = { old_guard }
+			skill = 3
 			attack_skill = 2
 			defense_skill = 2
 			planning_skill = 2
 			logistics_skill = 2
 		}
 	}
-
-	MAD_jean_bruno_wilfrid_razafindrakoto = {
-		name = "Jean Bruno Wilfrid Razafindrakoto"
-		corps_commander = {
-			visible = { has_country_flag = MAD_POL_TGV_OFFICERS_OF_MARCH_COMPLETED }
-			skill = 2
-			attack_skill = 2
-			defense_skill = 2
-			planning_skill = 2
-			logistics_skill = 2
-		}
-	}
-
 	MAD_tafara_edmond = {
 		name = "Tafara Edmond"
-		field_marshal = {
-			visible = { has_country_flag = MAD_POL_TGV_2013_OFFICER_PROMOTIONS_COMPLETED }
+		corps_commander = {
+			visible = { has_country_flag = MAD_TGV_PROMOTIONS_2013_COMPLETED }
+			traits = { expert_delegator }
 			skill = 2
 			attack_skill = 2
 			defense_skill = 2
 			planning_skill = 2
 			logistics_skill = 2
 		}
+		field_marshal = {
+			visible = {
+			date > 2012.12.31
+			NOT = { has_country_flag = MAD_TGV_PROMOTIONS_2013_COMPLETED }
+		}
+			traits = { expert_delegator }
+			skill = 3
+			attack_skill = 2
+			defense_skill = 2
+			planning_skill = 2
+			logistics_skill = 2
+		}
 	}
-
 	MAD_rafenomanjato_mamy_jerison = {
 		name = "Rafenomanjato Mamy Jerison"
-		field_marshal = {
-			visible = { has_country_flag = MAD_POL_TGV_2013_OFFICER_PROMOTIONS_COMPLETED }
+
+		portraits = {
+			army = {
+				small = "gfx/leaders/MAD/small/Rafenomanjato_Mamy_Jerison_small.dds"
+				large = "gfx/leaders/MAD/Rafenomanjato_Mamy_Jerison.dds"
+			}
+		}
+		corps_commander = {
+			visible = { has_country_flag = MAD_TGV_PROMOTIONS_2013_COMPLETED }
+			traits = { adaptable }
 			skill = 2
 			attack_skill = 2
 			defense_skill = 2
 			planning_skill = 2
 			logistics_skill = 2
 		}
+		field_marshal = {
+			visible = {
+			date > 2012.12.31
+			NOT = { has_country_flag = MAD_TGV_PROMOTIONS_2013_COMPLETED }
+		}
+			traits = { adaptable }
+			skill = 3
+			attack_skill = 2
+			defense_skill = 2
+			planning_skill = 2
+			logistics_skill = 2
+		}
 	}
-
 	MAD_alphonse_ravelontsoa = {
 		name = "Alphonse Ravelontsoa"
 		corps_commander = {
-			visible = { has_country_flag = MAD_POL_HVM_OFFICER_PROMOTIONS_COMPLETED }
+			visible = { OR = { date > 2016.2.24 has_country_flag = MAD_HVM_PROMOTIONS_COMPLETED } }
+			traits = { adaptable }
 			skill = 2
 			attack_skill = 2
 			defense_skill = 2
@@ -468,11 +566,11 @@ characters = {
 			logistics_skill = 2
 		}
 	}
-
 	MAD_jean_louis_tombovelo = {
 		name = "Jean Louis Tombovelo"
 		corps_commander = {
-			visible = { has_country_flag = MAD_POL_HVM_OFFICER_PROMOTIONS_COMPLETED }
+			visible = { OR = { date > 2016.2.24 has_country_flag = MAD_HVM_PROMOTIONS_COMPLETED } }
+			traits = { expert_delegator }
 			skill = 2
 			attack_skill = 2
 			defense_skill = 2
@@ -480,11 +578,11 @@ characters = {
 			logistics_skill = 2
 		}
 	}
-
 	MAD_roger_rakotomalala = {
 		name = "Roger Rakotomalala"
 		corps_commander = {
-			visible = { has_country_flag = MAD_POL_HVM_OFFICER_PROMOTIONS_COMPLETED }
+			visible = { OR = { date > 2016.2.24 has_country_flag = MAD_HVM_PROMOTIONS_COMPLETED } }
+			traits = { old_guard }
 			skill = 2
 			attack_skill = 2
 			defense_skill = 2
@@ -492,11 +590,11 @@ characters = {
 			logistics_skill = 2
 		}
 	}
-
 	MAD_paulin_babity = {
 		name = "Paulin Babity"
 		corps_commander = {
-			visible = { has_country_flag = MAD_POL_HVM_OFFICER_PROMOTIONS_COMPLETED }
+			visible = { OR = { date > 2016.2.24 has_country_flag = MAD_HVM_PROMOTIONS_COMPLETED } }
+			traits = { adaptable }
 			skill = 2
 			attack_skill = 2
 			defense_skill = 2
@@ -504,11 +602,11 @@ characters = {
 			logistics_skill = 2
 		}
 	}
-
 	MAD_jean_noelson_fulgence_raharinirina = {
 		name = "Jean Noelson Fulgence Raharinirina"
 		corps_commander = {
-			visible = { has_country_flag = MAD_POL_HVM_OFFICER_PROMOTIONS_COMPLETED }
+			visible = { OR = { date > 2016.2.24 has_country_flag = MAD_HVM_PROMOTIONS_COMPLETED } }
+			traits = { expert_delegator }
 			skill = 2
 			attack_skill = 2
 			defense_skill = 2
@@ -516,11 +614,11 @@ characters = {
 			logistics_skill = 2
 		}
 	}
-
 	MAD_marc_rakotomarolahy = {
 		name = "Marc Rakotomarolahy"
 		corps_commander = {
-			visible = { has_country_flag = MAD_POL_HVM_OFFICER_PROMOTIONS_COMPLETED }
+			visible = { OR = { date > 2016.2.24 has_country_flag = MAD_HVM_PROMOTIONS_COMPLETED } }
+			traits = { adaptable }
 			skill = 2
 			attack_skill = 2
 			defense_skill = 2
@@ -528,11 +626,11 @@ characters = {
 			logistics_skill = 2
 		}
 	}
-
 	MAD_eddie_charles_razafindrakoto = {
 		name = "Eddie Charles Razafindrakoto"
 		corps_commander = {
-			visible = { has_country_flag = MAD_POL_HVM_OFFICER_PROMOTIONS_COMPLETED }
+			visible = { OR = { date > 2016.2.24 has_country_flag = MAD_HVM_PROMOTIONS_COMPLETED } }
+			traits = { adaptable }
 			skill = 2
 			attack_skill = 2
 			defense_skill = 2
@@ -540,11 +638,11 @@ characters = {
 			logistics_skill = 2
 		}
 	}
-
 	MAD_evariste_botojanina = {
 		name = "Evariste Botojanina"
 		corps_commander = {
-			visible = { has_country_flag = MAD_POL_HVM_OFFICER_PROMOTIONS_COMPLETED }
+			visible = { OR = { date > 2016.2.24 has_country_flag = MAD_HVM_PROMOTIONS_COMPLETED } }
+			traits = { expert_delegator }
 			skill = 2
 			attack_skill = 2
 			defense_skill = 2
@@ -552,11 +650,11 @@ characters = {
 			logistics_skill = 2
 		}
 	}
-
 	MAD_ludovic_pierre_ramarokoto = {
 		name = "Ludovic Pierre Ramarokoto"
 		corps_commander = {
-			visible = { has_country_flag = MAD_POL_HVM_OFFICER_PROMOTIONS_COMPLETED }
+			visible = { OR = { date > 2016.2.24 has_country_flag = MAD_HVM_PROMOTIONS_COMPLETED } }
+			traits = { adaptable }
 			skill = 2
 			attack_skill = 2
 			defense_skill = 2

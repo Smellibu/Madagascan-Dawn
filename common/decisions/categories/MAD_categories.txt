@@ -64,6 +64,7 @@ MAD_military_refoundation_category = {
 			has_country_flag = MAD_MIL_RURAL_GENDARMERIE_REVIEWED
 			has_country_flag = MAD_MIL_MOBILE_RESPONSE_PROJECT_UNLOCKED
 			MAD_POL_MIL_POST_2025_ROUTE_AVAILABLE = yes
+			has_completed_focus = MAD_POL_TGV_ESTABLISH_ETAT_MAJOR_DES_ARMEES
 		}
 	}
 	priority = 95
@@ -75,10 +76,7 @@ MAD_royal_political_category = {
 	icon = generic_political_discourse
 	allowed = { tag = MAD }
 	visible = {
-		OR = {
-			MAD_ROY_IN_POWER = yes
-			MAD_TAMIMA_IN_POWER = yes
-		}
+		nationalist_monarchists_are_in_power = yes
 	}
 	priority = 95
 	visible_when_empty = no
@@ -86,7 +84,7 @@ MAD_royal_political_category = {
 MAD_HVM_PROJECT_REVIEW_CATEGORY = {
 	icon = generic_political_discourse
 	allowed = {
-	MAD_HVM_IN_POWER = yes
+	western_conservatism_are_in_power = yes
 	}
 	visible = { MAD_HVM_PROJECT_REVIEW_READY = yes }
 	priority = 95
@@ -96,11 +94,11 @@ MAD_HVM_PROJECT_REVIEW_CATEGORY = {
 MAD_TGV_VELIRANO_CATEGORY = {
 	icon = generic_political_discourse
 	allowed = {
-		MAD_TGV_IN_POWER = yes
+		nationalist_right_wing_populists_are_in_power = yes
 	}
 	visible = {
 		MAD_TGV_VELIRANO_ACTIVE = yes
-		MAD_TGV_IN_POWER = yes
+		nationalist_right_wing_populists_are_in_power = yes
 	}
 	priority = 95
 	visible_when_empty = no

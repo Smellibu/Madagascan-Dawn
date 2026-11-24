@@ -1,5 +1,7 @@
 capital = 267
 2000.1.1 = {
+	set_variable = { MAD_LAST_ELECTED_PARTY = 5 }
+	set_variable = { MAD_LAST_NON_TGV_HVM_GOVERNING_PARTY = 5 }
 	set_variable = { currency_strength = 0.65 }
 	if = {
 		limit = { has_dlc = "By Blood Alone" }
@@ -260,6 +262,7 @@ capital = 267
 	set_variable = { party_pop_array^3 = 0.15 } #socialism
 	set_variable = { party_pop_array^5 = 0.19 } #anarchist_communism
 	set_variable = { party_pop_array^14 = 0.05 } #Neutral_conservatism
+	set_variable = { party_pop_array^17 = 0.05 } #Neutral_green (UNDD)
 	set_variable = { party_pop_array^20 = 0.06 } #Nat_Populism
 
 	### Ruling Party
@@ -273,6 +276,9 @@ capital = 267
 		ideology = anarchist_communism
 		traits = {
 			emerging_anarchist_communism
+			career_politician
+			military_career
+			former_foreign_minister
 		}
 	}
 
@@ -280,6 +286,7 @@ capital = 267
 	set_variable = { current_term = 1 }
 
 	recruit_character = MAD_marcel_ranjeva
+	recruit_character = MAD_andrianome_ranivo_dieudonne
 	recruit_character = MAD_bruno_victor_rajaonson
 	# Military personnel are recruited at game start; their roles are date-gated in common/characters/MAD.txt.
 	recruit_character = MAD_jules_mamizara
@@ -295,6 +302,20 @@ capital = 267
 	recruit_character = MAD_lylison_rene
 	recruit_character = MAD_dominique_rakotazafy
 	recruit_character = MAD_beni_xavier_rasolofonirina
+	# Future TGV and HVM officer cadres are registered at game start; their roles remain date/flag-gated in common/characters/MAD.txt.
+	recruit_character = MAD_bruno_razafindrakoto
+	recruit_character = MAD_richard_ravalomanana
+	recruit_character = MAD_tafara_edmond
+	recruit_character = MAD_rafenomanjato_mamy_jerison
+	recruit_character = MAD_alphonse_ravelontsoa
+	recruit_character = MAD_jean_louis_tombovelo
+	recruit_character = MAD_roger_rakotomalala
+	recruit_character = MAD_paulin_babity
+	recruit_character = MAD_jean_noelson_fulgence_raharinirina
+	recruit_character = MAD_marc_rakotomarolahy
+	recruit_character = MAD_eddie_charles_razafindrakoto
+	recruit_character = MAD_evariste_botojanina
+	recruit_character = MAD_ludovic_pierre_ramarokoto
 	# Recruit faction chiefs early so the command choice can retire them before 2009.
 	# Their corps-commander roles are hidden until their historical prominence in 2009.
 	recruit_character = MAD_noel_rakotonandrasana

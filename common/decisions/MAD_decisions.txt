@@ -1313,7 +1313,6 @@ MAD_daewoo_category = {
 #   REACTIVE decisions     - open from the first day. They only push the number down for a while: the pressure keeps coming.
 #   PREVENTATIVE decisions - each is unlocked by a focus in the Drought And Famine branch, can be done once, and takes a
 #                            permanent slice off the monthly pressure. 7 exist; 5 done + severity <= 30 contains the drought.
-#   RESETTLE / FINAL PUSH  - late decisions.
 # "cost" is political power; treasury (billions) is charged in the effect, the same way the Daewoo decisions do it.
 
 MAD_drought_category = {
@@ -2341,84 +2340,7 @@ visible = {
 	# LATE DECISIONS
 	########################################################################
 
-	# Return internally displaced people to their original states in affordable batches.
-	MAD_DROUGHT_RESETTLE = {
-		icon = generic_political_discourse
 
-		visible = {
-			check_variable = { MAD_drought_displaced_internal > 0.5 }
-		}
-		available = {
-			custom_trigger_tooltip = {
-				tooltip = MAD_DROUGHT_PREVENTION_4_tt
-				check_variable = { MAD_drought_prevention_count > 3.99 }
-			}
-			custom_trigger_tooltip = {
-				tooltip = MAD_DROUGHT_SEVERITY_BELOW_35_tt
-				check_variable = { MAD_drought_severity < 35 }
-			}
-		}
-		cost = 50
-		days_remove = 90
-		custom_cost_trigger = { always = yes }
-		custom_cost_text = cost_1_0
-
-		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Internal resettlement programme started"
-			set_temp_variable = { treasury_change = -1.00 }
-			modify_treasury_effect = yes
-		}
-
-		remove_effect = {
-			log = "[GetDateText]: [Root.GetName]: Internal resettlement completed"
-			MAD_drought_resettle = yes
-			custom_effect_tooltip = MAD_DROUGHT_RESETTLE_CAP_TT
-			set_temp_variable = { MAD_rc_delta = 1 }
-			MAD_rural_cooperation_adjust = yes
-		}
-
-		ai_will_do = { base = 1 }
-	}
-
-	# Invite part of the diaspora home. Each call returns 10% of the cumulative living diaspora that originally reached foreign destinations,
-	# allocated back to their original states, with a hard cap of six uses.
-	MAD_DROUGHT_EXPAT_RETURN = {
-		icon = generic_political_discourse
-
-		visible = {
-			check_variable = { MAD_drought_displaced_abroad > 0.5 }
-			check_variable = { MAD_drought_expat_return_calls < 6 }
-		}
-		available = {
-			custom_trigger_tooltip = {
-				tooltip = MAD_DROUGHT_PREVENTION_4_tt
-				check_variable = { MAD_drought_prevention_count > 3.99 }
-			}
-			custom_trigger_tooltip = {
-				tooltip = MAD_DROUGHT_SEVERITY_BELOW_35_tt
-				check_variable = { MAD_drought_severity < 35 }
-			}
-		}
-		cost = 35
-		days_remove = 180
-		custom_cost_trigger = { always = yes }
-		custom_cost_text = cost_2_0
-
-		complete_effect = {
-			log = "[GetDateText]: [Root.GetName]: Diaspora return programme started"
-			set_temp_variable = { treasury_change = -2.00 }
-			modify_treasury_effect = yes
-		}
-
-		remove_effect = {
-			log = "[GetDateText]: [Root.GetName]: Diaspora return programme completed"
-			MAD_drought_return_expats = yes
-			set_temp_variable = { MAD_rc_delta = 1 }
-			MAD_rural_cooperation_adjust = yes
-		}
-
-		ai_will_do = { base = 1 }
-	}
 
 	# After Winning The Fight the drought recedes fast on its own; this finishes it.
 	MAD_DROUGHT_FINAL_PUSH = {
@@ -3427,6 +3349,10 @@ MAD_dahalo_category = {
 			NOT = { has_country_flag = MAD_DAHALO_OPERATION_ACTIVE }
 			NOT = { has_civil_war = yes }
 			custom_trigger_tooltip = {
+				tooltip = MAD_DAHALO_TANDROKA_REQUIRES_FIS_TT
+				has_country_flag = MAD_TGV_FIS_ESTABLISHED
+			}
+			custom_trigger_tooltip = {
 				tooltip = MAD_RC_REQUIRE_10_OR_7_5_TT
 				OR = {
 					AND = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM check_variable = { MAD_rural_cooperation > 7.49 } }
@@ -3443,9 +3369,11 @@ MAD_dahalo_category = {
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_DAHALO_TANDROKA_OPERATION started"
 			MAD_dahalo_campaign_reset = yes
-			set_variable = { MAD_dahalo_campaign_success_chance = 20 }
+			set_variable = { MAD_dahalo_campaign_success_chance = 14 }
 			MAD_dahalo_campaign_add_readiness = yes
 			MAD_dahalo_campaign_add_threat_modifier = yes
+			if = { limit = { has_country_flag = MAD_TGV_FIS_DIRECT_COMMAND } add_to_variable = { MAD_dahalo_campaign_success_chance = -12 } }
+			else_if = { limit = { has_country_flag = MAD_TGV_FIS_JUDICIAL_OVERSIGHT } add_to_variable = { MAD_dahalo_campaign_success_chance = 8 } }
 			MAD_dahalo_campaign_finalize_odds = yes
 			set_temp_variable = { MAD_rc_delta = -10 }
 			MAD_rural_cooperation_apply_gendarmerie_discount = yes
@@ -3470,11 +3398,9 @@ MAD_dahalo_category = {
 
 		visible = {
 			has_completed_focus = MAD_Tandroka
-			has_country_flag = MAD_DAHALO_TANDROKA_RESOLVED
 		}
 		available = {
 			has_completed_focus = MAD_Tandroka
-			has_country_flag = MAD_DAHALO_TANDROKA_RESOLVED
 			NOT = { has_country_flag = MAD_DAHALO_OPERATION_ACTIVE }
 
 			custom_trigger_tooltip = {
@@ -3511,6 +3437,66 @@ MAD_dahalo_category = {
 			MAD_dahalo_update_modifier = yes
 		}
 		ai_will_do = { base = 1 }
+	}
+
+	MAD_DAHALO_FIS_DST_BACK = {
+		icon = generic_political_discourse
+		visible = {
+			has_country_flag = MAD_DAHALO_FIS_REVIEW_PENDING
+			NOT = { has_country_flag = MAD_DAHALO_FIS_REVIEW_RESOLVED }
+		}
+		available = {
+			has_country_flag = MAD_DAHALO_FIS_REVIEW_PENDING
+			NOT = { has_country_flag = MAD_DAHALO_FIS_REVIEW_RESOLVED }
+		}
+		cost = 15
+		days_remove = 1
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Retain and back the FIS and DST after Tandroka"
+			set_country_flag = MAD_DAHALO_FIS_REVIEW_RESOLVED
+			set_country_flag = MAD_TGV_FIS_BACKED_AFTER_TANDROKA
+			clr_country_flag = MAD_DAHALO_FIS_REVIEW_PENDING
+		}
+		ai_will_do = { base = 0 }
+	}
+
+	MAD_DAHALO_FIS_DST_DISMANTLE = {
+		icon = generic_political_discourse
+		visible = {
+			has_country_flag = MAD_DAHALO_FIS_REVIEW_PENDING
+			NOT = { has_country_flag = MAD_DAHALO_FIS_REVIEW_RESOLVED }
+		}
+		available = {
+			has_country_flag = MAD_DAHALO_FIS_REVIEW_PENDING
+			NOT = { has_country_flag = MAD_DAHALO_FIS_REVIEW_RESOLVED }
+		}
+		cost = 15
+		days_remove = 1
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Dismantle the FIS and DST after Tandroka"
+			set_country_flag = MAD_DAHALO_FIS_REVIEW_RESOLVED
+			set_country_flag = MAD_TGV_FIS_DISMANTLED
+			clr_country_flag = MAD_DAHALO_FIS_REVIEW_PENDING
+			clr_country_flag = MAD_DAHALO_FIS_POST_TANDROKA_LIABILITY
+			clr_country_flag = MAD_TGV_CNME_FIS_CREATED
+			clr_country_flag = MAD_TGV_CNME_ESTABLISHED
+			clr_country_flag = MAD_TGV_CNME_INTEGRITY_MODEL_SELECTED
+			clr_country_flag = MAD_TGV_CNME_EXECUTIVE_MODEL_SELECTED
+			clr_country_flag = MAD_TGV_FIS_ESTABLISHED
+			clr_country_flag = MAD_TGV_DST_ESTABLISHED
+			clr_country_flag = MAD_TGV_FIS_DIRECT_COMMAND
+			clr_country_flag = MAD_TGV_FIS_JUDICIAL_OVERSIGHT
+			clr_country_flag = MAD_TGV_FIS_REGULARISED
+			remove_ideas = MAD_TGV_CNME_INTEGRITY_MODEL
+			remove_ideas = MAD_TGV_CNME_EXECUTIVE_MODEL
+			remove_ideas = MAD_TGV_FIS_PARALLEL_SECURITY
+			remove_ideas = MAD_TGV_FIS_ACCOUNTABLE_SECURITY
+			remove_ideas = MAD_TGV_FIS_PARALLEL_SECURITY_LIMITED
+			remove_ideas = MAD_TGV_FIS_ACCOUNTABLE_SECURITY_LIMITED
+		}
+		ai_will_do = { base = 0 }
 	}
 
 	MAD_DAHALO_ARMS_CRACKDOWN = {
@@ -3802,12 +3788,10 @@ MAD_dahalo_category = {
 
 		visible = {
 			has_completed_focus = MAD_Coup_d_arret
-			has_country_flag = MAD_DAHALO_TANDROKA_RESOLVED
 			NOT = { has_country_flag = MAD_DAHALO_COUP_D_ARRET_COMPLETE }
 		}
 		available = {
 			date > 2014.5.20
-			has_country_flag = MAD_DAHALO_TANDROKA_RESOLVED
 			NOT = { has_country_flag = MAD_DAHALO_COUP_D_ARRET_ACTIVE }
 			NOT = { has_country_flag = MAD_DAHALO_OPERATION_ACTIVE }
 			NOT = { has_civil_war = yes }
@@ -4634,6 +4618,9 @@ MAD_OWNERSHIP_BOP = {
 			has_country_flag = MAD_TELMA_STATE_OWNED
 			NOT = { has_country_flag = MAD_TELMA_PRIVATISED_AFTER_STATE }
 		}
+		available = {
+			NOT = { has_completed_focus = MAD_POL_AREMA_STRATEGIC_ENTERPRISES }
+		}
 		
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_SELL_TELMA_PRIVATE completed"
@@ -4701,6 +4688,9 @@ MAD_OWNERSHIP_BOP = {
 			has_idea = MAD_STATE_AIRLINE
 			NOT = { has_country_flag = MAD_AIR_PRIVATISED_AFTER_STATE }
 		}
+		available = {
+			NOT = { has_completed_focus = MAD_POL_AREMA_STRATEGIC_ENTERPRISES }
+		}
 		
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_SELL_AIRLINE_PRIVATE completed"
@@ -4741,6 +4731,9 @@ MAD_OWNERSHIP_BOP = {
 		visible = {
 			has_country_flag = MAD_JIRAMA_PUBLIC_MODEL
 			NOT = { has_country_flag = MAD_JIRAMA_PRIVATISED_AFTER_STATE }
+		}
+		available = {
+			NOT = { has_completed_focus = MAD_POL_AREMA_STRATEGIC_ENTERPRISES }
 		}
 		
 		remove_effect = {
@@ -4846,6 +4839,9 @@ MAD_OWNERSHIP_BOP = {
 			}
 			NOT = { has_country_flag = MAD_MADARAIL_PRIVATISED_AFTER_STATE }
 		}
+		available = {
+			NOT = { has_completed_focus = MAD_POL_AREMA_STRATEGIC_ENTERPRISES }
+		}
 		
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_SELL_MADARAIL_PRIVATE completed"
@@ -4899,6 +4895,9 @@ MAD_OWNERSHIP_BOP = {
 		visible = {
 			has_country_flag = MAD_GPM_STATE_MODEL
 			NOT = { has_country_flag = MAD_GPM_PRIVATISED_AFTER_STATE }
+		}
+		available = {
+			NOT = { has_completed_focus = MAD_POL_AREMA_STRATEGIC_ENTERPRISES }
 		}
 		
 		remove_effect = {
@@ -4991,6 +4990,9 @@ MAD_OWNERSHIP_BOP = {
 				has_idea = MAD_AMBATOVY_Full_State
 			}
 			NOT = { has_country_flag = MAD_AMBATOVY_PRIVATISED_AFTER_STATE }
+		}
+		available = {
+			NOT = { has_completed_focus = MAD_POL_AREMA_STRATEGIC_ENTERPRISES }
 		}
 		
 		remove_effect = {
@@ -5201,7 +5203,7 @@ MAD_OWNERSHIP_BOP = {
 			OR = {
 				has_completed_focus = MAD_POL_HVM_VOCATIONAL_TRAINING
 				has_completed_focus = MAD_POL_TGV_YOUTH_INDUSTRIALISATION
-				has_completed_focus = MAD_POL_AREMA_WORKERS_FARMERS
+				has_completed_focus = MAD_POL_AREMA_REVIVE_REGIONAL_ENTERPRISES
 				has_completed_focus = MAD_POL_TIM_GREEN_REVOLUTION
 			}
 									NOT = { has_country_flag = MAD_POLICY_APPRENTICESHIP_CYCLE_3 }
@@ -5306,7 +5308,7 @@ MAD_OWNERSHIP_BOP = {
 				has_completed_focus = MAD_POL_ROY_FIHAVANANA
 				has_completed_focus = MAD_POL_ROY_ANTENIMIERAN_ANDRIANA
 			}
-			MAD_ROY_IN_POWER = yes
+			nationalist_monarchists_are_in_power = yes
 			487 = { is_owned_by = ROOT }
 		}
 		cost = 50
@@ -5339,9 +5341,9 @@ MAD_OWNERSHIP_BOP = {
 		icon = generic_industry
 		visible = { always = yes }
 		available = {
-			has_completed_focus = MAD_POL_ROY_TAMIMA_COUNCIL_GOVERNMENT
+			has_completed_focus = MAD_POL_ROY_ONE_MADAGASCAR_MANY_HOUSES_FINAL
 			has_completed_focus = MAD_POL_ROY_LEGAL_ORDER
-			MAD_TAMIMA_IN_POWER = yes
+			nationalist_monarchists_are_in_power = yes
 
 			custom_trigger_tooltip = {
 				tooltip = MAD_POLICY_RC_REQUIRE_3_TT
@@ -5387,7 +5389,7 @@ MAD_OWNERSHIP_BOP = {
 			has_completed_focus = MAD_POL_AREMA_REBUILD
 			has_completed_focus = MAD_POL_AREMA_FOOD_FIRST
 			has_completed_focus = MAD_POL_AREMA_STATE_LEADS
-			MAD_AREMA_IN_POWER = yes
+			emerging_anarchist_communism_are_in_power = yes
 			has_country_flag = MAD_RATSIRAKA_EXILE_RESOLVED
 
 		}
@@ -5429,7 +5431,7 @@ MAD_OWNERSHIP_BOP = {
 				has_completed_focus = MAD_POL_TIM_INFRASTRUCTURE_FINANCE
 				has_completed_focus = MAD_POL_TIM_OPEN_ECONOMY
 			}
-			MAD_TIM_IN_POWER = yes
+			western_liberals_are_in_power = yes
 			date > 2008.12.1
 
 		}
@@ -5474,7 +5476,7 @@ MAD_OWNERSHIP_BOP = {
 				has_completed_focus = MAD_POL_TGV_INFRASTRUCTURE_FIRST
 				has_completed_focus = MAD_POL_TGV_JIRAMA_DELIVERY
 			}
-			MAD_TGV_IN_POWER = yes
+			nationalist_right_wing_populists_are_in_power = yes
 
 		}
 		cost = 75
@@ -5513,7 +5515,7 @@ MAD_OWNERSHIP_BOP = {
 		available = {
 			has_completed_focus = MAD_POL_HVM_INVESTMENT_FRIENDLY
 			has_completed_focus = MAD_POL_HVM_PROJECT_REVIEW
-			MAD_HVM_IN_POWER = yes
+			western_conservatism_are_in_power = yes
 
 		}
 		cost = 50
@@ -5672,13 +5674,15 @@ MAD_royal_political_category = {
 		fire_only_once = yes
 
 		visible = {
-			MAD_ROY_IN_POWER = yes
+			nationalist_monarchists_are_in_power = yes
 			has_completed_focus = MAD_POL_ROY_KINGS_MANDATE
+			has_country_flag = MAD_TAMIMA_LEADERSHIP_NDRIANA
 		}
 		available = {
-			MAD_ROY_IN_POWER = yes
+			nationalist_monarchists_are_in_power = yes
 
 			NOT = { has_country_flag = MAD_ROY_CROWN_ADMINISTRATION_ASSERTED }
+			has_country_flag = MAD_TAMIMA_LEADERSHIP_NDRIANA
 		}
 		custom_cost_trigger = { always = yes }
 		custom_cost_text = cost_1_0
@@ -5701,11 +5705,11 @@ MAD_royal_political_category = {
 		fire_only_once = yes
 
 		visible = {
-			MAD_ROY_IN_POWER = yes
+			nationalist_monarchists_are_in_power = yes
 			has_completed_focus = MAD_POL_ROY_FINANCIAL_REFORM
 		}
 		available = {
-			MAD_ROY_IN_POWER = yes
+			nationalist_monarchists_are_in_power = yes
 			custom_trigger_tooltip = {
 				tooltip = MAD_DEBT_ABOVE_ZERO_TT
 				check_variable = {
@@ -5732,11 +5736,11 @@ MAD_royal_political_category = {
 		fire_only_once = yes
 
 		visible = {
-			MAD_ROY_IN_POWER = yes
+			nationalist_monarchists_are_in_power = yes
 			has_completed_focus = MAD_POL_ROY_SACRED_HERITAGE
 		}
 		available = {
-			MAD_ROY_IN_POWER = yes
+			nationalist_monarchists_are_in_power = yes
 
 			NOT = { has_country_flag = MAD_ROY_ROVA_RESTORED }
 		}
@@ -5765,13 +5769,15 @@ MAD_royal_political_category = {
 		fire_only_once = yes
 
 		visible = {
-			MAD_ROY_IN_POWER = yes
+			nationalist_monarchists_are_in_power = yes
 			has_completed_focus = MAD_POL_ROY_ISRAEL_SECURITY
+			has_country_flag = MAD_TAMIMA_LEADERSHIP_NDRIANA
 		}
 		available = {
-			MAD_ROY_IN_POWER = yes
+			nationalist_monarchists_are_in_power = yes
 			country_exists = ISR
 			NOT = { has_country_flag = MAD_ROY_ISRAEL_DELEGATION_SENT }
+			has_country_flag = MAD_TAMIMA_LEADERSHIP_NDRIANA
 		}
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_ROY_SEND_ROYAL_DELEGATION_TO_ISRAEL started"
@@ -5791,13 +5797,16 @@ MAD_royal_political_category = {
 		fire_only_once = yes
 
 		visible = {
-			MAD_ROY_IN_POWER = yes
+			nationalist_monarchists_are_in_power = yes
 			has_completed_focus = MAD_POL_ROY_ISLANDS_WAIT
+			has_country_flag = MAD_TAMIMA_LEADERSHIP_NDRIANA
 		}
 		available = {
-			MAD_ROY_IN_POWER = yes
+			nationalist_monarchists_are_in_power = yes
 			country_exists = FRA
 			NOT = { has_country_flag = MAD_ROY_ISLAND_DOSSIER_PRESENTED }
+			has_country_flag = MAD_TAMIMA_LEADERSHIP_NDRIANA
+			has_completed_focus = MAD_POL_ROY_ISLANDS_WAIT
 		}
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_ROY_PRESENT_ISLAND_DOSSIER started"
@@ -5814,16 +5823,19 @@ MAD_royal_political_category = {
 		fire_only_once = yes
 
 		visible = {
-			MAD_ROY_IN_POWER = yes
+			nationalist_monarchists_are_in_power = yes
 			has_completed_focus = MAD_POL_ROY_ISLANDS_WAIT
+			has_country_flag = MAD_TAMIMA_LEADERSHIP_NDRIANA
 		}
 		available = {
-			MAD_ROY_IN_POWER = yes
+			nationalist_monarchists_are_in_power = yes
 			custom_trigger_tooltip = {
 				tooltip = MAD_ROY_RECLAMATION_REQUIRES_DOSSIER_TT
 				has_country_flag = MAD_ROY_ISLAND_DOSSIER_PRESENTED
 			}
 			NOT = { has_country_flag = MAD_ROY_ISLAND_RECLAMATION_PREPARED }
+			has_country_flag = MAD_TAMIMA_LEADERSHIP_NDRIANA
+			has_completed_focus = MAD_POL_ROY_ISLANDS_WAIT
 		}
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_ROY_PREPARE_ISLAND_RECLAMATION started"
@@ -5840,11 +5852,11 @@ MAD_royal_political_category = {
 		fire_only_once = yes
 
 		visible = {
-			MAD_ROY_IN_POWER = yes
+			nationalist_monarchists_are_in_power = yes
 			has_completed_focus = MAD_POL_ROY_REGIONAL_HOUSES
 		}
 		available = {
-			MAD_ROY_IN_POWER = yes
+			nationalist_monarchists_are_in_power = yes
 
 			268 = { is_core_of = ROOT offices < 2 }
 			NOT = { has_country_flag = MAD_ROY_CUSTOMARY_GOVERNANCE_IMPLEMENTED }
@@ -5876,10 +5888,10 @@ MAD_royal_political_category = {
 		fire_only_once = no
 
 		visible = {
-			MAD_TAMIMA_IN_POWER = yes
+			nationalist_monarchists_are_in_power = yes
 			has_completed_focus = MAD_POL_ROY_TAMIMA_COUNCIL
 		}
-		available = { MAD_TAMIMA_IN_POWER = yes }
+		available = { nationalist_monarchists_are_in_power = yes }
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_TAMIMA_CONSULT_TWELVE_ELDERS started"
 			# The elders mediate disputes, reinforce public order, and bind the Houses to the council.
@@ -5903,10 +5915,10 @@ MAD_royal_political_category = {
 		fire_only_once = no
 
 		visible = {
-			MAD_TAMIMA_IN_POWER = yes
+			nationalist_monarchists_are_in_power = yes
 			has_completed_focus = MAD_POL_ROY_TAMIMA_COUNCIL
 		}
-		available = { MAD_TAMIMA_IN_POWER = yes }
+		available = { nationalist_monarchists_are_in_power = yes }
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_TAMIMA_REGIONAL_HOUSE_CONFERENCE started"
 			add_stability = 0.005
@@ -5927,12 +5939,17 @@ MAD_royal_political_category = {
 		fire_only_once = yes
 
 		visible = {
-			MAD_ROY_IN_POWER = yes
+			nationalist_monarchists_are_in_power = yes
 			has_country_flag = MAD_ROY_ISLAND_RECLAMATION_PREPARED
+			has_country_flag = MAD_TAMIMA_LEADERSHIP_NDRIANA
+			has_completed_focus = MAD_POL_ROY_ISLANDS_WAIT
 		}
 		available = {
 			COM = { exists = yes has_opinion = { target = MAD value > 99 } influence_higher_35 = yes }
 			NOT = { has_country_flag = MAD_ROY_UNION_COMOROS_OFFER_SENT }
+			has_country_flag = MAD_TAMIMA_LEADERSHIP_NDRIANA
+			has_completed_focus = MAD_POL_ROY_ISLANDS_WAIT
+			nationalist_monarchists_are_in_power = yes
 		}
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_ROY_OFFER_UNION_COMOROS started"
@@ -5948,12 +5965,17 @@ MAD_royal_political_category = {
 		fire_only_once = yes
 
 		visible = {
-			MAD_ROY_IN_POWER = yes
+			nationalist_monarchists_are_in_power = yes
 			has_country_flag = MAD_ROY_ISLAND_RECLAMATION_PREPARED
+			has_country_flag = MAD_TAMIMA_LEADERSHIP_NDRIANA
+			has_completed_focus = MAD_POL_ROY_ISLANDS_WAIT
 		}
 		available = {
 			SEY = { exists = yes has_opinion = { target = MAD value > 99 } influence_higher_35 = yes }
 			NOT = { has_country_flag = MAD_ROY_UNION_SEYCHELLES_OFFER_SENT }
+			has_country_flag = MAD_TAMIMA_LEADERSHIP_NDRIANA
+			has_completed_focus = MAD_POL_ROY_ISLANDS_WAIT
+			nationalist_monarchists_are_in_power = yes
 		}
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_ROY_OFFER_UNION_SEYCHELLES started"
@@ -5969,12 +5991,17 @@ MAD_royal_political_category = {
 		fire_only_once = yes
 
 		visible = {
-			MAD_ROY_IN_POWER = yes
+			nationalist_monarchists_are_in_power = yes
 			has_country_flag = MAD_ROY_ISLAND_RECLAMATION_PREPARED
+			has_country_flag = MAD_TAMIMA_LEADERSHIP_NDRIANA
+			has_completed_focus = MAD_POL_ROY_ISLANDS_WAIT
 		}
 		available = {
 			MRT = { exists = yes has_opinion = { target = MAD value > 99 } influence_higher_35 = yes }
 			NOT = { has_country_flag = MAD_ROY_UNION_MAURITIUS_OFFER_SENT }
+			has_country_flag = MAD_TAMIMA_LEADERSHIP_NDRIANA
+			has_completed_focus = MAD_POL_ROY_ISLANDS_WAIT
+			nationalist_monarchists_are_in_power = yes
 		}
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_ROY_OFFER_UNION_MAURITIUS started"
@@ -5990,7 +6017,9 @@ MAD_royal_political_category = {
 		fire_only_once = yes
 
 		visible = {
-			MAD_ROY_IN_POWER = yes
+			nationalist_monarchists_are_in_power = yes
+			has_country_flag = MAD_TAMIMA_LEADERSHIP_NDRIANA
+			has_completed_focus = MAD_POL_ROY_ISLANDS_WAIT
 		}
 		available = {
 			country_exists = FRA
@@ -5999,6 +6028,9 @@ MAD_royal_political_category = {
 				has_country_flag = MAD_ROY_ISLAND_RECLAMATION_PREPARED
 			}
 			NOT = { has_country_flag = MAD_ROY_FRANCE_REUNION_DEMANDED }
+			has_country_flag = MAD_TAMIMA_LEADERSHIP_NDRIANA
+			has_completed_focus = MAD_POL_ROY_ISLANDS_WAIT
+			nationalist_monarchists_are_in_power = yes
 		}
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_ROY_DEMAND_REUNION started"
@@ -6014,7 +6046,9 @@ MAD_royal_political_category = {
 		fire_only_once = yes
 
 		visible = {
-			MAD_ROY_IN_POWER = yes
+			nationalist_monarchists_are_in_power = yes
+			has_country_flag = MAD_TAMIMA_LEADERSHIP_NDRIANA
+			has_completed_focus = MAD_POL_ROY_ISLANDS_WAIT
 		}
 		available = {
 			country_exists = FRA
@@ -6033,6 +6067,9 @@ MAD_royal_political_category = {
 				}
 			}
 			NOT = { has_country_flag = MAD_ROY_FRANCE_MAYOTTE_DEMANDED }
+			has_country_flag = MAD_TAMIMA_LEADERSHIP_NDRIANA
+			has_completed_focus = MAD_POL_ROY_ISLANDS_WAIT
+			nationalist_monarchists_are_in_power = yes
 		}
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_ROY_DEMAND_MAYOTTE started"
@@ -6054,9 +6091,10 @@ MAD_military_refoundation_category = {
 		cost = 25
 		fire_only_once = yes
 		days_remove = 60
-		visible = { has_country_flag = MAD_MIL_RURAL_GENDARMERIE_REVIEWED }
+		visible = {
+			has_completed_focus = MAD_POL_MIL_PRE2002_GENDARMERIE
+		}
 		available = {
-			has_country_flag = MAD_MIL_RURAL_GENDARMERIE_REVIEWED
 			NOT = { has_country_flag = MAD_MIL_RURAL_GENDARMERIE_PROJECT_DONE }
 		}
 		complete_effect = {
@@ -6181,7 +6219,16 @@ MAD_military_refoundation_category = {
 			else_if = {
 				limit = { has_country_flag = MAD_MIL_HCDN_SPDSN_REFORM }
 				set_country_flag = MAD_MIL_HCDN_SPDSN_REFORMED
-				add_ideas = MAD_MIL_HCDN_SPDSN_COORDINATION
+				if = {
+					limit = { has_idea = MAD_MIL_HCDN_SPDSN_BASE }
+					swap_ideas = {
+						remove_idea = MAD_MIL_HCDN_SPDSN_BASE
+						add_idea = MAD_MIL_HCDN_SPDSN_COORDINATION
+					}
+				}
+				else = {
+					add_ideas = MAD_MIL_HCDN_SPDSN_COORDINATION
+				}
 			}
 			set_country_flag = MAD_MIL_INSTITUTIONAL_FOLLOWUP_PENDING
 			country_event = { id = MAD_military_refoundation.5 days = 1 }
@@ -6319,6 +6366,71 @@ MAD_military_refoundation_category = {
 		}
 		ai_will_do = { base = 0 }
 	}
+
+	MAD_MIL_CREATE_GFSI = {
+		icon = GFX_decision_generic_police
+		visible = {
+			has_completed_focus = MAD_POL_TGV_ESTABLISH_ETAT_MAJOR_DES_ARMEES
+			date > 2021.2.10
+		}
+		available = {
+			has_completed_focus = MAD_POL_TGV_ESTABLISH_ETAT_MAJOR_DES_ARMEES
+			date > 2021.2.10
+			NOT = { has_country_flag = MAD_MIL_GFSI_PROJECT_ACTIVE }
+			NOT = { has_country_flag = MAD_MIL_GFSI_ESTABLISHED }
+		}
+		cost = 50
+		fire_only_once = yes
+		days_remove = 120
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_MIL_CREATE_GFSI started"
+			set_country_flag = MAD_MIL_GFSI_PROJECT_ACTIVE
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_MIL_CREATE_GFSI completed"
+			clr_country_flag = MAD_MIL_GFSI_PROJECT_ACTIVE
+			set_country_flag = MAD_MIL_GFSI_ESTABLISHED
+			add_ideas = MAD_MIL_GFSI_RAPID_RESPONSE
+			army_experience = 10
+			add_political_power = -10
+		}
+		ai_will_do = { base = 0 }
+	}
+
+	MAD_MILITARY_INSPECTORATE_IMPLEMENTATION = {
+		icon = GFX_decision_generic_political_reform
+		visible = {
+			has_country_flag = MAD_MIL_INTERNAL_CONTROL_STARTED
+			date > 2023.12.31
+		}
+		available = {
+			has_country_flag = MAD_MIL_INTERNAL_CONTROL_STARTED
+			date > 2023.12.31
+			NOT = { has_country_flag = MAD_MIL_INSPECTORATE_PROJECT_ACTIVE }
+			NOT = { has_country_flag = MAD_MIL_INSPECTORATES_APPOINTED }
+		}
+		cost = 50
+		fire_only_once = yes
+		days_remove = 180
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_MILITARY_INSPECTORATE_IMPLEMENTATION started"
+			set_country_flag = MAD_MIL_INSPECTORATE_PROJECT_ACTIVE
+			set_temp_variable = { treasury_change = -1.00 }
+			modify_treasury_effect = yes
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_MILITARY_INSPECTORATE_IMPLEMENTATION completed"
+			clr_country_flag = MAD_MIL_INSPECTORATE_PROJECT_ACTIVE
+			set_country_flag = MAD_MIL_INSPECTORATES_APPOINTED
+			add_ideas = MAD_MIL_INTERNAL_INSPECTION_CAPACITY
+			decrease_corruption = yes
+			add_stability = 0.01
+			add_political_power = 10
+			army_experience = 5
+		}
+		ai_will_do = { base = 0 }
+	}
+
 }
 # ---------------------------------------------------------------------------
 # TGV – Thirteen Velirano
@@ -6332,13 +6444,13 @@ MAD_TGV_VELIRANO_CATEGORY = {
 		icon = GFX_decision_generic_construction
 		cost = 20
 		fire_only_once = yes
-		allowed = { MAD_TGV_IN_POWER = yes }
+		allowed = { nationalist_right_wing_populists_are_in_power = yes }
 		visible = {
-			MAD_TGV_IN_POWER = yes
+			nationalist_right_wing_populists_are_in_power = yes
 			NOT = { has_country_flag = MAD_TGV_PROMISED_WATER }
 			NOT = { has_country_flag = MAD_TGV_DELIVERED_WATER }
 		}
-		available = { MAD_TGV_IN_POWER = yes }
+		available = { nationalist_right_wing_populists_are_in_power = yes }
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_TGV_PROMISE_WATER started"
 			set_country_flag = MAD_TGV_PROMISED_WATER
@@ -6354,9 +6466,9 @@ MAD_TGV_VELIRANO_CATEGORY = {
 		icon = GFX_decision_generic_construction
 		cost = 20
 		fire_only_once = yes
-		allowed = { MAD_TGV_IN_POWER = yes }
-		visible = { MAD_TGV_IN_POWER = yes NOT = { has_country_flag = MAD_TGV_PROMISED_INFRASTRUCTURE } NOT = { has_country_flag = MAD_TGV_DELIVERED_INFRASTRUCTURE } }
-		available = { MAD_TGV_IN_POWER = yes }
+		allowed = { nationalist_right_wing_populists_are_in_power = yes }
+		visible = { nationalist_right_wing_populists_are_in_power = yes NOT = { has_country_flag = MAD_TGV_PROMISED_INFRASTRUCTURE } NOT = { has_country_flag = MAD_TGV_DELIVERED_INFRASTRUCTURE } }
+		available = { nationalist_right_wing_populists_are_in_power = yes }
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_TGV_PROMISE_INFRASTRUCTURE started"
 			set_country_flag = MAD_TGV_PROMISED_INFRASTRUCTURE
@@ -6372,9 +6484,9 @@ MAD_TGV_VELIRANO_CATEGORY = {
 		icon = GFX_decision_generic_construction
 		cost = 20
 		fire_only_once = yes
-		allowed = { MAD_TGV_IN_POWER = yes }
-		visible = { MAD_TGV_IN_POWER = yes NOT = { has_country_flag = MAD_TGV_PROMISED_DIGITAL } NOT = { has_country_flag = MAD_TGV_DELIVERED_DIGITAL } }
-		available = { MAD_TGV_IN_POWER = yes }
+		allowed = { nationalist_right_wing_populists_are_in_power = yes }
+		visible = { nationalist_right_wing_populists_are_in_power = yes NOT = { has_country_flag = MAD_TGV_PROMISED_DIGITAL } NOT = { has_country_flag = MAD_TGV_DELIVERED_DIGITAL } }
+		available = { nationalist_right_wing_populists_are_in_power = yes }
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_TGV_PROMISE_DIGITAL started"
 			set_country_flag = MAD_TGV_PROMISED_DIGITAL
@@ -6390,9 +6502,9 @@ MAD_TGV_VELIRANO_CATEGORY = {
 		icon = GFX_decision_generic_construction
 		cost = 20
 		fire_only_once = yes
-		allowed = { MAD_TGV_IN_POWER = yes }
-		visible = { MAD_TGV_IN_POWER = yes NOT = { has_country_flag = MAD_TGV_PROMISED_JOBS } NOT = { has_country_flag = MAD_TGV_DELIVERED_JOBS } }
-		available = { MAD_TGV_IN_POWER = yes }
+		allowed = { nationalist_right_wing_populists_are_in_power = yes }
+		visible = { nationalist_right_wing_populists_are_in_power = yes NOT = { has_country_flag = MAD_TGV_PROMISED_JOBS } NOT = { has_country_flag = MAD_TGV_DELIVERED_JOBS } }
+		available = { nationalist_right_wing_populists_are_in_power = yes }
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_TGV_PROMISE_JOBS started"
 			set_country_flag = MAD_TGV_PROMISED_JOBS
@@ -6408,9 +6520,9 @@ MAD_TGV_VELIRANO_CATEGORY = {
 		icon = GFX_decision_generic_construction
 		cost = 20
 		fire_only_once = yes
-		allowed = { MAD_TGV_IN_POWER = yes }
-		visible = { MAD_TGV_IN_POWER = yes NOT = { has_country_flag = MAD_TGV_PROMISED_FOOD } NOT = { has_country_flag = MAD_TGV_DELIVERED_FOOD } }
-		available = { MAD_TGV_IN_POWER = yes }
+		allowed = { nationalist_right_wing_populists_are_in_power = yes }
+		visible = { nationalist_right_wing_populists_are_in_power = yes NOT = { has_country_flag = MAD_TGV_PROMISED_FOOD } NOT = { has_country_flag = MAD_TGV_DELIVERED_FOOD } }
+		available = { nationalist_right_wing_populists_are_in_power = yes }
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_TGV_PROMISE_FOOD started"
 			set_country_flag = MAD_TGV_PROMISED_FOOD
@@ -6428,9 +6540,9 @@ MAD_TGV_VELIRANO_CATEGORY = {
 		fire_only_once = yes
 		custom_cost_trigger = { always = yes }
 		custom_cost_text = cost_2_5
-		allowed = { MAD_TGV_IN_POWER = yes }
-		visible = { MAD_TGV_IN_POWER = yes has_country_flag = MAD_TGV_PROMISED_WATER has_completed_focus = MAD_POL_TGV_WATER_PROGRAMME NOT = { has_country_flag = MAD_TGV_DELIVERED_WATER } }
-		available = { MAD_TGV_IN_POWER = yes has_country_flag = MAD_TGV_PROMISED_WATER has_completed_focus = MAD_POL_TGV_WATER_PROGRAMME }
+		allowed = { nationalist_right_wing_populists_are_in_power = yes }
+		visible = { nationalist_right_wing_populists_are_in_power = yes has_country_flag = MAD_TGV_PROMISED_WATER has_completed_focus = MAD_POL_TGV_WATER_PROGRAMME NOT = { has_country_flag = MAD_TGV_DELIVERED_WATER } }
+		available = { nationalist_right_wing_populists_are_in_power = yes has_country_flag = MAD_TGV_PROMISED_WATER has_completed_focus = MAD_POL_TGV_WATER_PROGRAMME }
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_TGV_DELIVER_WATER started"
 			set_temp_variable = { treasury_change = -2.5 }
@@ -6453,9 +6565,9 @@ MAD_TGV_VELIRANO_CATEGORY = {
 		fire_only_once = yes
 		custom_cost_trigger = { always = yes }
 		custom_cost_text = cost_4_0
-		allowed = { MAD_TGV_IN_POWER = yes }
-		visible = { MAD_TGV_IN_POWER = yes has_country_flag = MAD_TGV_PROMISED_INFRASTRUCTURE has_completed_focus = MAD_POL_TGV_INFRASTRUCTURE_FIRST has_completed_focus = MAD_POL_TGV_PROJECT_FINANCE NOT = { has_country_flag = MAD_TGV_DELIVERED_INFRASTRUCTURE } }
-		available = { MAD_TGV_IN_POWER = yes has_country_flag = MAD_TGV_PROMISED_INFRASTRUCTURE has_completed_focus = MAD_POL_TGV_INFRASTRUCTURE_FIRST has_completed_focus = MAD_POL_TGV_PROJECT_FINANCE }
+		allowed = { nationalist_right_wing_populists_are_in_power = yes }
+		visible = { nationalist_right_wing_populists_are_in_power = yes has_country_flag = MAD_TGV_PROMISED_INFRASTRUCTURE has_completed_focus = MAD_POL_TGV_INFRASTRUCTURE_FIRST has_completed_focus = MAD_POL_TGV_PROJECT_FINANCE NOT = { has_country_flag = MAD_TGV_DELIVERED_INFRASTRUCTURE } }
+		available = { nationalist_right_wing_populists_are_in_power = yes has_country_flag = MAD_TGV_PROMISED_INFRASTRUCTURE has_completed_focus = MAD_POL_TGV_INFRASTRUCTURE_FIRST has_completed_focus = MAD_POL_TGV_PROJECT_FINANCE }
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_TGV_DELIVER_INFRASTRUCTURE started"
 			set_temp_variable = { treasury_change = -4.0 }
@@ -6478,9 +6590,9 @@ MAD_TGV_VELIRANO_CATEGORY = {
 		fire_only_once = yes
 		custom_cost_trigger = { always = yes }
 		custom_cost_text = cost_1_5
-		allowed = { MAD_TGV_IN_POWER = yes }
-		visible = { MAD_TGV_IN_POWER = yes has_country_flag = MAD_TGV_PROMISED_DIGITAL has_completed_focus = MAD_POL_TGV_DIGITAL_MADAGASCAR NOT = { has_country_flag = MAD_TGV_DELIVERED_DIGITAL } }
-		available = { MAD_TGV_IN_POWER = yes has_country_flag = MAD_TGV_PROMISED_DIGITAL has_completed_focus = MAD_POL_TGV_DIGITAL_MADAGASCAR }
+		allowed = { nationalist_right_wing_populists_are_in_power = yes }
+		visible = { nationalist_right_wing_populists_are_in_power = yes has_country_flag = MAD_TGV_PROMISED_DIGITAL has_completed_focus = MAD_POL_TGV_DIGITAL_MADAGASCAR NOT = { has_country_flag = MAD_TGV_DELIVERED_DIGITAL } }
+		available = { nationalist_right_wing_populists_are_in_power = yes has_country_flag = MAD_TGV_PROMISED_DIGITAL has_completed_focus = MAD_POL_TGV_DIGITAL_MADAGASCAR }
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_TGV_DELIVER_DIGITAL started"
 			set_temp_variable = { treasury_change = -1.5 }
@@ -6503,9 +6615,9 @@ MAD_TGV_VELIRANO_CATEGORY = {
 		fire_only_once = yes
 		custom_cost_trigger = { always = yes }
 		custom_cost_text = cost_1_5
-		allowed = { MAD_TGV_IN_POWER = yes }
-		visible = { MAD_TGV_IN_POWER = yes has_country_flag = MAD_TGV_PROMISED_JOBS has_completed_focus = MAD_POL_TGV_YOUTH_INDUSTRIALISATION NOT = { has_country_flag = MAD_TGV_DELIVERED_JOBS } }
-		available = { MAD_TGV_IN_POWER = yes has_country_flag = MAD_TGV_PROMISED_JOBS has_completed_focus = MAD_POL_TGV_YOUTH_INDUSTRIALISATION }
+		allowed = { nationalist_right_wing_populists_are_in_power = yes }
+		visible = { nationalist_right_wing_populists_are_in_power = yes has_country_flag = MAD_TGV_PROMISED_JOBS has_completed_focus = MAD_POL_TGV_YOUTH_INDUSTRIALISATION NOT = { has_country_flag = MAD_TGV_DELIVERED_JOBS } }
+		available = { nationalist_right_wing_populists_are_in_power = yes has_country_flag = MAD_TGV_PROMISED_JOBS has_completed_focus = MAD_POL_TGV_YOUTH_INDUSTRIALISATION }
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_TGV_DELIVER_JOBS started"
 			set_temp_variable = { treasury_change = -1.5 }
@@ -6528,9 +6640,9 @@ MAD_TGV_VELIRANO_CATEGORY = {
 		fire_only_once = yes
 		custom_cost_trigger = { always = yes }
 		custom_cost_text = cost_2_0
-		allowed = { MAD_TGV_IN_POWER = yes }
-		visible = { MAD_TGV_IN_POWER = yes has_country_flag = MAD_TGV_PROMISED_FOOD has_completed_focus = MAD_POL_TGV_FOOD_SOVEREIGNTY NOT = { has_country_flag = MAD_TGV_DELIVERED_FOOD } }
-		available = { MAD_TGV_IN_POWER = yes has_country_flag = MAD_TGV_PROMISED_FOOD has_completed_focus = MAD_POL_TGV_FOOD_SOVEREIGNTY }
+		allowed = { nationalist_right_wing_populists_are_in_power = yes }
+		visible = { nationalist_right_wing_populists_are_in_power = yes has_country_flag = MAD_TGV_PROMISED_FOOD has_completed_focus = MAD_POL_TGV_FOOD_SOVEREIGNTY NOT = { has_country_flag = MAD_TGV_DELIVERED_FOOD } }
+		available = { nationalist_right_wing_populists_are_in_power = yes has_country_flag = MAD_TGV_PROMISED_FOOD has_completed_focus = MAD_POL_TGV_FOOD_SOVEREIGNTY }
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_TGV_DELIVER_FOOD started"
 			set_temp_variable = { treasury_change = -2.0 }
@@ -6558,7 +6670,7 @@ MAD_HVM_PROJECT_REVIEW_CATEGORY = {
 		fire_only_once = yes
 		custom_cost_trigger = { always = yes }
 		custom_cost_text = cost_3_0
-		allowed = { MAD_HVM_IN_POWER = yes }
+		allowed = { western_conservatism_are_in_power = yes }
 		visible = { MAD_HVM_PROJECT_REVIEW_READY = yes }
 		available = { MAD_HVM_PROJECT_REVIEW_READY = yes has_completed_focus = MAD_POL_HVM_PPP_FRAMEWORK has_completed_focus = MAD_POL_HVM_ENERGY_FOR_GROWTH has_completed_focus = MAD_POL_HVM_AGRICULTURE }
 		complete_effect = {
@@ -6584,7 +6696,7 @@ MAD_HVM_PROJECT_REVIEW_CATEGORY = {
 		fire_only_once = yes
 		custom_cost_trigger = { always = yes }
 		custom_cost_text = cost_1_0
-		allowed = { MAD_HVM_IN_POWER = yes }
+		allowed = { western_conservatism_are_in_power = yes }
 		visible = { MAD_HVM_PROJECT_REVIEW_READY = yes }
 		available = { MAD_HVM_PROJECT_REVIEW_READY = yes OR = { has_completed_focus = MAD_POL_HVM_PPP_FRAMEWORK has_completed_focus = MAD_POL_HVM_ENERGY_FOR_GROWTH has_completed_focus = MAD_POL_HVM_AGRICULTURE } }
 		complete_effect = {
@@ -6608,7 +6720,7 @@ MAD_HVM_PROJECT_REVIEW_CATEGORY = {
 		icon = GFX_decision_generic_political_reform
 		cost = 25
 		fire_only_once = yes
-		allowed = { MAD_HVM_IN_POWER = yes }
+		allowed = { western_conservatism_are_in_power = yes }
 		visible = { MAD_HVM_PROJECT_REVIEW_READY = yes }
 
 		complete_effect = {
@@ -6632,6 +6744,40 @@ MAD_HVM_PROJECT_REVIEW_CATEGORY = {
 # The consultations are a reusable safety valve; the Compact is a one-off programme.
 ########################################################################
 MAD_rural_cooperation_category = {
+	# Bring Ratsiraka back under any government except TIM; AREMA's leadership remains a separate focus choice.
+	MAD_RATSIRAKA_RETURN_FROM_EXILE = {
+		icon = generic_political_discourse
+		visible = { has_country_flag = MAD_RATSIRAKA_EXILED }
+		available = {
+			has_country_flag = MAD_RATSIRAKA_EXILED
+			NOT = { western_liberals_are_in_power = yes }
+			# Also bar the party that actually succeeded AREMA when Ratsiraka first lost office.
+			NOT = {
+				AND = {
+					has_country_flag = MAD_RATSIRAKA_SUCCESSOR_PARTY_RECORDED
+					check_variable = { ruling_party = MAD_RATSIRAKA_SUCCESSOR_PARTY }
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = MAD_RATSIRAKA_RETURN_RC_REQUIREMENT_TT
+				check_variable = { MAD_rural_cooperation > 4.99 }
+			}
+		}
+		cost = 100
+		fire_only_once = yes
+		custom_cost_trigger = { always = yes }
+		custom_cost_text = MAD_RATSIRAKA_RETURN_RC_COST_TT
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAD_RATSIRAKA_RETURN_FROM_EXILE"
+			set_temp_variable = { MAD_rc_delta = -5 }
+			MAD_rural_cooperation_adjust = yes
+			custom_effect_tooltip = MAD_RURAL_COOPERATION_SPENT_TT
+			clr_country_flag = MAD_RATSIRAKA_EXILED
+			clr_country_flag = MAD_VIVA_INTERVIEW_PENDING
+		}
+		ai_will_do = { base = 0 }
+	}
+
 	# Repeatable rural security support, unlocked by the Gendarmerie Reform focus.
 	MAD_DAHALO_RURAL_PATROLS = {
 		icon = generic_political_discourse
@@ -6704,7 +6850,7 @@ MAD_rural_cooperation_category = {
 				tooltip = MAD_RURAL_AREMA_NOT_IN_POWER_TT
 				NOT = {
 					AND = {
-						MAD_AREMA_IN_POWER = yes
+						emerging_anarchist_communism_are_in_power = yes
 						NOT = { has_completed_focus = MAD_POL_AREMA_CHOOSE_RECONCILIATION }
 					}
 				}
@@ -6736,11 +6882,11 @@ MAD_rural_cooperation_category = {
 				NOT = { has_country_flag = MAD_RURAL_CONSTITUTION_SWITCH_COOLDOWN }
 			}
 			NOT = { has_idea = MAD_POL_CHRISTOCRATIC_STATE }
-			# After Sacred Constitution, CRPM/TAMIMA cannot return to secular government while either rules.
+			# After Sacred Constitution, TAMIMA cannot return to secular government while either rules.
 			NOT = {
 				AND = {
 					has_completed_focus = MAD_POL_ROY_SACRED_CONSTITUTION
-					OR = { MAD_ROY_IN_POWER = yes MAD_TAMIMA_IN_POWER = yes }
+					nationalist_monarchists_are_in_power = yes
 				}
 			}
 		}
@@ -6765,11 +6911,11 @@ MAD_rural_cooperation_category = {
 
 		visible = {
 			has_idea = MAD_POL_ANDRIANA_NON_RECOGNITION
-			NOT = { OR = { MAD_ROY_IN_POWER = yes MAD_TAMIMA_IN_POWER = yes } }
+			NOT = { nationalist_monarchists_are_in_power = yes }
 		}
 		available = {
 			has_idea = MAD_POL_ANDRIANA_NON_RECOGNITION
-			NOT = { OR = { MAD_ROY_IN_POWER = yes MAD_TAMIMA_IN_POWER = yes } }
+			NOT = { nationalist_monarchists_are_in_power = yes }
 			custom_trigger_tooltip = {
 				tooltip = MAD_ANDRIANA_POLICY_SWITCH_COOLDOWN_TT
 				NOT = {
@@ -6800,11 +6946,11 @@ MAD_rural_cooperation_category = {
 
 		visible = {
 			has_idea = MAD_POL_ANDRIANA_HERITAGE_RECOGNISED
-			NOT = { OR = { MAD_ROY_IN_POWER = yes MAD_TAMIMA_IN_POWER = yes } }
+			NOT = { nationalist_monarchists_are_in_power = yes }
 		}
 		available = {
 			has_idea = MAD_POL_ANDRIANA_HERITAGE_RECOGNISED
-			NOT = { OR = { MAD_ROY_IN_POWER = yes MAD_TAMIMA_IN_POWER = yes } }
+			NOT = { nationalist_monarchists_are_in_power = yes }
 			custom_trigger_tooltip = {
 				tooltip = MAD_ANDRIANA_POLICY_SWITCH_COOLDOWN_TT
 				NOT = {
