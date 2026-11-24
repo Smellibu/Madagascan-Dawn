@@ -73,8 +73,8 @@ focus_tree = {
 	focus = {
 		id = MAD_counter_the_dahalo
 		icon = Generic_Urban_Partisans
-		x = 18
-		y = 17
+		x = 14
+		y = 16
 		cost = 3
 		search_filters = { FOCUS_FILTER_INTERNAL_FACTION FOCUS_FILTER_STABILITY }
 
@@ -771,6 +771,9 @@ focus_tree = {
 		prerequisite = { focus = MAD_JIRAMA_PRIVATIZATION_FORK }
 		mutually_exclusive = { focus = MAD_JIRAMA_STAY_PUBLIC }
 		search_filters = { FOCUS_FILTER_ECONOMY }
+		available = {
+			NOT = { has_completed_focus = MAD_POL_AREMA_STRATEGIC_ENTERPRISES }
+		}
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_JIRAMA_CORPORATIZE"
@@ -2250,6 +2253,7 @@ focus_tree = {
 		prerequisite = { focus = MAD_Telma }
 		search_filters = { FOCUS_FILTER_ECONOMY }
 		available = {
+			NOT = { has_completed_focus = MAD_POL_AREMA_STRATEGIC_ENTERPRISES }
 			has_completed_focus = MAD_ACCEPT_FOREIGN_OWNERSHIP
 		}
 
@@ -2299,6 +2303,7 @@ focus_tree = {
 		prerequisite = { focus = MAD_Madarail }
 		search_filters = { FOCUS_FILTER_ECONOMY }
 		available = {
+			NOT = { has_completed_focus = MAD_POL_AREMA_STRATEGIC_ENTERPRISES }
 			has_completed_focus = MAD_ACCEPT_FOREIGN_OWNERSHIP
 		}
 
@@ -3209,7 +3214,7 @@ focus_tree = {
 	focus = {
 		id = MAD_enter_Remenabila
 		icon = Generic_Policeman
-		x = 11
+		x = 12
 		y = 20
 		cost = 3
 		search_filters = { FOCUS_FILTER_POLITICAL }
@@ -3232,8 +3237,8 @@ focus_tree = {
 	focus = {
 		id = MAD_FIGHTING_CERTIFICATE_FRAUD
 		icon = BLR_Anti_Corruption
-		x = -2
-		y = 1
+		x = 0
+		y = 2
 		relative_position_id = MAD_ZEBU_CERTIFICATES
 		cost = 3
 		prerequisite = { focus = MAD_ZEBU_CERTIFICATES }
@@ -3264,8 +3269,8 @@ focus_tree = {
 	focus = {
 		id = MAD_dahalo_military_ops
 		icon = army_marching
-		x = 0
-		y = 1
+		x = 2
+		y = 3
 		relative_position_id = MAD_ZEBU_CERTIFICATES
 		cost = 3
 		prerequisite = { focus = MAD_ZEBU_CERTIFICATES }
@@ -3288,7 +3293,7 @@ focus_tree = {
 	focus = {
 		id = MAD_IOM_poverty_measures
 		icon = welfare
-		x = 2
+		x = 1
 		y = 1
 		relative_position_id = MAD_ZEBU_CERTIFICATES
 		cost = 3
@@ -6205,6 +6210,9 @@ focus_tree = {
 		prerequisite = { focus = MAD_GPM_TERMINAL_2009 }
 		mutually_exclusive = { focus = MAD_BREAK_GPM_CARTEL }
 		search_filters = { FOCUS_FILTER_ECONOMY }
+		available = {
+			NOT = { has_completed_focus = MAD_POL_AREMA_STRATEGIC_ENTERPRISES }
+		}
 
 		completion_reward = {
 			log = "[GetDateText]: [This.GetName]: Focus MAD_RUBIS_BUYS_GALANA"
@@ -8456,7 +8464,7 @@ focus_tree = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_REMENABILA_IN_POWER_tt
-				MAD_REMENABILA_IN_POWER = yes
+				neutrality_neutral_autocracy_are_in_power = yes
 			}
 		}
 
@@ -8491,7 +8499,7 @@ focus_tree = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_REMENABILA_IN_POWER_tt
-				MAD_REMENABILA_IN_POWER = yes
+				neutrality_neutral_autocracy_are_in_power = yes
 			}
 		}
 
@@ -8528,7 +8536,7 @@ focus_tree = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_REMENABILA_IN_POWER_tt
-				MAD_REMENABILA_IN_POWER = yes
+				neutrality_neutral_autocracy_are_in_power = yes
 			}
 			country_exists = MRT
 			NOT = { has_war_with = MRT }
@@ -8562,7 +8570,7 @@ focus_tree = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_REMENABILA_IN_POWER_tt
-				MAD_REMENABILA_IN_POWER = yes
+				neutrality_neutral_autocracy_are_in_power = yes
 			}
 		}
 
@@ -8597,7 +8605,7 @@ focus_tree = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_REMENABILA_IN_POWER_tt
-				MAD_REMENABILA_IN_POWER = yes
+				neutrality_neutral_autocracy_are_in_power = yes
 			}
 		}
 
@@ -8633,27 +8641,17 @@ focus_tree = {
 	focus = {
 		id = MAD_POL_ROY_SUMMON_HOUSES
 		icon = Focus_generic_monarchist_sentiment
-		x = 25
+		x = 21
 		y = 11
 		cost = 3
 		prerequisite = { focus = MAD_POL_PARTIES }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
-			custom_trigger_tooltip = {
-				tooltip = MAD_ROY_CRPM_OR_TAMIMA_IN_POWER_tt
-				OR = {
-					MAD_ROY_IN_POWER = yes
-					MAD_TAMIMA_IN_POWER = yes
-				}
-			}
+			nationalist_monarchists_are_in_power = yes
 		}
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_ROY_SUMMON_HOUSES"
-			set_temp_variable = { party_index = 15 }
-			set_temp_variable = { party_popularity_increase = 0.05 }
-			set_temp_variable = { temp_outlook_increase = 0.05 }
-			change_relative_party_popularity = yes
 			set_temp_variable = { party_index = 23 }
 			set_temp_variable = { party_popularity_increase = 0.05 }
 			set_temp_variable = { temp_outlook_increase = 0.05 }
@@ -8670,29 +8668,19 @@ focus_tree = {
 		id = MAD_POL_ROY_MALAGASY_TRADITION
 		icon = focus_tradition
 		x = 0
-		y = 3
+		y = 1
 		relative_position_id = MAD_POL_ROY_SUMMON_HOUSES
 		cost = 3
 		prerequisite = { focus = MAD_POL_ROY_SUMMON_HOUSES }
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
 		available = {
-			custom_trigger_tooltip = {
-				tooltip = MAD_ROY_CRPM_OR_TAMIMA_IN_POWER_tt
-				OR = {
-					MAD_ROY_IN_POWER = yes
-					MAD_TAMIMA_IN_POWER = yes
-				}
-			}
+			nationalist_monarchists_are_in_power = yes
 		}
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_ROY_MALAGASY_TRADITION"
 			decrease_corruption = yes
 			
-			set_temp_variable = { party_index = 15 }
-			set_temp_variable = { party_popularity_increase = 0.05 }
-			set_temp_variable = { temp_outlook_increase = 0.05 }
-			change_relative_party_popularity = yes
 			set_temp_variable = { party_index = 23 }
 			set_temp_variable = { party_popularity_increase = 0.05 }
 			set_temp_variable = { temp_outlook_increase = 0.05 }
@@ -8715,13 +8703,7 @@ focus_tree = {
 		prerequisite = { focus = MAD_POL_ROY_MALAGASY_TRADITION }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
-			custom_trigger_tooltip = {
-				tooltip = MAD_ROY_CRPM_OR_TAMIMA_IN_POWER_tt
-				OR = {
-					MAD_ROY_IN_POWER = yes
-					MAD_TAMIMA_IN_POWER = yes
-				}
-			}
+			nationalist_monarchists_are_in_power = yes
 		}
 
 		completion_reward = {
@@ -8762,13 +8744,7 @@ focus_tree = {
 		prerequisite = { focus = MAD_POL_ROY_SACRED_CONSTITUTION }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
-			custom_trigger_tooltip = {
-				tooltip = MAD_ROY_CRPM_OR_TAMIMA_IN_POWER_tt
-				OR = {
-					MAD_ROY_IN_POWER = yes
-					MAD_TAMIMA_IN_POWER = yes
-				}
-			}
+			nationalist_monarchists_are_in_power = yes
 		}
 
 		completion_reward = {
@@ -8785,20 +8761,14 @@ focus_tree = {
 	focus = {
 		id = MAD_POL_ROY_COUNCIL_OF_KINGS
 		icon = Focus_generic_monarchist_sentiment
-		x = -1
+		x = -4
 		y = 1
 		relative_position_id = MAD_POL_ROY_CROWN_QUESTION
 		cost = 3
 		prerequisite = { focus = MAD_POL_ROY_CROWN_QUESTION }
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ECONOMY }
 		available = {
-			custom_trigger_tooltip = {
-				tooltip = MAD_ROY_CRPM_OR_TAMIMA_IN_POWER_tt
-				OR = {
-					MAD_ROY_IN_POWER = yes
-					MAD_TAMIMA_IN_POWER = yes
-				}
-			}
+			nationalist_monarchists_are_in_power = yes
 		}
 
 		completion_reward = {
@@ -8838,25 +8808,18 @@ focus_tree = {
 	focus = {
 		id = MAD_POL_ROY_LIVING_FORCES
 		icon = alliance
-		x = 1
+		x = -2
 		y = 1
 		relative_position_id = MAD_POL_ROY_CROWN_QUESTION
 		cost = 3
 		prerequisite = { focus = MAD_POL_ROY_CROWN_QUESTION }
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY FOCUS_FILTER_ECONOMY }
 		available = {
-			custom_trigger_tooltip = {
-				tooltip = MAD_ROY_CRPM_OR_TAMIMA_IN_POWER_tt
-				OR = {
-					MAD_ROY_IN_POWER = yes
-					MAD_TAMIMA_IN_POWER = yes
-				}
-			}
+			nationalist_monarchists_are_in_power = yes
 		}
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_ROY_LIVING_FORCES"
-			MAD_build_nuclear_facility_in_available_state = yes
 			set_temp_variable = { treasury_change = -15.00 }
 			modify_treasury_effect = yes
 		}
@@ -8873,32 +8836,27 @@ focus_tree = {
 	focus = {
 		id = MAD_POL_ROY_KINGS_MANDATE
 		icon = monarchism
-		x = 0
-		y = 1
-		relative_position_id = MAD_POL_ROY_COUNCIL_OF_KINGS
+		x = -2
+		y = 2
+		relative_position_id = MAD_POL_ROY_ONE_MADAGASCAR_MANY_HOUSES_FINAL
 		cost = 3
-		prerequisite = { focus = MAD_POL_ROY_COUNCIL_OF_KINGS focus = MAD_POL_ROY_LIVING_FORCES }
-		mutually_exclusive = { focus = MAD_POL_ROY_TAMIMA_COUNCIL }
+		prerequisite = { focus = MAD_POL_ROY_ONE_MADAGASCAR_MANY_HOUSES_FINAL }
+
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
-			custom_trigger_tooltip = {
-				tooltip = MAD_ROY_CRPM_IN_POWER_tt
-				MAD_ROY_IN_POWER = yes
-			}
-			has_country_flag = MAD_RABARIOELINA_ABSOLUTE
+			nationalist_monarchists_are_in_power = yes
+			has_country_flag = MAD_TAMIMA_LEADERSHIP_NDRIANA
 		}
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_ROY_KINGS_MANDATE"
-			set_politics = { ruling_party = nationalist elections_allowed = no }
-			
 			custom_effect_tooltip = MAD_ROY_UNLOCK_CROWN_AFFAIRS_SECTION_TT
-			
 			set_temp_variable = { party_index = 23 }
 			set_temp_variable = { party_popularity_increase = 0.03 }
 			set_temp_variable = { temp_outlook_increase = 0.03 }
 			change_relative_party_popularity = yes
 			recalculate_party = yes
+			set_country_flag = MAD_TAMIMA_ROYAL_MANDATE
 			hidden_effect = { country_event = { id = mad_royal.6 days = 30 } }
 		}
 
@@ -8912,23 +8870,17 @@ focus_tree = {
 		icon = Generic_Religious_Unity
 		x = 0
 		y = 1
-		relative_position_id = MAD_POL_ROY_KINGS_MANDATE
+		relative_position_id = MAD_POL_ROY_CROWN_QUESTION
 		cost = 3
-		prerequisite = { focus = MAD_POL_ROY_KINGS_MANDATE }
+		prerequisite = { focus = MAD_POL_ROY_CROWN_QUESTION }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
-			custom_trigger_tooltip = {
-				tooltip = MAD_ROY_CRPM_IN_POWER_tt
-				MAD_ROY_IN_POWER = yes
-			}
+			nationalist_monarchists_are_in_power = yes
 		}
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_ROY_CROWN_ABOVE_NOBILITY"
-			swap_ideas = {
-				remove_idea = MAD_POL_ROYAL_CONSTITUTION
-				add_idea = MAD_POL_CHRISTOCRATIC_STATE
-			}
+
 			increase_centralization = yes
 			set_temp_variable = { party_index = 23 }
 			set_temp_variable = { party_popularity_increase = 0.05 }
@@ -8980,15 +8932,12 @@ focus_tree = {
 		icon = Generic_Religious_Unity
 		x = 0
 		y = 1
-		relative_position_id = MAD_POL_ROY_CROWN_ABOVE_NOBILITY
+		relative_position_id = MAD_POL_ROY_FFKM_CONCORDAT
 		cost = 3
-		prerequisite = { focus = MAD_POL_ROY_CROWN_ABOVE_NOBILITY }
+		prerequisite = { focus = MAD_POL_ROY_FFKM_CONCORDAT }
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ECONOMY }
 		available = {
-			custom_trigger_tooltip = {
-				tooltip = MAD_ROY_CRPM_IN_POWER_tt
-				MAD_ROY_IN_POWER = yes
-			}
+			nationalist_monarchists_are_in_power = yes
 		}
 
 		completion_reward = {
@@ -9031,15 +8980,12 @@ focus_tree = {
 		icon = adopt_the_peoples_constitution
 		x = 0
 		y = 1
-		relative_position_id = MAD_POL_ROY_CHRIST_KING
+		relative_position_id = MAD_POL_ROY_DINA_CUSTOMARY_JUSTICE
 		cost = 3
-		prerequisite = { focus = MAD_POL_ROY_CHRIST_KING }
+		prerequisite = { focus = MAD_POL_ROY_DINA_CUSTOMARY_JUSTICE }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
-			custom_trigger_tooltip = {
-				tooltip = MAD_ROY_CRPM_IN_POWER_tt
-				MAD_ROY_IN_POWER = yes
-			}
+			nationalist_monarchists_are_in_power = yes
 		}
 
 		completion_reward = {
@@ -9055,17 +9001,14 @@ focus_tree = {
 	focus = {
 		id = MAD_POL_ROY_FINANCIAL_REFORM
 		icon = focus_generic_court
-		x = 0
+		x = 4
 		y = 1
-		relative_position_id = MAD_POL_ROY_LEGAL_ORDER
+		relative_position_id = MAD_POL_ROY_CROWN_QUESTION
 		cost = 3
-		prerequisite = { focus = MAD_POL_ROY_LEGAL_ORDER }
+		prerequisite = { focus = MAD_POL_ROY_CROWN_QUESTION }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
-			custom_trigger_tooltip = {
-				tooltip = MAD_ROY_CRPM_IN_POWER_tt
-				MAD_ROY_IN_POWER = yes
-			}
+			nationalist_monarchists_are_in_power = yes
 		}
 
 		completion_reward = {
@@ -9095,10 +9038,7 @@ focus_tree = {
 		prerequisite = { focus = MAD_POL_ROY_FINANCIAL_REFORM }
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ECONOMY }
 		available = {
-			custom_trigger_tooltip = {
-				tooltip = MAD_ROY_CRPM_IN_POWER_tt
-				MAD_ROY_IN_POWER = yes
-			}
+			nationalist_monarchists_are_in_power = yes
 		}
 
 		completion_reward = {
@@ -9139,10 +9079,7 @@ focus_tree = {
 		prerequisite = { focus = MAD_POL_ROY_MALAGASY_LAND_FARMERS }
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ECONOMY }
 		available = {
-			custom_trigger_tooltip = {
-				tooltip = MAD_ROY_CRPM_IN_POWER_tt
-				MAD_ROY_IN_POWER = yes
-			}
+			nationalist_monarchists_are_in_power = yes
 		}
 
 		completion_reward = {
@@ -9165,15 +9102,11 @@ focus_tree = {
 		prerequisite = { focus = MAD_POL_ROY_NATIONAL_TRUST }
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ECONOMY }
 		available = {
-			custom_trigger_tooltip = {
-				tooltip = MAD_ROY_CRPM_IN_POWER_tt
-				MAD_ROY_IN_POWER = yes
-			}
+			nationalist_monarchists_are_in_power = yes
 		}
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_ROY_ENDOGENOUS_DEVELOPMENT"
-			MAD_build_nuclear_facility_in_available_state = yes
 			random_owned_state = {
 				add_extra_state_shared_building_slots = 1
 				add_building_construction = { type = industrial_complex level = 1 instant_build = yes }
@@ -9200,20 +9133,17 @@ focus_tree = {
 	focus = {
 		id = MAD_POL_ROY_SACRED_HERITAGE
 		icon = focus_tradition
-		x = 0
+		x = 3
 		y = 1
-		relative_position_id = MAD_POL_ROY_ENDOGENOUS_DEVELOPMENT
+		relative_position_id = MAD_POL_ROY_CROWN_QUESTION
 		cost = 3
-		prerequisite = { focus = MAD_POL_ROY_ENDOGENOUS_DEVELOPMENT }
+		prerequisite = { focus = MAD_POL_ROY_CROWN_QUESTION }
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
 		available = {
-			custom_trigger_tooltip = {
-				tooltip = MAD_ROY_CRPM_IN_POWER_tt
-				MAD_ROY_IN_POWER = yes
-			}
+			nationalist_monarchists_are_in_power = yes
 		}
 
-		completion_reward = {
+				completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_ROY_SACRED_HERITAGE"
 			267 = {
 				add_extra_state_shared_building_slots = 2
@@ -9222,6 +9152,7 @@ focus_tree = {
 			set_temp_variable = { treasury_change = -4.00 }
 			modify_treasury_effect = yes
 			custom_effect_tooltip = MAD_ROY_UNLOCK_HERITAGE_SECTION_TT
+			country_event = { id = mad_royal.4 days = 1 }
 		}
 
 		ai_will_do = {
@@ -9232,17 +9163,14 @@ focus_tree = {
 	focus = {
 		id = MAD_POL_ROY_BIBLICAL_GEOPOLITICS
 		icon = diplomacy
-		x = 0
+		x = 1
 		y = 1
-		relative_position_id = MAD_POL_ROY_SACRED_HERITAGE
+		relative_position_id = MAD_POL_ROY_CROWN_ABOVE_NOBILITY
 		cost = 3
-		prerequisite = { focus = MAD_POL_ROY_SACRED_HERITAGE }
+		prerequisite = { focus = MAD_POL_ROY_CROWN_ABOVE_NOBILITY }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
-			custom_trigger_tooltip = {
-				tooltip = MAD_ROY_CRPM_IN_POWER_tt
-				MAD_ROY_IN_POWER = yes
-			}
+			nationalist_monarchists_are_in_power = yes
 		}
 
 		completion_reward = {
@@ -9259,16 +9187,13 @@ focus_tree = {
 		id = MAD_POL_ROY_TRUE_SOVEREIGNTY
 		icon = generic_nationalism
 		x = 0
-		y = 2
-		relative_position_id = MAD_POL_ROY_BIBLICAL_GEOPOLITICS
+		y = 1
+		relative_position_id = MAD_POL_ROY_ENDOGENOUS_DEVELOPMENT
 		cost = 3
-		prerequisite = { focus = MAD_POL_ROY_BIBLICAL_GEOPOLITICS }
+		prerequisite = { focus = MAD_POL_ROY_ENDOGENOUS_DEVELOPMENT }
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
 		available = {
-			custom_trigger_tooltip = {
-				tooltip = MAD_ROY_CRPM_IN_POWER_tt
-				MAD_ROY_IN_POWER = yes
-			}
+			nationalist_monarchists_are_in_power = yes
 		}
 
 		completion_reward = {
@@ -9290,15 +9215,12 @@ focus_tree = {
 		icon = focus_IRQ_approach_tribes_for_support
 		x = 0
 		y = 1
-		relative_position_id = MAD_POL_ROY_TRUE_SOVEREIGNTY
+		relative_position_id = MAD_POL_ROY_ANTENIMIERAN_ANDRIANA
 		cost = 3
-		prerequisite = { focus = MAD_POL_ROY_TRUE_SOVEREIGNTY }
+		prerequisite = { focus = MAD_POL_ROY_ANTENIMIERAN_ANDRIANA }
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
 		available = {
-			custom_trigger_tooltip = {
-				tooltip = MAD_ROY_CRPM_IN_POWER_tt
-				MAD_ROY_IN_POWER = yes
-			}
+			nationalist_monarchists_are_in_power = yes
 		}
 
 		completion_reward = {
@@ -9327,22 +9249,23 @@ focus_tree = {
 		icon = monarchism
 		x = 0
 		y = 1
-		relative_position_id = MAD_POL_ROY_REGIONAL_HOUSES
+		relative_position_id = MAD_POL_ROY_KINGS_MANDATE
 		cost = 3
-		prerequisite = { focus = MAD_POL_ROY_REGIONAL_HOUSES }
+		prerequisite = { focus = MAD_POL_ROY_KINGS_MANDATE }
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
 		available = {
-			custom_trigger_tooltip = {
-				tooltip = MAD_ROY_CRPM_IN_POWER_tt
-				MAD_ROY_IN_POWER = yes
-			}
+			nationalist_monarchists_are_in_power = yes
+			has_country_flag = MAD_TAMIMA_LEADERSHIP_NDRIANA
 		}
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_ROY_NEW_KINGDOM"
+			swap_ideas = {
+				remove_idea = MAD_POL_ROYAL_CONSTITUTION
+				add_idea = MAD_POL_CHRISTOCRATIC_STATE
+			}
 			add_ideas = MAD_POL_ROYAL_CONSOLIDATION
 			increase_social_spending = yes
-			
 			set_temp_variable = { party_index = 23 }
 			set_temp_variable = { party_popularity_increase = 0.05 }
 			set_temp_variable = { temp_outlook_increase = 0.05 }
@@ -9358,17 +9281,14 @@ focus_tree = {
 	focus = {
 		id = MAD_POL_ROY_FFKM_CONCORDAT
 		icon = Generic_Religious_Unity
-		x = -2
+		x = 0
 		y = 1
 		relative_position_id = MAD_POL_ROY_CROWN_ABOVE_NOBILITY
 		cost = 3
 		prerequisite = { focus = MAD_POL_ROY_CROWN_ABOVE_NOBILITY }
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
 		available = {
-			custom_trigger_tooltip = {
-				tooltip = MAD_ROY_CRPM_IN_POWER_tt
-				MAD_ROY_IN_POWER = yes
-			}
+			nationalist_monarchists_are_in_power = yes
 		}
 
 		completion_reward = {
@@ -9391,17 +9311,14 @@ focus_tree = {
 	focus = {
 		id = MAD_POL_ROY_PEOPLES_GUARDIANS
 		icon = Generic_Policeman
-		x = -2
-		y = 1
+		x = 0
+		y = 2
 		relative_position_id = MAD_POL_ROY_CHRIST_KING
 		cost = 3
 		prerequisite = { focus = MAD_POL_ROY_CHRIST_KING }
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ARMY_BONUS }
 		available = {
-			custom_trigger_tooltip = {
-				tooltip = MAD_ROY_CRPM_IN_POWER_tt
-				MAD_ROY_IN_POWER = yes
-			}
+			nationalist_monarchists_are_in_power = yes
 		}
 
 		completion_reward = {
@@ -9443,17 +9360,14 @@ focus_tree = {
 	focus = {
 		id = MAD_POL_ROY_ISRAEL_AGRITECH
 		icon = agriculture
-		x = -2
-		y = 1
+		x = 0
+		y = 2
 		relative_position_id = MAD_POL_ROY_BIBLICAL_GEOPOLITICS
 		cost = 3
 		prerequisite = { focus = MAD_POL_ROY_BIBLICAL_GEOPOLITICS }
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ECONOMY }
 		available = {
-			custom_trigger_tooltip = {
-				tooltip = MAD_ROY_CRPM_IN_POWER_tt
-				MAD_ROY_IN_POWER = yes
-			}
+			nationalist_monarchists_are_in_power = yes
 			custom_trigger_tooltip = {
 				tooltip = MAD_ROY_ISRAEL_TIES_tt
 				OR = {
@@ -9497,10 +9411,7 @@ focus_tree = {
 		prerequisite = { focus = MAD_POL_ROY_ISRAEL_AGRITECH }
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ARMY_BONUS }
 		available = {
-			custom_trigger_tooltip = {
-				tooltip = MAD_ROY_CRPM_IN_POWER_tt
-				MAD_ROY_IN_POWER = yes
-			}
+			nationalist_monarchists_are_in_power = yes
 			custom_trigger_tooltip = {
 				tooltip = MAD_ROY_ISRAEL_COVENANT_tt
 				has_country_flag = MAD_ROY_ISRAEL_COVENANT
@@ -9524,7 +9435,6 @@ focus_tree = {
 				uses = 1
 				bonus = 0.25
 			}
-			add_named_threat = { threat = 2 name = "Madagascar Hosts Israeli Military Advisers" }
 			custom_effect_tooltip = MAD_ROY_UNLOCK_ISRAEL_SECTION_TT
 		}
 
@@ -9536,21 +9446,15 @@ focus_tree = {
 	focus = {
 		id = MAD_POL_ROY_ISLANDS_WAIT
 		icon = diplomacy
-		x = 1
+		x = 0
 		y = 1
-		relative_position_id = MAD_POL_ROY_BIBLICAL_GEOPOLITICS
+		relative_position_id = MAD_POL_ROY_NEW_KINGDOM
 		cost = 3
-		prerequisite = { focus = MAD_POL_ROY_BIBLICAL_GEOPOLITICS }
+		prerequisite = { focus = MAD_POL_ROY_NEW_KINGDOM }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
-			custom_trigger_tooltip = {
-				tooltip = MAD_ROY_CRPM_IN_POWER_tt
-				MAD_ROY_IN_POWER = yes
-			}
-			custom_trigger_tooltip = {
-				tooltip = MAD_ROY_ISRAEL_NEUTRAL_tt
-				has_country_flag = MAD_ROY_ISRAEL_NEUTRAL
-			}
+			nationalist_monarchists_are_in_power = yes
+			has_country_flag = MAD_TAMIMA_LEADERSHIP_NDRIANA
 		}
 
 		completion_reward = {
@@ -9584,17 +9488,13 @@ focus_tree = {
 		icon = Focus_generic_monarchist_sentiment
 		x = 0
 		y = 1
-		relative_position_id = MAD_POL_ROY_LIVING_FORCES
+		relative_position_id = MAD_POL_ROY_COUNCIL_OF_KINGS
 		cost = 3
-		prerequisite = { focus = MAD_POL_ROY_COUNCIL_OF_KINGS focus = MAD_POL_ROY_LIVING_FORCES }
-		mutually_exclusive = { focus = MAD_POL_ROY_KINGS_MANDATE }
+		prerequisite = { focus = MAD_POL_ROY_COUNCIL_OF_KINGS }
+
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
-			custom_trigger_tooltip = {
-				tooltip = MAD_ROY_TAMIMA_IN_POWER_tt
-				MAD_TAMIMA_IN_POWER = yes
-			}
-			has_country_flag = MAD_TAMIMA_COUNCIL
+			nationalist_monarchists_are_in_power = yes
 		}
 
 		completion_reward = {
@@ -9602,7 +9502,7 @@ focus_tree = {
 			add_ideas = MAD_POL_TAMIMA_COUNCIL
 			custom_effect_tooltip = MAD_TAMIMA_UNLOCK_HOUSE_AFFAIRS_SECTION_TT
 			
-			set_temp_variable = { party_index = 15 }
+			set_temp_variable = { party_index = 23 }
 			set_temp_variable = { party_popularity_increase = 0.03 }
 			set_temp_variable = { temp_outlook_increase = 0.03 }
 			change_relative_party_popularity = yes
@@ -9624,10 +9524,7 @@ focus_tree = {
 		prerequisite = { focus = MAD_POL_ROY_TAMIMA_COUNCIL }
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
 		available = {
-			custom_trigger_tooltip = {
-				tooltip = MAD_ROY_TAMIMA_IN_POWER_tt
-				MAD_TAMIMA_IN_POWER = yes
-			}
+			nationalist_monarchists_are_in_power = yes
 		}
 
 		completion_reward = {
@@ -9663,10 +9560,7 @@ focus_tree = {
 		prerequisite = { focus = MAD_POL_ROY_FIHAVANANA }
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ECONOMY }
 		available = {
-			custom_trigger_tooltip = {
-				tooltip = MAD_ROY_TAMIMA_IN_POWER_tt
-				MAD_TAMIMA_IN_POWER = yes
-			}
+			nationalist_monarchists_are_in_power = yes
 		}
 
 		completion_reward = {
@@ -9704,15 +9598,12 @@ focus_tree = {
 		icon = focus_generic_court
 		x = 0
 		y = 1
-		relative_position_id = MAD_POL_ROY_ANTENIMIERAN_ANDRIANA
+		relative_position_id = MAD_POL_ROY_LIVING_FORCES
 		cost = 3
-		prerequisite = { focus = MAD_POL_ROY_ANTENIMIERAN_ANDRIANA }
+		prerequisite = { focus = MAD_POL_ROY_LIVING_FORCES }
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY FOCUS_FILTER_ECONOMY }
 		available = {
-			custom_trigger_tooltip = {
-				tooltip = MAD_ROY_TAMIMA_IN_POWER_tt
-				MAD_TAMIMA_IN_POWER = yes
-			}
+			nationalist_monarchists_are_in_power = yes
 		}
 
 		completion_reward = {
@@ -9779,10 +9670,7 @@ focus_tree = {
 		prerequisite = { focus = MAD_POL_ROY_TAMIMA_REPRESENT_LIVING_FORCES }
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY FOCUS_FILTER_ECONOMY }
 		available = {
-			custom_trigger_tooltip = {
-				tooltip = MAD_ROY_TAMIMA_IN_POWER_tt
-				MAD_TAMIMA_IN_POWER = yes
-			}
+			nationalist_monarchists_are_in_power = yes
 		}
 
 		completion_reward = {
@@ -9833,10 +9721,7 @@ focus_tree = {
 		prerequisite = { focus = MAD_POL_ROY_RESTORE_FOKONOLONA }
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
 		available = {
-			custom_trigger_tooltip = {
-				tooltip = MAD_ROY_TAMIMA_IN_POWER_tt
-				MAD_TAMIMA_IN_POWER = yes
-			}
+			nationalist_monarchists_are_in_power = yes
 		}
 
 		completion_reward = {
@@ -9867,16 +9752,13 @@ focus_tree = {
 		id = MAD_POL_ROY_TAMIMA_SACRED_HERITAGE
 		icon = focus_tradition
 		x = 0
-		y = 1
-		relative_position_id = MAD_POL_ROY_DINA_CUSTOMARY_JUSTICE
+		y = 4
+		relative_position_id = MAD_POL_ROY_SACRED_HERITAGE
 		cost = 3
-		prerequisite = { focus = MAD_POL_ROY_DINA_CUSTOMARY_JUSTICE }
+		prerequisite = { focus = MAD_POL_ROY_SACRED_HERITAGE }
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
 		available = {
-			custom_trigger_tooltip = {
-				tooltip = MAD_ROY_TAMIMA_IN_POWER_tt
-				MAD_TAMIMA_IN_POWER = yes
-			}
+			nationalist_monarchists_are_in_power = yes
 		}
 
 		completion_reward = {
@@ -9887,7 +9769,6 @@ focus_tree = {
 				set_temp_variable = { LR_change = 0.04 }
 				update_literacy_rate = yes
 			}
-			country_event = { id = mad_royal.4 days = 1 }
 		}
 
 		ai_will_do = {
@@ -9899,16 +9780,14 @@ focus_tree = {
 		id = MAD_POL_ROY_CROWNLESS_CONSTITUTION
 		icon = monarchism_constitution
 		x = 0
-		y = 1
-		relative_position_id = MAD_POL_ROY_TAMIMA_SACRED_HERITAGE
+		y = 2
+		relative_position_id = MAD_POL_ROY_ONE_MADAGASCAR_MANY_HOUSES_FINAL
 		cost = 3
-		prerequisite = { focus = MAD_POL_ROY_TAMIMA_SACRED_HERITAGE }
+		prerequisite = { focus = MAD_POL_ROY_ONE_MADAGASCAR_MANY_HOUSES_FINAL }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
-			custom_trigger_tooltip = {
-				tooltip = MAD_ROY_TAMIMA_IN_POWER_tt
-				MAD_TAMIMA_IN_POWER = yes
-			}
+			nationalist_monarchists_are_in_power = yes
+			has_country_flag = MAD_TAMIMA_LEADERSHIP_COUNCIL
 		}
 
 		completion_reward = {
@@ -9932,17 +9811,20 @@ focus_tree = {
 	focus = {
 		id = MAD_POL_ROY_ONE_MADAGASCAR_MANY_HOUSES_FINAL
 		icon = national_unity
-		x = 0
-		y = 1
-		relative_position_id = MAD_POL_ROY_CROWNLESS_CONSTITUTION
+		x = 1
+		y = 2
+		relative_position_id = MAD_POL_ROY_LEGAL_ORDER
 		cost = 3
-		prerequisite = { focus = MAD_POL_ROY_CROWNLESS_CONSTITUTION }
+		prerequisite = {
+			focus = MAD_POL_ROY_REGIONAL_HOUSES
+			focus = MAD_POL_ROY_LEGAL_ORDER
+			focus = MAD_POL_ROY_TRUE_SOVEREIGNTY
+			focus = MAD_POL_ROY_TAMIMA_SACRED_HERITAGE
+			focus = MAD_POL_ROY_PEOPLES_GUARDIANS
+		}
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
 		available = {
-			custom_trigger_tooltip = {
-				tooltip = MAD_ROY_TAMIMA_IN_POWER_tt
-				MAD_TAMIMA_IN_POWER = yes
-			}
+			nationalist_monarchists_are_in_power = yes
 		}
 
 		completion_reward = {
@@ -9960,24 +9842,22 @@ focus_tree = {
 		icon = generic_government
 		x = 0
 		y = 1
-		relative_position_id = MAD_POL_ROY_ONE_MADAGASCAR_MANY_HOUSES_FINAL
+		relative_position_id = MAD_POL_ROY_CROWNLESS_CONSTITUTION
 		cost = 3
-		prerequisite = { focus = MAD_POL_ROY_ONE_MADAGASCAR_MANY_HOUSES_FINAL }
+		prerequisite = { focus = MAD_POL_ROY_CROWNLESS_CONSTITUTION }
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
 		available = {
-			custom_trigger_tooltip = {
-				tooltip = MAD_ROY_TAMIMA_IN_POWER_tt
-				MAD_TAMIMA_IN_POWER = yes
-			}
+			nationalist_monarchists_are_in_power = yes
+			has_country_flag = MAD_TAMIMA_LEADERSHIP_COUNCIL
 		}
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_ROY_TAMIMA_COUNCIL_GOVERNMENT"
 			add_ideas = MAD_POL_TAMIMA_GOVERNANCE
-			set_politics = { ruling_party = neutrality elections_allowed = yes }
+
 			set_temp_variable = { threshold_change = -0.02 }
 			modify_election_threshold = yes
-			set_temp_variable = { party_index = 15 }
+			set_temp_variable = { party_index = 23 }
 			set_temp_variable = { party_popularity_increase = 0.05 }
 			set_temp_variable = { temp_outlook_increase = 0.05 }
 			change_relative_party_popularity = yes
@@ -10139,7 +10019,7 @@ focus_tree = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_MIL_IN_POWER_tt
-				MAD_MIL_IN_POWER = yes
+				nationalist_military_junta_are_in_power = yes
 			}
 		}
 
@@ -10185,7 +10065,7 @@ focus_tree = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_MIL_IN_POWER_tt
-				MAD_MIL_IN_POWER = yes
+				nationalist_military_junta_are_in_power = yes
 			}
 			has_country_flag = MAD_ARMY_COMMAND_DECIDED
 		}
@@ -10212,7 +10092,7 @@ focus_tree = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_MIL_IN_POWER_tt
-				MAD_MIL_IN_POWER = yes
+				nationalist_military_junta_are_in_power = yes
 			}
 			MAD_POL_MIL_POST_2025_ROUTE_AVAILABLE = yes
 			OR = {
@@ -10243,7 +10123,7 @@ focus_tree = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_MIL_IN_POWER_tt
-				MAD_MIL_IN_POWER = yes
+				nationalist_military_junta_are_in_power = yes
 			}
 			has_country_flag = MAD_ARMY_COMMAND_GENERAL_STAFF
 		}
@@ -10272,7 +10152,7 @@ focus_tree = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_MIL_IN_POWER_tt
-				MAD_MIL_IN_POWER = yes
+				nationalist_military_junta_are_in_power = yes
 			}
 			has_country_flag = MAD_ARMY_COMMAND_GENERAL_STAFF
 		}
@@ -10299,7 +10179,7 @@ focus_tree = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_MIL_IN_POWER_tt
-				MAD_MIL_IN_POWER = yes
+				nationalist_military_junta_are_in_power = yes
 			}
 		}
 
@@ -10327,7 +10207,7 @@ focus_tree = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_MIL_IN_POWER_tt
-				MAD_MIL_IN_POWER = yes
+				nationalist_military_junta_are_in_power = yes
 			}
 		}
 
@@ -10367,7 +10247,7 @@ focus_tree = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_MIL_IN_POWER_tt
-				MAD_MIL_IN_POWER = yes
+				nationalist_military_junta_are_in_power = yes
 			}
 		}
 		completion_reward = {
@@ -10401,7 +10281,7 @@ focus_tree = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_MIL_IN_POWER_tt
-				MAD_MIL_IN_POWER = yes
+				nationalist_military_junta_are_in_power = yes
 			}
 		}
 
@@ -10451,7 +10331,7 @@ focus_tree = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_MIL_IN_POWER_tt
-				MAD_MIL_IN_POWER = yes
+				nationalist_military_junta_are_in_power = yes
 			}
 		}
 
@@ -10508,7 +10388,7 @@ focus_tree = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_MIL_IN_POWER_tt
-				MAD_MIL_IN_POWER = yes
+				nationalist_military_junta_are_in_power = yes
 			}
 			has_country_flag = MAD_ARMY_COMMAND_CAPSAT
 		}
@@ -10540,7 +10420,7 @@ focus_tree = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_MIL_IN_POWER_tt
-				MAD_MIL_IN_POWER = yes
+				nationalist_military_junta_are_in_power = yes
 			}
 			has_country_flag = MAD_ARMY_COMMAND_CAPSAT
 			MAD_POL_MIL_POST_2025_ROUTE_AVAILABLE = yes
@@ -10568,7 +10448,7 @@ focus_tree = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_MIL_IN_POWER_tt
-				MAD_MIL_IN_POWER = yes
+				nationalist_military_junta_are_in_power = yes
 			}
 			has_country_flag = MAD_ARMY_COMMAND_CAPSAT
 			MAD_POL_MIL_POST_2025_ROUTE_AVAILABLE = yes
@@ -10596,7 +10476,7 @@ focus_tree = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_MIL_IN_POWER_tt
-				MAD_MIL_IN_POWER = yes
+				nationalist_military_junta_are_in_power = yes
 			}
 			has_country_flag = MAD_ARMY_COMMAND_CAPSAT
 			MAD_POL_MIL_POST_2025_ROUTE_AVAILABLE = yes
@@ -10624,7 +10504,7 @@ focus_tree = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_MIL_IN_POWER_tt
-				MAD_MIL_IN_POWER = yes
+				nationalist_military_junta_are_in_power = yes
 			}
 			has_country_flag = MAD_ARMY_COMMAND_CAPSAT
 			MAD_POL_MIL_POST_2025_ROUTE_AVAILABLE = yes
@@ -10652,7 +10532,7 @@ focus_tree = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_MIL_IN_POWER_tt
-				MAD_MIL_IN_POWER = yes
+				nationalist_military_junta_are_in_power = yes
 			}
 			has_country_flag = MAD_ARMY_COMMAND_CAPSAT
 			MAD_POL_MIL_POST_2025_ROUTE_AVAILABLE = yes
@@ -10680,7 +10560,7 @@ focus_tree = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_MIL_IN_POWER_tt
-				MAD_MIL_IN_POWER = yes
+				nationalist_military_junta_are_in_power = yes
 			}
 			MAD_POL_MIL_POST_2025_ROUTE_AVAILABLE = yes
 			OR = {
@@ -10712,7 +10592,7 @@ focus_tree = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_MIL_IN_POWER_tt
-				MAD_MIL_IN_POWER = yes
+				nationalist_military_junta_are_in_power = yes
 			}
 			custom_trigger_tooltip = {
 				tooltip = MAD_MIL_POST_2025_ROUTE_TT
@@ -10743,7 +10623,7 @@ focus_tree = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_MIL_IN_POWER_tt
-				MAD_MIL_IN_POWER = yes
+				nationalist_military_junta_are_in_power = yes
 			}
 			custom_trigger_tooltip = {
 				tooltip = MAD_MIL_POST_2025_ROUTE_TT
@@ -10775,7 +10655,7 @@ focus_tree = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_MIL_IN_POWER_tt
-				MAD_MIL_IN_POWER = yes
+				nationalist_military_junta_are_in_power = yes
 			}
 			MAD_POL_MIL_POST_2025_ROUTE_AVAILABLE = yes
 		}
@@ -10802,7 +10682,7 @@ focus_tree = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_MIL_IN_POWER_tt
-				MAD_MIL_IN_POWER = yes
+				nationalist_military_junta_are_in_power = yes
 			}
 			MAD_POL_MIL_POST_2025_ROUTE_AVAILABLE = yes
 		}
@@ -10829,7 +10709,7 @@ focus_tree = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_MIL_IN_POWER_tt
-				MAD_MIL_IN_POWER = yes
+				nationalist_military_junta_are_in_power = yes
 			}
 			MAD_POL_MIL_POST_2025_ROUTE_AVAILABLE = yes
 			has_country_flag = MAD_MIL_NATIONAL_CONSULTATION_DONE
@@ -10857,7 +10737,7 @@ focus_tree = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_MIL_IN_POWER_tt
-				MAD_MIL_IN_POWER = yes
+				nationalist_military_junta_are_in_power = yes
 			}
 			MAD_POL_MIL_POST_2025_ROUTE_AVAILABLE = yes
 		}
@@ -10884,7 +10764,7 @@ focus_tree = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_MIL_IN_POWER_tt
-				MAD_MIL_IN_POWER = yes
+				nationalist_military_junta_are_in_power = yes
 			}
 			MAD_POL_MIL_POST_2025_ROUTE_AVAILABLE = yes
 			has_country_flag = MAD_MIL_NATIONAL_CONSULTATION_DONE
@@ -10913,7 +10793,7 @@ focus_tree = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_MIL_IN_POWER_tt
-				MAD_MIL_IN_POWER = yes
+				nationalist_military_junta_are_in_power = yes
 			}
 			custom_trigger_tooltip = {
 				tooltip = MAD_MIL_POST_2025_ROUTE_TT
@@ -10937,7 +10817,7 @@ focus_tree = {
 		id = MAD_POL_MIL_GENERAL_STAFF_CONSTITUTIONAL_OVERSIGHT
 		icon = Focus_Parliament_Constitution
 		x = -2
-		y = -1
+		y = -2
 		relative_position_id = MAD_POL_MIL_PROFESSIONAL_OFFICERS
 		cost = 3
 		prerequisite = { focus = MAD_POL_MIL_CIVILIAN_GUARDIANSHIP }
@@ -10945,7 +10825,7 @@ focus_tree = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_MIL_IN_POWER_tt
-				MAD_MIL_IN_POWER = yes
+				nationalist_military_junta_are_in_power = yes
 			}
 			has_country_flag = MAD_ARMY_COMMAND_GENERAL_STAFF
 			MAD_POL_MIL_POST_2025_ROUTE_AVAILABLE = yes
@@ -10973,7 +10853,7 @@ focus_tree = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_MIL_IN_POWER_tt
-				MAD_MIL_IN_POWER = yes
+				nationalist_military_junta_are_in_power = yes
 			}
 			MAD_POL_MIL_POST_2025_ROUTE_AVAILABLE = yes
 			has_idea = MAD_MIL_PUBLIC_INTEGRITY_II
@@ -11005,7 +10885,7 @@ focus_tree = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_MIL_IN_POWER_tt
-				MAD_MIL_IN_POWER = yes
+				nationalist_military_junta_are_in_power = yes
 			}
 			MAD_POL_MIL_POST_2025_ROUTE_AVAILABLE = yes
 		}
@@ -11032,7 +10912,7 @@ focus_tree = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_MIL_IN_POWER_tt
-				MAD_MIL_IN_POWER = yes
+				nationalist_military_junta_are_in_power = yes
 			}
 			MAD_POL_MIL_POST_2025_ROUTE_AVAILABLE = yes
 		}
@@ -11059,7 +10939,7 @@ focus_tree = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_MIL_IN_POWER_tt
-				MAD_MIL_IN_POWER = yes
+				nationalist_military_junta_are_in_power = yes
 			}
 			custom_trigger_tooltip = {
 				tooltip = MAD_MIL_POST_2025_ROUTE_TT
@@ -11095,7 +10975,7 @@ focus_tree = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_MIL_IN_POWER_tt
-				MAD_MIL_IN_POWER = yes
+				nationalist_military_junta_are_in_power = yes
 			}
 			custom_trigger_tooltip = {
 				tooltip = MAD_MIL_POST_2025_ROUTE_TT
@@ -11126,7 +11006,7 @@ focus_tree = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_MIL_IN_POWER_tt
-				MAD_MIL_IN_POWER = yes
+				nationalist_military_junta_are_in_power = yes
 			}
 			MAD_POL_MIL_POST_2025_ROUTE_AVAILABLE = yes
 		}
@@ -11153,7 +11033,7 @@ focus_tree = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_MIL_IN_POWER_tt
-				MAD_MIL_IN_POWER = yes
+				nationalist_military_junta_are_in_power = yes
 			}
 			custom_trigger_tooltip = {
 				tooltip = MAD_MIL_POST_2025_ROUTE_TT
@@ -11192,7 +11072,7 @@ focus_tree = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_MIL_IN_POWER_tt
-				MAD_MIL_IN_POWER = yes
+				nationalist_military_junta_are_in_power = yes
 			}
 			custom_trigger_tooltip = {
 				tooltip = MAD_MIL_POST_2025_ROUTE_TT
@@ -11224,7 +11104,7 @@ focus_tree = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_MIL_IN_POWER_tt
-				MAD_MIL_IN_POWER = yes
+				nationalist_military_junta_are_in_power = yes
 			}
 			custom_trigger_tooltip = {
 				tooltip = MAD_MIL_POST_2025_ROUTE_TT
@@ -11274,7 +11154,7 @@ focus_tree = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_MIL_IN_POWER_tt
-				MAD_MIL_IN_POWER = yes
+				nationalist_military_junta_are_in_power = yes
 			}
 			MAD_POL_MIL_POST_2025_ROUTE_AVAILABLE = yes
 		}
@@ -11301,7 +11181,7 @@ focus_tree = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_MIL_IN_POWER_tt
-				MAD_MIL_IN_POWER = yes
+				nationalist_military_junta_are_in_power = yes
 			}
 			MAD_POL_MIL_POST_2025_ROUTE_AVAILABLE = yes
 		}
@@ -11328,7 +11208,7 @@ focus_tree = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_MIL_IN_POWER_tt
-				MAD_MIL_IN_POWER = yes
+				nationalist_military_junta_are_in_power = yes
 			}
 			custom_trigger_tooltip = {
 				tooltip = MAD_MIL_POST_2025_ROUTE_TT
@@ -11362,7 +11242,7 @@ focus_tree = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_MIL_IN_POWER_tt
-				MAD_MIL_IN_POWER = yes
+				nationalist_military_junta_are_in_power = yes
 			}
 			OR = {
 				has_completed_focus = MAD_pol_mil_capsat_state_establishment
@@ -11402,7 +11282,7 @@ focus_tree = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_MIL_IN_POWER_tt
-				MAD_MIL_IN_POWER = yes
+				nationalist_military_junta_are_in_power = yes
 			}
 			has_completed_focus = MAD_TELMA_MARITIME_DOMAIN_NETWORK
 		}
@@ -11432,7 +11312,7 @@ focus_tree = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_MIL_IN_POWER_tt
-				MAD_MIL_IN_POWER = yes
+				nationalist_military_junta_are_in_power = yes
 			}
 		}
 
@@ -11490,7 +11370,7 @@ focus_tree = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_AREMA_IN_POWER_tt
-				MAD_AREMA_IN_POWER = yes
+				emerging_anarchist_communism_are_in_power = yes
 			}
 		}
 
@@ -11520,7 +11400,7 @@ focus_tree = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_AREMA_IN_POWER_tt
-				MAD_AREMA_IN_POWER = yes
+				emerging_anarchist_communism_are_in_power = yes
 			}
 		}
 
@@ -11549,7 +11429,7 @@ focus_tree = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_AREMA_IN_POWER_tt
-				MAD_AREMA_IN_POWER = yes
+				emerging_anarchist_communism_are_in_power = yes
 			}
 		}
 
@@ -11576,7 +11456,7 @@ focus_tree = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_AREMA_IN_POWER_tt
-				MAD_AREMA_IN_POWER = yes
+				emerging_anarchist_communism_are_in_power = yes
 			}
 		}
 
@@ -11605,7 +11485,7 @@ focus_tree = {
 		prerequisite = { focus = MAD_POL_AREMA_REBUILD }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 available = {
-			custom_trigger_tooltip = { tooltip = MAD_AREMA_IN_POWER_tt MAD_AREMA_IN_POWER = yes }
+			emerging_anarchist_communism_are_in_power = yes
 			NOT = { has_country_flag = MAD_RATSIRAKA_EXILED }
 			custom_trigger_tooltip = {
 				tooltip = MAD_AREMA_LEADERSHIP_FOCUS_COOLDOWN_tt
@@ -11651,7 +11531,7 @@ available = {
 		prerequisite = { focus = MAD_POL_AREMA_REBUILD }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 available = {
-			custom_trigger_tooltip = { tooltip = MAD_AREMA_IN_POWER_tt MAD_AREMA_IN_POWER = yes }
+			emerging_anarchist_communism_are_in_power = yes
 			custom_trigger_tooltip = {
 				tooltip = MAD_AREMA_LEADERSHIP_FOCUS_COOLDOWN_tt
 				NOT = { has_country_flag = MAD_AREMA_LEADERSHIP_FOCUS_COOLDOWN }
@@ -11700,7 +11580,7 @@ hidden_effect = { kill_country_leader = yes }
 		prerequisite = { focus = MAD_POL_AREMA_REBUILD }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 available = {
-			custom_trigger_tooltip = { tooltip = MAD_TIM_IN_POWER_tt MAD_TIM_IN_POWER = yes }
+			western_liberals_are_in_power = yes
 			has_country_leader = { name = "Marc Ravalomanana" ruling_only = yes }
 			custom_trigger_tooltip = {
 				tooltip = MAD_AREMA_LEADERSHIP_FOCUS_COOLDOWN_tt
@@ -11758,11 +11638,11 @@ available = {
 available = {
 			OR = {
 				AND = {
-					custom_trigger_tooltip = { tooltip = MAD_TIM_IN_POWER_tt MAD_TIM_IN_POWER = yes }
+					western_liberals_are_in_power = yes
 					has_country_flag = MAD_AREMA_LEADER_RAHARIJAONA
 				}
 				AND = {
-					custom_trigger_tooltip = { tooltip = MAD_AREMA_IN_POWER_tt MAD_AREMA_IN_POWER = yes }
+					emerging_anarchist_communism_are_in_power = yes
 					OR = {
 						has_country_flag = MAD_AREMA_LEADER_RATSIRAKA
 						has_country_flag = MAD_AREMA_LEADER_RAJAONARIVELO
@@ -11801,7 +11681,7 @@ available = {
 		prerequisite = { focus = MAD_POL_AREMA_REVOLUTION_ADAPTS }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
-			custom_trigger_tooltip = { tooltip = MAD_AREMA_IN_POWER_tt MAD_AREMA_IN_POWER = yes }
+			emerging_anarchist_communism_are_in_power = yes
 			custom_trigger_tooltip = {
 				tooltip = MAD_AREMA_OLD_GUARD_PATH_tt
 				has_country_flag = MAD_AREMA_LEADER_RATSIRAKA
@@ -11843,7 +11723,7 @@ available = {
 		prerequisite = { focus = MAD_POL_AREMA_REVOLUTIONARY_ORGANISATION }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 available = {
-			custom_trigger_tooltip = { tooltip = MAD_AREMA_IN_POWER_tt MAD_AREMA_IN_POWER = yes }
+			emerging_anarchist_communism_are_in_power = yes
 			custom_trigger_tooltip = { tooltip = MAD_AREMA_OLD_GUARD_PATH_tt has_country_flag = MAD_AREMA_LEADER_RATSIRAKA }
 		}
 
@@ -11867,7 +11747,7 @@ available = {
 		prerequisite = { focus = MAD_POL_AREMA_REVOLUTION_ADAPTS }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
-			custom_trigger_tooltip = { tooltip = MAD_AREMA_IN_POWER_tt MAD_AREMA_IN_POWER = yes }
+			emerging_anarchist_communism_are_in_power = yes
 			custom_trigger_tooltip = {
 				tooltip = MAD_AREMA_RENEWAL_PATH_tt
 				has_country_flag = MAD_AREMA_LEADER_RAJAONARIVELO
@@ -11908,7 +11788,7 @@ available = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_AREMA_IN_POWER_tt
-				MAD_AREMA_IN_POWER = yes
+				emerging_anarchist_communism_are_in_power = yes
 			}
 			custom_trigger_tooltip = {
 				tooltip = MAD_AREMA_RENEWAL_PATH_tt
@@ -11939,7 +11819,7 @@ available = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_AREMA_IN_POWER_tt
-				MAD_AREMA_IN_POWER = yes
+				emerging_anarchist_communism_are_in_power = yes
 			}
 			custom_trigger_tooltip = {
 				tooltip = MAD_AREMA_RENEWAL_PATH_tt
@@ -11970,7 +11850,7 @@ available = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_AREMA_IN_POWER_tt
-				MAD_AREMA_IN_POWER = yes
+				emerging_anarchist_communism_are_in_power = yes
 			}
 			custom_trigger_tooltip = {
 				tooltip = MAD_AREMA_RENEWAL_PATH_tt
@@ -11999,7 +11879,7 @@ available = {
 		prerequisite = { focus = MAD_POL_AREMA_RENEWAL_PROGRAMME }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
-			custom_trigger_tooltip = { tooltip = MAD_AREMA_IN_POWER_tt MAD_AREMA_IN_POWER = yes }
+			emerging_anarchist_communism_are_in_power = yes
 			custom_trigger_tooltip = {
 				tooltip = MAD_AREMA_RENEWAL_PATH_tt
 				has_country_flag = MAD_AREMA_LEADER_RAJAONARIVELO
@@ -12026,7 +11906,7 @@ available = {
 		prerequisite = { focus = MAD_POL_AREMA_CHOOSE_RECONCILIATION }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
-			custom_trigger_tooltip = { tooltip = MAD_TIM_IN_POWER_tt MAD_TIM_IN_POWER = yes }
+			western_liberals_are_in_power = yes
 			custom_trigger_tooltip = {
 				tooltip = MAD_AREMA_RECONCILIATION_PATH_tt
 				has_country_flag = MAD_AREMA_LEADER_RAHARIJAONA
@@ -12070,7 +11950,7 @@ available = {
 		prerequisite = { focus = MAD_POL_AREMA_RECONCILIATION_PACT }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
-			custom_trigger_tooltip = { tooltip = MAD_TIM_IN_POWER_tt MAD_TIM_IN_POWER = yes }
+			western_liberals_are_in_power = yes
 			custom_trigger_tooltip = {
 				tooltip = MAD_AREMA_RECONCILIATION_PATH_tt
 				has_country_flag = MAD_AREMA_LEADER_RAHARIJAONA
@@ -12099,7 +11979,7 @@ available = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_AREMA_IN_POWER_tt
-				MAD_AREMA_IN_POWER = yes
+				emerging_anarchist_communism_are_in_power = yes
 			}
 			
 			custom_trigger_tooltip = {
@@ -12149,7 +12029,7 @@ available = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_AREMA_IN_POWER_tt
-				MAD_AREMA_IN_POWER = yes
+				emerging_anarchist_communism_are_in_power = yes
 			}
 			custom_trigger_tooltip = {
 				tooltip = MAD_AREMA_OLD_GUARD_PATH_tt
@@ -12180,7 +12060,7 @@ available = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_AREMA_IN_POWER_tt
-				MAD_AREMA_IN_POWER = yes
+				emerging_anarchist_communism_are_in_power = yes
 			}
 			custom_trigger_tooltip = {
 				tooltip = MAD_AREMA_OLD_GUARD_PATH_tt
@@ -12211,7 +12091,7 @@ available = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_AREMA_IN_POWER_tt
-				MAD_AREMA_IN_POWER = yes
+				emerging_anarchist_communism_are_in_power = yes
 			}
 			custom_trigger_tooltip = {
 				tooltip = MAD_AREMA_RENEWAL_PATH_tt
@@ -12245,7 +12125,7 @@ available = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_AREMA_IN_POWER_tt
-				MAD_AREMA_IN_POWER = yes
+				emerging_anarchist_communism_are_in_power = yes
 			}
 			custom_trigger_tooltip = {
 				tooltip = MAD_AREMA_OLD_GUARD_PATH_tt
@@ -12289,7 +12169,7 @@ available = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_AREMA_IN_POWER_tt
-				MAD_AREMA_IN_POWER = yes
+				emerging_anarchist_communism_are_in_power = yes
 			}
 			custom_trigger_tooltip = {
 				tooltip = MAD_AREMA_OLD_GUARD_PATH_tt
@@ -12339,7 +12219,7 @@ available = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_AREMA_IN_POWER_tt
-				MAD_AREMA_IN_POWER = yes
+				emerging_anarchist_communism_are_in_power = yes
 			}
 			custom_trigger_tooltip = {
 				tooltip = MAD_AREMA_OLD_GUARD_PATH_tt
@@ -12389,7 +12269,7 @@ available = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_AREMA_IN_POWER_tt
-				MAD_AREMA_IN_POWER = yes
+				emerging_anarchist_communism_are_in_power = yes
 			}
 			custom_trigger_tooltip = {
 				tooltip = MAD_AREMA_RENEWAL_PATH_tt
@@ -12442,7 +12322,7 @@ available = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_AREMA_IN_POWER_tt
-				MAD_AREMA_IN_POWER = yes
+				emerging_anarchist_communism_are_in_power = yes
 			}
 			custom_trigger_tooltip = {
 				tooltip = MAD_AREMA_OLD_GUARD_PATH_tt
@@ -12502,7 +12382,7 @@ available = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_AREMA_IN_POWER_tt
-				MAD_AREMA_IN_POWER = yes
+				emerging_anarchist_communism_are_in_power = yes
 			}
 			custom_trigger_tooltip = {
 				tooltip = MAD_AREMA_RENEWAL_PATH_tt
@@ -12536,7 +12416,7 @@ available = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_AREMA_IN_POWER_tt
-				MAD_AREMA_IN_POWER = yes
+				emerging_anarchist_communism_are_in_power = yes
 			}
 			custom_trigger_tooltip = {
 				tooltip = MAD_AREMA_RENEWAL_PATH_tt
@@ -12568,7 +12448,7 @@ available = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_AREMA_IN_POWER_tt
-				MAD_AREMA_IN_POWER = yes
+				emerging_anarchist_communism_are_in_power = yes
 			}
 			custom_trigger_tooltip = {
 				tooltip = MAD_AREMA_OLD_GUARD_PATH_tt
@@ -12651,7 +12531,7 @@ available = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_AREMA_IN_POWER_tt
-				MAD_AREMA_IN_POWER = yes
+				emerging_anarchist_communism_are_in_power = yes
 			}
 			custom_trigger_tooltip = {
 				tooltip = MAD_AREMA_OLD_GUARD_PATH_tt
@@ -12710,7 +12590,7 @@ available = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_AREMA_IN_POWER_tt
-				MAD_AREMA_IN_POWER = yes
+				emerging_anarchist_communism_are_in_power = yes
 			}
 			
 			custom_trigger_tooltip = {
@@ -12756,7 +12636,7 @@ available = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_AREMA_IN_POWER_tt
-				MAD_AREMA_IN_POWER = yes
+				emerging_anarchist_communism_are_in_power = yes
 			}
 			OR = {
 				has_country_flag = MAD_AREMA_LEADER_RATSIRAKA
@@ -12799,7 +12679,7 @@ available = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_AREMA_IN_POWER_tt
-				MAD_AREMA_IN_POWER = yes
+				emerging_anarchist_communism_are_in_power = yes
 			}
 			custom_trigger_tooltip = {
 				tooltip = MAD_AREMA_RENEWAL_PATH_tt
@@ -12843,7 +12723,7 @@ available = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_AREMA_IN_POWER_tt
-				MAD_AREMA_IN_POWER = yes
+				emerging_anarchist_communism_are_in_power = yes
 			}
 			OR = {
 				has_country_flag = MAD_AREMA_LEADER_RATSIRAKA
@@ -12908,7 +12788,7 @@ available = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_AREMA_IN_POWER_tt
-				MAD_AREMA_IN_POWER = yes
+				emerging_anarchist_communism_are_in_power = yes
 			}
 			OR = {
 				AND = {
@@ -12954,7 +12834,7 @@ available = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_AREMA_IN_POWER_tt
-				MAD_AREMA_IN_POWER = yes
+				emerging_anarchist_communism_are_in_power = yes
 			}
 			OR = {
 				AND = {
@@ -12992,7 +12872,7 @@ available = {
 	focus = {
 		id = MAD_POL_TIM_RETURN
 		icon = elections4
-		x = 70
+		x = 58
 		y = 11
 		cost = 3
 		prerequisite = { focus = MAD_POL_PARTIES }
@@ -13000,7 +12880,7 @@ available = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_TIM_IN_POWER_tt
-				MAD_TIM_IN_POWER = yes
+				western_liberals_are_in_power = yes
 			}
 		}
 
@@ -13032,7 +12912,7 @@ available = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_TIM_IN_POWER_tt
-				MAD_TIM_IN_POWER = yes
+				western_liberals_are_in_power = yes
 			}
 		}
 
@@ -13065,7 +12945,7 @@ available = {
 		available = {
 			custom_trigger_tooltip = {
 					tooltip = MAD_TIM_IN_POWER_tt
-					MAD_TIM_IN_POWER = yes
+					western_liberals_are_in_power = yes
 				}
 			has_country_flag = MAD_TIM_TIKO_FIREWALL
 		}
@@ -13112,7 +12992,7 @@ available = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_TIM_IN_POWER_tt
-				MAD_TIM_IN_POWER = yes
+				western_liberals_are_in_power = yes
 			}
 			has_idea = MAD_TIM_TIKO_NATIONAL_CHAMPION
 		}
@@ -13192,7 +13072,7 @@ available = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_TIM_IN_POWER_tt
-				MAD_TIM_IN_POWER = yes
+				western_liberals_are_in_power = yes
 			}
 			OR = { has_completed_focus = MAD_POL_TIM_BUSINESS_SEPARATION has_completed_focus = MAD_POL_TIM_NATIONAL_CHAMPION }
 		}
@@ -13220,7 +13100,7 @@ available = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_TIM_IN_POWER_tt
-				MAD_TIM_IN_POWER = yes
+				western_liberals_are_in_power = yes
 			}
 		}
 
@@ -13258,7 +13138,7 @@ available = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_TIM_IN_POWER_tt
-				MAD_TIM_IN_POWER = yes
+				western_liberals_are_in_power = yes
 			}
 		}
 
@@ -13295,7 +13175,7 @@ available = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_TIM_IN_POWER_tt
-				MAD_TIM_IN_POWER = yes
+				western_liberals_are_in_power = yes
 			}
 			has_completed_focus = MAD_POL_TIM_BUSINESS_SEPARATION
 		}
@@ -13335,7 +13215,7 @@ available = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_TIM_IN_POWER_tt
-				MAD_TIM_IN_POWER = yes
+				western_liberals_are_in_power = yes
 			}
 			has_completed_focus = MAD_POL_TIM_NATIONAL_CHAMPION
 		}
@@ -13380,7 +13260,7 @@ available = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_TIM_IN_POWER_tt
-				MAD_TIM_IN_POWER = yes
+				western_liberals_are_in_power = yes
 			}
 		}
 
@@ -13425,7 +13305,7 @@ available = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_TIM_IN_POWER_tt
-				MAD_TIM_IN_POWER = yes
+				western_liberals_are_in_power = yes
 			}
 		}
 
@@ -13458,7 +13338,7 @@ available = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_TIM_IN_POWER_tt
-				MAD_TIM_IN_POWER = yes
+				western_liberals_are_in_power = yes
 			}
 		}
 
@@ -13494,7 +13374,7 @@ available = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_TIM_IN_POWER_tt
-				MAD_TIM_IN_POWER = yes
+				western_liberals_are_in_power = yes
 			}
 			OR = { has_completed_focus = MAD_POL_TIM_TIKO_COMPETITION has_completed_focus = MAD_POL_TIM_DECENTRALISE }
 		}
@@ -13552,7 +13432,7 @@ available = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_TIM_IN_POWER_tt
-				MAD_TIM_IN_POWER = yes
+				western_liberals_are_in_power = yes
 			}
 			OR = { has_completed_focus = MAD_ACCEPT_FOREIGN_OWNERSHIP has_completed_focus = MAD_KOREAN_PURCHASES has_completed_focus = MAD_USA_PURCHASES has_completed_focus = MAD_GERMANY_PURCHASES }
 		}
@@ -13608,7 +13488,7 @@ available = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_TIM_IN_POWER_tt
-				MAD_TIM_IN_POWER = yes
+				western_liberals_are_in_power = yes
 			}
 			has_completed_focus = MAD_Agricultural_reforms
 		}
@@ -13648,7 +13528,7 @@ available = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_TIM_IN_POWER_tt
-				MAD_TIM_IN_POWER = yes
+				western_liberals_are_in_power = yes
 			}
 		}
 
@@ -13688,7 +13568,7 @@ available = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_TIM_IN_POWER_tt
-				MAD_TIM_IN_POWER = yes
+				western_liberals_are_in_power = yes
 			}
 			OR = { power_balance_value = { id = MAD_economy_ownership_bop value < -0.10 } has_completed_focus = MAD_FUEL_LIBERALIZATION has_completed_focus = MAD_JIRAMA_CORPORATIZE has_completed_focus = MAD_MADARAIL_INVESTORS_STAY has_completed_focus = MAD_ACCEPT_FOREIGN_OWNERSHIP }
 		}
@@ -13721,7 +13601,7 @@ available = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_TIM_IN_POWER_tt
-				MAD_TIM_IN_POWER = yes
+				western_liberals_are_in_power = yes
 			}
 			OR = { has_completed_focus = MAD_Rosewood has_completed_focus = MAD_NATURELLE }
 		}
@@ -13797,7 +13677,7 @@ available = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_TIM_IN_POWER_tt
-				MAD_TIM_IN_POWER = yes
+				western_liberals_are_in_power = yes
 			}
 		}
 
@@ -13838,7 +13718,7 @@ available = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_TIM_IN_POWER_tt
-				MAD_TIM_IN_POWER = yes
+				western_liberals_are_in_power = yes
 			}
 		}
 
@@ -13871,7 +13751,7 @@ available = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_TIM_IN_POWER_tt
-				MAD_TIM_IN_POWER = yes
+				western_liberals_are_in_power = yes
 			}
 		}
 
@@ -13896,7 +13776,7 @@ available = {
 	focus = {
 		id = MAD_POL_TGV_YOUTH_READY
 		icon = china_youth_league
-		x = 62
+		x = 73
 		y = 11
 		cost = 3
 		prerequisite = { focus = MAD_POL_PARTIES }
@@ -13939,7 +13819,7 @@ available = {
 	focus = {
 		id = MAD_POL_TGV_2009_LEGACY
 		icon = protest_zloi
-		x = 0
+		x = -1
 		y = 1
 		relative_position_id = MAD_POL_TGV_YOUTH_READY
 		cost = 3
@@ -13948,7 +13828,7 @@ available = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_TGV_IN_POWER_tt
-				MAD_TGV_IN_POWER = yes
+				nationalist_right_wing_populists_are_in_power = yes
 			}
 		}
 
@@ -13984,7 +13864,7 @@ available = {
 		prerequisite = { focus = MAD_POL_TGV_2009_LEGACY }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
-			MAD_TGV_IN_POWER = yes
+			nationalist_right_wing_populists_are_in_power = yes
 		}
 
 		completion_reward = {
@@ -14043,13 +13923,13 @@ available = {
 		id = MAD_POL_TGV_ESTABLISH_FIS
 		icon = political_reform
 		x = 1
-		y = 2
+		y = 1
 		relative_position_id = MAD_POL_TGV_ESTABLISH_CNME
 		cost = 3
 		prerequisite = { focus = MAD_POL_TGV_ESTABLISH_CNME }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
-			MAD_TGV_IN_POWER = yes
+			nationalist_right_wing_populists_are_in_power = yes
 		}
 
 		completion_reward = {
@@ -14073,7 +13953,7 @@ available = {
 		prerequisite = { focus = MAD_POL_TGV_2009_LEGACY }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
-			MAD_TGV_IN_POWER = yes
+			nationalist_right_wing_populists_are_in_power = yes
 			has_country_flag = MAD_TGV_2009_TRANSITIONAL_ROUTE
 		}
 		completion_reward = {
@@ -14093,7 +13973,7 @@ available = {
 		prerequisite = { focus = MAD_POL_TGV_ESTABLISH_CNME }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
-			MAD_TGV_IN_POWER = yes
+			nationalist_right_wing_populists_are_in_power = yes
 			has_country_flag = MAD_TGV_2009_TRANSITIONAL_ROUTE
 			OR = {
 				has_country_flag = MAD_TGV_CNME_INTEGRITY_MODEL_SELECTED
@@ -14117,7 +13997,7 @@ available = {
 		prerequisite = { focus = MAD_POL_TGV_SETTLE_HAT_OFFICER_RELATIONS }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
-			MAD_TGV_IN_POWER = yes
+			nationalist_right_wing_populists_are_in_power = yes
 			has_country_flag = MAD_TGV_2009_TRANSITIONAL_ROUTE
 			OR = {
 				has_country_flag = MAD_MIL_2010_OFFICER_ACCOMMODATION
@@ -14135,14 +14015,14 @@ available = {
 	focus = {
 		id = MAD_POL_TGV_RETAIN_TRANSITION_GUARANTEE
 		icon = Generic_Command_Power
-		x = -2
+		x = 3
 		y = 1
 		relative_position_id = MAD_POL_TGV_RESOLVE_2010_MILITARY_CHALLENGE
 		cost = 3
 		prerequisite = { focus = MAD_POL_TGV_RESOLVE_2010_MILITARY_CHALLENGE }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
-			MAD_TGV_IN_POWER = yes
+			nationalist_right_wing_populists_are_in_power = yes
 			has_country_flag = MAD_TGV_2009_TRANSITIONAL_ROUTE
 			OR = {
 				has_country_flag = MAD_MIL_2010_MUTINY_NEGOTIATED
@@ -14167,7 +14047,7 @@ available = {
 		prerequisite = { focus = MAD_POL_TGV_RESOLVE_2010_MILITARY_CHALLENGE }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
-			MAD_TGV_IN_POWER = yes
+			nationalist_right_wing_populists_are_in_power = yes
 			has_country_flag = MAD_TGV_2009_TRANSITIONAL_ROUTE
 			OR = {
 				has_country_flag = MAD_MIL_2010_MUTINY_NEGOTIATED
@@ -14187,7 +14067,7 @@ available = {
 	focus = {
 		id = MAD_POL_TGV_ENFORCE_CRDSN
 		icon = diplomatic_treaty
-		x = 1
+		x = 2
 		y = 1
 		relative_position_id = MAD_POL_TGV_MAPUTO_CHARTER
 		cost = 3
@@ -14197,7 +14077,7 @@ available = {
 			has_country_flag = MAD_TGV_MAPUTO_IMPLEMENTED
 			custom_trigger_tooltip = {
 				tooltip = MAD_TGV_IN_POWER_tt
-				MAD_TGV_IN_POWER = yes
+				nationalist_right_wing_populists_are_in_power = yes
 			}
 		}
 		completion_reward = {
@@ -14211,7 +14091,7 @@ available = {
 	focus = {
 		id = MAD_POL_TGV_MAPUTO_UNITY_GOVERNMENT
 		icon = diplomatic_treaty
-		x = -1
+		x = 0
 		y = 1
 		relative_position_id = MAD_POL_TGV_MAPUTO_CHARTER
 		cost = 3
@@ -14221,7 +14101,7 @@ available = {
 			has_country_flag = MAD_TGV_MAPUTO_IMPLEMENTED
 			custom_trigger_tooltip = {
 				tooltip = MAD_TGV_IN_POWER_tt
-				MAD_TGV_IN_POWER = yes
+				nationalist_right_wing_populists_are_in_power = yes
 			}
 		}
 		completion_reward = {
@@ -14236,7 +14116,7 @@ available = {
 	focus = {
 		id = MAD_POL_TGV_MAPUTO_LEGISLATURE
 		icon = Focus_Parliament_Constitution
-		x = -3
+		x = -2
 		y = 1
 		relative_position_id = MAD_POL_TGV_MAPUTO_CHARTER
 		cost = 3
@@ -14246,7 +14126,7 @@ available = {
 			has_country_flag = MAD_TGV_MAPUTO_IMPLEMENTED
 			custom_trigger_tooltip = {
 				tooltip = MAD_TGV_IN_POWER_tt
-				MAD_TGV_IN_POWER = yes
+				nationalist_right_wing_populists_are_in_power = yes
 			}
 		}
 		completion_reward = {
@@ -14263,7 +14143,7 @@ available = {
 	focus = {
 		id = MAD_POL_TGV_FORMALISE_MAPUTO_STRUCTURE
 		icon = Focus_Parliament_Constitution
-		x = -1
+		x = 0
 		y = 2
 		relative_position_id = MAD_POL_TGV_MAPUTO_CHARTER
 		cost = 3
@@ -14275,7 +14155,7 @@ available = {
 			has_country_flag = MAD_TGV_MAPUTO_IMPLEMENTED
 			custom_trigger_tooltip = {
 				tooltip = MAD_TGV_IN_POWER_tt
-				MAD_TGV_IN_POWER = yes
+				nationalist_right_wing_populists_are_in_power = yes
 			}
 			custom_trigger_tooltip = {
 				tooltip = MAD_TGV_MAPUTO_SECURITY_SETTLEMENT_TT
@@ -14316,7 +14196,7 @@ available = {
 	focus = {
 		id = MAD_POL_TGV_NATIONAL_DIALOGUE
 		icon = Focus_Parliament_Constitution
-		x = 2
+		x = 4
 		y = 1
 		relative_position_id = MAD_POL_TGV_MAPUTO_CHARTER
 		cost = 3
@@ -14326,7 +14206,7 @@ available = {
 			has_country_flag = MAD_TGV_MAPUTO_UNILATERAL
 			custom_trigger_tooltip = {
 				tooltip = MAD_TGV_IN_POWER_tt
-				MAD_TGV_IN_POWER = yes
+				nationalist_right_wing_populists_are_in_power = yes
 			}
 		}
 		completion_reward = {
@@ -14350,7 +14230,7 @@ available = {
 			has_country_flag = MAD_TGV_MAPUTO_UNILATERAL
 			custom_trigger_tooltip = {
 				tooltip = MAD_TGV_IN_POWER_tt
-				MAD_TGV_IN_POWER = yes
+				nationalist_right_wing_populists_are_in_power = yes
 			}
 		}
 		completion_reward = {
@@ -14378,7 +14258,7 @@ available = {
 			has_country_flag = MAD_TGV_MAPUTO_UNILATERAL
 			custom_trigger_tooltip = {
 				tooltip = MAD_TGV_IN_POWER_tt
-				MAD_TGV_IN_POWER = yes
+				nationalist_right_wing_populists_are_in_power = yes
 			}
 			NOT = { has_completed_focus = MAD_POL_TGV_RETURN_BALLOT }
 		}
@@ -14400,7 +14280,7 @@ available = {
 	focus = {
 		id = MAD_POL_TGV_MAJORITY_GOVERNMENT
 		icon = political_reform
-		x = -6
+		x = -7
 		y = 1
 		relative_position_id = MAD_POL_TGV_THIRTEEN_VELIRANO
 		cost = 3
@@ -14409,7 +14289,7 @@ available = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_TGV_IN_POWER_tt
-				MAD_TGV_IN_POWER = yes
+				nationalist_right_wing_populists_are_in_power = yes
 			}
 		}
 
@@ -14426,7 +14306,7 @@ available = {
 	focus = {
 		id = MAD_POL_TGV_RESTORE_PROVINCES
 		icon = decentralized_economy
-		x = -1
+		x = -2
 		y = 1
 		relative_position_id = MAD_POL_TGV_THIRTEEN_VELIRANO
 		cost = 3
@@ -14435,7 +14315,7 @@ available = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_TGV_IN_POWER_tt
-				MAD_TGV_IN_POWER = yes
+				nationalist_right_wing_populists_are_in_power = yes
 			}
 		}
 
@@ -14461,7 +14341,7 @@ available = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_TGV_IN_POWER_tt
-				MAD_TGV_IN_POWER = yes
+				nationalist_right_wing_populists_are_in_power = yes
 			}
 		}
 
@@ -14478,7 +14358,7 @@ available = {
 	focus = {
 		id = MAD_POL_TGV_CONSTITUTIONAL_HCDN
 		icon = Focus_Parliament_Constitution
-		x = 5
+		x = 4
 		y = 1
 		relative_position_id = MAD_POL_TGV_THIRTEEN_VELIRANO
 		cost = 3
@@ -14487,7 +14367,7 @@ available = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_TGV_IN_POWER_tt
-				MAD_TGV_IN_POWER = yes
+				nationalist_right_wing_populists_are_in_power = yes
 			}
 		}
 
@@ -14504,14 +14384,14 @@ available = {
 	focus = {
 		id = MAD_POL_TGV_2013_OFFICER_PROMOTIONS
 		icon = political_reform
-		x = 3
+		x = 2
 		y = 1
 		relative_position_id = MAD_POL_TGV_THIRTEEN_VELIRANO
 		cost = 3
 		prerequisite = { focus = MAD_POL_TGV_THIRTEEN_VELIRANO }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
-			MAD_TGV_IN_POWER = yes
+			nationalist_right_wing_populists_are_in_power = yes
 		}
 
 		completion_reward = {
@@ -14569,7 +14449,7 @@ available = {
 	focus = {
 		id = MAD_POL_TGV_RETURN_BALLOT
 		icon = Election
-		x = 1
+		x = 2
 		y = 4
 		relative_position_id = MAD_POL_TGV_MAPUTO_CHARTER
 		cost = 3
@@ -14582,7 +14462,7 @@ available = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_TGV_IN_POWER_tt
-				MAD_TGV_IN_POWER = yes
+				nationalist_right_wing_populists_are_in_power = yes
 			}
 		}
 		completion_reward = {
@@ -14661,7 +14541,7 @@ available = {
 	focus = {
 		id = MAD_POL_TGV_ESTABLISH_ETAT_MAJOR_DES_ARMEES
 		icon = military_academy
-		x = -7
+		x = -8
 		y = 2
 		relative_position_id = MAD_POL_TGV_THIRTEEN_VELIRANO
 		cost = 3
@@ -14670,7 +14550,7 @@ available = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_TGV_IN_POWER_tt
-				MAD_TGV_IN_POWER = yes
+				nationalist_right_wing_populists_are_in_power = yes
 			}
 		}
 
@@ -14693,14 +14573,13 @@ available = {
 		relative_position_id = MAD_POL_TGV_RETURN_BALLOT
 		cost = 3
 		prerequisite = {
-			focus = MAD_POL_TGV_RETURN_BALLOT
 			focus = MAD_POL_TGV_YOUTH_READY
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_TGV_IN_POWER_tt
-				MAD_TGV_IN_POWER = yes
+				nationalist_right_wing_populists_are_in_power = yes
 			}
 			OR = {
 				NOT = { has_country_flag = MAD_TGV_2009_TRANSITIONAL_ROUTE }
@@ -14732,7 +14611,7 @@ available = {
 	focus = {
 		id = MAD_pol_tgv_social_protection
 		icon = focus_generic_welfare
-		x = 2
+		x = 1
 		y = 2
 		relative_position_id = MAD_POL_TGV_THIRTEEN_VELIRANO
 		cost = 3
@@ -14741,7 +14620,7 @@ available = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_TGV_IN_POWER_tt
-				MAD_TGV_IN_POWER = yes
+				nationalist_right_wing_populists_are_in_power = yes
 			}
 		}
 
@@ -14758,7 +14637,7 @@ available = {
 	focus = {
 		id = MAD_pol_tgv_sport_culture
 		icon = focus_generic_public_works
-		x = -3
+		x = -4
 		y = 2
 		relative_position_id = MAD_POL_TGV_THIRTEEN_VELIRANO
 		cost = 3
@@ -14767,7 +14646,7 @@ available = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_TGV_IN_POWER_tt
-				MAD_TGV_IN_POWER = yes
+				nationalist_right_wing_populists_are_in_power = yes
 			}
 		}
 
@@ -14784,7 +14663,7 @@ available = {
 	focus = {
 		id = MAD_pol_tgv_fihariana
 		icon = focus_generic_industry_investment
-		x = 4
+		x = 3
 		y = 2
 		relative_position_id = MAD_POL_TGV_THIRTEEN_VELIRANO
 		cost = 3
@@ -14793,7 +14672,7 @@ available = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_TGV_IN_POWER_tt
-				MAD_TGV_IN_POWER = yes
+				nationalist_right_wing_populists_are_in_power = yes
 			}
 		}
 
@@ -14810,7 +14689,7 @@ available = {
 	focus = {
 		id = MAD_pol_tgv_education_for_all
 		icon = focus_generic_education
-		x = -4
+		x = -5
 		y = 1
 		relative_position_id = MAD_POL_TGV_THIRTEEN_VELIRANO
 		cost = 3
@@ -14819,7 +14698,7 @@ available = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_TGV_IN_POWER_tt
-				MAD_TGV_IN_POWER = yes
+				nationalist_right_wing_populists_are_in_power = yes
 			}
 		}
 
@@ -14836,7 +14715,7 @@ available = {
 	focus = {
 		id = MAD_POL_TGV_WATER_PROGRAMME
 		icon = economic_water_supply
-		x = -5
+		x = -6
 		y = 2
 		relative_position_id = MAD_POL_TGV_THIRTEEN_VELIRANO
 		cost = 3
@@ -14845,7 +14724,7 @@ available = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_TGV_IN_POWER_tt
-				MAD_TGV_IN_POWER = yes
+				nationalist_right_wing_populists_are_in_power = yes
 			}
 			OR = { has_completed_focus = MAD_LEAD_PROJECT has_completed_focus = MAD_DROUGHT_and_famine }
 		}
@@ -14887,7 +14766,7 @@ available = {
 	focus = {
 		id = MAD_POL_TGV_EMERGENCE_INITIATIVE
 		icon = construction
-		x = 0
+		x = -1
 		y = 3
 		relative_position_id = MAD_POL_TGV_THIRTEEN_VELIRANO
 		cost = 3
@@ -14896,7 +14775,7 @@ available = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_TGV_IN_POWER_tt
-				MAD_TGV_IN_POWER = yes
+				nationalist_right_wing_populists_are_in_power = yes
 			}
 		}
 
@@ -14935,7 +14814,7 @@ available = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_TGV_IN_POWER_tt
-				MAD_TGV_IN_POWER = yes
+				nationalist_right_wing_populists_are_in_power = yes
 			}
 		}
 
@@ -14961,7 +14840,7 @@ available = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_TGV_IN_POWER_tt
-				MAD_TGV_IN_POWER = yes
+				nationalist_right_wing_populists_are_in_power = yes
 			}
 			has_completed_focus = MAD_Rocade_ring_road
 		}
@@ -15005,7 +14884,7 @@ available = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_TGV_IN_POWER_tt
-				MAD_TGV_IN_POWER = yes
+				nationalist_right_wing_populists_are_in_power = yes
 			}
 			OR = { has_completed_focus = MAD_ACCEPT_FOREIGN_OWNERSHIP has_completed_focus = MAD_Volobe_Amont_DAM has_completed_focus = MAD_TOAMASINA_JICA_EXPANSION }
 		}
@@ -15059,7 +14938,7 @@ available = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_TGV_IN_POWER_tt
-				MAD_TGV_IN_POWER = yes
+				nationalist_right_wing_populists_are_in_power = yes
 			}
 			OR = { has_completed_focus = MAD_JIRAMA_RECOVERY_SUCCEEDS has_completed_focus = MAD_JIRAMA_RECOVERY_FAILS }
 		}
@@ -15111,7 +14990,7 @@ available = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_TGV_IN_POWER_tt
-				MAD_TGV_IN_POWER = yes
+				nationalist_right_wing_populists_are_in_power = yes
 			}
 		}
 
@@ -15158,7 +15037,7 @@ available = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_TGV_IN_POWER_tt
-				MAD_TGV_IN_POWER = yes
+				nationalist_right_wing_populists_are_in_power = yes
 			}
 			OR = { has_completed_focus = MAD_AMBATOVY_OPERATIONAL has_completed_focus = MAD_QMM_CONSTRUCTION has_completed_focus = MAD_mining_code_reform }
 		}
@@ -15200,7 +15079,7 @@ available = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_TGV_IN_POWER_tt
-				MAD_TGV_IN_POWER = yes
+				nationalist_right_wing_populists_are_in_power = yes
 			}
 			has_completed_focus = MAD_Agricultural_reforms
 		}
@@ -15249,7 +15128,7 @@ available = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_TGV_IN_POWER_tt
-				MAD_TGV_IN_POWER = yes
+				nationalist_right_wing_populists_are_in_power = yes
 			}
 			has_completed_focus = MAD_DIGITAL_MADAGASCAR
 		}
@@ -15289,7 +15168,7 @@ available = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_TGV_IN_POWER_tt
-				MAD_TGV_IN_POWER = yes
+				nationalist_right_wing_populists_are_in_power = yes
 			}
 			OR = { has_completed_focus = MAD_Agricultural_reforms has_completed_focus = MAD_mining_code_reform has_completed_focus = MAD_TOURISM_INCOME_BOOST }
 		}
@@ -15343,7 +15222,7 @@ available = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_TGV_IN_POWER_tt
-				MAD_TGV_IN_POWER = yes
+				nationalist_right_wing_populists_are_in_power = yes
 			}
 		}
 
@@ -15387,7 +15266,7 @@ available = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_TGV_IN_POWER_tt
-				MAD_TGV_IN_POWER = yes
+				nationalist_right_wing_populists_are_in_power = yes
 			}
 		}
 
@@ -15414,7 +15293,7 @@ available = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_TGV_IN_POWER_tt
-				MAD_TGV_IN_POWER = yes
+				nationalist_right_wing_populists_are_in_power = yes
 			}
 			NOT = { has_country_flag = MAD_ARMY_COMMAND_CAPSAT }
 		}
@@ -15466,7 +15345,7 @@ available = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_TGV_IN_POWER_tt
-				MAD_TGV_IN_POWER = yes
+				nationalist_right_wing_populists_are_in_power = yes
 			}
 			# The transitional ballot must take place before TGV can suspend elections.
 			NOT = { has_country_flag = MAD_TGV_RETURN_BALLOT_ELECTION_PENDING }
@@ -15538,7 +15417,7 @@ available = {
 		prerequisite = { focus = MAD_POL_HVM_PARTY_OF_GOVERNMENT }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
-			MAD_HVM_IN_POWER = yes
+			western_conservatism_are_in_power = yes
 		}
 
 		completion_reward = {
@@ -15640,7 +15519,7 @@ available = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_HVM_IN_POWER_tt
-				MAD_HVM_IN_POWER = yes
+				western_conservatism_are_in_power = yes
 			}
 		}
 
@@ -15672,7 +15551,7 @@ available = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_HVM_IN_POWER_tt
-				MAD_HVM_IN_POWER = yes
+				western_conservatism_are_in_power = yes
 			}
 		}
 
@@ -15698,7 +15577,7 @@ available = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_HVM_IN_POWER_tt
-				MAD_HVM_IN_POWER = yes
+				western_conservatism_are_in_power = yes
 			}
 		}
 
@@ -15724,7 +15603,7 @@ available = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_HVM_IN_POWER_tt
-				MAD_HVM_IN_POWER = yes
+				western_conservatism_are_in_power = yes
 			}
 		}
 
@@ -15750,7 +15629,7 @@ available = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_HVM_IN_POWER_tt
-				MAD_HVM_IN_POWER = yes
+				western_conservatism_are_in_power = yes
 			}
 		}
 
@@ -15776,7 +15655,7 @@ available = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_HVM_IN_POWER_tt
-				MAD_HVM_IN_POWER = yes
+				western_conservatism_are_in_power = yes
 			}
 		}
 
@@ -15802,7 +15681,7 @@ available = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_HVM_IN_POWER_tt
-				MAD_HVM_IN_POWER = yes
+				western_conservatism_are_in_power = yes
 			}
 		}
 
@@ -15830,7 +15709,7 @@ available = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_HVM_IN_POWER_tt
-				MAD_HVM_IN_POWER = yes
+				western_conservatism_are_in_power = yes
 			}
 		}
 
@@ -15856,7 +15735,7 @@ available = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_HVM_IN_POWER_tt
-				MAD_HVM_IN_POWER = yes
+				western_conservatism_are_in_power = yes
 			}
 		}
 
@@ -15882,7 +15761,7 @@ available = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_HVM_IN_POWER_tt
-				MAD_HVM_IN_POWER = yes
+				western_conservatism_are_in_power = yes
 			}
 		}
 
@@ -15917,7 +15796,7 @@ available = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_HVM_IN_POWER_tt
-				MAD_HVM_IN_POWER = yes
+				western_conservatism_are_in_power = yes
 			}
 		}
 
@@ -15943,7 +15822,7 @@ available = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_HVM_IN_POWER_tt
-				MAD_HVM_IN_POWER = yes
+				western_conservatism_are_in_power = yes
 			}
 		}
 
@@ -15969,7 +15848,7 @@ available = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_HVM_IN_POWER_tt
-				MAD_HVM_IN_POWER = yes
+				western_conservatism_are_in_power = yes
 			}
 			country_exists = FRA
 		}
@@ -16000,7 +15879,7 @@ available = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_HVM_IN_POWER_tt
-				MAD_HVM_IN_POWER = yes
+				western_conservatism_are_in_power = yes
 			}
 		}
 
@@ -16028,7 +15907,7 @@ available = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_HVM_IN_POWER_tt
-				MAD_HVM_IN_POWER = yes
+				western_conservatism_are_in_power = yes
 			}
 		}
 
@@ -16059,7 +15938,7 @@ available = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_HVM_IN_POWER_tt
-				MAD_HVM_IN_POWER = yes
+				western_conservatism_are_in_power = yes
 			}
 		}
 
@@ -16087,7 +15966,7 @@ available = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_HVM_IN_POWER_tt
-				MAD_HVM_IN_POWER = yes
+				western_conservatism_are_in_power = yes
 			}
 		}
 
@@ -16120,7 +15999,7 @@ available = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_HVM_IN_POWER_tt
-				MAD_HVM_IN_POWER = yes
+				western_conservatism_are_in_power = yes
 			}
 		}
 
@@ -16160,7 +16039,7 @@ available = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_HVM_IN_POWER_tt
-				MAD_HVM_IN_POWER = yes
+				western_conservatism_are_in_power = yes
 			}
 		}
 
@@ -16186,7 +16065,7 @@ available = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_HVM_IN_POWER_tt
-				MAD_HVM_IN_POWER = yes
+				western_conservatism_are_in_power = yes
 			}
 		}
 
@@ -16222,7 +16101,7 @@ available = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_HVM_IN_POWER_tt
-				MAD_HVM_IN_POWER = yes
+				western_conservatism_are_in_power = yes
 			}
 		}
 
@@ -16248,7 +16127,7 @@ available = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_HVM_IN_POWER_tt
-				MAD_HVM_IN_POWER = yes
+				western_conservatism_are_in_power = yes
 			}
 		}
 
@@ -16274,7 +16153,7 @@ available = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_HVM_IN_POWER_tt
-				MAD_HVM_IN_POWER = yes
+				western_conservatism_are_in_power = yes
 			}
 		}
 
@@ -16309,7 +16188,7 @@ available = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_HVM_IN_POWER_tt
-				MAD_HVM_IN_POWER = yes
+				western_conservatism_are_in_power = yes
 			}
 			OR = { has_completed_focus = MAD_JIRAMA_RECOVERY_SUCCEEDS has_completed_focus = MAD_JIRAMA_STAY_PUBLIC has_completed_focus = MAD_JIRAMA_CORPORATIZE }
 		}
@@ -16336,7 +16215,7 @@ available = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_HVM_IN_POWER_tt
-				MAD_HVM_IN_POWER = yes
+				western_conservatism_are_in_power = yes
 			}
 			has_completed_focus = MAD_Agricultural_reforms
 		}
@@ -16371,7 +16250,7 @@ available = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_HVM_IN_POWER_tt
-				MAD_HVM_IN_POWER = yes
+				western_conservatism_are_in_power = yes
 			}
 			OR = { has_completed_focus = MAD_AMBATOVY_OPERATIONAL has_completed_focus = MAD_QMM_CONSTRUCTION has_completed_focus = MAD_mining_code_reform }
 		}
@@ -16407,7 +16286,7 @@ available = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_HVM_IN_POWER_tt
-				MAD_HVM_IN_POWER = yes
+				western_conservatism_are_in_power = yes
 			}
 			OR = { has_completed_focus = MAD_Volobe_Amont_DAM has_completed_focus = MAD_Sahofika_DAM has_completed_focus = MAD_TOAMASINA_JICA_EXPANSION }
 		}
@@ -16443,7 +16322,7 @@ available = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_HVM_IN_POWER_tt
-				MAD_HVM_IN_POWER = yes
+				western_conservatism_are_in_power = yes
 			}
 			OR = { has_completed_focus = MAD_NATURELLE has_completed_focus = MAD_PROTECTED_AREAS_EXPANSION has_completed_focus = MAD_Rosewood }
 		}
@@ -16482,7 +16361,7 @@ available = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_HVM_IN_POWER_tt
-				MAD_HVM_IN_POWER = yes
+				western_conservatism_are_in_power = yes
 			}
 		}
 
@@ -16513,7 +16392,7 @@ available = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_HVM_IN_POWER_tt
-				MAD_HVM_IN_POWER = yes
+				western_conservatism_are_in_power = yes
 			}
 		}
 
@@ -16542,7 +16421,7 @@ available = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_HVM_IN_POWER_tt
-				MAD_HVM_IN_POWER = yes
+				western_conservatism_are_in_power = yes
 			}
 		}
 
@@ -16653,7 +16532,7 @@ available = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_TGV_IN_POWER_tt
-				MAD_TGV_IN_POWER = yes
+				nationalist_right_wing_populists_are_in_power = yes
 			}
 		}
 
@@ -18351,7 +18230,7 @@ available = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_AREMA_IN_POWER_tt
-				MAD_AREMA_IN_POWER = yes
+				emerging_anarchist_communism_are_in_power = yes
 			}
 			custom_trigger_tooltip = {
 				tooltip = MAD_AREMA_OLD_GUARD_PATH_tt
@@ -18397,7 +18276,7 @@ available = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_TIM_IN_POWER_tt
-				MAD_TIM_IN_POWER = yes
+				western_liberals_are_in_power = yes
 			}
 		}
 
@@ -18423,7 +18302,7 @@ available = {
 	focus = {
 		id = MAD_POL_TGV_HEALTH_FOR_ALL
 		icon = generic_healthcare
-		x = 1
+		x = 0
 		y = 1
 		relative_position_id = MAD_POL_TGV_THIRTEEN_VELIRANO
 		cost = 3
@@ -18432,7 +18311,7 @@ available = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_TGV_IN_POWER_tt
-				MAD_TGV_IN_POWER = yes
+				nationalist_right_wing_populists_are_in_power = yes
 			}
 		}
 
@@ -18471,7 +18350,7 @@ available = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_HVM_IN_POWER_tt
-				MAD_HVM_IN_POWER = yes
+				western_conservatism_are_in_power = yes
 			}
 		}
 
@@ -19773,7 +19652,7 @@ available = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_TIM_IN_POWER_tt
-				MAD_TIM_IN_POWER = yes
+				western_liberals_are_in_power = yes
 			}
 		}
 
@@ -19799,7 +19678,7 @@ available = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_TIM_IN_POWER_tt
-				MAD_TIM_IN_POWER = yes
+				western_liberals_are_in_power = yes
 			}
 		}
 
@@ -19825,7 +19704,7 @@ available = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_TIM_IN_POWER_tt
-				MAD_TIM_IN_POWER = yes
+				western_liberals_are_in_power = yes
 			}
 		}
 
@@ -19851,7 +19730,7 @@ available = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_TIM_IN_POWER_tt
-				MAD_TIM_IN_POWER = yes
+				western_liberals_are_in_power = yes
 			}
 		}
 
@@ -19877,7 +19756,7 @@ available = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_TIM_IN_POWER_tt
-				MAD_TIM_IN_POWER = yes
+				western_liberals_are_in_power = yes
 			}
 		}
 
@@ -19903,7 +19782,7 @@ available = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_TIM_IN_POWER_tt
-				MAD_TIM_IN_POWER = yes
+				western_liberals_are_in_power = yes
 			}
 		}
 
@@ -19929,7 +19808,7 @@ available = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = MAD_TIM_IN_POWER_tt
-				MAD_TIM_IN_POWER = yes
+				western_liberals_are_in_power = yes
 			}
 		}
 

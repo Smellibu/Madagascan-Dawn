@@ -2762,307 +2762,307 @@ MAD_sync_party_political_ideas = {
 
 	# Restore only earned ideas belonging to the current governing party.
 	if = {
-		limit = { OR = { MAD_ROY_IN_POWER = yes MAD_TAMIMA_IN_POWER = yes } has_country_flag = MAD_PI_EARNED_MAD_POL_ROYAL_CONSTITUTION }
+		limit = { nationalist_monarchists_are_in_power = yes has_country_flag = MAD_PI_EARNED_MAD_POL_ROYAL_CONSTITUTION }
 		add_ideas = MAD_POL_ROYAL_CONSTITUTION
 	}
 	if = {
-		limit = { MAD_ROY_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_POL_ROYAL_GOVERNMENT }
+		limit = { nationalist_monarchists_are_in_power = yes has_country_flag = MAD_PI_EARNED_MAD_POL_ROYAL_GOVERNMENT }
 		add_ideas = MAD_POL_ROYAL_GOVERNMENT
 	}
 	if = {
-		limit = { MAD_ROY_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_POL_CHRISTOCRATIC_STATE }
+		limit = { nationalist_monarchists_are_in_power = yes has_country_flag = MAD_PI_EARNED_MAD_POL_CHRISTOCRATIC_STATE }
 		add_ideas = MAD_POL_CHRISTOCRATIC_STATE
 	}
 	if = {
-		limit = { MAD_ROY_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_POL_CUSTOMARY_ADMINISTRATION }
+		limit = { nationalist_monarchists_are_in_power = yes has_country_flag = MAD_PI_EARNED_MAD_POL_CUSTOMARY_ADMINISTRATION }
 		add_ideas = MAD_POL_CUSTOMARY_ADMINISTRATION
 	}
 	if = {
-		limit = { MAD_ROY_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_POL_ROYAL_CONSOLIDATION }
+		limit = { nationalist_monarchists_are_in_power = yes has_country_flag = MAD_PI_EARNED_MAD_POL_ROYAL_CONSOLIDATION }
 		add_ideas = MAD_POL_ROYAL_CONSOLIDATION
 	}
 	if = {
-		limit = { MAD_ROY_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_POL_ROYAL_JUSTICE }
+		limit = { nationalist_monarchists_are_in_power = yes has_country_flag = MAD_PI_EARNED_MAD_POL_ROYAL_JUSTICE }
 		add_ideas = MAD_POL_ROYAL_JUSTICE
 	}
 	if = {
-		limit = { MAD_TAMIMA_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_POL_TAMIMA_COUNCIL }
+		limit = { nationalist_monarchists_are_in_power = yes has_country_flag = MAD_PI_EARNED_MAD_POL_TAMIMA_COUNCIL }
 		add_ideas = MAD_POL_TAMIMA_COUNCIL
 	}
 	if = {
-		limit = { MAD_TAMIMA_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_POL_TRADITIONAL_CONSTITUTION }
+		limit = { nationalist_monarchists_are_in_power = yes has_country_flag = MAD_PI_EARNED_MAD_POL_TRADITIONAL_CONSTITUTION }
 		add_ideas = MAD_POL_TRADITIONAL_CONSTITUTION
 	}
 	if = {
-		limit = { MAD_TAMIMA_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_POL_TAMIMA_GOVERNANCE }
+		limit = { nationalist_monarchists_are_in_power = yes has_country_flag = MAD_PI_EARNED_MAD_POL_TAMIMA_GOVERNANCE }
 		add_ideas = MAD_POL_TAMIMA_GOVERNANCE
 	}
 	if = {
-		limit = { MAD_MIL_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_POL_MILITARY_GOVERNMENT }
+		limit = { nationalist_military_junta_are_in_power = yes has_country_flag = MAD_PI_EARNED_MAD_POL_MILITARY_GOVERNMENT }
 		add_ideas = MAD_POL_MILITARY_GOVERNMENT
 	}
 	if = {
-		limit = { MAD_MIL_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_POL_MILITARY_GUARDIAN }
+		limit = { nationalist_military_junta_are_in_power = yes has_country_flag = MAD_PI_EARNED_MAD_POL_MILITARY_GUARDIAN }
 		add_ideas = MAD_POL_MILITARY_GUARDIAN
 	}
 	if = {
-		limit = { MAD_MIL_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_POL_MARITIME_SECURITY }
+		limit = { nationalist_military_junta_are_in_power = yes has_country_flag = MAD_PI_EARNED_MAD_POL_MARITIME_SECURITY }
 		add_ideas = MAD_POL_MARITIME_SECURITY
 	}
 	if = {
-		limit = { MAD_MIL_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_MIL_PROFESSIONAL_COMMAND }
+		limit = { nationalist_military_junta_are_in_power = yes has_country_flag = MAD_PI_EARNED_MAD_MIL_PROFESSIONAL_COMMAND }
 		add_ideas = MAD_MIL_PROFESSIONAL_COMMAND
 	}
 	if = {
-		limit = { MAD_MIL_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_MIL_PROFESSIONAL_OFFICERS }
+		limit = { nationalist_military_junta_are_in_power = yes has_country_flag = MAD_PI_EARNED_MAD_MIL_PROFESSIONAL_OFFICERS }
 		add_ideas = MAD_MIL_PROFESSIONAL_OFFICERS
 	}
 	if = {
-		limit = { MAD_MIL_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_MIL_SOUTHERN_SECURITY }
+		limit = { nationalist_military_junta_are_in_power = yes has_country_flag = MAD_PI_EARNED_MAD_MIL_SOUTHERN_SECURITY }
 		add_ideas = MAD_MIL_SOUTHERN_SECURITY
 	}
 	if = {
-		limit = { MAD_MIL_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_MIL_GENDARMERIE_REFORM }
+		limit = { nationalist_military_junta_are_in_power = yes has_country_flag = MAD_PI_EARNED_MAD_MIL_GENDARMERIE_REFORM }
 		add_ideas = MAD_MIL_GENDARMERIE_REFORM
 	}
 	if = {
-		limit = { MAD_MIL_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_MIL_ENGINEER_CORPS }
+		limit = { nationalist_military_junta_are_in_power = yes has_country_flag = MAD_PI_EARNED_MAD_MIL_ENGINEER_CORPS }
 		add_ideas = MAD_MIL_ENGINEER_CORPS
 	}
 	if = {
-		limit = { MAD_MIL_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_MIL_UNIFIED_FORCES }
+		limit = { nationalist_military_junta_are_in_power = yes has_country_flag = MAD_PI_EARNED_MAD_MIL_UNIFIED_FORCES }
 		add_ideas = MAD_MIL_UNIFIED_FORCES
 	}
 	if = {
-		limit = { MAD_MIL_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_MIL_MULTILATERAL_DOCTRINE }
+		limit = { nationalist_military_junta_are_in_power = yes has_country_flag = MAD_PI_EARNED_MAD_MIL_MULTILATERAL_DOCTRINE }
 		add_ideas = MAD_MIL_MULTILATERAL_DOCTRINE
 	}
 	if = {
-		limit = { MAD_MIL_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_MIL_CLEAN_UNIFORM }
+		limit = { nationalist_military_junta_are_in_power = yes has_country_flag = MAD_PI_EARNED_MAD_MIL_CLEAN_UNIFORM }
 		add_ideas = MAD_MIL_CLEAN_UNIFORM
 	}
 	if = {
-		limit = { MAD_MIL_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_MIL_CIVILIAN_GUARDIANSHIP }
+		limit = { nationalist_military_junta_are_in_power = yes has_country_flag = MAD_PI_EARNED_MAD_MIL_CIVILIAN_GUARDIANSHIP }
 		add_ideas = MAD_MIL_CIVILIAN_GUARDIANSHIP
 	}
 	if = {
-		limit = { MAD_AREMA_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_POL_AREMA_PROGRAMME }
+		limit = { emerging_anarchist_communism_are_in_power = yes has_country_flag = MAD_PI_EARNED_MAD_POL_AREMA_PROGRAMME }
 		add_ideas = MAD_POL_AREMA_PROGRAMME
 	}
 	if = {
-		limit = { MAD_AREMA_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_POL_AREMA_STATE_SOCIALISM }
+		limit = { emerging_anarchist_communism_are_in_power = yes has_country_flag = MAD_PI_EARNED_MAD_POL_AREMA_STATE_SOCIALISM }
 		add_ideas = MAD_POL_AREMA_STATE_SOCIALISM
 	}
 	if = {
-		limit = { MAD_AREMA_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_POL_AREMA_MODERN_SOCIALISM }
+		limit = { emerging_anarchist_communism_are_in_power = yes has_country_flag = MAD_PI_EARNED_MAD_POL_AREMA_MODERN_SOCIALISM }
 		add_ideas = MAD_POL_AREMA_MODERN_SOCIALISM
 	}
 	if = {
-		limit = { MAD_AREMA_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_AREMA_OLD_GUARD }
+		limit = { emerging_anarchist_communism_are_in_power = yes has_country_flag = MAD_PI_EARNED_MAD_AREMA_OLD_GUARD }
 		add_ideas = MAD_AREMA_OLD_GUARD
 	}
 	if = {
-		limit = { MAD_AREMA_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_AREMA_RENEWAL }
+		limit = { emerging_anarchist_communism_are_in_power = yes has_country_flag = MAD_PI_EARNED_MAD_AREMA_RENEWAL }
 		add_ideas = MAD_AREMA_RENEWAL
 	}
 	if = {
-		limit = { MAD_AREMA_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_AREMA_RECONCILIATION }
+		limit = { emerging_anarchist_communism_are_in_power = yes has_country_flag = MAD_PI_EARNED_MAD_AREMA_RECONCILIATION }
 		add_ideas = MAD_AREMA_RECONCILIATION
 	}
 	if = {
-		limit = { MAD_AREMA_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_AREMA_REBUILDING }
+		limit = { emerging_anarchist_communism_are_in_power = yes has_country_flag = MAD_PI_EARNED_MAD_AREMA_REBUILDING }
 		add_ideas = MAD_AREMA_REBUILDING
 	}
 	if = {
-		limit = { MAD_AREMA_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_AREMA_OLD_GUARD_REFORMED }
+		limit = { emerging_anarchist_communism_are_in_power = yes has_country_flag = MAD_PI_EARNED_MAD_AREMA_OLD_GUARD_REFORMED }
 		add_ideas = MAD_AREMA_OLD_GUARD_REFORMED
 	}
 	if = {
-		limit = { MAD_AREMA_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_AREMA_RENEWAL_MODERNISED }
+		limit = { emerging_anarchist_communism_are_in_power = yes has_country_flag = MAD_PI_EARNED_MAD_AREMA_RENEWAL_MODERNISED }
 		add_ideas = MAD_AREMA_RENEWAL_MODERNISED
 	}
 	if = {
-		limit = { MAD_AREMA_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_AREMA_RECONCILIATION_INSTITUTIONALISED }
+		limit = { emerging_anarchist_communism_are_in_power = yes has_country_flag = MAD_PI_EARNED_MAD_AREMA_RECONCILIATION_INSTITUTIONALISED }
 		add_ideas = MAD_AREMA_RECONCILIATION_INSTITUTIONALISED
 	}
 	if = {
-		limit = { MAD_AREMA_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_AREMA_NON_ALIGNMENT }
+		limit = { emerging_anarchist_communism_are_in_power = yes has_country_flag = MAD_PI_EARNED_MAD_AREMA_NON_ALIGNMENT }
 		add_ideas = MAD_AREMA_NON_ALIGNMENT
 	}
 	if = {
-		limit = { MAD_AREMA_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_AREMA_SECOND_SOCIALISM }
+		limit = { emerging_anarchist_communism_are_in_power = yes has_country_flag = MAD_PI_EARNED_MAD_AREMA_SECOND_SOCIALISM }
 		add_ideas = MAD_AREMA_SECOND_SOCIALISM
 	}
 	if = {
-		limit = { MAD_AREMA_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_AREMA_SOCIAL_CONTRACT }
+		limit = { emerging_anarchist_communism_are_in_power = yes has_country_flag = MAD_PI_EARNED_MAD_AREMA_SOCIAL_CONTRACT }
 		add_ideas = MAD_AREMA_SOCIAL_CONTRACT
 	}
 	if = {
-		limit = { MAD_TIM_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_POL_TIM_LIBERAL_PROGRAMME }
+		limit = { western_liberals_are_in_power = yes has_country_flag = MAD_PI_EARNED_MAD_POL_TIM_LIBERAL_PROGRAMME }
 		add_ideas = MAD_POL_TIM_LIBERAL_PROGRAMME
 	}
 	if = {
-		limit = { MAD_TIM_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_POL_TIM_GREEN_REVOLUTION_IDEA }
+		limit = { western_liberals_are_in_power = yes has_country_flag = MAD_PI_EARNED_MAD_POL_TIM_GREEN_REVOLUTION_IDEA }
 		add_ideas = MAD_POL_TIM_GREEN_REVOLUTION_IDEA
 	}
 	if = {
-		limit = { MAD_TIM_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_POL_TIM_INSTITUTIONAL_LIBERALISM }
+		limit = { western_liberals_are_in_power = yes has_country_flag = MAD_PI_EARNED_MAD_POL_TIM_INSTITUTIONAL_LIBERALISM }
 		add_ideas = MAD_POL_TIM_INSTITUTIONAL_LIBERALISM
 	}
 	if = {
-		limit = { MAD_TIM_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_POL_TIM_NATIONAL_CHAMPION_PROGRAMME }
+		limit = { western_liberals_are_in_power = yes has_country_flag = MAD_PI_EARNED_MAD_POL_TIM_NATIONAL_CHAMPION_PROGRAMME }
 		add_ideas = MAD_POL_TIM_NATIONAL_CHAMPION_PROGRAMME
 	}
 	if = {
-		limit = { MAD_TIM_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_TIM_RECONCILIATION_COMPACT }
+		limit = { western_liberals_are_in_power = yes has_country_flag = MAD_PI_EARNED_MAD_TIM_RECONCILIATION_COMPACT }
 		add_ideas = MAD_TIM_RECONCILIATION_COMPACT
 	}
 	if = {
-		limit = { MAD_TIM_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_TIM_RECONCILIATION_CONDITIONAL }
+		limit = { western_liberals_are_in_power = yes has_country_flag = MAD_PI_EARNED_MAD_TIM_RECONCILIATION_CONDITIONAL }
 		add_ideas = MAD_TIM_RECONCILIATION_CONDITIONAL
 	}
 	if = {
-		limit = { MAD_TIM_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_TIM_JUSTICE_AND_ACCOUNTABILITY }
+		limit = { western_liberals_are_in_power = yes has_country_flag = MAD_PI_EARNED_MAD_TIM_JUSTICE_AND_ACCOUNTABILITY }
 		add_ideas = MAD_TIM_JUSTICE_AND_ACCOUNTABILITY
 	}
 	if = {
-		limit = { MAD_TIM_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_TIM_TIKO_FIREWALL }
+		limit = { western_liberals_are_in_power = yes has_country_flag = MAD_PI_EARNED_MAD_TIM_TIKO_FIREWALL }
 		add_ideas = MAD_TIM_TIKO_FIREWALL
 	}
 	if = {
-		limit = { MAD_TIM_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_TIM_TIKO_NATIONAL_CHAMPION }
+		limit = { western_liberals_are_in_power = yes has_country_flag = MAD_PI_EARNED_MAD_TIM_TIKO_NATIONAL_CHAMPION }
 		add_ideas = MAD_TIM_TIKO_NATIONAL_CHAMPION
 	}
 	if = {
-		limit = { MAD_TIM_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_TIM_REPUBLICAN_INSTITUTIONS }
+		limit = { western_liberals_are_in_power = yes has_country_flag = MAD_PI_EARNED_MAD_TIM_REPUBLICAN_INSTITUTIONS }
 		add_ideas = MAD_TIM_REPUBLICAN_INSTITUTIONS
 	}
 	if = {
-		limit = { MAD_TGV_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_POL_TGV_INSTITUTIONAL_EMERGENCE }
+		limit = { nationalist_right_wing_populists_are_in_power = yes has_country_flag = MAD_PI_EARNED_MAD_POL_TGV_INSTITUTIONAL_EMERGENCE }
 		add_ideas = MAD_POL_TGV_INSTITUTIONAL_EMERGENCE
 	}
 	if = {
-		limit = { MAD_TGV_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_POL_TGV_PRESIDENTIALISM }
+		limit = { nationalist_right_wing_populists_are_in_power = yes has_country_flag = MAD_PI_EARNED_MAD_POL_TGV_PRESIDENTIALISM }
 		add_ideas = MAD_POL_TGV_PRESIDENTIALISM
 	}
 	if = {
-		limit = { MAD_TGV_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_POL_TGV_PEM }
+		limit = { nationalist_right_wing_populists_are_in_power = yes has_country_flag = MAD_PI_EARNED_MAD_POL_TGV_PEM }
 		add_ideas = MAD_POL_TGV_PEM
 	}
 	if = {
-		limit = { MAD_TGV_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_TGV_REVOLUTIONARY_LEGACY }
+		limit = { nationalist_right_wing_populists_are_in_power = yes has_country_flag = MAD_PI_EARNED_MAD_TGV_REVOLUTIONARY_LEGACY }
 		add_ideas = MAD_TGV_REVOLUTIONARY_LEGACY
 	}
 	if = {
-		limit = { MAD_TGV_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_TGV_ELECTORAL_LEGITIMACY }
+		limit = { nationalist_right_wing_populists_are_in_power = yes has_country_flag = MAD_PI_EARNED_MAD_TGV_ELECTORAL_LEGITIMACY }
 		add_ideas = MAD_TGV_ELECTORAL_LEGITIMACY
 	}
 	if = {
-		limit = { MAD_TGV_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_TGV_EMERGENCY_MANDATE }
+		limit = { nationalist_right_wing_populists_are_in_power = yes has_country_flag = MAD_PI_EARNED_MAD_TGV_EMERGENCY_MANDATE }
 		add_ideas = MAD_TGV_EMERGENCY_MANDATE
 	}
 	if = {
-		limit = { MAD_TGV_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_TGV_DELIVERY_WATER }
+		limit = { nationalist_right_wing_populists_are_in_power = yes has_country_flag = MAD_PI_EARNED_MAD_TGV_DELIVERY_WATER }
 		add_ideas = MAD_TGV_DELIVERY_WATER
 	}
 	if = {
-		limit = { MAD_TGV_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_TGV_DELIVERY_INFRASTRUCTURE }
+		limit = { nationalist_right_wing_populists_are_in_power = yes has_country_flag = MAD_PI_EARNED_MAD_TGV_DELIVERY_INFRASTRUCTURE }
 		add_ideas = MAD_TGV_DELIVERY_INFRASTRUCTURE
 	}
 	if = {
-		limit = { MAD_TGV_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_TGV_DELIVERY_DIGITAL }
+		limit = { nationalist_right_wing_populists_are_in_power = yes has_country_flag = MAD_PI_EARNED_MAD_TGV_DELIVERY_DIGITAL }
 		add_ideas = MAD_TGV_DELIVERY_DIGITAL
 	}
 	if = {
-		limit = { MAD_TGV_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_TGV_DELIVERY_JOBS }
+		limit = { nationalist_right_wing_populists_are_in_power = yes has_country_flag = MAD_PI_EARNED_MAD_TGV_DELIVERY_JOBS }
 		add_ideas = MAD_TGV_DELIVERY_JOBS
 	}
 	if = {
-		limit = { MAD_TGV_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_TGV_DELIVERY_FOOD }
+		limit = { nationalist_right_wing_populists_are_in_power = yes has_country_flag = MAD_PI_EARNED_MAD_TGV_DELIVERY_FOOD }
 		add_ideas = MAD_TGV_DELIVERY_FOOD
 	}
 	if = {
-		limit = { MAD_HVM_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_POL_HVM_TECHNOCRATIC_STATE }
+		limit = { western_conservatism_are_in_power = yes has_country_flag = MAD_PI_EARNED_MAD_POL_HVM_TECHNOCRATIC_STATE }
 		add_ideas = MAD_POL_HVM_TECHNOCRATIC_STATE
 	}
 	if = {
-		limit = { MAD_HVM_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_HVM_ADMINISTRATIVE_STATE }
+		limit = { western_conservatism_are_in_power = yes has_country_flag = MAD_PI_EARNED_MAD_HVM_ADMINISTRATIVE_STATE }
 		add_ideas = MAD_HVM_ADMINISTRATIVE_STATE
 	}
 	if = {
-		limit = { MAD_HVM_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_HVM_PUBLIC_FINANCE }
+		limit = { western_conservatism_are_in_power = yes has_country_flag = MAD_PI_EARNED_MAD_HVM_PUBLIC_FINANCE }
 		add_ideas = MAD_HVM_PUBLIC_FINANCE
 	}
 	if = {
-		limit = { MAD_HVM_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_HVM_INVESTMENT_FRIENDLY }
+		limit = { western_conservatism_are_in_power = yes has_country_flag = MAD_PI_EARNED_MAD_HVM_INVESTMENT_FRIENDLY }
 		add_ideas = MAD_HVM_INVESTMENT_FRIENDLY
 	}
 	if = {
-		limit = { MAD_HVM_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_HVM_HUMAN_CAPITAL }
+		limit = { western_conservatism_are_in_power = yes has_country_flag = MAD_PI_EARNED_MAD_HVM_HUMAN_CAPITAL }
 		add_ideas = MAD_HVM_HUMAN_CAPITAL
 	}
 	if = {
-		limit = { MAD_HVM_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_HVM_VOCATIONAL_TRAINING }
+		limit = { western_conservatism_are_in_power = yes has_country_flag = MAD_PI_EARNED_MAD_HVM_VOCATIONAL_TRAINING }
 		add_ideas = MAD_HVM_VOCATIONAL_TRAINING
 	}
 	if = {
-		limit = { MAD_HVM_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_HVM_AGRICULTURE }
+		limit = { western_conservatism_are_in_power = yes has_country_flag = MAD_PI_EARNED_MAD_HVM_AGRICULTURE }
 		add_ideas = MAD_HVM_AGRICULTURE
 	}
 	if = {
-		limit = { MAD_HVM_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_HVM_LIGHT_INDUSTRY }
+		limit = { western_conservatism_are_in_power = yes has_country_flag = MAD_PI_EARNED_MAD_HVM_LIGHT_INDUSTRY }
 		add_ideas = MAD_HVM_LIGHT_INDUSTRY
 	}
 	if = {
-		limit = { MAD_HVM_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_HVM_PPP_FRAMEWORK }
+		limit = { western_conservatism_are_in_power = yes has_country_flag = MAD_PI_EARNED_MAD_HVM_PPP_FRAMEWORK }
 		add_ideas = MAD_HVM_PPP_FRAMEWORK
 	}
 	if = {
-		limit = { MAD_HVM_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_HVM_ENERGY_FOR_GROWTH }
+		limit = { western_conservatism_are_in_power = yes has_country_flag = MAD_PI_EARNED_MAD_HVM_ENERGY_FOR_GROWTH }
 		add_ideas = MAD_HVM_ENERGY_FOR_GROWTH
 	}
 	if = {
-		limit = { MAD_HVM_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_HVM_NATURAL_CAPITAL }
+		limit = { western_conservatism_are_in_power = yes has_country_flag = MAD_PI_EARNED_MAD_HVM_NATURAL_CAPITAL }
 		add_ideas = MAD_HVM_NATURAL_CAPITAL
 	}
 	if = {
-		limit = { MAD_HVM_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_HVM_ELECTORAL_FRAMEWORK }
+		limit = { western_conservatism_are_in_power = yes has_country_flag = MAD_PI_EARNED_MAD_HVM_ELECTORAL_FRAMEWORK }
 		add_ideas = MAD_HVM_ELECTORAL_FRAMEWORK
 	}
 	if = {
-		limit = { MAD_HVM_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_HVM_FRANCO_MALAGASY_PARTNERSHIP }
+		limit = { western_conservatism_are_in_power = yes has_country_flag = MAD_PI_EARNED_MAD_HVM_FRANCO_MALAGASY_PARTNERSHIP }
 		add_ideas = MAD_HVM_FRANCO_MALAGASY_PARTNERSHIP
 	}
 	if = {
-		limit = { MAD_HVM_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_HVM_PROJECT_COMPLETION }
+		limit = { western_conservatism_are_in_power = yes has_country_flag = MAD_PI_EARNED_MAD_HVM_PROJECT_COMPLETION }
 		add_ideas = MAD_HVM_PROJECT_COMPLETION
 	}
 	if = {
-		limit = { MAD_HVM_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_HVM_PROJECT_RENEGOTIATED }
+		limit = { western_conservatism_are_in_power = yes has_country_flag = MAD_PI_EARNED_MAD_HVM_PROJECT_RENEGOTIATED }
 		add_ideas = MAD_HVM_PROJECT_RENEGOTIATED
 	}
 	if = {
-		limit = { MAD_HVM_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_HVM_PROJECT_PRUNING }
+		limit = { western_conservatism_are_in_power = yes has_country_flag = MAD_PI_EARNED_MAD_HVM_PROJECT_PRUNING }
 		add_ideas = MAD_HVM_PROJECT_PRUNING
 	}
 	if = {
-		limit = { MAD_HVM_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_HVM_FISANDRATANA_FULL }
+		limit = { western_conservatism_are_in_power = yes has_country_flag = MAD_PI_EARNED_MAD_HVM_FISANDRATANA_FULL }
 		add_ideas = MAD_HVM_FISANDRATANA_FULL
 	}
 	if = {
-		limit = { MAD_HVM_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_HVM_FISANDRATANA_PARTIAL }
+		limit = { western_conservatism_are_in_power = yes has_country_flag = MAD_PI_EARNED_MAD_HVM_FISANDRATANA_PARTIAL }
 		add_ideas = MAD_HVM_FISANDRATANA_PARTIAL
 	}
 	if = {
-		limit = { MAD_HVM_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_HVM_FISANDRATANA_PLANNING }
+		limit = { western_conservatism_are_in_power = yes has_country_flag = MAD_PI_EARNED_MAD_HVM_FISANDRATANA_PLANNING }
 		add_ideas = MAD_HVM_FISANDRATANA_PLANNING
 	}
 	if = {
-		limit = { MAD_HVM_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_HVM_REPUBLICAN_STABILISATION }
+		limit = { western_conservatism_are_in_power = yes has_country_flag = MAD_PI_EARNED_MAD_HVM_REPUBLICAN_STABILISATION }
 		add_ideas = MAD_HVM_REPUBLICAN_STABILISATION
 	}
 	if = {
-		limit = { MAD_HVM_IN_POWER = yes has_country_flag = MAD_PI_EARNED_MAD_HVM_RULE_OF_LAW_PROGRAMME }
+		limit = { western_conservatism_are_in_power = yes has_country_flag = MAD_PI_EARNED_MAD_HVM_RULE_OF_LAW_PROGRAMME }
 		add_ideas = MAD_HVM_RULE_OF_LAW_PROGRAMME
 	}
 
@@ -3070,20 +3070,20 @@ MAD_sync_party_political_ideas = {
 	clr_country_flag = MAD_PI_SYNC_IN_PROGRESS
 
 	# Cancel unfinished party-specific processes but preserve branch-choice and completed-outcome flags.
-	if = { limit = { NOT = { MAD_ROY_IN_POWER = yes } } clr_country_flag = MAD_ROYAL_CROWN_QUESTION_PENDING }
-	if = { limit = { NOT = { MAD_MIL_IN_POWER = yes } } clr_country_flag = MAD_MIL_REFOUNDATION_PENDING }
-	if = { limit = { NOT = { MAD_AREMA_IN_POWER = yes } } clr_country_flag = MAD_AREMA_CONGRESS_PENDING }
+	if = { limit = { NOT = { nationalist_monarchists_are_in_power = yes } } clr_country_flag = MAD_ROYAL_CROWN_QUESTION_PENDING }
+	if = { limit = { NOT = { nationalist_military_junta_are_in_power = yes } } clr_country_flag = MAD_MIL_REFOUNDATION_PENDING }
+	if = { limit = { NOT = { emerging_anarchist_communism_are_in_power = yes } } clr_country_flag = MAD_AREMA_CONGRESS_PENDING }
 	if = {
-		limit = { NOT = { MAD_TIM_IN_POWER = yes } }
+		limit = { NOT = { western_liberals_are_in_power = yes } }
 		clr_country_flag = MAD_TIM_RECONCILIATION_PENDING
 		clr_country_flag = MAD_TIM_TIKO_PENDING
 	}
 	if = {
-		limit = { NOT = { MAD_TGV_IN_POWER = yes } }
+		limit = { NOT = { nationalist_right_wing_populists_are_in_power = yes } }
 		clr_country_flag = MAD_TGV_2009_LEGACY_PENDING
 		MAD_cancel_TGV_velirano_commitments = yes
 	}
-	if = { limit = { NOT = { MAD_HVM_IN_POWER = yes } } MAD_cancel_HVM_project_review = yes }
+	if = { limit = { NOT = { western_conservatism_are_in_power = yes } } MAD_cancel_HVM_project_review = yes }
 }
 
 # Ratsiraka's first loss: wait for a direct majority or completed MD coalition.
@@ -3140,7 +3140,7 @@ MAD_ratsiraka_check_government_formed = {
 			NOT = { has_country_flag = MAD_RATSIRAKA_EXILED }
 			NOT = { has_country_flag = MAD_AREMA_BANNED }
 			NOT = { has_civil_war = yes }
-			NOT = { MAD_AREMA_IN_POWER = yes }
+			NOT = { emerging_anarchist_communism_are_in_power = yes }
 		}
 		clr_country_flag = MAD_RATSIRAKA_FIRST_LOSS_DONE
 		clr_country_flag = MAD_RATSIRAKA_EXILE_RESOLVED
@@ -3164,7 +3164,7 @@ MAD_ratsiraka_check_government_formed = {
 			NOT = { has_civil_war = yes }
 		}
 		if = {
-			limit = { MAD_AREMA_IN_POWER = yes }
+			limit = { emerging_anarchist_communism_are_in_power = yes }
 			set_variable = { MAD_RATSIRAKA_FORMATION_STABLE_DAYS = 0 }
 		}
 		else_if = {
@@ -3412,7 +3412,7 @@ MAD_rural_constitution_government_sync = {
 	}
 	else_if = {
 		limit = {
-			MAD_AREMA_IN_POWER = yes
+			emerging_anarchist_communism_are_in_power = yes
 			NOT = { has_completed_focus = MAD_POL_AREMA_CHOOSE_RECONCILIATION }
 		}
 		MAD_rural_constitution_force_secular = yes
@@ -3420,14 +3420,14 @@ MAD_rural_constitution_government_sync = {
 	else_if = {
 		limit = {
 			has_completed_focus = MAD_POL_ROY_SACRED_CONSTITUTION
-			OR = { MAD_ROY_IN_POWER = yes MAD_TAMIMA_IN_POWER = yes }
+			nationalist_monarchists_are_in_power = yes
 		}
 		MAD_rural_constitution_force_religious = yes
 	}
 	MAD_rural_cooperation_calculate_monthly_change = yes
 }
 
-# Remembered royal-house policy is separately suspended under CRPM/TAMIMA and restored on government change.
+# Remembered royal-house policy is separately suspended under TAMIMA and restored on government change.
 MAD_rural_andriana_recognition_sync = {
 	# Migration for older saves: retire the previous redundant AREMA counter-policy idea/flag.
 	if = {
@@ -3439,7 +3439,7 @@ MAD_rural_andriana_recognition_sync = {
 		clr_country_flag = MAD_AREMA_SECULAR_HOUSE_POLICY_UNLOCKED
 	}
 	if = {
-		limit = { OR = { MAD_ROY_IN_POWER = yes MAD_TAMIMA_IN_POWER = yes } }
+		limit = { nationalist_monarchists_are_in_power = yes }
 		remove_ideas = MAD_POL_ANDRIANA_HERITAGE_RECOGNISED
 		remove_ideas = MAD_POL_ANDRIANA_NON_RECOGNITION
 	}
@@ -3589,20 +3589,20 @@ MAD_rural_cooperation_calculate_monthly_change = {
 	if = { limit = { NOT = { check_variable = { MAD_dahalo_threat > 25 } } } add_to_temp_variable = { MAD_rc_monthly_gain = 0.50 } }
 
 	# Completed party-path milestones grant their monthly dividend only while that party is in power; they stack, subject to the +3 cap.
-	if = { limit = { MAD_TAMIMA_IN_POWER = yes has_completed_focus = MAD_POL_ROY_RESTORE_FOKONOLONA } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
-	if = { limit = { MAD_TAMIMA_IN_POWER = yes has_completed_focus = MAD_POL_ROY_ANTENIMIERAN_ANDRIANA } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
-	if = { limit = { MAD_TAMIMA_IN_POWER = yes has_completed_focus = MAD_POL_ROY_TAMIMA_REPRESENT_LIVING_FORCES } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
-	if = { limit = { MAD_TAMIMA_IN_POWER = yes has_completed_focus = MAD_POL_ROY_DINA_CUSTOMARY_JUSTICE } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
-	if = { limit = { MAD_AREMA_IN_POWER = yes has_completed_focus = MAD_POL_AREMA_FOKONOLONA } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
-	if = { limit = { MAD_AREMA_IN_POWER = yes has_completed_focus = MAD_POL_AREMA_FOOD_FIRST } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
-	if = { limit = { MAD_AREMA_IN_POWER = yes has_completed_focus = MAD_POL_AREMA_PROVINCES } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
-	if = { limit = { MAD_MIL_IN_POWER = yes has_completed_focus = MAD_POL_MIL_SOUTHERN_SECURITY } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
-	if = { limit = { MAD_MIL_IN_POWER = yes has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM } add_to_temp_variable = { MAD_rc_monthly_gain = 0.50 } }
-	if = { limit = { MAD_MIL_IN_POWER = yes has_completed_focus = MAD_POL_MIL_ENGINEERS } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
-	if = { limit = { MAD_TGV_IN_POWER = yes has_completed_focus = MAD_POL_TGV_INFRASTRUCTURE_FIRST } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
-	if = { limit = { MAD_TGV_IN_POWER = yes has_completed_focus = MAD_POL_TGV_HEALTH_FOR_ALL } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
-	if = { limit = { MAD_TGV_IN_POWER = yes has_completed_focus = MAD_POL_TGV_JIRAMA_DELIVERY } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
-	if = { limit = { MAD_TGV_IN_POWER = yes has_completed_focus = MAD_POL_TGV_FOOD_SOVEREIGNTY } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
+	if = { limit = { nationalist_monarchists_are_in_power = yes has_completed_focus = MAD_POL_ROY_RESTORE_FOKONOLONA } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
+	if = { limit = { nationalist_monarchists_are_in_power = yes has_completed_focus = MAD_POL_ROY_ANTENIMIERAN_ANDRIANA } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
+	if = { limit = { nationalist_monarchists_are_in_power = yes has_completed_focus = MAD_POL_ROY_TAMIMA_REPRESENT_LIVING_FORCES } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
+	if = { limit = { nationalist_monarchists_are_in_power = yes has_completed_focus = MAD_POL_ROY_DINA_CUSTOMARY_JUSTICE } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
+	if = { limit = { emerging_anarchist_communism_are_in_power = yes has_completed_focus = MAD_POL_AREMA_FOKONOLONA } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
+	if = { limit = { emerging_anarchist_communism_are_in_power = yes has_completed_focus = MAD_POL_AREMA_FOOD_FIRST } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
+	if = { limit = { emerging_anarchist_communism_are_in_power = yes has_completed_focus = MAD_POL_AREMA_PROVINCES } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
+	if = { limit = { nationalist_military_junta_are_in_power = yes has_completed_focus = MAD_POL_MIL_SOUTHERN_SECURITY } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
+	if = { limit = { nationalist_military_junta_are_in_power = yes has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM } add_to_temp_variable = { MAD_rc_monthly_gain = 0.50 } }
+	if = { limit = { nationalist_military_junta_are_in_power = yes has_completed_focus = MAD_POL_MIL_ENGINEERS } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
+	if = { limit = { nationalist_right_wing_populists_are_in_power = yes has_completed_focus = MAD_POL_TGV_INFRASTRUCTURE_FIRST } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
+	if = { limit = { nationalist_right_wing_populists_are_in_power = yes has_completed_focus = MAD_POL_TGV_HEALTH_FOR_ALL } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
+	if = { limit = { nationalist_right_wing_populists_are_in_power = yes has_completed_focus = MAD_POL_TGV_JIRAMA_DELIVERY } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
+	if = { limit = { nationalist_right_wing_populists_are_in_power = yes has_completed_focus = MAD_POL_TGV_FOOD_SOVEREIGNTY } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
 	# Successful resolution of the southern drought leaves a durable recovery dividend.
 	if = { limit = { has_completed_focus = MAD_Thriving_south } add_to_temp_variable = { MAD_rc_monthly_gain = 0.50 } }
 

@@ -377,17 +377,16 @@ scripted_gui = {
 					limit = { original_tag = MAD }
 					NOT = {
 						OR = {
-							check_variable = { ruling_party = 1 } # HVM
-							check_variable = { ruling_party = 2 } # TIM
-							check_variable = { ruling_party = 3 } # PSD
-							check_variable = { ruling_party = 5 } # AREMA
-							check_variable = { ruling_party = 13 } # Dahalo
-							check_variable = { ruling_party = 15 } # TAMIMA
-							check_variable = { ruling_party = 16 } # FANILO
-							check_variable = { ruling_party = 17 } # UNDD
-							check_variable = { ruling_party = 20 } # TGV
-							check_variable = { ruling_party = 22 } # Military
-							check_variable = { ruling_party = 23 } # CRPM
+							western_conservatism_are_in_power = yes # HVM
+							western_liberals_are_in_power = yes # TIM
+							western_social_democrats_are_in_power = yes # PSD
+							emerging_anarchist_communism_are_in_power = yes # AREMA
+							neutrality_neutral_autocracy_are_in_power = yes # Dahalo
+							neutrality_neutral_libertarians_are_in_power = yes # FANILO
+							neutrality_neutral_green_are_in_power = yes # UNDD
+							nationalist_right_wing_populists_are_in_power = yes # TGV
+							nationalist_military_junta_are_in_power = yes # Military
+							nationalist_monarchists_are_in_power = yes # TAMIMA
 						}
 					}
 				}
@@ -447,7 +446,7 @@ scripted_gui = {
 						AND = {
 							tag = MAD
 							has_completed_focus = MAD_POL_MIL_PROTECT_BALLOT
-							MAD_MIL_IN_POWER = yes
+							nationalist_military_junta_are_in_power = yes
 						}
 					}
 

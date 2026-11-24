@@ -101,7 +101,7 @@ on_actions = {
 					tag = MAD
 					date > 2006.11.16
 					date < 2006.11.18
-					check_variable = { ruling_party = 2 }
+					western_liberals_are_in_power = yes
 					NOT = { has_country_flag = MAD_MIL_FIDY_2006_EVENT_FIRED }
 				}
 				set_country_flag = MAD_MIL_FIDY_2006_EVENT_FIRED
@@ -169,7 +169,7 @@ on_actions = {
 					original_tag = MAD
 					date > 2021.7.19
 					date < 2021.7.21
-					MAD_TGV_IN_POWER = yes
+					nationalist_right_wing_populists_are_in_power = yes
 					NOT = { has_country_flag = MAD_APOLLO21_EVENT_FIRED }
 				}
 				country_event = mad_apollo21.1
@@ -186,7 +186,7 @@ on_actions = {
 			# Cancel any scheduled 2009 route if TGV enters government before the coup event is active.
 			if = {
 				limit = {
-					MAD_TGV_GOVERNMENT = yes
+					nationalist_right_wing_populists_are_in_power_or_coalition = yes
 					has_country_flag = MAD_2009_COUP_PENDING
 					NOT = { has_country_flag = MAD_2009_COUP_EVENT_ACTIVE }
 				}
@@ -202,7 +202,7 @@ on_actions = {
 				limit = {
 					has_country_flag = MAD_2009_MAYORAL_EVENT_PENDING
 					OR = {
-						MAD_TGV_GOVERNMENT = yes
+						nationalist_right_wing_populists_are_in_power_or_coalition = yes
 						date > 2009.2.3
 					}
 				}

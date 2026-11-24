@@ -22,13 +22,25 @@ MAD_SET_ELECTIONS_WITH_FREQUENCY_PRESERVING_PERMISSION = {
 	}
 }
 
+# Permanently records any period in which TGV leads the government as the ruling party.
+MAD_RECORD_TGV_GOVERNMENT_HISTORY = {
+	if = {
+		limit = {
+			tag = MAD
+			nationalist_right_wing_populists_are_in_power = yes
+			NOT = { has_country_flag = MAD_TGV_EVER_LED_GOVERNMENT }
+		}
+		set_country_flag = MAD_TGV_EVER_LED_GOVERNMENT
+	}
+}
+
 MAD_TRACK_LAST_NON_TGV_HVM_GOVERNING_PARTY = {
 	if = {
 		limit = {
 			tag = MAD
 			NOT = { OR = {
-				check_variable = { ruling_party = 20 }
-				check_variable = { ruling_party = 1 }
+				nationalist_right_wing_populists_are_in_power = yes
+				western_conservatism_are_in_power = yes
 			} }
 		}
 		set_variable = { MAD_LAST_NON_TGV_HVM_GOVERNING_PARTY = ruling_party }
@@ -44,7 +56,7 @@ MAD_CANCEL_TGV_RETURN_BALLOT_IF_OUT_OF_POWER = {
 			NOT = { has_country_flag = MAD_TGV_RETURN_BALLOT_ELECTION_MONITOR_ACTIVE }
 			NOT = { has_country_flag = elections_in_progress }
 			NOT = { has_country_flag = coalition_forming }
-			NOT = { MAD_TGV_IN_POWER = yes }
+			NOT = { nationalist_right_wing_populists_are_in_power = yes }
 			NOT = { has_country_flag = MAD_TGV_RETURN_BALLOT_ELECTION_CANCELLATION_PENDING }
 		}
 		set_country_flag = MAD_TGV_RETURN_BALLOT_ELECTION_CANCELLATION_PENDING
@@ -61,7 +73,6 @@ MAD_RESET_PARTY_LEADER_COUNTER = {
 	else_if = { limit = { check_variable = { rul_party_temp = 3 } } set_variable = { socialism_leader = 0 } }
 	else_if = { limit = { check_variable = { rul_party_temp = 5 } } set_variable = { anarchist_communism_leader = 0 } }
 	else_if = { limit = { check_variable = { rul_party_temp = 13 } } set_variable = { Neutral_Autocracy_leader = 0 } }
-	else_if = { limit = { check_variable = { rul_party_temp = 15 } } set_variable = { oligarchism_leader = 0 } }
 	else_if = { limit = { check_variable = { rul_party_temp = 16 } } set_variable = { Neutral_Libertarian_leader = 0 } }
 	else_if = { limit = { check_variable = { rul_party_temp = 17 } } set_variable = { Neutral_green_leader = 0 } }
 	else_if = { limit = { check_variable = { rul_party_temp = 20 } } set_variable = { Nat_Populism_leader = 0 } }
@@ -325,7 +336,7 @@ set_leader_MAD = {
 
 	# 1 — HVM (Conservatism). HVM only receives its named leader after the formation event.
 	if = {
-		limit = { check_variable = { ruling_party = 1 } }
+		limit = { western_conservatism_are_in_power = yes }
 		if = {
 			limit = {
 				has_country_flag = MAD_HVM_FORMED
@@ -350,7 +361,7 @@ set_leader_MAD = {
 	}
 	# 2 — TIM (Liberalism).
 	else_if = {
-		limit = { check_variable = { ruling_party = 2 } }
+		limit = { western_liberals_are_in_power = yes }
 		if = { limit = { check_variable = { liberalism_leader = 0 } }
 			add_to_variable = { liberalism_leader = 1 }
 			hidden_effect = { kill_country_leader = yes }
@@ -370,7 +381,7 @@ set_leader_MAD = {
 	}
 	# 3 — PSD (Socialism). Collective name avoids assigning an unverified contemporary individual.
 	else_if = {
-		limit = { check_variable = { ruling_party = 3 } }
+		limit = { western_social_democrats_are_in_power = yes }
 		if = { limit = { check_variable = { socialism_leader = 0 } }
 			add_to_variable = { socialism_leader = 1 }
 			hidden_effect = { kill_country_leader = yes }
@@ -387,7 +398,7 @@ set_leader_MAD = {
 	}
 	# 5 — AREMA (Anarchist Communism). Restore its separately tracked party leader.
 	else_if = {
-		limit = { check_variable = { ruling_party = 5 } }
+		limit = { emerging_anarchist_communism_are_in_power = yes }
 		if = {
 			limit = { check_variable = { anarchist_communism_leader = 0 } }
 			add_to_variable = { anarchist_communism_leader = 1 }
@@ -466,7 +477,7 @@ set_leader_MAD = {
 	}
 	# 13 — Dahalo / Remenabila's Syndicates (Neutral Autocracy), Madagascar only.
 	else_if = {
-		limit = { check_variable = { ruling_party = 13 } }
+		limit = { neutrality_neutral_autocracy_are_in_power = yes }
 		if = { limit = { check_variable = { Neutral_Autocracy_leader = 0 } }
 			add_to_variable = { Neutral_Autocracy_leader = 1 }
 			hidden_effect = { kill_country_leader = yes }
@@ -483,26 +494,9 @@ set_leader_MAD = {
 			set_temp_variable = { b = 1 }
 		}
 	}
-	# 15 — TAMIMA (Oligarchism), represented as a council rather than an invented individual.
-	else_if = {
-		limit = { check_variable = { ruling_party = 15 } }
-		if = { limit = { check_variable = { oligarchism_leader = 0 } }
-			add_to_variable = { oligarchism_leader = 1 }
-			hidden_effect = { kill_country_leader = yes }
-			create_country_leader = {
-				name = "TAMIMA Council of the Houses"
-				ideology = oligarchism
-				traits = {
-					neutrality_oligarchism
-				}
-			}
-			if = { limit = { has_country_flag = do_not_retire } subtract_from_variable = { oligarchism_leader = 1 } }
-			set_temp_variable = { b = 1 }
-		}
-	}
 	# 16 — LEADER-Fanilo (Neutral Libertarian).
 	else_if = {
-		limit = { check_variable = { ruling_party = 16 } }
+		limit = { neutrality_neutral_libertarians_are_in_power = yes }
 		if = { limit = { check_variable = { Neutral_Libertarian_leader = 0 } }
 			add_to_variable = { Neutral_Libertarian_leader = 1 }
 			hidden_effect = { kill_country_leader = yes }
@@ -523,7 +517,7 @@ set_leader_MAD = {
 	}
 	# 17 — UNDD (Neutral Green), led by Albert Zafy.
 	else_if = {
-		limit = { check_variable = { ruling_party = 17 } }
+		limit = { neutrality_neutral_green_are_in_power = yes }
 		if = {
 			limit = { check_variable = { Neutral_green_leader = 0 } }
 			add_to_variable = { Neutral_green_leader = 1 }
@@ -543,7 +537,7 @@ set_leader_MAD = {
 	}
 	# 20 — TGV (Nationalist Populism).
 	else_if = {
-		limit = { check_variable = { ruling_party = 20 } }
+		limit = { nationalist_right_wing_populists_are_in_power = yes }
 		if = {
 			limit = { has_country_flag = MAD_TGV_EDGARD_ELECTED }
 			set_variable = { Nat_Populism_leader = 1 }
@@ -570,7 +564,7 @@ set_leader_MAD = {
 	}
 	# 22 — FPA / Malagasy Armed Forces (National Autocracy). Preserve command choice.
 	else_if = {
-		limit = { check_variable = { ruling_party = 22 } }
+		limit = { nationalist_military_junta_are_in_power = yes }
 		if = {
 			limit = {
 				OR = {
@@ -612,14 +606,23 @@ set_leader_MAD = {
 			set_temp_variable = { b = 1 }
 		}
 	}
-	# 23 — CRPM (Monarchist). Rabarioelina only leads after the personal-crown choice.
+	# 23 — TAMIMA (Monarchist party slot). Ndriana is incumbent unless the Crown Question selects the Council.
 	else_if = {
-		limit = { check_variable = { ruling_party = 23 } }
+		limit = { nationalist_monarchists_are_in_power = yes }
 		if = { limit = { check_variable = { Monarchist_leader = 0 } }
 			add_to_variable = { Monarchist_leader = 1 }
 			hidden_effect = { kill_country_leader = yes }
 			if = {
-				limit = { has_country_flag = MAD_RABARIOELINA_ABSOLUTE }
+				limit = { has_country_flag = MAD_TAMIMA_LEADERSHIP_COUNCIL }
+				create_country_leader = {
+					name = "TAMIMA Council of the Houses"
+					ideology = Monarchist
+					traits = {
+						nationalist_Monarchist
+					}
+				}
+			}
+			else = {
 				create_country_leader = {
 					name = "Dr. Ndriana Rabarioelina"
 					picture = "Dr_Ndriana_Rabarioelina.dds"
@@ -629,15 +632,6 @@ set_leader_MAD = {
 						career_politician
 						cleric
 						MAD_royal_claimant
-					}
-				}
-			}
-			else = {
-				create_country_leader = {
-					name = "CRPM Council of Kings and Princes"
-					ideology = Monarchist
-					traits = {
-						nationalist_Monarchist
 					}
 				}
 			}
@@ -667,6 +661,8 @@ MAD_RESTORE_CIVIL_WAR_OPPONENT_LEADER = {
 		if = { limit = { PREV = { has_country_flag = MAD_AREMA_OLD_GUARD_LOCKED } } set_country_flag = MAD_AREMA_OLD_GUARD_LOCKED }
 		if = { limit = { PREV = { has_country_flag = MAD_TGV_FORMED } } set_country_flag = MAD_TGV_FORMED }
 		if = { limit = { PREV = { has_country_flag = MAD_RABARIOELINA_ABSOLUTE } } set_country_flag = MAD_RABARIOELINA_ABSOLUTE }
+		if = { limit = { PREV = { has_country_flag = MAD_TAMIMA_LEADERSHIP_NDRIANA } } set_country_flag = MAD_TAMIMA_LEADERSHIP_NDRIANA }
+		if = { limit = { PREV = { has_country_flag = MAD_TAMIMA_LEADERSHIP_COUNCIL } } set_country_flag = MAD_TAMIMA_LEADERSHIP_COUNCIL }
 
 		# Preserve the already selected CAPSAT / General Staff candidate and branch.
 		if = { limit = { PREV = { has_country_flag = MAD_MIL_PARTY_LEADER_GENERAL_STAFF } } set_country_flag = MAD_MIL_PARTY_LEADER_GENERAL_STAFF }
@@ -687,16 +683,15 @@ MAD_RESTORE_CIVIL_WAR_OPPONENT_LEADER = {
 
 		# MD copies leader-throughput counters during civil_war_replication_effect.
 		# Reset only the copied ruling party's counter so its MAD leader is recreated.
-		if = { limit = { check_variable = { ruling_party = 1 } } set_variable = { conservatism_leader = 0 } }
-		else_if = { limit = { check_variable = { ruling_party = 2 } } set_variable = { liberalism_leader = 0 } }
-		else_if = { limit = { check_variable = { ruling_party = 3 } } set_variable = { socialism_leader = 0 } }
-		else_if = { limit = { check_variable = { ruling_party = 5 } } set_variable = { anarchist_communism_leader = 0 } }
-		else_if = { limit = { check_variable = { ruling_party = 13 } } set_variable = { Neutral_Autocracy_leader = 0 } }
-		else_if = { limit = { check_variable = { ruling_party = 15 } } set_variable = { oligarchism_leader = 0 } }
-		else_if = { limit = { check_variable = { ruling_party = 16 } } set_variable = { Neutral_Libertarian_leader = 0 } }
-		else_if = { limit = { check_variable = { ruling_party = 20 } } set_variable = { Nat_Populism_leader = 0 } }
-		else_if = { limit = { check_variable = { ruling_party = 22 } } set_variable = { Nat_Autocracy_leader = 0 } }
-		else_if = { limit = { check_variable = { ruling_party = 23 } } set_variable = { Monarchist_leader = 0 } }
+		if = { limit = { western_conservatism_are_in_power = yes } set_variable = { conservatism_leader = 0 } }
+		else_if = { limit = { western_liberals_are_in_power = yes } set_variable = { liberalism_leader = 0 } }
+		else_if = { limit = { western_social_democrats_are_in_power = yes } set_variable = { socialism_leader = 0 } }
+		else_if = { limit = { emerging_anarchist_communism_are_in_power = yes } set_variable = { anarchist_communism_leader = 0 } }
+		else_if = { limit = { neutrality_neutral_autocracy_are_in_power = yes } set_variable = { Neutral_Autocracy_leader = 0 } }
+		else_if = { limit = { neutrality_neutral_libertarians_are_in_power = yes } set_variable = { Neutral_Libertarian_leader = 0 } }
+		else_if = { limit = { nationalist_right_wing_populists_are_in_power = yes } set_variable = { Nat_Populism_leader = 0 } }
+		else_if = { limit = { nationalist_military_junta_are_in_power = yes } set_variable = { Nat_Autocracy_leader = 0 } }
+		else_if = { limit = { nationalist_monarchists_are_in_power = yes } set_variable = { Monarchist_leader = 0 } }
 
 		# Reuse the existing Madagascar party-to-leader mapping, including generic fallbacks.
 		set_leader_MAD = yes

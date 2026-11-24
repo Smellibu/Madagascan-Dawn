@@ -166,38 +166,8 @@ MAD_JIRAMA_RECOVERY_REQUIREMENTS_MET = {
 	MAD_JIRAMA_HAS_FOUR_GENERATION_PROJECTS = yes
 	MAD_JIRAMA_GENERATION_AT_LEAST_140_PERCENT = yes
 }
-MAD_ROY_IN_POWER = {
-		check_variable = { ruling_party = 23 }
-	}
-	MAD_TAMIMA_IN_POWER = {
-		check_variable = { ruling_party = 15 }
-	}
-	MAD_MIL_IN_POWER = {
-		check_variable = { ruling_party = 22 }
-	}
-	MAD_AREMA_IN_POWER = {
-		check_variable = { ruling_party = 5 }
-	}
-	MAD_TIM_IN_POWER = {
-		check_variable = { ruling_party = 2 }
-	}
-	MAD_TGV_IN_POWER = {
-		check_variable = { ruling_party = 20 }
-	}
-	MAD_HVM_IN_POWER = {
-		check_variable = { ruling_party = 1 }
-	}
-	MAD_REMENABILA_IN_POWER = {
-		check_variable = { ruling_party = 13 }
-	}
 
 	# TGV counts as part of the government whether it holds the premiership or a junior coalition seat.
-	MAD_TGV_GOVERNMENT = {
-		OR = {
-			MAD_TGV_IN_POWER = yes
-			is_in_array = { array = gov_coalition_array value = 20 }
-		}
-	}
 
 	# All pre-2013 coup callers use the same gate. The caller claims the pending
 	# flag before scheduling anything; the event dispatcher consumes it once.
@@ -205,7 +175,8 @@ MAD_ROY_IN_POWER = {
 		original_tag = MAD
 		tag = MAD
 		has_civil_war = no
-		NOT = { MAD_TGV_GOVERNMENT = yes }
+		NOT = { nationalist_right_wing_populists_are_in_power = yes }
+		NOT = { has_country_flag = MAD_TGV_EVER_LED_GOVERNMENT }
 		NOT = { has_country_flag = MAD_2009_COUP_PENDING }
 		NOT = { has_country_flag = MAD_2009_COUP_EVENT_ACTIVE }
 		NOT = { has_country_flag = MAD_2009_COUP_OCCURRED }
@@ -220,7 +191,8 @@ MAD_ROY_IN_POWER = {
 		tag = MAD
 		has_civil_war = no
 		has_country_flag = MAD_2009_COUP_PENDING
-		NOT = { MAD_TGV_GOVERNMENT = yes }
+		NOT = { nationalist_right_wing_populists_are_in_power = yes }
+		NOT = { has_country_flag = MAD_TGV_EVER_LED_GOVERNMENT }
 		NOT = { has_country_flag = MAD_2009_COUP_EVENT_ACTIVE }
 		NOT = { has_country_flag = MAD_2009_COUP_OCCURRED }
 		NOT = { has_country_flag = MAD_2009_COUP_RESOLVED }
@@ -267,20 +239,20 @@ MAD_ROY_IN_POWER = {
 	}
 
 	MAD_HVM_PROJECT_REVIEW_READY = {
-		MAD_HVM_IN_POWER = yes
+		western_conservatism_are_in_power = yes
 		has_completed_focus = MAD_POL_HVM_PROJECT_REVIEW
 		NOT = { has_country_flag = MAD_HVM_PROJECT_REVIEW_DECIDED }
 		NOT = { has_country_flag = MAD_HVM_PROJECT_REVIEW_CANCELLED }
 	}
 
 	MAD_TGV_VELIRANO_ACTIVE = {
-		MAD_TGV_IN_POWER = yes
+		nationalist_right_wing_populists_are_in_power = yes
 		has_completed_focus = MAD_POL_TGV_THIRTEEN_VELIRANO
 	}
 
 MAD_POL_MIL_POST_2025_ROUTE_AVAILABLE = {
 	OR = {
-		MAD_MIL_IN_POWER = yes
+		nationalist_military_junta_are_in_power = yes
 		AND = {
 			has_country_flag = MAD_MODERN_CRISIS_COMPLETED
 			has_country_flag = MAD_MODERN_CIVILIAN_SETTLEMENT
