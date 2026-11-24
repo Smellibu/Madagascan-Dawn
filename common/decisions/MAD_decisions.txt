@@ -3193,6 +3193,8 @@ MAD_dahalo_category = {
 	#   MAD_Dead_with_a_swagger  -> security ending
 	#   MAD_cowthief_in_chief     -> accommodation ending
 
+
+
 	MAD_DAHALO_HERD_REGISTRY = {
 		icon = generic_political_discourse
 
@@ -6770,17 +6772,6 @@ MAD_rural_cooperation_category = {
 			set_temp_variable = { MAD_rc_delta = -5 }
 			MAD_rural_cooperation_adjust = yes
 			custom_effect_tooltip = MAD_RURAL_COOPERATION_SPENT_TT
-			if = {
-				limit = { emerging_anarchist_communism_are_in_power = yes }
-				kill_country_leader = yes
-			}
-			create_country_leader = {
-				name = "Didier Ratsiraka"
-				picture = "Didier_Ratsiraka.dds"
-				expire = "2050.1.1"
-				ideology = anarchist_communism
-				traits = { emerging_anarchist_communism career_politician military_career former_foreign_minister }
-			}
 			clr_country_flag = MAD_RATSIRAKA_EXILED
 			clr_country_flag = MAD_VIVA_INTERVIEW_PENDING
 		}
@@ -6800,7 +6791,16 @@ MAD_rural_cooperation_category = {
 
 			custom_trigger_tooltip = {
 				tooltip = MAD_RC_REQUIRE_6_OR_4_5_TT
-				check_variable = { MAD_rural_cooperation > 4.49 }
+				OR = {
+					AND = {
+						has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM
+						check_variable = { MAD_rural_cooperation > 4.49 }
+					}
+					AND = {
+						NOT = { has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM }
+						check_variable = { MAD_rural_cooperation > 5.99 }
+					}
+				}
 			}
 		}
 		cost = 35
