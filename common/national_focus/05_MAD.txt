@@ -771,6 +771,9 @@ focus_tree = {
 		prerequisite = { focus = MAD_JIRAMA_PRIVATIZATION_FORK }
 		mutually_exclusive = { focus = MAD_JIRAMA_STAY_PUBLIC }
 		search_filters = { FOCUS_FILTER_ECONOMY }
+		available = {
+			NOT = { has_completed_focus = MAD_POL_AREMA_STRATEGIC_ENTERPRISES }
+		}
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_JIRAMA_CORPORATIZE"
@@ -2250,6 +2253,7 @@ focus_tree = {
 		prerequisite = { focus = MAD_Telma }
 		search_filters = { FOCUS_FILTER_ECONOMY }
 		available = {
+			NOT = { has_completed_focus = MAD_POL_AREMA_STRATEGIC_ENTERPRISES }
 			has_completed_focus = MAD_ACCEPT_FOREIGN_OWNERSHIP
 		}
 
@@ -2299,6 +2303,7 @@ focus_tree = {
 		prerequisite = { focus = MAD_Madarail }
 		search_filters = { FOCUS_FILTER_ECONOMY }
 		available = {
+			NOT = { has_completed_focus = MAD_POL_AREMA_STRATEGIC_ENTERPRISES }
 			has_completed_focus = MAD_ACCEPT_FOREIGN_OWNERSHIP
 		}
 
@@ -6205,6 +6210,9 @@ focus_tree = {
 		prerequisite = { focus = MAD_GPM_TERMINAL_2009 }
 		mutually_exclusive = { focus = MAD_BREAK_GPM_CARTEL }
 		search_filters = { FOCUS_FILTER_ECONOMY }
+		available = {
+			NOT = { has_completed_focus = MAD_POL_AREMA_STRATEGIC_ENTERPRISES }
+		}
 
 		completion_reward = {
 			log = "[GetDateText]: [This.GetName]: Focus MAD_RUBIS_BUYS_GALANA"

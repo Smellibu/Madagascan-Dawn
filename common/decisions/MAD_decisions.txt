@@ -4616,6 +4616,9 @@ MAD_OWNERSHIP_BOP = {
 			has_country_flag = MAD_TELMA_STATE_OWNED
 			NOT = { has_country_flag = MAD_TELMA_PRIVATISED_AFTER_STATE }
 		}
+		available = {
+			NOT = { has_completed_focus = MAD_POL_AREMA_STRATEGIC_ENTERPRISES }
+		}
 		
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_SELL_TELMA_PRIVATE completed"
@@ -4683,6 +4686,9 @@ MAD_OWNERSHIP_BOP = {
 			has_idea = MAD_STATE_AIRLINE
 			NOT = { has_country_flag = MAD_AIR_PRIVATISED_AFTER_STATE }
 		}
+		available = {
+			NOT = { has_completed_focus = MAD_POL_AREMA_STRATEGIC_ENTERPRISES }
+		}
 		
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_SELL_AIRLINE_PRIVATE completed"
@@ -4723,6 +4729,9 @@ MAD_OWNERSHIP_BOP = {
 		visible = {
 			has_country_flag = MAD_JIRAMA_PUBLIC_MODEL
 			NOT = { has_country_flag = MAD_JIRAMA_PRIVATISED_AFTER_STATE }
+		}
+		available = {
+			NOT = { has_completed_focus = MAD_POL_AREMA_STRATEGIC_ENTERPRISES }
 		}
 		
 		remove_effect = {
@@ -4828,6 +4837,9 @@ MAD_OWNERSHIP_BOP = {
 			}
 			NOT = { has_country_flag = MAD_MADARAIL_PRIVATISED_AFTER_STATE }
 		}
+		available = {
+			NOT = { has_completed_focus = MAD_POL_AREMA_STRATEGIC_ENTERPRISES }
+		}
 		
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision MAD_SELL_MADARAIL_PRIVATE completed"
@@ -4881,6 +4893,9 @@ MAD_OWNERSHIP_BOP = {
 		visible = {
 			has_country_flag = MAD_GPM_STATE_MODEL
 			NOT = { has_country_flag = MAD_GPM_PRIVATISED_AFTER_STATE }
+		}
+		available = {
+			NOT = { has_completed_focus = MAD_POL_AREMA_STRATEGIC_ENTERPRISES }
 		}
 		
 		remove_effect = {
@@ -4973,6 +4988,9 @@ MAD_OWNERSHIP_BOP = {
 				has_idea = MAD_AMBATOVY_Full_State
 			}
 			NOT = { has_country_flag = MAD_AMBATOVY_PRIVATISED_AFTER_STATE }
+		}
+		available = {
+			NOT = { has_completed_focus = MAD_POL_AREMA_STRATEGIC_ENTERPRISES }
 		}
 		
 		remove_effect = {
