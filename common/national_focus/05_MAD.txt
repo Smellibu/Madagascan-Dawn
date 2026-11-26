@@ -8761,6 +8761,11 @@ focus_tree = {
 			block_bureau_decrease = yes
 			set_temp_variable = { percent_change = 2 }
 			change_domestic_influence_percentage = yes
+			if = {
+				limit = { has_variable = MAD_dahalo_threat }
+				add_to_variable = { MAD_dahalo_threat = -5 tooltip = MAD_DAHALO_THREAT_MINUS_5_TT }
+				MAD_dahalo_update_modifier = yes
+			}
 		}
 
 		ai_will_do = {
@@ -9476,8 +9481,10 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_ROY_FIHAVANANA"
-			set_temp_variable = { percent_change = 3 }
-			change_domestic_influence_percentage = yes
+			set_temp_variable = { MAD_rc_delta = 6 }
+			MAD_rural_cooperation_adjust = yes
+			custom_effect_tooltip = MAD_RURAL_COOP_FOCUS_GAIN_6_TT
+			decrease_corruption = yes
 			if = {
 				limit = { has_idea = landowners }
 				set_temp_variable = { temp_opinion = 5 }
@@ -18599,13 +18606,62 @@ available = {
 					name = "Direction Générale d'Investigation et de la Documentation Intérieure et Extérieure (DGIDIE)"
 					icon = "GFX_intelligence_agency_logo_generic_3"
 				}
-			}
-			if = {
-				limit = {
-					has_intelligence_agency = yes
-					NOT = { has_done_agency_upgrade = upgrade_form_department }
+				if = {
+					limit = { NOT = { has_done_agency_upgrade = upgrade_form_department } }
+					upgrade_intelligence_agency = upgrade_form_department
 				}
-				upgrade_intelligence_agency = upgrade_form_department
+			}
+			else = {
+				# An agency that predates this focus receives the next two uncompleted upgrades.
+				if = {
+					limit = { NOT = { has_done_agency_upgrade = upgrade_form_department } }
+					upgrade_intelligence_agency = upgrade_form_department
+				}
+				else_if = {
+					limit = { NOT = { has_done_agency_upgrade = upgrade_passive_defense } }
+					upgrade_intelligence_agency = upgrade_passive_defense
+				}
+				else_if = {
+					limit = { NOT = { has_done_agency_upgrade = upgrade_diplo_training } }
+					upgrade_intelligence_agency = upgrade_diplo_training
+				}
+				else_if = {
+					limit = { NOT = { has_done_agency_upgrade = upgrade_crypto_strength } }
+					upgrade_intelligence_agency = upgrade_crypto_strength
+				}
+				else_if = {
+					limit = { NOT = { has_done_agency_upgrade = upgrade_decryption_boost } }
+					upgrade_intelligence_agency = upgrade_decryption_boost
+				}
+
+				if = {
+					limit = {
+						has_done_agency_upgrade = upgrade_form_department
+						NOT = { has_done_agency_upgrade = upgrade_passive_defense }
+					}
+					upgrade_intelligence_agency = upgrade_passive_defense
+				}
+				else_if = {
+					limit = {
+						has_done_agency_upgrade = upgrade_passive_defense
+						NOT = { has_done_agency_upgrade = upgrade_diplo_training }
+					}
+					upgrade_intelligence_agency = upgrade_diplo_training
+				}
+				else_if = {
+					limit = {
+						has_done_agency_upgrade = upgrade_diplo_training
+						NOT = { has_done_agency_upgrade = upgrade_crypto_strength }
+					}
+					upgrade_intelligence_agency = upgrade_crypto_strength
+				}
+				else_if = {
+					limit = {
+						has_done_agency_upgrade = upgrade_crypto_strength
+						NOT = { has_done_agency_upgrade = upgrade_decryption_boost }
+					}
+					upgrade_intelligence_agency = upgrade_decryption_boost
+				}
 			}
 			add_to_variable = { decryption_power_factor = 0.01 }
 		}
