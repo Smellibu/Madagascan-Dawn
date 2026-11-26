@@ -3498,7 +3498,7 @@ MAD_rural_cooperation_calculate_monthly_change = {
 	# Recalculate the cap-aware monthly rate cached for the category description.
 	# This only updates the displayed/cached rate; it does not apply a monthly meter change.
 	# Source scripts call this immediately after changing an input to the monthly-rate calculation.
-	# There is no election, government-transition, or daily polling hook.
+	# Ruling-party changes also refresh this cache; it is never polled daily.
 	set_temp_variable = { MAD_rc_monthly_gain = 0 }
 	set_temp_variable = { MAD_rc_party_focus_gain = 0 }
 	if = {
