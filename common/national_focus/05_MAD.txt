@@ -8664,13 +8664,12 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_ROY_MALAGASY_TRADITION"
-			decrease_corruption = yes
-			
-			set_temp_variable = { party_index = 23 }
-			set_temp_variable = { party_popularity_increase = 0.05 }
-			set_temp_variable = { temp_outlook_increase = 0.05 }
-			change_relative_party_popularity = yes
-			recalculate_party = yes
+			set_temp_variable = { MAD_rc_delta = 6 }
+			MAD_rural_cooperation_adjust = yes
+			custom_effect_tooltip = MAD_RURAL_COOP_FOCUS_GAIN_6_TT
+			MAD_rural_cooperation_calculate_monthly_change = yes
+			set_temp_variable = { percent_change = 3 }
+			change_domestic_influence_percentage = yes
 		}
 
 		ai_will_do = {
@@ -8758,31 +8757,16 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_ROY_COUNCIL_OF_KINGS"
-			267 = {
-				add_extra_state_shared_building_slots = 1
-				add_building_construction = { type = offices level = 1 instant_build = yes }
-			}
-			set_temp_variable = { treasury_change = -12.00 }
-			modify_treasury_effect = yes
 			increase_centralization = yes
-			add_stability = 0.015
-			decrease_corruption = yes
+			block_bureau_decrease = yes
 			set_temp_variable = { percent_change = 2 }
 			change_domestic_influence_percentage = yes
 		}
 
 		ai_will_do = {
 			base = 1
-			modifier = {
-			factor = 0
-			can_staff_an_offices = no
-			}
-			modifier = {
-			factor = 0
-			check_variable = {
-				treasury < 12
-			}
-			}
+			
+			
 			modifier = {
 			factor = 0
 			has_active_mission = bankruptcy_incoming_collapse
@@ -8805,8 +8789,6 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_ROY_LIVING_FORCES"
-			set_temp_variable = { treasury_change = -15.00 }
-			modify_treasury_effect = yes
 		}
 
 		ai_will_do = {
@@ -8836,6 +8818,10 @@ focus_tree = {
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_ROY_KINGS_MANDATE"
 			custom_effect_tooltip = MAD_ROY_UNLOCK_CROWN_AFFAIRS_SECTION_TT
+			swap_ideas = {
+				remove_idea = MAD_POL_TAMIMA_COUNCIL
+				add_idea = MAD_POL_ROYAL_CONSOLIDATION
+			}
 			set_temp_variable = { party_index = 23 }
 			set_temp_variable = { party_popularity_increase = 0.03 }
 			set_temp_variable = { temp_outlook_increase = 0.03 }
@@ -8867,12 +8853,9 @@ focus_tree = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_ROY_CROWN_ABOVE_NOBILITY"
 
 			increase_centralization = yes
-			set_temp_variable = { party_index = 23 }
-			set_temp_variable = { party_popularity_increase = 0.05 }
-			set_temp_variable = { temp_outlook_increase = 0.05 }
-			change_relative_party_popularity = yes
-			recalculate_party = yes
 			
+
+			block_bureau_decrease = yes
 			if = {
 				limit = { NOT = { has_idea = the_clergy } }
 				if = {
@@ -8928,31 +8911,17 @@ focus_tree = {
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_ROY_CHRIST_KING"
 			decrease_corruption = yes
-			random_owned_state = {
-				add_extra_state_shared_building_slots = 1
-				add_building_construction = { type = offices level = 1 instant_build = yes }
-			}
 			if = {
 				limit = { has_idea = the_clergy }
 				set_temp_variable = { temp_opinion = 15 }
 				change_the_clergy_opinion = yes
 			}
-			set_temp_variable = { treasury_change = -12.00 }
-			modify_treasury_effect = yes
 		}
 
 		ai_will_do = {
 			base = 1
-			modifier = {
-			factor = 0
-			can_staff_an_offices = no
-			}
-			modifier = {
-			factor = 0
-			check_variable = {
-				treasury < 12
-			}
-			}
+			
+			
 			modifier = {
 			factor = 0
 			has_active_mission = bankruptcy_incoming_collapse
@@ -9032,11 +9001,7 @@ focus_tree = {
 				add_extra_state_shared_building_slots = 1
 				add_building_construction = { type = agriculture_district level = 1 instant_build = yes }
 			}
-			random_core_state = {
-				add_extra_state_shared_building_slots = 1
-				add_building_construction = { type = agriculture_district level = 1 instant_build = yes }
-			}
-			set_temp_variable = { treasury_change = -2.50 }
+			set_temp_variable = { treasury_change = -3.75 }
 			modify_treasury_effect = yes
 			if = {
 				limit = { has_idea = landowners }
@@ -9211,6 +9176,7 @@ focus_tree = {
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_ROY_REGIONAL_HOUSES"
 			decrease_centralization = yes
+			block_bureau_increase = yes
 			two_random_network_infrastructure = yes
 			if = {
 				limit = { has_idea = landowners }
@@ -9249,8 +9215,8 @@ focus_tree = {
 				remove_idea = MAD_POL_ROYAL_CONSTITUTION
 				add_idea = MAD_POL_CHRISTOCRATIC_STATE
 			}
-			add_ideas = MAD_POL_ROYAL_CONSOLIDATION
 			increase_social_spending = yes
+			block_social_decrease = yes
 			set_temp_variable = { party_index = 23 }
 			set_temp_variable = { party_popularity_increase = 0.05 }
 			set_temp_variable = { temp_outlook_increase = 0.05 }
@@ -9279,6 +9245,7 @@ focus_tree = {
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_ROY_FFKM_CONCORDAT"
 			increase_healthcare_budget = yes
+			block_health_decrease = yes
 			random_core_state = { add_extra_state_shared_building_slots = 1 }
 			random_core_state = { add_extra_state_shared_building_slots = 1 }
 			if = {
@@ -9487,11 +9454,6 @@ focus_tree = {
 			add_ideas = MAD_POL_TAMIMA_COUNCIL
 			custom_effect_tooltip = MAD_TAMIMA_UNLOCK_HOUSE_AFFAIRS_SECTION_TT
 			
-			set_temp_variable = { party_index = 23 }
-			set_temp_variable = { party_popularity_increase = 0.03 }
-			set_temp_variable = { temp_outlook_increase = 0.03 }
-			change_relative_party_popularity = yes
-			recalculate_party = yes
 		}
 
 		ai_will_do = {
@@ -9514,7 +9476,6 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_ROY_FIHAVANANA"
-			add_stability = 0.03
 			set_temp_variable = { percent_change = 3 }
 			change_domestic_influence_percentage = yes
 			if = {
@@ -9528,6 +9489,7 @@ focus_tree = {
 				change_labour_unions_opinion = yes
 			}
 			increase_social_spending = yes
+			block_social_decrease = yes
 		}
 
 		ai_will_do = {
@@ -9550,12 +9512,6 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_ROY_ANTENIMIERAN_ANDRIANA"
-			267 = {
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = { type = offices level = 1 instant_build = yes }
-			}
-			set_temp_variable = { treasury_change = -2.50 }
-			modify_treasury_effect = yes
 			
 			set_temp_variable = { MAD_rc_delta = 6 }
 			MAD_rural_cooperation_adjust = yes
@@ -9565,16 +9521,8 @@ focus_tree = {
 
 		ai_will_do = {
 			base = 1
-			modifier = {
-			factor = 0
-			can_staff_an_offices = no
-			}
-			modifier = {
-			factor = 0
-			check_variable = {
-				treasury < 2.5
-			}
-			}
+			
+			
 		}
 	}
 
@@ -9603,10 +9551,6 @@ focus_tree = {
 				bonus = 0.15
 				uses = 2
 			}
-			random_owned_state = {
-				add_extra_state_shared_building_slots = 1
-				add_building_construction = { type = offices level = 1 instant_build = yes }
-			}
 			add_stability = 0.02
 			set_temp_variable = { percent_change = 2 }
 			change_domestic_influence_percentage = yes
@@ -9621,23 +9565,13 @@ focus_tree = {
 				change_small_medium_business_owners_opinion = yes
 			}
 			
-			set_temp_variable = { treasury_change = -12.00 }
-			modify_treasury_effect = yes
 			MAD_rural_cooperation_calculate_monthly_change = yes
 		}
 
 		ai_will_do = {
 			base = 1
-			modifier = {
-			factor = 0
-			can_staff_an_offices = no
-			}
-			modifier = {
-			factor = 0
-			check_variable = {
-				treasury < 12
-			}
-			}
+			
+			
 			modifier = {
 			factor = 0
 			has_active_mission = bankruptcy_incoming_collapse
@@ -9666,31 +9600,23 @@ focus_tree = {
 			random_core_state = {
 				add_extra_state_shared_building_slots = 1
 				add_building_construction = { type = infrastructure level = 1 instant_build = yes }
-				add_building_construction = { type = offices level = 1 instant_build = yes }
 			}
 			random_core_state = {
 				add_extra_state_shared_building_slots = 1
 				add_building_construction = { type = infrastructure level = 1 instant_build = yes }
 			}
-			random_core_state = {
-				add_extra_state_shared_building_slots = 1
-				add_building_construction = { type = offices level = 1 instant_build = yes }
-			}
-			set_temp_variable = { treasury_change = -4.00 }
+			set_temp_variable = { treasury_change = -7.00 }
 			modify_treasury_effect = yes
 			MAD_rural_cooperation_calculate_monthly_change = yes
 		}
 
 		ai_will_do = {
 			base = 1
-			modifier = {
-			factor = 0
-			can_staff_an_offices = no
-			}
+			
 			modifier = {
 			factor = 0
 			check_variable = {
-				treasury < 4
+				treasury < 7
 			}
 			}
 		}
@@ -9716,8 +9642,8 @@ focus_tree = {
 			custom_effect_tooltip = MAD_RURAL_COOP_FOCUS_GAIN_4_TT
 			
 			decrease_corruption = yes
-			add_stability = 0.015
 			decrease_centralization = yes
+			block_bureau_increase = yes
 			set_temp_variable = { percent_change = 2 }
 			change_domestic_influence_percentage = yes
 			if = {
@@ -9749,6 +9675,7 @@ focus_tree = {
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_ROY_TAMIMA_SACRED_HERITAGE"
 			increase_education_budget = yes
+			block_edu_decrease = yes
 			if = {
 				limit = { has_variable = literacy_rate check_variable = { literacy_rate < 0.899 } }
 				set_temp_variable = { LR_change = 0.04 }
@@ -9778,7 +9705,7 @@ focus_tree = {
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_ROY_CROWNLESS_CONSTITUTION"
 			swap_ideas = {
-				remove_idea = MAD_POL_TAMIMA_COUNCIL
+				remove_idea = MAD_POL_ROYAL_CONSTITUTION
 				add_idea = MAD_POL_TRADITIONAL_CONSTITUTION
 			}
 			if = {
@@ -9838,7 +9765,10 @@ focus_tree = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_ROY_TAMIMA_COUNCIL_GOVERNMENT"
-			add_ideas = MAD_POL_TAMIMA_GOVERNANCE
+			swap_ideas = {
+				remove_idea = MAD_POL_TAMIMA_COUNCIL
+				add_idea = MAD_POL_TAMIMA_GOVERNANCE
+			}
 
 			set_temp_variable = { threshold_change = -0.02 }
 			modify_election_threshold = yes
@@ -11269,8 +11199,11 @@ focus_tree = {
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_AREMA_RAT_PRSP"
 			increase_social_spending = yes
+			block_social_decrease = yes
 			increase_education_budget = yes
+			block_edu_decrease = yes
 			increase_healthcare_budget = yes
+			block_health_decrease = yes
 			add_stability = 0.02
 			add_political_power = 50
 		}
@@ -11296,6 +11229,7 @@ focus_tree = {
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_AREMA_RAT_AUTONOMOUS_PROVINCES"
 			decrease_centralization = yes
+			block_bureau_increase = yes
 			one_random_infrastructure = yes
 			add_stability = 0.02
 			add_political_power = 50
@@ -11582,6 +11516,8 @@ available = {
 			
 			increase_centralization = yes
 			
+			
+			block_bureau_decrease = yes
 			if = {
 				limit = { has_idea = landowners }
 				set_temp_variable = { temp_opinion = -10 }
@@ -11647,8 +11583,11 @@ available = {
 			add_to_variable = { MAD_agri_productivity = 0.05 tooltip = agricolture_productivity_modifier_tt }
 			
 			increase_education_budget = yes
+			
+			block_edu_decrease = yes
 			increase_healthcare_budget = yes
 			
+			block_health_decrease = yes
 			set_temp_variable = { party_index = 5 }
 			set_temp_variable = { party_popularity_increase = 0.04 }
 			change_relative_party_popularity = yes
@@ -12141,6 +12080,8 @@ available = {
 			add_to_variable = { MAD_agri_productivity = 0.05 tooltip = agricolture_productivity_modifier_tt }
 			
 			decrease_centralization = yes
+			
+			block_bureau_increase = yes
 			one_random_agriculture_district = yes
 			
 			add_stability = 0.03
@@ -12199,6 +12140,7 @@ available = {
 			decrease_exports = yes
 			increase_social_spending = yes
 			
+			block_social_decrease = yes
 			custom_effect_tooltip = {
 				localization_key = modifies_dynamic_modifier_tt
 				MODIFIER = MAD_agriculture_modifier
@@ -12439,6 +12381,8 @@ available = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_AREMA_PROVINCES"
 			
 			decrease_centralization = yes
+			
+			block_bureau_increase = yes
 			one_random_infrastructure = yes
 			
 			
@@ -12631,6 +12575,7 @@ available = {
 			increase_economic_growth = yes
 			increase_social_spending = yes
 			
+			block_social_decrease = yes
 			set_temp_variable = { party_index = 5 }
 			set_temp_variable = { party_popularity_increase = 0.07 }
 			set_temp_variable = { temp_outlook_increase = 0.07 }
@@ -12805,6 +12750,7 @@ available = {
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_TIM_NATIONAL_CHAMPION"
 			increase_centralization = yes
+			block_bureau_decrease = yes
 				add_tech_bonus = {
 					name = MAD_POL_TIM_NATIONAL_CHAMPION
 					bonus = 0.4
@@ -12941,6 +12887,7 @@ available = {
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_TIM_NATIONAL_TAX_CAPACITY"
 			increase_centralization = yes
+			block_bureau_decrease = yes
 			add_stability = 0.03
 			
 			
@@ -13016,6 +12963,8 @@ available = {
 			
 			decrease_centralization = yes
 			
+			
+			block_bureau_increase = yes
 			one_random_industrial_complex = yes
 			
 			set_temp_variable = { party_index = 2 }
@@ -13096,6 +13045,7 @@ available = {
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_TIM_2007_CONSTITUTION"
 			increase_centralization = yes
+			block_bureau_decrease = yes
 			set_temp_variable = { threshold_change = -0.03 }
 			modify_election_threshold = yes
 			add_timed_idea = {
@@ -13128,6 +13078,7 @@ available = {
 			increase_policing_budget = yes
 			block_police_decrease = yes
 			decrease_officer_training_level = yes
+			block_officer_training_increase = yes
 			add_timed_idea = { idea = MAD_MIL_SECURITY_SECTOR_REFORM days = 365 }
 			if = {
 				limit = { has_variable = MAD_dahalo_threat }
@@ -13162,8 +13113,11 @@ available = {
 			increase_economic_growth = yes
 			
 			increase_social_spending = yes
+			
+			block_social_decrease = yes
 			increase_education_budget = yes
 			
+			block_edu_decrease = yes
 			block_social_decrease = yes
 			
 			random_owned_state = {
@@ -13549,6 +13503,9 @@ available = {
 			
 			
 			increase_education_budget = yes
+			
+			
+			block_edu_decrease = yes
 			if = {
 				limit = { has_idea = labour_unions }
 				set_temp_variable = { temp_opinion = 10 }
@@ -13854,6 +13811,7 @@ available = {
 			add_political_power = 25
 			add_stability = 0.03
 			decrease_centralization = yes
+			block_bureau_increase = yes
 		}
 		ai_will_do = { base = 1 }
 	}
@@ -13878,6 +13836,7 @@ available = {
 			add_political_power = 25
 			add_stability = 0.02
 			decrease_centralization = yes
+			block_bureau_increase = yes
 		}
 		ai_will_do = { base = 1 }
 	}
@@ -13975,6 +13934,7 @@ available = {
 			change_relative_party_popularity = yes
 			recalculate_party = yes
 			increase_centralization = yes
+			block_bureau_decrease = yes
 		}
 		ai_will_do = { base = 1 }
 	}
@@ -14309,6 +14269,7 @@ available = {
 			
 			unlock_decision_category_tooltip = MAD_TGV_VELIRANO_CATEGORY
 			increase_social_spending = yes
+			block_social_decrease = yes
 			decrease_corruption = yes
 		}
 
@@ -14774,6 +14735,7 @@ available = {
 			
 			one_random_agriculture_district = yes
 			increase_social_spending = yes
+			block_social_decrease = yes
 			MAD_rural_cooperation_calculate_monthly_change = yes
 		}
 
@@ -14816,6 +14778,7 @@ available = {
 				bonus = 0.25
 			}
 			increase_education_budget = yes
+			block_edu_decrease = yes
 		}
 
 		ai_will_do = {
@@ -14854,6 +14817,7 @@ available = {
 			one_random_industrial_complex = yes
 			increase_education_budget = yes
 			
+			block_edu_decrease = yes
 			if = {
 				limit = { has_idea = small_medium_business_owners }
 				set_temp_variable = { temp_opinion = 10 }
@@ -15017,6 +14981,8 @@ available = {
 			
 			increase_centralization = yes
 			
+			
+			block_bureau_decrease = yes
 			set_temp_variable = { percent_change = 6 }
 			change_domestic_influence_percentage = yes
 			
@@ -15497,6 +15463,7 @@ available = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_HVM_DECENTRALISE"
 			decrease_centralization = yes
 			
+			block_bureau_increase = yes
 			decrease_corruption = yes
 		}
 
@@ -16165,6 +16132,7 @@ available = {
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_ARMY_PAY_THE_SOLDIER"
 			increase_military_spending = yes
+			block_defence_decrease = yes
 		}
 
 		ai_will_do = {
@@ -16986,6 +16954,7 @@ available = {
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_ARMY_EXPAND_DEFENCE_BUDGET"
 				increase_military_spending = yes
+				block_defence_decrease = yes
 				army_experience = 10
 			if = {
 				limit = { has_idea = the_military }
@@ -17835,6 +17804,8 @@ available = {
 			
 			increase_healthcare_budget = yes
 			
+			
+			block_health_decrease = yes
 			add_ideas = MAD_HEALTH_SYSTEM_EXPANSION
 			
 			set_temp_variable = { party_index = 2 }
@@ -17866,6 +17837,8 @@ available = {
 			log = "[GetDateText]: [Root.GetName]: Focus MAD_POL_TGV_HEALTH_FOR_ALL"
 			
 			increase_healthcare_budget = yes
+			
+			block_health_decrease = yes
 			add_ideas = MAD_HEALTH_SYSTEM_EXPANSION
 			
 			set_temp_variable = { party_index = 20 }
@@ -17903,6 +17876,8 @@ available = {
 			
 			increase_healthcare_budget = yes
 			
+			
+			block_health_decrease = yes
 			add_ideas = MAD_HEALTH_SYSTEM_EXPANSION
 			
 			set_temp_variable = { party_index = 1 }
