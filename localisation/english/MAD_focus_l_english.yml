@@ -2594,7 +2594,7 @@ MAD_MILITARY_SUPPORT_GENDARMERIE_desc: "The Gendarmerie is central to maintainin
 
  # --- Rural Cooperation system ---
  MAD_rural_cooperation_category: "Rural Cooperation"
- MAD_rural_cooperation_category_desc: "Rural Cooperation represents the willingness of rural communities to work with the government and its institutions. Higher cooperation helps public programmes operate more effectively, while weak cooperation makes rural administration, development and security more difficult.\nCurrent balance: §Y[?MAD_rural_cooperation|.2]/100§!.\n[MAD_RC_MONTHLY_TOTAL]\nCurrent modifier breakdown:\n[mad_rc_mod_base][mad_rc_mod_secular][mad_rc_mod_unsecular][mad_rc_mod_heritage][mad_rc_mod_non_recognition][mad_rc_mod_inflation_25][mad_rc_mod_inflation_50][mad_rc_mod_inflation_75][mad_rc_mod_corruption_minimal][mad_rc_mod_corruption_low][mad_rc_mod_stability_50][mad_rc_mod_stability_65][mad_rc_mod_government_50][mad_rc_mod_government_60][mad_rc_mod_drought_50][mad_rc_mod_drought_20][mad_rc_mod_dahalo_50][mad_rc_mod_dahalo_25][mad_rc_mod_focus_crown_without_king][mad_rc_mod_focus_roy_fokonolona][mad_rc_mod_focus_customary_justice][mad_rc_mod_focus_many_houses][mad_rc_mod_focus_arema_fokonolona][mad_rc_mod_focus_arema_food][mad_rc_mod_focus_arema_provinces][mad_rc_mod_focus_southern_security][mad_rc_mod_focus_gendarmerie][mad_rc_mod_focus_engineers][mad_rc_mod_focus_tgv_infra][mad_rc_mod_focus_tgv_health][mad_rc_mod_focus_tgv_jirama][mad_rc_mod_focus_tgv_food][mad_rc_mod_focus_thriving_south][mad_rc_mod_grid][mad_rc_mod_lead][mad_rc_mod_decim][mad_rc_mod_daewoo][mad_rc_mod_comazar][mad_rc_mod_cap][mad_rc_mod_meter_upper][mad_rc_mod_meter_lower]"
+ MAD_rural_cooperation_category_desc: "Rural Cooperation represents the willingness of rural communities to work with the government and its institutions. Higher cooperation helps public programmes operate more effectively, while weak cooperation makes rural administration, development and security more difficult.\nCurrent balance: §Y[?MAD_rural_cooperation|.2]/100§!.\n[MAD_RC_MONTHLY_TOTAL]\nCurrent modifier breakdown:\n[mad_rc_mod_base][mad_rc_mod_secular][mad_rc_mod_unsecular][mad_rc_mod_heritage][mad_rc_mod_non_recognition][mad_rc_mod_inflation_25][mad_rc_mod_inflation_50][mad_rc_mod_inflation_75][mad_rc_mod_corruption_minimal][mad_rc_mod_corruption_low][mad_rc_mod_stability_50][mad_rc_mod_stability_65][mad_rc_mod_government_50][mad_rc_mod_government_60][mad_rc_mod_drought_50][mad_rc_mod_drought_20][mad_rc_mod_dahalo_50][mad_rc_mod_dahalo_25][mad_rc_mod_party_focus][mad_rc_mod_focus_thriving_south][mad_rc_mod_grid][mad_rc_mod_lead][mad_rc_mod_decim][mad_rc_mod_daewoo][mad_rc_mod_comazar][mad_rc_mod_cap][mad_rc_mod_meter_upper][mad_rc_mod_meter_lower]"
 
  # --- Rural Cooperation cost requirements (short availability tooltips) ---
  MAD_RC_AMOUNT_1: "1"
@@ -2762,20 +2762,10 @@ MAD_MILITARY_SUPPORT_GENDARMERIE_desc: "The Gendarmerie is central to maintainin
  MAD_RC_LINE_DROUGHT_20: "National drought severity below 20: §G+0.5§!\n"
  MAD_RC_LINE_DAHALO_50: "Dahalo threat below 50: §G+0.25§!\n"
  MAD_RC_LINE_DAHALO_25: "Dahalo threat below 25: §G+0.5§!\n"
- MAD_RC_LINE_FOCUS_CROWN_WITHOUT_KING: "Crown Without King: §G+0.25§!\n"
- MAD_RC_LINE_FOCUS_ROY_FOKONOLONA: "Royal Fokonolona: §G+0.25§!\n"
- MAD_RC_LINE_FOCUS_CUSTOMARY_JUSTICE: "Customary Justice: §G+0.25§!\n"
- MAD_RC_LINE_FOCUS_MANY_HOUSES: "One Madagascar, Many Houses: §G+0.25§!\n"
- MAD_RC_LINE_FOCUS_AREMA_FOKONOLONA: "AREMA Fokonolona: §G+0.25§!\n"
- MAD_RC_LINE_FOCUS_AREMA_FOOD: "AREMA Food First: §G+0.25§!\n"
- MAD_RC_LINE_FOCUS_AREMA_PROVINCES: "AREMA Provinces: §G+0.25§!\n"
- MAD_RC_LINE_FOCUS_SOUTHERN_SECURITY: "Southern Security: §G+0.25§!\n"
- MAD_RC_LINE_FOCUS_GENDARMERIE: "Gendarmerie Reform: §G+0.50§!\n"
- MAD_RC_LINE_FOCUS_ENGINEERS: "Military Engineers: §G+0.25§!\n"
- MAD_RC_LINE_FOCUS_TGV_INFRA: "TGV Infrastructure First: §G+0.25§!\n"
- MAD_RC_LINE_FOCUS_TGV_HEALTH: "TGV Health for All: §G+0.25§!\n"
- MAD_RC_LINE_FOCUS_TGV_JIRAMA: "TGV JIRAMA Delivery: §G+0.25§!\n"
- MAD_RC_LINE_FOCUS_TGV_FOOD: "TGV Food Sovereignty: §G+0.25§!\n"
+  MAD_RC_LINE_PARTY_FOCUS_ROYALIST: "Royalist modifiers: §G[?MAD_rural_cooperation_party_focus_gain|=+2]§!\n"
+  MAD_RC_LINE_PARTY_FOCUS_AREMA: "AREMA modifiers: §G[?MAD_rural_cooperation_party_focus_gain|=+2]§!\n"
+  MAD_RC_LINE_PARTY_FOCUS_MILITARY: "Military Junta modifiers: §G[?MAD_rural_cooperation_party_focus_gain|=+2]§!\n"
+  MAD_RC_LINE_PARTY_FOCUS_TGV: "TGV modifiers: §G[?MAD_rural_cooperation_party_focus_gain|=+2]§!\n"
  MAD_RC_LINE_FOCUS_THRIVING_SOUTH: "Thriving South: §G+0.50§!\n"
  MAD_RC_LINE_GRID: "JIRAMA Rural Grid delivered: §G+0.25§!\n"
  MAD_RC_LINE_LEAD: "LEAD Access delivered: §G+0.25§!\n"

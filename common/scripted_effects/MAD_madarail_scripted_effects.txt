@@ -3500,6 +3500,7 @@ MAD_rural_cooperation_calculate_monthly_change = {
 	# Source scripts call this immediately after changing an input to the monthly-rate calculation.
 	# There is no election, government-transition, or daily polling hook.
 	set_temp_variable = { MAD_rc_monthly_gain = 0 }
+	set_temp_variable = { MAD_rc_party_focus_gain = 0 }
 	if = {
 		limit = { NOT = { check_variable = { MAD_rural_cooperation > 35 } } }
 		set_temp_variable = { MAD_rc_monthly_gain = 0.50 }
@@ -3589,20 +3590,24 @@ MAD_rural_cooperation_calculate_monthly_change = {
 	if = { limit = { NOT = { check_variable = { MAD_dahalo_threat > 25 } } } add_to_temp_variable = { MAD_rc_monthly_gain = 0.50 } }
 
 	# Completed party-path milestones grant their monthly dividend only while that party is in power; they stack, subject to the +3 cap.
-	if = { limit = { nationalist_monarchists_are_in_power = yes has_completed_focus = MAD_POL_ROY_RESTORE_FOKONOLONA } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
-	if = { limit = { nationalist_monarchists_are_in_power = yes has_completed_focus = MAD_POL_ROY_ANTENIMIERAN_ANDRIANA } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
-	if = { limit = { nationalist_monarchists_are_in_power = yes has_completed_focus = MAD_POL_ROY_TAMIMA_REPRESENT_LIVING_FORCES } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
-	if = { limit = { nationalist_monarchists_are_in_power = yes has_completed_focus = MAD_POL_ROY_DINA_CUSTOMARY_JUSTICE } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
-	if = { limit = { emerging_anarchist_communism_are_in_power = yes has_completed_focus = MAD_POL_AREMA_FOKONOLONA } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
-	if = { limit = { emerging_anarchist_communism_are_in_power = yes has_completed_focus = MAD_POL_AREMA_FOOD_FIRST } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
-	if = { limit = { emerging_anarchist_communism_are_in_power = yes has_completed_focus = MAD_POL_AREMA_PROVINCES } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
-	if = { limit = { nationalist_military_junta_are_in_power = yes has_completed_focus = MAD_POL_MIL_SOUTHERN_SECURITY } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
-	if = { limit = { nationalist_military_junta_are_in_power = yes has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM } add_to_temp_variable = { MAD_rc_monthly_gain = 0.50 } }
-	if = { limit = { nationalist_military_junta_are_in_power = yes has_completed_focus = MAD_POL_MIL_ENGINEERS } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
-	if = { limit = { nationalist_right_wing_populists_are_in_power = yes has_completed_focus = MAD_POL_TGV_INFRASTRUCTURE_FIRST } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
-	if = { limit = { nationalist_right_wing_populists_are_in_power = yes has_completed_focus = MAD_POL_TGV_HEALTH_FOR_ALL } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
-	if = { limit = { nationalist_right_wing_populists_are_in_power = yes has_completed_focus = MAD_POL_TGV_JIRAMA_DELIVERY } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
-	if = { limit = { nationalist_right_wing_populists_are_in_power = yes has_completed_focus = MAD_POL_TGV_FOOD_SOVEREIGNTY } add_to_temp_variable = { MAD_rc_monthly_gain = 0.25 } }
+	if = { limit = { nationalist_monarchists_are_in_power = yes has_completed_focus = MAD_POL_ROY_RESTORE_FOKONOLONA } add_to_temp_variable = { MAD_rc_party_focus_gain = 0.25 } }
+	if = { limit = { nationalist_monarchists_are_in_power = yes has_completed_focus = MAD_POL_ROY_ANTENIMIERAN_ANDRIANA } add_to_temp_variable = { MAD_rc_party_focus_gain = 0.25 } }
+	if = { limit = { nationalist_monarchists_are_in_power = yes has_completed_focus = MAD_POL_ROY_TAMIMA_REPRESENT_LIVING_FORCES } add_to_temp_variable = { MAD_rc_party_focus_gain = 0.25 } }
+	if = { limit = { nationalist_monarchists_are_in_power = yes has_completed_focus = MAD_POL_ROY_DINA_CUSTOMARY_JUSTICE } add_to_temp_variable = { MAD_rc_party_focus_gain = 0.25 } }
+	if = { limit = { emerging_anarchist_communism_are_in_power = yes has_completed_focus = MAD_POL_AREMA_FOKONOLONA } add_to_temp_variable = { MAD_rc_party_focus_gain = 0.25 } }
+	if = { limit = { emerging_anarchist_communism_are_in_power = yes has_completed_focus = MAD_POL_AREMA_FOOD_FIRST } add_to_temp_variable = { MAD_rc_party_focus_gain = 0.25 } }
+	if = { limit = { emerging_anarchist_communism_are_in_power = yes has_completed_focus = MAD_POL_AREMA_PROVINCES } add_to_temp_variable = { MAD_rc_party_focus_gain = 0.25 } }
+	if = { limit = { nationalist_military_junta_are_in_power = yes has_completed_focus = MAD_POL_MIL_SOUTHERN_SECURITY } add_to_temp_variable = { MAD_rc_party_focus_gain = 0.25 } }
+	if = { limit = { nationalist_military_junta_are_in_power = yes has_completed_focus = MAD_POL_MIL_GENDARMERIE_REFORM } add_to_temp_variable = { MAD_rc_party_focus_gain = 0.50 } }
+	if = { limit = { nationalist_military_junta_are_in_power = yes has_completed_focus = MAD_POL_MIL_ENGINEERS } add_to_temp_variable = { MAD_rc_party_focus_gain = 0.25 } }
+	if = { limit = { nationalist_right_wing_populists_are_in_power = yes has_completed_focus = MAD_POL_TGV_INFRASTRUCTURE_FIRST } add_to_temp_variable = { MAD_rc_party_focus_gain = 0.25 } }
+	if = { limit = { nationalist_right_wing_populists_are_in_power = yes has_completed_focus = MAD_POL_TGV_HEALTH_FOR_ALL } add_to_temp_variable = { MAD_rc_party_focus_gain = 0.25 } }
+	if = { limit = { nationalist_right_wing_populists_are_in_power = yes has_completed_focus = MAD_POL_TGV_JIRAMA_DELIVERY } add_to_temp_variable = { MAD_rc_party_focus_gain = 0.25 } }
+	if = { limit = { nationalist_right_wing_populists_are_in_power = yes has_completed_focus = MAD_POL_TGV_FOOD_SOVEREIGNTY } add_to_temp_variable = { MAD_rc_party_focus_gain = 0.25 } }
+	# Cache the current government's completed party-path dividends as one display subtotal.
+	# It remains separate from the other recovery sources and is added only once to the same gross monthly gain.
+	add_to_temp_variable = { MAD_rc_monthly_gain = MAD_rc_party_focus_gain }
+	set_variable = { MAD_rural_cooperation_party_focus_gain = MAD_rc_party_focus_gain }
 	# Successful resolution of the southern drought leaves a durable recovery dividend.
 	if = { limit = { has_completed_focus = MAD_Thriving_south } add_to_temp_variable = { MAD_rc_monthly_gain = 0.50 } }
 
